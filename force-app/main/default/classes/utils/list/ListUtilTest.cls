@@ -963,5 +963,35 @@ private class ListUtilTest {
       'Expected 2 accounts without the specified Name'
     );
   }
+
+  @IsTest
+  static void testChangedFrom() {
+    accounts[0].Disclosure_Indicator__c = 'N';
+    
+    Test.startTest();
+    List<Account> results = ListUtil.filter(
+        new List<Account>{ accounts[0], accounts[1] },
+        oldMap
+      )
+      .changedFrom(Account.Disclosure_Indicator__c, 'Y')
+      .toList();
+    Test.stopTest();
+    
+    Assert.areEqual(
+      1,
+      results.size(),
+      'The method did not detected the field change value from "Y" properly'
+    );
+    Assert.areEqual(
+      results[0].Disclosure_Indicator__c,
+      accounts[0].Disclosure_Indicator__c,
+      'The method did not get the record where Disclosure_Indicator__c is changed from "Y" properly'
+    );
+    Assert.areNotEqual(
+      results[0].Disclosure_Indicator__c,
+      oldMap.get(accounts[0].Id).Disclosure_Indicator__c,
+      'The method did not get the record where Disclosure_Indicator__c is changed from "Y" properly'
+    );
+  }
   //#endregion
 }

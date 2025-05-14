@@ -26,6 +26,7 @@
     <permissionSets>InteractionOmniClasses</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>Lead_Read_Write</permissionSets>
+    <permissionSets>Lending_Case_Read</permissionSets>
     <permissionSets>Outbound_Dialling</permissionSets>
     <permissionSets>Outbound_Message</permissionSets>
     <permissionSets>PayTo_View_Agreements</permissionSets>

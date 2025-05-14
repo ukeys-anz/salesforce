@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <classAccesses>
+        <apexClass>AdditionalFundsController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>BOHController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>FinancialAccountController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -13,11 +21,27 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>HomeLoanHistoryController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>HomeLoanHistoryAPIRepository</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>HomeLoanHistoryService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>HomeLoanModel</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>HomeLoanService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SOPService</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -29,6 +53,22 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>LoanPreferenceController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>PicklistCache</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>PicklistUtil</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SOPController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>Service</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -36,10 +76,14 @@
         <apexClass>ServiceProvider</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <classAccesses>
-        <apexClass>SOPController</apexClass>
+    <customMetadataTypeAccesses>
+        <name>Additional_Fund_Purpose_Mapping__mdt</name>
         <enabled>true</enabled>
-    </classAccesses>
+    </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <name>ErrorCode_Message_Mapping__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <customMetadataTypeAccesses>
         <name>FinancialAccountUIConfiguration__mdt</name>
         <enabled>true</enabled>
@@ -637,6 +681,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LoanApplicationFinancial.E_Tag__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LoanApplicationFinancial.Percentage_Deductible__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1421,6 +1470,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ResidentialLoanApplication.Property_Use__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ResidentialLoanApplication.Settlement_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1437,6 +1491,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ResidentialLoanApplication.Application_Progress__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.Sync_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

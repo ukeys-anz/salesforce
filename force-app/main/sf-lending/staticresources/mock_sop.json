@@ -35,22 +35,100 @@
   ],
   "parties": [
     {
-      "id": "1000991493",
+      "id": "c6f2b0a5-b00c-5dfb-8024-dea3b6715178",
       "ocvId": "1000991493",
+      "relationshipState": "RELATIONSHIP_STATE_SINGLE",
+      "confirmedAccountsTime": null,
       "spouseEarnsIncome": false,
-      "relationshipState": "RELATIONSHIP_STATE_IN_RELATIONSHIP",
-      "confirmedAccountsTime": "2023-05-04T07:31:38.700353Z",
+      "currentResidence": {
+        "address": {
+          "addressType": "",
+          "singleLineAddress": "1 Nader Close, Redan VIC 3350",
+          "buildingName": "",
+          "unit": "",
+          "unitType": "",
+          "unitNumber": "",
+          "buildingLevel": "",
+          "buildingLevelType": "",
+          "buildingLevelNumber": "",
+          "buildingNumber": "1",
+          "postalDelivery": "",
+          "postalDeliveryType": "",
+          "postalDeliveryNumber": "",
+          "allotment": "",
+          "allotmentType": "",
+          "allotmentNumber": "",
+          "street": "Nader Close",
+          "streetName": "Nader",
+          "streetType": "Close",
+          "streetSuffix": "",
+          "locality": "Redan",
+          "state": "VIC",
+          "postalCode": "3350",
+          "country": "AUSTRALIA",
+          "countryCode": "AUS",
+          "latitude": "-37.58155005",
+          "longitude": "143.84190793",
+          "deliveryPointId": "81930211",
+          "householdIdentificationNumber": "1000185251",
+          "deliveryPointBarcode": "1301012201301000020101312103000112213",
+          "sortPlanNumber": "033",
+          "council": "Ballarat",
+          "councilCode": "20570",
+          "sa2Code": "201011484"
+        }
+      },
+      "currentHousingStatus": "LIVING_STATUS_CARAVAN",
       "multipleProfiles": false,
-      "personaId": ""
+      "personaId": "ba94ffeb-6788-4abe-9fc2-ec9e6a5f2b59"
     },
     {
-      "id": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
-      "ocvId": "1000990282",
-      "spouseEarnsIncome": false,
+      "id": "c6f2b0a5-b00c-5dfb-8024-dea3b6715180",
+      "ocvId": "1000991490",
       "relationshipState": "RELATIONSHIP_STATE_IN_RELATIONSHIP",
-      "confirmedAccountsTime": "2023-05-04T07:31:38.700353Z",
+      "confirmedAccountsTime": null,
+      "spouseEarnsIncome": true,
+      "currentResidence": {
+        "address": {
+          "addressType": "",
+          "singleLineAddress": "2 Nader Close, Redan VIC 3350",
+          "buildingName": "",
+          "unit": "",
+          "unitType": "",
+          "unitNumber": "",
+          "buildingLevel": "",
+          "buildingLevelType": "",
+          "buildingLevelNumber": "",
+          "buildingNumber": "2",
+          "postalDelivery": "",
+          "postalDeliveryType": "",
+          "postalDeliveryNumber": "",
+          "allotment": "",
+          "allotmentType": "",
+          "allotmentNumber": "",
+          "street": "Nader Close",
+          "streetName": "Nader",
+          "streetType": "Close",
+          "streetSuffix": "",
+          "locality": "Redan",
+          "state": "VIC",
+          "postalCode": "3350",
+          "country": "AUSTRALIA",
+          "countryCode": "AUS",
+          "latitude": "-37.58155005",
+          "longitude": "143.84190793",
+          "deliveryPointId": "81930211",
+          "householdIdentificationNumber": "1000185251",
+          "deliveryPointBarcode": "1301012201301000020101312103000112213",
+          "sortPlanNumber": "033",
+          "council": "Ballarat",
+          "councilCode": "20570",
+          "sa2Code": "201011484"
+        }
+      },
+      "currentHousingStatus": "LIVING_STATUS_RENT",
       "multipleProfiles": false,
-      "personaId": ""
+      "personaId": "ba94ffeb-6788-4abe-9fc2-ec9e6a5f2b59"
     }
   ],
   "expenseConfigVersion": "",
@@ -213,6 +291,14 @@
     },
     {
       "ineligibleReasonType": "SOP_INELIGIBLE_REASON_NO_PROPERTY_FOUND_FOR_PPOR",
+      "details": [
+        {
+          "ocvId": "123456789"
+        }
+      ]
+    },
+    {
+      "ineligibleReasonType": "SOP_INELIGIBLE_REASON_GUARANTOR_LIABILITY",
       "details": [
         {
           "ocvId": "123456789"

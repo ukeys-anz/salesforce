@@ -7,6 +7,11 @@
 
 public with sharing class HomeLoanAPIRepository extends RepositoryBase {
   private static final string BOH_READ_ONLY_PERMISSION_ERROR = 'User does not have permissions to view home loans';
+
+  private static final HomeLoanService HL_SERVICE = (HomeLoanService) Lib_InstanceProvider.forType(
+    HomeLoanService.class
+  );
+
   /**
    * @param ocvId customer id
    * @param accountNumbers param to filter by account numbers
@@ -26,8 +31,13 @@ public with sharing class HomeLoanAPIRepository extends RepositoryBase {
     if (h1AccountDetails != null) {
       return h1AccountDetails;
     }
-    Service s = ServiceProvider.getService(HomeLoanService.class);
-    HttpCalloutResponse response = s.getHomeLoanAccounts(ocvId, accountNumbers);
+    HomeLoanService loanService = (HomeLoanService) ServiceProvider.getService(
+      HomeLoanService.class
+    );
+    HttpCalloutResponse response = loanService.getHomeLoanAccounts(
+      ocvId,
+      accountNumbers
+    );
     if (response.successful == false) {
       throw response.error;
     }

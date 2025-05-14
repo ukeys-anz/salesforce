@@ -129,6 +129,11 @@
                 <label>KYC</label>
             </value>
             <value>
+                <fullName>NCC Update Property Use</fullName>
+                <default>false</default>
+                <label>NCC Update Property Use</label>
+            </value>
+            <value>
                 <fullName>New Dispute</fullName>
                 <default>false</default>
                 <label>New Dispute</label>
@@ -1330,6 +1335,10 @@
         <valueSettings>
             <controllingFieldValue>Dispute</controllingFieldValue>
             <valueName>New Dispute</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Manage Home Loans</controllingFieldValue>
+            <valueName>NCC Update Property Use</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Follow Up</controllingFieldValue>
