@@ -170,17 +170,17 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>CMOS_Access_to_Customers</fullName>
+        <fullName>CMOS_Internal_Users_Access_to_Customers</fullName>
         <accessLevel>Read</accessLevel>
         <accountSettings>
             <caseAccessLevel>None</caseAccessLevel>
             <contactAccessLevel>Read</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>This rule provides CMOS Users access to view ANZ customers</description>
-        <label>CMOS Access to Customers</label>
+        <description>This rule provides All internal CMOS Users access to view ANZ customers.</description>
+        <label>CMOS Internal Users Access to Customers</label>
         <sharedTo>
-            <roleAndSubordinates>ANZ</roleAndSubordinates>
+            <group>CMOS_Internal_Users</group>
         </sharedTo>
         <booleanFilter>1 OR 2</booleanFilter>
         <criteriaItems>
