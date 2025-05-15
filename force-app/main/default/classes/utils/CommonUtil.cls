@@ -759,18 +759,12 @@ public with sharing class CommonUtil {
   }
 
   /**
-   * @description Build Trimmed and Concatenated values of Strings
+   * @description [DEPRECATED] Use `TextUtils.concat`.
    * @param items  List of Strings
    * @return Trimmed and Concatenated values of items
    */
   public static String buildTrimmedConcatenatedString(List<String> items) {
-    List<String> newContents = new List<String>();
-    for (String item : items) {
-      if (String.isNotBlank(item)) {
-        newContents.add(item.trim());
-      }
-    }
-    return String.join(newContents, ' ');
+    return TextUtils.concat(items);
   }
 
   /**

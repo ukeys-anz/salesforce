@@ -410,4 +410,19 @@ public with sharing class TextUtils {
       SANITISE_MOBILE_NUMBER_REGEX_PATTERN
     );
   }
+
+  /**
+   * @description Concatenates a collection of strings into a single string.
+   * @param strings An iterable collection of strings to concatenate.
+   * @return `String` A concatenated string of all input values.
+   */
+  public static String concat(Iterable<String> strings) {
+    List<String> values = new List<String>();
+    for (String item : strings) {
+      if (String.isNotBlank(item)) {
+        values.add(item.trim());
+      }
+    }
+    return String.join(values, ' ');
+  }
 }
