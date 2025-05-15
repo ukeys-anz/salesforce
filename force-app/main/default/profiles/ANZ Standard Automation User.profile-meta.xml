@@ -1671,6 +1671,10 @@
         <recordType>Case.Customer_Complaint</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Case Layout</layout>
+        <recordType>Case.Master</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-General Inquiry CMOS Layout</layout>
         <recordType>Case.General_Inquiry_CMOS</recordType>
     </layoutAssignments>
