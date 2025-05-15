@@ -113,7 +113,7 @@ public with sharing class PushToAppControllerTest {
 
     dmlRepoMock.mock(
       'doUpsert',
-      TestUtil.getMockUpsertResults(
+      getMockUpsertResults(
         '[{"success":true,"id":"' + CUSTOMER_ACTION_MOCK_DATA + '"}]'
       )
     );
@@ -227,5 +227,20 @@ public with sharing class PushToAppControllerTest {
       Id = FAKER_NOTIFICATION_CONFIG_ID
     );
     return testNotificConfig;
+  }
+
+    /**
+   * @description This method is used to mock the behavior of a DML insert operation that returns multiple UpsertResult objects.
+   * This is helpful for test cases where multiple records are inserted at once
+   * @param mockUpsertResultString An array of JSON strings, where each string represents a mock UpsertResult for each record being inserted.
+   * @return List<Database.UpsertResult> objects corresponding to the mock JSON strings.
+   */
+  private static List<Database.UpsertResult> getMockUpsertResults(
+    String mockUpsertResultString
+  ) {
+    return (List<Database.UpsertResult>) JSON.deserialize(
+      mockUpsertResultString,
+      List<Database.UpsertResult>.class
+    );
   }
 }

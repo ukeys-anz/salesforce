@@ -67,7 +67,7 @@ public without sharing class TaskCEController {
         CloudEventModel.UserModel theOwner = CloudEventModel.getOwnerModel(
           taskRec.OwnerId,
           ownerUsers,
-          QueryQueue.get(ownerIds)
+          QueryQueue.getByIds(ownerIds)
         );
         cloudEventModels.add(
           TaskCloudEventBuildHelper.createCloudEvent(
@@ -80,10 +80,8 @@ public without sharing class TaskCEController {
       }
       return cloudEventModels;
     } catch (Exception objException) {
-      throw CommonUtil.logExceptionWithMessage(
-        'Cloud Event Model Creation for Task record failed ',
-        objException
-      );
+      Logger.error('Cloud Event Model Creation for Task record failed : '+objException.getMessage()).save();
+      throw objException;
     }
   }
 }

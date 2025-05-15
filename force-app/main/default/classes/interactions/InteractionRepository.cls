@@ -118,9 +118,9 @@ public with sharing class InteractionRepository {
    * @param ocvIdFromTwilio ocvid received from Twilio
    * @return Account record existing
    */
-  public List<Account> fetchExistingAccountByOCVId(String ocvIdFromTwilio) {
+  public Account fetchExistingAccountByOCVId(String ocvIdFromTwilio) {
     if (String.isBlank(ocvIdFromTwilio)) {
-      return new List<Account>();
+      return null;
     }
     return [
       SELECT Id, OCV_ID__c, PPID__c
@@ -128,7 +128,7 @@ public with sharing class InteractionRepository {
       WHERE OCV_ID__c = :ocvIdFromTwilio AND ANZx_Customer__c = TRUE
       WITH USER_MODE
       LIMIT 1
-    ];
+    ] ?? null;
   }
 
   /**
@@ -154,17 +154,13 @@ public with sharing class InteractionRepository {
    * @param pubSubEventId pubSubEventId received from Twilio
    * @return Task record details
    */
-  public List<Task> queryPushToAppTaskDetails(String pubSubEventId) {
-    if(String.isBlank(pubSubEventId))
-    {
-       return new List<Task>();
-    }
-
+  public Task queryPushToAppTaskDetails(String pubSubEventId) {
     return [
       SELECT Id, Pub_Sub_Event_Id__c, WhatId
       FROM Task
       WHERE Pub_Sub_Event_Id__c = :pubSubEventId
       WITH USER_MODE
-    ];
+      LIMIT 1
+    ] ?? null;
   }
 }

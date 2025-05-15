@@ -55,15 +55,19 @@ public with sharing class InteractionConstants {
    * @description fetch Message and Call recordTypeIds of Interaction
    * @return Set<String> set of message and call recordTypeIds
    */
-  public static final Set<String> callMessageRecTypeIdsSet {
-    get {
-      if (callMessageRecTypeIdsSet == null) {
-        callMessageRecTypeIdsSet = new Set<String>();
-        callMessageRecTypeIdsSet.add(RTInteraction.message);
-        callMessageRecTypeIdsSet.add(RTInteraction.call);
-      }
-      return callMessageRecTypeIdsSet;
-    }
-    private set;
-  }
+  public static final Set<String> CALL_MESSAGE_RT_ID_SET = new Set<String>{
+    RTInteraction.call,
+    RTInteraction.message
+  };
+
+  /**
+   * @description fetch Message ,Call and Inperson recordTypeIds of Interaction
+   * @return Set<String> set of message, call and inperson recordTypeIds
+   */
+  public static final Set<String> CALL_MESSAGE_INPERSON_RT_ID = new Set<String>{
+    RTInteraction.call,
+    RTInteraction.message,
+    RTInteraction.inPerson
+  };
+
 }

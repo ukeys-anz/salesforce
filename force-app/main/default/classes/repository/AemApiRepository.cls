@@ -9,15 +9,6 @@ public with sharing class AemApiRepository {
     AemService.class
   );
 
-  private static final Set<Integer> SUCCESS_CODES = new Set<Integer>{ 200 };
-  private static final Set<Integer> SERVER_ERROR_CODES = new Set<Integer>{
-    500
-  };
-  private static final Set<Integer> ACCESS_ERROR_CODES = new Set<Integer>{
-    401,
-    403
-  };
-
   private static final String CACHE_LOCAL_UTILITY_KEY = 'local.Utility.';
 
   /**
@@ -70,10 +61,10 @@ public with sharing class AemApiRepository {
   private static HttpCalloutResponse handleResponse(
     HttpCalloutResponse response
   ) {
-    if (SERVER_ERROR_CODES.contains(response.statusCode)) {
+    if (response.statusCode == 500) {
       throw new ServerErrorException(response);
     }
-    if (ACCESS_ERROR_CODES.contains(response.statusCode)) {
+    if (response.statusCode == 401 || response.statusCode == 403) {
       throw new AccessErrorException(response);
     }
     if (response.successful == false) {
@@ -93,9 +84,7 @@ public with sharing class AemApiRepository {
     public ServerErrorException(HttpCalloutResponse response) {
       this(response.error.getMessage());
       Logger.error(
-          'An HTTP ' +
-            response.statusCode +
-            ' response was received while attempting to fetch AEM template content via AEM Service ',
+          'An HTTP ' + response.statusCode + ' response was received while attempting to fetch AEM template content via AEM Service ',
           response.error
         )
         .save();
@@ -113,9 +102,7 @@ public with sharing class AemApiRepository {
     public AccessErrorException(HttpCalloutResponse response) {
       this(response.error.getMessage());
       Logger.info(
-          'An HTTP ' +
-            response.statusCode +
-            ' response was received while attempting to fetch AEM template content via AEM Service ',
+          'An HTTP ' + response.statusCode + ' response was received while attempting to fetch AEM template content via AEM Service ',
           response.error
         )
         .save();
@@ -133,10 +120,8 @@ public with sharing class AemApiRepository {
      */
     public UnhandledException(HttpCalloutResponse response) {
       this(response.error.getMessage());
-      Logger.error(
-          'Unhandled Exception occured while attempting to fetch AEM template content via AEM Service ',
-          response.error
-        )
+      Logger.error('Unhandled Exception occured while attempting to fetch AEM template content via AEM Service ',
+    response.error)
         .save();
     }
   }

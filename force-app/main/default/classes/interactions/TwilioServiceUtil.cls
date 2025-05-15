@@ -98,8 +98,8 @@ public with sharing class TwilioServiceUtil {
    */
   public static String getStatus(String statusFromTwilio) {
     return (String.isNotBlank(statusFromTwilio) &&
-    QueryTwilioStatusMapping.interactionTwilioStatusMap?.containsKey(statusFromTwilio.toLowerCase()))
-      ? QueryTwilioStatusMapping.interactionTwilioStatusMap.get(statusFromTwilio.toLowerCase())
+    QueryTwilioStatusMapping.mapByStatus.containsKey(statusFromTwilio.toLowerCase()))
+      ? QueryTwilioStatusMapping.getByStatus(statusFromTwilio.toLowerCase()).Interaction_Status__c
       : statusFromTwilio;
   }
 
@@ -115,7 +115,7 @@ public with sharing class TwilioServiceUtil {
     List<Interaction> interactionListForTwilioDetailsCreation = ListUtil.filter(
       interactionsList
     )
-    .equals(Interaction.RecordTypeId, InteractionConstants.callMessageRecTypeIdsSet)
+    .equals(Interaction.RecordTypeId, InteractionConstants.CALL_MESSAGE_RT_ID_SET)
     .toList();
 
     for (Interaction newInteraction : interactionListForTwilioDetailsCreation) {

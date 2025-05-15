@@ -61,11 +61,7 @@ public with sharing class InteractionAttendeeActions {
   public static void insertDefaultAttendee(List<Interaction> interactions) {
     List<InteractionAttendee> lstInteractAttend = new List<InteractionAttendee>();
     Set<String> profilenames = new Set<String>();
-    Set<Id> recordtypes = new Set<Id>();
     profilenames.add('ANZx Standard User');
-    recordtypes.add(RTInteraction.inPerson);
-    recordtypes.add(RTInteraction.call);
-    recordtypes.add(RTInteraction.message);
     User userDetail = [
       SELECT id, profile.name
       FROM user
@@ -75,7 +71,7 @@ public with sharing class InteractionAttendeeActions {
     // Automatically create attendee only if the created user is of Profile "ANZx Standard User"
     if (profilenames.contains(userDetail.profile.name)) {
       for (Interaction interact : interactions) {
-        if (recordtypes.contains(interact.RecordTypeId)) {
+        if (InteractionConstants.CALL_MESSAGE_INPERSON_RT_ID.contains(interact.RecordTypeId)) {
           InteractionAttendee intattendee = new InteractionAttendee();
           intattendee.AttendeeType = InteractionConstants.INTERNAL;
           intattendee.UserId = UserInfo.getUserId();
@@ -95,10 +91,6 @@ public with sharing class InteractionAttendeeActions {
     Map<Id, Set<Id>> interActionWithAttendee = new Map<Id, Set<Id>>();
     List<InteractionAttendee> lstInteractAttend = new List<InteractionAttendee>();
     List<Id> interactionOwnerId = new List<Id>();
-    Set<Id> recordtypes = new Set<Id>();
-    recordtypes.add(RTInteraction.inPerson);
-    recordtypes.add(RTInteraction.call);
-    recordtypes.add(RTInteraction.message);
     //Loop in interaction and filter out all owner ids
     for (Interaction interact : interactions) {
       interactionOwnerId.add(interact.OwnerId);
@@ -134,7 +126,7 @@ public with sharing class InteractionAttendeeActions {
     // Now Finally loop on proginal interaction, check if there is any existin interaction attendee with the
     // OwnerId, if yes, ignore it, if not insert the interactionattendee.
     for (Interaction interact : interactions) {
-      if (recordtypes.contains(interact.RecordTypeId)) {
+      if (InteractionConstants.CALL_MESSAGE_INPERSON_RT_ID.contains(interact.RecordTypeId)) {
         Set<Id> existingAttendeeIds = interActionWithAttendee.get(interact.Id);
         if (
           existingAttendeeIds != null &&

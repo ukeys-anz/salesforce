@@ -21,7 +21,7 @@ public class AemDataMergeFieldProcessor {
     Set<String> fieldsToQuery = extractFieldNames(mergedFieldMatcher);
 
     // Query the database for the necessary fields
-    List<SObject> recordsFromDatabase = PUSH_TO_APP_REPOSITORY.queryMergeFieldsData(
+    SObject recordDetail = PUSH_TO_APP_REPOSITORY.queryMergeFieldsData(
       fieldsToQuery,
       recordId
     );
@@ -29,7 +29,7 @@ public class AemDataMergeFieldProcessor {
     // Replace the merged fields in the JSON string
     return replaceFieldsInJson(
       aemContentData,
-      recordsFromDatabase,
+      recordDetail,
       mergedFieldMatcher
     );
   }
@@ -57,27 +57,27 @@ public class AemDataMergeFieldProcessor {
   @TestVisible
   private static String replaceFieldsInJson(
     String aemContentData,
-    List<SObject> recordsFromDatabase,
+    SObject recordDetail,
     Matcher mergedFieldMatcher
   ) {
     mergedFieldMatcher.reset();
 
     while (mergedFieldMatcher.find()) {
       String fieldName = mergedFieldMatcher.group(1);
-      SObject record = recordsFromDatabase.get(0);
       String fieldvalue = '';
 
       if (fieldName.contains('.')) {
         List<String> parts = fieldName.split('\\.');
-        SObject relatedObject = record.getSObject(parts[0]);
+        SObject relatedObject = recordDetail.getSObject(parts[0]);
 
-        fieldvalue = (parts.size() > 1 &&
-          relatedObject != null)
-          ? String.valueOf(relatedObject.get(parts[1]))
-          : '';
+        if(relatedObject != null)
+        {
+          fieldvalue = String.valueOf(relatedObject.get(parts[1]));
+        }
       } else {
-        fieldvalue = String.valueOf(record.get(fieldName));
+        fieldvalue = String.valueOf(recordDetail.get(fieldName));
       }
+
       aemContentData = aemContentData.replace(
         mergedFieldMatcher.group(0),
         fieldValue ?? ''
