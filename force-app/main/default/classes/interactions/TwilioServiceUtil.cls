@@ -112,15 +112,14 @@ public with sharing class TwilioServiceUtil {
     List<Interaction> interactionsList
   ) {
     List<Twilio_Details__c> twilioDetailsToBeInserted = new List<Twilio_Details__c>();
-    List<Interaction> interactionListForTwilioDetailsCreation = new List<Interaction>();
+    List<Interaction> interactionListForTwilioDetailsCreation = ListUtil.filter(
+      interactionsList
+    )
+    .equals(Interaction.RecordTypeId, InteractionConstants.callMessageRecTypeIdsSet)
+    .toList();
 
-    for (Interaction newInteraction : interactionsList) {
-      if (
-        InteractionConstants.callMessageRecTypeIdsSet.contains(
-          newInteraction.RecordTypeId
-        )
-      ) {
-        interactionListForTwilioDetailsCreation.add(newInteraction);
+    for (Interaction newInteraction : interactionListForTwilioDetailsCreation) {
+      {
         Twilio_Details__c twilioDetailRecord = new Twilio_Details__c();
         twilioDetailsToBeInserted.add(twilioDetailRecord);
       }

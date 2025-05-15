@@ -696,6 +696,13 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab3</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.ANZx_Push_To_App_View}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>Facet-f3786a4a-d700-4c7b-bb0f-0139a1c3c9a2</name>
@@ -706,6 +713,13 @@
             <componentInstance>
                 <componentName>initiateInteraction</componentName>
                 <identifier>c_initiateInteraction</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.ANZx_Push_To_App_View}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -744,6 +758,13 @@
                 </componentInstanceProperties>
                 <componentName>interactionRelatedList</componentName>
                 <identifier>c_interactionRelatedList</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.ANZx_Push_To_App_View}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
