@@ -396,11 +396,11 @@ public with sharing class InteractionContextServiceTest {
    * @param phoneNumber the OCVId
    * @return Account a Person Account with Name and OCV as provided
    */
-  static List<Account> createMockAccount(String ocvId, String phoneNumber) {
+  static Account createMockAccount(String ocvId, String phoneNumber) {
     Account testAccount = TestDataFactory.createPersonAccount(ocvId, false);
     testAccount.PersonMobilePhone = phoneNumber;
     testAccount.Id = FAKER_ACCOUNT_ID;
-    return new List<Account>{ testAccount };
+    return testAccount;
   }
 
   /**
@@ -439,7 +439,7 @@ public with sharing class InteractionContextServiceTest {
    * @param pubSubEventId mock pubsubEventId
    * @return Mock Task
    */
-  static List<Task> createMockTask(
+  static Task createMockTask(
     Id recordTypeId,
     Id whoId,
     Id whatId,
@@ -455,6 +455,6 @@ public with sharing class InteractionContextServiceTest {
     );
 
     mockPushToAppTask.Pub_Sub_Event_Id__c = pubSubEventId;
-    return new List<Task>{ mockPushToAppTask };
+    return mockPushToAppTask;
   }
 }

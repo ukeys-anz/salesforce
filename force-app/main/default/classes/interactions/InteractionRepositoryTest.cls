@@ -5,13 +5,13 @@
  */
 @isTest
 public with sharing class InteractionRepositoryTest {
-  private static final Id FAKER_ACCOUNT_ID = Lib_FakeIdGenerator.getMockId(
+      private static final Id FAKER_ACCOUNT_ID = Lib_FakeIdGenerator.getMockId(
     Account.getSObjectType()
   );
-
+    
   static Lib_MockProvider dmlRepoMock;
   static Lib_MockProvider interactionRepoMock;
-
+    
   static void registerMocks() {
     dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
     interactionRepoMock = Lib_MockProvider.forType(InteractionRepository.class);
@@ -45,7 +45,7 @@ public with sharing class InteractionRepositoryTest {
   @isTest
   private static void testPreventDuplicateInteractionNegative() {
     registerMocks();
-
+	
     InteractionContextRequest intContext = createMockInteractionContextRequest(
       'CH12345678'
     );
@@ -55,15 +55,15 @@ public with sharing class InteractionRepositoryTest {
       InteractionContextService.doPost(intContext);
     }
     Test.stopTest();
-    Interaction interactionCreated = (Interaction) dmlRepoMock.getHistory(
+	Interaction interactionCreated = (Interaction) dmlRepoMock.getHistory(
         'doInsert'
       )
-      .getParam('record');
-    Assert.isNotNull(
+    .getParam('record');
+     Assert.isNotNull(
       dmlRepoMock.getHistory('doInsert'),
       'doInsert should have been invoked'
     );
-
+    
     Assert.areEqual(
       interactionCreated.Chat_or_Call_SID__c,
       'CH12345678',
@@ -84,7 +84,7 @@ public with sharing class InteractionRepositoryTest {
       InteractionContextService.doPost(intContext);
     }
     Test.stopTest();
-
+      
     Assert.isNull(
       dmlRepoMock.getHistory('doInsert'),
       'doInsert should not have been invoked'
@@ -103,24 +103,21 @@ public with sharing class InteractionRepositoryTest {
     );
     return existingInteractionsBySID;
   }
-
-  private static Interaction mockInteraction() {
+    
+   private static Interaction mockInteraction() {
     return new Interaction(
       Chat_or_Call_SID__c = 'CH1234567',
       Id = Lib_FakeIdGenerator.getMockId(Interaction.getSObjectType()),
       TwilioDetailsID__c = Lib_FakeIdGenerator.getMockId(
         Twilio_Details__c.getSObjectType()
-      )
+      )     
     );
   }
-
-  private static List<Account> mockAccount() {
-    Account testAccount = TestDataFactory.createPersonAccount(
-      'OCVID887766',
-      false
-    );
+    
+    private static Account mockAccount() {
+    Account testAccount = TestDataFactory.createPersonAccount('OCVID887766', false);
     testAccount.Id = FAKER_ACCOUNT_ID;
-    return new List<Account>{ testAccount };
+    return testAccount;
   }
 
   private static InteractionContextRequest createMockInteractionContextRequest(
@@ -140,8 +137,8 @@ public with sharing class InteractionRepositoryTest {
     InteractionContextRequest intContext = prepareRequest(contextReq);
     return intContext;
   }
-
-  /**
+    
+     /**
    * @description Method to prepare REST requests for test scenarios.
    * @param interactionContextService InteractionContextRequest
    * @return 'InteractionContextRequest'
