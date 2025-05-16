@@ -19,5 +19,9 @@ public interface TaskCloudEventBuilder {
 
     CloudEventModel build(Task task, Account account, String aemContentData, CloudEventModel.UserModel ownerModel);
 
-    Set<String> getSupportedRecordType();
+    /**
+     * @description Base Interface Get Supported Record Type
+     * @return Set<String> Set of supported record types
+     */
+     Set<String> getSupportedRecordType();
 }

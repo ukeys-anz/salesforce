@@ -26,7 +26,7 @@ public without sharing class TaskCEController {
 
   /**
    * @description method to be called to publish cloud event for Task records
-   * @param theTasks list of Task records
+   * @param inputTasks list of Task records
    */
   public static void publishCloudEvents(List<Task> inputTasks) {
     if (inputTasks.isEmpty()) {
@@ -102,7 +102,12 @@ public without sharing class TaskCEController {
     public Map<Id, Account> accounts;
     public Map<Id, Customer_Task_Data__c> taskData;
     public Map<Id, User> owners;
-
+  /**
+   * @description parametetrized constructor to have all the data
+   * @param accounts
+   * @param taskData
+   * @param owners
+   */
     public TaskCloudEventContext(
     Map<Id, Account> accounts,
     Map<Id, Customer_Task_Data__c> taskData,
