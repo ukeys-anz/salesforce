@@ -145,10 +145,12 @@ public with sharing class PushToAppController {
         listOfCustomerActions,
         new DmlConfig().systemMode()
       );
+      Id taskWhoId = PUSH_TO_APP_REPOSITORY.queryCustomerContactId(pushToAppTaskData.whatId);
 
       Task pushToAppTask = preparePushToAppTask(
         pushToAppTaskData,
-        insertedCustomerTaskDataId
+        insertedCustomerTaskDataId,
+        taskWhoId
       );
 
       //Insert Task in System Mode because no edit access to be given to the fields in the system related to PushToApp
@@ -199,11 +201,13 @@ public with sharing class PushToAppController {
    * @description This method is used to create Notification Data Instance
    * @param taskData Task data to be utilized to create Customer Nudge Task
    * @param notifDataId notificationData record Id created when click on send now to link the task
+   * @param taskWhoId whoid to be linked to the push to app task
    * @return Task Customer Nudge Task record instance to be created
    */
   private static Task preparePushToAppTask(
     PushToAppTaskWrapper taskData,
-    Id notifDataId
+    Id notifDataId,
+    Id taskWhoId
   ) {
     return new Task(
       Subject = taskData.subject +
@@ -211,7 +215,7 @@ public with sharing class PushToAppController {
         TASK_TYPE.get('ACTIVITY_TYPE_PUSH_TO_APP'),
       Type = 'ACTIVITY_TYPE_PUSH_TO_APP',
       WhatId = taskData.whatId,
-      WhoId = PUSH_TO_APP_REPOSITORY.queryCustomerContactId(taskData.whatId),
+      WhoId = taskWhoId,
       ActivityDate = Date.parse(taskData.activityDate),
       Pub_Sub_Event_Id__c = CommonUtil.generateUUID(),
       Customer_Task_Configuration__c = taskData.notificationConfigId,

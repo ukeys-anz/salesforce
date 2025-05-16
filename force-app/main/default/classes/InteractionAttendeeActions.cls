@@ -259,10 +259,6 @@ public with sharing class InteractionAttendeeActions {
   public static InteractionAttendee insertTwilioConferenceAttendee(
     UpdateInteractionByTwilioPayload twilioContextRequest
   ) {
-    if (!TwilioServiceUtil.checkIsConference(twilioContextRequest)) {
-      return null;
-    }
-
     InteractionAttendee intattendee = new InteractionAttendee();
     intattendee.AttendeeType = fetchAttendeeType(
       twilioContextRequest.agentEmail

@@ -28,16 +28,20 @@ global with sharing class InteractionContextServiceUpdate {
       TwilioContextResponse twilioResponse = TwilioServiceUtil.upsertTwilioDetailsRecord(
         contextRequest
       );
-      //Interaction attendee addition logic for conference scenario
-      InteractionAttendee conferenceAttendee = InteractionAttendeeActions.insertTwilioConferenceAttendee(
-        contextRequest
-      );
-      if (conferenceAttendee != null) {
+      
+      if(TwilioServiceUtil.checkIsConference(twilioContextRequest))
+      {
+        //Interaction attendee addition logic for conference scenario
+        InteractionAttendee conferenceAttendee = InteractionAttendeeActions.insertTwilioConferenceAttendee(
+          contextRequest
+        );
+      
         DML_REPOSITORY.doInsert(
           conferenceAttendee,
           new DMLConfig().systemMode()
         );
       }
+    
 
       String jsonRes = JSON.serialize(twilioResponse);
       RestContext.response.addHeader('Content-Type', 'application/json');
