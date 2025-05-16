@@ -29,7 +29,7 @@ global with sharing class InteractionContextServiceUpdate {
         contextRequest
       );
       
-      if(TwilioServiceUtil.checkIsConference(twilioContextRequest))
+      if(TwilioServiceUtil.checkIsConference(contextRequest))
       {
         //Interaction attendee addition logic for conference scenario
         InteractionAttendee conferenceAttendee = InteractionAttendeeActions.insertTwilioConferenceAttendee(

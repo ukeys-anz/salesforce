@@ -137,9 +137,6 @@ public with sharing class InteractionRepository {
    * @return Interaction record details
    */
   public Interaction getInteractionDetails(Id interactionId) {
-    if (String.isBlank(interactionId)) {
-      return null;
-    }
     return [
       SELECT Id, Interaction_External_Id__c, TwilioDetailsID__c, CaseId__c
       FROM Interaction

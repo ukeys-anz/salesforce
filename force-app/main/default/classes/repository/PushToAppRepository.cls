@@ -44,9 +44,6 @@ public with sharing class PushToAppRepository {
   public Customer_Task_Configuration__c selectedNotificationConfigDetail(
     String templateName
   ) {
-    if (String.isBlank(templateName)) {
-      return null;
-    }
     return [
       SELECT Id, Name, Expire_After_Days__c
       FROM Customer_Task_Configuration__c
