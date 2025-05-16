@@ -202,13 +202,13 @@ public with sharing class PushToAppControllerTest {
   }
 
   private static sObject mockQueryMergeFieldsData() {
-
     Case caseRecord = (Case) TestUtil.setFields(
       new Case(
         Id = FAKER_CASE_ID,
-        AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType)),
-        new Map<String, Object>{ 'CaseNumber' => '1234567' }
-      );
+        AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType)
+      ),
+      new Map<String, Object>{ 'CaseNumber' => '1234567' }
+    );
     return caseRecord;
   }
 
@@ -225,7 +225,7 @@ public with sharing class PushToAppControllerTest {
     return testNotificConfig;
   }
 
-    /**
+  /**
    * @description This method is used to mock the behavior of a DML insert operation that returns multiple UpsertResult objects.
    * This is helpful for test cases where multiple records are inserted at once
    * @param mockUpsertResultString An array of JSON strings, where each string represents a mock UpsertResult for each record being inserted.

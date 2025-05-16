@@ -43,8 +43,12 @@ public with sharing class PushToAppController {
         recordTypeId
       );
     } catch (Exception objException) {
-      Logger.error('Error fetching Push-to-App Customer Nudge Template details for record id ' +
-      recordId +'with message: '+ objException.getMessage());
+      Logger.error(
+        'Error fetching Push-to-App Customer Nudge Template details for record id ' +
+          recordId +
+          'with message: ' +
+          objException.getMessage()
+      );
       throw objException;
     }
   }
@@ -124,7 +128,7 @@ public with sharing class PushToAppController {
     try {
       //Insert Customer Task Data in System Mode because no read access given to AEM_Content_Data__c field in the system
       Customer_Task_Data__c custTaskRecord = new Customer_Task_Data__c(
-          AEM_Content_Data__c = customerTaskData.aemContentData
+        AEM_Content_Data__c = customerTaskData.aemContentData
       );
 
       DML_REPOSITORY.doInsert(custTaskRecord, new DMLConfig().systemMode());
@@ -148,10 +152,7 @@ public with sharing class PushToAppController {
       );
 
       //Insert Task in System Mode because no edit access to be given to the fields in the system related to PushToApp
-      DML_REPOSITORY.doInsert(
-        pushToAppTask,
-        new DmlConfig().systemMode()
-      );
+      DML_REPOSITORY.doInsert(pushToAppTask, new DmlConfig().systemMode());
 
       Task taskRecord = PUSH_TO_APP_REPOSITORY.queryTaskDetails(
         pushToAppTask.Id
@@ -159,8 +160,11 @@ public with sharing class PushToAppController {
 
       return taskRecord;
     } catch (Exception objException) {
-      Logger.error('Push To App Task and Related Records Creation Failed : '
-      +objException.getMessage()).save();
+      Logger.error(
+          'Push To App Task and Related Records Creation Failed : ' +
+          objException.getMessage()
+        )
+        .save();
       throw objException;
     }
   }

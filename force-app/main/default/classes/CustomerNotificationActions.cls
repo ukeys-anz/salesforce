@@ -4,9 +4,6 @@
  * @description CustomerNotificationActions class is to handle all the Customer Notification Action Actions
  */
 public with sharing class CustomerNotificationActions {
-  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
-    DmlRepository.class
-  );
   /**
    * @description Update Action Counter if action performed by the customer
    * @param customerActionedRecords List of Cases

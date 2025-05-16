@@ -69,5 +69,4 @@ public with sharing class InteractionConstants {
     RTInteraction.message,
     RTInteraction.inPerson
   };
-
 }

@@ -3,12 +3,9 @@
  * @since May 2025
  * @description Abstract class enforcing building cloud event models for the task records of different record types
  */
- @SuppressWarnings(
-  'PMD.ExcessiveParameterList'
-)
+@SuppressWarnings('PMD.ExcessiveParameterList')
 public interface TaskCloudEventBuilder {
-
-   /**
+  /**
    * @description Base Interface Cloud Event Models for Task
    * @param task Task record
    * @param account related Account record
@@ -17,11 +14,16 @@ public interface TaskCloudEventBuilder {
    * @return CustomerNudgeTaskCloudEventModel Task Cloud Event Model
    */
 
-    CloudEventModel build(Task task, Account account, String aemContentData, CloudEventModel.UserModel ownerModel);
+  CloudEventModel build(
+    Task task,
+    Account account,
+    String aemContentData,
+    CloudEventModel.UserModel ownerModel
+  );
 
-    /**
-     * @description Base Interface Get Supported Record Type
-     * @return Set<String> Set of supported record types
-     */
-     Set<String> getSupportedRecordType();
+  /**
+   * @description Base Interface Get Supported Record Type
+   * @return Set<String> Set of supported record types
+   */
+  Set<String> getSupportedRecordType();
 }

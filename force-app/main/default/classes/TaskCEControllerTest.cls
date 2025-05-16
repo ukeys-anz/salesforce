@@ -5,5 +5,4 @@
  */
 @isTest
 public with sharing class TaskCEControllerTest {
-
 }

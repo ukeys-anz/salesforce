@@ -26,8 +26,11 @@ public with sharing class PushToAppAction {
       }
       DML_REPOSITORY.doUpdate(tasksToUpdate);
     } catch (Exception objException) {
-      Logger.error('Push To App Customer Nudge Task Update Failed with error message: ',
-      +objException.getMessage()).save();
+      Logger.error(
+          'Push To App Customer Nudge Task Update Failed with error message: ',
+          +objException.getMessage()
+        )
+        .save();
       throw objException;
     }
   }

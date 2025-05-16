@@ -30,13 +30,11 @@ global with sharing class InteractionContextService {
   global static void doPost(InteractionContextRequest contextRequest) {
     InteractionContextResponse responseSentToTwilio = new InteractionContextResponse();
     try {
-      if(String.isNotBlank(contextRequest.ocvId))
-      {
+      if (String.isNotBlank(contextRequest.ocvId)) {
         enrichContextRequestWithAccount(contextRequest);
       }
 
-      if(String.isNotBlank(contextRequest.pubSubEventId))
-      {
+      if (String.isNotBlank(contextRequest.pubSubEventId)) {
         enrichContextRequestWithTask(contextRequest);
       }
 
@@ -374,33 +372,34 @@ global with sharing class InteractionContextService {
     return response;
   }
 
-
   /**
    * @description Append accountDetails Id based on the ocvId from Twilio
    * @param contextRequest twilio context request
    */
-  private static void enrichContextRequestWithAccount(InteractionContextRequest contextRequest){
-      Account accountFound = INTERACTION_REPOSITORY.fetchExistingAccountByOCVId(
-        contextRequest.ocvId
-        );
+  private static void enrichContextRequestWithAccount(
+    InteractionContextRequest contextRequest
+  ) {
+    Account accountFound = INTERACTION_REPOSITORY.fetchExistingAccountByOCVId(
+      contextRequest.ocvId
+    );
 
-      if(accountFound!=null)
-      {
-        contextRequest.existingAccount = accountFound;
-      }
+    if (accountFound != null) {
+      contextRequest.existingAccount = accountFound;
+    }
   }
 
   /**
    * @description Append task details Id based on the pubSubEventId from Twilio
    * @param contextRequest twilio context request
    */
-  private static void enrichContextRequestWithTask(InteractionContextRequest contextRequest){
+  private static void enrichContextRequestWithTask(
+    InteractionContextRequest contextRequest
+  ) {
     Task pushToAppTaskFound = INTERACTION_REPOSITORY.queryPushToAppTaskDetails(
       contextRequest.pubSubEventId
     );
 
-    if(pushToAppTaskFound!=null)
-    {
+    if (pushToAppTaskFound != null) {
       contextRequest.pushToAppTask = pushToAppTaskFound;
     }
   }

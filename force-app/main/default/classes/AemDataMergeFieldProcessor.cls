@@ -70,8 +70,7 @@ public class AemDataMergeFieldProcessor {
         List<String> parts = fieldName.split('\\.');
         SObject relatedObject = recordDetail.getSObject(parts[0]);
 
-        if(relatedObject != null)
-        {
+        if (relatedObject != null) {
           fieldvalue = String.valueOf(relatedObject.get(parts[1]));
         }
       } else {
