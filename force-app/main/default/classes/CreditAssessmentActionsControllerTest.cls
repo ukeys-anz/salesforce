@@ -6,22 +6,19 @@
 @isTest
 public with sharing class CreditAssessmentActionsControllerTest {
   private static final String TECH_ASSIST_ERROR = 'An error has occurred. Please refresh and try again. Raise a fault through TechAssist if the problem persists.';
+  private static final String IN_PROGRESS_ERROR = 'This loan application has already been submitted for assessment. Please wait for assessment to complete before trying again.';
   private static final String REASSESSMENT_CALLOUT_ERROR = 'Failed to complete reassessment.';
   private static final String REASSESS_REQUIRED_ERROR = 'The loan application has been updated and you must resubmit this credit referral case for reassessment.';
   private static final String ASSESSMENT_ERROR = 'This credit referral case is currently being assessed. You can\'t finalise the referral case until this has been completed.';
   private static final String FINALISE_CALLOUT_ERROR = 'Failed to complete finalisation.';
   private static final String FRAUD_RELATED_ERROR = 'There’s a fraud case related to this credit referral case still open. You can’t finalise this case until the fraud case is closed.';
 
-  static Lib_MockProvider dmlRepoMock;
-  static void registerMocks() {
-    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
-  }
-
   /**
    * @description Setup data for test classes
    */
   @testSetup
   public static void setup() {
+    Faker faker = new Faker('AU');
     Account acc = TestDataFactory.createAccount(true);
     ResidentialLoanApplication[] newRLA = new List<ResidentialLoanApplication>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -51,11 +48,6 @@ public with sharing class CreditAssessmentActionsControllerTest {
 
   @isTest
   static void testSuccessReassess() {
-    registerMocks();
-    dmlRepoMock.mock(
-      'doUpdate',
-      TestUtil.getMockSaveResult('{"success":true}')
-    );
     Case c = [
       SELECT Id, Credit_Id__c, Assessment_Outcome__c
       FROM Case
@@ -78,6 +70,32 @@ public with sharing class CreditAssessmentActionsControllerTest {
       c.Loan_Application__r.Credit_Reassess_Required__c,
       'Credit reassess required should be false'
     );
+  }
+
+  @isTest
+  static void testReassessInProgress() {
+    List<Case> c = [
+      SELECT Id, Credit_Id__c, Assessment_Outcome__c
+      FROM Case
+      WHERE
+        RecordTypeId = :GetHelpConstants.CREDIT_REFERRAL_RT_ID
+        AND Credit_Id__c != NULL
+      LIMIT 1
+    ];
+
+    Test.startTest();
+    try {
+      //Call method twice, first call will set assessment outcome to in progress, second call should fail
+      CreditAssessmentActionsController.reassess(c[0].Id);
+      CreditAssessmentActionsController.reassess(c[0].Id);
+      Assert.fail('Exception should be thrown');
+    } catch (Exception e) {
+      Assert.isTrue(
+        e.getMessage().contains(IN_PROGRESS_ERROR),
+        'Exception message should be thrown for processing'
+      );
+    }
+    Test.stopTest();
   }
 
   @isTest
