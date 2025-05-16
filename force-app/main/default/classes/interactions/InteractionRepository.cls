@@ -119,9 +119,6 @@ public with sharing class InteractionRepository {
    * @return Account record existing
    */
   public Account fetchExistingAccountByOCVId(String ocvIdFromTwilio) {
-    if (String.isBlank(ocvIdFromTwilio)) {
-      return null;
-    }
     return [
       SELECT Id, OCV_ID__c, PPID__c
       FROM Account

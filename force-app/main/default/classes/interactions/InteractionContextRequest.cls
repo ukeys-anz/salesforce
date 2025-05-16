@@ -2,9 +2,6 @@
  * @description Wrapper class to store Interaction Context Request parameters
  */
 global class InteractionContextRequest {
-  private static final InteractionRepository INTERACTION_REPOSITORY = (InteractionRepository) Lib_InstanceProvider.forType(
-    InteractionRepository.class
-  );
   /**
    * @description chatOrCallId to identify the Twilio details
    */
