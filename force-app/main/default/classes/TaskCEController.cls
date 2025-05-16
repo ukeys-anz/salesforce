@@ -45,17 +45,17 @@ public without sharing class TaskCEController {
     CloudEventController.publishCloudEvents(cloudEventModels);
   }
 
-private static TaskCloudEventContext buildContext(List<Task> tasks) {
+  private static TaskCloudEventContext buildContext(List<Task> tasks) {
     Set<Id> accountIds = ListUtil.getIds(tasks, Task.AccountId);
     Set<Id> customerTaskDataIds = ListUtil.getIds(
       tasks,
-        Task.Customer_Task_Data__c
-      );
+      Task.Customer_Task_Data__c
+    );
     Set<Id> ownerIds = ListUtil.getIds(tasks, Task.OwnerId);
 
     Map<Id, Account> accountIdToAccountInfoMap = new Map<Id, Account>(
-        PUSH_TO_APP_REPOSITORY.queryAccountDetails(accountIds)
-      );
+      PUSH_TO_APP_REPOSITORY.queryAccountDetails(accountIds)
+    );
     Map<Id, Customer_Task_Data__c> customTaskDataIdAndInfoMap = new Map<Id, Customer_Task_Data__c>(
       PUSH_TO_APP_REPOSITORY.queryCustomerTaskDataDetails(customerTaskDataIds)
     );
@@ -75,8 +75,8 @@ private static TaskCloudEventContext buildContext(List<Task> tasks) {
     TaskCloudEventContext context
   ) {
     String taskRecordType = QueryRT.of(Schema.Task.SObjectType)
-          .get(task.RecordTypeId)
-          .getDeveloperName();
+      .get(task.RecordTypeId)
+      .getDeveloperName();
 
     TaskCloudEventBuilder builder = BUILDER_REGISTRY.get(taskRecordType);
 
@@ -85,12 +85,12 @@ private static TaskCloudEventContext buildContext(List<Task> tasks) {
       .AEM_Content_Data__c;
 
     CloudEventModel.UserModel ownerModel = CloudEventModel.getOwnerModel(
-          task.OwnerId,
-          context.owners,
-          QueryQueue.getByIds(new Set<Id> {task.OwnerId})
-        );
+      task.OwnerId,
+      context.owners,
+      QueryQueue.getByIds(new Set<Id>{ task.OwnerId })
+    );
 
-        return builder.build(task, acc, aemData, ownerModel);
+    return builder.build(task, acc, aemData, ownerModel);
   }
 
   private class TaskCloudEventContext {
@@ -104,13 +104,13 @@ private static TaskCloudEventContext buildContext(List<Task> tasks) {
      * @param owners
      */
     public TaskCloudEventContext(
-    Map<Id, Account> accounts,
-    Map<Id, Customer_Task_Data__c> taskData,
-    Map<Id, User> owners
+      Map<Id, Account> accounts,
+      Map<Id, Customer_Task_Data__c> taskData,
+      Map<Id, User> owners
     ) {
-        this.accounts = accounts;
-        this.taskData = taskData;
-        this.owners = owners;
+      this.accounts = accounts;
+      this.taskData = taskData;
+      this.owners = owners;
     }
   }
 }

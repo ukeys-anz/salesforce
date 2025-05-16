@@ -145,7 +145,9 @@ public with sharing class PushToAppController {
         listOfCustomerActions,
         new DmlConfig().systemMode()
       );
-      Id taskWhoId = PUSH_TO_APP_REPOSITORY.queryCustomerContactId(pushToAppTaskData.whatId);
+      Id taskWhoId = PUSH_TO_APP_REPOSITORY.queryCustomerContactId(
+        pushToAppTaskData.whatId
+      );
 
       Task pushToAppTask = preparePushToAppTask(
         pushToAppTaskData,
