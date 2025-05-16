@@ -6,15 +6,15 @@
  */
 @IsTest
 public with sharing class AemApiRepositoryTest {
-  private static final Id FAKER_CASE_ID = Lib_FakeIdGenerator.getMockId(
-    Case.getSObjectType()
-  );
+        private static final Id FAKER_CASE_ID = Lib_FakeIdGenerator.getMockId(
+      Case.getSObjectType()
+    );
 
-  static Lib_MockProvider pushToAppRepoMock;
-  static Lib_MockProvider userMock;
-  static void registerMocks() {
-    pushToAppRepoMock = Lib_MockProvider.forType(PushToAppRepository.class);
-  }
+    static Lib_MockProvider pushToAppRepoMock;
+    static Lib_MockProvider userMock;
+    static void registerMocks() {
+      pushToAppRepoMock = Lib_MockProvider.forType(PushToAppRepository.class);
+    }
 
   @isTest
   static void testGetAemContentDataForNotificationValidResponse() {
@@ -24,12 +24,11 @@ public with sharing class AemApiRepositoryTest {
       'selectedNotificationConfigDetail',
       mockNotificationConfiguration()
     );
-
+  
     HttpCalloutResponse response = new HttpCalloutResponse();
     response.successful = true;
     response.statusCode = 200;
     response.body = AemServiceMock.AEM_CONTENT_DATA_SUCCESS;
-    response.error = new CalloutException('Error');
     Lib_MockProvider.forType(AemService.class)
       .mock('getAemContentData', response);
     Exception ex = null;
@@ -62,8 +61,8 @@ public with sharing class AemApiRepositoryTest {
       .mock('getAemContentData', response);
     Exception ex;
     try {
-      // AemApiRepository aemRepo = new AemApiRepository();
-      AemApiRepository.getAemContentDataForNotification(
+     // AemApiRepository aemRepo = new AemApiRepository();
+     AemApiRepository.getAemContentDataForNotification(
         'get_in_touch_complaint',
         FAKER_CASE_ID
       );
@@ -93,8 +92,8 @@ public with sharing class AemApiRepositoryTest {
       .mock('getAemContentData', response);
     Exception ex;
     try {
-      // AemApiRepository aemRepo = new AemApiRepository();
-      AemApiRepository.getAemContentDataForNotification(
+     // AemApiRepository aemRepo = new AemApiRepository();
+     AemApiRepository.getAemContentDataForNotification(
         'get_in_touch_complaint',
         FAKER_CASE_ID
       );
@@ -124,8 +123,8 @@ public with sharing class AemApiRepositoryTest {
       .mock('getAemContentData', response);
     Exception ex;
     try {
-      // AemApiRepository aemRepo = new AemApiRepository();
-      AemApiRepository.getAemContentDataForNotification(
+     // AemApiRepository aemRepo = new AemApiRepository();
+     AemApiRepository.getAemContentDataForNotification(
         'get_in_touch_complaint',
         FAKER_CASE_ID
       );
@@ -138,32 +137,31 @@ public with sharing class AemApiRepositoryTest {
     );
   }
 
-  private static List<sObject> mockqueryMergeFieldsData() {
-    List<SObject> listofSObject = new List<SObject>();
 
+
+  private static sObject mockqueryMergeFieldsData(){
     Case caseRecord = (Case) TestUtil.setFields(
       new Case(
         Id = FAKER_CASE_ID,
-        AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType)
-      ),
-      new Map<String, Object>{ 'CaseNumber' => '1234567' }
-    );
-    listofSObject.add(caseRecord);
-    return listofSObject;
+        AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType)),
+        new Map<String, Object>{ 'CaseNumber' => '1234567' }
+      );
+    return caseRecord;
+
   }
 
   private static Customer_Task_Configuration__c mockNotificationConfiguration() {
     Customer_Task_Configuration__c testRecordNotificationConfig = new Customer_Task_Configuration__c(
-      AEM_Content_Id__c = 'get_in_touch_complaint',
-      Applicable_Record_Types__c = 'Account Closure',
-      Applicable_User_Role__c = 'Coach',
-      SObject_Type__c = 'Case',
-      Name = 'Get In Touch',
-      Expire_After_Days__c = 12,
-      Id = Lib_FakeIdGenerator.getMockId(
+        AEM_Content_Id__c = 'get_in_touch_complaint',
+        Applicable_Record_Types__c = 'Account Closure',
+        Applicable_User_Role__c = 'Coach',
+        SObject_Type__c = 'Case',
+        Name = 'Get In Touch',
+        Expire_After_Days__c = 12,
+        Id = Lib_FakeIdGenerator.getMockId(
         Customer_Task_Configuration__c.SObjectType
       )
     );
-    return testRecordNotificationConfig;
+     return testRecordNotificationConfig;
   }
 }

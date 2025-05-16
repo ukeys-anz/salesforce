@@ -201,19 +201,15 @@ public with sharing class PushToAppControllerTest {
     return listofNotificConfig;
   }
 
-  private static List<sObject> mockQueryMergeFieldsData() {
-    List<SObject> listofSObject = new List<SObject>();
+  private static sObject mockQueryMergeFieldsData() {
 
     Case caseRecord = (Case) TestUtil.setFields(
       new Case(
         Id = FAKER_CASE_ID,
-        AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType)
-      ),
-      new Map<String, Object>{ 'CaseNumber' => '1234567' }
-    );
-
-    listofSObject.add(caseRecord);
-    return listofSObject;
+        AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType)),
+        new Map<String, Object>{ 'CaseNumber' => '1234567' }
+      );
+    return caseRecord;
   }
 
   private static Customer_Task_Configuration__c mockSelectedNotificationConfigDetail() {
