@@ -2116,6 +2116,26 @@
       "IA-2530743": ["Object_Name__c", "RecordType_Name__c"],
       "IA-2415993": ["Customer_Status__c", "Field_Name__c", "Profile_Name__c"]
     },
+    "Device__x": {
+      "IA-2530753": [
+        "AppCorrelationId__c",
+        "AppVersion__c",
+        "BiometricId__c",
+        "BiometricLastAuthenticationTime__c",
+        "BiometricRegisteredTime__c",
+        "BiometricStatus__c",
+        "CreatedTime__c",
+        "DeviceCorrelationId__c",
+        "LastAuthenticationTime__c",
+        "Make__c",
+        "Model__c",
+        "Name__c",
+        "OSVersion__c",
+        "PersonId__c",
+        "Status__c",
+        "UpdatedTime__c"
+      ]
+    },
     "Drawdown__c": {
       "IA-2530753": [
         "Drawdown_Id__c",
@@ -3536,6 +3556,15 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
+      ]
+    },
+    "Passkey__x": {
+      "IA-2530753": [
+        "AAGUID__c",
+        "CreatedTime__c",
+        "LastAuthenticationTime__c",
+        "Name__c",
+        "PersonId__c"
       ]
     },
     "PriceBook2": {

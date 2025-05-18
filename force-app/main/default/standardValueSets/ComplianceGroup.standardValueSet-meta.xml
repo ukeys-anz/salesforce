@@ -42,6 +42,11 @@
         <label>Privacy - Non-Sensitive Personal Information</label>
     </standardValue>
     <standardValue>
+        <fullName>Source_Aegis</fullName>
+        <default>false</default>
+        <label>Source - Aegis</label>
+    </standardValue>
+    <standardValue>
         <fullName>Source_Azure</fullName>
         <default>false</default>
         <label>Source - Azure</label>

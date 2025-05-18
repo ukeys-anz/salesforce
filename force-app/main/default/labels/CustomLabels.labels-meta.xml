@@ -574,7 +574,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Cards</shortDescription>
-        <value>callout:SF_MS_CH2/list-data/v1/listCards</value>
+        <value>callout:SF_MS_CH2/fabricData/v1/cardDetails</value>
     </labels>
     <labels>
         <fullName>MS_Get_Card_Control_List</fullName>
@@ -1277,7 +1277,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CardsAccountTypeForSorting</shortDescription>
-        <value>Single,Joint</value>
+        <value>Sole,Joint</value>
     </labels>
     <labels>
         <fullName>ML_AdobeLeadExpiryRemainder</fullName>
@@ -1785,7 +1785,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Customer Reference Guide URL</shortDescription>
-        <value>www.google.com</value>
+        <value>https://portal.knowhow.service.anz/C/mBvmhgnTEfCROABQVpUToA?fromMenu=JcZJAwkqEfCROABQVpUToA</value>
     </labels>
     <labels>
         <fullName>CCRM_Customer_Reference_Guide_URL</fullName>
@@ -2302,6 +2302,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>urn:openid:params:grant-type:ciba</value>
     </labels>
     <labels>
+        <fullName>MS_ANZConnect_DisconnectCRN</fullName>
+        <categories>Join;PDI;API</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MMS_ANZConnect_DisconnectCRN</shortDescription>
+        <value>callout:SF_MS_CH2/aegis.service.anzconnect.v1beta1/connectapi</value>
+    </labels>
+    <labels>
         <fullName>MS_AUF_API</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2328,6 +2336,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>MS_GetDeviceWithoutBiometric</shortDescription>
         <value>callout:SF_MS_CH2/aegis-portal/v1/users/{userInternalId}/authenticators/{deviceReferenceId}</value>
+    </labels>
+    <labels>
+        <fullName>MS_PublicKeyCredentials</fullName>
+        <categories>Join;PDI;API</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_PublicKeyCredentials</shortDescription>
+        <value>callout:SF_MS_CH2/aegis-portal/v1/public-key-credentials</value>
     </labels>
     <labels>
         <fullName>MS_SearchCustomer_API</fullName>

@@ -354,6 +354,7 @@ public virtual with sharing class Lib_TriggerHandler {
   protected virtual void handleBeforeUpdate(Map<Id, SObject> oldMap) {
     onBeforeUpdate(oldMap);
     onValidateBefore();
+    onValidateBefore(oldMap);
   }
 
   /**

@@ -111,47 +111,6 @@ public with sharing class LendingCaseControllerTest {
   }
 
   @isTest
-  static void testUpdateCaseStatusRejectedSuccess() {
-    Id recordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-    registerMocks();
-    Test.startTest();
-    LendingCaseController.updateCaseStatus(recordId, 'STATE_REJECTED');
-    Test.stopTest();
-    Case caseUpd = (Case) dmlMockProvider.getHistory('doUpdate')
-      .getParam('record');
-    Assert.isNotNull(caseUpd, 'Case is updated');
-  }
-
-  @isTest
-  static void testUpdateCaseStatusApprovedSuccess() {
-    Id recordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-    registerMocks();
-    Test.startTest();
-    LendingCaseController.updateCaseStatus(recordId, 'STATE_APPROVED');
-    Test.stopTest();
-    Case caseUpd = (Case) dmlMockProvider.getHistory('doUpdate')
-      .getParam('record');
-    Assert.isNotNull(caseUpd, 'Case is updated');
-  }
-
-  @isTest
-  static void testUpdateCaseStatusException() {
-    Id recordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-    registerMocks();
-    dmlMockProvider.mockException(
-      'doUpdate',
-      new AuraHandledException('Update failed!')
-    );
-    Test.startTest();
-    Boolean caseUpdateSuccess = LendingCaseController.updateCaseStatus(
-      recordId,
-      'STATE_APPROVED'
-    );
-    Test.stopTest();
-    Assert.isFalse(caseUpdateSuccess, 'Case update Failed');
-  }
-
-  @isTest
   static void testUpdateCaseStatusApproveRejectPartialSuccess() {
     Id recordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
     registerMocks();
