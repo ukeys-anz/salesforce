@@ -22,9 +22,7 @@ public with sharing class CustomerNudgeTaskAutoArchiveScheduleTest {
     registerMocks();
     dmlRepoMock.mock(
       'doUpdate',
-      getMockSaveResults(
-        '[{"success":true,"id":"' + FAKER_TASK_ID + '"}]'
-      )
+      getMockSaveResults('[{"success":true,"id":"' + FAKER_TASK_ID + '"}]')
     );
     Test.startTest();
     // Dummy call for test coverage
@@ -52,8 +50,8 @@ public with sharing class CustomerNudgeTaskAutoArchiveScheduleTest {
     mockTaskRecords.add(cusNudgeTask);
     return mockTaskRecords;
   }
-    
-     /**
+
+  /**
    * @description This method is used to mock the behavior of a DML update operation that returns multiple SaveResult objects.
    * This is helpful for test cases where multiple records are updated at once
    * @param mockSaveResultString An array of JSON strings, where each string represents a mock SaveResult for each record being updated.
