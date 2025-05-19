@@ -76,7 +76,6 @@
     <permissionSets>Twilio_Detail_Read_Write</permissionSets>
     <permissionSets>Update_Progress_Residential_Loan_Application</permissionSets>
     <permissionSets>Update_Signing_Authority</permissionSets>
-    <permissionSets>UUID_Log_Entry_Read_Write</permissionSets>
     <permissionSets>View_All_Foreign_Key_Names</permissionSets>
     <permissionSets>View_Card_Details</permissionSets>
     <permissionSets>View_CoP_Financial_Account</permissionSets>

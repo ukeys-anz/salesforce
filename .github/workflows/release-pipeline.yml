@@ -15,7 +15,7 @@ permissions:
 jobs:
   Release:
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.3.0"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.4.0"
       options: --user root
       volumes:
         - ${{ github.workspace }}/release:/opt/harness-delegate/release
@@ -155,5 +155,5 @@ jobs:
           component: salesforce
           env: prod
           release-tag-or-sha: ${{ steps.info.outputs.last_tag }}
-          platform-app-versions-token: ${{ secrets.PLAT_APP_VERSIONS_UPDATE_TOKEN }}
+          use-gh-token-vending: true
           app-repo-token: ${{ secrets.GITHUB_TOKEN }}

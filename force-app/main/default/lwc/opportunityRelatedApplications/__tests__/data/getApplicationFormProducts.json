@@ -11,7 +11,8 @@
         "productId": "01t9p000005Z6NpAAK",
         "productName": "ANZ Test Product",
         "productUrl": "/lightning/r/Product/01t9p000005Z6NpAAK/view",
-        "stage": "Solution Development"
+        "stage": "Solution Development",
+        "productAmount": 2000
       },
       {
         "id": "13Z9p000000Af4VEAS",
@@ -20,7 +21,8 @@
         "productId": "01t9p000005Z6NpbAK",
         "productName": "Beta Test Product",
         "productUrl": "/lightning/r/Product/01t9p000005Z6NpbAK/view",
-        "stage": "Design Phase"
+        "stage": "Design Phase",
+        "productAmount": 2000
       },
       {
         "id": "13Z9p000000Af5VEAS",
@@ -29,7 +31,8 @@
         "productId": "01t9p000005Z6NqcAK",
         "productName": "Gamma Test Product",
         "productUrl": "/lightning/r/Product/01t9p000005Z6NqcAK/view",
-        "stage": "Development"
+        "stage": "Development",
+        "productAmount": 500
       },
       {
         "id": "13Z9p000000Af6VEAS",
@@ -38,7 +41,8 @@
         "productId": "01t9p000005Z6NrdAK",
         "productName": "Delta Test Product",
         "productUrl": "/lightning/r/Product/01t9p000005Z6NrdAK/view",
-        "stage": "Implementation"
+        "stage": "Implementation",
+        "productAmount": 500
       }
     ]
   },
@@ -54,7 +58,8 @@
         "productId": "01tOa0000053TQwIAM",
         "productName": "Monthly Interest Account",
         "productUrl": "/lightning/r/Product/01tOa0000053TQwIAM/view",
-        "stage": "Opportunity Identified"
+        "stage": "Opportunity Identified",
+        "productAmount": 6000
       },
       {
         "id": "13Z9p000000AfDCEA0",
@@ -63,7 +68,8 @@
         "productId": "01tOa0000053TQxIAM",
         "productName": "Yearly Interest Account",
         "productUrl": "/lightning/r/Product/01tOa0000053TQxIAM/view",
-        "stage": "Opportunity Identified"
+        "stage": "Opportunity Identified",
+        "productAmount": 6000
       }
     ]
   },
@@ -79,7 +85,8 @@
         "productId": "01tOa0000053TQxIAM",
         "productName": "Term Deposit - Quarterly Interest",
         "productUrl": "/lightning/r/Product/01tOa0000053TQxIAM/view",
-        "stage": "Opportunity Identified"
+        "stage": "Opportunity Identified",
+        "productAmount": 2000
       },
       {
         "id": "13Z9p000000AfEoEAK",
@@ -88,7 +95,8 @@
         "productId": "01tOa0000053TQyIAM",
         "productName": "Term Deposit - Half Yearly Interest",
         "productUrl": "/lightning/r/Product/01tOa0000053TQyIAM/view",
-        "stage": "Opportunity Identified"
+        "stage": "Opportunity Identified",
+        "productAmount": 1000
       }
     ]
   }

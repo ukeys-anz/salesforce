@@ -41,6 +41,12 @@ export default class OpportunityRelatedApplications extends NavigationMixin(
       sortable: true
     },
     {
+      label: "Amount",
+      fieldName: "productAmount",
+      type: "currency",
+      sortable: true
+    },
+    {
       label: "Close Date",
       fieldName: "closeDate",
       type: "date",

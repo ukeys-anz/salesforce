@@ -46,28 +46,6 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>relatedListComponentOverride</name>
-                    <value>NONE</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>rowsToDisplay</name>
-                    <value>10</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showActionBar</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentName>force:relatedListContainer</componentName>
-                <identifier>force_relatedListContainer</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-85b144b9-65af-42e4-a7a4-bf95e2839b11</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
@@ -95,6 +73,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Asset_Name__c</fieldItem>
                 <identifier>RecordAsset_Name_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.ApplicationForm.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>AMBIT</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -149,6 +134,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Term__c</fieldItem>
                 <identifier>RecordTerm__cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.ApplicationForm.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>AMBIT</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -159,6 +151,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Interest_Rate__c</fieldItem>
                 <identifier>RecordInterest_Rate__cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.ApplicationForm.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>AMBIT</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-552c77ad-9720-4b6c-b5d0-c80556e93ce0</name>
@@ -408,21 +407,25 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>active</name>
-                    <value>false</value>
+                    <name>relatedListComponentOverride</name>
+                    <value>NONE</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-85b144b9-65af-42e4-a7a4-bf95e2839b11</value>
+                    <name>rowsToDisplay</name>
+                    <value>10</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Standard.Tab.relatedLists</value>
+                    <name>showActionBar</name>
+                    <value>true</value>
                 </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-                <identifier>flexipage_tab</identifier>
+                <componentName>force:relatedListContainer</componentName>
+                <identifier>force_relatedListContainer</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-85b144b9-65af-42e4-a7a4-bf95e2839b11</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -439,6 +442,24 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>active</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-85b144b9-65af-42e4-a7a4-bf95e2839b11</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Standard.Tab.relatedLists</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-36759343-ec34-4156-af8d-1d5184fd6196</name>

@@ -167,17 +167,17 @@ public with sharing class TFMAUFControllerTest {
       'options' => new Map<String, Object>()
     };
     Test.startTest();
-    Object isInvoked = controller.call('archiveUser', args);
+    Object isInvoked = controller.call('checkAccountsOpen', args);
     Test.stopTest();
 
-    Boolean isAnyAccountNotClosed = (Boolean) output.get(
-      'isAnyAccountNotClosed'
+    Boolean isAnyAccountOpen = (Boolean) output.get(
+      'isAnyAccountOpen'
     );
 
     Assert.areEqual(true, isInvoked, 'Method not invoked.');
     Assert.areEqual(
       true,
-      isAnyAccountNotClosed,
+      isAnyAccountOpen,
       'One of the accounts is open or active'
     );
   }

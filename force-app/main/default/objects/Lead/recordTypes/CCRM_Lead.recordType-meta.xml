@@ -185,6 +185,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Purchasing Property</fullName>
             <default>false</default>
         </values>
@@ -2760,6 +2764,10 @@
         <picklist>Secondary_Customer_Needs__c</picklist>
         <values>
             <fullName>Assist with Business Working Capital%2FTemporary Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
             <default>false</default>
         </values>
         <values>

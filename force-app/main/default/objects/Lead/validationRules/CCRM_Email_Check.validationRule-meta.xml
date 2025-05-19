@@ -7,7 +7,7 @@
     $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
     RecordType.DeveloperName = &apos;CCRM_Lead&apos;,
     NOT ISBLANK( Email ) ,
-    NOT REGEX( Email , &quot;^[a-zA-Z0-9.&apos;+-]{2,}@[a-zA-Z0-9.-]{2,}.[a-zA-Z]{2,}$&quot; ),
+    NOT REGEX( Email ,  $Label.Regex_Email ),
     NOT(ISCHANGED(Skip_Validations__c)),
     NOT(OR(
         Skip_Validations__c = &apos;SkipValidation&apos;,

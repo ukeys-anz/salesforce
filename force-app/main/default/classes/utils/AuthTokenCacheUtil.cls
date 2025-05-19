@@ -265,7 +265,7 @@ public with sharing class AuthTokenCacheUtil {
         'Unable to query Foregerock - permission denied'
       );
     }
-    Forgerock_Auth__mdt forgeAuth = Forgerock_Auth__mdt.getInstance(
+    Forgerock_Auth__mdt forgeAuth = QueryForgeRockAuth.getByDevName(
       staffModelWrapper.apiScopesRequested
     );
 
