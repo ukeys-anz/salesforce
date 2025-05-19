@@ -30,6 +30,7 @@ NOT(CONTAINS( $User.Username,$Label.AdobeIntegrationUserName)),
         AND(RecordType.DeveloperName = &apos;MLCRM_Lead&apos;,Text(Status) != &apos;Expired&apos;, OR(ISNEW(),ISCHANGED(Work_Phone__c)) )
     ),
     NOT ISBLANK(Work_Phone__c) ,
+    NOT(ISCHANGED(RecordTypeId)),
     NOT REGEX(Work_Phone__c , &quot;^\\+61[0-9]{9}+$&quot; )
 )</errorConditionFormula>
     <errorDisplayField>Work_Phone__c</errorDisplayField>

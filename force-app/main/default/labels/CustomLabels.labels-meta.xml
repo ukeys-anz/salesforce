@@ -1509,7 +1509,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CCRM_CustomerNeedsError</shortDescription>
-        <value>Customer Needs - Please select a product category from Customer Needs field.</value>
+        <value>Please select Customer Needs.</value>
     </labels>
     <labels>
         <fullName>MLCRM_DefaultCampaign</fullName>
