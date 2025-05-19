@@ -6,8 +6,8 @@
 public with sharing class QueryQueue {
   public static final String GROUP_TYPE_QUEUE = 'Queue';
 
-  private static Map<String, Group> queues = new Map<String, Group>();
-  private static Map<Id, Group> mapOfGroupIdAndGroupDetails = new Map<Id, Group>();
+  private static Map<String, Group> queuesByDeveloperName = new Map<String, Group>();
+  private static Map<Id, Group> queuesById = new Map<Id, Group>();
   static {
     for (Group g : [
       SELECT Id, Name, Type, DeveloperName, Email
@@ -15,8 +15,8 @@ public with sharing class QueryQueue {
       WHERE Type = :GROUP_TYPE_QUEUE
       WITH USER_MODE
     ]) {
-      queues.put(g.DeveloperName, g);
-      mapOfGroupIdAndGroupDetails.put(g.Id, g);
+      queuesByDeveloperName.put(g.DeveloperName, g);
+      queuesById.put(g.Id, g);
     }
   }
 
@@ -36,7 +36,7 @@ public with sharing class QueryQueue {
    * @return The Group object associated with the provided name.
    */
   public static Group get(String name) {
-    return queues.get(name);
+    return queuesByDeveloperName.get(name);
   }
 
   /**
@@ -47,8 +47,8 @@ public with sharing class QueryQueue {
   public static Map<String, Group> get(Iterable<String> names) {
     Map<String, Group> mapQueues = new Map<String, Group>();
     for (String name : names) {
-      if (queues.containsKey(name)) {
-        mapQueues.put(name, queues.get(name));
+      if (queuesByDeveloperName.containsKey(name)) {
+        mapQueues.put(name, queuesByDeveloperName.get(name));
       }
     }
     return mapQueues;
@@ -59,13 +59,13 @@ public with sharing class QueryQueue {
    * @param queueIds A set of OwnerIds of task , case etc
    * @return A map of Group Id and Group details
    */
-  public static Map<Id, Group> get(Set<Id> queueIds) {
-    Map<Id, Group> groupInfoMap = new Map<Id, Group>();
+  public static Map<Id, Group> getByIds(Set<Id> queueIds) {
+    Map<Id, Group> mapQueues = new Map<Id, Group>();
     for (String queueId : queueIds) {
-      if (mapOfGroupIdAndGroupDetails.containsKey(queueId)) {
-        groupInfoMap.put(queueId, mapOfGroupIdAndGroupDetails.get(queueId));
+      if (queuesById.containsKey(queueId)) {
+        mapQueues.put(queueId, queuesById.get(queueId));
       }
     }
-    return groupInfoMap;
+    return mapQueues;
   }
 }

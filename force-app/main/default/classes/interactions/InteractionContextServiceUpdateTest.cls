@@ -59,11 +59,6 @@ public with sharing class InteractionContextServiceUpdateTest {
       )
       .getParam('record');
 
-    Assert.isNotNull(
-      dmlRepoMock.getHistory('doUpdate'),
-      'doUpdate should have been invoked'
-    );
-
     Assert.isTrue(
       interactionUpdated.Status__c == 'Active',
       'Interaction Should be updated Active status value'
@@ -158,11 +153,6 @@ public with sharing class InteractionContextServiceUpdateTest {
         'doUpdate'
       )
       .getParam('record');
-
-    Assert.isNotNull(
-      dmlRepoMock.getHistory('doUpdate'),
-      'doUpdate should have been invoked'
-    );
 
     Assert.isTrue(
       interactionUpdated.OwnerId == agentUserId,

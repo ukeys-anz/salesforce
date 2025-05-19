@@ -14,6 +14,10 @@ public with sharing class PushToAppController {
     DmlRepository.class
   );
 
+  private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
+
   private static final Map<String, String> TASK_TYPE = new Map<String, String>{
     'ACTIVITY_TYPE_PUSH_TO_APP' => 'Push to App'
   };
@@ -39,11 +43,13 @@ public with sharing class PushToAppController {
         recordTypeId
       );
     } catch (Exception objException) {
-      throw CommonUtil.logExceptionWithMessage(
+      Logger.error(
         'Error fetching Push-to-App Customer Nudge Template details for record id ' +
-        recordId,
-        objException
+          recordId +
+          'with message: ' +
+          objException.getMessage()
       );
+      throw objException;
     }
   }
 
@@ -97,7 +103,7 @@ public with sharing class PushToAppController {
     Customer_Task_Configuration__c config = PUSH_TO_APP_REPOSITORY.selectedNotificationConfigDetail(
       item.id
     );
-    Integer expireAfterDays = config?.Expire_After_Days__c != null
+    Integer expireAfterDays = config.Expire_After_Days__c != null
       ? Integer.valueOf(config.Expire_After_Days__c)
       : 0;
 
@@ -121,13 +127,14 @@ public with sharing class PushToAppController {
   ) {
     try {
       //Insert Customer Task Data in System Mode because no read access given to AEM_Content_Data__c field in the system
-      Database.SaveResult notifDataResult = DML_REPOSITORY.doInsert(
-        new Customer_Task_Data__c(
-          AEM_Content_Data__c = customerTaskData.aemContentData
-        ),
-        new DmlConfig().systemMode()
+      Customer_Task_Data__c custTaskRecord = new Customer_Task_Data__c(
+        AEM_Content_Data__c = customerTaskData.aemContentData
       );
-      Id insertedCustomerTaskDataId = notifDataResult.getId();
+
+      DML_REPOSITORY.doInsert(custTaskRecord, new DMLConfig().systemMode());
+
+      Id insertedCustomerTaskDataId = custTaskRecord.Id;
+
       List<Customer_Action__c> listOfCustomerActions = prepareCustomerActions(
         customerTaskData.aemContentObject,
         insertedCustomerTaskDataId
@@ -138,41 +145,31 @@ public with sharing class PushToAppController {
         listOfCustomerActions,
         new DmlConfig().systemMode()
       );
+      Id taskWhoId = PUSH_TO_APP_REPOSITORY.queryCustomerContactId(
+        pushToAppTaskData.whatId
+      );
 
       Task pushToAppTask = preparePushToAppTask(
         pushToAppTaskData,
-        insertedCustomerTaskDataId
+        insertedCustomerTaskDataId,
+        taskWhoId
       );
 
       //Insert Task in System Mode because no edit access to be given to the fields in the system related to PushToApp
-      Database.SaveResult taskSaveResult = DML_REPOSITORY.doInsert(
-        pushToAppTask,
-        new DmlConfig().systemMode()
-      );
+      DML_REPOSITORY.doInsert(pushToAppTask, new DmlConfig().systemMode());
+
       Task taskRecord = PUSH_TO_APP_REPOSITORY.queryTaskDetails(
-        taskSaveResult.getId()
-      );
-
-      //Updating AEM Content To Include Task PubSubEventId in the deep link of the content
-      enrichAemContentData(
-        customerTaskData.aemContentObject,
-        taskRecord.Pub_Sub_Event_Id__c
-      );
-
-      DML_REPOSITORY.doUpdate(
-        new Customer_Task_Data__c(
-          Id = insertedCustomerTaskDataId,
-          AEM_Content_Data__c = customerTaskData.enrichedAemContentData()
-        ),
-        new DmlConfig().systemMode()
+        pushToAppTask.Id
       );
 
       return taskRecord;
     } catch (Exception objException) {
-      throw CommonUtil.logExceptionWithMessage(
-        'Push To App Task and Related Records Creation Failed : ',
-        objException
-      );
+      Logger.error(
+          'Push To App Task and Related Records Creation Failed : ' +
+          objException.getMessage()
+        )
+        .save();
+      throw objException;
     }
   }
 
@@ -206,11 +203,13 @@ public with sharing class PushToAppController {
    * @description This method is used to create Notification Data Instance
    * @param taskData Task data to be utilized to create Customer Nudge Task
    * @param notifDataId notificationData record Id created when click on send now to link the task
+   * @param taskWhoId whoid to be linked to the push to app task
    * @return Task Customer Nudge Task record instance to be created
    */
   private static Task preparePushToAppTask(
     PushToAppTaskWrapper taskData,
-    Id notifDataId
+    Id notifDataId,
+    Id taskWhoId
   ) {
     return new Task(
       Subject = taskData.subject +
@@ -218,34 +217,14 @@ public with sharing class PushToAppController {
         TASK_TYPE.get('ACTIVITY_TYPE_PUSH_TO_APP'),
       Type = 'ACTIVITY_TYPE_PUSH_TO_APP',
       WhatId = taskData.whatId,
-      WhoId = PUSH_TO_APP_REPOSITORY.queryCustomerContactId(taskData.whatId),
+      WhoId = taskWhoId,
       ActivityDate = Date.parse(taskData.activityDate),
       Pub_Sub_Event_Id__c = CommonUtil.generateUUID(),
       Customer_Task_Configuration__c = taskData.notificationConfigId,
       Description = taskData.description,
       Customer_Task_Data__c = notifDataId,
       RecordTypeId = RTTask.customerNudge,
-      OwnerId = UserInfo.getUserId()
+      OwnerId = USER_INFO.getUser().Id
     );
-  }
-
-  /**
-   * @description This method is used to update the deeplink of the AEM Content with Task PubSubEventId
-   * @param aemContenData Customer Task Data content
-   * @param taskPubSubEventId pubSubEventId of the Task record created
-   */
-  private static void enrichAemContentData(
-    CustomerActionWrapper aemContenData,
-    String taskPubSubEventId
-  ) {
-    aemContenData.action_uri =
-      System.Label.Push_Task_To_App_Deeplink + taskPubSubEventId;
-    for (CustomerActionWrapper.Step step : aemContenData.steps) {
-      if (step.actions != null) {
-        for (CustomerActionWrapper.Action action : step.actions) {
-          action.deepLink = action.deepLink + '/' + taskPubSubEventId;
-        }
-      }
-    }
   }
 }

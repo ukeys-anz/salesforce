@@ -118,17 +118,14 @@ public with sharing class InteractionRepository {
    * @param ocvIdFromTwilio ocvid received from Twilio
    * @return Account record existing
    */
-  public List<Account> fetchExistingAccountByOCVId(String ocvIdFromTwilio) {
-    if (String.isBlank(ocvIdFromTwilio)) {
-      return new List<Account>();
-    }
+  public Account fetchExistingAccountByOCVId(String ocvIdFromTwilio) {
     return [
       SELECT Id, OCV_ID__c, PPID__c
       FROM Account
       WHERE OCV_ID__c = :ocvIdFromTwilio AND ANZx_Customer__c = TRUE
       WITH USER_MODE
       LIMIT 1
-    ];
+    ] ?? null;
   }
 
   /**
@@ -137,9 +134,6 @@ public with sharing class InteractionRepository {
    * @return Interaction record details
    */
   public Interaction getInteractionDetails(Id interactionId) {
-    if (String.isBlank(interactionId)) {
-      return null;
-    }
     return [
       SELECT Id, Interaction_External_Id__c, TwilioDetailsID__c, CaseId__c
       FROM Interaction
@@ -154,17 +148,13 @@ public with sharing class InteractionRepository {
    * @param pubSubEventId pubSubEventId received from Twilio
    * @return Task record details
    */
-  public List<Task> queryPushToAppTaskDetails(String pubSubEventId) {
-    if(String.isBlank(pubSubEventId))
-    {
-       return new List<Task>();
-    }
-
+  public Task queryPushToAppTaskDetails(String pubSubEventId) {
     return [
       SELECT Id, Pub_Sub_Event_Id__c, WhatId
       FROM Task
       WHERE Pub_Sub_Event_Id__c = :pubSubEventId
       WITH USER_MODE
-    ];
+      LIMIT 1
+    ] ?? null;
   }
 }

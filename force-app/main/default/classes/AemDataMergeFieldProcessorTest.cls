@@ -34,9 +34,7 @@ public with sharing class AemDataMergeFieldProcessorTest {
     );
   }
 
-  private static List<sObject> mockqueryMergeFieldsData() {
-    List<SObject> listofSObject = new List<SObject>();
-
+  private static SObject mockqueryMergeFieldsData() {
     Case caseRecord = (Case) TestUtil.setFields(
       new Case(
         Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
@@ -44,8 +42,6 @@ public with sharing class AemDataMergeFieldProcessorTest {
       ),
       new Map<String, Object>{ 'CaseNumber' => '1234567' }
     );
-
-    listofSObject.add(caseRecord);
-    return listofSObject;
+    return caseRecord;
   }
 }

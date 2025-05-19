@@ -14,24 +14,24 @@ public with sharing class PushToAppRepository {
     Id recordId,
     Id recordTypeId
   ) {
-    if(String.isBlank(recordId) || String.isBlank(recordTypeId)){
-      return new List<Customer_Task_Configuration__c>();
-    }
     Id userRoleId = UserInfo.getUserRoleId();
+    String recordTypeDeveloperName = QueryRT.of(recordId.getSObjectType())
+    .get(recordTypeId)
+    .getDeveloperName();
+    String userRoleDeveloperName = QueryRole.getById(userRoleId).DeveloperName;
+    String sobjectName = recordId.getSObjectType().toString();
     // Query Notification Configuration using the fetched role and record type name
     return [
       SELECT Id, AEM_Content_Id__c, Name
       FROM Customer_Task_Configuration__c
       WHERE
         Applicable_User_Role__c INCLUDES (
-          :QueryRole.get(userRoleId).DeveloperName
+          :userRoleDeveloperName
         )
         AND Applicable_Record_Types__c INCLUDES (
-          :QueryRT.of(recordId.getSObjectType())
-            .get(recordTypeId)
-            .getDeveloperName()
+          :recordTypeDeveloperName
         )
-        AND SObject_Type__c = :recordId.getSObjectType().toString()
+        AND SObject_Type__c = :sobjectName
       WITH USER_MODE
     ];
   }
@@ -44,9 +44,6 @@ public with sharing class PushToAppRepository {
   public Customer_Task_Configuration__c selectedNotificationConfigDetail(
     String templateName
   ) {
-    if (String.isBlank(templateName)) {
-      return null;
-    }
     return [
       SELECT Id, Name, Expire_After_Days__c
       FROM Customer_Task_Configuration__c
@@ -62,9 +59,6 @@ public with sharing class PushToAppRepository {
    * @return PersonContactId if exist.
    */
   public Id queryCustomerContactId(Id taskWhatId) {
-    if (String.isBlank(taskWhatId)) {
-      return null;
-    }
     String sObjectName = taskWhatId.getSObjectType().toString();
     String sObjectRecordTypeQuery =
       'SELECT Account.PersonContactId FROM ' +
@@ -80,9 +74,6 @@ public with sharing class PushToAppRepository {
    * @return Task record details
    */
   public Task queryTaskDetails(Id taskId) {
-    if (taskId == null) {
-      return null;
-    }
     return [
       SELECT
         Id,
@@ -112,12 +103,12 @@ public with sharing class PushToAppRepository {
    * @param recordId The Id of the record for which notification needs to send.
    * @return List of field values retrieved from database
    */
-  public List<SObject> queryMergeFieldsData(
+  public SObject queryMergeFieldsData(
     Set<String> fieldsToQuery,
     Id recordId
   ) {
-    if (fieldsToQuery.isEmpty() || String.isBlank(recordId)) {
-      return new List<SObject>();
+    if (fieldsToQuery.isEmpty()) {
+      return null;
     }
 
     String sObjectName = recordId.getSObjectType().toString();
@@ -127,8 +118,8 @@ public with sharing class PushToAppRepository {
         allFields +
         ' FROM ' +
         sObjectName +
-        ' WHERE Id = :recordId WITH USER_MODE'
-    );
+        ' WHERE Id = :recordId WITH USER_MODE LIMIT 1'
+    ) ?? null;
   }
 
   /**

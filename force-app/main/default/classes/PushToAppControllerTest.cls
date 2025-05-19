@@ -113,7 +113,7 @@ public with sharing class PushToAppControllerTest {
 
     dmlRepoMock.mock(
       'doUpsert',
-      TestUtil.getMockUpsertResults(
+      getMockUpsertResults(
         '[{"success":true,"id":"' + CUSTOMER_ACTION_MOCK_DATA + '"}]'
       )
     );
@@ -201,9 +201,7 @@ public with sharing class PushToAppControllerTest {
     return listofNotificConfig;
   }
 
-  private static List<sObject> mockQueryMergeFieldsData() {
-    List<SObject> listofSObject = new List<SObject>();
-
+  private static sObject mockQueryMergeFieldsData() {
     Case caseRecord = (Case) TestUtil.setFields(
       new Case(
         Id = FAKER_CASE_ID,
@@ -211,9 +209,7 @@ public with sharing class PushToAppControllerTest {
       ),
       new Map<String, Object>{ 'CaseNumber' => '1234567' }
     );
-
-    listofSObject.add(caseRecord);
-    return listofSObject;
+    return caseRecord;
   }
 
   private static Customer_Task_Configuration__c mockSelectedNotificationConfigDetail() {
@@ -227,5 +223,20 @@ public with sharing class PushToAppControllerTest {
       Id = FAKER_NOTIFICATION_CONFIG_ID
     );
     return testNotificConfig;
+  }
+
+  /**
+   * @description This method is used to mock the behavior of a DML insert operation that returns multiple UpsertResult objects.
+   * This is helpful for test cases where multiple records are inserted at once
+   * @param mockUpsertResultString An array of JSON strings, where each string represents a mock UpsertResult for each record being inserted.
+   * @return List<Database.UpsertResult> objects corresponding to the mock JSON strings.
+   */
+  private static List<Database.UpsertResult> getMockUpsertResults(
+    String mockUpsertResultString
+  ) {
+    return (List<Database.UpsertResult>) JSON.deserialize(
+      mockUpsertResultString,
+      List<Database.UpsertResult>.class
+    );
   }
 }

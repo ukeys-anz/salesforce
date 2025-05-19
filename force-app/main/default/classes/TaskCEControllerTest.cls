@@ -32,12 +32,16 @@ public with sharing class TaskCEControllerTest {
     pushToAppRepoMock.mock('queryTaskRecords', mockTaskRecordsList('New'));
 
     Test.startTest();
-    List<CloudEventModel> taskCloudEvent = TaskCEController.generateCloudEventModel(
+    TaskCEController.TaskCloudEventContexT taskCEContext = TaskCEController.buildContext(
       mockTaskRecordsList('New')
+    );
+    CloudEventModel taskCloudEvent = TaskCEController.buildCloudEvent(
+      mockTaskRecord('New'),
+      taskCEContext
     );
     Test.stopTest();
 
-    CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel dataModel = (CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel) taskCloudEvent[0]
+    CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel dataModel = (CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel) taskCloudEvent
       .ce_data;
     Assert.isNotNull(
       dataModel.notification,
@@ -45,7 +49,7 @@ public with sharing class TaskCEControllerTest {
     );
     Assert.areEqual(
       System.Label.ANZX_Customer_Nudge_event_ce_type + 'created',
-      taskCloudEvent[0].ce_type,
+      taskCloudEvent.ce_type,
       'ce_type is set correctly.'
     );
   }
@@ -66,17 +70,21 @@ public with sharing class TaskCEControllerTest {
     );
 
     Test.startTest();
-    List<CloudEventModel> taskCloudEvent = TaskCEController.generateCloudEventModel(
+    TaskCEController.TaskCloudEventContexT taskCEContext = TaskCEController.buildContext(
       mockTaskRecordsList('ACTIVITY_STATE_SENT')
+    );
+    CloudEventModel taskCloudEvent = TaskCEController.buildCloudEvent(
+      mockTaskRecord('ACTIVITY_STATE_SENT'),
+      taskCEContext
     );
     Test.stopTest();
 
-    CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel dataModel = (CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel) taskCloudEvent[0]
+    CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel dataModel = (CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel) taskCloudEvent
       .ce_data;
     Assert.isNull(dataModel.notification, 'Notification node is null');
     Assert.areEqual(
       System.Label.ANZX_Customer_Nudge_event_ce_type + 'updated',
-      taskCloudEvent[0].ce_type,
+      taskCloudEvent.ce_type,
       'ce_type is set correctly.'
     );
   }

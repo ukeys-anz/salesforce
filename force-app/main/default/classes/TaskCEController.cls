@@ -8,82 +8,112 @@ public without sharing class TaskCEController {
     PushToAppRepository.class
   );
 
-  /**
-   * @description method to be called to publish cloud event for Task records
-   * @param theTasks list of Task records
-   */
-  public static void publishCloudEvents(List<Task> theTasks) {
-    if (theTasks.isEmpty()) {
-      return;
+  private static final Map<String, TaskCloudEventBuilder> BUILDER_REGISTRY = new Map<String, TaskCloudEventBuilder>();
+
+  static {
+    registerBuilder(new CustomerNudgeTaskCEBuilder());
+    //Add any future record type builders here specific for the task record type
+  }
+
+  private static void registerBuilder(TaskCloudEventBuilder builder) {
+    for (String recordType : builder.getSupportedRecordType()) {
+      BUILDER_REGISTRY.put(recordType, builder);
     }
-    List<CloudEventModel> cloudEventModels = generateCloudEventModel(theTasks);
-    CloudEventController.publishCloudEvents(cloudEventModels);
   }
 
   /**
-   * @description generate Cloud Event Models for Task
-   * @param taskRecords Task records
-   * @return List<CloudEventModel> List of Task Cloud Event Model
+   * @description method to be called to publish cloud event for Task records
+   * @param inputTasks list of Task records
    */
-  public static List<CloudEventModel> generateCloudEventModel(
-    List<Task> taskRecords
+  public static void publishCloudEvents(List<Task> inputTasks) {
+    if (inputTasks.isEmpty()) {
+      return;
+    }
+
+    Set<Id> taskIds = ListUtil.getIds(inputTasks, Task.Id);
+
+    List<Task> enrichedTasks = PUSH_TO_APP_REPOSITORY.queryTaskRecords(taskIds);
+
+    TaskCloudEventContext context = buildContext(inputTasks);
+
+    List<CloudEventModel> cloudEventModels = new List<CloudEventModel>();
+
+    for (Task task : enrichedTasks) {
+      cloudEventModels.add(buildCloudEvent(task, context));
+    }
+
+    CloudEventController.publishCloudEvents(cloudEventModels);
+  }
+
+  @TestVisible
+  private static TaskCloudEventContext buildContext(List<Task> tasks) {
+    Set<Id> accountIds = ListUtil.getIds(tasks, Task.AccountId);
+    Set<Id> customerTaskDataIds = ListUtil.getIds(
+      tasks,
+      Task.Customer_Task_Data__c
+    );
+    Set<Id> ownerIds = ListUtil.getIds(tasks, Task.OwnerId);
+
+    Map<Id, Account> accountIdToAccountInfoMap = new Map<Id, Account>(
+      PUSH_TO_APP_REPOSITORY.queryAccountDetails(accountIds)
+    );
+    Map<Id, Customer_Task_Data__c> customTaskDataIdAndInfoMap = new Map<Id, Customer_Task_Data__c>(
+      PUSH_TO_APP_REPOSITORY.queryCustomerTaskDataDetails(customerTaskDataIds)
+    );
+    Map<Id, User> ownerUsers = new Map<Id, User>(
+      PUSH_TO_APP_REPOSITORY.getUsers(ownerIds)
+    );
+
+    return new TaskCloudEventContext(
+      accountIdToAccountInfoMap,
+      customTaskDataIdAndInfoMap,
+      ownerUsers
+    );
+  }
+
+  @TestVisible
+  private static CloudEventModel buildCloudEvent(
+    Task task,
+    TaskCloudEventContext context
   ) {
-    try {
-      List<CloudEventModel> cloudEventModels = new List<CloudEventModel>();
+    String taskRecordType = QueryRT.of(Schema.Task.SObjectType)
+      .get(task.RecordTypeId)
+      .getDeveloperName();
 
-      Set<Id> accountIds = ListUtil.getIds(taskRecords, Task.AccountId);
-      Set<Id> customerTaskDataIds = ListUtil.getIds(
-        taskRecords,
-        Task.Customer_Task_Data__c
-      );
-      Set<Id> taskIds = ListUtil.getIds(taskRecords, Task.Id);
-      Set<Id> ownerIds = ListUtil.getIds(taskRecords, Task.OwnerId);
+    TaskCloudEventBuilder builder = BUILDER_REGISTRY.get(taskRecordType);
 
-      List<Task> taskRecordsWithUpdatedValues = PUSH_TO_APP_REPOSITORY.queryTaskRecords(
-        taskIds
-      );
-      Map<Id, Account> accountIdToAccountInfoMap = new Map<Id, Account>(
-        PUSH_TO_APP_REPOSITORY.queryAccountDetails(accountIds)
-      );
-      Map<Id, Customer_Task_Data__c> customTaskDataIdAndInfoMap = new Map<Id, Customer_Task_Data__c>(
-        PUSH_TO_APP_REPOSITORY.queryCustomerTaskDataDetails(customerTaskDataIds)
-      );
-      Map<Id, User> ownerUsers = new Map<Id, User>(
-        PUSH_TO_APP_REPOSITORY.getUsers(ownerIds)
-      );
+    Account acc = context.accounts.get(task.AccountId);
+    String aemData = context.taskData.get(task.Customer_Task_Data__c)
+      .AEM_Content_Data__c;
 
-      for (Task taskRec : taskRecordsWithUpdatedValues) {
-        Account theAccount = accountIdToAccountInfoMap.containsKey(
-            taskRec.AccountId
-          )
-          ? accountIdToAccountInfoMap.get(taskRec.AccountId)
-          : null;
-        String aemContentData = customTaskDataIdAndInfoMap.containsKey(
-            taskRec.Customer_Task_Data__c
-          )
-          ? customTaskDataIdAndInfoMap.get(taskRec.Customer_Task_Data__c)
-              .AEM_Content_Data__c
-          : null;
-        CloudEventModel.UserModel theOwner = CloudEventModel.getOwnerModel(
-          taskRec.OwnerId,
-          ownerUsers,
-          QueryQueue.get(ownerIds)
-        );
-        cloudEventModels.add(
-          TaskCloudEventBuildHelper.createCloudEvent(
-            taskRec,
-            theAccount,
-            aemContentData,
-            theOwner
-          )
-        );
-      }
-      return cloudEventModels;
-    } catch (Exception objException) {
-      throw CommonUtil.logExceptionWithMessage(
-        'Cloud Event Model Creation for Task record failed ',
-        objException
-      );
+    CloudEventModel.UserModel ownerModel = CloudEventModel.getOwnerModel(
+      task.OwnerId,
+      context.owners,
+      QueryQueue.getByIds(new Set<Id>{ task.OwnerId })
+    );
+
+    return builder.build(task, acc, aemData, ownerModel);
+  }
+
+  @TestVisible
+  private class TaskCloudEventContext {
+    public Map<Id, Account> accounts;
+    public Map<Id, Customer_Task_Data__c> taskData;
+    public Map<Id, User> owners;
+    /**
+     * @description parametetrized constructor to have all the data
+     * @param accounts
+     * @param taskData
+     * @param owners
+     */
+    public TaskCloudEventContext(
+      Map<Id, Account> accounts,
+      Map<Id, Customer_Task_Data__c> taskData,
+      Map<Id, User> owners
+    ) {
+      this.accounts = accounts;
+      this.taskData = taskData;
+      this.owners = owners;
     }
   }
 }

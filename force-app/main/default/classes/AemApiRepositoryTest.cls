@@ -29,7 +29,6 @@ public with sharing class AemApiRepositoryTest {
     response.successful = true;
     response.statusCode = 200;
     response.body = AemServiceMock.AEM_CONTENT_DATA_SUCCESS;
-    response.error = new CalloutException('Error');
     Lib_MockProvider.forType(AemService.class)
       .mock('getAemContentData', response);
     Exception ex = null;
@@ -138,9 +137,7 @@ public with sharing class AemApiRepositoryTest {
     );
   }
 
-  private static List<sObject> mockqueryMergeFieldsData() {
-    List<SObject> listofSObject = new List<SObject>();
-
+  private static sObject mockqueryMergeFieldsData() {
     Case caseRecord = (Case) TestUtil.setFields(
       new Case(
         Id = FAKER_CASE_ID,
@@ -148,8 +145,7 @@ public with sharing class AemApiRepositoryTest {
       ),
       new Map<String, Object>{ 'CaseNumber' => '1234567' }
     );
-    listofSObject.add(caseRecord);
-    return listofSObject;
+    return caseRecord;
   }
 
   private static Customer_Task_Configuration__c mockNotificationConfiguration() {
