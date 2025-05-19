@@ -135,7 +135,7 @@ public with sharing class TrustMeDocumentDetailsHelper {
         Datetime.now() +
         ' UserId ' +
         UserInfo.getUserId() +
-        ' viewed DAON documents on ' +
+        ' viewed TrustMe documents on ' +
         requestModel.relatedId +
         ' Record - ' +
         caseNumber +

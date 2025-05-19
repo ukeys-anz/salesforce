@@ -3,7 +3,6 @@
  * @author            : Anuj Jain
  * @group             :
  * @last modified on  : 04-29-2025
- * @last modified by  : Anuj Jain
  **/
 @SuppressWarnings('PMD.TooManyFields')
 public with sharing class TrustMeDocumentDetailsModel extends CalloutModel {
@@ -138,7 +137,6 @@ public with sharing class TrustMeDocumentDetailsModel extends CalloutModel {
     public String ocrExpireDate;
     @AuraEnabled
     public String documentIssueState;
-    
   }
 
   /**
@@ -161,7 +159,6 @@ public with sharing class TrustMeDocumentDetailsModel extends CalloutModel {
     public String sequenceNumber;
     @AuraEnabled
     public String colour;
-
   }
 
   /**
@@ -184,6 +181,8 @@ public with sharing class TrustMeDocumentDetailsModel extends CalloutModel {
   public class AddressDetails {
     @AuraEnabled
     public String addressType;
+    @AuraEnabled
+    public String addressTypeDescription;
     @AuraEnabled
     public String buildingName;
     @AuraEnabled

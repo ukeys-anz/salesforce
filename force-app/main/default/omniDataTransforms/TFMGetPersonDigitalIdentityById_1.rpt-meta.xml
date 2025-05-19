@@ -7,6 +7,7 @@
     <errorIgnored>false</errorIgnored>
     <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
     <inputType>JSON</inputType>
+    <isManagedUsingStdDesigner>false</isManagedUsingStdDesigner>
     <name>TFMGetPersonDigitalIdentityById</name>
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
     <omniDataTransformItem>
@@ -82,9 +83,24 @@
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>d9e9deaf-c0bd-471a-ac92-15168bec1dbc</globalKey>
+        <inputFieldName>DigitalIdentity:IAL_Identity_Assurance_Level__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMGetPersonDigitalIdentityById</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>ialValue</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
     <outputType>JSON</outputType>
     <previewJsonData>{
-  &quot;recordId&quot; : &quot;x0VBm000003IDGPMA4&quot;
+  &quot;recordId&quot; : &quot;x0VBm000004jV2FMAU&quot;
 }</previewJsonData>
     <processSuperBulk>false</processSuperBulk>
     <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>

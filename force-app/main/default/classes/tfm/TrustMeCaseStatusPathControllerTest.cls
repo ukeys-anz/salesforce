@@ -35,7 +35,6 @@ public with sharing class TrustMeCaseStatusPathControllerTest {
   }
   @isTest
   static void testUpdateStatus() {
-    String exceptionMsg;
     Test.startTest();
     try {
       TrustMeCaseStatusPathController.updateStatus(
@@ -43,10 +42,13 @@ public with sharing class TrustMeCaseStatusPathControllerTest {
         'test comments'
       );
     } catch (Exception e) {
-      exceptionMsg = e.getMessage();
+      Assert.isInstanceOfType(
+        e,
+        AuraHandledException.class,
+        'Expecting AuraHandledException to be thrown'
+      );
     }
     Test.stopTest();
-    Assert.isNull(exceptionMsg, 'Exception occurred.');
   }
   @isTest
   static void testUpdateStatusInsufficientAccessException() {
