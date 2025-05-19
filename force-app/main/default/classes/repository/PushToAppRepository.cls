@@ -233,7 +233,7 @@ public with sharing class PushToAppRepository {
 
   /**
    * @description Query related Push To App tasks records with the cases
-   * @param caseRecords eligible Customer Complaint case records
+   * @param caseIds eligible Customer Complaint case records
    * @return List<Task> Customer Nudge Task records to update.
    */
   public List<Task> getRelatedCustomerNudgeTasks(Set<Id> caseIds) {

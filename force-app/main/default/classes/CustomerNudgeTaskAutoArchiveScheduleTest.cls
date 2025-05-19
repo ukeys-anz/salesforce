@@ -54,10 +54,10 @@ public with sharing class CustomerNudgeTaskAutoArchiveScheduleTest {
   }
     
      /**
-   * @description This method is used to mock the behavior of a DML insert operation that returns multiple UpsertResult objects.
-   * This is helpful for test cases where multiple records are inserted at once
-   * @param mockUpsertResultString An array of JSON strings, where each string represents a mock UpsertResult for each record being inserted.
-   * @return List<Database.UpsertResult> objects corresponding to the mock JSON strings.
+   * @description This method is used to mock the behavior of a DML update operation that returns multiple SaveResult objects.
+   * This is helpful for test cases where multiple records are updated at once
+   * @param mockSaveResultString An array of JSON strings, where each string represents a mock SaveResult for each record being updated.
+   * @return List<Database.SaveResult> objects corresponding to the mock JSON strings.
    */
   private static List<Database.SaveResult> getMockSaveResults(
     String mockSaveResultString
