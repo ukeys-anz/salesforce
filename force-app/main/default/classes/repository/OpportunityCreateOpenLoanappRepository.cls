@@ -53,20 +53,4 @@ public with sharing class OpportunityCreateOpenLoanappRepository {
       LIMIT 1
     ];
   }
-
-  /**
-   * @description fetch current user details
-   * @return User
-   */
-  public User getCurrentUser() {
-    if (!Schema.sObjectType.User.isQueryable()) {
-      return null;
-    }
-    return [
-      SELECT Id, Lan_Id__c
-      FROM User
-      WHERE Id = :UserInfo.getUserId()
-      LIMIT 1
-    ];
-  }
 }
