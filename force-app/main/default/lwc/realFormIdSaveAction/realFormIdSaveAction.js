@@ -1,7 +1,12 @@
 import { LightningElement } from "lwc";
+import { updateRecord } from "lightning/uiRecordApi";
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
-import util from "omnistudio/utility";
 import { handleErrorShowToast } from "c/utils";
+import { showToast } from "c/utils";
+import REALFORMREQ_FIELD from "@salesforce/schema/Case.IDR_Real_Form_Req__c";
+import REALEVENTID_FIELD from "@salesforce/schema/Case.IDR_Real_Form_Ref_No__c";
+import CASEID_FIELD from "@salesforce/schema/Case.Id";
+
 export default class realFormIdSaveAction extends OmniscriptBaseMixin(
   LightningElement
 ) {
@@ -70,35 +75,39 @@ export default class realFormIdSaveAction extends OmniscriptBaseMixin(
       this.loading = false;
       return;
     }
-    let drToUpdateCase =
-      this.omniJsonData.EditRealFormID.RealFormRequired === "Y_NEW"
-        ? "DRCaseRealFormRequiredUpdate"
-        : "DRCaseRealFormIdUpdate2";
-    let request_data = {
-      type: "DataRaptor",
-      value: {
-        bundleName: drToUpdateCase,
-        inputMap: "{}",
-        optionsMap: "{}"
-      }
-    };
-    request_data.value.inputMap = JSON.stringify(this.omniJsonData);
-    util
-      .getDataHandler(JSON.stringify(request_data))
-      .then((result) => {
-        const jsonResult = JSON.parse(result);
-        this.omniApplyCallResp({ jsonNodeName: jsonResult });
+    this.handleSave(this.omniJsonData);
+  }
+
+  handleSave(data) {
+    const fields = {};
+    // Map the user input to the fields
+    if (data?.EditRealFormID.RealFormRequired !== "Y_NEW") {
+      fields[REALEVENTID_FIELD.fieldApiName] = data?.EditRealFormID.RealFormID;
+    }
+    fields[REALFORMREQ_FIELD.fieldApiName] =
+      data?.EditRealFormID.RealFormRequired;
+    fields[CASEID_FIELD.fieldApiName] = data.recordId;
+    const recordInput = { fields };
+    updateRecord(recordInput)
+      .then(() => {
         this.loading = false;
-        let url = window.location.origin + "/" + this.omniJsonData.recordId;
+        let url = window.location.origin + "/" + data.recordId;
         window.open(url, "_self");
       })
       .catch((err) => {
-        handleErrorShowToast(
-          this,
-          "Error Updating Real Form ID",
-          err,
-          "System Exception: Error Updating Real Form Id"
-        );
+        let msg = err?.body?.output?.errors[0]?.message;
+        if (
+          msg.includes("You are not authorized to make updates to this field.")
+        ) {
+          showToast(this, "Error Updating Real Form ID", msg, "", "error");
+        } else {
+          handleErrorShowToast(
+            this,
+            "Error Updating Real Form ID",
+            err,
+            "System Exception: Error Updating Real Form Id"
+          );
+        }
         this.loading = false;
       });
   }

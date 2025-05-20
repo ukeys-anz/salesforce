@@ -159,7 +159,11 @@ public with sharing class IDRCaseAssignmentRules {
     //rules to run only on escalation
 
     //CEO or Board or Other EDR Schemes or Tribunal
-    if (originCeoBasket.contains(rec.Origin)) {
+    if (
+      originCeoBasket.contains(rec.Origin) ||
+      (rec.Type == '8' &&
+      rec.IDR_Subsequent_Issue__c == '49')
+    ) {
       return QueryQueue.get('IDR_CEO').Id;
     }
 
