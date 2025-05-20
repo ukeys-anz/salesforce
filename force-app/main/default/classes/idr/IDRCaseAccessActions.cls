@@ -118,7 +118,7 @@ public with sharing class IDRCaseAccessActions {
       .toList();
   }
   /**
-   * @description To get all the cases where old owner was not a IDR_Level_2 or IDR_Level_3 user && status is not equal to Escalated.
+   * @description To get all the cases where old owner was not a IDR_Level_2 or IDR_Level_3 user && status is not equal to Escalated || where old CaseNumber__c is not blank.
    * @param newCases List of new cases.
    * @param oldMap Map of old cases.
    * @param l2l3UsersId Set of users id which are having either IDR_Level_2 or IDR_Level_3 PSG.
@@ -134,7 +134,8 @@ public with sharing class IDRCaseAccessActions {
     for (Case tempCase : newCases) {
       if (
         tempCase.Status == IDRConstants.ESCALATED_STATUS &&
-        l2l3UsersId.contains(oldMap.get(tempCase.Id).OwnerId)
+        l2l3UsersId.contains(oldMap.get(tempCase.Id).OwnerId) ||
+        String.isBlank(oldMap.get(tempCase.Id).CaseNumber__c)
       ) {
         continue;
       }

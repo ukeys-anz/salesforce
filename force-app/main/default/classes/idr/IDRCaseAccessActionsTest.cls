@@ -35,7 +35,8 @@ private with sharing class IDRCaseAccessActionsTest {
       RecordTypeId = RTCase.nonCustomerComplaint,
       Status = IDRConstants.OPEN_STATUS,
       IDR_Additional_Correspondence_reviewed__c = false,
-      IDR_Document_Count__c = null
+      IDR_Document_Count__c = null,
+      CaseNumber__c = String.valueOf(caseNumber)
     ),
     new Map<String, Object>{ 'CaseNumber' => caseNumber }
   );
@@ -47,6 +48,7 @@ private with sharing class IDRCaseAccessActionsTest {
       RecordTypeId = RTCase.nonCustomerComplaint,
       IDR_Additional_Correspondence_reviewed__c = false,
       IDR_Document_Count__c = null,
+      CaseNumber__c = String.valueOf(caseNumber),
       IDR_Real_Form_Ref_No__c = '123123123',
       IDR_Real_Form_Req__c = 'Yes, I have already recorded a REaL Form',
       IDR_Real_Form_Submitted__c = true
@@ -59,7 +61,7 @@ private with sharing class IDRCaseAccessActionsTest {
   @isTest
   static void testCaseOwnerL1UserUpdateByL1User() {
     registerMocks();
-    userMock.mock('getUser', l1User).mock('checkAnyPermissions', false);
+    userMock.mock('checkAnyPermissions', false);
     Case oldCase = oldCaseRecord;
     oldCase.OwnerId = l1User.Id;
     Case newCase = newCaseRecord;
@@ -87,7 +89,6 @@ private with sharing class IDRCaseAccessActionsTest {
     registerMocks();
     userMock
       .mock('getUser', l1User)
-      .mock('getUser', l2User)
       .mock('checkAnyPermissions', true)
       .mock('checkProfile', true)
       .mock('checkAnyRoles', false)
@@ -125,7 +126,6 @@ private with sharing class IDRCaseAccessActionsTest {
     registerMocks();
     userMock
       .mock('getUser', l1User)
-      .mock('getUser', l3User)
       .mock('checkAnyPermissions', true)
       .mock('checkProfile', true)
       .mock('checkAnyRoles', false)
@@ -162,7 +162,6 @@ private with sharing class IDRCaseAccessActionsTest {
   static void testCaseOwnerL2UserUpdateByL1User() {
     registerMocks();
     userMock
-      .mock('getUser', l1User)
       .mock('getUser', l2User)
       .mock('checkAnyPermissions', true)
       .mock('checkProfile', false)
@@ -227,7 +226,6 @@ private with sharing class IDRCaseAccessActionsTest {
   static void testCaseOwnerL3UserUpdateByL1User() {
     registerMocks();
     userMock
-      .mock('getUser', l1User)
       .mock('getUser', l3User)
       .mock('checkAnyPermissions', true)
       .mock('checkProfile', false)
@@ -333,7 +331,7 @@ private with sharing class IDRCaseAccessActionsTest {
   @isTest
   static void testgetOwnerChangedCases() {
     registerMocks();
-    userMock.mock('getUser', l2User).mock('getUser', l2User);
+    userMock.mock('getUser', l2User);
     Case oldCase = oldCaseRecord;
     oldCase.OwnerId = l3User.Id;
     Case newCase = newCaseRecord;
@@ -357,7 +355,6 @@ private with sharing class IDRCaseAccessActionsTest {
     registerMocks();
     userMock
       .mock('checkProfile', false)
-      .mock('getUser', l2User)
       .mock('getUser', l2User);
     Case oldCase = oldCaseRecord;
     oldCase.OwnerId = l3User.Id;
@@ -384,7 +381,6 @@ private with sharing class IDRCaseAccessActionsTest {
       .mock('checkProfile', true)
       .mock('checkAnyRoles', false)
       .mock('getUser', l2User)
-      .mock('getUser', l2User)
       .mock('checkCustomPermission', false);
     Case oldCase = oldCaseRecord;
     oldCase.OwnerId = l3User.Id;
@@ -409,7 +405,7 @@ private with sharing class IDRCaseAccessActionsTest {
   @isTest
   static void testgetExcludedCases() {
     registerMocks();
-    userMock.mock('getUser', l2User).mock('getUser', l2User);
+    userMock.mock('getUser', l2User);
     Case oldCase = oldCaseRecord;
     oldCase.OwnerId = l3User.Id;
     Case newCase = newCaseRecord;
