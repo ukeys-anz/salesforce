@@ -335,6 +335,16 @@
                 <identifier>RecordContact_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Industry__c</fieldItem>
+                <identifier>RecordIndustry__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-cc1c5773-dfbe-4f5c-be04-03e79a37b630</name>
         <type>Facet</type>
     </flexiPageRegions>

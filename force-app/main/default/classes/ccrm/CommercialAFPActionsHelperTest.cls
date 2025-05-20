@@ -296,4 +296,19 @@ private class CommercialAFPActionsHelperTest {
     errors = afpList[0].getErrors();
     Assert.isFalse(errors.size() == 0, 'no errors found');
   }
+
+  @isTest
+  static void updateStageTest() {
+    // Create a mock ApplicationFormProduct record
+    ApplicationFormProduct afp = new ApplicationFormProduct(
+      Stage = 'Opportunity Identified',
+      Source_System_Status__c = 'Locked for Assessment'
+    );
+    Test.startTest();
+    CommercialAppFormProductActionsHelper.updateStage(
+      new List<ApplicationFormProduct>{ afp }
+    );
+    Test.stopTest();
+    Assert.areEqual('Solution Development', afp.Stage, 'No record updated');
+  }
 }

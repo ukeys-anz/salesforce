@@ -5,6 +5,10 @@
  * @description CommercialOpportunityHelper is class to handle all the operations on opp stage changes
  */
 public with sharing class CommercialOpportunityHelper {
+  @testVisible
+  private static final String LOST_REASON_DETAIL_MISSING_AFP = 'please provide valid Lost Reason/Lost Reason Detail.';
+  @testVisible
+  private static final String WON_LOST_MANDATORY_AFP = 'please provide valid Won From/Lost To.';
   private static final CommercialOpportunityRepository COMMERCIALOPP_REPOSITORY = (CommercialOpportunityRepository) Lib_InstanceProvider.forType(
     CommercialOpportunityRepository.class
   );
@@ -52,7 +56,6 @@ public with sharing class CommercialOpportunityHelper {
   ) {
     for (Opportunity oppIterator : oppWrapper.filteredOpps) {
       List<String> errors = new List<String>();
-      String errorMessage;
 
       //check if stage is not equal to "New" on creation of lead
       if (isInsert && oppIterator.StageName != CCRMConstants.NEW_STAGE) {
@@ -66,7 +69,7 @@ public with sharing class CommercialOpportunityHelper {
         errors.add(CCRMConstants.OTHER_SOURCE_DETAIL_MANDATORY);
       }
 
-      errorMessage = String.join(errors, CCRMConstants.NEW_LINE_CHAR);
+      String errorMessage = String.join(errors, '\n');
 
       //add error message
       if (String.isNotBlank(errorMessage)) {
@@ -131,6 +134,43 @@ public with sharing class CommercialOpportunityHelper {
     for (Map<String, Object> iterator : openTasks) {
       closingOppoIdMap.get(String.valueOf(iterator.get('WhatId')))
         .addError(System.Label.CCRM_OpenTasksOnOpportunityCloseError);
+    }
+  }
+
+  /**
+   * @description add error on opportunity when missing fields on AFP.
+   * @name addErrorOnOppForMissingFieldsOnClosedAFP
+   * @param appFormProducts list of app form products
+   * @param closedOppsMap map of closed won/lost opps
+   */
+  public static void addErrorOnOppForMissingFieldsOnClosedAFP(
+    List<ApplicationFormProduct> appFormProducts,
+    Map<Id, Opportunity> closedOppsMap
+  ) {
+    for (ApplicationFormProduct afp : appFormProducts) {
+      List<String> errors = new List<String>();
+
+      //check if Lost reason and Lost reason details are provided if AFP is lost
+      if (
+        afp.Stage == CCRMConstants.OPP_LOST &&
+        (String.isBlank(afp.Lost_Reason__c) ||
+        String.isBlank(afp.Lost_Reason_Detail__c))
+      ) {
+        errors.add('For ' + afp.Name + ', ' + LOST_REASON_DETAIL_MISSING_AFP);
+      }
+
+      //check if Won from lost is provided for Won/Lost AFP
+      if (String.isBlank(afp.Won_from_Lost_to__c)) {
+        errors.add('For ' + afp.Name + ', ' + WON_LOST_MANDATORY_AFP);
+      }
+
+      if (errors.isEmpty()) {
+        continue;
+      }
+
+      //add error message
+      String error = String.join(errors, '\n');
+      closedOppsMap.get(afp.ApplicationForm.OpportunityId).addError(error);
     }
   }
 }

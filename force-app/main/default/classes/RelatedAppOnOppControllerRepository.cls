@@ -29,6 +29,7 @@ public with sharing class RelatedAppOnOppControllerRepository {
         SubmissionDate,
         Application_Number__c,
         Application_Status__c,
+        RecordType.Name,
         (
           SELECT
             Id,

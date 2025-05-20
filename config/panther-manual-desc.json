@@ -3029,6 +3029,13 @@
         "Object_Name__c"
       ]
     },
+    "Loan_Application_System_Status_Mapping__mdt": {
+      "IA-2434298": [
+        "Application_Product_Stage__c",
+        "Application_Record_Type__c",
+        "Source_System_Status__c"
+      ]
+    },
     "Loan_Applicant_Group__c": {
       "IA-2415983": [
         "Deposit_Amount__c",
@@ -3430,7 +3437,8 @@
         "Has_Close_Date_Changed__c",
         "CLG__c",
         "Secondary_Customer_Needs__c",
-        "My_Notes__c"
+        "My_Notes__c",
+        "Industry__c"
       ],
       "IA-2468715": [
         "CreatedById",

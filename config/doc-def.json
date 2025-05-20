@@ -1258,6 +1258,18 @@
       "type": "system"
     },
     {
+      "name": "AMBIT Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "Disable_MFA",
+        "API_Only",
+        "AMBIT_Data_Sync",
+        "Access_Application_Form_Related_Functionality"
+      ],
+      "type": "system"
+    }
+    {
       "name": "ML Data Migration Support User",
       "role": "ANZ Mobile Lending Support Team",
       "profile": "ANZ ML Standard User",

@@ -343,6 +343,22 @@ public with sharing class CommercialAppFormProductActionsHelper {
   }
 
   /**
+   * @description updateStage update stage value
+   * @param appFormProducts app form product records
+   */
+  public static void updateStage(List<ApplicationFormProduct> appFormProducts) {
+    for (ApplicationFormProduct record : appFormProducts) {
+      Loan_Application_System_Status_Mapping__mdt mappingRec = QueryLoanAppSystemStatusMapping.getBySourceSystemStatus(
+        record.Source_System_Status__c
+      );
+      if (mappingRec == null) {
+        continue;
+      }
+      record.Stage = mappingRec.Application_Product_Stage__c ?? record.Stage;
+    }
+  }
+
+  /**
    * @description wrapper class for commercial afp
    */
   public class AppFormProductWrapper {
