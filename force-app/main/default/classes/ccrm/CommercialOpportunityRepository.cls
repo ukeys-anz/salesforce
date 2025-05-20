@@ -54,6 +54,36 @@ public with sharing class CommercialOpportunityRepository {
   }
 
   /**
+   * @description getLostAFPRelatedToOpportunity gets lost AFP's related to opp
+   * @param oppIds set of oppportunity ids
+   * @return List<ApplicationFormProduct> app form products list
+   */
+  public List<ApplicationFormProduct> getLostAFPRelatedToOpportunity(
+    Set<Id> oppIds
+  ) {
+    if (oppIds.isEmpty()) {
+      return new List<ApplicationFormProduct>();
+    }
+
+    return [
+      SELECT
+        Id,
+        Name,
+        ApplicationForm.OpportunityId,
+        Stage,
+        Lost_reason__c,
+        Lost_Reason_Detail__c,
+        Won_from_Lost_to__c
+      FROM ApplicationFormProduct
+      WHERE
+        ApplicationForm.OpportunityId IN :oppIds
+        AND (Stage = :CCRMConstants.OPP_LOST
+        OR Stage = :CCRMConstants.OPP_WON)
+      WITH USER_MODE
+    ];
+  }
+
+  /**
    * @description to query account account relationship records
    * @name getAccountAccountRelations
    * @param accountIdsSet set of Account Ids

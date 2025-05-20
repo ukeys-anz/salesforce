@@ -4,6 +4,7 @@
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
     <isActive>true</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
+    <isManagedUsingStdDesigner>false</isManagedUsingStdDesigner>
     <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
     <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
     <isTestProcedure>false</isTestProcedure>
@@ -37,12 +38,16 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;Archive&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;status&quot;
-      } ],
-      &quot;operator&quot; : &quot;OR&quot;
+      }, {
+        &quot;field&quot; : &quot;ialValue&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;4&quot;
+      } ]
     }
   },
   &quot;showPersistentComponent&quot; : [ true, false ],
@@ -1900,6 +1905,10 @@
         &quot;field&quot; : &quot;isAnyAccountOpen&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;false&quot;
+      }, {
+        &quot;field&quot; : &quot;showSuccessToast&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;data&quot; : &quot;false&quot;
       } ]
     }
   },
@@ -3027,7 +3036,8 @@
   &quot;label&quot; : &quot;SVActionNameAndRecordId&quot;,
   &quot;elementValueMap&quot; : {
     &quot;recordId&quot; : &quot;=SPLIT(%ContextId%, \&quot;,\&quot;, 2)[1]&quot;,
-    &quot;actionName&quot; : &quot;=SPLIT(%ContextId%, \&quot;,\&quot;, 2)[0]&quot;
+    &quot;actionName&quot; : &quot;=SPLIT(%ContextId%, \&quot;,\&quot;, 2)[0]&quot;,
+    &quot;isAnyAccountOpen&quot; : false
   },
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;show&quot; : null,

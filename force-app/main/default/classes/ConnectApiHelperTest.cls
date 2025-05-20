@@ -36,6 +36,13 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
 @IsTest(SeeAllData=true)
 public class ConnectApiHelperTest {
+  static Lib_MockProvider userMock;
+
+  static void registerMocks() {
+    userMock = Lib_MockProvider.forType(UserInfoRepository.class)
+      .mock('checkCustomPermission', true);
+  }
+
   @IsTest(SeeAllData=true)
   static void testInvalidMentionType() {
     Boolean exceptionThrown = false;
@@ -271,7 +278,7 @@ public class ConnectApiHelperTest {
     // 3 = text2
     // 4 = mention
     // 5 = text3
-
+    registerMocks();
     String hashtag = 'Yolo';
     String text1 = ': ';
     // String link = 'http://salesforce.com';
@@ -403,7 +410,7 @@ public class ConnectApiHelperTest {
   static void testCreateInputFromBody() {
     // We'll post a feed item that contains text, link, hashtag, mention, and markup segments,
     // and then call the helper method on the resulting body.
-
+    registerMocks();
     ConnectApi.FeedItemInput feedItemInput = new ConnectApi.FeedItemInput();
 
     ConnectApi.MessageBodyInput messageBodyInput = new ConnectApi.MessageBodyInput();

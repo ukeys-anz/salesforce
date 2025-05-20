@@ -314,4 +314,15 @@ public with sharing class TestUtil {
 
     return JSON.deserialize(serializedRecord, objectType);
   }
+
+  /**
+   * @description Setup Auth token and HttpCallout mocks. Use this for unt-testing Service classes.
+   */
+  public static Lib_MockProvider httpCalloutMock {
+    get {
+      Lib_MockProvider.forType(UserInfoRepository.class)
+        .mock('checkSsoNotConfigured', true);
+      return Lib_MockProvider.forType(Lib_HttpCallout.class);
+    }
+  }
 }

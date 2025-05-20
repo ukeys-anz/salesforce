@@ -2,12 +2,14 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>BlockStatusUpdateOfClosedPinSelfieCases</fullName>
     <active>true</active>
-    <description>Restrict the user from changing the status of closed case for Pin &amp; Selfie Recovery Cases</description>
+    <description>Restrict the user from changing the status of closed case for Pin &amp; Selfie Recovery Cases &amp; TrustMe Cases</description>
     <errorConditionFormula>AND(
 ISCHANGED( Status ) ,
 OR(
   RecordType.DeveloperName == &apos;PIN_Recovery&apos;,
-  RecordType.DeveloperName == &apos;Selfie_Recovery&apos;
+  RecordType.DeveloperName == &apos;Selfie_Recovery&apos;,
+  RecordType.DeveloperName == &apos;TrustMe_eIDV_QA_Case&apos;,
+  RecordType.DeveloperName == &apos;TrustMe_eIDV_Case&apos;
 ),
 IsClosed
 )</errorConditionFormula>

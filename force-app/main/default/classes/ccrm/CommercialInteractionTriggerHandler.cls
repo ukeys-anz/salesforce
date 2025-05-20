@@ -35,6 +35,7 @@ public with sharing class CommercialInteractionTriggerHandler extends Lib_Trigge
     );
     CommercialInteractionActions.setCustomerOnInteraction(records, null);
     CommercialInteractionActions.restrictImagesInRichTextFields(records, null);
+    CommercialInteractionActions.performRedaction(records);
   }
 
   /**

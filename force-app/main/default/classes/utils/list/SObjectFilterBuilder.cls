@@ -1,6 +1,7 @@
 /**
  * @description A utility class for filtering lists of SObjects.
  */
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public class SObjectFilterBuilder {
   private Map<Id, SObject> oldMap;
   private GenericFilterBuilder base;
@@ -360,6 +361,37 @@ public class SObjectFilterBuilder {
           output.add(record);
           break;
         }
+      }
+    }
+    base.records = output;
+    return this;
+  }
+
+  /**
+   * @description Filter records with all fields have not changed.
+   * @param fields The set of fields to check for not changed.
+   * @return The updated SObjectFilterBuilder instance.
+   */
+  public SObjectFilterBuilder allNotChanged(Set<SObjectField> fields) {
+    List<Object> output = base.handler.emptyList;
+    if (this.oldMap.isEmpty()) {
+      base.records = output;
+      return this;
+    }
+    for (SObject record : this.toList()) {
+      Boolean isChanged = false;
+      SObject oldRecord = this.oldMap.get(record.Id);
+      if (oldRecord == null) {
+        continue;
+      }
+      for (SObjectField field : fields) {
+        if (oldRecord == null || record.get(field) != oldRecord.get(field)) {
+          isChanged = true;
+          break;
+        }
+      }
+      if (!isChanged) {
+        output.add(record);
       }
     }
     base.records = output;

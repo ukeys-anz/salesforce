@@ -126,6 +126,11 @@
         <field>Product_Family__c.IDR_ANZ_com_Unique_Product_Indicator__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Industry__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Product Read Write</label>
     <objectPermissions>

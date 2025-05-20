@@ -265,8 +265,6 @@ private class CCRMOpportunityActionsTest {
   static void testCheckIfSecondaryCustomerNeedsContainsCustomerNeeds() {
     Opportunity opp;
     Map<Id, Opportunity> oldMap;
-    List<Database.Error> errors;
-    Database.Error error;
 
     opp = new Opportunity(
       Id = Lib_FakeIdGenerator.getMockId(Schema.Opportunity.getSObjectType()),
@@ -291,12 +289,73 @@ private class CCRMOpportunityActionsTest {
     );
     Test.stopTest();
 
-    errors = opp.getErrors();
-    error = errors.get(0);
+    List<Database.Error> errors = opp.getErrors();
+    Database.Error error = errors.get(0);
     Assert.areEqual(1, errors.size(), 'Error on update');
     Assert.areEqual(
       CCRMConstants.CUSTOMER_NEEDS_ERROR,
       error.getMessage(),
+      'Opportunity updated successfully'
+    );
+  }
+
+  @isTest
+  static void checkClosedStageFieldsOnAFPRelatedToOppTest() {
+    registerMocks();
+
+    String opportunityId = Lib_FakeIdGenerator.getMockId(
+      Opportunity.SObjectType
+    );
+
+    Map<Id, Opportunity> oldOppMap = new Map<Id, Opportunity>{
+      opportunityId => (new Opportunity(
+        Id = opportunityId,
+        RecordTypeId = RTOpportunity.commercialOpportunity,
+        StageName = 'New'
+      ))
+    };
+
+    List<Opportunity> oppList = new List<Opportunity>{
+      new Opportunity(
+        Id = opportunityId,
+        RecordTypeId = RTOpportunity.commercialOpportunity,
+        StageName = 'Opportunity Lost'
+      )
+    };
+
+    oppRepoMock.mock('getUserProfileId', QueryProfile.anzCCRMStandardUser.Id);
+
+    oppRepoMock.mock(
+      'getLostAFPRelatedToOpportunity',
+      new List<ApplicationFormProduct>{
+        new ApplicationFormProduct(
+          Id = Lib_FakeIdGenerator.getMockId(
+            ApplicationFormProduct.SObjectType
+          ),
+          Stage = 'Opportunity Lost',
+          Lost_reason__c = '',
+          Lost_Reason_Detail__c = '',
+          ApplicationForm = new ApplicationForm(
+            Id = Lib_FakeIdGenerator.getMockId(ApplicationForm.SObjectType),
+            OpportunityId = opportunityId
+          )
+        )
+      }
+    );
+
+    Test.startTest();
+    CCRMOpportunityActions.checkClosedStageFieldsOnAFPRelatedToOpp(
+      oppList,
+      oldOppMap
+    );
+    Test.stopTest();
+
+    List<Database.Error> errors = oppList[0].getErrors();
+    Database.Error error = errors.get(0);
+    Assert.areEqual(1, errors.size(), 'Error on update');
+    Assert.isTrue(
+      error.getMessage()
+        .contains(CommercialOpportunityHelper.LOST_REASON_DETAIL_MISSING_AFP),
       'Opportunity updated successfully'
     );
   }

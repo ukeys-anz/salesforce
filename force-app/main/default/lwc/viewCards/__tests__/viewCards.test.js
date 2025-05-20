@@ -31,9 +31,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_SUCCESS;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
 
     await flushPromises();
     let cardHolderName = element.shadowRoot.querySelector(
@@ -87,9 +87,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_SUCCESS;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
     await flushPromises();
     let buttons = element.shadowRoot.querySelectorAll(
       "lightning-button[data-button='card-button']"
@@ -101,8 +101,8 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_SUCCESS;
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
     await flushPromises();
     let buttons = element.shadowRoot.querySelectorAll(
       "lightning-button[data-button='card-button']"
@@ -114,9 +114,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_SUCCESS;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
     await flushPromises();
     let buttons = element.shadowRoot.querySelectorAll(
       "lightning-button[data-button='card-button']"
@@ -134,9 +134,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_SUCCESS;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
     await flushPromises();
     let buttons = element.shadowRoot.querySelectorAll(
       "lightning-button[data-button='card-button']"
@@ -154,9 +154,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_TEMP_LOCK;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_TEMP_LOCK;
     await flushPromises();
     let buttons = element.shadowRoot.querySelectorAll(
       "lightning-button[data-button='card-button']"
@@ -174,9 +174,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARD_BLOCK_CNP;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARD_BLOCK_CNP;
     await flushPromises();
     let buttons = element.shadowRoot.querySelectorAll(
       "lightning-button[data-button='card-button']"
@@ -195,9 +195,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_SUCCESS;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
     await flushPromises();
     let buttons = element.shadowRoot.querySelectorAll(
       "lightning-button[data-button='card-button']"
@@ -216,9 +216,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_NO_ELIGIBILITIES;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_NO_ELIGIBILITIES;
     await flushPromises();
     let buttons = element.shadowRoot.querySelectorAll(
       "lightning-button[data-button='card-button']"
@@ -236,9 +236,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_SUCCESS;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
     await flushPromises();
     let buttons = element.shadowRoot.querySelectorAll(
       "lightning-button[data-button='card-button']"
@@ -256,9 +256,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_SUCCESS;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
     await flushPromises();
     let buttons = element.shadowRoot.querySelectorAll(
       "lightning-button[data-button='card-button']"
@@ -276,9 +276,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARD_BLOCK_CNP;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARD_BLOCK_CNP;
     await flushPromises();
     let buttons = element.shadowRoot.querySelectorAll(
       "lightning-button[data-button='card-button']"
@@ -296,9 +296,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS;
     await flushPromises();
     let buttons = element.shadowRoot.querySelectorAll(
       "lightning-button[data-button='card-button']"
@@ -316,9 +316,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS;
     await flushPromises();
     let buttons = element.shadowRoot.querySelectorAll(
       "lightning-button[data-button='card-button']"
@@ -337,9 +337,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_FRAUD_SUCCESS_TEMP_LOCK_STATUS;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_FRAUD_SUCCESS_TEMP_LOCK_STATUS;
     await flushPromises();
     let buttons = element.shadowRoot.querySelectorAll(
       "lightning-button[data-button='card-button']"
@@ -357,9 +357,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_FRAUD_SUCCESS_TEMP_LOCK_STATUS;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_FRAUD_SUCCESS_TEMP_LOCK_STATUS;
     await flushPromises();
     let buttons = element.shadowRoot.querySelectorAll(
       "lightning-button[data-button='card-button']"
@@ -381,9 +381,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS;
     await flushPromises();
     let buttons = element.shadowRoot.querySelectorAll(
       "lightning-button[data-button='card-button']"
@@ -406,9 +406,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_SUCCESS;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
     await flushPromises();
     let buttons = element.shadowRoot.querySelectorAll(
       "lightning-button[data-button='card-button']"
@@ -431,9 +431,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_SUCCESS;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
     await flushPromises();
     let buttons = element.shadowRoot.querySelectorAll(
       "lightning-button[data-button='card-button']"
@@ -456,9 +456,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_SUCCESS;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
     await flushPromises();
     let buttons = element.shadowRoot.querySelectorAll(
       "lightning-button[data-button='card-button']"
@@ -495,9 +495,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_SUCCESS;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
 
     await flushPromises();
 
@@ -533,9 +533,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_INACTIVE;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_INACTIVE;
 
     await flushPromises();
 
@@ -547,9 +547,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_SUCCESS;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
 
     await flushPromises();
 
@@ -563,9 +563,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS;
 
     await flushPromises();
 
@@ -579,9 +579,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_TEMP_LOCK;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_TEMP_LOCK;
 
     await flushPromises();
 
@@ -594,8 +594,8 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CLOSED_CARD_LIST;
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CLOSED_CARD_LIST;
 
     await flushPromises();
     let status = element.shadowRoot.querySelector(".status");
@@ -606,9 +606,9 @@ describe("c-view-cards", () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-    element.cardsFromParent = APEX_CARDS_SUCCESS;
     element.isActiveCardSection = "true";
     document.body.appendChild(element);
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
 
     await flushPromises();
 

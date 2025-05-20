@@ -7,12 +7,18 @@
     $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
     RecordType.DeveloperName = &apos;CCRM_Lead&apos;,
     NOT ISBLANK( Email ) ,
+    NOT(ISCHANGED(RecordTypeId)),
     NOT REGEX( Email ,  $Label.Regex_Email ),
     NOT(ISCHANGED(Skip_Validations__c)),
-    NOT(OR(
-        Skip_Validations__c = &apos;SkipValidation&apos;,
-        Skip_Validations__c = &apos;Validate&apos;
-    ))
+    NOT(
+        AND(
+            ISCHANGED(Skip_Validations__c),
+            OR(
+                Skip_Validations__c = &apos;SkipValidation&apos;,
+                Skip_Validations__c = &apos;Validate&apos;
+            )
+        )
+    )
 )</errorConditionFormula>
     <errorDisplayField>Email</errorDisplayField>
     <errorMessage>Please enter Email in correct format.</errorMessage>
