@@ -58,8 +58,11 @@ private class ViewServiceabilityControllerTest {
       Credit_ID__c = creditId,
       SOP_Id__c = sopId,
       Assessment_Outcome__c = 'Approved',
-      Credit_Reassess_Required__c = true,
-      Status = 'STATE_COMPLETED'
+      Credit_Reassess_Required__c = false,
+      Status = 'STATE_COMPLETED',
+      Property_Use__c = 'LOAN_PRODUCT_TYPE_OWNER_OCCUPIED',
+      AmortizationTerm = 60,
+      LotOriginalCost = 123.12
     );
   }
 
@@ -162,7 +165,6 @@ private class ViewServiceabilityControllerTest {
   @isTest
   static void testBOHServicegetUMIAssessments() {
     Test.setMock(HttpCalloutMock.class, new MockViewUMICallout());
-    String loanId = '123';
     String ocvId = '1000990280';
     BOHService serv = new BOHService();
     Cache.Session.put(
@@ -171,14 +173,11 @@ private class ViewServiceabilityControllerTest {
     );
     Test.startTest();
     HttpCalloutResponse res = serv.getUMIAssessments(
-      new List<String>{ loanId },
-      loanId,
       ocvId,
-      360,
-      34560.55
+      getViewUMIRequestModel
     );
     Test.stopTest();
-    System.assertEquals(res.statusCode, 200, 'api call unsucessfully');
+    System.assertEquals(res.statusCode, 200, 'api call sucessfully');
   }
   /**
    * @description Mock view umi api callout
@@ -196,6 +195,24 @@ private class ViewServiceabilityControllerTest {
       res.setHeader('Content-Type', 'application/json');
       res.setBody(jsonBody);
       return res;
+    }
+  }
+
+  static ViewUMIRequestModel getViewUMIRequestModel {
+    get {
+      ResidentialLoanApplication rla = [
+        SELECT
+          Id,
+          Credit_ID__c,
+          SOP_Id__c,
+          AmortizationTerm,
+          LotOriginalCost,
+          Property_Use__c
+        FROM ResidentialLoanApplication
+        WHERE Name = '123'
+        LIMIT 1
+      ];
+      return new ViewUMIRequestModel(rla);
     }
   }
 }

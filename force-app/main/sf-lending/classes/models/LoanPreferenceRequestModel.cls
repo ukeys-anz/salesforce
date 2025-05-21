@@ -42,7 +42,8 @@ public class LoanPreferenceRequestModel {
     this.repaymentFrequency = repayFrequency.ordinal();
     this.termMonths = Integer.valueOf(loanAppFinancial.Loan_Term_in_Months__c);
     PRODUCT_TYPE productTypeValue = PRODUCT_TYPE.valueOf(
-      loanAppFinancial.LoanApplication?.Property_Use__c
+      loanAppFinancial.LoanApplication?.Property_Use__c ??
+        'LOAN_PRODUCT_TYPE_OWNER_OCCUPIED'
     );
     this.productType = productTypeValue.ordinal();
   }
