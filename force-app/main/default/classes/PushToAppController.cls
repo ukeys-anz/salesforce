@@ -36,21 +36,10 @@ public with sharing class PushToAppController {
     if (recordId == null || recordTypeId == null) {
       return new List<Customer_Task_Configuration__c>();
     }
-
-    try {
-      return PUSH_TO_APP_REPOSITORY.queryNotificationConfigrecords(
-        recordId,
-        recordTypeId
-      );
-    } catch (Exception objException) {
-      Logger.error(
-        'Error fetching Push-to-App Customer Nudge Template details for record id ' +
-          recordId +
-          'with message: ' +
-          objException.getMessage()
-      );
-      throw objException;
-    }
+    return PUSH_TO_APP_REPOSITORY.queryNotificationConfigrecords(
+      recordId,
+      recordTypeId
+    );
   }
 
   /**
@@ -165,7 +154,7 @@ public with sharing class PushToAppController {
       return taskRecord;
     } catch (Exception objException) {
       Logger.error(
-          'Push To App Task and Related Records Creation Failed : ' +
+          'Push To App Task and Related Records Creation Failed for '+pushToAppTaskData.caseNumber+ 'with error message: ' +
           objException.getMessage()
         )
         .save();

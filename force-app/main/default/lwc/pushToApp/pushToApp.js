@@ -138,7 +138,8 @@ export default class PushToApp extends LightningElement {
       description: this.notificationPreview,
       notificationConfigId: this.notificationConfigId,
       whatId: this.recordId,
-      callToAction: this.callToActionValues
+      callToAction: this.callToActionValues,
+      caseNumber: this.caseNumber
     };
     try {
       let taskData = await createTaskAndRelatedRecords({
