@@ -230,4 +230,24 @@ public with sharing class PushToAppRepository {
       WITH USER_MODE
     ];
   }
+
+  /**
+   * @description Query related Push To App tasks records with the cases
+   * @param caseIds eligible Customer Complaint case records
+   * @return List<Task> Customer Nudge Task records to update.
+   */
+  public List<Task> getRelatedCustomerNudgeTasks(Set<Id> caseIds) {
+    if(caseIds.isEmpty())
+    {
+      return new List<Task>();
+    }
+    return [
+      SELECT Id, Status
+      FROM Task
+      WHERE whatId IN :caseIds
+      AND RecordTypeId = :RTTask.customerNudge
+      AND IsClosed = false
+      WITH USER_MODE
+    ];
+  }
 }

@@ -8,6 +8,10 @@ public with sharing class PushToAppAction {
     DmlRepository.class
   );
 
+  private static final PushToAppRepository PUSHTOAPP_REPOSITORY = (PushToAppRepository) Lib_InstanceProvider.forType(
+    PushToAppRepository.class
+  );
+
   /**
    * @description this method is used to append TaskNumber field autonumber value to the Subject after creation and taskid into pubSubEventId
    * @param taskRecords list of Customer Nudge task records for which update to be done
@@ -28,6 +32,32 @@ public with sharing class PushToAppAction {
     } catch (Exception objException) {
       Logger.error(
           'Push To App Customer Nudge Task Update Failed with error message: ' +
+          objException.getMessage()
+        )
+        .save();
+      throw objException;
+    }
+  }
+
+  /**
+   * @description this method is used to update related Customer Nudge task to Auto Expire
+   * @param casesToUpdate list of Customer Complaint cases for which related push to app tasks to auto expire
+   */
+  public static void autoExpireCustomerNudgeTask(List<Case> casesToUpdate) {
+    try {
+      Set<Id> caseRecIds = ListUtil.getIds(casesToUpdate, Case.Id);
+      List<Task> tasksToUpdate = PUSHTOAPP_REPOSITORY.getRelatedCustomerNudgeTasks(
+        caseRecIds
+      );
+      ListUtil.setField(
+        tasksToUpdate,
+        Task.Status,
+        'ACTIVITY_STATE_AUTO_ARCHIVED'
+      );
+      DML_REPOSITORY.doUpdate(tasksToUpdate);
+    } catch (Exception objException) {
+      Logger.error(
+          'Push To App Customer Nudge Task To Auto Expire Update Failed with error message: ' +
           objException.getMessage()
         )
         .save();
