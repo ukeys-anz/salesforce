@@ -2882,4 +2882,20 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>TrustMeDocumentSecErrorMessage</shortDescription>
         <value>No data available</value>
     </labels>
+    <labels>
+        <fullName>Test_Bulk_Size</fullName>
+        <categories>Technical</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Test Bulk Size</shortDescription>
+        <value>2</value>
+    </labels>
+    <labels>
+        <fullName>Reactive_logging_keywords</fullName>
+        <categories>Contains keywords used for reactive logging for data masking</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reactive logging keywords</shortDescription>
+        <value>TAX,TIN,TFN,FILE,ATO,SUPER,SUPERANNUATION,EMPLOYMENT,PASSPORT,PP,DL,DRIVER&apos;S LICENCE,LICENCE,DRIVER&apos;S LICENSE,LICENSE,MEDICARE,CENTRELINK CRN,DVA NUMBER,AUS</value>
+    </labels>
 </CustomLabels>

@@ -432,8 +432,6 @@ force-app/main/default/flexipages/Log_Record_Page.flexipage-meta.xml
 force-app/main/default/flexipages/Secure_Log_Entry_Record_Page.flexipage-meta.xml
 force-app/main/default/flows/PAM_Grant_Revoke_Access.flow-meta.xml
 force-app/main/default/globalValueSets/Automations_to_Bypass.globalValueSet-meta.xml
-force-app/main/core/labels/CustomLabels.labels-meta.xml
-force-app/main/default/labels/CustomLabels.labels-meta.xml
 force-app/main/default/layouts/Access_Request__c-Access Request Layout.layout-meta.xml
 force-app/main/default/layouts/Access_Request__c-Bypass Request Layout.layout-meta.xml
 force-app/main/default/layouts/AzureAD_Identity__mdt-Azure AD Identity Layout.layout-meta.xml
