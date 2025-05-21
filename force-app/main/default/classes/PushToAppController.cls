@@ -154,8 +154,10 @@ public with sharing class PushToAppController {
       return taskRecord;
     } catch (Exception objException) {
       Logger.error(
-          'Push To App Task and Related Records Creation Failed for '+pushToAppTaskData.caseNumber+ 'with error message: ' +
-          objException.getMessage()
+          'Push To App Task and Related Records Creation Failed for ' +
+            pushToAppTaskData.caseNumber +
+            'with error message: ' +
+            objException.getMessage()
         )
         .save();
       throw objException;

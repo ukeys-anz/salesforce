@@ -33,7 +33,7 @@ public with sharing class PushToAppTaskWrapper {
    */
   @AuraEnabled
   public String callToAction { get; set; }
-   /**
+  /**
    * @description CaseNumber of the case
    */
   @AuraEnabled
