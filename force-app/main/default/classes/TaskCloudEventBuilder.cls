@@ -3,7 +3,6 @@
  * @since May 2025
  * @description Abstract class enforcing building cloud event models for the task records of different record types
  */
-@SuppressWarnings('PMD.ExcessiveParameterList')
 public interface TaskCloudEventBuilder {
   /**
    * @description Base Interface Cloud Event Models for Task

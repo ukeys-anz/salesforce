@@ -49,8 +49,8 @@ global with sharing class InteractionContextServiceUpdate {
       RestContext.response.statusCode = twilioResponse.statusCode;
     } catch (Exception objectException) {
       Logger.error(
-        'Interaction Update from Twilio with chatorCalSid ' +contextRequest.interactionId+ ' failed with error message: '+
-        objectException.getMessage()
+        'Interaction Update from Twilio with chatorCalSid ' +contextRequest.interactionId+ ' failed with error message: ',
+        objectException
       ).save();
       throw objectException;
     }

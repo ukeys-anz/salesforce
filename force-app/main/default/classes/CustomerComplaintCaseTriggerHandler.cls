@@ -18,7 +18,7 @@ public with sharing class CustomerComplaintCaseTriggerHandler extends Lib_Trigge
 
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     List<Case> casesStatusChanged = ListUtil.filter(records, oldMap)
-      .changedTo(case.Status, GetHelpConstants.ESCALATED_STATUS)
+      .changedTo(case.Status, 'Escalated')
       .toList();
     PushToAppAction.autoExpireCustomerNudgeTask(casesStatusChanged);
   }

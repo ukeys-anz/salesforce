@@ -4,6 +4,13 @@
  * @description class for Interaction Attendee Actions
  */
 public with sharing class InteractionAttendeeActions {
+
+  private static final Set<String> CALL_MESSAGE_INPERSON_RT_ID = new Set<String>{
+    RTInteraction.call,
+    RTInteraction.message,
+    RTInteraction.inPerson
+  };
+
   /**
    * @description Checks if attendee already exists on record
    * @param attendees list of new interaction attendees
@@ -72,7 +79,7 @@ public with sharing class InteractionAttendeeActions {
     if (profilenames.contains(userDetail.profile.name)) {
       for (Interaction interact : interactions) {
         if (
-          InteractionConstants.CALL_MESSAGE_INPERSON_RT_ID.contains(
+          CALL_MESSAGE_INPERSON_RT_ID.contains(
             interact.RecordTypeId
           )
         ) {
@@ -131,7 +138,7 @@ public with sharing class InteractionAttendeeActions {
     // OwnerId, if yes, ignore it, if not insert the interactionattendee.
     for (Interaction interact : interactions) {
       if (
-        InteractionConstants.CALL_MESSAGE_INPERSON_RT_ID.contains(
+        CALL_MESSAGE_INPERSON_RT_ID.contains(
           interact.RecordTypeId
         )
       ) {

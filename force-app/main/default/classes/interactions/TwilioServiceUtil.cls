@@ -10,6 +10,10 @@ public with sharing class TwilioServiceUtil {
   private static final InteractionRepository INTERACTION_REPOSITORY = (InteractionRepository) Lib_InstanceProvider.forType(
     InteractionRepository.class
   );
+  private static final Set<String> CALL_MESSAGE_RT_ID_SET = new Set<String>{
+    RTInteraction.call,
+    RTInteraction.message
+  };
 
   /**
    * @description method passing incoming twilio context in to Salesforce.
@@ -97,10 +101,14 @@ public with sharing class TwilioServiceUtil {
    * @return It will return the salesforce valid status value based on mapping
    */
   public static String getStatus(String statusFromTwilio) {
-    return (String.isNotBlank(statusFromTwilio) &&
-    QueryTwilioStatusMapping.mapByStatus.containsKey(statusFromTwilio.toLowerCase()))
-      ? QueryTwilioStatusMapping.getByStatus(statusFromTwilio.toLowerCase()).Interaction_Status__c
-      : statusFromTwilio;
+    if (String.isBlank(statusFromTwilio)) {
+      return statusFromTwilio;
+    }
+    String statusKey = statusFromTwilio.toLowerCase();
+    if (!QueryTwilioStatusMapping.mapByStatus.containsKey(statusKey)) {
+        return statusFromTwilio;
+    }
+    return QueryTwilioStatusMapping.getByStatus(statusKey).Interaction_Status__c;
   }
 
   /**
@@ -115,7 +123,7 @@ public with sharing class TwilioServiceUtil {
     List<Interaction> interactionListForTwilioDetailsCreation = ListUtil.filter(
       interactionsList
     )
-    .equals(Interaction.RecordTypeId, InteractionConstants.CALL_MESSAGE_RT_ID_SET)
+    .equals(Interaction.RecordTypeId, CALL_MESSAGE_RT_ID_SET)
     .toList();
 
     for (Interaction newInteraction : interactionListForTwilioDetailsCreation) {

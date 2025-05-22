@@ -112,8 +112,8 @@ global with sharing class InteractionContextService {
       Logger.error(
           'Interaction Creation from Twilio with chatOrCallSid ' +
             contextRequest.chatOrCallId +
-            ' failed with error message: ' +
-            objException.getMessage()
+            ' failed with error message: ',
+            objException
         )
         .save();
     }

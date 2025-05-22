@@ -27,14 +27,15 @@ public with sharing class CustomerNudgeTaskAutoArchiveScheduler implements Sched
     );
 
     for (Database.SaveResult result : recordsSaveResultList) {
-      if (!result.isSuccess()) {
-        Logger.info(
-          'Error while auto archiving the Customer Nudge Task record ' +
-            result.getId() +
-            ' with error message' +
-            result.getErrors()[0].getMessage()
-        );
+      if (result.isSuccess()) {
+        continue;
       }
+      Logger.error(
+        'Error while auto archiving the Customer Nudge Task record ' +
+          result.getId() +
+          ' with error message' +
+          result.getErrors()[0].getMessage()
+      );
     }
     Logger.saveLog();
   }

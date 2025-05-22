@@ -43,17 +43,13 @@ public with sharing class InteractionRepository {
    * @return Interaction record with Twilio Details
    */
   public Interaction fetchTwilioDetailIdFromInteraction(Id interactionId) {
-    if (interactionId == null) {
-      return null;
-    }
-
     return [
       SELECT TwilioDetailsID__c
       FROM Interaction
       WHERE Id = :interactionId
       WITH USER_MODE
       LIMIT 1
-    ] ?? null;
+    ];
   }
 
   /**
