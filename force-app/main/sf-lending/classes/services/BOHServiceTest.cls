@@ -162,11 +162,7 @@ public inherited sharing class BOHServiceTest {
 
   @isTest
   static void testViewUMIRequest() {
-    List<String> sopIds = new List<String>{ '123456789' };
-    String creditEnquiryId = '12345';
     String ocvId = '11111231';
-    Integer termMonths = 60;
-    Decimal loanAmount = 123.12;
     Test.setMock(HttpCalloutMock.class, staticMockResponse());
     Cache.Session.put(
       AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + ocvId,
@@ -176,11 +172,8 @@ public inherited sharing class BOHServiceTest {
     Test.startTest();
     BOHService service = new BOHService();
     HttpCalloutResponse response = service.getUMIAssessments(
-      sopIds,
-      creditEnquiryId,
       ocvId,
-      termMonths,
-      loanAmount
+      getViewUMIRequestModel
     );
     Test.stopTest();
 
@@ -431,5 +424,41 @@ public inherited sharing class BOHServiceTest {
       response.statusCode,
       'Response status code 200 expected'
     );
+  }
+
+  static ViewUMIRequestModel getViewUMIRequestModel {
+    get {
+      return new ViewUMIRequestModel(getRLA);
+    }
+  }
+
+  /**
+   * @description Static method to return Account
+   */
+  static Account getAccount {
+    get {
+      return new Account(
+        Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+        Name = 'Test Loan Account',
+        OCV_Id__c = '11111231'
+      );
+    }
+  }
+
+  static ResidentialLoanApplication getRLA {
+    get {
+      return new ResidentialLoanApplication(
+        Id = Lib_FakeIdGenerator.getMockId(
+          ResidentialLoanApplication.SObjectType
+        ),
+        Name = 'Test Loan Application',
+        Property_Use__c = 'LOAN_PRODUCT_TYPE_OWNER_OCCUPIED',
+        SOP_Id__c = '123456789',
+        Credit_ID__c = '12345',
+        Account = getAccount,
+        AmortizationTerm = 60,
+        LotOriginalCost = 123.12
+      );
+    }
   }
 }
