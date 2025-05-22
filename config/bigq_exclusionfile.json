@@ -176,6 +176,7 @@
     "SourceSystemIdentifier"
   ],
   "ApplicationForm": ["BranchUnitId"],
+  "ApplicationFormProduct": ["ApplicantVisibleStatus"],
   "COBPrimaryIDDocument__c": [
     "CountryOfIssue__c",
     "CountryOfIssueOCRClient__c",
