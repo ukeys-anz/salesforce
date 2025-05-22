@@ -47,27 +47,6 @@ public with sharing class InteractionAttendeeActionsTest {
     );
   }
   /**
-   * @description tests for getInteractionIdFromAttendee
-   */
-  @isTest
-  static void testGetInteractionIdFromAttendee() {
-    List<Interaction> interactionList = TestInteractionMock.createMockInteractionWithAttendeeRecord();
-    List<InteractionAttendee> attendeeList = (List<InteractionAttendee>) interactionList[0]
-      .Attendees;
-    Test.startTest();
-    Set<Id> interactionIds = InteractionAttendeeActions.getInteractionIdFromAttendee(
-      attendeeList
-    );
-    Test.stopTest();
-
-    Assert.areEqual(
-      true,
-      interactionIds.size() > 0,
-      'Interaction Ids will be added in the set of related Attendee'
-    );
-  }
-
-  /**
    * @description tests for getInteractionAttendeeFromInteraction
    */
   @isTest

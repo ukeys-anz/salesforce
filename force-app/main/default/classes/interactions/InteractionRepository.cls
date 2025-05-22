@@ -186,11 +186,10 @@ public with sharing class InteractionRepository {
   /**
    * @description Query details of Interaction Records and Related Attendee
    * @param interactions set of InteractionId on which update is happening.
-   * @param 
+   * @param interactionOwnerIds Interaction Owner Ids set
    * @return List<InteractionAttendee> Return list of InteractionAttendee
    */
   public List<InteractionAttendee> queryInteractionAttendees(List<Interaction> interactions,Set<Id> interactionOwnerIds){
-    
     return[
         SELECT UserId, InteractionId
         FROM InteractionAttendee

@@ -668,6 +668,45 @@ public with sharing class InteractionTriggerHandlerTest {
   }
 
   @isTest
+  private static void testfilterInteractions() {
+    List<Interaction> interactions = TestInteractionMock.createMockInteraction();
+    Test.startTest();
+    List<Interaction> interactionlist = InteractionAttendeeActions.filterInteractions(
+      interactions
+    );
+    Test.stopTest();
+    System.assertEquals(
+      3,
+      interactions.size(),
+      'Expected size of Interaction List before filtering should be 3'
+    );
+    System.assertEquals(
+      2,
+      interactionlist.size(),
+      'Expected size of Interaction List after filtering should be 2'
+    );
+  }
+
+  @isTest
+  private static void testqueryInteractions() {
+    User coachUser = TestUtil.getUserByFirstName('TestCoachInter894');
+    List<Interaction> interactionList = TestInteractionMock.createMockInteraction();
+    List<interaction> fetchInteractionRecorddetails;
+    Test.startTest();
+    System.runAs(coachUser) {
+      fetchInteractionRecorddetails = InteractionAttendeeActions.queryInteractions(
+        interactionList
+      );
+    }
+    Test.stopTest();
+    System.assertEquals(
+      0,
+      fetchInteractionRecorddetails.size(),
+      'Interaction records should not be retrieved'
+    );
+  }
+
+  @isTest
   private static void testcreateCustomerTypeInteractionAttendee() {
     User coachUser = TestUtil.getUserByFirstName('TestCoachInter894');
     List<Interaction> interactionList = TestInteractionMock.createMockInteraction();
