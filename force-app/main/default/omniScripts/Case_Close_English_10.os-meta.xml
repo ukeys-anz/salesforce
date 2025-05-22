@@ -1983,6 +1983,19 @@
         &quot;data&quot; : &quot;true&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;showRealFormInfo&quot;
+      }, {
+        &quot;group&quot; : {
+          &quot;operator&quot; : &quot;OR&quot;,
+          &quot;rules&quot; : [ {
+            &quot;field&quot; : &quot;hideRealForm&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;true&quot;
+          }, {
+            &quot;field&quot; : &quot;ComplaintStatus&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;Provisionally Closed&quot;
+          } ]
+        }
       } ]
     }
   },
@@ -4811,6 +4824,30 @@
             <type>Text</type>
         </childElements>
         <childElements>
+            <name>RealFormMaxIdFormula</name>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : null,
+  &quot;label&quot; : &quot;RealFormMaxIdFormula&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;expression&quot; : &quot;IF(%REALFormMAXID% , %REALFormMAXID%,%Case:REALFormMAXID_OLD%)&quot;,
+  &quot;hide&quot; : true,
+  &quot;show&quot; : null,
+  &quot;mask&quot; : null,
+  &quot;dataType&quot; : null,
+  &quot;hideGroupSep&quot; : false,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>112.0</sequenceNumber>
+            <type>Formula</type>
+        </childElements>
+        <childElements>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -4855,11 +4892,15 @@
   },
    &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;operator&quot; : &quot;OR&quot;,
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;true&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;hideRealForm&quot;
+      }, {
+        &quot;field&quot; : &quot;ComplaintStatus&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Provisionally Closed&quot;
       } ]
     }
   },
@@ -6318,8 +6359,6 @@
     }, {
       &quot;ComplaintSubRemedy1&quot; : &quot;Complaint Sub Remedy 1&quot;
     }, {
-      &quot;realFormRequired&quot; : &quot;Is a REaL form required?&quot;
-    }, {
       &quot;isSystemicIssue&quot; : &quot;Are any of the issues possibly systemic?&quot;
     } ],
     &quot;secCmpMap&quot; : [ {
@@ -6363,8 +6402,6 @@
       &quot;ComplaintRemedy1Accepted&quot; : &quot;Complaint Remedy 1&quot;
     }, {
       &quot;ComplaintSubRemedy1Accepted&quot; : &quot;Complaint Sub Remedy 1&quot;
-    }, {
-      &quot;realFormRequired&quot; : &quot;Is a REaL form required?&quot;
     }, {
       &quot;isSystemicIssue&quot; : &quot;Are any of the issues possibly systemic?&quot;
     } ],
