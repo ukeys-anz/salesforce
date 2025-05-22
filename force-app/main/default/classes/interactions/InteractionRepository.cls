@@ -49,7 +49,7 @@ public with sharing class InteractionRepository {
       WHERE Id = :interactionId
       WITH USER_MODE
       LIMIT 1
-    ];
+    ] ?? null;
   }
 
   /**
@@ -152,5 +152,71 @@ public with sharing class InteractionRepository {
       WITH USER_MODE
       LIMIT 1
     ] ?? null;
+  }
+
+  /**
+   * @description Query details of Interaction Records and Related Attendee
+   * @param interactionIds set of InteractionId on which update is happening.
+   * @return Interaction info along with Attendees details.
+   */
+  public List<Interaction> queryInteractionAndRelatedAttendees(Set<Id> interactionIds){
+    return [
+      SELECT
+        Id,
+        Attendees__c,
+        Attendees_and_Roles__c,
+        (
+          SELECT
+            Id,
+            InteractionId,
+            AttendeeType,
+            UserId,
+            User.UserRole.Name,
+            User.Name,
+            ContactId,
+            Contact.Name,
+            Attendee_Name__c
+          FROM Attendees
+        )
+      FROM Interaction
+      WHERE Id IN :interactionIds
+    ];
+  }
+
+  /**
+   * @description Query details of Interaction Records and Related Attendee
+   * @param interactions set of InteractionId on which update is happening.
+   * @param 
+   * @return List<InteractionAttendee> Return list of InteractionAttendee
+   */
+  public List<InteractionAttendee> queryInteractionAttendees(List<Interaction> interactions,Set<Id> interactionOwnerIds){
+    
+    return[
+        SELECT UserId, InteractionId
+        FROM InteractionAttendee
+        WHERE InteractionId IN :interactions AND UserId IN :interactionOwnerIds
+        WITH USER_MODE
+    ];
+  }
+
+    /**
+   * @description Query details of Interaction Records
+   * @param interactions List of interactions which are updated.
+   * @return Interaction info having customer associated with it.
+   */
+  public List<Interaction> queryInteractions(
+    List<Interaction> interactions
+  ) {
+    return [
+      SELECT
+        id,
+        Contact_Mobile__c,
+        Account.PersonContactId,
+        RecordTypeId,
+        AccountId
+      FROM interaction
+      WHERE id IN :interactions
+      WITH USER_MODE
+    ];
   }
 }

@@ -29,12 +29,12 @@ public with sharing class TwilioServiceUtil {
     
     //create Twilio Details upsert list based on from which context it is called
     try {
-      Database.UpsertResult upsertResult = DML_REPOSITORY.doUpsert(
+      DML_REPOSITORY.doUpsert(
         twilioDetailRecord
       );
       Interaction interactionToBeUpdated = createInteractionDetailInstance(
         twilioContextRequest,
-        upsertResult
+        twilioDetailRecord
       );
       DML_REPOSITORY.doUpdate(interactionToBeUpdated);
       return generateResponse();
@@ -140,18 +140,15 @@ public with sharing class TwilioServiceUtil {
     );
 
     //Coaches needs each Call/Chat Interaction should have Twilio details precreated so that they should only fill in few fields from related details section
-    for (
-      Integer intInsertCount = 0;
-      intInsertCount < twilioInsertResult.size();
-      intInsertCount++
-    ) {
-      Database.SaveResult twilioRecordInserted = twilioInsertResult.get(
-        intInsertCount
-      );
-      if (twilioRecordInserted.isSuccess()) {
+    Integer intInsertCount = 0;
+    for(Database.SaveResult twilioRecordInserted : twilioInsertResult)
+    {
+      if(twilioRecordInserted.isSuccess())
+      {
         interactionListForTwilioDetailsCreation[intInsertCount]
           .TwilioDetailsID__c = twilioRecordInserted.getId();
       }
+      intInsertCount++;
     }
   }
 
@@ -185,11 +182,11 @@ public with sharing class TwilioServiceUtil {
    */
   private static Interaction createInteractionDetailInstance(
     UpdateInteractionByTwilioPayload payLoad,
-    Database.UpsertResult twilioRecordUpserted
+    Twilio_Details__c twilioRecordUpserted
   ) {
     Interaction interactionToUpsert = new Interaction();
     interactionToUpsert.Id = payLoad.interactionId;
-    interactionToUpsert.TwilioDetailsID__c = twilioRecordUpserted.getId();
+    interactionToUpsert.TwilioDetailsID__c = twilioRecordUpserted.Id;
     interactionToUpsert.Status__c = getStatus(payLoad.chatOrCallStatus);
     if (String.isNotBlank(payLoad.queueName)) {
       interactionToUpsert.Chat_Queue__c = payLoad.queueName;

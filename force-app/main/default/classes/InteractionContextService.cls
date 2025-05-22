@@ -30,14 +30,10 @@ global with sharing class InteractionContextService {
   global static void doPost(InteractionContextRequest contextRequest) {
     InteractionContextResponse responseSentToTwilio = new InteractionContextResponse();
     try {
-      if (String.isNotBlank(contextRequest.ocvId)) {
-        enrichContextRequestWithAccount(contextRequest);
-      }
-
-      if (String.isNotBlank(contextRequest.pubSubEventId)) {
-        enrichContextRequestWithTask(contextRequest);
-      }
-
+      
+      contextRequest.existingAccount = enrichContextRequestWithAccount(contextRequest);
+      contextRequest.pushToAppTask = enrichContextRequestWithTask(contextRequest);
+     
       //Validating the response received from Twilio in order to proceed
       String errorMessage = validateIncomingRequestFromTwilio(contextRequest);
       if (errorMessage != null) {
@@ -375,32 +371,33 @@ global with sharing class InteractionContextService {
   /**
    * @description Append accountDetails Id based on the ocvId from Twilio
    * @param contextRequest twilio context request
+   * @return Account if exist based on the ocv id received
    */
-  private static void enrichContextRequestWithAccount(
+  private static Account enrichContextRequestWithAccount(
     InteractionContextRequest contextRequest
   ) {
-    Account accountFound = INTERACTION_REPOSITORY.fetchExistingAccountByOCVId(
+    if(String.isBlank(contextRequest.ocvId))
+    {
+      return null;
+    }
+    return INTERACTION_REPOSITORY.fetchExistingAccountByOCVId(
       contextRequest.ocvId
     );
-
-    if (accountFound != null) {
-      contextRequest.existingAccount = accountFound;
-    }
   }
 
   /**
    * @description Append task details Id based on the pubSubEventId from Twilio
    * @param contextRequest twilio context request
+   * @return Task record if exist based on the pubSubEventId received
    */
-  private static void enrichContextRequestWithTask(
+  private static Task enrichContextRequestWithTask(
     InteractionContextRequest contextRequest
   ) {
-    Task pushToAppTaskFound = INTERACTION_REPOSITORY.queryPushToAppTaskDetails(
+    if (String.isBlank(contextRequest.pubSubEventId)) {
+      return null;
+    }
+    return INTERACTION_REPOSITORY.queryPushToAppTaskDetails(
       contextRequest.pubSubEventId
     );
-
-    if (pushToAppTaskFound != null) {
-      contextRequest.pushToAppTask = pushToAppTaskFound;
-    }
   }
 }
