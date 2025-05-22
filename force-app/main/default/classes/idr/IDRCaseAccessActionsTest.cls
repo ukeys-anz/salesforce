@@ -35,7 +35,8 @@ private with sharing class IDRCaseAccessActionsTest {
       RecordTypeId = RTCase.nonCustomerComplaint,
       Status = IDRConstants.OPEN_STATUS,
       IDR_Additional_Correspondence_reviewed__c = false,
-      IDR_Document_Count__c = null
+      IDR_Document_Count__c = null,
+      CaseNumber__c = String.valueOf(caseNumber)
     ),
     new Map<String, Object>{ 'CaseNumber' => caseNumber }
   );
@@ -47,6 +48,7 @@ private with sharing class IDRCaseAccessActionsTest {
       RecordTypeId = RTCase.nonCustomerComplaint,
       IDR_Additional_Correspondence_reviewed__c = false,
       IDR_Document_Count__c = null,
+      CaseNumber__c = String.valueOf(caseNumber),
       IDR_Real_Form_Ref_No__c = '123123123',
       IDR_Real_Form_Req__c = 'Yes, I have already recorded a REaL Form',
       IDR_Real_Form_Submitted__c = true
@@ -351,7 +353,9 @@ private with sharing class IDRCaseAccessActionsTest {
   @isTest
   static void testgetNonAnzxStandardUserCases() {
     registerMocks();
-    userMock.mock('checkProfile', false).mock('getUser', l2User);
+    userMock
+      .mock('checkProfile', false)
+      .mock('getUser', l2User);
     Case oldCase = oldCaseRecord;
     oldCase.OwnerId = l3User.Id;
     Case newCase = newCaseRecord;
