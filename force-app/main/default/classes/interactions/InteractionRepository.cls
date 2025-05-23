@@ -215,7 +215,6 @@ public with sharing class InteractionRepository {
         AccountId
       FROM interaction
       WHERE id IN :interactions
-      WITH USER_MODE
     ];
   }
 }
