@@ -18,7 +18,7 @@ global with sharing class InteractionContextServiceUpdate {
   @HttpPost
   global static void doPost(UpdateInteractionByTwilioPayload contextRequest) {
     try {
-      contextRequest.agentUserId = enrichContextRequestWithAgentUserId(contextRequest)?.Id;
+      contextRequest.agentUserId = enrichContextRequestWithAgentUserId(contextRequest);
       //Twilio Detail Record inserted by Twilio
       TwilioContextResponse twilioResponse = TwilioServiceUtil.upsertTwilioDetailsRecord(
         contextRequest
@@ -52,15 +52,12 @@ global with sharing class InteractionContextServiceUpdate {
   /**
    * @description Append agentUserRecord Id based on the agenEmail from Twilio
    * @param contextRequest twilio context request
-   * @return User record based on the agentEmail
+   * @return Id user record id based on the agentEmail
    */
-  private static User enrichContextRequestWithAgentUserId(UpdateInteractionByTwilioPayload contextRequest){
-    if (contextRequest.agentEmail == null)
-    {
-      return null;
-    }
-    return INTERACTION_REPOSITORY.fetchAgentUserId(
+  private static Id enrichContextRequestWithAgentUserId(UpdateInteractionByTwilioPayload contextRequest){
+    User userRecord = INTERACTION_REPOSITORY.fetchAgentUserId(
       contextRequest.agentEmail
     );
+    return userRecord?.Id;
   }
 }

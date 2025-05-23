@@ -46,8 +46,10 @@ public with sharing class InteractionAttendeeActions {
   ) {
     Set<Id> interactionIds = ListUtil.getIds(attendees, InteractionAttendee.InteractionId);
 
+    List<Interaction> interactionList = INTERACTION_REPOSITORY.queryInteractionAndRelatedAttendees(interactionIds);
+
     Map<Id, Interaction> interactionMap = new Map<Id, Interaction>(
-      INTERACTION_REPOSITORY.queryInteractionAndRelatedAttendees(interactionIds)
+      interactionList
     );
 
     List<InteractionAttendee> attendeeList = getInteractionAttendeeFromInteraction(
@@ -67,7 +69,7 @@ public with sharing class InteractionAttendeeActions {
       createInteractionAndAttendeeRoleMap
     );
 
-    DML_REPOSITORY.doUpdate(listOfInteractionTobeUpdated, new DMLConfig().systemMode());
+    DML_REPOSITORY.doUpdate(listOfInteractionTobeUpdated, new DMLConfig().allowPartial().systemMode());
   }
 
   /**
@@ -115,50 +117,14 @@ public with sharing class InteractionAttendeeActions {
     );
 
     //Loop in and create a Map of Interaction Id and list of attendees.
-    Map<Id, Set<Id>> interActionWithAttendee = new Map<Id, Set<Id>>();
-    for (InteractionAttendee attendee : listOfInteractionAttendee) {
-      if (
-        !interActionWithAttendee.containsKey(
-          attendee.InteractionId
-        )
-      ) {
-        interActionWithAttendee.put(
-          attendee.InteractionId,
-          new Set<Id>{ attendee.UserId }
-        );
-      } else {
-        interActionWithAttendee.get(
-          attendee.InteractionId
-        ).add(attendee.UserId);
-      }
-    }
+    Map<Id, Set<Id>> interactionIdWithAttendeeIdsMap = getInteractionIdWithAttendeesIdsMap(listOfInteractionAttendee); 
 
     // Now Finally loop on proginal interaction, check if there is any existin interaction attendee with the
     // OwnerId, if yes, ignore it, if not insert the interactionattendee.
-    List<InteractionAttendee> interactAttendeesToInsertList = new List<InteractionAttendee>();
+    List<InteractionAttendee> interactAttendeesToInsertList = createInteractionAttendeesToInsert(interactions,interactionIdWithAttendeeIdsMap);
 
-    for (Interaction interact : interactions) {
-      if (
-        !CALL_MESSAGE_INPERSON_RT_ID.contains(
-          interact.RecordTypeId
-        )
-      ) {
-        continue;
-      }
-      Set<Id> existingAttendeeIds = interActionWithAttendee.get(interact.Id);
-      if (
-        existingAttendeeIds != null &&
-        !existingAttendeeIds.contains(interact.OwnerId)
-      ) {
-        InteractionAttendee intattendee = new InteractionAttendee();
-        intattendee.AttendeeType = InteractionConstants.INTERNAL;
-        intattendee.UserId = interact.OwnerId;
-        intattendee.InteractionId = interact.id;
-        interactAttendeesToInsertList.add(intattendee);
-        }
-      }
-      //This code creates interaction attendee in system mode using Twilio API user with limited access
-      DML_REPOSITORY.doInsert(interactAttendeesToInsertList, new DmlConfig().systemMode());
+    //This code creates interaction attendee in system mode using Twilio API user with limited access
+    DML_REPOSITORY.doInsert(interactAttendeesToInsertList, new DmlConfig().allowPartial().systemMode());
   }
 
   /**
@@ -276,28 +242,21 @@ public with sharing class InteractionAttendeeActions {
     }
 
     InteractionAttendee intattendee = new InteractionAttendee();
-    intattendee.AttendeeType = fetchAttendeeType(
-      twilioContextRequest.agentEmail
-    );
-
+    intattendee.AttendeeType = InteractionConstants.EXTERNAL;
     intattendee.UserId = twilioContextRequest.agentUserId;
     intattendee.InteractionId = twilioContextRequest.interactionId;
     intattendee.Attendee_Name__c = twilioContextRequest.attendeeName;
     intattendee.Attendee_Phone__c = twilioContextRequest.attendeePhoneNumber;
     intattendee.Conversation_Sid__c = twilioContextRequest.chatOrCallId;
 
+    if(String.isNotBlank(twilioContextRequest.agentEmail))
+    {
+      intattendee.AttendeeType = InteractionConstants.INTERNAL;
+    }
+
     return intattendee;
   }
-  /**
-   * @description fetch attendeeType of the InteractionAttendee
-   * @param agentEmail agentEmail from TwilioContextRequest recceived from Twilio
-   * @return InteractionAttendeeType
-   */
-  private static String fetchAttendeeType(String agentEmail) {
-    return String.isNotBlank(agentEmail)
-      ? InteractionConstants.INTERNAL
-      : InteractionConstants.EXTERNAL;
-  }
+ 
 
   /**
    * @description create InteractionAttendee map based on AttendeeType
@@ -449,5 +408,65 @@ public with sharing class InteractionAttendeeActions {
       }
     }
     return uniqueKey;
+  }
+
+  /**
+   * @description Create Map of Interaction Id with Set Of Attendee Ids.
+   * @param listOfInteractionAttendee list of interaction attendees
+   * @return Map<Id, Set<Id>> Interaction Id and related Attendee Ids Map
+   */
+  private static Map<Id, Set<Id>> getInteractionIdWithAttendeesIdsMap(
+    List<InteractionAttendee> listOfInteractionAttendee
+  ) {
+    Map<Id, Set<Id>> interactionWithAttendee = new Map<Id , Set<Id>>();
+    for (InteractionAttendee attendee : listOfInteractionAttendee) {
+      if (
+        !interactionWithAttendee.containsKey(
+          attendee.InteractionId
+        )
+      ) {
+        interactionWithAttendee.put(
+          attendee.InteractionId,
+          new Set<Id>()
+        );
+      } 
+      interactionWithAttendee.get(
+        attendee.InteractionId
+      ).add(attendee.UserId);
+    }
+    return interactionWithAttendee;
+  }
+
+  /**
+   * @description Create List of Interactio Attendees to insert
+   * @param interactions list of interaction 
+   * @param interactionWithAttendee Interaction Id and related Attendee Ids Map
+   * @return List<InteractionAttendee> list of interaction attendees to insert
+   */
+  private static List<InteractionAttendee> createInteractionAttendeesToInsert(List<Interaction> interactions, Map<Id, Set<Id>> interactionWithAttendee ){
+    List<InteractionAttendee> interactAttendeesToInsertList = new List<InteractionAttendee>();
+    for (Interaction interact : interactions) {
+      if (
+        !CALL_MESSAGE_INPERSON_RT_ID.contains(
+          interact.RecordTypeId
+        )
+      ) {
+        continue;
+      }
+      Set<Id> existingAttendeeIds = interactionWithAttendee.get(interact.Id);
+      if (
+        existingAttendeeIds != null &&
+        existingAttendeeIds.contains(interact.OwnerId)
+      ) {
+        continue;
+      }
+      InteractionAttendee intattendee = new InteractionAttendee();
+      intattendee.AttendeeType = InteractionConstants.INTERNAL;
+      intattendee.UserId = interact.OwnerId;
+      intattendee.InteractionId = interact.id;
+      interactAttendeesToInsertList.add(intattendee); 
+      }
+
+      return interactAttendeesToInsertList;
   }
 }

@@ -160,6 +160,9 @@ public with sharing class InteractionRepository {
    * @return Interaction info along with Attendees details.
    */
   public List<Interaction> queryInteractionAndRelatedAttendees(Set<Id> interactionIds){
+    if (interactionIds.isEmpty()){
+      return new List<Interaction>();
+    }
     return [
       SELECT
         Id,
@@ -180,6 +183,7 @@ public with sharing class InteractionRepository {
         )
       FROM Interaction
       WHERE Id IN :interactionIds
+      WITH SYSTEM_MODE
     ];
   }
 
@@ -190,10 +194,14 @@ public with sharing class InteractionRepository {
    * @return List<InteractionAttendee> Return list of InteractionAttendee
    */
   public List<InteractionAttendee> queryInteractionAttendees(List<Interaction> interactions,Set<Id> interactionOwnerIds){
+    if (interactions.isEmpty() || interactionOwnerIds.isEmpty() ){
+      return new List<InteractionAttendee>();
+    }
     return[
         SELECT UserId, InteractionId
         FROM InteractionAttendee
         WHERE InteractionId IN :interactions AND UserId IN :interactionOwnerIds
+        WITH SYSTEM_MODE
     ];
   }
 
@@ -214,6 +222,7 @@ public with sharing class InteractionRepository {
         AccountId
       FROM interaction
       WHERE id IN :interactions
+      WITH SYSTEM_MODE
     ];
   }
 }
