@@ -160,6 +160,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>ANZ Plus Progress Saver</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>ANZ Product</fullName>
             <default>false</default>
         </values>
