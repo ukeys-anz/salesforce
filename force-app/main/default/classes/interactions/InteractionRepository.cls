@@ -78,9 +78,6 @@ public with sharing class InteractionRepository {
    * @return SObject
    */
   public SObject fetchOCVId(String refObject, String recordId) {
-    Schema.DescribeSObjectResult describeResult = Schema.getGlobalDescribe()
-      .get(refObject)
-      .getDescribe();
     if (String.isBlank(refObject)) {
       return null;
     }
