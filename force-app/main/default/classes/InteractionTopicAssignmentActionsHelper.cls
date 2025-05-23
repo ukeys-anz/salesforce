@@ -22,11 +22,11 @@ public with sharing class InteractionTopicAssignmentActionsHelper {
   ) {
     for (TopicAssignment record : records) {
       Id tagCategoryId = QueryTagCategoryAssignment.getByTagId(record.TopicId)
-        .TagCategoryId;
-      String tagCategory = QueryTagCategory.getById(tagCategoryId).Name;
-      if (String.isBlank(tagCategory)) {
+        ?.TagCategoryId;
+      if (String.isBlank(tagCategoryId)) {
         continue;
       }
+      String tagCategory = QueryTagCategory.getById(tagCategoryId).Name;
       Id interactionRTId = interactionsMap.get(record.EntityId).RecordTypeId;
       String recordTypeDevName = RTInteraction.getDeveloperName(
         interactionRTId
@@ -64,8 +64,8 @@ public with sharing class InteractionTopicAssignmentActionsHelper {
     };
     for (TopicAssignment record : topicAssignments) {
       Id tagCategoryId = QueryTagCategoryAssignment.getByTagId(record.TopicId)
-        .TagCategoryId;
-      String topicCategory = QueryTagCategory.getById(tagCategoryId).Name;
+        ?.TagCategoryId;
+      String topicCategory = QueryTagCategory.getById(tagCategoryId)?.Name;
       if (validTagCategories.contains(topicCategory)) {
         interactionIds.add(record.EntityId);
       }
@@ -163,8 +163,8 @@ public with sharing class InteractionTopicAssignmentActionsHelper {
     List<TopicAssignment> filteredTopicAssignment = new List<TopicAssignment>();
     for (TopicAssignment record : topicAssignments) {
       Id tagCategoryId = QueryTagCategoryAssignment.getByTagId(record.TopicId)
-        .TagCategoryId;
-      String actualTagCategory = QueryTagCategory.getById(tagCategoryId).Name;
+        ?.TagCategoryId;
+      String actualTagCategory = QueryTagCategory.getById(tagCategoryId)?.Name;
       if (actualTagCategory == tagCategory) {
         filteredTopicAssignment.add(record);
       }
