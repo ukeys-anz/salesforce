@@ -103,7 +103,7 @@ public with sharing class InteractionRepository {
           .getId('PersonAccount')
         AND ANZx_Customer__c = TRUE
         WITH USER_MODE
-    ] ?? null;
+    ];
   }
 
   /**
