@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR3_Select_Product_Max_Five</fullName>
+    <active>true</active>
+    <description>You are allowed to select maximum five product values for Call, Message and In-Person Interaction.</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+OR(Record_Type__c = &apos;Call&apos;,Record_Type__c = &apos;Message&apos;,Record_Type__c = &apos;In Person&apos;),
+PICKLISTCOUNT( Product__c ) &gt; 5,
+NOT(ISBLANK(Product__c)) 
+)</errorConditionFormula>
+    <errorDisplayField>Product__c</errorDisplayField>
+    <errorMessage>You can only select up to 5 values for Product field.</errorMessage>
+</ValidationRule>

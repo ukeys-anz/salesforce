@@ -7,17 +7,6 @@
             class="slds-tabs_scoped__nav slds-grid slds-wrap slds-grid_pull-padded-small lightningScope"
             role="tablist"
           >
-            <template lwc:if={showAll}>
-              <li class={allTab} title="All" role="presentation">
-                <div
-                  class="slds-tabs_scoped__link lightningScopeLink headerFontStyling"
-                  role="tab"
-                  onclick={handleShowAllTab}
-                >
-                  All
-                </div>
-              </li>
-            </template>
             <template lwc:if={showAppTab}>
               <li class={appointmentTab} title="Contact" role="presentation">
                 <div
@@ -74,29 +63,7 @@
         </div>
       </header>
     </div>
-    <!-- showAll(In-person, store and messages) -->
-    <template lwc:if={showAllTab}>
-      <c-interaction-record-service
-        str-parent-id={recordId}
-        str-record-type-name="General,Message,Store"
-        max-number={maxRecords}
-        lightning-page-name={lightningPageName}
-        all-record={allRecord}
-        onshowviewall={fetchViewValue}
-        show-open-message-only={showActiveMsgInteraction}
-      ></c-interaction-record-service>
-      <template lwc:if={showViewAll}>
-        <footer class="slds-card__footer">
-          <c-view-all-generic
-            any-record-id={recordId}
-            record-type-developer-name={allRecord}
-            lightning-page-name={lightningPageName}
-            openmessage={showActiveMsgInteraction}
-          >
-          </c-view-all-generic>
-        </footer>
-      </template>
-    </template>
+
     <!-- Appointments Tab Section Starts -->
     <template lwc:if={showAppointmentTab}>
       <c-interaction-record-service

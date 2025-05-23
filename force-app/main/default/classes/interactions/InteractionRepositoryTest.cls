@@ -21,7 +21,8 @@ public with sharing class InteractionRepositoryTest {
       'API_Access_Twilio',
       'Enforce_mTLS',
       'Twilio_Detail_Read_Write',
-      'Interaction_Integration'
+      'Interaction_Integration',
+      'FinancialServicesCloudExtension'
     };
     TestUtil.addPermissionSets(psNames);
   }
