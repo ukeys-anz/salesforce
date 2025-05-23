@@ -122,7 +122,7 @@ export default class FetchEDRMFiles extends NavigationMixin(LightningElement) {
   }
   setEdrmURLSuffix() {
     let edrmURLSuffix = this.getDesktopUrl(this.businessStream) + EDRMURLString;
-    if (this.applicationNumber && this.businessStream === "CMOS_CS_HL") {
+    if (this.applicationNumber && this.businessStream !== "CMOS_CS_HLELF") {
       edrmURLSuffix +=
         this.businessStream + "&OriginatingSourceID=" + this.applicationNumber;
     } else if (
@@ -130,11 +130,22 @@ export default class FetchEDRMFiles extends NavigationMixin(LightningElement) {
       this.businessStream === "CMOS_CS_HLELF"
     ) {
       edrmURLSuffix +=
-        this.businessStream + "&AccountNumber=" + this.applicationNumber;
+        this.businessStream + "&AccountID=" + this.applicationNumber;
     } else if (this.showCustomerComplaint && this.customerNumber) {
       edrmURLSuffix += this.businessStream + "&capId=" + this.customerNumber;
-    } else if (!this.showCustomerComplaint && this.accountNumber) {
+    } else if (
+      !this.showCustomerComplaint &&
+      this.accountNumber &&
+      this.businessStream !== "CMOS_CS_HLELF"
+    ) {
       edrmURLSuffix += this.businessStream + "&AccountID=" + this.accountNumber;
+    } else if (
+      !this.showCustomerComplaint &&
+      this.accountNumber &&
+      this.businessStream === "CMOS_CS_HLELF"
+    ) {
+      edrmURLSuffix +=
+        this.businessStream + "&AccountNumber=" + this.accountNumber;
     }
     return edrmURLSuffix;
   }
