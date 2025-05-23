@@ -27,8 +27,9 @@ public with sharing class CustomerNudgeTaskAutoArchiveScheduler implements Sched
     );
 
     Logger.error(
-      'Error while auto archiving the Customer Nudge Task record ' ,
-      recordsSaveResultList
-    ).save();
+        'Error while auto archiving the Customer Nudge Task record ',
+        recordsSaveResultList
+      )
+      .save();
   }
 }

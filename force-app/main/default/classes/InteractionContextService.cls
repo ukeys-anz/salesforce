@@ -30,10 +30,13 @@ global with sharing class InteractionContextService {
   global static void doPost(InteractionContextRequest contextRequest) {
     InteractionContextResponse responseSentToTwilio = new InteractionContextResponse();
     try {
-      
-      contextRequest.existingAccount = enrichContextRequestWithAccount(contextRequest);
-      contextRequest.pushToAppTask = enrichContextRequestWithTask(contextRequest);
-     
+      contextRequest.existingAccount = enrichContextRequestWithAccount(
+        contextRequest
+      );
+      contextRequest.pushToAppTask = enrichContextRequestWithTask(
+        contextRequest
+      );
+
       //Validating the response received from Twilio in order to proceed
       String errorMessage = validateIncomingRequestFromTwilio(contextRequest);
       if (errorMessage != null) {
@@ -109,7 +112,7 @@ global with sharing class InteractionContextService {
           'Interaction Creation from Twilio with chatOrCallSid ' +
             contextRequest.chatOrCallId +
             ' failed with error message: ',
-            objException
+          objException
         )
         .save();
     }
@@ -376,8 +379,7 @@ global with sharing class InteractionContextService {
   private static Account enrichContextRequestWithAccount(
     InteractionContextRequest contextRequest
   ) {
-    if(String.isBlank(contextRequest.ocvId))
-    {
+    if (String.isBlank(contextRequest.ocvId)) {
       return null;
     }
     return INTERACTION_REPOSITORY.fetchExistingAccountByOCVId(
