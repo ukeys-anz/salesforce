@@ -81,13 +81,13 @@ public with sharing class InteractionRepository {
     Schema.DescribeSObjectResult describeResult = Schema.getGlobalDescribe()
       .get(refObject)
       .getDescribe();
-    if (String.isBlank(refObject) || !describeResult.isQueryable()) {
+    if (String.isBlank(refObject)) {
       return null;
     }
     return Database.query(
       'SELECT Account.OCV_ID__c FROM ' +
         String.escapeSingleQuotes(refObject) +
-        ' WHERE Id = :recordId'
+        ' WHERE Id = :recordId WITH USER_MODE'
     );
   }
 
@@ -97,7 +97,6 @@ public with sharing class InteractionRepository {
    * @return Account record
    */
   public Account findAccountByOCVId(String ocvId) {
-    PermissionUtils.canQuery('Account');
     return [
       SELECT PersonContactId
       FROM Account
@@ -106,7 +105,8 @@ public with sharing class InteractionRepository {
         AND RecordTypeId = :QueryRT.of(Account.SObjectType)
           .getId('PersonAccount')
         AND ANZx_Customer__c = TRUE
-    ];
+        WITH USER_MODE
+    ] ?? null;
   }
 
   /**
