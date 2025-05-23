@@ -194,7 +194,6 @@ public with sharing class InteractionRepository {
         SELECT UserId, InteractionId
         FROM InteractionAttendee
         WHERE InteractionId IN :interactions AND UserId IN :interactionOwnerIds
-        WITH USER_MODE
     ];
   }
 
