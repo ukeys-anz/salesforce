@@ -97,7 +97,7 @@ public with sharing class InteractionAttendeeActions {
       intattendee.InteractionId = interact.id;
       listOfInteractAttendeeToInsert.add(intattendee);
     }
-    DML_REPOSITORY.doInsert(listOfInteractAttendeeToInsert);
+    DML_REPOSITORY.doInsert(listOfInteractAttendeeToInsert, new DMLConfig().allowPartial());
   }
 
   /**
@@ -186,7 +186,7 @@ public with sharing class InteractionAttendeeActions {
       oldMapInteraction
     );
 
-    DML_REPOSITORY.doInsert(listOfInteractAttendee);
+    DML_REPOSITORY.doInsert(listOfInteractAttendee, new DMLConfig().allowPartial());
   }
  
   /**
