@@ -143,11 +143,12 @@ public with sharing class TwilioServiceUtil {
     Integer intInsertCount = 0;
     for(Database.SaveResult twilioRecordInserted : twilioInsertResult)
     {
-      if(twilioRecordInserted.isSuccess())
+      if(!twilioRecordInserted.isSuccess())
       {
-        interactionListForTwilioDetailsCreation[intInsertCount]
-          .TwilioDetailsID__c = twilioRecordInserted.getId();
+        continue;
       }
+      interactionListForTwilioDetailsCreation[intInsertCount]
+        .TwilioDetailsID__c = twilioRecordInserted.getId();
       intInsertCount++;
     }
   }

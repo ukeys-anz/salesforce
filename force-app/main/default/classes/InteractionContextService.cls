@@ -80,11 +80,11 @@ global with sharing class InteractionContextService {
         contextRequest
       );
 
-      Database.SaveResult interactionCreated = DML_REPOSITORY.doInsert(
+      DML_REPOSITORY.doInsert(
         interactionToBeCreated
       );
       Interaction newInteraction = INTERACTION_REPOSITORY.getInteractionDetails(
-        interactionCreated.getId()
+        interactionToBeCreated.Id
       );
 
       // prepare Twilio Record Instance With Context Detail
