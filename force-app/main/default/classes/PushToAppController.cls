@@ -83,7 +83,8 @@ public with sharing class PushToAppController {
 
   /**
    * @description This method is used to update expiryDate and notificationConfigId nodes
-   * @param item AEMContentData Items node
+   * @param aemData AemDataModel AEM content from AEm system
+   * @return AemDataModel enriched AemDataModel
    */
   private static AemDataModel enrichAemData(AemDataModel aemData) {
 
