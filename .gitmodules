@@ -1,0 +1,4 @@
+[submodule "force-app/main/core"]
+	path = force-app/main/core
+	url = https://github.com/anzx/salesforce-core
+	branch = v1.0.9

@@ -58,6 +58,8 @@ public with sharing class TFMSearchCustomerDataQueryImpl {
     if (refId == Service.IdType.IDENTIFIER) {
       staffModel.realm = TFMConstants.ANZ_REALM_SYSTEM_VALUE;
       staffModel.anzTokenType = TFMConstants.ANZ_STAFF_TOKEN_TYPE;
+    } else if (refId == Service.IdType.UUID) {
+      staffModel.apiScopesRequested = 'SearchCustomerWithAIV';
     }
     TFMSearchCustomerAPIRepository api = new TFMSearchCustomerAPIRepository();
     model = api.searchCustAPI(staffModel);

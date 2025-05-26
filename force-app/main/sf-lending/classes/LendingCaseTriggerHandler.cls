@@ -24,7 +24,7 @@ public class LendingCaseTriggerHandler extends Lib_TriggerHandler {
   /**
    * @description onValidateBefore to handle before insert trigger actions.
    */
-  public override void onValidateBefore() {
+  public override void onBeforeInsert() {
     Logger.debug('On_Before_Insert started: ' + System.now());
     LendingCaseActions.restrictUserFromCreatingLendingCase(records);
     Logger.saveLog();

@@ -1,0 +1,56 @@
+name: Submodule duplicate checker
+
+on:
+  pull_request:
+    branches:
+      - "develop"
+      - "master"
+      - "release"
+      - "epic/*"
+    paths:
+      - "force-app/**"
+      - ".gitmodules"
+      - ".github/workflows/duplicate_checker.yml"
+    types:
+      - opened
+      - reopened
+      - ready_for_review
+      - synchronize
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: "duplicate-checker-${{ github.run_id }}"
+  cancel-in-progress: false
+
+jobs:
+  run:
+    name: "${{ matrix.sub-path.submodule_path }} | branch: ${{ matrix.sub-branch.submodule_branch != '' && matrix.sub-branch.submodule_branch || 'current' }} version | compare: ${{ matrix.compare-flag.compare_all && 'all' || 'new changes only' }}"
+    strategy:
+      fail-fast: false
+      matrix:
+        sub-path:
+          - submodule_path: force-app/main/core
+          # - submodule_path: force-app/main/lending
+        sub-branch:
+          - submodule_branch: develop
+          - submodule_branch: ""
+        parent-info:
+          - validate_parent_branch: ${{ github.head_ref }}
+            parent_base_ref: ${{ github.base_ref }}
+            parent_repo: salesforce
+        compare-flag:
+          - compare_all: true
+          - compare_all: false
+    uses: ./.github/workflows/_duplicate_checker.yml
+    with:
+      parent_repo: ${{ matrix.parent-info.parent_repo }}
+      submodule_path: ${{ matrix.sub-path.submodule_path }}
+      submodule_branch: ${{ matrix.sub-branch.submodule_branch }}
+      validate_parent_branch: ${{ matrix.parent-info.validate_parent_branch }}
+      parent_base_ref: ${{ matrix.parent-info.parent_base_ref }}
+      compare_all: ${{ matrix.compare-flag.compare_all }}
+    secrets:
+      token: ${{ secrets.SALESFORCE_ACTIONS_CHECKOUT_TOKEN }}

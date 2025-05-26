@@ -74,6 +74,14 @@
         <label>Topic Details</label>
         <layoutColumns>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Product__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Actual_Topic_1__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Required</behavior>
                 <field>Resolution__c</field>
             </layoutItems>
@@ -81,6 +89,10 @@
         <layoutColumns>
             <layoutItems>
                 <emptySpace>true</emptySpace>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Actual_Topic_2__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

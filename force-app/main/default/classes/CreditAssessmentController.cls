@@ -270,7 +270,7 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
   /**
    * @param caseRecord CreditReferralCase
    * @return `Boolean`
-   * @description checks if currentuser is the owner of case record.
+   * @description checks if current user is the owner of case record.
    */
   private static Boolean isCurrentUserCaseOwner(Case caseRecord) {
     return UserInfo.getUserId() == caseRecord.OwnerId;
@@ -363,16 +363,9 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
       String.valueOf(input.get('recordId'))
     );
 
-    String creditId = String.valueOf(input.get('creditId'));
-
-    //Remove the version identifier from the credit id
-    if (creditId.contains('@')) {
-      creditId = creditId.left(creditId.indexOf('@'));
-    }
-
     //Create map with payload values
     Map<String, String> payload = new Map<String, String>();
-    payload.put('creditId', creditId);
+    payload.put('creditId', String.valueOf(input.get('creditId')));
     payload.put('referralOutcome', String.valueOf(input.get('refOutcome')));
     payload.put('ocvId', c.Account.OCV_ID__c);
     payload.put('assessmentId', c.Assessment_Id__c);
@@ -401,15 +394,8 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
       String.valueOf(input.get('recordId'))
     );
 
-    String creditId = String.valueOf(input.get('creditId'));
-
-    //Remove the version identifier from the credit id
-    if (creditId.contains('@')) {
-      creditId = creditId.left(creditId.indexOf('@'));
-    }
-
     return CREDIT_API.deleteReferralOutcome(
-      creditId,
+      String.valueOf(input.get('creditId')),
       String.valueOf(input.get('assessmentId')),
       c.Account.OCV_ID__c,
       String.valueOf(input.get('outcomeId'))

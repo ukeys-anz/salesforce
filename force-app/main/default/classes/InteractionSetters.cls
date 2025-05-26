@@ -124,10 +124,10 @@ public with sharing class InteractionSetters {
     List<String> listOfFieldApiNamesForChatAndCall = new List<String>{
       'Direction__c',
       'InteractionType',
-      'Actual_Topic__c'
+      'Actual_Topic_Formula__c'
     };
     List<String> listOfFieldApiNameForStore = new List<String>{
-      'Reason_For_Visit__c'
+      'Reason_for_Visit_Formula__c'
     };
     for (Interaction newInteraction : interactions) {
       Interaction oldInteraction = (Interaction) oldMap?.get(newInteraction.Id);
@@ -146,9 +146,9 @@ public with sharing class InteractionSetters {
             )
           ) {
             newInteraction.Name = concatinatedDirectionAndChannel;
-            if (String.isNotBlank(newInteraction.Actual_Topic__c)) {
+            if (String.isNotBlank(newInteraction.Actual_Topic_Formula__c)) {
               newInteraction.Name +=
-                ' - ' + newInteraction.Actual_Topic__c.split(';')[0];
+                ' - ' + newInteraction.Actual_Topic_Formula__c.split(',')[0];
             } else if (String.isNotBlank(newInteraction.Support_Topics__c)) {
               newInteraction.Name += ' - ' + newInteraction.Support_Topics__c;
             }
@@ -162,16 +162,10 @@ public with sharing class InteractionSetters {
               listOfFieldApiNameForStore
             )
           ) {
-            newInteraction.Name = GetHelpConstants.COACHING_LAB;
-            if (!String.isBlank(newInteraction.Reason_For_Visit__c)) {
-              newInteraction.Name = String.join(
-                new List<String>{
-                  GetHelpConstants.COACHING_LAB,
-                  newInteraction.Reason_For_Visit__c.split(';')[0]
-                },
-                '-'
-              );
-            }
+            newInteraction.Name =
+              GetHelpConstants.COACHING_LAB +
+              ' - ' +
+              newInteraction.Reason_for_Visit_Formula__c;
           }
         }
         when else {

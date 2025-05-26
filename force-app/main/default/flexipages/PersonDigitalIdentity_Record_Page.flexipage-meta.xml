@@ -18,7 +18,7 @@
                                 <criteria>
                                     <leftValue>{!Record.ANZConnectStatus__c}</leftValue>
                                     <operator>EQUAL</operator>
-                                    <rightValue>Connected</rightValue>
+                                    <rightValue>CONNECTED</rightValue>
                                 </criteria>
                                 <criteria>
                                     <leftValue>{!$Permission.CustomPermission.ManageANZConnect}</leftValue>

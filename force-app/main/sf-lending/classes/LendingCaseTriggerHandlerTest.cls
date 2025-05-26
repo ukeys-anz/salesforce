@@ -35,7 +35,7 @@ private class LendingCaseTriggerHandlerTest {
     handler.records = getNewCaseRecords;
     Test.startTest();
     // Dummy Callouts for test coverage
-    handler.onValidateBefore();
+    handler.onBeforeInsert();
     handler.onValidateBefore(oldCaseMap);
     Test.stopTest();
     //Dummy assert
