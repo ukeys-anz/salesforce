@@ -68,7 +68,7 @@ export function updateCardFields(cards) {
       card.replacementCard = {
         tokenized_card_number: replacementCard.tokenized_card_number,
         last_4_digits: replacementCard.last_4_digits,
-        replacementDate: getCardFormattedDate(card.replacementDate)
+        replacementDate: getCardFormattedDate(replacementCard.replacementDate)
       };
     }
   });
