@@ -80,9 +80,7 @@ global with sharing class InteractionContextService {
         contextRequest
       );
 
-      DML_REPOSITORY.doInsert(
-        interactionToBeCreated
-      );
+      DML_REPOSITORY.doInsert(interactionToBeCreated);
       Interaction newInteraction = INTERACTION_REPOSITORY.getInteractionDetails(
         interactionToBeCreated.Id
       );
