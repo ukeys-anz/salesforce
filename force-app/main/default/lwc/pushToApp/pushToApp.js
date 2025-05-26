@@ -99,7 +99,8 @@ export default class PushToApp extends LightningElement {
         this.isSendNowDisabled = false;
         this.aemContentData = pushToAppData;
         this.notificationConfigTitle = pushToAppData.title;
-        this.notificationPreview = pushToAppData.bodyText;
+        this.notificationPreview =
+          pushToAppData.subtitle + ", " + pushToAppData.bodyText;
         this.expiryDate = pushToAppData.expiryDate;
         this.notificationConfigId = pushToAppData.notificationConfigId;
         this.actions = [];
