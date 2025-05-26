@@ -26,16 +26,14 @@ public with sharing class CustomerNudgeTaskAutoArchiveScheduler implements Sched
       new DmlConfig().allowPartial().systemMode()
     );
 
-    for(Database.SaveResult dbSaveResult : recordsSaveResultList )
-    {
-      if (!dbSaveResult.isSuccess())
-      {
+    for (Database.SaveResult dbSaveResult : recordsSaveResultList) {
+      if (!dbSaveResult.isSuccess()) {
         Logger.error(
-          'Customer Nudge Task Expiration Scheduler: One or more task updates failed during execution. See database results for more details  ',
-          recordsSaveResultList
-        )
-        .save();
-        break ;
+            'Customer Nudge Task Expiration Scheduler: One or more task updates failed during execution. See database results for more details  ',
+            recordsSaveResultList
+          )
+          .save();
+        break;
       }
     }
   }

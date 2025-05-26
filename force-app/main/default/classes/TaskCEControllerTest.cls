@@ -35,7 +35,10 @@ public with sharing class TaskCEControllerTest {
     TaskCEController.TaskCloudEventContexT taskCEContext = TaskCEController.buildContext(
       mockTaskRecordsList('New')
     );
-    List<CloudEventModel> taskCloudEvent = TaskCEController.buildCloudEvent(mockTaskRecordsList('New'),taskCEContext);
+    List<CloudEventModel> taskCloudEvent = TaskCEController.buildCloudEvent(
+      mockTaskRecordsList('New'),
+      taskCEContext
+    );
     Test.stopTest();
 
     CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel dataModel = (CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel) taskCloudEvent[0]
@@ -70,7 +73,10 @@ public with sharing class TaskCEControllerTest {
     TaskCEController.TaskCloudEventContexT taskCEContext = TaskCEController.buildContext(
       mockTaskRecordsList('ACTIVITY_STATE_SENT')
     );
-    List<CloudEventModel> taskCloudEvent = TaskCEController.buildCloudEvent(mockTaskRecordsList('ACTIVITY_STATE_SENT'),taskCEContext);
+    List<CloudEventModel> taskCloudEvent = TaskCEController.buildCloudEvent(
+      mockTaskRecordsList('ACTIVITY_STATE_SENT'),
+      taskCEContext
+    );
     Test.stopTest();
 
     CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel dataModel = (CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel) taskCloudEvent[0]

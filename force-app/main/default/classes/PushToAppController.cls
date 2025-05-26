@@ -50,7 +50,6 @@ public with sharing class PushToAppController {
     String aemContentId,
     Id recordId
   ) {
-
     try {
       AemDataModel aemData = AemApiRepository.getAemContentDataForNotification(
         aemContentId,
@@ -60,7 +59,6 @@ public with sharing class PushToAppController {
       AemDataModel enrichedAemData = enrichAemData(aemData);
 
       return enrichedAemData;
-
     } catch (AemApiRepository.AccessErrorException ex) {
       throw new AuraHandledException(
         'Error fetching AEM template content.You don\'t have required permission to perform this action.'
@@ -87,7 +85,6 @@ public with sharing class PushToAppController {
    * @return AemDataModel enriched AemDataModel
    */
   private static AemDataModel enrichAemData(AemDataModel aemData) {
-
     AemDataModel.Items item = aemData.data.pushToAppList.items[0];
 
     Customer_Task_Configuration__c config = PUSH_TO_APP_REPOSITORY.selectedNotificationConfigDetail(
@@ -97,7 +94,12 @@ public with sharing class PushToAppController {
       ? Integer.valueOf(config.Expire_After_Days__c)
       : 0;
 
-    item.expiryDate = BusinessHours.add(QueryBusinessHours.get('Case Business Hours').Id, System.now(), expireAfterDays * 24L * 60L * 60L * 1000L).format('dd/MM/yyyy');
+    item.expiryDate = BusinessHours.add(
+        QueryBusinessHours.get('Case Business Hours').Id,
+        System.now(),
+        expireAfterDays * 24L * 60L * 60L * 1000L
+      )
+      .format('dd/MM/yyyy');
     item.notificationConfigId = config?.Id;
 
     return aemData;

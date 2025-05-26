@@ -249,7 +249,7 @@ global with sharing class InteractionContextService {
    * @return Map<String, String> Valid Support Topic Map
    */
   private static Map<String, String> populateSupportTopicMap() {
-    Map<String, String> supportTopicMap = new  Map<String, String>();
+    Map<String, String> supportTopicMap = new Map<String, String>();
     //Fetching valid support topic values and creating the map.
     Schema.DescribeFieldResult fieldSupportTopicPicklistValues = Interaction.Support_Topics__c.getDescribe();
     for (
@@ -291,7 +291,10 @@ global with sharing class InteractionContextService {
    * @param supportTopicMap valid map of Support Topic
    * @return subtype the validated Subtype taking into account case sensitivity
    */
-  private static String validateSupportTopic(String issueSubType,  Map<String, String> supportTopicMap) {
+  private static String validateSupportTopic(
+    String issueSubType,
+    Map<String, String> supportTopicMap
+  ) {
     if (String.isNotBlank(supportTopicMap.get(issueSubType.toLowerCase()))) {
       return supportTopicMap.get(issueSubType.toLowerCase());
     } else {
