@@ -2101,7 +2101,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CCRM JWT Siging Certificate</shortDescription>
-        <value>sf_signature_mule_callout_production_anz_com</value>
+        <value>anzx_salesforce_mulesoft_prod</value>
     </labels>
     <labels>
         <fullName>ML_ANZ_Role</fullName>
