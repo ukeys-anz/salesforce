@@ -177,47 +177,6 @@ public with sharing class InteractionAttendeeActions {
   }
 
   /**
-   * @description Filter Interactions of Call RecordType and Accounts linked to them
-   * @param interactions List of interactions which are updated or inserted.
-   * @return List of Interactions Call RecordType and Accounts linked to them
-   */
-  public static List<Interaction> filterInteractions(
-    List<Interaction> interactions
-  ) {
-    List<Interaction> listCallInteractionsWithAccount = new List<Interaction>();
-    for (Interaction interact : interactions) {
-      if (
-        interact.RecordTypeId != RTInteraction.call ||
-        interact.AccountId == null
-      ) {
-        continue;
-      }
-      listCallInteractionsWithAccount.add(interact);
-    }
-    return listCallInteractionsWithAccount;
-  }
-
-  /**
-   * @description Query details of Interaction Records
-   * @param interactions List of interactions which are updated.
-   * @return Interaction info having customer associated with it.
-   */
-  public static List<Interaction> queryInteractions(
-    List<Interaction> interactions
-  ) {
-    return [
-      SELECT
-        id,
-        Contact_Mobile__c,
-        Account.PersonContactId,
-        RecordTypeId,
-        AccountId
-      FROM interaction
-      WHERE id IN :interactions
-    ];
-  }
-
-  /**
    * @description Create List of customer type Interaction Attendee
    * @param interactions List of interactions of call record type , customer linked to them and queried with some more fields
    * @param oldMapInteraction List of interactions which are updated or inserted.

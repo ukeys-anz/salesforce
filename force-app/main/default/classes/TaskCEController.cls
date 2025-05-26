@@ -36,11 +36,7 @@ public without sharing class TaskCEController {
 
     TaskCloudEventContext context = buildContext(inputTasks);
 
-    List<CloudEventModel> cloudEventModels = new List<CloudEventModel>();
-
-    for (Task task : enrichedTasks) {
-      cloudEventModels.add(buildCloudEvent(task, context));
-    }
+    List<CloudEventModel> cloudEventModels = buildCloudEvent(enrichedTasks, context);
 
     CloudEventController.publishCloudEvents(cloudEventModels);
   }
@@ -50,13 +46,13 @@ public without sharing class TaskCEController {
     Set<Id> accountIds = ListUtil.getIds(tasks, Task.AccountId);
     Set<Id> customerTaskDataIds = ListUtil.getIds(
       tasks,
-      Task.Customer_Task_Data__c
-    );
+        Task.Customer_Task_Data__c
+      );
     Set<Id> ownerIds = ListUtil.getIds(tasks, Task.OwnerId);
 
     Map<Id, Account> accountIdToAccountInfoMap = new Map<Id, Account>(
-      PUSH_TO_APP_REPOSITORY.queryAccountDetails(accountIds)
-    );
+        PUSH_TO_APP_REPOSITORY.queryAccountDetails(accountIds)
+      );
     Map<Id, Customer_Task_Data__c> customTaskDataIdAndInfoMap = new Map<Id, Customer_Task_Data__c>(
       PUSH_TO_APP_REPOSITORY.queryCustomerTaskDataDetails(customerTaskDataIds)
     );
@@ -72,27 +68,32 @@ public without sharing class TaskCEController {
   }
 
   @TestVisible
-  private static CloudEventModel buildCloudEvent(
-    Task task,
-    TaskCloudEventContext context
-  ) {
-    String taskRecordType = QueryRT.of(Schema.Task.SObjectType)
-      .get(task.RecordTypeId)
-      .getDeveloperName();
+  private static List<CloudEventModel> buildCloudEvent(List<Task> enrichedTasks, TaskCloudEventContext context)
+  {
+    List<CloudEventModel> cloudEventModels = new List<CloudEventModel>();
 
-    TaskCloudEventBuilder builder = BUILDER_REGISTRY.get(taskRecordType);
+    for(Task task : enrichedTasks)
+    {
+      String taskRecordType = QueryRT.of(Schema.Task.SObjectType)
+          .get(task.RecordTypeId)
+          .getDeveloperName();
 
-    Account acc = context.accounts.get(task.AccountId);
-    String aemData = context.taskData.get(task.Customer_Task_Data__c)
+      TaskCloudEventBuilder builder = BUILDER_REGISTRY.get(taskRecordType);
+
+      Account acc = context.accounts.get(task.AccountId);
+      String aemData = context.taskData.get(task.Customer_Task_Data__c)
       .AEM_Content_Data__c;
 
-    CloudEventModel.UserModel ownerModel = CloudEventModel.getOwnerModel(
-      task.OwnerId,
-      context.owners,
-      QueryQueue.getByIds(new Set<Id>{ task.OwnerId })
-    );
+      CloudEventModel.UserModel ownerModel = CloudEventModel.getOwnerModel(
+          task.OwnerId,
+          context.owners,
+          QueryQueue.getByIds(new Set<Id>{ task.OwnerId })
+        );
 
-    return builder.build(task, acc, aemData, ownerModel);
+      cloudEventModels.add(builder.build(task, acc, aemData, ownerModel));
+    }
+
+    return cloudEventModels;
   }
 
   @TestVisible
@@ -107,13 +108,13 @@ public without sharing class TaskCEController {
      * @param owners
      */
     public TaskCloudEventContext(
-      Map<Id, Account> accounts,
-      Map<Id, Customer_Task_Data__c> taskData,
-      Map<Id, User> owners
+    Map<Id, Account> accounts,
+    Map<Id, Customer_Task_Data__c> taskData,
+    Map<Id, User> owners
     ) {
-      this.accounts = accounts;
-      this.taskData = taskData;
-      this.owners = owners;
+        this.accounts = accounts;
+        this.taskData = taskData;
+        this.owners = owners;
     }
   }
 }
