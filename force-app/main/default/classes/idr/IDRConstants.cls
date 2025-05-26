@@ -519,7 +519,9 @@ public with sharing class IDRConstants {
   //Permission set groups
   public static final Set<String> PSG_L2_L3_USERS = new Set<String>{
     'IDR_Level_2',
-    'IDR_Level_3'
+    'IDR_Level_3',
+    'Coach',
+    'Hypercare_Migration'
   };
 
   //Roles
