@@ -43,10 +43,6 @@ public with sharing class InteractionRepository {
    * @return Interaction record with Twilio Details
    */
   public Interaction fetchTwilioDetailIdFromInteraction(Id interactionId) {
-    if (interactionId == null) {
-      return null;
-    }
-
     return [
       SELECT TwilioDetailsID__c
       FROM Interaction
@@ -82,16 +78,13 @@ public with sharing class InteractionRepository {
    * @return SObject
    */
   public SObject fetchOCVId(String refObject, String recordId) {
-    Schema.DescribeSObjectResult describeResult = Schema.getGlobalDescribe()
-      .get(refObject)
-      .getDescribe();
-    if (String.isBlank(refObject) || !describeResult.isQueryable()) {
+    if (String.isBlank(refObject)) {
       return null;
     }
     return Database.query(
       'SELECT Account.OCV_ID__c FROM ' +
         String.escapeSingleQuotes(refObject) +
-        ' WHERE Id = :recordId'
+        ' WHERE Id = :recordId WITH USER_MODE'
     );
   }
 
@@ -101,7 +94,6 @@ public with sharing class InteractionRepository {
    * @return Account record
    */
   public Account findAccountByOCVId(String ocvId) {
-    PermissionUtils.canQuery('Account');
     return [
       SELECT PersonContactId
       FROM Account
@@ -110,6 +102,7 @@ public with sharing class InteractionRepository {
         AND RecordTypeId = :QueryRT.of(Account.SObjectType)
           .getId('PersonAccount')
         AND ANZx_Customer__c = TRUE
+        WITH USER_MODE
     ];
   }
 
@@ -156,5 +149,77 @@ public with sharing class InteractionRepository {
       WITH USER_MODE
       LIMIT 1
     ] ?? null;
+  }
+
+  /**
+   * @description Query details of Interaction Records and Related Attendee
+   * @param interactionIds set of InteractionId on which update is happening.
+   * @return Interaction info along with Attendees details.
+   */
+  public List<Interaction> queryInteractionAndRelatedAttendees(Set<Id> interactionIds){
+    if (interactionIds.isEmpty()){
+      return new List<Interaction>();
+    }
+    return [
+      SELECT
+        Id,
+        Attendees__c,
+        Attendees_and_Roles__c,
+        (
+          SELECT
+            Id,
+            InteractionId,
+            AttendeeType,
+            UserId,
+            User.UserRole.Name,
+            User.Name,
+            ContactId,
+            Contact.Name,
+            Attendee_Name__c
+          FROM Attendees
+        )
+      FROM Interaction
+      WHERE Id IN :interactionIds
+      WITH SYSTEM_MODE
+    ];
+  }
+
+  /**
+   * @description Query details of Interaction Records and Related Attendee
+   * @param interactions set of InteractionId on which update is happening.
+   * @param interactionOwnerIds Interaction Owner Ids set
+   * @return List<InteractionAttendee> Return list of InteractionAttendee
+   */
+  public List<InteractionAttendee> queryInteractionAttendees(List<Interaction> interactions,Set<Id> interactionOwnerIds){
+    if (interactions.isEmpty() || interactionOwnerIds.isEmpty() ){
+      return new List<InteractionAttendee>();
+    }
+    return[
+        SELECT UserId, InteractionId
+        FROM InteractionAttendee
+        WHERE InteractionId IN :interactions AND UserId IN :interactionOwnerIds
+        WITH SYSTEM_MODE
+    ];
+  }
+
+    /**
+   * @description Query details of Interaction Records
+   * @param interactions List of interactions which are updated.
+   * @return Interaction info having customer associated with it.
+   */
+  public List<Interaction> queryInteractions(
+    List<Interaction> interactions
+  ) {
+    return [
+      SELECT
+        id,
+        Contact_Mobile__c,
+        Account.PersonContactId,
+        RecordTypeId,
+        AccountId
+      FROM interaction
+      WHERE id IN :interactions
+      WITH SYSTEM_MODE
+    ];
   }
 }

@@ -18,39 +18,32 @@ global with sharing class InteractionContextServiceUpdate {
   @HttpPost
   global static void doPost(UpdateInteractionByTwilioPayload contextRequest) {
     try {
-
-      if(contextRequest.agentEmail!=null)
-      {
-        enrichContextRequestWithAgentUserId(contextRequest);
-      }
-
+      contextRequest.agentUserId = enrichContextRequestWithAgentUserId(contextRequest);
       //Twilio Detail Record inserted by Twilio
       TwilioContextResponse twilioResponse = TwilioServiceUtil.upsertTwilioDetailsRecord(
         contextRequest
       );
       
-      if(TwilioServiceUtil.checkIsConference(contextRequest))
+      //Interaction attendee addition logic for conference scenario
+      InteractionAttendee conferenceAttendee = InteractionAttendeeActions.insertTwilioConferenceAttendee(
+        contextRequest
+      );
+     
+      if (conferenceAttendee != null)
       {
-        //Interaction attendee addition logic for conference scenario
-        InteractionAttendee conferenceAttendee = InteractionAttendeeActions.insertTwilioConferenceAttendee(
-          contextRequest
-        );
-      
         DML_REPOSITORY.doInsert(
           conferenceAttendee,
           new DMLConfig().systemMode()
         );
       }
-    
-
       String jsonRes = JSON.serialize(twilioResponse);
       RestContext.response.addHeader('Content-Type', 'application/json');
       RestContext.response.responseBody = Blob.valueOf(jsonRes);
       RestContext.response.statusCode = twilioResponse.statusCode;
     } catch (Exception objectException) {
       Logger.error(
-        'Interaction Update from Twilio with chatorCalSid ' +contextRequest.interactionId+ ' failed with error message: '+
-        objectException.getMessage()
+        'Interaction Update from Twilio with chatorCalSid ' +contextRequest.interactionId+ ' failed with error message: ',
+        objectException
       ).save();
       throw objectException;
     }
@@ -59,14 +52,12 @@ global with sharing class InteractionContextServiceUpdate {
   /**
    * @description Append agentUserRecord Id based on the agenEmail from Twilio
    * @param contextRequest twilio context request
+   * @return Id user record id based on the agentEmail
    */
-  private static void enrichContextRequestWithAgentUserId(UpdateInteractionByTwilioPayload contextRequest){
-    User agentUserRecord = INTERACTION_REPOSITORY.fetchAgentUserId(
+  private static Id enrichContextRequestWithAgentUserId(UpdateInteractionByTwilioPayload contextRequest){
+    User userRecord = INTERACTION_REPOSITORY.fetchAgentUserId(
       contextRequest.agentEmail
     );
-    if(agentUserRecord!=null)
-    {
-      contextRequest.agentUserId = agentUserRecord.Id;
-    }
+    return userRecord?.Id;
   }
 }

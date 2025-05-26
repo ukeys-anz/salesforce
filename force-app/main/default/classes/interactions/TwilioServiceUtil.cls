@@ -10,6 +10,10 @@ public with sharing class TwilioServiceUtil {
   private static final InteractionRepository INTERACTION_REPOSITORY = (InteractionRepository) Lib_InstanceProvider.forType(
     InteractionRepository.class
   );
+  private static final Set<String> CALL_MESSAGE_RT_ID_SET = new Set<String>{
+    RTInteraction.call,
+    RTInteraction.message
+  };
 
   /**
    * @description method passing incoming twilio context in to Salesforce.
@@ -25,12 +29,12 @@ public with sharing class TwilioServiceUtil {
     
     //create Twilio Details upsert list based on from which context it is called
     try {
-      Database.UpsertResult upsertResult = DML_REPOSITORY.doUpsert(
+      DML_REPOSITORY.doUpsert(
         twilioDetailRecord
       );
       Interaction interactionToBeUpdated = createInteractionDetailInstance(
         twilioContextRequest,
-        upsertResult
+        twilioDetailRecord
       );
       DML_REPOSITORY.doUpdate(interactionToBeUpdated);
       return generateResponse();
@@ -97,10 +101,14 @@ public with sharing class TwilioServiceUtil {
    * @return It will return the salesforce valid status value based on mapping
    */
   public static String getStatus(String statusFromTwilio) {
-    return (String.isNotBlank(statusFromTwilio) &&
-    QueryTwilioStatusMapping.mapByStatus.containsKey(statusFromTwilio.toLowerCase()))
-      ? QueryTwilioStatusMapping.getByStatus(statusFromTwilio.toLowerCase()).Interaction_Status__c
-      : statusFromTwilio;
+    if (String.isBlank(statusFromTwilio)) {
+      return statusFromTwilio;
+    }
+    String statusKey = statusFromTwilio.toLowerCase();
+    if (!QueryTwilioStatusMapping.mapByStatus.containsKey(statusKey)) {
+        return statusFromTwilio;
+    }
+    return QueryTwilioStatusMapping.getByStatus(statusKey).Interaction_Status__c;
   }
 
   /**
@@ -115,7 +123,7 @@ public with sharing class TwilioServiceUtil {
     List<Interaction> interactionListForTwilioDetailsCreation = ListUtil.filter(
       interactionsList
     )
-    .equals(Interaction.RecordTypeId, InteractionConstants.CALL_MESSAGE_RT_ID_SET)
+    .equals(Interaction.RecordTypeId, CALL_MESSAGE_RT_ID_SET)
     .toList();
 
     for (Interaction newInteraction : interactionListForTwilioDetailsCreation) {
@@ -132,18 +140,16 @@ public with sharing class TwilioServiceUtil {
     );
 
     //Coaches needs each Call/Chat Interaction should have Twilio details precreated so that they should only fill in few fields from related details section
-    for (
-      Integer intInsertCount = 0;
-      intInsertCount < twilioInsertResult.size();
-      intInsertCount++
-    ) {
-      Database.SaveResult twilioRecordInserted = twilioInsertResult.get(
-        intInsertCount
-      );
-      if (twilioRecordInserted.isSuccess()) {
-        interactionListForTwilioDetailsCreation[intInsertCount]
-          .TwilioDetailsID__c = twilioRecordInserted.getId();
+    Integer intInsertCount = 0;
+    for(Database.SaveResult twilioRecordInserted : twilioInsertResult)
+    {
+      if(!twilioRecordInserted.isSuccess())
+      {
+        continue;
       }
+      interactionListForTwilioDetailsCreation[intInsertCount]
+        .TwilioDetailsID__c = twilioRecordInserted.getId();
+      intInsertCount++;
     }
   }
 
@@ -177,11 +183,11 @@ public with sharing class TwilioServiceUtil {
    */
   private static Interaction createInteractionDetailInstance(
     UpdateInteractionByTwilioPayload payLoad,
-    Database.UpsertResult twilioRecordUpserted
+    Twilio_Details__c twilioRecordUpserted
   ) {
     Interaction interactionToUpsert = new Interaction();
     interactionToUpsert.Id = payLoad.interactionId;
-    interactionToUpsert.TwilioDetailsID__c = twilioRecordUpserted.getId();
+    interactionToUpsert.TwilioDetailsID__c = twilioRecordUpserted.Id;
     interactionToUpsert.Status__c = getStatus(payLoad.chatOrCallStatus);
     if (String.isNotBlank(payLoad.queueName)) {
       interactionToUpsert.Chat_Queue__c = payLoad.queueName;

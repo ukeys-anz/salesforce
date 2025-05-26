@@ -50,23 +50,4 @@ public with sharing class InteractionConstants {
   public static final Id APPOINTMENT_QUEUE_ID = CommonUtil.getGroupId(
     APPOINTMENTS_QUEUE
   );
-
-  /**
-   * @description fetch Message and Call recordTypeIds of Interaction
-   * @return Set<String> set of message and call recordTypeIds
-   */
-  public static final Set<String> CALL_MESSAGE_RT_ID_SET = new Set<String>{
-    RTInteraction.call,
-    RTInteraction.message
-  };
-
-  /**
-   * @description fetch Message ,Call and Inperson recordTypeIds of Interaction
-   * @return Set<String> set of message, call and inperson recordTypeIds
-   */
-  public static final Set<String> CALL_MESSAGE_INPERSON_RT_ID = new Set<String>{
-    RTInteraction.call,
-    RTInteraction.message,
-    RTInteraction.inPerson
-  };
 }
