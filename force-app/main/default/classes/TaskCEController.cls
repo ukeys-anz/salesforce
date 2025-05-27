@@ -26,9 +26,6 @@ public without sharing class TaskCEController {
    * @param inputTasks list of Task records
    */
   public static void publishCloudEvents(List<Task> inputTasks) {
-    if (inputTasks.isEmpty()) {
-      return;
-    }
 
     Set<Id> taskIds = ListUtil.getIds(inputTasks, Task.Id);
 
