@@ -53,8 +53,7 @@ global with sharing class InteractionContextService {
       //Finding available accounts based on OCV Id and update if PPID is changed
       Account accountToUpdate = updatePPIDOnAccountIfExist(contextRequest);
 
-      if(accountToUpdate!=null)
-      {
+      if (accountToUpdate != null) {
         DML_REPOSITORY.doUpdate(accountToUpdate, new DmlConfig().systemMode());
       }
 

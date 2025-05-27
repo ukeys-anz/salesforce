@@ -26,7 +26,6 @@ public without sharing class TaskCEController {
    * @param inputTasks list of Task records
    */
   public static void publishCloudEvents(List<Task> inputTasks) {
-
     Set<Id> taskIds = ListUtil.getIds(inputTasks, Task.Id);
 
     List<Task> enrichedTasks = PUSH_TO_APP_REPOSITORY.queryTaskRecords(taskIds);
