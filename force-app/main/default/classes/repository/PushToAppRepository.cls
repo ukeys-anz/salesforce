@@ -44,7 +44,7 @@ public with sharing class PushToAppRepository {
   public Customer_Task_Configuration__c selectedNotificationConfigDetail(
     String templateName
   ) {
-    return [
+        return [
       SELECT Id, Name, Expire_After_Days__c
       FROM Customer_Task_Configuration__c
       WHERE AEM_Content_Id__c = :templateName
@@ -134,6 +134,7 @@ public with sharing class PushToAppRepository {
         ActivityDate < TODAY
         AND RecordTypeId = :RTTask.customerNudge
         AND IsClosed != TRUE
+        LIMIT 1000
     ];
   }
 
@@ -231,7 +232,7 @@ public with sharing class PushToAppRepository {
     ];
   }
 
-  /**
+   /**
    * @description Query related Push To App tasks records with the cases
    * @param caseIds eligible Customer Complaint case records
    * @return List<Task> Customer Nudge Task records to update.

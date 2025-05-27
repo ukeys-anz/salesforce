@@ -50,6 +50,15 @@
         <layoutColumns/>
         <style>CustomLinks</style>
     </layoutSections>
+    <relatedLists>
+        <excludeButtons>MassChangeOwner</excludeButtons>
+        <excludeButtons>New</excludeButtons>
+        <fields>Action_Name__c</fields>
+        <fields>Action_Counter__c</fields>
+        <fields>Status__c</fields>
+        <fields>Completed__c</fields>
+        <relatedList>Customer_Action__c.Customer_Task_Data__c</relatedList>
+    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
     <showInteractionLogPanel>false</showInteractionLogPanel>

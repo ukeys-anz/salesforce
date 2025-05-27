@@ -13,7 +13,6 @@ global with sharing class InteractionContextService {
   private static final String OUTBOUND_DIRECTION = 'Outbound';
   private static final String DEFAULT_CHAT_FOR = 'Customer';
   private static final String DEFAULT_CHAT_AUTHENTICATED_METHOD = 'Authenticated';
-  private static Map<String, String> supportTopicMap = new Map<String, String>();
   private static final InteractionRepository INTERACTION_REPOSITORY = (InteractionRepository) Lib_InstanceProvider.forType(
     InteractionRepository.class
   );
@@ -49,11 +48,13 @@ global with sharing class InteractionContextService {
       }
 
       //Fetching Valid Support Topic Values and Create the map to verify the callOrChatStatus received from Twilio
-      populateSupportTopicMap();
+      Map<String, String> supportTopicMap = populateSupportTopicMap();
 
       //Finding available accounts based on OCV Id and update if PPID is changed
-      if (String.isNotBlank(contextRequest.ocvId)) {
-        updatePPIDOnAccountIfExist(contextRequest);
+      Account accountToUpdate = updatePPIDOnAccountIfExist(contextRequest);
+
+      if (accountToUpdate != null) {
+        DML_REPOSITORY.doUpdate(accountToUpdate, new DmlConfig().systemMode());
       }
 
       //For Creating Map of Existing Interactions By callOrChatSID for checking Duplication of the Interaction Context.
@@ -77,7 +78,8 @@ global with sharing class InteractionContextService {
       }
 
       Interaction interactionToBeCreated = createInteractionInstance(
-        contextRequest
+        contextRequest,
+        supportTopicMap
       );
 
       DML_REPOSITORY.doInsert(interactionToBeCreated);
@@ -162,10 +164,14 @@ global with sharing class InteractionContextService {
    * @description This method will update the existing account PPID if changed
    * based on the ocv id received from Twilio
    * @param contextRequest InteractionContextRequest from Twilio
+   * @return Account to update if ppid changed
    */
-  private static void updatePPIDOnAccountIfExist(
+  private static Account updatePPIDOnAccountIfExist(
     InteractionContextRequest contextRequest
   ) {
+    if (!String.isNotBlank(contextRequest.ocvId)) {
+      return null;
+    }
     Account existingAccount = contextRequest.existingAccount;
     // Only update PPID once or if its changed
     if (
@@ -173,17 +179,19 @@ global with sharing class InteractionContextService {
       existingAccount.PPID__C != contextRequest.ppid
     ) {
       existingAccount.PPID__C = contextRequest.ppid;
-      DML_REPOSITORY.doUpdate(existingAccount, new DmlConfig().systemMode());
     }
+    return existingAccount;
   }
 
   /**
    * @description Method to create Interaction List to be created.
    * @param interactContextRequest Interaction Context Request from Twilio
+   * @param supportTopicMap map of Support Topic
    * @return Interaction Interaction to be created
    */
   private static Interaction createInteractionInstance(
-    InteractionContextRequest interactContextRequest
+    InteractionContextRequest interactContextRequest,
+    Map<String, String> supportTopicMap
   ) {
     Interaction intToInsert = new Interaction();
     intToInsert.Direction__c = interactContextRequest.direction;
@@ -203,7 +211,8 @@ global with sharing class InteractionContextService {
       );
       intToInsert.RecordTypeId = RTInteraction.message;
       intToInsert.Support_Topics__c = validateSupportTopic(
-        interactContextRequest.issueSubtype
+        interactContextRequest.issueSubtype,
+        supportTopicMap
       );
       intToInsert.AccountId = interactContextRequest.existingAccount.Id;
       intToInsert.Authentication_Method__c = DEFAULT_CHAT_AUTHENTICATED_METHOD;
@@ -214,7 +223,8 @@ global with sharing class InteractionContextService {
     intToInsert.RecordTypeId = RTInteraction.call;
     intToInsert = setInteractionForAuthenticated(
       intToInsert,
-      interactContextRequest
+      interactContextRequest,
+      supportTopicMap
     );
     return intToInsert;
   }
@@ -242,8 +252,10 @@ global with sharing class InteractionContextService {
 
   /**
    * @description this method will populate support topic map with Valid Values from Database.
+   * @return Map<String, String> Valid Support Topic Map
    */
-  private static void populateSupportTopicMap() {
+  private static Map<String, String> populateSupportTopicMap() {
+    Map<String, String> supportTopicMap = new Map<String, String>();
     //Fetching valid support topic values and creating the map.
     Schema.DescribeFieldResult fieldSupportTopicPicklistValues = Interaction.Support_Topics__c.getDescribe();
     for (
@@ -251,17 +263,20 @@ global with sharing class InteractionContextService {
     ) {
       supportTopicMap.put(supTop.getValue().toLowerCase(), supTop.getValue());
     }
+    return supportTopicMap;
   }
 
   /**
    * @description to set the attributes of interaction if the call is authenticated
    * @param interaction Interaction object in which details needs to be added
    * @param interactContextRequest Request from Twilio
+   * @param supportTopicMap map of Valid Support Topic
    * @return Interaction object with details
    */
   private static Interaction setInteractionForAuthenticated(
     Interaction interaction,
-    InteractionContextRequest interactContextRequest
+    InteractionContextRequest interactContextRequest,
+    Map<String, String> supportTopicMap
   ) {
     if (!interactContextRequest.isAuthenticated) {
       return interaction;
@@ -270,7 +285,8 @@ global with sharing class InteractionContextService {
     interaction.Interaction_Purpose__c = DEFAULT_CHAT_FOR;
     interaction.Authentication_Method__c = DEFAULT_CHAT_AUTHENTICATED_METHOD;
     interaction.Support_Topics__c = validateSupportTopic(
-      interactContextRequest.issueSubtype
+      interactContextRequest.issueSubtype,
+      supportTopicMap
     );
     return interaction;
   }
@@ -278,9 +294,13 @@ global with sharing class InteractionContextService {
   /**
    * @description validatedSupportTopic validates supportTopics in requests regardless of case sensitvity
    * @param issueSubType the Subtype received in request to validate
+   * @param supportTopicMap valid map of Support Topic
    * @return subtype the validated Subtype taking into account case sensitivity
    */
-  private static String validateSupportTopic(String issueSubType) {
+  private static String validateSupportTopic(
+    String issueSubType,
+    Map<String, String> supportTopicMap
+  ) {
     if (String.isNotBlank(supportTopicMap.get(issueSubType.toLowerCase()))) {
       return supportTopicMap.get(issueSubType.toLowerCase());
     } else {

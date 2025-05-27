@@ -177,47 +177,6 @@ public with sharing class InteractionAttendeeActions {
   }
 
   /**
-   * @description Filter Interactions of Call RecordType and Accounts linked to them
-   * @param interactions List of interactions which are updated or inserted.
-   * @return List of Interactions Call RecordType and Accounts linked to them
-   */
-  public static List<Interaction> filterInteractions(
-    List<Interaction> interactions
-  ) {
-    List<Interaction> listCallInteractionsWithAccount = new List<Interaction>();
-    for (Interaction interact : interactions) {
-      if (
-        interact.RecordTypeId != RTInteraction.call ||
-        interact.AccountId == null
-      ) {
-        continue;
-      }
-      listCallInteractionsWithAccount.add(interact);
-    }
-    return listCallInteractionsWithAccount;
-  }
-
-  /**
-   * @description Query details of Interaction Records
-   * @param interactions List of interactions which are updated.
-   * @return Interaction info having customer associated with it.
-   */
-  public static List<Interaction> queryInteractions(
-    List<Interaction> interactions
-  ) {
-    return [
-      SELECT
-        id,
-        Contact_Mobile__c,
-        Account.PersonContactId,
-        RecordTypeId,
-        AccountId
-      FROM interaction
-      WHERE id IN :interactions
-    ];
-  }
-
-  /**
    * @description Create List of customer type Interaction Attendee
    * @param interactions List of interactions of call record type , customer linked to them and queried with some more fields
    * @param oldMapInteraction List of interactions which are updated or inserted.
@@ -252,13 +211,15 @@ public with sharing class InteractionAttendeeActions {
   /**
    * @description Create Interaction Attendee when there is conference happened in Twilio Call Conference
    * @param twilioContextRequest TwilioContextRequest containing data for InteractionAttendee Creation
-   * @return interactionAttendee InteractionAttendee to be created
+   * @return List<InteractionAttendee> InteractionAttendee List to be created
    */
-  public static InteractionAttendee insertTwilioConferenceAttendee(
+  public static List<InteractionAttendee> insertTwilioConferenceAttendee(
     UpdateInteractionByTwilioPayload twilioContextRequest
   ) {
+    List<InteractionAttendee> interactionAttendeeList = new List<InteractionAttendee>();
+
     if (!TwilioServiceUtil.checkIsConference(twilioContextRequest)) {
-      return null;
+      return interactionAttendeeList;
     }
 
     InteractionAttendee intattendee = new InteractionAttendee();
@@ -272,8 +233,9 @@ public with sharing class InteractionAttendeeActions {
     if (String.isNotBlank(twilioContextRequest.agentEmail)) {
       intattendee.AttendeeType = InteractionConstants.INTERNAL;
     }
+    interactionAttendeeList.add(intattendee);
 
-    return intattendee;
+    return interactionAttendeeList;
   }
 
   /**

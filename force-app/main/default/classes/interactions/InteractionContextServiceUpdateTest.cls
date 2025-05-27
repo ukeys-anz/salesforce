@@ -209,10 +209,10 @@ public with sharing class InteractionContextServiceUpdateTest {
       )
       .getParam('record');
 
-    InteractionAttendee interactionAttendee = (interactionAttendee) dmlRepoMock.getHistory(
+    List<InteractionAttendee> interactionAttendee = (List<InteractionAttendee>) dmlRepoMock.getHistory(
         'doInsert'
       )
-      .getParam('record');
+      .getParam('records');
 
     Assert.isFalse(
       interactionUpdated.OwnerId == agentUserId,
@@ -220,7 +220,7 @@ public with sharing class InteractionContextServiceUpdateTest {
     );
 
     Assert.isTrue(
-      interactionAttendee.AttendeeType == InteractionConstants.INTERNAL,
+      interactionAttendee[0].AttendeeType == InteractionConstants.INTERNAL,
       'InteractionAttendee Should be created with the given agent user id '
     );
   }
@@ -263,13 +263,13 @@ public with sharing class InteractionContextServiceUpdateTest {
     InteractionContextServiceUpdate.doPost(twilioContext);
     Test.stopTest();
 
-    InteractionAttendee interactionAttendee = (interactionAttendee) dmlRepoMock.getHistory(
+    List<InteractionAttendee> interactionAttendee = (List<InteractionAttendee>) dmlRepoMock.getHistory(
         'doInsert'
       )
-      .getParam('record');
+      .getParam('records');
 
     Assert.isTrue(
-      interactionAttendee.AttendeeType == InteractionConstants.EXTERNAL,
+      interactionAttendee[0].AttendeeType == InteractionConstants.EXTERNAL,
       'InteractionAttendee Should be created with the given agent user id '
     );
   }

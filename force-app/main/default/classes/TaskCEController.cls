@@ -26,21 +26,16 @@ public without sharing class TaskCEController {
    * @param inputTasks list of Task records
    */
   public static void publishCloudEvents(List<Task> inputTasks) {
-    if (inputTasks.isEmpty()) {
-      return;
-    }
-
     Set<Id> taskIds = ListUtil.getIds(inputTasks, Task.Id);
 
     List<Task> enrichedTasks = PUSH_TO_APP_REPOSITORY.queryTaskRecords(taskIds);
 
     TaskCloudEventContext context = buildContext(inputTasks);
 
-    List<CloudEventModel> cloudEventModels = new List<CloudEventModel>();
-
-    for (Task task : enrichedTasks) {
-      cloudEventModels.add(buildCloudEvent(task, context));
-    }
+    List<CloudEventModel> cloudEventModels = buildCloudEvent(
+      enrichedTasks,
+      context
+    );
 
     CloudEventController.publishCloudEvents(cloudEventModels);
   }
@@ -72,27 +67,33 @@ public without sharing class TaskCEController {
   }
 
   @TestVisible
-  private static CloudEventModel buildCloudEvent(
-    Task task,
+  private static List<CloudEventModel> buildCloudEvent(
+    List<Task> enrichedTasks,
     TaskCloudEventContext context
   ) {
-    String taskRecordType = QueryRT.of(Schema.Task.SObjectType)
-      .get(task.RecordTypeId)
-      .getDeveloperName();
+    List<CloudEventModel> cloudEventModels = new List<CloudEventModel>();
 
-    TaskCloudEventBuilder builder = BUILDER_REGISTRY.get(taskRecordType);
+    for (Task task : enrichedTasks) {
+      String taskRecordType = QueryRT.of(Schema.Task.SObjectType)
+        .get(task.RecordTypeId)
+        .getDeveloperName();
 
-    Account acc = context.accounts.get(task.AccountId);
-    String aemData = context.taskData.get(task.Customer_Task_Data__c)
-      .AEM_Content_Data__c;
+      TaskCloudEventBuilder builder = BUILDER_REGISTRY.get(taskRecordType);
 
-    CloudEventModel.UserModel ownerModel = CloudEventModel.getOwnerModel(
-      task.OwnerId,
-      context.owners,
-      QueryQueue.getByIds(new Set<Id>{ task.OwnerId })
-    );
+      Account acc = context.accounts.get(task.AccountId);
+      String aemData = context.taskData.get(task.Customer_Task_Data__c)
+        .AEM_Content_Data__c;
 
-    return builder.build(task, acc, aemData, ownerModel);
+      CloudEventModel.UserModel ownerModel = CloudEventModel.getOwnerModel(
+        task.OwnerId,
+        context.owners,
+        QueryQueue.getByIds(new Set<Id>{ task.OwnerId })
+      );
+
+      cloudEventModels.add(builder.build(task, acc, aemData, ownerModel));
+    }
+
+    return cloudEventModels;
   }
 
   @TestVisible

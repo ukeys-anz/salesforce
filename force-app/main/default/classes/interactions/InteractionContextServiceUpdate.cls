@@ -18,24 +18,26 @@ global with sharing class InteractionContextServiceUpdate {
   @HttpPost
   global static void doPost(UpdateInteractionByTwilioPayload contextRequest) {
     try {
-      contextRequest.agentUserId = enrichContextRequestWithAgentUserId(contextRequest);
+
+      User userRecord = INTERACTION_REPOSITORY.fetchAgentUserId(
+      contextRequest.agentEmail);
+
+      contextRequest.agentUserId = userRecord?.Id;
       //Twilio Detail Record inserted by Twilio
       TwilioContextResponse twilioResponse = TwilioServiceUtil.upsertTwilioDetailsRecord(
         contextRequest
       );
       
       //Interaction attendee addition logic for conference scenario
-      InteractionAttendee conferenceAttendee = InteractionAttendeeActions.insertTwilioConferenceAttendee(
+      List<InteractionAttendee> conferenceAttendeeList = InteractionAttendeeActions.insertTwilioConferenceAttendee(
         contextRequest
       );
      
-      if (conferenceAttendee != null)
-      {
-        DML_REPOSITORY.doInsert(
-          conferenceAttendee,
-          new DMLConfig().systemMode()
-        );
-      }
+      DML_REPOSITORY.doInsert(
+        conferenceAttendeeList,
+        new DMLConfig().systemMode()
+      );
+      
       String jsonRes = JSON.serialize(twilioResponse);
       RestContext.response.addHeader('Content-Type', 'application/json');
       RestContext.response.responseBody = Blob.valueOf(jsonRes);
@@ -47,17 +49,5 @@ global with sharing class InteractionContextServiceUpdate {
       ).save();
       throw objectException;
     }
-  }
-
-  /**
-   * @description Append agentUserRecord Id based on the agenEmail from Twilio
-   * @param contextRequest twilio context request
-   * @return Id user record id based on the agentEmail
-   */
-  private static Id enrichContextRequestWithAgentUserId(UpdateInteractionByTwilioPayload contextRequest){
-    User userRecord = INTERACTION_REPOSITORY.fetchAgentUserId(
-      contextRequest.agentEmail
-    );
-    return userRecord?.Id;
   }
 }
