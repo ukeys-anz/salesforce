@@ -1167,7 +1167,8 @@
         "IDR_Date_time_Progressed_Status_selected__c",
         "Test_Complaint__c",
         "IsKYCChecksCompleted__c",
-        "KYCChecksHasDefect__c"
+        "KYCChecksHasDefect__c",
+        "Outcome_Letter_to_be_sent_by_Mail__c"
       ],
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",

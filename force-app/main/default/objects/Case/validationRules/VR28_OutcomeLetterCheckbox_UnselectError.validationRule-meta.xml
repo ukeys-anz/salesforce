@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR28_OutcomeLetterCheckbox_UnselectError</fullName>
+    <active>true</active>
+    <description>When a user once checks &apos;Outcome Letter to be sent by Mail&apos; checkbox it cannot be unchecked again.</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+OR(
+RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
+RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
+),
+PRIORVALUE(Outcome_Letter_to_be_sent_by_Mail__c)== true,
+ISCHANGED(Outcome_Letter_to_be_sent_by_Mail__c))</errorConditionFormula>
+    <errorMessage>Once check box &quot;Outcome Letter to be sent by Mail&quot; has been selected, it cannot be unchecked</errorMessage>
+</ValidationRule>

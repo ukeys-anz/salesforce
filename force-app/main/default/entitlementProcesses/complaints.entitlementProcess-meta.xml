@@ -598,6 +598,30 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_with_ANZ_Plus_R
         <minutesToComplete>30240</minutesToComplete>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
+    <milestones>
+        <businessHours>Default</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Closed, Provisionally Closed</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Outcome_Letter_to_be_sent_by_Mail__c</field>
+            <operation>equals</operation>
+            <value>true</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Mail Outcome Letter by</milestoneName>
+        <minutesCustomClass>MailOutcomeMilestoneTimeCalculator</minutesCustomClass>
+        <timeTriggers>
+            <actions>
+                <name>Mail_OutCome_Letter_Milestone_Due_in_1_Day</name>
+                <type>Task</type>
+            </actions>
+            <timeLength>-1</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
     <name>complaints</name>
     <versionMaster>5522O000000CGgO</versionMaster>
     <versionNumber>1</versionNumber>
