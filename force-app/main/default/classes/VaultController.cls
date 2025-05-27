@@ -9,11 +9,7 @@ public with sharing class VaultController {
   );
 
   private static final String UNSPECIFIED_DOCUMENT_TYPE = 'Unspecified Document Type';
-
-  private static final String ERROR_DETOKENIZING_DATA = 'Error detokenizing Document Number';
   private static final String FAILED_DETOKENIZATION = 'Failed to perform detokenization. Please refresh and try again. Raise a fault through TechAssist if the problem persists.';
-
-  private static final String ERROR_TOKENIZING_DATA = 'Error tokenizing Document Number';
   private static final String FAILED_TOKENIZATION = 'Failed to perform tokenization. Please refresh and try again. Raise a fault through TechAssist if the problem persists.';
 
   /**
@@ -46,8 +42,7 @@ public with sharing class VaultController {
         )
         .value;
     } catch (Exception e) {
-      Logger.error(ERROR_TOKENIZING_DATA, e).save();
-      throw new AuraHandledException(FAILED_TOKENIZATION);
+      throw CommonUtil.logAuraExceptionInfo(FAILED_TOKENIZATION, null, e);
     }
   }
 
@@ -81,8 +76,7 @@ public with sharing class VaultController {
         )
         .value;
     } catch (Exception e) {
-      Logger.error(ERROR_DETOKENIZING_DATA, e).save();
-      throw new AuraHandledException(FAILED_DETOKENIZATION);
+      throw CommonUtil.logAuraExceptionInfo(FAILED_DETOKENIZATION, null, e);
     }
   }
 
@@ -95,8 +89,7 @@ public with sharing class VaultController {
     try {
       return VaultDocumentType.valueOf(docType);
     } catch (Exception e) {
-      Logger.error(UNSPECIFIED_DOCUMENT_TYPE, e).save();
-      throw new AuraHandledException(UNSPECIFIED_DOCUMENT_TYPE);
+      throw CommonUtil.logAuraExceptionInfo(UNSPECIFIED_DOCUMENT_TYPE, null, e);
     }
   }
 }

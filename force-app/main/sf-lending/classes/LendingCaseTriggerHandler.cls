@@ -22,26 +22,53 @@ public class LendingCaseTriggerHandler extends Lib_TriggerHandler {
     return caseRecord.RecordTypeId == RTCase.lending;
   }
   /**
-   * @description onBeforeInsert to handle before update trigger actions.
+   * @description onValidateBefore to handle before insert trigger actions.
    */
   public override void onBeforeInsert() {
     Logger.debug('On_Before_Insert started: ' + System.now());
     LendingCaseActions.restrictUserFromCreatingLendingCase(records);
+    Logger.saveLog();
   }
 
   /**
-   * @description onBeforeUpdate to handle before update trigger actions.
+   * @description onValidateBefore to handle before update trigger actions.
    * @param oldMap old trigger values
    */
-  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    Logger.debug('On_After_Insert started: ' + System.now());
-    LendingCaseActions.restrictUserFromUpdatingLendingCase(
+  public override void onValidateBefore(Map<Id, SObject> oldMap) {
+    Logger.debug('On_Before_Update started: ' + System.now());
+    LendingCaseActions.restrictFromUpdatingClosedCase(
       records,
       (Map<Id, Case>) oldMap
     );
-    LendingCaseActions.restrictUserFromChangingOwnerIfNotQueue(
+    LendingCaseActions.restrictFromUpdatingLendingCase(
       records,
       (Map<Id, Case>) oldMap
     );
+    LendingCaseActions.restrictFromChangingOwnerToOtherUser(
+      records,
+      (Map<Id, Case>) oldMap
+    );
+    LendingCaseActions.restrictFromAssigningToOtherQueue(
+      records,
+      (Map<Id, Case>) oldMap
+    );
+    LendingCaseActions.restrictFromUpdatingStatusIfNotOwner(
+      records,
+      (Map<Id, Case>) oldMap
+    );
+    LendingCaseActions.restrictBohCoachFromChangingOwnerIfNotCaseOwner(
+      records,
+      (Map<Id, Case>) oldMap
+    );
+
+    LendingCaseActions.restrictLeadsFromAssigningCaseToOtherUsersOrQueue(
+      records,
+      (Map<Id, Case>) oldMap
+    );
+    LendingCaseActions.restrictUserFromUpdatingCaseToClosed(
+      records,
+      (Map<Id, Case>) oldMap
+    );
+    Logger.saveLog();
   }
 }

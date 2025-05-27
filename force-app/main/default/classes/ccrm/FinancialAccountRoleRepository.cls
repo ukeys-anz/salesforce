@@ -18,10 +18,12 @@ public with sharing class FinancialAccountRoleRepository {
       return new List<FinServ__FinancialAccountRole__c>();
     }
     return [
-      SELECT Id, FinServ__RelatedAccount__c,
-      FinServ__FinancialAccount__c,
-      FinServ__FinancialAccount__r.Account_Key__c,
-      FinServ__RelatedAccount__r.External_Id__c 
+      SELECT
+        Id,
+        FinServ__RelatedAccount__c,
+        FinServ__FinancialAccount__c,
+        FinServ__FinancialAccount__r.Account_Key__c,
+        FinServ__RelatedAccount__r.External_Id__c
       FROM FinServ__FinancialAccountRole__c
       WHERE
         FinServ__RelatedAccount__c IN :relatedAccounts

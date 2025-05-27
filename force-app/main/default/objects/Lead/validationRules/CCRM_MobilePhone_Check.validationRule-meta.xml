@@ -30,6 +30,7 @@
         AND(RecordType.DeveloperName = &apos;MLCRM_Lead&apos;,Text(Status) != &apos;Expired&apos;,OR(ISNEW(),ISCHANGED(MobilePhone)))
     ),
     NOT ISBLANK( MobilePhone ) ,
+    NOT(ISCHANGED(RecordTypeId)),
         AND(NOT REGEX( MobilePhone , &quot;^\\+614[0-9]{8}+$&quot; ),
         NOT REGEX( MobilePhone , &quot;^\\+615[0-9]{8}+$&quot; )
     )

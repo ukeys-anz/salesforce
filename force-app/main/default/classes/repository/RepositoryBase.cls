@@ -5,9 +5,9 @@
  * @group Repository
  */
 public virtual with sharing class RepositoryBase {
-  protected Set<Integer> statusCodeSuccess = new Set<Integer>{ 206 };
-  protected Set<Integer> statusCodeErrorAccess = new Set<Integer>{ 401, 403 };
-  protected Set<Integer> statusCodeErrorGeneric = new Set<Integer>{ 500 };
+  protected Set<Integer> statusCodeSuccess = new Set<Integer>();
+  protected Set<Integer> statusCodeErrorAccess = new Set<Integer>();
+  protected Set<Integer> statusCodeErrorServer = new Set<Integer>();
 
   /**
    * @param response HttpCalloutResponse model to be handled
@@ -20,20 +20,39 @@ public virtual with sharing class RepositoryBase {
     if (response.successful) {
       return response;
     }
-    if (statusCodeSuccess.contains(response.statusCode)) {
+    Integer code = response.statusCode;
+    if (isSuccessStatusCode(code)) {
       return response;
     }
-    if (statusCodeErrorAccess.contains(response.statusCode)) {
-      throw CommonUtil.logException(
-        new InsufficientAccessException(response.error.getMessage())
-      );
+    Exception ex = response.error;
+    if (isAccessErrorStatusCode(code)) {
+      Logger.info('Callout failed - HTTP ' + code, ex).save();
+      throw new InsufficientAccessException(ex.getMessage());
     }
-    if (statusCodeErrorGeneric.contains(response.statusCode)) {
-      throw CommonUtil.logException(
-        new ServerErrorException(response.error.getMessage())
-      );
+    Logger.error('Callout failed - HTTP ' + code, ex).save();
+    if (isServerErrorStatusCode(code)) {
+      throw new ServerErrorException(ex.getMessage());
     }
-    throw CommonUtil.logException(response.error);
+    throw ex;
+  }
+
+  private Boolean isSuccessStatusCode(Integer code) {
+    return (statusCodeSuccess.isEmpty() && code.toString().startsWith('2')) ||
+      (!statusCodeSuccess.isEmpty() && statusCodeSuccess.contains(code));
+  }
+
+  private Boolean isAccessErrorStatusCode(Integer code) {
+    return (statusCodeErrorAccess.isEmpty() &&
+      code.toString().startsWith('4')) ||
+      (!statusCodeErrorAccess.isEmpty() &&
+      statusCodeErrorAccess.contains(code));
+  }
+
+  private Boolean isServerErrorStatusCode(Integer code) {
+    return (statusCodeErrorServer.isEmpty() &&
+      code.toString().startsWith('5')) ||
+      (!statusCodeErrorServer.isEmpty() &&
+      statusCodeErrorServer.contains(code));
   }
 
   /**

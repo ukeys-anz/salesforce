@@ -227,6 +227,47 @@
                             </div>
                           </div>
                         </template>
+                        <template lwc:elseif={card.replacementCard}>
+                          <div
+                            class="slds-col slds-size_1-of-1 slds-p-right_large"
+                          >
+                            <div
+                              class="slds-grid slds-form-element__label slds-p-bottom_small textStyle"
+                            >
+                              Replacement Card Details
+                            </div>
+                          </div>
+                          <div
+                            class="slds-col slds-size_1-of-2 slds-p-right_large"
+                          >
+                            <div class="slds-p-bottom_medium">
+                              <div class="slds-grid slds-form-element__label">
+                                Last 4 Digits
+                              </div>
+                              <p
+                                class="slds-text-body_regular slds-border_bottom"
+                                data-test-id="replacementCardlast_4_digits"
+                              >
+                                {card.replacementCard.last_4_digits}
+                              </p>
+                            </div>
+                          </div>
+                          <div
+                            class="slds-col slds-size_1-of-2 slds-p-right_large"
+                          >
+                            <div class="slds-p-bottom_medium">
+                              <div class="slds-grid slds-form-element__label">
+                                Replacement Date
+                              </div>
+                              <p
+                                class="slds-text-body_regular slds-border_bottom"
+                                data-test-id="replacementDate"
+                              >
+                                {card.replacementCard.replacementDate}
+                              </p>
+                            </div>
+                          </div>
+                        </template>
                       </div>
                     </div>
                   </div>

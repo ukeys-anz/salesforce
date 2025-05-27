@@ -65,7 +65,8 @@ const salesforceSecretNames = {
   "epic/adhocmarv": "sf-platform-np-adhocmarv",
   "epic/updateloan": "sf-platform-np-updateloan",
   "epic/refinance": "sf-platform-np-refinance",
-  "epic/multiprops": "sf-platform-np-multiprops"
+  "epic/multiprops": "sf-platform-np-multiprops",
+  "epic/editloan": "sf-platform-np-editloan"
 };
 
 const brokerSecretNames = {

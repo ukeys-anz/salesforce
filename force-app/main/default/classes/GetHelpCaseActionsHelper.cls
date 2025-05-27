@@ -375,9 +375,7 @@ public with sharing class GetHelpCaseActionsHelper {
         record.RecordTypeId == RTCase.creditReferral &&
         String.isNotBlank(record.Credit_Id__c)
       ) {
-        //Strip the version from the credit id as the RLA doesnt have a version
-        String creditId = handleCreditIdVersion(record.Credit_Id__c);
-        mapCase.put(creditId, record);
+        mapCase.put(record.Credit_Id__c, record);
       }
     }
 
@@ -395,9 +393,7 @@ public with sharing class GetHelpCaseActionsHelper {
       newCase.Loan_Application__c = rla.Id;
       newCase.ContactId = rla.Account.PersonContactId;
 
-      //Strip the version from the credit id as the RLA doesnt have a version
-      String creditId = handleCreditIdVersion(newCase.Credit_Id__c);
-      mapCase.put(creditId, newCase);
+      mapCase.put(newCase.Credit_Id__c, newCase);
     }
   }
 
@@ -773,17 +769,5 @@ public with sharing class GetHelpCaseActionsHelper {
     ) {
       newCase.addError(CREDIT_REF_ASSIGN_QUEUE_ERROR_ONE);
     }
-  }
-
-  /**
-   * @description Handles removal of version from credit id
-   * @param creditId Credit id
-   * @return Credit id with version removed
-   */
-  private static String handleCreditIdVersion(String creditId) {
-    if (creditId.contains('@')) {
-      creditId = creditId.left(creditId.indexOf('@'));
-    }
-    return creditId;
   }
 }

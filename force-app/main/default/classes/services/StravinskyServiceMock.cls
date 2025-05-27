@@ -4,7 +4,7 @@
  * @description Mock implementation of Stravinsky api service, automatically injected if Non_Prod_Settings__c.MockCallouts__c is set or if the application is running in Tests
  * @group Services
  */
-public with sharing class StravinskyServiceMock extends Service {
+public with sharing class StravinskyServiceMock extends StravinskyService {
   /**
    * @description constructor which sets default status code and successful
    */

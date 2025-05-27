@@ -50,4 +50,27 @@ public with sharing class IDRCaseActionsRepository {
       WITH USER_MODE
     ];
   }
+  /**
+   *  @description Query Users who have either Permission set IDR_Level_2 or IDR_Level_3, using SYSTEM_MODE as current user won't be able to access to scope of case owners.
+   *  @param userId Set of User Ids who are case owners.
+   *  @return `List<User>` of Users which have either IDR_Level_2 or IDR_Level_3 PSG.
+   */
+  public List<User> queryL2L3User(Set<Id> userId) {
+    if (userId.isEmpty()) {
+      return new List<User>();
+    }
+    return [
+      SELECT Id
+      FROM User
+      WHERE
+        Id IN (
+          SELECT AssigneeId
+          FROM PermissionSetAssignment
+          WHERE
+            AssigneeId IN :userId
+            AND PermissionSet.Name IN :IDRConstants.PSG_L2_L3_USERS
+        )
+      WITH SYSTEM_MODE
+    ];
+  }
 }

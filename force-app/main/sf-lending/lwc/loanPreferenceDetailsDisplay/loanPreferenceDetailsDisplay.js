@@ -27,6 +27,12 @@ const LOAN_PREF_ERROR = "Failed to load Loan Preferences details.";
 const ADD_FUND_ERROR = "Failed to load Additional Cash Out details.";
 const DELETE_PERMISSION_ERROR_MESSAGE =
   "Do not have permission to update this value";
+const RLA_STATUS_NOT_CLOSED = [
+  "STATE_REFERRED",
+  "STATE_CAPTURE",
+  "STATE_SUBMITTED",
+  "STATE_CONFIRMED"
+];
 export default class LoanPreferenceDetailsDisplay extends LightningElement {
   @api recordId;
   errorMessage;
@@ -85,6 +91,10 @@ export default class LoanPreferenceDetailsDisplay extends LightningElement {
 
   get isEditAllowed() {
     return hasEditPermission && this.applicationStatus === "STATE_REFERRED";
+  }
+
+  get isStatusNotClosed() {
+    return RLA_STATUS_NOT_CLOSED.includes(this.applicationStatus);
   }
 
   //wired method to get residential loan data

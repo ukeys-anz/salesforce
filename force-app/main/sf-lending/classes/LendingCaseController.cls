@@ -12,10 +12,6 @@ public with sharing class LendingCaseController {
     LendingCaseAPIRepository.class
   );
 
-  private static final DmlRepository DML = (DmlRepository) Lib_InstanceProvider.forType(
-    DmlRepository.class
-  );
-
   /**
    * @description Below method will accept the updated values of from the LWC and turn it into the requestBody and make callout.
    * @param approvalState String
@@ -45,7 +41,10 @@ public with sharing class LendingCaseController {
       );
       Boolean caseUpdate = false;
       if (responseModel.approveRejectSuccess) {
-        caseUpdate = updateCaseStatus(recordId, approvalState);
+        caseUpdate = LendingCaseHelper.updateCaseStatus(
+          recordId,
+          approvalState
+        );
       }
       responseModel.caseUpdateSuccess = caseUpdate;
       return responseModel;
@@ -56,31 +55,6 @@ public with sharing class LendingCaseController {
       responseModel.approveRejectSuccess = false;
       responseModel.caseUpdateSuccess = false;
       return responseModel;
-    }
-  }
-
-  /**
-   * @description Below method will update the status of the case 'Closed - Approved' or 'Closed - Decline' when a success response is received.
-   * @param recordId Id
-   * @param approvalState String
-   * @return ``
-   * @exception
-   */
-  public static Boolean updateCaseStatus(Id recordId, String approvalState) {
-    try {
-      String updatedStatus = approvalState == 'STATE_APPROVED'
-        ? 'Closed - Approved'
-        : 'Closed - Declined';
-      Case caseRecord = new Case();
-      caseRecord.Id = recordId;
-      caseRecord.Status = updatedStatus;
-      caseRecord.Verified_By__c = UserInfo.getUserId();
-      DML.doUpdate(caseRecord);
-      return true;
-    } catch (Exception e) {
-      Logger.info('Failure on upadate status for case', e);
-      Logger.saveLog();
-      return false;
     }
   }
 }

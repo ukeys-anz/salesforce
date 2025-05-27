@@ -8,7 +8,7 @@
     <columns>Mobile__c</columns>
     <columns>Email__c</columns>
     <columns>OWNER.ALIAS</columns>
-    <filterScope>Mine</filterScope>
+    <filterScope>Everything</filterScope>
     <label>All COI Contacts</label>
     <sharedTo>
         <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>

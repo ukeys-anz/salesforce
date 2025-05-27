@@ -68,10 +68,12 @@ public with sharing class TrustMeCaseStatusPathHelper {
       Status = trustMeCase.Status,
       OnboardingVerificationFailedReason__c = String.isNotBlank(trustMeCase.OnboardingVerificationFailedReason__c) ? trustMeCase.OnboardingVerificationFailedReason__c : '',
       SecondaryVerificationFailedReason__c = String.isNotBlank(trustMeCase.SecondaryVerificationFailedReason__c) ? trustMeCase.SecondaryVerificationFailedReason__c : '',
-      Comments = comments
+      Comments = comments,
+      Verified_By__c = UserInfo.getUserId(),
+      Verified_Date__c = System.now()
     );
 
-    DML_REPOSITORY.doUpdate(updateCase, new DmlConfig().allowPartial());
+    DML_REPOSITORY.doUpdate(updateCase);
   }
 
   /**

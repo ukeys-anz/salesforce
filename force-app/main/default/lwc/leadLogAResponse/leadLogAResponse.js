@@ -424,7 +424,6 @@ export default class LeadLogAResponse extends LightningElement {
   }
 
   submitResponse() {
-    this.isLoading = true;
     if (this.noOpportunityValue && this.noOpportunitySelected === false) {
       this.noOpportunitySelected = true;
       this.yesOpportunity = false;
@@ -438,6 +437,7 @@ export default class LeadLogAResponse extends LightningElement {
     if (!this.noOpportunitySelected && !this.validateRecord()) {
       return;
     }
+    this.isLoading = true;
     const leadResponseWrapperValue = {
       responseStatus: this.selectedResponseStatusValue,
       leadQuality: this.selectedLeadQualityValue,

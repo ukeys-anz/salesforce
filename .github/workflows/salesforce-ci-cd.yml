@@ -27,6 +27,8 @@ jobs:
   validation-run:
     if: ${{ github.event.action != 'closed' }}
     uses: ./.github/workflows/_validation.yml
+    secrets:
+      token: ${{ secrets.SALESFORCE_ACTIONS_CHECKOUT_TOKEN }}
 
   validation:
     if: ${{ always() }}
@@ -50,3 +52,5 @@ jobs:
     uses: ./.github/workflows/_validation-quick-deployment.yml
     with:
       sfdx_name: ${{ matrix.secret-name }}
+    secrets:
+      token: ${{ secrets.SALESFORCE_ACTIONS_CHECKOUT_TOKEN }}

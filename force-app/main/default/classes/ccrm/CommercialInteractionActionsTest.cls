@@ -503,4 +503,61 @@ private class CommercialInteractionActionsTest {
       'Error while inserting Interaction record with Image.'
     );
   }
+
+  @isTest
+  static void testPerformRedactionTest() {
+    //GIVEN List of Interaction Record
+    List<Interaction> interactionList = new List<Interaction>{
+      new Interaction(
+        Id = Lib_FakeIdGenerator.getMockId(Interaction.SObjectType),
+        Name = 'Sample Interaction',
+        RecordTypeId = RTInteraction.CommercialInteraction,
+        comment__c = 'Test 1234123412341234'
+      )
+    };
+
+    String expectedResult = 'Test ************1234';
+
+    //WHEN calling a performRedaction method
+
+    Test.startTest();
+    CommercialInteractionActions.performRedaction(interactionList);
+    Test.stopTest();
+
+    Interaction actualInteractionInstance = interactionList[0];
+
+    //THEN sensitive info must be redacted
+    Assert.areEqual(
+      expectedResult,
+      actualInteractionInstance.comment__c,
+      'Redaction is Not Completed'
+    );
+  }
+
+  @isTest
+  static void testPerformRedactionNegativeTest() {
+    //GIVEN List of Interaction Record
+    List<Interaction> interactionList = new List<Interaction>{
+      new Interaction(
+        Id = Lib_FakeIdGenerator.getMockId(Interaction.SObjectType),
+        Name = 'Sample Interaction - Empty Comment',
+        RecordTypeId = RTInteraction.CommercialInteraction,
+        comment__c = 'This is a safe comment'
+      )
+    };
+
+    //WHEN calling performRedaction method for all cases
+    Test.startTest();
+    CommercialInteractionActions.performRedaction(interactionList);
+    Test.stopTest();
+
+    Interaction actualInteractionInstance = interactionList[0];
+
+    //THEN sensitive info must be redacted
+    Assert.areEqual(
+      'This is a safe comment',
+      actualInteractionInstance.comment__c,
+      'Redaction should not occur on safe comment'
+    );
+  }
 }

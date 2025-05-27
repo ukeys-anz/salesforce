@@ -1,7 +1,7 @@
 <!--
   @description       : This component is called from PersonDigitalIdentity Quick Actions. It passes the recordId and Action name to AUF OS.
   @author            : Anuj Jain
-  @group             : 
+  @group             :
   @last modified on  : April 2024
   @last modified by  : Akshat Khandelwal
 -->
@@ -11,11 +11,42 @@
   <aura:handler name="init" value="{!this}" action="{!c.handleInit}" />
   <lightning:quickActionAPI aura:id="quickActionAPI" />
   <aura:attribute name="recordIdToBePassed" type="String" default="" />
-  <aura:attribute name="loadComplete" type="Boolean" default="false" />
-  <aura:if isTrue="{!v.loadComplete}">
+  <aura:attribute name="isOmni" type="Boolean" default="false" />
+  <aura:if isTrue="{!v.isOmni}">
     <c:tFMAssistedUserFunctionsParentOSEnglish
       prefill="{!v.recordIdToBePassed}"
       recordId="{!v.recordIdToBePassed}"
     />
+  </aura:if>
+
+  <aura:attribute name="isLWC" type="Boolean" default="false" />
+  <aura:attribute name="lwcErrorMessage" type="String" default="" />
+  <aura:if isTrue="{!v.isLWC}">
+    <aura:html tag="style">
+      <!-- Prettier can't format css inside aura:html tag.
+       We use this tag because we need to change a global style, but only when this component is visible.
+       If this component is destroyed, the style tag will be removed as well avoiding affecting other components on the page.
+        -->
+      <!-- prettier-ignore -->
+      .cuf-content {
+        padding: 0 !important;
+      }
+      .modal-body.slds-p-around--medium,
+      .modal-body.slds-p-around_medium {
+        padding: 0 !important;
+      }
+      .modal-body.slds-modal__content {
+        height: unset !important;
+        max-height: unset !important;
+      }
+    </aura:html>
+    <div class="slds-is-relative">{!v.body}</div>
+    <aura:if isTrue="{!v.lwcErrorMessage}">
+      <p
+        class="slds-text-color_error slds-text-heading_small slds-text-align_center slds-p-vertical_xx-large"
+      >
+        {!v.lwcErrorMessage}
+      </p>
+    </aura:if>
   </aura:if>
 </aura:component>

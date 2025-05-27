@@ -26,17 +26,17 @@
                 <label>Convenience</label>
             </value>
             <value>
-                <fullName>Customer Needs Change</fullName>
+                <fullName>Customer need change</fullName>
                 <default>false</default>
-                <label>Customer Needs Change</label>
+                <label>Customer Need Change</label>
             </value>
             <value>
-                <fullName>Declined by Credit</fullName>
+                <fullName>Declined by credit</fullName>
                 <default>false</default>
                 <label>Declined by Credit</label>
             </value>
             <value>
-                <fullName>Declined by Manager</fullName>
+                <fullName>Declined by manager</fullName>
                 <default>false</default>
                 <label>Declined by Manager</label>
             </value>
@@ -91,15 +91,15 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Opportunity Lost</controllingFieldValue>
-            <valueName>Customer Needs Change</valueName>
+            <valueName>Customer need change</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Opportunity Lost</controllingFieldValue>
-            <valueName>Declined by Credit</valueName>
+            <valueName>Declined by credit</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Opportunity Lost</controllingFieldValue>
-            <valueName>Declined by Manager</valueName>
+            <valueName>Declined by manager</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Opportunity Lost</controllingFieldValue>
