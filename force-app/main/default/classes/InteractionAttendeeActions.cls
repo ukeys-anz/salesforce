@@ -211,13 +211,15 @@ public with sharing class InteractionAttendeeActions {
   /**
    * @description Create Interaction Attendee when there is conference happened in Twilio Call Conference
    * @param twilioContextRequest TwilioContextRequest containing data for InteractionAttendee Creation
-   * @return interactionAttendee InteractionAttendee to be created
+   * @return List<InteractionAttendee> InteractionAttendee List to be created
    */
-  public static InteractionAttendee insertTwilioConferenceAttendee(
+  public static List<InteractionAttendee> insertTwilioConferenceAttendee(
     UpdateInteractionByTwilioPayload twilioContextRequest
   ) {
+    List<InteractionAttendee> interactionAttendeeList = new List<InteractionAttendee>();
+
     if (!TwilioServiceUtil.checkIsConference(twilioContextRequest)) {
-      return null;
+      return interactionAttendeeList;
     }
 
     InteractionAttendee intattendee = new InteractionAttendee();
@@ -231,8 +233,9 @@ public with sharing class InteractionAttendeeActions {
     if (String.isNotBlank(twilioContextRequest.agentEmail)) {
       intattendee.AttendeeType = InteractionConstants.INTERNAL;
     }
+    interactionAttendeeList.add(intattendee);
 
-    return intattendee;
+    return interactionAttendeeList;
   }
 
   /**
