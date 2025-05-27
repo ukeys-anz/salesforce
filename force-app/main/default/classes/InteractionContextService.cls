@@ -51,8 +51,11 @@ global with sharing class InteractionContextService {
       Map<String, String> supportTopicMap = populateSupportTopicMap();
 
       //Finding available accounts based on OCV Id and update if PPID is changed
-      if (String.isNotBlank(contextRequest.ocvId)) {
-        updatePPIDOnAccountIfExist(contextRequest);
+      Account accountToUpdate = updatePPIDOnAccountIfExist(contextRequest);
+
+      if(accountToUpdate!=null)
+      {
+        DML_REPOSITORY.doUpdate(accountToUpdate, new DmlConfig().systemMode());
       }
 
       //For Creating Map of Existing Interactions By callOrChatSID for checking Duplication of the Interaction Context.
@@ -162,10 +165,14 @@ global with sharing class InteractionContextService {
    * @description This method will update the existing account PPID if changed
    * based on the ocv id received from Twilio
    * @param contextRequest InteractionContextRequest from Twilio
+   * @return Account to update if ppid changed
    */
-  private static void updatePPIDOnAccountIfExist(
+  private static Account updatePPIDOnAccountIfExist(
     InteractionContextRequest contextRequest
   ) {
+    if (!String.isNotBlank(contextRequest.ocvId)) {
+      return null;
+    }
     Account existingAccount = contextRequest.existingAccount;
     // Only update PPID once or if its changed
     if (
@@ -173,8 +180,8 @@ global with sharing class InteractionContextService {
       existingAccount.PPID__C != contextRequest.ppid
     ) {
       existingAccount.PPID__C = contextRequest.ppid;
-      DML_REPOSITORY.doUpdate(existingAccount, new DmlConfig().systemMode());
     }
+    return existingAccount;
   }
 
   /**
