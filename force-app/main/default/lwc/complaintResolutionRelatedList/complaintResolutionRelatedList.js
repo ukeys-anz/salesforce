@@ -1,5 +1,6 @@
 import { LightningElement, api, wire, track } from "lwc";
 import getComplaintResolution from "@salesforce/apex/ComplaintResolutionController.getComplaintResolution";
+import hasPermissionSet from "@salesforce/apex/ComplaintResolutionController.hasPermissionSet";
 import { refreshApex } from "@salesforce/apex";
 import { navigate, handleWireError, showToast } from "c/utils";
 import { deleteRecord } from "lightning/uiRecordApi";
@@ -18,7 +19,7 @@ const COLUMNs = [
     initialWidth: 150,
     typeAttributes: {
       label: { fieldName: "caseNumber" },
-      target: "_blank"
+      target: "_top"
     }
   },
   {
@@ -77,24 +78,42 @@ export default class ComplaintResolutionRelatedList extends NavigationMixin(
   @track error;
   totalPages = 1;
   page = 1;
+  showNewButton;
+
+  @wire(hasPermissionSet)
+  checkUserPermission({ data }) {
+    if (data) {
+      this.showNewButton = false;
+    } else if (!data) {
+      this.showNewButton = true;
+    }
+  }
 
   @wire(getComplaintResolution, { accountId: "$recordId" })
   wiredGetComplaintResolution({ data, error }) {
+    if (error) {
+      this.error = error;
+      this.alldata = [];
+      this.visibledata = [];
+    }
+    if (!data) {
+      return;
+    }
     if (data) {
       this.alldata = data.map((complaint) => {
         return {
-          caseId: complaint?.Id || "",
-          caseLink: complaint.Id ? "/" + complaint.Id : "" || "",
-          caseNumber: complaint?.CaseNumber || "",
-          dateReceived: complaint?.IDR_Date_Received__c || "",
-          caseOwner: complaint?.Owner?.Name || "",
-          caseStatus: complaint?.Status || "",
-          caseType: complaint?.Type || "",
-          subsequentIssue: complaint?.IDR_Subsequent_Issue__c || "",
-          complaintOutcome: complaint?.IDR_Complaint_Outcome__c || "",
-          totalFinancialAmount: complaint?.IDR_Total_Financial_Amount__c || "0",
+          caseId: complaint?.Id ?? "",
+          caseLink: complaint.Id ? "/" + complaint.Id : "",
+          caseNumber: complaint?.CaseNumber ?? "",
+          dateReceived: complaint?.IDR_Date_Received__c ?? "",
+          caseOwner: complaint?.Owner?.Name ?? "",
+          caseStatus: complaint?.Status ?? "",
+          caseType: complaint?.Type ?? "",
+          subsequentIssue: complaint?.IDR_Subsequent_Issue__c ?? "",
+          complaintOutcome: complaint?.IDR_Complaint_Outcome__c ?? "",
+          totalFinancialAmount: complaint?.IDR_Total_Financial_Amount__c ?? 0,
           complaintRemedy:
-            complaint?.Complaint_Resolutions__r?.[0]?.IDR_Complaint_Remedy__c ||
+            complaint?.Complaint_Resolutions__r?.[0]?.IDR_Complaint_Remedy__c ??
             ""
         };
       });
@@ -102,10 +121,6 @@ export default class ComplaintResolutionRelatedList extends NavigationMixin(
       this.totalPages = Math.ceil(this.alldata.length / Page_Size);
       this.updateVisibleData();
       this.error = undefined;
-    } else if (error) {
-      this.error = error;
-      this.alldata = [];
-      this.visibledata = [];
     }
   }
 
@@ -174,10 +189,15 @@ export default class ComplaintResolutionRelatedList extends NavigationMixin(
     navigate(this, "standard__recordPage", attributes);
   }
   handleNewCase() {
-    const attributes = {
-      objectApiName: "Case",
-      actionName: "new"
-    };
-    navigate(this, "standard__objectPage", attributes);
+    this[NavigationMixin.Navigate]({
+      type: "standard__objectPage",
+      attributes: {
+        objectApiName: "Case",
+        actionName: "new"
+      },
+      state: {
+        recordId: this.recordId
+      }
+    });
   }
 }

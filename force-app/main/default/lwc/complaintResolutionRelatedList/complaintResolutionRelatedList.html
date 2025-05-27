@@ -15,10 +15,12 @@
           >
         </div>
         <div>
-          <lightning-button
-            label="New"
-            onclick={handleNewCase}
-          ></lightning-button>
+          <template lwc:if={showNewButton}>
+            <lightning-button
+              label="New"
+              onclick={handleNewCase}
+            ></lightning-button>
+          </template>
         </div>
       </header>
 

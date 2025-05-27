@@ -3,17 +3,15 @@
  * @description This class provides SOQL helpers for class related ComplaintResolutionController.
  * @runTests ComplaintResolutionControllerTest
  */
-public class ComplaintResolutionControllerRepo {
-    /**
-     * @description REPO to Fetch Complaint Resolution records linked to Cases for a specific Customer Account
-     * @param accountId ID of the Customer
-     * @return List<Case> return the list of Cases and it's associated Complaint Resoltuion records (if any)
-     */
-     public list<Case> getCustomerCases(String accountId) {
-        if (String.isBlank(accountId)) {
-          return new List<Case>();
-        }
-        return [
+public with sharing class ComplaintResolutionControllerRepo {
+  
+  /**
+   * @description REPO to Fetch Complaint Resolution records linked to Cases for a specific Customer Account
+   * @param accountId ID of the Customer
+   * @return List<Case> return the list of Cases and it's associated Complaint Resoltuion records (if any)
+   */
+  public list<Case> getCustomerCases(String accountId) {
+    return [
           SELECT
             Id,
             Owner.Name,
@@ -35,6 +33,5 @@ public class ComplaintResolutionControllerRepo {
           WITH USER_MODE
           ORDER BY CreatedDate DESC
         ];
-      }
-    
+  }
 }
