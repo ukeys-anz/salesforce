@@ -176,6 +176,7 @@
     "SourceSystemIdentifier"
   ],
   "ApplicationForm": ["BranchUnitId"],
+  "ApplicationFormProduct": ["ApplicantVisibleStatus"],
   "COBPrimaryIDDocument__c": [
     "CountryOfIssue__c",
     "CountryOfIssueOCRClient__c",
@@ -484,7 +485,7 @@
     "SOP_Id__c",
     "Settlement_ID__c"
   ],
-  "Twilio_Details__c": ["Call_Transcript__c"],
+  "Twilio_Details__c": ["Call_Transcript__c", "Summary__c"],
   "User": [
     "AboutMe",
     "BadgeText",

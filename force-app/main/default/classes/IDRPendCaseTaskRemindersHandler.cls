@@ -13,6 +13,15 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
   @TestVisible
   private static final String PEND_TASK_REMINDER = 'Pend Case Task Reminder';
 
+  private static final List<String> PEND_TASK_REMINDER_WINDOW = Label.IDR_Window_For_Task_Reminders.split(
+    ','
+  );
+  private static final IDRTaskActionsRepository TASK_REPOSITORY = (IDRTaskActionsRepository) Lib_InstanceProvider.forType(
+    IDRTaskActionsRepository.class
+  );
+  @TestVisible
+  private static final String PEND_TASK_REMINDER = 'Pend Case Task Reminder';
+
   /**
    * @description method for creating wrapper to send notifications
    * @param taskList list of task records that are used for creating wrapper
@@ -21,6 +30,10 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
   public static List<IDRBankerNotificationWrapper> createWrapper(
     List<Task> taskList
   ) {
+    Set<Id> caseIds = ListUtil.getIds(taskList, Task.WhatId);
+    Map<Id, Case> caseMap = new Map<Id, Case>(
+      TASK_REPOSITORY.queryCases(caseIds)
+    );
     Set<Id> caseIds = ListUtil.getIds(taskList, Task.WhatId);
     Map<Id, Case> caseMap = new Map<Id, Case>(
       TASK_REPOSITORY.queryCases(caseIds)
@@ -40,9 +53,12 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
       }
       IDRBankerNotificationWrapper wrapper = new IDRBankerNotificationWrapper(
         task,
+        task,
         new List<Id>(recipientList),
         PEND_TASK_REMINDER,
+        PEND_TASK_REMINDER,
         msgBody,
+        caseMap.get(task.WhatId)
         caseMap.get(task.WhatId)
       );
       wrapperList.add(wrapper);

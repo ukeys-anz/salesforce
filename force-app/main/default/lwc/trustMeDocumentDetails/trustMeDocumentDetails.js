@@ -33,41 +33,45 @@ const NODE_TO_LABEL = {
 const FILES_BY_DOCUMENTTYPE = {
   TYPE_DRIVERS_LICENCE: [
     {
+      fileType: "FILE_TYPE_SELFIE",
+      title: "Selfie"
+    },
+    {
       fileType: "FILE_TYPE_FRONT_PROCESSED",
-      title: "Processed Document Front"
+      title: "Processed Drivers License Front"
     },
     {
       fileType: "FILE_TYPE_BACK_PROCESSED",
-      title: "Processed Document Back"
+      title: "Processed Drivers License Back"
     },
     {
       fileType: "FILE_TYPE_FRONT_UNPROCESSED",
-      title: "Unprocessed Document Front"
+      title: "Unprocessed Drivers License Front"
     },
     {
       fileType: "FILE_TYPE_BACK_UNPROCESSED",
-      title: "Unprocessed Document Back"
-    },
-    {
-      fileType: "FILE_TYPE_SELFIE",
-      title: "Selfie"
+      title: "Unprocessed Drivers License Back"
     }
   ],
   TYPE_PASSPORT: [
     {
+      fileType: "FILE_TYPE_SELFIE",
+      title: "Selfie"
+    },
+    {
       fileType: "FILE_TYPE_FRONT_PROCESSED",
-      title: "Processed Document Front"
+      title: "Processed Passport Front"
     },
     {
       fileType: "FILE_TYPE_FRONT_UNPROCESSED",
-      title: "Unprocessed Document Front"
-    },
-    {
-      fileType: "FILE_TYPE_SELFIE",
-      title: "New Selfie"
+      title: "Unprocessed Passport Front"
     }
   ],
   TYPE_PROOF_OF_AGE: [
+    {
+      fileType: "FILE_TYPE_SELFIE",
+      title: "Selfie"
+    },
     {
       fileType: "FILE_TYPE_FRONT_PROCESSED",
       title: "Processed Proof Of Age Front"
@@ -82,21 +86,17 @@ const FILES_BY_DOCUMENTTYPE = {
     },
     {
       fileType: "FILE_TYPE_BACK_UNPROCESSED",
-      title: "Unrocessed Proof Of Age Back"
-    },
-    {
-      fileType: "FILE_TYPE_SELFIE",
-      title: "Selfie"
+      title: "Unprocessed Proof of Age Back"
     }
   ],
   TYPE_MEDICARE: [
     {
       fileType: "FILE_TYPE_FRONT_PROCESSED",
-      title: "Processed Front"
+      title: "Processed Medicare Card Front"
     },
     {
       fileType: "FILE_TYPE_FRONT_UNPROCESSED",
-      title: "Unprocessed Front"
+      title: "Unprocessed Medicare Card Front"
     }
   ]
 };
@@ -107,6 +107,14 @@ export default class TrustMeDocumentDetails extends LightningElement {
   showSpinner = false;
   showError = false;
   trustMeDocSecErrorMessage = trustMeErrorMessage;
+  activeSections = [
+    "evaluationOutcomes",
+    "evProviderOutcomes",
+    "selfieEvaluationOutcome",
+    "primaryDocAndSelfie",
+    "secondaryDocuments",
+    "addressDetails"
+  ];
 
   data;
   evaluationOutcomes;
@@ -312,7 +320,7 @@ export default class TrustMeDocumentDetails extends LightningElement {
       return null;
     }
     return response.map((item) => ({
-      type: item.addressType,
+      type: item.addressTypeDescription,
       addressValue: this.concatAddress(item),
       latitude: item.latitude,
       longitude: item.longitude
@@ -351,9 +359,9 @@ export default class TrustMeDocumentDetails extends LightningElement {
 
   formRequestBodyToFetchDocuments(docMetadata, evaluationId) {
     let reqBody = {};
-    reqBody.related_user = this.userId;
-    reqBody.evaluation_id = evaluationId;
-    reqBody.related_id = this.recordId;
+    reqBody.requestedUser = this.userId;
+    reqBody.evaluationId = evaluationId;
+    reqBody.relatedId = this.recordId;
     reqBody.attachments = this.createBodyForAttachments(docMetadata);
     return reqBody;
   }

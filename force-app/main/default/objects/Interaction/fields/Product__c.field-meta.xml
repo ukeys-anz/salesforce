@@ -71,6 +71,11 @@
                 <default>false</default>
                 <label>Joint ANZ Plus Online Saver</label>
             </value>
+            <value>
+                <fullName>ANZ Plus Progress Saver</fullName>
+                <default>false</default>
+                <label>ANZ Plus Progress Saver</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
     <visibleLines>4</visibleLines>

@@ -265,8 +265,7 @@ public with sharing class CommonUtil {
     String functionName,
     String errorDescription
   ) {
-    Logger.error(errorDescription);
-    Logger.saveLog();
+    Logger.error(errorDescription).save();
     throw new InsufficientAccessException(errorDescription);
   }
 
@@ -277,8 +276,7 @@ public with sharing class CommonUtil {
    * @return The logged exception.
    */
   public static Exception logException(Exception ex) {
-    Logger.error(ex.getMessage(), ex);
-    Logger.saveLog();
+    Logger.error(ex.getMessage(), ex).save();
     return ex;
   }
 
@@ -289,20 +287,38 @@ public with sharing class CommonUtil {
    * @return The logged exception.
    */
   public static Exception logExceptionInfo(Exception ex) {
-    Logger.info(ex.getMessage(), ex);
-    Logger.saveLog();
+    Logger.info(ex.getMessage(), ex).save();
     return ex;
   }
 
   /**
-   * @description Logs and return AuraHandledException exception with given errorMessage.
+   * @description Logs info and return AuraHandledException exception with given errorMessage.
    * Useful for re-throw from caller.
    * @param errorMessage The errorMessage to be logged.
+   * @param recordId The record Id to be logged.
    * @return The AuraHandledException with logged errorMessage.
    */
-  public static AuraHandledException logAuraException(String errorMessage) {
-    Logger.error(errorMessage);
-    Logger.saveLog();
+  public static AuraHandledException logAuraExceptionInfo(
+    String errorMessage,
+    Id recordId
+  ) {
+    return logAuraExceptionInfo(errorMessage, recordId, null);
+  }
+
+  /**
+   * @description Logs info and return AuraHandledException exception with given errorMessage.
+   * Useful for re-throw from caller.
+   * @param errorMessage The errorMessage to be logged.
+   * @param recordId The record Id to be logged.
+   * @param apexException The exception to be logged.
+   * @return The AuraHandledException with logged errorMessage.
+   */
+  public static AuraHandledException logAuraExceptionInfo(
+    String errorMessage,
+    Id recordId,
+    Exception apexException
+  ) {
+    Logger.info(errorMessage, recordId, apexException).save();
     return new AuraHandledException(errorMessage);
   }
   /**
@@ -715,20 +731,6 @@ public with sharing class CommonUtil {
   }
 
   /**
-   * @description throws AuraHandledException with error message
-   * @param errorMsg error message to use in the exception
-   */
-  public static void throwException(String errorMsg) {
-    // AuraHandleException is quirky, setMessage() and constructor must be invoked otherwise "Script-thrown exception" is thrown instead of actual exception message
-    AuraHandledException e = new AuraHandledException(errorMsg);
-    e.setMessage(errorMsg);
-
-    Logger.error(errorMsg, e);
-    Logger.saveLog();
-    throw e;
-  }
-
-  /**
    * @description checks if the user is having given permission sets assigned to it
    * @param userId user Id
    * @param permissionSetNames Set of permission set that needs to be verified
@@ -757,18 +759,12 @@ public with sharing class CommonUtil {
   }
 
   /**
-   * @description Build Trimmed and Concatenated values of Strings
+   * @description [DEPRECATED] Use `TextUtils.concat`.
    * @param items  List of Strings
    * @return Trimmed and Concatenated values of items
    */
   public static String buildTrimmedConcatenatedString(List<String> items) {
-    List<String> newContents = new List<String>();
-    for (String item : items) {
-      if (String.isNotBlank(item)) {
-        newContents.add(item.trim());
-      }
-    }
-    return String.join(newContents, ' ');
+    return TextUtils.concat(items);
   }
 
   /**

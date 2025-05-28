@@ -116,4 +116,13 @@ public with sharing class UserInfoRepository {
     }
     return false;
   }
+
+  /**
+   * @description Retrieves the Non-Prod Settings record for the current user.
+   * @return The Non_Prod_Settings__c record associated with the current user.
+   */
+  public Boolean checkSsoNotConfigured() {
+    return Non_Prod_Settings__c.getInstance(UserInfo.getUserId())
+      .SSO_Not_Configured__c;
+  }
 }

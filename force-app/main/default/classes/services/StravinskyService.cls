@@ -4,7 +4,7 @@
  * @description Stravinsky implementation of the API service
  * @group Services
  */
-public with sharing class StravinskyService extends Service {
+public with sharing virtual class StravinskyService extends Service {
   private Map<String, String> temporalCaseWorkflowEndpoints = new Map<String, String>{
     COBCaseConstants.COB_ID_OPS_DAON_OK_STATUS => Label.ST_ApproveSelfieIDCheck,
     COBCaseConstants.COB_ID_CHECK_OK_STATUS => Label.ST_Approve_ID_Verification,
@@ -21,7 +21,7 @@ public with sharing class StravinskyService extends Service {
    * @return HttpCalloutResponse
    * @description stravinsky package closure api
    */
-  public override HttpCalloutResponse closePackage(
+  public virtual HttpCalloutResponse closePackage(
     String ocvId,
     String closureCaseRequest
   ) {
@@ -44,9 +44,7 @@ public with sharing class StravinskyService extends Service {
    * @return `HttpCalloutResponse` api response
    * @description triggers Temporal Case Workflow
    */
-  public override HttpCalloutResponse triggerTemporalCaseWorkflow(
-    Case cobCase
-  ) {
+  public virtual HttpCalloutResponse triggerTemporalCaseWorkflow(Case cobCase) {
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(
       Service.IdType.PERSONAID,
@@ -72,7 +70,7 @@ public with sharing class StravinskyService extends Service {
    * @return HttpCalloutResponse
    * @description stravinsky detokenization api
    */
-  public override HttpCalloutResponse detokenize(
+  public virtual HttpCalloutResponse detokenize(
     String personaId,
     DetokenizeRequestModel request
   ) {
@@ -97,7 +95,7 @@ public with sharing class StravinskyService extends Service {
    * @return HttpCalloutResponse
    * @description stravinsky COBPID updatePrimaryDocument api
    */
-  public override HttpCalloutResponse updatePrimaryIDDocument(
+  public virtual HttpCalloutResponse updatePrimaryIDDocument(
     String personaId,
     COBPrimaryIDDocUpdateRequestModel request
   ) {
@@ -122,7 +120,7 @@ public with sharing class StravinskyService extends Service {
    * @return HttpCalloutResponse
    * @description stravinsky COBTaxResidency detokenize api
    */
-  public override HttpCalloutResponse detokenizeCOBTaxResidency(
+  public virtual HttpCalloutResponse detokenizeCOBTaxResidency(
     COBTaxResidency__c taxResidency
   ) {
     Map<String, String> headers = new Map<String, String>();

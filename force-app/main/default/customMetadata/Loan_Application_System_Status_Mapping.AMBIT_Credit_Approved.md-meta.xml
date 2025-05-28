@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>AMBIT-Credit Approved</label>
+    <protected>false</protected>
+    <values>
+        <field>Application_Product_Stage__c</field>
+        <value xsi:type="xsd:string">Approved &amp; Offered</value>
+    </values>
+    <values>
+        <field>Application_Record_Type__c</field>
+        <value xsi:type="xsd:string">AMBIT</value>
+    </values>
+    <values>
+        <field>Source_System_Status__c</field>
+        <value xsi:type="xsd:string">Credit Approved</value>
+    </values>
+</CustomMetadata>

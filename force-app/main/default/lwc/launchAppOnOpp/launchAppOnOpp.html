@@ -1,76 +1,146 @@
 <template>
   <lightning-quick-action-panel header="Launch Application">
-    <template lwc:if={showRadio}>
-      <div
-        class="slds-m-top_medium slds-m-bottom_x-large slds-text-align_center"
-      >
-        <h2 class="slds-text-heading_medium slds-m-bottom_medium">
-          {CONSTANT.HEADER_TEXT}
-        </h2>
-
-        <!-- Button group: simple buttons -->
-        <lightning-button-group class="slds-text-align_center btnGrp">
-          <lightning-button
-            label={CONSTANT.AMBIT}
-            onclick={handleClick}
-            class="ambitBtn"
-          ></lightning-button>
-          <lightning-button
-            label={CONSTANT.BBD}
-            onclick={handleClick}
-          ></lightning-button>
-          <lightning-button
-            label={CONSTANT.ACM}
-            onclick={handleClick}
-          ></lightning-button>
-          <lightning-button
-            label={CONSTANT.INTERNAL_APPLICATION}
-            onclick={handleClick}
-          ></lightning-button>
-        </lightning-button-group>
-      </div>
+    <template lwc:if={isLoading}>
+      <lightning-spinner
+        alternative-text="Loading"
+        variant="brand"
+        size="small"
+        class="slds-is-relative slds-align_absolute-center"
+      ></lightning-spinner>
     </template>
     <template lwc:else>
-      <template lwc:if={isLoading}>
-        <lightning-spinner
-          alternative-text="Loading"
-          variant="brand"
-          size="small"
-        ></lightning-spinner>
+      <template lwc:if={showRecordTypes}>
+        <div
+          class="slds-m-top_medium slds-m-bottom_x-large slds-text-align_center"
+        >
+          <h2 class="slds-text-heading_medium slds-m-bottom_medium">
+            {CONSTANT.HEADER_TEXT}
+          </h2>
+          <!-- Button group: simple buttons -->
+          <lightning-button-group class="slds-text-align_center btnGrp">
+            <template for:each={recordTypeList} for:item="recordType">
+              <lightning-button
+                key={recordType.recordTypeId}
+                label={recordType.recordTypeName}
+                onclick={handleClick}
+                class="recordTypeBtn"
+              ></lightning-button>
+            </template>
+          </lightning-button-group>
+        </div>
       </template>
       <template lwc:else>
         <template lwc:if={showTable}>
-          <lightning-datatable
-            key-field="id"
-            data={data}
-            columns={columns}
-            onrowselection={getSelectedRow}
-          >
-          </lightning-datatable>
+          <div class="slds-p-around_medium">
+            <table
+              class="slds-table slds-table_bordered slds-table_cell-buffer"
+            >
+              <thead>
+                <tr class="slds-text-title_caps">
+                  <th scope="col">
+                    <template if:true={allowMultiple}>
+                      <lightning-input
+                        type="checkbox"
+                        label=""
+                        onchange={handleSelectAll}
+                        checked={allRowsSelected}
+                      ></lightning-input>
+                    </template>
+                  </th>
+                  <th scope="col" class="slds-text-align_center">
+                    <span class="slds-truncate" title={CONSTANT.PRODUCT}
+                      >{CONSTANT.PRODUCT}</span
+                    >
+                  </th>
+                  <th scope="col" class="slds-text-align_center">
+                    <span class="slds-truncate" title={CONSTANT.UNITPRICE}
+                      >{CONSTANT.UNITPRICE}</span
+                    >
+                  </th>
+                  <th scope="col" class="slds-text-align_center">
+                    <span class="slds-truncate" title={CONSTANT.FUNDINGPURPOSE}
+                      >{CONSTANT.FUNDINGPURPOSE}</span
+                    >
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <template for:each={data} for:item="row">
+                  <tr key={row.oppLineItemId}>
+                    <td class="slds-cell-edit">
+                      <template if:true={allowMultiple}>
+                        <lightning-input
+                          type="checkbox"
+                          data-id={row.oppLineItemId}
+                          onchange={handleChange}
+                          disabled={row.isRowDisabled}
+                          checked={row.isSelected}
+                        ></lightning-input>
+                      </template>
+                      <template if:false={allowMultiple}>
+                        <input
+                          type="radio"
+                          data-name="radioGroup"
+                          data-id={row.oppLineItemId}
+                          disabled={row.isRowDisabled}
+                          onchange={handleChange}
+                          checked={row.isSelected}
+                        />
+                      </template>
+                    </td>
+                    <td class="slds-text-align_center">
+                      <lightning-formatted-url
+                        value={row.productURL}
+                        label={row.productName}
+                        target="_blank"
+                      ></lightning-formatted-url>
+                    </td>
+                    <td class="slds-text-align_center">
+                      <lightning-formatted-number
+                        value={row.unitPrice}
+                        format-style="currency"
+                        currency-code="AUD"
+                      ></lightning-formatted-number>
+                    </td>
+                    <td class="slds-text-align_center">
+                      <lightning-formatted-text
+                        value={row.fundingPurpose}
+                      ></lightning-formatted-text>
+                    </td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
         </template>
-        <template lwc:else> <b>{noOppItemsMessage}</b> </template>
+        <template lwc:elseif={invalidOpportunity}>
+          <template for:each={validationMessage} for:item="message">
+            <li key={message.Id}><b>{message.body}</b></li>
+          </template>
+        </template>
+        <!-- </template> -->
+        <div slot="footer" class="slds-text-align_right">
+          <lightning-button
+            label={CONSTANT.CANCEL}
+            onclick={handleCancel}
+            class="btnCancel"
+          >
+          </lightning-button
+          >&nbsp;&nbsp;
+          <lightning-button label={CONSTANT.BACK} onclick={handleBack}>
+          </lightning-button
+          >&nbsp;&nbsp;
+          <lightning-button
+            variant="brand"
+            label={CONSTANT.SAVE}
+            name="save"
+            disabled={disableSave}
+            onclick={handleSave}
+            class="saveBtn"
+          >
+          </lightning-button>
+        </div>
       </template>
-      <div slot="footer" class="slds-text-align_right">
-        <lightning-button
-          label={CONSTANT.CANCEL}
-          onclick={handleCancel}
-          class="btnCancel"
-        >
-        </lightning-button
-        >&nbsp;&nbsp;
-        <lightning-button label={CONSTANT.BACK} onclick={handleBack}>
-        </lightning-button
-        >&nbsp;&nbsp;
-        <lightning-button
-          variant="brand"
-          label={CONSTANT.SAVE}
-          name="save"
-          disabled={disableSave}
-          onclick={handleSave}
-          class="saveBtn"
-        >
-        </lightning-button>
-      </div>
     </template>
   </lightning-quick-action-panel>
 </template>

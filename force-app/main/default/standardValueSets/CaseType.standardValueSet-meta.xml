@@ -202,6 +202,11 @@
         <label>My Security</label>
     </standardValue>
     <standardValue>
+        <fullName>Manage Home Loans</fullName>
+        <default>false</default>
+        <label>Manage Home Loans</label>
+    </standardValue>
+    <standardValue>
         <fullName>Product Information</fullName>
         <default>false</default>
         <label>Product Information</label>
@@ -505,5 +510,10 @@
         <fullName>24</fullName>
         <default>false</default>
         <label>Card Scheme Disputes</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Goodwill Gesture Payment</fullName>
+        <default>false</default>
+        <label>Goodwill Gesture Payment</label>
     </standardValue>
 </StandardValueSet>

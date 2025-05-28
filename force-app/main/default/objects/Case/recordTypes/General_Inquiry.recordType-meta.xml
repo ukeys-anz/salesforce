@@ -11867,6 +11867,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Removal of Electronic Access</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Renewal and Restructures</fullName>
             <default>false</default>
         </values>
@@ -12756,6 +12760,10 @@
         </values>
         <values>
             <fullName>Fraud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Goodwill Gesture Payment</fullName>
             <default>false</default>
         </values>
         <values>

@@ -367,7 +367,15 @@ export default class SopAddEditDebts extends LightningModal {
     if (this.actionType === "Add") {
       this.payload.liability.institutionalLiability.debtType = this.debtType;
     }
-    this.handlePropertyOptions(this.propertyAssets);
+
+    let multiPropsSources = [
+      "LIABILITY_TYPE_LINE_OF_CREDIT",
+      "LIABILITY_TYPE_HOME_LOAN"
+    ];
+
+    if (multiPropsSources.includes(this.debtType)) {
+      this.handlePropertyOptions(this.propertyAssets);
+    }
     if (this.parties && this.parties.length > 0) {
       this.handleBelongsToOptions(this.parties);
     }
@@ -407,18 +415,14 @@ export default class SopAddEditDebts extends LightningModal {
       this.fieldVisibility.disableOwnershipSplit = true;
     }
 
-    let editableANZSource = [
-      "LIABILITY_TYPE_LINE_OF_CREDIT",
-      "LIABILITY_TYPE_HOME_LOAN"
-    ];
     //Prevent change of ownership split for ANZ LOC and HL sources with a single owner
     //and for other debt types
     if (
       this.actionType === "Edit" &&
       this.debtData?.sourceType === "LIABILITY_SOURCE_TYPE_ANZ" &&
       ((this.ownerDetails.length === 1 &&
-        editableANZSource.includes(this.debtType)) ||
-        !editableANZSource.includes(this.debtType))
+        multiPropsSources.includes(this.debtType)) ||
+        !multiPropsSources.includes(this.debtType))
     ) {
       this.fieldVisibility.disableOwnershipSplit = true;
     }

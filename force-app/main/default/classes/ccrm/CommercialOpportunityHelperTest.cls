@@ -144,4 +144,57 @@ private class CommercialOpportunityHelperTest {
     errors = closedLostOpp.getErrors();
     Assert.isFalse(errors.isEmpty(), 'no errors found');
   }
+
+  @isTest
+  static void addErrorOnOppForMissingFieldsOnClosedAFPTest() {
+    Opportunity opp;
+    ApplicationFormProduct afp;
+    List<Database.Error> errors;
+    Database.Error error;
+
+    opp = CCRMTestDataFactory.createStaticOpportunityData(
+      Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType),
+      'Test Opp 1',
+      RTOpportunity.commercialOpportunity,
+      CCRMConstants.OPP_WON
+    );
+
+    afp = (ApplicationFormProduct) TestUtil.setFields(
+      new ApplicationFormProduct(
+        Id = Lib_FakeIdGenerator.getMockId(ApplicationFormProduct.SObjectType),
+        Stage = CCRMConstants.OPP_LOST,
+        Lost_reason__c = '',
+        Lost_Reason_Detail__c = '',
+        ApplicationForm = new ApplicationForm(
+          Id = Lib_FakeIdGenerator.getMockId(ApplicationForm.SObjectType),
+          OpportunityId = opp.Id
+        )
+      ),
+      new Map<String, Object>{ 'Name' => 'AFP-01234' }
+    );
+
+    Test.startTest();
+    CommercialOpportunityHelper.addErrorOnOppForMissingFieldsOnClosedAFP(
+      new List<ApplicationFormProduct>{ afp },
+      new Map<Id, Opportunity>{ opp.Id => opp }
+    );
+    Test.stopTest();
+
+    errors = opp.getErrors();
+    Assert.isFalse(errors.isEmpty(), 'Error not found');
+    error = errors.get(0);
+    Assert.areEqual(
+      'For ' +
+        afp.Name +
+        ', ' +
+        CommercialOpportunityHelper.LOST_REASON_DETAIL_MISSING_AFP +
+        '\n' +
+        'For ' +
+        afp.Name +
+        ', ' +
+        CommercialOpportunityHelper.WON_LOST_MANDATORY_AFP,
+      error.getMessage(),
+      'Opp updated successfully'
+    );
+  }
 }

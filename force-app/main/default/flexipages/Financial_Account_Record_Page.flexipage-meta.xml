@@ -169,6 +169,16 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>lendingAccountHistory</componentName>
+                <identifier>c_lendingAccountHistory</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-6f09b974-978a-42c4-9f01-c42017565381</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>active</name>
                     <value>true</value>
@@ -211,6 +221,20 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-6f09b974-978a-42c4-9f01-c42017565381</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>History</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab2</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-7188c568-afd4-48b9-a8df-672656f1f07a</name>

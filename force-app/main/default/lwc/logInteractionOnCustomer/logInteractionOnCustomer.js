@@ -15,6 +15,7 @@ import EXPIRY_DATE_FIELD from "@salesforce/schema/Interaction.Expiry_Date__c";
 import PERMANENT_FIELD from "@salesforce/schema/Interaction.Permanent__c";
 import getCommentTypeMapping from "@salesforce/apex/CCRMLogInteractionController.getCommentTypeMapping";
 import getSearchResult from "@salesforce/apex/CCRMLogInteractionController.getSearchResult";
+import INTERACTION_TYPE_FIELD from "@salesforce/schema/Interaction.Interaction_Type__c";
 
 export default class LogInteractionOnCustomer extends LightningElement {
   recordTypeId;
@@ -25,6 +26,7 @@ export default class LogInteractionOnCustomer extends LightningElement {
   categoryField = CATEGORY_FIELD;
   customerField = CUSTOMER_FIELD;
   intTypeField = INTTYPE_FIELD;
+  interactionTypeField = INTERACTION_TYPE_FIELD;
   startTimeField = STARTTIME_FIELD;
   optionalNotesField = OPTIONAL_NOTES_FIELD;
   commentField = COMMENT_FIELD;
@@ -38,6 +40,7 @@ export default class LogInteractionOnCustomer extends LightningElement {
   category;
   commentTypeOptions = [];
   financialAccountValue;
+  interactionTypeValue;
   commentTypeValue;
   commentValue;
   expiryDateValue;
@@ -158,7 +161,6 @@ export default class LogInteractionOnCustomer extends LightningElement {
       }
     }
   }
-
   handleCommentChange(event) {
     this.commentValue = event.target.value;
     this.reportValidity();
@@ -231,6 +233,7 @@ export default class LogInteractionOnCustomer extends LightningElement {
     if (this.reportValidity()) {
       const fields = event.detail.fields;
       if (this.category === this.CONSTANT.CAP_DIARY_COMMENT) {
+        this.interactionFields.Interaction_Type__c = "COI Proactive";
         this.interactionFields.Category__c = fields.Category__c;
         this.interactionFields.Name = this.CONSTANT.CAP_DIARY_COMMENT;
         this.interactionFields.Channel = "Call";

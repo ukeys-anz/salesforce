@@ -52,6 +52,7 @@ const printContextFromFile = (jobIdFilePath, comment = "") => {
 // Case scenario to use this: Will go through all the changed classes -
 // and will find all the specified tests on them, if we want to run specified tests
 const findAllFiles = (dir, files = []) => {
+  if (!existsSync(dir)) return files;
   // Get an array of all files and directories in the passed directory using fs.readdirSync
   const fileList = readdirSync(dir);
   // Create the full path of the file/directory by concatenating the passed directory and file/directory name

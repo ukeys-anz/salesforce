@@ -13,7 +13,6 @@ public with sharing class BOHServiceMock extends Service {
     response.statusCode = 200;
     response.successful = true;
   }
-  private static final string SOP_RESPONSE = getStaticResource('mock_sop');
 
   @TestVisible
   private static final string CREDIT_ASSESSMENT_LIST_RESPONSE = getStaticResource(
@@ -38,7 +37,6 @@ public with sharing class BOHServiceMock extends Service {
   private static final string CANCEL_LOAN_APP = getStaticResource(
     'mock_cancelHomeLoanApplication'
   );
-
   /**
    * @param ocvId ocv id of the customer account
    * @param sopId sop id to retrieve customer savings and asset
@@ -193,36 +191,17 @@ public with sharing class BOHServiceMock extends Service {
   }
 
   /**
-   * @param sopIds sop id
-   * @param creditId credit id
    * @param ocvId ocv id of the primary loan application
-   * @param termMonths Loan term in months
-   * @param loanAmount Loan amount
+   * @param requestModel UMI request model
    * @return `HttpCalloutResponse` the api response
    * @description fetches UMI assessments from sop and gearbox api through mule
    */
   public override HttpCalloutResponse getUMIAssessments(
-    List<String> sopIds,
-    String creditId,
     String ocvId,
-    Integer termMonths,
-    Decimal loanAmount
+    ViewUMIRequestModel requestModel
   ) {
     if (!preset) {
       response.body = BOHServiceMock.UMI_LIST_ASSEEEMENTS_RESPONSE;
-    }
-    return response;
-  }
-
-  /**
-   * @param ocvId ocv id of the customer account
-   * @param sopId sop id to retrieve customer information
-   * @return `HttpcalloutResponse` the api response
-   * @description fetches fake response for sop api
-   */
-  public override HttpCalloutResponse getSOP(String ocvId, String sopId) {
-    if (!preset) {
-      response.body = BOHServiceMock.SOP_RESPONSE;
     }
     return response;
   }

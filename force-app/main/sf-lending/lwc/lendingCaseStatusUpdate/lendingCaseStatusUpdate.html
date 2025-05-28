@@ -1,0 +1,59 @@
+<template>
+  <template lwc:if={componentSpinner}>
+    <lightning-spinner
+      alternative-text="Loading"
+      varient="brand"
+      size="large"
+      class="slds-align_absolute-center"
+    >
+    </lightning-spinner>
+  </template>
+  <lightning-quick-action-panel header={headerMessage}>
+    <lightning-layout
+      class="slds-p-horizontal_xx-large slds-p-top_x-small"
+      multiple-rows
+    >
+      <lightning-layout-item class="slds-p-bottom_large" size="12">
+        <lightning-formatted-text
+          class="warningMessageStyle"
+          value={warningMessage}
+        ></lightning-formatted-text>
+      </lightning-layout-item>
+      <template lwc:if={statusApprove}>
+        <lightning-layout-item class="slds-p-bottom_large" size="12"
+          >̦
+          <lightning-formatted-rich-text
+            class="additionalInfoStyle"
+            value={additionalInfo}
+          ></lightning-formatted-rich-text>
+        </lightning-layout-item>
+      </template>
+    </lightning-layout>
+
+    <div slot="footer">
+      <lightning-button
+        variant="neutral"
+        label="Cancel"
+        onclick={handleClose}
+      ></lightning-button>
+      <template lwc:if={statusApprove}>
+        <lightning-button
+          variant="success"
+          class="slds-m-left_x-small"
+          label="Approve Change"
+          onclick={handleSubmit}
+        >
+        </lightning-button>
+      </template>
+      <template lwc:else>
+        <lightning-button
+          variant="destructive"
+          class="slds-m-left_x-small"
+          label="Reject Change"
+          onclick={handleSubmit}
+        >
+        </lightning-button>
+      </template>
+    </div>
+  </lightning-quick-action-panel>
+</template>

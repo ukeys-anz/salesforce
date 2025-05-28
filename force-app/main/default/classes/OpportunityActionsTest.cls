@@ -294,6 +294,43 @@ public class OpportunityActionsTest {
     );
   }
 
+  @isTest
+  static void testOpportunityOwnership() {
+    String opportunityId = Lib_FakeIdGenerator.getMockId(
+      Opportunity.SObjectType
+    );
+    String user1 = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    String user2 = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    Map<Id, Opportunity> oldOppMap = new Map<Id, Opportunity>{
+      opportunityId => (new Opportunity(
+        Id = opportunityId,
+        OwnerId = user1,
+        Opportunity_Owner__c = user1,
+        recordTypeId = RTOpportunity.mlOpportunity
+      ))
+    };
+
+    //WHEN update the Opportunity_Owner__c field on opportunity
+    List<Opportunity> oppList = new List<Opportunity>{
+      new Opportunity(
+        Id = opportunityId,
+        OwnerId = user1,
+        Opportunity_Owner__c = user2,
+        recordTypeId = RTOpportunity.mlOpportunity
+      )
+    };
+    Test.startTest();
+    OpportunityActions.transferOpportunityOwnership(oppList, oldOppMap);
+    Test.stopTest();
+
+    //THEN check if update the actual OwnerId field is updated
+    Assert.areEqual(
+      oppList[0].OwnerId,
+      oppList[0].Opportunity_Owner__c,
+      'Owner not updated'
+    );
+  }
+
   /**
    * @description test method for getFilteredOpportunitiesForLoanappReferenceNumber
    */

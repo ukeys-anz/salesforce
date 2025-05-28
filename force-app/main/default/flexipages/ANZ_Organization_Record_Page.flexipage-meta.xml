@@ -469,16 +469,6 @@
                     <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.RecordTypeId</fieldItem>
-                <identifier>RecordRecordTypeIdField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.FinServ__Status__c</fieldItem>
                 <identifier>RecordFinServ_Status_cField</identifier>
             </fieldInstance>
@@ -1234,7 +1224,7 @@
             <componentInstance>
                 <componentName>complaintResolutionRelatedList</componentName>
                 <identifier>c_complaintResolutionRelatedList</identifier>
-                   </componentInstance>
+            </componentInstance>
         </itemInstances>
         <name>Facet-dcb0228c-771b-4b64-a0e8-c395c9142782</name>
         <type>Facet</type>

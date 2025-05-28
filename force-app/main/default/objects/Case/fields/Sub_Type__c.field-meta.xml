@@ -129,6 +129,11 @@
                 <label>KYC</label>
             </value>
             <value>
+                <fullName>NCC Update Property Use</fullName>
+                <default>false</default>
+                <label>NCC Update Property Use</label>
+            </value>
+            <value>
                 <fullName>New Dispute</fullName>
                 <default>false</default>
                 <label>New Dispute</label>
@@ -639,6 +644,11 @@
                 <label>Pricing Request</label>
             </value>
             <value>
+                <fullName>Removal of Electronic Access</fullName>
+                <default>false</default>
+                <label>Removal of Electronic Access</label>
+            </value>
+            <value>
                 <fullName>Credit policy enquiry</fullName>
                 <default>false</default>
                 <label>Credit policy enquiry</label>
@@ -1126,6 +1136,10 @@
             <valueName>Mobile PayID already registered</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Deceased Estate</controllingFieldValue>
+            <valueName>Removal of Electronic Access</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>My Accounts</controllingFieldValue>
             <valueName>Removal of ANZ Accounts</valueName>
         </valueSettings>
@@ -1321,6 +1335,10 @@
         <valueSettings>
             <controllingFieldValue>Dispute</controllingFieldValue>
             <valueName>New Dispute</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Manage Home Loans</controllingFieldValue>
+            <valueName>NCC Update Property Use</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Follow Up</controllingFieldValue>

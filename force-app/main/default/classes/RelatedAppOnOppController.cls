@@ -40,10 +40,10 @@ public with sharing class RelatedAppOnOppController {
     public String applicationNumber { get; set; }
 
     /**
-     * @description applicationStatus Field
+     * @description applicationType Field
      **/
     @AuraEnabled
-    public String applicationStatus { get; set; }
+    public String applicationType { get; set; }
 
     /**
      * @description ApplicationFormProductWrapper Field
@@ -63,7 +63,7 @@ public with sharing class RelatedAppOnOppController {
       this.name = form.Name;
       this.applicationAmount = form.App_Amount__c;
       this.applicationNumber = form.Application_Number__c;
-      this.applicationStatus = form.Application_Status__c;
+      this.applicationType = form.RecordType.Name;
       this.applicationFormProducts = new List<ApplicationFormProductWrapper>();
 
       for (ApplicationFormProduct product : form.ApplicationFormProducts) {
@@ -133,6 +133,12 @@ public with sharing class RelatedAppOnOppController {
     public String referenceNumber { get; set; }
 
     /**
+     * @description appAmount Field
+     **/
+    @AuraEnabled
+    public Decimal productAmount { get; set; }
+
+    /**
      * @description Constructor for ApplicationFormProductWrapper
      * @param product ApplicationFormProduct
      **/
@@ -145,6 +151,7 @@ public with sharing class RelatedAppOnOppController {
       this.productUrl = '/lightning/r/Product/' + product.ProductId + '/view';
       this.closeDate = product.Close_Date__c;
       this.referenceNumber = product.Reference_Number__c;
+      this.productAmount = product.Amount__c;
       this.nameUrl =
         '/lightning/r/ApplicationFormProduct/' +
         product.Id +

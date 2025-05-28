@@ -246,5 +246,9 @@
   "pagedResultsCookie": null,
   "totalPagedResultsPolicy": "NONE",
   "totalPagedResults": -1,
-  "remainingPagedResults": -1
+  "remainingPagedResults": -1,
+  "identityProfile": {
+    "anzConnectStatus": "CONNECTED",
+    "migrationType": "MIGRATION_TYPE_UNSPECIFIED"
+  }
 }

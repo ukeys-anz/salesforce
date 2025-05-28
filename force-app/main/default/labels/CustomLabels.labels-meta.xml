@@ -72,14 +72,6 @@
         <value>OCV Integration User</value>
     </labels>
     <labels>
-        <fullName>Reactive_logging_keywords</fullName>
-        <categories>Contains keywords used for reactive logging for data masking</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Reactive logging keywords</shortDescription>
-        <value>TAX,TIN,TFN,FILE,ATO,SUPER,SUPERANNUATION,EMPLOYMENT,PASSPORT,PP,DL,DRIVER&apos;S LICENCE,LICENCE,DRIVER&apos;S LICENSE,LICENSE,MEDICARE,CENTRELINK CRN,DVA NUMBER,AUS</value>
-    </labels>
-    <labels>
         <fullName>AccountAPIUpliftedToV1</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -574,7 +566,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Cards</shortDescription>
-        <value>callout:SF_MS_CH2/list-data/v1/listCards</value>
+        <value>callout:SF_MS_CH2/fabricData/v1/cardDetails</value>
     </labels>
     <labels>
         <fullName>MS_Get_Card_Control_List</fullName>
@@ -791,14 +783,6 @@
         <protected>false</protected>
         <shortDescription>ST_Close_Package</shortDescription>
         <value>callout:SF_MS_CH2/account-closure/close-package</value>
-    </labels>
-    <labels>
-        <fullName>Test_Bulk_Size</fullName>
-        <categories>Technical</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Test Bulk Size</shortDescription>
-        <value>2</value>
     </labels>
     <labels>
         <fullName>IDR_Excluded_OCV_ProductTypes</fullName>
@@ -1152,7 +1136,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Regex_Email</shortDescription>
-        <value>^[a-zA-Z0-9.&apos;+-]{2,}@[a-zA-Z0-9.-]{2,}.[a-zA-Z]{2,}$</value>
+        <value>^[a-zA-Z0-9._&apos;+-]{2,}@[a-zA-Z0-9.-]{2,}.[a-zA-Z]{2,}$</value>
     </labels>
     <labels>
         <fullName>Regex_Mobile</fullName>
@@ -1277,7 +1261,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CardsAccountTypeForSorting</shortDescription>
-        <value>Single,Joint</value>
+        <value>Sole,Joint</value>
     </labels>
     <labels>
         <fullName>ML_AdobeLeadExpiryRemainder</fullName>
@@ -1509,7 +1493,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CCRM_CustomerNeedsError</shortDescription>
-        <value>Customer Needs - Please select a product category from Customer Needs field.</value>
+        <value>Please select Customer Needs.</value>
     </labels>
     <labels>
         <fullName>MLCRM_DefaultCampaign</fullName>
@@ -1785,7 +1769,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Customer Reference Guide URL</shortDescription>
-        <value>www.google.com</value>
+        <value>https://portal.knowhow.service.anz/C/mBvmhgnTEfCROABQVpUToA?fromMenu=JcZJAwkqEfCROABQVpUToA</value>
     </labels>
     <labels>
         <fullName>CCRM_Customer_Reference_Guide_URL</fullName>
@@ -2117,7 +2101,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CCRM JWT Siging Certificate</shortDescription>
-        <value>sf_signature_mule_callout_production_anz_com</value>
+        <value>anzx_salesforce_mulesoft_prod</value>
     </labels>
     <labels>
         <fullName>ML_ANZ_Role</fullName>
@@ -2302,6 +2286,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>urn:openid:params:grant-type:ciba</value>
     </labels>
     <labels>
+        <fullName>MS_ANZConnect_DisconnectCRN</fullName>
+        <categories>Join;PDI;API</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MMS_ANZConnect_DisconnectCRN</shortDescription>
+        <value>callout:SF_MS_CH2/aegis-portal/v1/coaches/crn-disconnection</value>
+    </labels>
+    <labels>
         <fullName>MS_AUF_API</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2328,6 +2320,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>MS_GetDeviceWithoutBiometric</shortDescription>
         <value>callout:SF_MS_CH2/aegis-portal/v1/users/{userInternalId}/authenticators/{deviceReferenceId}</value>
+    </labels>
+    <labels>
+        <fullName>MS_PublicKeyCredentials</fullName>
+        <categories>Join;PDI;API</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_PublicKeyCredentials</shortDescription>
+        <value>callout:SF_MS_CH2/aegis-portal/v1/public-key-credentials</value>
     </labels>
     <labels>
         <fullName>MS_SearchCustomer_API</fullName>
@@ -2694,6 +2694,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>120000</value>
     </labels>
     <labels>
+        <fullName>HomeLoanAccountProductForSorting</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>HomeLoanAccountProductForSorting</shortDescription>
+        <value>OWN,INV</value>
+    </labels>
+    <labels>
         <fullName>MS_Get_Full_Card_Number</fullName>
         <categories>MS</categories>
         <language>en_US</language>
@@ -2790,6 +2797,27 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>Please fill out the details in contact information section.</value>
     </labels>
     <labels>
+        <fullName>ACM_Link</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ACM Link</shortDescription>
+        <value>https://acmcbig.business.service.anz/apps/sme/SME_HomePage.asp</value>
+    </labels>
+    <labels>
+        <fullName>CommercialAMBITEndPoint</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AMBIT Endpoint</shortDescription>
+        <value>callout:SF_MS_CH2/dcrm/quotes/v1/opportunity/quotes?aiiName=QuoteDataAdd</value>
+    </labels>
+    <labels>
+        <fullName>Commercial_Abmit_Instance_URL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Commercial Abmit Instance URL</shortDescription>
+        <value>afquotegafsit1.dev.anz</value>
+    </labels>
+    <labels>
         <fullName>ExistingContactPointPhoneError</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
@@ -2861,5 +2889,21 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>TrustMeDocumentSecErrorMessage</shortDescription>
         <value>No data available</value>
+    </labels>
+    <labels>
+        <fullName>Test_Bulk_Size</fullName>
+        <categories>Technical</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Test Bulk Size</shortDescription>
+        <value>2</value>
+    </labels>
+    <labels>
+        <fullName>Reactive_logging_keywords</fullName>
+        <categories>Contains keywords used for reactive logging for data masking</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reactive logging keywords</shortDescription>
+        <value>TAX,TIN,TFN,FILE,ATO,SUPER,SUPERANNUATION,EMPLOYMENT,PASSPORT,PP,DL,DRIVER&apos;S LICENCE,LICENCE,DRIVER&apos;S LICENSE,LICENSE,MEDICARE,CENTRELINK CRN,DVA NUMBER,AUS</value>
     </labels>
 </CustomLabels>

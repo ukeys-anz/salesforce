@@ -1,0 +1,28 @@
+<template>
+  <lightning-spinner
+    lwc:if={isLoading}
+    alternative-text="Loading..."
+    variant="brand"
+  >
+  </lightning-spinner>
+  <lightning-quick-action-panel header="Confirm Action">
+    <div class="slds-text-align_center">
+      Do you wish to update ANZ Connect Status to 'Not Connected'?
+      <br /><br />
+      This will remove the customers view of their ANZ accounts in My Accounts.
+    </div>
+    <div slot="footer">
+      <lightning-button
+        variant="neutral"
+        label="Cancel"
+        onclick={handleClose}
+      ></lightning-button>
+      <lightning-button
+        variant="brand"
+        label="Confirm"
+        class="slds-m-left_x-small"
+        onclick={handleConfirm}
+      ></lightning-button>
+    </div>
+  </lightning-quick-action-panel>
+</template>

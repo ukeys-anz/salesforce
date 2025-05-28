@@ -1,0 +1,31 @@
+:host {
+  --accordion-header-line-height: 24px;
+  --accordion-background-color: #f3f2f2;
+}
+.accordianSection {
+  --slds-c-accordion-summary-color-background: var(
+    --accordion-background-color
+  );
+  --slds-c-accordion-heading-font-size: var(--amount-and-header-text-size);
+  --slds-c-accordion-heading-line-height: var(--accordion-header-line-height);
+  --slds-c-accordion-section-spacing-inline-end: 0px;
+  --slds-c-accordion-section-spacing-inline-start: 1px;
+}
+.labelStyle {
+  font-size: var(--slds-g-font-scale-neg-1);
+  font-weight: var(--slds-g-font-weight-4);
+  line-height: var(--slds-g-font-scale-3);
+  color: var(--slds-g-color-neutral-base-30);
+}
+.valueStyle {
+  font-size: var(--slds-g-font-size-base);
+  font-weight: var(--slds-g-font-weight-4);
+  line-height: var(--slds-g-font-scale-3);
+  color: var(--slds-g-color-neutral-base-10);
+}
+.errorHeadingStyle {
+  font-size: var(--slds-g-font-scale-2);
+  font-weight: var(--slds-g-font-weight-7);
+  line-height: var(--slds-g-font-scale-3);
+  color: var(--slds-g-color-neutral-base-10);
+}

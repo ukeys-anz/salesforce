@@ -2,6 +2,29 @@
   "cards": [
     {
       "name": "cards/8051997368527878",
+      "newName": null,
+      "reissueDate": {
+        "day": {
+          "value": 13
+        },
+        "month": {
+          "value": 4
+        },
+        "year": {
+          "value": 2017
+        }
+      },
+      "replacementDate": {
+        "day": {
+          "value": 6
+        },
+        "month": {
+          "value": 4
+        },
+        "year": {
+          "value": 2017
+        }
+      },
       "last4Digits": "0796",
       "cardControlsList": [
         {
@@ -16,9 +39,7 @@
           "value": 11
         }
       },
-      "accounts": [
-        "accounts/390992614"
-      ],
+      "accounts": ["accounts/390992614"],
       "eligibility": [
         "ELIGIBILITY_DIGITAL_WALLET",
         "ELIGIBILITY_CHANGE_PIN",
@@ -87,6 +108,29 @@
     },
     {
       "name": "cards/0900601361295097",
+      "newName": "cards/8051997368527878",
+      "reissueDate": {
+        "day": {
+          "value": null
+        },
+        "month": {
+          "value": null
+        },
+        "year": {
+          "value": null
+        }
+      },
+      "replacementDate": {
+        "day": {
+          "value": 22
+        },
+        "month": {
+          "value": 3
+        },
+        "year": {
+          "value": 2017
+        }
+      },
       "last4Digits": "0796",
       "expiryDate": {
         "year": {
@@ -96,9 +140,7 @@
           "value": 11
         }
       },
-      "accounts": [
-        "accounts/390992606"
-      ],
+      "accounts": ["accounts/390992606"],
       "eligibility": [
         "ELIGIBILITY_DIGITAL_WALLET",
         "ELIGIBILITY_CHANGE_PIN",
@@ -166,6 +208,29 @@
     },
     {
       "name": "cards/1832419570176708",
+      "newName": "cards/0900601361295097",
+      "reissueDate": {
+        "day": {
+          "value": null
+        },
+        "month": {
+          "value": null
+        },
+        "year": {
+          "value": null
+        }
+      },
+      "replacementDate": {
+        "day": {
+          "value": 22
+        },
+        "month": {
+          "value": 3
+        },
+        "year": {
+          "value": 2017
+        }
+      },
       "last4Digits": "0796",
       "expiryDate": {
         "year": {
@@ -175,9 +240,7 @@
           "value": 11
         }
       },
-      "accounts": [
-        "accounts/390992614"
-      ],
+      "accounts": ["accounts/390992614"],
       "eligibility": [
         "ELIGIBILITY_DIGITAL_WALLET",
         "ELIGIBILITY_CHANGE_PIN",
@@ -243,6 +306,29 @@
     },
     {
       "name": "cards/9651661556625127",
+      "newName": "cards/1832419570176708",
+      "reissueDate": {
+        "day": {
+          "value": null
+        },
+        "month": {
+          "value": null
+        },
+        "year": {
+          "value": null
+        }
+      },
+      "replacementDate": {
+        "day": {
+          "value": 22
+        },
+        "month": {
+          "value": 3
+        },
+        "year": {
+          "value": 2017
+        }
+      },
       "last4Digits": "0796",
       "expiryDate": {
         "year": {
@@ -252,9 +338,7 @@
           "value": 11
         }
       },
-      "accounts": [
-        "accounts/390992614"
-      ],
+      "accounts": ["accounts/390992614"],
       "eligibility": [
         "ELIGIBILITY_DIGITAL_WALLET",
         "ELIGIBILITY_CHANGE_PIN",
@@ -319,6 +403,29 @@
     },
     {
       "name": "cards/3337796764029075",
+      "newName": "cards/9651661556625127",
+      "reissueDate": {
+        "day": {
+          "value": null
+        },
+        "month": {
+          "value": null
+        },
+        "year": {
+          "value": null
+        }
+      },
+      "replacementDate": {
+        "day": {
+          "value": 22
+        },
+        "month": {
+          "value": 3
+        },
+        "year": {
+          "value": 2017
+        }
+      },
       "last4Digits": "0796",
       "expiryDate": {
         "year": {
@@ -328,9 +435,7 @@
           "value": 11
         }
       },
-      "accounts": [
-        "accounts/390992614"
-      ],
+      "accounts": ["accounts/390992614"],
       "eligibility": [
         "ELIGIBILITY_DIGITAL_WALLET",
         "ELIGIBILITY_CHANGE_PIN",
@@ -397,7 +502,30 @@
       }
     },
     {
-      "name": "cards/3337796764029075",
+      "name": "cards/3337796764029058",
+      "newName": "cards/3337796764029075",
+      "reissueDate": {
+        "day": {
+          "value": null
+        },
+        "month": {
+          "value": null
+        },
+        "year": {
+          "value": null
+        }
+      },
+      "replacementDate": {
+        "day": {
+          "value": 22
+        },
+        "month": {
+          "value": 3
+        },
+        "year": {
+          "value": 2017
+        }
+      },
       "last4Digits": "0796",
       "expiryDate": {
         "year": {
@@ -407,9 +535,7 @@
           "value": 11
         }
       },
-      "accounts": [
-        "accounts/390992614"
-      ],
+      "accounts": ["accounts/390992614"],
       "eligibility": [
         "ELIGIBILITY_DIGITAL_WALLET",
         "ELIGIBILITY_CHANGE_PIN",
@@ -429,7 +555,7 @@
       },
       "design_code": "001",
       "statusCode": "CARD_STATUS_CODE_ISSUED",
-      "tokenizedCardNumber": "3337796764029075",
+      "tokenizedCardNumber": "3337796764029058",
       "digital_only": true,
       "cardIssueDate": {
         "year": {
@@ -477,6 +603,29 @@
     },
     {
       "name": "cards/2397229091652090",
+      "newName": "cards/3337796764029058",
+      "reissueDate": {
+        "day": {
+          "value": null
+        },
+        "month": {
+          "value": null
+        },
+        "year": {
+          "value": null
+        }
+      },
+      "replacementDate": {
+        "day": {
+          "value": 22
+        },
+        "month": {
+          "value": 3
+        },
+        "year": {
+          "value": 2017
+        }
+      },
       "last4Digits": "0796",
       "expiryDate": {
         "year": {
@@ -486,9 +635,7 @@
           "value": 11
         }
       },
-      "accounts": [
-        "accounts/390992614"
-      ],
+      "accounts": ["accounts/390992614"],
       "eligibility": [
         "ELIGIBILITY_DIGITAL_WALLET",
         "ELIGIBILITY_CHANGE_PIN",
@@ -556,6 +703,29 @@
     },
     {
       "name": "cards/2735331274708236",
+      "newName": "cards/2397229091652090",
+      "reissueDate": {
+        "day": {
+          "value": null
+        },
+        "month": {
+          "value": null
+        },
+        "year": {
+          "value": null
+        }
+      },
+      "replacementDate": {
+        "day": {
+          "value": 22
+        },
+        "month": {
+          "value": 3
+        },
+        "year": {
+          "value": 2017
+        }
+      },
       "last4Digits": "1686",
       "expiryDate": {
         "year": {
@@ -565,9 +735,7 @@
           "value": 11
         }
       },
-      "accounts": [
-        "accounts/390992614"
-      ],
+      "accounts": ["accounts/390992614"],
       "eligibility": [
         "ELIGIBILITY_APPLE_PAY",
         "ELIGIBILITY_GOOGLE_PAY",
@@ -638,6 +806,29 @@
     },
     {
       "name": "cards/2735331274708238",
+      "newName": "cards/2735331274708236",
+      "reissueDate": {
+        "day": {
+          "value": null
+        },
+        "month": {
+          "value": null
+        },
+        "year": {
+          "value": null
+        }
+      },
+      "replacementDate": {
+        "day": {
+          "value": 22
+        },
+        "month": {
+          "value": 3
+        },
+        "year": {
+          "value": 2017
+        }
+      },
       "last4Digits": "0654",
       "expiryDate": {
         "year": {
@@ -647,9 +838,7 @@
           "value": 11
         }
       },
-      "accounts": [
-        "accounts/390992618"
-      ],
+      "accounts": ["accounts/390992618"],
       "eligibility": [
         "ELIGIBILITY_APPLE_PAY",
         "ELIGIBILITY_GOOGLE_PAY",
@@ -725,6 +914,29 @@
     },
     {
       "name": "cards/8130786547061532",
+      "newName": "cards/2735331274708238",
+      "reissueDate": {
+        "day": {
+          "value": null
+        },
+        "month": {
+          "value": null
+        },
+        "year": {
+          "value": null
+        }
+      },
+      "replacementDate": {
+        "day": {
+          "value": 22
+        },
+        "month": {
+          "value": 3
+        },
+        "year": {
+          "value": 2017
+        }
+      },
       "last4Digits": "7180",
       "expiryDate": {
         "year": {
@@ -734,12 +946,8 @@
           "value": 11
         }
       },
-      "accounts": [
-        "accounts/390992606"
-      ],
-      "eligibility": [
-        "ELIGIBILITY_REPLACEMENT_STOLEN"
-      ],
+      "accounts": ["accounts/390992606"],
+      "eligibility": ["ELIGIBILITY_REPLACEMENT_STOLEN"],
       "new_name": "cards/2735331274708237",
       "wallets": {},
       "cardControlsEnabled": true,
@@ -795,6 +1003,29 @@
     },
     {
       "name": "cards/5760153516234117",
+      "newName": "cards/8130786547061532",
+      "reissueDate": {
+        "day": {
+          "value": null
+        },
+        "month": {
+          "value": null
+        },
+        "year": {
+          "value": null
+        }
+      },
+      "replacementDate": {
+        "day": {
+          "value": 22
+        },
+        "month": {
+          "value": 3
+        },
+        "year": {
+          "value": 2017
+        }
+      },
       "last4Digits": "5382",
       "expiryDate": {
         "year": {
@@ -804,12 +1035,8 @@
           "value": 11
         }
       },
-      "accounts": [
-        "accounts/222222222"
-      ],
-      "eligibility": [
-        "ELIGIBILITY_REPLACEMENT_LOST"
-      ],
+      "accounts": ["accounts/222222222"],
+      "eligibility": ["ELIGIBILITY_REPLACEMENT_LOST"],
       "new_name": "cards/8130786547061532",
       "wallets": {},
       "cardControlsEnabled": true,
@@ -865,6 +1092,29 @@
     },
     {
       "name": "cards/0891598838499875",
+      "newName": "cards/5760153516234117",
+      "reissueDate": {
+        "day": {
+          "value": null
+        },
+        "month": {
+          "value": null
+        },
+        "year": {
+          "value": null
+        }
+      },
+      "replacementDate": {
+        "day": {
+          "value": 22
+        },
+        "month": {
+          "value": 3
+        },
+        "year": {
+          "value": 2017
+        }
+      },
       "last4Digits": "3759",
       "expiryDate": {
         "year": {
@@ -874,12 +1124,8 @@
           "value": 11
         }
       },
-      "accounts": [
-        "accounts/210406447"
-      ],
-      "eligibility": [
-        "ELIGIBILITY_REPLACEMENT_LOST"
-      ],
+      "accounts": ["accounts/210406447"],
+      "eligibility": ["ELIGIBILITY_REPLACEMENT_LOST"],
       "new_name": "cards/5760153516234117",
       "wallets": {},
       "cardControlsEnabled": true,
@@ -935,6 +1181,29 @@
     },
     {
       "name": "cards/7121931607030402",
+      "newName": "cards/0891598838499875",
+      "reissueDate": {
+        "day": {
+          "value": null
+        },
+        "month": {
+          "value": null
+        },
+        "year": {
+          "value": null
+        }
+      },
+      "replacementDate": {
+        "day": {
+          "value": 22
+        },
+        "month": {
+          "value": 3
+        },
+        "year": {
+          "value": 2017
+        }
+      },
       "last4Digits": "2868",
       "expiryDate": {
         "year": {
@@ -944,12 +1213,8 @@
           "value": 11
         }
       },
-      "accounts": [
-        "accounts/210406447"
-      ],
-      "eligibility": [
-        "ELIGIBILITY_REPLACEMENT_LOST"
-      ],
+      "accounts": ["accounts/210406447"],
+      "eligibility": ["ELIGIBILITY_REPLACEMENT_LOST"],
       "new_name": "cards/0891598838499875",
       "wallets": {},
       "cardControlsEnabled": true,
@@ -1005,6 +1270,29 @@
     },
     {
       "name": "cards/3721116289044713",
+      "newName": "cards/7121931607030402",
+      "reissueDate": {
+        "day": {
+          "value": null
+        },
+        "month": {
+          "value": null
+        },
+        "year": {
+          "value": null
+        }
+      },
+      "replacementDate": {
+        "day": {
+          "value": 22
+        },
+        "month": {
+          "value": 3
+        },
+        "year": {
+          "value": 2017
+        }
+      },
       "last4Digits": "1746",
       "expiryDate": {
         "year": {
@@ -1014,12 +1302,8 @@
           "value": 11
         }
       },
-      "accounts": [
-        "accounts/210406447"
-      ],
-      "eligibility": [
-        "ELIGIBILITY_REPLACEMENT_LOST"
-      ],
+      "accounts": ["accounts/210406447"],
+      "eligibility": ["ELIGIBILITY_REPLACEMENT_LOST"],
       "new_name": "cards/7121931607030402",
       "wallets": {},
       "cardControlsEnabled": true,
@@ -1075,6 +1359,29 @@
     },
     {
       "name": "cards/6252727765979807",
+      "newName": "cards/3721116289044713",
+      "reissueDate": {
+        "day": {
+          "value": null
+        },
+        "month": {
+          "value": null
+        },
+        "year": {
+          "value": null
+        }
+      },
+      "replacementDate": {
+        "day": {
+          "value": 22
+        },
+        "month": {
+          "value": 3
+        },
+        "year": {
+          "value": 2017
+        }
+      },
       "last4Digits": "1555",
       "expiryDate": {
         "year": {
@@ -1084,12 +1391,8 @@
           "value": 11
         }
       },
-      "accounts": [
-        "accounts/210406447"
-      ],
-      "eligibility": [
-        "ELIGIBILITY_REPLACEMENT_LOST"
-      ],
+      "accounts": ["accounts/210406447"],
+      "eligibility": ["ELIGIBILITY_REPLACEMENT_LOST"],
       "new_name": "cards/3721116289044713",
       "wallets": {},
       "cardControlsEnabled": true,
@@ -1145,6 +1448,29 @@
     },
     {
       "name": "cards/7814741521410292",
+      "newName": "cards/6252727765979807",
+      "reissueDate": {
+        "day": {
+          "value": null
+        },
+        "month": {
+          "value": null
+        },
+        "year": {
+          "value": null
+        }
+      },
+      "replacementDate": {
+        "day": {
+          "value": 22
+        },
+        "month": {
+          "value": 3
+        },
+        "year": {
+          "value": 2017
+        }
+      },
       "last4Digits": "1159",
       "expiryDate": {
         "year": {
@@ -1154,12 +1480,8 @@
           "value": 11
         }
       },
-      "accounts": [
-        "accounts/210406447"
-      ],
-      "eligibility": [
-        "ELIGIBILITY_REPLACEMENT_LOST"
-      ],
+      "accounts": ["accounts/210406447"],
+      "eligibility": ["ELIGIBILITY_REPLACEMENT_LOST"],
       "new_name": "cards/6252727765979807",
       "wallets": {},
       "cardControlsEnabled": true,
@@ -1215,6 +1537,29 @@
     },
     {
       "name": "cards/2989602122045490",
+      "newName": "cards/7814741521410292",
+      "reissueDate": {
+        "day": {
+          "value": null
+        },
+        "month": {
+          "value": null
+        },
+        "year": {
+          "value": null
+        }
+      },
+      "replacementDate": {
+        "day": {
+          "value": 22
+        },
+        "month": {
+          "value": 3
+        },
+        "year": {
+          "value": 2017
+        }
+      },
       "last4Digits": "9433",
       "expiryDate": {
         "year": {
@@ -1224,12 +1569,8 @@
           "value": 2
         }
       },
-      "accounts": [
-        "accounts/391026848"
-      ],
-      "eligibility": [
-        "ELIGIBILITY_FRAUD_SUSPECTED"
-      ],
+      "accounts": ["accounts/391026848"],
+      "eligibility": ["ELIGIBILITY_FRAUD_SUSPECTED"],
       "cardBlockType": "automated",
       "wallets": {},
       "cardControlsEnabled": null,
@@ -1287,6 +1628,29 @@
     },
     {
       "name": "cards/2989602122045491",
+      "newName": "cards/2989602122045490",
+      "reissueDate": {
+        "day": {
+          "value": null
+        },
+        "month": {
+          "value": null
+        },
+        "year": {
+          "value": null
+        }
+      },
+      "replacementDate": {
+        "day": {
+          "value": 22
+        },
+        "month": {
+          "value": 3
+        },
+        "year": {
+          "value": 2017
+        }
+      },
       "last4Digits": "9433",
       "expiryDate": {
         "year": {
@@ -1296,12 +1660,8 @@
           "value": 2
         }
       },
-      "accounts": [
-        "accounts/391026848"
-      ],
-      "eligibility": [
-        "ELIGIBILITY_FRAUD_SUSPECTED"
-      ],
+      "accounts": ["accounts/391026848"],
+      "eligibility": ["ELIGIBILITY_FRAUD_SUSPECTED"],
       "cardBlockType": "manual",
       "wallets": {},
       "cardControlsEnabled": null,
@@ -1359,6 +1719,29 @@
     },
     {
       "name": "cards/2989602122045789",
+      "newName": "cards/2989602122045491",
+      "reissueDate": {
+        "day": {
+          "value": null
+        },
+        "month": {
+          "value": null
+        },
+        "year": {
+          "value": null
+        }
+      },
+      "replacementDate": {
+        "day": {
+          "value": 22
+        },
+        "month": {
+          "value": 3
+        },
+        "year": {
+          "value": 2017
+        }
+      },
       "last4Digits": "9433",
       "expiryDate": {
         "year": {
@@ -1368,12 +1751,8 @@
           "value": 2
         }
       },
-      "accounts": [
-        "accounts/391026848"
-      ],
-      "eligibility": [
-        "ELIGIBILITY_FRAUD_SUSPECTED"
-      ],
+      "accounts": ["accounts/391026848"],
+      "eligibility": ["ELIGIBILITY_FRAUD_SUSPECTED"],
       "cardBlockType": "Error occurred in verifying the block type",
       "wallets": {},
       "cardControlsEnabled": null,
