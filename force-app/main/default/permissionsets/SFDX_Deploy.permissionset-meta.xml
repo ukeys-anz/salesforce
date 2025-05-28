@@ -3645,7 +3645,6 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
-        <default>true</default>
         <recordType>Interaction.RBM_Broker_Interaction</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>    
