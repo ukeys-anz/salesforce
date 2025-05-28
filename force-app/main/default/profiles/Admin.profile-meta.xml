@@ -1614,16 +1614,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-         <field>Associated_Loan_Application__c.Interaction__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-         <field>Associated_Loan_Application__c.Residential_Loan_Application__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>ContactPointEmail.Verification_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -6273,6 +6263,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Event.WhoId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Expense_Control__c.Category_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -7488,22 +7483,32 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Interaction.Attendance_Confirmed__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.Attendee_Category__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Interaction.Authentication_Method__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-         <field>Interaction.Attendee_Category__c</field>
+        <field>Interaction.Broker__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-         <field>Interaction.Attendance_Confirmed__c</field>
+        <field>Interaction.Closing_Notes__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-         <field>Interaction.Broker__c</field>
+        <field>Interaction.Description</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7548,7 +7553,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-         <field>Interaction.Follow_up_Actions__c</field>
+        <field>Interaction.Follow_up_Actions__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7559,6 +7564,31 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Interaction.Interaction_External_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Interaction.Interaction_Number_Link__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.Interaction_Reason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.Interaction_Topic__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.Interaction_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.Interaction__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7573,17 +7603,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-         <field>Interaction.Interaction_Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-         <field>Interaction.Interaction_Topic__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Interaction.Lead__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.Loan_Application__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.Meeting_Location__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7593,17 +7623,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-         <field>Interaction.Meeting_Location__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-         <field>Interaction.Office_Group__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-         <field>Interaction.Other_Interaction_Topic__c</field>
+        <field>Interaction.Office_Group__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7613,7 +7633,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Interaction.Other_Interaction_Topic__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Interaction.Record_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.StartTime</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7627,13 +7657,18 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-         <field>InteractionAttendee.Aggregator__c</field>
+        <editable>true</editable>
+        <field>InteractionSummary.Interaction_Summary_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-         <field>InteractionAttendee.Role__c</field>
+        <editable>true</editable>
+        <field>InteractionSummary.Meeting_Notes__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>InteractionAttendee.Aggregator__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7643,42 +7678,37 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-         <field>InteractionAttendee.Attendee_SubType__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-         <field>InteractionAttendee.Formula_Attendee_Name__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>InteractionAttendee.Attendee_Name__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>InteractionAttendee.Attendee_Name_Formula__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>InteractionAttendee.EmailAddress</field>
+        <editable>true</editable>
+        <field>InteractionAttendee.Attendee_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>InteractionAttendee.Attendee_Phone__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>InteractionSummary.Interaction_Summary_Number__c</field>
+        <field>InteractionAttendee.Attendee_SubType__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>InteractionSummary.Meeting_Notes__c</field>
+        <field>InteractionAttendee.EmailAddress</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>InteractionAttendee.Formula_Attendee_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>InteractionAttendee.Role__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -12320,7 +12350,7 @@
         <modifyAllRecords>true</modifyAllRecords>
         <object>Interaction</object>
         <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
+    </objectPermissions>  
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
@@ -12329,7 +12359,7 @@
         <modifyAllRecords>true</modifyAllRecords>
         <object>InteractionAttendee</object>
         <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
+    </objectPermissions> 
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
@@ -12915,6 +12945,14 @@
         <object>Broker_Relation__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
+    <recordTypeVisibilities>
+        <recordType>Broker_Relation__c.Broker_Set</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Broker_Relation__c.Office_Group</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>Product2.CRM_ANZ_Product</recordType>
