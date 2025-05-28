@@ -5,6 +5,8 @@
     <label>Broker Enablement Manager</label>
     <permissionSets>Enablement_Manager_Read_Write</permissionSets>
     <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>
+    <permissionSets>Interaction_Read_Write_RBM_Broker</permissionSets>
+    <permissionSets>Loan_Application_Read_Only</permissionSets>
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__Mortgage</permissionSets>
     <status>Updated</status>

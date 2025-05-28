@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Follow_up_Actions__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <inlineHelpText>If a follow up interaction is required, please create a separate interaction.</inlineHelpText>
+    <label>Follow up/Actions</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Meet in few weeks time</fullName>
+                <default>false</default>
+                <label>Meet in few weeks time</label>
+            </value>
+            <value>
+                <fullName>Meet in 1-2 months time</fullName>
+                <default>false</default>
+                <label>Meet in 1-2 months time</label>
+            </value>
+            <value>
+                <fullName>Meet in 3-4 months time</fullName>
+                <default>false</default>
+                <label>Meet in 3-4 months time</label>
+            </value>
+            <value>
+                <fullName>Meet in 5-6 months time</fullName>
+                <default>false</default>
+                <label>Meet in 5-6 months time</label>
+            </value>
+            <value>
+                <fullName>Email ANZ Materials</fullName>
+                <default>false</default>
+                <label>Email ANZ Materials</label>
+            </value>
+            <value>
+                <fullName>Arrange video call / phone call to close out application query</fullName>
+                <default>false</default>
+                <label>Arrange video call / phone call to close out application query</label>
+            </value>
+            <value>
+                <fullName>Review performance metrics for broker / office groups for next meeting</fullName>
+                <default>false</default>
+                <label>Review performance metrics for broker / office groups for next meeting</label>
+            </value>
+            <value>
+                <fullName>Schedule Brokerology Webinar / Walkthrough for broker / broker office</fullName>
+                <default>false</default>
+                <label>Schedule Brokerology Webinar / Walkthrough for broker / broker office</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

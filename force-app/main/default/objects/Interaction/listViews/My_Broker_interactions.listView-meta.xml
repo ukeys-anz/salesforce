@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Broker_interactions</fullName>
+    <columns>Interaction_Auto_Number__c</columns>
+    <columns>Name</columns>
+    <columns>Interaction_Type__c</columns>
+    <columns>Interaction_Reason__c</columns>
+    <columns>StartTime</columns>
+    <columns>Status__c</columns>
+    <columns>Broker__c</columns>
+    <columns>Office_Group__c</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>RecordType</field>
+        <operation>equals</operation>
+        <value>Interaction.RBM_Broker_Interaction</value>
+    </filters>
+    <label>My Broker interactions</label>
+    <sharedTo>
+        <group>RBM_EM_BA_For_Interactions</group>
+    </sharedTo>
+</ListView>

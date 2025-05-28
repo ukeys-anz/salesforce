@@ -393,4 +393,19 @@
             <role>ANZ_Mobile_Lending_Support_Team</role>
         </sharedFrom>
     </sharingOwnerRules>
+    <sharingCriteriaRules>
+        <fullName>RBM_Broker_Interactions_Sharing_With_RBM_EM_BA</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This sharing rule provides access to Residential Broker Managers, Enablement managers, Retail Broker Business Admins</description>
+        <label>RBM Broker Interactions Sharing With RBM,EM,BA</label>
+        <sharedTo>
+            <group>RBM_EM_BA_For_Interactions</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>RBM Broker Interaction</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
 </SharingRules>

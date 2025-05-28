@@ -165,6 +165,21 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+         <field>Associated_Loan_Application__c.Name</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+         <field>Associated_Loan_Application__c.Interaction__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+         <field>Associated_Loan_Application__c.Residential_Loan_Application__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Broker_code__c.Broker_Name__c</field>
         <readable>true</readable>
@@ -1291,6 +1306,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+         <field>Interaction.Attendee_Category__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+         <field>Interaction.Attendance_Confirmed__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+         <field>Interaction.Broker__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Interaction.Channel_Booked__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1360,6 +1390,16 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+         <field>Interaction.Interaction_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+         <field>Interaction.Interaction_Topic__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Interaction.Lead__c</field>
         <readable>true</readable>
@@ -1372,6 +1412,21 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Interaction.Mobile__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+         <field>Interaction.Meeting_Location__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+         <field>Interaction.Other_Interaction_Topic__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+         <field>Interaction.Office_Group__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1402,6 +1457,51 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Interaction.Twilio_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+         <field>InteractionAttendee.Aggregator__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+         <field>InteractionAttendee.Role__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>InteractionAttendee.AttendeeType</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+         <field>InteractionAttendee.Attendee_SubType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+         <field>InteractionAttendee.Formula_Attendee_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>InteractionAttendee.Attendee_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>InteractionAttendee.Attendee_Name_Formula__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>InteractionAttendee.EmailAddress</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>InteractionAttendee.Attendee_Phone__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2616,6 +2716,15 @@
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
+        <object>Associated_Loan_Application__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
         <object>InteractionSumDiscussedAccount</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
@@ -3407,6 +3516,11 @@
         <recordType>Case.NPP_Dispute</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>Interaction.RBM_Broker_Interaction</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>    
     <userPermissions>
         <enabled>true</enabled>
         <name>AICreateInsightObjects</name>

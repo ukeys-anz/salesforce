@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Interaction_Reason__c</fullName>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Tracks the purpose of each interaction</description>
+    <label>Interaction Reason</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Application Assistance - Policy</fullName>
+                <default>false</default>
+                <label>Application Assistance - Policy</label>
+            </value>
+            <value>
+                <fullName>Application Assistance - Pricing</fullName>
+                <default>false</default>
+                <label>Application Assistance - Pricing</label>
+            </value>
+            <value>
+                <fullName>Application Assistance - Process</fullName>
+                <default>false</default>
+                <label>Application Assistance - Process</label>
+            </value>
+            <value>
+                <fullName>Assistance - Issue/Escalation</fullName>
+                <default>false</default>
+                <label>Assistance - Issue/Escalation</label>
+            </value>
+            <value>
+                <fullName>Communication Request or Survey Response</fullName>
+                <default>false</default>
+                <label>Communication Request or Survey Response</label>
+            </value>
+            <value>
+                <fullName>Governance - Consequence Management</fullName>
+                <default>false</default>
+                <label>Governance - Consequence Management</label>
+            </value>
+            <value>
+                <fullName>Relationship Contact Point Introduction</fullName>
+                <default>false</default>
+                <label>Relationship Contact Point Introduction</label>
+            </value>
+            <value>
+                <fullName>Relationship Building</fullName>
+                <default>false</default>
+                <label>Relationship Building</label>
+            </value>
+            <value>
+                <fullName>Training</fullName>
+                <default>false</default>
+                <label>Training</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
