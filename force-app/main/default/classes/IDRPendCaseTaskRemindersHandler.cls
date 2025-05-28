@@ -7,10 +7,6 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
   private static final List<String> PEND_TASK_REMINDER_WINDOW = Label.IDR_Window_For_Task_Reminders.split(
     ','
   );
-
-  private static final List<String> PEND_TASK_REMINDER_WINDOW = Label.IDR_Window_For_Task_Reminders.split(
-    ','
-  );
   private static final IDRTaskActionsRepository TASK_REPOSITORY = (IDRTaskActionsRepository) Lib_InstanceProvider.forType(
     IDRTaskActionsRepository.class
   );
