@@ -20,10 +20,16 @@
                 <fieldItem>Record.Attendee_Name__c</fieldItem>
                 <identifier>RecordAttendee_Name_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.AttendeeType}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>External</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.AttendeeType}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>VirtualAgent</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
