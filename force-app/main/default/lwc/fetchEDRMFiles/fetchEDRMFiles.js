@@ -68,7 +68,7 @@ export default class FetchEDRMFiles extends NavigationMixin(LightningElement) {
     this.businessStream = event.detail.value;
   }
   validateInputFields() {
-    let validPattern = /^([0-9]{1,10})$/;
+    let validPattern = /^([0-9-]{1,12})$/;
 
     if (this.checkIsEmpty(this.businessStream)) {
       this.showErrorToast("Please select a Business Stream");
