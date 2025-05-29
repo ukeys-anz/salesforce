@@ -170,11 +170,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-         <field>Associated_Loan_Application__c.Residential_Loan_Application__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>Broker_code__c.Broker_Name__c</field>
         <readable>true</readable>
