@@ -732,12 +732,17 @@ public with sharing class InteractionTriggerHandlerTest {
     List<Interaction> interactionList = TestInteractionMock.createMockInteractionWithAttendeeRecord();
     List<InteractionAttendee> interactionAttendeeList = (List<InteractionAttendee>) interactionList[0]
       .Attendees;
-    System.assertEquals(
+    Assert.areNotEqual(
+      0,
+      interactionAttendeeList.size(),
+      'Interaction Attendee Records should be present'
+    );
+    Assert.areEqual(
       true,
       String.isBlank(interactionAttendeeList[0].Attendee_Name__c),
       'Attendee Name of the interaction should be blank'
     );
-    System.assertEquals(
+    Assert.areEqual(
       true,
       String.isBlank(
         interactionAttendeeList[0].UniqueKeyForInteractionAttendee__c
@@ -747,17 +752,27 @@ public with sharing class InteractionTriggerHandlerTest {
     Test.startTest();
     InteractionAttendeeActions.validateAttendees(interactionAttendeeList);
     Test.stopTest();
-    System.assertEquals(
+    for (InteractionAttendee attendee : interactionAttendeeList) {
+      if (attendee.AttendeeType == 'VirtualAgent') {
+        Assert.areEqual(
+          false,
+          String.isBlank(attendee.UniqueKeyForInteractionAttendee__c),
+          'UniqueKeyForInteractionAttendee__c should not be blank'
+        );
+      }
+    }
+
+    Assert.areEqual(
       false,
       String.isBlank(interactionAttendeeList[0].Attendee_Name__c),
-      'Attendee Name of the interaction should be blank'
+      'Attendee Name of the interaction should not be blank'
     );
-    System.assertEquals(
+    Assert.areEqual(
       false,
       String.isBlank(
         interactionAttendeeList[0].UniqueKeyForInteractionAttendee__c
       ),
-      'UniqueKeyForInteractionAttendee__c of the interaction should be blank'
+      'UniqueKeyForInteractionAttendee__c of the interaction should not be blank'
     );
   }
 

@@ -506,6 +506,9 @@ public with sharing class InteractionAttendeeActions {
           '_' +
           attendee.Conversation_Sid__c;
       }
+      when 'VirtualAgent' {
+        uniqueKey = attendee.InteractionId + '_' + attendee.Attendee_Name__c;
+      }
     }
     return uniqueKey;
   }

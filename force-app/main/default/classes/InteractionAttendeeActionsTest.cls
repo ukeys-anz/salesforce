@@ -247,12 +247,12 @@ public with sharing class InteractionAttendeeActionsTest {
       createInteractionAndAttendeeRoleMap
     );
     Test.stopTest();
-    System.assertEquals(
-      'Test Testing lead,Shivam Swaraj,Test Coach',
+    Assert.areEqual(
+      'Test Testing lead,Shivam Swaraj,Test Virtual Agent,Test Coach',
       interactionUpdatedList[0].Attendees__c,
       'Attendees__c On Interaction Updated With Desiserd Values'
     );
-    System.assertEquals(
+    Assert.areEqual(
       '{"005Bm000006ZzmlIAC":"Coach"}',
       interactionUpdatedList[0].Attendees_and_Roles__c,
       'Attendees_and_Roles__c On Interaction Updated With Desiserd Values'
