@@ -4442,6 +4442,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Interaction.Actual_Topic__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Interaction.Actual_Topic_1__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4662,6 +4667,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Interaction.Products__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Interaction.Record_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4688,6 +4698,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Interaction.ReasonforVisit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Interaction.Reason_For_Visit__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
