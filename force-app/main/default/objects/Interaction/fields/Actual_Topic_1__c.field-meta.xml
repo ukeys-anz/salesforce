@@ -9,7 +9,7 @@
     <inlineHelpText>Select each topic they raised.</inlineHelpText>
     <label>Actual Topic 1</label>
     <lookupFilter>
-        <active>false</active>
+        <active>true</active>
         <filterItems>
             <field>Interaction_Tag__c.Type__c</field>
             <operation>contains</operation>
