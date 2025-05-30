@@ -458,15 +458,6 @@
           checked={interestRateValidated}
         ></lightning-input>
         <lightning-input
-          type="text"
-          label="Loan Type"
-          value={loanType}
-          disabled
-          required
-          lwc:if={fieldVisibility.showLoanType}
-        ></lightning-input>
-
-        <lightning-input
           label="Rate Type"
           value={rateType}
           lwc:if={fieldVisibility.showRateType}
