@@ -118,6 +118,10 @@
     <classAccesses>
         <apexClass>ContactPointObjectsController</apexClass>
         <enabled>true</enabled>
+    </classAccesses>  
+    <classAccesses>
+        <apexClass>ComplaintResolutionController</apexClass>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>FinServ__AccountAccountRelationTriggerHandler</apexClass>
