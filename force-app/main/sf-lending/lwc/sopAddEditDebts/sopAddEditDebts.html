@@ -283,7 +283,7 @@
                 value={availableRedraw}
                 formatter="currency"
                 step="0.01"
-                required
+                required={fieldVisibility.redrawRequired}
                 max="99999999"
                 lwc:if={fieldVisibility.showAvailableRedraw}
                 onchange={handleAvailableRedrawChange}
@@ -458,15 +458,6 @@
           checked={interestRateValidated}
         ></lightning-input>
         <lightning-input
-          type="text"
-          label="Loan Type"
-          value={loanType}
-          disabled
-          required
-          lwc:if={fieldVisibility.showLoanType}
-        ></lightning-input>
-
-        <lightning-input
           label="Rate Type"
           value={rateType}
           lwc:if={fieldVisibility.showRateType}
@@ -622,7 +613,7 @@
                 value={property.property}
                 options={propertyOptions}
                 onchange={handlePropertyAddressChange}
-                required
+                required={fieldVisibility.linkedPropertyRequired}
                 data-id={index}
               ></lightning-combobox>
             </lightning-layout-item>

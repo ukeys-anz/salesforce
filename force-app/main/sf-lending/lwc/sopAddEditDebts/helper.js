@@ -197,6 +197,8 @@ const DEBT_TYPES = {
       showAvailableRedraw:
         isActionAdd(actionType) ||
         (isActionEdit(actionType) && !debt.customerStatedClosed),
+      redrawRequired:
+        isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
       showCustomerExcludedDebt:
         isActionEdit(actionType) && debt.sourceType === SOURCE_CREDIT_BUREAU,
       showCustomerExcludedDebtMessage:
@@ -254,7 +256,9 @@ const DEBT_TYPES = {
         (isActionEdit(actionType) && !debt.customerStatedClosed),
       showLinkedProperty:
         isActionAdd(actionType) ||
-        (isActionEdit(actionType) && !debt.customerStatedClosed),
+        (isActionEdit(actionType) && debt.linkedProperty.length > 0),
+      linkedPropertyRequired:
+        isActionEdit(actionType) && !debt.customerStatedClosed,
       showDebtEvidence: true,
       disableInterestRate:
         isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
@@ -376,7 +380,9 @@ const DEBT_TYPES = {
         isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
       showAvailableRedraw:
         isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
-      showLoanType: isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
+      redrawRequired:
+        isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
+      showRateType: isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
       showRemainingTermCheckbox:
         isActionEdit(actionType) &&
         debt.sourceType === SOURCE_CREDIT_BUREAU &&
@@ -552,9 +558,11 @@ const DEBT_TYPES = {
           : false,
       showLinkedProperty: isActionAdd(actionType)
         ? true
-        : isActionEdit(actionType) && !debt.customerStatedClosed
+        : isActionEdit(actionType) && debt.linkedProperty.length > 0
           ? true
           : false,
+      linkedPropertyRequired:
+        isActionEdit(actionType) && !debt.customerStatedClosed,
       showAccountStatus:
         isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
       showBSB: isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
@@ -1322,8 +1330,8 @@ export function handleExcludedDebtChangeVisibility(
     fieldVisibility.showBalanceOwing = !boolValue;
     fieldVisibility.showLimit = !boolValue;
     fieldVisibility.showTaxDeductible = !boolValue;
-    fieldVisibility.showLinkedProperty = !boolValue;
     fieldVisibility.showUMICheckbox = !boolValue;
+    fieldVisibility.linkedPropertyRequired = !boolValue;
   }
 
   if (debtType === "LIABILITY_TYPE_HOME_LOAN") {
@@ -1339,7 +1347,7 @@ export function handleExcludedDebtChangeVisibility(
     fieldVisibility.showRepaymentFrequency = !boolValue;
     fieldVisibility.showRepaymentAmount = !boolValue;
     fieldVisibility.showTaxDeductible = !boolValue;
-    fieldVisibility.showLinkedProperty = !boolValue;
+    fieldVisibility.linkedPropertyRequired = !boolValue;
   }
 
   return fieldVisibility;
