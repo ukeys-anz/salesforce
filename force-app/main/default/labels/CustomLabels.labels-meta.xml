@@ -2329,6 +2329,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>callout:SF_MS_CH2/aegis-portal/v1/users/{userInternalId}/authenticators/{deviceReferenceId}</value>
     </labels>
     <labels>
+        <fullName>MS_AccessControl</fullName>
+        <categories>Join;PDI;API</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_AccessControl</shortDescription>
+        <value>callout:SF_MS_CH2/aegis-portal/v1/access-control</value>
+    </labels>
+    <labels>
         <fullName>MS_PublicKeyCredentials</fullName>
         <categories>Join;PDI;API</categories>
         <language>en_US</language>

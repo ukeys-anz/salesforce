@@ -22,6 +22,7 @@ public with sharing class PDIDataProvider extends DataSource.Provider {
   override public List<DataSource.Capability> getCapabilities() {
     return new List<DataSource.Capability>{
       DataSource.Capability.ROW_QUERY,
+      DataSource.Capability.ROW_CREATE,
       DataSource.Capability.ROW_UPDATE,
       DataSource.Capability.ROW_DELETE
     };

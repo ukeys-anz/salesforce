@@ -1,0 +1,30 @@
+{
+  "accessControls": [
+    {
+      "name": "person/4b5c3dcf-c60b-442c-b614-cc8993dd2787/AccessControl/QTAzX0q_OhJqi5BAebp0L3A3Tg_conditional",
+      "match": {
+        "authChannel": "EDGE_AUTH_CHANNEL_COMPANION",
+        "deviceId": null,
+        "personaId": "b39ea11b-d5f7-43cf-978b-cb0525477aca"
+      },
+      "policy": "POLICY_CONDITIONAL",
+      "conditionalAdvice": {
+        "deleteWhenMet": false,
+        "minimumAal": "AUTHENTICATION_ASSURANCE_LEVEL_4"
+      },
+      "createdBy": "Fraudx Agent",
+      "createdAt": "2023-10-01T00:00:00Z"
+    },
+    {
+      "name": "person/4b5c3dcf-c60b-442c-b614-cc8993dd2787/AccessControl/QTAzX0q_OhJqi5BAebp0L3A3Tg_deny",
+      "match": {
+        "authChannel": "EDGE_AUTH_CHANNEL_COMPANION",
+        "deviceId": null,
+        "personaId": "b39ea11b-d5f7-43cf-978b-cb0525477aca"
+      },
+      "policy": "POLICY_DENY",
+      "createdBy": "Fraudx Agent",
+      "createdAt": "2023-10-01T00:00:00Z"
+    }
+  ]
+}
