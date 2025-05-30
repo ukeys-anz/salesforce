@@ -194,7 +194,9 @@
         {
           "ocvId": "123456789",
           "accountNumber": "12532452359",
-          "productSubCode": "CAP-CIS:OLL"
+          "productSubCode": "CAP-CIS:OLL",
+          "liabilityDetails": "WESTPAC, 20181105, LIABILITY_TYPE_HOME_LOAN",
+          "accountSource": "ACCOUNT_SOURCE_BUREAU"
         },
         {
           "ocvId": "123456789",
@@ -301,7 +303,9 @@
       "ineligibleReasonType": "SOP_INELIGIBLE_REASON_GUARANTOR_LIABILITY",
       "details": [
         {
-          "ocvId": "123456789"
+          "ocvId": "123456789",
+          "accountSource": "ACCOUNT_SOURCE_BUREAU",
+          "productName": "Residential Home Loan"
         }
       ]
     }

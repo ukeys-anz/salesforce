@@ -50,6 +50,11 @@
                 <label>ID Ops &amp; Fraud Agent</label>
             </value>
             <value>
+                <fullName>Residential Broker Manager</fullName>
+                <default>false</default>
+                <label>Residential Broker Manager</label>
+            </value>
+            <value>
                 <fullName>Support Coach</fullName>
                 <default>false</default>
                 <label>Support Coach</label>
