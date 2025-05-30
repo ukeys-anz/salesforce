@@ -340,7 +340,7 @@ public with sharing class SOPDebtsViewModel {
     this.productName = sourceData?.account?.productDetails?.marketingName;
     this.assets = sourceData.assets;
 
-    //Determine the home loan based on the source data
+    //Determine the home loan type based on the source data
     if (
       sourceData.type == 'LIABILITY_TYPE_HOME_LOAN' &&
       sourceData.sources[0] == 'LIABILITY_SOURCE_TYPE_ANZ'
