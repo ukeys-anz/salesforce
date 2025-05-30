@@ -223,6 +223,19 @@
     "User": "A Salesforce user (ANZ employee)"
   },
   "pantherId": {
+    "AccessControl__x": {
+      "IA-2530753": [
+        "Channel__c",
+        "CreatedBy__c",
+        "CreatedTime__c",
+        "DeleteWhenMet__c",
+        "MinimumAAL__c",
+        "Name__c",
+        "PersonId__c",
+        "PersonaId__c",
+        "Policy__c"
+      ]
+    },
     "Account": {
       "IA-2415720": [
         "ANZx_Customer__c",

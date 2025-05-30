@@ -1,0 +1,68 @@
+<template>
+  <lightning-record-edit-form
+    object-api-name={objectApiName}
+    record-id={recordId}
+    onload={handler.load}
+    onchange={handler.change}
+    onsubmit={handler.submit}
+    onsuccess={handler.success}
+    onerror={handler.error}
+  >
+    <section class="slds-modal slds-modal_medium slds-fade-in-open">
+      <div lwc:if={objectInfo} class="slds-modal__container">
+        <header class="slds-modal__header">
+          <h2 class="slds-modal__title">New {objectInfo.label}</h2>
+        </header>
+        <div class="slds-modal__content slds-p-horizontal_small">
+          <div for:each={sections} for:item="section" key={section.heading}>
+            <h3
+              class="slds-section__title slds-theme--shade slds-p-horizontal_small slds-m-vertical_x-small"
+            >
+              {section.heading}
+            </h3>
+            <div
+              class="slds-grid slds-gutters slds-wrap slds-p-horizontal_large"
+            >
+              <div
+                class="slds-col slds-size_1-of-2"
+                for:each={section.fields}
+                for:item="field"
+                key={field.fieldCounter}
+              >
+                <template lwc:if={field.is.blankSpace}></template>
+                <lightning-input
+                  lwc:elseif={field.is.disabled}
+                  label={field.label}
+                  variant="label-inline"
+                  disabled
+                  value={field.value}
+                ></lightning-input>
+                <lightning-input-field
+                  lwc:elseif={field.is.visible}
+                  required={field.is.required}
+                  data-apiname={field.apiName}
+                  field-name={field.apiName}
+                  value={field.value}
+                ></lightning-input-field>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="slds-modal__footer slds-text-align_center">
+          <lightning-button
+            label="Cancel"
+            onclick={handler.close}
+          ></lightning-button>
+          <lightning-button
+            class="slds-m-left_small"
+            variant="brand"
+            type="submit"
+            label="Save"
+          ></lightning-button>
+        </footer>
+      </div>
+    </section>
+  </lightning-record-edit-form>
+  <div class="slds-backdrop slds-backdrop_open"></div>
+</template>
