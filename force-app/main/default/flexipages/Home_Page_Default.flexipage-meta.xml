@@ -111,7 +111,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>emptyStateImage</name>
-                    <value></value>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentName>home:assistant</componentName>
                 <identifier>home_assistant</identifier>
