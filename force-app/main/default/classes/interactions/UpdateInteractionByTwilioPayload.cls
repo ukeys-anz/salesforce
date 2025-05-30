@@ -4,6 +4,7 @@
  * @description Wrapper class to store Twilio Context Response parameters
  */
 global class UpdateInteractionByTwilioPayload {
+
   /**
    * @description Interaction ID
    */
@@ -53,7 +54,11 @@ global class UpdateInteractionByTwilioPayload {
    */
   public Boolean isConference { get; set; }
   /**
-  * @description nlpTopic : NLP Topic comes from twilio
-  */
+   * @description nlpTopic
+   */
   public String nlpTopic { get; set; }
+  /**
+   * @description agent user id
+   */
+  public Id agentUserId {get; set;}
 }

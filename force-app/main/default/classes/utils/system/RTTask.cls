@@ -18,4 +18,5 @@ public class RTTask {
   public static Id mlcrmTask = base.getId('MLCRM_Task');
   public static Id settlementTask = base.getId('Settlement_Task');
   public static Id systemicIssueTask = base.getId('Systemic_Issue_Task');
+  public static Id customerNudge = base.getId('Customer_Nudge');
 }

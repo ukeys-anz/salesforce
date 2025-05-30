@@ -1,0 +1,18 @@
+.button-display {
+  display: grid;
+  width: 84%;
+}
+.custom-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.tooltip {
+  cursor: pointer;
+  margin-left: 0.5rem;
+  position: relative;
+  bottom: 0.25rem;
+}
+
+.tooltip:hover {
+  --sds-c-icon-color-foreground-default: #014486;
+}
