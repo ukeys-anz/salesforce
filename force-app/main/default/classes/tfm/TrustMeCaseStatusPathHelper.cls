@@ -50,9 +50,7 @@ public with sharing class TrustMeCaseStatusPathHelper {
     caseUpdateDetails.secondary_denied_reason = sfValueToTrustXValue.get(
       trustMeCase.SecondaryVerificationFailedReason__c
     );
-    caseUpdateDetails.checks = populateChecksForQACase(
-      trustMeCase
-    );
+    caseUpdateDetails.checks = populateChecksForQACase(trustMeCase);
 
     TRUSTME_REPO.updateCaseStatus(caseUpdateDetails);
   }
@@ -66,11 +64,27 @@ public with sharing class TrustMeCaseStatusPathHelper {
     Case updateCase = new Case(
       Id = trustMeCase.Id,
       Status = trustMeCase.Status,
-      OnboardingVerificationFailedReason__c = String.isNotBlank(trustMeCase.OnboardingVerificationFailedReason__c) ? trustMeCase.OnboardingVerificationFailedReason__c : '',
-      SecondaryVerificationFailedReason__c = String.isNotBlank(trustMeCase.SecondaryVerificationFailedReason__c) ? trustMeCase.SecondaryVerificationFailedReason__c : '',
+      OnboardingVerificationFailedReason__c = String.isNotBlank(
+          trustMeCase.OnboardingVerificationFailedReason__c
+        )
+        ? trustMeCase.OnboardingVerificationFailedReason__c
+        : '',
+      SecondaryVerificationFailedReason__c = String.isNotBlank(
+          trustMeCase.SecondaryVerificationFailedReason__c
+        )
+        ? trustMeCase.SecondaryVerificationFailedReason__c
+        : '',
       Comments = comments,
       Verified_By__c = UserInfo.getUserId(),
-      Verified_Date__c = System.now()
+      Verified_Date__c = System.now(),
+      Fraud_Customer_Details__c = trustMeCase.Fraud_Customer_Details__c,
+      Fraud_MiddleNameCheck__c = trustMeCase.Fraud_MiddleNameCheck__c,
+      Fraud_Selfie_Comparison_Match__c = trustMeCase.Fraud_Selfie_Comparison_Match__c,
+      Fraud_Address_Valid__c = trustMeCase.Fraud_Address_Valid__c,
+      Fraud_ID_Legible__c = trustMeCase.Fraud_ID_Legible__c,
+      Fraud_ID_Not_Picture__c = trustMeCase.Fraud_ID_Not_Picture__c,
+      Fraud_Customer_Photo_Modified__c = trustMeCase.Fraud_Customer_Photo_Modified__c,
+      Fraud_Security_Features__c = trustMeCase.Fraud_Security_Features__c
     );
 
     DML_REPOSITORY.doUpdate(updateCase);

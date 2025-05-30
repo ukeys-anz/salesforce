@@ -86,7 +86,7 @@ const FILES_BY_DOCUMENTTYPE = {
     },
     {
       fileType: "FILE_TYPE_BACK_UNPROCESSED",
-      title: "Unprocessed Proof of Age Back"
+      title: "Unprocessed Proof Of Age Back"
     }
   ],
   TYPE_MEDICARE: [
@@ -345,6 +345,7 @@ export default class TrustMeDocumentDetails extends LightningElement {
       response.levelNumber,
       response.residenceNumber,
       response.buildingName,
+      response.streetNumber,
       response.streetName,
       response.streetType,
       response.streetSuffix,
