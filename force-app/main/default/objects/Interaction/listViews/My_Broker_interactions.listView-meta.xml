@@ -17,6 +17,6 @@
     </filters>
     <label>My Broker interactions</label>
     <sharedTo>
-        <group>RBM_EM_BA_For_Interactions</group>
+        <group>RBM_Broker_Interactions_Read_Write</group>
     </sharedTo>
 </ListView>

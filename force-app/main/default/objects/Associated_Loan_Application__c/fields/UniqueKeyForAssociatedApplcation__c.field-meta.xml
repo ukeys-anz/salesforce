@@ -6,7 +6,7 @@
     <description>This field is used to restrict creation of duplicate Associated Loan Application record</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
-    <label>UniqueKeyForAssociatedApplcation</label>
+    <label>UniqueKeyForAssociatedApplication</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
