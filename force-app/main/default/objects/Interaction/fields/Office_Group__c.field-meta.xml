@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <deleteConstraint>SetNull</deleteConstraint>
+    <description>Office Group to which this interaction belongs to</description>
     <inlineHelpText>If this interaction consists of brokers from the same office, search for the office group name.</inlineHelpText>
     <label>Office Group</label>
     <lookupFilter>

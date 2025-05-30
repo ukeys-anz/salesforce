@@ -3,6 +3,7 @@
     <fullName>Follow_up_Actions__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Links the current interaction to its follow-up interaction.</description>
     <inlineHelpText>If a follow up interaction is required, please create a separate interaction.</inlineHelpText>
     <label>Follow up/Actions</label>
     <required>false</required>

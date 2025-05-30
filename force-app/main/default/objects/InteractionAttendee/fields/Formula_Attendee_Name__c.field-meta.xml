@@ -2,7 +2,8 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Formula_Attendee_Name__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Displays the full name of the internal user, the external attendee name (if not a broker), or the external contact’s name, based on the attendee type and subtype.</description>
     <externalId>false</externalId>
     <formula>IF(ISPICKVAL( AttendeeType , &apos;Internal&apos;), User.FirstName &amp; &quot; &quot; &amp; User.LastName , 
 IF(AND (ISPICKVAL( AttendeeType , &apos;External&apos;), NOT(ISPICKVAL( Attendee_SubType__c  , &apos;Broker&apos;))), Attendee_Name__c, IF(ISPICKVAL( AttendeeType , &apos;External&apos;), Contact.FirstName &amp; &quot; &quot; &amp; Contact.LastName, &apos;&apos;) ) )</formula>
