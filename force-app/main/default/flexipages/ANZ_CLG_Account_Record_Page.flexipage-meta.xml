@@ -174,11 +174,21 @@
                 <fieldItem>Record.Migration_Status__c</fieldItem>
                 <identifier>RecordMigration_Status_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>ANZ Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>ANZ CCRM Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>ANZ ML Standard User</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!$User.Profile.Name}</leftValue>
@@ -197,11 +207,21 @@
                 <fieldItem>Record.Migration_Status_Date__c</fieldItem>
                 <identifier>RecordMigration_Status_Date_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>ANZ Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>ANZ CCRM Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>ANZ ML Standard User</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!$User.Profile.Name}</leftValue>
@@ -869,7 +889,7 @@
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab3</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>NE</operator>
@@ -879,6 +899,16 @@
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>NE</operator>
                         <rightValue>ANZx Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>ANZ CCRM Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>ANZ ML Standard User</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -896,7 +926,7 @@
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab6</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>NE</operator>
@@ -906,6 +936,16 @@
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>NE</operator>
                         <rightValue>ANZx Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>ANZ CCRM Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>ANZ ML Standard User</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -923,7 +963,7 @@
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab11</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>NE</operator>
@@ -933,6 +973,16 @@
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>NE</operator>
                         <rightValue>ANZx Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>ANZ CCRM Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>ANZ ML Standard User</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -950,7 +1000,7 @@
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab8</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3 AND 4 AND 5</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.ANZx_Customer__c}</leftValue>
                         <operator>EQUAL</operator>
@@ -965,6 +1015,16 @@
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>NE</operator>
                         <rightValue>ANZx Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>ANZ CCRM Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>ANZ ML Standard User</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -982,7 +1042,7 @@
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab10</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>NE</operator>
@@ -992,6 +1052,16 @@
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>NE</operator>
                         <rightValue>ANZx Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>ANZ CCRM Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>ANZ ML Standard User</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -1009,7 +1079,7 @@
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab5</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>EQUAL</operator>
@@ -1019,6 +1089,16 @@
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>ANZx Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>ANZ CCRM Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>ANZ ML Standard User</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -1150,7 +1230,7 @@
                 <componentName>runtime_sales_merge:mergeCandidatesPreviewCard</componentName>
                 <identifier>runtime_sales_merge_mergeCandidatesPreviewCard</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>NE</operator>
@@ -1160,6 +1240,16 @@
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>NE</operator>
                         <rightValue>ANZx Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>ANZ CCRM Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>ANZ ML Standard User</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -1198,7 +1288,7 @@
                 <componentName>flexipage:richText</componentName>
                 <identifier>flexipage_richText2</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3 AND 4 AND 5</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Hardship__c}</leftValue>
                         <operator>EQUAL</operator>
@@ -1208,6 +1298,21 @@
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>NE</operator>
                         <rightValue>ANZ Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>ANZ CCRM Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>ANZ ML Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>ANZx Standard User</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -1220,12 +1325,12 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>richTextValue</name>
-                    <value>&lt;p&gt;&lt;img src=&quot;/resource/Warning_Icon?&quot;&gt; &lt;strong style=&quot;font-size: 18px;&quot;&gt;Customer in Hardship&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px; color: rgb(23, 43, 77); font-family: -apple-system, &amp;quot;system-ui&amp;quot;, &amp;quot;Segoe UI&amp;quot;, Roboto, &amp;quot;Noto Sans&amp;quot;, Ubuntu, &amp;quot;Droid Sans&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, sans-serif;&quot;&gt;This customer has an active hardship application in progress. For&amp;nbsp;&lt;/span&gt;&lt;u style=&quot;font-size: 14px; color: rgb(23, 43, 77); font-family: -apple-system, &amp;quot;system-ui&amp;quot;, &amp;quot;Segoe UI&amp;quot;, Roboto, &amp;quot;Noto Sans&amp;quot;, Ubuntu, &amp;quot;Droid Sans&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, sans-serif;&quot;&gt;Hardship related&lt;/u&gt;&lt;span style=&quot;font-size: 14px; color: rgb(23, 43, 77); font-family: -apple-system, &amp;quot;system-ui&amp;quot;, &amp;quot;Segoe UI&amp;quot;, Roboto, &amp;quot;Noto Sans&amp;quot;, Ubuntu, &amp;quot;Droid Sans&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, sans-serif;&quot;&gt;&amp;nbsp;enquiries only, please transfer the customer to 1800 351 548. Normal complaint management practices still apply.&lt;/span&gt;&lt;/p&gt;</value>
+                    <value>&lt;p&gt;&lt;img src=&quot;https://anz--cmosadev25.sandbox.lightning.force.com/resource/Warning_Icon?&quot;&gt; &lt;strong style=&quot;font-size: 18px;&quot;&gt;Customer in Hardship&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px; color: rgb(23, 43, 77); font-family: -apple-system, &amp;quot;system-ui&amp;quot;, &amp;quot;Segoe UI&amp;quot;, Roboto, &amp;quot;Noto Sans&amp;quot;, Ubuntu, &amp;quot;Droid Sans&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, sans-serif;&quot;&gt;This customer has an active hardship application in progress. For&amp;nbsp;&lt;/span&gt;&lt;u style=&quot;font-size: 14px; color: rgb(23, 43, 77); font-family: -apple-system, &amp;quot;system-ui&amp;quot;, &amp;quot;Segoe UI&amp;quot;, Roboto, &amp;quot;Noto Sans&amp;quot;, Ubuntu, &amp;quot;Droid Sans&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, sans-serif;&quot;&gt;Hardship related&lt;/u&gt;&lt;span style=&quot;font-size: 14px; color: rgb(23, 43, 77); font-family: -apple-system, &amp;quot;system-ui&amp;quot;, &amp;quot;Segoe UI&amp;quot;, Roboto, &amp;quot;Noto Sans&amp;quot;, Ubuntu, &amp;quot;Droid Sans&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, sans-serif;&quot;&gt;&amp;nbsp;enquiries only, please transfer the customer to 1800 351 548. Normal complaint management practices still apply.&lt;/span&gt;&lt;/p&gt;</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:richText</componentName>
                 <identifier>flexipage_richText3</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3 AND 4 AND 5</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Hardship__c}</leftValue>
                         <operator>EQUAL</operator>
@@ -1240,6 +1345,16 @@
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>NE</operator>
                         <rightValue>ANZx Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>ANZ CCRM Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>ANZ ML Standard User</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -1253,7 +1368,7 @@
                 <componentName>flexipage:tabset</componentName>
                 <identifier>flexipage_tabset</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>NE</operator>
@@ -1263,6 +1378,16 @@
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>NE</operator>
                         <rightValue>ANZx Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>ANZ CCRM Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>ANZ ML Standard User</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
