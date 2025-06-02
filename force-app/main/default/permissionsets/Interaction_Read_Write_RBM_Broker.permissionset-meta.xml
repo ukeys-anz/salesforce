@@ -8,7 +8,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Associated_Loan_Application__c.UniqueKeyForAssociatedApplcation__c</field>
+        <field>Associated_Loan_Application__c.UniqueKeyForAssociatedApplication__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
