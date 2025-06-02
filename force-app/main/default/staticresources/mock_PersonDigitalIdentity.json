@@ -249,6 +249,6 @@
   "remainingPagedResults": -1,
   "identityProfile": {
     "anzConnectStatus": "CONNECTED",
-    "migrationType": "MIGRATION_TYPE_UNSPECIFIED"
+    "migrationType": null
   }
 }

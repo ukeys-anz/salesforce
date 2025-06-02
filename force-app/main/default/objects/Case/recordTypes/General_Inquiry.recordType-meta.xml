@@ -11875,6 +11875,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Removing Pending Card Authorisation</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Renewal and Restructures</fullName>
             <default>false</default>
         </values>

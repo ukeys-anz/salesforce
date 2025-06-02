@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <excludeButtons>OpenSlackRecordChannel</excludeButtons>
     <layoutSections>
         <customLabel>true</customLabel>
         <detailHeading>false</detailHeading>
@@ -110,6 +111,12 @@
         <fields>CreatedTime__c</fields>
         <fields>LastAuthenticationTime__c</fields>
         <relatedList>Device__x.PersonId__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Name__c</fields>
+        <fields>CreatedBy__c</fields>
+        <fields>CreatedTime__c</fields>
+        <relatedList>AccessControl__x.PersonId__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>

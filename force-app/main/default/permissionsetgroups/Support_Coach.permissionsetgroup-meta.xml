@@ -50,6 +50,7 @@
     <permissionSets>Interaction_Read_Write</permissionSets>
     <permissionSets>Interaction_Tag_Read_Only</permissionSets>
     <permissionSets>InteractionOmniClasses</permissionSets>
+    <permissionSets>Interest_Tag_Assign</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>Lead_Read_Write</permissionSets>
     <permissionSets>Lending_Case_Read</permissionSets>
@@ -62,6 +63,7 @@
     <permissionSets>PayTo_View_Agreements</permissionSets>
     <permissionSets>PersonDigitalEntityReadOnly</permissionSets>
     <permissionSets>Product_Read_Only</permissionSets>
+    <permissionSets>Push_To_App_Read_Only</permissionSets>
     <permissionSets>Quality_Assessment_Read_Only</permissionSets>
     <permissionSets>Raise_Dispute</permissionSets>
     <permissionSets>Record_Access_Log</permissionSets>

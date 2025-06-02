@@ -9,6 +9,7 @@ public with sharing class PDIDataConnection extends DataSource.Connection {
   @TestVisible
   private static final Map<String, Type> REPOSITORY_CLASSES = new Map<String, Type>{
     'Passkey' => PDIPasskeyDataRepository.class,
+    'AccessControl' => PDIAccessControlDataRepository.class,
     'Device' => PDIDeviceDataRepository.class
   };
 
@@ -52,6 +53,18 @@ public with sharing class PDIDataConnection extends DataSource.Connection {
     return getRepository(table).deleteRows(context);
   }
 
+  override public List<DataSource.UpsertResult> upsertRows(
+    DataSource.UpsertContext context
+  ) {
+    final String table = context.tableSelected;
+    try {
+      return getRepository(table).upsertRows(context);
+    } catch (Exception e) {
+      Logger.error('PDIDataConnection.upsertRows ' + table, e).save();
+      throw e;
+    }
+  }
+
   /**
    * @description Base class for data repositories to handle search and query operations.
    */
@@ -68,6 +81,20 @@ public with sharing class PDIDataConnection extends DataSource.Connection {
     ) {
       return null;
     }
+
+    /**
+     * @description Deletes a single record.
+     * @param externalId The external Id of the record to be deleted.
+     */
+    @TestVisible
+    protected virtual void doDelete(String externalId) {
+    }
+
+    @TestVisible
+    protected virtual String doUpsert(Map<String, Object> row) {
+      return null;
+    }
+
     /**
      * @description Transforms the given CalloutModel record into a Map of String keys and Object values.
      *              This method is intended to be overridden by subclasses to provide specific transformation logic.
@@ -154,12 +181,23 @@ public with sharing class PDIDataConnection extends DataSource.Connection {
       return results;
     }
 
-    /**
-     * @description Deletes a single record.
-     * @param externalId The external Id of the record to be deleted.
-     */
     @TestVisible
-    protected virtual void doDelete(String externalId) {
+    protected virtual List<DataSource.UpsertResult> upsertRows(
+      DataSource.UpsertContext context
+    ) {
+      List<DataSource.UpsertResult> results = new List<DataSource.UpsertResult>();
+      for (Map<String, Object> row : context.rows) {
+        String externalId = String.valueOf(row.get('ExternalId'));
+        try {
+          externalId = this.doUpsert(row);
+          results.add(DataSource.UpsertResult.success(externalId));
+        } catch (Exception e) {
+          results.add(
+            DataSource.UpsertResult.failure(externalId, e.getMessage())
+          );
+        }
+      }
+      return results;
     }
   }
 }

@@ -156,6 +156,8 @@
     "Customer_Dispute_Management__c": "To manage customer disputes, limiting creation of disputes. This object linked with Account based on related cases it manages disputes",
     "CustomerOnboardingApplication__c": "The main record maintaining Salesforce's copy of the state of a prospect's onboarding journey",
     "Customer_Profile_Updates__c": "This custom object is a staging object which will store the changes made by the bankers on Account and all Contact Point objects.",
+    "Customer_Task_Configuration__c": "Stores preconfigured template values for push to app implemtation",
+    "Customer_Task_Data__c": "Holds aemcontent data that is utilized on Mobile screens for push to app implementation",
     "Deposit_Account__x": "External Direct Deposit financial accounts",
     "Drawdown__c": "Contains account details and drawdown details for the settlement funds",
     "Drawdown_Transaction__c": "Transaction details of the part of funds accessed for the settlement drawdown",
@@ -221,6 +223,19 @@
     "User": "A Salesforce user (ANZ employee)"
   },
   "pantherId": {
+    "AccessControl__x": {
+      "IA-2530753": [
+        "Channel__c",
+        "CreatedBy__c",
+        "CreatedTime__c",
+        "DeleteWhenMet__c",
+        "MinimumAAL__c",
+        "Name__c",
+        "PersonId__c",
+        "PersonaId__c",
+        "Policy__c"
+      ]
+    },
     "Account": {
       "IA-2415720": [
         "ANZx_Customer__c",
@@ -420,7 +435,12 @@
       ]
     },
     "Activity": {
-      "IA-2530753": ["Pega_CDH_Id__c"],
+      "IA-2530753": [
+        "Pega_CDH_Id__c",
+        "Customer_Task_Configuration__c",
+        "Customer_Task_Data__c",
+        "TaskNumber__c"
+      ],
       "IA-2468713": ["Pub_Sub_Event_Id__c"],
       "IA-2415999": ["PEGA_Case_Status__c"],
       "IA-2415984": ["Customer_Name__c"],
@@ -1967,7 +1987,15 @@
         "Accepted_Date__c",
         "Mortgage_Contract__c"
       ],
-      "IA-2530753": ["Created__c", "Completed__c", "Completed_By__c"],
+      "IA-2530753": [
+        "Created__c",
+        "Completed__c",
+        "Completed_By__c",
+        "Action_UUID__c",
+        "Action_Name__c",
+        "Action_Counter__c",
+        "Customer_Task_Data__c"
+      ],
       "IA-2415998": ["Eligible_to_Complete__c", "Accepted_By__c"],
       "IA-2415720": [
         "Action__c",
@@ -2101,6 +2129,18 @@
       "IA-2453595": ["Action__c"],
       "IA-2468715": ["Source_System_Name__c"],
       "IA-2415720": ["Customer_Status__c"]
+    },
+    "Customer_Task_Configuration__c": {
+      "IA-2468707": [
+        "AEM_Content_Id__c",
+        "Applicable_Record_Types__c",
+        "Applicable_User_Role__c",
+        "Expire_After_Days__c",
+        "SObject_Type__c"
+      ]
+    },
+    "Customer_Task_Data__c": {
+      "IA-2468707": ["AEM_Content_Data__c"]
     },
     "Customer_Profile_Update_Event__e": {
       "IA-2415860": [
@@ -2687,7 +2727,10 @@
         "ReasonforVisit__c",
         "Product__c",
         "Actual_Topic_Formula__c",
-        "Reason_for_Visit_Formula__c"
+        "Reason_for_Visit_Formula__c",
+        "Actual_Topic__c",
+        "Reason_For_Visit__c",
+        "Products__c"
       ],
       "IA-2423227": ["COI_Member__c"],
       "IA-2415983": ["Interaction_Type__c"]
