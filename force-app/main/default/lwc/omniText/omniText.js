@@ -26,7 +26,7 @@ export default class OmniText extends OmniscriptBaseMixin(LightningElement) {
     if (!["Country", "State", "Street", "Suburb"].includes(typeOfAddress)) {
       return;
     }
-    let flag = data.Case?.[typeOfAddress];
+    let flag = data.Case?.CustomerDetails?.[typeOfAddress];
     this.isDisabled = data.Case?.disablAddress ?? true;
     if (["Country", "State"].includes(typeOfAddress)) {
       this.value = flag;

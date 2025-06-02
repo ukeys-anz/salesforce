@@ -1362,7 +1362,7 @@
   &quot;label&quot; : &quot;Country&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>37.0</sequenceNumber>
+                <sequenceNumber>38.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -2358,7 +2358,7 @@
   &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>38.0</sequenceNumber>
+                <sequenceNumber>39.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -2613,7 +2613,7 @@
 &quot;label&quot; : &quot;Postcode&quot;,
 &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-              <sequenceNumber>43.0</sequenceNumber>
+              <sequenceNumber>36.0</sequenceNumber>
               <type>Text</type>
           </childElements>
           <childElements>
@@ -2670,7 +2670,7 @@
 &quot;hide&quot; : false,
 &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-              <sequenceNumber>44.0</sequenceNumber>
+              <sequenceNumber>35.0</sequenceNumber>
               <type>Text</type>
           </childElements>
 
@@ -2834,7 +2834,7 @@
   &quot;bStandalone&quot; : false,
   &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
-                <sequenceNumber>36.0</sequenceNumber>
+                <sequenceNumber>37.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -5870,7 +5870,7 @@
   &quot;source&quot; : &quot;Search Address&quot;
 } ]
 }</propertySetConfig>
-              <sequenceNumber>40.0</sequenceNumber>
+              <sequenceNumber>33.0</sequenceNumber>
               <type>Custom Lightning Web Component</type>
           </childElements>
             <childElements>
