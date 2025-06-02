@@ -3590,10 +3590,6 @@
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <recordTypeVisibilities>
-        <recordType>Broker_Relation__c.Broker_Set</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
         <recordType>Broker_Relation__c.Office_Group</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
