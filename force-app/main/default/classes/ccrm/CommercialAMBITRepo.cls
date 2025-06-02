@@ -148,7 +148,6 @@ public with sharing class CommercialAMBITRepo extends RepositoryBase {
    * @description Commercial AMBIT Data Wrapper
    */
   public class DataWrapper {
-    public String responseMessage;
     public Boolean isSuccessful;
   }
 
