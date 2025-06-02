@@ -8130,6 +8130,10 @@
         <recordType>Interaction.General</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Interaction-RBM-Broker Interaction Layout</layout>
+        <recordType>Interaction.RBM_Broker_Interaction</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Interaction-Store Interaction Layout</layout>
         <recordType>Interaction.Store</recordType>
     </layoutAssignments>
