@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_Customer_Attendee_For_RBM_Type</fullName>
+    <active>true</active>
+    <description>Prevents creating an Interaction Attendee record when Attendee Type is &apos;Customer&apos; for RBM Interaction.</description>
+    <errorConditionFormula>AND(ISPICKVAL(AttendeeType,&apos;Customer&apos;),Interaction.RecordType.DeveloperName = &quot;RBM_Broker_Interaction&quot;)</errorConditionFormula>
+    <errorDisplayField>AttendeeType</errorDisplayField>
+    <errorMessage>Attendee type &apos;Customer&apos; is not allowed for RBM interactions</errorMessage>
+</ValidationRule>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Office_Group__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Office Group to which this interaction belongs to</description>
+    <inlineHelpText>If this interaction consists of brokers from the same office, search for the office group name.</inlineHelpText>
+    <label>Office Group</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Broker_Relation__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Office Group</value>
+        </filterItems>
+        <isOptional>true</isOptional>
+    </lookupFilter>
+    <referenceTo>Broker_Relation__c</referenceTo>
+    <relationshipLabel>Interactions</relationshipLabel>
+    <relationshipName>Interactions</relationshipName>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>
