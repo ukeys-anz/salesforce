@@ -193,7 +193,7 @@
         <subject>AFCA Response is due in 1 day</subject>
     </tasks>
     <tasks>
-        <fullName>Mail_OutCome_Letter_Milestone_Due_in_1_Day</fullName>
+        <fullName>Mail_Outcome_Letter_Due_in_1_Day</fullName>
         <assignedToType>owner</assignedToType>
         <description>A mail outcome letter milestone notification needs to be sent to customer</description>
         <dueDateOffset>1</dueDateOffset>
@@ -201,7 +201,7 @@
         <priority>High</priority>
         <protected>false</protected>
         <status>Open</status>
-        <subject>Mail OutCome Letter Milestone Due in 1-day</subject>
+        <subject>Mail Outcome Letter Due in 1-day</subject>
     </tasks>
     <tasks>
         <fullName>Maximum_IDR_Time_1day_Reminder</fullName>

@@ -21,11 +21,8 @@ public with sharing class MailOutcomeMilestoneTimeCalculator implements Support.
   ) {
     Case oCase = (Case) MILESTONE_REPOSITORY.queryCaseMilestoneonCase(caseId);
 
-    if (oCase.CaseMilestones.isEmpty()) {
-      return 0;
-    }
     return calculateMailOutcomeTime(
-      oCase.CaseMilestones[0].MilestoneType.Name,
+      oCase.CaseMilestones[0]?.MilestoneType?.Name,
       oCase.IDR_Date_Received__c
     );
   }
@@ -35,7 +32,7 @@ public with sharing class MailOutcomeMilestoneTimeCalculator implements Support.
    * @param dateReceived Date received of the case
    * @return Number of days between Date Received and Mail Outcome Letter Milestone
    */
-
+  @TestVisible
   private Integer calculateMailOutcomeTime(
     String milestoneName,
     Datetime dateReceived
@@ -44,6 +41,9 @@ public with sharing class MailOutcomeMilestoneTimeCalculator implements Support.
       IDRConstants.MILESTONE_PRIORITY => 14,
       IDRConstants.MILESTONE_STANDARD => 23
     };
+    if (!mapOfMilestoneNameToDays.containsKey(milestoneName)) {
+      return 0;
+    }
     Datetime newTargetDate = dateReceived.addDays(
       mapOfMilestoneNameToDays.get(milestoneName)
     );
