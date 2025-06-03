@@ -13,4 +13,5 @@ public with sharing class BrokerConstants {
   public static final String INTERACTION_STATUS_CLOSED_FOLLOWUP = 'Closed - Follow Up Interaction';
   public static final String INTERACTION_STATUS_CLOSED_WITHDRAWN = 'Closed - Withdrawn';
   public static final String INTERACTION_BROKER_ATTENDEE = 'Broker';
+  
 }
