@@ -102,6 +102,18 @@ public with sharing class PushToAppController {
       .format('dd/MM/yyyy');
     item.notificationConfigId = config?.Id;
 
+    List<AemDataModel.Steps> stepList = item.steps;
+    for(AemDataModel.Steps step : stepList)
+    {
+      if(step.actions == null)
+      {
+        continue;
+      }
+      for(AemDataModel.Actions eachAction : step.actions)
+      {
+        eachAction.actionUUID = CommonUtil.generateUUID();
+      }
+    }
     return aemData;
   }
 
@@ -185,7 +197,7 @@ public with sharing class PushToAppController {
           customerActionRecord.RecordTypeId = RTCustomerAction.customerNotificationAction;
           customerActionRecord.Action_Name__c = action.description;
           customerActionRecord.Customer_Task_Data__c = customerTaskDatarecordId;
-          customerActionRecord.Action_UUID__c = CommonUtil.generateUUID();
+          customerActionRecord.Action_UUID__c = action.actionUUID;
           actionsToInsert.add(customerActionRecord);
         }
       }
