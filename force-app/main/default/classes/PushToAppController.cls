@@ -102,11 +102,8 @@ public with sharing class PushToAppController {
       .format('dd/MM/yyyy');
     item.notificationConfigId = config?.Id;
 
-    List<AemDataModel.Steps> stepList = item.steps;
-    for (AemDataModel.Steps step : stepList) {
-      if (step.actions == null) {
-        continue;
-      }
+    // Multiple for loop needed because AEM Content have multiple steps and multiple actions under each step.
+    for (AemDataModel.Steps step : item.steps) {
       for (AemDataModel.Actions eachAction : step.actions) {
         eachAction.actionUUID = CommonUtil.generateUUID();
       }
