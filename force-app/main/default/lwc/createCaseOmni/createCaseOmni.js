@@ -10,6 +10,8 @@ import {
   openTab,
   closeTab
 } from "lightning/platformWorkspaceApi";
+import logCaseCreation from "@salesforce/apex/IDRCaseActionsHelper.logCaseCreation";
+import logCaseError from "@salesforce/apex/IDRCaseActionsHelper.logCaseError";
 export default class CreateCaseOmni extends OmniscriptBaseMixin(
   LightningElement
 ) {
@@ -101,8 +103,12 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
 
       // Navigate to the case record that is closed
       this.omniRemoteCall(params, true).then((res) => {
-        let result = res.result.IPResult;
-        if (result.CaseId) {
+        let result = res?.result?.IPResult;
+        if (result?.error || result?.errors) {
+          logCaseError({ message: result.error ?? result.errors });
+        }
+        if (result?.CaseId) {
+          logCaseCreation({ caseId: result.CaseId });
           openTab({
             recordId: result.CaseId,
             focus: true
