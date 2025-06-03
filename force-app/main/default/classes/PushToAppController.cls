@@ -103,14 +103,11 @@ public with sharing class PushToAppController {
     item.notificationConfigId = config?.Id;
 
     List<AemDataModel.Steps> stepList = item.steps;
-    for(AemDataModel.Steps step : stepList)
-    {
-      if(step.actions == null)
-      {
+    for (AemDataModel.Steps step : stepList) {
+      if (step.actions == null) {
         continue;
       }
-      for(AemDataModel.Actions eachAction : step.actions)
-      {
+      for (AemDataModel.Actions eachAction : step.actions) {
         eachAction.actionUUID = CommonUtil.generateUUID();
       }
     }
