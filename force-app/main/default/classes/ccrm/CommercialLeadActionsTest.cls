@@ -253,4 +253,71 @@ public class CommercialLeadActionsTest {
       'Skip Validation should remain to copyLeadId'
     );
   }
+
+  @isTest
+  static void testPopulatePrimaryContactMethodWork() {
+    String mockLeadID = (String) Lib_FakeIdGenerator.getMockId(
+      Lead.getSObjectType()
+    );
+    List<Lead> leadList = new List<Lead>{
+      new Lead(
+        Id = mockLeadID,
+        Lead_Originator__c = 'UNICA',
+        Work_Phone__c = '+61412345678',
+        Primary_Contact_Method__c = 'Mobile'
+      )
+    };
+    Test.startTest();
+    CommercialLeadActions.populatePrimaryContactMethod(leadList);
+    Test.stopTest();
+    Assert.areEqual(
+      'Work Phone',
+      leadList[0].Primary_Contact_Method__c,
+      'Primary Contact Method should be work phone'
+    );
+  }
+
+  @isTest
+  static void testPopulatePrimaryContactMethodHome() {
+    String mockLeadID = (String) Lib_FakeIdGenerator.getMockId(
+      Lead.getSObjectType()
+    );
+    List<Lead> leadList = new List<Lead>{
+      new Lead(
+        Id = mockLeadID,
+        Lead_Originator__c = 'Adobe',
+        Home_Phone__c = '+61412345678',
+        Primary_Contact_Method__c = 'Mobile'
+      )
+    };
+    Test.startTest();
+    CommercialLeadActions.populatePrimaryContactMethod(leadList);
+    Test.stopTest();
+    Assert.areEqual(
+      'Home Phone',
+      leadList[0].Primary_Contact_Method__c,
+      'Primary Contact Method should be home phone'
+    );
+  }
+
+  @isTest
+  static void testPopulatePrimaryContactMethodNull() {
+    String mockLeadID = (String) Lib_FakeIdGenerator.getMockId(
+      Lead.getSObjectType()
+    );
+    List<Lead> leadList = new List<Lead>{
+      new Lead(
+        Id = mockLeadID,
+        Lead_Originator__c = 'UNICA',
+        Primary_Contact_Method__c = 'Mobile'
+      )
+    };
+    Test.startTest();
+    CommercialLeadActions.populatePrimaryContactMethod(leadList);
+    Test.stopTest();
+    Assert.isNull(
+      leadList[0].Primary_Contact_Method__c,
+      'Primary Contact Method should be null'
+    );
+  }
 }

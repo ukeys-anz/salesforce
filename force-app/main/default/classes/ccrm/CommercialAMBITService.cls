@@ -18,6 +18,7 @@ public with sharing virtual class CommercialAMBITService extends Service {
     Map<String, String> headers = new Map<String, String>();
     headers.put('client_id', '{!$Credential.Username}');
     headers.put('client_secret', '{!$Credential.Password}');
+    headers.put('x-correlation-id', UniqueIdUtil.getTraceId());
     headers.put('Content-type', 'application/json');
     return CALLOUT.makeRestCallout(
       Label.CommercialAMBITEndPoint,

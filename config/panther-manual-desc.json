@@ -726,7 +726,9 @@
         "RecordTypeId",
         "Review_Date__c",
         "Segment_Type__c",
-        "Source_System_Identifier__c"
+        "Source_System_Identifier__c",
+        "Existing_Business_Owner__c",
+        "My_Region_Flag__c"
       ],
       "IA-2415984": [
         "Name",
@@ -744,7 +746,11 @@
       "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"],
       "IA-2423227": ["COI_Member__c"],
       "IA-2415790": ["Broker_Name__c"],
-      "IA-2460507": ["My_Team_A2Z_Review__c"]
+      "IA-2460507": [
+        "My_Team_A2Z_Review__c",
+        "My_Sub_Team__c",
+        "My_Team_Segment__c"
+      ]
     },
     "BrokerSettings__c": {
       "IA-253075": [
@@ -2653,7 +2659,8 @@
         "Customer_Relationship__c",
         "Territory__c",
         "Financial_Account__c",
-        "ML_DataMigration_Key__c"
+        "ML_DataMigration_Key__c",
+        "My_Region_Flag__c"
       ],
       "IA-2530753": [
         "AccountId",
@@ -2733,7 +2740,12 @@
         "Products__c"
       ],
       "IA-2423227": ["COI_Member__c"],
-      "IA-2415983": ["Interaction_Type__c"]
+      "IA-2415983": ["Interaction_Type__c"],
+      "IA-2460507": [
+        "My_Reportees_Interactions__c",
+        "My_Sub_Team__c",
+        "My_Team_Segment__c"
+      ]
     },
     "Interaction_Tag__c": {
       "IA-2415840": ["Name", "Type__c", "Sub_Type__c", "Tag__c"],

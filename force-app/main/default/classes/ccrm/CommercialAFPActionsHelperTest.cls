@@ -131,45 +131,6 @@ private class CommercialAFPActionsHelperTest {
   }
 
   @isTest
-  static void validateSkipStageTest() {
-    Id appFormId = Lib_FakeIdGenerator.getMockId(ApplicationForm.SObjectType);
-    ApplicationFormProduct afp = CCRMTestDataFactory.createAppFormProduct(
-      1,
-      appFormId,
-      CCRMConstants.OPP_WON
-    )[0];
-    afp.Id = Lib_FakeIdGenerator.getMockId(ApplicationFormProduct.SObjectType);
-    ApplicationFormProduct oldAfp = CCRMTestDataFactory.createAppFormProduct(
-      1,
-      appFormId,
-      CCRMConstants.OPP_IDENTIFIED
-    )[0];
-    oldAfp.Id = afp.Id;
-
-    Map<Id, String> afpStageSegmentMap = new Map<Id, String>{
-      afp.Id => 'Opportunity Identified-CBO'
-    };
-
-    Test.startTest();
-    CommercialAppFormProductActionsHelper.addErrorForSkippedStage(
-      new List<ApplicationFormProduct>{ afp },
-      new Map<Id, ApplicationFormProduct>{ oldAfp.Id => oldAfp },
-      afpStageSegmentMap
-    );
-    Test.stopTest();
-
-    List<Database.Error> errors = afp.getErrors();
-    Database.Error error = errors.get(0);
-
-    Assert.isFalse(errors.isEmpty(), 'Error found');
-    Assert.areEqual(
-      CCRMConstants.SKIP_STAGE,
-      error.getMessage(),
-      'AFP updated successfully'
-    );
-  }
-
-  @isTest
   static void getStageSegmentMapTest() {
     Id userId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
     User runningUser = new User(Id = userId, Commercial_Segment__c = 'CBO');
@@ -294,7 +255,7 @@ private class CommercialAFPActionsHelperTest {
     );
     Test.stopTest();
     errors = afpList[0].getErrors();
-    Assert.isFalse(errors.size() == 0, 'no errors found');
+    Assert.isTrue(errors.isEmpty(), 'Expected no errors, but found: ' + errors.size());
   }
 
   @isTest

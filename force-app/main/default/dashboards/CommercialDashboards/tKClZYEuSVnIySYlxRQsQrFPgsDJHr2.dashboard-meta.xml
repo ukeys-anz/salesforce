@@ -178,7 +178,7 @@
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#CA8501</indicatorMiddleColor>
                 <metricLabel>Interactions completed this week</metricLabel>
-                <report>CommercialReports/Customer_Interaction_zx6</report>
+                <report>CommercialReports/Customer_Interaction_lYt</report>
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>5</rowIndex>

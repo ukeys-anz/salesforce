@@ -334,6 +334,16 @@
     <profileSearchLayouts>
         <fields>FULL_NAME</fields>
         <fields>ACCOUNT.NAME</fields>
+        <fields>ACCOUNT.SITE</fields>
+        <fields>CONTACT.PHONE1</fields>
+        <fields>CONTACT.EMAIL</fields>
+        <fields>CORE.USERS.ALIAS</fields>
+        <fields>Accreditation_CompactLayout__c</fields>
+        <profileName>ANZ CCRM Standard User</profileName>
+    </profileSearchLayouts>
+    <profileSearchLayouts>
+        <fields>FULL_NAME</fields>
+        <fields>ACCOUNT.NAME</fields>
         <fields>FinServ__OtherAddress__c</fields>
         <fields>CONTACT.BIRTHDATE</fields>
         <fields>CONTACT.PHONE5</fields>
