@@ -122,6 +122,14 @@ function validateNonCustMap(Complaintdetails, caseDetails, omniJsonData) {
     nonCustMap.push({ firstName: "First Name" });
     nonCustMap.push({ LastName: "Last Name" });
   }
+  if((caseDetails.disablAddress === true || caseDetails.disablAddress === undefined)
+     && caseDetails.isThisCustomerComplaint==="No"){
+      nonCustMap.push({ PostcodeReadOnly: "PostCode" });
+  }
+  if(caseDetails.disablAddress === false
+    && caseDetails.isThisCustomerComplaint==="No"){
+     nonCustMap.push({ Postcode: "PostCode" });
+ }
   let temp = caseDetails.ResolutionInformation;
   if (
     temp.custWrittenResponse === CUSTOMER_AGREES ||

@@ -1,5 +1,5 @@
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
-import { LightningElement, track } from "lwc";
+import { LightningElement, track, api } from "lwc";
 import tmp from "./omniText.html";
 
 export default class OmniText extends OmniscriptBaseMixin(LightningElement) {
@@ -8,6 +8,35 @@ export default class OmniText extends OmniscriptBaseMixin(LightningElement) {
   @track isText = false;
   @track options = [];
   @track value;
+  @track inpValue;
+  isDisabled;
+
+  @api set omniJsonData(data) {
+    this._omniData = data;
+    if (this.checkForComplaintType(this._omniData))
+      this.setValues(this._omniData);
+  }
+
+  get omniJsonData() {
+    return this._omniData;
+  }
+
+  setValues(data) {
+    let typeOfAddress = this.omniJsonDef?.name;
+    if (!["Country", "State", "Street", "Suburb"].includes(typeOfAddress)) {
+      return;
+    }
+    let flag = data.Case?.CustomerDetails?.[typeOfAddress];
+    this.isDisabled = data.Case?.disablAddress ?? true;
+    if (["Country", "State"].includes(typeOfAddress)) {
+      this.value = flag;
+      return;
+    }
+    this.inpValue = flag;
+  }
+  checkForComplaintType(data) {
+    return data?.Case?.isThisCustomerComplaint === "No";
+  }
 
   connectedCallback() {
     if (this.omniJsonDef && this.omniJsonDef.name === "Country") {
