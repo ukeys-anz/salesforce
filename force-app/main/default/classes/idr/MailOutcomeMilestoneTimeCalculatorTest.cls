@@ -76,7 +76,7 @@ public with sharing class MailOutcomeMilestoneTimeCalculatorTest {
       msType1.Id
     );
     Test.stopTest();
-    Assert.areEqual(33120, triggertime, 'trigger Time matched');
+    Assert.areEqual(33120, triggertime, 'Trigger Time matched');
   }
   @IsTest
   static void testMailOutComeMilestonefor21Day() {
@@ -92,19 +92,41 @@ public with sharing class MailOutcomeMilestoneTimeCalculatorTest {
       msType2.Id
     );
     Test.stopTest();
-    Assert.areEqual(20160, triggertime, 'trigger Time matched');
+    Assert.areEqual(20160, triggertime, 'Trigger Time matched');
   }
   @IsTest
-  static void testMailOutComeMilestoneforNoMilestone() {
+  static void testcalculateMailOutcomeTimeforNoMilestone() {
     registerMocks();
     MailOutcomeMilestoneTimeCalculator mailMilestonecalculator = new MailOutcomeMilestoneTimeCalculator();
     caseMilestoneRepoMock.mock('queryCaseMilestoneonCase', caseRecord);
     Test.startTest();
-    Integer triggertime = mailMilestonecalculator.calculateMilestoneTriggerTime(
-      caseRecord.Id,
-      msType2.Id
+    Integer triggertime = mailMilestonecalculator.calculateMailOutcomeTime(
+      'Invalid Milestone',
+      mockCasewithMilestone1.IDR_Date_Received__c
     );
     Test.stopTest();
-    Assert.areEqual(0, triggertime, 'trigger Time matched');
+    Assert.areEqual(0, triggertime, 'Trigger Time matched');
+  }
+  @IsTest
+  static void testcalculateMailOutcomeTime30Day() {
+    MailOutcomeMilestoneTimeCalculator mailMilestonecalculator = new MailOutcomeMilestoneTimeCalculator();
+    Test.startTest();
+    Integer triggertime = mailMilestonecalculator.calculateMailOutcomeTime(
+      msType1.name,
+      mockCasewithMilestone1.IDR_Date_Received__c
+    );
+    Test.stopTest();
+    Assert.areEqual(33120, triggertime, 'Trigger Time matched');
+  }
+  @IsTest
+  static void testcalculateMailOutcomeTime21Day() {
+    MailOutcomeMilestoneTimeCalculator mailMilestonecalculator = new MailOutcomeMilestoneTimeCalculator();
+    Test.startTest();
+    Integer triggertime = mailMilestonecalculator.calculateMailOutcomeTime(
+      msType2.name,
+      mockCasewithMilestone2.IDR_Date_Received__c
+    );
+    Test.stopTest();
+    Assert.areEqual(20160, triggertime, 'Trigger Time matched');
   }
 }

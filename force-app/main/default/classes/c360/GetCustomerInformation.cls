@@ -14,7 +14,7 @@ public with sharing class GetCustomerInformation {
    * @return list<FinServ__FinancialAccount__c> return the list of Financial Accounts
    */
     @AuraEnabled(cacheable= true)
-    public static List<FinServ__FinancialAccount__c> fetchCustomerFinancialAccounts(String accId,String ocvId) {               
+    public static List<FinServ__FinancialAccount__c> fetchCustomerFinancialAccounts(Id accId,String ocvId) {               
         return CUSTOMER_REPOSITORY.getFinancialAccounts( accId, ocvId);   
               
     }

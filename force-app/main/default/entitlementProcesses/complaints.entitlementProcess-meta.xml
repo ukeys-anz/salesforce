@@ -610,11 +610,11 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_with_ANZ_Plus_R
             <operation>equals</operation>
             <value>true</value>
         </milestoneCriteriaFilterItems>
-        <milestoneName>Mail Outcome Letter by</milestoneName>
+        <milestoneName>Mail Outcome Letter - Due</milestoneName>
         <minutesCustomClass>MailOutcomeMilestoneTimeCalculator</minutesCustomClass>
         <timeTriggers>
             <actions>
-                <name>Mail_OutCome_Letter_Milestone_Due_in_1_Day</name>
+                <name>Mail_Outcome_Letter_Due_in_1_Day</name>
                 <type>Task</type>
             </actions>
             <timeLength>-1</timeLength>

@@ -20,4 +20,5 @@ trigger CaseTrigger on Case(
   FalseCustomerProfileCaseTriggerHandler fcpHandler = new FalseCustomerProfileCaseTriggerHandler();
   FraudXCaseTriggerHandler fraudHandler = new FraudXCaseTriggerHandler();
   LendingCaseTriggerHandler lendingHandler = new LendingCaseTriggerHandler();
+  CustomerInformationUpdateTriggerHandler customerInforHandler = new CustomerInformationUpdateTriggerHandler();
 }
