@@ -1,5 +1,5 @@
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
-import { LightningElement, track, api } from "lwc";
+import { LightningElement, track } from "lwc";
 import tmp from "./omniText.html";
 
 export default class OmniText extends OmniscriptBaseMixin(LightningElement) {
@@ -11,29 +11,20 @@ export default class OmniText extends OmniscriptBaseMixin(LightningElement) {
   @track inpValue;
   isDisabled;
 
-  @api set omniJsonData(data) {
-    this._omniData = data;
-    if (this.checkForComplaintType(this._omniData))
-      this.setValues(this._omniData);
-  }
-
-  get omniJsonData() {
-    return this._omniData;
-  }
-
   setValues(data) {
     let typeOfAddress = this.omniJsonDef?.name;
     if (!["Country", "State", "Street", "Suburb"].includes(typeOfAddress)) {
       return;
     }
-    let flag = data.Case?.CustomerDetails?.[typeOfAddress];
-    this.isDisabled = data.Case?.disablAddress ?? true;
-    if (["Country", "State"].includes(typeOfAddress)) {
+    let flag = data?.CustomerDetails?.[typeOfAddress];
+    this.isDisabled = data?.disablAddress ?? true;
+    if (["Country", "State"].includes(typeOfAddress) && flag) {
       this.value = flag;
       return;
     }
     this.inpValue = flag;
   }
+
   checkForComplaintType(data) {
     return data?.Case?.isThisCustomerComplaint === "No";
   }
@@ -56,13 +47,11 @@ export default class OmniText extends OmniscriptBaseMixin(LightningElement) {
   }
 
   render() {
-    if (this.omniJsonData && this.omniJsonData.Case)
-      this.setRequired(this.omniJsonData.Case);
-    if (
-      this.omniJsonData &&
-      this.omniJsonData.States &&
-      this.omniJsonDef.name === "State"
-    ) {
+    if (this.checkForComplaintType(this.omniJsonData)) {
+      this.setValues(this.omniJsonData?.Case);
+    }
+    if (this.omniJsonData?.Case) this.setRequired(this.omniJsonData.Case);
+    if (this.omniJsonData?.States && this.omniJsonDef.name === "State") {
       this.options = [];
       this.omniJsonData.States.options.forEach((opt) => {
         this.options.push({ label: opt.value, value: opt.name });
