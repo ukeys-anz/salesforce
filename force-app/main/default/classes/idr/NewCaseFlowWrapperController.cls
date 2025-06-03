@@ -305,11 +305,26 @@ public with sharing class NewCaseFlowWrapperController {
           );
           rtToDisplay.add(newrt); //adding new record type picklist for specific Users
         }
+        logonNewClick();
         return JSON.serialize(rtToDisplay);
       }
       return null;
     } catch (Exception e) {
+      Logger.error(e.getMessage());
+      Logger.saveLog();
       throw new AuraHandledException(e.getMessage());
     }
+  }
+  /**
+   * @description Create a log Entry record on click of New button
+   */
+  public static void logonNewClick() {
+    String strUserName = UserInfo.getName();
+    String message =
+      +strUserName +
+      ' Clicked on New Button at ' +
+      Datetime.now();
+    Logger.info(message);
+    Logger.saveLog();
   }
 }
