@@ -13,10 +13,10 @@
   <aura:attribute name="recordIdToBePassed" type="String" default="" />
   <aura:attribute name="isOmni" type="Boolean" default="false" />
   <aura:if isTrue="{!v.isOmni}">
-    <c:tFMAssistedUserFunctionsParentOSEnglish
+    <!--<c:tFMAssistedUserFunctionsParentOSEnglish
       prefill="{!v.recordIdToBePassed}"
       recordId="{!v.recordIdToBePassed}"
-    />
+    />-->
   </aura:if>
 
   <aura:attribute name="isLWC" type="Boolean" default="false" />
