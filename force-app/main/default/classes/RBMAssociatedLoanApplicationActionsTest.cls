@@ -10,19 +10,18 @@ public with sharing class RBMAssociatedLoanApplicationActionsTest {
   static Lib_MockProvider repoMock = Lib_MockProvider.forType(
     AssociatedLoanApplicationRepository.class
   );
-  static List<Interaction> Interactions;
+  static List<Interaction> interactions;
   static ResidentialLoanApplication application;
   static Associated_Loan_Application__c mockRecord;
 
   /*
    * @description Test Data Setup
    */
-
   public static void setup() {
-    Interactions = createMockInteraction(1);
+    interactions = createMockInteraction(1);
     application = createTestLoanApplication();
     mockRecord = createAssociatedLoanApplication(
-      Interactions[0].id,
+      interactions[0].id,
       application.id
     );
   }
@@ -74,7 +73,7 @@ public with sharing class RBMAssociatedLoanApplicationActionsTest {
   static void validateApplicationLimitTest() {
     setup();
     Map<Id, Integer> interactionToAppCount = new Map<Id, Integer>();
-    interactionToAppCount.put(Interactions[0].id, 4);
+    interactionToAppCount.put(interactions[0].id, 4);
     Test.startTest();
     RBMAssociatedLoanApplicationActions.validateApplicationLimit(
       new List<Associated_Loan_Application__c>{ mockRecord },
