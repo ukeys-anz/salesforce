@@ -4,15 +4,33 @@
  * @description class for Interaction Attendee Actions
  */
 public with sharing class InteractionAttendeeActions {
+  @TestVisible
+  private static final Id RBM_INTERACTION_RECORDTYPE = QueryRT.of(
+      Interaction.SObjectType
+    )
+    .getId('RBM_Broker_Interaction');
+
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
   /**
    * @description Checks if attendee already exists on record
    * @param attendees list of new interaction attendees
    */
   public static void validateAttendees(List<InteractionAttendee> attendees) {
+    Set<Id> interactionIds = getInteractionIdFromAttendee(attendees);
+    List<Interaction> interactionList = ListUtil.filter(
+        queryInteractionAndRelatedAttendees(interactionIds)
+      )
+      .equals(Interaction.RecordTypeId, RBM_INTERACTION_RECORDTYPE)
+      .toList();
+    System.debug('List' + queryInteractionAndRelatedAttendees(interactionIds));
+    System.debug('interactionList' + interactionList);
     for (InteractionAttendee attendee : attendees) {
       attendee.Attendee_Name__c = attendee.Attendee_Name_Formula__c;
       attendee.UniqueKeyForInteractionAttendee__c = updateUniqueKeyForInteraction(
-        attendee
+        attendee,
+        new Map<Id, Interaction>(interactionList)
       );
     }
   }
@@ -50,8 +68,9 @@ public with sharing class InteractionAttendeeActions {
       interactionAndAttendeeMap,
       createInteractionAndAttendeeRoleMap
     );
-
-    DMLUtil.updateRecords(lstInteractionTobeUpdated, false, false);
+    System.debug('lstInteractionTobeUpdated' + lstInteractionTobeUpdated);
+    //  DMLUtil.updateRecords(lstInteractionTobeUpdated, false, false);
+    DML_REPOSITORY.doUpdate(lstInteractionTobeUpdated);
   }
 
   /**
@@ -325,6 +344,7 @@ public with sharing class InteractionAttendeeActions {
         Id,
         Attendees__c,
         Attendees_and_Roles__c,
+        RecordTypeId,
         (
           SELECT
             Id,
@@ -474,39 +494,43 @@ public with sharing class InteractionAttendeeActions {
   /**
    * @description Update UniqueKeyForInteractionAttendee__c field for attendees
    * @param attendee list of new interaction attendees
+   * @param interactionMap Map of Interactions records with Record Type RBM_Broker_Interaction
    * @return uniqueKey for restricting duplicate record insertion
    */
   @TestVisible
   private static String updateUniqueKeyForInteraction(
-    InteractionAttendee attendee
+    InteractionAttendee attendee,
+    Map<Id, Interaction> interactionMap
   ) {
-    String uniqueKey;
-    switch on attendee.AttendeeType {
-      when 'Internal' {
-        uniqueKey =
-          attendee.InteractionId +
-          '_' +
-          attendee.UserId +
-          '_' +
-          attendee.Conversation_Sid__c;
-      }
-      when 'Customer' {
-        uniqueKey =
-          attendee.InteractionId +
-          '_' +
-          attendee.ContactId +
-          '_' +
-          attendee.Conversation_Sid__c;
-      }
-      when 'External' {
-        uniqueKey =
-          attendee.InteractionId +
-          '_' +
-          attendee.Attendee_Phone__c +
-          '_' +
-          attendee.Conversation_Sid__c;
-      }
+    String middleKey = '';
+    String attendeeType = attendee.AttendeeType;
+    Boolean isBroker = 'Broker'.equals(attendee.Attendee_SubType__c);
+    Boolean interactionExists = interactionMap.containsKey(
+      attendee.InteractionId
+    );
+    if (attendeeType == 'Internal') {
+      middleKey = attendee.UserId;
     }
+    if (
+      (attendeeType == 'Customer') ||
+      (attendeeType == 'External' &&
+      isBroker &&
+      interactionExists)
+    ) {
+      middleKey = attendee.ContactId;
+    }
+    System.debug('!isBroker' + !isBroker);
+    System.debug('!interactionExists' + !interactionExists);
+    if (attendeeType == 'External' && (!isBroker || !interactionExists)) {
+      middleKey = attendee.Attendee_Phone__c;
+    }
+
+    String uniqueKey =
+      attendee.InteractionId +
+      '_' +
+      middleKey +
+      '_' +
+      attendee.Conversation_Sid__c;
     return uniqueKey;
   }
 }
