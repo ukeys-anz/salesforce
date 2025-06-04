@@ -7,14 +7,14 @@
  * @last modified by  : Madhuri Edke | Salesforce
  **/
 
-public with sharing class RBMInteractionLoanApplicationActions {
+public with sharing class RBMAssociatedLoanApplicationActions {
   private static final AssociatedLoanApplicationRepository ASSOCIATED_APPLICATION_REPO = (AssociatedLoanApplicationRepository) Lib_InstanceProvider.forType(
     AssociatedLoanApplicationRepository.class
   );
   private static final Integer MAX_APPLICATIONS_PER_INTERACTION = 4;
 
   /**
-   * Calculates and validates the count of loan applications related to the given interactions.
+   * @description Calculates and validates the count of loan applications related to the given interactions.
    * @param relatedApplications List of Associated_Loan_Application__c records, typically from Trigger.new
    */
   public static void calculateInteractionRelatedLoanApplications(
@@ -38,7 +38,7 @@ public with sharing class RBMInteractionLoanApplicationActions {
   }
 
   /**
-   * Updates the unique key field on loan application records.
+   * @description Updates the unique key field on loan application records.
    * @param records List of Associated_Loan_Application__c records to update
    */
   public static void validateApplicationRecords(
@@ -53,8 +53,8 @@ public with sharing class RBMInteractionLoanApplicationActions {
   }
 
   /**
-   * Converts AggregateResult list into a Map from Interaction Id to Loan Application count.
-   * @param loanAppCountResults List of AggregateResult containing Interaction__c and appCount
+   * @description Converts AggregateResult list into a Map from Interaction Id to Loan Application count.
+   * @param loanAppCount List of AggregateResult containing Interaction__c and appCount
    * @return Map from Interaction Id to Integer count of loan applications
    */
   @TestVisible
@@ -75,7 +75,7 @@ public with sharing class RBMInteractionLoanApplicationActions {
   }
 
   /**
-   * Validates the number of linked loan applications per interaction, adding errors if limits exceeded.
+   * @description Validates the number of linked loan applications per interaction, adding errors if limits exceeded.
    * @param relatedApplications List of Associated_Loan_Application__c to validate
    * @param interactionToAppCount Map of Interaction Id to count of linked loan applications
    */

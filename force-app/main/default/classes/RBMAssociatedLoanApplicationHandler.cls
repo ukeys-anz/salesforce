@@ -3,18 +3,18 @@
  *                      used within the context of RBM Broker Interaction functionality.
  * @author            : Madhuri Edke | Salesforce
  * @group             :
- * @last modified on  : 05-19-2025
+ * @last modified on  : 06-04-2025
  * @last modified by  : Madhuri Edke | Salesforce
  **/
 
-public with sharing class RBMInteractionLoanApplicationHandler extends Lib_TriggerHandler {
+public with sharing class RBMAssociatedLoanApplicationHandler extends Lib_TriggerHandler {
   /**
    * @description onBeforeInsert to handle before insert trigger actions
    */
   public override void onBeforeInsert() {
-    RBMInteractionLoanApplicationActions.calculateInteractionRelatedLoanApplications(
+    RBMAssociatedLoanApplicationActions.calculateInteractionRelatedLoanApplications(
       records
     );
-    RBMInteractionLoanApplicationActions.validateApplicationRecords(records);
+    RBMAssociatedLoanApplicationActions.validateApplicationRecords(records);
   }
 }

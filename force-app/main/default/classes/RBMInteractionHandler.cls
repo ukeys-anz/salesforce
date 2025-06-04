@@ -26,8 +26,8 @@ public with sharing class RBMInteractionHandler extends Lib_TriggerHandler {
    */
   public override void onAfterInsert() {
     RBMInteractionActions.createInteractionNotes(records);
-    RBMInteractionActions.createInteractionAttendee(records);
-    RBMInteractionActions.createAssociatedLoanApplication(records);
+    RBMInteractionAttendeeActions.createInteractionAttendee(records);
+    RBMInteractionApplicationActions.createAssociatedLoanApplication(records);
     RBMInteractionActions.createInteractionEvents(records);
     RBMInteractionActions.createInteractionClosingNotes(records);
   }
@@ -57,7 +57,7 @@ public with sharing class RBMInteractionHandler extends Lib_TriggerHandler {
    * @param oldMap old Interaction records map
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    RBMInteractionActions.updateAssociatedLoanApplication(records, oldMap);
+    RBMInteractionApplicationActions.updateAssociatedLoanApplication(records, oldMap);
     RBMInteractionActions.upsertInteractionEvents(records, oldMap);
     RBMInteractionActions.createInteractionClosingNotes(records, oldMap);
   }
