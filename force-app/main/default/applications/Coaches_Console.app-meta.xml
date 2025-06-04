@@ -1434,6 +1434,70 @@
         <type>Flexipage</type>
         <profile>Standard</profile>
     </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Customer_Task_Data_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Customer_Task_Data__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Customer_Task_Data_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Customer_Task_Data__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Customer_Task_Data_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Customer_Task_Data__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Customer_Task_Data_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Customer_Task_Data__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Customer_Task_Data_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Customer_Task_Data__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard Automation User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Customer_Task_Data_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Customer_Task_Data__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard Automation User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Customer_Task_Data_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Customer_Task_Data__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>System Administrator CyberArk</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Customer_Task_Data_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Customer_Task_Data__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>System Administrator CyberArk</profile>
+    </profileActionOverrides>
     <tabs>standard-home</tabs>
     <tabs>standard-Account</tabs>
     <tabs>standard-Case</tabs>
