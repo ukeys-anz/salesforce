@@ -3,6 +3,7 @@
  * @since May 2025
  * @description class to handle all the RBM Broker Interaction Actions
  */
+
 public with sharing class RBMInteractionActions {
   private static final Id RBM_INTERACTION_RECORDTYPE = QueryRT.of(
       Interaction.SObjectType
@@ -170,8 +171,6 @@ public with sharing class RBMInteractionActions {
     return interactionsToUpdate;
   }
 
-
-
   /**
    * @description set interaction date and time for created records
    * @param records List of new interaction records
@@ -221,7 +220,7 @@ public with sharing class RBMInteractionActions {
     }
   }
 
-   /**
+  /**
    * @description set interaction date and time
    * @param interactionRecords List of new interaction records
    * @param relatedEvents Map of old interaction records

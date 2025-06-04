@@ -1,16 +1,16 @@
 /**
- * @author Smruti 
+ * @author Smruti
  * @since June 2025
  * @description class to handle all the RBM Broker Interaction Attendee Actions
  */
 public with sharing class RBMInteractionAttendeeActions {
-    private static final RBMInteractionRepository INTERACTION_REPOSITORY = (RBMInteractionRepository) Lib_InstanceProvider.forType(
+  private static final RBMInteractionRepository INTERACTION_REPOSITORY = (RBMInteractionRepository) Lib_InstanceProvider.forType(
     RBMInteractionRepository.class
   );
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
-    /**
+  /**
    * @description method to check and create related Interaction Attendees from Office Group and Broker
    * @param records List of new interaction Attendee records
    */
@@ -33,18 +33,16 @@ public with sharing class RBMInteractionAttendeeActions {
       contactList,
       officeInteractions
     );
-    attendeesToCreate.addAll(
-      getBrokerAttendeesToCreate(brokerInteractions)
-    );
+    attendeesToCreate.addAll(getBrokerAttendeesToCreate(brokerInteractions));
 
-      try {
-        DML_REPOSITORY.doInsert(
-          attendeesToCreate,
-          new DmlConfig().allowPartial()
-        );
-      } catch (exception e) {
-        logException(e);
-      } 
+    try {
+      DML_REPOSITORY.doInsert(
+        attendeesToCreate,
+        new DmlConfig().allowPartial()
+      );
+    } catch (exception e) {
+      logException(e);
+    }
   }
 
   /**
@@ -130,5 +128,4 @@ public with sharing class RBMInteractionAttendeeActions {
     Logger.saveLog();
     throw e;
   }
-
 }

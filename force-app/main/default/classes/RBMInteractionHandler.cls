@@ -57,7 +57,10 @@ public with sharing class RBMInteractionHandler extends Lib_TriggerHandler {
    * @param oldMap old Interaction records map
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    RBMInteractionApplicationActions.updateAssociatedLoanApplication(records, oldMap);
+    RBMInteractionApplicationActions.updateAssociatedLoanApplication(
+      records,
+      oldMap
+    );
     RBMInteractionActions.upsertInteractionEvents(records, oldMap);
     RBMInteractionActions.createInteractionClosingNotes(records, oldMap);
   }
