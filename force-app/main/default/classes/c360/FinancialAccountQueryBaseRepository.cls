@@ -5,6 +5,9 @@
  */
 public with sharing class FinancialAccountQueryBaseRepository {
   private static final String CUSTOMER_LENDING_GROUP = 'Customer Lending Group';
+  private static final String SUSPENDED = 'Suspended';
+  private static final String CLOSED = 'Closed';
+  private static final String OCV_DELETED = 'OCV Deleted';
 
   /**
    * @description Retrieves list of financial accounts related to a customer via
@@ -54,6 +57,17 @@ public with sharing class FinancialAccountQueryBaseRepository {
         AND FinServ__FinancialAccount__r.Product_Type__c IN :productTypes
         AND Role_Type__c IN :roleTypes.keyset()
         AND FinServ__EndDate__c = NULL
+        AND (FinServ__FinancialAccount__r.FinServ__Status__c NOT IN (
+          :SUSPENDED,
+          :CLOSED
+        )
+        OR (FinServ__FinancialAccount__r.FinServ__Status__c IN (
+          :SUSPENDED,
+          :CLOSED
+        )
+        AND (FinServ__FinancialAccount__r.FinServ__CloseDate__c = NULL
+        OR FinServ__FinancialAccount__r.FinServ__CloseDate__c >= LAST_N_MONTHS:18)))
+        AND FinServ__FinancialAccount__r.System_Record_Status__c != :OCV_DELETED
       ORDER BY FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
     ];
     return faRoles;
