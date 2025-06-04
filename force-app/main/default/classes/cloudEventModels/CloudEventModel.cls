@@ -78,7 +78,7 @@ public virtual with sharing class CloudEventModel {
    * @param ownerGroups Map of related groups
    * @return CloudEventModel.UserModel The UserModel for CloudEventModel
    */
-  public static UserModel getCaseOwnerModel(
+  public static UserModel getOwnerModel(
     Id ownerId,
     Map<Id, User> ownerUsers,
     Map<Id, Group> ownerGroups

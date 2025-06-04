@@ -16,6 +16,22 @@ public with sharing class CommercialLeadActions {
   private static final UserInfoRepository USER_REPO = (UserInfoRepository) Lib_InstanceProvider.forType(
     UserInfoRepository.class
   );
+  private static final UserActionsRepository USER_REPOSITORY = (UserActionsRepository) Lib_InstanceProvider.forType(
+    UserActionsRepository.class
+  );
+
+  private static final String ORIGINATOR_CCRM = 'CCRM';
+  private static final String ORIGINATOR_UNICA = 'UNICA';
+  private static final String ORIGINATOR_ADOBE = 'Adobe';
+  private static final String PRIMARY_CONTACT_MOBILE = 'Mobile';
+  private static final String PRIMARY_CONTACT_WORK = 'Work Phone';
+  private static final String PRIMARY_CONTACT_HOME = 'Home Phone';
+
+  private static final Set<String> SET_OF_ELIGIBLE_LEAD_ORIGINATOR = new Set<String>{
+    ORIGINATOR_ADOBE,
+    ORIGINATOR_UNICA,
+    ORIGINATOR_CCRM
+  };
 
   /**
    * @description Define custom exceptions
@@ -135,6 +151,40 @@ public with sharing class CommercialLeadActions {
         SKIP_VALIDATION
         ? SKIP_VALIDATION
         : VALIDATE;
+    }
+  }
+
+  /**
+   * @description : It will map primary contact method according to phone fields
+   * @name : populatePrimaryContactMethod
+   * @param records List of Lead records
+   */
+  public static void populatePrimaryContactMethod(List<Lead> records) {
+    try {
+      List<Lead> filteredLeadList = ListUtil.filter(records)
+        .equals(
+          Lead.Lead_Originator__c,
+          new Set<String>{ ORIGINATOR_UNICA, ORIGINATOR_ADOBE }
+        )
+        .toList();
+      for (Lead leadRecord : filteredLeadList) {
+        //check phone fields in priority order
+        if (String.isNotBlank(leadRecord.MobilePhone)) {
+          leadRecord.Primary_Contact_Method__c = PRIMARY_CONTACT_MOBILE;
+          continue;
+        }
+        if (String.isNotBlank(leadRecord.Work_Phone__c)) {
+          leadRecord.Primary_Contact_Method__c = PRIMARY_CONTACT_WORK;
+          continue;
+        }
+        if (String.isNotBlank(leadRecord.Home_Phone__c)) {
+          leadRecord.Primary_Contact_Method__c = PRIMARY_CONTACT_HOME;
+          continue;
+        }
+        leadRecord.Primary_Contact_Method__c = null;
+      }
+    } catch (Exception e) {
+      Logger.error('Error while mapping Primary contact method', e).save();
     }
   }
 }

@@ -30,6 +30,7 @@ public with sharing class CommercialLeadTriggerHandler extends Lib_TriggerHandle
   public override void onBeforeInsert() {
     CommercialLeadActions.restrictImagesInRichTextFields(records, null);
     CommercialLeadActions.populateCLG(records, null);
+    CommercialLeadActions.populatePrimaryContactMethod(records);
   }
 
   /**

@@ -53,4 +53,4 @@ jobs:
       parent_base_ref: ${{ matrix.parent-info.parent_base_ref }}
       compare_all: ${{ matrix.compare-flag.compare_all }}
     secrets:
-      token: ${{ secrets.SALESFORCE_ACTIONS_CHECKOUT_TOKEN }}
+      token: ${{ secrets.SALESFORCE_CXFLOW_GH_TOKEN }}

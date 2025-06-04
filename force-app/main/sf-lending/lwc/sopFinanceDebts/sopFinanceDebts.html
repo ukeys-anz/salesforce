@@ -623,29 +623,6 @@
                         </lightning-layout-item>
                       </template>
 
-                      <!-- Loan Type -->
-                      <template lwc:if={debt.showLoanType}>
-                        <lightning-layout-item
-                          size="8"
-                          class="slds-p-top_x-small labelAndValueStyle"
-                        >
-                          <lightning-formatted-text
-                            value="Loan Type"
-                          ></lightning-formatted-text>
-                        </lightning-layout-item>
-                        <lightning-layout-item
-                          size="4"
-                          flexibility="shrink"
-                          alignment-bump="right"
-                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
-                        >
-                          <lightning-formatted-text
-                            class="labelAndValueStyle"
-                            value={debt.readableTermType}
-                          ></lightning-formatted-text>
-                        </lightning-layout-item>
-                      </template>
-
                       <!-- Rate Type -->
                       <template lwc:if={debt.showRateType}>
                         <lightning-layout-item

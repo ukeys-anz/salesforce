@@ -66,5 +66,17 @@ public with sharing class SOPIneligibleModel extends CalloutModel {
      * @description capcisId
      */
     public string capcisId { get; set; }
+    /**
+     * @description productName
+     */
+    public string productName { get; set; }
+    /**
+     * @description accountSource
+     */
+    public string accountSource { get; set; }
+    /**
+     * @description liabilityDetails
+     */
+    public string liabilityDetails { get; set; }
   }
 }

@@ -7,6 +7,44 @@
  */
 public with sharing class PDIApiModel {
   /**
+   * @description Represents the response containing a list of access controls.
+   */
+  public class AccessControlResponse {
+    public List<AccessControl> accessControls;
+  }
+
+  /**
+   * @description Represents an access control entity with its associated metadata.
+   */
+  public class AccessControl extends CalloutModel {
+    public String name;
+    public AccessControlMatchCriteria match;
+    public String policy;
+    public AccessControlConditionalAdvice conditionalAdvice;
+    public String createdBy;
+    public Datetime createdAt;
+  }
+
+  /**
+   * @description Represents the matching criteria for access control, including authentication channel,
+   *              device ID, and persona ID.
+   */
+  public class AccessControlMatchCriteria {
+    public String authChannel;
+    public String deviceId;
+    public String personaId;
+  }
+
+  /**
+   * @description Represents conditional advice for access control, including whether to delete
+   *              the control when conditions are met and the minimum authentication assurance level.
+   */
+  public class AccessControlConditionalAdvice {
+    public Boolean deleteWhenMet;
+    public String minimumAal;
+  }
+
+  /**
    * @description Represents the response containing a list of public key credentials.
    */
   public class PublicKeyCredentialResponse {

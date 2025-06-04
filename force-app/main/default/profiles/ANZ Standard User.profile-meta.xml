@@ -1790,6 +1790,10 @@
     <layoutAssignments>
         <layout>User_Provisioning_Setting__mdt-User Provisioning Setting Layout</layout>
     </layoutAssignments>
+    <layoutAssignments>
+        <layout>Task-Customer Nudge Layout</layout>
+        <recordType>Task.Customer_Nudge</recordType>
+    </layoutAssignments>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>

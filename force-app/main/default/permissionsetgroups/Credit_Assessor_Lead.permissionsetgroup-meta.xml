@@ -27,6 +27,7 @@
     <permissionSets>Funds_Purpose_Read_Only</permissionSets>
     <permissionSets>Interaction_Read_Write</permissionSets>
     <permissionSets>InteractionOmniClasses</permissionSets>
+    <permissionSets>Interest_Tag_Assign</permissionSets>
     <permissionSets>Knowledge_Base_Author</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>Lead_Read_Write</permissionSets>
