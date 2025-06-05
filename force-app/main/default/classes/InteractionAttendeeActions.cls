@@ -9,10 +9,22 @@ public with sharing class InteractionAttendeeActions {
    * @param attendees list of new interaction attendees
    */
   public static void validateAttendees(List<InteractionAttendee> attendees) {
+    Set<Id> interactionIds = ListUtil.getIds(
+      attendees,
+      InteractionAttendee.InteractionId
+    );
+    Map<Id, Interaction> interactionMap = new Map<Id, Interaction>(
+      (List<Interaction>) ListUtil.filter(
+          queryInteractionAndRelatedAttendees(interactionIds)
+        )
+        .equals(Interaction.RecordTypeId, RTInteraction.rbmBrokerInteraction)
+        .toList()
+    );
     for (InteractionAttendee attendee : attendees) {
       attendee.Attendee_Name__c = attendee.Attendee_Name_Formula__c;
       attendee.UniqueKeyForInteractionAttendee__c = updateUniqueKeyForInteraction(
-        attendee
+        attendee,
+        interactionMap.containsKey(attendee.InteractionId)
       );
     }
   }
@@ -50,7 +62,6 @@ public with sharing class InteractionAttendeeActions {
       interactionAndAttendeeMap,
       createInteractionAndAttendeeRoleMap
     );
-
     DMLUtil.updateRecords(lstInteractionTobeUpdated, false, false);
   }
 
@@ -325,6 +336,7 @@ public with sharing class InteractionAttendeeActions {
         Id,
         Attendees__c,
         Attendees_and_Roles__c,
+        RecordTypeId,
         (
           SELECT
             Id,
@@ -474,39 +486,39 @@ public with sharing class InteractionAttendeeActions {
   /**
    * @description Update UniqueKeyForInteractionAttendee__c field for attendees
    * @param attendee list of new interaction attendees
+   * @param rbmInteractionExists if interaction with Record Type RBM_Broker_Interaction exists with Attendee.InterationId
    * @return uniqueKey for restricting duplicate record insertion
    */
   @TestVisible
   private static String updateUniqueKeyForInteraction(
-    InteractionAttendee attendee
+    InteractionAttendee attendee,
+    Boolean rbmInteractionExists
   ) {
-    String uniqueKey;
-    switch on attendee.AttendeeType {
-      when 'Internal' {
-        uniqueKey =
-          attendee.InteractionId +
-          '_' +
-          attendee.UserId +
-          '_' +
-          attendee.Conversation_Sid__c;
-      }
-      when 'Customer' {
-        uniqueKey =
-          attendee.InteractionId +
-          '_' +
-          attendee.ContactId +
-          '_' +
-          attendee.Conversation_Sid__c;
-      }
-      when 'External' {
-        uniqueKey =
-          attendee.InteractionId +
-          '_' +
-          attendee.Attendee_Phone__c +
-          '_' +
-          attendee.Conversation_Sid__c;
-      }
+    String middleKey = '';
+    String attendeeType = attendee.AttendeeType;
+    Boolean isBroker = 'Broker'.equals(attendee.Attendee_SubType__c);
+
+    if (attendeeType == 'Internal') {
+      middleKey = attendee.UserId;
     }
+    if (
+      (attendeeType == 'Customer') ||
+      (attendeeType == 'External' &&
+      isBroker &&
+      rbmInteractionExists)
+    ) {
+      middleKey = attendee.ContactId;
+    }
+    if (attendeeType == 'External' && (!isBroker || !rbmInteractionExists)) {
+      middleKey = attendee.Attendee_Phone__c;
+    }
+
+    String uniqueKey =
+      attendee.InteractionId +
+      '_' +
+      middleKey +
+      '_' +
+      attendee.Conversation_Sid__c;
     return uniqueKey;
   }
 }

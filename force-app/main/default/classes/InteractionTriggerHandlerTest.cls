@@ -688,25 +688,6 @@ public with sharing class InteractionTriggerHandlerTest {
   }
 
   @isTest
-  private static void testqueryInteractions() {
-    User coachUser = TestUtil.getUserByFirstName('TestCoachInter894');
-    List<Interaction> interactionList = TestInteractionMock.createMockInteraction();
-    List<interaction> fetchInteractionRecorddetails;
-    Test.startTest();
-    System.runAs(coachUser) {
-      fetchInteractionRecorddetails = InteractionAttendeeActions.queryInteractions(
-        interactionList
-      );
-    }
-    Test.stopTest();
-    System.assertEquals(
-      0,
-      fetchInteractionRecorddetails.size(),
-      'Interaction records should not be retrieved'
-    );
-  }
-
-  @isTest
   private static void testcreateCustomerTypeInteractionAttendee() {
     User coachUser = TestUtil.getUserByFirstName('TestCoachInter894');
     List<Interaction> interactionList = TestInteractionMock.createMockInteraction();
@@ -760,6 +741,24 @@ public with sharing class InteractionTriggerHandlerTest {
       'UniqueKeyForInteractionAttendee__c of the interaction should be blank'
     );
   }
+  @isTest
+  private static void testqueryInteractions() {
+    User coachUser = TestUtil.getUserByFirstName('TestCoachInter894');
+    List<Interaction> interactionList = TestInteractionMock.createMockInteraction();
+    List<interaction> fetchInteractionRecorddetails;
+    Test.startTest();
+    System.runAs(coachUser) {
+      fetchInteractionRecorddetails = InteractionAttendeeActions.queryInteractions(
+        interactionList
+      );
+    }
+    Test.stopTest();
+    System.assertEquals(
+      0,
+      fetchInteractionRecorddetails.size(),
+      'Interaction records should not be retrieved'
+    );
+  }
 
   @isTest
   private static void testupdateUniqueKeyForInteraction() {
@@ -769,7 +768,9 @@ public with sharing class InteractionTriggerHandlerTest {
     InteractionAttendee interactionAttendeeRecord = interactionAttendeeList[0];
     Test.startTest();
     String uniqueKey = InteractionAttendeeActions.updateUniqueKeyForInteraction(
-      interactionAttendeeRecord
+      interactionAttendeeRecord,
+      new Map<Id, Interaction>(interactionList)
+        .containskey(interactionList[0].Id)
     );
     Test.stopTest();
     System.assertEquals(
