@@ -5,6 +5,7 @@ import tmp from "./customerAccount.html";
 const FINANCIAL_DIFFICULTY = "4";
 const COLLECTIONS = "17";
 const EXCL_ACC = ["CAP-CIS:APP", "CAP-CIS:CAP", "CAP-CIS:CAB", "CAP-CIS:MOS"];
+import { getAccoutProductkeys } from "c/utils";
 export default class CustomerAccount extends OmniscriptBaseMixin(
   LightningElement
 ) {
@@ -74,9 +75,8 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
         this.options = this.getAccountNumbers(result, true);
       } else {
         this.options = result.map((i) => {
-          let accNum = i?.Account_Key__c.substring(
-            0,
-            i?.Account_Key__c.indexOf("_")
+          let accNum = getAccoutProductkeys(
+            i.FinServ__FinancialAccount__r.Account_Key__c
           );
           return { label: accNum, value: accNum };
         });
@@ -132,11 +132,15 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
   getAccountNumbers(data, isCustomer) {
     if (isCustomer) {
       return data
-        .filter((i) => !EXCL_ACC.includes(i.FinServ__FinancialAccountType__c))
+        .filter(
+          (i) =>
+            !EXCL_ACC.includes(
+              i.FinServ__FinancialAccount__r.FinServ__FinancialAccountType__c
+            )
+        )
         .map((i) => {
-          let accNum = i?.Account_Key__c.substring(
-            0,
-            i?.Account_Key__c.indexOf("_")
+          let accNum = getAccoutProductkeys(
+            i.FinServ__FinancialAccount__r.Account_Key__c
           );
           return {
             label: accNum,
