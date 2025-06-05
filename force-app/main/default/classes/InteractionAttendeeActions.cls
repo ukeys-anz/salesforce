@@ -24,8 +24,6 @@ public with sharing class InteractionAttendeeActions {
       )
       .equals(Interaction.RecordTypeId, RBM_INTERACTION_RECORDTYPE)
       .toList();
-    System.debug('List' + queryInteractionAndRelatedAttendees(interactionIds));
-    System.debug('interactionList' + interactionList);
     for (InteractionAttendee attendee : attendees) {
       attendee.Attendee_Name__c = attendee.Attendee_Name_Formula__c;
       attendee.UniqueKeyForInteractionAttendee__c = updateUniqueKeyForInteraction(
@@ -68,7 +66,6 @@ public with sharing class InteractionAttendeeActions {
       interactionAndAttendeeMap,
       createInteractionAndAttendeeRoleMap
     );
-    System.debug('lstInteractionTobeUpdated' + lstInteractionTobeUpdated);
     //  DMLUtil.updateRecords(lstInteractionTobeUpdated, false, false);
     DML_REPOSITORY.doUpdate(lstInteractionTobeUpdated);
   }
@@ -519,8 +516,6 @@ public with sharing class InteractionAttendeeActions {
     ) {
       middleKey = attendee.ContactId;
     }
-    System.debug('!isBroker' + !isBroker);
-    System.debug('!interactionExists' + !interactionExists);
     if (attendeeType == 'External' && (!isBroker || !interactionExists)) {
       middleKey = attendee.Attendee_Phone__c;
     }
