@@ -14,9 +14,10 @@ public with sharing class RBMAssociatedLoanApplicationActionsTest {
   static ResidentialLoanApplication application;
   static Associated_Loan_Application__c mockRecord;
 
-  /*
-   * @description Test Data Setup
+  /**
+   * @description Setup common test data
    */
+  @testSetup
   public static void setup() {
     interactions = createMockInteraction(1);
     application = createTestLoanApplication();
