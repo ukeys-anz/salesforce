@@ -104,9 +104,12 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       // Navigate to the case record that is closed
       this.omniRemoteCall(params, true).then((res) => {
         let result = res?.result?.IPResult;
-        if (result?.error || result?.errors) {
-          logCaseError({ message: result.error ?? result.errors });
+        if (result?.error || result?.result?.errors) {
+          logCaseError({
+            message: result.error ?? JSON.stringify(result.result.errors)
+          });
         }
+
         if (result?.CaseId) {
           logCaseCreation({ caseId: result.CaseId });
           openTab({

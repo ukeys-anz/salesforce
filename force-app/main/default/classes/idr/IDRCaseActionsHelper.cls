@@ -184,7 +184,7 @@ public with sharing class IDRCaseActionsHelper {
    */
   @AuraEnabled
   public static void logCaseError(String message) {
-    Logger.error(message);
+    Logger.error('Required field is missing or invalid:' + ' ' + message);
     Logger.saveLog();
   }
 }
