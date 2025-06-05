@@ -66,8 +66,8 @@ public with sharing class InteractionAttendeeActions {
       interactionAndAttendeeMap,
       createInteractionAndAttendeeRoleMap
     );
-    //  DMLUtil.updateRecords(lstInteractionTobeUpdated, false, false);
-    DML_REPOSITORY.doUpdate(lstInteractionTobeUpdated);
+      DMLUtil.updateRecords(lstInteractionTobeUpdated, false, false);
+    //DML_REPOSITORY.doUpdate(lstInteractionTobeUpdated);
   }
 
   /**
