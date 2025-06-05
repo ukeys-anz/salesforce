@@ -4,31 +4,27 @@
  * @description class for Interaction Attendee Actions
  */
 public with sharing class InteractionAttendeeActions {
-  @TestVisible
-  private static final Id RBM_INTERACTION_RECORDTYPE = QueryRT.of(
-      Interaction.SObjectType
-    )
-    .getId('RBM_Broker_Interaction');
-
-  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
-    DmlRepository.class
-  );
   /**
    * @description Checks if attendee already exists on record
    * @param attendees list of new interaction attendees
    */
   public static void validateAttendees(List<InteractionAttendee> attendees) {
-    Set<Id> interactionIds = getInteractionIdFromAttendee(attendees);
-    List<Interaction> interactionList = ListUtil.filter(
-        queryInteractionAndRelatedAttendees(interactionIds)
-      )
-      .equals(Interaction.RecordTypeId, RBM_INTERACTION_RECORDTYPE)
-      .toList();
+    Set<Id> interactionIds = ListUtil.getIds(
+      attendees,
+      InteractionAttendee.InteractionId
+    );
+    Map<Id, Interaction> interactionMap = new Map<Id, Interaction>(
+      (List<Interaction>) ListUtil.filter(
+          queryInteractionAndRelatedAttendees(interactionIds)
+        )
+        .equals(Interaction.RecordTypeId, RTInteraction.rbmBrokerInteraction)
+        .toList()
+    );
     for (InteractionAttendee attendee : attendees) {
       attendee.Attendee_Name__c = attendee.Attendee_Name_Formula__c;
       attendee.UniqueKeyForInteractionAttendee__c = updateUniqueKeyForInteraction(
         attendee,
-        new Map<Id, Interaction>(interactionList)
+        interactionMap.containsKey(attendee.InteractionId)
       );
     }
   }
@@ -66,8 +62,7 @@ public with sharing class InteractionAttendeeActions {
       interactionAndAttendeeMap,
       createInteractionAndAttendeeRoleMap
     );
-      DMLUtil.updateRecords(lstInteractionTobeUpdated, false, false);
-    //DML_REPOSITORY.doUpdate(lstInteractionTobeUpdated);
+    DMLUtil.updateRecords(lstInteractionTobeUpdated, false, false);
   }
 
   /**
@@ -491,20 +486,18 @@ public with sharing class InteractionAttendeeActions {
   /**
    * @description Update UniqueKeyForInteractionAttendee__c field for attendees
    * @param attendee list of new interaction attendees
-   * @param interactionMap Map of Interactions records with Record Type RBM_Broker_Interaction
+   * @param Boolean if interaction with Record Type RBM_Broker_Interaction exists with Attendee.InterationId
    * @return uniqueKey for restricting duplicate record insertion
    */
   @TestVisible
   private static String updateUniqueKeyForInteraction(
     InteractionAttendee attendee,
-    Map<Id, Interaction> interactionMap
+    Boolean rbmInteractionExists
   ) {
     String middleKey = '';
     String attendeeType = attendee.AttendeeType;
     Boolean isBroker = 'Broker'.equals(attendee.Attendee_SubType__c);
-    Boolean interactionExists = interactionMap.containsKey(
-      attendee.InteractionId
-    );
+
     if (attendeeType == 'Internal') {
       middleKey = attendee.UserId;
     }
@@ -512,11 +505,11 @@ public with sharing class InteractionAttendeeActions {
       (attendeeType == 'Customer') ||
       (attendeeType == 'External' &&
       isBroker &&
-      interactionExists)
+      rbmInteractionExists)
     ) {
       middleKey = attendee.ContactId;
     }
-    if (attendeeType == 'External' && (!isBroker || !interactionExists)) {
+    if (attendeeType == 'External' && (!isBroker || !rbmInteractionExists)) {
       middleKey = attendee.Attendee_Phone__c;
     }
 
