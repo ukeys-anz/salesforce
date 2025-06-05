@@ -5,6 +5,7 @@ import getFinancialAccounts from "@salesforce/apex/GetCustomerInformation.fetchC
 import { updateRecord } from "lightning/uiRecordApi";
 import { refreshApex } from "@salesforce/apex";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import { getAccoutProductkeys } from "c/utils";
 
 import CAP_ID_FIELD from "@salesforce/schema/Case.IDR_Customer_Number__c";
 import CUSTOMER_IDENTIFIER from "@salesforce/schema/Case.IDR_Customer_Identifier__c";
@@ -95,109 +96,72 @@ export default class CustomerInformation extends LightningElement {
     fields: FIELDS
   })
   wiredProject({ error, data }) {
-    if (data && this.record !== data) {
-      this.record = data;
-      let accId = this.record.fields.AccountId?.value;
-      if (!this.customerInfo && accId) {
-        let accountData = this.record.fields.Account.value.fields;
-        let customerAccountData = this.setCustomerData(accountData);
-        this.customerInfo = customerAccountData;
-        this.firstName = customerAccountData.first_name;
-        this.lastName = customerAccountData.last_name;
-      }
-
-      if (!this.customerInfo) {
-        let customerData1 = {
-          complainant_type: "",
-          first_name: "",
-          last_name: "",
-          middlename: "",
-          isRmPresent: false
-        };
-        customerData1.first_name = getFieldValue(this.record, FIRST_NAME);
-        customerData1.last_name = getFieldValue(this.record, LAST_NAME);
-        customerData1.middlename = getFieldValue(this.record, MIDDLE_NAME);
-        customerData1.isRmPresent = getFieldValue(this.record, RM_COMPLAINT);
-        customerData1.complainant_type =
-          getFieldValue(this.record, COMPLAINANT_TYPE) === "1"
-            ? "Individual"
-            : "Business";
-        this.customerInfo = customerData1;
-        this.firstName = customerData1.first_name;
-        this.lastName = customerData1.last_name;
-      }
-    } else if (error) {
+    if (!data && this.record === data) {
+      return;
+    }
+    if (error) {
       this.handleError(error);
+    }
+    this.record = data;
+    let accId = this.record.fields.AccountId?.value;
+    if (!this.customerInfo && accId) {
+      let accountData = this.record.fields.Account.value.fields;
+      let customerAccountData = this.setCustomerData(accountData);
+      this.customerInfo = customerAccountData;
+      this.firstName = customerAccountData.first_name;
+      this.lastName = customerAccountData.last_name;
+    }
+
+    if (!this.customerInfo) {
+      let customerData1 = {};
+      customerData1.first_name = getFieldValue(this.record, FIRST_NAME) ?? "";
+      customerData1.last_name = getFieldValue(this.record, LAST_NAME) ?? "";
+      customerData1.middlename = getFieldValue(this.record, MIDDLE_NAME) ?? "";
+      customerData1.isRmPresent =
+        getFieldValue(this.record, RM_COMPLAINT) ?? false;
+      customerData1.complainant_type =
+        getFieldValue(this.record, COMPLAINANT_TYPE) === "1"
+          ? "Individual"
+          : "Business";
+      this.customerInfo = customerData1;
+      this.firstName = customerData1.first_name;
+      this.lastName = customerData1.last_name;
     }
   }
   setCustomerData(accountData) {
-    let customerAccountData = {
-      accId: "",
-      complainant_type: "",
-      first_name: "",
-      last_name: "",
-      middlename: "",
-      isRmPresent: "",
-      gender: "",
-      age: "",
-      cpId: "",
-      ocvId: "",
-      emailclassic: "",
-      emailanzplus: "",
-      mobileclassic: "",
-      mobileanzplus: "",
-      street: "",
-      suburb: "",
-      state: "",
-      postcode: "",
-      country: "",
-      migrationStatusType: "",
-      migrationStatusDate: "",
-      rmData: { name: "", phone: "", officeAddress: "" },
-      accounts: []
-    };
     let controllingPost = accountData.Controlling_Post__r?.value;
     let address = this.populateAddress(accountData);
-    customerAccountData.first_name = accountData.FirstName?.value;
-    customerAccountData.last_name = accountData.LastName?.value;
-    customerAccountData.accId = this.record.fields.AccountId?.value;
-    customerAccountData.middlename = accountData.MiddleName?.value;
-    customerAccountData.isRmPresent =
-      this.record.fields.Relationship_Managed_Complaint__c?.value;
-    customerAccountData.gender = accountData.Gender__pc?.value;
-    customerAccountData.age = accountData.FinServ__Age__pc?.value
-      ? Math.trunc(Number(accountData.FinServ__Age__pc.value))
-      : "";
-    customerAccountData.cpId = accountData.CPID__c?.value;
-    customerAccountData.ocvId = accountData.OCV_ID__c?.value;
-    customerAccountData.emailclassic = accountData.Other_Email__c?.value;
-    customerAccountData.emailanzplus = accountData.PersonEmail?.value;
-    customerAccountData.mobileclassic = accountData.PersonOtherPhone?.value;
-    customerAccountData.mobileanzplus = accountData.PersonMobilePhone?.value;
-    customerAccountData.street = address?.street;
-    customerAccountData.suburb = address?.suburb;
-    customerAccountData.state = address?.state;
-    customerAccountData.postcode = address?.postCode;
-    customerAccountData.country = address?.country;
-    customerAccountData.migrationStatusType =
-      accountData.Migration_Status__c?.value;
-    customerAccountData.migrationStatusDate =
-      accountData.Migration_Status_Date__c?.value;
-    customerAccountData.complainant_type =
-      accountData.RecordType.value.fields.Name?.value;
-    customerAccountData.rmData.name =
-      controllingPost === null
-        ? ""
-        : controllingPost.fields.Responsible_Employee_Name__c?.value;
-    customerAccountData.rmData.phone =
-      controllingPost === null
-        ? ""
-        : controllingPost.fields.CPID_Phone__c?.value;
-    customerAccountData.rmData.officeAddress =
-      controllingPost === null
-        ? ""
-        : controllingPost.fields.CPID_Address__c?.value;
-    return customerAccountData;
+
+    return {
+      first_name: accountData.FirstName?.value,
+      last_name: accountData.LastName?.value,
+      accId: this.record.fields.AccountId?.value,
+      middlename: accountData.MiddleName?.value,
+      isRmPresent: this.record.fields.Relationship_Managed_Complaint__c?.value,
+      gender: accountData.Gender__pc?.value,
+      age: accountData.FinServ__Age__pc?.value
+        ? Math.trunc(Number(accountData.FinServ__Age__pc.value))
+        : "",
+      cpId: accountData.CPID__c?.value,
+      ocvId: accountData.OCV_ID__c?.value,
+      emailclassic: accountData.Other_Email__c?.value,
+      emailanzplus: accountData.PersonEmail?.value,
+      mobileclassic: accountData.PersonOtherPhone?.value,
+      mobileanzplus: accountData.PersonMobilePhone?.value,
+      street: address?.street,
+      suburb: address?.suburb,
+      state: address?.state,
+      postcode: address?.postCode,
+      country: address?.country,
+      migrationStatusType: accountData.Migration_Status__c?.value,
+      migrationStatusDate: accountData.Migration_Status_Date__c?.value,
+      complainant_type: accountData.RecordType.value.fields.Name?.value,
+      rmData: {
+        name: controllingPost?.fields.Responsible_Employee_Name__c?.value ?? "",
+        phone: controllingPost?.fields.CPID_Phone__c?.value ?? "",
+        officeAddress: controllingPost?.fields.CPID_Address__c?.value ?? ""
+      }
+    };
   }
 
   showAllCustomerData() {
@@ -207,9 +171,8 @@ export default class CustomerInformation extends LightningElement {
         ocvId: this.customerInfo.ocvId
       }).then((result) => {
         this.customerInfo.accounts = result.map((i) => ({
-          accountNumber: i.Account_Key__c.substring(
-            0,
-            i.Account_Key__c.indexOf("_")
+          accountNumber: getAccoutProductkeys(
+            i.FinServ__FinancialAccount__r.Account_Key__c
           )
         }));
       });
@@ -371,38 +334,34 @@ export default class CustomerInformation extends LightningElement {
       });
   }
   populateAddress(accountData) {
-    let address = {
-      street: "",
-      country: "",
-      postCode: "",
-      state: "",
-      suburb: ""
-    };
     if (accountData.RecordType.value.fields.Name?.value === "Individual") {
-      address.street = accountData.PersonOtherStreet?.value;
-      address.country = accountData.PersonOtherCountry?.value;
-      address.postCode = accountData.PersonOtherPostalCode?.value;
-      address.state = accountData.PersonOtherState?.value;
-      address.suburb = accountData.PersonOtherStreet?.value;
-      return address;
+      return {
+        street: accountData.PersonOtherStreet?.value,
+        country: accountData.PersonOtherCountry?.value,
+        postCode: accountData.PersonOtherPostalCode?.value,
+        state: accountData.PersonOtherState?.value,
+        suburb: accountData.PersonOtherStreet?.value
+      };
     }
     if (accountData.RecordType.value.fields.Name?.value === "Organisation") {
       if (accountData.ShippingPostalCode?.value != null) {
-        address.street = accountData.ShippingStreet?.value;
-        address.country = accountData.ShippingCountry?.value;
-        address.postCode = accountData.ShippingPostalCode?.value;
-        address.state = accountData.ShippingState?.value;
-        address.suburb = accountData.ShippingCity?.value;
-        return address;
+        return {
+          street: accountData.ShippingStreet?.value,
+          country: accountData.ShippingCountry?.value,
+          postCode: accountData.ShippingPostalCode?.value,
+          state: accountData.ShippingState?.value,
+          suburb: accountData.ShippingCity?.value
+        };
       }
-      address.street = accountData.BillingStreet?.value;
-      address.country = accountData.BillingCountry?.value;
-      address.postCode = accountData.BillingPostalCode?.value;
-      address.state = accountData.BillingState?.value;
-      address.suburb = accountData.BillingCity?.value;
-      return address;
+      return {
+        street: accountData.BillingStreet?.value,
+        country: accountData.BillingCountry?.value,
+        postCode: accountData.BillingPostalCode?.value,
+        state: accountData.BillingState?.value,
+        suburb: accountData.BillingCity?.value
+      };
     }
-    return address;
+    return null;
   }
   handleError(err) {
     this.isLoading = false;

@@ -261,4 +261,6 @@ export class SimpleNav {
       replace
     );
   }
+export function getAccoutProductkeys(key) {
+  return key.substring(0, key.indexOf("_"));
 }

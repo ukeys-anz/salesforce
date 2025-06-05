@@ -8,16 +8,28 @@ public with sharing class GetCustomerInformationRepo {
    * @description REPO to Fetch Financial Accounts Releated to the Customer
    * @param accId ID of the Customer
    * @param ocvId ocvId of the Customer
-   * @return List<FinServ__FinancialAccount__c> return the list of Financial Accounts
+   * @param roleTypes roletypes for financial roles
+   * @return List<FinServ__FinancialAccountRole__c> return the list of Financial Accounts Roles
    */
 
-  public List<FinServ__FinancialAccount__c> getFinancialAccounts(
+  public List<FinServ__FinancialAccountRole__c> getFinancialAccounts(
     Id accId,
-    String ocvId
+    String ocvId,
+    Set<String> roleTypes
   ) {
     if (String.isBlank(accId)) {
-      return new List<FinServ__FinancialAccount__c>();
+      return new List<FinServ__FinancialAccountRole__c>();
     }
-    return [SELECT Id, Account_Key__c , FinServ__FinancialAccountType__c FROM FinServ__FinancialAccount__c WHERE FinServ__PrimaryOwner__c =: accId OR FinServ__PrimaryOwner__r.OCV_ID__c =: OcvId];
+    return [
+      SELECT
+        Id,
+        FinServ__FinancialAccount__r.Account_Key__c,
+        FinServ__FinancialAccount__r.FinServ__FinancialAccountType__c
+      FROM FinServ__FinancialAccountRole__c
+      WHERE
+        (FinServ__RelatedAccount__c = :accId
+        OR FinServ__RelatedAccount__r.OCV_ID__c = :OcvId)
+        AND Role_Type__c IN :roleTypes
+    ];
   }
 }

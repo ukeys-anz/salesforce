@@ -310,7 +310,11 @@ public with sharing class NewCaseFlowWrapperController {
       }
       return null;
     } catch (Exception e) {
-      Logger.error(e.getMessage());
+      Logger.error(
+        e.getMessage() +
+          ' ' +
+          'Error from NewCaseFlowWrapperController.getCaseRecordTypes'
+      );
       Logger.saveLog();
       throw new AuraHandledException(e.getMessage());
     }
