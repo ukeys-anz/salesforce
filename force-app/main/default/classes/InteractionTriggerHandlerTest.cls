@@ -7,9 +7,7 @@
 public with sharing class InteractionTriggerHandlerTest {
   private static Integer otherPurposeDuration = 30;
   private final static string TEST_MOBILE = '01189998819991197253';
-  private static final InteractionAttendeeRepository interactionRepoMock = (InteractionAttendeeRepository) Lib_InstanceProvider.forType(
-    InteractionAttendeeRepository.class
-  );
+
   @TestSetup
   static void setup() {
     Profile stdUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
@@ -741,6 +739,24 @@ public with sharing class InteractionTriggerHandlerTest {
         interactionAttendeeList[0].UniqueKeyForInteractionAttendee__c
       ),
       'UniqueKeyForInteractionAttendee__c of the interaction should be blank'
+    );
+  }
+  @isTest
+  private static void testqueryInteractions() {
+    User coachUser = TestUtil.getUserByFirstName('TestCoachInter894');
+    List<Interaction> interactionList = TestInteractionMock.createMockInteraction();
+    List<interaction> fetchInteractionRecorddetails;
+    Test.startTest();
+    System.runAs(coachUser) {
+      fetchInteractionRecorddetails = InteractionAttendeeActions.queryInteractions(
+        interactionList
+      );
+    }
+    Test.stopTest();
+    System.assertEquals(
+      0,
+      fetchInteractionRecorddetails.size(),
+      'Interaction records should not be retrieved'
     );
   }
 
