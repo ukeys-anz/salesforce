@@ -119,8 +119,8 @@ export default class PdiCreateAccessControl extends NavigationMixin(
       }),
     fieldEditable: (field) => {
       return this.recordId
-        ? this.objectInfo.fields[field].createable
-        : this.objectInfo.fields[field].updateable;
+        ? this.objectInfo.fields[field].updateable
+        : this.objectInfo.fields[field].createable;
     }
   };
 }

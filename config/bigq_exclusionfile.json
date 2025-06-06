@@ -320,7 +320,6 @@
     "TncName__c",
     "TncVersion__c"
   ],
-  "Event": ["LocationId"],
   "FinServ__FinancialAccount__c": [
     "FinServ__AccrualFrequency__c",
     "FinServ__AccruedInterest__c",
@@ -486,7 +485,11 @@
     "Settlement_ID__c"
   ],
   "Twilio_Details__c": ["Call_Transcript__c", "Summary__c"],
-  "Activity":["Customer_Task_Configuration__c","TaskNumber__c","Customer_Task_Data__c"],
+  "Activity": [
+    "Customer_Task_Configuration__c",
+    "TaskNumber__c",
+    "Customer_Task_Data__c"
+  ],
   "User": [
     "AboutMe",
     "BadgeText",
@@ -632,6 +635,7 @@
     "SuAccessExpirationDate",
     "StartDay",
     "PasswordExpirationDate",
-    "HasUserVerifiedPhone"
+    "HasUserVerifiedPhone",
+    "UserPreferencesHideManagedEcaMobilePubModal"
   ]
 }

@@ -54,7 +54,15 @@ global with sharing class InteractionContextService {
       Account accountToUpdate = updatePPIDOnAccountIfExist(contextRequest);
 
       if (accountToUpdate != null) {
-        DML_REPOSITORY.doUpdate(accountToUpdate, new DmlConfig().systemMode());
+        DML_REPOSITORY.doUpdate(
+          accountToUpdate,
+          new DmlConfig()
+            .allowPartial()
+            .systemMode()
+            .errorlog(
+              'Error in Updating PPID on Account during Inbound Interaction Creation from Twilio'
+            )
+        );
       }
 
       //For Creating Map of Existing Interactions By callOrChatSID for checking Duplication of the Interaction Context.
@@ -179,8 +187,9 @@ global with sharing class InteractionContextService {
       existingAccount.PPID__C != contextRequest.ppid
     ) {
       existingAccount.PPID__C = contextRequest.ppid;
+      return existingAccount;
     }
-    return existingAccount;
+    return null;
   }
 
   /**

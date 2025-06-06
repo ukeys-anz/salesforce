@@ -178,6 +178,21 @@ export default class TrustMeCaseStatusUpdateModal extends LightningModal {
       );
       return;
     }
+    if (
+      (this.trustMeCase.Status === "Defect Identified" ||
+        this.trustMeCase.Status === "Fraud Suspected") &&
+      !this.checksList.includes("No")
+    ) {
+      showToast(
+        this,
+        "Error",
+        "Atleast one check should be marked as 'No' to update the status to 'Defect Identified/Fraud Suspected'",
+        "",
+        "error",
+        ""
+      );
+      return;
+    }
     this.setAllNullChecksToYes();
     this.isModalButtonDisable = true;
     this.showSpinner = true;
