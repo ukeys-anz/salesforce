@@ -1,6 +1,7 @@
 import { LightningElement, api, wire, track } from "lwc";
 import getComplaintResolution from "@salesforce/apex/ComplaintResolutionController.getComplaintResolution";
 import hasPermissionSet from "@salesforce/apex/ComplaintResolutionController.hasPermissionSet";
+import loggedInApplication from "@salesforce/apex/ComplaintResolutionController.loggedInApplication";
 import { refreshApex } from "@salesforce/apex";
 import { navigate, handleWireError, showToast } from "c/utils";
 import { deleteRecord } from "lightning/uiRecordApi";
@@ -79,6 +80,14 @@ export default class ComplaintResolutionRelatedList extends NavigationMixin(
   totalPages = 1;
   page = 1;
   showNewButton;
+  showAppVisible = false;
+
+  @wire(loggedInApplication)
+  currentApplicationCheck({ data }) {
+    if (data) {
+      this.showAppVisible = true;
+    }
+  }
 
   @wire(hasPermissionSet)
   checkUserPermission({ data }) {

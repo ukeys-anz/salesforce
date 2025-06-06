@@ -7,11 +7,16 @@
 private with sharing class ComplaintResolutionControllerTest {
   static Lib_MockProvider complaintResRepoMock;
   static Lib_MockProvider userMock; 
+  static Lib_MockProvider complaintsMock;
+  static Lib_MockProvider queryAppDefinitionMock;
+    
   static void registerMocks() {
     complaintResRepoMock = Lib_MockProvider.forType(
       ComplaintResolutionControllerRepo.class
       );
-    userMock = Lib_MockProvider.forType(UserInfoRepository.class);
+    userMock = Lib_MockProvider.forType(UserInfoRepository.class); 
+    complaintsMock = Lib_MockProvider.forType(ComplaintsRepository.class);
+    queryAppDefinitionMock = Lib_MockProvider.forType(QueryAppDefinition.class);
   }
   
   static Account testAcc = new Account(
@@ -78,4 +83,28 @@ private with sharing class ComplaintResolutionControllerTest {
       
     Assert.areEqual(result, false, 'Permission Set Group is not assigned to User');
   }
+
+  @isTest
+  static void testCurrentlyLoggedInAppofUser() {
+    registerMocks();
+      
+      Id appdefinitionId = Lib_FakeIdGenerator.getMockId(AppDefinition.SObjectType);
+      AppDefinition testAppDefinition = (AppDefinition) TestUtil.setFields(new AppDefinition(
+      Id  = appdefinitionId),
+      new Map<String, Object>{ 'Label' => 'Complaint Mgt','DurableId' =>  appdefinitionId });
+      
+      UserAppInfo testUserInfo = new UserAppInfo(
+      Id = Lib_FakeIdGenerator.getMockId(UserAppInfo.SObjectType),
+      AppDefinitionId = testAppDefinition.Id
+      ); 
+      complaintsMock.mock('getUserAppInfoForUser', testUserInfo);
+      queryAppDefinitionMock.mock('getByDurableId',testAppDefinition);
+    
+
+        Test.startTest();
+        Boolean result = ComplaintResolutionController.loggedInApplication();
+        Test.stopTest();
+        
+        Assert.areEqual(result, false, 'User is logged in to CMOS APP');
+    }
 }
