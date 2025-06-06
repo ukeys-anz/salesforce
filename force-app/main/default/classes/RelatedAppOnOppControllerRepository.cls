@@ -29,6 +29,7 @@ public with sharing class RelatedAppOnOppControllerRepository {
         SubmissionDate,
         Application_Number__c,
         Application_Status__c,
+        RecordType.Name,
         (
           SELECT
             Id,
@@ -37,7 +38,8 @@ public with sharing class RelatedAppOnOppControllerRepository {
             Product.Name,
             ProductId,
             Close_Date__c,
-            Reference_Number__c
+            Reference_Number__c,
+            Amount__c
           FROM ApplicationFormProducts
         )
       FROM ApplicationForm

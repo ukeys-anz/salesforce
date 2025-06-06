@@ -63,32 +63,40 @@ const printAllChangesAndIgnoredFiles = (folderName) => {
 
 const findAllChangedFileOnValidate = (folderName, tagRef) => {
   createArtifactFolder(folderName);
-  execSync(
-    `npx sf sgd source delta --to HEAD --from ${tagRef} --output-dir ${folderName}/ --generate-delta`
-  ).toString("utf8");
+  execSync(`sf artifact xbuild -f ${folderName} -t ${tagRef}`, {
+    encoding: "utf-8"
+  });
 };
 
 const findAllChangedFileOnDeploy = (folderName, baseRef, tagRef) => {
   createArtifactFolder(folderName);
-  execSync(
-    `npx sf sgd source delta --to origin/${baseRef} --from ${tagRef} --output-dir ${folderName}/ --generate-delta`
-  ).toString("utf8");
+  execSync(`sf artifact xbuild -f ${folderName} -t ${tagRef} -b ${baseRef}`, {
+    encoding: "utf-8"
+  });
 };
 
 const buildArtifactOnValidate = (folderName, tagRef) => {
   renameForceignore();
   createArtifactFolder(folderName);
-  execSync(
-    `npx sf sgd source delta --to HEAD --from ${tagRef} --output-dir ${folderName}/ --generate-delta -i .forceignore`
-  ).toString("utf8");
+  const output = execSync(
+    `sf artifact xbuild -f ${folderName} -t ${tagRef} -i .forceignore`,
+    {
+      encoding: "utf-8"
+    }
+  ).toString();
+  console.log(output);
 };
 
 const buildArtifactOnDeploy = (folderName, baseRef, tagRef) => {
   renameForceignore();
   createArtifactFolder(folderName);
-  execSync(
-    `npx sf sgd source delta --to origin/${baseRef} --from ${tagRef} --output-dir ${folderName}/ --generate-delta -i .forceignore`
-  ).toString("utf8");
+  const output = execSync(
+    `sf artifact xbuild -f ${folderName} -t ${tagRef} -b ${baseRef} -i .forceignore`,
+    {
+      encoding: "utf-8"
+    }
+  ).toString();
+  console.log(output);
 };
 
 const artifactFolderExist = (artifactPath) => {
@@ -98,20 +106,14 @@ const artifactFolderExist = (artifactPath) => {
 };
 
 const createDiffOnValidate = (folderName, tagRef) => {
-  findAllChangedFileOnValidate(folderName + "-all-files", tagRef);
   buildArtifactOnValidate(folderName, tagRef);
   artifactFolderExist(folderName);
-  printAllChangesAndIgnoredFiles(folderName);
-  deleteFolder(folderName + "-all-files");
 };
 
 const createDiffOnDeploy = (folderName, baseRef, tagRef) => {
   logger("Build Artifact");
-  findAllChangedFileOnDeploy(folderName + "-all-files", baseRef, tagRef);
   buildArtifactOnDeploy(folderName, baseRef, tagRef);
   artifactFolderExist(folderName);
-  printAllChangesAndIgnoredFiles(folderName);
-  deleteFolder(folderName + "-all-files");
 };
 
 const zipArtifactory = (artifactPath) => {

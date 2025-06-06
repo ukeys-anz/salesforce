@@ -6,15 +6,23 @@ on:
         required: false
         description: "Secret Name as an Input"
         type: string
+    secrets:
+      token:
+        required: true
+        description: "repo token"
 
 jobs:
   validate:
     uses: ./.github/workflows/_validation.yml
     with:
       sfdx_name: ${{ inputs.sfdx_name }}
+    secrets:
+      token: ${{ secrets.token }}
 
   deploy:
     needs: [validate]
     uses: ./.github/workflows/_quick-deployment.yml
     with:
       sfdx_name: ${{ inputs.sfdx_name }}
+    secrets:
+      token: ${{ secrets.token }}

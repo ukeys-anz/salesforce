@@ -1,0 +1,59 @@
+{
+  "change": {
+    "name": "",
+    "request": {
+      "name": "",
+      "account": "",
+      "productType": "LOAN_PRODUCT_TYPE_OWNER_OCCUPIED"
+    },
+    "updateMask": {
+      "paths": [""]
+    },
+    "state": "STATE_NEW",
+    "estimatedProcessingStartTime": {
+      "seconds": 1,
+      "nanos": 1
+    },
+    "done": true,
+    "error": {
+      "errorCode": 1,
+      "reason": "",
+      "metadata": {}
+    },
+    "documents": [
+      {
+        "name": "",
+        "uid": "",
+        "loanAccount": "",
+        "loanAccountNumber": "",
+        "state": "STATE_PENDING_UPLOAD",
+        "file": {
+          "id": "",
+          "title": "",
+          "description": "",
+          "name": "",
+          "extension": "",
+          "mimeType": "",
+          "createTime": {
+            "seconds": 1,
+            "nanos": 1
+          }
+        },
+        "loanApplicationId": ""
+      }
+    ],
+    "createdBy": "",
+    "createTime": {
+      "seconds": 1,
+      "nanos": 1
+    },
+    "approval": {
+      "state": "STATE_APPROVED",
+      "updatedTime": {
+        "seconds": 1,
+        "nanos": 1
+      }
+    },
+    "docUploadRequired": true
+  }
+}

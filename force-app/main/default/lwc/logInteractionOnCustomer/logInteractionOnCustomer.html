@@ -35,18 +35,26 @@
           <template lwc:if={showInteractionFields}>
             <lightning-layout-item size="6">
               <lightning-input-field
+                field-name={interactionTypeField}
+                required
+              ></lightning-input-field>
+            </lightning-layout-item>
+
+            <lightning-layout-item size="6">
+              <lightning-input-field
                 field-name={nameField}
                 required
               ></lightning-input-field>
             </lightning-layout-item>
-            <lightning-layout-item size="6">
+
+            <lightning-layout-item size="6" style="margin-top: 20px">
               <lightning-input-field
                 field-name={intTypeField}
                 required
               ></lightning-input-field>
             </lightning-layout-item>
 
-            <lightning-layout-item size="12">
+            <lightning-layout-item size="6">
               <lightning-input-field
                 field-name={startTimeField}
                 required

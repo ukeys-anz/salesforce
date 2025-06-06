@@ -29,6 +29,9 @@ public with sharing class COBCaseStatusPathControllerTest {
     );
   }
 
+  static Database.SaveResult saveResults = TestUtil.getMockSaveResult(
+    '{"id":"5008r00000EhhODAAZ","success":true,"errors":[]}'
+  );
   static List<Id> cobPIDIds = new List<Id>{
     Lib_FakeIdGenerator.getMockId(COBPrimaryIDDocument__c.SObjectType)
   };
@@ -84,13 +87,8 @@ public with sharing class COBCaseStatusPathControllerTest {
   @isTest
   private static void testIDOpsUpdateStatusSuccessful() {
     registerMocks();
-    List<Database.SaveResult> saveResults = new List<Database.SaveResult>{
-      TestUtil.getMockSaveResult(
-        '{"id":"5008r00000EhhODAAZ","success":true,"errors":[]}'
-      )
-    };
     COBPrimaryIDDocument__c cobPIDRec = cobPIDRecord[0];
-    dmlRepoMock.mock('updateRecords', saveResults);
+    dmlRepoMock.mock('doUpdate', saveResults);
     onboardingActionQueryMock.mock('getCOBPIDRecordUsingCOA', cobPIDRec);
     StravinskyAPIRepository.CxStageWrapper cobStage = new StravinskyAPIRepository.CxStageWrapper();
     cobStage.cxOnboardingStage = StravinskyAPIRepository.COB_UPDATED;
@@ -119,8 +117,8 @@ public with sharing class COBCaseStatusPathControllerTest {
       'triggerTemporalCaseWorkflow should have been called.'
     );
     Assert.isFalse(
-      dmlRepoMock.getHistories('updateRecords').isEmpty(),
-      'updateRecords should have been called.'
+      dmlRepoMock.getHistories('doUpdate').isEmpty(),
+      'doUpdate should have been called.'
     );
 
     Assert.isTrue(
@@ -138,13 +136,8 @@ public with sharing class COBCaseStatusPathControllerTest {
   @isTest
   private static void testIDOpsBlockUpdateFromUI() {
     registerMocks();
-    List<Database.SaveResult> saveResults = new List<Database.SaveResult>{
-      TestUtil.getMockSaveResult(
-        '{"id":"5008r00000EhhODAAZ","success":true,"errors":[]}'
-      )
-    };
     COBPrimaryIDDocument__c cobPIDRec = cobPIDRecord[0];
-    dmlRepoMock.mock('updateRecords', saveResults);
+    dmlRepoMock.mock('doUpdate', saveResults);
     onboardingActionQueryMock.mock('getCOBPIDRecordUsingCOA', cobPIDRec);
     StravinskyAPIRepository.CxStageWrapper cobStage = new StravinskyAPIRepository.CxStageWrapper();
     cobStage.cxOnboardingStage = StravinskyAPIRepository.COB_UPDATED;
@@ -309,12 +302,7 @@ public with sharing class COBCaseStatusPathControllerTest {
   @isTest
   private static void testHandleCaseUpdateSuccessful() {
     registerMocks();
-    List<Database.SaveResult> saveResults = new List<Database.SaveResult>{
-      TestUtil.getMockSaveResult(
-        '{"id":"5008r00000EhhODAAZ","success":true,"errors":[]}'
-      )
-    };
-    dmlRepoMock.mock('updateRecords', saveResults);
+    dmlRepoMock.mock('doUpdate', saveResults);
 
     Exception ex;
     Test.startTest();
@@ -337,7 +325,7 @@ public with sharing class COBCaseStatusPathControllerTest {
         '{"success":false,"id":"5008r00000EhhODAAZ","errors":[{"statusCode":"FIELD_CUSTOM_VALIDATION_EXCEPTION","message":"TestErrorMessage","fields":[]}]}'
       )
     };
-    dmlRepoMock.mock('updateRecords', saveResults);
+    dmlRepoMock.mock('doUpdate', saveResults);
 
     Test.startTest();
     try {

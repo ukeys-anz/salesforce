@@ -11281,6 +11281,10 @@
         <recordType>Case.Credit_Referral</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Lending Layout</layout>
+        <recordType>Case.Lending</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-BPAY Dispute Layout</layout>
         <recordType>Case.BPAY_Dispute</recordType>
     </layoutAssignments>
@@ -11471,10 +11475,11 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Customer_Action__c-Customer Action Layout</layout>
+        <recordType>Customer_Action__c.Customer_Action</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Customer_Action__c-Customer Action Layout</layout>
-        <recordType>Customer_Action__c.Customer_Action</recordType>
+        <layout>Customer_Action__c-Customer Notification Action</layout>
+        <recordType>Customer_Action__c.Customer_Notification_Action</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Customer_Action__c-Pending Financial Accounts Update Layout</layout>
@@ -11716,6 +11721,10 @@
     <layoutAssignments>
         <layout>Case-TrustMe eIDV Case Layout</layout>
         <recordType>Case.TrustMe_eIDV_Case</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Task-Customer Nudge Layout</layout>
+        <recordType>Task.Customer_Nudge</recordType>
     </layoutAssignments>
     <objectPermissions>
         <allowCreate>true</allowCreate>
@@ -12724,6 +12733,11 @@
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>Case.Credit_Referral</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Case.Lending</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

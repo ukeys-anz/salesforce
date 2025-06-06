@@ -13,6 +13,10 @@
       ? tabNameMap[recordTypeDeveloperName]
       : "Message";
 
+    // handle specific recordTypeDeveloperName
+    tabname =
+      recordTypeDeveloperName === "General,Message,Store" ? "All" : tabname;
+
     // fetch the recordId from URL, this can be anything Account, Lead, Case, Coaching Summary etc
     const anyRecordId = component.get("v.pageReference").state.c__anyRecordId;
     component.set("v.anyRecordId", anyRecordId);

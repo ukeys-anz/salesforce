@@ -190,6 +190,78 @@ export function setTimestamp(timestamp) {
     });
   return lastModified;
 }
+
+/**
+ * @usage
+ * export class SomeLwc extends LightningElement {
+ *  toast = new SimpleToast(this);
+ *  someFunction() {
+ *    this.toast.success("Success message");
+ *    this.toast.info("Info message");
+ *    this.toast.error("Error message");
+ *    this.toast.warning("Warning message");
+ *  }
+ * }
+ */
+export class SimpleToast {
+  constructor(component) {
+    this.lwc = component;
+  }
+  success(message) {
+    showToast(this.lwc, message, null, null, "success");
+  }
+  error(message) {
+    showToast(this.lwc, message, null, null, "error");
+  }
+  info(message) {
+    showToast(this.lwc, message, null, null, "info");
+  }
+  warning(message) {
+    showToast(this.lwc, message, null, null, "warning");
+  }
+}
+
+/**
+ * @usage
+ * export class SomeLwc extends LightningElement {
+ *  nav = new SimpleNav(this);
+ *  someFunction() {
+ *    this.nav.toRecord("001XXXXXXXXXXXXXXX");
+ *  }
+ *  otherFunction() {
+ *    this.nav.toObject("Account");
+ *  }
+ * }
+ */
+export class SimpleNav {
+  constructor(component) {
+    this.lwc = component;
+  }
+  toRecord(recordId, replace = true) {
+    this.lwc[NavigationMixin.Navigate](
+      {
+        type: "standard__recordPage",
+        attributes: {
+          recordId,
+          actionName: "view"
+        }
+      },
+      replace
+    );
+  }
+  toObject(objectApiName, replace = true) {
+    this.lwc[NavigationMixin.Navigate](
+      {
+        type: "standard__objectPage",
+        attributes: {
+          objectApiName,
+          actionName: "home"
+        }
+      },
+      replace
+    );
+  }
+}
 export function getAccoutProductkeys(key) {
   return key.substring(0, key.indexOf("_"));
 }

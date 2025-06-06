@@ -63,11 +63,13 @@ public with sharing class SOPExpenseViewModel {
    * @param sourceData expenseSummary api model
    * @param mapCodeToReason map of justification code to expense control
    * @param assetPropertyLookup map of address lookup
+   * @param partyPropertyLookup map of address lookup
    */
   public SOPExpenseViewModel(
     SOPGetConsolidatedModel.MonthlyExpenses sourceData,
     Map<String, Expense_Control__c> mapCodeToReason,
-    Map<String, SOPGetConsolidatedModel.Assets> assetPropertyLookup
+    Map<String, SOPGetConsolidatedModel.Assets> assetPropertyLookup,
+    Map<String, SOPGetConsolidatedModel.Property> partyPropertyLookup
   ) {
     this.name = sourceData.categoryName;
     this.monthlySpend = SOPHelper.convertAmountToDecimal(
@@ -92,6 +94,7 @@ public with sharing class SOPExpenseViewModel {
     this.hemState = sourceData.hemState;
     this.propertyId = sourceData.propertyId;
     this.singleLineAddress = assetPropertyLookup.get(sourceData.propertyId)
-      ?.address.singleLineAddress;
+      ?.address.singleLineAddress ??
+      partyPropertyLookup.get(sourceData.propertyId)?.address.singleLineAddress;
   }
 }

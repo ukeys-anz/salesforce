@@ -7,8 +7,10 @@
     let pageRef = cmp.get("v.pageReference");
     let recordId = pageRef.state.c__recordId;
     let title = pageRef.state.c__cmpTitle;
+    let isCase = pageRef.state.c__isCase;
     cmp.set("v.recordId", recordId);
     cmp.set("v.cmpTitle", title);
+    cmp.set("v.isCase", isCase);
 
     if (!recordId) {
       helper.showToast("error", "Record Id is null", "Error!");

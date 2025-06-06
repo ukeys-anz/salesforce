@@ -8,20 +8,20 @@
 @SuppressWarnings('PMD.FieldNamingConventions,PMD.PropertyNamingConventions')
 public with sharing class TrustMeDocumentRequestModel extends CalloutModel {
   /**
-   * @description related_user
+   * @description requestedUser
    */
   @AuraEnabled
-  public String related_user { get; set; }
+  public String requestedUser { get; set; }
   /**
-   * @description evaluation_id
+   * @description evaluationId
    */
   @AuraEnabled
-  public String evaluation_id { get; set; }
+  public String evaluationId { get; set; }
   /**
-   * @description related_id
+   * @description relatedId
    */
   @AuraEnabled
-  public String related_id { get; set; }
+  public String relatedId { get; set; }
   /**
    * @description attachments
    */

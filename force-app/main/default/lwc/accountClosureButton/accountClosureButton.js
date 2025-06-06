@@ -101,30 +101,7 @@ export default class AccountClosureButton extends LightningElement {
   async handleCloseAccounts() {
     try {
       this.loading = true;
-      const results = await Promise.allSettled(
-        this.childCases.map((caseRecord) =>
-          getPackageClosureAura({ recordId: caseRecord.Id })
-            .then((response) => ({
-              status: "fulfilled",
-              caseDetails: caseRecord,
-              result: response
-            }))
-            .catch((error) => ({
-              status: "rejected",
-              caseDetails: caseRecord,
-              error: error.body ? error.body.message : error.message
-            }))
-        )
-      );
-
-      results.forEach((result) => {
-        if (result.status === "fulfilled") {
-          this.handleFulfilledResult(result.value);
-        } else if (result.status === "rejected") {
-          this.handleRejectedResult(result.reason.caseDetails);
-        }
-      });
-      this.updateResponseData();
+      await this.processChildCases();
       await this.updateCaseStatusToClosed(this.successfulCases);
       await this.refreshTab();
     } catch (error) {
@@ -133,17 +110,31 @@ export default class AccountClosureButton extends LightningElement {
     }
   }
 
-  handleFulfilledResult({ caseDetails, result }) {
-    if (!result?.errorInfo && result?.accountsClosed > 0) {
-      const successPackageData = this.generatePackageData(caseDetails);
-      this.successfulCases.push(successPackageData);
-    } else {
-      const packageData = this.generatePackageData(caseDetails);
-      this.failedCases.push(packageData);
+  async processChildCases() {
+    for (const caseRecord of this.childCases) {
+      try {
+        // eslint-disable-next-line no-await-in-loop
+        const response = await getPackageClosureAura({
+          recordId: caseRecord.Id
+        });
+        if (!response?.errorInfo && response?.accountsClosed > 0) {
+          this.handleSuccessResult({ caseDetails: caseRecord });
+        } else {
+          this.handleFailureResult(caseRecord);
+        }
+      } catch (error) {
+        this.handleFailureResult(caseRecord);
+      }
     }
+    this.updateResponseData();
   }
 
-  handleRejectedResult(caseDetails) {
+  handleSuccessResult({ caseDetails }) {
+    const successPackageData = this.generatePackageData(caseDetails);
+    this.successfulCases.push(successPackageData);
+  }
+
+  handleFailureResult(caseDetails) {
     const failedPackageData = this.generatePackageData(caseDetails);
     this.failedCases.push(failedPackageData);
   }

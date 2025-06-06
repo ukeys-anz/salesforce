@@ -47,6 +47,7 @@ public with sharing class CommercialOpportunityActions {
     Map<Id, Opportunity> oldMap
   ) {
     Set<Id> accountIdsSet = extractAccountIds(records, oldMap);
+    Map<Id, Account> accMap = OPP_REPOSITORY.getAccountMap(accountIdsSet);
     List<FinServ__AccountAccountRelation__c> aarList = OPP_REPOSITORY.getAccountAccountRelations(
       accountIdsSet
     );
@@ -56,7 +57,7 @@ public with sharing class CommercialOpportunityActions {
       FinServ__AccountAccountRelation__c.FinServ__Account__c
     );
 
-    populateCLGAccount(records, accountToAARMap);
+    populateCLGAccount(records, accMap, accountToAARMap);
   }
 
   /**
@@ -85,20 +86,26 @@ public with sharing class CommercialOpportunityActions {
    * @description This method will populate CLG account
    * @name populateCLGAccount
    * @param oppList from the trigger
+   * @param accMap map of account
    * @param accountToAARMap Map of account to AAR
    */
   public static void populateCLGAccount(
     List<Opportunity> oppList,
+    Map<Id, Account> accMap,
     Map<Id, FinServ__AccountAccountRelation__c> accountToAARMap
   ) {
+    if (accMap.isEmpty()) {
+      return;
+    }
     for (Opportunity oppRecord : oppList) {
-      if (!accountToAARMap.containsKey(oppRecord.AccountId)) {
+      if (
+        accMap.get(oppRecord.AccountId)?.RecordTypeId == RTAccount.clgAccount
+      ) {
+        oppRecord.CLG__c = oppRecord.AccountId;
         continue;
       }
-      FinServ__AccountAccountRelation__c aarRecord = accountToAARMap.get(
-        oppRecord.AccountId
-      );
-      oppRecord.CLG__c = aarRecord?.FinServ__RelatedAccount__c;
+      oppRecord.CLG__c = accountToAARMap.get(oppRecord.AccountId)
+        ?.FinServ__RelatedAccount__c;
     }
   }
 }

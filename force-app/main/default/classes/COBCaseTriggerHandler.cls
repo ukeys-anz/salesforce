@@ -68,6 +68,7 @@ public with sharing class COBCaseTriggerHandler extends Lib_TriggerHandler {
       fraudCheckRecords,
       (Map<Id, Case>) oldMap
     );
+    COBCaseActions.updatePidStatus(fraudCheckRecords, (Map<Id, Case>) oldMap);
     Logger.debug('On_After_Update finished: ' + System.now());
     Logger.saveLog();
   }

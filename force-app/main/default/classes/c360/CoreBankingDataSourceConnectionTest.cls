@@ -28,13 +28,14 @@ private class CoreBankingDataSourceConnectionTest {
     CoreBankingDataSourceConnection conn = new CoreBankingDataSourceConnection(
       connectionParams
     );
+    Test.setMock(HttpCalloutMock.class, new DepositAccountTestMock());
     Test.startTest();
     DataSource.QueryContext context = ExternalQueryContextMock.createQueryContext(
       'DepositAccount'
     );
     DataSource.TableResult result = conn.query(context);
     Test.stopTest();
-    Assert.areEqual(result.success, true, 'Error');
+    Assert.areEqual(result.totalSize, 0, 'Records found');
     Assert.areEqual(result.tableName, 'DepositAccount', 'Error');
   }
 
@@ -62,5 +63,23 @@ private class CoreBankingDataSourceConnectionTest {
       'Unsupported External Object : Deposit',
       'Error'
     );
+  }
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class DepositAccountTestMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource('mock_depositResponse');
+      HTTPResponse res = new HTTPResponse();
+      res.setHeader('ms2-example', 'dda-success-with-multiple-accounts');
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
   }
 }

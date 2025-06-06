@@ -202,26 +202,25 @@ public with sharing class FinancialAccountExternalQueryHelper {
    */
   public Set<String> getCLGRelatedCustomerIds(String customerId) {
     Set<String> result = new Set<String>();
-    if (PermissionUtils.canQuery('Account')) {
-      //check to see if customer is CLG
-      List<Account> customers = FA_Repository.getCustomerUsingExternalIdAndRtName(
-        customerId,
-        'CLG'
-      );
-      if (customers.isEmpty()) {
-        result.add(customerId);
-        return result;
-      }
+
+    //check to see if customer is CLG
+    List<Account> customers = FA_Repository.getCustomerUsingExternalIdAndRtName(
+      customerId,
+      'CLG'
+    );
+    if (customers.isEmpty()) {
+      result.add(customerId);
+      return result;
     }
-    if (PermissionUtils.canQuery('FinServ__AccountAccountRelation__c')) {
-      for (
-        FinServ__AccountAccountRelation__c aar : FA_Repository.getCustomerAAR(
-          customerId
-        )
-      ) {
-        result.add(aar.FinServ__RelatedAccount__r.External_Id__c);
-      }
+
+    for (
+      FinServ__AccountAccountRelation__c aar : FA_Repository.getCLGRelatedCustomers(
+        customerId
+      )
+    ) {
+      result.add(aar.FinServ__RelatedAccount__r.External_Id__c);
     }
+
     return result;
   }
 

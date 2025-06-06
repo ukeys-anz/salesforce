@@ -571,17 +571,15 @@ private class COBPIDViewAndEditControllerTest {
   @isTest
   static void testUpdateTokenizedDataSuccess() {
     registerMocks();
+    List<Database.SaveResult> saveResults = new List<Database.SaveResult>{
+      TestUtil.getMockSaveResult('{"success":true}')
+    };
+    dmlRepoMock.mock('doUpdate', saveResults);
 
     tokenizedData = COBPIDViewAndEditController.buildTokenizedData(
       pidLicense,
       licenseDocModel
     );
-
-    List<Database.SaveResult> saveResults = new List<Database.SaveResult>{
-      TestUtil.getMockSaveResult('{"success":true}')
-    };
-    dmlRepoMock.mock('updateRecords', saveResults);
-
     COBPIDViewAndEditController.PIDDMLOperator pidDmlOperator = new COBPIDViewAndEditController.PIDDMLOperator();
 
     Test.startTest();
@@ -594,23 +592,23 @@ private class COBPIDViewAndEditControllerTest {
 
     Assert.isNull(error, ASSERT_MSG_NO_EXCEPTION);
     Assert.isFalse(
-      dmlRepoMock.getHistories('updateRecords').isEmpty(),
-      'updateRecords call should have been made.'
+      dmlRepoMock.getHistories('doUpdate').isEmpty(),
+      'doUpdate call should have been made.'
     );
   }
 
   @isTest
   static void testUpdateTokenizedDataFailed() {
     registerMocks();
+    Database.SaveResult saveResults = TestUtil.getMockSaveResult(
+      '{"success":false,"id":"5008r00000EhhODAAZ","errors":[{"statusCode":"FIELD_CUSTOM_VALIDATION_EXCEPTION","message":"TestErrorMessage","fields":[]}]}'
+    );
+    dmlRepoMock.mock('doUpdate', saveResults);
 
     tokenizedData = COBPIDViewAndEditController.buildTokenizedData(
       pidLicense,
       licenseDocModel
     );
-
-    List<Database.SaveResult> saveResults = new List<Database.SaveResult>();
-    dmlRepoMock.mock('updateRecords', saveResults);
-
     COBPIDViewAndEditController.PIDDMLOperator pidDmlOperator = new COBPIDViewAndEditController.PIDDMLOperator();
 
     Test.startTest();
@@ -626,8 +624,8 @@ private class COBPIDViewAndEditControllerTest {
       ASSERT_MSG_AURA_EXCEPTION
     );
     Assert.isFalse(
-      dmlRepoMock.getHistories('updateRecords').isEmpty(),
-      'updateRecords call should have been made.'
+      dmlRepoMock.getHistories('doUpdate').isEmpty(),
+      'doUpdate call should have been made.'
     );
   }
 }

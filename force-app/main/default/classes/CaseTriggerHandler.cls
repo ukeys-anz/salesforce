@@ -67,6 +67,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.updateEntitlement(records);
     GetHelpCaseActions.checkOpenDisputeOnTransaction(records);
     GetHelpCaseActions.validateFinancialAccByAccId(records);
+    GetHelpCaseActions.populateCustomerDetailsOnComplaint(records);
     GetHelpCaseActions.handleProvisionallyClosedDateTimeField(null, records);
     CustomerDisputeManagementService.restrictDisputeCreationIfLimitReached(
       records
@@ -145,6 +146,14 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Case>) oldMap
     );
     //Check if the account on the case has updated, if so, update OCV ID
+    if (
+      GetHelpCaseActionsHelper.hasAccountUpdated(
+        records,
+        (Map<Id, Case>) oldMap
+      )
+    ) {
+      GetHelpCaseActions.populateCustomerDetailsOnComplaint(records);
+    }
     GetHelpCaseActions.validateCreditReferralOwnershipChange(
       records,
       (Map<Id, Case>) oldMap

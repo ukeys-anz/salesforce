@@ -4,9 +4,34 @@
  * @description  : This is the action class for CommercialLeadTriggerHandler
  **/
 public with sharing class CommercialLeadActions {
+  static final String ENTITY_TYPE_INDIVIDUAL = 'Individual';
+  private static final String CCRM_PROFILE = 'ANZ CCRM Standard User';
+  private static final String SKIP_VALIDATION = 'SkipValidation';
+  private static final String VALIDATE = 'Validate';
+  private static final String COPY_LEAD_ID = 'copyLeadId';
+
   private static final LeadActionsRepository LEAD_REPOSITORY = (LeadActionsRepository) Lib_InstanceProvider.forType(
     LeadActionsRepository.class
   );
+  private static final UserInfoRepository USER_REPO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
+  private static final UserActionsRepository USER_REPOSITORY = (UserActionsRepository) Lib_InstanceProvider.forType(
+    UserActionsRepository.class
+  );
+
+  private static final String ORIGINATOR_CCRM = 'CCRM';
+  private static final String ORIGINATOR_UNICA = 'UNICA';
+  private static final String ORIGINATOR_ADOBE = 'Adobe';
+  private static final String PRIMARY_CONTACT_MOBILE = 'Mobile';
+  private static final String PRIMARY_CONTACT_WORK = 'Work Phone';
+  private static final String PRIMARY_CONTACT_HOME = 'Home Phone';
+
+  private static final Set<String> SET_OF_ELIGIBLE_LEAD_ORIGINATOR = new Set<String>{
+    ORIGINATOR_ADOBE,
+    ORIGINATOR_UNICA,
+    ORIGINATOR_CCRM
+  };
 
   /**
    * @description Define custom exceptions
@@ -101,6 +126,65 @@ public with sharing class CommercialLeadActions {
       leadRecord.CPID_Owner__c = aarRecord
         ?.FinServ__RelatedAccount__r.Controlling_Post__r
         ?.OwnerId;
+    }
+  }
+
+  /**
+   * @description This method will update the Skip Validation during owner change
+   * @name setSkipValidationOnOwnerChange
+   * @param records from the trigger
+   * @param oldMap Map of old records
+   */
+  public static void setSkipValidationOnOwnerChange(
+    List<Lead> records,
+    Map<Id, Lead> oldMap
+  ) {
+    if (!USER_REPO.checkProfile(CCRM_PROFILE)) {
+      return;
+    }
+    List<Lead> filteredLeadsWithOwnerChange = ListUtil.filter(records, oldMap)
+      .changed(Lead.OwnerId)
+      .toList();
+
+    for (Lead ownerChangedLead : filteredLeadsWithOwnerChange) {
+      ownerChangedLead.Skip_Validations__c = ownerChangedLead.Skip_Validations__c !=
+        SKIP_VALIDATION
+        ? SKIP_VALIDATION
+        : VALIDATE;
+    }
+  }
+
+  /**
+   * @description : It will map primary contact method according to phone fields
+   * @name : populatePrimaryContactMethod
+   * @param records List of Lead records
+   */
+  public static void populatePrimaryContactMethod(List<Lead> records) {
+    try {
+      List<Lead> filteredLeadList = ListUtil.filter(records)
+        .equals(
+          Lead.Lead_Originator__c,
+          new Set<String>{ ORIGINATOR_UNICA, ORIGINATOR_ADOBE }
+        )
+        .toList();
+      for (Lead leadRecord : filteredLeadList) {
+        //check phone fields in priority order
+        if (String.isNotBlank(leadRecord.MobilePhone)) {
+          leadRecord.Primary_Contact_Method__c = PRIMARY_CONTACT_MOBILE;
+          continue;
+        }
+        if (String.isNotBlank(leadRecord.Work_Phone__c)) {
+          leadRecord.Primary_Contact_Method__c = PRIMARY_CONTACT_WORK;
+          continue;
+        }
+        if (String.isNotBlank(leadRecord.Home_Phone__c)) {
+          leadRecord.Primary_Contact_Method__c = PRIMARY_CONTACT_HOME;
+          continue;
+        }
+        leadRecord.Primary_Contact_Method__c = null;
+      }
+    } catch (Exception e) {
+      Logger.error('Error while mapping Primary contact method', e).save();
     }
   }
 }

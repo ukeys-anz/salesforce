@@ -127,6 +127,13 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
       records,
       (Map<Id, Opportunity>) oldMap
     );
+
+    //Check if AFP with closed won/lost stage related to opp has mandatory fields filled
+    CCRMOpportunityActions.checkClosedStageFieldsOnAFPRelatedToOpp(
+      oppWrapper.filteredOpps,
+      (Map<Id, Opportunity>) oldMap
+    );
+
     //CC-4528 validate Opportunity for MLCRM
     OpportunityActions.validateClosedOpportunity(
       records,

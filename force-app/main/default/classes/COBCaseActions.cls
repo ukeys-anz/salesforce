@@ -57,52 +57,75 @@ public with sharing class COBCaseActions {
     List<Case> records,
     Map<Id, Case> oldMap
   ) {
-    //Filter records with status updated
     records = ListUtil.filter(records, oldMap).changed(Case.Status).toList();
-
-    Map<Id, Case> parentIdAndChildCasedMap = (Map<Id, Case>) ListUtil.mapBy(
-      records,
-      Case.ParentId
-    );
-
-    //Set the Parent ID Ops Status and Onboarding Reason values
-    List<Case> idOpsCases = setIDOpsCaseStatus(
-      parentIdAndChildCasedMap,
-      oldMap
-    );
-
-    //Update the Parent Id Ops case records
+    List<Case> idOpsCases = buildUpdatedIDOpsCases(records, oldMap);
     DML.doUpdate(idOpsCases, new DmlConfig().systemMode());
   }
 
-  /**
-   * @description Get ID Ops Cases and Set their Status and OnboardingVerificationFailedReason__c accordingly
-   * @param parentIdAndChildCasedMap Id Ops ids and case details
-   * @param oldMap map of records id and old records
-   * @return List<Case> List of cases with set status
-   */
   @TestVisible
-  private static List<Case> setIDOpsCaseStatus(
-    Map<Id, Case> parentIdAndChildCasedMap,
+  private static List<Case> buildUpdatedIDOpsCases(
+    List<Case> fraudCheckCases,
     Map<Id, Case> oldMap
   ) {
-    List<Case> idOpsCases = COB_CASE_REPO.getCasesByIds(
-      parentIdAndChildCasedMap.keySet()
-    );
-
-    for (Case idOpsCase : idOpsCases) {
-      Case fraudCheckCase = parentIdAndChildCasedMap.get(idOpsCase.Id);
-
-      if (
-        fraudCheckCase.Status == COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS
-      ) {
+    List<Case> idOpsCases = new List<Case>();
+    for (Case fraudCase : fraudCheckCases) {
+      Case idOpsCase = new Case(Id = fraudCase.ParentId);
+      if (fraudCase.Status == COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS) {
         idOpsCase.Status = COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS;
-        idOpsCase.OnboardingVerificationFailedReason__c = fraudCheckCase.OnboardingVerificationFailedReason__c;
+        idOpsCase.OnboardingVerificationFailedReason__c = fraudCase.OnboardingVerificationFailedReason__c;
       } else {
-        idOpsCase.Status = oldMap.get(fraudCheckCase.Id).Status;
+        idOpsCase.Status = oldMap.get(fraudCase.Id).Status;
       }
+      idOpsCases.add(idOpsCase);
     }
-
     return idOpsCases;
+  }
+
+  /**
+   * @description Cases where status has changed to something other than "Confirmed Fraud",
+   * then clears verification status on associated COB's Primary ID Document.
+   *
+   * @param records List of Case records being processed in the current transaction
+   * @param oldMap Map of previous values for the Case records, keyed by Id
+   */
+  public static void updatePidStatus(List<Case> records, Map<Id, Case> oldMap) {
+    records = ListUtil.filter(records, oldMap)
+      .oldEquals(Case.Status, COBCaseConstants.COB_DAON_FALLOUT_STATUS)
+      .equals(Case.Status, COBCaseConstants.COB_NOT_A_FRAUD_STATUS)
+      .toList();
+    Set<Id> cobIds = ListUtil.getIds(
+      records,
+      Case.CustomerOnboardingApplication__c
+    );
+    List<CustomerOnboardingApplication__c> cobs = COB_CASE_REPO.queryCobsWithPid(
+      cobIds
+    );
+    List<COBPrimaryIDDocument__c> pids = clearPIDVerificationStatusFromCOB(
+      cobs
+    );
+    DML.doUpdate(pids, new DmlConfig().withoutSharing());
+  }
+
+  @TestVisible
+  private static List<COBPrimaryIDDocument__c> clearPIDVerificationStatusFromCOB(
+    List<CustomerOnboardingApplication__c> cobs
+  ) {
+    List<COBPrimaryIDDocument__c> pids = new List<COBPrimaryIDDocument__c>();
+    for (CustomerOnboardingApplication__c cob : cobs) {
+      if (cob.COBPrimaryIDDocuments__r.isEmpty()) {
+        continue;
+      }
+      pids.add(
+        new COBPrimaryIDDocument__c(
+          Id = cob.COBPrimaryIDDocuments__r[0].Id,
+          Verified_By__c = null,
+          Verification_Date_Time__c = null,
+          Verification_Status__c = null,
+          Verification_Failed_Reason__c = null,
+          Failed_Message__c = null
+        )
+      );
+    }
+    return pids;
   }
 }

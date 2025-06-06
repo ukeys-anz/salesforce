@@ -80,6 +80,7 @@ public with sharing class SOPGetConsolidatedModel extends CalloutModel {
     public Datetime confirmedAccountsTime;
     public Boolean multipleProfiles;
     public String personaId;
+    public Property currentResidence;
 
     /**
      * @description Returns the value of the specified field.
@@ -99,6 +100,13 @@ public with sharing class SOPGetConsolidatedModel extends CalloutModel {
         'Field not yet supported: ' + fieldName
       );
     }
+  }
+  /**
+   * @description Property model addedJaya
+   */
+  public class Property {
+    public String propertyId;
+    public Address address;
   }
   /**
    * @description Components model

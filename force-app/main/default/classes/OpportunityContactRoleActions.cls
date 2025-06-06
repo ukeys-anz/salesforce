@@ -54,8 +54,9 @@ public with sharing class OpportunityContactRoleActions {
     if (USER_INFO_REPO.checkProfile('System Administrator')) {
       return;
     }
+    List<Opportunity> lstOfOpp = getParentOpportunities(oldRecords);
     Map<Id, Opportunity> mapofOpp = (Map<Id, Opportunity>) ListUtil.mapBy(
-      oldRecords,
+      lstOfOpp,
       Opportunity.Id
     );
     List<OpportunityContactRole> lstOfContactRole = filterPrimaryApplicant(

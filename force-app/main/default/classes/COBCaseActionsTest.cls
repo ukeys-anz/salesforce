@@ -80,38 +80,22 @@ private class COBCaseActionsTest {
 
   @isTest
   static void testSetIDOpsCaseStatusConfirmedFraud() {
-    registerMocks();
-
     //Update the Fraud Check Case status and OnboardingVerificationFailedReason__c
     fraudCheckCase.Status = COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS;
     fraudCheckCase.OnboardingVerificationFailedReason__c = COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS;
 
-    List<Case> idOpsCases = new List<Case>{ idOpsCase };
-    cobCaseRepoMock.mock('getCasesByIds', idOpsCases);
-
-    //Create Map of ParentId and updated Child Case
-    Map<Id, Case> parentIdAndChildCaseMap = new Map<Id, Case>{
-      fraudCheckCase.ParentId => fraudCheckCase
-    };
-
     Test.startTest();
-    idOpsCases = COBCaseActions.setIDOpsCaseStatus(
-      parentIdAndChildCaseMap,
-      oldFraudCheckMap
+    List<Case> idOpsCases = COBCaseActions.buildUpdatedIDOpsCases(
+      new List<Case>{ fraudCheckCase },
+      new Map<Id, Case>{ fraudCheckCase.Id => fraudCheckCase }
     );
     Test.stopTest();
-
-    Assert.isFalse(
-      cobCaseRepoMock.getHistories('getCasesByIds').isEmpty(),
-      'getCasesByIds should have been called'
-    );
 
     Assert.areEqual(
       fraudCheckCase.Status,
       idOpsCases[0].Status,
       'Status should be ' + fraudCheckCase.Status
     );
-
     Assert.areEqual(
       fraudCheckCase.OnboardingVerificationFailedReason__c,
       idOpsCases[0].OnboardingVerificationFailedReason__c,
@@ -122,40 +106,23 @@ private class COBCaseActionsTest {
 
   @isTest
   static void testSetIDOpsCaseStatusToDaonFallout() {
-    registerMocks();
-
     //Clone existing Fraud Case record to preserve the one that's in oldFraudCheckMap
     Case newFraudCase = fraudCheckCase.clone(true);
-
     //Update the Fraud Check Case status
     newFraudCase.Status = COBCaseConstants.COB_NOT_A_FRAUD_STATUS;
 
-    //Create Map of ParentId and updated Child Case
-    Map<Id, Case> newParentIdAndChildCaseMap = new Map<Id, Case>{
-      newFraudCase.ParentId => newFraudCase
-    };
-
-    List<Case> idOpsCases = new List<Case>{ idOpsCase };
-    cobCaseRepoMock.mock('getCasesByIds', idOpsCases);
-
     Test.startTest();
-    idOpsCases = COBCaseActions.setIDOpsCaseStatus(
-      newParentIdAndChildCaseMap,
-      oldFraudCheckMap
+    List<Case> idOpsCases = COBCaseActions.buildUpdatedIDOpsCases(
+      new List<Case>{ newFraudCase },
+      new Map<Id, Case>{ newFraudCase.Id => fraudCheckCase }
     );
     Test.stopTest();
-
-    Assert.isFalse(
-      cobCaseRepoMock.getHistories('getCasesByIds').isEmpty(),
-      'getCasesByIds should have been called'
-    );
 
     Assert.areEqual(
       COBCaseConstants.COB_DAON_FALLOUT_STATUS,
       idOpsCases[0].Status,
       'Status should be ' + COBCaseConstants.COB_DAON_FALLOUT_STATUS
     );
-
     Assert.isTrue(
       String.isBlank(idOpsCases[0].OnboardingVerificationFailedReason__c),
       'OnboardingVerificationFailedReason__c should be blank'
@@ -164,41 +131,24 @@ private class COBCaseActionsTest {
 
   @isTest
   static void testSetIDOpsCaseStatusToEquifaxFallout() {
-    registerMocks();
-
     fraudCheckCase.Status = COBCaseConstants.COB_EQUIFAX_FALLOUT_STATUS;
     //Clone existing Fraud Case record to preserve the one that's in oldFraudCheckMap
     Case newFraudCase = fraudCheckCase.clone(true);
-
     //Update the Fraud Check Case status
     newFraudCase.Status = COBCaseConstants.COB_NOT_A_FRAUD_STATUS;
 
-    //Map of ParentId and updated Child Case
-    Map<Id, Case> newParentIdAndChildCaseMap = new Map<Id, Case>{
-      newFraudCase.ParentId => newFraudCase
-    };
-
-    List<Case> idOpsCases = new List<Case>{ idOpsCase };
-    cobCaseRepoMock.mock('getCasesByIds', idOpsCases);
-
     Test.startTest();
-    idOpsCases = COBCaseActions.setIDOpsCaseStatus(
-      newParentIdAndChildCaseMap,
-      oldFraudCheckMap
+    List<Case> idOpsCases = COBCaseActions.buildUpdatedIDOpsCases(
+      new List<Case>{ newFraudCase },
+      new Map<Id, Case>{ newFraudCase.Id => fraudCheckCase }
     );
     Test.stopTest();
-
-    Assert.isFalse(
-      cobCaseRepoMock.getHistories('getCasesByIds').isEmpty(),
-      'getCasesByIds should have been called'
-    );
 
     Assert.areEqual(
       COBCaseConstants.COB_EQUIFAX_FALLOUT_STATUS,
       idOpsCases[0].Status,
       'Status should be ' + COBCaseConstants.COB_EQUIFAX_FALLOUT_STATUS
     );
-
     Assert.isTrue(
       String.isBlank(idOpsCases[0].OnboardingVerificationFailedReason__c),
       'OnboardingVerificationFailedReason__c should be blank'
@@ -208,8 +158,6 @@ private class COBCaseActionsTest {
   @isTest
   static void testUpdateIDOpsCaseStatus() {
     registerMocks();
-    cobCaseRepoMock.mock('getCasesByIds', new List<Case>{ idOpsCase });
-
     //Clone existing Fraud Case record to preserve the one that's in oldFraudCheckMap
     Case childFraudCase = fraudCheckCase.clone(true);
 
@@ -223,16 +171,10 @@ private class COBCaseActionsTest {
     );
     Test.stopTest();
 
-    Assert.isFalse(
-      cobCaseRepoMock.getHistories('getCasesByIds').isEmpty(),
-      'getCasesByIds should have been called'
-    );
-
     Assert.isNotNull(
       dmlRepoMock.getHistory('doUpdate'),
       'doUpdate should have been invoked'
     );
-
     List<Case> parentIdOpsRecords = (List<Case>) dmlRepoMock.getHistory(
         'doUpdate'
       )

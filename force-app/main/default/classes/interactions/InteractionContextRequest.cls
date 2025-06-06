@@ -43,6 +43,10 @@ global class InteractionContextRequest {
    */
   public String chatOrCallStatus { get; set; }
   /**
+   * @description pubSubEventId from Twilio
+   */
+  public String pubSubEventId { get; set; }
+  /**
    * @description isAuthenticated from Twilio, if the connection is authenticated or not
    */
   public Boolean isAuthenticated {
@@ -51,4 +55,12 @@ global class InteractionContextRequest {
     }
     set;
   }
+  /**
+   * @description fetch account id based on ocvId
+   */
+  public Account existingAccount {get; set;}
+  /**
+   * @description fetch task record based on pubSubEventId
+   */
+  public Task pushToAppTask {get; set;}
 }

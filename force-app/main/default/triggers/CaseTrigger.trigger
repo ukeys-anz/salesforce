@@ -19,5 +19,6 @@ trigger CaseTrigger on Case(
   TrustMeCaseTriggerHandler trustMeHandler = new TrustMeCaseTriggerHandler();
   FalseCustomerProfileCaseTriggerHandler fcpHandler = new FalseCustomerProfileCaseTriggerHandler();
   FraudXCaseTriggerHandler fraudHandler = new FraudXCaseTriggerHandler();
-  CustomerInformationUpdateTriggerHandler customerInforHandler = new CustomerInformationUpdateTriggerHandler();
+  LendingCaseTriggerHandler lendingHandler = new LendingCaseTriggerHandler();
+  CustomerComplaintCaseTriggerHandler customerComplaintHandler = new CustomerComplaintCaseTriggerHandler();
 }

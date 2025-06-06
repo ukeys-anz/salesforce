@@ -25,6 +25,7 @@ export default class InteractionRecordService extends NavigationMixin(
   @api storeRecord;
   @api appointmentRecord;
   @api showOpenMessageOnly;
+  @api allRecord;
   rolesToShowViewTranscriptOnCop = [
     "Quality_Analyst",
     "Join_Lead",
@@ -57,6 +58,10 @@ export default class InteractionRecordService extends NavigationMixin(
 
   get showAppointment() {
     return this.strRecordTypeName === this.appointmentRecord;
+  }
+
+  get showAll() {
+    return this.strRecordTypeName === this.allRecord;
   }
 
   @wire(getRecord, { recordId: USER_ID, fields: [USER_ROLE] })
@@ -223,6 +228,15 @@ export default class InteractionRecordService extends NavigationMixin(
         record.enableViewTranscript = true;
       } else {
         record.enableViewTranscript = false;
+      }
+      if (record.recordType === "General") {
+        record.boolCallRT = true;
+      }
+      if (record.recordType === "Message") {
+        record.boolMessageRT = true;
+      }
+      if (record.recordType === "Store") {
+        record.boolStoreRT = true;
       }
     });
 

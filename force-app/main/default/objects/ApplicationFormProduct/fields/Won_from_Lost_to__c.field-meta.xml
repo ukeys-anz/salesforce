@@ -5,6 +5,7 @@
     <complianceGroup>Integrity - Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Captured as part of Product Won \ Lost stage. Lists the competitors in a drop down.</description>
     <externalId>false</externalId>
+    <inlineHelpText>Please select N/A for non OFI.</inlineHelpText>
     <label>Won from / Lost to</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
@@ -15,6 +16,11 @@
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
+            <value>
+                <fullName>N/A</fullName>
+                <default>true</default>
+                <label>N/A</label>
+            </value>
             <value>
                 <fullName>AAMI</fullName>
                 <default>false</default>
@@ -339,11 +345,6 @@
                 <fullName>Zurich</fullName>
                 <default>false</default>
                 <label>Zurich</label>
-            </value>
-            <value>
-                <fullName>N/A</fullName>
-                <default>false</default>
-                <label>N/A</label>
             </value>
         </valueSetDefinition>
     </valueSet>

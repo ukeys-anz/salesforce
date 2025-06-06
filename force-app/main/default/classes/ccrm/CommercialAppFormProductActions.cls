@@ -7,9 +7,16 @@ public with sharing class CommercialAppFormProductActions {
   private static final CommercialAppFormProductActionsRepo AFP_REPOSITORY = (CommercialAppFormProductActionsRepo) Lib_InstanceProvider.forType(
     CommercialAppFormProductActionsRepo.class
   );
+  private static final CommercialOpportunityRepository COMMERCIALOPP_REPOSITORY = (CommercialOpportunityRepository) Lib_InstanceProvider.forType(
+    CommercialOpportunityRepository.class
+  );
   private static final DmlRepository DML = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
+  private static final UserInfoRepository USER_REPO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
+  private static final String ANZ_CCRM_STANDARD_USER = 'ANZ CCRM Standard User';
 
   /**
    * @description checkd stage of AFP on insert
@@ -42,6 +49,10 @@ public with sharing class CommercialAppFormProductActions {
     List<ApplicationFormProduct> records,
     Map<Id, ApplicationFormProduct> oldMap
   ) {
+    if (!USER_REPO.checkProfile(ANZ_CCRM_STANDARD_USER)) {
+      return;
+    }
+
     Set<Id> appFormIds = ListUtil.getIds(
       records,
       ApplicationFormProduct.ApplicationFormId
@@ -127,6 +138,60 @@ public with sharing class CommercialAppFormProductActions {
   }
 
   /**
+   * @description populateCloseDateForAmbitOnStageChange This is to populate close date on AMBIT AFPs when AFP is updated to closed Won
+   * @param records applicationFormProduct records list
+   * @param oldMap old applicationFormProduct map
+   */
+  public static void populateCloseDateForAmbitOnStageChange(
+    List<ApplicationFormProduct> records,
+    Map<Id, ApplicationFormProduct> oldMap
+  ) {
+    try {
+      List<ApplicationFormProduct> filterAfpList = ListUtil.filter(
+          records,
+          oldMap
+        )
+        .changedTo(ApplicationFormProduct.Stage, CCRMConstants.OPP_WON)
+        .toList();
+
+      Set<Id> appFormIds = ListUtil.getIds(
+        filterAfpList,
+        ApplicationFormProduct.ApplicationFormId
+      );
+
+      List<ApplicationForm> fetchApplicationForm = AFP_REPOSITORY.getApplicationForms(
+        appFormIds
+      );
+
+      List<ApplicationForm> filteredApplicationFormList = ListUtil.filter(
+          fetchApplicationForm
+        )
+        .equals(
+          ApplicationForm.RecordTypeId,
+          RTApplicationForm.ambitApplication
+        )
+        .toList();
+
+      Set<Id> ambitAppIds = new Map<Id, ApplicationForm>(
+          filteredApplicationFormList
+        )
+        .keySet();
+
+      filterAfpList = ListUtil.filter(filterAfpList)
+        .equals(ApplicationFormProduct.ApplicationFormId, ambitAppIds)
+        .toList();
+
+      ListUtil.setField(
+        filterAfpList,
+        ApplicationFormProduct.Close_Date__c,
+        System.today()
+      );
+    } catch (Exception e) {
+      Logger.error('Error while populating close date on AFP', e).save();
+    }
+  }
+
+  /**
    * @description populateStageUpdatedDate This is to populate stage updated date on AFP
    * @param records applicationFormProduct records list
    * @param oldMap old applicationFormProduct map
@@ -146,6 +211,39 @@ public with sharing class CommercialAppFormProductActions {
       if (stages.contains(afp.Stage) && afp.Stage != oldMap.get(afp.Id).Stage) {
         afp.Last_Updated_Stage_Date__c = System.today();
       }
+    }
+  }
+
+  /**
+   * @description mapStageWithSourceSystemStatus This is to map stage with source system status value
+   * @param records applicationFormProduct records list
+   * @param oldMap old applicationFormProduct map
+   */
+  public static void mapStageWithSourceSystemStatus(
+    List<ApplicationFormProduct> records,
+    Map<Id, ApplicationFormProduct> oldMap
+  ) {
+    try {
+      List<ApplicationFormProduct> filterAfpList = ListUtil.filter(
+          records,
+          oldMap
+        )
+        .changed(ApplicationFormProduct.Source_System_Status__c)
+        .toList();
+      Set<Id> appFormIds = ListUtil.getIds(
+        filterAfpList,
+        ApplicationFormProduct.ApplicationFormId
+      );
+      CommercialAppFormProductActionsHelper.AppFormProductWrapper appFormProductWrapper = CommercialAppFormProductActionsHelper.getAppFormProductsRelatedToCommercialOpportunity(
+        appFormIds,
+        records
+      );
+      CommercialAppFormProductActionsHelper.updateStage(
+        appFormProductWrapper.filteredAppFormProducts
+      );
+    } catch (Exception e) {
+      Logger.error('Error while mapping status with source system status', e)
+        .save();
     }
   }
 }
