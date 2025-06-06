@@ -38,24 +38,16 @@ public with sharing class LendingCaseAPIRepositoryTest {
   @isTest
   static void testUpdateCaseStatusApproveRejectSuccess() {
     registerMocks();
-
-    HttpCalloutResponse successResponse = new HttpCalloutResponse();
-    successResponse.body = Service.getStaticResource(
+    HttpCalloutResponse response = new HttpCalloutResponse();
+    response.body = Service.getStaticResource(
       'mock_SubmitLoanAccountChangeApproval'
     );
-    successResponse.successful = true;
-    successResponse.statusCode = 200;
-    lendingCaseServiceMock.mock(
-      'updateCaseStatusApproveReject',
-      successResponse
-    );
-
+    response.successful = true;
+    response.statusCode = 200;
+    lendingCaseServiceMock.mock('updateCaseStatusApproveReject', response);
     Test.startTest();
-    LendingCaseAPIRepository lendingCaseApi = new LendingCaseAPIRepository();
-    LendingCaseResponseModel responseModel = lendingCaseApi.updateCaseStatusApproveReject(
-      getCase,
-      lendingCaseReqModel
-    );
+    LendingCaseResponseModel responseModel = new LendingCaseAPIRepository()
+      .updateCaseStatusApproveReject(getCase, lendingCaseReqModel);
     Test.stopTest();
 
     Assert.isTrue(responseModel.approveRejectSuccess, 'Success Response');
@@ -72,17 +64,19 @@ public with sharing class LendingCaseAPIRepositoryTest {
     lendingCaseServiceMock.mock('updateCaseStatusApproveReject', errorResponse);
 
     Exception resultException;
-    Test.startTest();
+
     try {
+      Test.startTest();
       LendingCaseAPIRepository lendingCaseApi = new LendingCaseAPIRepository();
       lendingCaseApi.updateCaseStatusApproveReject(
         getCase,
         lendingCaseReqModel
       );
+      Test.stopTest();
     } catch (Exception exp) {
       resultException = exp;
     }
-    Test.stopTest();
+
     Assert.isTrue(
       resultException instanceof LendingCaseAPIRepository.ServerErrorUpdateCaseStatusApproveRejectException,
       'Exception should be thrown.'
