@@ -151,7 +151,7 @@ const TRANSACT01 = `<span>
 const SAVING02 = `<span>
                     <p class="slds-text-title_bold">
                     The amount shown is indicative of the amount a customer may be able to
-                    use but may not be what should be available or is actually available.
+                    use but may not be what should be avaialble or is actually available.
                     </p>
                     <br />
                     The amount shown is indicative of the amount a customer may be able to use

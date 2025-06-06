@@ -98,6 +98,7 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
   }
 
   async handleInitiateAccountClosure() {
+    this.precheckResponse = [];
     this.loading = true;
     this.hasError = false;
     try {
@@ -125,8 +126,16 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
       );
 
       results.forEach((response) => {
-        if (response.status === "fulfilled" && response?.value?.result) {
-          this.precheckResponse.push(response?.value?.result);
+        if (response.status === "fulfilled") {
+          const responsevalue = response?.value;
+          if (responsevalue?.result) {
+            this.precheckResponse.push(responsevalue?.result);
+          } else if (
+            responsevalue?.error &&
+            responsevalue?.error.contains("salesforceCaseNumber")
+          ) {
+            this.precheckResponse.push(responsevalue?.error);
+          }
         } else {
           this.handleRejectedResult(response.value.caseDetails);
         }

@@ -169,14 +169,11 @@ export default class PersonAccountFinancialDetails extends LightningElement {
         goalData
       );
 
-      goalData = handleGoalThemes(goalCopy);
+      const goalDetailsToShow = handleGoalThemes(goalCopy);
 
-      //Remove savings jar as its not displayed on goals component
-      const goalDetailsToShow = goalCopy.account_buckets.filter((obj) => {
-        return !obj.is_default;
-      });
-
-      this.goalDetails = groupGoalsByAccountNumber(goalDetailsToShow);
+      this.goalDetails = groupGoalsByAccountNumber(
+        goalDetailsToShow.account_buckets
+      );
     } catch (error) {
       this.goalError =
         "Failed to retrieve latest goal details. Please refresh and try again. If issue persists please contact your System Administrator";

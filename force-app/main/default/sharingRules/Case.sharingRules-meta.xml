@@ -1328,34 +1328,6 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Lending_Read_Only_Group</fullName>
-        <accessLevel>Read</accessLevel>
-        <label>Lending Read Only Group</label>
-        <sharedTo>
-            <group>Lending_Read_Only_Group</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Lending</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Lending_Read_Write_Group</fullName>
-        <accessLevel>Edit</accessLevel>
-        <label>Lending Read Write Group</label>
-        <sharedTo>
-            <group>Lending_Read_Write_Group</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Lending</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>FraudX_Agent_owned_cases_Share_RW_FraudX_agent_Join_Lead</fullName>
         <accessLevel>Edit</accessLevel>
