@@ -406,24 +406,18 @@ export default class LoanPreferenceDetailsDisplay extends LightningElement {
         updateLoanPreferenceData: this.loanPreferenceEditDetails,
         additionalFundsData: this.additionalFunds
       });
-      if (this.calloutResponse?.successful) {
+      if (this.calloutResponse) {
         showToast(this, "", SUCCESS_MESSAGE, "", "Success", "dismissable");
-      } else {
-        if (this.calloutResponse?.message === "") {
-          this.calloutResponse.message = UPDATE_ERROR_MESSAGE;
-        }
-        handleErrorShowToast(
-          this,
-          "",
-          "Error",
-          this.calloutResponse?.message,
-          "pester"
-        );
       }
       this.refreshData();
       this.toggleScreen();
     } catch (error) {
-      handleErrorShowToast(this, "", error, UPDATE_ERROR_MESSAGE, "pester");
+      let errorMessage = UPDATE_ERROR_MESSAGE;
+      if (error?.body?.message !== "Failed to update loan preference") {
+        errorMessage = error.body.message;
+      }
+
+      handleErrorShowToast(this, "", null, errorMessage, "pester");
     } finally {
       this.componentSpinner = false;
     }

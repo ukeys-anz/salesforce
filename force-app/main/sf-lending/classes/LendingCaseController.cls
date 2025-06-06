@@ -51,10 +51,8 @@ public with sharing class LendingCaseController {
     } catch (Exception e) {
       Logger.info('Failure on upadate status as callout failed', e);
       Logger.saveLog();
-      LendingCaseResponseModel responseModel = new LendingCaseResponseModel();
-      responseModel.approveRejectSuccess = false;
-      responseModel.caseUpdateSuccess = false;
-      return responseModel;
+
+      throw new AuraHandledException('Non-Credit Critical Change Failed');
     }
   }
 }
