@@ -211,7 +211,7 @@
                 <fieldItem>Record.Attendee_Phone__c</fieldItem>
                 <identifier>RecordAttendee_Phone_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND (2 OR 3 OR 4 OR 5)</booleanFilter>
+                    <booleanFilter>1 AND (2 OR 3 OR 4)</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.AttendeeType}</leftValue>
                         <operator>EQUAL</operator>
@@ -231,11 +231,6 @@
                         <leftValue>{!Record.Attendee_SubType__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Other</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Attendee_SubType__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Broker</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
