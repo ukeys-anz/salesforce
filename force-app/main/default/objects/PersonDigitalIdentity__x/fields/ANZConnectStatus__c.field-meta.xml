@@ -6,6 +6,9 @@
     <description>Displays the ANZ Connect state of a given customer</description>
     <externalDeveloperName>ANZConnectStatus</externalDeveloperName>
     <externalId>false</externalId>
+    <inlineHelpText>• Connected - Customer has performed ANZ Connect
+• Disconnected - Customer has disconnected from ANZ Connect
+• Blank - Customer has not performed ANZ Connect</inlineHelpText>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>

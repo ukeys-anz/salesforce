@@ -33,6 +33,16 @@
           "InteractionId": "0kzBm0000001jcbIAA"
         },
         {
+          "Attendee_Name__c": "Test Virtual Agent",
+          "AttendeeType": "VirtualAgent",
+          "attributes": {
+            "type": "InteractionAttendee",
+            "url": "/services/data/v60.0/sobjects/InteractionAttendee/0znBm0000000Lu5IAF"
+          },
+          "Id": "0znBm0000000Lu5IAF",
+          "InteractionId": "0kzBm0000001jcbIAA"
+        },
+        {
           "Attendee_Name__c": "Test Coach",
           "AttendeeType": "Internal",
           "attributes": {
@@ -61,9 +71,9 @@
           "UserId": "005Bm000006ZzmlIAC"
         }
       ],
-      "totalSize": 3
+      "totalSize": 4
     },
-    "Attendees__c": "Test Testing lead,Shivam Swaraj,Test Coach",
+    "Attendees__c": "Test Testing lead,Shivam Swaraj,Test Coach,Test Virtual Agent",
     "Attendees_and_Roles__c": "Coach",
     "attributes": {
       "type": "Interaction",

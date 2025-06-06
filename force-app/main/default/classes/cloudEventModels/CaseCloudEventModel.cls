@@ -60,23 +60,4 @@ public virtual without sharing class CaseCloudEventModel extends CloudEventModel
       this.owner = theOwner;
     }
   }
-
-  /**
-   * @description Inner Wrapper Class for the account data
-   */
-  public class AccountModel {
-    public String ocvId { get; set; }
-    public String sourceSystem { get; set; }
-    public String sourceSystemId { get; set; }
-
-    /**
-     * @description get an instance of AccountModel
-     * @param theAccount the Account record
-     */
-    public AccountModel(Account theAccount) {
-      this.ocvId = theAccount?.OCV_ID__c;
-      this.sourceSystem = theAccount?.Source_System_Name__c;
-      this.sourceSystemId = theAccount?.Source_System_ID__c;
-    }
-  }
 }

@@ -3,9 +3,9 @@
     <fullName>Attendee_Name_Formula__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted;Privacy - Personal Information;Source - Salesforce</complianceGroup>
-    <description>A formula field to determine Attendee name when Attendee Type is &quot;Internal&quot; and &quot;Customer&quot;</description>
+    <description>A formula field to determine Attendee name when Attendee Type is &quot;Internal&quot; or &quot;Customer&quot; or &quot;External&quot; or &quot;Virtual Agent&quot;</description>
     <externalId>false</externalId>
-    <formula>&apos;PLACEHOLDER_FORMULA&apos;</formula>
+    <formula>IF(ISPICKVAL( AttendeeType , &apos;Internal&apos;), User.FirstName &amp; &quot; &quot; &amp; User.LastName , IF( OR(ISPICKVAL( AttendeeType , &apos;External&apos;),ISPICKVAL( AttendeeType , &apos;VirtualAgent&apos;)) , Attendee_Name__c, IF(ISPICKVAL( AttendeeType , &apos;Customer&apos;), Contact.FirstName &amp; &quot; &quot; &amp; Contact.LastName, &apos;&apos;) ) )</formula>
     <label>Attendee Name</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

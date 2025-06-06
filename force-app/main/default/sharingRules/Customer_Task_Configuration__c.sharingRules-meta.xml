@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Business_Admin_Customer_Task_Configuration_Access</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Sharing all records with public read/write to Business admin role to allow them to create and update the Customer Task Config records</description>
+        <label>Business Admin Customer Task Configuration Access</label>
+        <sharedTo>
+            <role>Business_Admin</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

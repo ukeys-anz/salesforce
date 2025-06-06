@@ -207,7 +207,8 @@ public with sharing class CCRMLogAResponseController {
           ABN__c,
           ACN__c,
           ABN_Validation_Status__c,
-          ACN_Validation_Status__c
+          ACN_Validation_Status__c,
+          RecordTypeId
         FROM Lead
         WHERE Id = :leadRespWrapper.leadId
       ];
@@ -270,6 +271,14 @@ public with sharing class CCRMLogAResponseController {
     responseRecord.Subject = leadRespWrapper.autoCreateActivities
       ? TASK_SUBJECT + ' - ' + validateLeadState.FinServ__ExpressedInterest__c
       : leadRespWrapper.responseStatus + ': ' + leadRespWrapper.outcomeReason;
+    // CC-8806, When Lead is ML then using Follow Up date only.
+    if (validateLeadState.RecordTypeId == RTLead.mlcrmLead) {
+      responseRecord.activityDate = leadRespWrapper.followUpDate;
+      responseRecord.Subject =
+        leadRespWrapper.responseStatus +
+        ': ' +
+        leadRespWrapper.outcomeReason;
+    }
     responseRecord.Description = leadRespWrapper.commentVal;
     responseRecord.recordTypeId = CCRMConstants.LEAD_RESPONSE_RT_ID;
     responseRecord.WhoId = Id.valueOf(leadRespWrapper.leadId);

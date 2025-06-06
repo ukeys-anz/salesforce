@@ -130,14 +130,16 @@ public abstract with sharing class FinancialAccountQueryBase extends ExternalObj
       queryContext
     );
     response = getDetailAccounts(service, payload, response);
-    if (response == null) {
+    if (response == null || !response.successful) {
       String errorMessge = String.format(
-        'Invalid source system: {0} or query mode: {1}',
-        new List<Object>{ this.sourceSystem, queryMode }
+        'Unexpected error from makeCallout - {0} and query mode: {1}.\n {2}',
+        new List<Object>{
+          this.tableName,
+          queryMode,
+          response?.error.getMessage()
+        }
       );
-      Logger.error(errorMessge);
-      Logger.saveLog();
-      throw new TypeException(errorMessge);
+      throw new CalloutException(errorMessge);
     }
     return response;
   }
@@ -420,9 +422,12 @@ public abstract with sharing class FinancialAccountQueryBase extends ExternalObj
     if (!(isQueryCAPSummaryViewAccounts() && String.isBlank(payload))) {
       return response;
     }
-    for (Integer i = 0; i < accountNumberList.size(); i++) {
-      queryParams.accounts.add(accountNumberList[i]);
+    if (accountNumberList.isEmpty()) {
+      response = new HttpCalloutResponse();
+      response.successful = true;
+      return response;
     }
+    queryParams.accounts.addAll(accountNumberList);
     response = service.queryCAPAccounts(this.productCategory, queryParams);
     return response;
   }

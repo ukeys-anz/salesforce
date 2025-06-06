@@ -83,4 +83,69 @@ private class PDIServiceTest {
     Test.stopTest();
     Assert.isTrue(response.successful, 'Response should be successful');
   }
+
+  @IsTest
+  static void testGetAccessControls() {
+    Test.startTest();
+    new PDIService().getAccessControls(CUSTOMER_ID, null);
+    Test.stopTest();
+    Assert.areEqual(
+      '{"filter":""}',
+      calloutMock.getHistory('makeRestCallout').getParam('requestBody'),
+      'Request body should contain empty filter value'
+    );
+  }
+
+  @IsTest
+  static void testCreateAccessControl() {
+    Test.startTest();
+    new PDIService()
+      .createAccessControl(CUSTOMER_ID, new PDIApiModel.AccessControl());
+    Test.stopTest();
+    String payload = (String) calloutMock.getHistory('makeRestCallout')
+      .getParam('requestBody');
+    Assert.isTrue(
+      payload.contains('"accessControl"'),
+      'Request body should contain accessControl key'
+    );
+  }
+
+  @IsTest
+  static void testDeleteAccessControl() {
+    Test.startTest();
+    new PDIService().deleteAccessControl(CUSTOMER_ID, 'value');
+    Test.stopTest();
+    Assert.areEqual(
+      '{"name":"value"}',
+      calloutMock.getHistory('makeRestCallout').getParam('requestBody'),
+      'Request body should contain name value'
+    );
+  }
+
+  @IsTest
+  static void testGetAccessControlsMock() {
+    Test.startTest();
+    HttpCalloutResponse response = new PDIServiceMock()
+      .getAccessControls(null, null);
+    Test.stopTest();
+    Assert.isTrue(response.successful, 'Response should be successful');
+  }
+
+  @IsTest
+  static void testCreateAccessControlMock() {
+    Test.startTest();
+    HttpCalloutResponse response = new PDIServiceMock()
+      .createAccessControl(null, null);
+    Test.stopTest();
+    Assert.isTrue(response.successful, 'Response should be successful');
+  }
+
+  @IsTest
+  static void testDeleteAccessControlMock() {
+    Test.startTest();
+    HttpCalloutResponse response = new PDIServiceMock()
+      .deleteAccessControl(null, null);
+    Test.stopTest();
+    Assert.isTrue(response.successful, 'Response should be successful');
+  }
 }

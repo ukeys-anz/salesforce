@@ -10,34 +10,12 @@ public with sharing class CommercialAppFormProductActionsHelper {
   private static final CommercialAppFormProductActionsRepo AFP_REPOSITORY = (CommercialAppFormProductActionsRepo) Lib_InstanceProvider.forType(
     CommercialAppFormProductActionsRepo.class
   );
-  /**
-   * @description Returns the opportunity stages metadata
-   */
-  static Map<String, Commercial_Stage__mdt> afpStagesBySegment {
-    get {
-      if (afpStagesBySegment != null) {
-        return afpStagesBySegment;
-      }
-      afpStagesBySegment = new Map<String, Commercial_Stage__mdt>();
-      for (
-        Commercial_Stage__mdt metadata : Commercial_Stage__mdt.getAll().values()
-      ) {
-        if (
-          metadata.Object_Name__c == null ||
-          metadata.Object_Name__c.split(';')
-            .contains(CCRMConstants.APPLICATION_FORM_PRODUCT)
-        ) {
-          String key =
-            metadata.Current_Stage__c +
-            '-' +
-            metadata.Commercial_Segment__c;
-          afpStagesBySegment.put(key, metadata);
-        }
-      }
-      return afpStagesBySegment;
-    }
-    set;
-  }
+  private static final String REOPEN_CLOSED_OPP = 'You cannot reopen a closed stage.';
+
+  private static final Set<String> CLOSED_STAGES = new Set<String>{
+    'Opportunity Won',
+    'Opportunity Lost'
+  };
 
   /**
    * @description getAppFormProductsRelatedToCommercialOpportunity to get app form products records related to commercial opp
@@ -152,12 +130,16 @@ public with sharing class CommercialAppFormProductActionsHelper {
       //checks for validations on afp
       validateCommercialAppFormProducts(appFormProductWrapper, isInsert);
 
-      //adds error for skipped stages
-      addErrorForSkippedStage(
-        appFormProductWrapper.stageUpdatedAppFormProducts.values(),
-        oldMap,
-        appFormProductWrapper.afpStageSegmentMap
-      );
+      //gets AFPs whose old stages are Opp Won/Lost
+      List<ApplicationFormProduct> filteredRecords = ListUtil.filter(
+          appFormProductWrapper.stageUpdatedAppFormProducts.values(),
+          oldMap
+        )
+        .changed(ApplicationFormProduct.Stage)
+        .oldEquals(ApplicationFormProduct.Stage, CLOSED_STAGES)
+        .toList();
+
+      ListUtil.addError(filteredRecords, REOPEN_CLOSED_OPP);
     } catch (Exception e) {
       Logger.error('Error ocurred while checking stage on AFP', e).save();
     }
@@ -274,47 +256,6 @@ public with sharing class CommercialAppFormProductActionsHelper {
       //add error message
       if (String.isNotBlank(errorMessage)) {
         appFormProduct.addError(errorMessage);
-      }
-    }
-  }
-
-  /**
-   * @description Adds error if stage is skipped
-   * @name addErrorForSkippedStage
-   * @param stageUpdatedAppFormProducts list of afp having stage changes
-   * @param oldMap map of id and old afp change opportunity
-   * @param afpStageSegmentMap afp stage segment map
-   */
-  public static void addErrorForSkippedStage(
-    List<ApplicationFormProduct> stageUpdatedAppFormProducts,
-    Map<Id, ApplicationFormProduct> oldMap,
-    Map<Id, String> afpStageSegmentMap
-  ) {
-    for (ApplicationFormProduct afp : stageUpdatedAppFormProducts) {
-      List<String> nextStage = new List<String>();
-
-      Commercial_Stage__mdt metadata = afpStagesBySegment.get(
-        afpStageSegmentMap.get(afp.Id)
-      );
-
-      if (metadata != null && metadata.Next_Stage__c != null) {
-        nextStage = metadata.Next_Stage__c.split(';');
-      }
-
-      if (
-        oldMap.get(afp.Id).Stage == metadata.Current_Stage__c &&
-        afp.Stage != metadata.Previous_Stage__c &&
-        !nextStage.contains(afp.Stage)
-      ) {
-        afp.addError(CCRMConstants.SKIP_STAGE);
-      }
-
-      if (
-        (oldMap.get(afp.Id).Stage == CCRMConstants.OPP_LOST ||
-        oldMap.get(afp.Id).Stage == CCRMConstants.OPP_WON) &&
-        String.isNotBlank(afp.Stage)
-      ) {
-        afp.addError(CCRMConstants.REOPEN_CLOSED_OPP);
       }
     }
   }

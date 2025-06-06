@@ -4,7 +4,7 @@
  * @description Wrapper Class for Coach Nudge Tasks' metadata and data
  */
 @SuppressWarnings('PMD.PropertyNamingConventions')
-public virtual without sharing class NudgeTaskCloudEventModel extends TaskCloudEventModel {
+public virtual without sharing class NudgeTaskCloudEventModel extends CoachNudgeTaskCloudEventModel {
   /**
    * @description Constructor
    * @param theTask The task record
@@ -18,7 +18,7 @@ public virtual without sharing class NudgeTaskCloudEventModel extends TaskCloudE
   /**
    * @description the model for dispute Case cloud event data part
    */
-  public virtual class NudgeTaskCloudEventDataModel extends TaskCloudEventModel.TaskCloudEventDataModel {
+  public virtual class NudgeTaskCloudEventDataModel extends CoachNudgeTaskCloudEventModel.TaskCloudEventDataModel {
     /**
      * @description interaction referance
      */
