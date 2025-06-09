@@ -23,7 +23,13 @@ public with sharing class CustomerNudgeTaskAutoArchiveScheduler implements Sched
     ListUtil.setField(taskRecords, Task.Status, TASK_AUTO_ARCHIVED);
     DML_REPOSITORY.doUpdate(
       taskRecords,
-      new DmlConfig().allowPartial().systemMode().withoutSharing().errorLog('Customer Nudge Task Expiration Scheduler: One or more task updates failed during execution. See database results for more details')
+      new DmlConfig()
+        .allowPartial()
+        .systemMode()
+        .withoutSharing()
+        .errorLog(
+          'Customer Nudge Task Expiration Scheduler: One or more task updates failed during execution. See database results for more details'
+        )
     );
   }
 }
