@@ -65,10 +65,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>LogAResponseControllerRepository</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>CCRMTestDataFactory</apexClass>
         <enabled>true</enabled>
     </classAccesses>

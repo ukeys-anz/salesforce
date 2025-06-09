@@ -664,3 +664,12 @@ force-app/main/default/staticresources/mock_getConsolidateSOP
 force-app/main/default/staticresources/mock_getConsolidateSOP.json
 force-app/main/default/staticresources/mock_getConsolidateSOP.resource-meta.xml
 force-app/main/default/staticresources/mock_sop.json
+
+#Ignore the following files in cmos-a
+force-app/main/default/classes/ccrm/LogAResponseControllerRepository.cls
+force-app/main/default/classes/ccrm/CommercialLogAResponseControllerTest.cls
+force-app/main/default/customMetadata/TrustMe_Docs_Tab_Section_Detail.EV_Check.md-meta.xml
+force-app/main/default/customMetadata/TrustMe_Docs_Tab_Section_Detail.Selfie_Failed.md-meta.xml
+force-app/main/default/objects/Interaction/validationRules/Actual_Topic_2_Validation_Rule.validationRule-meta.xml
+force-app/main/default/objects/Interaction/validationRules/VR3_Select_Product_Max_Five.validationRule-meta.xml
+force-app/main/default/objects/Circle_Of_Influence__c/listViews/All.listView-meta.xml

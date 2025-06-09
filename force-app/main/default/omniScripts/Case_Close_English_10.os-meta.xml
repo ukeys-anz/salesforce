@@ -1984,18 +1984,9 @@
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;showRealFormInfo&quot;
       }, {
-        &quot;group&quot; : {
-          &quot;operator&quot; : &quot;OR&quot;,
-          &quot;rules&quot; : [ {
-            &quot;field&quot; : &quot;hideRealForm&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;true&quot;
-          }, {
-            &quot;field&quot; : &quot;ComplaintStatus&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;Provisionally Closed&quot;
-          } ]
-        }
+        &quot;field&quot; : &quot;hideRealForm&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;  
       } ]
     }
   },
@@ -4897,10 +4888,6 @@
         &quot;data&quot; : &quot;true&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;hideRealForm&quot;
-      }, {
-        &quot;field&quot; : &quot;ComplaintStatus&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;Provisionally Closed&quot;
       } ]
     }
   },
@@ -6379,8 +6366,6 @@
       &quot;ComplaintRemedy1Offered&quot; : &quot;Complaint Remedy 1 Offered&quot;
     }, {
       &quot;ComplaintSubRemedy1Offered&quot; : &quot;Complaint Sub Remedy 1 Offered&quot;
-    }, {
-      &quot;realFormRequired&quot; : &quot;Is a REaL form required?&quot;
     }, {
       &quot;isSystemicIssue&quot; : &quot;Are any of the issues possibly systemic?&quot;
     } ],
