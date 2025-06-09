@@ -731,10 +731,26 @@
                 <componentName>initiateInteraction</componentName>
                 <identifier>c_initiateInteraction</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3 OR 4)</booleanFilter>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.ANZx_Push_To_App_View}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Open</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Under Investigation</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Case - On Hold</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
