@@ -26,12 +26,10 @@ public with sharing class TwilioServiceUtil {
     Twilio_Details__c twilioDetailRecord = buildTwilioDetails(
       twilioContextRequest
     );
-    
+
     //create Twilio Details upsert list based on from which context it is called
     try {
-      DML_REPOSITORY.doUpsert(
-        twilioDetailRecord
-      );
+      DML_REPOSITORY.doUpsert(twilioDetailRecord);
       Interaction interactionToBeUpdated = createInteractionDetailInstance(
         twilioContextRequest,
         twilioDetailRecord
@@ -49,7 +47,7 @@ public with sharing class TwilioServiceUtil {
     Twilio_Details__c twilioDetailRecord = new Twilio_Details__c();
     Interaction interactionWithTwilioId = INTERACTION_REPOSITORY.fetchTwilioDetailIdFromInteraction(
       twilioContextRequestForUpdate.interactionId
-    ); 
+    );
     twilioDetailRecord.Id = interactionWithTwilioId?.TwilioDetailsID__c;
 
     if (String.isNotBlank(twilioContextRequestForUpdate.twilioId)) {
@@ -106,9 +104,10 @@ public with sharing class TwilioServiceUtil {
     }
     String statusKey = statusFromTwilio.toLowerCase();
     if (!QueryTwilioStatusMapping.mapByStatus.containsKey(statusKey)) {
-        return statusFromTwilio;
+      return statusFromTwilio;
     }
-    return QueryTwilioStatusMapping.getByStatus(statusKey).Interaction_Status__c;
+    return QueryTwilioStatusMapping.getByStatus(statusKey)
+      .Interaction_Status__c;
   }
 
   /**
@@ -121,10 +120,10 @@ public with sharing class TwilioServiceUtil {
   ) {
     List<Twilio_Details__c> twilioDetailsToBeInserted = new List<Twilio_Details__c>();
     List<Interaction> interactionListForTwilioDetailsCreation = ListUtil.filter(
-      interactionsList
-    )
-    .equals(Interaction.RecordTypeId, CALL_MESSAGE_RT_ID_SET)
-    .toList();
+        interactionsList
+      )
+      .equals(Interaction.RecordTypeId, CALL_MESSAGE_RT_ID_SET)
+      .toList();
 
     for (Interaction newInteraction : interactionListForTwilioDetailsCreation) {
       {
@@ -136,15 +135,16 @@ public with sharing class TwilioServiceUtil {
     //Insert Twilio Details
     List<Database.SaveResult> twilioInsertResult = DML_REPOSITORY.doInsert(
       twilioDetailsToBeInserted,
-     new DMLConfig().systemMode().allowPartial()
+      new DMLConfig()
+        .systemMode()
+        .allowPartial()
+        .errorlog('Error in Creating Twilio Details On Trigger Event')
     );
 
     //Coaches needs each Call/Chat Interaction should have Twilio details precreated so that they should only fill in few fields from related details section
     Integer intInsertCount = 0;
-    for(Database.SaveResult twilioRecordInserted : twilioInsertResult)
-    {
-      if(!twilioRecordInserted.isSuccess())
-      {
+    for (Database.SaveResult twilioRecordInserted : twilioInsertResult) {
+      if (!twilioRecordInserted.isSuccess()) {
         continue;
       }
       interactionListForTwilioDetailsCreation[intInsertCount]
