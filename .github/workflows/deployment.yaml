@@ -70,7 +70,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: anzx/salesforce-plugin
-          token: ${{ secrets.SALESFORCE_ACTIONS_CHECKOUT_TOKEN }}
+          token: ${{ secrets.SALESFORCE_PLUGIN_CHECKOUT_TOKEN }}
           path: salesforce-plugin
 
       - name: Install plugin
