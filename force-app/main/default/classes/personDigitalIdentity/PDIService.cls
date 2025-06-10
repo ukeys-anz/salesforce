@@ -10,6 +10,63 @@ public with sharing virtual class PDIService extends Service {
   );
 
   /**
+   * @description Makes a REST callout to retrieve access controls.
+   * @param customerUuid The UUID of the customer.
+   * @param filter The filter criteria for access controls.
+   * @return The HTTP callout response containing the access controls.
+   */
+  public virtual HttpCalloutResponse getAccessControls(
+    String customerUuid,
+    String filter
+  ) {
+    return CALLOUT.makeRestCallout(
+      Label.MS_AccessControlList,
+      HTTP_METHOD.HTTP_POST,
+      this.getHeaders(customerUuid),
+      JSON.serialize(new Map<String, Object>{ 'filter' => filter ?? '' })
+    );
+  }
+
+  /**
+   * @description Makes a REST callout to create an access control.
+   * @param customerUuid The UUID of the customer.
+   * @param accessControl The access control object to be created.
+   * @return The HTTP callout response for the outcome of the creation.
+   */
+  public virtual HttpCalloutResponse createAccessControl(
+    String customerUuid,
+    PDIApiModel.AccessControl accessControl
+  ) {
+    return CALLOUT.makeRestCallout(
+      Label.MS_AccessControl,
+      HTTP_METHOD.HTTP_POST,
+      this.getHeaders(customerUuid),
+      JSON.serialize(
+        new Map<String, Object>{ 'accessControl' => accessControl },
+        true
+      )
+    );
+  }
+
+  /**
+   * @description Makes a REST callout to delete the access control.
+   * @param customerUuid The UUID of the customer.
+   * @param name The ExternalId of the record.
+   * @return The HTTP callout response for the outcome of the deletion.
+   */
+  public virtual HttpCalloutResponse deleteAccessControl(
+    String customerUuid,
+    String name
+  ) {
+    return CALLOUT.makeRestCallout(
+      Label.MS_AccessControl,
+      HTTP_METHOD.HTTP_DELETE,
+      this.getHeaders(customerUuid),
+      JSON.serialize(new Map<String, Object>{ 'name' => name })
+    );
+  }
+
+  /**
    * @description Makes a REST callout to retrieve public key credentials.
    * @param customerUuid The UUID of the customer.
    * @param filter The type of the public key credential to retrieve.

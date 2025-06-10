@@ -649,6 +649,11 @@
                 <label>Removal of Electronic Access</label>
             </value>
             <value>
+                <fullName>Removing Pending Card Authorisation</fullName>
+                <default>false</default>
+                <label>Removing Pending Card Authorisation</label>
+            </value>
+            <value>
                 <fullName>Credit policy enquiry</fullName>
                 <default>false</default>
                 <label>Credit policy enquiry</label>
@@ -1038,6 +1043,10 @@
         <valueSettings>
             <controllingFieldValue>Cards</controllingFieldValue>
             <valueName>Merchant Refund</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cards</controllingFieldValue>
+            <valueName>Removing Pending Card Authorisation</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>

@@ -273,7 +273,7 @@ const DEBT_TYPES = {
       showBalanceOwingMessage: (debt) =>
         debt.validatedOutstandingBalance && !debt.customerStatedClosed,
       showRedraw: (debt) => debt.readableSourceType === SOURCE_ANZ,
-      showLoanType: (debt) => debt.readableSourceType === SOURCE_ANZ,
+      showRateType: (debt) => debt.readableSourceType === SOURCE_ANZ,
       showInterestRate: (debt) => debt.readableSourceType === SOURCE_ANZ,
       showRemainingTerm: (debt) => !debt.customerStatedClosed,
       showRemainingTermMessage: (debt) =>

@@ -16,4 +16,9 @@
         <default>false</default>
         <label>Customer</label>
     </standardValue>
+    <standardValue>
+        <fullName>VirtualAgent</fullName>
+        <default>false</default>
+        <label>VirtualAgent</label>
+    </standardValue>
 </StandardValueSet>

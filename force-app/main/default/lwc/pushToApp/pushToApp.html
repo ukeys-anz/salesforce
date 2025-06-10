@@ -1,0 +1,168 @@
+<template>
+  <!--Push Task/Action Button-->
+  <div
+    lwc:if={showPushTaskButton}
+    class="slds-var-m-around_small slds-align_absolute-center"
+  >
+    <lightning-button
+      data-id="push-task"
+      variant="brand-outline"
+      label="Send Task to App"
+      title="Push_Task_Action"
+      onclick={handlePushTaskClick}
+      icon-name="utility:button_choice"
+      class="slds-var-p-around_x-small button-display"
+    >
+    </lightning-button>
+  </div>
+  <!--Main Push To App Screen-->
+  <div class="slds-p-horizontal_large slds-m-bottom_x-small">
+    <!--Error Message Template-->
+    <template lwc:if={hasError}>
+      <c-error
+        custom-class-from-parent="slds-theme--error"
+        message={errorMsg}
+      ></c-error>
+    </template>
+    <div lwc:if={showPushTaskScreen} class="slds-p-around_small">
+      <h1 class="slds-text-heading_large custom-heading">Send a Task</h1>
+      <div
+        class="slds-text-body_regular slds-var-m-bottom_small slds-m-top_small"
+      >
+        Send a one-way task to customer in-app. Select a template which you can
+        preview before sending.
+      </div>
+      <!--Case Number Field (Read-Only)-->
+      <lightning-input
+        data-id="case-number"
+        label="Case Number"
+        value={caseNumber}
+        disabled
+        required
+      >
+      </lightning-input>
+      <!--Template Selector-->
+      <lightning-combobox
+        class="slds-p-top_small"
+        data-id="select-push-template"
+        label="Select Task Template"
+        placeholder="Select option"
+        options={templateOptions}
+        onchange={handleTemplateSelect}
+        field-level-help="Choose a template to send to the customer."
+        required
+      >
+      </lightning-combobox>
+      <!--Call to Action Dynamic Checkboxes-->
+      <template lwc:if={showAdditionalFields}>
+        <div data-id="additional-field-section" class="slds-m-top_small">
+          <label for="callToAction">
+            <span class="slds-required">*</span>
+            Call to Action
+            <lightning-helptext
+              class="tooltip"
+              content="The options through which the customer can reach out to us"
+            ></lightning-helptext>
+          </label>
+        </div>
+        <template lwc:if={actions}>
+          <div
+            class="slds-grid slds-wrap slds-m-top_small"
+            data-id="dynamic-checkboxes"
+          >
+            <template for:each={actions} for:item="action">
+              <div key={action.deepLink}>
+                <lightning-input
+                  label={action.description}
+                  type="checkbox"
+                  checked="true"
+                  onchange={onChangeCheckbox}
+                  disabled
+                >
+                </lightning-input>
+              </div>
+            </template>
+          </div>
+        </template>
+        <!--Expiry Date-->
+        <lightning-input
+          data-id="expiry-date"
+          class="slds-m-top_small"
+          label="Expiry Date"
+          value={expiryDate}
+          field-level-help="The date when the task will expire and become inactive"
+          disabled
+          required
+        >
+        </lightning-input>
+        <!--Notification Preview-->
+        <lightning-textarea
+          data-id="notification-preview"
+          class="slds-m-top_small"
+          label="Notification Preview"
+          value={notificationPreview}
+          disabled
+        ></lightning-textarea>
+      </template>
+    </div>
+    <!--Action Buttons: Send button creates task and publish event, Cancel button Land user to Contact console-->
+    <template lwc:if={showPushTaskScreen}>
+      <div
+        class="slds-grid slds-grid_align-spread slds-p-horizontal_medium slds-p-bottom_medium slds-p-top_large"
+      >
+        <!--Loading Spinner-->
+        <template lwc:if={isLoading}>
+          <lightning-spinner alternative-text="Loading..." variant="brand">
+          </lightning-spinner>
+        </template>
+        <lightning-button
+          data-id="cancel"
+          label="Cancel"
+          onclick={handleCancel}
+        ></lightning-button>
+        <lightning-button
+          data-id="send-now"
+          label="Send Now"
+          onclick={handleSendNow}
+          variant="brand"
+          disabled={isSendNowDisabled}
+        ></lightning-button>
+      </div>
+    </template>
+  </div>
+  <!--Success Message Section-->
+  <div lwc:if={showSuccessScreen}>
+    <lightning-icon
+      class="slds-icon-utility-success slds-icon_container slds-align_absolute-center"
+      icon-name="utility:success"
+      alternative-text="success"
+      variant="success"
+      size="large"
+      title="success"
+    ></lightning-icon>
+    <p
+      class="slds-text-body_regular slds-m-top_medium slds-align_absolute-center"
+    >
+      Your task has been sent to the customer.
+    </p>
+
+    <p
+      class="slds-text-body_regular slds-m-top_medium slds-align_absolute-center"
+      data-id="success-msg"
+    >
+      A Task record has been created &nbsp;<a
+        data-id="task-link"
+        onclick={handleTaskClick}
+        >#{taskNumber}</a
+      >
+    </p>
+    <div
+      class="slds-grid slds-grid_align-end slds-m-bottom_medium slds-p-right_small slds-m-top_x-large"
+    >
+      <lightning-button
+        label="Refresh"
+        onclick={handleRefresh}
+      ></lightning-button>
+    </div>
+  </div>
+</template>

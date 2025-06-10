@@ -581,16 +581,6 @@
                 <label>Kiribati</label>
             </value>
             <value>
-                <fullName>Korea (the Democratic People&apos;s Republic of)</fullName>
-                <default>false</default>
-                <label>Korea (the Democratic People&apos;s Republic of)</label>
-            </value>
-            <value>
-                <fullName>Korea (the Republic of)</fullName>
-                <default>false</default>
-                <label>Korea (the Republic of)</label>
-            </value>
-            <value>
                 <fullName>Kuwait</fullName>
                 <default>false</default>
                 <label>Kuwait</label>
@@ -649,6 +639,11 @@
                 <fullName>Macao</fullName>
                 <default>false</default>
                 <label>Macao</label>
+            </value>
+            <value>
+                <fullName>North Korea (Democratic People&apos;s Republic of Korea)</fullName>
+                <default>false</default>
+                <label>North Korea (Democratic People&apos;s Republic of Korea)</label>
             </value>
             <value>
                 <fullName>North Macedonia</fullName>
@@ -1004,6 +999,11 @@
                 <fullName>South Georgia and the South Sandwich Islands</fullName>
                 <default>false</default>
                 <label>South Georgia and the South Sandwich Islands</label>
+            </value>
+            <value>
+                <fullName>South Korea (Republic of Korea)</fullName>
+                <default>false</default>
+                <label>South Korea (Republic of Korea)</label>
             </value>
             <value>
                 <fullName>Spain</fullName>

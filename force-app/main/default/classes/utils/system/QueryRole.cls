@@ -4,14 +4,17 @@
  * @description Holds cached User Role records
  */
 public with sharing class QueryRole {
-  private static Map<String, UserRole> userRoles = new Map<String, UserRole>();
+  private static Map<String, UserRole> userRolesByDeveloperName = new Map<String, UserRole>();
+  private static Map<Id, String> userRolesById = new Map<Id, String>();
+
   static {
     for (UserRole ur : [
       SELECT Id, DeveloperName
       FROM UserRole
       WITH SYSTEM_MODE
     ]) {
-      userRoles.put(ur.DeveloperName, ur);
+      userRolesByDeveloperName.put(ur.DeveloperName, ur);
+      userRolesById.put(ur.Id, ur.DeveloperName);
     }
   }
 
@@ -31,6 +34,15 @@ public with sharing class QueryRole {
    * @return UserRole
    */
   public static UserRole get(String developerName) {
-    return userRoles.get(developerName);
+    return userRolesByDeveloperName.get(developerName);
+  }
+
+  /**
+   * @description Get UserRole by User Role Id
+   * @param roleId user role id
+   * @return user role details
+   */
+  public static UserRole getById(Id roleId) {
+    return userRolesByDeveloperName.get(userRolesById.get(roleId));
   }
 }

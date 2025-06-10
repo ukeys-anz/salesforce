@@ -16,9 +16,9 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Home Phone</fullName>
+                <fullName>Mobile</fullName>
                 <default>false</default>
-                <label>Home Phone</label>
+                <label>Mobile</label>
             </value>
             <value>
                 <fullName>Work Phone</fullName>
@@ -26,9 +26,9 @@
                 <label>Work Phone</label>
             </value>
             <value>
-                <fullName>Mobile</fullName>
+                <fullName>Home Phone</fullName>
                 <default>false</default>
-                <label>Mobile</label>
+                <label>Home Phone</label>
             </value>
         </valueSetDefinition>
     </valueSet>

@@ -12,6 +12,10 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>showAll</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>showAppTab</name>
                     <value>false</value>
                 </componentInstanceProperties>
@@ -887,6 +891,10 @@
                 <componentInstanceProperties>
                     <name>showActiveMsgInteraction</name>
                     <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showAll</name>
+                    <value>true</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>showAppTab</name>
