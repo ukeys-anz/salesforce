@@ -442,18 +442,6 @@ private class LeadConversionOperationsTest {
     registerMocks();
     List<Contact> contactlist = new List<Contact>{ getMockContactData(true) };
     leadConversionActionMock.mock('getContactList', contactlist);
-    List<OpportunityContactRole> oppContactRoleList = new List<OpportunityContactRole>{
-      new OpportunityContactRole(
-        id = Lib_FakeIdGenerator.getMockId(OpportunityContactRole.SObjectType),
-        ContactId = Lib_FakeIdGenerator.getMockId(
-          OpportunityContactRole.SObjectType
-        )
-      )
-    };
-    leadConversionActionMock.mock(
-      'getOpportunityContactRole',
-      oppContactRoleList
-    );
     Test.startTest();
     LeadConversionOperations.deleteAutoCreatedContacts(
       new Set<Id>{ Lib_FakeIdGenerator.getMockId(Contact.SObjectType) }
