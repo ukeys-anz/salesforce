@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Discover_Align_Top_Line__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Multi-select values for the Discover &amp; Align.</description>
+    <label>Discover &amp; Align Top Line</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Identifying &amp; Addressing All Queries</fullName>
+                <default>false</default>
+                <label>Identifying &amp; Addressing All Queries</label>
+            </value>
+            <value>
+                <fullName>Setting Clear Expectations</fullName>
+                <default>false</default>
+                <label>Setting Clear Expectations</label>
+            </value>
+            <value>
+                <fullName>Clear, Concise &amp; Personable Responses</fullName>
+                <default>false</default>
+                <label>Clear, Concise &amp; Personable Responses</label>
+            </value>
+            <value>
+                <fullName>Establishing Scope of the Conversation</fullName>
+                <default>false</default>
+                <label>Establishing Scope of the Conversation</label>
+            </value>
+            <value>
+                <fullName>Adding Future Value</fullName>
+                <default>false</default>
+                <label>Adding Future Value</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Understanding Customer Needs</fullName>
+                <default>false</default>
+                <label>Understanding Customer Needs</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>

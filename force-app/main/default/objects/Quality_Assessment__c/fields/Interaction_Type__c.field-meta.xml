@@ -54,6 +54,7 @@
             </value>
         </valueSetDefinition>
         <valueSettings>
+            <controllingFieldValue>Appointment</controllingFieldValue>
             <controllingFieldValue>Compliance Only</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
             <controllingFieldValue>Email</controllingFieldValue>
@@ -63,6 +64,7 @@
             <valueName>Chat</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Appointment</controllingFieldValue>
             <controllingFieldValue>Compliance Only</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
             <controllingFieldValue>Email</controllingFieldValue>
@@ -72,6 +74,7 @@
             <valueName>Voice Call</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Appointment</controllingFieldValue>
             <controllingFieldValue>Compliance Only</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
             <controllingFieldValue>Email</controllingFieldValue>
@@ -81,6 +84,7 @@
             <valueName>Video Call</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Appointment</controllingFieldValue>
             <controllingFieldValue>Compliance Only</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
             <controllingFieldValue>Email</controllingFieldValue>
@@ -90,6 +94,7 @@
             <valueName>Email</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Appointment</controllingFieldValue>
             <controllingFieldValue>Compliance Only</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
             <controllingFieldValue>Email</controllingFieldValue>
@@ -99,6 +104,7 @@
             <valueName>Website</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Appointment</controllingFieldValue>
             <controllingFieldValue>Compliance Only</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
             <controllingFieldValue>Email</controllingFieldValue>
@@ -108,6 +114,7 @@
             <valueName>Store</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Appointment</controllingFieldValue>
             <controllingFieldValue>Compliance Only</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
             <controllingFieldValue>Email</controllingFieldValue>
