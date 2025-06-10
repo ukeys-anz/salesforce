@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Energy_Adaptability_Top_Line__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Multi-select values for the Energy &amp; Adaptability.</description>
+    <label>Energy &amp; Adaptability Top Line</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Positive / Neutral First Phrasing</fullName>
+                <default>false</default>
+                <label>Positive / Neutral First Phrasing</label>
+            </value>
+            <value>
+                <fullName>Roadblock Language</fullName>
+                <default>false</default>
+                <label>Roadblock Language</label>
+            </value>
+            <value>
+                <fullName>Responding with Empathy</fullName>
+                <default>false</default>
+                <label>Responding with Empathy</label>
+            </value>
+            <value>
+                <fullName>Balancing Empathy &amp; Distance</fullName>
+                <default>false</default>
+                <label>Balancing Empathy &amp; Distance</label>
+            </value>
+            <value>
+                <fullName>Responding with Emojis</fullName>
+                <default>false</default>
+                <label>Responding with Emojis</label>
+            </value>
+            <value>
+                <fullName>Adapting Responses Appropriately</fullName>
+                <default>false</default>
+                <label>Adapting Responses Appropriately</label>
+            </value>
+            <value>
+                <fullName>Clear and Relevant Case Notes</fullName>
+                <default>false</default>
+                <label>Clear and Relevant Case Notes</label>
+            </value>
+            <value>
+                <fullName>Inappropriate Language / Demeanour</fullName>
+                <default>false</default>
+                <label>Inappropriate Language / Demeanour</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>
