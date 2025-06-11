@@ -8,6 +8,7 @@ Auto Archived
 Read By Customer</description>
     <errorConditionFormula>AND( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false, RecordType.Name == &apos;Customer Nudge&apos;, 
 NOT($Profile.Name = &apos;Minimum Access - External Apps&apos;),
+NOT($Profile.Name = &apos;Minimum Access - Salesforce&apos;),
 ISCHANGED( Status ),
 NOT(ISNEW()),
 NOT(ISPICKVAL(Case__r.Status, &apos;Escalated&apos;)), 

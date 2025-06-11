@@ -21,20 +21,15 @@ public with sharing class CustomerNudgeTaskAutoArchiveScheduler implements Sched
   public void execute(SchedulableContext sc) {
     List<Task> taskRecords = CUSTOMER_NUDGE_REPOSITORY.queryCustomerNudgeTasksToArchive();
     ListUtil.setField(taskRecords, Task.Status, TASK_AUTO_ARCHIVED);
-    List<Database.SaveResult> recordsSaveResultList = DML_REPOSITORY.doUpdate(
+    DML_REPOSITORY.doUpdate(
       taskRecords,
-      new DmlConfig().allowPartial().systemMode()
+      new DmlConfig()
+        .allowPartial()
+        .systemMode()
+        .withoutSharing()
+        .errorLog(
+          'Customer Nudge Task Expiration Scheduler: One or more task updates failed during execution. See database results for more details'
+        )
     );
-
-    for (Database.SaveResult dbSaveResult : recordsSaveResultList) {
-      if (!dbSaveResult.isSuccess()) {
-        Logger.error(
-            'Customer Nudge Task Expiration Scheduler: One or more task updates failed during execution. See database results for more details  ',
-            recordsSaveResultList
-          )
-          .save();
-        break;
-      }
-    }
   }
 }
