@@ -4,6 +4,11 @@
  * @description  AccountClosureRepository is the repository class for Account Closure Case Actions.
  */
 public with sharing class AccountClosureRepository {
+  public final List<String> excludedStatuses = new List<String>{
+    CaseGroupCaseConstants.CLOSED_STATUS,
+    CaseGroupCaseConstants.WITHDRAWN_STATUS
+  };
+
   /**
    * @description Get list of Case Group cases associated with the account Ids and status as not closed.
    * @param accountIds set of Account Ids associated to the case
@@ -164,6 +169,7 @@ public with sharing class AccountClosureRepository {
       WHERE
         ParentId = :parentCaseId
         AND RecordTypeId = :RTCase.accountClosure
+        AND Status != :CaseGroupCaseConstants.WITHDRAWN_STATUS
         AND Sub_Status__c = :CaseGroupCaseConstants.SUCCESS
         AND FinServ__FinancialAccount__c != NULL
       WITH USER_MODE
@@ -254,9 +260,6 @@ public with sharing class AccountClosureRepository {
    * @return Case record with the details
    */
   public Case queryCaseDetails(Id recordId) {
-    if (recordId == null) {
-      return null;
-    }
     return [
       SELECT
         Id,
@@ -281,9 +284,6 @@ public with sharing class AccountClosureRepository {
    * @return Case records with the details
    */
   public List<Case> queryCaseToUpdateStatusAsClosed(Set<Id> recordIds) {
-    if (recordIds.isEmpty()) {
-      return new List<Case>();
-    }
     return [
       SELECT Id, Status
       FROM Case
@@ -299,9 +299,6 @@ public with sharing class AccountClosureRepository {
    * @return List<Case> list of child cases
    */
   public List<Case> getUnusedChildCasesByParentId(Id parentCaseId) {
-    if (parentCaseId == null) {
-      return null;
-    }
     return [
       SELECT
         Id,
@@ -316,7 +313,7 @@ public with sharing class AccountClosureRepository {
       FROM Case
       WHERE
         ParentId = :parentCaseId
-        AND Status != :CaseGroupCaseConstants.CLOSED_STATUS
+        AND Status NOT IN :excludedStatuses
         AND FinServ__FinancialAccount__c = NULL
         AND RecordTypeId = :RTCase.accountClosure
       WITH USER_MODE
@@ -362,6 +359,7 @@ public with sharing class AccountClosureRepository {
       FROM Case
       WHERE
         FinServ__FinancialAccount__c IN :accountIds
+        AND Status != :CaseGroupCaseConstants.WITHDRAWN_STATUS
         AND RecordTypeId = :RTCase.accountClosure
       WITH USER_MODE
     ];
@@ -434,7 +432,7 @@ public with sharing class AccountClosureRepository {
   }
 
   /**
-   * @description Get list of account closure child cases without status as Closed
+   * @description Get list of account closure child cases without status as Closed or Withdrawn
    * @param caseIds set of parent case Ids whose status is changed to Closed
    * @return List<Case> list of child case records
    */
@@ -447,8 +445,7 @@ public with sharing class AccountClosureRepository {
       SELECT Id, Status, ParentId
       FROM Case
       WHERE
-        Status != :CaseGroupCaseConstants.CLOSED_STATUS
-        AND Status != :CaseGroupCaseConstants.WITHDRAWN_STATUS
+        Status NOT IN :excludedStatuses
         AND ParentId IN :caseIds
         AND (RecordTypeId = :RTCase.accountClosure
         OR RecordTypeId = :RTCase.confirmationOfPayee)
