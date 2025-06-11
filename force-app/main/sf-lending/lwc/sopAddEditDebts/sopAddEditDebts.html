@@ -283,7 +283,7 @@
                 value={availableRedraw}
                 formatter="currency"
                 step="0.01"
-                required
+                required={fieldVisibility.redrawRequired}
                 max="99999999"
                 lwc:if={fieldVisibility.showAvailableRedraw}
                 onchange={handleAvailableRedrawChange}
@@ -613,7 +613,7 @@
                 value={property.property}
                 options={propertyOptions}
                 onchange={handlePropertyAddressChange}
-                required
+                required={fieldVisibility.linkedPropertyRequired}
                 data-id={index}
               ></lightning-combobox>
             </lightning-layout-item>
