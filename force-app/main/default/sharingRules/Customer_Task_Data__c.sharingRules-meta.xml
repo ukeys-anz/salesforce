@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Gcp_Integration_User_Customer_Task_Data_Access</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>GCP Integration User customer  task data access</description>
+        <label>Gcp Integration User customer task data Access</label>
+        <sharedTo>
+            <group>GCP_Integration</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Read_Access_To_Customer_Task_Data</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This provide read access to Customer Task Data</description>
+        <label>Read Access To Customer Task Data</label>
+        <sharedTo>
+            <allInternalUsers/>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

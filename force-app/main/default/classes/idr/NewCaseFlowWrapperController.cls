@@ -291,7 +291,8 @@ public with sharing class NewCaseFlowWrapperController {
               'Card_Dispute_Agent',
               'BOH_Coach',
               'Support_Coach',
-              'Coach_Lead'
+              'Coach_Lead',
+              'BOH_Coach_Lead'
             }
           )
         ) {

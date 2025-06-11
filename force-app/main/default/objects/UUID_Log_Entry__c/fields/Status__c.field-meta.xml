@@ -24,6 +24,11 @@
                 <default>false</default>
                 <label>Completed</label>
             </value>
+            <value>
+                <fullName>Attempted Retry</fullName>
+                <default>false</default>
+                <label>Attempted Retry</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

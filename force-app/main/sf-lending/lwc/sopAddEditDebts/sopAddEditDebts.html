@@ -37,15 +37,71 @@
         data-id="debtDetails"
         class="accordianSection"
       >
-        <lightning-combobox
-          name="belongsTo"
-          label="Belongs To"
-          value={belongsToValue}
-          options={belongsToOptions}
-          onchange={handleBelongsToChange}
-          required
-          disabled={fieldVisibility.disableBelongsTo}
-        ></lightning-combobox>
+        <div class="slds-clearfix" lwc:if={showAddOwnerButton}>
+          <div class="slds-float_right">
+            <lightning-button
+              variant="base"
+              label="Add Owner"
+              onclick={handleAddOwner}
+              icon-name="utility:add"
+              icon-position="right"
+              disabled={disableAddOwner}
+            ></lightning-button>
+          </div>
+        </div>
+        <template for:each={ownerDetails} for:item="owner" for:index="index">
+          <lightning-layout
+            horizontal-align="spread"
+            multiple-rows
+            key={owner.key}
+          >
+            <lightning-layout-item size="6" class="slds-p-right_small">
+              <lightning-combobox
+                name="belongsTo"
+                data-name="belongsTo"
+                label="Belongs To"
+                value={owner.owner}
+                options={belongsToOptions}
+                onchange={handleBelongsToChange}
+                required
+                data-id={index}
+                disabled={fieldVisibility.disableBelongsTo}
+              ></lightning-combobox>
+            </lightning-layout-item>
+            <lightning-layout-item size="5" class="slds-p-left_small">
+              <lightning-input
+                type="number"
+                name="ownershipSplit"
+                data-name="ownershipSplit"
+                label="Ownership Split"
+                value={owner.split}
+                step="1"
+                min="1"
+                max="100"
+                required
+                onchange={handleOwnershipSplit}
+                formatter="percent-fixed"
+                data-id={index}
+                disabled={fieldVisibility.disableOwnershipSplit}
+              ></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="1"
+              class="slds-p-left_small delete-icon"
+            >
+              <lightning-button-icon
+                icon-name="utility:delete"
+                variant="bare"
+                alternative-text="Delete"
+                title="Delete"
+                onclick={handleDeleteOwner}
+                size="large"
+                data-id={index}
+                lwc:if={owner.isNotFirst}
+              ></lightning-button-icon>
+            </lightning-layout-item>
+          </lightning-layout>
+        </template>
         <lightning-input
           name="debtType"
           type="text"
@@ -70,6 +126,13 @@
           onchange={handleInstitutionChange}
           lwc:if={fieldVisibility.showInstitution}
           disabled={fieldVisibility.disableInstitution}
+        ></lightning-input>
+        <lightning-input
+          type="text"
+          label="Product Name"
+          value={productName}
+          lwc:if={fieldVisibility.showProductName}
+          disabled
         ></lightning-input>
         <lightning-input
           type="text"
@@ -206,6 +269,7 @@
                 value={balanceOwing}
                 formatter="currency"
                 step="0.01"
+                max="99999999"
                 required
                 lwc:if={fieldVisibility.showBalanceOwing}
                 onchange={handleBalanceOwingChange}
@@ -215,11 +279,12 @@
               <lightning-input
                 type="number"
                 name="availableRedraw"
-                label="Available Redraw"
+                label={redrawLabel}
                 value={availableRedraw}
                 formatter="currency"
                 step="0.01"
                 required
+                max="99999999"
                 lwc:if={fieldVisibility.showAvailableRedraw}
                 onchange={handleAvailableRedrawChange}
               ></lightning-input>
@@ -238,6 +303,19 @@
                 required
                 lwc:if={fieldVisibility.showCreditBureauBalanceOwing}
                 disabled
+              ></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" class="slds-p-left_small">
+              <lightning-input
+                type="number"
+                name="undrawnAmount"
+                label="Undrawn Amount"
+                value={undrawnAmount}
+                formatter="currency"
+                step="0.01"
+                required={fieldVisibility.requireUndrawnAmount}
+                onchange={handleUndrawnAmount}
+                lwc:if={fieldVisibility.showUndrawnAmountSplit}
               ></lightning-input>
             </lightning-layout-item>
           </lightning-layout>
@@ -269,6 +347,17 @@
         </template>
         <lightning-input
           type="number"
+          name="undrawnAmount"
+          label="Undrawn Amount"
+          value={undrawnAmount}
+          formatter="currency"
+          step="0.01"
+          required={fieldVisibility.requireUndrawnAmount}
+          onchange={handleUndrawnAmount}
+          lwc:if={fieldVisibility.showUndrawnAmount}
+        ></lightning-input>
+        <lightning-input
+          type="number"
           label="Minimum Monthly Repayment"
           value={debtData.institutionalLiability.minimumRepayment}
           formatter="currency"
@@ -278,12 +367,17 @@
           onchange={handleMinimumMonthlyRepaymentChange}
         ></lightning-input>
         <lightning-input
-          type="text"
+          type="number"
+          step="0.01"
+          min="0"
+          max="100"
+          formatter="percent-fixed"
           label="Interest Rate"
-          value={debtData.institutionalLiability.interestRate}
+          value={interestRate}
           required
           lwc:if={fieldVisibility.showInterestRate}
-          disabled
+          disabled={fieldVisibility.disableInterestRate}
+          onchange={handleInterestRateChange}
         ></lightning-input>
         <div
           class="slds-text-title_bold slds-p-bottom_small slds-p-top_small"
@@ -306,6 +400,8 @@
               name="years"
               label="Years"
               value={years}
+              max="50"
+              min="0"
               step="1"
               required
               lwc:if={fieldVisibility.showYears}
@@ -319,6 +415,8 @@
               label="Months"
               value={months}
               step="1"
+              max="11"
+              min="0"
               required
               lwc:if={fieldVisibility.showMonths}
               onchange={handleMonths}
@@ -351,20 +449,50 @@
           {otherLoanDetailsLabel}
         </div>
         <lightning-input
-          type="text"
-          label="Loan Type"
-          value={loanType}
-          disabled
-          required
-          lwc:if={fieldVisibility.showLoanType}
+          type="checkbox"
+          label="Use updated Interest Rate for UMI"
+          class="slds-text-align_right"
+          lwc:if={fieldVisibility.showInterestRateUMICheckbox}
+          onchange={handleInterestRateUMICheckbox}
+          name="interestRateValidated"
+          checked={interestRateValidated}
         ></lightning-input>
         <lightning-input
+          label="Rate Type"
+          value={rateType}
+          lwc:if={fieldVisibility.showRateType}
+          disabled
           type="text"
+        ></lightning-input>
+        <lightning-input
+          label="Repayment Type"
+          value={repaymentType}
+          lwc:if={fieldVisibility.showRepaymentType}
+          disabled
+          type="text"
+        ></lightning-input>
+
+        <lightning-input
           label="Interest Rate"
-          value={debtData.institutionalLiability.interestRate}
+          value={interestRate}
           required
           lwc:if={fieldVisibility.showInterestRateOther}
+          disabled={fieldVisibility.disableInterestRate}
+          type="number"
+          step="0.01"
+          min="0"
+          max="100"
+          formatter="percent-fixed"
+          onchange={handleInterestRateChange}
+        ></lightning-input>
+        <lightning-input
+          label="Subsequent Interest Rate"
+          value={subsequentInterestRate}
+          lwc:if={fieldVisibility.showSubsequentInterestRate}
           disabled
+          type="number"
+          step="0.01"
+          formatter="percent-fixed"
         ></lightning-input>
         <div
           class="slds-text-title_bold slds-p-bottom_small slds-p-top_small"
@@ -380,6 +508,7 @@
           formatter="currency"
           step="0.01"
           required
+          max="99999999"
           lwc:if={fieldVisibility.showBalanceOwingOtherDetails}
           onchange={handleBalanceOwingChange}
         ></lightning-input>
@@ -402,6 +531,20 @@
           required
           lwc:if={fieldVisibility.showRepaymentAmount}
           onchange={handleRepaymentAmountChange}
+          max="99999999"
+        ></lightning-input>
+        <lightning-input
+          name="taxDeductible"
+          label="Tax Deductible"
+          onchange={handleTaxDeductible}
+          formatter="percent-fixed"
+          lwc:if={fieldVisibility.showTaxDeductible}
+          value={taxDeductiblePercentage}
+          required
+          type="number"
+          step="1"
+          min="0"
+          max="100"
         ></lightning-input>
         <lightning-combobox
           name="paidInFull"
@@ -431,6 +574,66 @@
           required
           data-id="debtSource"
         ></lightning-input>
+      </lightning-accordion-section>
+
+      <lightning-accordion-section
+        name="Linked Property"
+        label="Linked Property"
+        data-id="linkedProperty"
+        class="accordianSection"
+        lwc:if={fieldVisibility.showLinkedProperty}
+      >
+        <div class="slds-clearfix">
+          <div class="slds-float_right">
+            <lightning-button
+              variant="base"
+              label="Add Property"
+              onclick={handleAddProperty}
+              icon-name="utility:add"
+              icon-position="right"
+              disabled={disableAddProperty}
+            ></lightning-button>
+          </div>
+        </div>
+        <template
+          for:each={propertyDetails}
+          for:item="property"
+          for:index="index"
+        >
+          <lightning-layout
+            horizontal-align="spread"
+            multiple-rows
+            key={property.key}
+          >
+            <lightning-layout-item size="11" class="slds-p-right_small">
+              <lightning-combobox
+                name="propertyAddress"
+                data-name="propertyAddress"
+                label="Property Address"
+                value={property.property}
+                options={propertyOptions}
+                onchange={handlePropertyAddressChange}
+                required
+                data-id={index}
+              ></lightning-combobox>
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="1"
+              class="slds-p-left_small delete-icon"
+            >
+              <lightning-button-icon
+                icon-name="utility:delete"
+                variant="bare"
+                alternative-text="Delete"
+                title="Delete"
+                onclick={handleDeleteProperty}
+                size="large"
+                data-id={index}
+                lwc:if={property.isNotFirst}
+              ></lightning-button-icon>
+            </lightning-layout-item>
+          </lightning-layout>
+        </template>
       </lightning-accordion-section>
 
       <lightning-accordion-section

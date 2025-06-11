@@ -20,6 +20,7 @@ export default class TrustMeCaseStatusUpdateModal extends LightningModal {
   primaryReasonOptions;
   secondaryReasonOptions;
   @track trustMeCase;
+  checksList;
 
   connectedCallback() {
     this.trustMeCase = JSON.parse(JSON.stringify(this.options.caseData));
@@ -29,6 +30,16 @@ export default class TrustMeCaseStatusUpdateModal extends LightningModal {
       this.options.primaryFailedReasonFieldInfo;
     this.secondaryFailedReasonFieldInfo =
       this.options.secondaryFailedReasonFieldInfo;
+    this.checksList = [
+      this.trustMeCase.Fraud_Customer_Details__c,
+      this.trustMeCase.Fraud_MiddleNameCheck__c,
+      this.trustMeCase.Fraud_Selfie_Comparison_Match__c,
+      this.trustMeCase.Fraud_Address_Valid__c,
+      this.trustMeCase.Fraud_ID_Legible__c,
+      this.trustMeCase.Fraud_ID_Not_Picture__c,
+      this.trustMeCase.Fraud_Customer_Photo_Modified__c,
+      this.trustMeCase.Fraud_Security_Features__c
+    ];
   }
 
   get statusFailed() {
@@ -153,6 +164,36 @@ export default class TrustMeCaseStatusUpdateModal extends LightningModal {
       );
       return;
     }
+    if (
+      this.trustMeCase.Status === "No Defect" &&
+      this.checksList.includes("No")
+    ) {
+      showToast(
+        this,
+        "Error",
+        "You can only mark the case as 'No Defect' if all the checks are passed",
+        "",
+        "error",
+        ""
+      );
+      return;
+    }
+    if (
+      (this.trustMeCase.Status === "Defect Identified" ||
+        this.trustMeCase.Status === "Fraud Suspected") &&
+      !this.checksList.includes("No")
+    ) {
+      showToast(
+        this,
+        "Error",
+        "Atleast one check should be marked as 'No' to update the status to 'Defect Identified/Fraud Suspected'",
+        "",
+        "error",
+        ""
+      );
+      return;
+    }
+    this.setAllNullChecksToYes();
     this.isModalButtonDisable = true;
     this.showSpinner = true;
 
@@ -195,5 +236,16 @@ export default class TrustMeCaseStatusUpdateModal extends LightningModal {
       ""
     );
     this.fireRefreshEvent();
+  }
+
+  setAllNullChecksToYes() {
+    this.trustMeCase.Fraud_Customer_Details__c ??= "Yes";
+    this.trustMeCase.Fraud_MiddleNameCheck__c ??= "Yes";
+    this.trustMeCase.Fraud_Selfie_Comparison_Match__c ??= "Yes";
+    this.trustMeCase.Fraud_Address_Valid__c ??= "Yes";
+    this.trustMeCase.Fraud_ID_Legible__c ??= "Yes";
+    this.trustMeCase.Fraud_ID_Not_Picture__c ??= "Yes";
+    this.trustMeCase.Fraud_Customer_Photo_Modified__c ??= "Yes";
+    this.trustMeCase.Fraud_Security_Features__c ??= "Yes";
   }
 }

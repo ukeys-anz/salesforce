@@ -4,6 +4,8 @@
  * @description Interaction trigger handler for CCRM
  */
 public with sharing class CommercialInteractionTriggerHandler extends Lib_TriggerHandler {
+  private static final String ACTION_CODE_CREATE = 'create';
+  private static final String ACTION_CODE_UPDATE = 'update';
   /**
    * @description Constructor to initialise Trigger Handler library
    */
@@ -17,7 +19,9 @@ public with sharing class CommercialInteractionTriggerHandler extends Lib_Trigge
    * @return `Boolean` returns true if record is relevant, false if record is not relevant
    */
   public override Boolean isValidRecord(SObject record) {
-    return record.get('RecordTypeId') == CCRMConstants.INTERACTION_CCRM_RT_ID;
+    Interaction interactionRecord = (Interaction) record;
+    return interactionRecord.RecordTypeId ==
+      RTInteraction.commercialInteraction;
   }
 
   /**
@@ -31,6 +35,7 @@ public with sharing class CommercialInteractionTriggerHandler extends Lib_Trigge
     );
     CommercialInteractionActions.setCustomerOnInteraction(records, null);
     CommercialInteractionActions.restrictImagesInRichTextFields(records, null);
+    CommercialInteractionActions.performRedaction(records);
   }
 
   /**
@@ -59,7 +64,7 @@ public with sharing class CommercialInteractionTriggerHandler extends Lib_Trigge
   protected override void onAfterInsert() {
     CommercialInteractionActions.publishCloudEvents(
       records,
-      CCRMConstants.ACTION_CODE_CREATE
+      ACTION_CODE_CREATE
     );
   }
 
@@ -70,7 +75,7 @@ public with sharing class CommercialInteractionTriggerHandler extends Lib_Trigge
   protected override void onAfterUpdate(Map<Id, SObject> oldMap) {
     CommercialInteractionActions.publishCloudEvents(
       records,
-      CCRMConstants.ACTION_CODE_UPDATE
+      ACTION_CODE_UPDATE
     );
   }
 }

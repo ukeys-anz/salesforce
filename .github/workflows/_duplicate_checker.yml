@@ -1,0 +1,125 @@
+name: Submodule duplicate checker - Reusable
+
+on:
+  workflow_call:
+    inputs:
+      parent_repo:
+        required: true
+        description: "Parent repository name"
+        type: string
+      submodule_path:
+        required: true
+        description: "Path to submodule on parent repo"
+        type: string
+      submodule_branch:
+        required: false
+        description: "submodule branch"
+        type: string
+      validate_parent_branch:
+        required: true
+        description: "The parent branch that duplicate checker should be done against."
+        type: string
+      parent_base_ref:
+        required: true
+        description: "The parent base ref"
+        type: string
+      compare_all:
+        required: true
+        description: "Comapre all files?"
+        type: boolean
+    secrets:
+      token:
+        required: true
+        description: "repo token"
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  run:
+    runs-on: anzx-default-np
+    env:
+      SUBMODULE_BRANCH: ${{ inputs.submodule_branch }}
+      PARENT_BASE_REF_BRANCH: ${{ inputs.parent_base_ref }}
+      COMPARE_ALL: ${{ inputs.compare_all }}
+      COMMENT_TAG: ${{ inputs.submodule_path }}-${{ inputs.submodule_branch }}-${{ inputs.compare_all }}
+    steps:
+      - name: Checkout parent repository and submodules
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: true
+          token: ${{ secrets.token }}
+          path: ${{ inputs.parent_repo }}
+
+      - name: "Install GH"
+        uses: "anzx/github-reusable-actions/setup-gh-cli@main"
+        with:
+          gh-cli-version: "2.50.0"
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Authenticate GitHub CLI using OIDC
+        run: |
+          gh auth login --with-token <<< "${{ secrets.token }}"
+
+      - name: Checkout to chosen submodule version
+        if: ${{ env.SUBMODULE_BRANCH != '' }}
+        working-directory: "${{ inputs.parent_repo }}"
+        run: |
+          root=$(pwd)
+          sub_module_path="${{ inputs.submodule_path }}"
+          BRANCH="${{ env.SUBMODULE_BRANCH }}"
+
+          # Change to the submodule directory
+          cd "$sub_module_path"
+
+          echo "Checkout submodule to the current branch: $BRANCH"
+          git checkout "$BRANCH"
+          git pull origin "$BRANCH"
+
+      - name: ENV vars
+        working-directory: "${{ inputs.parent_repo }}"
+        run: |
+          baseRef="${{ env.PARENT_BASE_REF_BRANCH }}"
+          echo REPO_NAME="${{ inputs.parent_repo }}" >> $GITHUB_ENV
+          lastTag="$( git describe --abbrev=0 --tags --match $baseRef* )"
+          echo "Tag is: $lastTag"
+          echo SUBMODULE_PATH="${{inputs.submodule_path}}" >> $GITHUB_ENV
+          echo BASE_REF_LAST_TAG="$lastTag" >> $GITHUB_ENV
+          echo WORKING_DIR="$(pwd)" >> $GITHUB_ENV
+
+      - name: Check Duplication
+        working-directory: "${{ inputs.parent_repo }}"
+        run: |
+          result=$( node --no-warnings ci/workflows/Orchestrations/submoduleDuplicateCheck.mjs )
+          echo "$result"
+
+          if [[ "$result" != '' ]]; then
+            checkerCommentTag="${{ env.COMMENT_TAG }}"
+            commentFile="./$checkerCommentTag.html"
+            echo "$result" > "$commentFile"
+
+            # Fetch all PR comments and look for the one with the tag
+            comment_id=$(gh api repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments \
+              --jq '.[] | select(.body | contains("'${checkerCommentTag}'")) | .id')
+
+            if [[ -n "$comment_id" ]]; then
+              # If a comment with the tag is found, edit it
+              echo "Found comment with tag. Editing..."
+              gh api \
+                -X PATCH \
+                -H "Accept: application/vnd.github+json" \
+                /repos/${{ github.repository }}/issues/comments/$comment_id \
+                -f body="$(<"$commentFile")"
+            else
+              echo "No existing comment with tag. Creating..."
+              gh pr comment ${{ github.event.pull_request.number }} --body-file "$commentFile"
+            fi
+
+            rm -rf "$commentFile"
+            exit 1
+          fi

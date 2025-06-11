@@ -148,11 +148,24 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>INELIGIBLE_REASON_INVESTMENT_PROPERTY_MATCHES_PRIMARY_RESIDENCE</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>INELIGIBLE_REASON_NOT_CITIZEN</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>INELIGIBLE_REASON_NOT_TAX_RESIDENT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>
+                INELIGIBLE_REASON_OWNER_OCCUPIED_PROPERTY_ADDRESS_DOES_NOT_MATCH_PROFILE_ADDRESS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INELIGIBLE_REASON_OWNER_OCCUPIED_INCONSISTENT_LIVING_SITUATION</fullName>
             <default>false</default>
         </values>
         <values>
@@ -207,7 +220,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>LENDING_PURPOSE_REFINANCE_INVESTOR</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>LENDING_PURPOSE_ALTERATIONS_DWELLING_EXISTING</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LENDING_PURPOSE_ALTERATIONS_DWELLING_EXISTING_INVESTOR</fullName>
             <default>false</default>
         </values>
         <values>
@@ -332,6 +353,17 @@
         </values>
         <values>
             <fullName>Tribal Trust Land %28On a Reservation%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Property_Use__c</picklist>
+        <values>
+            <fullName>LOAN_PRODUCT_TYPE_INVESTOR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LOAN_PRODUCT_TYPE_OWNER_OCCUPIED</fullName>
             <default>false</default>
         </values>
     </picklistValues>

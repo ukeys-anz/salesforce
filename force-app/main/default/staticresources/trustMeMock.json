@@ -5,6 +5,7 @@
         "createTime": "2025-02-20T21:39:18.859533Z",
         "lastUpdateTime": "2025-02-20T21:39:18.859533Z",
         "clientId": "customer-due-diligence",
+        "processDefinitionName": "TrustMe-AU-Pro",
         "processDefinitionVersion": 45
     },
     "evProviderOutcomes": {
@@ -101,16 +102,16 @@
         "documentType": "Driving Licence",
         "documentOutcome": "OUTCOME_PASS",
         "documentIssueCountry": "",
-        "confirmedGivenName": "",
+        "confirmedGivenName": "David",
         "confirmedMiddleName": "",
         "confirmedSurname": "Miller",
         "confirmedDateofBirth": "01/08/1988",
-        "confirmedPrimaryIdentifier": "",
+        "confirmedPrimaryIdentifier": "983234222",
         "confirmedSecondaryIdentifier": "99429222134",
         "confirmedExpireDate": "01/02/2028",
         "ocrGivenName": "David",
         "ocrMiddleName": "",
-        "ocrSurname": "",
+        "ocrSurname": "Miller",
         "ocrDateofBirth": "01/08/1988",
         "ocrPrimaryIdentifier": "012345678",
         "ocrSecondaryIdentifier": "1222",
@@ -118,7 +119,7 @@
     },
     "secondaryDocumentDetails": {
         "documentType": "Medicare",
-        "documentIssueCountry": "",
+        "documentIssueCountry": "Australia",
         "confirmedExpireDate": "01/09/2030",
         "confirmedPrimaryIdentifier": "8936721001",
         "ocrExpireDate": "01/08/2030"
@@ -126,7 +127,8 @@
     "addressDetails": [
         {
             "addressSource": "QAS",
-            "addressType": "Residencial",
+            "addressType": "R",
+            "addressTypeDescription": "Residential",
             "buildingName": "Jasminiam",
             "lobbyName": "kharadi",
             "residence": "home",
@@ -153,7 +155,8 @@
         },
         {
             "addressSource": "QAS",
-            "addressType": "Mailing",
+            "addressType": "M",
+            "addressTypeDescription": "Mailing",
             "buildingName": "GREENFIELD",
             "lobbyName": "GREEN",
             "residence": "HOME",
@@ -180,7 +183,8 @@
         },
         {
             "addressSource": "Manual",
-            "addressType": "Previous Residencial",
+            "addressType": "P",
+            "addressTypeDescription": "Previous Residential",
             "buildingName": "Shobha",
             "lobbyName": "wing1",
             "residence": "HOME",

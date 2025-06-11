@@ -2,17 +2,6 @@ import { createButtonsFromArray } from "./helper-button-class";
 import { mapCardControls, mapTempLockOnACard } from "./helper-cardControls";
 import { STATUS, MAPPED_STATUS } from "./model";
 
-const inactiveStatuses = [
-  STATUS.Closed,
-  STATUS.Delinquent_Retain_Card,
-  STATUS.Replace_Status,
-  STATUS.Card_Status_Invalid,
-  STATUS.Delinquent_Return_Card,
-  STATUS.Lost,
-  STATUS.Stolen,
-  STATUS.Un_Issued
-];
-
 const FRAUD_STATUSES = [
   STATUS.Block_ATM,
   STATUS.Block_ATM_POS_CNP,
@@ -40,24 +29,7 @@ export function mapCardDetailsHandler(
     isActiveCardSection
   );
 
-  let sortedCards = sortCardsHandler(mappedCards);
-
-  return sortedCards;
-}
-
-function sortCardsHandler(cards) {
-  if (cards.length > 1) {
-    cards.sort((cardA, cardB) => {
-      if (cardA.status === STATUS.Issued) {
-        return -1;
-      }
-      if (inactiveStatuses.includes(cardB.status)) {
-        return -1;
-      }
-      return 1;
-    });
-  }
-  return cards;
+  return mappedCards;
 }
 
 function mappingStatusOnACard(card) {

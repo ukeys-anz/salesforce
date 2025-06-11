@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <name>Loan_Preference_Add</name>
+        <enabled>true</enabled>
+    </customPermissions>
+    <description>Permission to add data on Loan Preference data</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Loan Preference Add</label>
+</PermissionSet>

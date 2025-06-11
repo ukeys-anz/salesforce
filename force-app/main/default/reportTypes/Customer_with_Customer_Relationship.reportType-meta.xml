@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>Account</baseObject>
+    <category>other</category>
+    <deployed>true</deployed>
+    <description>Custom Report Type for Customer with Customer Relationship fields</description>
+    <join>
+        <outerJoin>false</outerJoin>
+        <relationship>Customer_Relationships__r</relationship>
+    </join>
+    <label>Customer with Customer Relationship</label>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Salutation</displayNameOverride>
+            <field>Salutation</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>First Name</displayNameOverride>
+            <field>FirstName</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Last Name</displayNameOverride>
+            <field>LastName</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Middle Name</displayNameOverride>
+            <field>MiddleName</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Suffix</displayNameOverride>
+            <field>Suffix</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Customer Record Type</displayNameOverride>
+            <field>RecordType</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Suburb</displayNameOverride>
+            <field>BillingCity</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Email (Classic)</displayNameOverride>
+            <field>Other_Email__c</field>
+            <table>Account</table>
+        </columns>
+        <masterLabel>Customers</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Customer Relationship ID</displayNameOverride>
+            <field>Id</field>
+            <table>Account.Customer_Relationships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Customer</displayNameOverride>
+            <field>Customer__c</field>
+            <table>Account.Customer_Relationships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>TPMI</displayNameOverride>
+            <field>Territory__c.TPMI__c</field>
+            <table>Account.Customer_Relationships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>DOB</displayNameOverride>
+            <field>DOB__c</field>
+            <table>Account.Customer_Relationships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Suburb</displayNameOverride>
+            <field>Suburb__c</field>
+            <table>Account.Customer_Relationships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Relationship Start Date</displayNameOverride>
+            <field>Date_Relationship_Commenced__c</field>
+            <table>Account.Customer_Relationships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Status</displayNameOverride>
+            <field>Status__c</field>
+            <table>Account.Customer_Relationships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Customer&apos;s Preferred Name</displayNameOverride>
+            <field>Preferred_Name__c</field>
+            <table>Account.Customer_Relationships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Newsletter</displayNameOverride>
+            <field>Newsletter__c</field>
+            <table>Account.Customer_Relationships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Interests</displayNameOverride>
+            <field>Customer_Interests__c</field>
+            <table>Account.Customer_Relationships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Customer Groups</displayNameOverride>
+            <field>Customer_Groups__c</field>
+            <table>Account.Customer_Relationships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Indicative FUM</displayNameOverride>
+            <field>Indicative_FUM__c</field>
+            <table>Account.Customer_Relationships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Note</displayNameOverride>
+            <field>Notes__c</field>
+            <table>Account.Customer_Relationships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Owner</displayNameOverride>
+            <field>Owner</field>
+            <table>Account.Customer_Relationships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Territory</displayNameOverride>
+            <field>Territory__c</field>
+            <table>Account.Customer_Relationships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Relationship to Franchise</displayNameOverride>
+            <field>Relationship_To_Franchise__c</field>
+            <table>Account.Customer_Relationships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Created By</displayNameOverride>
+            <field>CreatedBy</field>
+            <table>Account.Customer_Relationships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Last Modified By</displayNameOverride>
+            <field>LastModifiedBy</field>
+            <table>Account.Customer_Relationships__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Email</displayNameOverride>
+            <field>Email__c</field>
+            <table>Account.Customer_Relationships__r</table>
+        </columns>
+        <masterLabel>Customer Relationships</masterLabel>
+    </sections>
+</ReportType>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>Lending Queue</name>
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <queueMembers>
+        <roles>
+            <role>BOH_Coach</role>
+            <role>Credit_Assessment_Officer</role>
+            <role>Credit_Assessor_Lead</role>
+            <role>Settlement_Officer</role>
+            <role>Settlement_Officer_Lead</role>
+        </roles>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

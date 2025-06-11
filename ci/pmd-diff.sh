@@ -9,7 +9,9 @@ echo ""
 echo "-------- build diff folder for pmd check ---------"
 echo ""
 
-SOURCE_DIR="./force-app"
+FIRST_SOURCE_DIR="./force-app/main/default"
+# this should be removed when we remove sf-lending
+SECOND_SOURCE_DIR="./force-app/main/sf-lending"
 DEPLOY_DIR="./tmpPMD/deploy"
 
 function unzipToDeploy() {
@@ -25,7 +27,8 @@ echo "BRANCH_NAME : $BRANCH_NAME"
 mkdir -p ${DEPLOY_DIR}
 
 # If any files have changed/been added that require a deployment
-DIFFSTARTCOMMAND="git diff -z --ignore-all-space --name-only --diff-filter=d origin/${BRANCH_NAME}..HEAD -- ${SOURCE_DIR}/"
+# This part should be removed when we remove sf-lending: " ${SECOND_SOURCE_DIR}/"
+DIFFSTARTCOMMAND="git diff -z --ignore-all-space --name-only --diff-filter=d origin/${BRANCH_NAME}..HEAD -- ${FIRST_SOURCE_DIR}/ ${SECOND_SOURCE_DIR}/"
 DIFFENDCOMMAND="xargs -0 git archive -o package.zip HEAD"
 
 echo "Diff statement on objects: ${DIFFSTARTCOMMAND} | ${DIFFENDCOMMAND}"

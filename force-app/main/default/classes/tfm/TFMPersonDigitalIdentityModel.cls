@@ -10,6 +10,7 @@ public with sharing class TFMPersonDigitalIdentityModel extends CalloutModel {
    * @description results list for results of api
    */
   public List<Result> result;
+  public IdentityProfile identityProfile;
 
   /**
    * @description assiging values to Credential for Serach Customer API
@@ -67,6 +68,14 @@ public with sharing class TFMPersonDigitalIdentityModel extends CalloutModel {
     public List<String> archivedIdentifiers;
     public List<Persona> persona;
     public List<Credential> credential;
+  }
+
+  /**
+   * @description Represents the IdentityProfile metadata
+   */
+  public class IdentityProfile {
+    public String anzConnectStatus;
+    public String migrationType;
   }
 
   /**

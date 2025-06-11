@@ -50,7 +50,7 @@ public with sharing class TrustMeDocumentDetailsController {
       ' | Apex execution for TrustMeDocumentDetailsController.getTrustMeDocuments started'
     );
 
-    Case caseRec = QUERY.getCaseRecordById(requestModel.related_id);
+    Case caseRec = QUERY.getCaseRecordById(requestModel.relatedId);
     Map<String, String> uuidByType = new Map<String, String>();
     Map<String, ContentVersion> cvByType = new Map<String, ContentVersion>();
     Map<String, String> urlByType = new Map<String, String>();

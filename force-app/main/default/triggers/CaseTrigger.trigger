@@ -22,7 +22,10 @@ trigger CaseTrigger on Case(
   ConfirmationOfPayeeCaseTriggerHandler copHandler = new ConfirmationOfPayeeCaseTriggerHandler();
   BrokerEnquiryCaseTriggerHandler brokerEnquiryHandler = new BrokerEnquiryCaseTriggerHandler();
   ProfileUpdateCaseTriggerHandler profileUpdateHandler = new ProfileUpdateCaseTriggerHandler();
+  IDRCaseTriggerHandler idrHandler = new IDRCaseTriggerHandler();
   TrustMeCaseTriggerHandler trustMeHandler = new TrustMeCaseTriggerHandler();
   FalseCustomerProfileCaseTriggerHandler fcpHandler = new FalseCustomerProfileCaseTriggerHandler();
   FraudXCaseTriggerHandler fraudHandler = new FraudXCaseTriggerHandler();
+  LendingCaseTriggerHandler lendingHandler = new LendingCaseTriggerHandler();
+  CustomerComplaintCaseTriggerHandler customerComplaintHandler = new CustomerComplaintCaseTriggerHandler();
 }

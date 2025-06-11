@@ -7,8 +7,10 @@
 @isTest
 public class CommercialLeadActionsTest {
   static Lib_MockProvider leadRepoMock;
+  static Lib_MockProvider userRepoMock;
   static void registerMocks() {
     leadRepoMock = Lib_MockProvider.forType(LeadActionsRepository.class);
+    userRepoMock = Lib_MockProvider.forType(UserInfoRepository.class);
   }
 
   @isTest
@@ -178,6 +180,144 @@ public class CommercialLeadActionsTest {
       '1234',
       records[0].CLG_ID__c,
       'Should update CLG Id on lead on updation'
+    );
+  }
+
+  @isTest
+  static void setSkipValidationOnOwnerChangeTest() {
+    registerMocks();
+    //GIVEN records, oldMap
+    String copyLeadId = 'copyLeadId';
+    Id leadId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    List<Lead> records = new List<Lead>{
+      new Lead(
+        Id = leadId,
+        OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+        Skip_Validations__c = copyLeadId
+      )
+    };
+
+    Map<Id, Lead> oldMap = new Map<Id, Lead>{
+      leadId => new Lead(
+        Id = leadId,
+        OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+        Skip_Validations__c = copyLeadId
+      )
+    };
+
+    userRepoMock.mock('checkProfile', true);
+
+    //WHEN calling a method
+    Test.startTest();
+    CommercialLeadActions.setSkipValidationOnOwnerChange(records, oldMap);
+    Test.stopTest();
+
+    //THEN it should update Skip_Validations__c to 'SkipValidation'
+    Assert.areEqual(
+      'SkipValidation',
+      records[0].Skip_Validations__c,
+      'should update Skip Validation flag to SkipValidation'
+    );
+  }
+
+  @isTest
+  static void setSkipValidationOnOwnerChangeNegativeTest() {
+    registerMocks();
+    //GIVEN records, oldMap
+    Id leadId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    Id ownerId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    String copyLeadId = 'copyLeadId';
+    List<Lead> records = new List<Lead>{
+      new Lead(Id = leadId, OwnerId = ownerId, Skip_Validations__c = copyLeadId)
+    };
+
+    Map<Id, Lead> oldMap = new Map<Id, Lead>{
+      leadId => new Lead(
+        Id = leadId,
+        OwnerId = ownerId,
+        Skip_Validations__c = copyLeadId
+      )
+    };
+
+    userRepoMock.mock('checkProfile', true);
+
+    //WHEN calling a method
+    Test.startTest();
+    CommercialLeadActions.setSkipValidationOnOwnerChange(records, oldMap);
+    Test.stopTest();
+
+    //THEN it should remain to 'copyLeadId'
+    Assert.areEqual(
+      copyLeadId,
+      records[0].Skip_Validations__c,
+      'Skip Validation should remain to copyLeadId'
+    );
+  }
+
+  @isTest
+  static void testPopulatePrimaryContactMethodWork() {
+    String mockLeadID = (String) Lib_FakeIdGenerator.getMockId(
+      Lead.getSObjectType()
+    );
+    List<Lead> leadList = new List<Lead>{
+      new Lead(
+        Id = mockLeadID,
+        Lead_Originator__c = 'UNICA',
+        Work_Phone__c = '+61412345678',
+        Primary_Contact_Method__c = 'Mobile'
+      )
+    };
+    Test.startTest();
+    CommercialLeadActions.populatePrimaryContactMethod(leadList);
+    Test.stopTest();
+    Assert.areEqual(
+      'Work Phone',
+      leadList[0].Primary_Contact_Method__c,
+      'Primary Contact Method should be work phone'
+    );
+  }
+
+  @isTest
+  static void testPopulatePrimaryContactMethodHome() {
+    String mockLeadID = (String) Lib_FakeIdGenerator.getMockId(
+      Lead.getSObjectType()
+    );
+    List<Lead> leadList = new List<Lead>{
+      new Lead(
+        Id = mockLeadID,
+        Lead_Originator__c = 'Adobe',
+        Home_Phone__c = '+61412345678',
+        Primary_Contact_Method__c = 'Mobile'
+      )
+    };
+    Test.startTest();
+    CommercialLeadActions.populatePrimaryContactMethod(leadList);
+    Test.stopTest();
+    Assert.areEqual(
+      'Home Phone',
+      leadList[0].Primary_Contact_Method__c,
+      'Primary Contact Method should be home phone'
+    );
+  }
+
+  @isTest
+  static void testPopulatePrimaryContactMethodNull() {
+    String mockLeadID = (String) Lib_FakeIdGenerator.getMockId(
+      Lead.getSObjectType()
+    );
+    List<Lead> leadList = new List<Lead>{
+      new Lead(
+        Id = mockLeadID,
+        Lead_Originator__c = 'UNICA',
+        Primary_Contact_Method__c = 'Mobile'
+      )
+    };
+    Test.startTest();
+    CommercialLeadActions.populatePrimaryContactMethod(leadList);
+    Test.stopTest();
+    Assert.isNull(
+      leadList[0].Primary_Contact_Method__c,
+      'Primary Contact Method should be null'
     );
   }
 }

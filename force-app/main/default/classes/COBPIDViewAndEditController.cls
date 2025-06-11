@@ -16,14 +16,9 @@ public with sharing class COBPIDViewAndEditController {
 
   private static final String PASSPORT_TYPE = 'Passport';
   private static final String LICENCE_TYPE = 'Licence';
-  private static final String NO_PERSONA_ID = 'Error in detokenizing COB Primary ID Document - No PersonaId';
   private static final String MISSING_PERSONA_ID = 'No Persona Id found. Please ensure a Persona Id has been added to the COB Primary ID Document record. Raise a fault through TechAssist if the problem persists.';
   private static final String FAILED_DETOKENIZATION = 'Failed to perform detokenization. Please refresh and try again. Raise a fault through TechAssist if the problem persists.';
   private static final String FAILED_UPDATE = 'Failed to save tokenized details. Please raise a fault through TechAssist if the problem persists.';
-  private static final String FAILED_TOKENIZATION = 'Failed to update details. Please refresh and try again. Raise a fault through TechAssist if the problem persists.';
-  private static final String ERROR_TOKENIZING_DATA = 'Error tokenizeing COB Primary ID Document data';
-  private static final String ERROR_DETOKENIZING_DATA = 'Error detokenizing COB Primary ID Document data';
-
   @TestVisible
   private static final Set<SObjectField> LICENCE_TOKENIZED_FIELDS = new Set<SObjectField>{
     COBPrimaryIDDocument__c.LicenceNumber__c,
@@ -93,9 +88,7 @@ public with sharing class COBPIDViewAndEditController {
     );
 
     if (String.isBlank(cobPid.PersonaId__c)) {
-      Logger.error(NO_PERSONA_ID, recordId);
-      Logger.saveLog();
-      throw new AuraHandledException(MISSING_PERSONA_ID);
+      throw CommonUtil.logAuraExceptionInfo(MISSING_PERSONA_ID, recordId);
     }
     return cobPid;
   }
@@ -159,9 +152,7 @@ public with sharing class COBPIDViewAndEditController {
         COBPrimaryIDDocumentModel.TOKEN_TRANSFORM_VALUE
       );
     } catch (Exception e) {
-      Logger.error(ERROR_DETOKENIZING_DATA, cobPid.Id, e);
-      Logger.saveLog();
-      throw new AuraHandledException(FAILED_DETOKENIZATION);
+      throw CommonUtil.logAuraExceptionInfo(FAILED_DETOKENIZATION, cobPid.Id);
     }
   }
 
@@ -194,9 +185,7 @@ public with sharing class COBPIDViewAndEditController {
   @AuraEnabled
   public static void updateCOBPIDData(COBPrimaryIDDocument__c record) {
     if (String.isBlank(record.PersonaId__c)) {
-      Logger.error(NO_PERSONA_ID, record);
-      Logger.saveLog();
-      throw new AuraHandledException(MISSING_PERSONA_ID);
+      throw CommonUtil.logAuraExceptionInfo(MISSING_PERSONA_ID, record.Id);
     }
 
     COBPrimaryIDDocumentModel cobPidData = triggerTemporalPIDWorklow(record);
@@ -313,10 +302,8 @@ public with sharing class COBPIDViewAndEditController {
         idOpsCase.Id
       );
     } catch (Exception e) {
-      Logger.error(ERROR_TOKENIZING_DATA, record.Id, e).save();
-
       String exceptionMsg = getErrorMessage(e.getMessage());
-      throw new AuraHandledException(exceptionMsg);
+      throw CommonUtil.logAuraExceptionInfo(exceptionMsg, record.Id);
     }
   }
 
@@ -378,7 +365,7 @@ public with sharing class COBPIDViewAndEditController {
   private without sharing class PIDDMLOperator {
     /**
      * @description Update COBPrimaryIDDocument__c record
-     * @param tokenizedData Tokenised COBPrimaryIDDocument__c record
+     * @param tokenizedData Tokenized COBPrimaryIDDocument__c record
      */
     @TestVisible
     private void updateTokenizedData(COBPrimaryIDDocument__c tokenizedData) {
@@ -388,12 +375,13 @@ public with sharing class COBPIDViewAndEditController {
       List<COBPrimaryIDDocument__c> tokenizedDataList = new List<COBPrimaryIDDocument__c>{
         tokenizedData
       };
-      List<Database.SaveResult> results = DML_REPOSITORY.updateRecords(
-        tokenizedDataList,
-        DmlRepository.ALL_OR_NONE,
-        DmlRepository.SYSTEM_MODE
-      );
-      if (results.isEmpty()) {
+
+      try {
+        DML_REPOSITORY.doUpdate(
+          tokenizedDataList,
+          new DmlConfig().systemMode()
+        );
+      } catch (Exception ex) {
         throw new AuraHandledException(FAILED_UPDATE);
       }
     }
