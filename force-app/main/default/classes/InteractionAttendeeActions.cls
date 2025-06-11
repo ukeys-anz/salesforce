@@ -30,7 +30,9 @@ public with sharing class InteractionAttendeeActions {
     );
     Map<Id, Interaction> interactionMap = new Map<Id, Interaction>(
       (List<Interaction>) ListUtil.filter(
-          INTERACTION_REPOSITORY.queryInteractionAndRelatedAttendees(interactionIds)
+          INTERACTION_REPOSITORY.queryInteractionAndRelatedAttendees(
+            interactionIds
+          )
         )
         .equals(Interaction.RecordTypeId, RTInteraction.rbmBrokerInteraction)
         .toList()
@@ -379,7 +381,7 @@ public with sharing class InteractionAttendeeActions {
     Boolean isBroker = 'Broker'.equals(attendee.Attendee_SubType__c);
 
     if (attendeeType == 'Internal') {
-      key = attendee.UserId+'_'+attendee.Conversation_Sid__c;
+      key = attendee.UserId + '_' + attendee.Conversation_Sid__c;
     }
     if (
       (attendeeType == 'Customer') ||
@@ -387,19 +389,16 @@ public with sharing class InteractionAttendeeActions {
       isBroker &&
       rbmInteractionExists)
     ) {
-      key = attendee.ContactId+'_'+attendee.Conversation_Sid__c;
+      key = attendee.ContactId + '_' + attendee.Conversation_Sid__c;
     }
     if (attendeeType == 'External' && (!isBroker || !rbmInteractionExists)) {
-      key = attendee.Attendee_Phone__c+'_'+attendee.Conversation_Sid__c;
+      key = attendee.Attendee_Phone__c + '_' + attendee.Conversation_Sid__c;
     }
-    if(attendeeType == 'VirtualAgent'){
+    if (attendeeType == 'VirtualAgent') {
       key = attendee.Attendee_Name__c;
     }
 
-    String uniqueKey =
-      attendee.InteractionId +
-      '_' +
-      key;   
+    String uniqueKey = attendee.InteractionId + '_' + key;
     return uniqueKey;
   }
 
