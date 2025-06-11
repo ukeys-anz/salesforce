@@ -491,19 +491,6 @@ public with sharing virtual class Service {
 
   /**
    * @param ocvId customer id
-   * @param closureCaseRequest Account Closure case request to be sent in the body
-   * @return `PackageClosureParams` api response
-   * @description virtual account buckets callout
-   */
-  public virtual HttpCalloutResponse closePackage(
-    String ocvId,
-    String closureCaseRequest
-  ) {
-    return null;
-  }
-
-  /**
-   * @param ocvId customer id
    * @param messageContent the content of the message to be sent
    * @param customerName the first name of the customer
    * @param issueType the issue type (default to Follow Up)
@@ -549,52 +536,6 @@ public with sharing virtual class Service {
    * @description virtual fetches party information
    */
   public virtual HttpCalloutResponse createParty(Lead record) {
-    return null;
-  }
-
-  /**
-   * @param cobCase COB Case holding Id, personaId and status to be used for callout
-   * @return `HttpCalloutResponse` api response
-   * @description virtual triggers Temporal Case Workflow
-   */
-  public virtual HttpCalloutResponse triggerTemporalCaseWorkflow(Case cobCase) {
-    return null;
-  }
-
-  /**
-   * @param personaId COB Primary ID record Persona Id
-   * @param request the tokenized fields to be detokenized
-   * @return `HttpCalloutResponse` api response
-   * @description virtual stravinsky cobPid detokenize api
-   */
-  public virtual HttpCalloutResponse detokenize(
-    String personaId,
-    DetokenizeRequestModel request
-  ) {
-    return null;
-  }
-
-  /**
-   * @param personaId COB Primary ID record Persona Id
-   * @param request detokenized COBPID ready for tokenization
-   * @return `HttpCalloutResponse` api response
-   * @description virtual stravinsky cobPid tokenize api
-   */
-  public virtual HttpCalloutResponse updatePrimaryIDDocument(
-    String personaId,
-    COBPrimaryIDDocUpdateRequestModel request
-  ) {
-    return null;
-  }
-
-  /**
-   * @param taxResidency COB Tax Residency record
-   * @return `HttpCalloutResponse` api response
-   * @description virtual stravinsky COBTaxResidency detokenize api
-   */
-  public virtual HttpCalloutResponse detokenizeCOBTaxResidency(
-    COBTaxResidency__c taxResidency
-  ) {
     return null;
   }
 
@@ -672,20 +613,14 @@ public with sharing virtual class Service {
   }
 
   /**
-   * @param sopIds sop id
-   * @param creditId credit id
    * @param ocvId ocv id of the primary loan application
-   * @param termMonths Loan term in months
-   * @param loanAmount Loan amount
+   * @param requestModel UMI request model
    * @return `HttpCalloutResponse` the api response
    * @description fetches UMI assessments from sop and gearbox api through mule
    */
   public virtual HttpCalloutResponse getUMIAssessments(
-    List<String> sopIds,
-    String creditId,
     String ocvId,
-    Integer termMonths,
-    Decimal loanAmount
+    ViewUMIRequestModel requestModel
   ) {
     return null;
   }

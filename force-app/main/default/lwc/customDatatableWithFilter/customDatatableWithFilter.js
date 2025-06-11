@@ -219,6 +219,46 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
     { label: "Appointment Type", fieldName: "InteractionType", sortable: true }
   ];
 
+  // Fields to be shown on the custom list view for all(in person, call, message) record type
+  fieldsforall = [
+    { label: "Name", fieldName: "Name", sortable: true },
+    {
+      label: "Interaction Number",
+      fieldName: "Interaction_Auto_Number__c",
+      type: "datatableColumnClickHandler",
+      typeAttributes: {
+        recordId: {
+          fieldName: "Id"
+        },
+        cellValue: {
+          fieldName: "Interaction_Auto_Number__c"
+        },
+        sObjectApiName: "Interaction"
+      },
+      sortable: true
+    },
+    { label: "Status", fieldName: "Status__c", sortable: true },
+    { label: "For", fieldName: "Interaction_Purpose__c", sortable: true },
+    { label: "Channel", fieldName: "InteractionType", sortable: true },
+    { label: "Place", fieldName: "Place__c", sortable: true },
+    { label: "Action Taken", fieldName: "Resolution__c", sortable: true },
+    {
+      label: "Start Time",
+      fieldName: "StartTime",
+      type: "date",
+      typeAttributes: {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: this.ampm
+      },
+      sortable: true
+    },
+    { label: "Attendees", fieldName: "Attendees__c", sortable: true }
+  ];
+
   @track pages = [];
 
   @wire(MessageContext)
@@ -238,6 +278,10 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
       this.recordTypeId = Object.keys(recordTypeIds).find(
         (rti) => recordTypeIds[rti].name === this.recordTypeName
       );
+      this.recordTypeName =
+        this.recordTypeDeveloperName === "General,Message,Store"
+          ? "All"
+          : this.recordTypeName;
     }
   }
   @wire(getPicklistValues, {
@@ -530,6 +574,8 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
         return this.fieldsforstore;
       case "Appointment":
         return this.fieldsForAppointment;
+      case "General,Message,Store":
+        return this.fieldsforall;
       default:
         return [];
     }

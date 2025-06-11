@@ -95,7 +95,7 @@ public with sharing class InteractionAttendeeActionsTest {
     );
     Test.stopTest();
     Assert.areEqual(
-      'Test Testing lead,Shivam Swaraj,Test Coach',
+      'Test Testing lead,Shivam Swaraj,Test Virtual Agent,Test Coach',
       interactionUpdatedList[0].Attendees__c,
       'Attendees__c On Interaction Updated With Desiserd Values'
     );

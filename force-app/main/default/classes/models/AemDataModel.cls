@@ -133,11 +133,6 @@ public with sharing class AemDataModel extends CalloutModel {
      */
     @AuraEnabled
     public String iconDarkURI { get; set; }
-    /**
-     * @description actionUUID
-     */
-    @AuraEnabled
-    public String actionUUID { get; set; }
   }
 
   /**

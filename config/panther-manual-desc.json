@@ -223,6 +223,19 @@
     "User": "A Salesforce user (ANZ employee)"
   },
   "pantherId": {
+    "AccessControl__x": {
+      "IA-2530753": [
+        "Channel__c",
+        "CreatedBy__c",
+        "CreatedTime__c",
+        "DeleteWhenMet__c",
+        "MinimumAAL__c",
+        "Name__c",
+        "PersonId__c",
+        "PersonaId__c",
+        "Policy__c"
+      ]
+    },
     "Account": {
       "IA-2415720": [
         "ANZx_Customer__c",
@@ -713,7 +726,9 @@
         "RecordTypeId",
         "Review_Date__c",
         "Segment_Type__c",
-        "Source_System_Identifier__c"
+        "Source_System_Identifier__c",
+        "Existing_Business_Owner__c",
+        "My_Region_Flag__c"
       ],
       "IA-2415984": [
         "Name",
@@ -731,7 +746,11 @@
       "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"],
       "IA-2423227": ["COI_Member__c"],
       "IA-2415790": ["Broker_Name__c"],
-      "IA-2460507": ["My_Team_A2Z_Review__c"]
+      "IA-2460507": [
+        "My_Team_A2Z_Review__c",
+        "My_Sub_Team__c",
+        "My_Team_Segment__c"
+      ]
     },
     "BrokerSettings__c": {
       "IA-253075": [
@@ -2143,6 +2162,26 @@
       "IA-2530743": ["Object_Name__c", "RecordType_Name__c"],
       "IA-2415993": ["Customer_Status__c", "Field_Name__c", "Profile_Name__c"]
     },
+    "Device__x": {
+      "IA-2530753": [
+        "AppCorrelationId__c",
+        "AppVersion__c",
+        "BiometricId__c",
+        "BiometricLastAuthenticationTime__c",
+        "BiometricRegisteredTime__c",
+        "BiometricStatus__c",
+        "CreatedTime__c",
+        "DeviceCorrelationId__c",
+        "LastAuthenticationTime__c",
+        "Make__c",
+        "Model__c",
+        "Name__c",
+        "OSVersion__c",
+        "PersonId__c",
+        "Status__c",
+        "UpdatedTime__c"
+      ]
+    },
     "Drawdown__c": {
       "IA-2530753": [
         "Drawdown_Id__c",
@@ -2620,7 +2659,8 @@
         "Customer_Relationship__c",
         "Territory__c",
         "Financial_Account__c",
-        "ML_DataMigration_Key__c"
+        "ML_DataMigration_Key__c",
+        "My_Region_Flag__c"
       ],
       "IA-2530753": [
         "AccountId",
@@ -2694,10 +2734,18 @@
         "ReasonforVisit__c",
         "Product__c",
         "Actual_Topic_Formula__c",
-        "Reason_for_Visit_Formula__c"
+        "Reason_for_Visit_Formula__c",
+        "Actual_Topic__c",
+        "Reason_For_Visit__c",
+        "Products__c"
       ],
       "IA-2423227": ["COI_Member__c"],
-      "IA-2415983": ["Interaction_Type__c"]
+      "IA-2415983": ["Interaction_Type__c"],
+      "IA-2460507": [
+        "My_Reportees_Interactions__c",
+        "My_Sub_Team__c",
+        "My_Team_Segment__c"
+      ]
     },
     "Interaction_Tag__c": {
       "IA-2415840": ["Name", "Type__c", "Sub_Type__c", "Tag__c"],
@@ -3031,6 +3079,13 @@
         "Commercial_Segment__c",
         "Current_Stage__c",
         "Object_Name__c"
+      ]
+    },
+    "Loan_Application_System_Status_Mapping__mdt": {
+      "IA-2434298": [
+        "Application_Product_Stage__c",
+        "Application_Record_Type__c",
+        "Source_System_Status__c"
       ]
     },
     "Loan_Applicant_Group__c": {
@@ -3434,7 +3489,8 @@
         "Has_Close_Date_Changed__c",
         "CLG__c",
         "Secondary_Customer_Needs__c",
-        "My_Notes__c"
+        "My_Notes__c",
+        "Industry__c"
       ],
       "IA-2468715": [
         "CreatedById",
@@ -3563,6 +3619,15 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
+      ]
+    },
+    "Passkey__x": {
+      "IA-2530753": [
+        "AAGUID__c",
+        "CreatedTime__c",
+        "LastAuthenticationTime__c",
+        "Name__c",
+        "PersonId__c"
       ]
     },
     "PriceBook2": {

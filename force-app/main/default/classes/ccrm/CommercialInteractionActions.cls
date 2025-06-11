@@ -215,4 +215,17 @@ public with sharing class CommercialInteractionActions {
       Logger.error('Error while restrict images on Interaction', e).save();
     }
   }
+
+  /**
+   * @description This method will perform redaction on sensitive data in the provided records.
+   * @name performRedaction
+   * @param records from the trigger
+   */
+  public static void performRedaction(List<Interaction> records) {
+    try {
+      TextUtils.maskSObjectDataANZExtended(records, 'Comment__c');
+    } catch (Exception e) {
+      Logger.error('Error while redacting data on Interaction', e).save();
+    }
+  }
 }

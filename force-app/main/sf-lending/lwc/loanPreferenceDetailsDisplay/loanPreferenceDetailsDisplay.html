@@ -186,47 +186,49 @@
       </lightning-layout-item>
 
       <!--Estimated Repayment Amount-->
-      <lightning-layout-item
-        size="6"
-        flexibility="shrink"
-        class="slds-p-left_small slds-p-right_large slds-p-top_xx-small"
-      >
-        <lightning-layout>
-          <lightning-layout-item
-            size="5"
-            flexibility="shrink"
-            class="labelStyle slds-border_bottom slds-p-around_xx-small"
-          >
-            <lightning-formatted-text value="Estimated Repayment Amount">
-            </lightning-formatted-text>
-          </lightning-layout-item>
+      <template lwc:if={isStatusNotClosed}>
+        <lightning-layout-item
+          size="6"
+          flexibility="shrink"
+          class="slds-p-left_small slds-p-right_large slds-p-top_xx-small"
+        >
+          <lightning-layout>
+            <lightning-layout-item
+              size="5"
+              flexibility="shrink"
+              class="labelStyle slds-border_bottom slds-p-around_xx-small"
+            >
+              <lightning-formatted-text value="Estimated Repayment Amount">
+              </lightning-formatted-text>
+            </lightning-layout-item>
 
-          <lightning-layout-item
-            size="7"
-            flexibility="shrink"
-            class="textStyle slds-border_bottom slds-p-around_xx-small"
-          >
-            <template lwc:if={calculateLoanRepaymentError}>
-              <lightning-icon
-                icon-name="utility:error"
-                size="x-small"
-                class="slds-m-right_x-small"
-                variant="error"
-              ></lightning-icon>
-              <span class="error-text">Error. Refresh Page</span>
-            </template>
-            <template lwc:else>
-              <lightning-formatted-number
-                value={loanPreferenceDetails.estimatedRepaymentAmount}
-                format-style="currency"
-                currency-code="AUD"
-                currency-display-as="symbol"
-              >
-              </lightning-formatted-number>
-            </template>
-          </lightning-layout-item>
-        </lightning-layout>
-      </lightning-layout-item>
+            <lightning-layout-item
+              size="7"
+              flexibility="shrink"
+              class="textStyle slds-border_bottom slds-p-around_xx-small"
+            >
+              <template lwc:if={calculateLoanRepaymentError}>
+                <lightning-icon
+                  icon-name="utility:error"
+                  size="x-small"
+                  class="slds-m-right_x-small"
+                  variant="error"
+                ></lightning-icon>
+                <span class="error-text">Error. Refresh Page</span>
+              </template>
+              <template lwc:else>
+                <lightning-formatted-number
+                  value={loanPreferenceDetails.estimatedRepaymentAmount}
+                  format-style="currency"
+                  currency-code="AUD"
+                  currency-display-as="symbol"
+                >
+                </lightning-formatted-number>
+              </template>
+            </lightning-layout-item>
+          </lightning-layout>
+        </lightning-layout-item>
+      </template>
       <!--Borrow Additional Funds-->
       <lightning-layout-item
         size="6"
@@ -420,40 +422,42 @@
       </template>
 
       <!--Interest Rate-->
-      <lightning-layout-item
-        size="6"
-        flexibility="shrink"
-        class="slds-p-left_small slds-p-right_large slds-p-top_xx-small"
-      >
-        <lightning-layout>
-          <lightning-layout-item
-            size="5"
-            flexibility="shrink"
-            class="labelStyle slds-border_bottom slds-p-around_xx-small"
-          >
-            <lightning-formatted-text value="Interest Rate">
-            </lightning-formatted-text>
-          </lightning-layout-item>
-          <lightning-layout-item
-            size="7"
-            flexibility="shrink"
-            class="textStyle slds-border_bottom slds-p-around_xx-small"
-            ><template lwc:if={calculateLoanRepaymentError}>
-              <lightning-icon
-                icon-name="utility:error"
-                size="x-small"
-                class="slds-m-right_x-small"
-                variant="error"
-              ></lightning-icon>
-              <span class="error-text">Error. Refresh Page</span>
-            </template>
-            <template lwc:else>
-              <lightning-formatted-text value={interestRateVal}>
+      <template lwc:if={isStatusNotClosed}>
+        <lightning-layout-item
+          size="6"
+          flexibility="shrink"
+          class="slds-p-left_small slds-p-right_large slds-p-top_xx-small"
+        >
+          <lightning-layout>
+            <lightning-layout-item
+              size="5"
+              flexibility="shrink"
+              class="labelStyle slds-border_bottom slds-p-around_xx-small"
+            >
+              <lightning-formatted-text value="Interest Rate">
               </lightning-formatted-text>
-            </template>
-          </lightning-layout-item>
-        </lightning-layout>
-      </lightning-layout-item>
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="7"
+              flexibility="shrink"
+              class="textStyle slds-border_bottom slds-p-around_xx-small"
+              ><template lwc:if={calculateLoanRepaymentError}>
+                <lightning-icon
+                  icon-name="utility:error"
+                  size="x-small"
+                  class="slds-m-right_x-small"
+                  variant="error"
+                ></lightning-icon>
+                <span class="error-text">Error. Refresh Page</span>
+              </template>
+              <template lwc:else>
+                <lightning-formatted-text value={interestRateVal}>
+                </lightning-formatted-text>
+              </template>
+            </lightning-layout-item>
+          </lightning-layout>
+        </lightning-layout-item>
+      </template>
 
       <!--Offset-->
       <lightning-layout-item
@@ -729,46 +733,48 @@
         </lightning-layout-item>
 
         <!--Estimated Repayment Amount-->
-        <lightning-layout-item
-          size="6"
-          flexibility="shrink"
-          class="slds-p-horizontal_small slds-p-top_xx-small"
-        >
-          <lightning-layout>
-            <lightning-layout-item
-              size="5"
-              flexibility="shrink"
-              class="labelStyle slds-p-around_xx-small"
-            >
-              <lightning-formatted-text value="Estimated Repayment Amount">
-              </lightning-formatted-text>
-            </lightning-layout-item>
+        <template lwc:if={isStatusNotClosed}>
+          <lightning-layout-item
+            size="6"
+            flexibility="shrink"
+            class="slds-p-horizontal_small slds-p-top_xx-small"
+          >
+            <lightning-layout>
+              <lightning-layout-item
+                size="5"
+                flexibility="shrink"
+                class="labelStyle slds-p-around_xx-small"
+              >
+                <lightning-formatted-text value="Estimated Repayment Amount">
+                </lightning-formatted-text>
+              </lightning-layout-item>
 
-            <lightning-layout-item
-              size="7"
-              flexibility="shrink"
-              class="textStyle slds-p-around_xx-small"
-              ><template lwc:if={calculateLoanRepaymentError}>
-                <lightning-icon
-                  icon-name="utility:error"
-                  size="x-small"
-                  class="slds-m-right_x-small"
-                  variant="error"
-                ></lightning-icon>
-                <span class="error-text">Error. Refresh Page</span>
-              </template>
-              <template lwc:else>
-                <lightning-formatted-number
-                  value={loanPreferenceDetails.estimatedRepaymentAmount}
-                  format-style="currency"
-                  currency-code="AUD"
-                  currency-display-as="symbol"
-                >
-                </lightning-formatted-number>
-              </template>
-            </lightning-layout-item>
-          </lightning-layout>
-        </lightning-layout-item>
+              <lightning-layout-item
+                size="7"
+                flexibility="shrink"
+                class="textStyle slds-p-around_xx-small"
+                ><template lwc:if={calculateLoanRepaymentError}>
+                  <lightning-icon
+                    icon-name="utility:error"
+                    size="x-small"
+                    class="slds-m-right_x-small"
+                    variant="error"
+                  ></lightning-icon>
+                  <span class="error-text">Error. Refresh Page</span>
+                </template>
+                <template lwc:else>
+                  <lightning-formatted-number
+                    value={loanPreferenceDetails.estimatedRepaymentAmount}
+                    format-style="currency"
+                    currency-code="AUD"
+                    currency-display-as="symbol"
+                  >
+                  </lightning-formatted-number>
+                </template>
+              </lightning-layout-item>
+            </lightning-layout>
+          </lightning-layout-item>
+        </template>
         <!--Borrow Additional Funds-->
         <lightning-layout-item
           size="6"
@@ -957,39 +963,41 @@
         </template>
 
         <!--Interest Rate-->
-        <lightning-layout-item
-          size="6"
-          flexibility="shrink"
-          class="slds-p-horizontal_small slds-p-top_xx-small"
-        >
-          <lightning-layout>
-            <lightning-layout-item
-              size="5"
-              class="labelStyle slds-p-around_xx-small"
-            >
-              <lightning-formatted-text value="Interest Rate">
-              </lightning-formatted-text>
-            </lightning-layout-item>
-
-            <lightning-layout-item
-              size="7"
-              class="textStyle slds-p-around_xx-small"
-              ><template lwc:if={calculateLoanRepaymentError}>
-                <lightning-icon
-                  icon-name="utility:error"
-                  size="x-small"
-                  class="slds-m-right_x-small"
-                  variant="error"
-                ></lightning-icon>
-                <span class="error-text">Error. Refresh Page</span>
-              </template>
-              <template lwc:else>
-                <lightning-formatted-text value={interestRateVal}>
+        <template lwc:if={isStatusNotClosed}>
+          <lightning-layout-item
+            size="6"
+            flexibility="shrink"
+            class="slds-p-horizontal_small slds-p-top_xx-small"
+          >
+            <lightning-layout>
+              <lightning-layout-item
+                size="5"
+                class="labelStyle slds-p-around_xx-small"
+              >
+                <lightning-formatted-text value="Interest Rate">
                 </lightning-formatted-text>
-              </template>
-            </lightning-layout-item>
-          </lightning-layout>
-        </lightning-layout-item>
+              </lightning-layout-item>
+
+              <lightning-layout-item
+                size="7"
+                class="textStyle slds-p-around_xx-small"
+                ><template lwc:if={calculateLoanRepaymentError}>
+                  <lightning-icon
+                    icon-name="utility:error"
+                    size="x-small"
+                    class="slds-m-right_x-small"
+                    variant="error"
+                  ></lightning-icon>
+                  <span class="error-text">Error. Refresh Page</span>
+                </template>
+                <template lwc:else>
+                  <lightning-formatted-text value={interestRateVal}>
+                  </lightning-formatted-text>
+                </template>
+              </lightning-layout-item>
+            </lightning-layout>
+          </lightning-layout-item>
+        </template>
 
         <!--Interest Rate Type-->
         <lightning-layout-item

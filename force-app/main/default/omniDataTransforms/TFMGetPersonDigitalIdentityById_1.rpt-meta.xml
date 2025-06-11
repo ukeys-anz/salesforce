@@ -10,13 +10,13 @@
     <name>TFMGetPersonDigitalIdentityById</name>
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
     <omniDataTransformItem>
+        <name>TFMGetPersonDigitalIdentityById</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>TFMGetPersonDigitalIdentityByIdCustom7830</globalKey>
         <inputFieldName>DigitalIdentity:Persona_ID__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMGetPersonDigitalIdentityById</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>personaId</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -24,13 +24,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>TFMGetPersonDigitalIdentityById</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>TFMGetPersonDigitalIdentityByIdCustom9657</globalKey>
         <inputFieldName>DigitalIdentity:pinRefId__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMGetPersonDigitalIdentityById</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>pinRefId</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -38,13 +38,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>TFMGetPersonDigitalIdentityById</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>TFMGetPersonDigitalIdentityById14108999204808392</globalKey>
         <inputFieldName>DigitalIdentity:UUID__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMGetPersonDigitalIdentityById</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>uuid</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -52,6 +52,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>TFMGetPersonDigitalIdentityById</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
@@ -61,7 +62,6 @@
         <inputObjectName>PersonDigitalIdentity__x</inputObjectName>
         <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMGetPersonDigitalIdentityById</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>DigitalIdentity</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -69,22 +69,37 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>TFMGetPersonDigitalIdentityById</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>TFMGetPersonDigitalIdentityByIdCustom9262</globalKey>
         <inputFieldName>DigitalIdentity:OCV_ID__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMGetPersonDigitalIdentityById</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ocvIdAUF</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMGetPersonDigitalIdentityById</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>d9e9deaf-c0bd-471a-ac92-15168bec1dbc</globalKey>
+        <inputFieldName>DigitalIdentity:IAL_Identity_Assurance_Level__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>ialValue</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
     <outputType>JSON</outputType>
     <previewJsonData>{
-  &quot;recordId&quot; : &quot;x0VBm000003IDGPMA4&quot;
+  &quot;recordId&quot; : &quot;x0VBm000004jV2FMAU&quot;
 }</previewJsonData>
     <processSuperBulk>false</processSuperBulk>
     <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>

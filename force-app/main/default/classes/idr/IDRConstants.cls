@@ -513,4 +513,16 @@ public with sharing class IDRConstants {
     Case.IDR_Issue_Type_3__c,
     Case.IDR_Subsequent_Issue_3__c
   };
+
+  //Permission set groups
+  public static final Set<String> PSG_L2_L3_USERS = new Set<String>{
+    'IDR_Level_2',
+    'IDR_Level_3',
+    'Coach',
+    'Hypercare_Migration'
+  };
+
+  //Roles
+  public static final String ROLE_BANKER = 'Banker';
+  public static final String ROLE_BANKER_LINE_MANAGER = 'Banker_Line_Manager';
 }

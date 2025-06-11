@@ -25,7 +25,7 @@ private class CoreBankingDataSourceProviderTest {
     Test.startTest();
     List<DataSource.Capability> capability = dataProvider.getCapabilities();
     Test.stopTest();
-    Assert.areEqual(capability.size(), 3, 'Capability size is not 3');
+    Assert.areEqual(capability.size(), 2, 'Capability size is not 2');
   }
 
   @isTest

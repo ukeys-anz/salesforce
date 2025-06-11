@@ -90,14 +90,29 @@
               ></lightning-icon>
             </lightning-layout-item>
             <lightning-layout-item padding="around-small" size="11">
-              <lightning-formatted-text
-                value="Remember to ask Manual Authentication Questions if the customer cannot remember their Security Code. For more information view "
-              ></lightning-formatted-text>
-              <lightning-formatted-url
-                value={customerReferenceGuideURL}
-                label="Reference Guides on Max"
-                target="_blank"
-              ></lightning-formatted-url>
+              <template lwc:if={isCCRMUser}>
+                <lightning-formatted-text
+                  value="Remember to ask Manual Authentication Questions if the customer cannot remember their Security Code. For more information view "
+                ></lightning-formatted-text>
+                <lightning-formatted-url
+                  value={customerReferenceGuideURL}
+                  label="Reference Guides on Max"
+                  target="_blank"
+                ></lightning-formatted-url>
+              </template>
+              <template lwc:if={isMLUSer}>
+                <lightning-formatted-text
+                  value="Remember to ask Manual Authentication Questions if the customer cannot remember their Security Code. For more information view the "
+                ></lightning-formatted-text>
+                <lightning-formatted-url
+                  value={customerReferenceGuideURL}
+                  label="Customer Authentication in MLCRM"
+                  target="_blank"
+                ></lightning-formatted-url>
+                <lightning-formatted-text
+                  value=" KnowHow page."
+                ></lightning-formatted-text>
+              </template>
             </lightning-layout-item>
           </lightning-layout>
         </lightning-layout-item>

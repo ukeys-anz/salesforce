@@ -376,7 +376,7 @@ const DEBT_TYPES = {
         isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
       showAvailableRedraw:
         isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
-      showLoanType: isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
+      showRateType: isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
       showRemainingTermCheckbox:
         isActionEdit(actionType) &&
         debt.sourceType === SOURCE_CREDIT_BUREAU &&

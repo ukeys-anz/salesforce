@@ -69,6 +69,11 @@
         <field>Case.Verified_By__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.System_Action__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Lending Case - Read/Write</label>
     <objectPermissions>

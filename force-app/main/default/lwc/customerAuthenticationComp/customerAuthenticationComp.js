@@ -49,6 +49,14 @@ export default class CustomerAuthenticationComp extends LightningElement {
     }[this.currentUserProfileName];
   }
 
+  get isCCRMUser() {
+    return this.currentUserProfileName === "ANZ CCRM Standard User";
+  }
+
+  get isMLUSer() {
+    return this.currentUserProfileName === "ANZ ML Standard User";
+  }
+
   handleAuth() {
     this.loading = true;
     getSecurityCode({ customerId: this.recordId })

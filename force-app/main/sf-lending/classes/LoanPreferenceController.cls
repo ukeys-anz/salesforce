@@ -113,6 +113,10 @@ public with sharing class LoanPreferenceController {
         );
       }
       return new LoanPreferenceViewModel(loanPrefRec);
+    } catch (IllegalArgumentException ex) {
+      throw new AuraHandledException(
+        'Loan Preferences will be available once the customer(s) has provided the required information within the Loan Preferences section of the loan application.'
+      );
     } catch (Exception e) {
       Logger.info('Failure on Get Loan Preference', e);
       Logger.saveLog();

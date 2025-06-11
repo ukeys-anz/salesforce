@@ -40,10 +40,10 @@ public with sharing class RelatedAppOnOppController {
     public String applicationNumber { get; set; }
 
     /**
-     * @description applicationStatus Field
+     * @description applicationType Field
      **/
     @AuraEnabled
-    public String applicationStatus { get; set; }
+    public String applicationType { get; set; }
 
     /**
      * @description ApplicationFormProductWrapper Field
@@ -63,7 +63,7 @@ public with sharing class RelatedAppOnOppController {
       this.name = form.Name;
       this.applicationAmount = form.App_Amount__c;
       this.applicationNumber = form.Application_Number__c;
-      this.applicationStatus = form.Application_Status__c;
+      this.applicationType = form.RecordType.Name;
       this.applicationFormProducts = new List<ApplicationFormProductWrapper>();
 
       for (ApplicationFormProduct product : form.ApplicationFormProducts) {

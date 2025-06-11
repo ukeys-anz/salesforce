@@ -722,10 +722,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>IDRPendCaseTaskRemindersSelector</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>IDRRestrictedCasesController</apexClass>
         <enabled>true</enabled>
     </classAccesses>

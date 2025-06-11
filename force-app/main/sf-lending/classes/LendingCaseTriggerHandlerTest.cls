@@ -36,7 +36,7 @@ private class LendingCaseTriggerHandlerTest {
     Test.startTest();
     // Dummy Callouts for test coverage
     handler.onBeforeInsert();
-    handler.onBeforeUpdate(oldCaseMap);
+    handler.onValidateBefore(oldCaseMap);
     Test.stopTest();
     //Dummy assert
     Assert.isTrue(true, 'Before Insert and Before Update Method coverage');

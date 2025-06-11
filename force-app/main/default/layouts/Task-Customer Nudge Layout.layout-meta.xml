@@ -18,6 +18,10 @@
                 <behavior>Readonly</behavior>
                 <field>TaskNumber__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Customer_Task_Data__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -103,10 +107,6 @@
             <layoutItems>
                 <behavior>Required</behavior>
                 <field>Priority</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Customer_Task_Data__c</field>
             </layoutItems>
             <layoutItems>
                 <emptySpace>true</emptySpace>

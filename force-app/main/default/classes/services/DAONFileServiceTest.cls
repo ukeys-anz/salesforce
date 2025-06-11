@@ -8,21 +8,10 @@ private class DAONFileServiceTest {
   static final Faker FAKER = new Faker('AU');
   static final String CUSTOMER_ID = FAKER.randomString(10);
 
-  @TestSetup
-  static void makeData() {
-    Non_Prod_Settings__c settings = Non_Prod_Settings__c.getOrgDefaults();
-    settings.SSO_Not_Configured__c = true;
-    upsert settings;
-  }
-
-  static Lib_MockProvider calloutMock;
-  static void registerMocks() {
-    calloutMock = Lib_MockProvider.forType(Lib_HttpCallout.class);
-  }
+  static Lib_MockProvider calloutMock = TestUtil.httpCalloutMock;
 
   @IsTest
   static void testDownloadFiles() {
-    registerMocks();
     DAONFileRequestModel request = new DAONFileRequestModel();
     Test.startTest();
     new DAONFileService().downloadFiles(request, CUSTOMER_ID, 'OCVID');
@@ -41,7 +30,6 @@ private class DAONFileServiceTest {
 
   @IsTest
   static void testGetHeaders() {
-    registerMocks();
     Test.startTest();
     Map<String, String> headers = new DAONFileService()
       .getHeaders(CUSTOMER_ID, 'OCVID');

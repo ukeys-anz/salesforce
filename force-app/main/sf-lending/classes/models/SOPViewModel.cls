@@ -115,7 +115,7 @@ public with sharing class SOPViewModel extends CalloutModel {
     public String applicantId { get; set; }
 
     /**
-     * @description soleIncomeEarner value for flex card reference
+     * @description soleIncomeEarner value for to display on UI
      */
     @AuraEnabled
     public String soleIncomeEarner {
@@ -127,25 +127,22 @@ public with sharing class SOPViewModel extends CalloutModel {
     }
 
     /**
+     * @description shareFinanceWithPartner value to display on UI
+     */
+    @AuraEnabled
+    public String shareFinanceWithPartner {
+      get {
+        return relationshipState == 'RELATIONSHIP_STATE_IN_RELATIONSHIP'
+          ? 'Yes'
+          : 'No';
+      }
+    }
+
+    /**
      * @description relationshipState transform to retain actual status
      */
     @AuraEnabled
-    public String relationshipState {
-      get {
-        if (String.isEmpty(relationshipState)) {
-          return relationshipState;
-        }
-        List<String> arrRelationship = relationshipState.split('_');
-        String relationship = arrRelationship[arrRelationship.size() - 1]
-          .toLowerCase()
-          .capitalize();
-        if (relationship == 'Relationship') {
-          return 'In a relationship';
-        }
-        return relationship;
-      }
-      set;
-    }
+    public String relationshipState { get; set; }
 
     /**
      * @description partyDependantsCount value equals sop.dependantsCount for flex card reference

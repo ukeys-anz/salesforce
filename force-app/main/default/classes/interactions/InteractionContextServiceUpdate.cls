@@ -18,35 +18,38 @@ global with sharing class InteractionContextServiceUpdate {
   @HttpPost
   global static void doPost(UpdateInteractionByTwilioPayload contextRequest) {
     try {
-
       User userRecord = INTERACTION_REPOSITORY.fetchAgentUserId(
-      contextRequest.agentEmail);
+        contextRequest.agentEmail
+      );
 
       contextRequest.agentUserId = userRecord?.Id;
       //Twilio Detail Record inserted by Twilio
       TwilioContextResponse twilioResponse = TwilioServiceUtil.upsertTwilioDetailsRecord(
         contextRequest
       );
-      
+
       //Interaction attendee addition logic for conference scenario
       List<InteractionAttendee> conferenceAttendeeList = InteractionAttendeeActions.insertTwilioConferenceAttendee(
         contextRequest
       );
-     
+
       DML_REPOSITORY.doInsert(
         conferenceAttendeeList,
-        new DMLConfig().systemMode()
+        new DMLConfig().systemMode().allowPartial()
       );
-      
+
       String jsonRes = JSON.serialize(twilioResponse);
       RestContext.response.addHeader('Content-Type', 'application/json');
       RestContext.response.responseBody = Blob.valueOf(jsonRes);
       RestContext.response.statusCode = twilioResponse.statusCode;
     } catch (Exception objectException) {
       Logger.error(
-        'Interaction Update from Twilio with chatorCalSid ' +contextRequest.interactionId+ ' failed with error message: ',
-        objectException
-      ).save();
+          'Interaction Update from Twilio with chatorCalSid ' +
+            contextRequest.interactionId +
+            ' failed with error message: ',
+          objectException
+        )
+        .save();
       throw objectException;
     }
   }
