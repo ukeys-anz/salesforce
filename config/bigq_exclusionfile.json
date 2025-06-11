@@ -637,6 +637,7 @@
     "StartDay",
     "PasswordExpirationDate",
     "HasUserVerifiedPhone",
-    "UserPreferencesHideManagedEcaMobilePubModal"
+    "UserPreferencesHideManagedEcaMobilePubModal",
+    "UserPreferencesDismissPersonalSpaceLegalMessage"
   ]
 }
