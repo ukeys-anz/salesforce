@@ -6,6 +6,7 @@
 public with sharing class RTInteraction {
   static QueryRT base = QueryRT.of(Interaction.SObjectType);
 
+  public static Id rbmBrokerInteraction = base.getId('RBM_Broker_Interaction');
   public static Id call = base.getId('General');
   public static Id message = base.getId('Message');
   public static Id inPerson = base.getId('Store');

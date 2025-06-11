@@ -627,3 +627,16 @@ force-app/main/default/triggers/AccessRequestTrigger.trigger-meta.xml
 force-app/main/default/triggers/LogEventTrigger.trigger
 force-app/main/default/triggers/LogEventTrigger.trigger-meta.xml
 force-app/main/default/workflows/Access_Request__c.workflow-meta.xml
+
+#Ignore files for back merge
+force-app/main/default/objects/AccessControl__x/fields/Channel__c.field-meta.xml
+force-app/main/default/objects/AccessControl__x/fields/MinimumAAL__c.field-meta.xml
+force-app/main/default/objects/AccessControl__x/fields/Policy__c.field-meta.xml
+force-app/main/default/objects/Device__x/fields/BiometricStatus__c.field-meta.xml
+force-app/main/default/objects/Device__x/fields/Status__c.field-meta.xml
+force-app/main/default/staticresources/mock_getConsolidateSOP.resource-meta.xml
+force-app/main/default/staticresources/mock_getConsolidateSOP.json
+force-app/main/default/staticresources/mock_sop.resource-meta.xml
+force-app/main/default/staticresources/mock_sop.json
+force-app/main/default/classes/RTInteraction.cls
+force-app/main/default/classes/RTInteraction.cls-meta.xml
