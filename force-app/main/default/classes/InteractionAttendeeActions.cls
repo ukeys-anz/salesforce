@@ -160,7 +160,7 @@ public with sharing class InteractionAttendeeActions {
   /**
    * @description Create interaction attendee when the Customer is getting added to the interaction
    * @param interactions List of updated interactions
-   * @param oldMapInteraction Map of old interaction records
+   * @param oldMapInteraction Map of old interaction records.
    */
   public static void insertCustomerTypeInteractionAttendee(
     List<Interaction> interactions,
