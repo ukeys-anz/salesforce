@@ -87,7 +87,26 @@ jobs:
           node --no-warnings ci/workflows/Orchestrations/deployment.mjs "${{ steps.secrets.outputs.sfdxurl }}"
           echo WHICH_JOB="clean" >> $GITHUB_ENV
 
-      - name: Creating new tag and cleaning
+      - name: Cleanup
         working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/deployment.mjs
+
+  Create-tag:
+    runs-on: anzx-default
+    needs: [Deployment]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Tag Creation
+        run: |
+          baseRef="$(echo ${GITHUB_REF#refs/heads/})"
+          runId="${GITHUB_RUN_ID}"
+          newTag="$baseRef-$runId"
+          git tag "$newTag"
+          git push origin "$newTag"
+
+          echo "New created tag is: $newTag"
