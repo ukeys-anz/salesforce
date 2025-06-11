@@ -115,11 +115,11 @@ public with sharing class InteractionAttendeeActions {
       intattendee.InteractionId = interact.id;
       listOfInteractAttendeeToInsert.add(intattendee);
     }
-    Insert listOfInteractAttendeeToInsert;
-    /*DML_REPOSITORY.doInsert(
+    //Insert listOfInteractAttendeeToInsert;
+    DML_REPOSITORY.doInsert(
       listOfInteractAttendeeToInsert,
       new DMLConfig().allowPartial()
-    );*/
+    );
   }
 
   /**

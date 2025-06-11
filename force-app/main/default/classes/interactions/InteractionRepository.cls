@@ -175,12 +175,13 @@ public with sharing class InteractionRepository {
             User.Name,
             ContactId,
             Contact.Name,
-            Attendee_Name__c
+            Attendee_Name__c,
+            RecordTypeId
           FROM Attendees
         )
       FROM Interaction
       WHERE Id IN :interactionIds
-      WITH SYSTEM_MODE
+      WITH USER_MODE
     ];
   }
 
