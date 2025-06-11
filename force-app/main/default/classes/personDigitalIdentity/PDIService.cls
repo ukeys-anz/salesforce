@@ -20,7 +20,7 @@ public with sharing virtual class PDIService extends Service {
     String filter
   ) {
     return CALLOUT.makeRestCallout(
-      Label.MS_AccessControl,
+      Label.MS_AccessControlList,
       HTTP_METHOD.HTTP_POST,
       this.getHeaders(customerUuid),
       JSON.serialize(new Map<String, Object>{ 'filter' => filter ?? '' })
@@ -42,7 +42,8 @@ public with sharing virtual class PDIService extends Service {
       HTTP_METHOD.HTTP_POST,
       this.getHeaders(customerUuid),
       JSON.serialize(
-        new Map<String, Object>{ 'accessControl' => accessControl }
+        new Map<String, Object>{ 'accessControl' => accessControl },
+        true
       )
     );
   }

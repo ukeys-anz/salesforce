@@ -2334,7 +2334,15 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_AccessControl</shortDescription>
-        <value>callout:SF_MS_CH2/aegis-portal/v1/access-control</value>
+        <value>callout:SF_MS_CH2/aegis-portal/v1/access-controls</value>
+    </labels>
+    <labels>
+        <fullName>MS_AccessControlList</fullName>
+        <categories>Join;PDI;API</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_AccessControlList</shortDescription>
+        <value>callout:SF_MS_CH2/aegis-portal/v1/accesscontrol-searchresults</value>
     </labels>
     <labels>
         <fullName>MS_PublicKeyCredentials</fullName>
