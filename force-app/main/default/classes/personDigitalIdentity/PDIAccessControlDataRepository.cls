@@ -23,7 +23,7 @@ public with sharing class PDIAccessControlDataRepository extends PDIDataConnecti
   @TestVisible
   protected override void doDelete(String externalId) {
     String customerUuid = PDIHelper.parseResourcePath(externalId, 'person');
-    REPO.deletePublicKeyCredential(customerUuid, externalId);
+    REPO.deleteAccessControl(customerUuid, externalId);
   }
 
   @TestVisible
@@ -31,15 +31,17 @@ public with sharing class PDIAccessControlDataRepository extends PDIDataConnecti
     String customerUuid = (String) row.get('PersonId');
     PDIApiModel.AccessControl accessControl = new PDIApiModel.AccessControl();
     accessControl.name = (String) row.get('ExternalId');
+    accessControl.policy = (String) row.get('Policy');
     accessControl.match = new PDIApiModel.AccessControlMatchCriteria();
     accessControl.match.authChannel = (String) row.get('Channel');
     accessControl.match.personaId = (String) row.get('PersonaId');
-    accessControl.conditionalAdvice = new PDIApiModel.AccessControlConditionalAdvice();
-    accessControl.conditionalAdvice.deleteWhenMet = (Boolean) row.get(
-      'DeleteWhenMet'
-    );
-    accessControl.conditionalAdvice.minimumAal = (String) row.get('MinimumAAL');
-    accessControl.policy = (String) row.get('Policy');
+    if (accessControl.policy == 'POLICY_CONDITIONAL') {
+      accessControl.conditionalAdvice = new PDIApiModel.AccessControlConditionalAdvice();
+      accessControl.conditionalAdvice.deleteWhenMet = (Boolean) row.get(
+        'DeleteWhenMet'
+      );
+      accessControl.conditionalAdvice.minimumAal = (String) row.get('MinimumAAL');
+    }
 
     PDIApiModel.AccessControl createdAccessControl = REPO.createAccessControl(
       customerUuid,
