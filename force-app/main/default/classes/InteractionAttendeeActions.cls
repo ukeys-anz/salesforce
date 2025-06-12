@@ -369,6 +369,7 @@ public with sharing class InteractionAttendeeActions {
   /**
    * @description Update UniqueKeyForInteractionAttendee__c field for attendees
    * @param attendee list of new interaction attendees
+   * @param rbmInteractionExists true if interaction with Record Type RBM_Broker_Interaction exists with Id as Attendee.InterationId
    * @return uniqueKey for restricting duplicate record insertion
    */
   @TestVisible

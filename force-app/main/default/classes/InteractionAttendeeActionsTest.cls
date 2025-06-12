@@ -229,8 +229,6 @@ public with sharing class InteractionAttendeeActionsTest {
     interactionList[0].AccountId = Lib_FakeIdGenerator.getMockId(
       Account.getSObjectType()
     );
-    List<InteractionAttendee> attendeeList = (List<InteractionAttendee>) interactionList[0]
-      .Attendees;
     interactionRepoMock.mock('queryInteractions', interactionList);
     map<Id, Interaction> oldmap = new Map<id, interaction>(interactionList);
     oldmap.remove(interactionList[0].Id);
@@ -265,8 +263,6 @@ public with sharing class InteractionAttendeeActionsTest {
     interactionList[0].RecordTypeId = RTInteraction.call;
     User testUser = TestUtil.createTestUserWithProfile('ANZx Standard User');
 
-    List<InteractionAttendee> attendeeList = (List<InteractionAttendee>) interactionList[0]
-      .Attendees;
     userRepoMock.mock('checkProfile', true);
     userRepoMock.mock('getUser', testUser);
 
