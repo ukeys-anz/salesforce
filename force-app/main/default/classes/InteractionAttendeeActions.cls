@@ -28,20 +28,23 @@ public with sharing class InteractionAttendeeActions {
       attendees,
       InteractionAttendee.InteractionId
     );
-    Map<Id, Interaction> interactionMap = new Map<Id, Interaction>(
-      (List<Interaction>) ListUtil.filter(
-          INTERACTION_REPOSITORY.queryInteractionAndRelatedAttendees(
-            interactionIds
-          )
+    List<Interaction> interactionList = (List<Interaction>) ListUtil.filter(
+        INTERACTION_REPOSITORY.queryInteractionAndRelatedAttendees(
+          interactionIds
         )
-        .equals(Interaction.RecordTypeId, RTInteraction.rbmBrokerInteraction)
-        .toList()
+      )
+      .equals(Interaction.RecordTypeId, RTInteraction.rbmBrokerInteraction)
+      .toList();
+
+    Set<Id> rbmInteractionIds = ListUtil.getIds(
+      interactionList,
+      Interaction.Id
     );
     for (InteractionAttendee attendee : attendees) {
       attendee.Attendee_Name__c = attendee.Attendee_Name_Formula__c;
       attendee.UniqueKeyForInteractionAttendee__c = updateUniqueKeyForInteraction(
         attendee,
-        interactionMap.containsKey(attendee.InteractionId)
+        rbmInteractionIds.contains(attendee.InteractionId)
       );
     }
   }
@@ -115,7 +118,6 @@ public with sharing class InteractionAttendeeActions {
       intattendee.InteractionId = interact.id;
       listOfInteractAttendeeToInsert.add(intattendee);
     }
-    //Insert listOfInteractAttendeeToInsert;
     DML_REPOSITORY.doInsert(
       listOfInteractAttendeeToInsert,
       new DMLConfig().allowPartial()
@@ -138,19 +140,16 @@ public with sharing class InteractionAttendeeActions {
       interactions,
       interactionOwnerIds
     );
-
     //Loop in and create a Map of Interaction Id and list of attendees.
     Map<Id, Set<Id>> interactionIdWithAttendeeIdsMap = getInteractionIdWithAttendeesIdsMap(
       listOfInteractionAttendee
     );
-
     // Now Finally loop on proginal interaction, check if there is any existin interaction attendee with the
     // OwnerId, if yes, ignore it, if not insert the interactionattendee.
     List<InteractionAttendee> interactAttendeesToInsertList = createInteractionAttendeesToInsert(
       interactions,
       interactionIdWithAttendeeIdsMap
     );
-
     //This code creates interaction attendee in system mode using Twilio API user with limited access
     DML_REPOSITORY.doInsert(
       interactAttendeesToInsertList,
@@ -177,6 +176,7 @@ public with sharing class InteractionAttendeeActions {
     if (listCallInteractionsWithAccount.isEmpty()) {
       return;
     }
+
     List<interaction> interactionList = INTERACTION_REPOSITORY.queryInteractions(
       listCallInteractionsWithAccount
     );
@@ -369,7 +369,6 @@ public with sharing class InteractionAttendeeActions {
   /**
    * @description Update UniqueKeyForInteractionAttendee__c field for attendees
    * @param attendee list of new interaction attendees
-   * @param rbmInteractionExists if interaction with Record Type RBM_Broker_Interaction exists with Attendee.InterationId
    * @return uniqueKey for restricting duplicate record insertion
    */
   @TestVisible
@@ -377,12 +376,12 @@ public with sharing class InteractionAttendeeActions {
     InteractionAttendee attendee,
     Boolean rbmInteractionExists
   ) {
-    String key = '';
+    String middleKey = '';
     String attendeeType = attendee.AttendeeType;
     Boolean isBroker = 'Broker'.equals(attendee.Attendee_SubType__c);
 
     if (attendeeType == 'Internal') {
-      key = attendee.UserId + '_' + attendee.Conversation_Sid__c;
+      middleKey = attendee.UserId;
     }
     if (
       (attendeeType == 'Customer') ||
@@ -390,16 +389,21 @@ public with sharing class InteractionAttendeeActions {
       isBroker &&
       rbmInteractionExists)
     ) {
-      key = attendee.ContactId + '_' + attendee.Conversation_Sid__c;
+      middleKey = attendee.ContactId;
     }
     if (attendeeType == 'External' && (!isBroker || !rbmInteractionExists)) {
-      key = attendee.Attendee_Phone__c + '_' + attendee.Conversation_Sid__c;
+      middleKey = attendee.Attendee_Phone__c;
     }
     if (attendeeType == 'VirtualAgent') {
-      key = attendee.Attendee_Name__c;
+      return attendee.InteractionId + '_' + attendee.Attendee_Name__c;
     }
 
-    String uniqueKey = attendee.InteractionId + '_' + key;
+    String uniqueKey =
+      attendee.InteractionId +
+      '_' +
+      middleKey +
+      '_' +
+      attendee.Conversation_Sid__c;
     return uniqueKey;
   }
 
