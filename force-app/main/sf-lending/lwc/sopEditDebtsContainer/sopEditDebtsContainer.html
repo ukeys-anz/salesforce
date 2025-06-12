@@ -28,6 +28,8 @@
           debt-data={debtData}
           action-type="Edit"
           parties={belongsToOptions}
+          refinanced-assets={refinancedAssets}
+          property-assets={propertyAssets}
         ></c-sop-add-edit-debts>
       </template>
     </lightning-modal-body>
@@ -38,6 +40,7 @@
             variant="neutral"
             label="Cancel"
             onclick={handleClose}
+            lwc:if={showCancelButton}
           ></lightning-button>
         </lightning-layout-item>
         <lightning-layout-item size="6" class="slds-text-align_right">

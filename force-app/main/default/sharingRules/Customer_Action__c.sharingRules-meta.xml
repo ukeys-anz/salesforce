@@ -60,4 +60,19 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Customer_Notification_Action_Access</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule will give access to Customer Notification Action type customer action</description>
+        <label>Customer Notification Action Access</label>
+        <sharedTo>
+            <allInternalUsers/>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Notification Action</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
 </SharingRules>

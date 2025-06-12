@@ -167,7 +167,7 @@
                 <componentName>propertyUpdate</componentName>
                 <identifier>c_propertyUpdate</identifier>
                 <visibilityRule>
-                    <booleanFilter>(1 OR 2 OR 3) AND 4</booleanFilter>
+                    <booleanFilter>(1 OR 2 OR 3 OR 4) AND 5</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -182,6 +182,11 @@
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Credit_Assessor_Lead</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>BOH_Coach_Lead</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!Record.LoanApplication.Status}</leftValue>

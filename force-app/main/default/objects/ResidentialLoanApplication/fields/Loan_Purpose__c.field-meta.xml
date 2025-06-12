@@ -126,6 +126,16 @@ Many downstream systems such as Reporting, Risk, CAP and Credit utilize this fie
                 <default>false</default>
                 <label>Other</label>
             </value>
+            <value>
+                <fullName>LENDING_PURPOSE_REFINANCE_INVESTOR</fullName>
+                <default>false</default>
+                <label>Refinance - Investor</label>
+            </value>
+            <value>
+                <fullName>LENDING_PURPOSE_ALTERATIONS_DWELLING_EXISTING_INVESTOR</fullName>
+                <default>false</default>
+                <label>Non-Structural alterations or additions - Investment</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

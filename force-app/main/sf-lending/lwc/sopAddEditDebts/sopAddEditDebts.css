@@ -21,3 +21,7 @@
   --slds-c-accordion-section-spacing-inline-end: 0px;
   --slds-c-accordion-section-spacing-inline-start: 1px;
 }
+
+.delete-icon {
+  padding-top: 1.3rem;
+}

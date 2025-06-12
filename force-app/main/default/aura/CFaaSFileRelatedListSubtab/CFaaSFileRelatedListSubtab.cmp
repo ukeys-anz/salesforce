@@ -1,12 +1,17 @@
 <aura:component implements="lightning:isUrlAddressable" access="global">
   <aura:attribute type="String" name="recordId" />
   <aura:attribute type="String" name="cmpTitle" />
+  <aura:attribute type="Boolean" name="isCase" />
 
   <aura:handler name="init" value="{!this}" action="{!c.init}" />
 
   <lightning:workspaceAPI aura:id="cfaasFileSubtab" />
 
   <div class="slds-card">
-    <c:cfaasFilesRelatedList recordId="{!v.recordId}" title="{!v.cmpTitle}" />
+    <c:cfaasFilesRelatedList
+      recordId="{!v.recordId}"
+      title="{!v.cmpTitle}"
+      isCase="{!v.isCase}"
+    />
   </div>
 </aura:component>

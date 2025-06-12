@@ -33,16 +33,8 @@ public with sharing class SOPAssetsSummaryViewModel {
     this.assetsTotalAmount = totalAmount;
     this.assets = new List<SOPAssetsViewModel>();
 
-    Set<String> propertyIdSet = SOPHelper.getPropertyIdSet(sourceData);
-    List<LoanApplicationProperty> properties = RLA_SOQL_REPOSITORY.queryRelatedProperties(
-      loanId,
-      propertyIdSet
-    );
-
     for (SOPGetConsolidatedModel.Assets asset : sourceData) {
-      this.assets.add(
-        new SOPAssetsViewModel(asset, partyIdToFirstNameMap, properties)
-      );
+      this.assets.add(new SOPAssetsViewModel(asset, partyIdToFirstNameMap));
     }
   }
 }

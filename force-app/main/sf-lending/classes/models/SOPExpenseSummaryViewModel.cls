@@ -24,10 +24,14 @@ public with sharing class SOPExpenseSummaryViewModel {
    * @description constructor to map from sop expense api model to expenseSummary view model
    * @param sourceData expenseSummary api model
    * @param expenseConfigVersion version of expense config from sourceData sop
+   * @param assetPropertyLookup map of address lookup
+   * @param partyPropertyLookup map of address lookup
    */
   public SOPExpenseSummaryViewModel(
     SOPGetConsolidatedModel.MonthlyExpensesSummary sourceData,
-    String expenseConfigVersion
+    String expenseConfigVersion,
+    Map<String, SOPGetConsolidatedModel.Assets> assetPropertyLookup,
+    Map<String, SOPGetConsolidatedModel.Property> partyPropertyLookup
   ) {
     this.sop = sourceData.sop;
     this.isLegacyExpenseConfigVersion = new Set<String>(
@@ -47,7 +51,12 @@ public with sharing class SOPExpenseSummaryViewModel {
       SOPGetConsolidatedModel.MonthlyExpenses expense : sourceData.monthlyExpenses
     ) {
       this.monthlyExpenses.add(
-        new SOPExpenseViewModel(expense, mapCodeToReason)
+        new SOPExpenseViewModel(
+          expense,
+          mapCodeToReason,
+          assetPropertyLookup,
+          partyPropertyLookup
+        )
       );
     }
   }

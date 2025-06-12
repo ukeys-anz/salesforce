@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer_Task_Data__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Mobile</complianceGroup>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Lookup to &quot;Customer Task Data&quot;</description>
+    <label>Customer Task Data</label>
+    <referenceTo>Customer_Task_Data__c</referenceTo>
+    <relationshipLabel>Activities</relationshipLabel>
+    <relationshipName>Activities</relationshipName>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <type>Lookup</type>
+</CustomField>

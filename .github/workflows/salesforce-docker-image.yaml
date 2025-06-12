@@ -13,7 +13,7 @@ jobs:
       ARTIFACTORY: "artifactory.gcp.anz"
       CONFTEST_VERSION: "v0.32.0"
       DOCKER_COMPOSE_VERSION: "1.25.4"
-      DOCKER_IMAGE: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.3.0"
+      DOCKER_IMAGE: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.4.0"
       DOCKER_IMAGE_BASE: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate-base:latest"
       DOCKER_IMAGE_BASE_SOURCE: "hub.artifactory.gcp.anz/harness/delegate-immutable:23.07.79904.minimal"
       DOCKER_VERSION: "19.03.8"
@@ -75,6 +75,7 @@ jobs:
             --build-arg KUSTOMISE_SHA256="${{ env.KUSTOMISE_SHA256 }}" \
             --build-arg KUSTOMIZE_VERSION="${{ env.KUSTOMIZE_VERSION }}" \
             --build-arg OPA_VERSION="${{ env.OPA_VERSION }}" \
+            --build-arg NODEJS_VERSION="${{ env.NODEJS_VERSION }}" \
             -t "${{ env.DOCKER_IMAGE_BASE }}"
 
       #  Push the base target image

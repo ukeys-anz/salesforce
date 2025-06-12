@@ -37,6 +37,7 @@ public class RTCase {
   public static Id scam = base.getId('Scam');
   public static Id selfieRecovery = base.getId('Selfie_Recovery');
   public static Id systemicIssue = base.getId('Systemic_Issue');
+  public static Id lending = base.getId('Lending');
   public static Id confirmationOfPayee = base.getId('Confirmation_Of_Payee');
   public static Id trustMeQA = base.getId('TrustMe_eIDV_QA_Case');
   public static Id trustMeManualReview = base.getId('TrustMe_eIDV_Case');

@@ -10,6 +10,6 @@
     <required>false</required>
     <scale>2</scale>
     <securityClassification>Confidential</securityClassification>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>Currency</type>
 </CustomField>

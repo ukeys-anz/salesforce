@@ -177,6 +177,8 @@
     "Customer_Dispute_Management__c": "To manage customer disputes, limiting creation of disputes. This object linked with Account based on related cases it manages disputes",
     "CustomerOnboardingApplication__c": "The main record maintaining Salesforce's copy of the state of a prospect's onboarding journey",
     "Customer_Profile_Updates__c": "This custom object is a staging object which will store the changes made by the bankers on Account and all Contact Point objects.",
+    "Customer_Task_Configuration__c": "Stores preconfigured template values for push to app implemtation",
+    "Customer_Task_Data__c": "Holds aemcontent data that is utilized on Mobile screens for push to app implementation",
     "Deposit_Account__x": "External Direct Deposit financial accounts",
     "Drawdown__c": "Contains account details and drawdown details for the settlement funds",
     "Drawdown_Transaction__c": "Transaction details of the part of funds accessed for the settlement drawdown",
@@ -242,6 +244,19 @@
     "User": "A Salesforce user (ANZ employee)"
   },
   "pantherId": {
+    "AccessControl__x": {
+      "IA-2530753": [
+        "Channel__c",
+        "CreatedBy__c",
+        "CreatedTime__c",
+        "DeleteWhenMet__c",
+        "MinimumAAL__c",
+        "Name__c",
+        "PersonId__c",
+        "PersonaId__c",
+        "Policy__c"
+      ]
+    },
     "Account": {
       "IA-2415720": [
         "ANZx_Customer__c",
@@ -441,7 +456,12 @@
       ]
     },
     "Activity": {
-      "IA-2530753": ["Pega_CDH_Id__c"],
+      "IA-2530753": [
+        "Pega_CDH_Id__c",
+        "Customer_Task_Configuration__c",
+        "Customer_Task_Data__c",
+        "TaskNumber__c"
+      ],
       "IA-2468713": ["Pub_Sub_Event_Id__c"],
       "IA-2415999": ["PEGA_Case_Status__c"],
       "IA-2415984": ["Customer_Name__c"],
@@ -731,7 +751,9 @@
         "RecordTypeId",
         "Review_Date__c",
         "Segment_Type__c",
-        "Source_System_Identifier__c"
+        "Source_System_Identifier__c",
+        "Existing_Business_Owner__c",
+        "My_Region_Flag__c"
       ],
       "IA-2415984": [
         "Name",
@@ -749,7 +771,11 @@
       "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"],
       "IA-2423227": ["COI_Member__c"],
       "IA-2415790": ["Broker_Name__c"],
-      "IA-2460507": ["My_Team_A2Z_Review__c"]
+      "IA-2460507": [
+        "My_Team_A2Z_Review__c",
+        "My_Sub_Team__c",
+        "My_Team_Segment__c"
+      ]
     },
     "Broker_Relation__c": {
       "IA-2415790": ["Aggregator__c", "RecordTypeID", "State__c"],
@@ -1429,6 +1455,7 @@
       ],
       "IA-2468710": ["SLATesting__c", "CardScamType__c"],
       "IA-2594109": ["Sync_Status__c"],
+      "IA-2415983": ["Loan_Account_Change_Number__c", "Change_To__c"],
       "IA-2594116": [
         "AcceptableDocumentType__c",
         "CertificateShowsCurrentContactName__c",
@@ -2015,7 +2042,15 @@
         "Accepted_Date__c",
         "Mortgage_Contract__c"
       ],
-      "IA-2530753": ["Created__c", "Completed__c", "Completed_By__c"],
+      "IA-2530753": [
+        "Created__c",
+        "Completed__c",
+        "Completed_By__c",
+        "Action_UUID__c",
+        "Action_Name__c",
+        "Action_Counter__c",
+        "Customer_Task_Data__c"
+      ],
       "IA-2415998": ["Eligible_to_Complete__c", "Accepted_By__c"],
       "IA-2415720": [
         "Action__c",
@@ -2150,6 +2185,18 @@
       "IA-2468715": ["Source_System_Name__c"],
       "IA-2415720": ["Customer_Status__c"]
     },
+    "Customer_Task_Configuration__c": {
+      "IA-2468707": [
+        "AEM_Content_Id__c",
+        "Applicable_Record_Types__c",
+        "Applicable_User_Role__c",
+        "Expire_After_Days__c",
+        "SObject_Type__c"
+      ]
+    },
+    "Customer_Task_Data__c": {
+      "IA-2468707": ["AEM_Content_Data__c"]
+    },
     "Customer_Profile_Update_Event__e": {
       "IA-2415860": [
         "RecordType_Name__c",
@@ -2163,6 +2210,26 @@
     "DCRM_Customer_Management_Non_KYC_Fields__mdt": {
       "IA-2530743": ["Object_Name__c", "RecordType_Name__c"],
       "IA-2415993": ["Customer_Status__c", "Field_Name__c", "Profile_Name__c"]
+    },
+    "Device__x": {
+      "IA-2530753": [
+        "AppCorrelationId__c",
+        "AppVersion__c",
+        "BiometricId__c",
+        "BiometricLastAuthenticationTime__c",
+        "BiometricRegisteredTime__c",
+        "BiometricStatus__c",
+        "CreatedTime__c",
+        "DeviceCorrelationId__c",
+        "LastAuthenticationTime__c",
+        "Make__c",
+        "Model__c",
+        "Name__c",
+        "OSVersion__c",
+        "PersonId__c",
+        "Status__c",
+        "UpdatedTime__c"
+      ]
     },
     "Drawdown__c": {
       "IA-2530753": [
@@ -2641,7 +2708,8 @@
         "Customer_Relationship__c",
         "Territory__c",
         "Financial_Account__c",
-        "ML_DataMigration_Key__c"
+        "ML_DataMigration_Key__c",
+        "My_Region_Flag__c"
       ],
       "IA-2530753": [
         "AccountId",
@@ -2727,9 +2795,18 @@
         "ReasonforVisit__c",
         "Product__c",
         "Actual_Topic_Formula__c",
-        "Reason_for_Visit_Formula__c"
+        "Reason_for_Visit_Formula__c",
+        "Actual_Topic__c",
+        "Reason_For_Visit__c",
+        "Products__c"
       ],
-      "IA-2423227": ["COI_Member__c"]
+      "IA-2423227": ["COI_Member__c"],
+      "IA-2415983": ["Interaction_Type__c"],
+      "IA-2460507": [
+        "My_Reportees_Interactions__c",
+        "My_Sub_Team__c",
+        "My_Team_Segment__c"
+      ]
     },
     "Interaction_Tag__c": {
       "IA-2415840": ["Name", "Type__c", "Sub_Type__c", "Tag__c"],
@@ -3071,6 +3148,13 @@
         "Object_Name__c"
       ]
     },
+    "Loan_Application_System_Status_Mapping__mdt": {
+      "IA-2434298": [
+        "Application_Product_Stage__c",
+        "Application_Record_Type__c",
+        "Source_System_Status__c"
+      ]
+    },
     "Loan_Applicant_Group__c": {
       "IA-2415983": [
         "Deposit_Amount__c",
@@ -3203,7 +3287,8 @@
         "Loan_Repayment_Frequency__c",
         "Borrow_Additional_Funds__c",
         "Current_Loan_Balance__c",
-        "LoanExclFinMortInsAmt"
+        "LoanExclFinMortInsAmt",
+        "Percentage_Deductible__c"
       ],
       "IA-2415840": [
         "Property_Valuation_Id__c",
@@ -3471,7 +3556,8 @@
         "Has_Close_Date_Changed__c",
         "CLG__c",
         "Secondary_Customer_Needs__c",
-        "My_Notes__c"
+        "My_Notes__c",
+        "Industry__c"
       ],
       "IA-2468715": [
         "CreatedById",
@@ -3554,7 +3640,17 @@
       ],
       "IA-2415984": ["Role", "Mobile_Classic__c", "Email_Classic__c"],
       "IA-2428130": ["ContactId"],
-      "IA-2530753": ["Source_System_Id__c"]
+      "IA-2530753": ["Source_System_Id__c"],
+      "IA-2453350": ["ExternalId__c"]
+    },
+    "Opportunity_Contact_Role_Sync__c": {
+      "IA-2453350": [
+        "ContactId__c",
+        "ExternalId__c",
+        "OpportunityContactRoleId__c",
+        "OpportunityId__c",
+        "Role__c"
+      ]
     },
     "OpportunityLineItem": {
       "IA-2415987": [
@@ -3590,6 +3686,15 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
+      ]
+    },
+    "Passkey__x": {
+      "IA-2530753": [
+        "AAGUID__c",
+        "CreatedTime__c",
+        "LastAuthenticationTime__c",
+        "Name__c",
+        "PersonId__c"
       ]
     },
     "PriceBook2": {
@@ -4192,7 +4297,8 @@
         "Loan_Term__c",
         "Other_Cancellation_Reason__c",
         "Cancellation_Reason__c",
-        "InterestRate"
+        "InterestRate",
+        "Property_Use__c"
       ],
       "IA-2415997": ["SOP_Id__c"],
       "IA-2530753": [
@@ -4477,7 +4583,8 @@
         "LastModifiedById",
         "LastModifiedDate"
       ],
-      "IA-2594109": ["Call_Transcript__c"]
+      "IA-2594109": ["Call_Transcript__c"],
+      "IA-2646045": ["Summary__c"]
     },
     "Title_Detail__c": {
       "IA-2415983": ["Title_Reference__c", "State__c", "Estate_Type__c"],

@@ -5,15 +5,15 @@
  */
 public with sharing class InteractionRepository {
   /**
-   * @description query existing Interaction Record
-   * @param callOrChatSidList Set<String> containing callOrChatSid from Interaction
+   * @description query existing Interaction Record based on callOrChatSid from Twilio
+   * @param callOrChatSid String containing callOrChatSid from Twilio
    * @return Map<String, Interaction> Map of chatOrCallSID and Interaction record
    */
   public Map<String, Interaction> queryExistingInteractionFromCallOrChatSID(
-    Set<String> callOrChatSidList
+    String callOrChatSid
   ) {
     Map<String, Interaction> existingInteractionsBySID = new Map<String, Interaction>();
-    if (callOrChatSidList.isEmpty()) {
+    if (String.isBlank(callOrChatSid)) {
       return existingInteractionsBySID;
     }
 
@@ -26,9 +26,9 @@ public with sharing class InteractionRepository {
         Chat_or_Call_SID_Formula__c
       FROM Interaction
       WHERE
-        Chat_or_Call_SID__c IN :callOrChatSidList
-        OR Chat_or_Call_SID_Formula__c IN :callOrChatSidList
-      WITH SECURITY_ENFORCED
+        Chat_or_Call_SID__c = :callOrChatSid
+        OR Chat_or_Call_SID_Formula__c = :callOrChatSid
+      WITH USER_MODE
     ]) {
       String chatOrCallSid = interact.Chat_or_Call_SID__c ??
         interact.Chat_or_Call_SID_Formula__c;
@@ -43,33 +43,32 @@ public with sharing class InteractionRepository {
    * @return Interaction record with Twilio Details
    */
   public Interaction fetchTwilioDetailIdFromInteraction(Id interactionId) {
-    if (interactionId == null) {
-      return null;
-    }
-
     return [
       SELECT TwilioDetailsID__c
       FROM Interaction
       WHERE Id = :interactionId
-      WITH SECURITY_ENFORCED
-    ];
+      WITH USER_MODE
+      LIMIT 1
+    ] ?? null;
   }
 
   /**
    * @description query User based on agentEmail
    * @param agentEmail agentEmail from Twilio
-   * @return List of User
+   * @return User record
    */
-  public List<User> fetchAgentUserId(String agentEmail) {
-    if (String.isBlank(agentEmail) || SObjectType.User.isQueryable() == false) {
-      return new List<User>();
+  public User fetchAgentUserId(String agentEmail) {
+    if (String.isBlank(agentEmail)) {
+      return null;
     }
 
     return [
       SELECT Id, FederationIdentifier
       FROM User
       WHERE FederationIdentifier = :agentEmail AND IsActive = TRUE
-    ];
+      WITH USER_MODE
+      LIMIT 1
+    ] ?? null;
   }
 
   /**
@@ -79,16 +78,13 @@ public with sharing class InteractionRepository {
    * @return SObject
    */
   public SObject fetchOCVId(String refObject, String recordId) {
-    Schema.DescribeSObjectResult describeResult = Schema.getGlobalDescribe()
-      .get(refObject)
-      .getDescribe();
-    if (String.isBlank(refObject) || !describeResult.isQueryable()) {
+    if (String.isBlank(refObject)) {
       return null;
     }
     return Database.query(
       'SELECT Account.OCV_ID__c FROM ' +
         String.escapeSingleQuotes(refObject) +
-        ' WHERE Id = :recordId'
+        ' WHERE Id = :recordId WITH USER_MODE'
     );
   }
 
@@ -98,7 +94,6 @@ public with sharing class InteractionRepository {
    * @return Account record
    */
   public Account findAccountByOCVId(String ocvId) {
-    PermissionUtils.canQuery('Account');
     return [
       SELECT PersonContactId
       FROM Account
@@ -107,6 +102,125 @@ public with sharing class InteractionRepository {
         AND RecordTypeId = :QueryRT.of(Account.SObjectType)
           .getId('PersonAccount')
         AND ANZx_Customer__c = TRUE
+        WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description query Existing Account Record based on the ocvId received
+   * @param ocvIdFromTwilio ocvid received from Twilio
+   * @return Account record existing
+   */
+  public Account fetchExistingAccountByOCVId(String ocvIdFromTwilio) {
+    return [
+      SELECT Id, OCV_ID__c, PPID__c
+      FROM Account
+      WHERE OCV_ID__c = :ocvIdFromTwilio AND ANZx_Customer__c = TRUE
+      WITH USER_MODE
+      LIMIT 1
+    ] ?? null;
+  }
+
+  /**
+   * @description query Interaction Details created successfully
+   * @param interactionId recordId of the Interaction
+   * @return Interaction record details
+   */
+  public Interaction getInteractionDetails(Id interactionId) {
+    return [
+      SELECT Id, Interaction_External_Id__c, TwilioDetailsID__c, CaseId__c
+      FROM Interaction
+      WHERE Id = :interactionId
+      WITH USER_MODE
+      LIMIT 1
+    ] ?? null;
+  }
+
+  /**
+   * @description Fetch task details for sending back to Twilio as response
+   * @param pubSubEventId pubSubEventId received from Twilio
+   * @return Task record details
+   */
+  public Task queryPushToAppTaskDetails(String pubSubEventId) {
+    return [
+      SELECT Id, Pub_Sub_Event_Id__c, WhatId
+      FROM Task
+      WHERE Pub_Sub_Event_Id__c = :pubSubEventId
+      WITH USER_MODE
+      LIMIT 1
+    ] ?? null;
+  }
+
+  /**
+   * @description Query details of Interaction Records and Related Attendee
+   * @param interactionIds set of InteractionId on which update is happening.
+   * @return Interaction info along with Attendees details.
+   */
+  public List<Interaction> queryInteractionAndRelatedAttendees(Set<Id> interactionIds){
+    if (interactionIds.isEmpty()){
+      return new List<Interaction>();
+    }
+    return [
+      SELECT
+        Id,
+        Attendees__c,
+        Attendees_and_Roles__c,
+        RecordTypeId,
+        (
+          SELECT
+            Id,
+            InteractionId,
+            AttendeeType,
+            UserId,
+            User.UserRole.Name,
+            User.Name,
+            ContactId,
+            Contact.Name,
+            Attendee_Name__c
+          FROM Attendees
+        )
+      FROM Interaction
+      WHERE Id IN :interactionIds
+      WITH SYSTEM_MODE
+    ];
+  }
+
+  /**
+   * @description Query details of Interaction Records and Related Attendee
+   * @param interactions set of InteractionId on which update is happening.
+   * @param interactionOwnerIds Interaction Owner Ids set
+   * @return List<InteractionAttendee> Return list of InteractionAttendee
+   */
+  public List<InteractionAttendee> queryInteractionAttendees(List<Interaction> interactions,Set<Id> interactionOwnerIds){
+    if (interactions.isEmpty() || interactionOwnerIds.isEmpty() ){
+      return new List<InteractionAttendee>();
+    }
+    return[
+        SELECT UserId, InteractionId
+        FROM InteractionAttendee
+        WHERE InteractionId IN :interactions AND UserId IN :interactionOwnerIds
+        WITH SYSTEM_MODE
+    ];
+  }
+
+    /**
+   * @description Query details of Interaction Records
+   * @param interactions List of interactions which are updated.
+   * @return Interaction info having customer associated with it.
+   */
+  public List<Interaction> queryInteractions(
+    List<Interaction> interactions
+  ) {
+    return [
+      SELECT
+        id,
+        Contact_Mobile__c,
+        Account.PersonContactId,
+        RecordTypeId,
+        AccountId
+      FROM interaction
+      WHERE id IN :interactions
+      WITH SYSTEM_MODE
     ];
   }
 }

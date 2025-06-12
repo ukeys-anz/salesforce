@@ -149,7 +149,7 @@
     <enableHistory>false</enableHistory>
     <enableLicensing>false</enableLicensing>
     <enableReports>true</enableReports>
-    <enableSearch>false</enableSearch>
+    <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>Private</externalSharingModel>
@@ -159,6 +159,16 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>Controlling Posts</pluralLabel>
+    <profileSearchLayouts>
+        <fields>NAME</fields>
+        <fields>Is_Active__c</fields>
+        <fields>Area_Code__c</fields>
+        <fields>CPID_Type__c</fields>
+        <fields>CPID_User__c</fields>
+        <fields>Start_Date__c</fields>
+        <fields>End_Date__c</fields>
+        <profileName>ANZ CCRM Standard User</profileName>
+    </profileSearchLayouts>
     <searchLayouts/>
     <sharingModel>Read</sharingModel>
     <visibility>Public</visibility>

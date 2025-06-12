@@ -10,6 +10,7 @@ public with sharing class ViewServiceabilityModel extends CalloutModel {
   public DateTime createTime;
   public String loanAppId;
   public FabricType.FabricMoney totalUMI;
+  public FabricType.FabricMoney maxBorrowingLimitUmi;
   public List<Assessment> assessments;
   /**
    * @description assessment node from view UMI api

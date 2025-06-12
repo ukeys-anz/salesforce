@@ -4,6 +4,11 @@
  * @description This class provide SOQL and DML helper for class related to FinancialAccountQueryBase.
  */
 public with sharing class FinancialAccountQueryBaseRepository {
+  private static final String CUSTOMER_LENDING_GROUP = 'Customer Lending Group';
+  private static final String SUSPENDED = 'Suspended';
+  private static final String CLOSED = 'Closed';
+  private static final String OCV_DELETED = 'OCV Deleted';
+
   /**
    * @description Retrieves list of financial accounts related to a customer via
    *                        financial account role relationship (FAR)
@@ -52,6 +57,17 @@ public with sharing class FinancialAccountQueryBaseRepository {
         AND FinServ__FinancialAccount__r.Product_Type__c IN :productTypes
         AND Role_Type__c IN :roleTypes.keyset()
         AND FinServ__EndDate__c = NULL
+        AND (FinServ__FinancialAccount__r.FinServ__Status__c NOT IN (
+          :SUSPENDED,
+          :CLOSED
+        )
+        OR (FinServ__FinancialAccount__r.FinServ__Status__c IN (
+          :SUSPENDED,
+          :CLOSED
+        )
+        AND (FinServ__FinancialAccount__r.FinServ__CloseDate__c = NULL
+        OR FinServ__FinancialAccount__r.FinServ__CloseDate__c >= LAST_N_MONTHS:18)))
+        AND FinServ__FinancialAccount__r.System_Record_Status__c != :OCV_DELETED
       ORDER BY FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
     ];
     return faRoles;
@@ -194,26 +210,30 @@ public with sharing class FinancialAccountQueryBaseRepository {
   }
 
   /**
-   * @description get Customer record
-   * @param  customerId
+   * @description get customers related to a CLG customer
+   * @param  clgCustomerId
    * @return List<FinServ__AccountAccountRelation__c>
    */
-  public List<FinServ__AccountAccountRelation__c> getCustomerAAR(
-    String customerId
+  public List<FinServ__AccountAccountRelation__c> getCLGRelatedCustomers(
+    String clgCustomerId
   ) {
-    if (
-      !PermissionUtils.canQuery('FinServ__AccountAccountRelation__c') ||
-      String.isBlank(customerId)
-    ) {
+    if (String.isBlank(clgCustomerId)) {
       return new List<FinServ__AccountAccountRelation__c>();
     }
+    Set<Id> recordTypeIds = new Set<Id>{
+      RTAccount.businessAccount,
+      RTAccount.personAccount
+    };
     List<FinServ__AccountAccountRelation__c> result = new List<FinServ__AccountAccountRelation__c>();
     result = [
       SELECT Id, FinServ__RelatedAccount__r.External_Id__c
       FROM FinServ__AccountAccountRelation__c
       WHERE
-        FinServ__Account__r.External_Id__c = :customerId
+        FinServ__Account__r.External_Id__c = :clgCustomerId
         AND FinServ__Active__c = TRUE
+        AND FinServ__Role__r.Name = :CUSTOMER_LENDING_GROUP
+        AND FinServ__RelatedAccount__r.RecordTypeId IN :recordTypeIds
+      WITH USER_MODE
     ];
     return result;
   }

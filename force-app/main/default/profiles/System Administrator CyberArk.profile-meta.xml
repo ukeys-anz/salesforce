@@ -722,10 +722,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>IDRPendCaseTaskRemindersSelector</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>IDRRestrictedCasesController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -9065,6 +9061,11 @@
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>Case.Credit_Referral</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Case.Lending</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

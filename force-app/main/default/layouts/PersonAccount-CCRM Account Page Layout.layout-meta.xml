@@ -306,6 +306,7 @@
     <relatedLists>
         <fields>Account_Number__c</fields>
         <fields>Account_Name__c</fields>
+        <fields>Product_Name__c</fields>
         <fields>Account_Status__c</fields>
         <fields>Limit__c</fields>
         <relatedList>Portfolio_Of_Loan__x.Customer__c</relatedList>
@@ -321,6 +322,7 @@
     <relatedLists>
         <fields>Account_Number__c</fields>
         <fields>Account_Name__c</fields>
+        <fields>Product_Name__c</fields>
         <fields>Balance__c</fields>
         <fields>Limit__c</fields>
         <fields>Account_Status__c</fields>
@@ -332,6 +334,7 @@
     <relatedLists>
         <fields>Account_Number__c</fields>
         <fields>Account_Name__c</fields>
+        <fields>Product_Name__c</fields>
         <fields>Balance__c</fields>
         <fields>Account_Status__c</fields>
         <relatedList>Term_Deposit__x.Customer__c</relatedList>
@@ -339,6 +342,7 @@
     <relatedLists>
         <fields>Account_Number__c</fields>
         <fields>Account_Name__c</fields>
+        <fields>Product_Name__c</fields>
         <fields>Balance__c</fields>
         <fields>Account_Status__c</fields>
         <fields>Relationship__c</fields>
@@ -356,6 +360,7 @@
     </relatedLists>
     <relatedLists>
         <fields>Account_Number__c</fields>
+        <fields>Product_Name__c</fields>
         <fields>Account_Status__c</fields>
         <fields>Limit__c</fields>
         <fields>Relationship__c</fields>

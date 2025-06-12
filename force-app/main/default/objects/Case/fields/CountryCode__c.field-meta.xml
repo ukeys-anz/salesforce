@@ -606,16 +606,6 @@
                 <label>Kiribati</label>
             </value>
             <value>
-                <fullName>PRK</fullName>
-                <default>false</default>
-                <label>Korea (the Democratic People&apos;s Republic of)</label>
-            </value>
-            <value>
-                <fullName>KOR</fullName>
-                <default>false</default>
-                <label>Korea (the Republic of)</label>
-            </value>
-            <value>
                 <fullName>KOS</fullName>
                 <default>false</default>
                 <label>Kosovo</label>
@@ -846,6 +836,11 @@
                 <label>Norfolk Island</label>
             </value>
             <value>
+                <fullName>PRK</fullName>
+                <default>false</default>
+                <label>North Korea (Democratic People&apos;s Republic of Korea)</label>
+            </value>
+            <value>
                 <fullName>MKD</fullName>
                 <default>false</default>
                 <label>North Macedonia</label>
@@ -1064,6 +1059,11 @@
                 <fullName>SGS</fullName>
                 <default>false</default>
                 <label>South Georgia and the South Sandwich Islands</label>
+            </value>
+            <value>
+                <fullName>KOR</fullName>
+                <default>false</default>
+                <label>South Korea (Republic of Korea)</label>
             </value>
             <value>
                 <fullName>SSD</fullName>

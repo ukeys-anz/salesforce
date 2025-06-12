@@ -127,6 +127,13 @@ public with sharing class AuthService extends Service {
         '&rqf_id_value=' +
         EncodingUtil.urlEncode(staffModelWrapper.idValue, 'UTF-8');
     }
+
+    if (String.isNotBlank(forgeAuth.Audience__c)) {
+      payload =
+        payload +
+        '&audience=' +
+        EncodingUtil.urlEncode(forgeAuth.Audience__c, 'UTF-8');
+    }
     return payload;
   }
 }

@@ -18,13 +18,22 @@ import ViewCardNumber from "c/viewFullCardNumber";
 import CardsAccountTypeForSorting from "@salesforce/label/c.CardsAccountTypeForSorting";
 
 export default class ViewCards extends LightningElement {
-  @api cardsFromParent;
   @api recordId;
+  @api
+  get cardsFromParent() {
+    return this.cards;
+  }
+  set cardsFromParent(value) {
+    //The data is being received proxied, so we stringify it
+    //and parse it to unproxy it
+    this.cards = JSON.parse(JSON.stringify(value));
+    this.processCardDetails();
+  }
+
   @api
   get isActiveCardSection() {
     return this._isActiveCardSection === "true" ? true : false;
   }
-
   set isActiveCardSection(value) {
     this._isActiveCardSection = value;
   }
@@ -85,10 +94,6 @@ export default class ViewCards extends LightningElement {
   pageRef;
 
   connectedCallback() {
-    //The data is being received proxied, so we stringify it
-    //and parse it to unproxy it
-    this.cards = JSON.parse(JSON.stringify(this.cardsFromParent));
-    this.processCardDetails();
     this.subscriptionHandler();
   }
 
@@ -199,16 +204,18 @@ export default class ViewCards extends LightningElement {
 
   //Sorting the order of cards based on type of accountType - Added as part of ANZX-128123
   sortCardDetails(arrOfCards) {
-    return arrOfCards.sort((firstCard, otherCard) => {
-      const accountTypeOrder = CardsAccountTypeForSorting.split(",");
-      let sortValue = 0;
-      if (firstCard.accountType !== otherCard.accountType) {
-        sortValue =
-          accountTypeOrder.indexOf(firstCard.accountType) -
-          accountTypeOrder.indexOf(otherCard.accountType);
-      }
-      return sortValue;
-    });
+    // Create a map of accountType to sortIndex
+    const orderMap = Object.fromEntries(
+      CardsAccountTypeForSorting.split(",").map((accountType, sortIndex) => [
+        accountType,
+        sortIndex
+      ])
+    );
+
+    // Sort using the orderMap
+    return arrOfCards.sort(
+      (a, b) => orderMap[a.accountType] - orderMap[b.accountType]
+    );
   }
 
   //Dispatch an event to refresh the data if any button got clicked

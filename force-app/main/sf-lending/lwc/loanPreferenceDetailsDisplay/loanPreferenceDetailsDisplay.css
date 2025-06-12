@@ -1,0 +1,35 @@
+.labelStyle {
+  font-size: var(--slds-g-font-scale-neg-1, 12px);
+  font-weight: var(--slds-g-font-weight-4);
+  line-height: var(--slds-g-font-scale-3);
+  color: var(--slds-g-color-neutral-base-30);
+}
+.textStyle {
+  font-size: var(--slds-g-font-size-base, 13px);
+  font-weight: var(--slds-g-font-weight-4);
+  line-height: var(--slds-g-font-scale-3);
+  color: var(--slds-g-color-neutral-base-10);
+}
+.requiredTextStyle {
+  font-size: var(--slds-g-font-scale-neg-1);
+  font-weight: var(--slds-g-font-weight-4);
+  line-height: var(--slds-g-font-scale-3);
+  color: var(--slds-g-color-neutral-base-10);
+}
+.boxStyling {
+  box-shadow: 0px 0px 4.7px 0px #00000040;
+}
+.footerStyling {
+  background: var(--slds-g-color-surface-container-2);
+  box-shadow: 0px 0px 4.7px 0px #00000040;
+}
+.headingStyle {
+  font-size: var(--slds-g-font-size-base, 13px);
+  font-weight: var(--slds-g-font-weight-7);
+  line-height: var(--slds-g-font-scale-3);
+  color: var(--slds-g-color-neutral-base-10);
+}
+
+.error-text {
+  color: var(--slds-g-color-error-1);
+}

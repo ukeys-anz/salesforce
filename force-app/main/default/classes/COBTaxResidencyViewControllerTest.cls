@@ -4,57 +4,74 @@
  * @since 05/2023
  */
 @isTest
-public with sharing class COBTaxResidencyViewControllerTest {
-  @testSetup
-  static void setup() {
-    Faker faker = new Faker('AU');
+private class COBTaxResidencyViewControllerTest {
+  static final String TOKENIZED_TIN = 'Q2CmJdCA0';
+  static final String DETOKENIZED_TIN = 'PA0940444';
+  static final String DETOKENIZED_COB_TAX_RESIDENCY_SUCCESS_RESPONSE =
+    '{' +
+    '  \"values\": [' +
+    '    {' +
+    '      \"Tokenized\": \"' +
+    TOKENIZED_TIN +
+    '\",' +
+    '      \"Detokenized\": \"' +
+    DETOKENIZED_TIN +
+    '\"' +
+    '    }' +
+    '  ]' +
+    '}';
 
-    CustomerOnboardingApplication__c cobApp = new CustomerOnboardingApplication__c();
-    insert cobApp;
+  static Lib_MockProvider stravinskyApiRepoMock;
 
-    COBTaxResidency__c taxResidency = new COBTaxResidency__c(
-      TaxIdentificationNumber__c = StravinskyServiceMock.TOKENIZED_TIN,
-      PersonaId__c = faker.randomString(15),
-      CustomerOnboardingApplication__c = cobApp.Id
+  static void registerMocks() {
+    stravinskyApiRepoMock = Lib_MockProvider.forType(
+      StravinskyAPIRepository.class
     );
-
-    insert taxResidency;
   }
 
-  private static COBTaxResidency__c getTaxResidency() {
-    return [
-      SELECT Id, PersonaId__c, TaxIdentificationNumber__c
-      FROM COBTaxResidency__c
-    ];
-  }
+  static COBTaxResidency__c taxResidency = new COBTaxResidency__c(
+    TaxIdentificationNumber__c = TOKENIZED_TIN
+  );
+
+  static COBTaxResidencyModel cobTaxResidency = COBTaxResidencyModel.parse(
+    DETOKENIZED_COB_TAX_RESIDENCY_SUCCESS_RESPONSE
+  );
 
   @isTest
   private static void testDetokenizeCOBTaxResidencyDataSuccessful() {
-    COBTaxResidency__c taxResidency = getTaxResidency();
-
-    Test.startTest();
-    String detokenizedValue = COBTaxResidencyViewController.detokenizeCOBTaxResidencyData(
-      taxResidency
+    registerMocks();
+    stravinskyApiRepoMock.mock(
+      'cobTaxResidencyDetokenization',
+      cobTaxResidency
     );
+
+    String detokenizedValue;
+    Test.startTest();
+    try {
+      detokenizedValue = COBTaxResidencyViewController.detokenizeCOBTaxResidencyData(
+        taxResidency
+      );
+    } catch (Exception ex) {
+      Assert.fail('Exception shouldn\'t be thrown');
+    }
     Test.stopTest();
 
-    Assert.areNotEqual(
-      null,
-      detokenizedValue,
-      'Detokenized value should not be null.'
+    Assert.isFalse(
+      stravinskyApiRepoMock.getHistories('cobTaxResidencyDetokenization')
+        .isEmpty(),
+      'cobTaxResidencyDetokenization call should have been made.'
     );
-    Assert.areEqual(
-      StravinskyServiceMock.DETOKENIZED_TIN,
-      detokenizedValue,
-      'Detokenized value is not correct.'
-    );
+    Assert.isNotNull(detokenizedValue, 'Detokenized Value should not be null.');
   }
 
   @isTest
   private static void testDetokenizeCOBTaxResidencyDataCalloutException() {
-    COBTaxResidency__c taxResidency = getTaxResidency();
-
-    StravinskyAPIRepository.throwException = true; // Simulate a callout exception
+    registerMocks();
+    stravinskyApiRepoMock
+      .mockException(
+        'cobTaxResidencyDetokenization',
+        new CalloutException('Error calling out')
+      );
 
     String detokenizedValue = null;
     Test.startTest();
@@ -62,17 +79,17 @@ public with sharing class COBTaxResidencyViewControllerTest {
       detokenizedValue = COBTaxResidencyViewController.detokenizeCOBTaxResidencyData(
         taxResidency
       );
+      Assert.fail('Exception should be thrown');
     } catch (Exception e) {
       Assert.areEqual(
         null,
         detokenizedValue,
         'Detokenized Value should not have been updated.'
       );
-      Assert.areEqual(
-        true,
-        e.getMessage()
-          .contains(COBTaxResidencyViewController.FAILED_DETOKENIZATION),
-        'Exception should have been thrown.'
+      Assert.isInstanceOfType(
+        e,
+        AuraHandledException.class,
+        'Exception should be an instanceof AuraHandledException.'
       );
     }
     Test.stopTest();

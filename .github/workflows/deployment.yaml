@@ -13,25 +13,17 @@ permissions:
 jobs:
   Deployment:
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.3.0"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.4.0"
       options: --user root
     runs-on: anzx-default-np
     steps:
-      - name: Link SGD plugin
-        run: |
-          cd /opt/harness-delegate/.local/share/sf
-          sf plugins:link node_modules/sfdx-git-delta/bin
-
-      - name: NPM package Version | node, sfdx, sf, sgd version
-        run: |
-          echo "node version: $(node -v)"
-          echo "sf version: $(sf -v)"
-          echo "sf plugins: $(sf plugins)"
-
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          submodules: "true"
+          token: ${{ secrets.SALESFORCE_ACTIONS_CHECKOUT_TOKEN }}
+          path: salesforce
 
       - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
         id: "authenticate-harness-delegate"
@@ -40,6 +32,7 @@ jobs:
           service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
 
       - name: ENV vars
+        working-directory: salesforce
         run: |
           baseRef="$(echo ${GITHUB_REF#refs/heads/})"
           echo BASE_REF="$baseRef" >> $GITHUB_ENV
@@ -51,6 +44,7 @@ jobs:
           echo BASE_REF_LAST_TAG="$lastTag" >> $GITHUB_ENV
 
       - name: Find Secret Names
+        working-directory: salesforce
         run: |
           sfdxURL=$( node ci/workflows/Orchestrations/findSecret.mjs )
           projectId=anz-x-bootstrap-np-487e09
@@ -72,11 +66,28 @@ jobs:
             sfdxurl:projects/${{ env.PROJECT_ID }}/secrets/${{ env.SECRET_NAME }}/versions/latest
             artifactory:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/${{ env.ARTIFACTORY_SECRET_NAME }}/versions/latest
 
+      - name: Checkout salesforce-plugin repo
+        uses: actions/checkout@v4
+        with:
+          repository: anzx/salesforce-plugin
+          token: ${{ secrets.SALESFORCE_PLUGIN_CHECKOUT_TOKEN }}
+          path: salesforce-plugin
+
+      - name: Install plugin
+        working-directory: salesforce-plugin
+        shell: bash
+        run: |
+          rm -rf node_modules && yarn install --frozen-lockfile
+          yarn build
+          sf plugins link .
+
       - name: Run Deployment
+        working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/deployment.mjs "${{ steps.secrets.outputs.sfdxurl }}"
           echo WHICH_JOB="clean" >> $GITHUB_ENV
 
       - name: Creating new tag and cleaning
+        working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/deployment.mjs

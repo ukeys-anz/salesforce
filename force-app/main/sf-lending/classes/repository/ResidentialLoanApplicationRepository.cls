@@ -24,6 +24,7 @@ public with sharing class ResidentialLoanApplicationRepository {
         LoanApplicationId = :loanId
         AND Property_ID__c IN :propertyIds
         AND Property_ID__c != NULL
+      WITH USER_MODE
     ];
   }
   /**
@@ -34,14 +35,10 @@ public with sharing class ResidentialLoanApplicationRepository {
   public List<ResidentialLoanApplication> queryLoanApplications(
     List<Id> loanIds
   ) {
-    List<ResidentialLoanApplication> loanApplicationRecords = new List<ResidentialLoanApplication>();
-    if (
-      loanIds.isEmpty() ||
-      !ResidentialLoanApplication.SObjectType.getDescribe().isQueryable()
-    ) {
-      return loanApplicationRecords;
+    if (loanIds.isEmpty()) {
+      return new List<ResidentialLoanApplication>();
     }
-    loanApplicationRecords = [
+    return [
       SELECT
         Id,
         Name,
@@ -50,22 +47,16 @@ public with sharing class ResidentialLoanApplicationRepository {
         Account.External_Id__c
       FROM ResidentialLoanApplication
       WHERE Id IN :loanIds
+      WITH USER_MODE
     ];
-    return loanApplicationRecords;
   }
+
   /**
    * @description get RLA by id
    * @param recordId RLA recordId
    * @return  `ResidentialLoanApplication`
    */
   public ResidentialLoanApplication queryRLAById(String recordId) {
-    if (
-      String.isBlank(recordId) ||
-      !PermissionUtils.canQuery('ResidentialLoanApplication')
-    ) {
-      return null;
-    }
-
     return [
       SELECT
         Id,
@@ -78,7 +69,8 @@ public with sharing class ResidentialLoanApplicationRepository {
         Credit_Reassess_Required__c
       FROM ResidentialLoanApplication
       WHERE Id = :recordId
-    ];
+      LIMIT 1
+    ] ?? null;
   }
 
   /**
@@ -157,7 +149,7 @@ public with sharing class ResidentialLoanApplicationRepository {
 
     //LoanApplicant stores OCV Ids in Party Id field
     return [
-      SELECT Id, Account__r.FirstName, Party_ID__c
+      SELECT Id, Account__r.Name, Party_ID__c
       FROM LoanApplicant
       WHERE Party_ID__c IN :ocvIds AND LoanApplicationId = :loanAppId
       WITH USER_MODE
@@ -170,7 +162,7 @@ public with sharing class ResidentialLoanApplicationRepository {
    * @return  `List<Case>` Cases related to the RLAs
    */
   public List<Case> queryRelatedCreditReferralCases(Set<Id> rlaRecordIds) {
-    if (rlaRecordIds.isEmpty() || !PermissionUtils.canQuery('Case')) {
+    if (rlaRecordIds.isEmpty()) {
       return new List<Case>();
     }
     return [
@@ -180,6 +172,7 @@ public with sharing class ResidentialLoanApplicationRepository {
         Loan_Application__c IN :rlaRecordIds
         AND RecordTypeId = :RTCase.creditReferral
         AND IsClosed = FALSE
+      WITH USER_MODE
     ];
   }
 }

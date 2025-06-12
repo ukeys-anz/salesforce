@@ -380,7 +380,7 @@
                     </criteria>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
+                        <operator>CONTAINS</operator>
                         <rightValue>BOH_Coach</rightValue>
                     </criteria>
                     <criteria>
@@ -416,6 +416,10 @@
                 <componentInstanceProperties>
                     <name>maxRecords</name>
                     <value>3</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showAll</name>
+                    <value>true</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>showAppTab</name>

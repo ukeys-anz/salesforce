@@ -24,7 +24,7 @@ jobs:
             | Merge Commit |     |         |
             | ------------ | --- | ------- |
             | release      | ➡️  | develop |
-            | release      | ➡️  | epic    |
+            | develop      | ➡️  | epic    |
             | develop      | ➡️  | master  |
             | master       | ➡️  | develop |
 
