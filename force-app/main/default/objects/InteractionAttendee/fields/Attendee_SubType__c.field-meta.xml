@@ -39,10 +39,19 @@
                 <default>false</default>
                 <label>Other</label>
             </value>
+            <value>
+                <fullName>EM</fullName>
+                <default>false</default>
+                <label>EM</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Internal</controllingFieldValue>
             <valueName>RBM</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal</controllingFieldValue>
+            <valueName>EM</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>External</controllingFieldValue>

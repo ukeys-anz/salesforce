@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_Lookup_Users_For_RBMs</fullName>
+    <active>true</active>
+    <description>Restricting Selection of Users&apos; based on the Attendee Subtype for RBM, EM values</description>
+    <errorConditionFormula>AND(
+ISPICKVAL(AttendeeType,&apos;Internal&apos;),
+Interaction.RecordType.DeveloperName = &quot;RBM_Broker_Interaction&quot;,
+OR(
+    AND(
+        ISPICKVAL( Attendee_SubType__c ,&apos;EM&apos;),
+        NOT(User.UserRole.Name = &apos;Broker Enablement Manager&apos;)
+        ),
+    AND(
+        ISPICKVAL( Attendee_SubType__c ,&apos;RBM&apos;), 
+        Not(User.UserRole.Name = &apos;Residential Broker Manager&apos;)
+        )
+ )
+)</errorConditionFormula>
+    <errorDisplayField>UserId</errorDisplayField>
+    <errorMessage>Please Select the Appropriate User according to the Attendee Subtype Selected.</errorMessage>
+</ValidationRule>

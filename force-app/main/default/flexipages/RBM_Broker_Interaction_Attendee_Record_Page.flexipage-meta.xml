@@ -47,7 +47,7 @@
                 <fieldItem>Record.UserId</fieldItem>
                 <identifier>RecordUserIdField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.AttendeeType}</leftValue>
                         <operator>EQUAL</operator>
@@ -57,6 +57,11 @@
                         <leftValue>{!Record.Attendee_SubType__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>RBM</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Attendee_SubType__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>EM</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
