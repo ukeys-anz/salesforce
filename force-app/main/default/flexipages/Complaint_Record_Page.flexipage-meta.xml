@@ -697,10 +697,16 @@
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab3</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.ANZx_Push_To_App_View}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer_Complaint</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -711,10 +717,27 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>hideMarkCompleteButton</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>support:milestones</componentName>
+                <identifier>support_milestones</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>Customer_Complaint</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentName>initiateInteraction</componentName>
                 <identifier>c_initiateInteraction</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND (2 OR 3 OR 4)</booleanFilter>
+                    <booleanFilter>1 AND 4 AND (2 OR 3)</booleanFilter>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.ANZx_Push_To_App_View}</leftValue>
                         <operator>EQUAL</operator>
@@ -731,9 +754,9 @@
                         <rightValue>Under Investigation</rightValue>
                     </criteria>
                     <criteria>
-                        <leftValue>{!Record.Status}</leftValue>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Case - On Hold</rightValue>
+                        <rightValue>Customer_Complaint</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -775,26 +798,15 @@
                 <componentName>interactionRelatedList</componentName>
                 <identifier>c_interactionRelatedList</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.ANZx_Push_To_App_View}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>true</rightValue>
                     </criteria>
-                </visibilityRule>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>hideMarkCompleteButton</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentName>support:milestones</componentName>
-                <identifier>support_milestones</identifier>
-                <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>CONTAINS</operator>
+                        <operator>EQUAL</operator>
                         <rightValue>Customer_Complaint</rightValue>
                     </criteria>
                 </visibilityRule>
