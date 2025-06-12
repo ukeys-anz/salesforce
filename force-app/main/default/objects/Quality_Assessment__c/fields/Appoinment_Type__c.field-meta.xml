@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Appoinment_Type__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Available appointment types.</description>
+    <label>Appoinment Type</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Buy &amp; Own a Home</fullName>
+                <default>false</default>
+                <label>Buy &amp; Own a Home</label>
+            </value>
+            <value>
+                <fullName>Financial Wellbeing</fullName>
+                <default>false</default>
+                <label>Financial Wellbeing</label>
+            </value>
+            <value>
+                <fullName>Test out a Home Loan</fullName>
+                <default>false</default>
+                <label>Test out a Home Loan</label>
+            </value>
+            <value>
+                <fullName>Digital Support</fullName>
+                <default>false</default>
+                <label>Digital Support</label>
+            </value>
+            <value>
+                <fullName>Other - Advice</fullName>
+                <default>false</default>
+                <label>Other - Advice</label>
+            </value>
+            <value>
+                <fullName>Other - No Advice</fullName>
+                <default>false</default>
+                <label>Other - No Advice</label>
+            </value>
+            <value>
+                <fullName>Other - Lending</fullName>
+                <default>false</default>
+                <label>Other - Lending</label>
+            </value>
+            <value>
+                <fullName>Other - Deposits</fullName>
+                <default>false</default>
+                <label>Other - Deposits</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

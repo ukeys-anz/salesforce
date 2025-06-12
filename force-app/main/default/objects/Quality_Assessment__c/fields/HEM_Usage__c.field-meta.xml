@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HEM_Usage__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Specifies HEM usage.</description>
+    <inlineHelpText>If the &apos;Assessed Amount&apos; total is greater than the &apos;Application Amount&apos; then HEM has been used.</inlineHelpText>
+    <label>HEM Usage</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>HEM Used</fullName>
+                <default>false</default>
+                <label>HEM Used</label>
+            </value>
+            <value>
+                <fullName>HEM Not Used</fullName>
+                <default>false</default>
+                <label>HEM Not Used</label>
+            </value>
+            <value>
+                <fullName>HEM Used (expenses reviewed)</fullName>
+                <default>false</default>
+                <label>HEM Used (expenses reviewed)</label>
+            </value>
+            <value>
+                <fullName>HEM Not Used (expenses reviewed)</fullName>
+                <default>false</default>
+                <label>HEM Not Used (expenses reviewed)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
