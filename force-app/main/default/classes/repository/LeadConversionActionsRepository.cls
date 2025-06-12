@@ -90,25 +90,6 @@ public without sharing class LeadConversionActionsRepository {
   }
 
   /**
-   * @description getOpportunityContactRole method return OpportunityContactRole related to lead under leadConversion
-   * @param personContactsIdSet Id of the Person Contacts related to lead under leadConversion
-   * @return List<OpportunityContactRole> OpportunityContactRole List
-   */
-  public List<OpportunityContactRole> getOpportunityContactRole(
-    Set<ID> personContactsIdSet
-  ) {
-    if (personContactsIdSet.isEmpty()) {
-      return new List<OpportunityContactRole>();
-    }
-    return [
-      SELECT id, ContactId
-      FROM OpportunityContactRole
-      WHERE ContactId IN :personContactsIdSet
-      WITH SYSTEM_MODE
-    ];
-  }
-
-  /**
    * @description getLeadRecordForConversion return Lead record using recordId
    * @param recordId recordId of the lead
    * @return Lead returns the Lead record

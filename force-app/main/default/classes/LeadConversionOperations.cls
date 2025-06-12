@@ -303,12 +303,5 @@ public without sharing class LeadConversionOperations {
       orgContactList,
       new DmlConfig().allowPartial().systemMode()
     );
-    List<OpportunityContactRole> personOpportunityContactRoleList = LEADCONV_REPOSITORY.getOpportunityContactRole(
-      personContactsIdSet
-    );
-    DML_REPOSITORY.doDelete(
-      personOpportunityContactRoleList,
-      new DmlConfig().allowPartial().systemMode()
-    );
   }
 }

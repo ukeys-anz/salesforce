@@ -8,12 +8,10 @@ public with sharing class SOPUpdateSOPAndPartyResponseModel extends CalloutModel
   /**
    * @description The partyData of the SOP Party.
    */
-  @AuraEnabled
   public PartyData partyData;
   /**
    * @description The sopData of the SOP.
    */
-  @AuraEnabled
   public SOPData sopData;
 
   /**
@@ -23,7 +21,6 @@ public with sharing class SOPUpdateSOPAndPartyResponseModel extends CalloutModel
     /**
      * @description The Party wrapper property.
      */
-    @AuraEnabled
     public Party party;
   }
   /**
@@ -33,17 +30,14 @@ public with sharing class SOPUpdateSOPAndPartyResponseModel extends CalloutModel
     /**
      * @description List of parties involved in the SOP.
      */
-    @AuraEnabled
     public List<Parties> parties;
     /**
      * @description Error code recieved for Update Party.
      */
-    @AuraEnabled
     public String code;
     /**
      * @description Error message recieved for Update Party.
      */
-    @AuraEnabled
     public String message;
   }
 
@@ -54,22 +48,18 @@ public with sharing class SOPUpdateSOPAndPartyResponseModel extends CalloutModel
     /**
      * @description The unique identifier for the party.
      */
-    @AuraEnabled
     public String id;
     /**
      * @description The OCV ID associated with the party.
      */
-    @AuraEnabled
     public String ocvId;
     /**
      * @description A flag indicating whether the spouse of the party earns income.
      */
-    @AuraEnabled
     public Boolean spouseEarnsIncome;
     /**
      * @description relationshipState transform to retain actual status
      */
-    @AuraEnabled
     public String relationshipState;
   }
 
@@ -80,32 +70,26 @@ public with sharing class SOPUpdateSOPAndPartyResponseModel extends CalloutModel
     /**
      * @description The name of the SOP.
      */
-    @AuraEnabled
     public String name;
     /**
      * @description List of parties involved in the SOP.
      */
-    @AuraEnabled
     public List<Parties> parties;
     /**
      * @description The count of dependents associated with the SOP.
      */
-    @AuraEnabled
     public Integer dependantsCount;
     /**
      * @description The ETag for the SOP.
      */
-    @AuraEnabled
     public String etag;
     /**
      * @description Error code recieved for Update Party.
      */
-    @AuraEnabled
     public String code;
     /**
      * @description Error message recieved for Update Party.
      */
-    @AuraEnabled
     public String message;
   }
 
