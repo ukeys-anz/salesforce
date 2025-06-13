@@ -1520,6 +1520,12 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>extraCareNotification</componentName>
+                <identifier>c_extraCareNotification</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentName>warningLeadMistmatchCustomer</componentName>
                 <identifier>c_warningLeadMistmatchCustomer</identifier>
             </componentInstance>

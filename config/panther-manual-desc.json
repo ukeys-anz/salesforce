@@ -320,7 +320,14 @@
         "IsSkeleton__c",
         "IsSnapshotError__c",
         "IsSnapshotInProgress__c",
-        "Migration_Status_Date__c"
+        "Migration_Status_Date__c",
+        "ExtraCareTimePeriod__c",
+        "ExtraCareReason__c",
+        "ExtraCareNotes__c",
+        "ExtraCareReviewDate__c",
+        "ExtraCareDisclosure__c",
+        "ExtraCareConsent__c",
+        "ShowExtraCareAlert__c"
       ],
       "IA-2415860": [
         "Deleted_in_OCV__c",
@@ -2422,7 +2429,8 @@
         "FinServ__StartDate__c",
         "System_Individual_Relationship__c",
         "CPID__c",
-        "Customer_Type__c"
+        "Customer_Type__c",
+        "ExtraCare__c"
       ],
       "IA-2594111": ["FinServ__Account__c", "FinServ__RelatedAccount__c"],
       "IA-2415860": [
