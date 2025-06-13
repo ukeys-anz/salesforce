@@ -45,6 +45,11 @@ const FILETYPE_DEFAULTS = {
     placeholder: IMG_SELFIE,
     size: 4
   },
+  DAON_FILE_TYPE_SELFIE_ANZX_REKYC_FACE: {
+    title: "TrustMe Selfie",
+    placeholder: IMG_SELFIE,
+    size: 4
+  },
   DAON_FILE_TYPE_SELFIE_TO_BE_ENROLLED: {
     title: "Selfie to be enrolled",
     placeholder: IMG_SELFIE,

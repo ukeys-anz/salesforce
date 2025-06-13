@@ -10,7 +10,8 @@
     ISCHANGED( Status ) ,
     OR(
       RecordType.DeveloperName == &apos;TrustMe_eIDV_QA_Case&apos;,
-      RecordType.DeveloperName == &apos;TrustMe_eIDV_Case&apos;
+      RecordType.DeveloperName == &apos;TrustMe_eIDV_Case&apos;,
+      RecordType.DeveloperName == &apos;ReKYC_QA_Case&apos;
     ),
     NOT(IsClosed)
     )</errorConditionFormula>

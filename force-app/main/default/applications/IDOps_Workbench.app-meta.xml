@@ -714,6 +714,24 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
+        <content>ReKYC_QA_Case</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.ReKYC_QA_Case</recordType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>ReKYC_QA_Case</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.ReKYC_QA_Case</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
         <content>IDOps_Selfie_Recovery_Cases</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Case</pageOrSobjectType>
