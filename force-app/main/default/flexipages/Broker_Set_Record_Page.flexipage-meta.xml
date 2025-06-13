@@ -21,7 +21,7 @@ Record details has 2 identical section; one for RBM with all fields as read-only
                                 <criteria>
                                     <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                                     <operator>EQUAL</operator>
-                                    <rightValue>Broker_Enablement_Manager</rightValue>
+                                    <rightValue>Enablement_Manager</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
@@ -37,7 +37,7 @@ Record details has 2 identical section; one for RBM with all fields as read-only
                                 <criteria>
                                     <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                                     <operator>EQUAL</operator>
-                                    <rightValue>Broker_Enablement_Manager</rightValue>
+                                    <rightValue>Enablement_Manager</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
@@ -362,10 +362,7 @@ Record details has 2 identical section; one for RBM with all fields as read-only
                             <value>FULL_NAME</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>CONTACT.EMAIL</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>CONTACT.PHONE3</value>
+                            <value>Retail_Accreditation_Status__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>RetailTPMISAO__c</value>
@@ -436,10 +433,7 @@ Record details has 2 identical section; one for RBM with all fields as read-only
                             <value>FULL_NAME</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>CONTACT.EMAIL</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>CONTACT.PHONE3</value>
+                            <value>Retail_Accreditation_Status__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>RetailTPMISAO__c</value>

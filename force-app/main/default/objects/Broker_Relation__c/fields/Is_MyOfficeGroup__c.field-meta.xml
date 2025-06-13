@@ -9,7 +9,7 @@
   OR(
     Associated_Broker_Set__r.Primary_RBM__c ==  $User.Id, 
     Associated_Broker_Set__r.Secondary_RBM__c == $User.Id,
-    $UserRole.Name == &quot;Broker Enablement Manager&quot; 
+    $UserRole.DeveloperName == &quot;Enablement_Manager&quot; 
   )
 )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

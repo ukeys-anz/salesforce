@@ -19,9 +19,7 @@ public class BrokerSetTriggerHandlerTest {
     brokerSettingsMock.mock('get', mockSettings);
 
     User emUser = TestUtil.createTestUserWithProfile('ANZx Standard User');
-    emUser.UserRoleId = CommonUtil.getUserRoleByDevName(
-        'Broker_Enablement_Manager'
-      )
+    emUser.UserRoleId = CommonUtil.getUserRoleByDevName('Enablement_Manager')
       .Id;
 
     User testUser = TestUtil.createTestUserWithProfile('ANZx Standard User');
@@ -29,7 +27,16 @@ public class BrokerSetTriggerHandlerTest {
         'Residential_Broker_Manager'
       )
       .Id;
-    insert testUser;
+
+    List<User> allUsers = new List<User>();
+    allUsers.add(emUser);
+    allUsers.add(testUser);
+    insert allUsers;
+
+    TestUtil.assignPermissionSetGroups(
+      new List<String>{ 'Enablement_Manager' },
+      allUsers
+    );
 
     System.runAs(emUser) {
       Account acc1 = new Account();
