@@ -9,7 +9,7 @@ Interaction.RecordType.DeveloperName = &quot;RBM_Broker_Interaction&quot;,
 OR(
     AND(
         ISPICKVAL( Attendee_SubType__c ,&apos;EM&apos;),
-        NOT(User.UserRole.Name = &apos;Broker Enablement Manager&apos;)
+        NOT(User.UserRole.Name = &apos;Enablement Manager&apos;)
         ),
     AND(
         ISPICKVAL( Attendee_SubType__c ,&apos;RBM&apos;), 
