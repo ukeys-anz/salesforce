@@ -18,5 +18,5 @@ OR(
  )
 )</errorConditionFormula>
     <errorDisplayField>UserId</errorDisplayField>
-    <errorMessage>Please Select the Appropriate User according to the Attendee Subtype Selected.</errorMessage>
+    <errorMessage>Please add the correct user based on Subtype selected.</errorMessage>
 </ValidationRule>
