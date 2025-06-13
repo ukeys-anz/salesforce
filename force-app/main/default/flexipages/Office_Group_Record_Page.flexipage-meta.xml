@@ -24,7 +24,7 @@
                                 <criteria>
                                     <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                                     <operator>EQUAL</operator>
-                                    <rightValue>Broker_Enablement_Manager</rightValue>
+                                    <rightValue>Enablement_Manager</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
@@ -45,7 +45,7 @@
                                 <criteria>
                                     <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                                     <operator>EQUAL</operator>
-                                    <rightValue>Broker_Enablement_Manager</rightValue>
+                                    <rightValue>Enablement_Manager</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
@@ -143,16 +143,6 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Is_MyOfficeGroup__c</fieldItem>
-                <identifier>RecordIs_MyOfficeGroup_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>

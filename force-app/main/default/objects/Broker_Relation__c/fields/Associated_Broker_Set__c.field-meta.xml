@@ -28,7 +28,7 @@
         <filterItems>
             <field>$UserRole.DeveloperName</field>
             <operation>equals</operation>
-            <value>Broker_Enablement_Manager</value>
+            <value>Enablement_Manager</value>
         </filterItems>
         <filterItems>
             <field>$Source.RecordTypeId</field>

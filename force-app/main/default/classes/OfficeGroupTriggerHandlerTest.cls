@@ -19,9 +19,7 @@ public with sharing class OfficeGroupTriggerHandlerTest {
     brokerSettingsMock.mock('get', mockSettings);
 
     User emUser = TestUtil.createTestUserWithProfile('ANZx Standard User');
-    emUser.UserRoleId = CommonUtil.getUserRoleByDevName(
-        'Broker_Enablement_Manager'
-      )
+    emUser.UserRoleId = CommonUtil.getUserRoleByDevName('Enablement_Manager')
       .Id;
 
     User testUser = TestUtil.createTestUserWithProfile('ANZx Standard User');
