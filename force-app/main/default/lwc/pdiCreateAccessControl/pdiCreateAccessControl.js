@@ -118,7 +118,9 @@ export default class PdiCreateAccessControl extends NavigationMixin(
             .flatMap((row) => row.layoutItems)
             .flatMap((item) => this.helper.transformLayoutItem(item))
         }))
-        .filter((section) => section.fields.some((field) => field.is.visible)),
+        .filter((section) =>
+          section.fields.some((field) => field.is.visible && field.apiName)
+        ),
     transformLayoutItem: (item) =>
       item.layoutComponents.map((cmp) => {
         const editable = this.helper.fieldEditable(cmp.apiName);
@@ -128,16 +130,17 @@ export default class PdiCreateAccessControl extends NavigationMixin(
           is: {
             [cmp.apiName ?? "blankSpace"]: true,
             required: item.required,
-            visible: editable,
+            visible: editable || !cmp.apiName,
             disabled: readonly && editable
           },
           ...cmp
         };
       }),
     fieldEditable: (field) => {
-      return this.recordId
-        ? this.objectInfo.fields[field].updateable
-        : this.objectInfo.fields[field].createable;
+      const info = this.objectInfo.fields[field];
+      if (!info) return false;
+
+      return this.recordId ? info.updateable : info.createable;
     }
   };
 }

@@ -114,7 +114,6 @@
     </relatedLists>
     <relatedLists>
         <fields>Name__c</fields>
-        <fields>CreatedBy__c</fields>
         <fields>CreatedTime__c</fields>
         <relatedList>AccessControl__x.PersonId__c</relatedList>
     </relatedLists>
