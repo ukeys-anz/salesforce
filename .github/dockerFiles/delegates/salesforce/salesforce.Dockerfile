@@ -25,13 +25,6 @@ ARG ARTIFACTORY
 ENV NPM_CONFIG_REGISTRY=https://${ARTIFACTORY}/artifactory/api/npm/npmjs-org NODE_VERSION=20.18.0
 
 USER root
-# Install python
-# hadolint ignore=DL3033
-RUN yum install -y python27 python2-pip && \
-    yum clean all
-
-# Set Python and Pip default to Python 2, so that it is backward compatible
-RUN alternatives --set python /usr/bin/python2 && ln -s /usr/bin/pip2 /usr/bin/pip
 
 # Install yq
 ARG YQ_VERSION
