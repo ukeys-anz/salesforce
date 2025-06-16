@@ -19,7 +19,7 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     if (data && data.Case) {
       this.populateAccountNumbers(this._omniData);
       this.validateNAoption(this._omniData);
-      this.clearAccountFields(this._omniData.Case.ComplaintDetails);
+      this.clearAccountFields(this._omniData.Case);
     }
   }
 
