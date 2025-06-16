@@ -32,8 +32,20 @@ public with sharing class CommercialSurveyResponseActions {
       custNumWithAccRecordMap.keySet(),
       surveyResponses
     );
+    Set<String> userLANIds = ListUtil.getStrings(
+      surveyResponses,
+      qualtrics__Survey_Response__c.RecipientId__c
+    );
+    List<User> userList = SR_REPOSITORY.getUserByLANId(
+      userLANIds
+    );
+    Map<String, User> lanIdWithUserRecordMap = (Map<String, User>) ListUtil.mapBy(
+      userList,
+      User.Lan_Id__c
+    );
     CommercialSurveyResponseActionsHelper.setSurveyResponseFields(
       custNumWithAccRecordMap,
+      lanIdWithUserRecordMap,
       validRecords
     );
   }
