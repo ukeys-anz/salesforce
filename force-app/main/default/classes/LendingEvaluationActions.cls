@@ -221,10 +221,20 @@ public with sharing class LendingEvaluationActions {
         records,
         oldMap
       )
+      .changedTo(Quality_Assessment__c.Sub_Status__c, 'Evaluation Completed')
+      .isNotNull(Quality_Assessment__c.Application_ID__c)
+      .toList();
+
+    List<Quality_Assessment__c> rlaChangedRecords = ListUtil.filter(
+        records,
+        oldMap
+      )
       .equals(Quality_Assessment__c.Sub_Status__c, 'Evaluation Completed')
       .changed(Quality_Assessment__c.Application_ID__c)
       .isNotNull(Quality_Assessment__c.Application_ID__c)
       .toList();
+
+    eligibleRecords.addAll(rlaChangedRecords);
 
     Set<Id> rlaIds = ListUtil.getIds(
       eligibleRecords,
