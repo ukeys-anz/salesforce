@@ -43,6 +43,27 @@
           "InteractionId": "0kzBm0000001jcbIAA"
         },
         {
+          "Attendee_Name_Formula__c" : "Broker",
+          "Attendee_Name__c": "Test Broker", 
+          "AttendeeType": "External",
+          "Attendee_SubType__c": "Broker",
+          "attributes": {
+            "type": "InteractionAttendee",
+            "url": "/services/data/v60.0/sobjects/InteractionAttendee/0znBm0000000Lu5IAG"
+          },
+          "Contact": {
+            "attributes": {
+              "type": "Contact",
+              "url": "/services/data/v60.0/sobjects/Contact/003Bm00000GFef4IAK"
+            },
+            "Id": "003Bm00000GFef4IAK",
+            "Name": "Broker Contact"
+          },
+          "ContactId": "003Bm00000GFef4IAK",
+          "Id": "0znBm0000000Lu5IAG",
+          "InteractionId": "0kzBm0000001jcbIAA"
+        },
+        {
           "Attendee_Name__c": "Test Coach",
           "AttendeeType": "Internal",
           "attributes": {
@@ -73,7 +94,7 @@
       ],
       "totalSize": 4
     },
-    "Attendees__c": "Test Testing lead,Shivam Swaraj,Test Coach,Test Virtual Agent",
+    "Attendees__c": "Test Testing lead,Shivam Swaraj,Test Broker,Test Coach",
     "Attendees_and_Roles__c": "Coach",
     "attributes": {
       "type": "Interaction",

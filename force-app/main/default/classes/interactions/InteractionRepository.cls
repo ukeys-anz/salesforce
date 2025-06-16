@@ -102,7 +102,7 @@ public with sharing class InteractionRepository {
         AND RecordTypeId = :QueryRT.of(Account.SObjectType)
           .getId('PersonAccount')
         AND ANZx_Customer__c = TRUE
-        WITH USER_MODE
+      WITH USER_MODE
     ];
   }
 
@@ -156,16 +156,18 @@ public with sharing class InteractionRepository {
    * @param interactionIds set of InteractionId on which update is happening.
    * @return Interaction info along with Attendees details.
    */
-  public List<Interaction> queryInteractionAndRelatedAttendees(Set<Id> interactionIds){
-    if (interactionIds.isEmpty()){
+  public List<Interaction> queryInteractionAndRelatedAttendees(
+    Set<Id> interactionIds
+  ) {
+    if (interactionIds.isEmpty()) {
       return new List<Interaction>();
     }
     return [
       SELECT
         Id,
+        RecordTypeId,
         Attendees__c,
         Attendees_and_Roles__c,
-        RecordTypeId,
         (
           SELECT
             Id,
@@ -191,26 +193,27 @@ public with sharing class InteractionRepository {
    * @param interactionOwnerIds Interaction Owner Ids set
    * @return List<InteractionAttendee> Return list of InteractionAttendee
    */
-  public List<InteractionAttendee> queryInteractionAttendees(List<Interaction> interactions,Set<Id> interactionOwnerIds){
-    if (interactions.isEmpty() || interactionOwnerIds.isEmpty() ){
+  public List<InteractionAttendee> queryInteractionAttendees(
+    List<Interaction> interactions,
+    Set<Id> interactionOwnerIds
+  ) {
+    if (interactions.isEmpty() || interactionOwnerIds.isEmpty()) {
       return new List<InteractionAttendee>();
     }
-    return[
-        SELECT UserId, InteractionId
-        FROM InteractionAttendee
-        WHERE InteractionId IN :interactions AND UserId IN :interactionOwnerIds
-        WITH SYSTEM_MODE
+    return [
+      SELECT UserId, InteractionId
+      FROM InteractionAttendee
+      WHERE InteractionId IN :interactions AND UserId IN :interactionOwnerIds
+      WITH SYSTEM_MODE
     ];
   }
 
-    /**
+  /**
    * @description Query details of Interaction Records
    * @param interactions List of interactions which are updated.
    * @return Interaction info having customer associated with it.
    */
-  public List<Interaction> queryInteractions(
-    List<Interaction> interactions
-  ) {
+  public List<Interaction> queryInteractions(List<Interaction> interactions) {
     return [
       SELECT
         id,
