@@ -81,6 +81,7 @@ public with sharing class QualityAssessmentTriggerActions {
         records,
         oldMap
       )
+      .equals(Quality_Assessment__c.Sub_Status__c, 'Evaluation Completed')
       .changed(Quality_Assessment__c.Interaction_Owner__c)
       .isNotNull(Quality_Assessment__c.Interaction_Owner__c)
       .toList();

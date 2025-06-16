@@ -77,6 +77,7 @@ public virtual without sharing class ProfileStagingCloudEventModel extends Cloud
    */
   public virtual class PartyChange extends ProfileUpdate {
     public Map<String, Object> partyChange;
+    public Map<String, Object> oldPartyChange;
     protected override void init(
       Customer_Profile_Updates__c staging,
       ProfileStagingEventConfig__mdt triggerConfig
@@ -84,6 +85,9 @@ public virtual without sharing class ProfileStagingCloudEventModel extends Cloud
       super.init(staging, triggerConfig);
       this.partyChange = (Map<String, Object>) JSON.deserializeUntyped(
         staging.ToBeValue__c
+      );
+      this.oldPartyChange = (Map<String, Object>) JSON.deserializeUntyped(
+        staging.AsIsValue__c
       );
     }
   }

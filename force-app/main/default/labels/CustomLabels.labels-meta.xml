@@ -2841,6 +2841,20 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>A phone record of this type is already available for this customer. Please edit the existing phone record for the customer.</value>
     </labels>
     <labels>
+        <fullName>Extra_Care_Info_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Extra Care Info Message</shortDescription>
+        <value>Customer requires extra care. Review extra care information on profile to support and service customer appropriately.</value>
+    </labels>
+    <labels>
+        <fullName>Extra_Care_Review_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Extra Care Review Message</shortDescription>
+        <value>Action required - Review customer’s extra care requirements and update as needed. For support or more information, refer to KnowHow or knowledge articles.</value>
+    </labels>
+    <labels>
         <fullName>Complaints_Anz_Com_Sender_Address</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
