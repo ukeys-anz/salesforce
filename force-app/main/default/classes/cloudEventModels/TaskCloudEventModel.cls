@@ -5,6 +5,12 @@
  */
 @SuppressWarnings('PMD.PropertyNamingConventions')
 public virtual without sharing class TaskCloudEventModel extends CloudEventModel {
+
+  private static final Map<String, String> PRIORITY_TYPES = new Map<String, String>{
+    'Normal' => 'TASK_PRIORITY_NORMAL',
+    'High' => 'TASK_PRIORITY_HIGH'
+  };
+
   /**
    * @description Constructor
    * @param theTask The task record
@@ -126,8 +132,8 @@ public virtual without sharing class TaskCloudEventModel extends CloudEventModel
       UserModel theOwner
     ) {
       this.subject = theTask.Subject;
-      this.priority = theTask.Priority;
-      this.status = theTask.Status;
+      this.priority = PRIORITY_TYPES.get(theTask.Priority);
+      this.status = theTask.Status == 'New'? 'TASK_STATUS_NEW' : theTask.Status;
       this.taskNumber = theTask.TaskNumber__c;
       this.type = theTask.Type;
       this.expiryDate = theTask.ActivityDate;
