@@ -620,9 +620,8 @@ export default class SopAddEditDebts extends LightningModal {
   }
 
   handleAvailableRedrawChange(event) {
-    this.payload.liability.institutionalLiability.redrawAmountValue = Math.abs(
-      event.detail.value
-    );
+    this.payload.liability.institutionalLiability.redrawAmountValue =
+      event.detail.value !== "" ? Math.abs(event.detail.value) : null;
   }
 
   handleRemainingTermCheckbox(event) {

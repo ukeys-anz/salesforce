@@ -60,14 +60,6 @@ export default class LendingCaseStatusUpdate extends LightningElement {
         showToast(this, "", this.caseUpdateWarningMessage, "", "Warning", "");
         showToast(this, "", this.partialSuccessMessage, "", "Success", "");
         this.handleClose();
-      } else {
-        handleErrorShowToast(
-          this,
-          "Non-Credit Critical Change Failed",
-          "Error",
-          this.errorMessage,
-          "pester"
-        );
       }
       notifyRecordUpdateAvailable([{ caseRecordId: caseRecordId }]);
     } catch (error) {

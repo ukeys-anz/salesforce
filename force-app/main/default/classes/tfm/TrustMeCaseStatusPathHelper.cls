@@ -18,7 +18,13 @@ public with sharing class TrustMeCaseStatusPathHelper {
     'Doc fail - document is expired' => 'MANUAL_REVIEW_DENIED_REASON_ID_DOC_EXPIRED',
     'Doc fail - document is a picture of a picture' => 'MANUAL_REVIEW_DENIED_REASON_ID_DOC_PICTURE_OF_PICTURE',
     'Doc fail - document is ineligible type' => 'MANUAL_REVIEW_DENIED_REASON_ID_DOC_TYPE_NOT_ACCEPTABLE',
-    'Doc fail - document details unreadable' => 'MANUAL_REVIEW_DENIED_REASON_ID_DOC_UNREADABLE'
+    'Doc fail - document details unreadable' => 'MANUAL_REVIEW_DENIED_REASON_ID_DOC_UNREADABLE',
+    'Closed - No Defect' => 'STATE_CLOSED_NO_DEFECT',
+    'Fraud Confirmed' => 'STATE_FRAUD_CONFIRMED',
+    'No Response' => 'STATE_NO_RESPONSE',
+    'Closed - Defect Unresolved' => 'STATE_CLOSED_DEFECT_UNRESOLVED',
+    'Closed - Defect Resolved' => 'STATE_DEFECT_RESOLVED',
+    'Closed - No Fraud' => 'STATE_CLOSED_NO_FRAUD'
   };
 
   private static final TrustMeAPIRepository TRUSTME_REPO = (TrustMeAPIRepository) Lib_InstanceProvider.forType(
@@ -50,6 +56,11 @@ public with sharing class TrustMeCaseStatusPathHelper {
     caseUpdateDetails.secondary_denied_reason = sfValueToTrustXValue.get(
       trustMeCase.SecondaryVerificationFailedReason__c
     );
+    caseUpdateDetails.case_id = trustMeCase.Id;
+    caseUpdateDetails.qa_review_state = sfValueToTrustXValue.get(
+      trustMeCase.Status
+    );
+    caseUpdateDetails.kyc_reverification_id = trustMeCase.KYC_Verification_Id__c;
     caseUpdateDetails.checks = populateChecksForQACase(trustMeCase);
 
     TRUSTME_REPO.updateCaseStatus(caseUpdateDetails);

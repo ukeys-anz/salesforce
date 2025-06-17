@@ -86,28 +86,52 @@ public with sharing class LendingCaseControllerTest {
       'updateCaseStatusApproveReject',
       mockLendingCase
     );
-    Test.startTest();
-    LendingCaseResponseModel response = LendingCaseController.updateCaseStatusApproveReject(
-      '',
-      recordId
-    );
-    Test.stopTest();
-    Assert.isFalse(response.approveRejectSuccess, 'Failure Response');
+    try {
+      Test.startTest();
+
+      LendingCaseController.updateCaseStatusApproveReject('', recordId);
+      Test.stopTest();
+      Assert.fail('An Exception should be thrown');
+    } catch (Exception ex) {
+      Assert.isInstanceOfType(
+        ex,
+        AuraHandledException.class,
+        'Exception should be an instanceof AuraHandledException.'
+      );
+    }
   }
 
   @isTest
   static void testUpdateCaseStatusApproveRejectException() {
-    HttpCalloutResponse res = getInvalidUpdateResponse();
     Id recordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+
+    HttpCalloutResponse errorResponse = new HttpCalloutResponse();
+    errorResponse.successful = false;
+    errorResponse.statusCode = 500;
+    errorResponse.error = new CalloutException('callout failed');
     registerMocks();
-    lendingCaseAPIRepoMock.mock('updateCaseStatusApproveReject', res);
-    Test.startTest();
-    LendingCaseResponseModel response = LendingCaseController.updateCaseStatusApproveReject(
-      'STATE_REJECTED',
-      recordId
+    lendingCaseAPIRepoMock.mockException(
+      'updateCaseStatusApproveReject',
+      new LendingCaseAPIRepository.ServerErrorUpdateCaseStatusApproveRejectException(
+        errorResponse
+      )
     );
-    Test.stopTest();
-    Assert.isFalse(response.approveRejectSuccess, 'Failure Response');
+
+    try {
+      Test.startTest();
+      LendingCaseController.updateCaseStatusApproveReject(
+        'STATE_REJECTED',
+        recordId
+      );
+      Test.stopTest();
+      Assert.fail('An Exception should be thrown');
+    } catch (Exception ex) {
+      Assert.isInstanceOfType(
+        ex,
+        AuraHandledException.class,
+        'Exception should be an instanceof AuraHandledException.'
+      );
+    }
   }
 
   @isTest
@@ -134,13 +158,5 @@ public with sharing class LendingCaseControllerTest {
     Test.stopTest();
     Assert.isFalse(response.caseUpdateSuccess, 'Case update Failed');
     Assert.isTrue(response.approveRejectSuccess, 'API Callout was successful');
-  }
-
-  private static HttpCalloutResponse getInvalidUpdateResponse() {
-    HttpCalloutResponse response = new HttpCalloutResponse();
-    response.error = new CalloutException('Invalid Details');
-    response.statusCode = 500;
-    response.successful = false;
-    return response;
   }
 }

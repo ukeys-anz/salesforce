@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <name>ManageExtraCareHighRiskScamVictim</name>
+        <enabled>true</enabled>
+    </customPermissions>
+    <description>Added a Custom Permission Manage Extra Care - High Risk Scam Victim,
+user with this permission can Click the Button and Edit
+user with this permission can Add/remove High Risk Scam Victim Reason</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Manage Extra Care - High Risk Scam Victim</label>
+</PermissionSet>
