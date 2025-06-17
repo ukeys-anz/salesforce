@@ -54,8 +54,8 @@ public with sharing class CustomerNudgeTaskCloudEventModelTest {
     );
     Assert.areEqual(
       taskRecord.Pub_Sub_Event_Id__c,
-      dataModel.producer_command_key,
-      'producer_command_key is set correctly.'
+      dataModel.producerCommandKey,
+      'producerCommandKey is set correctly.'
     );
   }
 
