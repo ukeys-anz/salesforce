@@ -96,6 +96,7 @@ jobs:
           sf plugins link .
 
       - name: Run Quick Deployment
+        id: deployment
         working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/quickDeployment.mjs "${{ steps.secrets.outputs.sfdxurl }}" "${{ steps.secrets.outputs.artifactory }}"
@@ -105,3 +106,12 @@ jobs:
         working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/quickDeployment.mjs
+
+      - name: Publish Deployment Event
+        if: always() && !cancelled() && steps.deployment.outcome != 'skipped'
+        uses: anzx/github-reusable-actions/publish-deployment-event@main
+        with:
+          environment: "np"
+          service_name: "salesforce"
+          service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
+          event_status: ${{ steps.deployment.outcome }}
