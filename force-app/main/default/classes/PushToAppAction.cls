@@ -52,7 +52,7 @@ public with sharing class PushToAppAction {
       ListUtil.setField(
         tasksToUpdate,
         Task.Status,
-        'ACTIVITY_STATE_AUTO_ARCHIVED'
+        'TASK_STATE_AUTO_ARCHIVED'
       );
       DML_REPOSITORY.doUpdate(tasksToUpdate);
     } catch (Exception objException) {

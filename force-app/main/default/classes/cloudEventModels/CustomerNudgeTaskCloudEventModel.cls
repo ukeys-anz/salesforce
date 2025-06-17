@@ -9,9 +9,9 @@
  */
 public virtual with sharing class CustomerNudgeTaskCloudEventModel extends TaskCloudEventModel {
   private static final Set<String> ARCHIVED_STATUSES = new Set<String>{
-    'ACTIVITY_STATE_CUSTOMER_ARCHIVED',
-    'ACTIVITY_STATE_COACH_ARCHIVED',
-    'ACTIVITY_STATE_AUTO_ARCHIVED'
+    'TASK_STATE_CUSTOMER_ARCHIVED',
+    'TASK_STATE_COACH_ARCHIVED',
+    'TASK_STATE_AUTO_ARCHIVED'
   };
 
   /**
@@ -55,11 +55,11 @@ public virtual with sharing class CustomerNudgeTaskCloudEventModel extends TaskC
     /**
      * @description Holds producer command key
      */
-    public String producer_command_key { get; set; }
+    public String producerCommandKey { get; set; }
     /**
      * @description Holds idempotency key
      */
-    public String idempotency_key { get; set; }
+    public String idempotencyKey { get; set; }
     /**
      * @description Holds notification
      */
@@ -79,8 +79,8 @@ public virtual with sharing class CustomerNudgeTaskCloudEventModel extends TaskC
       UserModel theOwner
     ) {
       super(theTask, theAccount, theOwner);
-      this.producer_command_key = theTask.Pub_Sub_Event_Id__c;
-      this.idempotency_key = theTask.Pub_Sub_Event_Id__c.split('_')[0];
+      this.producerCommandKey = theTask.Pub_Sub_Event_Id__c;
+      this.idempotencyKey = theTask.Pub_Sub_Event_Id__c.split('_')[0];
 
       if (String.isBlank(aemContentData) || theTask.Status != 'New') {
         return;

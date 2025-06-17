@@ -2926,7 +2926,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Data schema url for proto files for customer nudge event</shortDescription>
-        <value>proto://buf.anz/anz/salesforceapis/salesforce.service.notification.v1alpha1#TaskNotification</value>
+        <value>proto://buf.anz/anz/salesforceapis/salesforce.service.appnotification.v1alpha1#TaskNotification</value>
     </labels>
     <labels>
         <fullName>ANZX_Customer_Nudge_event_ce_type</fullName>
@@ -2954,6 +2954,6 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Push Task To App Deeplink</shortDescription>
-        <value>https://plus.anz</value>
+        <value>https://plus.anz/support/</value>
     </labels>
 </CustomLabels>
