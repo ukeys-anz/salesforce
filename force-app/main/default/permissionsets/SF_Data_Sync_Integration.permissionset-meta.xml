@@ -2817,6 +2817,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.KYC_Verification_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Loan_Application__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2953,6 +2958,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.PersonID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.PersonId_Txt__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
