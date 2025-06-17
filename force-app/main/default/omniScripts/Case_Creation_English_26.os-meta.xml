@@ -7114,7 +7114,7 @@
                 <name>systemicIssue</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : null,
+  &quot;controlWidth&quot; : 5,
   &quot;label&quot; : &quot;Are any of the issues possibly systemic?&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
