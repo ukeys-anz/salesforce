@@ -124,6 +124,37 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Channel__c</picklist>
+        <values>
+            <fullName>Branch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Loan Hotline</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile Lending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Priority</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private Bank</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Video Conferencing %28Mortgages%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Entity_Type__c</picklist>
         <values>
             <fullName>Individual</fullName>
@@ -2650,15 +2681,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Lead Program</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Call Back Request</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Digital Exception Process %28DEP%29</fullName>
+            <fullName>Go Biz</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -2746,6 +2769,61 @@
         </values>
         <values>
             <fullName>Warm</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Referral_Category__c</picklist>
+        <values>
+            <fullName>A-Z Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Affluent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Borrow - Mortgage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Borrow - Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial Cards-BB%2C RBB %26 PB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Corporate Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Esanda</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Loan Check-In</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moving Overseas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Regional Business Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SME</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Business</fullName>
             <default>false</default>
         </values>
     </picklistValues>

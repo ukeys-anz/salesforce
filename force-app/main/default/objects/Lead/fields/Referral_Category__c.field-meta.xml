@@ -11,6 +11,7 @@
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>
+        <controllingField>Channel__c</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
@@ -50,15 +51,96 @@
                 <label>Corporate Banking</label>
             </value>
             <value>
-                <fullName>Commercial Cards, BB, RBB &amp; PB</fullName>
+                <fullName>Commercial Cards-BB, RBB &amp; PB</fullName>
                 <default>false</default>
-                <label>Commercial Cards, BB, RBB &amp; PB</label>
+                <label>Commercial Cards-BB, RBB &amp; PB</label>
             </value>
             <value>
                 <fullName>SME</fullName>
                 <default>false</default>
                 <label>SME</label>
             </value>
+            <value>
+                <fullName>Business Banking</fullName>
+                <default>false</default>
+                <label>Business Banking</label>
+            </value>
+            <value>
+                <fullName>Esanda</fullName>
+                <default>false</default>
+                <label>Esanda</label>
+            </value>
+            <value>
+                <fullName>Regional Business Banking</fullName>
+                <default>false</default>
+                <label>Regional Business Banking</label>
+            </value>
+            <value>
+                <fullName>Small Business</fullName>
+                <default>false</default>
+                <label>Small Business</label>
+            </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Branch</controllingFieldValue>
+            <controllingFieldValue>Priority</controllingFieldValue>
+            <valueName>A-Z Review</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Branch</controllingFieldValue>
+            <controllingFieldValue>Commercial</controllingFieldValue>
+            <controllingFieldValue>Mobile Lending</controllingFieldValue>
+            <controllingFieldValue>Private Bank</controllingFieldValue>
+            <controllingFieldValue>Video Conferencing (Mortgages)</controllingFieldValue>
+            <controllingFieldValue>Home Loan Hotline</controllingFieldValue>
+            <controllingFieldValue>Priority</controllingFieldValue>
+            <valueName>Affluent</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Branch</controllingFieldValue>
+            <controllingFieldValue>Mobile Lending</controllingFieldValue>
+            <controllingFieldValue>Video Conferencing (Mortgages)</controllingFieldValue>
+            <controllingFieldValue>Home Loan Hotline</controllingFieldValue>
+            <controllingFieldValue>Priority</controllingFieldValue>
+            <valueName>Borrow - Mortgage</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Branch</controllingFieldValue>
+            <controllingFieldValue>Mobile Lending</controllingFieldValue>
+            <controllingFieldValue>Video Conferencing (Mortgages)</controllingFieldValue>
+            <controllingFieldValue>Home Loan Hotline</controllingFieldValue>
+            <controllingFieldValue>Priority</controllingFieldValue>
+            <valueName>Borrow - Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Branch</controllingFieldValue>
+            <controllingFieldValue>Mobile Lending</controllingFieldValue>
+            <controllingFieldValue>Priority</controllingFieldValue>
+            <valueName>Home Loan Check-In</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Commercial</controllingFieldValue>
+            <valueName>Corporate Banking</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Commercial</controllingFieldValue>
+            <valueName>Commercial Cards-BB, RBB &amp; PB</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Commercial</controllingFieldValue>
+            <valueName>Business Banking</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Commercial</controllingFieldValue>
+            <valueName>Esanda</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Commercial</controllingFieldValue>
+            <valueName>Regional Business Banking</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Commercial</controllingFieldValue>
+            <valueName>Small Business</valueName>
+        </valueSettings>
     </valueSet>
 </CustomField>
