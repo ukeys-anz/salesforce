@@ -44,7 +44,7 @@ public with sharing class TaskCEControllerTest {
     CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel dataModel = (CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel) taskCloudEvent[0]
       .ce_data;
     Assert.isNotNull(
-      dataModel.notification,
+      dataModel.data.notification,
       'Notification node should not be null'
     );
     Assert.areEqual(
@@ -81,7 +81,7 @@ public with sharing class TaskCEControllerTest {
 
     CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel dataModel = (CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel) taskCloudEvent[0]
       .ce_data;
-    Assert.isNull(dataModel.notification, 'Notification node is null');
+    Assert.isNull(dataModel.data.notification, 'Notification node is null');
     Assert.areEqual(
       System.Label.ANZX_Customer_Nudge_event_ce_type + 'updated',
       taskCloudEvent[0].ce_type,
