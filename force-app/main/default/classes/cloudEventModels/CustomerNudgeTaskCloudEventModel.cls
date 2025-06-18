@@ -51,7 +51,33 @@ public virtual with sharing class CustomerNudgeTaskCloudEventModel extends TaskC
   /**
    * @description this model is for customer nudge cloud event data part
    */
-  public virtual class CustomerNudgeTaskCloudDataModel extends TaskCloudEventModel.TaskCloudEventDataModel {
+  public virtual class CustomerNudgeTaskCloudDataModel extends CloudEventModel.CloudEventDataModel {
+    /**
+     * @description Wrapper Class to hold ce_data inside the data node
+     */
+    public CustomerNudgeTaskCloudEventWrapper data {get;set;}
+    /**
+     * @description Constructor
+     * @param theTask The task record
+     * @param aemContentData Holds aemContentData Information
+     * @param theAccount Holds Account Information
+     * @param theOwner Holds Owner Information
+     */
+    public CustomerNudgeTaskCloudDataModel(
+      Task theTask,
+      String aemContentData,
+      Account theAccount,
+      UserModel theOwner
+    ) {
+      this.data = new CustomerNudgeTaskCloudEventWrapper(theTask, aemContentData,theAccount,theOwner);
+    }
+  }
+
+   /**
+   * @description this wrapper is for customer nudge cloud event ce_data part
+   */
+  public class CustomerNudgeTaskCloudEventWrapper  extends TaskCloudEventModel.TaskCloudEventDataModel {
+
     /**
      * @description Holds producer command key
      */
@@ -72,7 +98,7 @@ public virtual with sharing class CustomerNudgeTaskCloudEventModel extends TaskC
      * @param theAccount Holds Account Information
      * @param theOwner Holds Owner Information
      */
-    public CustomerNudgeTaskCloudDataModel(
+    public CustomerNudgeTaskCloudEventWrapper(
       Task theTask,
       String aemContentData,
       Account theAccount,
