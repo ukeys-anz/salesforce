@@ -110,6 +110,7 @@ jobs:
           sf plugins link .
 
       - name: Run ${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}
+        id: deployment
         working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/release.mjs "${{ steps.secrets.outputs.preprod }}" "${{ steps.secrets.outputs.prod-consumer-key }}" "${{ steps.secrets.outputs.prod-cert }}" "${{ steps.secrets.outputs.artifactory }}"
@@ -119,6 +120,15 @@ jobs:
         working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/release.mjs "${{ steps.secrets.outputs.preprod }}" "${{ steps.secrets.outputs.prod-consumer-key }}" "${{ steps.secrets.outputs.prod-cert }}" "${{ steps.secrets.outputs.artifactory }}"
+
+      - name: Publish Deployment Event
+        if: always() && !cancelled() && steps.deployment.outcome != 'skipped'
+        uses: anzx/github-reusable-actions/publish-deployment-event@main
+        with:
+          environment: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}
+          service_name: "salesforce"
+          service_account: "${{ env.SERVICE_ACCOUNT }}"
+          event_status: ${{ steps.deployment.outcome }}
 
   Cleanup:
     name: "Cleanup"
