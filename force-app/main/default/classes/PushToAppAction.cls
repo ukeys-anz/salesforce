@@ -49,11 +49,7 @@ public with sharing class PushToAppAction {
       List<Task> tasksToUpdate = PUSHTOAPP_REPOSITORY.getRelatedCustomerNudgeTasks(
         caseRecIds
       );
-      ListUtil.setField(
-        tasksToUpdate,
-        Task.Status,
-        'TASK_STATE_AUTO_ARCHIVED'
-      );
+      ListUtil.setField(tasksToUpdate, Task.Status, 'TASK_STATE_AUTO_ARCHIVED');
       DML_REPOSITORY.doUpdate(tasksToUpdate);
     } catch (Exception objException) {
       Logger.error(
