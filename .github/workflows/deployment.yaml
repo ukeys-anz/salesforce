@@ -13,7 +13,7 @@ permissions:
 jobs:
   Deployment:
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.4.1"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.5.0"
       options: --user root
     runs-on: anzx-default-np
     steps:
