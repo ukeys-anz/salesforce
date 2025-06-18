@@ -129,9 +129,7 @@ public with sharing class TaskCEControllerTest {
     );
 
     Test.startTest();
-    TaskCEController.publishCloudEvents(
-      mockTaskRecordsList('TASK_STATE_SENT')
-    );
+    TaskCEController.publishCloudEvents(mockTaskRecordsList('TASK_STATE_SENT'));
     Test.stopTest();
 
     String payload = CloudEventController.cloudEvents[0].Data_1__c;
