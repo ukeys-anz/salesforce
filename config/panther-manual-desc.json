@@ -2885,7 +2885,9 @@
         "Assignee_Group__c",
         "Channel__c",
         "Referral_Category__c",
-        "My_teams_referrer__c"
+        "My_teams_referrer__c",
+        "Referral_Customer_Needs__c",
+        "External_Referral_Status__c"
       ],
       "IA-2468713": ["SmartphoneOS__c", "Pub_Sub_Event_Id__c"],
       "IA-2468715": [
@@ -3033,7 +3035,13 @@
       "IA-2431669": ["Primary_Franchise_Owner__c"],
       "IA-2453350": ["Customer_Pre_Exist__c"],
       "IA-2415790": ["Broker_Name__c"],
-      "IA-2415828": ["Circle_Of_Influence__c"]
+      "IA-2415828": ["Circle_Of_Influence__c"],
+      "IA-3254438": [
+        "Referral_Status__c",
+        "Referrer_Lead__c",
+        "Referral_Acknowledged_Date__c",
+        "Lead_Created_Date__c"
+      ]
     },
     "Lead_Response_Event__e": {
       "IA-2415860": ["Campaign_Code__c"]
@@ -3055,6 +3063,14 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
+      ]
+    },
+    "Lead_To_Referral_Status_Mapping__mdt": {
+      "IA-3254438": [
+        "Lead_Outcome__c",
+        "Lead_Status__c",
+        "Record_Type_Name__c",
+        "Referral_Status__c"
       ]
     },
     "Lead_Stage_Automation__mdt": {
@@ -4199,6 +4215,13 @@
         "CreatedDate",
         "LastModifiedById",
         "LastModifiedDate"
+      ]
+    },
+    "Referral_Customer_Need_Mapping__mdt": {
+      "IA-2423278": [
+        "Customer_Need__c",
+        "Lead_Record_Type__c",
+        "Referral_Customer_Needs__c"
       ]
     },
     "Referral_Reason__c": {

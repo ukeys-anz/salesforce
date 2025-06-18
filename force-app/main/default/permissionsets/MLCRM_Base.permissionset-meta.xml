@@ -33,6 +33,14 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>MobileLendingLeadTriggerHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>LeadManagementActions</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>LeadConversionController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -65,15 +73,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CCRMLeadMappingEngine</apexClass>
+        <apexClass>CommercialLeadMappingEngine</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CommercialLeadMappingEngineHelper</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CCRMLogAResponseController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>LogAResponseControllerRepository</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>

@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Referral_Customer_Needs__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_IKnow</complianceGroup>
+    <description>Referral Customer needs</description>
+    <label>Referral Customer Needs</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Referral_Category__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Asset Insurance</fullName>
+                <default>false</default>
+                <label>Asset Insurance</label>
+            </value>
+            <value>
+                <fullName>Borrow Need</fullName>
+                <default>false</default>
+                <label>Borrow Need</label>
+            </value>
+            <value>
+                <fullName>Borrow to Refinance Need</fullName>
+                <default>false</default>
+                <label>Borrow to Refinance Need</label>
+            </value>
+            <value>
+                <fullName>Borrow Using Equity</fullName>
+                <default>false</default>
+                <label>Borrow Using Equity</label>
+            </value>
+            <value>
+                <fullName>Business Expansion</fullName>
+                <default>false</default>
+                <label>Business Expansion</label>
+            </value>
+            <value>
+                <fullName>Business Need</fullName>
+                <default>false</default>
+                <label>Business Need</label>
+            </value>
+            <value>
+                <fullName>Business Select Package</fullName>
+                <default>false</default>
+                <label>Business Select Package</label>
+            </value>
+            <value>
+                <fullName>Cashflow Management</fullName>
+                <default>false</default>
+                <label>Cashflow Management</label>
+            </value>
+            <value>
+                <fullName>Credit Card Insurance</fullName>
+                <default>false</default>
+                <label>Credit Card Insurance</label>
+            </value>
+            <value>
+                <fullName>Debt Consolidation</fullName>
+                <default>false</default>
+                <label>Debt Consolidation</label>
+            </value>
+            <value>
+                <fullName>Everyday Banking</fullName>
+                <default>false</default>
+                <label>Everyday Banking</label>
+            </value>
+            <value>
+                <fullName>Financial Planning Need</fullName>
+                <default>false</default>
+                <label>Financial Planning Need</label>
+            </value>
+            <value>
+                <fullName>Getting Married</fullName>
+                <default>false</default>
+                <label>Getting Married</label>
+            </value>
+            <value>
+                <fullName>Home</fullName>
+                <default>false</default>
+                <label>Home</label>
+            </value>
+            <value>
+                <fullName>Investment</fullName>
+                <default>false</default>
+                <label>Investment</label>
+            </value>
+            <value>
+                <fullName>Land Purchase/Construction</fullName>
+                <default>false</default>
+                <label>Land Purchase/Construction</label>
+            </value>
+            <value>
+                <fullName>Loan Insurance</fullName>
+                <default>false</default>
+                <label>Loan Insurance</label>
+            </value>
+            <value>
+                <fullName>Managing Cash Flow</fullName>
+                <default>false</default>
+                <label>Managing Cash Flow</label>
+            </value>
+            <value>
+                <fullName>Managing your Finances</fullName>
+                <default>false</default>
+                <label>Managing your Finances</label>
+            </value>
+            <value>
+                <fullName>Moving to a new home</fullName>
+                <default>false</default>
+                <label>Moving to a new home</label>
+            </value>
+            <value>
+                <fullName>Moving to Australia</fullName>
+                <default>false</default>
+                <label>Moving to Australia</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Planning for Future/Retirement</fullName>
+                <default>false</default>
+                <label>Planning for Future/Retirement</label>
+            </value>
+            <value>
+                <fullName>Protecting Life/Income</fullName>
+                <default>false</default>
+                <label>Protecting Life/Income</label>
+            </value>
+            <value>
+                <fullName>Protecting your Assets</fullName>
+                <default>false</default>
+                <label>Protecting your Assets</label>
+            </value>
+            <value>
+                <fullName>Purchase Commercial Property</fullName>
+                <default>false</default>
+                <label>Purchase Commercial Property</label>
+            </value>
+            <value>
+                <fullName>Purchasing Household Goods</fullName>
+                <default>false</default>
+                <label>Purchasing Household Goods</label>
+            </value>
+            <value>
+                <fullName>Refinance From another OFI</fullName>
+                <default>false</default>
+                <label>Refinance From another OFI</label>
+            </value>
+            <value>
+                <fullName>Refinance OFI Loan</fullName>
+                <default>false</default>
+                <label>Refinance OFI Loan</label>
+            </value>
+            <value>
+                <fullName>Renovating</fullName>
+                <default>false</default>
+                <label>Renovating</label>
+            </value>
+            <value>
+                <fullName>Restructure/Renew</fullName>
+                <default>false</default>
+                <label>Restructure/Renew</label>
+            </value>
+            <value>
+                <fullName>Restructure/Renew (+ funds)</fullName>
+                <default>false</default>
+                <label>Restructure/Renew (+ funds)</label>
+            </value>
+            <value>
+                <fullName>Savings Need</fullName>
+                <default>false</default>
+                <label>Savings Need</label>
+            </value>
+            <value>
+                <fullName>Selling/Closing your Business</fullName>
+                <default>false</default>
+                <label>Selling/Closing your Business</label>
+            </value>
+            <value>
+                <fullName>Shares</fullName>
+                <default>false</default>
+                <label>Shares</label>
+            </value>
+            <value>
+                <fullName>Starting up a Business</fullName>
+                <default>false</default>
+                <label>Starting up a Business</label>
+            </value>
+            <value>
+                <fullName>Transaction Need</fullName>
+                <default>false</default>
+                <label>Transaction Need</label>
+            </value>
+            <value>
+                <fullName>Travel</fullName>
+                <default>false</default>
+                <label>Travel</label>
+            </value>
+            <value>
+                <fullName>Travel Need</fullName>
+                <default>false</default>
+                <label>Travel Need</label>
+            </value>
+            <value>
+                <fullName>Understanding Business Finance</fullName>
+                <default>false</default>
+                <label>Understanding Business Finance</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Regional Business Banking</controllingFieldValue>
+            <controllingFieldValue>Small Business</controllingFieldValue>
+            <controllingFieldValue>Commercial Cards-BB, RBB &amp; PB</controllingFieldValue>
+            <controllingFieldValue>Business Banking</controllingFieldValue>
+            <valueName>Business Expansion</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Regional Business Banking</controllingFieldValue>
+            <controllingFieldValue>Small Business</controllingFieldValue>
+            <controllingFieldValue>Commercial Cards-BB, RBB &amp; PB</controllingFieldValue>
+            <controllingFieldValue>Business Banking</controllingFieldValue>
+            <valueName>Business Select Package</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Regional Business Banking</controllingFieldValue>
+            <controllingFieldValue>Small Business</controllingFieldValue>
+            <controllingFieldValue>Commercial Cards-BB, RBB &amp; PB</controllingFieldValue>
+            <controllingFieldValue>Business Banking</controllingFieldValue>
+            <valueName>Managing Cash Flow</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Regional Business Banking</controllingFieldValue>
+            <controllingFieldValue>Small Business</controllingFieldValue>
+            <controllingFieldValue>Commercial Cards-BB, RBB &amp; PB</controllingFieldValue>
+            <controllingFieldValue>Business Banking</controllingFieldValue>
+            <valueName>Purchase Commercial Property</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Regional Business Banking</controllingFieldValue>
+            <controllingFieldValue>Small Business</controllingFieldValue>
+            <controllingFieldValue>Commercial Cards-BB, RBB &amp; PB</controllingFieldValue>
+            <controllingFieldValue>Business Banking</controllingFieldValue>
+            <valueName>Refinance From another OFI</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Regional Business Banking</controllingFieldValue>
+            <controllingFieldValue>Small Business</controllingFieldValue>
+            <controllingFieldValue>Commercial Cards-BB, RBB &amp; PB</controllingFieldValue>
+            <controllingFieldValue>Business Banking</controllingFieldValue>
+            <valueName>Selling/Closing your Business</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Regional Business Banking</controllingFieldValue>
+            <controllingFieldValue>Small Business</controllingFieldValue>
+            <controllingFieldValue>Commercial Cards-BB, RBB &amp; PB</controllingFieldValue>
+            <controllingFieldValue>Business Banking</controllingFieldValue>
+            <valueName>Starting up a Business</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Regional Business Banking</controllingFieldValue>
+            <controllingFieldValue>Small Business</controllingFieldValue>
+            <controllingFieldValue>Commercial Cards-BB, RBB &amp; PB</controllingFieldValue>
+            <controllingFieldValue>Business Banking</controllingFieldValue>
+            <valueName>Understanding Business Finance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <valueName>Asset Insurance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <valueName>Borrow Need</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <valueName>Borrow to Refinance Need</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <valueName>Borrow Using Equity</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <valueName>Business Need</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <valueName>Cashflow Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <valueName>Credit Card Insurance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <controllingFieldValue>Affluent</controllingFieldValue>
+            <controllingFieldValue>Borrow - Mortgage</controllingFieldValue>
+            <controllingFieldValue>Borrow - Other</controllingFieldValue>
+            <valueName>Debt Consolidation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <valueName>Everyday Banking</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <valueName>Financial Planning Need</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <valueName>Getting Married</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <valueName>Loan Insurance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <valueName>Managing your Finances</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <valueName>Moving to a new home</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <valueName>Moving to Australia</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <controllingFieldValue>Affluent</controllingFieldValue>
+            <controllingFieldValue>Borrow - Mortgage</controllingFieldValue>
+            <controllingFieldValue>Borrow - Other</controllingFieldValue>
+            <controllingFieldValue>Home Loan Check-In</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <valueName>Planning for Future/Retirement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <valueName>Protecting Life/Income</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <valueName>Protecting your Assets</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <controllingFieldValue>Affluent</controllingFieldValue>
+            <controllingFieldValue>Borrow - Mortgage</controllingFieldValue>
+            <controllingFieldValue>Borrow - Other</controllingFieldValue>
+            <valueName>Purchasing Household Goods</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <controllingFieldValue>Affluent</controllingFieldValue>
+            <controllingFieldValue>Borrow - Mortgage</controllingFieldValue>
+            <controllingFieldValue>Borrow - Other</controllingFieldValue>
+            <valueName>Renovating</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <valueName>Savings Need</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <valueName>Transaction Need</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>A-Z Review</controllingFieldValue>
+            <controllingFieldValue>Affluent</controllingFieldValue>
+            <controllingFieldValue>Borrow - Mortgage</controllingFieldValue>
+            <controllingFieldValue>Borrow - Other</controllingFieldValue>
+            <valueName>Travel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Affluent</controllingFieldValue>
+            <controllingFieldValue>Borrow - Mortgage</controllingFieldValue>
+            <valueName>Home</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Affluent</controllingFieldValue>
+            <controllingFieldValue>Borrow - Mortgage</controllingFieldValue>
+            <valueName>Investment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Affluent</controllingFieldValue>
+            <controllingFieldValue>Borrow - Mortgage</controllingFieldValue>
+            <valueName>Land Purchase/Construction</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Affluent</controllingFieldValue>
+            <controllingFieldValue>Borrow - Mortgage</controllingFieldValue>
+            <controllingFieldValue>Borrow - Other</controllingFieldValue>
+            <valueName>Refinance OFI Loan</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Affluent</controllingFieldValue>
+            <controllingFieldValue>Borrow - Mortgage</controllingFieldValue>
+            <controllingFieldValue>Borrow - Other</controllingFieldValue>
+            <valueName>Restructure/Renew</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Affluent</controllingFieldValue>
+            <controllingFieldValue>Borrow - Mortgage</controllingFieldValue>
+            <controllingFieldValue>Borrow - Other</controllingFieldValue>
+            <valueName>Restructure/Renew (+ funds)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Affluent</controllingFieldValue>
+            <controllingFieldValue>Borrow - Mortgage</controllingFieldValue>
+            <controllingFieldValue>Borrow - Other</controllingFieldValue>
+            <valueName>Shares</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

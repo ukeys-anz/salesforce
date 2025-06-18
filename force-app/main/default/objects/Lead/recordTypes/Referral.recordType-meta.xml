@@ -209,11 +209,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>International Banking Services</fullName>
+            <fullName>Mobile Lending</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Mobile Lending</fullName>
+            <fullName>Priority</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2786,7 +2786,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Lead Program</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Go Biz</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Call Back Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Exception Process %28DEP%29</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -3180,11 +3192,19 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Commercial Cards%2C BB%2C RBB %26 PB</fullName>
+            <fullName>Business Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial Cards-BB%2C RBB %26 PB</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Corporate Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Esanda</fullName>
             <default>false</default>
         </values>
         <values>
@@ -3196,7 +3216,178 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Regional Business Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>SME</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Business</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Referral_Customer_Needs__c</picklist>
+        <values>
+            <fullName>Asset Insurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Borrow Need</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Borrow Using Equity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Borrow to Refinance Need</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Expansion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Need</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Select Package</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cashflow Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Card Insurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Debt Consolidation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Everyday Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Planning Need</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Getting Married</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Investment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Land Purchase%2FConstruction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Loan Insurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Managing Cash Flow</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Managing your Finances</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moving to Australia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moving to a new home</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Planning for Future%2FRetirement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Protecting Life%2FIncome</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Protecting your Assets</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchase Commercial Property</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchasing Household Goods</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Refinance From another OFI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Refinance OFI Loan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Renovating</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Restructure%2FRenew</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Restructure%2FRenew %28%2B funds%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Savings Need</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Selling%2FClosing your Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Shares</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Starting up a Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transaction Need</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Travel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Travel Need</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Understanding Business Finance</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -3220,6 +3411,14 @@
         </values>
         <values>
             <fullName>Qualified</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Referred</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Export Failed</fullName>
             <default>false</default>
         </values>
     </picklistValues>

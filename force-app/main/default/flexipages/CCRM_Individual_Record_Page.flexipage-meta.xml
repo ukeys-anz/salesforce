@@ -1411,7 +1411,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListApiName</name>
-                    <value>FinServ__FinancialAccountRoles__pr</value>
+                    <value>FinServ__FinancialAccountRoles__r</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListDisplayType</name>

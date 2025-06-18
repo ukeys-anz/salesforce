@@ -140,7 +140,8 @@ public without sharing class LeadConversionActionsRepository {
         Industry__c,
         Entity_Type__c,
         Lead.Industry__r.Code__c,
-        Lead_Originator__c
+        Lead_Originator__c,
+        FinServ__ReferredByUser__c
       FROM LEAD
       WHERE ID = :recordId
       WITH SYSTEM_MODE
@@ -259,5 +260,22 @@ public without sharing class LeadConversionActionsRepository {
       String.escapeSingleQuotes(mdLeadFields) +
       ' From Lead WHERE Id = :leadId WITH SYSTEM_MODE LIMIT 1';
     return database.query(leadQuery) ?? null;
+  }
+
+  /**
+   * @description fetch lead info
+   * @param leadId lead Id
+   * @return Lead lead record
+   */
+  public Lead fetchLeadInfo(Id leadId) {
+    return [
+      SELECT
+        Id,
+        FinServ__ReferredByUser__c,
+        FinServ__ReferredByUser__r.Commercial_Segment__c
+      FROM Lead
+      WHERE Id = :leadId AND FinServ__ReferredByUser__c != NULL
+      WITH USER_MODE
+    ] ?? null;
   }
 }

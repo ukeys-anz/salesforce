@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Referral_Customer_Needs__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Referral Customer Needs</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Referral Customer Needs</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Asset Insurance</fullName>
+                <default>true</default>
+                <label>Asset Insurance</label>
+            </value>
+            <value>
+                <fullName>Borrow Need</fullName>
+                <default>false</default>
+                <label>Borrow Need</label>
+            </value>
+            <value>
+                <fullName>Borrow to Refinance Need</fullName>
+                <default>false</default>
+                <label>Borrow to Refinance Need</label>
+            </value>
+            <value>
+                <fullName>Borrow Using Equity</fullName>
+                <default>false</default>
+                <label>Borrow Using Equity</label>
+            </value>
+            <value>
+                <fullName>Business Expansion</fullName>
+                <default>false</default>
+                <label>Business Expansion</label>
+            </value>
+            <value>
+                <fullName>Business Need</fullName>
+                <default>false</default>
+                <label>Business Need</label>
+            </value>
+            <value>
+                <fullName>Business Select Package</fullName>
+                <default>false</default>
+                <label>Business Select Package</label>
+            </value>
+            <value>
+                <fullName>Cashflow Management</fullName>
+                <default>false</default>
+                <label>Cashflow Management</label>
+            </value>
+            <value>
+                <fullName>Credit Card Insurance</fullName>
+                <default>false</default>
+                <label>Credit Card Insurance</label>
+            </value>
+            <value>
+                <fullName>Debt Consolidation</fullName>
+                <default>false</default>
+                <label>Debt Consolidation</label>
+            </value>
+            <value>
+                <fullName>Everyday Banking</fullName>
+                <default>false</default>
+                <label>Everyday Banking</label>
+            </value>
+            <value>
+                <fullName>Financial Planning Need</fullName>
+                <default>false</default>
+                <label>Financial Planning Need</label>
+            </value>
+            <value>
+                <fullName>Getting Married</fullName>
+                <default>false</default>
+                <label>Getting Married</label>
+            </value>
+            <value>
+                <fullName>Home</fullName>
+                <default>false</default>
+                <label>Home</label>
+            </value>
+            <value>
+                <fullName>Investment</fullName>
+                <default>false</default>
+                <label>Investment</label>
+            </value>
+            <value>
+                <fullName>Land Purchase/Construction</fullName>
+                <default>false</default>
+                <label>Land Purchase/Construction</label>
+            </value>
+            <value>
+                <fullName>Loan Insurance</fullName>
+                <default>false</default>
+                <label>Loan Insurance</label>
+            </value>
+            <value>
+                <fullName>Managing Cash Flow</fullName>
+                <default>false</default>
+                <label>Managing Cash Flow</label>
+            </value>
+            <value>
+                <fullName>Managing your Finances</fullName>
+                <default>false</default>
+                <label>Managing your Finances</label>
+            </value>
+            <value>
+                <fullName>Moving to a new home</fullName>
+                <default>false</default>
+                <label>Moving to a new home</label>
+            </value>
+            <value>
+                <fullName>Moving to Australia</fullName>
+                <default>false</default>
+                <label>Moving to Australia</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Planning for Future/Retirement</fullName>
+                <default>false</default>
+                <label>Planning for Future/Retirement</label>
+            </value>
+            <value>
+                <fullName>Protecting Life/Income</fullName>
+                <default>false</default>
+                <label>Protecting Life/Income</label>
+            </value>
+            <value>
+                <fullName>Protecting your Assets</fullName>
+                <default>false</default>
+                <label>Protecting your Assets</label>
+            </value>
+            <value>
+                <fullName>Purchase Commercial Property</fullName>
+                <default>false</default>
+                <label>Purchase Commercial Property</label>
+            </value>
+            <value>
+                <fullName>Purchasing Household Goods</fullName>
+                <default>false</default>
+                <label>Purchasing Household Goods</label>
+            </value>
+            <value>
+                <fullName>Refinance From another OFI</fullName>
+                <default>false</default>
+                <label>Refinance From another OFI</label>
+            </value>
+            <value>
+                <fullName>Refinance OFI Loan</fullName>
+                <default>false</default>
+                <label>Refinance OFI Loan</label>
+            </value>
+            <value>
+                <fullName>Renovating</fullName>
+                <default>false</default>
+                <label>Renovating</label>
+            </value>
+            <value>
+                <fullName>Restructure/Renew</fullName>
+                <default>false</default>
+                <label>Restructure/Renew</label>
+            </value>
+            <value>
+                <fullName>Restructure/Renew (+ funds)</fullName>
+                <default>false</default>
+                <label>Restructure/Renew (+ funds)</label>
+            </value>
+            <value>
+                <fullName>Savings Need</fullName>
+                <default>false</default>
+                <label>Savings Need</label>
+            </value>
+            <value>
+                <fullName>Selling/Closing your Business</fullName>
+                <default>false</default>
+                <label>Selling/Closing your Business</label>
+            </value>
+            <value>
+                <fullName>Shares</fullName>
+                <default>false</default>
+                <label>Shares</label>
+            </value>
+            <value>
+                <fullName>Starting up a Business</fullName>
+                <default>false</default>
+                <label>Starting up a Business</label>
+            </value>
+            <value>
+                <fullName>Transaction Need</fullName>
+                <default>false</default>
+                <label>Transaction Need</label>
+            </value>
+            <value>
+                <fullName>Travel</fullName>
+                <default>false</default>
+                <label>Travel</label>
+            </value>
+            <value>
+                <fullName>Travel Need</fullName>
+                <default>false</default>
+                <label>Travel Need</label>
+            </value>
+            <value>
+                <fullName>Understanding Business Finance</fullName>
+                <default>false</default>
+                <label>Understanding Business Finance</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
