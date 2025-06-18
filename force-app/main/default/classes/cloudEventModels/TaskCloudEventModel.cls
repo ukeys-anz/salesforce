@@ -133,7 +133,7 @@ public virtual without sharing class TaskCloudEventModel extends CloudEventModel
     ) {
       this.subject = theTask.Subject;
       this.priority = PRIORITY_TYPES.get(theTask.Priority);
-      this.status = theTask.Status == 'New'? 'TASK_STATUS_NEW' : theTask.Status;
+      this.status = theTask.Status == 'New'? 'TASK_STATE_NEW' : theTask.Status;
       this.taskNumber = theTask.TaskNumber__c;
       this.type = theTask.Type;
       this.expiryDate = theTask.ActivityDate;
