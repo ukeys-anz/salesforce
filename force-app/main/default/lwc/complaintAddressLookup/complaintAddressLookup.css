@@ -1,0 +1,6 @@
+.tooltip {
+  cursor: pointer;
+  margin-left: -350px;
+  position: relative;
+  bottom: 4px;
+}

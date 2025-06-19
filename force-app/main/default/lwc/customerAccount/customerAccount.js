@@ -1,10 +1,11 @@
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { LightningElement, track, api } from "lwc";
+import getFinancialAccounts from "@salesforce/apex/GetCustomerInformation.fetchCustomerFinancialAccounts";
 import tmp from "./customerAccount.html";
 const FINANCIAL_DIFFICULTY = "4";
 const COLLECTIONS = "17";
 const EXCL_ACC = ["CAP-CIS:APP", "CAP-CIS:CAP", "CAP-CIS:CAB", "CAP-CIS:MOS"];
-
+import { getAccoutProductkeys } from "c/utils";
 export default class CustomerAccount extends OmniscriptBaseMixin(
   LightningElement
 ) {
@@ -25,7 +26,6 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
   get omniJsonData() {
     return this._omniData;
   }
-
   render() {
     return tmp;
   }
@@ -57,36 +57,40 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     }
   }
 
-  populateAccountNumbers(data) {
+  async populateAccountNumbers(data) {
+    let cmpDet = data.Case.ComplaintDetails;
+    let accountId = data.Case.AccountId;
     this.options = [];
-    if (data && data.Response && data.Response.accounts) {
-      let accounts = data.Response.accounts;
-      let cmpDet = data.Case.ComplaintDetails;
-      if (
-        ((cmpDet.IssueType === COLLECTIONS ||
-          cmpDet.IssueType === FINANCIAL_DIFFICULTY) &&
-          this.omniJsonDef.name === "AccountPolicyNumber") ||
-        ((cmpDet.IssueType2 === COLLECTIONS ||
-          cmpDet.IssueType2 === FINANCIAL_DIFFICULTY) &&
-          this.omniJsonDef.name === "AccountPolicyNumber2") ||
-        ((cmpDet.IssueType3 === COLLECTIONS ||
-          cmpDet.IssueType3 === FINANCIAL_DIFFICULTY) &&
-          this.omniJsonDef.name === "AccountPolicyNumber3")
-      ) {
-        accounts.forEach((acc) => {
-          if (!EXCL_ACC.includes(acc.productCode)) {
-            this.options.push({
-              label: acc.accountNumber,
-              value: acc.accountNumber
-            });
-          }
-        });
+    let issueTypeChange = this.checkIssueTypeChange(cmpDet);
+    if (accountId && this.checkCustomerIdentifier(data)) {
+      let ocvId = data?.data?.fields.OCV_ID__c.value;
+      let result = await getFinancialAccounts({
+        accId: accountId,
+        ocvId: ocvId
+      });
+      if (!result) {
+        return;
+      }
+      if (issueTypeChange) {
+        this.options = this.getAccountNumbers(result, true);
       } else {
-        accounts.forEach((acc) => {
-          this.options.push({
-            label: acc.accountNumber,
-            value: acc.accountNumber
-          });
+        this.options = result.map((i) => {
+          let accNum = getAccoutProductkeys(
+            i.FinServ__FinancialAccount__r.Account_Key__c
+          );
+          return { label: accNum, value: accNum };
+        });
+      }
+      this.validateNAoption(data);
+    }
+
+    if (this.checkForCacheCustomer(data)) {
+      let accounts = data.Response.accounts;
+      if (issueTypeChange) {
+        this.options = this.getAccountNumbers(accounts, false);
+      } else {
+        this.options = accounts.map((i) => {
+          return { label: i.accountNumber, value: i.accountNumber };
         });
       }
     }
@@ -101,14 +105,7 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
       this.value = "N/A";
     }
     let cmpDetails = data ? (data.Case ? data.Case.ComplaintDetails : "") : "";
-    if (
-      (cmpDetails.IssueType === FINANCIAL_DIFFICULTY &&
-        this.omniJsonDef.name === "AccountPolicyNumber") ||
-      (cmpDetails.IssueType2 === FINANCIAL_DIFFICULTY &&
-        this.omniJsonDef.name === "AccountPolicyNumber2") ||
-      (cmpDetails.IssueType3 === FINANCIAL_DIFFICULTY &&
-        this.omniJsonDef.name === "AccountPolicyNumber3")
-    ) {
+    if (this.checkIssueTypeFDH(cmpDetails)) {
       this.allValues = [];
       this.options.forEach((acc) => {
         this.allValues.push(acc.value);
@@ -130,6 +127,73 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
         this.updateDataJson();
       }
     }
+  }
+
+  getAccountNumbers(data, isCustomer) {
+    if (isCustomer) {
+      return data
+        .filter(
+          (i) =>
+            !EXCL_ACC.includes(
+              i.FinServ__FinancialAccount__r.FinServ__FinancialAccountType__c
+            )
+        )
+        .map((i) => {
+          let accNum = getAccoutProductkeys(
+            i.FinServ__FinancialAccount__r.Account_Key__c
+          );
+          return {
+            label: accNum,
+            value: accNum
+          };
+        });
+    }
+    return data
+      .filter((i) => !EXCL_ACC.includes(i.productCode))
+      .map((i) => {
+        return {
+          label: i.accountNumber,
+          value: i.accountNumber
+        };
+      });
+  }
+  checkCustomerIdentifier(data) {
+    return (
+      data.Case.CustomerDetails.CustomerIdentifier ===
+        "Customer/Business CAP ID" && data.enableAccountLookUp === true
+    );
+  }
+  checkIssueTypeFDH(cmpDet) {
+    return (
+      (cmpDet.IssueType === FINANCIAL_DIFFICULTY &&
+        this.omniJsonDef.name === "AccountPolicyNumber") ||
+      (cmpDet.IssueType2 === FINANCIAL_DIFFICULTY &&
+        this.omniJsonDef.name === "AccountPolicyNumber2") ||
+      (cmpDet.IssueType3 === FINANCIAL_DIFFICULTY &&
+        this.omniJsonDef.name === "AccountPolicyNumber3")
+    );
+  }
+  checkForCacheCustomer(data) {
+    return (
+      data?.Response?.accounts &&
+      (data.Case.CustomerDetails.CustomerIdentifier === "CACHE ID" ||
+        (data.Case.CustomerDetails.CustomerIdentifier ===
+          "Customer/Business CAP ID" &&
+          data.enableAccountLookUp === false))
+    );
+  }
+  checkIssueTypeChange(cmpDet) {
+    return (
+      ((cmpDet.IssueType === COLLECTIONS ||
+        cmpDet.IssueType === FINANCIAL_DIFFICULTY) &&
+        this.omniJsonDef.name === "AccountPolicyNumber") ||
+      ((cmpDet.IssueType2 === COLLECTIONS ||
+        cmpDet.IssueType2 === FINANCIAL_DIFFICULTY) &&
+        this.omniJsonDef.name === "AccountPolicyNumber2") ||
+      ((cmpDet.IssueType3 === COLLECTIONS ||
+        cmpDet.IssueType3 === FINANCIAL_DIFFICULTY) &&
+        this.omniJsonDef.name === "AccountPolicyNumber3")
+    );
   }
 
   handleChange(event) {

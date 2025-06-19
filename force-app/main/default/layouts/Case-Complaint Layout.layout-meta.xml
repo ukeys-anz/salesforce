@@ -12,11 +12,15 @@
         <label>Customer Details</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Readonly</behavior>
                 <field>IDR_Customer_Number__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Readonly</behavior>
+                <field>AccountId</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
                 <field>IDR_Customer_Identifier__c</field>
             </layoutItems>
             <layoutItems>
@@ -170,6 +174,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_Additional_Correspondence_reviewed__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Outcome_Letter_to_be_sent_by_Mail__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>

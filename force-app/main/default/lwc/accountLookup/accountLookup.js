@@ -1,10 +1,58 @@
-import { LightningElement } from "lwc";
+import { LightningElement, wire } from "lwc";
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
+import { getRecord } from "lightning/uiRecordApi";
+import { CurrentPageReference } from "lightning/navigation";
+
+const FIELDS = [
+  "Account.Source_System_ID__c",
+  "Account.RecordTypeId",
+  "Account.FirstName",
+  "Account.LastName",
+  "Account.MiddleName",
+  "Account.Gender__pc",
+  "Account.FinServ__Age__pc",
+  "Account.CPID__c",
+  "Account.OCV_ID__c",
+  "Account.PersonBirthdate",
+  "Account.Other_Email__c",
+  "Account.PersonEmail",
+  "Account.PersonOtherPhone",
+  "Account.PersonMobilePhone",
+  "Account.BillingStreet",
+  "Account.BillingCity",
+  "Account.BillingState",
+  "Account.BillingPostalCode",
+  "Account.BillingCountry",
+  "Account.PersonOtherCity",
+  "Account.PersonOtherCountry",
+  "Account.PersonOtherPostalCode",
+  "Account.PersonOtherState",
+  "Account.PersonOtherStreet",
+  "Account.ShippingCity",
+  "Account.ShippingCountry",
+  "Account.ShippingPostalCode",
+  "Account.ShippingState",
+  "Account.ShippingStreet",
+  "Account.RecordType.Name",
+  "Account.Migration_Status__c",
+  "Account.Migration_Status_Date__c",
+  "Account.Controlling_Post__c",
+  "Account.Controlling_Post__r.Responsible_Employee_Name__c",
+  "Account.Controlling_Post__r.CPID_Phone__c",
+  "Account.Controlling_Post__r.CPID_Address__c"
+];
 export default class AccountLookup extends OmniscriptBaseMixin(
   LightningElement
 ) {
   recId;
+  account;
+  custNo;
   isDisabled = false;
+
+  @wire(CurrentPageReference)
+  setCurrentPageReference(currentPageReference) {
+    this.pageReference = currentPageReference;
+  }
 
   get accountIdStr() {
     try {
@@ -12,13 +60,22 @@ export default class AccountLookup extends OmniscriptBaseMixin(
         return this.recId;
       }
       const inContextVal = this.getURLParameterByName("inContextOfRef");
-      const context = JSON.parse(window.atob(inContextVal));
-      let recordIdFromURL = context.attributes.recordId;
-      let objectName = context.attributes.objectApiName;
-      if (objectName === "Account") {
-        this.recId = recordIdFromURL;
-        this.isDisabled = true;
-        this.setCaseAccountId();
+      if (inContextVal) {
+        const context = JSON.parse(window.atob(inContextVal));
+        let recordIdFromURL = context.attributes.recordId;
+        let objectName = context.attributes.objectApiName;
+        if (objectName === "Account") {
+          this.recId = recordIdFromURL;
+          this.isDisabled = true;
+          this.setCaseAccountId();
+        }
+      } else {
+        const accountId = this.pageReference.state.recordId;
+        if (accountId) {
+          this.recId = accountId;
+          this.isDisabled = true;
+          this.setCaseAccountId();
+        }
       }
     } catch (err) {
       this.recId = "";
@@ -34,7 +91,7 @@ export default class AccountLookup extends OmniscriptBaseMixin(
   setCaseAccountId() {
     let Case = JSON.parse(JSON.stringify(this.omniJsonData.Case));
     Case.AccountId = this.recId;
-    this.omniApplyCallResp({ Case });
+    this.omniApplyCallResp({ Case: { AccountId: this.recId } });
   }
 
   getURLParameterByName(name) {
@@ -46,5 +103,17 @@ export default class AccountLookup extends OmniscriptBaseMixin(
     if (!results) return null;
     if (!results[2]) return "";
     return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+
+  @wire(getRecord, { recordId: "$recId", fields: FIELDS })
+  wiredAccount({ error, data }) {
+    if (data) {
+      this.account = data.fields;
+      this.error = null;
+    } else if (error) {
+      this.account = null;
+      this.error = error.body.message;
+    }
+    this.omniApplyCallResp({ data });
   }
 }

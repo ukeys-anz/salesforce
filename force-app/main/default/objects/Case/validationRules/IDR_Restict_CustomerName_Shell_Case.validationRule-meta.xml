@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Restict_CustomerName_Shell_Case</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+   !ISNEW(),
+    $Profile.Name =&apos;ANZ Standard User&apos;,
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    RecordType.DeveloperName = &apos;General_Inquiry_CMOS&apos;,
+    OR(
+      AND($CustomMetadata.IDR_Omni_Settings_CMOS__mdt.EnableAccountLookUpforCMOS.EnableAccountLookUpforCMOS__c = true,
+        OR(
+          AND(
+            TEXT(IDR_Customer_Identifier__c) =&apos;Customer/Business CAP ID&apos;,
+              OR( AND(ISCHANGED(IDR_Customer_Number__c), NOT(ISBLANK(IDR_Customer_Number__c))),
+              AND(NOT (ISCHANGED(IDR_Customer_Number__c)), NOT(ISBLANK(IDR_Customer_Number__c)))),
+              (ISBLANK(OCV_Id__c))
+             
+
+          ) ,
+          AND (
+            TEXT(IDR_Customer_Identifier__c) =&apos;Customer/Business CAP ID&apos;,
+            OR( AND(ISCHANGED(AccountId), 
+               ISBLANK(AccountId)),
+               ISBLANK(AccountId),
+               AND(ISCHANGED(IDR_Customer_Number__c), 
+               ISBLANK(IDR_Customer_Number__c))
+               )
+          ),
+          AND(
+            TEXT(IDR_Customer_Identifier__c) =&apos;CACHE ID&apos;,
+           OR( OR( AND(ISCHANGED(AccountId), NOT(ISBLANK(AccountId))),
+                AND(NOT (ISCHANGED(AccountId)), NOT(ISBLANK(AccountId)))),
+              AND( ISCHANGED(IDR_Customer_Number__c), 
+               ISBLANK(IDR_Customer_Number__c))
+            )
+             
+
+
+          )
+        )
+      ),
+      AND(
+       $CustomMetadata.IDR_Omni_Settings_CMOS__mdt.EnableAccountLookUpforCMOS.EnableAccountLookUpforCMOS__c = false,
+       ISCHANGED( AccountId )
+       )
+    )
+)</errorConditionFormula>
+    <errorMessage>Incorrect Customer Field input:
+When Customer / Business CAP ID is selected, Customer Name must be populated. 
+When CACHE ID is populated, only the Customer Number field must be completed. The Customer Name field must remain empty.</errorMessage>
+</ValidationRule>
