@@ -1,0 +1,115 @@
+<template>
+  <div class="slds-combobox_container">
+    <div
+      class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open"
+      aria-expanded="true"
+      aria-haspopup="listbox"
+      role="combobox"
+    >
+      <div
+        class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
+        role="none"
+      >
+        <lightning-layout>
+          <lightning-layout-item flexibility="auto">
+            <lightning-input
+              class="inputBox .slds-form-element_readonly"
+              onchange={handleSearchKeyChange}
+              label={label}
+              value={searchString}
+              placeholder="type here..."
+            ></lightning-input>
+          </lightning-layout-item>
+          <lightning-layout-item flexibility="shrink">
+            <lightning-helptext
+              class="tooltip"
+              content="Start typing the customer’s address, and select the correct match from the list of validated results. If the address isn’t listed, click ‘No results found’ and manually enter the address in the adjacent fields."
+            ></lightning-helptext>
+          </lightning-layout-item>
+        </lightning-layout>
+      </div>
+      <!-- Address List -->
+      <div
+        lwc:if={showAddresses}
+        class="pnlSearchResult slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid"
+      >
+        <ul
+          class="slds-listbox slds-listbox_vertical recordListBox"
+          role="presentation"
+        >
+          <li lwc:if={isSearching}>looking up address...</li>
+
+          <li
+            for:each={addressList}
+            for:item="addr"
+            key={addr.global_address_key}
+            data-id={addr.global_address_key}
+            onmousedown={handleSelectAddress}
+            role="presentation"
+            class={addr.background}
+          >
+            <div
+              class="slds-media slds-listbox__option slds-listbox__option_entity slds-media_center"
+              role="option"
+            >
+              <span class="slds-media__figure slds-listbox__option-icon">
+                <lightning-icon
+                  icon-name="standard:address"
+                  alternative-text="Address"
+                  title="Address"
+                ></lightning-icon>
+              </span>
+              <span class="slds-media__body">
+                <span
+                  class="slds-listbox__option-text slds-listbox__option-text_entity"
+                  >{addr.address}</span
+                >
+              </span>
+            </div>
+          </li>
+          <li lwc:if={displayAddresses} onmousedown={displayAddressFields}>
+            <div
+              class="slds-media slds-listbox__option slds-listbox__option_entity slds-media_center"
+              role="option"
+            >
+              <span class="slds-media__figure slds-listbox__option-icon">
+                <lightning-icon
+                  icon-name="utility:add"
+                  alternative-text="Add Address"
+                  title="Add Address"
+                ></lightning-icon>
+              </span>
+              <span class="slds-media__body">
+                <span
+                  class="slds-listbox__option-text slds-listbox__option-text_entity"
+                  >{message}</span
+                >
+              </span>
+            </div>
+          </li>
+          <li lwc:if={displayMessage} onmousedown={displayAddressFields}>
+            <div
+              class="slds-media slds-listbox__option slds-listbox__option_entity slds-media_center"
+              role="option"
+            >
+              <span class="slds-media__figure slds-listbox__option-icon">
+                <lightning-icon
+                  icon-name="utility:add"
+                  alternative-text="Add Address"
+                  title="Add Address"
+                ></lightning-icon>
+              </span>
+              <span class="slds-media__body">
+                <span
+                  class="slds-listbox__option-text slds-listbox__option-text_entity"
+                  >{message}</span
+                >
+              </span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <template lwc:if={resetValidationError}></template>
+</template>

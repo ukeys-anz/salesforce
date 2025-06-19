@@ -188,6 +188,23 @@
         <name>DRTransformCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:CustomerDetails:PostcodeReadOnly var:Case:CustomerDetails:PostcodeReadOnly var:Case:CustomerDetails:Postcode IF</formulaConverted>
+        <formulaExpression>IF(%Case:CustomerDetails:PostcodeReadOnly%,%Case:CustomerDetails:PostcodeReadOnly%,%Case:CustomerDetails:Postcode%)</formulaExpression>
+        <formulaResultPath>Case:CustomerDetails:Postcode</formulaResultPath>
+        <formulaSequence>20.0</formulaSequence>
+        <globalKey>5c2be935-a058-4921-9356-56e413d4cd71</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCaseDetails6022860449239078</globalKey>
         <inputFieldName>Case:CustomerDetails:ExpressCaseCreation</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>

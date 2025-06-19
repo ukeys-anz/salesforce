@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR29_RestrictOutcomeletter_on_ShellCase</fullName>
+    <active>true</active>
+    <description>Restrict ticking Outcome Letter to be Sent by Email on Shell Case Conversion.</description>
+    <errorConditionFormula>AND(
+!ISNEW(),
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+OR(RecordType.DeveloperName = &apos;Customer_Complaint&apos;,RecordType.DeveloperName=&apos;Non_Customer_Complaint&apos;),
+ISCHANGED(RecordTypeId),
+Outcome_Letter_to_be_sent_by_Mail__c = TRUE)</errorConditionFormula>
+    <errorMessage>The &quot;Outcome Letter to be sent by mail&quot; option cannot be selected.
+Please untick the checkbox to continue.</errorMessage>
+</ValidationRule>
