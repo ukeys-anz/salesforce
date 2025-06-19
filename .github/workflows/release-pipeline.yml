@@ -15,7 +15,7 @@ permissions:
 jobs:
   Release:
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.4.0"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.5.0"
       options: --user root
       volumes:
         - ${{ github.workspace }}/release:/opt/harness-delegate/release
@@ -39,6 +39,7 @@ jobs:
 
     environment: "${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}"
     env:
+      SERVICE_ACCOUNT: "h-sf-primary-prod@anz-x-bootstrap-prod-3b7a6d.iam.gserviceaccount.com"
       RELEASE_NAME: "${{ github.event.inputs.NAME }}"
       ARTIFACTORY_SECRET_NAME: "sf-platform-prod-artifact"
       PREPROD_SECRET_NAME: "sf-platform-prod-preprod"
@@ -73,7 +74,7 @@ jobs:
         id: "authenticate-harness-delegate"
         uses: "anzx/github-reusable-actions/authenticate-gcp@main"
         with:
-          service_account: "h-sf-primary-prod@anz-x-bootstrap-prod-3b7a6d.iam.gserviceaccount.com"
+          service_account: "${{ env.SERVICE_ACCOUNT }}"
 
       - name: "Retrieve GSM Credentials"
         id: secrets
@@ -109,6 +110,7 @@ jobs:
           sf plugins link .
 
       - name: Run ${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}
+        id: deployment
         working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/release.mjs "${{ steps.secrets.outputs.preprod }}" "${{ steps.secrets.outputs.prod-consumer-key }}" "${{ steps.secrets.outputs.prod-cert }}" "${{ steps.secrets.outputs.artifactory }}"
@@ -118,6 +120,15 @@ jobs:
         working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/release.mjs "${{ steps.secrets.outputs.preprod }}" "${{ steps.secrets.outputs.prod-consumer-key }}" "${{ steps.secrets.outputs.prod-cert }}" "${{ steps.secrets.outputs.artifactory }}"
+
+      - name: Publish Deployment Event
+        if: always() && !cancelled() && steps.deployment.outcome != 'skipped'
+        uses: anzx/github-reusable-actions/publish-deployment-event@main
+        with:
+          environment: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}
+          service_name: "salesforce"
+          service_account: "${{ env.SERVICE_ACCOUNT }}"
+          event_status: ${{ steps.deployment.outcome }}
 
   Cleanup:
     name: "Cleanup"
