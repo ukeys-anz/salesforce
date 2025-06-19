@@ -66,7 +66,6 @@
         <default>false</default>
         <label>Sent (Deprecated)</label>
         <closed>false</closed>
-        <isActive>false</isActive>
     </standardValue>
     <standardValue>
         <fullName>TASK_STATE_SENT</fullName>
@@ -79,7 +78,6 @@
         <default>false</default>
         <label>Read By Customer (Deprecated)</label>
         <closed>false</closed>
-        <isActive>false</isActive>
     </standardValue>
     <standardValue>
         <fullName>TASK_STATE_READ</fullName>
@@ -92,7 +90,6 @@
         <default>false</default>
         <label>Customer Archived (Deprecated)</label>
         <closed>true</closed>
-        <isActive>false</isActive>
     </standardValue>
     <standardValue>
         <fullName>TASK_STATE_CUSTOMER_ARCHIVED</fullName>
@@ -105,7 +102,6 @@
         <default>false</default>
         <label>Coach Archived (Deprecated)</label>
         <closed>true</closed>
-        <isActive>false</isActive>
     </standardValue>
     <standardValue>
         <fullName>TASK_STATE_COACH_ARCHIVED</fullName>
@@ -118,7 +114,6 @@
         <default>false</default>
         <label>Auto Archived (Deprecated)</label>
         <closed>true</closed>
-        <isActive>false</isActive>
     </standardValue>
     <standardValue>
         <fullName>TASK_STATE_AUTO_ARCHIVED</fullName>
