@@ -86,7 +86,8 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
         Response:
           this.omniJsonData.Response != null
             ? { profile: this.omniJsonData.Response.profile }
-            : this.omniJsonData.Response
+            : this.omniJsonData.Response,
+        data: this.omniJsonData.data
       };
 
       const options = {
