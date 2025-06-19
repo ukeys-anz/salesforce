@@ -159,4 +159,36 @@ public with sharing class IDRCaseActionsHelper {
     }
     return tasksToUpdate;
   }
+
+  /**
+   * @description Create a log entry record after case is created
+   * @param caseId CaseId of the case created
+   */
+  @AuraEnabled
+  public static void logCaseCreation(String caseId) {
+    String strUserName = UserInfo.getName();
+    String message =
+      'Case Creation Success: 200 - Case Created: ' +
+      caseId +
+      ' by ' +
+      strUserName +
+      ' at ' +
+      System.now();
+    Logger.info(message, caseId);
+    Logger.saveLog();
+  }
+
+  /**
+   * @description Create a log entry record if case creation fails
+   * @param message Message to log in error log
+   */
+  @AuraEnabled
+  public static void logCaseError(String message) {
+    Logger.error(
+      'Case Creation Failure: 400 - Required field is missing or invalid:' +
+        ' ' +
+        message
+    );
+    Logger.saveLog();
+  }
 }

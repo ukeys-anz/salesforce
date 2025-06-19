@@ -1650,11 +1650,11 @@
         <readable>false</readable>
     </fieldPermissions>
     <layoutAssignments>
-        <layout>Account-Account %28Business%29 Legal Entity Layout</layout>
+        <layout>Account-MLCRM Organization Layout</layout>
         <recordType>Account.Business_Account</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Account-Account %28CLG%29 Legal Entity Layout</layout>
+        <layout>Account-MLCRM CLG Layout</layout>
         <recordType>Account.CLG</recordType>
     </layoutAssignments>
     <layoutAssignments>
@@ -1698,7 +1698,7 @@
         <recordType>Lead.CCRM_Lead</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>PersonAccount-Customer Tabbed View Layout</layout>
+        <layout>PersonAccount-MLCRM Account Page Layout</layout>
         <recordType>PersonAccount.PersonAccount</recordType>
     </layoutAssignments>
     <layoutAssignments>
