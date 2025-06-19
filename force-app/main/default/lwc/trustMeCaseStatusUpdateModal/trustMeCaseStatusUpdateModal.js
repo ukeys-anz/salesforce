@@ -1,9 +1,12 @@
 import { track, api } from "lwc";
-import { handleErrors, showToast } from "c/utils";
+import { handleErrors } from "c/utils";
+import { notifyRecordUpdateAvailable } from "lightning/uiRecordApi";
 import LightningModal from "lightning/modal";
 import updateStatus from "@salesforce/apex/TrustMeCaseStatusPathController.updateStatus";
+import updateStatusAndOwner from "@salesforce/apex/TrustMeCaseStatusPathController.updateStatusAndOwnerOfCase";
 import isFraudXAgent from "@salesforce/customPermission/ReKYCStatusUpdateForFraudAgents";
 import { SimpleToast } from "c/utils";
+import { refreshApex } from "@salesforce/apex";
 
 const APEX_ERRORS = {
   InsufficientAccessException:
@@ -14,6 +17,7 @@ const APEX_ERRORS = {
   Exception: "Error occurred while updating case status."
 };
 const fraudStatuses = ["Fraud Confirmed", "Closed - No Fraud"];
+const reKYCOpenStatuses = ["Rectify Defect", "Refer to Fraud"];
 
 export default class TrustMeCaseStatusUpdateModal extends LightningModal {
   @api options;
@@ -152,13 +156,30 @@ export default class TrustMeCaseStatusUpdateModal extends LightningModal {
       );
       return;
     }
-    if (!this.currentStatusIsClosed) {
-      this.toast.error(
-        "You're not allowed to change the status to - " +
-          this.trustMeCase.Status
-      );
+    if (
+      !this.currentStatusIsClosed &&
+      reKYCOpenStatuses.includes(this.trustMeCase.Status)
+    ) {
+      this.showSpinner = true;
+      await updateStatusAndOwner({
+        recordId: this.trustMeCase.Id,
+        statusValue: this.trustMeCase.Status
+      })
+        .then(() => {
+          this.toast.success("Successfully updated status.");
+          notifyRecordUpdateAvailable([{ recordId: this.trustMeCase.Id }]);
+          refreshApex(this.trustMeCase.Id);
+        })
+        .catch((error) => {
+          this.toast.error(error.body.message);
+        })
+        .finally(() => {
+          this.showSpinner = false;
+          this.handleHideModal();
+        });
       return;
     }
+
     if (
       this.trustMeCase.Status === "No Defect" &&
       this.checksList.includes("No")
@@ -168,18 +189,14 @@ export default class TrustMeCaseStatusUpdateModal extends LightningModal {
       );
       return;
     }
+
     if (
       (this.trustMeCase.Status === "Defect Identified" ||
         this.trustMeCase.Status === "Fraud Suspected") &&
       !this.checksList.includes("No")
     ) {
-      showToast(
-        this,
-        "Error",
-        "Atleast one check should be marked as 'No' to update the status to 'Defect Identified/Fraud Suspected'",
-        "",
-        "error",
-        ""
+      this.toast.error(
+        "Atleast one check should be marked as 'No' to update the status to 'Defect Identified/Fraud Suspected'"
       );
       return;
     }

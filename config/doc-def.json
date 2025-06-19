@@ -1314,7 +1314,8 @@
         "Disable_MFA",
         "Case_Read_Write_TrustMe_MV",
         "Case_Read_Write_TrustMe_QA",
-        "DAON_File_Integration"
+        "DAON_File_Integration",
+        "ReKYC_QA_Case_Permission_Set"
       ],
       "type": "system"
     },

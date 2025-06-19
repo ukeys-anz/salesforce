@@ -34,81 +34,73 @@ export const FILES_BY_DOCUMENTTYPE = {
   DOCUMENT_TYPE_DRIVERS_LICENCE: [
     {
       fileType: "DAON_FILE_TYPE_FRONT_PROCESSED",
-      title: "Processed Document Front"
+      title: "Processed Drivers License Front"
     },
     {
       fileType: "DAON_FILE_TYPE_BACK_PROCESSED",
-      title: "Processed Document Back"
+      title: "Processed Drivers License Back"
     },
     {
       fileType: "DAON_FILE_TYPE_SELFIE_ANZX_REKYC_FACE",
-      title: "TrustMe Selfie"
+      title: "Selfie"
     },
     {
       fileType: "DAON_FILE_TYPE_FRONT_UNPROCESSED",
-      title: "Unprocessed Document Front"
+      title: "Unprocessed Drivers License Front"
     },
     {
       fileType: "DAON_FILE_TYPE_BACK_UNPROCESSED",
-      title: "Unprocessed Document Back"
+      title: "Unprocessed Drivers License Back"
     }
   ],
   DOCUMENT_TYPE_PASSPORT: [
     {
       fileType: "DAON_FILE_TYPE_FRONT_PROCESSED",
-      title: "Processed Document Front"
-    },
-    {
-      fileType: "DAON_FILE_TYPE_BACK_PROCESSED",
-      title: "Processed Document Back"
+      title: "Processed Passport Front"
     },
     {
       fileType: "DAON_FILE_TYPE_SELFIE_ANZX_REKYC_FACE",
-      title: "TrustMe Selfie"
+      title: "Selfie"
     },
     {
       fileType: "DAON_FILE_TYPE_FRONT_UNPROCESSED",
-      title: "Unprocessed Document Front"
-    },
-    {
-      fileType: "DAON_FILE_TYPE_BACK_UNPROCESSED",
-      title: "Unprocessed Document Back"
+      title: "Unprocessed Passport Front"
     }
   ],
   DOCUMENT_TYPE_PROOF_OF_AGE: [
     {
       fileType: "DAON_FILE_TYPE_FRONT_PROCESSED",
-      title: "Processed Document Front"
+      title: "Processed Proof of Age Front"
     },
     {
       fileType: "DAON_FILE_TYPE_BACK_PROCESSED",
-      title: "Processed Document Back"
+      title: "Processed Proof of Age Back"
     },
     {
       fileType: "DAON_FILE_TYPE_SELFIE_ANZX_REKYC_FACE",
-      title: "TrustMe Selfie"
+      title: "Selfie"
     },
     {
       fileType: "DAON_FILE_TYPE_FRONT_UNPROCESSED",
-      title: "Unprocessed Document Front"
+      title: "Unprocessed Proof of Age Front "
     },
     {
       fileType: "DAON_FILE_TYPE_BACK_UNPROCESSED",
-      title: "Unprocessed Document Back"
+      title: "Unprocessed Proof of Age Back"
     }
   ],
   DOCUMENT_TYPE_MEDICARE: [
     {
       fileType: "DAON_FILE_TYPE_FRONT_PROCESSED",
-      title: "Processed Document Front"
+      title: "Processed Medicare Card Front"
     },
     {
       fileType: "DAON_FILE_TYPE_SELFIE_ENROLLED",
-      title: "Enrolled Selfie On File"
+      title: "Enrolled Selfie on file"
     },
     {
       fileType: "DAON_FILE_TYPE_FRONT_UNPROCESSED",
-      title: "Unprocessed Document Front"
+      title: "Unprocessed Medicare Card Front"
     }
   ]
 };
