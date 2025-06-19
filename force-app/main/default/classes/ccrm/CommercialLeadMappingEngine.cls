@@ -327,7 +327,7 @@ public with sharing class CommercialLeadMappingEngine {
           lead.Industry__c = mapIndustries.get(
               aarRecord.FinServ__RelatedAccount__r.Industry
             )
-            ?.Id ?? '';
+            ?.Id ?? null;
         }
       }
     }
