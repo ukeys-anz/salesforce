@@ -191,7 +191,12 @@ public with sharing class MobileLendingLeadActions {
     LeadExpiryActions.updateExpiryDateForNextDay(
       filteredLeadsBasedOnExpiryDate
     );
-    updateFollowupdate(leadsToUpdateExpiryDate, mapCampaigns);
+    List<Lead> leadsToUpdateFollowUpDate = ListUtil.filter(
+        leadsToUpdateExpiryDate
+      )
+      .isNotNull(Lead.Followup_Date__c)
+      .toList();
+    updateFollowupdate(leadsToUpdateFollowUpDate, mapCampaigns);
   }
 
   /**
@@ -258,7 +263,7 @@ public with sharing class MobileLendingLeadActions {
       }
       if (followUpExtensionDate <= record.Expiry_Date__c) {
         record.Followup_Date__c = record.Expiry_Date__c - followUpExtension;
-      } else {
+      } else if (followUpExtensionDate > record.Expiry_Date__c) {
         record.Followup_Date__c = record.Expiry_Date__c - followUpReduction;
       }
     }

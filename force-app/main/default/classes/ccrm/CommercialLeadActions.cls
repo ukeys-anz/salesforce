@@ -228,7 +228,7 @@ public with sharing class CommercialLeadActions {
     Map<Id, CampaignMember> mapCampaigns = LeadExpiryActions.getMapOfCampaign(
       unExpiredLeads
     );
-    Map<Id, Task> mapTask = LeadExpiryActions.getMapOfTask(
+    Map<Id, Task> mapTask = LeadExpiryActions.getMapOfLeadResponse(
       unExpiredLeads,
       oldMap
     );
