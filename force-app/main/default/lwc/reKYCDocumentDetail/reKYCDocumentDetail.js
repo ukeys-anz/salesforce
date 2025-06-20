@@ -228,8 +228,8 @@ export default class ReKYCDocumentDetail extends LightningElement {
 
       const secondaryDocs =
         this.reKYCDocDetails?.TrustMe_Secondary_Document_ID__c;
-      if (!secondaryDocs) {
-        const secondaryDetokenizedValue = await service.detokenize(
+      if (secondaryDocs) {
+        const secondaryDetokenizedValue = await this.service.detokenize(
           secondaryDocs,
           DOCUMENTYPE[this.reKYCDocDetails.Secondary_Documents__c[0].type]
         );
@@ -261,8 +261,8 @@ export default class ReKYCDocumentDetail extends LightningElement {
         return new Promise((resolve) => resolve(""));
       }
       return detokenize({
-        documentId,
-        documentType,
+        docNumber: documentId,
+        docType: documentType,
         ...this.customerToken
       });
     }
