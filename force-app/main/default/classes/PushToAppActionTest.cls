@@ -67,7 +67,7 @@ public with sharing class PushToAppActionTest {
       .getParam('records');
 
     Assert.isTrue(
-      taskUpdated[0].Status == 'ACTIVITY_STATE_AUTO_ARCHIVED',
+      taskUpdated[0].Status == 'TASK_STATE_AUTO_ARCHIVED',
       'Task status should be updated to Auto Archived'
     );
   }

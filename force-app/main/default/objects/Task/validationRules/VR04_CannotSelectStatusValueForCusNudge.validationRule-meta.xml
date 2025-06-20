@@ -9,14 +9,13 @@ Read By Customer</description>
     <errorConditionFormula>AND( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false, RecordType.Name == &apos;Customer Nudge&apos;, 
 NOT($Profile.Name = &apos;Minimum Access - External Apps&apos;),
 NOT($Profile.Name = &apos;Minimum Access - Salesforce&apos;),
-NOT($Profile.Name = &apos;Minimum Access - Salesforce&apos;),
 ISCHANGED( Status ),
 NOT(ISNEW()),
 NOT(ISPICKVAL(Case__r.Status, &apos;Escalated&apos;)), 
-OR(ISPICKVAL(Status, &apos;ACTIVITY_STATE_AUTO_ARCHIVED&apos;),
-ISPICKVAL(Status, &apos;ACTIVITY_STATE_CUSTOMER_ARCHIVED&apos;),
-ISPICKVAL(Status, &apos;ACTIVITY_STATE_SENT&apos;),
-ISPICKVAL(Status, &apos;ACTIVITY_STATE_READ&apos;)))</errorConditionFormula>
+OR(ISPICKVAL(Status, &apos;TASK_STATE_AUTO_ARCHIVED&apos;),
+ISPICKVAL(Status, &apos;TASK_STATE_CUSTOMER_ARCHIVED&apos;),
+ISPICKVAL(Status, &apos;TASK_STATE_SENT&apos;),
+ISPICKVAL(Status, &apos;TASK_STATE_READ&apos;)))</errorConditionFormula>
     <errorDisplayField>Status</errorDisplayField>
     <errorMessage>The status values (Customer Archived, Auto Archived, Read By Customer, Sent) cannot be changed manually.</errorMessage>
 </ValidationRule>
