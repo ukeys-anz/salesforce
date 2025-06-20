@@ -110,7 +110,6 @@ public with sharing class ComplaintsRepository {
         RecordTypeId
       FROM Account
       WHERE Id IN :accountIds
-      WITH USER_MODE
     ];
   }
 
