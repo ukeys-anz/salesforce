@@ -41,6 +41,21 @@
             <fullName>3</fullName>
             <label>Other</label>
          </value>
+         <value>
+                <fullName>6</fullName>
+                <default>false</default>
+                <label>Administrative purposes</label>
+            </value>
+            <value>
+                <fullName>7</fullName>
+                <default>false</default>
+                <label>Further investigation</label>
+            </value>
+            <value>
+                <fullName>8</fullName>
+                <default>false</default>
+                <label>AFCA/other EDR schemes requests</label>
+            </value>
       </valueSetDefinition>
    </valueSet>
 </CustomField>
