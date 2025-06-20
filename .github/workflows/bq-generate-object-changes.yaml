@@ -42,7 +42,7 @@ jobs:
           repository: anzx/salesforce-plugin
           token: ${{ secrets.SALESFORCE_ACTIONS_CHECKOUT_TOKEN }}
           path: salesforce-plugin
-          ref: v1.0.0
+          ref: v1.0.2
           # this is a particular commit on master. Change this when a new plugin version is required for sf xschema generate
       - name: Install npm packages
         if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'

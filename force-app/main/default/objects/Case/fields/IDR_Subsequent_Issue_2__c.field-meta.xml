@@ -681,6 +681,11 @@
                 <default>false</default>
                 <label>Dissatisfied with process/policy</label>
             </value>
+            <value>
+                <fullName>131</fullName>
+                <default>false</default>
+                <label>ANZ Padlock</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Fraud</controllingFieldValue>
@@ -694,6 +699,10 @@
         <valueSettings>
             <controllingFieldValue>Fraud</controllingFieldValue>
             <valueName>86</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <valueName>131</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Fraud</controllingFieldValue>

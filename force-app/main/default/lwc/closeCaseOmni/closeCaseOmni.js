@@ -475,6 +475,9 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
         this.missingFields.push("Payment Amount 3 Offered");
     }
 
+    if (!details.realFormRequired && !details.RealFormMaxIdFormula) {
+      this.missingFields.push("Is a Real Form Required?");
+    }
     if (details.realFormRequired === "Y_EXI")
       this.checkFields(details, this.omniJsonData.realFormMap);
     if (details.isSystemicIssue === "Yes")

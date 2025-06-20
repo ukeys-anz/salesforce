@@ -1,0 +1,102 @@
+<!--
+  @description       : This LWC is created for ReKYC case's Document Tab to show Document details 
+  @author            : Hinduja Upadhyay
+  @group             : 
+  @last modified on  : 04-22-2025
+
+-->
+<template>
+  <lightning-card>
+    <template lwc:if={showSpinner}>
+      <lightning-spinner variant="brand" size="large"> </lightning-spinner>
+    </template>
+    <template lwc:else>
+      <template lwc:if={showError}>
+        <p
+          class="slds-text-color_error slds-text-align--center slds-text-heading--small slds-p-around--large"
+        >
+          Error occurred: {errorMessage}
+        </p>
+      </template>
+      <template lwc:else>
+        <!-- Accordion for Document Details and Documents -->
+        <lightning-accordion
+          allow-multiple-sections-open
+          active-section-name={activeSections}
+        >
+          <lightning-accordion-section
+            name="trustMeCustAttribute"
+            label="TrustMe Customer Attributes"
+          >
+            <c-trust-me-document-details-child
+              fields={trustmeCustAttribute}
+              trust-me-doc-sec-error-message={trustMeDocSecErrorMessage}
+            ></c-trust-me-document-details-child>
+          </lightning-accordion-section>
+          <lightning-accordion-section
+            name="trustMeSelfieAndPrimaryIdDoc"
+            label="TrustMe Selfie & Primary ID Document Verification"
+          >
+            <c-trust-me-document-details-child
+              fields={trustMeSelfieAndPrimaryIdDoc}
+              trust-me-doc-sec-error-message={trustMeDocSecErrorMessage}
+            ></c-trust-me-document-details-child>
+            <template lwc:if={primarymetadata}>
+              <div class="slds-p-top_medium">
+                <c-daon-file-download
+                  layout={primaryLayout}
+                  metadata={primarymetadata}
+                ></c-daon-file-download>
+              </div>
+            </template>
+          </lightning-accordion-section>
+
+          <lightning-accordion-section
+            name="additionalCustContext"
+            label="Additional Customer Context"
+          >
+            <c-trust-me-document-details-child
+              fields={additionalCustContext}
+              trust-me-doc-sec-error-message={trustMeDocSecErrorMessage}
+            ></c-trust-me-document-details-child>
+            <template lwc:if={secondarymetadata}>
+              <div class="slds-p-top_medium">
+                <c-daon-file-download
+                  layout={secondaryLayout}
+                  metadata={secondarymetadata}
+                ></c-daon-file-download>
+              </div>
+            </template>
+          </lightning-accordion-section>
+
+          <lightning-accordion-section
+            name="addressDetails"
+            label="Address Details"
+          >
+            <template lwc:if={addressDetails}>
+              <div class="slds-grid slds-wrap slds-gutters">
+                <template for:each={addressDetails} for:item="address">
+                  <div
+                    key={address.type}
+                    class="slds-col slds-size_4-of-12 slds-p-bottom_small"
+                  >
+                    <c-address-map-view
+                      address-details={address}
+                    ></c-address-map-view>
+                  </div>
+                </template>
+              </div>
+            </template>
+            <template lwc:else>
+              <p
+                class="slds-text-align--center slds-text-heading--small slds-p-around--large"
+              >
+                {trustMeDocSecErrorMessage}
+              </p>
+            </template>
+          </lightning-accordion-section>
+        </lightning-accordion>
+      </template>
+    </template>
+  </lightning-card>
+</template>

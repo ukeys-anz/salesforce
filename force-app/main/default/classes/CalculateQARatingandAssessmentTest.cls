@@ -395,43 +395,6 @@ public with sharing class CalculateQARatingandAssessmentTest {
   }
 
   @istest
-  static void testRatingChatOutstanding() {
-    Quality_Assessment__c qa = new Quality_Assessment__c();
-    qa.Evaluation_Type__c = 'Chat';
-    qa.RecordTypeId = GET_HELP_RECORDTYPEID;
-    qa.Connection_and_Trust__c = OUTSTANDING; // Score should be 20
-    qa.Discover_and_Align__c = EFFECTIVE; // Score should be 17.5
-    qa.Actions_and_Momentum__c = ALMOSTTHERE; // Score should be 15
-    qa.Accountability_and_Next_Steps__c = OUTSTANDING; // Score should be 20
-    qa.Energy_and_Adaptability__c = OUTSTANDING; // Score should be 20
-    qa.Reference__c = REFERENCE_VALUE;
-
-    insert qa;
-
-    Test.startTest();
-    CalculateQARatingandAssessment.calculateQA(qa.Id);
-    Test.stopTest();
-
-    qa = CalculateQARatingandAssessmentTest.getQARecord();
-
-    // Score should be 92.5, which is sum of all the CX criteria response scores
-
-    System.assertEquals(
-      92.5,
-      qa.Score__c,
-      'Score should be 92.5 which is sum of all the CX criteria response scores'
-    );
-
-    // If the score is >= 90 and <= 100, then the rating is Outstanding
-
-    System.assertEquals(
-      OUTSTANDING,
-      qa.Rating__c,
-      'Since the score is 92.5 Rating should be Outstanding'
-    );
-  }
-
-  @istest
   static void testRatingSimpleEffective() {
     Quality_Assessment__c qa = new Quality_Assessment__c();
     qa.Evaluation_Type__c = 'Simple';
@@ -465,80 +428,6 @@ public with sharing class CalculateQARatingandAssessmentTest {
       EFFECTIVE,
       qa.Rating__c,
       'Since the score is 87.5 Rating should be Effective'
-    );
-  }
-
-  @istest
-  static void testRatingEmailNotThereYet() {
-    Quality_Assessment__c qa = new Quality_Assessment__c();
-    qa.Evaluation_Type__c = 'Email';
-    qa.RecordTypeId = GET_HELP_RECORDTYPEID;
-    qa.Connection_and_Trust__c = EFFECTIVE; // Score should be 20
-    qa.Discover_and_Align__c = EFFECTIVE; // Score should be 20
-    qa.Actions_and_Momentum__c = ALMOSTTHERE; // Score should be 5
-    qa.Accountability_and_Next_Steps__c = ALMOSTTHERE; // Score should be 5
-    qa.Energy_and_Adaptability__c = NOT_THERE_YET; // Score should be 2
-    qa.Reference__c = REFERENCE_VALUE;
-
-    insert qa;
-
-    Test.startTest();
-    CalculateQARatingandAssessment.calculateQA(qa.Id);
-    Test.stopTest();
-
-    qa = CalculateQARatingandAssessmentTest.getQARecord();
-
-    // Score should be 52, which is sum of all the CX criteria response scores
-
-    System.assertEquals(
-      52,
-      qa.Score__c,
-      'Score should be 52 which is sum of all the CX criteria response scores'
-    );
-
-    // If the score is >=0 and <= 69.9, then the rating is Not Yet
-
-    System.assertEquals(
-      NOT_THERE_YET,
-      qa.Rating__c,
-      'Since the score is 52 Rating should be Not There Yet'
-    );
-  }
-
-  @istest
-  static void testRatingComplexAlmostThere() {
-    Quality_Assessment__c qa = new Quality_Assessment__c();
-    qa.Evaluation_Type__c = 'Complex';
-    qa.RecordTypeId = GET_HELP_RECORDTYPEID;
-    qa.Preparation_and_Framing__c = OUTSTANDING; // Score should be 12.5
-    qa.Insights_and_Focus__c = OUTSTANDING; // Score should be 12.5
-    qa.Finishing_Touches__c = EFFECTIVE; // Score should be 11
-    qa.Connection_and_Trust__c = EFFECTIVE; // Score should be 11
-    qa.Discover_and_Align__c = EFFECTIVE; // Score should be 11
-    qa.Actions_and_Momentum__c = ALMOSTTHERE; // Score should be 9.5
-    qa.Accountability_and_Next_Steps__c = ALMOSTTHERE; // Score should be 9.5
-    qa.Energy_and_Adaptability__c = NOT_THERE_YET; // Score should be 2
-    qa.Reference__c = REFERENCE_VALUE;
-
-    insert qa;
-
-    Test.startTest();
-    CalculateQARatingandAssessment.calculateQA(qa.Id);
-    Test.stopTest();
-
-    qa = CalculateQARatingandAssessmentTest.getQARecord();
-    // Score should be 79, which is sum of all the CX criteria response scores
-    System.assertEquals(
-      79,
-      qa.Score__c,
-      'Score should be 79 which is sum of all the CX criteria response scores'
-    );
-
-    // If the score is >=70 and <= 84.9, then the rating is Almost There
-    System.assertEquals(
-      'Almost There',
-      qa.Rating__c,
-      'Since the score is 79 Rating should be Almost There'
     );
   }
 

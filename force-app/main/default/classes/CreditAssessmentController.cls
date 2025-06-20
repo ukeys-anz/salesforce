@@ -250,7 +250,9 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
 
     if (
       isCurrentUserCaseOwner(caseRecord) &&
-      USER_INFO.checkRole('BOH_Coach') &&
+      USER_INFO.checkAnyRoles(
+        new Set<String>{ 'BOH_Coach', 'BOH_Coach_Lead' }
+      ) &&
       referralReason.Authority_Level__c.toUpperCase() == 'NO CAD'
     ) {
       return true;

@@ -527,27 +527,21 @@ export default class LoanPreferenceAddFundsAndPurpose extends LightningModal {
         updateLoanPreferenceData: this.loanPreferenceData,
         additionalFundsData: this.additionalFundsModel
       });
-      if (this.calloutResponse.successful) {
+      if (this.calloutResponse) {
         showToast(this, "", TOAST_SUCCESS_MSG, "", "Success", "dismissable");
         publish(this.messageContext, RefreshLoanPreference, {
           refresh: true
         });
         this.close("okay");
-      } else {
-        if (this.calloutResponse.message === "") {
-          this.calloutResponse.message = TOAST_ERROR_MSG;
-        }
-        handleErrorShowToast(
-          this,
-          "",
-          "",
-          this.calloutResponse.message,
-          "pester"
-        );
       }
     } catch (error) {
       this.errorMessage = error;
-      handleErrorShowToast(this, "", error, TOAST_ERROR_MSG, "pester");
+      let errorMessage = TOAST_ERROR_MSG;
+      if (error?.body?.message !== "Failed to update loan preference") {
+        errorMessage = error.body.message;
+      }
+
+      handleErrorShowToast(this, "", null, errorMessage, "pester");
     } finally {
       this.isLoading = false;
     }

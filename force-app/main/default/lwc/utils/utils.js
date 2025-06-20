@@ -191,6 +191,10 @@ export function setTimestamp(timestamp) {
   return lastModified;
 }
 
+export function getAccoutProductkeys(key) {
+  return key.substring(0, key.indexOf("_"));
+}
+
 /**
  * @usage
  * export class SomeLwc extends LightningElement {

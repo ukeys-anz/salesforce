@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer_Need__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Customer needs</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Customer Need</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Term Loan</fullName>
+                <default>true</default>
+                <label>Term Loan</label>
+            </value>
+            <value>
+                <fullName>Overdraft</fullName>
+                <default>false</default>
+                <label>Overdraft</label>
+            </value>
+            <value>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+                <label>Credit Card</label>
+            </value>
+            <value>
+                <fullName>Asset Finance</fullName>
+                <default>false</default>
+                <label>Asset Finance</label>
+            </value>
+            <value>
+                <fullName>Merchant</fullName>
+                <default>false</default>
+                <label>Merchant</label>
+            </value>
+            <value>
+                <fullName>Trade Finance</fullName>
+                <default>false</default>
+                <label>Trade Finance</label>
+            </value>
+            <value>
+                <fullName>Foreign Exchange</fullName>
+                <default>false</default>
+                <label>Foreign Exchange</label>
+            </value>
+            <value>
+                <fullName>Wealth</fullName>
+                <default>false</default>
+                <label>Wealth</label>
+            </value>
+            <value>
+                <fullName>Indemnity Guarantee</fullName>
+                <default>false</default>
+                <label>Indemnity Guarantee</label>
+            </value>
+            <value>
+                <fullName>Home Loan</fullName>
+                <default>false</default>
+                <label>Home Loan</label>
+            </value>
+            <value>
+                <fullName>Insurance</fullName>
+                <default>false</default>
+                <label>Insurance</label>
+            </value>
+            <value>
+                <fullName>Home Loan - Bridging Finance</fullName>
+                <default>false</default>
+                <label>Home Loan - Bridging Finance</label>
+            </value>
+            <value>
+                <fullName>Home Loan - Construction</fullName>
+                <default>false</default>
+                <label>Home Loan - Construction</label>
+            </value>
+            <value>
+                <fullName>Home Loan - Refinance + Purchase</fullName>
+                <default>false</default>
+                <label>Home Loan - Refinance + Purchase</label>
+            </value>
+            <value>
+                <fullName>Home Loan - Purchase</fullName>
+                <default>false</default>
+                <label>Home Loan - Purchase</label>
+            </value>
+            <value>
+                <fullName>Home Loan - Refinance</fullName>
+                <default>false</default>
+                <label>Home Loan - Refinance</label>
+            </value>
+            <value>
+                <fullName>Home Loan - Maintenance</fullName>
+                <default>false</default>
+                <label>Home Loan - Maintenance</label>
+            </value>
+            <value>
+                <fullName>Home Loan - Increase</fullName>
+                <default>false</default>
+                <label>Home Loan - Increase</label>
+            </value>
+            <value>
+                <fullName>Home Loan - Other</fullName>
+                <default>false</default>
+                <label>Home Loan - Other</label>
+            </value>
+            <value>
+                <fullName>Personal Loan</fullName>
+                <default>false</default>
+                <label>Personal Loan</label>
+            </value>
+            <value>
+                <fullName>Other Loans</fullName>
+                <default>false</default>
+                <label>Other Loans</label>
+            </value>
+            <value>
+                <fullName>Purchasing Property</fullName>
+                <default>false</default>
+                <label>Purchasing Property</label>
+            </value>
+            <value>
+                <fullName>Purchasing Vacant Land</fullName>
+                <default>false</default>
+                <label>Purchasing Vacant Land</label>
+            </value>
+            <value>
+                <fullName>Purchasing an existing Business</fullName>
+                <default>false</default>
+                <label>Purchasing an existing Business</label>
+            </value>
+            <value>
+                <fullName>Purchasing a new Business</fullName>
+                <default>false</default>
+                <label>Purchasing a new Business</label>
+            </value>
+            <value>
+                <fullName>Purchasing equipment (inc. vehicles and fit out)</fullName>
+                <default>false</default>
+                <label>Purchasing equipment (inc. vehicles and fit out)</label>
+            </value>
+            <value>
+                <fullName>Set up a new Business (Start Up)</fullName>
+                <default>false</default>
+                <label>Set up a new Business (Start Up)</label>
+            </value>
+            <value>
+                <fullName>Assist with Business Working Capital/Temporary Finance</fullName>
+                <default>false</default>
+                <label>Assist with Business Working Capital/Temporary Finance</label>
+            </value>
+            <value>
+                <fullName>Refinance from Other Financial Institutions</fullName>
+                <default>false</default>
+                <label>Refinance from Other Financial Institutions</label>
+            </value>
+            <value>
+                <fullName>Construction and Renovation</fullName>
+                <default>false</default>
+                <label>Construction and Renovation</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Transactional Services (inc. IB4B, Account opening and Merchant services)</fullName>
+                <default>false</default>
+                <label>Transactional Services (inc. IB4B, Account opening and Merchant services)</label>
+            </value>
+            <value>
+                <fullName>Individual</fullName>
+                <default>false</default>
+                <label>Individual</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -100,7 +100,7 @@ public with sharing class LoanPreferenceAPIRepositoryTest {
   }
 
   @isTest
-  static void testGetLoanPreferenceException() {
+  static void testGetLoanPreferenceServerException() {
     registerMocks();
 
     HttpCalloutResponse errorResponse = new HttpCalloutResponse();
@@ -111,28 +111,100 @@ public with sharing class LoanPreferenceAPIRepositoryTest {
 
     String ocvId = '1234';
 
-    Exception resultException;
-    Test.startTest();
     try {
+      Test.startTest();
       LoanPreferenceAPIRepository loanPrefApi = new LoanPreferenceAPIRepository();
       loanPrefApi.getCalculateLoanRepayment(
         getLoanPreferenceRequestModel,
         ocvId
       );
+      Test.stopTest();
+      Assert.fail('An Exception should be thrown');
     } catch (Exception exp) {
-      resultException = exp;
-    }
-    Test.stopTest();
+      Assert.isInstanceOfType(
+        exp,
+        LoanPreferenceAPIRepository.ServerErrorLoanPreferenceException.class,
+        'Exception should be an instanceof LoanPreferenceAPIRepository.ServerErrorLoanPreferenceException.'
+      );
 
-    Assert.isTrue(
-      resultException instanceof LoanPreferenceAPIRepository.ServerErrorGetCalculateLoanRepaymentException,
-      'Exception should be thrown.'
-    );
-    Assert.areEqual(
-      'callout failed',
-      resultException.getMessage(),
-      'Should throw invalid details exception'
-    );
+      Assert.areEqual(
+        'callout failed',
+        exp.getMessage(),
+        'Should throw invalid details exception'
+      );
+    }
+  }
+
+  @isTest
+  static void testGetLoanPreferenceUserException() {
+    registerMocks();
+
+    HttpCalloutResponse errorResponse = new HttpCalloutResponse();
+    errorResponse.error = new CalloutException('callout failed');
+    errorResponse.successful = false;
+    errorResponse.statusCode = 400;
+    loanPreferenceServiceMock.mock('getLoanPrefDetails', errorResponse);
+
+    String ocvId = '1234';
+
+    try {
+      Test.startTest();
+      LoanPreferenceAPIRepository loanPrefApi = new LoanPreferenceAPIRepository();
+      loanPrefApi.getCalculateLoanRepayment(
+        getLoanPreferenceRequestModel,
+        ocvId
+      );
+      Test.stopTest();
+      Assert.fail('An Exception should be thrown');
+    } catch (Exception exp) {
+      Assert.isInstanceOfType(
+        exp,
+        LoanPreferenceAPIRepository.UserErrorLoanPreferenceException.class,
+        'Exception should be an instanceof LoanPreferenceAPIRepository.UserErrorLoanPreferenceException.'
+      );
+
+      Assert.areEqual(
+        'callout failed',
+        exp.getMessage(),
+        'Should throw invalid details exception'
+      );
+    }
+  }
+
+  @isTest
+  static void testGetLoanPreferenceUnhandledException() {
+    registerMocks();
+
+    HttpCalloutResponse errorResponse = new HttpCalloutResponse();
+    errorResponse.error = new CalloutException('callout failed');
+    errorResponse.successful = false;
+    errorResponse.statusCode = 404;
+    loanPreferenceServiceMock.mock('getLoanPrefDetails', errorResponse);
+
+    String ocvId = '1234';
+
+    try {
+      Test.startTest();
+      LoanPreferenceAPIRepository loanPrefApi = new LoanPreferenceAPIRepository();
+      loanPrefApi.getCalculateLoanRepayment(
+        getLoanPreferenceRequestModel,
+        ocvId
+      );
+      Test.stopTest();
+      Assert.fail('An Exception should be thrown');
+    } catch (Exception exp) {
+      Assert.isInstanceOfType(
+        exp,
+        LoanPreferenceAPIRepository.UnhandledLoanPreferenceException.class,
+        'Exception should be an instanceof LoanPreferenceAPIRepository.UnhandledLoanPreferenceException.'
+      );
+
+      Assert.areEqual(
+        'callout failed',
+        exp.getMessage(),
+        'Should throw invalid details exception'
+      );
+    }
   }
 
   /**
@@ -160,13 +232,13 @@ public with sharing class LoanPreferenceAPIRepositoryTest {
     };
     Test.startTest();
     LoanPreferenceAPIRepository loanPrefapi = new LoanPreferenceAPIRepository();
-    LoanPreferenceUpdateResponseModel responseModel = loanPrefapi.updateLoanPreference(
+    Boolean response = loanPrefapi.updateLoanPreference(
       ocvId,
       urlParams,
       getUpdateLoanpreferenceRequestModel
     );
     Test.stopTest();
-    Assert.isTrue(responseModel.successful, 'Successful Response');
+    Assert.isTrue(response, 'Successful Response');
   }
 
   /**
@@ -193,42 +265,22 @@ public with sharing class LoanPreferenceAPIRepositoryTest {
       '7479fe3d-f0b8-4739-a4cd-7fb334bf3451'
     };
 
-    LoanPreferenceUpdateResponseModel responseModel;
-    Test.startTest();
-    LoanPreferenceAPIRepository loanPrefapi = new LoanPreferenceAPIRepository();
-    responseModel = loanPrefapi.updateLoanPreference(
-      ocvId,
-      urlParams,
-      getUpdateLoanpreferenceRequestModel
-    );
-    Test.stopTest();
-
-    Assert.isFalse(responseModel.successful, 'Failure Response');
-  }
-
-  private static HttpCalloutResponse getInvalidResponse() {
-    HttpCalloutResponse response = new HttpCalloutResponse();
-    response.error = new CalloutException('Invalid Details');
-    response.statusCode = 500;
-    response.successful = false;
-    return response;
-  }
-
-  private static HttpCalloutResponse getInvalidUpdateResponse() {
-    HttpCalloutResponse response = new HttpCalloutResponse();
-    response.statusCode = 500;
-    response.successful = false;
-    response.error = new CalloutException(
-      '{"code": "ERROR","errorCode": 340210,"errorReason": "loan_amount outside minimum and maximum", "additionalInfo": {"reason": "HTTP:NOT_FOUND","category": "TECHNICAL"}}'
-    );
-    return response;
-  }
-
-  private static HttpCalloutResponse getResponseWithNoBody() {
-    HttpCalloutResponse response = new HttpCalloutResponse();
-    response.statusCode = 200;
-    response.successful = true;
-    response.body = null;
-    return response;
+    try {
+      Test.startTest();
+      LoanPreferenceAPIRepository loanPrefapi = new LoanPreferenceAPIRepository();
+      loanPrefapi.updateLoanPreference(
+        ocvId,
+        urlParams,
+        getUpdateLoanpreferenceRequestModel
+      );
+      Test.stopTest();
+      Assert.fail('An Exception should be thrown');
+    } catch (Exception ex) {
+      Assert.isInstanceOfType(
+        ex,
+        LoanPreferenceAPIRepository.UserErrorLoanPreferenceException.class,
+        'Exception should be an instanceof UserErrorLoanPreferenceException.'
+      );
+    }
   }
 }
