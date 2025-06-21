@@ -83,6 +83,15 @@
         <pageOrSobjectType>Account</pageOrSobjectType>
         <recordType>Account.CLG</recordType>
         <type>Flexipage</type>
+        <profile>ANZ Standard Automation User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>ANZ_CMOS_CLG_Account_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <recordType>Account.CLG</recordType>
+        <type>Flexipage</type>
         <profile>ANZx Standard User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
@@ -110,6 +119,15 @@
         <pageOrSobjectType>Account</pageOrSobjectType>
         <recordType>Account.Business_Account</recordType>
         <type>Flexipage</type>
+        <profile>ANZ Standard Automation User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>ANZ_CMOS_Organization_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <recordType>Account.Business_Account</recordType>
+        <type>Flexipage</type>
         <profile>ANZx Standard User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
@@ -146,7 +164,7 @@
         <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
         <recordType>Quality_Assessment__c.C_Q_Assessment</recordType>
         <type>Flexipage</type>
-        <profile>ANZ Standard Automation User</profile>
+        <profile>ANZ Standard User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
@@ -155,7 +173,7 @@
         <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
         <recordType>Quality_Assessment__c.C_Q_Assessment</recordType>
         <type>Flexipage</type>
-        <profile>ANZ Standard User</profile>
+        <profile>ANZ Standard Automation User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
@@ -183,6 +201,15 @@
         <recordType>PersonAccount.PersonAccount</recordType>
         <type>Flexipage</type>
         <profile>ANZ Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>ANZ_CMOS_Individual_Account_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <recordType>PersonAccount.PersonAccount</recordType>
+        <type>Flexipage</type>
+        <profile>ANZ Standard Automation User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
