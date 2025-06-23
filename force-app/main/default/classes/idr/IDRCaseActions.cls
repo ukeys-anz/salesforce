@@ -215,8 +215,7 @@ public with sharing class IDRCaseActions {
     Set<Id> hardshipCases = new Set<Id>();
     Set<String> caseStatus = new Set<String>{
       IDRConstants.PROVISIONALLY_CLOSED_STATUS,
-      IDRConstants.CLOSED_STATUS,
-      IDRConstants.WITHDRAWN_STATUS
+      IDRConstants.CLOSED_STATUS
     };
     for (Case c : records) {
       if (isIDRComplaintType(c)) {
@@ -234,7 +233,10 @@ public with sharing class IDRCaseActions {
         if (!caseStatus.contains(c.Status)) {
           continue;
         }
-        if (!oldCase.isClosed && caseStatus.contains(c.Status)) {
+        if (
+          (!oldCase.isClosed &&
+          (c.isClosed || c.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS))
+        ) {
           maxTimeFrameCases.add(c.Id);
         }
         if (
