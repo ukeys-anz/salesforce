@@ -96,7 +96,10 @@
   checkForCustomer: function (component, parsedResult, selectedRecordTypeName) {
     return (
       component.get("v.caseRecord.ANZx_Customer__c") === false &&
-      (!parsedResult.IDR_Customer_Number__c ||
+      ((!parsedResult.AccountId &&
+        parsedResult.IDR_Customer_Identifier__c ===
+          "Customer/Business CAP ID") ||
+        !parsedResult.IDR_Customer_Number__c ||
         !parsedResult.IDR_Customer_Identifier__c) &&
       selectedRecordTypeName == component.get("v.customerRecordType")
     );
