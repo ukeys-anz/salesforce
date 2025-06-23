@@ -25,37 +25,33 @@ public with sharing class AemApiRepository {
     String aemContentIdWithoutSpecialChars = TextUtils.removeNonAlphanumericChar(
       aemContentId
     );
-    AemDataModel cachedAemContentData = (AemDataModel) Cache.Org.get(
+    String aemContentData = (String) Cache.Org.get(
       CACHE_LOCAL_UTILITY_KEY + aemContentIdWithoutSpecialChars
     );
 
     //Returning aem content data from cache
-    if (cachedAemContentData != null) {
-      return cachedAemContentData;
+    if (aemContentData == null) {
+      //Get the aem content data from api if not fround in Cache
+      HttpCalloutResponse response = SERVICE.getAemContentData(aemContentId);
+      response = handleResponse(response);
+      aemContentData = response.body;
+      //Store aem content data to cache
+      Cache.Org.put(
+        CACHE_LOCAL_UTILITY_KEY + aemContentIdWithoutSpecialChars,
+        aemContentData
+      );
     }
-
-    //Get the aem content data from api if not fround in Cache
-    HttpCalloutResponse response = SERVICE.getAemContentData(aemContentId);
-
-    response = handleResponse(response);
 
     //Replace the merged fields with appropriate field values in the response received from AEM
     String aemDataWithReplacedFields = AemDataMergeFieldProcessor.replaceMergedFields(
-      response.body,
+      aemContentData,
       recordId
     );
 
-    AemDataModel aemContentData = AemDataModel.parse(
+    return AemDataModel.parse(
       aemDataWithReplacedFields,
       recordId
     );
-
-    //Store aem content data to cache
-    Cache.Org.put(
-      CACHE_LOCAL_UTILITY_KEY + aemContentIdWithoutSpecialChars,
-      aemContentData
-    );
-    return aemContentData;
   }
 
   private static HttpCalloutResponse handleResponse(
