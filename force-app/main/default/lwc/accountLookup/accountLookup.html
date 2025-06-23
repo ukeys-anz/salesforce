@@ -1,20 +1,11 @@
 <template>
   <lightning-record-edit-form object-api-name="Case">
-    <lightning-layout>
-      <lightning-layout-item flexibility="auto">
-        <lightning-input-field
-          field-name="AccountId"
-          value={accountIdStr}
-          onchange={handleChange}
-          disabled={isDisabled}
-        >
-        </lightning-input-field>
-      </lightning-layout-item>
-      <lightning-layout-item flexibility="shrink">
-        <lightning-helptext
-          content="To edit Non Customer Or Customer Identifier fields, Customer Name must be removed. Fields can't be edited if complaint is launched from Customer Profile screen."
-        ></lightning-helptext>
-      </lightning-layout-item>
-    </lightning-layout>
+    <lightning-input-field
+      field-name="AccountId"
+      value={accountIdStr}
+      onchange={handleChange}
+      disabled={isDisabled}
+    >
+    </lightning-input-field>
   </lightning-record-edit-form>
 </template>

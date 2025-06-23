@@ -153,12 +153,7 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
         "Please contact your system administrator to set the required redirection url."
       );
     } else {
-      let redirectionUrl = snowInstanceUrl
-        .replace("CASEID", encodeURIComponent(this.omniJsonData.recordId))
-        .replace(
-          "CASENUMBER",
-          encodeURIComponent(this.omniJsonData.CaseNumber)
-        );
+      let redirectionUrl = snowInstanceUrl + this.omniJsonData.recordId;
 
       this[NavigationMixin.Navigate]({
         type: "standard__webPage",

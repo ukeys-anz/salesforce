@@ -239,13 +239,13 @@
     </profileSearchLayouts>
     <profileSearchLayouts>
         <fields>ACCOUNT.NAME</fields>
-        <fields>Source_System_ID__c</fields>
-        <fields>PC_BIRTHDATE</fields>
-        <fields>Primary_Residential_Address__c</fields>
-        <fields>PC_PHONE5</fields>
-        <fields>Mobile__c</fields>
-        <fields>Other_Email__c</fields>
-        <fields>PC_EMAIL</fields>
+        <fields>CLG__c</fields>
+        <fields>ACCOUNT.ADDRESS1_CITY</fields>
+        <fields>ACCOUNT.ADDRESS1_ZIP</fields>
+        <fields>CPID__c</fields>
+        <fields>ACCOUNT.PHONE1</fields>
+        <fields>PC_PHONE3</fields>
+        <fields>FinServ__KYCStatus__c</fields>
         <profileName>ANZ Standard User</profileName>
     </profileSearchLayouts>
     <profileSearchLayouts>

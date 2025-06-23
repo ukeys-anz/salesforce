@@ -194,21 +194,17 @@ public with sharing class IDRConstants {
 
   //IDR Maximum time constants
   public static final String TASK_SUBJECT_DAY1 = 'IDR Response Due in 1-day';
-  public static final String TASK_SUBJECT_MAIL_OUTCOME = 'Mail Outcome Letter Due in 1-day';
   public static final String TASK_STANDARD_PRIORITY = 'Standard';
   public static final String TASK_STATUS_EXPIRED = 'Expired';
   public static final String TASK_STATUS_COMPLETED = 'Completed';
   public static final String MILESTONE_STANDARD = '30-day IDR Response Due';
   public static final String MILESTONE_PRIORITY = '21-day IDR Response Due';
-  public static final String MILESTONE_MAIL_OUTCOME = 'Mail Outcome Letter - Due';
 
   public static final String TASK_AFCA_SUBJECT_DAY1 = 'AFCA Response is due in 1 day';
 
   //Channel Received
   public static final String CHANNEL_RECEIVED_AFCA_REFERRED = '11';
   public static final String CHANNEL_RECEIVED_ANZ_COM = '8';
-  public static final String CHANNEL_RECEIVED_ANZ_PLUS_WEB = 'ANZ Plus Web';
-  public static final String CHANNEL_RECEIVED_ANZ_PLUS_APP = 'ANZ Plus App';
 
   //IDREmailServiceConstants
   public static final String CASE_NO_REGEX = '\\d{4,8}';
@@ -356,7 +352,7 @@ public with sharing class IDRConstants {
 
   //CAP ID value on the customer identifier (IDR_Customer_Identifier__c) case field
   public static final String CUSTOMER_IDENTIFIER_CAP_ID = 'Customer/Business CAP ID';
-  public static final String CUSTOMER_IDENTIFIER_CACHE = 'CACHE ID';
+
   /**
    * @description Static values for 3rd party relationship to complainant
    */

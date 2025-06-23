@@ -9,7 +9,6 @@
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__IndustriesServiceExcellence</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
-    <permissionSets>IDR_C360_Base</permissionSets>
     <permissionSets>IDR_User</permissionSets>
     <permissionSets>IDR_User_Level_1</permissionSets>
     <permissionSets>OmniStudioManagedClasses</permissionSets>
