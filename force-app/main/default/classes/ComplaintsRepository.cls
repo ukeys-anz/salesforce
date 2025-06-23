@@ -10,12 +10,16 @@ public with sharing class ComplaintsRepository {
    * @return Case the Case deatils
    */
   public Case getCaseDetailsById(Id caseId) {
-    return [
+    if (
+      Case.sObjectType.getDescribe().isQueryable() == false ||
+      caseId == null
+    ) {
+      return null;
+    }
+
+    Case caseRecord = [
       SELECT
         Id,
-        AccountId,
-        IDR_Customer_Number__c,
-        IDR_Customer_Identifier__c,
         IDR_AFCA_Status__c,
         Origin,
         IDR_Subsequent_Issue__c,
@@ -35,9 +39,9 @@ public with sharing class ComplaintsRepository {
         ANZx_Customer__c
       FROM Case
       WHERE Id = :caseId
-      WITH USER_MODE
       LIMIT 1
-    ] ?? null;
+    ];
+    return caseRecord;
   }
 
   /**
@@ -90,10 +94,11 @@ public with sharing class ComplaintsRepository {
    * @return List<Account> the result of accounts
    */
   public List<Account> findAccountsByAccountIds(Set<Id> accountIds) {
-    if (accountIds.isEmpty()) {
-      return new List<Account>();
+    List<Account> accounts = new List<Account>();
+    if (!Account.SObjectType.getDescribe().isQueryable()) {
+      return null;
     }
-    return [
+    accounts = [
       SELECT
         Id,
         CPID__c,
@@ -102,15 +107,11 @@ public with sharing class ComplaintsRepository {
         PersonBirthdate,
         Gender__pc,
         PersonOtherPostalCode,
-        PersonOtherCountry,
-        ShippingCountry,
-        ShippingPostalCode,
-        BillingCountry,
-        BillingPostalCode,
-        RecordTypeId
+        PersonOtherCountry
       FROM Account
       WHERE Id IN :accountIds
     ];
+    return accounts;
   }
 
   /**

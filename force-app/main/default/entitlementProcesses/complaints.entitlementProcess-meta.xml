@@ -171,7 +171,7 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_with_ANZ_Plus_R
   NOT(ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;28&apos;)),
   NOT(ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;96&apos;)),
   NOT(ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;97&apos;)),
-  NOT(ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;98&apos;)),
+  NOT(ISPICKVAL(IDR_Subsequent_Issue__c, &apos;98&apos;)),
   NOT(ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;115&apos;)),
 
   NOT(ISPICKVAL(IDR_AFCA_Status__c, &apos;11 &apos;)),
@@ -596,30 +596,6 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_with_ANZ_Plus_R
         </milestoneCriteriaFilterItems>
         <milestoneName>21 Day Hardship Letter Milestone</milestoneName>
         <minutesToComplete>30240</minutesToComplete>
-        <useCriteriaStartTime>false</useCriteriaStartTime>
-    </milestones>
-    <milestones>
-        <businessHours>Default</businessHours>
-        <milestoneCriteriaFilterItems>
-            <field>Case.Status</field>
-            <operation>notEqual</operation>
-            <value>Closed, Provisionally Closed</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.Outcome_Letter_to_be_sent_by_Mail__c</field>
-            <operation>equals</operation>
-            <value>true</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneName>Mail Outcome Letter - Due</milestoneName>
-        <minutesCustomClass>MailOutcomeMilestoneTimeCalculator</minutesCustomClass>
-        <timeTriggers>
-            <actions>
-                <name>Mail_Outcome_Letter_Due_in_1_Day</name>
-                <type>Task</type>
-            </actions>
-            <timeLength>-1</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
     <name>complaints</name>

@@ -67,38 +67,5 @@
       };
       navService.navigate(pageReference);
     }
-  },
-
-  checkForProductCategoryCustomer: function (
-    component,
-    parsedResult,
-    selectedRecordTypeName
-  ) {
-    return (
-      !parsedResult.IDR_Product_Category__c &&
-      (selectedRecordTypeName == component.get("v.customerRecordType") ||
-        selectedRecordTypeName == component.get("v.noncustomerRecordType"))
-    );
-  },
-  checkForNonCustomer: function (
-    component,
-    parsedResult,
-    selectedRecordTypeName
-  ) {
-    return (
-      component.get("v.caseRecord.ANZx_Customer__c") === false &&
-      (parsedResult.AccountId ||
-        parsedResult.IDR_Customer_Number__c ||
-        parsedResult.IDR_Customer_Identifier__c) &&
-      selectedRecordTypeName == component.get("v.noncustomerRecordType")
-    );
-  },
-  checkForCustomer: function (component, parsedResult, selectedRecordTypeName) {
-    return (
-      component.get("v.caseRecord.ANZx_Customer__c") === false &&
-      (!parsedResult.IDR_Customer_Number__c ||
-        !parsedResult.IDR_Customer_Identifier__c) &&
-      selectedRecordTypeName == component.get("v.customerRecordType")
-    );
   }
 });

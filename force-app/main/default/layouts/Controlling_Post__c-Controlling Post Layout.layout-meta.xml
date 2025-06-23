@@ -38,10 +38,6 @@
                 <field>Geo_State_Code__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>CPID_Address__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Area_Code__c</field>
             </layoutItems>

@@ -158,32 +158,12 @@
               <li class="slds-list__item" title="Ocvid">
                 OCVID : {customerInfo.ocvId}
               </li>
-              <template lwc:if={customerInfo.accId}>
-                <li class="slds-list__item" title="Email">
-                  Email(Classic) : {customerInfo.emailclassic}
-                </li>
-                <li class="slds-list__item" title="Email">
-                  Email(ANZ Plus) : {customerInfo.emailanzplus}
-                </li>
-              </template>
-              <template lwc:else>
-                <li class="slds-list__item" title="Email">
-                  Email : {customerInfo.email}
-                </li>
-              </template>
-              <template lwc:if={customerInfo.accId}>
-                <li class="slds-list__item" title="Mobile">
-                  Mobile(Classic) : {customerInfo.mobileclassic}
-                </li>
-                <li class="slds-list__item" title="Mobile">
-                  Mobile(ANZ Plus) : {customerInfo.mobileanzplus}
-                </li>
-              </template>
-              <template lwc:else>
-                <li class="slds-list__item" title="Mobile">
-                  Mobile : {customerInfo.mobile}
-                </li>
-              </template>
+              <li class="slds-list__item" title="Email">
+                Email : {customerInfo.email}
+              </li>
+              <li class="slds-list__item" title="Mobile">
+                Mobile : {customerInfo.mobile}
+              </li>
               <li class="slds-list__item" title="Street">
                 Street : {customerInfo.street}
               </li>

@@ -5,15 +5,7 @@
         <visible>true</visible>
     </applicationVisibilities>
     <classAccesses>
-        <apexClass>CCRMAPIRepository</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>IDRAPIRepository</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>IDRCaseActionsHelper</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -29,10 +21,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>MLCRMCommonUtils</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>NewCaseFlowWrapperController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -40,14 +28,6 @@
         <apexClass>omnistudio__ComponentController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <customMetadataTypeAccesses>
-        <name>DCRM_CountryMapping__mdt</name>
-        <enabled>true</enabled>
-    </customMetadataTypeAccesses>
-    <customMetadataTypeAccesses>
-        <name>IDR_Omni_Settings_CMOS__mdt</name>
-        <enabled>true</enabled>
-    </customMetadataTypeAccesses>
     <customSettingAccesses>
         <name>IDR_Notification_Hours__c</name>
         <enabled>true</enabled>

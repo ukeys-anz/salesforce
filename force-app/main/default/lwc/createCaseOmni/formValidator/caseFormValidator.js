@@ -32,7 +32,6 @@ export async function getCustomerNumberValidationMsg(
   let modalMsg =
     "Please complete all required fields: " + missingFields.join(", ");
   if (
-    !omniJsonData.enableAccountLookUp &&
     omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
     !omniJsonData.Case.CustomerDetails.Customer &&
     omniJsonData.Case.CustomerDetails.CustomerIdentifier !== "CACHE ID" &&
@@ -78,8 +77,7 @@ function checkCustomerIdentifier(customerDetails) {
   }
   if (
     customerDetails.CustomerIdentifier !== "CACHE ID" &&
-    !customerDetails.Customer &&
-    !omniData.enableAccountLookUp
+    !customerDetails.Customer
   ) {
     missingFields.push("Customer Number");
   }
@@ -87,14 +85,9 @@ function checkCustomerIdentifier(customerDetails) {
 //Validate Account Lookup
 function checkAccountLookup(omniJsonData) {
   debugger;
+  console.log("TESTING-->" + caseDetails.AccountId);
   debugger;
-  if (
-    (omniJsonData.isEligibleAppForLookUp && !caseDetails.AccountId) ||
-    (!omniJsonData.isEligibleAppForLookUp &&
-      !caseDetails.AccountId &&
-      omniJsonData.enableAccountLookUp &&
-      omniJsonData.Case.CustomerDetails.CustomerIdentifier !== "CACHE ID")
-  ) {
+  if (omniJsonData.isEligibleAppForLookUp && !caseDetails.AccountId) {
     missingFields.push("Customer Name");
   }
 }
@@ -121,19 +114,6 @@ function validateNonCustMap(Complaintdetails, caseDetails, omniJsonData) {
   if (caseDetails.CustomerDecision === "Agrees") {
     nonCustMap.push({ firstName: "First Name" });
     nonCustMap.push({ LastName: "Last Name" });
-  }
-  if (
-    (caseDetails.disablAddress === true ||
-      caseDetails.disablAddress === undefined) &&
-    caseDetails.isThisCustomerComplaint === "No"
-  ) {
-    nonCustMap.push({ PostcodeReadOnly: "PostCode" });
-  }
-  if (
-    caseDetails.disablAddress === false &&
-    caseDetails.isThisCustomerComplaint === "No"
-  ) {
-    nonCustMap.push({ Postcode: "PostCode" });
   }
   let temp = caseDetails.ResolutionInformation;
   if (

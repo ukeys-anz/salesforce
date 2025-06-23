@@ -96,9 +96,7 @@ public with sharing class SICaseActions {
       ReminderDateTime = (DateTime) (activityDate - 1)
     );
   }
-  private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(
-    UserInfoRepository.class
-  );
+
   /**
    * @description Remove pending monitoring tasks when cases are no longer in Monitoring
    * @param cases Cases to process, which the tasks relates to
@@ -111,8 +109,7 @@ public with sharing class SICaseActions {
   ) {
     if (
       !Task.sObjectType.getDescribe().isQueryable() ||
-      !Task.sObjectType.getDescribe().isDeletable() ||
-      USER_INFO.checkPermission('IDR_SI_User')
+      !Task.sObjectType.getDescribe().isDeletable()
     ) {
       return;
     }

@@ -13,6 +13,7 @@ RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;,
 ISCHANGED( RecordTypeId )
 ),
 OR(
+ISCHANGED( Status ),
 ISCHANGED( Origin ),
 ISCHANGED( Subject ),
 ISCHANGED( Description ),
