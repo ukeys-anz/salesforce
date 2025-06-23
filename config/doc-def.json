@@ -570,6 +570,19 @@
       "type": "system"
     },
     {
+      "name": "Referral SF to iKnow Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Disable_MFA",
+        "Update_Referral_Export_Status",
+        "Bypass_TSP",
+        "CCRM_Marketing_Integration_User"
+      ],
+      "type": "system"
+    },
+    {
       "name": "Statutory Compliance Agent",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["Statutory_Compliance_Agent"],
@@ -706,6 +719,18 @@
       "permissionsetgroups": [],
       "permissionsets": ["Read_Only_Admin"],
       "type": "user"
+    },
+    {
+      "name": "Referral iKnow to SF Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Disable_MFA",
+        "Referral_iKnow_to_SF",
+        "CCRM_Marketing_Integration_User"
+      ],
+      "type": "system"
     },
     {
       "name": "SaaS Splunk Integration User",
@@ -1295,7 +1320,8 @@
         "Disable_MFA",
         "Case_Read_Write_TrustMe_MV",
         "Case_Read_Write_TrustMe_QA",
-        "DAON_File_Integration"
+        "DAON_File_Integration",
+        "ReKYC_QA_Case_Permission_Set"
       ],
       "type": "system"
     },

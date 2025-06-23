@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Expenses_Serviceability_Outcome__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Specifies the Expenses Serviceability Outcome</description>
+    <label>Expenses - Serviceability Outcome</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Requirements Met</fullName>
+                <default>false</default>
+                <label>Requirements Met</label>
+            </value>
+            <value>
+                <fullName>Requirements Not Met (Process only)</fullName>
+                <default>false</default>
+                <label>Requirements Not Met (Process only)</label>
+            </value>
+            <value>
+                <fullName>Requirements Not Met (Compliance)</fullName>
+                <default>false</default>
+                <label>Requirements Not Met (Compliance)</label>
+            </value>
+            <value>
+                <fullName>N/A - all codes dropped off / resolved by other action</fullName>
+                <default>false</default>
+                <label>N/A - all codes dropped off / resolved by other action</label>
+            </value>
+            <value>
+                <fullName>N/A - No referral codes/checks generated for category</fullName>
+                <default>false</default>
+                <label>N/A - No referral codes/checks generated for category</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

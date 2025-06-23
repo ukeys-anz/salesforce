@@ -188,6 +188,23 @@
         <name>DRTransformCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:CustomerDetails:PostcodeReadOnly var:Case:CustomerDetails:PostcodeReadOnly var:Case:CustomerDetails:Postcode IF</formulaConverted>
+        <formulaExpression>IF(%Case:CustomerDetails:PostcodeReadOnly%,%Case:CustomerDetails:PostcodeReadOnly%,%Case:CustomerDetails:Postcode%)</formulaExpression>
+        <formulaResultPath>Case:CustomerDetails:Postcode</formulaResultPath>
+        <formulaSequence>20.0</formulaSequence>
+        <globalKey>5c2be935-a058-4921-9356-56e413d4cd71</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCaseDetails6022860449239078</globalKey>
         <inputFieldName>Case:CustomerDetails:ExpressCaseCreation</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -993,8 +1010,8 @@
         <name>DRTransformCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:Case:isThisCustomerComplaint &quot;Yes&quot; == var:Response:profile:middleName var:Case:CustomerDetails:MiddleName IF</formulaConverted>
-        <formulaExpression>IF(%Case:isThisCustomerComplaint%==&quot;Yes&quot;,%Response:profile:middleName%,%Case:CustomerDetails:MiddleName%)</formulaExpression>
+        <formulaConverted>| var:Case:isThisCustomerComplaint &quot;Yes&quot; == var:Case:AccountId &amp;&amp; var:data:fields:MiddleName:value | var:Case:AccountId $Vlocity.NULL == var:Case:isThisCustomerComplaint &quot;Yes&quot; == &amp;&amp; var:Response:profile:middleName var:Case:CustomerDetails:MiddleName IF IF</formulaConverted>
+        <formulaExpression>IF(%Case:isThisCustomerComplaint%==&quot;Yes&quot; &amp;&amp; %Case:AccountId%,%data:fields:MiddleName:value%, IF(%Case:AccountId% == $Vlocity.NULL &amp;&amp; %Case:isThisCustomerComplaint%==&quot;Yes&quot;, %Response:profile:middleName%,%Case:CustomerDetails:MiddleName%))</formulaExpression>
         <formulaResultPath>middleName</formulaResultPath>
         <formulaSequence>6.0</formulaSequence>
         <globalKey>DRTransformCaseDetailsCustom1992</globalKey>
@@ -1080,8 +1097,8 @@
         <name>DRTransformCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:Case:isThisCustomerComplaint &quot;Yes&quot; == var:Response:profile:lastName var:Case:CustomerDetails:LastName IF</formulaConverted>
-        <formulaExpression>IF(%Case:isThisCustomerComplaint%==&quot;Yes&quot;,%Response:profile:lastName%,%Case:CustomerDetails:LastName%)</formulaExpression>
+        <formulaConverted>| var:Case:isThisCustomerComplaint &quot;Yes&quot; == var:Case:AccountId &amp;&amp; var:data:fields:LastName:value | var:Case:AccountId $Vlocity.NULL == var:Case:isThisCustomerComplaint &quot;Yes&quot; == &amp;&amp; var:Response:profile:lastName var:Case:CustomerDetails:LastName IF IF</formulaConverted>
+        <formulaExpression>IF(%Case:isThisCustomerComplaint%==&quot;Yes&quot; &amp;&amp; %Case:AccountId%,%data:fields:LastName:value%, IF(%Case:AccountId% == $Vlocity.NULL &amp;&amp; %Case:isThisCustomerComplaint%==&quot;Yes&quot;, %Response:profile:lastName%,%Case:CustomerDetails:LastName%))</formulaExpression>
         <formulaResultPath>lastName</formulaResultPath>
         <formulaSequence>5.0</formulaSequence>
         <globalKey>DRTransformCaseDetailsCustom2472</globalKey>
@@ -1279,8 +1296,8 @@
         <name>DRTransformCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:Case:isThisCustomerComplaint &quot;Yes&quot; == var:Response:profile:firstName var:Case:CustomerDetails:firstName IF</formulaConverted>
-        <formulaExpression>IF(%Case:isThisCustomerComplaint%==&quot;Yes&quot;,%Response:profile:firstName%,%Case:CustomerDetails:firstName%)</formulaExpression>
+        <formulaConverted>| var:Case:isThisCustomerComplaint &quot;Yes&quot; == var:Case:AccountId &amp;&amp; var:data:fields:FirstName:value | var:Case:AccountId $Vlocity.NULL == var:Case:isThisCustomerComplaint &quot;Yes&quot; == &amp;&amp; var:Response:profile:firstName var:Case:CustomerDetails:firstName IF IF</formulaConverted>
+        <formulaExpression>IF((%Case:isThisCustomerComplaint%==&quot;Yes&quot; &amp;&amp; %Case:AccountId%,%data:fields:FirstName:value%), IF(%Case:AccountId% == $Vlocity.NULL &amp;&amp; %Case:isThisCustomerComplaint%==&quot;Yes&quot;, %Response:profile:firstName%,%Case:CustomerDetails:firstName%))</formulaExpression>
         <formulaResultPath>firstName</formulaResultPath>
         <formulaSequence>4.0</formulaSequence>
         <globalKey>DRTransformCaseDetailsCustom5188</globalKey>

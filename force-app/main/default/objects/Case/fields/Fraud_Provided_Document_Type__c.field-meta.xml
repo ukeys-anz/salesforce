@@ -22,6 +22,10 @@
                 <label>Marriage Certificate</label>
             </value>
             <value>
+                <fullName>Medicare</fullName>
+                <default>false</default>
+            </value>
+            <value>
                 <fullName>Family Deed Poll</fullName>
                 <default>false</default>
                 <label>Family Deed Poll</label>
@@ -35,6 +39,10 @@
                 <fullName>Passport</fullName>
                 <default>false</default>
                 <label>Passport</label>
+            </value>
+            <value>
+                <fullName>Proof of Age</fullName>
+                <default>false</default>
             </value>
             <value>
                 <fullName>Other Change of Name Document</fullName>

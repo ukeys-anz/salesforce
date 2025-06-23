@@ -41,11 +41,7 @@ public with sharing class LendingCaseAPIRepository extends RepositoryBase {
     if (!response.successful) {
       throw new UnhandledUpdateCaseStatusApproveRejectException(response);
     }
-    LendingCaseResponseModel responseModel = new LendingCaseResponseModel(
-      response.successful,
-      false
-    );
-    return responseModel;
+    return new LendingCaseResponseModel(response.successful, false);
   }
 
   /**
@@ -61,7 +57,9 @@ public with sharing class LendingCaseAPIRepository extends RepositoryBase {
     ) {
       this(response.error.getMessage());
       Logger.error(
-          'HTTP ' + response.statusCode + ' Error from Service',
+          'HTTP ' +
+            response.statusCode +
+            ' Error from LendingCaseService: updateCaseStatusApproveReject',
           response.error
         )
         .save();
@@ -81,7 +79,9 @@ public with sharing class LendingCaseAPIRepository extends RepositoryBase {
     ) {
       this(response.error.getMessage());
       Logger.info(
-          'HTTP ' + response.statusCode + ' Error from Service',
+          'HTTP ' +
+            response.statusCode +
+            ' Error from LendingCaseService: updateCaseStatusApproveReject',
           response.error
         )
         .save();
@@ -93,7 +93,7 @@ public with sharing class LendingCaseAPIRepository extends RepositoryBase {
    */
   public class UnhandledUpdateCaseStatusApproveRejectException extends Exception {
     /**
-     * @description Exception class for Unhandled Update Case Status Approve/Reject API
+     * @description Exception class for Unhandled Update Case Status Approve/Reject API callout
      * @param response HttpCalloutResponse
      */
     public UnhandledUpdateCaseStatusApproveRejectException(

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <name>ReKYCStatusUpdateForFraudAgents</name>
+        <enabled>true</enabled>
+    </customPermissions>
+    <description>Provide access to FraudXAgent to update ReKYC case status to Fraud Confirmed or Closed No Fraud</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>ReKYCStatusUpdateForFraudAgents</label>
+</PermissionSet>

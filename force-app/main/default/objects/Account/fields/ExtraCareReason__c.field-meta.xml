@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ExtraCareReason__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source_OCV</complianceGroup>
+    <description>This field captures the Extra Care Reason.</description>
+    <externalId>false</externalId>
+    <label>Reason(s)</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Aboriginal and/or Torres Strait Islander</fullName>
+                <default>false</default>
+                <label>Aboriginal and/or Torres Strait Islander</label>
+            </value>
+            <value>
+                <fullName>Administration Order</fullName>
+                <default>false</default>
+                <label>Administration Order</label>
+            </value>
+            <value>
+                <fullName>Bereavement</fullName>
+                <default>false</default>
+                <label>Bereavement</label>
+            </value>
+            <value>
+                <fullName>Cognitive capacity concerns</fullName>
+                <default>false</default>
+                <label>Cognitive capacity concerns</label>
+            </value>
+            <value>
+                <fullName>Disability</fullName>
+                <default>false</default>
+                <label>Disability</label>
+            </value>
+            <value>
+                <fullName>Family violence</fullName>
+                <default>false</default>
+                <label>Family violence</label>
+            </value>
+            <value>
+                <fullName>Financial abuse</fullName>
+                <default>false</default>
+                <label>Financial abuse</label>
+            </value>
+            <value>
+                <fullName>High Risk Scam Victim</fullName>
+                <default>false</default>
+                <label>High Risk Scam Victim</label>
+            </value>
+            <value>
+                <fullName>Incarceration/recently released from incarceration</fullName>
+                <default>false</default>
+                <label>Incarceration/recently released from incarceration</label>
+            </value>
+            <value>
+                <fullName>Literacy and/or language barriers including limited English</fullName>
+                <default>false</default>
+                <label>Literacy and/or language barriers including limited English</label>
+            </value>
+            <value>
+                <fullName>Natural disaster/crisis response</fullName>
+                <default>false</default>
+                <label>Natural disaster/crisis response</label>
+            </value>
+            <value>
+                <fullName>Other personal/financial difficulties causing major detriment</fullName>
+                <default>false</default>
+                <label>Other personal/financial difficulties causing major detriment</label>
+            </value>
+            <value>
+                <fullName>Power of Attorney</fullName>
+                <default>false</default>
+                <label>Power of Attorney</label>
+            </value>
+            <value>
+                <fullName>Propensity to commit self harm</fullName>
+                <default>false</default>
+                <label>Propensity to commit self harm</label>
+            </value>
+            <value>
+                <fullName>Remote location</fullName>
+                <default>false</default>
+                <label>Remote location</label>
+            </value>
+            <value>
+                <fullName>Serious medical conditions (including mental health)</fullName>
+                <default>false</default>
+                <label>Serious medical conditions (including mental health)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

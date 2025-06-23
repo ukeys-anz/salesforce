@@ -8,6 +8,7 @@
       placeholder=""
       required={isRequired}
       options={options}
+      disabled={isDisabled}
       onchange={handleChange}
     >
     </lightning-combobox>
@@ -15,8 +16,10 @@
   <template if:true={isText}>
     <lightning-input
       type="text"
+      value={inpValue}
       label={omniJsonDef.propSetMap.label}
       required={isRequired}
+      disabled={isDisabled}
       onchange={handleChange}
     >
     </lightning-input>

@@ -215,7 +215,8 @@ public with sharing class IDRCaseActions {
     Set<Id> hardshipCases = new Set<Id>();
     Set<String> caseStatus = new Set<String>{
       IDRConstants.PROVISIONALLY_CLOSED_STATUS,
-      IDRConstants.CLOSED_STATUS
+      IDRConstants.CLOSED_STATUS,
+      IDRConstants.WITHDRAWN_STATUS
     };
     for (Case c : records) {
       if (isIDRComplaintType(c)) {
@@ -233,10 +234,7 @@ public with sharing class IDRCaseActions {
         if (!caseStatus.contains(c.Status)) {
           continue;
         }
-        if (
-          (!oldCase.isClosed &&
-          (c.isClosed || c.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS))
-        ) {
+        if (!oldCase.isClosed && caseStatus.contains(c.Status)) {
           maxTimeFrameCases.add(c.Id);
         }
         if (
@@ -265,7 +263,8 @@ public with sharing class IDRCaseActions {
           '30-day IDR Response Due',
           'Open_Escalation_Time',
           'AFCA Response Due',
-          'FPR 5 Business Day Resolution target'
+          'FPR 5 Business Day Resolution target',
+          'Mail Outcome Letter - Due'
         },
         System.now()
       );
