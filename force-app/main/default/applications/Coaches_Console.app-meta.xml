@@ -1405,6 +1405,24 @@
         <pageOrSobjectType>Task</pageOrSobjectType>
         <recordType>Task.Customer_Nudge</recordType>
         <type>Flexipage</type>
+        <profile>ANZ Standard Automation User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Customer_Nudge_Layout</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Task</pageOrSobjectType>
+        <recordType>Task.Customer_Nudge</recordType>
+        <type>Flexipage</type>
+        <profile>ANZ Standard Automation User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Customer_Nudge_Layout</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Task</pageOrSobjectType>
+        <recordType>Task.Customer_Nudge</recordType>
+        <type>Flexipage</type>
         <profile>ANZx Standard User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
