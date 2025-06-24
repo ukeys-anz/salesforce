@@ -111,17 +111,15 @@ public with sharing class LeadExpiryActions {
       .changed(Lead.Followup_Date__c)
       .isNotNull(Lead.Followup_Date__c)
       .toList();
-    Set<Id> leadIds = ListUtil.getIds(lstOfLeadWithFollowDateCriteria, Lead.Id);
+    Set<Id> leadIds = new Set<Id>();
+    Integer defaultDays = Integer.valueOf(Label.DefaultLeadExpiryDate);
     for (Lead objLead : lstOfLeadWithFollowDateCriteria) {
-      Date followUpDate = objLead.Followup_Date__c.addDays(
-        Integer.valueOf(System.Label.DefaultLeadExpiryDate)
-      );
+      Date followUpDate = objLead.Followup_Date__c.addDays(defaultDays);
       if (followUpDate > objLead.Expiry_Date__c) {
         leadIds.add(objLead.Id);
       }
     }
     List<Task> taskRecords = TASK_REPOSITORY.getTaskResponse(leadIds);
-
     //map of lead id to latest task response
     Map<Id, Task> mapLeadtoLatestTaskResponse = (Map<Id, Task>) ListUtil.mapBy(
       taskRecords,
@@ -129,6 +127,37 @@ public with sharing class LeadExpiryActions {
     );
     return mapLeadtoLatestTaskResponse;
   }
+
+  /**
+   * @description Get Map of Task related to Lead
+   * @name getMapOfTask
+   * @param records List of lead new records.
+   * @param oldMap Map of lead with key Id.
+   * @return Map<String, Task> where Key is Lead Id.
+   */
+  public static Map<Id, Task> getMapOfLeadResponse(
+    List<Lead> records,
+    Map<Id, Lead> oldMap
+  ) {
+    List<Lead> filteredLeadsWithFollowDateChanged = ListUtil.filter(
+        records,
+        oldMap
+      )
+      .changed(Lead.Followup_Date__c)
+      .toList();
+    Set<Id> leadIds = ListUtil.getIds(
+      filteredLeadsWithFollowDateChanged,
+      Lead.Id
+    );
+    List<Task> taskRecords = TASK_REPOSITORY.getTaskResponse(leadIds);
+    //map of lead id to latest task response
+    Map<Id, Task> mapLeadtoLatestTaskResponse = (Map<Id, Task>) ListUtil.mapBy(
+      taskRecords,
+      Task.WhoId
+    );
+    return mapLeadtoLatestTaskResponse;
+  }
+
   /**
    * @description to update lead Expiry date with next Day
    * @name updateExpiryDateForNextDay

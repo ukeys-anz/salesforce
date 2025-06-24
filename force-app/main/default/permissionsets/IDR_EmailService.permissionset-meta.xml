@@ -8,11 +8,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.BusinessHoursId</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Case.IDR_Complainant_Desired_Outcome__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -249,7 +244,7 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <userPermissions>
-        <enabled>true</enabled>
         <name>EditTask</name>
+        <enabled>true</enabled>
     </userPermissions>
 </PermissionSet>

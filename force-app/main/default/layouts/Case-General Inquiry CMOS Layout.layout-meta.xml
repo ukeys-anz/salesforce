@@ -12,10 +12,6 @@
                 <behavior>Edit</behavior>
                 <field>IDR_Customer_Number__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>AccountId</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

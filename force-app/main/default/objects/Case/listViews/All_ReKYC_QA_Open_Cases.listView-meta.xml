@@ -8,17 +8,17 @@
     <columns>OWNER_NAME</columns>
     <columns>CASES.PRIORITY</columns>
     <columns>IDR_Date_Received__c</columns>
+    <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.STATUS</field>
         <operation>equals</operation>
-        <value>Open</value>
+        <value>Refer to Fraud,Rectify Defect</value>
     </filters>
     <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
         <value>Case.ReKYC_QA_Case</value>
     </filters>
-    <filterScope>Everything</filterScope>
     <label>All ReKYC QA Open Cases</label>
     <sharedTo>
         <roleAndSubordinates>FraudX_Agent</roleAndSubordinates>

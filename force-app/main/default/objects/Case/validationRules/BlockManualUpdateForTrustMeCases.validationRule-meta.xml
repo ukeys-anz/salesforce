@@ -4,16 +4,20 @@
     <active>true</active>
     <description>Block user from manually updating the status to closed from record for TrustMe Cases</description>
     <errorConditionFormula>AND(
-    OR(ISNULL( Verified_By__c ),
-      ISBLANK(Verified_By__c)
-    ),
-    ISCHANGED( Status ) ,
-    OR(
-      RecordType.DeveloperName == &apos;TrustMe_eIDV_QA_Case&apos;,
-      RecordType.DeveloperName == &apos;TrustMe_eIDV_Case&apos;,
-      RecordType.DeveloperName == &apos;ReKYC_QA_Case&apos;
-    ),
-    NOT(IsClosed)
-    )</errorConditionFormula>
+   AND(
+      AND(NOT(ISPICKVAL(Status, &apos;Rectify Defect&apos;)),
+          NOT(ISPICKVAL(Status, &apos;Refer to Fraud&apos;))
+      ),
+      OR(ISNULL( Verified_By__c ),
+         ISBLANK(Verified_By__c)
+      )),
+  ISCHANGED( Status ) ,
+  OR(
+    RecordType.DeveloperName == &apos;TrustMe_eIDV_QA_Case&apos;,
+    RecordType.DeveloperName == &apos;TrustMe_eIDV_Case&apos;,
+    RecordType.DeveloperName == &apos;ReKYC_QA_Case&apos;
+  ),
+  NOT(IsClosed)
+)</errorConditionFormula>
     <errorMessage>Please update the case using the Update Status action.</errorMessage>
 </ValidationRule>

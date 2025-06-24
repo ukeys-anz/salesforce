@@ -1200,8 +1200,7 @@
         "IDR_Date_time_Progressed_Status_selected__c",
         "Test_Complaint__c",
         "IsKYCChecksCompleted__c",
-        "KYCChecksHasDefect__c",
-        "Outcome_Letter_to_be_sent_by_Mail__c"
+        "KYCChecksHasDefect__c"
       ],
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",
@@ -2797,9 +2796,6 @@
       ],
       "IA-2415860": ["Attendee_Name_Formula__c"],
       "IA-2530753": ["Conversation_Sid__c"]
-    },
-    "IDR_Omni_Settings_CMOS__mdt": {
-      "IA-2453595": ["EnableAccountLookUpforCMOS__c"]
     },
     "JSONWebTokenAttributes__mdt": {
       "IA-2415860": [

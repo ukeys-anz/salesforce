@@ -563,6 +563,48 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
+   * @description populate Customer Details field on case if the record type is an
+   * ANZx complaint or Customer Complaint
+   * @param records List of cases
+   */
+  public static void populateCustomerDetailsOnComplaint(List<Case> records) {
+    Set<Id> accountIds = new Set<Id>();
+    Set<Id> eligibleRecordTypes = new Set<Id>{
+      RTCase.anzxComplaint,
+      RTCase.customerComplaint
+    };
+    //Loop through case to create list of account ids
+    for (Case c : records) {
+      if (
+        eligibleRecordTypes.contains(c.RecordTypeId) &&
+        !String.isBlank(c.AccountId)
+      ) {
+        accountIds.add(c.AccountId);
+      }
+    }
+
+    //Get map of account ocv ids
+    Map<Id, Account> accountList = new Map<Id, Account>(
+      COMPLAINTS_REPOSITORY.findAccountsByAccountIds(accountIds)
+    );
+
+    //Loop through cases again and assign ocv id
+    if (!accountList.isEmpty() && PermissionUtils.canQuery('Account')) {
+      for (Case c : records) {
+        Account acc = accountList.get(c.AccountId);
+        c.OCV_Id__c = acc.OCV_ID__c;
+        c.IDR_CC_Country__c = acc.PersonOtherCountry;
+        c.IDR_CC_Age__c = DateTimeUtils.getAge(acc.PersonBirthDate);
+        c.IDR_CC_Postcode__c = acc.PersonOtherPostalCode;
+        c.IDR_Customer_Number__c = acc.Source_System_ID__c;
+        c.CPID__c = acc.CPID__c;
+        c.IDR_CC_Gender__c = acc.Gender__pc;
+        c.IDR_Customer_Identifier__c = IDRConstants.CUSTOMER_IDENTIFIER_CAP_ID;
+      }
+    }
+  }
+
+  /**
    * @description afterUpdate(oldMap, records) method handles validating the case status and add them into notification list.
    * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in onAfterUpdate. Example to check if the Case Status value has changed we use the following to check record.Status != ((Case) oldMap.get(record.id)).Status
    * @param records from the trigger

@@ -228,7 +228,7 @@ public with sharing class CommercialLeadActions {
     Map<Id, CampaignMember> mapCampaigns = LeadExpiryActions.getMapOfCampaign(
       unExpiredLeads
     );
-    Map<Id, Task> mapTask = LeadExpiryActions.getMapOfTask(
+    Map<Id, Task> mapTask = LeadExpiryActions.getMapOfLeadResponse(
       unExpiredLeads,
       oldMap
     );
@@ -458,10 +458,6 @@ public with sharing class CommercialLeadActions {
    * @param oldMap record map
    */
   public static void populateInfo(List<Lead> records, Map<Id, Lead> oldMap) {
-    if (!USER_REPO.checkProfile(CCRM_PROFILE)) {
-      return;
-    }
-
     List<Lead> filteredLeadsList = ListUtil.filter(records, oldMap)
       .changed(Lead.FinServ__RelatedAccount__c)
       .isNotNull(Lead.FinServ__RelatedAccount__c)

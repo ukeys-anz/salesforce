@@ -2,7 +2,7 @@
  * @description       : TrustMeCaseStatusPathHelper helper class for TrustMeCaseStatusController
  * @author            : Shivraj Kadam
  * @group             :
- * @last modified on  : March 2025
+ * @last modified on  : 05-07-2025
  **/
 public with sharing class TrustMeCaseStatusPathHelper {
   private static Map<String, String> sfValueToTrustXValue = new Map<String, String>{
@@ -148,5 +148,21 @@ public with sharing class TrustMeCaseStatusPathHelper {
     );
 
     return checksFields;
+  }
+
+  /**
+   * @description updateOwnerandStatus
+   * @param recordId recordId
+   * @param statusValue statusValue
+   */
+  public static void updateOwnerandStatus(String recordId, String statusValue) {
+    Case updateCase = new Case(
+      Id = recordId,
+      Status = statusValue,
+      OwnerId = statusValue == 'Refer to Fraud'
+        ? QueryQueue.digitalFraudQueue.Id
+        : QueryQueue.reKycQACaseQueue.Id
+    );
+    DML_REPOSITORY.doUpdate(updateCase);
   }
 }

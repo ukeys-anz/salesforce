@@ -577,7 +577,8 @@
         "API_Only",
         "Disable_MFA",
         "Update_Referral_Export_Status",
-        "Bypass_TSP"
+        "Bypass_TSP",
+        "CCRM_Marketing_Integration_User"
       ],
       "type": "system"
     },
@@ -723,7 +724,12 @@
       "name": "Referral iKnow to SF Integration User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
-      "permissionsets": ["API_Only", "Disable_MFA", "Referral_iKnow_to_SF"],
+      "permissionsets": [
+        "API_Only",
+        "Disable_MFA",
+        "Referral_iKnow_to_SF",
+        "CCRM_Marketing_Integration_User"
+      ],
       "type": "system"
     },
     {
@@ -1314,7 +1320,8 @@
         "Disable_MFA",
         "Case_Read_Write_TrustMe_MV",
         "Case_Read_Write_TrustMe_QA",
-        "DAON_File_Integration"
+        "DAON_File_Integration",
+        "ReKYC_QA_Case_Permission_Set"
       ],
       "type": "system"
     },
