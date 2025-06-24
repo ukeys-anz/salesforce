@@ -45,4 +45,19 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Territory_Sharing_to_AEM_Integration_Group</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Grant access of Territory Records to AEM Integration Public Group</description>
+        <label>Territory Sharing to AEM Integration Group</label>
+        <sharedTo>
+            <group>AEM_Integration_User_group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>CreatedById</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
 </SharingRules>

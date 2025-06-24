@@ -1398,6 +1398,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>Before this lead can be converted, a customer must be added as a Related Party. Review and select from possible matches below if correct or select &apos;No match available&apos;, Where no match is found, a new Customer will be created based on the information provided in the Lead.</value>
     </labels>
     <labels>
+        <fullName>DefaultAEMLeadExpiryDate</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>DefaultAEMLeadExpiryDate</shortDescription>
+        <value>14</value>
+    </labels>
+    <labels>
         <fullName>ML_DefaultLeadExpiryDate</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>

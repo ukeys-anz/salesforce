@@ -29,6 +29,7 @@ public with sharing class MobileLendingLeadTriggerHandler extends Lib_TriggerHan
    */
   public override void onApplyDefaults() {
     MobileLendingLeadActions.setDefaultValue(records);
+    MobileLendingLeadActions.setExpiryDateforAEM(records);
   }
 
   /**
