@@ -1,11 +1,9 @@
 import { LightningElement, api, wire, track } from "lwc";
 import getCustomerData from "@salesforce/apex/IDRAPIRepository.getCustomerInfoLWC";
 import { getRecord, getFieldValue } from "lightning/uiRecordApi";
-import getFinancialAccounts from "@salesforce/apex/GetCustomerInformation.fetchCustomerFinancialAccounts";
 import { updateRecord } from "lightning/uiRecordApi";
 import { refreshApex } from "@salesforce/apex";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
-import { getAccoutProductkeys } from "c/utils";
 
 import CAP_ID_FIELD from "@salesforce/schema/Case.IDR_Customer_Number__c";
 import CUSTOMER_IDENTIFIER from "@salesforce/schema/Case.IDR_Customer_Identifier__c";
@@ -144,6 +142,8 @@ export default class CustomerInformation extends LightningElement {
         : "",
       cpId: accountData.CPID__c?.value,
       ocvId: accountData.OCV_ID__c?.value,
+      capId: this.record.fields.IDR_Customer_Number__c?.value,
+      custIdentifier: this.record.fields.IDR_Customer_Identifier__c?.value,
       emailclassic: accountData.Other_Email__c?.value,
       emailanzplus: accountData.PersonEmail?.value,
       mobileclassic: accountData.PersonOtherPhone?.value,
@@ -166,17 +166,16 @@ export default class CustomerInformation extends LightningElement {
 
   showAllCustomerData() {
     if (this.customerInfo.accId) {
-      getFinancialAccounts({
-        accId: this.customerInfo.accId,
-        ocvId: this.customerInfo.ocvId
+      getCustomerData({
+        customerId: this.customerInfo.capId.replace(/^0+/, ""),
+        customerIdentifier: this.customerInfo.custIdentifier
       }).then((result) => {
-        this.customerInfo.accounts = result.map((i) => ({
-          accountNumber: getAccoutProductkeys(
-            i.FinServ__FinancialAccount__r.Account_Key__c
-          )
-        }));
+        if (Array.isArray(result.accounts)) {
+          this.customerInfo.accounts = result.accounts.map((i) => ({
+            accountNumber: i.accountNumber
+          }));
+        }
       });
-
       if (this.customerInfo.rmData.name) this.isRMDetails = true;
       this.showMore = true;
       return;

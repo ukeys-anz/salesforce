@@ -1,11 +1,10 @@
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { LightningElement, track, api } from "lwc";
-import getFinancialAccounts from "@salesforce/apex/GetCustomerInformation.fetchCustomerFinancialAccounts";
+import getCustomerInfoLWC from "@salesforce/apex/IDRAPIRepository.getCustomerInfoLWC";
 import tmp from "./customerAccount.html";
 const FINANCIAL_DIFFICULTY = "4";
 const COLLECTIONS = "17";
 const EXCL_ACC = ["CAP-CIS:APP", "CAP-CIS:CAP", "CAP-CIS:CAB", "CAP-CIS:MOS"];
-import { getAccoutProductkeys } from "c/utils";
 export default class CustomerAccount extends OmniscriptBaseMixin(
   LightningElement
 ) {
@@ -57,40 +56,31 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
 
   async populateAccountNumbers(data) {
     let cmpDet = data.Case.ComplaintDetails;
-    let accountId = data.Case.AccountId;
+    let customerNumber = data?.data?.fields.Source_System_ID__c.value;
     this.options = [];
-    let issueTypeChange = this.checkIssueTypeChange(cmpDet);
-    if (accountId && this.checkCustomerIdentifier(data)) {
-      let ocvId = data?.data?.fields.OCV_ID__c.value;
-      let result = await getFinancialAccounts({
-        accId: accountId,
-        ocvId: ocvId
+    let custIdentifier = data.Case.CustomerDetails.CustomerIdentifier;
+    let custAccounts;
+    if (this.checkCustomerIdentifier(data)) {
+      let result = await getCustomerInfoLWC({
+        customerId: customerNumber?.replace(/^0+/, ""),
+        customerIdentifier: custIdentifier
       });
       if (!result) {
         return;
       }
-      if (issueTypeChange) {
-        this.options = this.getAccountNumbers(result, true);
-      } else {
-        this.options = result.map((i) => {
-          let accNum = getAccoutProductkeys(
-            i.FinServ__FinancialAccount__r.Account_Key__c
-          );
-          return { label: accNum, value: accNum };
-        });
-      }
+      custAccounts = result.accounts;
+      this.createAccountOptions(
+        custAccounts,
+        this.checkIssueTypeChange(cmpDet)
+      );
       this.validateNAoption(data);
     }
-
     if (this.checkForCacheCustomer(data)) {
-      let accounts = data.Response.accounts;
-      if (issueTypeChange) {
-        this.options = this.getAccountNumbers(accounts, false);
-      } else {
-        this.options = accounts.map((i) => {
-          return { label: i.accountNumber, value: i.accountNumber };
-        });
-      }
+      custAccounts = data.Response.accounts;
+      this.createAccountOptions(
+        custAccounts,
+        this.checkIssueTypeChange(cmpDet)
+      );
     }
 
     // To select all Account/Policy Number values by default when Issue typen is 'Financial Difficulty & Hardship'
@@ -127,25 +117,20 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     }
   }
 
-  getAccountNumbers(data, isCustomer) {
-    if (isCustomer) {
-      return data
-        .filter(
-          (i) =>
-            !EXCL_ACC.includes(
-              i.FinServ__FinancialAccount__r.FinServ__FinancialAccountType__c
-            )
-        )
-        .map((i) => {
-          let accNum = getAccoutProductkeys(
-            i.FinServ__FinancialAccount__r.Account_Key__c
-          );
-          return {
-            label: accNum,
-            value: accNum
-          };
-        });
+  createAccountOptions(accounts, issueTypeChange) {
+    if (!Array.isArray(accounts)) {
+      return;
     }
+    if (issueTypeChange) {
+      this.options = this.getAccountNumbers(accounts);
+    } else {
+      this.options = accounts.map((i) => {
+        return { label: i.accountNumber, value: i.accountNumber };
+      });
+    }
+  }
+
+  getAccountNumbers(data) {
     return data
       .filter((i) => !EXCL_ACC.includes(i.productCode))
       .map((i) => {
