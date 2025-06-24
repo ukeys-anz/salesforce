@@ -19,6 +19,7 @@ import {
 } from "c/transactionHistoryService";
 
 const ALLOWED_TRANSACTION_TYPES = [
+  TRANSACTION_TYPES.International_Payment,
   TRANSACTION_TYPES.BSB_ACC,
   TRANSACTION_TYPES.Card,
   TRANSACTION_TYPES.Direct_Debit,
@@ -34,7 +35,8 @@ const ALLOWED_TRANSACTION_TYPES = [
 
 const ALLOWED_DISPUTE_TYPES_FOR_SALARY = [
   "NPP_Dispute",
-  "Direct_Entry_Dispute"
+  "Direct_Entry_Dispute",
+  "IMT_Dispute"
 ]; //Allowed dispute types for salary transaction
 
 const TRANSFER_MESSAGE =
@@ -92,6 +94,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     }
 
     // Process the dispute type that will show up on the modal based on the transaction type, as specified in ANZX-5492
+
     this.disputeRecordTypes =
       this.transactionRecord.formatted_type === TRANSACTION_TYPES.Salary
         ? this.handleFilterModalDisputeTypes(
@@ -344,7 +347,6 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   //Get the Transaction Made By value to be prepopulated
   prepopulateTransactionMadeBy(transactionRecord) {
     let transactionMadeBy = "";
-
     if (
       transactionRecord.transactionInitiator &&
       this.ownership === MULTI_PARTY

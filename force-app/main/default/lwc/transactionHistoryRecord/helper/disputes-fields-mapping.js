@@ -37,6 +37,11 @@ const nppDisputesFieldsMapping = {
   Receipt__c: "pay_anyone.payment_receipt_number.value"
 };
 
+const imtDisputesFieldsMapping = {
+  Payment_ID__c: "pay_anyone.payment_id",
+  Receipt__c: "pay_anyone.payment_receipt_number.value"
+};
+
 const payToDisputesFieldsMapping = {
   Payment_ID__c: "pay_anyone.payment_id",
   Receipt__c: "pay_anyone.payment_receipt_number.value"
@@ -119,6 +124,9 @@ export function prepopulateDisputesFields(
     case "NPP":
       mappingObj = nppDisputesFieldsMapping;
       break;
+    case "IMT":
+      mappingObj = imtDisputesFieldsMapping;
+      break;  
     case "PayTo":
       mappingObj = payToDisputesFieldsMapping;
       break;
