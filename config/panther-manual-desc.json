@@ -3043,6 +3043,9 @@
         "Lead_Created_Date__c"
       ]
     },
+    "Lead_Event__e": {
+      "IA-2423278": ["Expressed_Interest__c"]
+    },
     "Lead_Response_Event__e": {
       "IA-2415860": ["Campaign_Code__c"]
     },
