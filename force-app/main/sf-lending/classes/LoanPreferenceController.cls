@@ -60,7 +60,7 @@ public with sharing class LoanPreferenceController {
    * @exception
    */
   @AuraEnabled
-  public static LoanPreferenceUpdateResponseModel updateLoanPreference(
+  public static Boolean updateLoanPreference(
     LoanPreferenceViewModel updateLoanPreferenceData,
     AdditionalFundsViewModel additionalFundsData
   ) {
@@ -76,22 +76,22 @@ public with sharing class LoanPreferenceController {
         updateLoanPreferenceData.uid
       };
 
-      LoanPreferenceUpdateResponseModel responseModel = LP_API_REPOSITORY.updateLoanPreference(
+      Boolean isSuccess = LP_API_REPOSITORY.updateLoanPreference(
         ocvId,
         urlParams,
         requestBody
       );
-      if (responseModel.successful) {
+      if (isSuccess) {
         SOPHelper.setToReassessmentIsRequired(updateLoanPreferenceData.loanId);
       }
-      return responseModel;
+
+      return isSuccess;
+    } catch (LoanPreferenceAPIRepository.UserErrorLoanPreferenceException ex) {
+      throw new AuraHandledException(ex.errorMessage);
     } catch (Exception e) {
       Logger.info('Failure on Update Loan Preference', e);
       Logger.saveLog();
-      LoanPreferenceUpdateResponseModel responseModel = new LoanPreferenceUpdateResponseModel();
-      responseModel.successful = false;
-      responseModel.message = '';
-      return responseModel;
+      throw new AuraHandledException('Failed to update loan preference');
     }
   }
 

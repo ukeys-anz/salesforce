@@ -28,7 +28,7 @@ jobs:
   production-manual-steps:
     name: ${{inputs.manual_step_name}} steps | Production.
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.4.0"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.5.0"
       options: --user root
       volumes:
         - ${{ github.workspace }}/release:/opt/harness-delegate/release
