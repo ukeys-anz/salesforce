@@ -3,6 +3,11 @@
     <name>Commercial Reports</name>
     <folderShares>
         <accessLevel>View</accessLevel>
+        <sharedTo>Commercial_Business_Execution_Team</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </folderShares>
+    <folderShares>
+        <accessLevel>View</accessLevel>
         <sharedTo>Commercial_Banking</sharedTo>
         <sharedToType>roleAndSubordinates</sharedToType>
     </folderShares>

@@ -7,6 +7,9 @@ import { SimpleToast, SimpleNav } from "c/utils";
 export default class PdiCreateAccessControl extends NavigationMixin(
   LightningElement
 ) {
+  ERROR_MAP = {
+    already_exists: "Access control already exists."
+  };
   toast = new SimpleToast(this);
   nav = new SimpleNav(this);
 
@@ -18,6 +21,7 @@ export default class PdiCreateAccessControl extends NavigationMixin(
   layoutInfo;
   objectInfo;
   fieldCounter = 0;
+  isLoading = true;
   @track record = {};
 
   @wire(EnclosingTabId) tabId;
@@ -44,6 +48,7 @@ export default class PdiCreateAccessControl extends NavigationMixin(
         "PersonDigitalIdentity__x.Persona_ID__c"
       )
     };
+    this.isLoading = false;
   }
 
   get sections() {
@@ -78,13 +83,25 @@ export default class PdiCreateAccessControl extends NavigationMixin(
     },
     change: (e) => (this.record[e.target.dataset.apiname] = e.detail.value),
     submit: (e) => {
+      this.isLoading = true;
       e.preventDefault();
       this.template.querySelector("lightning-record-edit-form").submit({
         ...e.detail.fields,
         ...this.record
       });
     },
-    error: (e) => this.toast.error(e.detail.message),
+    error: (e) => {
+      this.isLoading = false;
+      let message = e.detail.message;
+      try {
+        const error = JSON.parse(e.detail.detail);
+        const code = error.additionalInfo.errorDetails.code;
+        message = this.ERROR_MAP[code] ?? e.detail.message;
+      } catch {
+        console.error("Error parsing message, fallback to default message.");
+      }
+      this.toast.error(message);
+    },
     success: (e) => {
       this.toast.success(`${this.objectInfo.label} created successfully`);
       this.nav.toRecord(e.detail.id);
@@ -101,7 +118,9 @@ export default class PdiCreateAccessControl extends NavigationMixin(
             .flatMap((row) => row.layoutItems)
             .flatMap((item) => this.helper.transformLayoutItem(item))
         }))
-        .filter((section) => section.fields.some((field) => field.is.visible)),
+        .filter((section) =>
+          section.fields.some((field) => field.is.visible && field.apiName)
+        ),
     transformLayoutItem: (item) =>
       item.layoutComponents.map((cmp) => {
         const editable = this.helper.fieldEditable(cmp.apiName);
@@ -111,16 +130,17 @@ export default class PdiCreateAccessControl extends NavigationMixin(
           is: {
             [cmp.apiName ?? "blankSpace"]: true,
             required: item.required,
-            visible: editable,
+            visible: editable || !cmp.apiName,
             disabled: readonly && editable
           },
           ...cmp
         };
       }),
     fieldEditable: (field) => {
-      return this.recordId
-        ? this.objectInfo.fields[field].createable
-        : this.objectInfo.fields[field].updateable;
+      const info = this.objectInfo.fields[field];
+      if (!info) return false;
+
+      return this.recordId ? info.updateable : info.createable;
     }
   };
 }

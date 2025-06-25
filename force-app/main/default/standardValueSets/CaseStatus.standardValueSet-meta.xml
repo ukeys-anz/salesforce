@@ -349,4 +349,40 @@
         <label>Failed</label>
         <closed>true</closed>
     </standardValue>
+    <standardValue>
+        <fullName>Closed - No Defect</fullName>
+        <default>false</default>
+        <label>Closed - No Defect</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Closed - Defect Resolved</fullName>
+        <default>false</default>
+        <label>Closed - Defect Resolved</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Closed - Defect Unresolved</fullName>
+        <default>false</default>
+        <label>Closed - Defect Unresolved</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Closed - No Fraud</fullName>
+        <default>false</default>
+        <label>Closed - No Fraud</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Fraud Confirmed</fullName>
+        <default>false</default>
+        <label>Fraud Confirmed</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>No Response</fullName>
+        <default>false</default>
+        <label>No Response</label>
+        <closed>true</closed>
+    </standardValue>
 </StandardValueSet>

@@ -26,6 +26,13 @@
     "Employee_Indicator__c",
     "Employer_Name__c",
     "Establishment_Date__c",
+    "ExtraCareConsent__c",
+    "ExtraCareDisclosure__c",
+    "ExtraCareNotes__c",
+    "ExtraCareReason__c",
+    "ExtraCareReviewDate__c",
+    "ExtraCareTimePeriod__c",
+    "ShowExtraCareAlert__c",
     "Fax",
     "FinServ__AUM__c",
     "FinServ__BankNumber__c",
@@ -636,6 +643,7 @@
     "StartDay",
     "PasswordExpirationDate",
     "HasUserVerifiedPhone",
-    "UserPreferencesHideManagedEcaMobilePubModal"
+    "UserPreferencesHideManagedEcaMobilePubModal",
+    "UserPreferencesDismissPersonalSpaceLegalMessage"
   ]
 }

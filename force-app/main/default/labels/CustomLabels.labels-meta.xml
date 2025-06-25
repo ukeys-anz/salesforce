@@ -271,12 +271,20 @@
         <value>99</value>
     </labels>
     <labels>
-        <fullName>CCRM_DefaultCampaign</fullName>
+        <fullName>Commercial_DefaultCampaign</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Campaign code of Default Campaign</shortDescription>
         <value>IKCMP-1579</value>
+    </labels>
+    <labels>
+        <fullName>Referral_DefaultCampaign</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Campaign code of Referral Campaign</shortDescription>
+        <value>IKCMP-1759</value>
     </labels>
     <labels>
         <fullName>CCRM_ExpiryDateDays</fullName>
@@ -285,6 +293,14 @@
         <protected>false</protected>
         <shortDescription>Number of days to calculate Expiry Date at which the Lead gets Expired.</shortDescription>
         <value>14</value>
+    </labels>
+    <labels>
+        <fullName>Referral_ExpiryDateDays</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Number of days to calculate Expiry Date at which the Referral gets Expired.</shortDescription>
+        <value>5</value>
     </labels>
     <labels>
         <fullName>CCRM_ExpiryReminderDays</fullName>
@@ -1311,6 +1327,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>New Lead #{LeadId}# is now available from #{Lead.Lead_Originator__c}. Please check it.</value>
     </labels>
     <labels>
+        <fullName>No_CLG_for_Customer</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No CLG for Customer</shortDescription>
+        <value>No CLG available for this customer,please leave CLG blank</value>
+    </labels>
+    <labels>
         <fullName>NotfiyInprogressLead2DaysPriorExpiry</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>
@@ -1503,7 +1526,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>Please select Customer Needs.</value>
     </labels>
     <labels>
-        <fullName>MLCRM_DefaultCampaign</fullName>
+        <fullName>MobileLending_DefaultCampaign</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -1911,6 +1934,20 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>Security Code Endpoint</shortDescription>
         <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/{capcisid}/security-code?id-type=CAPCISID</value>
+    </labels>
+    <labels>
+        <fullName>Select_Any_CLG_Error_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Select any CLG error message</shortDescription>
+        <value>Please select a related CLG</value>
+    </labels>
+    <labels>
+        <fullName>Select_Related_CLG_Error_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Select related CLG error message</shortDescription>
+        <value>Customer is not related to this CLG, please select the correct CLG</value>
     </labels>
     <labels>
         <fullName>Diary_Comments_Endpoint</fullName>
@@ -2334,7 +2371,15 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_AccessControl</shortDescription>
-        <value>callout:SF_MS_CH2/aegis-portal/v1/access-control</value>
+        <value>callout:SF_MS_CH2/aegis-portal/v1/access-controls</value>
+    </labels>
+    <labels>
+        <fullName>MS_AccessControlList</fullName>
+        <categories>Join;PDI;API</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_AccessControlList</shortDescription>
+        <value>callout:SF_MS_CH2/aegis-portal/v1/accesscontrol-searchresults</value>
     </labels>
     <labels>
         <fullName>MS_PublicKeyCredentials</fullName>
@@ -2497,6 +2542,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>CCRM_CAP_DAIRY_EVENT_CE_TYPE</shortDescription>
         <value>com.anzx.salesforce.interaction.v1alpha1.interaction.cap_diarycomment.</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_REFERRAL_TO_IKNOW_EVENT_CE_TYPE</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM_REFERRAL_TO_IKNOW_EVENT_CE_TYPE</shortDescription>
+        <value>anzx.salesforce.ccrm.v1alpha1.referral.retail_referral</value>
     </labels>
     <labels>
         <fullName>MS_ExportConsentDataIN_API</fullName>
@@ -2768,6 +2820,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>Do you wish to proceed?</value>
     </labels>
     <labels>
+        <fullName>Queue_Not_Found_Message</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Queue Not Found Message</shortDescription>
+        <value>Queue Not Found - {0}</value>
+    </labels>
+    <labels>
         <fullName>Simpology_Base_Url</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2831,6 +2891,20 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>ExistingContactPointPhoneError</shortDescription>
         <value>A phone record of this type is already available for this customer. Please edit the existing phone record for the customer.</value>
+    </labels>
+    <labels>
+        <fullName>Extra_Care_Info_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Extra Care Info Message</shortDescription>
+        <value>Customer requires extra care. Review extra care information on profile to support and service customer appropriately.</value>
+    </labels>
+    <labels>
+        <fullName>Extra_Care_Review_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Extra Care Review Message</shortDescription>
+        <value>Action required - Review customer’s extra care requirements and update as needed. For support or more information, refer to KnowHow or knowledge articles.</value>
     </labels>
     <labels>
         <fullName>Complaints_Anz_Com_Sender_Address</fullName>
@@ -2898,6 +2972,20 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>No data available</value>
     </labels>
     <labels>
+        <fullName>Commercial_Referral_RecordTypeId</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Commercial Referral RecordTypeId</shortDescription>
+        <value>0129p000001S5tpAAC</value>
+    </labels>
+    <labels>
+        <fullName>Commercial_GoBiz_Referral_Error</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Commercial GoBiz Referral Error</shortDescription>
+        <value>You cannot convert a GoBiz referral lead to an opportunity.</value>
+    </labels>
+    <labels>
         <fullName>Test_Bulk_Size</fullName>
         <categories>Technical</categories>
         <language>en_US</language>
@@ -2947,5 +3035,37 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>Push Task To App Deeplink</shortDescription>
         <value>deeplink</value>
+    </labels>
+    <labels>
+        <fullName>DefaultLeadExpiryDate</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>DefaultLeadExpiryDate</shortDescription>
+        <value>14</value>
+    </labels>
+    <labels>
+        <fullName>Lead_Record_Creation_Error</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Lead_Record_Creation_Error</shortDescription>
+        <value>You do not have necessary permission to create this record.</value>
+    </labels>
+    <labels>
+        <fullName>FollowUpDateExtends</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>FollowUpDateExtends</shortDescription>
+        <value>14</value>
+    </labels>
+    <labels>
+        <fullName>FollowUpDateLessThanToday</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>FollowUpDateLessThanToday</shortDescription>
+        <value>1</value>
     </labels>
 </CustomLabels>

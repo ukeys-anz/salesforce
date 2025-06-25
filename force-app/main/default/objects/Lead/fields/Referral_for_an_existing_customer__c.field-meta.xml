@@ -2,11 +2,11 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Referral_for_an_existing_customer__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Confidential;Privacy - Accurate;Source - SPI</complianceGroup>
     <defaultValue>false</defaultValue>
     <description>Is this Referral for an existing customer?</description>
     <label>Referral for an existing customer?</label>
-    <securityClassification>Confidential</securityClassification>
+    <securityClassification>Customer_Account_Data</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

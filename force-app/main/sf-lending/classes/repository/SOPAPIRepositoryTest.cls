@@ -100,7 +100,7 @@ public with sharing class SOPAPIRepositoryTest {
     Test.stopTest();
 
     Assert.isTrue(
-      resultException instanceof SOPAPIRepository.ServerErrorGetSOPException,
+      resultException instanceof SOPAPIRepository.ServerErrorSOPAPIException,
       'Exception should be thrown.'
     );
     Assert.areEqual(
@@ -161,7 +161,7 @@ public with sharing class SOPAPIRepositoryTest {
     Test.stopTest();
     // Assert that the method fails
     Assert.isTrue(
-      resultException instanceof SOPAPIRepository.ServerErrorUpdateSOPAndPartyException,
+      resultException instanceof SOPAPIRepository.ServerErrorSOPAPIException,
       'Exception should be thrown.'
     );
     Assert.areEqual(

@@ -320,7 +320,14 @@
         "IsSkeleton__c",
         "IsSnapshotError__c",
         "IsSnapshotInProgress__c",
-        "Migration_Status_Date__c"
+        "Migration_Status_Date__c",
+        "ExtraCareTimePeriod__c",
+        "ExtraCareReason__c",
+        "ExtraCareNotes__c",
+        "ExtraCareReviewDate__c",
+        "ExtraCareDisclosure__c",
+        "ExtraCareConsent__c",
+        "ShowExtraCareAlert__c"
       ],
       "IA-2415860": [
         "Deleted_in_OCV__c",
@@ -1402,7 +1409,9 @@
         "Process_Definition_Name__c",
         "Process_Definition_Version__c",
         "Unique_External_Id__c",
-        "SecondaryVerificationFailedReason__c"
+        "SecondaryVerificationFailedReason__c",
+        "KYC_Verification_Id__c",
+        "PersonId_Txt__c"
       ],
       "IA-2594111": [
         "CustomerOnboardingApplication__c",
@@ -2422,7 +2431,8 @@
         "FinServ__StartDate__c",
         "System_Individual_Relationship__c",
         "CPID__c",
-        "Customer_Type__c"
+        "Customer_Type__c",
+        "ExtraCare__c"
       ],
       "IA-2594111": ["FinServ__Account__c", "FinServ__RelatedAccount__c"],
       "IA-2415860": [
@@ -2875,7 +2885,9 @@
         "Assignee_Group__c",
         "Channel__c",
         "Referral_Category__c",
-        "My_teams_referrer__c"
+        "My_teams_referrer__c",
+        "Referral_Customer_Needs__c",
+        "External_Referral_Status__c"
       ],
       "IA-2468713": ["SmartphoneOS__c", "Pub_Sub_Event_Id__c"],
       "IA-2468715": [
@@ -3023,7 +3035,13 @@
       "IA-2431669": ["Primary_Franchise_Owner__c"],
       "IA-2453350": ["Customer_Pre_Exist__c"],
       "IA-2415790": ["Broker_Name__c"],
-      "IA-2415828": ["Circle_Of_Influence__c"]
+      "IA-2415828": ["Circle_Of_Influence__c"],
+      "IA-3254438": [
+        "Referral_Status__c",
+        "Referrer_Lead__c",
+        "Referral_Acknowledged_Date__c",
+        "Lead_Created_Date__c"
+      ]
     },
     "Lead_Response_Event__e": {
       "IA-2415860": ["Campaign_Code__c"]
@@ -3045,6 +3063,14 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
+      ]
+    },
+    "Lead_To_Referral_Status_Mapping__mdt": {
+      "IA-3254438": [
+        "Lead_Outcome__c",
+        "Lead_Status__c",
+        "Record_Type_Name__c",
+        "Referral_Status__c"
       ]
     },
     "Lead_Stage_Automation__mdt": {
@@ -3866,10 +3892,12 @@
     "Quality_Assessment__c": {
       "IA-2415840": [
         "Accountability_and_Next_Steps__c",
+        "Accountability_Next_Steps_Top_Line__c",
         "Accountability_and_Next_Steps_Comments__c",
         "Accurate_information_in_final_response__c",
         "Action_Taken__c",
         "Actions_and_Momentum__c",
+        "Action_Momentum_Top_Line__c",
         "Actions_and_Momentum_Comments__c",
         "Advice_Best_Interest_Duty__c",
         "Advice_Best_Interests_Duty_Comments__c",
@@ -3892,6 +3920,7 @@
         "Advice_Substantive_Advice_OFSN__c",
         "Advice_Substantive_Advice_OFSN_Comments__c",
         "Advice_Supplement__c",
+        "Appoinment_Type__c",
         "Appropriately_assessed_information__c",
         "Assigned_to__c",
         "Assessment_Completion_Date__c",
@@ -3899,7 +3928,10 @@
         "Business_score__c",
         "Call_details__c",
         "Case_Manager_Score__c",
+        "Case_Notes_Comment__c",
+        "Case_Notes_Outcome__c",
         "Case_records_are_complete_and_accurate__c",
+        "Channel__c",
         "Clear_actions_for_acceptance_provided__c",
         "CM_asked_customer_for_resolution_sought__c",
         "CM_asked_for_further_information__c",
@@ -3951,10 +3983,17 @@
         "CMOS_Comment_27__c",
         "CMOS_Comment_28__c",
         "CMOS_Comment_29__c",
+        "Collateral_Valuation_Comments__c",
+        "Collateral_Valuation_Outcome__c",
+        "Collateral_Valuation_Referral_Codes__c",
         "Compliance_Outcome__c",
         "Complaint_outcome_(Actual)__c",
+        "Conduct_Comments__c",
+        "Conduct_Outcome__c",
+        "Conduct_Referral_Codes__c",
         "Confirmation_of_resolution_letter_used__c",
         "Connection_and_Trust__c",
+        "Connection_Trust_Top_Line__c",
         "Connection_and_Trust_Comments__c",
         "Context_and_General_Comments__c",
         "COR_Event__c",
@@ -3971,28 +4010,46 @@
         "Customer_authority_obtained_as_required__c",
         "Customer_correctly_identified__c",
         "Customer_information_correct__c",
+        "Debts_Serviceability_Comments__c",
+        "Debts_Serviceability_Outcome__c",
+        "Debts_Serviceability_Referral_Codes__c",
         "Discover_and_Align__c",
+        "Discover_Align_Top_Line__c",
         "Discover_and_Align_Comments__c",
         "Duration_of_calls_retrieved_minutes__c",
         "EDR_CM_explained_role_in_AFCA_process__c",
         "Energy_and_Adaptability__c",
+        "Energy_Adaptability_Top_Line__c",
         "Energy_and_Adaptability_Comments__c",
         "Evaluation_Type__c",
+        "Expenses_Serviceability_Comments__c",
+        "Expenses_Serviceability_Outcome__c",
+        "Expenses_Serviceability_Referral_Codes__c",
         "Feedback_summary_for_the_Case_Manager__c",
         "Financial_product_advice_not_provided__c",
         "Finishing_Touches__c",
         "Finishing_Touches_Comments__c",
         "Followed_call_authentication_process__c",
         "Gave_extra_care_for_vulnerable_customer__c",
+        "Governance_Checklist__c",
+        "Governance_Insights_Use_Only__c",
         "Has_a_complaint_LOA_been_loaded_to_PCC__c",
         "Have_we_clearly_articulated_the_custo__c",
         "Has_a_REaL_form_been_raised__c",
+        "HEM_Usage__c",
+        "HEM_Variance__c",
         "High_risk_criteria_identified__c",
+        "Hypercare_Focus_Area_Checks__c",
+        "Hypercare_Focus_Area_Comments__c",
+        "Hypercare_Focus_Area_Outcome__c",
         "Identified_additional_assistance_needs__c",
         "Identified_flagged_PSI_where_needed__c",
         "Identified_what_needed_investigation__c",
         "IDR_delay_decision_notice_appropriate__c",
         "If_unlicensed_did_communication_stop__c",
+        "Income_Serviceability_Comments__c",
+        "Income_Serviceability_Outcome__c",
+        "Income_Serviceability_Referral_Codes__c",
         "Incomplete_Inaccurate_Warning_Comments__c",
         "Investigation_notes_documented_clearly__c",
         "In_phone_resolutions_gave_AFCA_details__c",
@@ -4014,9 +4071,14 @@
         "Lead__c",
         "Letter_flows_headings_relevant_clear__c",
         "Loss_offer_correctly_considered__c",
+        "Material_Change_Comments__c",
+        "Material_Change_Outcome__c",
+        "Material_Change_Referral_Codes__c",
         "Met_call_recording_disclosure_rules__c",
         "Met_process_for_handling_restricted_info__c",
         "New_Starter__c",
+        "Number_of_Applications__c",
+        "Number_of_Resubmissions__c",
         "Other_practical_options_explored__c",
         "Outcome_details_correctly_recorded__c",
         "Prompt_response_to_customer_in_hardship__c",
@@ -4038,10 +4100,19 @@
         "Join_Customer_Welcoming__c",
         "Join_Financial_Operation_Accuracy__c",
         "Join_Overall_Decision_Supported__c",
+        "Other__c",
+        "Other_Comments__c",
+        "Other_Referral_Codes__c",
+        "Parent_Quality_Evaluation__c",
+        "Process_Execution_Comments__c",
+        "Process_Execution_Outcome__c",
         "Preparation_and_Framing__c",
         "Preparation_and_Framing_Comments__c",
         "Professionalism_of_response__c",
         "Proposed_resolution_is_fair_reasonable__c",
+        "Purpose_of_Loan_Comments__c",
+        "Purpose_of_Loan_Outcome__c",
+        "Purpose_of_Loan_Referral_Codes__c",
         "Rating__c",
         "Relevant_info_obtained_from_customer__c",
         "Reason_C_Q_SM1_Q1__c",
@@ -4082,12 +4153,16 @@
         "Relevant_internal_information_obtained__c",
         "Risk_and_Compliance_Category__c",
         "Risk_and_Compliance_Comments__c",
+        "Risk_and_Compliance_Outcome__c",
         "Risk_and_Compliance_Sub_Category__c",
         "Resolution_declined_next_steps_advised__c",
         "Response_has_customer_s_desired_outcome__c",
         "Response_has_investigation_info_reason__c",
         "Response_uses_correct_grammar_spelling__c",
         "Score__c",
+        "Serviceability_Comments__c",
+        "Serviceability_Outcome__c",
+        "Serviceability_Referral_Codes__c",
         "Stakeholder_comms_clear_relevant_etc__c",
         "Satisfactory_contact_made_or_attempted__c",
         "Status__c",
@@ -4101,14 +4176,17 @@
         "TM_Comments_for_C_Q_Manager_Review__c",
         "Verbal_customer_comms_organised_etc__c",
         "TM_Attestation_feedback_provided_to_CM__c",
+        "Uncomitted_Monthly_Income__c",
         "Was_the_DMF_paid_rep_licensed__c",
         "Was_quick_resolution_offer_appropriate__c",
         "Were_all_relevant_calls_retrieved__c",
+        "Were_Expenses_updated__c",
         "Were_the_CM_s_calls_recorded__c",
         "What_how_the_issues_arose_explainedHave__c",
         "What_corrective_actions_are_required__c",
         "Written_customer_comms_professional_etc__c"
       ],
+      "IA-2415983": ["Application_ID__c"],
       "IA-2415984": ["Customer__c", "Customer_Name__c", "Calculated__c"],
       "IA-2460507": ["Interaction_Owner__c"],
       "IA-2468715": [
@@ -4137,6 +4215,13 @@
         "CreatedDate",
         "LastModifiedById",
         "LastModifiedDate"
+      ]
+    },
+    "Referral_Customer_Need_Mapping__mdt": {
+      "IA-2423278": [
+        "Customer_Need__c",
+        "Lead_Record_Type__c",
+        "Referral_Customer_Needs__c"
       ]
     },
     "Referral_Reason__c": {
@@ -4213,6 +4298,38 @@
         "LastModifiedDate"
       ]
     },
+    "ReKYC_Document_Detail__c": {
+      "IA-2415999": [
+        "TrustMe_First_Name__c",
+        "TrustMe_Middle_Name__c",
+        "TrustMe_Last_Name__c",
+        "TrustMe_Residential_Address__c",
+        "TrustMe_Residential_Address_Geolocation__c",
+        "Evaluation_Date__c",
+        "Evaluation_Outcome__c",
+        "eIDV_Verification_Outcome__c",
+        "Manual_Verification_Outcome__c",
+        "TrustMe_Primary_Document_ID__c",
+        "Customer_UUID__c",
+        "Date_Of_Birth__c",
+        "Residential_Address__c",
+        "Residential_Address_Geolocation__c",
+        "QAS__c",
+        "Daon_Evaluation_Outcome__c",
+        "TrustMe_Secondary_Document_ID__c",
+        "Rekyc_Case__c",
+        "TrustMe_Date_Of_Birth__c",
+        "Customer_UUID__c",
+        "Daon_Selfie_Match_ID__c",
+        "Existing_Selfie__c",
+        "PersonId_Txt__c",
+        "Primary_Documents__c",
+        "Secondary_Documents__c",
+        "Selfie_Verification_Outcome__c",
+        "TrustMe_Selfie_Reference__c",
+        "PersonID__c"
+      ]
+    },
     "ResidentialLoanApplication": {
       "IA-2415855": ["Assessment_Outcome__c", "Credit_Version__c"],
       "IA-2415983": [
@@ -4231,7 +4348,8 @@
         "Other_Cancellation_Reason__c",
         "Cancellation_Reason__c",
         "InterestRate",
-        "Property_Use__c"
+        "Property_Use__c",
+        "Loan_Amount__c"
       ],
       "IA-2415997": ["SOP_Id__c"],
       "IA-2530753": [
