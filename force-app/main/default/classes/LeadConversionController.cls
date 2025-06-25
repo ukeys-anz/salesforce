@@ -70,7 +70,7 @@ public with sharing class LeadConversionController {
   /**
    * @param record Lead record from lwc component.
    * @return CCRMSearchPartyInfo for lwc
-   * @description called from lead conversion lwc component
+   * @description called from lead conversion lwc component.
    */
   @AuraEnabled(cacheable=false)
   public static CCRMSearchPartyInformationWrapper.CCRMSearchPartyInfoWrapper searchPartyInfoLWC(

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ExtraCareConsent__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_OCV</complianceGroup>
+    <defaultValue>false</defaultValue>
+    <description>This field is used to indicate that agent has  received consent from the customer
+to record their extra care information
+(sensitive information) on their customer profile</description>
+    <externalId>false</externalId>
+    <label>Extra Care Consent</label>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

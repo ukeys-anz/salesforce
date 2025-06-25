@@ -9,7 +9,7 @@
                         <valueListItems>
                             <value>Customer_Profile_Updates__c.Retry</value>
                             <visibilityRule>
-                                <booleanFilter>(1 OR 4) AND 2 AND 3</booleanFilter>
+                                <booleanFilter>(1 OR 4 OR 5) AND 2 AND 3</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.TriggeredFrom__c}</leftValue>
                                     <operator>CONTAINS</operator>
@@ -29,6 +29,11 @@
                                     <leftValue>{!Record.TriggeredFrom__c}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>Case.ProfileUpdate.LegalNameUpdate</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.TriggeredFrom__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Account.Individual.ExtraCare</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>

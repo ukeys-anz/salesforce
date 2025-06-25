@@ -23,7 +23,7 @@ jobs:
   Quick-Deployment:
     name: Quick Deployment ${{inputs.sfdx_name}}
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.4.0"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.5.0"
       options: --user root
     runs-on: anzx-default-np
     steps:
@@ -44,7 +44,10 @@ jobs:
       - name: ENV vars
         working-directory: salesforce
         run: |
-          echo BASE_REF="${{ github.base_ref }}" >> $GITHUB_ENV
+          baseRef="${{ github.base_ref }}"
+          [[ "${{inputs.sfdx_name}}" == "sf-platform-np-intpnv" ]] && baseRef=intpnv
+          [[ "${{inputs.sfdx_name}}" == "sf-platform-np-blm" ]] && baseRef=blm
+          echo BASE_REF="$baseRef" >> $GITHUB_ENV
           echo BRANCH_NAME="${{ github.head_ref }}" >> $GITHUB_ENV
           echo PR_NUMBER="${{ github.event.number }}" >> $GITHUB_ENV
           echo RUN_ID="${GITHUB_RUN_ID}" >> $GITHUB_ENV
@@ -96,6 +99,7 @@ jobs:
           sf plugins link .
 
       - name: Run Quick Deployment
+        id: deployment
         working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/quickDeployment.mjs "${{ steps.secrets.outputs.sfdxurl }}" "${{ steps.secrets.outputs.artifactory }}"
@@ -105,3 +109,32 @@ jobs:
         working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/quickDeployment.mjs
+
+      - name: Publish Deployment Event
+        if: always() && !cancelled() && steps.deployment.outcome != 'skipped'
+        uses: anzx/github-reusable-actions/publish-deployment-event@main
+        with:
+          environment: "np"
+          service_name: "salesforce"
+          service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
+          event_status: ${{ steps.deployment.outcome }}
+
+  Create-tag:
+    runs-on: anzx-default
+    needs: [Quick-Deployment]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Tag Creation
+        run: |
+          orgName=intpnv
+          [[ "${{inputs.sfdx_name}}" == "sf-platform-np-blm" ]] && orgName=blm
+          runId="${GITHUB_RUN_ID}"
+          newTag="$orgName-$runId"
+          git tag "$newTag"
+          git push origin "$newTag"
+
+          echo "New created tag is: $newTag"

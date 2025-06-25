@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCRM_Restrict_Similar_Owner_And_Referrer</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    NOT(ISNEW()),
+RecordType.DeveloperName = &apos;Referral&apos;,
+OR(ISCHANGED(FinServ__ReferredByUser__c),  ISCHANGED( OwnerId )  ),
+Owner:User.Id  = FinServ__ReferredByUser__c,
+$Profile.Name = &apos;ANZ CCRM Standard User&apos;
+)</errorConditionFormula>
+    <errorMessage>Lead Owner and Internal referrer cannot be same user.</errorMessage>
+</ValidationRule>

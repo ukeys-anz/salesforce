@@ -29,7 +29,7 @@ permissions:
 jobs:
   preprod-deployment:
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.4.0"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.5.0"
       options: --user root
       volumes:
         - ${{ github.workspace }}/preprod-deployment:/opt/harness-delegate/preprod-deployment

@@ -328,6 +328,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Applying for Home Loan</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Bug Report</fullName>
             <default>false</default>
         </values>
@@ -369,6 +373,10 @@
         </values>
         <values>
             <fullName>Collections</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Connecting Data for Home Loan</fullName>
             <default>false</default>
         </values>
         <values>
@@ -444,6 +452,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Finances for Home Loan</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Fraud</fullName>
             <default>false</default>
         </values>
@@ -469,6 +481,10 @@
         </values>
         <values>
             <fullName>Hoax Email%2FSMS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Loan Preferences</fullName>
             <default>false</default>
         </values>
         <values>
@@ -508,6 +524,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Managing Home Loan</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Managing Repayments</fullName>
             <default>false</default>
         </values>
@@ -540,6 +560,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Property Valuation Outcome</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Raising a concern</fullName>
             <default>false</default>
         </values>
@@ -564,6 +588,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Review and Submit Home Loan</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Round Ups</fullName>
             <default>false</default>
         </values>
@@ -573,6 +601,10 @@
         </values>
         <values>
             <fullName>Savings and goals</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Settling Home Loan</fullName>
             <default>false</default>
         </values>
         <values>

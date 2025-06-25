@@ -179,15 +179,16 @@ public with sharing class PushToAppController {
   ) {
     List<Customer_Action__c> actionsToInsert = new List<Customer_Action__c>();
     for (CustomerActionWrapper.Step step : customerTaskData.steps) {
-      if (step.actions != null) {
-        for (CustomerActionWrapper.Action action : step.actions) {
-          Customer_Action__c customerActionRecord = new Customer_Action__c();
-          customerActionRecord.RecordTypeId = RTCustomerAction.customerNotificationAction;
-          customerActionRecord.Action_Name__c = action.description;
-          customerActionRecord.Customer_Task_Data__c = customerTaskDatarecordId;
-          customerActionRecord.Action_UUID__c = CommonUtil.generateUUID();
-          actionsToInsert.add(customerActionRecord);
+      for (CustomerActionWrapper.Action action : step.actions) {
+        if (action.actionUUID == null) {
+          continue;
         }
+        Customer_Action__c customerActionRecord = new Customer_Action__c();
+        customerActionRecord.RecordTypeId = RTCustomerAction.customerNotificationAction;
+        customerActionRecord.Action_Name__c = action.description;
+        customerActionRecord.Customer_Task_Data__c = customerTaskDatarecordId;
+        customerActionRecord.Action_UUID__c = action.actionUUID;
+        actionsToInsert.add(customerActionRecord);
       }
     }
     return actionsToInsert;
