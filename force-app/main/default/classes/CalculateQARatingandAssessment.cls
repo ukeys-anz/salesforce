@@ -14,13 +14,17 @@ public with sharing class CalculateQARatingandAssessment {
   public static final String NA_VALUE = 'N/A';
   public static final String COMPLIANCE_ONLY_EVAL_TYPE = 'Compliance Only';
 
-  public static boolean noError = false;
-  public static final Id JOIN_RECORD_TYPE_ID = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
-    .get('Join')
-    .getRecordTypeId();
-  public static final Id GET_HELP_RECORD_TYPE_ID = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
-    .get('Get_Help')
-    .getRecordTypeId();
+  public static Map<String, QA_Join_Scoring_Table__mdt> joinScoringTable = QA_Join_Scoring_Table__mdt.getAll();
+  public static Map<String, QA_Get_Help_Scoring_Table__mdt> getHelpScoringTable = QA_Get_Help_Scoring_Table__mdt.getAll();
+
+  public static final Set<Id> GET_HELP_RECORD_TYPE_IDS = new Set<Id>{
+    RTQualityAssessment.getHelp,
+    RTQualityAssessment.getHelpAppointment
+  };
+
+  static final QualityAssessmentRepository QA_REPOSITORY = (QualityAssessmentRepository) Lib_InstanceProvider.forType(
+    QualityAssessmentRepository.class
+  );
 
   /**
    * @description Method which gets called from quick action
@@ -30,94 +34,38 @@ public with sharing class CalculateQARatingandAssessment {
 
   @AuraEnabled
   public static Boolean calculateQA(Id recordId) {
-    if (Quality_Assessment__c.SObjectType.getDescribe().isQueryable()) {
-      Quality_Assessment__c qaRecord = [
-        SELECT
-          Id,
-          Evaluation_Type__c,
-          Connection_and_Trust__c,
-          Discover_and_Align__c,
-          Actions_and_Momentum__c,
-          Accountability_and_Next_Steps__c,
-          Energy_and_Adaptability__c,
-          Preparation_and_Framing__c,
-          Insights_and_Focus__c,
-          Finishing_Touches__c,
-          Risk_and_Compliance_Category__c,
-          Advice_Initial_Contact__c,
-          Advice_Define_Scope__c,
-          Advice_Customer_understanding_of_scope__c,
-          Key_scoping_and_disclaimers__c,
-          Advice_Limit_scope_of_advice__c,
-          Advice_Decline_advice_and_refer__c,
-          Advice_Substantive_Advice_OFSN__c,
-          Join_Actions_Taken__c,
-          Join_Blocks_Applied_where_Appropriate__c,
-          Join_Case_Data_Field_Accuracy__c,
-          Join_Case_Record_Accuracy__c,
-          Join_Compliance_Behaviour__c,
-          Join_Compliance_Disclaimers__c,
-          Join_Compliance_Identification__c,
-          Join_Compliance_Information__c,
-          Join_Financial_Operation_Accuracy__c,
-          Join_Overall_Decision_Supported__c,
-          Join_Business_Actions_Taken__c,
-          Join_Business_Case_Record__c,
-          Join_Business_Information__c,
-          Join_Customer_Accountable__c,
-          Join_Customer_Caring__c,
-          Join_Customer_Interested__c,
-          Join_Customer_Respect__c,
-          Join_Customer_Welcoming__c,
-          Advice_Fact_Find__c,
-          CN_Fact_Find__c,
-          Advice_Best_Interest_Duty__c,
-          Advice_Dispute_Resolution__c,
-          Advice_Incomplete_Inaccurate_warning__c,
-          CN_Customers_Focus__c,
-          CN_Substantive_Advice__c,
-          CN_Out_of_Scope__c,
-          CN_OFSN__c,
-          CN_Scope_Provided__c,
-          RecordTypeId,
-          CN_Checklist__c
-        FROM Quality_Assessment__c
-        WHERE Id = :recordId
-        LIMIT 1
-      ];
-
-      qaRecord.Calculated__c = true;
-      qaRecord.Score__c = calculateRatingScore(qaRecord);
-      if (qaRecord.RecordTypeId == GET_HELP_RECORD_TYPE_ID) {
-        qaRecord.Compliance_Outcome__c = calculateComplianceOutcome(qaRecord);
-        qaRecord.Advice_Outcome__c = calculateAdviceOutcome(qaRecord);
-        Map<String, QA_Get_Help_Rating_Table__mdt> getHelpRatingTable = QA_Get_Help_Rating_Table__mdt.getAll();
-        qaRecord.Rating__c = calculateRating(
-          qaRecord.Score__c,
-          getHelpRatingTable
-        );
-      } else if (qaRecord.RecordTypeId == JOIN_RECORD_TYPE_ID) {
-        qaRecord.Compliance_Outcome__c = calculateComplianceOutcomeJoin(
-          qaRecord
-        );
-        Map<String, QA_Join_Rating_Table__mdt> joinRatingTable = QA_Join_Rating_Table__mdt.getAll();
-        qaRecord.Rating__c = calculateRating(
-          qaRecord.Score__c,
-          JoinRatingTable
-        );
-      }
-
-      updateQualityAssessment(qaRecord);
-      noError = true;
-    } else {
+    if (
+      Quality_Assessment__c.SObjectType.getDescribe().isQueryable() == false
+    ) {
       CommonUtil.logAndThrowIAE(
         'CalculateQARatingandAssessment',
         'calculateQA',
         'Not enough permissions to query Quality Assessment.'
       );
+      return false;
+    }
+    Quality_Assessment__c qaRecord = QA_REPOSITORY.getQARecordById(recordId);
+
+    qaRecord.Calculated__c = true;
+    qaRecord.Score__c = calculateRatingScore(qaRecord);
+    if (qaRecord.RecordTypeId == RTQualityAssessment.getHelp) {
+      qaRecord.Compliance_Outcome__c = calculateComplianceOutcome(qaRecord);
+      qaRecord.Advice_Outcome__c = calculateAdviceOutcome(qaRecord);
+      Map<String, QA_Get_Help_Rating_Table__mdt> getHelpRatingTable = QA_Get_Help_Rating_Table__mdt.getAll();
+      qaRecord.Rating__c = calculateRating(
+        qaRecord.Score__c,
+        getHelpRatingTable
+      );
+    }
+    if (qaRecord.RecordTypeId == RTQualityAssessment.joinRTId) {
+      qaRecord.Compliance_Outcome__c = calculateComplianceOutcomeJoin(qaRecord);
+      Map<String, QA_Join_Rating_Table__mdt> joinRatingTable = QA_Join_Rating_Table__mdt.getAll();
+      qaRecord.Rating__c = calculateRating(qaRecord.Score__c, JoinRatingTable);
     }
 
-    return noError;
+    updateQualityAssessment(qaRecord);
+
+    return true;
   }
 
   /**
@@ -181,13 +129,12 @@ public with sharing class CalculateQARatingandAssessment {
     Map<String, Decimal> scoringMap = new Map<String, Decimal>();
     List<Schema.FieldSetMember> scoreCalcFields = new List<Schema.FieldSetMember>();
 
-    if (qaRecord.RecordTypeId == GET_HELP_RECORD_TYPE_ID) {
-      Map<String, QA_Get_Help_Scoring_Table__mdt> scoringTable = QA_Get_Help_Scoring_Table__mdt.getAll();
-      scoringMap = getScoringMap(scoringTable);
+    if (GET_HELP_RECORD_TYPE_IDS.contains(qaRecord.RecordTypeId)) {
+      scoringMap = getScoringMap(getHelpScoringTable);
       scoreCalcFields = SObjectType.Quality_Assessment__c.FieldSets.Scoring_Fieldset.getFields();
-    } else if (qaRecord.RecordTypeId == JOIN_RECORD_TYPE_ID) {
-      Map<String, QA_Join_Scoring_Table__mdt> scoringTable = QA_Join_Scoring_Table__mdt.getAll();
-      scoringMap = getScoringMap(scoringTable);
+    }
+    if (qaRecord.RecordTypeId == RTQualityAssessment.joinRTId) {
+      scoringMap = getScoringMap(joinScoringTable);
       scoreCalcFields = SObjectType.Quality_Assessment__c.FieldSets.Join_Scoring_Fieldset.getFields();
     }
     for (Schema.FieldSetMember f : scoreCalcFields) {

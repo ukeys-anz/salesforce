@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ExtraCareTimePeriod__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_OCV</complianceGroup>
+    <description>A flag on customer&apos;s profile to Indicate if  the customer
+requires extra care so that customers with this
+requirement may be</description>
+    <externalId>false</externalId>
+    <label>Time Period</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Not required</fullName>
+                <default>true</default>
+                <label>Not required</label>
+            </value>
+            <value>
+                <fullName>Ongoing</fullName>
+                <default>false</default>
+                <label>Ongoing</label>
+            </value>
+            <value>
+                <fullName>Temporarily required</fullName>
+                <default>false</default>
+                <label>Temporarily required</label>
+            </value>
+            <value>
+                <fullName>Ongoing and temporarily required</fullName>
+                <default>false</default>
+                <label>Ongoing and temporarily required</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

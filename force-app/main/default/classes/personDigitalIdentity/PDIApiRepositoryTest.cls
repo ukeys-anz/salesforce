@@ -154,4 +154,23 @@ private class PDIApiRepositoryTest {
       'Exception should be thrown.'
     );
   }
+
+  @IsTest
+  static void testDeleteAccessControlSuppressedNotFound() {
+    HttpCalloutResponse error = new HttpCalloutResponse();
+    error.successful = false;
+    error.statusCode = 404;
+    error.error = new CalloutException(
+      '{"additionalInfo":{"reason":"APP:NOT_FOUND"}}'
+    );
+    Lib_MockProvider.forType(PDIService.class)
+      .mock('deleteAccessControl', error);
+    Exception ex;
+    try {
+      new PDIApiRepository().deleteAccessControl(CUSTOMER_ID, null);
+    } catch (Exception e) {
+      ex = e;
+    }
+    Assert.isNull(ex, 'Exception should not be thrown.');
+  }
 }

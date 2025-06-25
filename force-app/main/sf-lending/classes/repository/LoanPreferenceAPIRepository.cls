@@ -33,7 +33,7 @@ public with sharing class LoanPreferenceAPIRepository extends RepositoryBase {
    * @description Make callout and get the response for update Loan Preference
    * @return LoanPreferenceUpdateResponseModel
    */
-  public LoanPreferenceUpdateResponseModel updateLoanPreference(
+  public Boolean updateLoanPreference(
     String ocvId,
     List<Object> urlParams,
     LoanPreferenceEditModel requestBody
@@ -55,13 +55,22 @@ public with sharing class LoanPreferenceAPIRepository extends RepositoryBase {
     HttpCalloutResponse response
   ) {
     if (response.statusCode == 500) {
-      throw new ServerErrorGetCalculateLoanRepaymentException(response);
+      throw new ServerErrorLoanPreferenceException(
+        response,
+        'getCalculateLoanRepayment'
+      );
     }
     if (response.statusCode == 400) {
-      throw new UserErrorGetCalculateLoanRepaymentException(response);
+      throw new UserErrorLoanPreferenceException(
+        response,
+        'getCalculateLoanRepayment'
+      );
     }
-    if (!response.successful) {
-      throw new UnhandledGetCalculateLoanRepaymentException(response);
+    if (response.successful == false) {
+      throw new UnhandledLoanPreferenceException(
+        response,
+        'getCalculateLoanRepayment'
+      );
     }
     return LoanPreferenceResponseModel.parse(response.body);
   }
@@ -71,49 +80,51 @@ public with sharing class LoanPreferenceAPIRepository extends RepositoryBase {
    * @param response Http Callout Response
    * @return LoanPreferenceUpdateResponseModel processed viewModel
    */
-  private static LoanPreferenceUpdateResponseModel handleUpdateLoanPreference(
+  private static Boolean handleUpdateLoanPreference(
     HttpCalloutResponse response
   ) {
     if (response.statusCode == 500) {
-      throw new ServerErrorUpdateLoanPreferenceException(response);
+      throw new ServerErrorLoanPreferenceException(
+        response,
+        'updateLoanPreference'
+      );
     }
     if (response.statusCode == 400) {
       LoanPreferenceUpdateResponseModel responseModel = LoanPreferenceUpdateResponseModel.parse(
         response.error.getMessage()
       );
-      responseModel.successful = response.successful;
-      responseModel.message = QueryUpdateLoanPrefErrorCodeMapping.getByMasterLabel(
-          responseModel.errorCode
-        )
-        ?.Message__c ?? '';
-      return responseModel;
+      throw new UserErrorLoanPreferenceException(
+        response,
+        'updateLoanPreference',
+        responseModel?.errorCode
+      );
     }
-    if (!response.successful) {
-      throw new UnhandledUpdateLoanPreferenceException(response);
+    if (response.successful == false) {
+      throw new UnhandledLoanPreferenceException(
+        response,
+        'updateLoanPreference'
+      );
     }
 
-    LoanPreferenceUpdateResponseModel responseModel = LoanPreferenceUpdateResponseModel.parse(
-      response.body
-    );
-    responseModel.successful = response.successful;
-
-    return responseModel;
+    return response.successful;
   }
 
   /**
-   * @description Exception class for ServerError on Get Calucalte Loan Repayment
+   * @description Exception class for ServerError on get and update LoanPreference APIs
    */
-  public class ServerErrorGetCalculateLoanRepaymentException extends Exception {
+  public class ServerErrorLoanPreferenceException extends Exception {
     /**
-     * @description Exception class for ServerError Get Calculate Loan Repayment
+     * @description Exception class for ServerError on get and update LoanPreference APIs
      * @param response HttpCalloutResponse
+     * @param serviceName
      */
-    public ServerErrorGetCalculateLoanRepaymentException(
-      HttpCalloutResponse response
+    public ServerErrorLoanPreferenceException(
+      HttpCalloutResponse response,
+      String serviceName
     ) {
       this(response.error.getMessage());
       Logger.error(
-          'HTTP ' + response.statusCode + ' Error from Service',
+          'HTTP ' + response.statusCode + ' Error from ' + serviceName,
           response.error
         )
         .save();
@@ -121,19 +132,53 @@ public with sharing class LoanPreferenceAPIRepository extends RepositoryBase {
   }
 
   /**
-   * @description Exception class for UserError on Get Calucalte Loan Repayment
+   * @description Exception class for UserError on get and update LoanPreference APIs
    */
-  public class UserErrorGetCalculateLoanRepaymentException extends Exception {
+  public class UserErrorLoanPreferenceException extends Exception {
     /**
-     * @description Exception class for UserError Get Calculate Loan Repayment
-     * @param response HttpCalloutResponse
+     * @description errorCode.
      */
-    public UserErrorGetCalculateLoanRepaymentException(
-      HttpCalloutResponse response
+    public Integer errorCode;
+    /**
+     * @description errorMessage.
+     */
+    public String errorMessage {
+      get {
+        return QueryUpdateLoanPrefErrorCodeMapping.getByMasterLabel(errorCode)
+          ?.Message__c ?? 'Failed to update loan preference';
+      }
+    }
+    /**
+     * @description Exception class for UserError on get and update LoanPreference APIs
+     * @param response HttpCalloutResponse
+     * @param serviceName
+     */
+    public UserErrorLoanPreferenceException(
+      HttpCalloutResponse response,
+      String serviceName
     ) {
       this(response.error.getMessage());
       Logger.info(
-          'HTTP ' + response.statusCode + ' Error from Service',
+          'HTTP ' + response.statusCode + ' Error from ' + serviceName,
+          response.error
+        )
+        .save();
+    }
+    /**
+     * @description Exception class for UserError on get and update LoanPreference APIs
+     * @param response HttpCalloutResponse
+     * @param serviceName
+     * @param errorCode
+     */
+    public UserErrorLoanPreferenceException(
+      HttpCalloutResponse response,
+      String serviceName,
+      Integer errorCode
+    ) {
+      this(response.error.getMessage());
+      this.errorCode = errorCode;
+      Logger.info(
+          'HTTP ' + response.statusCode + ' Error from ' + serviceName,
           response.error
         )
         .save();
@@ -141,63 +186,20 @@ public with sharing class LoanPreferenceAPIRepository extends RepositoryBase {
   }
 
   /**
-   * @description Exception class for Unhandled Get Calucalte Loan Repayment
+   * @description Exception class for Unhandled on get and update LoanPreference APIs
    */
-  public class UnhandledGetCalculateLoanRepaymentException extends Exception {
+  public class UnhandledLoanPreferenceException extends Exception {
     /**
-     * @description Exception class for Unhandled Get Calculate Loan Repayment
+     * @description Exception class for Unhandled on get and update LoanPreference APIs
      * @param response HttpCalloutResponse
+     * @param serviceName
      */
-    public UnhandledGetCalculateLoanRepaymentException(
-      HttpCalloutResponse response
+    public UnhandledLoanPreferenceException(
+      HttpCalloutResponse response,
+      String serviceName
     ) {
       this(response.error.getMessage());
-      Logger.error(
-          'UnhandledGetSOPException LoanPreferenceService: getLoanPrefDetails',
-          response.error
-        )
-        .save();
-    }
-  }
-
-  /**
-   * @description Exception class for ServerError on UpdateLoanPreference
-   */
-  public class ServerErrorUpdateLoanPreferenceException extends Exception {
-    /**
-     * @description Exception class for ServerError UpdateLoanPreference
-     * @param response HttpCalloutResponse
-     */
-    public ServerErrorUpdateLoanPreferenceException(
-      HttpCalloutResponse response
-    ) {
-      this(response.error.getMessage());
-      Logger.error(
-          'HTTP ' +
-            response.statusCode +
-            ' Error from UpdateLoanPreference Service',
-          response.error
-        )
-        .save();
-    }
-  }
-
-  /**
-   * @description Exception class for Unhandled UpdateLoanPreference
-   */
-  public class UnhandledUpdateLoanPreferenceException extends Exception {
-    /**
-     * @description Exception class for Unhandled UpdateLoanPreference
-     * @param response HttpCalloutResponse
-     */
-    public UnhandledUpdateLoanPreferenceException(
-      HttpCalloutResponse response
-    ) {
-      this(response.error.getMessage());
-      Logger.error(
-          'UnhandledUpdateLoanPreferenceException LoanPreferenceService: UpdateLoanPreference',
-          response.error
-        )
+      Logger.error('UnhandledException from  ' + serviceName, response.error)
         .save();
     }
   }

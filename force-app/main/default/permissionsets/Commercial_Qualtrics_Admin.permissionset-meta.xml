@@ -50,6 +50,11 @@
         <field>qualtrics__Survey_Response__c.NPS_Groups__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>User.Lan_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Commercial Qualtrics Admin</label>
     <objectPermissions>

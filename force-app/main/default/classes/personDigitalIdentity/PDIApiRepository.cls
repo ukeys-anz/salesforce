@@ -55,7 +55,11 @@ public with sharing class PDIApiRepository extends RepositoryBase {
    * @param name The name of the access control to be deleted.
    */
   public void deleteAccessControl(String customerUuid, String name) {
-    super.processResponse(SERVICE.deleteAccessControl(customerUuid, name));
+    HttpCalloutResponse res = SERVICE.deleteAccessControl(customerUuid, name);
+    if (res.statusCode == 404) {
+      return;
+    }
+    super.processResponse(res);
   }
 
   /**

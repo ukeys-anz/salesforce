@@ -66,7 +66,7 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
       }
     } else {
       if (response.statusCode == 500) {
-        Logger.error(FAILURE_MESSAGE, response.error, Logger.Severity.HIGH);
+        Logger.error(FAILURE_MESSAGE, response.error);
       }
       throw CommonUtil.logException(response);
     }

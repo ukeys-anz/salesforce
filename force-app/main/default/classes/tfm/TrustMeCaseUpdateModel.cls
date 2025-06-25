@@ -32,6 +32,18 @@ public with sharing class TrustMeCaseUpdateModel extends CalloutModel {
    */
   public Checks checks { get; set; }
   /**
+   * @description case_id
+   */
+  public String case_id { get; set; }
+  /**
+   * @description qa_review_state
+   */
+  public String qa_review_state { get; set; }
+  /**
+   * @description kyc_reverification_id
+   */
+  public String kyc_reverification_id { get; set; }
+  /**
    * @description checks
    */
   public class Checks {
@@ -67,6 +79,7 @@ public with sharing class TrustMeCaseUpdateModel extends CalloutModel {
      * @description kyc_info_and_id_doc_type
      */
     public Boolean kyc_info_and_id_doc_type { get; set; }
+    
   }
 
   /**
