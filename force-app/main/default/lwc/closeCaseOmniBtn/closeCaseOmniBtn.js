@@ -14,19 +14,20 @@ export default class CloseCaseOmniBtn extends LightningElement {
     fields: [IS_THIS_A_COMPLAINT_ABOUT_A_COMPLAINT]
   })
   caseData({ data }) {
-    if (data) {
-      this.isComplaintAboutComplaint = getFieldValue(
-        data,
-        IS_THIS_A_COMPLAINT_ABOUT_A_COMPLAINT
-      );
-      if ([null, "Yes"].includes(this.isComplaintAboutComplaint)) {
-        return;
-      }
-      this.dispatchEvent(new CloseActionScreenEvent());
-      let errorMsg =
-        "Review the following fields: Resolution Information Section: Is this a complaint about a complaint? CAC Sub Category, Review Outcome of Original Complaint. These fields can only be completed when the Subsequent Issue Type 1, 2 or 3 is 'Failure to properly respond to complaint'.";
-      showToast(this, "Error Closing Case", errorMsg, "", "error");
+    if (!data) {
+      return;
     }
+    this.isComplaintAboutComplaint = getFieldValue(
+      data,
+      IS_THIS_A_COMPLAINT_ABOUT_A_COMPLAINT
+    );
+    if ([null, "Yes"].includes(this.isComplaintAboutComplaint)) {
+      return;
+    }
+    this.dispatchEvent(new CloseActionScreenEvent());
+    let errorMsg =
+      "Review the following fields: Resolution Information Section: Is this a complaint about a complaint? CAC Sub Category, Review Outcome of Original Complaint. These fields can only be completed when the Subsequent Issue Type 1, 2 or 3 is 'Failure to properly respond to complaint'.";
+    showToast(this, "Error Closing Case", errorMsg, "", "error");
   }
 
   get showOmni() {
