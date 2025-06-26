@@ -9,7 +9,7 @@
     <picklistValues>
         <picklist>AFCA_Stage__c</picklist>
         <values>
-            <fullName>Fast track Case Management</fullName>
+            <fullName>Fast track case management</fullName>
             <default>false</default>
         </values>
         <values>

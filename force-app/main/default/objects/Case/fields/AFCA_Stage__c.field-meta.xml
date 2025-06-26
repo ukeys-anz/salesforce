@@ -82,9 +82,9 @@
                 <label>Jurisdiction</label>
             </value>
             <value>
-                <fullName>Fast track Case Management</fullName>
+                <fullName>Fast track case management</fullName>
                 <default>false</default>
-                <label>Fast track Case Management</label>
+                <label>Fast track case management</label>
             </value>
             <value>
                 <fullName>Fast track decision</fullName>
