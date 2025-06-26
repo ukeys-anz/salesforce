@@ -350,8 +350,7 @@ public with sharing class IDREmailServiceHelper {
       Title = fileName,
       PathOnClient = fileName,
       VersionData = data,
-      RecordTypeId = QueryRT.of(ContentVersion.SObjectType)
-        .getId('IDR_Attachment')
+      RecordTypeId = RTContentVersion.idrAttachment
     );
   }
 }

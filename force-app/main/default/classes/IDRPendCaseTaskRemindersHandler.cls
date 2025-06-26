@@ -27,10 +27,6 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
     );
     List<IDRBankerNotificationWrapper> wrapperList = new List<IDRBankerNotificationWrapper>();
     for (Task task : taskList) {
-      Set<Id> recipientList = new Set<Id>{
-        task.OwnerId,
-        caseMap.get(task.WhatId).OwnerId
-      };
       String msgBody = getPendTaskBody(
         Integer.valueOf(task.Due_in_Days__c),
         caseMap.get(task.WhatId).CaseNumber
@@ -38,6 +34,10 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
       if (String.isBlank(msgBody)) {
         continue;
       }
+      Set<Id> recipientList = new Set<Id>{
+        task.OwnerId,
+        caseMap.get(task.WhatId).OwnerId
+      };
       IDRBankerNotificationWrapper wrapper = new IDRBankerNotificationWrapper(
         task,
         new List<Id>(recipientList),
@@ -60,15 +60,17 @@ public with sharing class IDRPendCaseTaskRemindersHandler {
     Integer taskDueDays,
     String relatedCaseNumber
   ) {
+    String dueTaskTemplate = 'Pend Task for Case : {0} is due in {1} Days.';
+    String overdueTaskTemplate = 'Pend Task for Case : {0} is Overdue.';
+    List<Object> pendTaskParams = new List<Object>{
+      relatedCaseNumber,
+      taskDueDays
+    };
     if (PEND_TASK_REMINDER_WINDOW.contains(String.valueOf(taskDueDays))) {
-      return 'Pend Task for Case : ' +
-        relatedCaseNumber +
-        ' is due in ' +
-        taskDueDays +
-        ' Days.';
+      return String.format(dueTaskTemplate, pendTaskParams);
     }
     if (taskDueDays < 0) {
-      return 'Pend Task for Case : ' + relatedCaseNumber + ' is Overdue.';
+      return String.format(overdueTaskTemplate, pendTaskParams);
     }
     return '';
   }

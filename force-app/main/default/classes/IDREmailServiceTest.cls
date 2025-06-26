@@ -263,8 +263,7 @@ public with sharing class IDREmailServiceTest {
         Title = 'DummyDoc.txt',
         PathOnClient = 'DummyDoc.txt',
         VersionData = Blob.valueOf('Attachment'),
-        RecordTypeId = QueryRT.of(ContentVersion.SObjectType)
-          .getId('IDR_Attachment')
+        RecordTypeId = RTContentVersion.idrAttachment
       ),
       cv,
       'Both ContentVersion record are same'
