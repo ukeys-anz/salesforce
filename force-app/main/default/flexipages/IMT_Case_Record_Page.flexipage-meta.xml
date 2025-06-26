@@ -656,16 +656,6 @@
                 <identifier>RecordSubjectField</identifier>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.StopStartDate</fieldItem>
-                <identifier>RecordStopStartDateField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-3e38886c-3bb2-4ffc-965b-944761dff6d0</name>
         <type>Facet</type>
     </flexiPageRegions>
