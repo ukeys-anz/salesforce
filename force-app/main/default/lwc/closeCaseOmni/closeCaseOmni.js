@@ -12,10 +12,11 @@ const VALIDATION_MSG =
   "Review the following field: Is this a complaint about a complaint? If 'Yes', complete CAC Sub Category, Review Outcome of Original Complaint and Parent Case fields. If 'No', CAC Sub Category, Review Outcome of Original Complaint fields must be blank.";
 const USER_VALIDATION_MSG =
   "Review the following fields: \n" +
-  "Resolution Information Section \n" +
+  "<b>Resolution Information Section</b> \n" +
   "Is this a complaint about a complaint? \n" +
   "CAC Sub Category \n" +
   "Review Outcome of Original Complaint. \n" +
+  "\n" +
   "These fields can only be completed when the Subsequent Issue Type 1, 2 or 3 is 'Failure to properly respond to complaint' otherwise all field must be 'None'";
 export default class CloseCaseOmni extends OmniscriptBaseMixin(
   LightningElement
