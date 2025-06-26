@@ -4,6 +4,7 @@
  * @description  IDRTaskTriggerHandler is the handler class for Handling task actions.
  */
 public class IDRTaskTriggerHandler extends Lib_TriggerHandler {
+  private static final String IDR_TASK_SUBJECT = 'Please Review PSI';
   Set<Id> eligibleRecordTypes = new Set<Id>{
     RTTask.idrTask,
     RTTask.idrSystemTask
@@ -28,14 +29,19 @@ public class IDRTaskTriggerHandler extends Lib_TriggerHandler {
    * @description onAfterInsert to handle after Insert trigger actions.
    */
   public override void onAfterInsert() {
-    set<Id> allowedQueues = new Set<Id>{
-      QueryQueue.get('Admin_Requests').Id,
-      QueryQueue.get('Systemic_Issue_Team').Id
-    };
-    List<Task> filteredTasks = ListUtil.filter(records)
-      .anyEqual(new Set<SObjectField>{ Task.OwnerId }, allowedQueues)
-      .toList();
+    List<Task> filteredTasksToProcess = new List<Task>();
+    filteredTasksToProcess.addAll(
+      (List<Task>) ListUtil.filter(records)
+        .equals(Task.Subject, IDR_TASK_SUBJECT)
+        .equals(Task.OwnerId, QueryQueue.get('Systemic_Issue_Team').Id)
+        .toList()
+    );
+    filteredTasksToProcess.addAll(
+      (List<Task>) ListUtil.filter(records)
+        .equals(Task.OwnerId, QueryQueue.get('Admin_Requests').Id)
+        .toList()
+    );
 
-    IDRTaskSendNotification.sendNotifications(filteredTasks);
+    IDRTaskSendNotification.sendNotifications(filteredTasksToProcess);
   }
 }
