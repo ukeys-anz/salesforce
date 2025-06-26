@@ -60,7 +60,7 @@ jobs:
           # set the service_account
           if [ "${{inputs.prod_deployment}}" == "true" ]; then
             echo "service_account=h-sf-primary-prod@anz-x-bootstrap-prod-3b7a6d.iam.gserviceaccount.com" >> $GITHUB_OUTPUT
-          else 
+          else
             echo "service_account=h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com" >> $GITHUB_OUTPUT
           fi
 

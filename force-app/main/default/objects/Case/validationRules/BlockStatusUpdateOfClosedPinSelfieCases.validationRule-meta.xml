@@ -9,7 +9,8 @@ OR(
   RecordType.DeveloperName == &apos;PIN_Recovery&apos;,
   RecordType.DeveloperName == &apos;Selfie_Recovery&apos;,
   RecordType.DeveloperName == &apos;TrustMe_eIDV_QA_Case&apos;,
-  RecordType.DeveloperName == &apos;TrustMe_eIDV_Case&apos;
+  RecordType.DeveloperName == &apos;TrustMe_eIDV_Case&apos;,
+  RecordType.DeveloperName == &apos;ReKYC_QA_Case&apos;
 ),
 IsClosed
 )</errorConditionFormula>

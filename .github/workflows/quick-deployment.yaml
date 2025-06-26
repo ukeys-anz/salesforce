@@ -18,7 +18,7 @@ jobs:
   Quick-Deployment:
     if: ${{ github.event.pull_request.merged == true }}
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.4.0"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.5.0"
       options: --user root
     runs-on: anzx-default-np
     steps:
@@ -73,7 +73,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: anzx/salesforce-plugin
-          token: ${{ secrets.SALESFORCE_ACTIONS_CHECKOUT_TOKEN }}
+          token: ${{ secrets.SALESFORCE_PLUGIN_CHECKOUT_TOKEN }}
           path: salesforce-plugin
 
       - name: Install plugin

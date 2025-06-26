@@ -123,6 +123,26 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>Circle Of Influences</pluralLabel>
+    <profileSearchLayouts>
+        <fields>NAME</fields>
+        <fields>COI_Type__c</fields>
+        <fields>First_Name__c</fields>
+        <fields>Last_Name__c</fields>
+        <fields>Mobile__c</fields>
+        <fields>Email__c</fields>
+        <fields>OWNER.ALIAS</fields>
+        <profileName>ANZ CCRM Standard User</profileName>
+    </profileSearchLayouts>
+    <profileSearchLayouts>
+        <fields>NAME</fields>
+        <fields>COI_Type__c</fields>
+        <fields>First_Name__c</fields>
+        <fields>Last_Name__c</fields>
+        <fields>Mobile__c</fields>
+        <fields>Email__c</fields>
+        <fields>OWNER.ALIAS</fields>
+        <profileName>System Administrator</profileName>
+    </profileSearchLayouts>
     <searchLayouts/>
     <sharingModel>Private</sharingModel>
     <visibility>Public</visibility>

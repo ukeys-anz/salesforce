@@ -10,17 +10,19 @@ public with sharing class UserActionsRepository {
    * @name getUserMapFromUserIds
    * @param idsofUserIds ids of sObject records
    * @return Map<Id, User> map of sObject records
-   * @description  method to get map of users for given set of ids
+   * @description  method to get map of users for given set of ids.
    */
   public Map<Id, User> getUserMapFromUserIds(Set<ID> idsofUserIds) {
-    if (!Schema.sObjectType.User.isQueryable()) {
-      return new Map<Id, User>();
-    }
     if (idsofUserIds.isEmpty()) {
       return new Map<Id, User>();
     }
     return new Map<Id, User>(
-      [SELECT Id, Username, profile.Name FROM User WHERE Id IN :idsofUserIds]
+      [
+        SELECT Id, Username, profile.Name, Name, Email, UserRoleId, Lan_Id__c
+        FROM User
+        WHERE Id IN :idsofUserIds
+        WITH SYSTEM_MODE
+      ]
     );
   }
 

@@ -34,7 +34,7 @@
             <value>
                 <fullName>Simple</fullName>
                 <default>false</default>
-                <label>Simple</label>
+                <label>No Advice Interactions</label>
             </value>
             <value>
                 <fullName>Complex</fullName>
@@ -80,6 +80,26 @@
                 <fullName>Letter Review Assessment</fullName>
                 <default>false</default>
                 <label>Letter Review Assessment</label>
+            </value>
+            <value>
+                <fullName>Home Loan</fullName>
+                <default>false</default>
+                <label>Home Loan</label>
+            </value>
+            <value>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+                <label>Credit Card</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Appointment</fullName>
+                <default>false</default>
+                <label>Appointment</label>
             </value>
         </valueSetDefinition>
     </valueSet>

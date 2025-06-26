@@ -48,7 +48,7 @@ private class PDIAccessControlDataRepositoryTest {
     repo.doDelete(apiRecord.name);
     Test.stopTest();
 
-    String inputUuid = (String) mockRepo.getHistory('deletePublicKeyCredential')
+    String inputUuid = (String) mockRepo.getHistory('deleteAccessControl')
       ?.getParam('customerUuid');
     Assert.areEqual(
       '4b5c3dcf-c60b-442c-b614-cc8993dd2787',

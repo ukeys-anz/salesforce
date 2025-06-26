@@ -76,26 +76,20 @@ export default class LoanPreferenceDeleteCashOutPurpose extends LightningModal {
     })
       .then((response) => {
         this.calloutResponse = response;
-        if (this.calloutResponse.successful) {
+        if (response) {
           showToast(this, "", TOAST_SUCCESS_MSG, "", "Success", "dismissable");
           publish(this.messageContext, RefreshLoanPreference, {
             refresh: true
           });
-        } else {
-          if (this.calloutResponse.message === "") {
-            this.calloutResponse.message = TOAST_ERROR_MSG;
-          }
-          handleErrorShowToast(
-            this,
-            "",
-            "",
-            this.calloutResponse.message,
-            "pester"
-          );
         }
       })
       .catch((error) => {
-        handleErrorShowToast(this, "", error, TOAST_ERROR_MSG, "pester");
+        let errorMessage = TOAST_ERROR_MSG;
+        if (error?.body?.message !== "Failed to update loan preference") {
+          errorMessage = error.body.message;
+        }
+
+        handleErrorShowToast(this, "", null, errorMessage, "pester");
       })
       .finally(() => {
         this.componentSpinner = false;

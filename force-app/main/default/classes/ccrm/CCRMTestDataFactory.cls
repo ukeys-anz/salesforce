@@ -933,7 +933,7 @@ public with sharing class CCRMTestDataFactory {
     for (Integer i = 1; i <= count; i++) {
       Campaign campaignRecord = new Campaign();
       campaignRecord.Name = 'CRM Manual Leads';
-      campaignRecord.Code__c = System.Label.CCRM_DefaultCampaign;
+      campaignRecord.Code__c = System.Label.Commercial_DefaultCampaign;
       campaignRecord.Type = 'Targeted Offer';
       campaignRecord.StartDate = System.today();
       campaignRecord.EndDate = campaignRecord.StartDate.addMonths(1);

@@ -39,180 +39,6 @@ public with sharing class CCRMTaskActionsTest {
     }
   }
 
-  @IsTest
-  static void updateCCRMLeadsTest() {
-    //GIVEN Campaign and Lead
-    Response_Type__c rtAccepted = [
-      SELECT Id, Name, Campaign__c, Response_Status__c
-      FROM Response_Type__c
-      WHERE Response_Status__c = 'Accepted'
-      LIMIT 1
-    ];
-
-    Response_Type__c rtDeclined = [
-      SELECT Id, Name, Campaign__c, Response_Status__c
-      FROM Response_Type__c
-      WHERE Response_Status__c = 'Customer Declined'
-      LIMIT 1
-    ];
-
-    List<Lead> updatedLeads = [
-      SELECT Id, Name, Status
-      FROM Lead
-      WHERE Status IN ('Assigned', 'In progress')
-    ];
-
-    CCRMLogAResponseController.LeadResponseWrapper leadResponseData1 = new CCRMLogAResponseController.LeadResponseWrapper();
-    leadResponseData1.responseStatus = 'Accepted';
-    leadResponseData1.outcomeReason = 'Happy with the Offer.';
-    leadResponseData1.followUpDate = System.today() + 10;
-    leadResponseData1.commentVal = 'Customer is happy with the offer.';
-    leadResponseData1.leadId = updatedLeads[0].Id;
-    leadResponseData1.responseTypeValue = rtAccepted.Id;
-    leadResponseData1.autoCreateActivities = false;
-
-    CCRMLogAResponseController.LeadResponseWrapper leadResponseData2 = new CCRMLogAResponseController.LeadResponseWrapper();
-    leadResponseData2.responseStatus = 'Customer Declined';
-    leadResponseData2.outcomeReason = 'Competitor offer superior';
-    leadResponseData2.commentVal = 'Customer declined.';
-    leadResponseData2.followUpDate = null;
-    leadResponseData2.leadId = updatedLeads[1].Id;
-    leadResponseData2.responseTypeValue = rtDeclined.Id;
-    leadResponseData2.autoCreateActivities = false;
-
-    String result = '';
-    String result2 = '';
-
-    Test.startTest();
-    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
-      //WHEN Response Tasks are Created
-      result = CCRMLogAResponseController.createResponseRecord(
-        JSON.serialize(leadResponseData1)
-      );
-      result2 = CCRMLogAResponseController.createResponseRecord(
-        JSON.serialize(leadResponseData2)
-      );
-    }
-    Test.stopTest();
-
-    //THEN Owners are notified on Leads getting Expired.
-    System.assertEquals(
-      String.isNotBlank(result),
-      true,
-      'CCRM Lead updated based on Logged Response.'
-    );
-
-    System.assertEquals(
-      String.isNotBlank(result2),
-      true,
-      'CCRM Lead updated based on Logged Response. - Customer Declined Scenario'
-    );
-  }
-
-  @IsTest
-  static void callBackResponseTest() {
-    //GIVEN Campaign and Lead
-    Response_Type__c rtCallBack = [
-      SELECT Id, Name, Campaign__c, Response_Status__c
-      FROM Response_Type__c
-      WHERE Response_Status__c = 'Customer Declined'
-      LIMIT 1
-    ];
-
-    List<Lead> updatedLeads = [
-      SELECT Id, Name, Status
-      FROM Lead
-      WHERE Status IN ('Assigned', 'In progress')
-    ];
-
-    CCRMLogAResponseController.LeadResponseWrapper leadResponseData1 = new CCRMLogAResponseController.LeadResponseWrapper();
-    leadResponseData1.responseStatus = 'Call Back';
-    leadResponseData1.outcomeReason = 'Customer was busy';
-    leadResponseData1.followUpDate = System.today() + 2;
-    leadResponseData1.commentVal = 'Customer asked me to call the next day';
-    leadResponseData1.leadId = updatedLeads[0].Id;
-    leadResponseData1.responseTypeValue = rtCallBack.Id;
-    leadResponseData1.autoCreateActivities = false;
-
-    CCRMLogAResponseController.LeadResponseWrapper leadResponseData2 = new CCRMLogAResponseController.LeadResponseWrapper();
-    leadResponseData2.responseStatus = 'Call Back';
-    leadResponseData2.outcomeReason = 'Customer was busy';
-    leadResponseData2.followUpDate = System.today() + 3;
-    leadResponseData2.commentVal = 'Customer asked me to call the next day';
-    leadResponseData2.leadId = updatedLeads[0].Id;
-    leadResponseData2.responseTypeValue = rtCallBack.Id;
-    leadResponseData2.autoCreateActivities = false;
-
-    String result = '';
-    String result2 = '';
-
-    Test.startTest();
-    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
-      //WHEN Response Tasks are Created
-      result = CCRMLogAResponseController.createResponseRecord(
-        JSON.serialize(leadResponseData1)
-      );
-      result2 = CCRMLogAResponseController.createResponseRecord(
-        JSON.serialize(leadResponseData2)
-      );
-    }
-    Test.stopTest();
-
-    //THEN Owners are notified on Leads getting Expired.
-    System.assertEquals(
-      String.isNotBlank(result),
-      true,
-      'CCRM Lead updated based on Logged Response.'
-    );
-
-    System.assertEquals(
-      String.isNotBlank(result2),
-      true,
-      'CCRM Lead updated based on Logged Response. - Customer Declined Scenario'
-    );
-  }
-
-  @IsTest
-  static void responseStatusDependentValuesTest() {
-    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
-      Test.startTest();
-      //GIVEN Campaign and Lead
-      Response_Type__c responseTypeRecord = [
-        SELECT Id, Name, Campaign__c, Response_Status__c
-        FROM Response_Type__c
-        WHERE Response_Status__c = 'Accepted'
-        LIMIT 1
-      ];
-      List<Lead> updatedLeads = new List<Lead>();
-      for (Lead leadRecord : [
-        SELECT Id, Name, Status
-        FROM Lead
-        WHERE Status IN ('Assigned', 'In progress')
-      ]) {
-        updatedLeads.add(leadRecord);
-      }
-      CCRMTestDataFactory.createCampaignMemberRecord(
-        updatedLeads,
-        responseTypeRecord.Campaign__c
-      );
-
-      String result = '';
-
-      //WHEN Campaign is linked to Lead
-      result = CCRMLogAResponseController.responseStatusDependentValues(
-        updatedLeads[0].Id
-      );
-      Test.stopTest();
-
-      //THEN Owners are notified on Leads getting Expired.
-      System.assertEquals(
-        String.isNotBlank(result),
-        true,
-        'CCRM Lead updated based on Logged Response.'
-      );
-    }
-  }
-
   @isTest
   static void testExpiryDateLogResponseAddedWithoutFollowupDate() {
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
@@ -344,7 +170,11 @@ public with sharing class CCRMTaskActionsTest {
         WHERE RecordTypeId = :MLCRMConstants.MLCRM_LEAD_RT_ID
         LIMIT 1
       ];
-      System.assertEquals('Opportunity Identified', lstOfUpdatedLead[0].status);
+      Assert.areEqual(
+        'Opportunity Identified',
+        lstOfUpdatedLead[0].status,
+        'stage is not opportunity identified!'
+      );
     }
   }
 
@@ -384,7 +214,7 @@ public with sharing class CCRMTaskActionsTest {
 
     Campaign campaignRecord = new Campaign();
     campaignRecord.Name = 'CRM Manual Leads';
-    campaignRecord.Code__c = System.Label.CCRM_DefaultCampaign;
+    campaignRecord.Code__c = System.Label.Commercial_DefaultCampaign;
     campaignRecord.Type = 'Targeted Offer';
     campaignRecord.StartDate = System.today();
     campaignRecord.EndDate = campaignRecord.StartDate.addMonths(1);

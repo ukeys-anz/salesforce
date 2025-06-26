@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ExtraCare__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>To identify if the individual customer had Extra Care Needs</description>
+    <formula>IF(
+    OR(   ISBLANK(TEXT(FinServ__RelatedAccount__r.ExtraCareTimePeriod__c)),
+          ISPICKVAL(FinServ__RelatedAccount__r.ExtraCareTimePeriod__c, &quot;Not required&quot;)
+       ),
+  false , true
+  )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Extra Care</label>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
