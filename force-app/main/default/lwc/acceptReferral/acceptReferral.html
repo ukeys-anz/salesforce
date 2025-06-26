@@ -1,0 +1,44 @@
+<template>
+  <lightning-quick-action-panel header="Change Lead Record Type">
+    <template lwc:if={isLoading}>
+      <lightning-spinner
+        alternative-text="Loading"
+        variant="brand"
+        size="small"
+        class="slds-is-relative slds-align_absolute-center"
+      ></lightning-spinner>
+    </template>
+    <template lwc:else>
+      <div class="slds-text-body_regular">{CONSTANT.HEADER_TEXT}</div>
+      <br />
+      <lightning-radio-group
+        name="radioGroup"
+        variant="label-inline"
+        label="Available record types"
+        options={recordTypeValues}
+        value={selectedValue}
+        onchange={handleChange}
+        class="recordTypes"
+        required
+      ></lightning-radio-group>
+      <div slot="footer" class="slds-text-align_right">
+        <lightning-button
+          label={CONSTANT.CANCEL}
+          onclick={handleCancel}
+          class="btnCancel"
+        >
+        </lightning-button
+        >&nbsp;&nbsp;
+        <lightning-button
+          variant="brand"
+          label={CONSTANT.SAVE}
+          name="save"
+          disabled={disableSave}
+          onclick={handleSave}
+          class="saveBtn"
+        >
+        </lightning-button>
+      </div>
+    </template>
+  </lightning-quick-action-panel>
+</template>

@@ -511,8 +511,7 @@ private class QualityAssessmentTriggerHandlerTest {
     qaRecords.add(qaRecord);
     Quality_Assessment__c qaRecord1 = new Quality_Assessment__c(
       RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_GETHELP_RT_ID,
-      //Related_Case__c = testCases[1].Id,
-      Evaluation_type__c = 'Email',
+      Evaluation_type__c = 'Simple',
       Interaction_Type__c = 'Email',
       Reference__c = REFERENCE_VALUE
     );
@@ -608,8 +607,7 @@ private class QualityAssessmentTriggerHandlerTest {
       qaRecords.add(qaRecord);
       Quality_Assessment__c qaRecord1 = new Quality_Assessment__c(
         RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_GETHELP_RT_ID,
-        //Related_Case__c = testCases[1].Id,
-        Evaluation_type__c = 'Email',
+        Evaluation_type__c = 'Simple',
         Interaction_Type__c = 'Email',
         Reference__c = REFERENCE_VALUE
       );

@@ -2327,6 +2327,12 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                <componentName>extraCareNotification</componentName>
+                <identifier>c_extraCareNotification</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>decorate</name>
                     <value>true</value>

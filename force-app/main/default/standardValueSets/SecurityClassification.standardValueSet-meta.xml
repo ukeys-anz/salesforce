@@ -17,6 +17,11 @@
         <label>Confidential</label>
     </standardValue>
     <standardValue>
+        <fullName>Customer Account Data</fullName>
+        <default>false</default>
+        <label>Customer_Account_Data</label>
+    </standardValue>
+    <standardValue>
         <fullName>Restricted</fullName>
         <default>false</default>
         <label>Restricted</label>

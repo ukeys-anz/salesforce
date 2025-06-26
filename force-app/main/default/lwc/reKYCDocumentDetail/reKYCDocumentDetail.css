@@ -1,0 +1,5 @@
+:host {
+  --slds-c-accordion-summary-color-background: #f3f3f3;
+  --slds-c-accordion-color-border: white;
+  --slds-c-accordion-sizing-border: 8px;
+}

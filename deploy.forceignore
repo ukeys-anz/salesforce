@@ -107,6 +107,10 @@ force-app/main/default/entitlementProcesses/complaints_v2.entitlementProcess-met
 force-app/main/default/entitlementProcesses/complaints_v7.entitlementProcess-meta.xml
 force-app/main/default/entitlementProcesses/complaints_v10.entitlementProcess-meta.xml
 force-app/main/default/entitlementProcesses/complaints_v11.entitlementProcess-meta.xml
+force-app/main/default/milestoneTypes/Mail Outcome Letter - Due.milestoneType-meta.xml
+force-app/main/default/layouts/IDR_Omni_Settings_CMOS__mdt-IDR Omni Settings CMOS Layout.layout-meta.xml
+force-app/main/default/entitlementProcesses/complaints.entitlementProcess-meta.xml
+force-app/main/default/objects/Case/fields/Outcome_Letter_to_be_sent_by_Mail__c.field-meta.xml
 force-app/main/default/entitlementProcesses/anz plus - basic subscription v1.entitlementProcess-meta.xml
 
 #to prevent issues when deploying looking for depracated process name

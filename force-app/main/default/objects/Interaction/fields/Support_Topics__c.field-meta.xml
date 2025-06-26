@@ -67,6 +67,11 @@
                 <label>App Guide</label>
             </value>
             <value>
+                <fullName>Applying for Home Loan</fullName>
+                <default>false</default>
+                <label>Applying for Home Loan</label>
+            </value>
+            <value>
                 <fullName>App security</fullName>
                 <default>false</default>
                 <label>App security</label>
@@ -145,6 +150,11 @@
                 <fullName>Confirmation of Payee</fullName>
                 <default>false</default>
                 <label>Confirmation of Payee</label>
+            </value>
+            <value>
+                <fullName>Connecting Data for Home Loan</fullName>
+                <default>false</default>
+                <label>Connecting Data for Home Loan</label>
             </value>
             <value>
                 <fullName>Create or Manage PayID</fullName>
@@ -237,6 +247,11 @@
                 <label>Fees &amp; Charges</label>
             </value>
             <value>
+                <fullName>Finances for Home Loan</fullName>
+                <default>false</default>
+                <label>Finances for Home Loan</label>
+            </value>
+            <value>
                 <fullName>Fraud</fullName>
                 <default>false</default>
                 <label>Fraud</label>
@@ -285,6 +300,11 @@
                 <fullName>Home Loan - Finances</fullName>
                 <default>false</default>
                 <label>Home Loan - Finances</label>
+            </value>
+            <value>
+                <fullName>Home Loan Preferences</fullName>
+                <default>false</default>
+                <label>Home Loan Preferences</label>
             </value>
             <value>
                 <fullName>Home Loan - Review &amp; Submit</fullName>
@@ -352,6 +372,11 @@
                 <label>Making payments</label>
             </value>
             <value>
+                <fullName>Managing Home Loan</fullName>
+                <default>false</default>
+                <label>Managing Home Loan</label>
+            </value>
+            <value>
                 <fullName>Managing Repayments</fullName>
                 <default>false</default>
                 <label>Managing Repayments</label>
@@ -392,6 +417,11 @@
                 <label>Proof of Amount</label>
             </value>
             <value>
+                <fullName>Property Valuation Outcome</fullName>
+                <default>false</default>
+                <label>Property Valuation Outcome</label>
+            </value>
+            <value>
                 <fullName>Raising a concern</fullName>
                 <default>false</default>
                 <label>Raising a concern</label>
@@ -422,6 +452,11 @@
                 <label>Renewal and Restructures</label>
             </value>
             <value>
+                <fullName>Review and Submit Home Loan</fullName>
+                <default>false</default>
+                <label>Review and Submit Home Loan</label>
+            </value>
+            <value>
                 <fullName>Round Ups</fullName>
                 <default>false</default>
                 <label>Round Ups</label>
@@ -435,6 +470,11 @@
                 <fullName>Savings Goals</fullName>
                 <default>false</default>
                 <label>Savings Goals</label>
+            </value>
+            <value>
+                <fullName>Settling Home Loan</fullName>
+                <default>false</default>
+                <label>Settling Home Loan</label>
             </value>
             <value>
                 <fullName>Statement Requests</fullName>

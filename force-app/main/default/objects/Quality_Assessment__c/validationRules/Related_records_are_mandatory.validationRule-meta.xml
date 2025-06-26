@@ -8,7 +8,9 @@
   OR(
     RecordType.DeveloperName = &apos;General&apos;,
     RecordType.DeveloperName = &apos;Get_Help&apos;,
-    RecordType.DeveloperName = &apos;Join&apos;),
+    RecordType.DeveloperName = &apos;Join&apos;,
+    RecordType.DeveloperName = &apos;Get_Help_Appointment&apos;
+),
   ISBLANK(Related_Case__c),
   ISBLANK(Reference__c),
   ISBLANK( Interaction__c )

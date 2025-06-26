@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Record_Type_Name__c</fullName>
+    <businessStatus>Hidden</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Name of the Lead Record Type</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Record Type Name</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>CCRM_Lead</fullName>
+                <default>true</default>
+                <label>CCRM_Lead</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
