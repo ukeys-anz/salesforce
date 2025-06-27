@@ -1191,6 +1191,9 @@
                         <valueListItems>
                             <value>CPID__c</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>ExtraCare__c</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>

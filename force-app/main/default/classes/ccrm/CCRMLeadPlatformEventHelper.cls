@@ -7,6 +7,9 @@
 public with sharing class CCRMLeadPlatformEventHelper {
   public static Map<String, Lead_Status_Transformation__mdt> leadStatusTransMap = new Map<String, Lead_Status_Transformation__mdt>();
   public static List<Task> leadTask;
+  private static final LeadActionsRepository LEAD_ACTION_REPOSITORY = (LeadActionsRepository) Lib_InstanceProvider.forType(
+    LeadActionsRepository.class
+  );
 
   /**
    * @description Return list of platform events for Response Log associated to lead
@@ -104,34 +107,39 @@ public with sharing class CCRMLeadPlatformEventHelper {
    * @param responseEventMapping List of Mapping defined in Custom Metadata
    * @param leadIds Set of Lead Ids
    * @return Map<Id, Task> Map of task with Leads Ids
+   * Note: query running in system mode as Mobile Lenders shouldn't have few task fields access which are applicable for Commercial Users
    */
   private static Map<Id, Task> getMapOfTask(
     List<CCRM_Lead_Response_Event_Mapping__mdt> responseEventMapping,
     Set<Id> leadIds
   ) {
-    Map<Id, Task> mapOfTask = new Map<Id, Task>();
-    String taskFields = '';
-    for (CCRM_Lead_Response_Event_Mapping__mdt mapping : responseEventMapping) {
-      if (
-        mapping.Object__c == 'Task' &&
-        mapping.Task_or_Lead_Field_API_Name__c != null &&
-        mapping.Platform_Event_Field_API_Name__c != null
-      ) {
-        taskFields += mapping.Task_or_Lead_Field_API_Name__c + ',';
-      }
-    }
+    List<CCRM_Lead_Response_Event_Mapping__mdt> leadResponseEventMapping = LEAD_ACTION_REPOSITORY.getLeadResponseToPlatformEventMappingMetadata();
+    List<CCRM_Lead_Response_Event_Mapping__mdt> filteredMappings = ListUtil.filter(
+        leadResponseEventMapping
+      )
+      .equals(CCRM_Lead_Response_Event_Mapping__mdt.Object__c, 'Task')
+      .isNotNull(
+        CCRM_Lead_Response_Event_Mapping__mdt.Task_or_Lead_Field_API_Name__c
+      )
+      .isNotNull(
+        CCRM_Lead_Response_Event_Mapping__mdt.Platform_Event_Field_API_Name__c
+      )
+      .toList();
+    List<String> taskFieldsSet = new List<String>(
+      ListUtil.getStrings(
+        filteredMappings,
+        CCRM_Lead_Response_Event_Mapping__mdt.Task_or_Lead_Field_API_Name__c
+      )
+    );
+    String taskFields = String.join(taskFieldsSet, ',');
 
     //Get ONLY latest task data for all the fields defined within custom metadata
     string query =
       'SELECT ' +
       taskFields +
-      ' WhoId, Response_Type__r.Unica_Lead_SubStatus__c FROM Task WHERE WhoId IN :leadIds order by createdDate desc LIMIT 1';
-
-    List<Task> tasks = Database.query(query);
-    for (Task task : tasks) {
-      mapOfTask.put(task.WhoId, task);
-    }
-    return mapOfTask;
+      ', WhoId, Response_Type__r.Unica_Lead_SubStatus__c FROM Task WHERE WhoId IN :leadIds order by createdDate desc LIMIT 1';
+    List<Task> tasks = LEAD_ACTION_REPOSITORY.getTaskRecords(query, leadIds);
+    return (Map<Id, Task>) ListUtil.mapBy(tasks, task.WhoId);
   }
 
   /**
@@ -204,23 +212,29 @@ public with sharing class CCRMLeadPlatformEventHelper {
    * @description This method get lead data to resend PE Lead Update event by Admin incase there is any error
    * @name getLeadData
    * @param leadIds Set of lead ids
-   * @return List<Lead> List of Lead records
+   * @return List<Lead> List of Lead records.
+   * Note: query running in system mode as Mobile Lenders shouldn't have Lead_Outcome__c field access
    */
   public static List<Lead> getLeadData(Set<Id> leadIds) {
-    List<CCRM_Lead_to_Platform_Event_Mapping__mdt> mappingsInCustomMetadata = CCRM_Lead_to_Platform_Event_Mapping__mdt.getall()
-      .Values();
-    string leadFields = '';
-    for (
-      CCRM_Lead_to_Platform_Event_Mapping__mdt mapping : mappingsInCustomMetadata
-    ) {
-      leadFields += mapping.Lead_Field_API_Name__c + ',';
-    }
-    string query =
-      'SELECT ' +
-      leadFields +
-      ' OwnerId, FinServ__RelatedAccount__c, Lead_Outcome__c, recordTypeId, LastModifiedById FROM Lead WHERE Id IN :leadIds';
-    List<Lead> leads = Database.query(query);
-    return leads;
+    List<CCRM_Lead_to_Platform_Event_Mapping__mdt> mappingsInCustomMetadata = LEAD_ACTION_REPOSITORY.getLeadToPlatformEventMappingMetadata();
+    List<String> commonLeadFields = new List<String>{
+      'OwnerId',
+      'FinServ__RelatedAccount__c',
+      'FinServ__ReferredByUser__c',
+      'Lead_Outcome__c',
+      'RecordTypeId',
+      'LastModifiedById'
+    };
+    List<String> leadFieldsSet = new List<String>(
+      ListUtil.getStrings(
+        mappingsInCustomMetadata,
+        CCRM_Lead_to_Platform_Event_Mapping__mdt.Lead_Field_API_Name__c
+      )
+    );
+    leadFieldsSet.addAll(commonLeadFields);
+    String leadFields = String.join(leadFieldsSet, ',');
+    String query = 'SELECT ' + leadFields + ' FROM Lead WHERE Id IN :leadIds';
+    return LEAD_ACTION_REPOSITORY.getLeadData(query, leadIds);
   }
 
   /**

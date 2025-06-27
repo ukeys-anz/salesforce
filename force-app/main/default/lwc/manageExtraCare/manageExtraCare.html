@@ -1,0 +1,116 @@
+<template>
+  <lightning-quick-action-panel header="Edit Customer Information">
+    <div lwc:if={isLoading}>
+      <lightning-spinner
+        alternative-text="Loading"
+        size="xx-small"
+      ></lightning-spinner>
+    </div>
+    <lightning-accordion
+      class="extra-care"
+      active-section-data-id="extra-care"
+      lwc:else
+    >
+      <lightning-accordion-section
+        data-id="extra-care"
+        label="Extra Care"
+        class="slds-section__title"
+      >
+        <lightning-combobox
+          data-id="ExtraCareTimePeriod__c"
+          value={newAccount.ExtraCareTimePeriod__c}
+          label="Time Period"
+          options={timePeriodOptions}
+          onchange={handler.handleChange}
+          disabled={disableTimePeriodValue}
+          required
+          class="input-class"
+        >
+        </lightning-combobox>
+
+        <lightning-dual-listbox
+          data-id="ExtraCareReason__c"
+          name="ExtraCareReason__c"
+          value={selectedReasons}
+          source-label="Available"
+          selected-label="Selected"
+          label="Reason(s)"
+          options={reasonOptions}
+          onchange={handler.handleChange}
+          disable-reordering
+          required
+          disabled={isDisabled}
+          class="input-class"
+        >
+        </lightning-dual-listbox>
+
+        <lightning-textarea
+          data-id="ExtraCareNotes__c"
+          value={newAccount.ExtraCareNotes__c}
+          label="Notes"
+          onchange={handler.handleChange}
+          required
+          disabled={isDisabled}
+          class="input-class"
+          field-level-help={notesHelpText}
+        >
+        </lightning-textarea>
+
+        <lightning-input
+          data-id="ExtraCareDisclosure__c"
+          checked={newAccount.ExtraCareDisclosure__c}
+          label="The customer has been advised we are recording their extra care needs."
+          type="checkbox"
+          onchange={handler.handleChange}
+          required
+          disabled={isDisabled}
+          class="input-class"
+        >
+        </lightning-input>
+
+        <lightning-input
+          lwc:if={showConsent}
+          data-id="ExtraCareConsent__c"
+          checked={newAccount.ExtraCareConsent__c}
+          label="The customer has consented to recording their sensitive extra care needs."
+          type="checkbox"
+          onchange={handler.handleChange}
+          required
+          disabled={isDisabled}
+          class="input-class"
+        >
+        </lightning-input>
+
+        <lightning-input
+          lwc:if={showReviewDate}
+          data-id="ExtraCareReviewDate__c"
+          value={newAccount.ExtraCareReviewDate__c}
+          label="Review Date"
+          onchange={handler.handleChange}
+          type="Date"
+          required
+          min={minReviewDate}
+          disabled={isDisabled}
+          class="input-class"
+        >
+        </lightning-input>
+      </lightning-accordion-section>
+    </lightning-accordion>
+
+    <div slot="footer">
+      <lightning-button
+        variant="neutral"
+        label="Cancel"
+        onclick={handler.cancel}
+        class="slds-m-around_small"
+      ></lightning-button>
+      <lightning-button
+        variant="brand"
+        label="Save"
+        onclick={handler.save}
+        class="slds-m-around_small"
+        disabled={disableSaveButton}
+      ></lightning-button>
+    </div>
+  </lightning-quick-action-panel>
+</template>

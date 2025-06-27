@@ -17,6 +17,11 @@ public without sharing class LeadConversionOperations {
   private static final String CONVERT_LEAD = 'ConvertLead';
   private static final String MLCRM = 'MLCRM';
   private static final String INDIVIDUAL = 'Individual';
+  private static final Set<String> LEAD_ORIGINATOR_FOR_PLATFORMEVENT = new Set<String>{
+    'UNICA',
+    'Adobe',
+    'CCRM'
+  };
 
   /**
    * @description convertLead convert leads
@@ -61,6 +66,15 @@ public without sharing class LeadConversionOperations {
     Map<Id, Id> mapOfAccountIdWithLeadForA2ZReview = getMapOfAccountIdWithLeadForA2ZReview(
       lcResult,
       leadRec
+    );
+    ID leadToCreateOpportunityTeamMember = getLeadIdToCreateOpportunityTeamMember(
+      lcResult,
+      leadRec
+    );
+    ID convertedOppId = mapOfOpportunityId.get(leadRec.Id);
+    createOpportunityTeamMemberRecord(
+      leadToCreateOpportunityTeamMember,
+      convertedOppId
     );
     transferA2ZReviewToOpportunity(
       mapOfAccountIdWithLeadForA2ZReview,
@@ -185,8 +199,7 @@ public without sharing class LeadConversionOperations {
   @testVisible
   private static Id getLeadIdForUnicaAdobeOnLC(Lead leadRecord) {
     if (
-      leadRecord.RecordTypeId != RTLead.mlcrmLead ||
-      leadRecord.Lead_Originator__c != MLCRM
+      LEAD_ORIGINATOR_FOR_PLATFORMEVENT.contains(leadRecord.Lead_Originator__c)
     ) {
       return leadRecord.id;
     }
@@ -244,6 +257,9 @@ public without sharing class LeadConversionOperations {
     Map<Id, Id> mapOfAccountIdWithLeadId,
     Map<Id, Id> mapOfOpportunityId
   ) {
+    if (mapOfAccountIdWithLeadId.isEmpty()) {
+      return;
+    }
     List<A_Z_Review__c> listOfA2ZReviews = A2ZREVIEW_REPOSITORY.fetchReviewsByLead(
       mapOfAccountIdWithLeadId.KeySet()
     );
@@ -303,5 +319,77 @@ public without sharing class LeadConversionOperations {
       orgContactList,
       new DmlConfig().allowPartial().systemMode()
     );
+  }
+
+  /**
+   * @description This is used to get the Lead Id
+   * @param lcResult
+   * @param leadRecord
+   * @return ID Id of lead record
+   */
+  @testVisible
+  private static ID getLeadIdToCreateOpportunityTeamMember(
+    Database.LeadConvertResult lcResult,
+    Lead leadRecord
+  ) {
+    if (
+      lcResult == null ||
+      lcResult.getLeadId() == null ||
+      leadRecord.RecordTypeId != RTLead.commercialLead
+    ) {
+      return null;
+    }
+    return lcResult.getLeadId();
+  }
+
+  /**
+   * @description This is used to add the Internal Referrer on Opportunity
+   * @param leadId lead id
+   * @param convertedOppId Id of opportunity
+   */
+  public static void createOpportunityTeamMemberRecord(
+    Id leadId,
+    Id convertedOppId
+  ) {
+    //Fetch the lead info
+    Lead lead = LEADCONV_REPOSITORY.fetchLeadInfo(leadId);
+
+    //Fix lead conversion issue as in case of ML the lead will not be fetched
+    if (lead == null) {
+      return;
+    }
+
+    //Generate the opp team member list that need to be created
+    OpportunityTeamMember oppTeamMember = generateOppTeamMember(
+      lead,
+      convertedOppId
+    );
+
+    //Inserting opp team member
+    DML_REPOSITORY.doInsert(oppTeamMember, new DmlConfig().systemMode());
+  }
+
+  /**
+   * @description This is used to generate the Opp Team Member List.
+   * @param leadRec lead record
+   * @param convertedOpportunityId Map of Lead and Opp Id
+   * @return opportunityTeamMember  Opp Team Members
+   */
+  @TestVisible
+  private static OpportunityTeamMember generateOppTeamMember(
+    Lead leadRec,
+    Id convertedOpportunityId
+  ) {
+    //Form a map of Commercial Segment picklist values and label
+    Map<String, String> userSegmentMap = CommonUtil.getPicklistLabelsByValues(
+      User.Commercial_Segment__c
+    );
+
+    OpportunityTeamMember oppTeamMember = new OpportunityTeamMember();
+    oppTeamMember.OpportunityId = convertedOpportunityId;
+    oppTeamMember.UserId = leadRec.FinServ__ReferredByUser__c;
+    oppTeamMember.TeamMemberRole = userSegmentMap
+      ?.get(leadRec?.FinServ__ReferredByUser__r?.Commercial_Segment__c);
+    return oppTeamMember;
   }
 }

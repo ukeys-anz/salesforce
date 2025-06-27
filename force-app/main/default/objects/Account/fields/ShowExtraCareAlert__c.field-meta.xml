@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ShowExtraCareAlert__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>This field is check for the Extra Care flag and check if the Extra Care Review Date is Due</description>
+    <formula>IF(
+        AND(
+            CONTAINS(LOWER(TEXT(ExtraCareTimePeriod__c)), &quot;temporarily required&quot;),
+            TODAY() &gt;= ExtraCareReviewDate__c 
+        ),
+        IF(
+            AND(
+                INCLUDES(ExtraCareReason__c, &quot;High Risk Scam Victim&quot;),
+                PICKLISTCOUNT(ExtraCareReason__c) == 1
+            ),
+            IF(($Permission.ManageExtraCareHighRiskScamVictim),TRUE, FALSE),
+            IF(($Permission.ManageExtraCare),TRUE, FALSE)
+        ), FALSE
+    )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Show Extra Care Alert?</label>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

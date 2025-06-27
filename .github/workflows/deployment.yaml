@@ -13,7 +13,7 @@ permissions:
 jobs:
   Deployment:
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.4.0"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.5.0"
       options: --user root
     runs-on: anzx-default-np
     steps:
@@ -82,6 +82,7 @@ jobs:
           sf plugins link .
 
       - name: Run Deployment
+        id: deployment
         working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/deployment.mjs "${{ steps.secrets.outputs.sfdxurl }}"
@@ -91,6 +92,15 @@ jobs:
         working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/deployment.mjs
+
+      - name: Publish Deployment Event
+        if: always() && !cancelled() && steps.deployment.outcome != 'skipped'
+        uses: anzx/github-reusable-actions/publish-deployment-event@main
+        with:
+          environment: "np"
+          service_name: "salesforce"
+          service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
+          event_status: ${{ steps.deployment.outcome }}
 
   Create-tag:
     runs-on: anzx-default

@@ -8,6 +8,7 @@ private class LeadConversionOperationsTest {
   static Lib_MockProvider leadConversionActionMock;
   static Lib_MockProvider a2zReviewRepoMock;
   static Lib_MockProvider dmlRepoMock;
+  static Lib_MockProvider leadConversionRepo;
   static Id idLead = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
   static void registerMocks() {
     dmlRepoMock = Lib_MockProvider.forType(DMLRepository.class);
@@ -15,6 +16,9 @@ private class LeadConversionOperationsTest {
       LeadConversionActionsRepository.class
     );
     a2zReviewRepoMock = Lib_MockProvider.forType(A2ZReviewRepository.class);
+    leadConversionRepo = Lib_MockProvider.forType(
+      LeadConversionActionsRepository.class
+    );
   }
 
   /**
@@ -502,6 +506,116 @@ private class LeadConversionOperationsTest {
     Assert.isFalse(
       dmlRepoMock.getHistories('doUpdate').isEmpty(),
       'transferA2ZReviewToOpportunity is not working properly'
+    );
+  }
+  @isTest
+  static void createOpportunityTeamMemberTest() {
+    registerMocks();
+    //GIVEN Lead List and Map of Lead and OpportunityId
+    Id leadId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id userId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    Lead lead = new Lead(
+      Id = leadId,
+      FinServ__ReferredByUser__c = userId,
+      FinServ__ReferredByUser__r = (User) TestUtil.setFields(
+        new User(Id = userId, Commercial_Segment__c = 'TB'),
+        new Map<String, Object>()
+      )
+    );
+    leadConversionRepo.mock('fetchLeadInfo', lead);
+
+    //WHEN calling a method
+    Test.startTest();
+    LeadConversionOperations.createOpportunityTeamMemberRecord(leadId, oppId);
+    Test.stopTest();
+
+    //THEN it should invoke do Insert method
+    Assert.isNotNull(
+      dmlRepoMock.getHistory('doInsert'),
+      'doInsert should have been invoked'
+    );
+
+    OpportunityTeamMember insertedRecord = (OpportunityTeamMember) dmlRepoMock.getHistory(
+        'doInsert'
+      )
+      .getParam('record');
+
+    //THEN it should create opportunity team member record
+    Assert.areEqual(
+      new OpportunityTeamMember(
+        OpportunityId = oppId,
+        UserId = userId,
+        TeamMemberRole = 'Transactional Banking'
+      ),
+      insertedRecord,
+      'New Opportunity Team Member should be created with the correct values'
+    );
+  }
+
+  @isTest
+  static void createOpportunityTeamMemberNegativeTest() {
+    registerMocks();
+    //GIVEN Lead List and Map of Lead and OpportunityId
+    Id leadId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Lead lead = new Lead(Id = leadId, FinServ__ReferredByUser__c = null);
+
+    leadConversionRepo.mock('fetchLeadInfo', lead);
+
+    //WHEN calling a method
+    Test.startTest();
+    LeadConversionOperations.createOpportunityTeamMemberRecord(leadId, oppId);
+    Test.stopTest();
+
+    //THEN it should invoke do Insert method
+    Assert.isNotNull(
+      dmlRepoMock.getHistory('doInsert'),
+      'doInsert should have been invoked'
+    );
+
+    OpportunityTeamMember insertedRecord = (OpportunityTeamMember) dmlRepoMock.getHistory(
+        'doInsert'
+      )
+      .getParam('record');
+
+    //THEN it should create opportunity team member record
+    Assert.areEqual(
+      null,
+      insertedRecord.TeamMemberRole,
+      'Opportunity Team member role is null'
+    );
+  }
+
+  @isTest
+  static void generateOppTeamMemberListTest() {
+    //GIVEN Lead List and Map of Lead and OpportunityId
+    Id leadId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id userId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+
+    Lead leadRec = new Lead(
+      Id = leadId,
+      FinServ__ReferredByUser__c = userId,
+      FinServ__ReferredByUser__r = (User) TestUtil.setFields(
+        new User(Id = userId, Commercial_Segment__c = 'TB'),
+        new Map<String, Object>()
+      )
+    );
+
+    //WHEN calling a method
+    Test.startTest();
+    OpportunityTeamMember oppTeamMember = LeadConversionOperations.generateOppTeamMember(
+      leadRec,
+      oppId
+    );
+    Test.stopTest();
+
+    //THEN it should return 1 Opportunity Team Member record
+    Assert.areEqual(
+      'Transactional Banking',
+      oppTeamMember.TeamMemberRole,
+      'Team member role is not Transactional Banking'
     );
   }
 }
