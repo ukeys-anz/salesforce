@@ -7,12 +7,6 @@ public with sharing class CCRMLogAResponseController {
   private static final String LOG_RESPONSE_ERROR_MESSAGE = 'Error Message: No permission to create Lead Response record. Lead Response is not logged.';
   private static final String TASK_STATUS_NEW = 'Open';
   private static final String TASK_SUBJECT = 'Customer Meeting';
-
-  private static final LogAResponseControllerRepository LOG_A_RESPONSE_REPO = (LogAResponseControllerRepository) Lib_InstanceProvider.forType(
-    LogAResponseControllerRepository.class
-  );
-
-  private static final String CUSTOMER_NOT_CONTACTED = 'Customer Not Contacted';
   /**
    * @description Fetch the list of DCRM Lead Response Conversation Guide metadata and Lead Stage Automation records
    * @name getLeadResponseGuidanceMapping
@@ -213,7 +207,8 @@ public with sharing class CCRMLogAResponseController {
           ABN__c,
           ACN__c,
           ABN_Validation_Status__c,
-          ACN_Validation_Status__c
+          ACN_Validation_Status__c,
+          RecordTypeId
         FROM Lead
         WHERE Id = :leadRespWrapper.leadId
       ];
@@ -276,6 +271,14 @@ public with sharing class CCRMLogAResponseController {
     responseRecord.Subject = leadRespWrapper.autoCreateActivities
       ? TASK_SUBJECT + ' - ' + validateLeadState.FinServ__ExpressedInterest__c
       : leadRespWrapper.responseStatus + ': ' + leadRespWrapper.outcomeReason;
+    // CC-8806, When Lead is ML then using Follow Up date only.
+    if (validateLeadState.RecordTypeId == RTLead.mlcrmLead) {
+      responseRecord.activityDate = leadRespWrapper.followUpDate;
+      responseRecord.Subject =
+        leadRespWrapper.responseStatus +
+        ': ' +
+        leadRespWrapper.outcomeReason;
+    }
     responseRecord.Description = leadRespWrapper.commentVal;
     responseRecord.recordTypeId = CCRMConstants.LEAD_RESPONSE_RT_ID;
     responseRecord.WhoId = Id.valueOf(leadRespWrapper.leadId);
@@ -293,34 +296,6 @@ public with sharing class CCRMLogAResponseController {
     } catch (Exception e) {
       Logger.error('Error occured while logging response', e);
       Logger.saveLog();
-      throw new AuraHandledException(e.getMessage());
-    }
-  }
-
-  /**
-   * @description To check if on Lead contact info required
-   * @name contactInfoNotRequired
-   * @param leadId Id of Lead
-   * @param responseStatus response status from logAResponse
-   * @return Boolean true if contact info not required, else false
-   */
-  @AuraEnabled
-  public static Boolean contactInfoNotRequired(
-    Id leadId,
-    String responseStatus
-  ) {
-    try {
-      Lead leadRec = LOG_A_RESPONSE_REPO.getLeadInfo(leadId);
-      Boolean hasPhone =
-        leadRec.Home_Phone__c != null ||
-        leadRec.MobilePhone != null ||
-        leadRec.Work_Phone__c != null;
-      Boolean hasContactInfo =
-        leadRec.Primary_Contact_Method__c != null && hasPhone;
-      return responseStatus == CUSTOMER_NOT_CONTACTED ||
-        leadRec.RecordTypeId == RTLead.mlcrmLead ||
-        hasContactInfo;
-    } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
     }
   }

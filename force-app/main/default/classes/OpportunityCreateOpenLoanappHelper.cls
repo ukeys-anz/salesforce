@@ -81,9 +81,8 @@ public with sharing class OpportunityCreateOpenLoanappHelper {
     sm.loan_application.properties = new List<LoanappModel.Properties>{ prop };
 
     //populate loan writer
-    User currUser = LOANAPP_CTRL_REPOSITORY.getCurrentUser();
     LoanappModel.Loan_writer lw = new LoanappModel.Loan_writer();
-    lw.lan_id = currUser?.Lan_Id__c;
+    lw.lan_id = opp.Owner.Lan_Id__c;
     lw.uid = generateRandomUid();
     sm.loan_application.loan_writer = lw;
     return sm;

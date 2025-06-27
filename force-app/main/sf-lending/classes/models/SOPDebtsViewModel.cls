@@ -352,6 +352,13 @@ public with sharing class SOPDebtsViewModel {
 
       this.homeLoanType = handleHomeLoanType(sourceData);
     }
+    //Determine the personal loan type based on the source data
+    if (
+      sourceData.type == 'LIABILITY_TYPE_PERSONAL_LOAN' &&
+      sourceData.sources[0] == 'LIABILITY_SOURCE_TYPE_ANZ'
+    ) {
+      this.rateType = TERM_TYPE.get(sourceData.termType);
+    }
   }
   /**
    * @description Set owner name

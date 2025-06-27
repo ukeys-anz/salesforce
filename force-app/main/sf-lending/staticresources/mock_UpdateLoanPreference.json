@@ -1,0 +1,231 @@
+{
+  "name": "",
+  "id": "",
+  "createTime": {
+    "seconds": 1,
+    "nanos": 1
+  },
+  "updateTime": {
+    "seconds": 1,
+    "nanos": 1
+  },
+  "expireTime": {
+    "seconds": 1,
+    "nanos": 1
+  },
+  "etag": "",
+  "state": "STATE_CAPTURE",
+  "needs": {
+    "updateTime": {
+      "seconds": 1,
+      "nanos": 1
+    },
+    "refinancingReason": "REFINANCING_REASON_PAY_LESS",
+    "purpose": "APPLICATION_PURPOSE_REFINANCE"
+  },
+  "needsAssessment": {
+    "createTime": {
+      "seconds": 1,
+      "nanos": 1
+    },
+    "updateTime": {
+      "seconds": 1,
+      "nanos": 1
+    },
+    "unsuitabilityReasons": ["UNSUITABILITY_REASON_RATE"],
+    "responses": [
+      {
+        "applicantId": "",
+        "response": ["ASSESSMENT_RESPONSE_PROCEED_ANZ_FEATURES_TOOLS"],
+        "createTime": {
+          "seconds": 1,
+          "nanos": 1
+        }
+      }
+    ]
+  },
+  "preferences": [
+    {
+      "uid": "",
+      "marketingCode": "",
+      "updateTime": {
+        "seconds": 1,
+        "nanos": 1
+      },
+      "loanAmount": {
+        "currencyCode": "ALL",
+        "units": 1,
+        "nanos": 1
+      },
+      "offset": true,
+      "interestRateType": "INTEREST_RATE_TYPE_FIXED",
+      "termMonths": 1,
+      "repaymentType": "REPAYMENT_TYPE_PRINCIPAL_INTEREST",
+      "margin": 1,
+      "repaymentFrequency": "REPAYMENT_FREQUENCY_WEEKLY",
+      "collateralAssessmentId": "",
+      "etag": "",
+      "maxAllowableLoanAmount": {
+        "currencyCode": "ALL",
+        "units": 1,
+        "nanos": 1
+      },
+      "ownerOccupied": {},
+      "predominantPurpose": "LENDING_PURPOSE_REFINANCE",
+      "funds": [
+        {
+          "uid": "",
+          "amount": {
+            "currencyCode": "ALL",
+            "units": 1,
+            "nanos": 1
+          },
+          "purpose": "LENDING_PURPOSE_REFINANCE",
+          "reason": ""
+        }
+      ],
+      "productType": "LOAN_PRODUCT_TYPE_OWNER_OCCUPIED",
+      "initialTermMonths": 1,
+      "propertyIds": [""],
+      "rbaLendingPurpose": "RBA_LENDING_PURPOSE_CONSTRUCTION",
+      "expectedSettlementDate": {
+        "year": {
+          "value": 1
+        },
+        "month": {
+          "value": 1
+        },
+        "day": {
+          "value": 1
+        }
+      }
+    }
+  ],
+  "households": [
+    {
+      "uid": "",
+      "applicants": [
+        {
+          "uid": "",
+          "createTime": {
+            "seconds": 1,
+            "nanos": 1
+          },
+          "updateTime": {
+            "seconds": 1,
+            "nanos": 1
+          },
+          "partyId": "",
+          "type": "APPLICANT_TYPE_BORROWER",
+          "livingStatus": "LIVING_STATUS_BOARD",
+          "personaId": "",
+          "submitTime": {
+            "seconds": 1,
+            "nanos": 1
+          },
+          "externalReferences": [""]
+        }
+      ],
+      "sop": ""
+    }
+  ],
+  "properties": [
+    {
+      "uid": "",
+      "propertyId": "",
+      "updateTime": {
+        "seconds": 1,
+        "nanos": 1
+      },
+      "fairMarketValue": {
+        "currencyCode": "ALL",
+        "units": 1,
+        "nanos": 1
+      },
+      "titleSearchId": "",
+      "titleReferenceNumbers": [
+        {
+          "state": "STATE_ACT",
+          "titleReference": ""
+        }
+      ],
+      "usage": "PROPERTY_USAGE_OWNER_OCCUPIED",
+      "collateralAssessmentId": "",
+      "approvalInPrinciple": true
+    }
+  ],
+  "refinanceLiabilities": [
+    {
+      "uid": "",
+      "liability": "",
+      "updateTime": {
+        "seconds": 1,
+        "nanos": 1
+      },
+      "outstandingBalance": {
+        "currencyCode": "ALL",
+        "units": 1,
+        "nanos": 1
+      },
+      "interestRate": 1,
+      "breakCosts": true,
+      "remainingTerm": 1,
+      "loanPreferenceIds": [""],
+      "account": ""
+    }
+  ],
+  "components": [
+    {
+      "component": "COMPONENT_TYPE_NEEDS",
+      "confirmable": true,
+      "confirmed": true,
+      "confirmations": [
+        {
+          "applicantId": "",
+          "confirmTime": {
+            "seconds": 1,
+            "nanos": 1
+          }
+        }
+      ]
+    }
+  ],
+  "creditEnquiryId": "",
+  "creditEnquiryAssessmentId": "",
+  "settlementId": "",
+  "changes": [
+    {
+      "changeType": "CHANGE_TYPE_EXTENDED_UNPAID_LEAVE",
+      "applicantIds": [""],
+      "createTime": {
+        "seconds": 1,
+        "nanos": 1
+      }
+    }
+  ],
+  "joint": true,
+  "ineligibleReasons": ["INELIGIBLE_REASON_SOP_INELIGIBLE"],
+  "originator": {
+    "tpmi": "",
+    "sao": ""
+  },
+  "creator": "",
+  "cancellation": {
+    "reasonCode": "REASON_CODE_OTHER_INSTITUTION",
+    "reason": "",
+    "cancelledBy": "",
+    "createTime": {
+      "seconds": 1,
+      "nanos": 1
+    }
+  },
+  "assessmentType": "ASSESSMENT_TYPE_SERVICEABILITY",
+  "loanWriter": {
+    "uid": "",
+    "lanId": ""
+  },
+  "branch": {
+    "bsb": ""
+  },
+  "externalReferences": [""]
+}

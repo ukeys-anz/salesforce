@@ -39,6 +39,7 @@ public with sharing class SOPGetConsolidatedViewModel {
   public SOPDebtsSummaryViewModel debtsSummaryViewModel;
   @AuraEnabled
   public SOPCreditBureauSummaryViewModel creditBureauSummaryViewModel;
+  public Map<String, SOPGetConsolidatedModel.Property> partyPropertyLookup = new Map<String, SOPGetConsolidatedModel.Property>();
 
   /**
    * @description constructor for SOPGetConsolidatedViewModel
@@ -60,6 +61,8 @@ public with sharing class SOPGetConsolidatedViewModel {
       assetsList,
       this.assetPropertyLookup
     );
+
+    setPartyCurrentAddress(apiModel, this.partyPropertyLookup);
 
     this.assetsSummaryViewModel = new SOPAssetsSummaryViewModel(
       assetsList,
@@ -94,7 +97,8 @@ public with sharing class SOPGetConsolidatedViewModel {
     this.expenseSummaryViewModel = new SOPExpenseSummaryViewModel(
       apiModel.monthlyExpensesSummary,
       apiModel.sop.expenseConfigVersion,
-      this.assetPropertyLookup
+      this.assetPropertyLookup,
+      this.partyPropertyLookup
     );
 
     this.debtsSummaryViewModel = new SOPDebtsSummaryViewModel(
@@ -141,6 +145,26 @@ public with sharing class SOPGetConsolidatedViewModel {
             apiModel.liabilitiesSummary.liabilitiesTotalAmount
           )
     };
+  }
+
+  /**
+   * @description Categorises party from the given API model into to get the related property address.
+   * @param apiModel The API model containing the assets to be categorized.
+   * @param partyPropertyLookup The map to store party's property by their address.
+   */
+  private void setPartyCurrentAddress(
+    SOPGetConsolidatedModel apiModel,
+    Map<String, SOPGetConsolidatedModel.Property> partyPropertyLookup
+  ) {
+    for (SOPGetConsolidatedModel.Parties partyProperty : apiModel.sop.parties) {
+      if (String.isBlank(partyProperty.currentResidence?.propertyId)) {
+        continue;
+      }
+      partyPropertyLookup.put(
+        partyProperty.currentResidence.propertyId,
+        partyProperty.currentResidence
+      );
+    }
   }
 
   /**

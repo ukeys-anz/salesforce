@@ -27,9 +27,9 @@
                 <label>Convenience</label>
             </value>
             <value>
-                <fullName>Customer Needs Change</fullName>
+                <fullName>Customer Need Change</fullName>
                 <default>false</default>
-                <label>Customer Needs Change</label>
+                <label>Customer Need Change</label>
             </value>
             <value>
                 <fullName>Declined by Credit</fullName>
@@ -96,7 +96,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Opportunity Lost</controllingFieldValue>
-            <valueName>Customer Needs Change</valueName>
+            <valueName>Customer Need Change</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Lost</controllingFieldValue>

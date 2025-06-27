@@ -111,6 +111,10 @@ public with sharing class InteractionRecordServiceController {
     public Boolean videoCall;
     @AuraEnabled
     public Boolean enableReinitiate;
+    @AuraEnabled
+    public String recordType;
+    @AuraEnabled
+    public String interactionType;
 
     /**
      * @description constructor of wrapper class to turn an interaction sobject into wrapper record
@@ -120,15 +124,17 @@ public with sharing class InteractionRecordServiceController {
       this.interactId = record.Id;
       this.interactName = record.Name;
       this.ownerName = record.Owner.Name;
-      this.actualTopic = String.isNotBlank(record.Actual_Topic_Formula__c)
-        ? record.Actual_Topic_Formula__c
+      this.actualTopic = String.isNotBlank(record.Actual_Topic__c)
+        ? record.Actual_Topic__c
         : String.isNotBlank(record.Support_Topics__c)
             ? record.Support_Topics__c
             : record.Interaction_Auto_Number__c;
       this.videoCall = record.Video_Call__c;
       this.status = record.Status__c;
       this.attendees = record.Attendees__c;
-      this.reasonOfVisit = record.Reason_for_Visit_Formula__c;
+      this.reasonOfVisit = String.isNotBlank(record.Reason_For_Visit__c)
+        ? record.Reason_For_Visit__c
+        : record.Interaction_Auto_Number__c;
       this.place = record.Place__c;
       this.accountId = record.AccountId;
       this.chatOrCallSid = record.Chat_or_Call_SID__c;
@@ -147,6 +153,8 @@ public with sharing class InteractionRecordServiceController {
       } else {
         this.enableReinitiate = true;
       }
+      this.recordType = record.RecordType.DeveloperName;
+      this.interactionType = record.InteractionType;
     }
   }
 }

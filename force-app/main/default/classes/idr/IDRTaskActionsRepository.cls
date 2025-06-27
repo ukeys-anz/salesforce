@@ -23,7 +23,7 @@ public with sharing class IDRTaskActionsRepository {
       return new List<Case>();
     }
     return [
-      SELECT Id, OwnerId
+      SELECT Id, OwnerId, CaseNumber
       FROM Case
       WHERE Id IN :caseIds
       WITH USER_MODE

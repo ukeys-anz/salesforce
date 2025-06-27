@@ -2,9 +2,12 @@
  * @author Mairaj H
  * @since  10/2022
  * @group CCRM (Commercial CRM)
- * @description CCRMUserActions is class to handle all the User Actions
+ * @description CCRMUserActions is class to handle all the User Actions.
  */
 public with sharing class CCRMUserActions {
+  private static final UserActionsRepository USER_ACTIONS_REPOSITORY = (UserActionsRepository) Lib_InstanceProvider.forType(
+    UserActionsRepository.class
+  );
   /**
    * @description This method gets the Lan Ids of lead owner and lead last modified user
    * @name getMapOfLanIds
@@ -22,9 +25,6 @@ public with sharing class CCRMUserActions {
         isLastModifiedUser ? record.LastModifiedById : record.OwnerId
       );
     }
-    Map<Id, User> mapOfLanId = new Map<Id, User>(
-      [SELECT ID, Lan_Id__c FROM User WHERE Id IN :leadOwnerIds]
-    );
-    return mapOfLanId;
+    return USER_ACTIONS_REPOSITORY.getUserMapFromUserIds(leadOwnerIds);
   }
 }

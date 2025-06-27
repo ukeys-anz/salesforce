@@ -19,6 +19,9 @@ public with sharing class COBCaseStatusPathController {
   private static final String CALLOUT_ERROR = 'Error occured during Temporal callout. Please contact your administrator';
   @TestVisible
   private static final String PERSONA_ID_ERROR = 'Persona ID is missing on a case. Please check again.';
+  private static final String PREVENT_DIRECT_UPDATE = 'Please review the document details in the PID screen and update the case status from there';
+  private static final String PREVENT_PID_OVERRIDE = 'You have previous actioned {pidStatus} in the PID, please update the case status accordingly';
+  private static final String PID_STATUS_KEY = '{pidStatus}';
 
   // Statuses with Callout API
   private static final List<String> COB_CASE_STATUSES_WITH_ENDPOINT = new List<String>{
@@ -50,16 +53,16 @@ public with sharing class COBCaseStatusPathController {
    * @description Trigger Temporal workflow based on case status
    * @param currentStatus Current status to revert to if update fails
    * @param cobCase Case with new fields data to be updated
-   * @param isAgentUpdateStatus flag to identify if method called from UI or not
+   * @param updatingAssistanceCase flag to identify if method called from ID Ops Assistance Case directly
    * @return COBCaseUpdateStatus: isUpdated -  True - If case is successfully updated, False - if successfuly updated with a callout or DML error; cobVerificationFailedReason to compare on client side
    */
   public static COBCaseUpdateStatus updateStatus(
     String currentStatus,
     Case cobCase,
-    Boolean isAgentUpdateStatus
+    Boolean updatingAssistanceCase
   ) {
     if (String.isEmpty(cobCase.PersonaId__c)) {
-      throw CommonUtil.logAuraException(PERSONA_ID_ERROR);
+      throw CommonUtil.logAuraExceptionInfo(PERSONA_ID_ERROR, cobCase.Id);
     }
 
     String validationError = COBCaseStatusValidator.validateCaseStatusChange(
@@ -67,28 +70,16 @@ public with sharing class COBCaseStatusPathController {
       cobCase
     );
     if (String.isNotEmpty(validationError)) {
-      throw CommonUtil.logAuraException(validationError);
+      throw CommonUtil.logAuraExceptionInfo(validationError, cobCase.Id);
     }
-    if (
-      isAgentUpdateStatus &&
-      RTCase.idOpsAssistance == cobCase.RecordTypeid &&
-      currentStatus == 'Daon Fallout' &&
-      System.Label.BlockManualStatusUpdateIdOpsCase == 'true'
-    ) {
-      String customerOnboardingApplicationId = cobCase.CustomerOnboardingApplication__c;
-      COBPrimaryIDDocument__c cobPIDRecord = WORKFLOW_REPOSITORY.getCOBPIDRecordUsingCOA(
-        customerOnboardingApplicationId
-      );
-      if (String.isEmpty(cobPIDRecord.Verification_Status__c)) {
-        validationError = 'Please review the document details in the PID screen and update the case status from there';
-        throw CommonUtil.logAuraException(validationError);
-      } else if (cobPIDRecord.Verification_Status__c != cobCase.Status) {
-        validationError =
-          'You have previous actioned ' +
-          cobPIDRecord.Verification_Status__c +
-          ' in the PID, please update the case status accordingly';
-        throw CommonUtil.logAuraException(validationError);
-      }
+
+    validationError = validationAgentActionWithPID(
+      currentStatus,
+      cobCase,
+      updatingAssistanceCase
+    );
+    if (String.isNotEmpty(validationError)) {
+      throw CommonUtil.logAuraExceptionInfo(validationError, cobCase.Id);
     }
 
     Boolean isCalloutSucccesful = makeTemporalCallout(
@@ -101,6 +92,32 @@ public with sharing class COBCaseStatusPathController {
       isCalloutSucccesful,
       cobCase.OnboardingVerificationFailedReason__c
     );
+  }
+
+  private static String validationAgentActionWithPID(
+    String currentStatus,
+    Case cobCase,
+    Boolean updatingAssistanceCase
+  ) {
+    Boolean allowCaseUpdate =
+      updatingAssistanceCase &&
+      cobCase.RecordTypeId == RTCase.idOpsAssistance &&
+      currentStatus == COBCaseConstants.COB_DAON_FALLOUT_STATUS &&
+      Label.BlockManualStatusUpdateIdOpsCase.equalsIgnoreCase('true');
+    if (allowCaseUpdate == false) {
+      return null;
+    }
+    COBPrimaryIDDocument__c pid = WORKFLOW_REPOSITORY.getCOBPIDRecordUsingCOA(
+      cobCase.CustomerOnboardingApplication__c
+    );
+    String pidStatus = pid.Verification_Status__c;
+    if (String.isEmpty(pidStatus)) {
+      return PREVENT_DIRECT_UPDATE;
+    }
+    if (pidStatus == cobCase.Status) {
+      return null;
+    }
+    return PREVENT_PID_OVERRIDE.replace(PID_STATUS_KEY, pidStatus);
   }
 
   /**
@@ -147,7 +164,7 @@ public with sharing class COBCaseStatusPathController {
         attempCount++;
         return makeTemporalCallout(currentStatus, cobCase, attempCount);
       }
-      Logger.error(
+      Logger.info(
         'Temporal Callout failed to update status: ' +
           cobCase.Status +
           ' for Case ' +
@@ -231,23 +248,19 @@ public with sharing class COBCaseStatusPathController {
    */
   @TestVisible
   private static void handleCaseUpdate(Case cobCase) {
-    //remove unneeded field
-    cobCase = new Case(
-      Id = cobCase.Id,
-      Status = cobCase.Status,
-      OnboardingVerificationFailedReason__c = cobCase.OnboardingVerificationFailedReason__c,
-      Status_Update_Error__c = cobCase.Status_Update_Error__c
-    );
-    //We need to update the Case record since cobCase may have Callout Error in the Status_Update_Error__c field in case of the callout has failed
-    List<Database.SaveResult> updateResults = DML_REPOSITORY.updateRecords(
-      new List<Case>{ cobCase },
-      DmlRepository.ALLOW_PARTIAL,
-      DmlRepository.USER_MODE
-    );
-
-    Database.SaveResult updateResult = updateResults[0]; //Since it's partial update, there will always be a result
-    if (updateResult.isSuccess() == false) {
-      throw new AuraHandledException(updateResult.getErrors()[0].getMessage());
+    try {
+      //We need to update the Case record since cobCase may have Callout Error in the Status_Update_Error__c field
+      // in case of the callout has failed. The case should have only the set of relevant fields
+      DML_REPOSITORY.doUpdate(
+        new Case(
+          Id = cobCase.Id,
+          Status = cobCase.Status,
+          OnboardingVerificationFailedReason__c = cobCase.OnboardingVerificationFailedReason__c,
+          Status_Update_Error__c = cobCase.Status_Update_Error__c
+        )
+      );
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
     }
   }
 

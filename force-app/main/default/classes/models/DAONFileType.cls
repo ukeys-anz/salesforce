@@ -13,5 +13,7 @@ public enum DAONFileType {
   DAON_FILE_TYPE_EXTRACTED_FACE,
   // The selfie image to be verified
   // Pin and Selfie recovery flow
-  DAON_FILE_TYPE_SELFIE_TO_BE_VERIFIED
+  DAON_FILE_TYPE_SELFIE_TO_BE_VERIFIED,
+  // ReKYC selfie
+  DAON_FILE_TYPE_SELFIE_ANZX_REKYC_FACE
 }

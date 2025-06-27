@@ -32,8 +32,11 @@ public with sharing class AutoKYCQACaseController {
     } catch (DmlException ex) {
       throw new AuraHandledException(MSG_ERROR_GENERIC_CHECK_COMPLETION);
     } catch (Exception ex) {
-      Logger.error(MSG_ERROR_GENERIC_CHECK_COMPLETION, ex);
-      throw new AuraHandledException(MSG_ERROR_GENERIC_CHECK_COMPLETION);
+      CommonUtil.logAuraExceptionInfo(
+        MSG_ERROR_GENERIC_CHECK_COMPLETION,
+        recordId,
+        ex
+      );
     } finally {
       Logger.debug('Check completion finished').save();
     }

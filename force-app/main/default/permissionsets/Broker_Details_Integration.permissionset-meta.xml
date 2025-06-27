@@ -1238,6 +1238,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LoanApplicationFinancial.Percentage_Deductible__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LoanApplicationFinancial.FinancialExtIdentifier</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1529,6 +1534,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ResidentialLoanApplication.Needs_Assessment_Unsuitability_Reasons__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.Property_Use__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

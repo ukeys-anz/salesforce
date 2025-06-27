@@ -372,7 +372,6 @@ public with sharing class OpportunityActions {
     List<Opportunity> lstOfOpp,
     Map<Id, Opportunity> oldOppMap
   ) {
-    List<Opportunity> oppErrorList = new List<Opportunity>();
     Set<String> duplicateLARSetLowercase = new Set<String>();
     List<Opportunity> filteredOppList = getFilteredOpportunitiesForLoanappReferenceNumber(
       lstOfOpp,
@@ -399,12 +398,31 @@ public with sharing class OpportunityActions {
           opp.Loanapp_Reference__c.toLowerCase()
         )
       ) {
-        duplicateLARSetLowerCase.add(opp.Loanapp_Reference__c);
+        duplicateLARSetLowerCase.add(opp.Loanapp_Reference__c.toLowerCase());
         continue;
       }
-      oppErrorList.add(opp);
+      opp.addError(DUPLICATE_LAR_ERROR);
     }
-    CommonUtil.raiseSobjectError(oppErrorList, DUPLICATE_LAR_ERROR);
+  }
+
+  /**
+   * @description update the OwnerId with the  Opportunity_Owner__c field
+   * @name transferOpportunityOwnership
+   * @param newOppList List of new lead records.
+   * @param oldOppMap Map of old lead records.
+   */
+  public static void transferOpportunityOwnership(
+    List<Opportunity> newOppList,
+    Map<Id, Opportunity> oldOppMap
+  ) {
+    List<Opportunity> filteredRecords = ListUtil.filter(newOppList, oldOppMap)
+      .isNotNull(Opportunity.Opportunity_Owner__c)
+      .changed(Opportunity.Opportunity_Owner__c)
+      .toList();
+
+    for (Opportunity record : filteredRecords) {
+      record.OwnerId = record.Opportunity_Owner__c;
+    }
   }
 
   /**

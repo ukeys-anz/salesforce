@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Application_Record_Type__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Application Form Record Type</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Application Record Type</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>AMBIT</fullName>
+                <default>true</default>
+                <label>AMBIT</label>
+            </value>
+            <value>
+                <fullName>CLP</fullName>
+                <default>false</default>
+                <label>CLP</label>
+            </value>
+            <value>
+                <fullName>BBD</fullName>
+                <default>false</default>
+                <label>BBD</label>
+            </value>
+            <value>
+                <fullName>Internal Application</fullName>
+                <default>false</default>
+                <label>Internal Application</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

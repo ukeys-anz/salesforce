@@ -46,6 +46,8 @@
     "Customer_Profile_Update_Event__e",
     "Customer_Relationship__c",
     "Customer_Dispute_Management__c",
+    "Customer_Task_Configuration__c",
+    "Customer_Task_Data__c",
     "Drawdown_Transaction__c",
     "Drawdown__c",
     "EConveyancing_Workspace__c",
@@ -568,6 +570,19 @@
       "type": "system"
     },
     {
+      "name": "Referral SF to iKnow Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Disable_MFA",
+        "Update_Referral_Export_Status",
+        "Bypass_TSP",
+        "CCRM_Marketing_Integration_User"
+      ],
+      "type": "system"
+    },
+    {
       "name": "Statutory Compliance Agent",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["Statutory_Compliance_Agent"],
@@ -706,6 +721,18 @@
       "type": "user"
     },
     {
+      "name": "Referral iKnow to SF Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Disable_MFA",
+        "Referral_iKnow_to_SF",
+        "CCRM_Marketing_Integration_User"
+      ],
+      "type": "system"
+    },
+    {
       "name": "SaaS Splunk Integration User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
@@ -724,6 +751,7 @@
       "permissionsets": [
         "API_Only",
         "Splunk_Integration_Tech_Ops",
+        "LogRecordAccess_Read",
         "Logs_Monitoring",
         "Disable_MFA"
       ],
@@ -1258,6 +1286,18 @@
       "type": "system"
     },
     {
+      "name": "AMBIT Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "Disable_MFA",
+        "API_Only",
+        "AMBIT_Data_Sync",
+        "Access_Application_Form_Related_Functionality"
+      ],
+      "type": "system"
+    },
+    {
       "name": "ML Data Migration Support User",
       "role": "ANZ Mobile Lending Support Team",
       "profile": "ANZ ML Standard User",
@@ -1280,9 +1320,668 @@
         "Disable_MFA",
         "Case_Read_Write_TrustMe_MV",
         "Case_Read_Write_TrustMe_QA",
-        "DAON_File_Integration"
+        "DAON_File_Integration",
+        "ReKYC_QA_Case_Permission_Set"
       ],
       "type": "system"
+    },
+    {
+      "name": "General Manager (CBO)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "State Head (CBO)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Area Manager (CBO)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Senior Business Banking Manager (CBO)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Senior Broker Account Manager (CBO)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Developing Broker Account Manager (CBO)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Broker Account Manager - BAM (CBO)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Credit Overview Team Member - National (CBO)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Channel Segment Manager (CBO)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Commercial Operations Team Member (CBO)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "General Manager (AF)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Regional Manager (AF)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Team Leader (AF)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Asset Finance Manager (AF)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Asset Finance Specialist (AF)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Credit Overview Team Member - National (AF)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Channel Segment Manager (AF)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Commercial Operations Team Member (AF)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "General Manager (DSI)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "State Director (DSI)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "State Director Credit (DSI)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "State Manager (DSI)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Head of (DSI)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "National Director Credit (DSI)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "National Health Manager (DSI)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Associate Director (DSI)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Senior Relationship Manager (DSI)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Relationship Manager (DSI)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Developing Relationship Manager (DSI)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Assistant Manager (DSI)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_3"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Relationship Credit Manager Snr (DSI)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Relationship Assistant Credit Manager (DSI)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Relationship Credit Manager Dev (DSI)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Credit Overview Team Member - National (DSI)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Channel Segment Manager (DSI)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Commercial Operations Team Member (DSI)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "General Manager (SME)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "State Head (SME)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Regional Executive (SME)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Team Manager (SME)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Relationship Manager (SME)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Senior Relationship Manager (SME)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Business Banking Manager (SME)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Assistant Manager (SME)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_3"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Credit Overview Team Member - National (SME)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Channel Segment Manager (SME)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Commercial Operations Team Member (SME)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "SMCS (SME - NBC)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "SMBS (SME - NBC)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "SMCE (SME - NBC)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "SMLS (SME - NBC)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "SMDO (SME - NBC)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Area Manager (SME - NBC)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Team Leader (SME - NBC)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Head of NBC (SME - NBC)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "IDM (SME - NBC)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "NBC Coach (SME - NBC)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "SBS (SME - NBC)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_3"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "SBCS (SME - NBC)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_3"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "CCS (SME - NBC)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_3"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "CES (SME - NBC)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_3"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "DCM (SME - NBC)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_3"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "SBLS (SME - NBC)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_3"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "General Manager (TB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Head of Transaction Banking (TB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "State Head (TB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Regional Manager (TB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "State Sales Manager (TB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Team Leader (TB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Payment Specialist (TB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Solutions Specialist (TB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Transaction Banking Specialist  (TB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Cash Management Specialist  (TB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Credit Overview Team Member - National (TB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Channel Segment Manager (TB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Commercial Operations Team Member (TB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "General Manager (PB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Head of Teams (PB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Director (PB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Private Banker (PB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Senior Lending Advisory Manager (PB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Senior Lending Advisor (PB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Senior Relationship Lending Manager Team Lead (PB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Senior Lending Specialist (PB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_3"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Lending Specialist (PB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_3"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Senior Lending Assistant (PB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_3"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Lending Assistant (PB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_3"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Associate Private Banker (PB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_3"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Credit Overview Team Member - National (PB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Channel Segment Manager (PB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Commercial Operations Team Member (PB)",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Commercial Business Admin",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Business_Admin_Access", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Commercial Support Admin",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Support_Admin_Access", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Business Execution Team",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Read_Only", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
     }
   ]
 }

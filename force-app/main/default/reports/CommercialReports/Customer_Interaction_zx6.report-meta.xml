@@ -4,18 +4,55 @@
     <columns>
         <field>Interaction$Name</field>
     </columns>
+    <columns>
+        <field>Interaction$Category__c</field>
+    </columns>
+    <columns>
+        <field>Interaction$InteractionType</field>
+    </columns>
+    <columns>
+        <field>Interaction$Account.Name</field>
+    </columns>
+    <columns>
+        <field>Interaction$Owner</field>
+    </columns>
+    <columns>
+        <field>Interaction$COI_Member__c</field>
+    </columns>
+    <columns>
+        <field>Interaction.InteractionAttendee$AttendeeType</field>
+    </columns>
+    <columns>
+        <field>Interaction.InteractionAttendee$User</field>
+    </columns>
+    <columns>
+        <field>Interaction.InteractionAttendee$Attendee_Name__c</field>
+    </columns>
+    <columns>
+        <field>Interaction.InteractionAttendee$Contact</field>
+    </columns>
     <description>Customer Interactions</description>
+    <filter>
+        <criteriaItems>
+            <column>Interaction$My_Team_Segment__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>Interaction$InteractionType</field>
+        <field>Interaction$Interaction_Type__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <params>
         <name>co</name>
         <value>1</value>
     </params>
-    <reportType>Interactions__c</reportType>
+    <reportType>Interactions_With_Interaction_Attendee__c</reportType>
     <scope>team</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>

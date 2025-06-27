@@ -54,4 +54,19 @@ public with sharing class CCRMContentDocumentLinkRepository {
       WITH SYSTEM_MODE
     ];
   }
+
+  /**
+   * @description return Content Versions using recordtypes and cdList
+   * @param cdList list of ContentDocument
+   * @param cvRecordTypes list of recordtypes
+   * @return List<ContentVersion>
+   */
+  public List<ContentVersion> getCVList(List<ContentDocument> cdList, List<String> cvRecordTypes) {
+    return [
+      SELECT ContentDocumentId
+      FROM ContentVersion
+      WHERE RecordTypeID IN: cvRecordTypes
+      AND ContentDocumentId IN :cdList
+    ];
+  }
 }

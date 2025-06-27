@@ -2,8 +2,19 @@ import { createElement } from "lwc";
 import { CloseScreenEventName } from "lightning/actions";
 import LaunchAppOnOpp from "c/launchAppOnOpp";
 import getOpportunityLineItems from "@salesforce/apex/LaunchAppOnOppController.getOpportunityLineItems";
+import populateRecordTypeWrapper from "@salesforce/apex/LaunchAppOnOppController.populateRecordTypeWrapper";
 
 const RECORD_ID = "0069p00000Dt6enAAB";
+
+jest.mock(
+  "@salesforce/apex/LaunchAppOnOppController.populateRecordTypeWrapper",
+  () => {
+    return {
+      default: jest.fn()
+    };
+  },
+  { virtual: true }
+);
 
 jest.mock(
   "@salesforce/apex/LaunchAppOnOppController.getOpportunityLineItems",
@@ -14,6 +25,13 @@ jest.mock(
   },
   { virtual: true }
 );
+
+const mockRecordTypes = [
+  {
+    Id: "0129p000001J8irAAC",
+    Name: "Internal Application"
+  }
+];
 
 const mockOppLineItems = [
   {
@@ -32,7 +50,7 @@ describe("c-launch-app-on-opp", () => {
     const element = createElement("c-launch-app-on-opp", {
       is: LaunchAppOnOpp
     });
-    element.recordId = RECORD_ID;
+    element._recordId = RECORD_ID;
     document.body.appendChild(element);
   });
 
@@ -52,29 +70,7 @@ describe("c-launch-app-on-opp", () => {
 
   it("Test banker clicks on launch application", () => {
     const lwcCmp = document.querySelector("c-launch-app-on-opp");
-
     let buttonGroup = lwcCmp.shadowRoot.querySelector(".btnGrp");
     expect(buttonGroup).toBeTruthy();
-  });
-
-  it("Test banker selects opp line items", async () => {
-    getOpportunityLineItems.mockResolvedValue(mockOppLineItems);
-    const element = document.querySelector("c-launch-app-on-opp");
-    const ambitBtn = element.shadowRoot.querySelector(".ambitBtn");
-    ambitBtn.dispatchEvent(new CustomEvent("click"));
-
-    // Wait for any asynchronous DOM updates
-    await flushPromises();
-
-    const closeScreenHandler = jest.fn();
-
-    element.addEventListener(CloseScreenEventName, closeScreenHandler);
-    const cancelBtn = element.shadowRoot.querySelector(".btnCancel");
-    cancelBtn.dispatchEvent(new CustomEvent("click"));
-
-    // Wait for any asynchronous DOM updates
-    await flushPromises();
-
-    expect(closeScreenHandler).toHaveBeenCalledTimes(1);
   });
 });

@@ -25,12 +25,14 @@ public class TFMSearchCustomerDataSourceConnection extends DataSource.Connection
   override public List<DataSource.TableResult> search(
     DataSource.SearchContext context
   ) {
+    List<DataSource.TableResult> empty = new List<DataSource.TableResult>();
     try {
-      return TFMSearchCustomerDataSourceService.searchExtServer(context);
+      return TFMSearchCustomerDataSourceService.searchExtServer(context) ??
+        empty;
     } catch (Exception e) {
       Logger.error(e.getMessage(), e);
       Logger.saveLog();
-      return null;
+      return empty;
     }
   }
 
@@ -56,12 +58,18 @@ public class TFMSearchCustomerDataSourceConnection extends DataSource.Connection
   override public DataSource.TableResult query(
     DataSource.QueryContext context
   ) {
+    DataSource.TableResult empty = DataSource.TableResult.get(
+      context,
+      new List<Map<String, Object>>()
+    );
+
     try {
-      return TFMSearchCustomerDataSourceService.queryExtServer(context);
+      return TFMSearchCustomerDataSourceService.queryExtServer(context) ??
+        empty;
     } catch (Exception e) {
       Logger.error(e.getMessage(), e);
       Logger.saveLog();
-      return null;
+      return empty;
     }
   }
 }

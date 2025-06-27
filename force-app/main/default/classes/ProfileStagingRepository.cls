@@ -15,13 +15,18 @@ public with sharing class ProfileStagingRepository {
     if (recordIds.isEmpty()) {
       return new List<Customer_Profile_Updates__c>();
     }
+    //This query is set to run in SYSTEM_MODE, by the time query is executed user has already created the CPU based on their access.
+    //This query is for the purpose of firing events with latest info. This is system initiated action to fire event.
     return [
       SELECT
         Id,
         Action__c,
+        AsIsValue__c,
         Case__c,
         Case__r.CaseNumber,
         Customer_Name__r.RecordType.DeveloperName,
+        Customer_Name__r.Source_System_ID__c,
+        Customer_Name__r.Source_System_Name__c,
         Customer_Name__c,
         Error_Description__c,
         Object_Name__c,
@@ -36,7 +41,7 @@ public with sharing class ProfileStagingRepository {
         TriggeredFrom__c
       FROM Customer_Profile_Updates__c
       WHERE Id IN :recordIds
-      WITH USER_MODE
+      WITH SYSTEM_MODE
     ];
   }
 

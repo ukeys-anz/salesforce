@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Interaction_Type__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>How interaction happened</description>
+    <label>Interaction Type</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>COI Proactive</fullName>
+                <default>false</default>
+                <label>COI Proactive</label>
+            </value>
+            <value>
+                <fullName>COI Reactive</fullName>
+                <default>false</default>
+                <label>COI Reactive</label>
+            </value>
+            <value>
+                <fullName>COI Relationship building</fullName>
+                <default>false</default>
+                <label>COI Relationship building</label>
+            </value>
+            <value>
+                <fullName>Existing Proactive</fullName>
+                <default>false</default>
+                <label>Existing Proactive</label>
+            </value>
+            <value>
+                <fullName>Existing Reactive</fullName>
+                <default>false</default>
+                <label>Existing Reactive</label>
+            </value>
+            <value>
+                <fullName>Existing Relationship Building</fullName>
+                <default>false</default>
+                <label>Existing Relationship Building</label>
+            </value>
+            <value>
+                <fullName>New Proactive</fullName>
+                <default>false</default>
+                <label>New Proactive</label>
+            </value>
+            <value>
+                <fullName>New Reactive</fullName>
+                <default>false</default>
+                <label>New Reactive</label>
+            </value>
+            <value>
+                <fullName>New Relationship Building</fullName>
+                <default>false</default>
+                <label>New Relationship Building</label>
+            </value>
+            <value>
+                <fullName>Quote Required</fullName>
+                <default>false</default>
+                <label>Quote Required</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

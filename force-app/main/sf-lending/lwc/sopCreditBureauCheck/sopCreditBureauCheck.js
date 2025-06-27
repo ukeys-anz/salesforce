@@ -5,6 +5,7 @@ import RLA_BROKER_CODE from "@salesforce/schema/ResidentialLoanApplication.Assis
 import { api, LightningElement, wire } from "lwc";
 import { getRecord, getFieldValue } from "lightning/uiRecordApi";
 import { setTimestamp } from "c/utils";
+import CREATED_DATE_LABEL from "@salesforce/label/c.NoIllionDataForCreditBureau";
 
 export default class SopCreditBureauCheck extends LightningElement {
   dollarSign = DOLLAR_SIGN_INCOME;
@@ -48,19 +49,19 @@ export default class SopCreditBureauCheck extends LightningElement {
         subType: "Equifax",
         isLiabilityCompleted: false,
         retrievedTime: "",
-        isLiabilityError: false
+        isLiabilityHidden: false
       },
       {
         subType: "Experian",
         isLiabilityCompleted: false,
         retrievedTime: "",
-        isLiabilityError: false
+        isLiabilityHidden: false
       },
       {
         subType: "Illion",
         isLiabilityCompleted: false,
         retrievedTime: "",
-        isLiabilityError: false
+        isLiabilityHidden: false
       }
     ],
     consentNotReceived: !this.creditBureauData.consentReceived
@@ -85,15 +86,18 @@ export default class SopCreditBureauCheck extends LightningElement {
           (source) => source.subType === check.subType
         );
         if (liabilitySource) {
+          if (
+            check.retrievedTime >= CREATED_DATE_LABEL &&
+            check.subType == "Illion"
+          ) {
+            liabilitySource.isLiabilityHidden = true;
+            return;
+          }
           liabilitySource.isLiabilityCompleted =
             check.liabilityState === "LOAD_BUREAU_LIABILITIES_STATE_COMPLETE";
           liabilitySource.retrievedTime = liabilitySource.isLiabilityCompleted
             ? `Credit Check completed on ${setTimestamp(check.retrievedTime)}`
             : "Credit check attempted";
-          if (check.subType === "Illion") {
-            liabilitySource.isLiabilityError =
-              !liabilitySource.isLiabilityCompleted;
-          }
         }
       });
       this.creditBureauCheck = [...ownerBureauMap.values()];

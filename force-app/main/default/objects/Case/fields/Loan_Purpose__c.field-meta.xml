@@ -5,7 +5,33 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
     <description>Purpose of Loan Application</description>
     <externalId>false</externalId>
-    <formula>TEXT(Loan_Application__r.Loan_Purpose__c)</formula>
+    <formula>CASE(TEXT(Loan_Application__r.Loan_Purpose__c),
+&quot;LENDING_PURPOSE_UNSPECIFIED&quot;, &quot;Unspecified&quot;,
+&quot;REFINANCING_REASON_PAY_LESS&quot;, &quot;Pay Less&quot;,
+&quot;REFINANCING_REASON_PAY_OFF_SOONER&quot;, &quot;Pay Off Sooner&quot;,
+&quot;REFINANCING_REASON_CONSOLIDATE_LOANS&quot;, &quot;Consolidate Loans&quot;,
+&quot;REFINANCING_REASON_TOPUP_EXISTING_LOAN&quot;, &quot;Top Up&quot;,
+&quot;LENDING_PURPOSE_REFINANCE&quot;, &quot;Refinance&quot;,
+&quot;LENDING_PURPOSE_ALTERATIONS_DWELLING_EXISTING&quot;, &quot;Non-structural alterations or additions&quot;,
+&quot;LENDING_PURPOSE_PERSONAL_MOTOR_VEHICLE_NEW&quot;, &quot;New car&quot;,
+&quot;LENDING_PURPOSE_PERSONAL_MOTOR_VEHICLE_USED&quot;, &quot;Used car&quot;,
+&quot;LENDING_PURPOSE_PERSONAL_MOTOR_VEHICLE_OTHER&quot;, &quot;Other vehicle type&quot;,
+&quot;LENDING_PURPOSE_PERSONAL_MOTOR_CYCLE&quot;, &quot;Motorcycle and scooters&quot;,
+&quot;LENDING_PURPOSE_PERSONAL_BOAT_CARAVAN_TRAILER&quot;, &quot;Boats, caravans and trailers&quot;,
+&quot;LENDING_PURPOSE_PERSONAL_HOUSEHOLD_GOODS&quot;, &quot;Household and personal goods&quot;,
+&quot;LENDING_PURPOSE_PERSONAL_HOLIDAY_TRAVEL&quot;, &quot;Travel and holidays&quot;,
+&quot;LENDING_PURPOSE_PERSONAL_OTHER_INVESTMENT&quot;, &quot;Personal investments, shares, bonds&quot;,
+&quot;LENDING_PURPOSE_PERSONAL_OTHER_EDUCATION&quot;, &quot;Education expenses&quot;,
+&quot;LENDING_PURPOSE_PERSONAL_OTHER_WEDDING&quot;, &quot;Wedding&quot;,
+&quot;LENDING_PURPOSE_PERSONAL_OTHER_LEGAL&quot;, &quot;Legal expenses&quot;,
+&quot;LENDING_PURPOSE_PERSONAL_OTHER_MEDICAL&quot;, &quot;Medical expenses&quot;,
+&quot;LENDING_PURPOSE_PERSONAL_OTHER_MOTOR_VEHICLE_EXPENSES&quot;, &quot;Motor vehicle expenses&quot;,
+&quot;LENDING_PURPOSE_PERSONAL_OTHER_PROPERTY_MAINTENANCE&quot;, &quot;Maintenance, repairs and pools&quot;,
+&quot;LENDING_PURPOSE_PERSONAL_OTHER&quot;, &quot;Other&quot;,
+&quot;LENDING_PURPOSE_REFINANCE_INVESTOR&quot;,&quot;Refinance - Investor&quot;,
+&quot;LENDING_PURPOSE_ALTERATIONS_DWELLING_EXISTING_INVESTOR&quot;,&quot;Non-Structural alterations or additions - Investment&quot;,
+TEXT(Loan_Application__r.Loan_Purpose__c)
+)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Loan Purpose</label>
     <required>false</required>

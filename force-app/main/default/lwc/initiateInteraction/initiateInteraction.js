@@ -5,6 +5,7 @@ import createInteraction from "@salesforce/apex/InitiateInteractionController.cr
 import getPhoneNumber from "@salesforce/apex/InitiateInteractionController.getPhoneNumber";
 import initiateChat from "@salesforce/apex/InitiateInteractionController.initiateChat";
 import reinitiateChat from "@salesforce/apex/InitiateInteractionController.reinitiateChat";
+import getTemplateDetails from "@salesforce/apex/PushToAppController.getTemplateDetails";
 import voiceChannel from "@salesforce/messageChannel/InitiateOutboundCall__c";
 import hasOutboundChatPermission from "@salesforce/customPermission/ANZx_Outbound_Chat";
 import hasOutboundDialPermission from "@salesforce/customPermission/ANZx_Outbound_Dialling";
@@ -19,6 +20,7 @@ import CS_ACC from "@salesforce/schema/Coaching_Summary__c.Account__c";
 import CS_LEAD from "@salesforce/schema/Coaching_Summary__c.Lead__c";
 import LEAD_MP from "@salesforce/schema/Lead.MobilePhone";
 import RESI_LOAN_APPLICATION_ACCOUNTID from "@salesforce/schema/ResidentialLoanApplication.AccountId";
+import IsPushToAppEnabled from "@salesforce/label/c.IsPushToAppEnabled";
 
 const NORMAL_TAB = "slds-tabs_scoped__item";
 const ACTIVE_TAB = "slds-tabs_scoped__item slds-is-active";
@@ -26,6 +28,7 @@ const ACTIVE_TAB = "slds-tabs_scoped__item slds-is-active";
 export default class InitiateInteraction extends LightningElement {
   showContactTab;
   showDialTab = true;
+  showParentContent = true;
   showChatWindow;
   contactTab = NORMAL_TAB;
   dialTab = ACTIVE_TAB;
@@ -57,6 +60,8 @@ export default class InitiateInteraction extends LightningElement {
   conversationSid; //Populated as part of the initiate chat response
   executionSid; //Populated as part of the reinitiate chat response
   showMessageCustomer = false;
+  _templateOptions = [];
+  recordTypeId;
 
   get displayOutboundChat() {
     return hasOutboundChatPermission;
@@ -64,6 +69,10 @@ export default class InitiateInteraction extends LightningElement {
 
   get displayOutboundDial() {
     return hasOutboundDialPermission;
+  }
+
+  get templateOptions() {
+    return this._templateOptions ?? [];
   }
 
   @wire(MessageContext)
@@ -75,6 +84,7 @@ export default class InitiateInteraction extends LightningElement {
   async wireRecord({ data }) {
     this.isLoaded = false;
     if (data) {
+      this.recordTypeId = data.recordTypeId;
       switch (this.objectApiName) {
         case "Account":
           this.fields.accountId = this.recordId;
@@ -113,6 +123,9 @@ export default class InitiateInteraction extends LightningElement {
           this.handleShowContactTab();
           break;
         default:
+      }
+      if (IsPushToAppEnabled === "true" && this.recordTypeId) {
+        this.getTemplateDetailsData();
       }
     } else {
       this.showChatWindow = false;
@@ -166,6 +179,7 @@ export default class InitiateInteraction extends LightningElement {
 
   handleShowContactTab() {
     this.showContactTab = true;
+    this.showParentContent = true;
     this.showDialTab = false;
     this.showChatWindow = false;
     this.contactTab = ACTIVE_TAB;
@@ -186,6 +200,14 @@ export default class InitiateInteraction extends LightningElement {
     this.showChatWindow = true;
     this.showMessageDialog = true;
     this.showMessageToast = false;
+  }
+
+  handleHideParent() {
+    this.showParentContent = false;
+  }
+
+  handleShowParent() {
+    this.showParentContent = true;
   }
 
   async handleCallCustomer() {
@@ -350,5 +372,16 @@ export default class InitiateInteraction extends LightningElement {
         "Oops, we couldn't connect your call. Please try again."
       );
     }
+  }
+
+  getTemplateDetailsData() {
+    getTemplateDetails({
+      recordId: this.recordId,
+      recordTypeId: this.recordTypeId
+    }).then((result) => {
+      this._templateOptions = result.map((template) => {
+        return { label: template.Name, value: template.AEM_Content_Id__c };
+      });
+    });
   }
 }

@@ -7,29 +7,17 @@
  */
 public with sharing class ViewServiceabilityAPIRepository extends RepositoryBase {
   /**
-   * @param sopIds sop id
-   * @param creditId credit id
    * @param ocvId ocv id of the primary loan application
-   * @param termMonths Loan term in months
-   * @param loanAmount Loan amount
+   * @param requestModel UMI request model
    * @return `ViewServiceabilityModel`
    * @description fetches UMI assessments from sop and gearbox api through mule
    */
   public ViewServiceabilityModel getUMIAssessments(
-    List<String> sopIds,
-    String creditId,
     String ocvId,
-    Integer termMonths,
-    Decimal loanAmount
+    ViewUMIRequestModel requestModel
   ) {
     Service s = ServiceProvider.getService(BOHService.class);
-    HttpCalloutResponse response = s.getUMIAssessments(
-      sopIds,
-      creditId,
-      ocvId,
-      termMonths,
-      loanAmount
-    );
+    HttpCalloutResponse response = s.getUMIAssessments(ocvId, requestModel);
     if (response.successful == false) {
       throw response.error;
     }

@@ -2,32 +2,9 @@
 <StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <sorted>false</sorted>
     <standardValue>
-        <fullName>Business Banking</fullName>
+        <fullName>Small to Medium Enterprises - NBC</fullName>
         <default>false</default>
-        <label>Business Banking</label>
-        <isActive>false</isActive>
-    </standardValue>
-    <standardValue>
-        <fullName>Small Business Banking</fullName>
-        <default>false</default>
-        <label>Small Business Banking</label>
-        <isActive>false</isActive>
-    </standardValue>
-    <standardValue>
-        <fullName>Small Business Banking - NBC</fullName>
-        <default>false</default>
-        <label>Small Business Banking - NBC</label>
-        <isActive>false</isActive>
-    </standardValue>
-    <standardValue>
-        <fullName>SME</fullName>
-        <default>false</default>
-        <label>SME</label>
-    </standardValue>
-    <standardValue>
-        <fullName>SME - NBC</fullName>
-        <default>false</default>
-        <label>SME - NBC</label>
+        <label>Small to Medium Enterprises - NBC</label>
     </standardValue>
     <standardValue>
         <fullName>Asset Finance</fullName>
@@ -35,9 +12,9 @@
         <label>Asset Finance</label>
     </standardValue>
     <standardValue>
-        <fullName>Commercial Broker &amp; Origination</fullName>
+        <fullName>Commercial Broker</fullName>
         <default>false</default>
-        <label>Commercial Broker &amp; Origination</label>
+        <label>Commercial Broker</label>
     </standardValue>
     <standardValue>
         <fullName>Diversified and Specialist Industries</fullName>
@@ -50,8 +27,13 @@
         <label>Transactional Banking</label>
     </standardValue>
     <standardValue>
-        <fullName>Private Bank</fullName>
+        <fullName>Private Bank and Advise</fullName>
         <default>false</default>
-        <label>Private Bank</label>
+        <label>Private Bank and Advise</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Small to Medium Enterprises</fullName>
+        <default>false</default>
+        <label>Small to Medium Enterprises</label>
     </standardValue>
 </StandardValueSet>
