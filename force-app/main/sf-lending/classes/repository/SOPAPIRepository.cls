@@ -85,13 +85,13 @@ public with sharing class SOPAPIRepository extends RepositoryBase {
   }
 
   /**
-   * @description Exception class for ServerError on SOPAPI
+   * @description Exception class for server errors receiving from API
    */
   public class ServerErrorSOPAPIException extends Exception {
     /**
-     * @description Exception class for ServerError SOPAPI
+     * @description Exception class for server errors receiving from API
      * @param response HttpCalloutResponse
-     * @param serviceName
+     * @param serviceName service name of Callout
      */
     public ServerErrorSOPAPIException(
       HttpCalloutResponse response,
@@ -99,7 +99,10 @@ public with sharing class SOPAPIRepository extends RepositoryBase {
     ) {
       this(response.error.getMessage());
       Logger.error(
-          'HTTP ' + response.statusCode + ' Error from ' + serviceName,
+          'HTTP ' +
+            response.statusCode +
+            ' Error from ServiceName:' +
+            serviceName,
           response.error
         )
         .save();
@@ -107,13 +110,13 @@ public with sharing class SOPAPIRepository extends RepositoryBase {
   }
 
   /**
-   * @description Exception class for UserError on SOPAPI
+   * @description Exception class for User related errors receiving from API
    */
   public class UserErrorSOPAPIException extends Exception {
     /**
-     * @description Exception class for UserError SOPAPI
+     * @description Exception class for User related errors receiving from API
      * @param response HttpCalloutResponse
-     * @param serviceName
+     * @param serviceName service name of Callout
      */
     public UserErrorSOPAPIException(
       HttpCalloutResponse response,
@@ -121,7 +124,10 @@ public with sharing class SOPAPIRepository extends RepositoryBase {
     ) {
       this(response.error.getMessage());
       Logger.info(
-          'HTTP ' + response.statusCode + ' Error from ' + serviceName,
+          'HTTP ' +
+            response.statusCode +
+            ' Error from ServiceName: ' +
+            serviceName,
           response.error
         )
         .save();
@@ -129,13 +135,13 @@ public with sharing class SOPAPIRepository extends RepositoryBase {
   }
 
   /**
-   * @description Exception class for Unhandled Update SOP and Party
+   * @description Exception class for Unhandled SOP APIs error
    */
   public class UnhandledSOPAPIException extends Exception {
     /**
-     * @description Exception class for Unhandled Update SOP and Party
+     * @description Exception class for  Unhandled SOP APIs error
      * @param response HttpCalloutResponse
-     * @param serviceName
+     * @param serviceName service name of Callout
      */
     public UnhandledSOPAPIException(
       HttpCalloutResponse response,
