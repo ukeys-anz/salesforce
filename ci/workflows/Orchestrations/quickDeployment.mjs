@@ -35,8 +35,6 @@ const {
   PR_NUMBER
 } = process.env;
 
-const IS_MASTER_BRANCH = BASE_REF === "master";
-const CREATE_TAG_FLAG = JOB_NAME ? true : false;
 const POSTFIX_ALIAS = JOB_NAME
   ? `${JOB_NAME.replace("sf-platform-np", "")}`
   : "";
@@ -82,7 +80,6 @@ const quickClean = () => {
   unauthenticate(BRANCH_NAME_ALIAS);
   deleteFolder(ARTIFACT_NAME);
   deleteFile(JOB_ID_FILE_NAME);
-  createTag(BASE_REF, RUN_ID, CREATE_TAG_FLAG);
 };
 
 /////////
@@ -94,7 +91,6 @@ const runCD = () => {
     quickDeployment: quickDeployment,
     quickClean: quickClean
   };
-  if (IS_MASTER_BRANCH && !CREATE_TAG_FLAG) return;
   return WHICH_JOB ? runFunctionMapping[WHICH_JOB]() : quickDeployment();
 };
 

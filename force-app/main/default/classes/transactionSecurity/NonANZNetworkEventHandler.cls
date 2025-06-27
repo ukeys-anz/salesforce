@@ -49,7 +49,6 @@ global with sharing class NonANZNetworkEventHandler implements TxnSecurity.Event
    */
   public static Boolean isAllowedProfile(String userProfile) {
     Set<String> allowedProfiles = new Set<String>{
-      'System Administrator CyberArk',
       'Integration User (External Apps)',
       'Minimum Access - External Apps'
     };

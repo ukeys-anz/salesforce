@@ -5,9 +5,8 @@
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <defaultValue>false</defaultValue>
     <description>COR Event</description>
-    <externalId>false</externalId>
     <inlineHelpText>Used to indicate if this relates to a COR Event</inlineHelpText>
-    <label>COR Event</label>
+    <label>NFR Event</label>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>

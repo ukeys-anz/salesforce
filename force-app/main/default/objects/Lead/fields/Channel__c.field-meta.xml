@@ -25,11 +25,6 @@
                 <label>Commercial</label>
             </value>
             <value>
-                <fullName>International Banking Services</fullName>
-                <default>false</default>
-                <label>International Banking Services</label>
-            </value>
-            <value>
                 <fullName>Mobile Lending</fullName>
                 <default>false</default>
                 <label>Mobile Lending</label>
@@ -48,6 +43,11 @@
                 <fullName>Home Loan Hotline</fullName>
                 <default>false</default>
                 <label>Home Loan Hotline</label>
+            </value>
+            <value>
+                <fullName>Priority</fullName>
+                <default>false</default>
+                <label>Priority</label>
             </value>
         </valueSetDefinition>
     </valueSet>

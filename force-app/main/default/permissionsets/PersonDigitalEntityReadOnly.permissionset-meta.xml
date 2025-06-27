@@ -217,6 +217,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>PersonDigitalIdentity__x.ANZConnectStatus__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>PersonDigitalIdentity__x.Created_On__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -233,6 +238,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>PersonDigitalIdentity__x.Internal_User_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>PersonDigitalIdentity__x.MigrationType__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -26,6 +26,13 @@
     "Employee_Indicator__c",
     "Employer_Name__c",
     "Establishment_Date__c",
+    "ExtraCareConsent__c",
+    "ExtraCareDisclosure__c",
+    "ExtraCareNotes__c",
+    "ExtraCareReason__c",
+    "ExtraCareReviewDate__c",
+    "ExtraCareTimePeriod__c",
+    "ShowExtraCareAlert__c",
     "Fax",
     "FinServ__AUM__c",
     "FinServ__BankNumber__c",
@@ -240,7 +247,8 @@
     "Financial_Account_Name__c",
     "Opt_Out_Reason__c",
     "Process_SLA_Status__c",
-    "PassportNumber__c"
+    "PassportNumber__c",
+    "Outcome_Letter_to_be_sent_by_Mail__c"
   ],
   "CaseComment": ["CommentBodyRichtext"],
   "Contact": [
@@ -636,6 +644,7 @@
     "StartDay",
     "PasswordExpirationDate",
     "HasUserVerifiedPhone",
-    "UserPreferencesHideManagedEcaMobilePubModal"
+    "UserPreferencesHideManagedEcaMobilePubModal",
+    "UserPreferencesDismissPersonalSpaceLegalMessage"
   ]
 }

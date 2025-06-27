@@ -16,5 +16,5 @@
     <protected>false</protected>
     <showsLocation>false</showsLocation>
     <showsStatus>false</showsStatus>
-    <url>https://{!$Label.Commercial_Abmit_Instance_URL}/Opportunity/GetQuotes/?iko={!URLENCODE( LEFT(ApplicationFormProduct.Source_System_Id__c, 18))}&amp;ikpr={!URLENCODE(RIGHT(ApplicationFormProduct.Source_System_Id__c, 18))}</url>
+    <url>https://{!$Label.Commercial_Abmit_Instance_URL}/Opportunity/GetQuotes/?iko={!URLENCODE( LEFT(ApplicationFormProduct.Source_System_Id__c,  FIND(&apos;00k&apos;, ApplicationFormProduct.Source_System_Id__c)-1 ))}&amp;ikpr={!URLENCODE(RIGHT(ApplicationFormProduct.Source_System_Id__c, 18))}</url>
 </WebLink>

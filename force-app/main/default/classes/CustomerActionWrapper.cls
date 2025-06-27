@@ -94,5 +94,10 @@ public class CustomerActionWrapper {
      */
     @AuraEnabled
     public String type { get; set; }
+    /**
+     * @description actionUUID
+     */
+    @AuraEnabled
+    public String actionUUID { get; set; }
   }
 }

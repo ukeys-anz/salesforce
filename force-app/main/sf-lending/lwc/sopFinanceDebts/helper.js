@@ -189,8 +189,7 @@ const DEBT_TYPES = {
         ((debt.readableSourceType === SOURCE_ANZ &&
           debt.homeLoanType === CONSTRUCTION_LOAN) ||
           debt.readableSourceType !== SOURCE_ANZ),
-      showLinkedProperty: (debt) =>
-        debt.linkedProperty.length > 0 && !debt.customerStatedClosed,
+      showLinkedProperty: (debt) => debt.linkedProperty.length > 0,
       showCustomerExcludedDebt: (debt) =>
         debt.readableSourceType == SOURCE_CREDIT_BUREAU,
       showRepaymentFrequency: (debt) =>
@@ -384,8 +383,7 @@ const DEBT_TYPES = {
       showBalanceOwingMessage: (debt) =>
         debt.validatedOutstandingBalance && !debt.customerStatedClosed,
       showInterestRate: (debt) => debt.readableSourceType === SOURCE_ANZ,
-      showLinkedProperty: (debt) =>
-        debt.linkedProperty.length > 0 && !debt.customerStatedClosed,
+      showLinkedProperty: (debt) => debt.linkedProperty.length > 0,
       showOwnershipSplit: true,
       showProductName: (debt) =>
         debt.readableSourceType === SOURCE_ANZ && debt.productName,

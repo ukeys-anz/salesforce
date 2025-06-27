@@ -52,7 +52,7 @@
         <name>co</name>
         <value>1</value>
     </params>
-    <reportType>Interactions__c</reportType>
+    <reportType>Interactions_With_Interaction_Attendee__c</reportType>
     <scope>team</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>

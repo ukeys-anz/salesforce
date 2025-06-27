@@ -49,13 +49,13 @@ public with sharing class SOPAPIRepository extends RepositoryBase {
     HttpCalloutResponse response
   ) {
     if (response.statusCode == 500) {
-      throw new ServerErrorGetSOPException(response);
+      throw new ServerErrorSOPAPIException(response, 'getSOP');
     }
     if (response.statusCode == 400) {
-      throw new UserErrorGetSOPException(response);
+      throw new UserErrorSOPAPIException(response, 'getSOP');
     }
-    if (!response.successful) {
-      throw new UnhandledGetSOPException(response);
+    if (response.successful == false) {
+      throw new UnhandledSOPAPIException(response, 'getSOP');
     }
     return SOPViewModel.parse(response.body);
   }
@@ -69,14 +69,15 @@ public with sharing class SOPAPIRepository extends RepositoryBase {
     HttpCalloutResponse response
   ) {
     if (response.statusCode == 500) {
-      throw new ServerErrorUpdateSOPAndPartyException(response);
+      throw new ServerErrorSOPAPIException(response, 'updateSopAndParty');
     }
     if (response.statusCode == 400) {
-      throw new UserErrorSOPAndPartyException(response);
+      throw new UserErrorSOPAPIException(response, 'updateSopAndParty');
     }
-    if (!response.successful) {
-      throw new UnhandledUpdateSOPAndPartyException(response);
+    if (response.successful == false) {
+      throw new UnhandledSOPAPIException(response, 'updateSopAndParty');
     }
+
     SOPUpdateSOPAndPartyResponseModel updatePartyAndSOPModel = SOPUpdateSOPAndPartyResponseModel.parse(
       response.body
     );
@@ -84,17 +85,21 @@ public with sharing class SOPAPIRepository extends RepositoryBase {
   }
 
   /**
-   * @description Exception class for Unhandled Get SOP
+   * @description Exception class for ServerError on SOPAPI
    */
-  public class UnhandledGetSOPException extends Exception {
+  public class ServerErrorSOPAPIException extends Exception {
     /**
-     * @description Exception class for Unhandled Get SOP
+     * @description Exception class for ServerError SOPAPI
      * @param response HttpCalloutResponse
+     * @param serviceName
      */
-    public UnhandledGetSOPException(HttpCalloutResponse response) {
+    public ServerErrorSOPAPIException(
+      HttpCalloutResponse response,
+      String serviceName
+    ) {
       this(response.error.getMessage());
       Logger.error(
-          'UnhandledGetSOPException SOPService: getSOP',
+          'HTTP ' + response.statusCode + ' Error from ' + serviceName,
           response.error
         )
         .save();
@@ -102,35 +107,21 @@ public with sharing class SOPAPIRepository extends RepositoryBase {
   }
 
   /**
-   * @description Exception class for ServerError Get SOP
+   * @description Exception class for UserError on SOPAPI
    */
-  public class ServerErrorGetSOPException extends Exception {
+  public class UserErrorSOPAPIException extends Exception {
     /**
-     * @description Exception class for ServerError Get SOP
+     * @description Exception class for UserError SOPAPI
      * @param response HttpCalloutResponse
+     * @param serviceName
      */
-    public ServerErrorGetSOPException(HttpCalloutResponse response) {
-      this(response.error.getMessage());
-      Logger.error(
-          'HTTP ' + response.statusCode + ' Error from Service',
-          response.error
-        )
-        .save();
-    }
-  }
-
-  /**
-   * @description Exception class for UserError Get SOP
-   */
-  public class UserErrorGetSOPException extends Exception {
-    /**
-     * @description Exception class for UserError Get SOP
-     * @param response HttpCalloutResponse
-     */
-    public UserErrorGetSOPException(HttpCalloutResponse response) {
+    public UserErrorSOPAPIException(
+      HttpCalloutResponse response,
+      String serviceName
+    ) {
       this(response.error.getMessage());
       Logger.info(
-          'HTTP ' + response.statusCode + ' Error from Service',
+          'HTTP ' + response.statusCode + ' Error from ' + serviceName,
           response.error
         )
         .save();
@@ -140,51 +131,19 @@ public with sharing class SOPAPIRepository extends RepositoryBase {
   /**
    * @description Exception class for Unhandled Update SOP and Party
    */
-  public class UnhandledUpdateSOPAndPartyException extends Exception {
+  public class UnhandledSOPAPIException extends Exception {
     /**
      * @description Exception class for Unhandled Update SOP and Party
      * @param response HttpCalloutResponse
+     * @param serviceName
      */
-    public UnhandledUpdateSOPAndPartyException(HttpCalloutResponse response) {
+    public UnhandledSOPAPIException(
+      HttpCalloutResponse response,
+      String serviceName
+    ) {
       this(response.error.getMessage());
       Logger.error(
-          'UnhandledUpdateSOPAndPartyException SOPService: updateSOPAndParty',
-          response.error
-        )
-        .save();
-    }
-  }
-
-  /**
-   * @description Exception class for ServerError Update SOP and Party
-   */
-  public class ServerErrorUpdateSOPAndPartyException extends Exception {
-    /**
-     * @description Exception class for ServerError Update SOP and Party
-     * @param response HttpCalloutResponse
-     */
-    public ServerErrorUpdateSOPAndPartyException(HttpCalloutResponse response) {
-      this(response.error.getMessage());
-      Logger.error(
-          'HTTP ' + response.statusCode + ' Error from Service',
-          response.error
-        )
-        .save();
-    }
-  }
-
-  /**
-   * @description Exception class for UserError Update SOP and Party
-   */
-  public class UserErrorSOPAndPartyException extends Exception {
-    /**
-     * @description Exception class for UserError Update SOP and Party
-     * @param response HttpCalloutResponse
-     */
-    public UserErrorSOPAndPartyException(HttpCalloutResponse response) {
-      this(response.error.getMessage());
-      Logger.info(
-          'HTTP ' + response.statusCode + ' Error from Service',
+          'UnhandledException ServiceName: ' + serviceName,
           response.error
         )
         .save();
