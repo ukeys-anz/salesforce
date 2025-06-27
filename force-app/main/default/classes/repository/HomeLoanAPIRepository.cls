@@ -12,6 +12,15 @@ public with sharing class HomeLoanAPIRepository extends RepositoryBase {
     HomeLoanService.class
   );
 
+  private static final FinancialAccountService FA_SERVICE = (FinancialAccountService) Lib_InstanceProvider.forType(
+    FinancialAccountService.class
+  );
+
+  private static final List<String> HOME_LOAN_MARKETING_CODES = new List<String>{
+    'HLVAR01',
+    'HLFXD01'
+  };
+
   /**
    * @param ocvId customer id
    * @param accountNumbers param to filter by account numbers
@@ -31,57 +40,11 @@ public with sharing class HomeLoanAPIRepository extends RepositoryBase {
     if (h1AccountDetails != null) {
       return h1AccountDetails;
     }
-    HomeLoanService loanService = (HomeLoanService) ServiceProvider.getService(
-      HomeLoanService.class
-    );
-    HttpCalloutResponse response = loanService.getHomeLoanAccounts(
+    HttpCalloutResponse response = HL_SERVICE.getHomeLoanAccounts(
       ocvId,
       accountNumbers
     );
-    if (response.successful == false) {
-      throw response.error;
-    }
-    try {
-      h1AccountDetails = HomeLoanModel.parse(response.body);
-      filterOutNonHomeLoanAccounts(h1AccountDetails);
-      DataPartitionUtil.storeH1AccountDetailsCache(ocvId, h1AccountDetails);
-      Logger.debug('Home Loan API hit:')
-        .setPayload(json.serialize(h1AccountDetails));
-      Logger.saveLog();
-    } catch (HomeLoanController.NotFoundException ex) {
-      handleErrorAsInfo(response, ex, HomeLoanAPIRepository.class);
-    } catch (Exception e) {
-      handleErrors(response, e, HomeLoanAPIRepository.class);
-    }
-    return h1AccountDetails;
-  }
-  /**
-   * @author Vidhya Raghavan
-   * @since December 2022
-   * @description insufficient permission exception
-   */
-  public class PermissionException extends Exception {
-  }
-
-  private void filterOutNonHomeLoanAccounts(HomeLoanModel result) {
-    List<HomeLoanModel.HomeLoanAccount> homeLoanAccounts = new List<HomeLoanModel.HomeLoanAccount>();
-    for (HomeLoanModel.HomeLoanAccount acc : result.accounts) {
-      if (isHomeLoanAccount(acc)) {
-        homeLoanAccounts.add(acc);
-      }
-      result.accounts = homeLoanAccounts;
-    }
-  }
-  /**
-   * @description checking if the retrieved data only passes through Home Loan Account(H1) Details
-   * @param acc containing all information related to the account
-   * @return true if product_code is 'ANZ Plus Standard Variable Rate Home Loan' (Variable & Fixed Loan)
-   */
-  private boolean isHomeLoanAccount(HomeLoanModel.HomeLoanAccount acc) {
-    return (acc.product_details?.marketing_code != null &&
-    GetHelpConstants.HOME_LOAN_MARKETING_CODES.contains(
-      acc.product_details.marketing_code
-    ));
+    return handleGetHomeLoanResponse(response, ocvId);
   }
 
   /**
@@ -102,28 +65,161 @@ public with sharing class HomeLoanAPIRepository extends RepositoryBase {
     if (offsetDetails != null) {
       return offsetDetails;
     }
-    FinancialAccountService s = (FinancialAccountService) ServiceProvider.getService(
-      FinancialAccountService.class
+    HttpCalloutResponse response = FA_SERVICE.getOffsetAccounts(
+      ocvId,
+      loanAccNumber
     );
-    HttpCalloutResponse response = s.getOffsetAccounts(ocvId, loanAccNumber);
-    try {
-      if (
-        response.statusCode == 404 &&
-        response.error?.getMessage().contains('HTTP:NOT_FOUND')
-      ) {
-        throw new HomeLoanController.NotFoundException(
-          'No Offset Found Exception'
-        );
-      }
-      if (response.successful == false) {
-        throw response.error;
-      }
-      String offsetStr = (response.body).replace('accounts/', '');
-      offsetDetails = OffsetAccountModel.parse(offsetStr);
-      DataPartitionUtil.storeDataToCache(recordId, offsetDetails);
-    } catch (Exception e) {
-      handleErrors(response, e, HomeLoanAPIRepository.class);
+    return handleGetListOffsetResponse(response, recordId);
+  }
+
+  /**
+   * @description process the response received from callout
+   * @param response Http Callout Response
+   * @param ocvId OCV Id
+   * @return model class constructed from api response
+   */
+  private static HomeLoanModel handleGetHomeLoanResponse(
+    HttpCalloutResponse response,
+    String ocvId
+  ) {
+    if (response.statusCode == 500) {
+      throw new ServerErrorException(response, 'getHomeLoan');
     }
+    if (response.statusCode == 400) {
+      throw new UserErrorException(response, 'get Home Loan');
+    }
+    if (!response.successful) {
+      throw new UnhandledException(
+        response,
+        'HomeLoanService: getHomeLoanAccounts'
+      );
+    }
+    HomeLoanModel h1AccountDetails = HomeLoanModel.parse(response.body);
+    filterOutNonHomeLoanAccounts(h1AccountDetails);
+    DataPartitionUtil.storeH1AccountDetailsCache(ocvId, h1AccountDetails);
+
+    return h1AccountDetails;
+  }
+
+  /**
+   * @description process the response received from callout
+   * @param response Http Callout Response
+   * @param recordId record ID
+   * @return OffsetAccountModel processed viewModel
+   */
+  private static OffsetAccountModel handleGetListOffsetResponse(
+    HttpCalloutResponse response,
+    String recordId
+  ) {
+    if (response.statusCode == 500) {
+      throw new ServerErrorException(response, 'getOffsetAccounts');
+    }
+    if (
+      response.statusCode == 400 ||
+      (response.statusCode == 404 &&
+      response.error?.getMessage().contains('HTTP:NOT_FOUND'))
+    ) {
+      throw new UserErrorException(response, 'get Offset Accounts');
+    }
+    if (!response.successful) {
+      throw new UnhandledException(
+        response,
+        'FinancialAccountService: getOffsetAccounts'
+      );
+    }
+    String offsetStr = (response.body).replace('accounts/', '');
+    OffsetAccountModel offsetDetails = OffsetAccountModel.parse(offsetStr);
+    DataPartitionUtil.storeDataToCache(recordId, offsetDetails);
     return offsetDetails;
+  }
+
+  /**
+   * @description Exception class for Server Error on Get Home Loan, Get List Offset APIs
+   */
+  public class ServerErrorException extends Exception {
+    /**
+     * @description Exception class for ServerError Get Home Loan, Get List Offset APIs
+     * @param response HttpCalloutResponse
+     * @param serviceName
+     */
+    public ServerErrorException(
+      HttpCalloutResponse response,
+      String serviceName
+    ) {
+      this(response.error.getMessage());
+      Logger.error(
+          'HTTP ' + response.statusCode + ' Error from ' + serviceName,
+          response.error
+        )
+        .save();
+    }
+  }
+
+  /**
+   * @description Exception class for UserError on Get Home Loan, Get List Offset APIs
+   */
+  public class UserErrorException extends Exception {
+    /**
+     * @description Exception class for UserError on Get Home Loan, Get List Offset APIs
+     * @param response HttpCalloutResponse
+     * @param serviceName
+     */
+    public UserErrorException(
+      HttpCalloutResponse response,
+      String serviceName
+    ) {
+      this(response.error.getMessage());
+      Logger.info(
+          'HTTP ' + response.statusCode + ' Error from ' + serviceName,
+          response.error
+        )
+        .save();
+    }
+  }
+
+  /**
+   * @description Exception class for Unhandled error on Get Home Loan, Get List Offset APIs
+   */
+  public class UnhandledException extends Exception {
+    /**
+     * @description Exception class for Unhandled error on Get Home Loan, Get List Offset APIs
+     * @param response HttpCalloutResponse
+     * @param serviceName
+     */
+    public UnhandledException(
+      HttpCalloutResponse response,
+      String serviceName
+    ) {
+      this(response.error.getMessage());
+      Logger.error('UnhandledException from: ' + serviceName, response.error)
+        .save();
+    }
+  }
+
+  /**
+   * @author Vidhya Raghavan
+   * @since December 2022
+   * @description insufficient permission exception
+   */
+  public class PermissionException extends Exception {
+  }
+
+  private static void filterOutNonHomeLoanAccounts(HomeLoanModel result) {
+    List<HomeLoanModel.HomeLoanAccount> homeLoanAccounts = new List<HomeLoanModel.HomeLoanAccount>();
+    for (HomeLoanModel.HomeLoanAccount acc : result.accounts) {
+      if (isHomeLoanAccount(acc)) {
+        homeLoanAccounts.add(acc);
+      }
+      result.accounts = homeLoanAccounts;
+    }
+  }
+  /**
+   * @description checking if the retrieved data only passes through Home Loan Account(H1) Details
+   * @param acc containing all information related to the account
+   * @return true if product_code is 'ANZ Plus Standard Variable Rate Home Loan' (Variable & Fixed Loan)
+   */
+  private static boolean isHomeLoanAccount(HomeLoanModel.HomeLoanAccount acc) {
+    return (acc.product_details?.marketing_code != null &&
+    HOME_LOAN_MARKETING_CODES.contains(acc.product_details.marketing_code));
   }
 }
