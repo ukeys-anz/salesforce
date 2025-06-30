@@ -335,14 +335,6 @@
         <value>My Commercial Leads</value>
     </labels>
     <labels>
-        <fullName>CCRM_NonEditableLeadStages</fullName>
-        <categories>CCRM</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Commercial CRM List of Lead Stages which should not allow to be edited.</shortDescription>
-        <value>&apos;Outcome&apos;,&apos;Converted&apos;</value>
-    </labels>
-    <labels>
         <fullName>CCRM_NonEditableLeadOutcome</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>
