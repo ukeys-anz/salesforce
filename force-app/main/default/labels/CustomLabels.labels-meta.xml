@@ -410,7 +410,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CustomerRestraintFaCodes</shortDescription>
-        <value>TRANSACT01,SAVING01,SAVING02,SAVING03,SAVING04</value>
+        <value>TRANSACT01,SAVING01,SAVING02,SAVING03,SAVING04,SAVING03PGS,SAVING04OLS</value>
     </labels>
     <labels>
         <fullName>CustomerRestraintComment</fullName>
