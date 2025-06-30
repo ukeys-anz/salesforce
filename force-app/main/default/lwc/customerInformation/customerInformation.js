@@ -165,7 +165,7 @@ export default class CustomerInformation extends LightningElement {
   }
 
   showAllCustomerData() {
-    if (this.customerInfo.accId) {
+    if (this.customerInfo.capId) {
       getCustomerData({
         customerId: this.customerInfo.capId.replace(/^0+/, ""),
         customerIdentifier: this.customerInfo.custIdentifier

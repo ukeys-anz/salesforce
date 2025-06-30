@@ -1,40 +1,43 @@
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
-import { LightningElement, track, api } from "lwc";
+import { LightningElement, track, api, wire } from "lwc";
 import getCustomerInfoLWC from "@salesforce/apex/IDRAPIRepository.getCustomerInfoLWC";
-import tmp from "./customerAccount.html";
+
 const FINANCIAL_DIFFICULTY = "4";
 const COLLECTIONS = "17";
 const EXCL_ACC = ["CAP-CIS:APP", "CAP-CIS:CAP", "CAP-CIS:CAB", "CAP-CIS:MOS"];
 export default class CustomerAccount extends OmniscriptBaseMixin(
   LightningElement
 ) {
-  @track options;
+  @track options = [];
   @track _omniData;
   @track value;
   @track allValues = [];
   @track allSelected = false;
+  customerCapId;
+  customerIdentifier;
+  capIdAccounts = [];
+
   @api set omniJsonData(data) {
     this._omniData = data;
     if (data && data.Case) {
+      this.customerCapId =
+        data?.data?.fields.Source_System_ID__c.value?.replace(/^0+/, "");
+      this.customerIdentifier = data.Case.CustomerDetails.CustomerIdentifier;
       this.populateAccountNumbers(this._omniData);
       this.validateNAoption(this._omniData);
-      this.clearAccountFields(this._omniData.Case);
+      this.clearAccountFields(this._omniData.Case.ComplaintDetails);
     }
   }
 
   get omniJsonData() {
     return this._omniData;
   }
-  render() {
-    return tmp;
-  }
 
   //To clear Account number 2 and Account number 3 fields
   clearAccountFields(data) {
     if (
-      data.ComplaintDetails &&
-      data.ComplaintDetails.Issue2Checkbox === "No" &&
-      data.ComplaintDetails.AccountPolicyNumber2 &&
+      data?.Issue2Checkbox === "No" &&
+      data?.AccountPolicyNumber2 &&
       this.omniJsonDef.name === "AccountPolicyNumber2"
     ) {
       this.omniUpdateDataJson("");
@@ -42,10 +45,8 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
       this.allValues = [];
     }
     if (
-      data.ComplaintDetails &&
-      (data.ComplaintDetails.Issue2Checkbox === "No" ||
-        data.ComplaintDetails.Issue3Checkbox === "No") &&
-      data.ComplaintDetails.AccountPolicyNumber3 &&
+      (data?.Issue2Checkbox === "No" || data?.Issue3Checkbox === "No") &&
+      data?.AccountPolicyNumber3 &&
       this.omniJsonDef.name === "AccountPolicyNumber3"
     ) {
       this.omniUpdateDataJson("");
@@ -54,40 +55,49 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     }
   }
 
-  async populateAccountNumbers(data) {
-    let cmpDet = data.Case.ComplaintDetails;
-    let customerNumber = data?.data?.fields.Source_System_ID__c.value;
-    this.options = [];
-    let custIdentifier = data.Case.CustomerDetails.CustomerIdentifier;
-    let custAccounts;
-    if (this.checkCustomerIdentifier(data)) {
-      let result = await getCustomerInfoLWC({
-        customerId: customerNumber?.replace(/^0+/, ""),
-        customerIdentifier: custIdentifier
+  @wire(getCustomerInfoLWC, {
+    customerId: "$customerCapId",
+    customerIdentifier: "$customerIdentifier"
+  })
+  wiredFetchAccounts({ error, data }) {
+    if (error || !data) {
+      this.capIdAccounts = [];
+      this.omniApplyCallResp({
+        Case: {
+          CustomerDetails: { RestApiError: error?.body?.message }
+        }
       });
-      if (!result) {
-        return;
-      }
-      custAccounts = result.accounts;
+      return;
+    }
+    this.capIdAccounts = data.accounts;
+    this.error = undefined;
+  }
+
+  async populateAccountNumbers(data) {
+    this.options = [];
+    if (this.checkForCacheCustomer(data)) {
       this.createAccountOptions(
-        custAccounts,
-        this.checkIssueTypeChange(cmpDet)
+        data.Response.accounts,
+        this.checkIssueTypeChange(data.Case.ComplaintDetails)
+      );
+    }
+    if (
+      this.capIdAccounts &&
+      this.capIdAccounts.length &&
+      this.checkCustomerIdentifier(data)
+    ) {
+      this.createAccountOptions(
+        this.capIdAccounts,
+        this.checkIssueTypeChange(data.Case.ComplaintDetails)
       );
       this.validateNAoption(data);
-    }
-    if (this.checkForCacheCustomer(data)) {
-      custAccounts = data.Response.accounts;
-      this.createAccountOptions(
-        custAccounts,
-        this.checkIssueTypeChange(cmpDet)
-      );
     }
 
     // To select all Account/Policy Number values by default when Issue typen is 'Financial Difficulty & Hardship'
     if (
       data.Case.CustomerDetails &&
       data.Case.CustomerDetails.complaintAbout &&
-      !this.allValues.length > 0
+      !this.allValues?.length
     ) {
       this.allValues.push("N/A");
       this.value = "N/A";
@@ -121,6 +131,7 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     if (!Array.isArray(accounts)) {
       return;
     }
+    this.options = [];
     if (issueTypeChange) {
       this.options = this.getAccountNumbers(accounts);
     } else {
@@ -210,11 +221,13 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
       (data.Case.displayNAOption3 &&
         this.omniJsonDef.name === "AccountPolicyNumber3")
     ) {
-      this.options.push({ label: "N/A", value: "N/A" });
+      if (!this.options.some((opt) => opt.value === "N/A")) {
+        this.options.push({ label: "N/A", value: "N/A" });
+      }
     } else {
       if (
         this.allValues &&
-        this.allValues.length > 0 &&
+        this.allValues.length &&
         this.allValues.indexOf("N/A") !== -1
       )
         this.allValues.splice(this.allValues.indexOf("N/A"), 1);

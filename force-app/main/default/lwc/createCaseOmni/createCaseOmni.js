@@ -55,6 +55,9 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     ) {
       this.modalMsg +=
         "Please complete all required fields: Customer number is not valid or has not been validated, check the number and try again.";
+    } else if (this.checkOCVError()) {
+      this.modalMsg +=
+        "OCV Error:" + this.omniJsonData.Case.CustomerDetails.RestApiError;
     } else if (this.validateRealFormID()) {
       handleErrorShowToast(
         this,
@@ -197,5 +200,20 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       return false;
     }
     return true;
+  }
+  checkOCVError() {
+    if (
+      !this.missingFields.length &&
+      this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
+      Object.prototype.hasOwnProperty.call(
+        this.omniJsonData.Case.CustomerDetails,
+        "RestApiError"
+      ) &&
+      !this.omniJsonData.isEligibleAppForLookUp &&
+      !this.omniJsonData.enableAccountLookUp
+    ) {
+      return true;
+    }
+    return false;
   }
 }
