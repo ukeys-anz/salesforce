@@ -7,6 +7,7 @@
 public with sharing class GetHelpCaseAssignmentRules {
   private static final Map<String, Id> QUEUE_MAP = IDRCaseAssignmentRules.getAnzxWorkbaskets();
   public static final String UNAUTHORISED_TRANSACTION = 'Unauthorised Transaction';
+  public static final String SUSPECTED_FRAUD_TRANSACTION = 'Suspected fraud';
   public static final String DID_NOT_AUTHORISE_TRANSACTION = 'Didn\'t authorise transaction';
   public static final String DO_NOT_RECOGNISE_TRANSACTION = 'Don\'t recognise the transaction';
   public static final String HOME_LOANS_PRODUCT_CATEGORY = 'Home loans';
@@ -114,6 +115,15 @@ public with sharing class GetHelpCaseAssignmentRules {
         return QUEUE_MAP.get(GetHelpConstants.CARD_DISPUTE_FRAUD_QUEUE);
       } else {
         return QUEUE_MAP.get(GetHelpConstants.CARD_DISPUTE_GENERAL_QUEUE);
+      }
+    } else if (rec.RecordTypeId == GetHelpConstants.IMT_DISPUTE_RT_ID) {
+      if (
+        rec.Dispute_Reason__c == UNAUTHORISED_TRANSACTION ||
+        rec.Dispute_Reason__c == SUSPECTED_FRAUD_TRANSACTION
+      ) {
+        return QUEUE_MAP.get(GetHelpConstants.DIGITAL_FRAUD_QUEUE);
+      } else {
+        return QUEUE_MAP.get(GetHelpConstants.SUPPORT_COACH_QUEUE);
       }
     } else {
       if (

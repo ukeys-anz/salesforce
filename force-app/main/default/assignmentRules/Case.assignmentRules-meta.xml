@@ -15,10 +15,16 @@
                 &amp;&amp; Submitted__c = true,
                 OR(
                     RecordType.DeveloperName = &quot;NPP_Dispute&quot;,
-                    RecordType.DeveloperName = &quot;BPAY_Dispute&quot;
+                    RecordType.DeveloperName = &quot;BPAY_Dispute&quot;,
+                    RecordType.DeveloperName = &quot;IMT_Dispute&quot;
                 ),
+                OR(
                 ISPICKVAL(
                     Dispute_Reason__c, &quot;Unauthorised Transaction&quot;
+                ),
+                ISPICKVAL(
+                    Dispute_Reason__c, &quot;Suspected fraud&quot;
+                )
                 )
             )
             </formula>
@@ -35,11 +41,16 @@
                 &amp;&amp; Submitted__c = true,
                 OR(
                     RecordType.DeveloperName = &quot;NPP_Dispute&quot;,
-                    RecordType.DeveloperName = &quot;BPAY_Dispute&quot;
+                    RecordType.DeveloperName = &quot;BPAY_Dispute&quot;,
+                    RecordType.DeveloperName = &quot;IMT_Dispute&quot;
                 ),
                 NOT(
                     ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised Transaction&quot;)
+                ),
+                NOT(
+                    ISPICKVAL(Dispute_Reason__c, &quot;Suspected fraud&quot;)
                 )
+
             )
             </formula>
         </ruleEntry>

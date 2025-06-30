@@ -33,6 +33,10 @@ public with sharing class GetHelpConstants {
     .get('NPP_Dispute')
     .getRecordTypeId();
 
+  public static final Id IMT_DISPUTE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('IMT_Dispute')
+    .getRecordTypeId();
+
   public static final Id BPAY_DISPUTE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('BPAY_Dispute')
     .getRecordTypeId();
