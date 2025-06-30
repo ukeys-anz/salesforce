@@ -100,6 +100,16 @@
             <field>Product</field>
             <table>ApplicationForm.ApplicationFormProduct</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Opportunity.CLG__c</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Opportunity.My_Manager_Opps__c</field>
+            <table>ApplicationForm</table>
+        </columns>
         <masterLabel>Application Forms</masterLabel>
     </sections>
     <sections>
