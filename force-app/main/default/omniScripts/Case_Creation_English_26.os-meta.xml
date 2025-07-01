@@ -5911,7 +5911,7 @@
       } ]
     }
   },
-  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;It appears that&lt;/em&gt;&amp;nbsp;&lt;em&gt;A REaL form may be required for this complaint. Please take a moment to review the complaint and record a new REaL form if necessary.&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;\n&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;Please refer to&lt;/em&gt;&amp;nbsp;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;&lt;em&gt;&lt;a href=\&quot;https://anz.sharepoint.com/sites/max-work/SitePages/Report-NFR-Event.aspx\&quot; class=\&quot;external-link\&quot; target=\&quot;_blank\&quot; title=\&quot;Follow link\&quot; style=\&quot;color: #e03e2d; text-decoration: underline;\&quot; rel=\&quot;noopener\&quot;&gt;Non-financial risk max page&lt;/a&gt;&lt;/em&gt;&amp;nbsp;&lt;/span&gt;&lt;em&gt;for further information on when to record a REaL Form.&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;It appears that&lt;/em&gt;&amp;nbsp;&lt;em&gt;A REaL form may be required for this complaint. Please take a moment to review the complaint and record a new REaL form if necessary.&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;\n&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;Please refer to the &lt;/em&gt;&lt;em&gt;&lt;a class=\&quot;external-link\&quot; href=\&quot;https://anz.sharepoint.com/sites/max-banking/Shared Documents/QRG Adding REaL Form details in CMOS.pdf?web=1\&quot; target=\&quot;_blank\&quot; rel=\&quot;nofollow noopener\&quot; style=\&quot;color: #e03e2d;\&quot;&gt;&lt;u&gt;REaL Form Management in CMOS&lt;/u&gt;&lt;/a&gt;&lt;/em&gt;&amp;nbsp;QRG for steps on how to record the REaL Form&lt;/span&gt;&lt;/p&gt;&quot;,
   &quot;label&quot; : &quot;TextBlock2&quot;,
   &quot;controlWidth&quot; : null
 }</propertySetConfig>
@@ -6297,7 +6297,7 @@
                 <propertySetConfig>{
   &quot;controlWidth&quot; : null,
   &quot;label&quot; : &quot;TextBlock2&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;To create a REaL form, please click the &apos;Link a REaL form&apos; button located at the top-right corner of the complaint record after the case has been created. For further information please refer to the &lt;u&gt;CMOS Max page.&lt;/u&gt;&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;To create a REaL form, please click the &apos;Link REaL Form&apos; button located at the top-right corner of the complaint record after the case has been created. For further information please refer to the &lt;em&gt;&lt;a class=\&quot;external-link\&quot; href=\&quot;https://anz.sharepoint.com/sites/max-banking/Shared Documents/QRG Adding REaL Form details in CMOS.pdf?web=1\&quot; target=\&quot;_blank\&quot; rel=\&quot;nofollow noopener\&quot; style=\&quot;color: #e03e2d;\&quot;&gt;&lt;u&gt;REaL Form Management on CMOS&lt;/u&gt;&lt;/a&gt;&lt;/em&gt;&amp;nbsp;QRG &lt;/em&gt;&lt;/span&gt;&lt;/p&gt;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
