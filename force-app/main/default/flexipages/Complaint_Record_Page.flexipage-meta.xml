@@ -697,7 +697,7 @@
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab3</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND 2 AND ( 3 OR 4 )</booleanFilter>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.ANZx_Push_To_App_View}</leftValue>
                         <operator>EQUAL</operator>
@@ -707,6 +707,16 @@
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Customer_Complaint</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Open</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Under Investigation</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -798,7 +808,7 @@
                 <componentName>interactionRelatedList</componentName>
                 <identifier>c_interactionRelatedList</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND 2 AND (3 OR 4)</booleanFilter>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.ANZx_Push_To_App_View}</leftValue>
                         <operator>EQUAL</operator>
@@ -808,6 +818,16 @@
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Customer_Complaint</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Under Investigation</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Open</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
