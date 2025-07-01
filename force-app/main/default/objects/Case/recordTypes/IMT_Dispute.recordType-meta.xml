@@ -1477,6 +1477,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Beneficiary claims non-receipt</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancel transfer</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Duplicate Transaction</fullName>
             <default>false</default>
         </values>
@@ -1489,7 +1497,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Payee has not received funds</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Return money received from an unknown person</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Suspected fraud</fullName>
             <default>false</default>
         </values>
         <values>

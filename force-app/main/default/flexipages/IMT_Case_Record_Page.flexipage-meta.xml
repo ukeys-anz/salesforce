@@ -919,7 +919,7 @@
                         <rightValue>Card_Dispute</rightValue>
                     </criteria>
                     <criteria>
-                        <leftValue>{!Record.RecordType.Name}</leftValue>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>IMT_Dispute</rightValue>
                     </criteria>
