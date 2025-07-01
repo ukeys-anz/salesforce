@@ -8,26 +8,6 @@ export default class OmniText extends OmniscriptBaseMixin(LightningElement) {
   @track isText = false;
   @track options = [];
   @track value;
-  @track inpValue;
-  isDisabled;
-
-  setValues(data) {
-    let typeOfAddress = this.omniJsonDef?.name;
-    if (!["Country", "State", "Street", "Suburb"].includes(typeOfAddress)) {
-      return;
-    }
-    let flag = data?.CustomerDetails?.[typeOfAddress];
-    this.isDisabled = data?.disablAddress ?? true;
-    if (["Country", "State"].includes(typeOfAddress) && flag) {
-      this.value = flag;
-      return;
-    }
-    this.inpValue = flag;
-  }
-
-  checkForComplaintType(data) {
-    return data?.Case?.isThisCustomerComplaint === "No";
-  }
 
   connectedCallback() {
     if (this.omniJsonDef && this.omniJsonDef.name === "Country") {
@@ -47,11 +27,13 @@ export default class OmniText extends OmniscriptBaseMixin(LightningElement) {
   }
 
   render() {
-    if (this.checkForComplaintType(this.omniJsonData)) {
-      this.setValues(this.omniJsonData?.Case);
-    }
-    if (this.omniJsonData?.Case) this.setRequired(this.omniJsonData.Case);
-    if (this.omniJsonData?.States && this.omniJsonDef.name === "State") {
+    if (this.omniJsonData && this.omniJsonData.Case)
+      this.setRequired(this.omniJsonData.Case);
+    if (
+      this.omniJsonData &&
+      this.omniJsonData.States &&
+      this.omniJsonDef.name === "State"
+    ) {
       this.options = [];
       this.omniJsonData.States.options.forEach((opt) => {
         this.options.push({ label: opt.value, value: opt.name });
