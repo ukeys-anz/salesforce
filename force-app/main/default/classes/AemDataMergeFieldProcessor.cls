@@ -43,7 +43,10 @@ public class AemDataMergeFieldProcessor {
 
   // Extracts the field names from the JSON string
   @TestVisible
-  private static Set<String> extractFieldNames(Matcher mergedFieldMatcher, Id recordId) {
+  private static Set<String> extractFieldNames(
+    Matcher mergedFieldMatcher,
+    Id recordId
+  ) {
     Set<String> fieldsToQuery = new Set<String>();
     while (mergedFieldMatcher.find()) {
       fieldsToQuery.add(mergedFieldMatcher.group(1));
@@ -51,28 +54,26 @@ public class AemDataMergeFieldProcessor {
 
     // This will give fieldsMap which we can use to retrieve the field type
     Map<String, Schema.SObjectField> fieldsMap = recordId
-    .getSObjectType()
-    .getDescribe()
-    .fields.getMap();
+      .getSObjectType()
+      .getDescribe()
+      .fields.getMap();
 
     Set<String> finalFields = new Set<String>();
 
-    for (String fieldName : fieldsToQuery)
-    {
+    for (String fieldName : fieldsToQuery) {
       // Add relationship fields (e.g., Account.Name) as-is
-      if (fieldName.contains('.'))
-      {
+      if (fieldName.contains('.')) {
         finalFields.add(fieldName);
         continue;
       }
 
       // Apply toLabel only for picklist fields
-      if(fieldsMap.get(fieldName).getDescribe().getType() == Schema.DisplayType.Picklist)
-      {
+      if (
+        fieldsMap.get(fieldName).getDescribe().getType() ==
+        Schema.DisplayType.Picklist
+      ) {
         finalFields.add('toLabel(' + fieldName + ')');
-      }
-      else
-      {
+      } else {
         finalFields.add(fieldName);
       }
     }
