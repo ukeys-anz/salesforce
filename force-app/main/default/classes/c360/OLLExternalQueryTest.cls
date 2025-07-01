@@ -82,12 +82,17 @@ private class OLLExternalQueryTest {
 
   @isTest
   static void testCreateExternalRecords() {
+    registerMocks();
     FinServ__FinancialAccountRole__c mockFar = getMockedData();
     DataSource.QueryContext context = createOLLQueryContext();
     OtherLimitsAndLiabilitiesExternalQuery limitLiabQry = new OtherLimitsAndLiabilitiesExternalQuery();
-    limitLiabQry.populateData(
+    faRepoMock.mock(
+      'getFinancialAccountsWithCustomerId',
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
+    faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
+    Industry__c mockIndustry = getIndustryMockedData();
+    faRepoMock.mock('getIndustry', new List<Industry__c>{ mockIndustry });
     Test.startTest();
     limitLiabQry.execute(context);
 

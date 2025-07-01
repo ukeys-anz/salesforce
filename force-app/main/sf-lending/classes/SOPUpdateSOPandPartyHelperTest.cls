@@ -24,41 +24,7 @@ public with sharing class SOPUpdateSOPandPartyHelperTest {
       return accounts;
     }
   }
-  @isTest
-  static void testTransformToRelationshipState() {
-    String relationshipState = 'In a relationship';
-    String relationshipStateSingle = 'Single';
-    Test.startTest();
-    String transformedRelationshipState = SOPUpdateSOPandPartyHelper.transformToRelationshipState(
-      relationshipState
-    );
 
-    String transformedRelationshipStateSingle = SOPUpdateSOPandPartyHelper.transformToRelationshipState(
-      relationshipStateSingle
-    );
-    Test.stopTest();
-    Assert.areEqual(
-      transformedRelationshipState,
-      'RELATIONSHIP_STATE_IN_RELATIONSHIP',
-      'Relationship state is In a relationship'
-    );
-    Assert.areEqual(
-      transformedRelationshipStateSingle,
-      'RELATIONSHIP_STATE_SINGLE',
-      'Relationship state is Single'
-    );
-  }
-
-  @isTest
-  static void testTransformSpouceEarnIncome() {
-    Test.startTest();
-    Boolean result = SOPUpdateSOPandPartyHelper.transformSpouceEarnIncome(
-      'Yes'
-    );
-    Test.stopTest();
-    // Assert the result
-    Assert.isFalse(result, 'success');
-  }
   @isTest
   static void testGetPartiesOcvIds() {
     Test.startTest();

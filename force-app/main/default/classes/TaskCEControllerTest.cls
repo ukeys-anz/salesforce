@@ -44,7 +44,7 @@ public with sharing class TaskCEControllerTest {
     CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel dataModel = (CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel) taskCloudEvent[0]
       .ce_data;
     Assert.isNotNull(
-      dataModel.notification,
+      dataModel.data.notification,
       'Notification node should not be null'
     );
     Assert.areEqual(
@@ -66,22 +66,22 @@ public with sharing class TaskCEControllerTest {
     pushToAppRepoMock.mock('getUsers', new List<User>());
     pushToAppRepoMock.mock(
       'queryTaskRecords',
-      mockTaskRecordsList('ACTIVITY_STATE_SENT')
+      mockTaskRecordsList('TASK_STATE_SENT')
     );
 
     Test.startTest();
     TaskCEController.TaskCloudEventContexT taskCEContext = TaskCEController.buildContext(
-      mockTaskRecordsList('ACTIVITY_STATE_SENT')
+      mockTaskRecordsList('TASK_STATE_SENT')
     );
     List<CloudEventModel> taskCloudEvent = TaskCEController.buildCloudEvent(
-      mockTaskRecordsList('ACTIVITY_STATE_SENT'),
+      mockTaskRecordsList('TASK_STATE_SENT'),
       taskCEContext
     );
     Test.stopTest();
 
     CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel dataModel = (CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel) taskCloudEvent[0]
       .ce_data;
-    Assert.isNull(dataModel.notification, 'Notification node is null');
+    Assert.isNull(dataModel.data.notification, 'Notification node is null');
     Assert.areEqual(
       System.Label.ANZX_Customer_Nudge_event_ce_type + 'updated',
       taskCloudEvent[0].ce_type,
@@ -125,13 +125,11 @@ public with sharing class TaskCEControllerTest {
     pushToAppRepoMock.mock('getUsers', new List<User>());
     pushToAppRepoMock.mock(
       'queryTaskRecords',
-      mockTaskRecordsList('ACTIVITY_STATE_SENT')
+      mockTaskRecordsList('TASK_STATE_SENT')
     );
 
     Test.startTest();
-    TaskCEController.publishCloudEvents(
-      mockTaskRecordsList('ACTIVITY_STATE_SENT')
-    );
+    TaskCEController.publishCloudEvents(mockTaskRecordsList('TASK_STATE_SENT'));
     Test.stopTest();
 
     String payload = CloudEventController.cloudEvents[0].Data_1__c;

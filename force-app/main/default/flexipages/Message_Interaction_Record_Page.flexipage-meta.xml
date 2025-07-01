@@ -333,6 +333,28 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>lookupFieldName</name>
+                    <value>Interaction.TwilioDetailsID__c</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>titleFieldName</name>
+                    <value>AI Generated Summary</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>updateQuickActionName</name>
+                    <value>Twilio_Details__c.Twilio_AI_Summary</value>
+                </componentInstanceProperties>
+                <componentName>console:relatedRecord</componentName>
+                <identifier>console_relatedRecord2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Tabs</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>tabs</name>
                     <value>Facet-02faaa89-6c34-4949-b326-185dbca0c5e4</value>
                 </componentInstanceProperties>

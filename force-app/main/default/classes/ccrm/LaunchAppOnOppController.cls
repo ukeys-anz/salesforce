@@ -99,15 +99,15 @@ public with sharing class LaunchAppOnOppController {
    * @description validate AMBIT response
    * @name validateAMBITResponse
    * @param oppId opportunity Id
-   * @param oppLineItemIds string of opp line items Ids
+   * @param oppLineItemId string of opp line items Id
    * @return List<Id> app form products Ids set
    */
   @AuraEnabled
-  public static Boolean getAMBITResponse(Id oppId, List<Id> oppLineItemIds) {
+  public static Boolean getAMBITResponse(Id oppId, Id oppLineItemId) {
     try {
       CommercialAMBITRequestModel ambitModel = LaunchAppOnOppHelper.createAMBITRequestBody(
         oppId,
-        oppLineItemIds
+        oppLineItemId
       );
       return AMBIT_REPO.getAMBITQuoteResponse(ambitModel);
     } catch (CommercialAMBITRepo.ServerErrorException se) {
@@ -219,5 +219,47 @@ public with sharing class LaunchAppOnOppController {
     public Id recordTypeId;
     @AuraEnabled
     public Boolean allowMultiple;
+
+    /**
+     * @description Constructor for RecordTypeWrapper
+     * @param recordTypeName Record type name
+     * @param recordTypeId Record type Id
+     * @param allowMultiple we can select multiple product
+     * @param opps Opp record
+     */
+    public RecordTypeWrapper(
+      String recordTypeName,
+      Id recordTypeId,
+      Boolean allowMultiple,
+      Opportunity opps
+    ) {
+      this.recordTypeName = recordTypeName;
+      this.recordTypeId = recordTypeId;
+      this.allowMultiple = allowMultiple;
+
+      switch on recordTypeName {
+        when 'AMBIT' {
+          this.url =
+            'https://' +
+            Label.Commercial_Abmit_Instance_URL +
+            '/Opportunity/GetQuotes/?iko=' +
+            opps.Opp_Id__c +
+            '&ikpr={OppProductId}';
+        }
+        when 'BBD' {
+          this.url = String.isNotBlank(opps.Account.Source_System_ID__c)
+            ? Label.BBD_Link
+                .replace(
+                  '{!Account.Source_System_ID__c}',
+                  opps.Account.Source_System_ID__c
+                )
+                .replace('{!Opportunity.Opp_Id__c}', opps.Opp_Id__c)
+            : Label.BBD_Link;
+        }
+        when 'ACM' {
+          this.url = Label.ACM_Link;
+        }
+      }
+    }
   }
 }

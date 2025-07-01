@@ -4,6 +4,12 @@
  * @description This is the action class for CommercialOpportunityTriggerHandler
  */
 public with sharing class CommercialOpportunityActions {
+  @testVisible
+  private static final String OPP_WON = 'Opportunity Won';
+  @testVisible
+  private static final String OPP_LOST = 'Opportunity Lost';
+  @testVisible
+  private static final String NEW_STAGE = 'New';
   private static final CommercialOpportunityRepository OPP_REPOSITORY = (CommercialOpportunityRepository) Lib_InstanceProvider.forType(
     CommercialOpportunityRepository.class
   );
@@ -107,5 +113,47 @@ public with sharing class CommercialOpportunityActions {
       oppRecord.CLG__c = accountToAARMap.get(oppRecord.AccountId)
         ?.FinServ__RelatedAccount__c;
     }
+  }
+
+  /**
+   * @description This method will validate if AFPs are present for Opp Products and are closed before an Opportunity is closed
+   * @name validateAFPBeforeOppClose
+   * @param records from the trigger
+   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values
+   */
+  public static void validateAFPBeforeOppClose(
+    List<Opportunity> records,
+    Map<Id, Opportunity> oldMap
+  ) {
+    List<Opportunity> closedOppsList = ListUtil.filter(records, oldMap)
+      .changed(Opportunity.StageName)
+      .anyEqual(
+        new Set<SObjectField>{ Opportunity.StageName },
+        new Set<String>{ OPP_WON, OPP_LOST }
+      )
+      .toList();
+
+    Map<Id, Opportunity> closedOppsMap = new Map<Id, Opportunity>(
+      closedOppsList
+    );
+
+    //get AFPs related to Opportunities
+    List<ApplicationFormProduct> appFormProducts = OPP_REPOSITORY.getAFPRelatedToOpportunity(
+      closedOppsMap.keySet()
+    );
+
+    Map<Id, Set<Id>> oppIdToOpenAFPMap = CommercialOpportunityHelper.formOppIdToOpenAFPMap(
+      appFormProducts
+    );
+
+    Map<Id, Set<Id>> oppIdToAllAFPIdMap = CommercialOpportunityHelper.formOppIdToAllAFPIdMap(
+      appFormProducts
+    );
+
+    CommercialOpportunityHelper.addErrorOnOppForOpenAFP(
+      closedOppsMap,
+      oppIdToOpenAFPMap,
+      oppIdToAllAFPIdMap
+    );
   }
 }

@@ -1,7 +1,7 @@
 import { createElement } from "lwc";
 import LeadLogAResponse from "c/leadLogAResponse";
-import responseStatusDependentValues from "@salesforce/apex/CCRMLogAResponseController.responseStatusDependentValues";
-import createResponseRecord from "@salesforce/apex/CCRMLogAResponseController.createResponseRecord";
+import responseStatusDependentValues from "@salesforce/apex/LogAResponseController.responseStatusDependentValues";
+import createResponseRecord from "@salesforce/apex/LogAResponseController.createResponseRecord";
 import { updateRecord, getRecord } from "lightning/uiRecordApi";
 import { registerLdsTestWireAdapter } from "@salesforce/sfdx-lwc-jest";
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
@@ -23,7 +23,7 @@ const mockGetCampaignMemberRecord = require("./data/createCampaignMemberRecord.j
 
 // Mocking imperative Apex method call
 jest.mock(
-  "@salesforce/apex/CCRMLogAResponseController.responseStatusDependentValues",
+  "@salesforce/apex/LogAResponseController.responseStatusDependentValues",
   () => {
     return {
       default: jest.fn()
@@ -33,7 +33,7 @@ jest.mock(
 );
 
 jest.mock(
-  "@salesforce/apex/CCRMLogAResponseController.createResponseRecord",
+  "@salesforce/apex/LogAResponseController.createResponseRecord",
   () => {
     return {
       default: jest.fn()
