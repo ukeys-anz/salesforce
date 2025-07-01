@@ -24,7 +24,7 @@ function unzipToDeploy() {
 mkdir -p ${DEPLOY_DIR}
 
 # If any files have changed/been added that require a deployment
-DIFFSTARTCOMMAND="git diff -z --ignore-all-space --name-only --diff-filter=d $(git tag --sort=-creatordate | grep ${BRANCH_NAME} | head -1)..HEAD  ${SOURCE_DIR}/"
+DIFFSTARTCOMMAND="git diff -z --ignore-all-space --name-only --diff-filter=d origin/${BRANCH_NAME}..HEAD -- ${SOURCE_DIR}/"
 DIFFENDCOMMAND="xargs -0 git archive -o package.zip HEAD"
 
 echo "Diff statement on objects: ${DIFFSTARTCOMMAND} | ${DIFFENDCOMMAND}"
