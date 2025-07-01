@@ -237,7 +237,8 @@
     "StateOfIssue__c",
     "StateOfIssueOCRClient__c",
     "StateOfIssueOCRServer__c",
-    "SubmittedAt__c"
+    "SubmittedAt__c",
+    "Latest__c"
   ],
   "Case": [
     "CertificateIdentifier__c",
