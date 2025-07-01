@@ -2,7 +2,6 @@
   "sfdatasync_object_whitelist": [
     "A_Z_Review__c",
     "Account",
-    "Activity",
     "ActivityFieldHistory__c",
     "ApplicationForm",
     "ApplicationFormProduct",
