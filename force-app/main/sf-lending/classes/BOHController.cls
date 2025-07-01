@@ -48,12 +48,14 @@ public with sharing class BOHController {
    * @description method to invoke updateSOPAndParty
    * @param sopModel
    * @param loanId
+   * @param ocvId
    * @return SOPViewModel for successful updateSOPAndParty exection
    */
   @AuraEnabled
   public static SOPViewModel updateSOPAndParty(
     SOPViewModel sopModel,
-    Id loanId
+    Id loanId,
+    String ocvId
   ) {
     try {
       ResidentialLoanApplication loanRec = RLA_SOQL_REPOSITORY.queryRLAById(
@@ -69,21 +71,26 @@ public with sharing class BOHController {
       };
 
       SOPUpdateSOPAndPartyRequestModel sopRequestModel = new SOPUpdateSOPAndPartyRequestModel(
-        sopModel,
-        loanRec.Account?.OCV_ID__c
+        sopModel
       );
 
       SOPViewModel response = SOP_API_REPOSITORY.updateSOPAndParty(
-        loanRec.Account?.OCV_ID__c,
+        ocvId,
         sopRequestModel,
         urlParameters
       );
       response.parties = SOPUpdateSOPandPartyHelper.transformPartiesList(
         response
       );
+
+      //updating reasessment if any of the API success.
+      SOPHelper.setToReassessmentIsRequired(loanId);
+
       return response;
     } catch (Exception e) {
-      throw new AuraHandledException('Failure to Update SOP And Party');
+      throw new AuraHandledException(
+        'The changes to the About You did not save. Please review and try again.'
+      );
     }
   }
 }

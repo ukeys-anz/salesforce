@@ -20,6 +20,10 @@ public with sharing class TrustMeCaseUpdateModel extends CalloutModel {
    */
   public String case_type { get; set; }
   /**
+   * @description case_number
+   */
+  public String case_number { get; set; }
+  /**
    * @description primary_denied_reason
    */
   public String primary_denied_reason { get; set; }
@@ -79,7 +83,6 @@ public with sharing class TrustMeCaseUpdateModel extends CalloutModel {
      * @description kyc_info_and_id_doc_type
      */
     public Boolean kyc_info_and_id_doc_type { get; set; }
-    
   }
 
   /**
@@ -94,3 +97,4 @@ public with sharing class TrustMeCaseUpdateModel extends CalloutModel {
     );
   }
 }
+

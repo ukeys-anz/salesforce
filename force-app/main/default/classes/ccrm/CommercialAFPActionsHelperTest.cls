@@ -204,10 +204,11 @@ private class CommercialAFPActionsHelperTest {
     // Mock the Repo Methods
     appFormProductRepoMock.mock('getApplicationForms', appForms);
     Test.startTest();
-    CommercialAppFormProductActionsHelper.AppFormProductWrapper appFormProductWrapper = CommercialAppFormProductActionsHelper.getAppFormProductsRelatedToCommercialOpportunity(
-      new Set<Id>{ appFormId },
-      afpList
-    );
+    CommercialAppFormProductActionsHelper.AppFormProductWrapper appFormProductWrapper = new CommercialAppFormProductActionsHelper()
+      .getAppFormProductsRelatedToCommercialOpportunity(
+        new Set<Id>{ appFormId },
+        afpList
+      );
     Test.stopTest();
     Assert.areEqual(
       1,
@@ -255,7 +256,10 @@ private class CommercialAFPActionsHelperTest {
     );
     Test.stopTest();
     errors = afpList[0].getErrors();
-    Assert.isTrue(errors.isEmpty(), 'Expected no errors, but found: ' + errors.size());
+    Assert.isTrue(
+      errors.isEmpty(),
+      'Expected no errors, but found: ' + errors.size()
+    );
   }
 
   @isTest
@@ -271,5 +275,42 @@ private class CommercialAFPActionsHelperTest {
     );
     Test.stopTest();
     Assert.areEqual('Solution Development', afp.Stage, 'No record updated');
+  }
+
+  @isTest
+  static void validateProductTest() {
+    //GIVEN afpWrap, oppIdToOliMap
+    Id afId = Lib_FakeIdGenerator.getMockId(ApplicationForm.SObjectType);
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    CommercialAppFormProductActionsHelper.AppFormProductWrapper afpWrap = new CommercialAppFormProductActionsHelper.AppFormProductWrapper();
+    afpWrap.filteredAppFormProducts = new List<ApplicationFormProduct>{
+      new ApplicationFormProduct(
+        Id = Lib_FakeIdGenerator.getMockId(ApplicationFormProduct.SObjectType),
+        ApplicationFormId = afId
+      )
+    };
+    afpWrap.apFormToOppIdMap = new Map<Id, Id>{ afId => oppId };
+
+    Map<Id, List<OpportunityLineItem>> oppIdToOliMap = new Map<Id, List<OpportunityLineItem>>{
+      oppId => new List<OpportunityLineItem>{
+        new OpportunityLineItem(
+          Id = Lib_FakeIdGenerator.getMockId(OpportunityLineItem.SObjectType),
+          OpportunityId = oppId
+        )
+      }
+    };
+
+    //WHEN Calling a method
+    CommercialAppFormProductActionsHelper.validateProduct(
+      afpWrap,
+      oppIdToOliMap
+    );
+
+    //THEN it should successfully assert
+    Assert.areEqual(
+      true,
+      afpWrap.filteredAppFormProducts[0].hasErrors(),
+      'should throw error on AFP'
+    );
   }
 }

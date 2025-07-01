@@ -46,6 +46,13 @@
   cursor: pointer;
   margin-left: 4px;
   position: relative;
+}
+
+.tooltip-margin {
+  bottom: 6px;
+}
+
+.tooltip-margin-modal {
   bottom: 2px;
 }
 

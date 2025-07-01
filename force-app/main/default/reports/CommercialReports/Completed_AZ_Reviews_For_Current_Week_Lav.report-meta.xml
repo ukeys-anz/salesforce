@@ -10,6 +10,9 @@
     <columns>
         <field>A_Z_Review__c.Borrowing_OFI_Relationship__c</field>
     </columns>
+    <columns>
+        <field>A_Z_Review__c.A2Z_Review_Interaction_Type__c</field>
+    </columns>
     <filter>
         <criteriaItems>
             <column>A_Z_Review__c.Status__c</column>

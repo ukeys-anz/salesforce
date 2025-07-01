@@ -7,6 +7,7 @@ import {
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
 import STATUS_FIELD from "@salesforce/schema/Case.Status";
 import SUBJECT_FIELD from "@salesforce/schema/Case.Subject";
+import CASENUMBER_FIELD from "@salesforce/schema/Case.CaseNumber";
 import PRIMARY_FAILED_REASON_FIELD from "@salesforce/schema/Case.OnboardingVerificationFailedReason__c";
 import SECONDARY_FAILED_REASON_FIELD from "@salesforce/schema/Case.SecondaryVerificationFailedReason__c";
 import EVALUATION_ID from "@salesforce/schema/Case.Evaluation_Id__c";
@@ -51,7 +52,8 @@ export default class TrustMeCaseStatusPath extends LightningElement {
       CUSTOMER_PHOTO_MOD_CHECK,
       ID_DOC_SECUIRTY_CHECK,
       IS_CLOSED,
-      KYC_VERIFICATION_ID
+      KYC_VERIFICATION_ID,
+      CASENUMBER_FIELD
     ]
   })
   wiredCaseFields({ data }) {
@@ -60,6 +62,7 @@ export default class TrustMeCaseStatusPath extends LightningElement {
     }
     this.recordTypeInfo = data.recordTypeInfo;
     this.caseData.Status = getFieldValue(data, STATUS_FIELD);
+    this.caseData.CaseNumber = getFieldValue(data, CASENUMBER_FIELD);
     this.caseData.Id = this.recordId;
     this.caseData.Subject = getFieldValue(data, SUBJECT_FIELD);
     this.caseData.RecordTypeId = data.recordTypeInfo.recordTypeId;
