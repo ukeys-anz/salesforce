@@ -35,6 +35,35 @@ public class CaseCEControllerTest {
       'Cloud Event should be generated'
     );
   }
+  @isTest
+  public static void testIMTDisputeCase() {
+    Case theCase = TestDataFactory.createCase('IMT_Dispute');
+    RecordType rt = [
+      SELECT Id, DeveloperName
+      FROM RecordType
+      WHERE Id = :(theCase.RecordTypeId)
+      LIMIT 1
+    ];
+    theCase = (Case) TestDataFactory.populateRecordType(theCase, rt);
+    theCase.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    Test.startTest();
+    CaseCEController.publishCloudEvents(new List<Case>{ theCase });
+    Test.stopTest();
+    String payload = CloudEventController.cloudEvents[0].Data_1__c;
+    IMTDisputeCaseCloudEventModel imtDisputeCaseCloudEventModel = (IMTDisputeCaseCloudEventModel) JSON.deserialize(
+      payload,
+      IMTDisputeCaseCloudEventModel.class
+    );
+    Assert.isTrue(
+      IMTDisputeCaseCloudEventModel.ce_type.contains('v1beta1.dispute.imt'),
+      'ce_type is incorrect'
+    );
+    Assert.areEqual(
+      1,
+      CloudEventController.cloudEvents.size(),
+      'Cloud Event should be generated'
+    );
+  }
 
   // test cloud event for the NPP Dispute
   @isTest
@@ -55,6 +84,34 @@ public class CaseCEControllerTest {
     );
     Assert.isTrue(
       nppDisputeCaseCloudEventModel.ce_type.contains('v1beta1.dispute.npp'),
+      'ce_type is incorrect'
+    );
+    Assert.areEqual(
+      2,
+      CloudEventController.cloudEvents.size(),
+      'Cloud Event should be generated'
+    );
+  }
+
+  // test cloud event for the IMT Dispute
+  @isTest
+  public static void testIMTDisputeCaseForStatusChange() {
+    Map<String, Case> theCaseMap = getTestCaseRecord('IMT_Dispute');
+    Test.startTest();
+    CaseCEController.publishCloudEvents(
+      new List<Case>{ theCaseMap.get('newCase') },
+      new Map<Id, Case>{
+        theCaseMap.get('oldCase').Id => theCaseMap.get('oldCase')
+      }
+    );
+    Test.stopTest();
+    String payload = CloudEventController.cloudEvents[0].Data_1__c;
+    IMTDisputeCaseCloudEventModel imtDisputeCaseCloudEventModel = (IMTDisputeCaseCloudEventModel) JSON.deserialize(
+      payload,
+      IMTDisputeCaseCloudEventModel.class
+    );
+    Assert.isTrue(
+      imtDisputeCaseCloudEventModel.ce_type.contains('v1beta1.dispute.imt'),
       'ce_type is incorrect'
     );
     Assert.areEqual(

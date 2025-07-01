@@ -23,6 +23,7 @@ public with sharing class ExternalCaseStatusCloudEventModelV2 extends CloudEvent
       RTCase.atmDispute => 'atm.',
       RTCase.cardDispute => 'card.',
       RTCase.nppDispute => 'npp.',
+      RTCase.imtDispute => 'imt.',
       RTCase.payToDispute => 'payto.',
       RTCase.directEntryDispute => 'de.',
       RTCase.directDebitDispute => 'dd.',

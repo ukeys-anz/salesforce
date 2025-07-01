@@ -12,6 +12,7 @@ public without sharing class CaseCEController {
     RTCase.directDebitDispute,
     RTCase.directEntryDispute,
     RTCase.nppDispute,
+    RTCase.imtDispute,
     RTCase.bpayDispute,
     RTCase.payToDispute
   };

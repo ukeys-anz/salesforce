@@ -9,11 +9,13 @@ public with sharing class DisputesCaseTriggerHandler extends Lib_TriggerHandler 
     RTCase.bpayDispute,
     RTCase.cardDispute,
     RTCase.nppDispute,
+    RTCase.imtDispute,
     RTCase.directDebitDispute,
     RTCase.directEntryDispute,
     RTCase.payToDispute
   };
 
+  public static final String IMT_NEW_EXTERNAL_STATUS = 'IMT_New';
   public static final String NPP_NEW_EXTERNAL_STATUS = 'NPP_New';
   public static final String UNAUTHORISED_TRANSACTION_DISPUTE_REASON = 'Unauthorised Transaction';
 
@@ -45,10 +47,21 @@ public with sharing class DisputesCaseTriggerHandler extends Lib_TriggerHandler 
         UNAUTHORISED_TRANSACTION_DISPUTE_REASON
       )
       .toList();
+    if (!nppNonFraudDisputes.isEmpty()) {
+      DisputesCaseActions.createExternalCaseStatuses(
+        nppNonFraudDisputes,
+        NPP_NEW_EXTERNAL_STATUS
+      );
+    }
 
-    DisputesCaseActions.createExternalCaseStatuses(
-      nppNonFraudDisputes,
-      NPP_NEW_EXTERNAL_STATUS
-    );
+    List<Case> imtDisputes = ListUtil.filter(records)
+      .equals(Case.RecordTypeId, RTCase.imtDispute)
+      .toList();
+    if (!imtDisputes.isEmpty()) {
+      DisputesCaseActions.createExternalCaseStatuses(
+        imtDisputes,
+        IMT_NEW_EXTERNAL_STATUS
+      );
+    }
   }
 }

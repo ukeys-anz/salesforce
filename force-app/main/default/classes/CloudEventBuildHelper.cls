@@ -67,6 +67,16 @@ public with sharing class CloudEventBuildHelper {
         );
         return cloudEventModel;
       }
+      when 'IMT_Dispute' {
+        cloudEventModel = new IMTDisputeCaseCloudEventModel(
+          theCase,
+          theAccount,
+          action,
+          theUser,
+          theOwner
+        );
+        return cloudEventModel;
+      }
       when 'Direct_Debit_Dispute' {
         cloudEventModel = new DirectDebitDisputeCaseCloudEventModel(
           theCase,
@@ -207,6 +217,16 @@ public with sharing class CloudEventBuildHelper {
           return cloudEventDataPayload;
         }
         NPPDisputeCaseCloudEventModel.NPPDisputeCaseCloudEventDataModel cloudEventDataModel = new NPPDisputeCaseCloudEventModel.NPPDisputeCaseCloudEventDataModel(
+          theCase,
+          theAccount,
+          theOwner,
+          theUser
+        );
+        cloudEventDataPayload = JSON.serialize(cloudEventDataModel);
+        return cloudEventDataPayload;
+      }
+      when 'IMT_Dispute' {
+        IMTDisputeCaseCloudEventModel.IMTDisputeCaseCloudEventDataModel cloudEventDataModel = new IMTDisputeCaseCloudEventModel.IMTDisputeCaseCloudEventDataModel(
           theCase,
           theAccount,
           theOwner,
