@@ -520,11 +520,6 @@
     "Settlement_ID__c"
   ],
   "Twilio_Details__c": ["Call_Transcript__c", "Summary__c"],
-  "Activity": [
-    "Customer_Task_Configuration__c",
-    "TaskNumber__c",
-    "Customer_Task_Data__c"
-  ],
   "User": [
     "AboutMe",
     "BadgeText",
