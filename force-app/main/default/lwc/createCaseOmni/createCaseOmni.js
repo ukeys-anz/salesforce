@@ -210,7 +210,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
         "RestApiError"
       ) &&
       !this.omniJsonData.isEligibleAppForLookUp &&
-      !this.omniJsonData.enableAccountLookUp
+      this.omniJsonData.enableAccountLookUp
     ) {
       return true;
     }

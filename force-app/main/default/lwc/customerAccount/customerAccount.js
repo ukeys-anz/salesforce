@@ -70,10 +70,11 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
       return;
     }
     this.capIdAccounts = data.accounts;
-    this.error = undefined;
+    this.allValues = [];
+    this.populateAccountNumbers(this._omniData);
   }
 
-  async populateAccountNumbers(data) {
+  populateAccountNumbers(data) {
     this.options = [];
     if (this.checkForCacheCustomer(data)) {
       this.createAccountOptions(
@@ -81,11 +82,7 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
         this.checkIssueTypeChange(data.Case.ComplaintDetails)
       );
     }
-    if (
-      this.capIdAccounts &&
-      this.capIdAccounts.length &&
-      this.checkCustomerIdentifier(data)
-    ) {
+    if (this.capIdAccounts?.length && this.checkCustomerIdentifier(data)) {
       this.createAccountOptions(
         this.capIdAccounts,
         this.checkIssueTypeChange(data.Case.ComplaintDetails)
@@ -95,8 +92,7 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
 
     // To select all Account/Policy Number values by default when Issue typen is 'Financial Difficulty & Hardship'
     if (
-      data.Case.CustomerDetails &&
-      data.Case.CustomerDetails.complaintAbout &&
+      data?.Case?.CustomerDetails?.complaintAbout &&
       !this.allValues?.length
     ) {
       this.allValues.push("N/A");
@@ -225,19 +221,15 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
         this.options.push({ label: "N/A", value: "N/A" });
       }
     } else {
-      if (
-        this.allValues &&
-        this.allValues.length &&
-        this.allValues.indexOf("N/A") !== -1
-      )
+      if (this.allValues?.length && this.allValues.indexOf("N/A") !== -1)
         this.allValues.splice(this.allValues.indexOf("N/A"), 1);
     }
-    if (data && data.Case && data.Case.CustomerDetails) {
+    if (data?.Case?.CustomerDetails) {
       if (data.Case.CustomerDetails.expressCaseCreationCheckbox === "Yes") {
         this.expCase = "Yes";
       }
       if (
-        data.Case.CustomerDetails.expressCaseCreationCheckbox === "No" &&
+        data?.Case?.CustomerDetails?.expressCaseCreationCheckbox === "No" &&
         this.expCase === "Yes"
       ) {
         this.allValues.splice(this.allValues.indexOf("N/A"), 1);
