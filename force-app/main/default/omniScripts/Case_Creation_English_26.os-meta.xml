@@ -7629,6 +7629,8 @@
     } ],
     &quot;sysIssueMap&quot; : [ {
       &quot;systemicIssueReason&quot; : &quot;Why is this a possible systemic issue?&quot;
+    }, {
+      &quot;additionalissues&quot; : &quot;Which issue is possibly systemic?&quot;
     } ],
     &quot;cacMap&quot; : [ {
       &quot;ParentCase-Block&quot; : &quot;Parent Case&quot;
