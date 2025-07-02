@@ -20,5 +20,5 @@ ISBLANK(TEXT(IDR_Real_Form_Req__c))
 )
 )
 )</errorConditionFormula>
-    <errorMessage>You must tick &apos;Is a REaL form required?&apos; when entering a REaL Form / Event ID.</errorMessage>
+    <errorMessage>A REaL Form ID has been recorded against this complaint. Please ensure you include a value in the &apos;Is a REaL Form required?&apos; field by clicking the &apos;Link REaL Form&apos; button located at the top of the screen.</errorMessage>
 </ValidationRule>
