@@ -74,7 +74,34 @@
             "display_name": "John Doe",
             "account_number": "123456789",
             "contact": "e1cd3e68-784b-5157-b356-60f168222dcb",
-            "account_indicator": "IBAN"
+            "account_indicator": "IBAN",
+            "postal_address": {
+              "address": {
+                "room": "Room 101",
+                "floor": "10",
+                "department": "Finance",
+                "sub_department": "Accounts",
+                "street_name": "George Street",
+                "building_number": "200",
+                "building_name": "ANZ Tower",
+                "town_name": "Sydney",
+                "town_location_name": "CBD",
+                "district_name": "Central",
+                "country_subdivision_code": "NSW",
+                "post_box": "PO Box 123",
+                "post_code": "2000",
+                "country_code": "AU"
+              },
+              "address_lines": [
+                "Room 101, 10, Finance, Accounts",
+                "ANZ Tower, 200 George Street",
+                "CBD, Central",
+                "Sydney",
+                "NSW 2000",
+                "PO Box 123",
+                "AU"
+              ]
+            }
           },
           "payer_details": {
             "amount_with_anz_fee_in_payer_currency": {
@@ -99,7 +126,7 @@
           }
         }
       },
-      "persona_id": "ab621652-de45-4008-9650-14f6557d13a3",
+      "persona_id": "ab621652-de45-4008-9650-14f6557d13a34",
       "lwc_transaction_description": "International Transfer to 953481"
     },
     {
