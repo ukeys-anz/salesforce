@@ -2586,7 +2586,6 @@
         &quot;field&quot; : &quot;isThisCustomerComplaint&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;No&quot;
-      }
       } ]
     }
   },
@@ -4152,10 +4151,6 @@
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;Yes&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;Issue2Checkbox&quot;
-      }, {
         &quot;field&quot; : &quot;systemicIssue&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;Yes&quot;
