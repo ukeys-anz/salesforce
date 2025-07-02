@@ -59,15 +59,7 @@ public with sharing class IMTDisputeCaseCloudEventModel extends DisputeCaseCloud
      * @description receipt
      */
     public String receipt { get; set; }
-    /**
-     * @description intended account
-     */
-    public IntendedAccountModel intendedAccount { get; set; }
-    /**
-     * @description intended amount
-     */
-    public FabricType.FabricMoney intendedAmount { get; set; }
-
+    
     /**
      * @description Constructor
      * @param theCase Case record
@@ -86,13 +78,6 @@ public with sharing class IMTDisputeCaseCloudEventModel extends DisputeCaseCloud
       this.receipt = theCase.Receipt__c;
       this.reasonCode = theCase.Reason_Code__c;
       this.paymentId = theCase.Payment_ID__c;
-      this.intendedAccount = new IntendedAccountModel(theCase);
-      if (theCase.Intended_Amount__c != null) {
-        this.intendedAmount = new FabricType.FabricMoney(
-          null,
-          theCase.Intended_Amount__c
-        );
-      }
     }
   }
 }
