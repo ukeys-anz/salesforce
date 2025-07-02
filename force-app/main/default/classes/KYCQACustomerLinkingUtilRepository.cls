@@ -143,6 +143,7 @@ public with sharing class KYCQACustomerLinkingUtilRepository {
     return [
       SELECT
         Id,
+        SecurityMobile__c,
         (
           SELECT Id, DateOfBirth__c
           FROM COBPrimaryIDDocuments__r

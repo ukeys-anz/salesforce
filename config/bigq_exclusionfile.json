@@ -207,6 +207,7 @@
     "LastNameOCRClient__c",
     "LastNameOCRMatch__c",
     "LastNameOCRServer__c",
+    "Latest__c",
     "LicenceCardNumber__c",
     "LicenceCardNumberOCRClient__c",
     "LicenceCardNumberOCRClientTransform__c",
