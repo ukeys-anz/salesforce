@@ -1473,27 +1473,7 @@
     <picklistValues>
         <picklist>Dispute_Reason__c</picklist>
         <values>
-            <fullName>Amount not received by payee</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Beneficiary claims non-receipt</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Cancel transfer</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Duplicate Transaction</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incorrect Account Details</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incorrect Amount Transferred</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1501,15 +1481,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Return money received from an unknown person</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Suspected fraud</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Unauthorised Transaction</fullName>
             <default>false</default>
         </values>
     </picklistValues>

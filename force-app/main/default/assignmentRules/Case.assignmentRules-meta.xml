@@ -32,27 +32,21 @@
         <ruleEntry>
             <assignedTo>Support_Coach_Queue</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <formula>
-            AND(
-                OR(
-                    ISNEW(),
-                    ISCHANGED(Submitted__c)
-                )
-                &amp;&amp; Submitted__c = true,
-                OR(
-                    RecordType.DeveloperName = &quot;NPP_Dispute&quot;,
-                    RecordType.DeveloperName = &quot;BPAY_Dispute&quot;,
-                    RecordType.DeveloperName = &quot;IMT_Dispute&quot;
-                ),
-                NOT(
-                    ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised Transaction&quot;)
-                ),
-                NOT(
-                    ISPICKVAL(Dispute_Reason__c, &quot;Suspected fraud&quot;)
-                )
-
+            <formula>AND( 
+    OR( ISNEW(),  ISCHANGED(Submitted__c) )   &amp;&amp; Submitted__c = true,   
+    OR(
+        AND(
+            OR(RecordType.DeveloperName = &quot;NPP_Dispute&quot;,  RecordType.DeveloperName = &quot;BPAY_Dispute&quot;), NOT(   ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised Transaction&quot;)   )
+        ), 
+        AND(
+            RecordType.DeveloperName = &quot;IMT_Dispute&quot;,
+            OR(
+                ISPICKVAL(Dispute_Reason__c, &quot;Cancel transfer&quot;),
+                ISPICKVAL(Dispute_Reason__c, &quot;Payee has not received funds&quot;)
             )
-            </formula>
+        )
+    )
+)</formula>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>Support_Coach_Queue</assignedTo>

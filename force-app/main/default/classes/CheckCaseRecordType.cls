@@ -36,6 +36,7 @@ public with sharing class CheckCaseRecordType {
     RTCase.directDebitDispute,
     RTCase.directEntryDispute,
     RTCase.nppDispute,
+    RTCase.imtDispute,
     RTCase.bpayDispute,
     //other record types
     RTCase.generalInquiry,
