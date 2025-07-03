@@ -68,7 +68,7 @@
                                 </criteria>
                                 <criteria>
                                     <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                                    <operator>CONTAINS</operator>
+                                    <operator>EQUAL</operator>
                                     <rightValue>IMT_Dispute</rightValue>
                                 </criteria>
                             </visibilityRule>
@@ -123,7 +123,7 @@
                                     <rightValue>NPP_Dispute</rightValue>
                                 </criteria>
                                 <criteria>
-                                    <leftValue>{!Record.RecordType.Name}</leftValue>
+                                    <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                                     <operator>NE</operator>
                                     <rightValue>IMT_Dispute</rightValue>
                                 </criteria>
