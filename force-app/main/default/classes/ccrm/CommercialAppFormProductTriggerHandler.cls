@@ -45,10 +45,6 @@ public with sharing class CommercialAppFormProductTriggerHandler extends Lib_Tri
       records,
       (Map<Id, ApplicationFormProduct>) oldMap
     );
-    CommercialAppFormProductActions.validateProductOnAFP(
-      records,
-      (Map<Id, ApplicationFormProduct>) oldMap
-    );
   }
   /**
    * @description onAfterInsert to handle after update trigger actions.

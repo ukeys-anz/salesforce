@@ -190,30 +190,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.ProductId</fieldItem>
                 <identifier>RecordProductIdField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.ApplicationForm.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>AMBIT</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.ProductId</fieldItem>
-                <identifier>RecordProductIdField2</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.ApplicationForm.RecordType.DeveloperName}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>AMBIT</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
