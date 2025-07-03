@@ -143,6 +143,7 @@ public with sharing class KYCQACustomerLinkingUtilRepository {
     return [
       SELECT
         Id,
+        OCVId__c,
         SecurityMobile__c,
         (
           SELECT Id, DateOfBirth__c
