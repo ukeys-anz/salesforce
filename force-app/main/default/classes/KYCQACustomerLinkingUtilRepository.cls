@@ -90,7 +90,7 @@ public with sharing class KYCQACustomerLinkingUtilRepository {
         )
       FROM CustomerOnboardingApplication__c
       WHERE OCVId__c IN :ocvIds
-      WITH USER_MODE
+      WITH SYSTEM_MODE
     ];
   }
 
@@ -126,7 +126,7 @@ public with sharing class KYCQACustomerLinkingUtilRepository {
         )
       FROM CustomerOnboardingApplication__c
       WHERE SecurityMobile__c IN :mobileNumbers
-      WITH USER_MODE
+      WITH SYSTEM_MODE
     ];
   }
 
@@ -143,6 +143,7 @@ public with sharing class KYCQACustomerLinkingUtilRepository {
     return [
       SELECT
         Id,
+        SecurityMobile__c,
         (
           SELECT Id, DateOfBirth__c
           FROM COBPrimaryIDDocuments__r
