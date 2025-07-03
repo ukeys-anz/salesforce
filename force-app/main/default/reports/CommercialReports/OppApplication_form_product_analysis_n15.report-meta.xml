@@ -32,9 +32,9 @@
     <columns>
         <field>ApplicationForm$Opportunity.Owner</field>
     </columns>
-    <description>Use this report to validate your current application form products.</description>
+    <description>Please use this report to validate your current application form products in pipeline</description>
     <filter>
-        <booleanFilter>1 AND 2</booleanFilter>
+        <booleanFilter>1 OR 2</booleanFilter>
         <criteriaItems>
             <column>ApplicationForm$Opportunity.My_Manager_Opps__c</column>
             <columnToColumn>false</columnToColumn>

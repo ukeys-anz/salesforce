@@ -84,24 +84,13 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <displayNameOverride>Application Number</displayNameOverride>
-            <field>Application_Number__c</field>
-            <table>ApplicationForm</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <displayNameOverride>Amount Financed</displayNameOverride>
             <field>App_Amount__c</field>
             <table>ApplicationForm</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <displayNameOverride>Product</displayNameOverride>
-            <field>Product</field>
-            <table>ApplicationForm.ApplicationFormProduct</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>CLG</displayNameOverride>
             <field>Opportunity.CLG__c</field>
             <table>ApplicationForm</table>
         </columns>
@@ -193,6 +182,12 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Application Number</displayNameOverride>
+            <field>Application_Number__c</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <displayNameOverride>Last Updated Stage Date</displayNameOverride>
             <field>Last_Updated_Stage_Date__c</field>
             <table>ApplicationForm.ApplicationFormProduct</table>
@@ -201,6 +196,12 @@
             <checkedByDefault>false</checkedByDefault>
             <displayNameOverride>Stage Duration</displayNameOverride>
             <field>Stage_Duration__c</field>
+            <table>ApplicationForm.ApplicationFormProduct</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Product</displayNameOverride>
+            <field>Product</field>
             <table>ApplicationForm.ApplicationFormProduct</table>
         </columns>
         <columns>
