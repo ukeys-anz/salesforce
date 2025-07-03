@@ -157,7 +157,7 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
         .replace("CASEID", encodeURIComponent(this.omniJsonData.recordId))
         .replace(
           "CASENUMBER",
-          encodeURIComponent(this.omniJsonData.CaseNumber)
+          encodeURIComponent(this.omniJsonData.Case.CaseNumber)
         );
 
       this[NavigationMixin.Navigate]({
