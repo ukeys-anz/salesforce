@@ -428,7 +428,7 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>CaseNumber</outputFieldName>
+        <outputFieldName>Case:CaseNumber</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <transformValuesMappings>{ }</transformValuesMappings>
