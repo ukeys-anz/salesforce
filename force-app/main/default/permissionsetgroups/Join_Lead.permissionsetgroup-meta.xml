@@ -3,9 +3,6 @@
     <description>Permission Set Group having all Permission Sets related to Join Lead functions.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Join Lead</label>
-    <permissionSets>AccessControlCreate</permissionSets>
-    <permissionSets>AccessControlDelete</permissionSets>
-    <permissionSets>AccessControlReadOnly</permissionSets>
     <permissionSets>Author_Reports_and_Dashboards</permissionSets>
     <permissionSets>BoH_Read_Only</permissionSets>
     <permissionSets>Case_Credit_Referral</permissionSets>
