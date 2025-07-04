@@ -9,12 +9,7 @@ public class CaseCEControllerTest {
   @isTest
   public static void testNPPDisputeCase() {
     Case theCase = TestDataFactory.createCase('NPP_Dispute');
-    RecordType rt = [
-      SELECT Id, DeveloperName
-      FROM RecordType
-      WHERE Id = :(theCase.RecordTypeId)
-      LIMIT 1
-    ];
+    RecordType rt = CommonUtil.getRecordTypeDeveloperName(theCase.RecordTypeId);
     theCase = (Case) TestDataFactory.populateRecordType(theCase, rt);
     theCase.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
     Test.startTest();
@@ -35,15 +30,11 @@ public class CaseCEControllerTest {
       'Cloud Event should be generated'
     );
   }
+
   @isTest
   public static void testIMTDisputeCase() {
     Case theCase = TestDataFactory.createCase('IMT_Dispute');
-    RecordType rt = [
-      SELECT Id, DeveloperName
-      FROM RecordType
-      WHERE Id = :(theCase.RecordTypeId)
-      LIMIT 1
-    ];
+    RecordType rt = CommonUtil.getRecordTypeDeveloperName(theCase.RecordTypeId);
     theCase = (Case) TestDataFactory.populateRecordType(theCase, rt);
     theCase.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
     Test.startTest();
@@ -337,12 +328,7 @@ public class CaseCEControllerTest {
     String recordTypeDeveloperName
   ) {
     Case theCase = TestDataFactory.createCase(recordTypeDeveloperName);
-    RecordType rt = [
-      SELECT Id, DeveloperName
-      FROM RecordType
-      WHERE Id = :(theCase.RecordTypeId)
-      LIMIT 1
-    ];
+    RecordType rt = CommonUtil.getRecordTypeDeveloperName(theCase.RecordTypeId);
     theCase = (Case) TestDataFactory.populateRecordType(theCase, rt);
     theCase.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
     theCase.AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
