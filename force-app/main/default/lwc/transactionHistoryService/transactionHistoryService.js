@@ -19,7 +19,7 @@ export const TRANSACTION_TYPES = {
   Fee: "Fee",
   Interest: "Interest",
   Deposit_Withdrawal: "Deposit Withdrawal",
-  International_Payment: "IMT",
+  International_Payment: "International Payment",
   Transfer: "Transfer",
   PAYID: "PAYID",
   BSB_ACC: "BSB/ACC",
