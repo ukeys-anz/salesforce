@@ -7,7 +7,7 @@ public with sharing class KYCQACustomerLinkingUtilRepository {
   /**
    * @description Find Accounts by OCV Ids and Date of Births
    * @param ocvIds Set of Account OCV Ids
-   * @param dobList Set of Account Date of Births
+   * @param dobList List of Account Date of Births
    * @return List<Account> list of Accounts
    */
   public List<Account> queryAccountsByOCVIdAndDOB(
@@ -34,7 +34,7 @@ public with sharing class KYCQACustomerLinkingUtilRepository {
   /**
    * @description Find Accounts by Person Mobile Numbers and Date of Births
    * @param mobileNumbers Set of Account Person Mobile Numbers
-   * @param dobList Set of Account Date of Births
+   * @param dobList List of Account Date of Births
    * @return List<Account> list of Accounts
    */
   public List<Account> queryAccountsByMobileNumberAndDOB(
@@ -60,15 +60,15 @@ public with sharing class KYCQACustomerLinkingUtilRepository {
 
   /**
    * @description Find Customer Onboarding Application by Account OCV Id & DOB
-   * @param ocvIds list of Account OCV Ids
-   * @param dobList list of Date of Births
+   * @param ocvIds Set of Account OCV Ids
+   * @param dobs Set of Date of Births
    * @return List<CustomerOnboardingApplication__c> list of Customer Onboarding Applications
    */
   public List<CustomerOnboardingApplication__c> queryCobsByOCVIdAndDOB(
     Set<String> ocvIds,
-    Set<Date> dobList
+    Set<Date> dobs
   ) {
-    if (ocvIds.isEmpty() || dobList.isEmpty()) {
+    if (ocvIds.isEmpty() || dobs.isEmpty()) {
       return new List<CustomerOnboardingApplication__c>();
     }
 
@@ -79,7 +79,7 @@ public with sharing class KYCQACustomerLinkingUtilRepository {
         (
           SELECT Id, DateOfBirth__c
           FROM COBPrimaryIDDocuments__r
-          WHERE Latest__c = TRUE AND DateOfBirth__c IN :dobList
+          WHERE Latest__c = TRUE AND DateOfBirth__c IN :dobs
         ),
         (
           SELECT Id, RecordTypeId
@@ -96,15 +96,15 @@ public with sharing class KYCQACustomerLinkingUtilRepository {
 
   /**
    * @description Find Customer Onboarding Application by Account Person Mobile Number & DOB
-   * @param mobileNumbers list of Account Person Mobile Numbers
-   * @param dobList list of Date of Births
+   * @param mobileNumbers Set of Account Person Mobile Numbers
+   * @param dobs Set of Date of Births
    * @return List<CustomerOnboardingApplication__c> list of Customer Onboarding Applications
    */
   public List<CustomerOnboardingApplication__c> queryCobsByMobileNumberAndDOB(
     Set<String> mobileNumbers,
-    Set<Date> dobList
+    Set<Date> dobs
   ) {
-    if (mobileNumbers.isEmpty() || dobList.isEmpty()) {
+    if (mobileNumbers.isEmpty() || dobs.isEmpty()) {
       return new List<CustomerOnboardingApplication__c>();
     }
 
@@ -115,7 +115,7 @@ public with sharing class KYCQACustomerLinkingUtilRepository {
         (
           SELECT Id, DateOfBirth__c
           FROM COBPrimaryIDDocuments__r
-          WHERE Latest__c = TRUE AND DateOfBirth__c IN :dobList
+          WHERE Latest__c = TRUE AND DateOfBirth__c IN :dobs
         ),
         (
           SELECT Id, RecordTypeId
@@ -132,7 +132,7 @@ public with sharing class KYCQACustomerLinkingUtilRepository {
 
   /**
    * @description Find Customer Onboarding Application by Id
-   * @param cobIds list of Customer Onboarding Application Ids
+   * @param cobIds Set of Customer Onboarding Application Ids
    * @return List<CustomerOnboardingApplication__c> list of Customer Onboarding Applications
    */
   public List<CustomerOnboardingApplication__c> queryCobByIds(Set<Id> cobIds) {

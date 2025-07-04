@@ -4,9 +4,11 @@
  * @description Utility class for Customer Onboarding Application
  */
 public with sharing class KYCQACustomerLinkingUtil {
-  private static final Map<SObjectField, String> FIELD_PREFIX_ACC = new Map<SObjectField, String>{
+  private static final Map<SObjectField, String> FIELD_PREFIX = new Map<SObjectField, String>{
     Account.OCV_Id__c => '',
-    Account.PersonMobilePhone => '+'
+    Account.PersonMobilePhone => '+',
+    CustomerOnboardingApplication__c.OCVId__c => '',
+    CustomerOnboardingApplication__c.SecurityMobile__c => '+'
   };
 
   private static final Map<SObjectField, SObjectField> FIELD_CORELATION_ACC_TO_COB = new Map<SObjectField, SObjectField>{
@@ -113,7 +115,7 @@ public with sharing class KYCQACustomerLinkingUtil {
   public static Map<Id, CustomerOnboardingApplication__c> getCobByAccountMobileAndDOB(
     List<Account> accs
   ) {
-    Set<String> mobiles = ListUtil.getStrings(accs, Account.PersonMobilePhone);
+    Set<String> mobiles = retrieveAccFormattedMobiles(accs);
     Set<Date> dobs = (Set<Date>) ListUtil.getUniques(
       accs,
       Account.PersonBirthdate
@@ -157,7 +159,7 @@ public with sharing class KYCQACustomerLinkingUtil {
       String cobFieldValue = (String) cob.get(cobField);
 
       String key = constructKey(
-        FIELD_PREFIX_ACC.get(accField) + cobFieldValue,
+        FIELD_PREFIX.get(accField) + cobFieldValue,
         cobDOBs.get(cob.Id)
       );
       if (accsMap.containsKey(key)) {
@@ -190,9 +192,6 @@ public with sharing class KYCQACustomerLinkingUtil {
     Map<Id, CustomerOnboardingApplication__c> accountIdWithCob = new Map<Id, CustomerOnboardingApplication__c>();
     for (Account acc : accs) {
       String accFieldValue = (String) acc.get(accField);
-      if (cobField == CustomerOnboardingApplication__c.SecurityMobile__c) {
-        accFieldValue = PhoneUtils.cleanupMobile(accFieldValue);
-      }
 
       String key = constructKey(accFieldValue, acc.PersonBirthdate);
       if (cobsMap.containsKey(key)) {
@@ -232,7 +231,10 @@ public with sharing class KYCQACustomerLinkingUtil {
       }
       String cobFieldValue = (String) cob.get(cobField);
       Date dob = cob.COBPrimaryIDDocuments__r[0].DateOfBirth__c;
-      String key = constructKey(cobFieldValue, dob);
+      String key = constructKey(
+        FIELD_PREFIX.get(cobField) + cobFieldValue,
+        dob
+      );
       cobsMap.put(key, cob);
     }
     return cobsMap;
@@ -293,5 +295,25 @@ public with sharing class KYCQACustomerLinkingUtil {
     }
 
     return mobileNumbers;
+  }
+
+  /**
+   * @description Get Formated Mobile Phones
+   * PhoneUtils.cleanupMobile is used to standartize mobile phone number, to avoid any difference in number format
+   * as there might be a difference between number format on customer and cob. exp : +61440000000 :: 61440000000
+   * @param accs List of accounts
+   * @return Set<String> Set of Formatted Mobile Phones
+   */
+  @TestVisible
+  private static Set<String> retrieveAccFormattedMobiles(List<Account> accs) {
+    Set<String> mobilePhones = new Set<String>();
+    for (Account acc : accs) {
+      String mobilePhone = PhoneUtils.cleanupMobile(acc.PersonMobilePhone);
+      if (String.isBlank(acc.PersonMobilePhone)) {
+        continue;
+      }
+      mobilePhones.add(mobilePhone);
+    }
+    return mobilePhones;
   }
 }

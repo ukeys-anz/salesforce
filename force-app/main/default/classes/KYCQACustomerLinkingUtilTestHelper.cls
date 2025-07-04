@@ -5,9 +5,13 @@
  */
 public with sharing class KYCQACustomerLinkingUtilTestHelper {
   public static final Faker FAKER = new Faker('AU');
-  public static final String COB_SECURITY_MOBILE_1 = '61412345678';
-  public static final String COB_SECURITY_MOBILE_2 = '61487654321';
-  public static final String COB_SECURITY_MOBILE_3 = '61445612912';
+  public static final String MOBILE_1 = '61412345678';
+  public static final String MOBILE_2 = '61487654321';
+  public static final String MOBILE_3 = '61445612912';
+
+  public static final String COB_SECURITY_MOBILE_1 = MOBILE_1;
+  public static final String COB_SECURITY_MOBILE_2 = MOBILE_2;
+  public static final String COB_SECURITY_MOBILE_3 = MOBILE_3;
   public static final String COB_SECURITY_MOBILE_NO_PID = '61478232912';
   public static final String COB_DUMMY_MOBILE = '61400000000';
 

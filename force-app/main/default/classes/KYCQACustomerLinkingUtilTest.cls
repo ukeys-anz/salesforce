@@ -279,14 +279,14 @@ private class KYCQACustomerLinkingUtilTest {
       ocvIds.size(),
       '3 ocvIds should have been passed on to the queryCobsByOCVIdAndDOB method'
     );
-    Set<Date> dobList = (Set<Date>) kycQACustomerLinkingUtilRepoMock.getHistory(
+    Set<Date> dobs = (Set<Date>) kycQACustomerLinkingUtilRepoMock.getHistory(
         'queryCobsByOCVIdAndDOB'
       )
-      .getParam('dobList');
+      .getParam('dobs');
     Assert.areEqual(
       3,
-      dobList.size(),
-      '3 dobList should have been passed on to the queryCobsByOCVIdAndDOB method'
+      dobs.size(),
+      '3 dobs should have been passed on to the queryCobsByOCVIdAndDOB method'
     );
 
     Assert.areEqual(
@@ -347,14 +347,14 @@ private class KYCQACustomerLinkingUtilTest {
       mobileNumbers.size(),
       '3 mobileNumbers should have been passed on to the queryCobsByMobileNumberAndDOB method'
     );
-    Set<Date> dobList = (Set<Date>) kycQACustomerLinkingUtilRepoMock.getHistory(
+    Set<Date> dobs = (Set<Date>) kycQACustomerLinkingUtilRepoMock.getHistory(
         'queryCobsByMobileNumberAndDOB'
       )
-      .getParam('dobList');
+      .getParam('dobs');
     Assert.areEqual(
       3,
-      dobList.size(),
-      '3 dobList should have been passed on to the queryCobsByMobileNumberAndDOB method'
+      dobs.size(),
+      '3 dobs should have been passed on to the queryCobsByMobileNumberAndDOB method'
     );
 
     Assert.areEqual(
@@ -625,7 +625,7 @@ private class KYCQACustomerLinkingUtilTest {
     );
 
     String key1 =
-      KYCQACustomerLinkingUtilTestHelper.COB_SECURITY_MOBILE_1 +
+      KYCQACustomerLinkingUtilTestHelper.ACCOUNT_PERSON_MOBILE_1 +
       '_' +
       dob1.format();
     Assert.isTrue(cobsMap.containsKey(key1), 'Key should be ' + key1);
@@ -636,7 +636,7 @@ private class KYCQACustomerLinkingUtilTest {
     );
 
     String key2 =
-      KYCQACustomerLinkingUtilTestHelper.COB_SECURITY_MOBILE_2 +
+      KYCQACustomerLinkingUtilTestHelper.ACCOUNT_PERSON_MOBILE_2 +
       '_' +
       dob2.format();
     Assert.isTrue(cobsMap.containsKey(key2), 'Key should be ' + key2);
@@ -647,6 +647,7 @@ private class KYCQACustomerLinkingUtilTest {
     );
 
     String key3 =
+      '+' +
       KYCQACustomerLinkingUtilTestHelper.COB_SECURITY_MOBILE_NO_PID +
       '_' +
       dob3.format();
@@ -781,6 +782,56 @@ private class KYCQACustomerLinkingUtilTest {
     Assert.isTrue(
       mobiles.contains('+null'),
       'Should handle null SecurityMobile__c'
+    );
+  }
+
+  @IsTest
+  static void testGetFormatedMobilePhones() {
+    // Test various mobile phone formats that should be cleaned up
+    List<Account> accounts = new List<Account>{ acc1, acc2, acc3 };
+
+    Test.startTest();
+    Set<String> formattedMobiles = KYCQACustomerLinkingUtil.retrieveAccFormattedMobiles(
+      accounts
+    );
+    Test.stopTest();
+
+    // Verify expected cleaned mobile numbers are returned
+    Assert.areEqual(
+      3,
+      formattedMobiles.size(),
+      'Should return 3 formatted mobile numbers'
+    );
+
+    Assert.isTrue(
+      formattedMobiles.contains(KYCQACustomerLinkingUtilTestHelper.MOBILE_1),
+      'Should contain cleaned mobile ' +
+      KYCQACustomerLinkingUtilTestHelper.MOBILE_1
+    );
+    Assert.isTrue(
+      formattedMobiles.contains(KYCQACustomerLinkingUtilTestHelper.MOBILE_2),
+      'Should contain cleaned mobile ' +
+      KYCQACustomerLinkingUtilTestHelper.MOBILE_2
+    );
+    Assert.isTrue(
+      formattedMobiles.contains(KYCQACustomerLinkingUtilTestHelper.MOBILE_3),
+      'Should contain cleaned mobile ' +
+      KYCQACustomerLinkingUtilTestHelper.MOBILE_3
+    );
+  }
+
+  @IsTest
+  static void testGetFormatedMobilePhonesEmptyList() {
+    Test.startTest();
+    Set<String> formattedMobiles = KYCQACustomerLinkingUtil.retrieveAccFormattedMobiles(
+      new List<Account>()
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      0,
+      formattedMobiles.size(),
+      'Should return empty set for empty account list'
     );
   }
 }
