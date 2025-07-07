@@ -91,7 +91,8 @@ private with sharing class IDRCaseAccessActionsTest {
       .mock('getUser', l1User)
       .mock('checkAnyPermissions', true)
       .mock('checkProfile', true)
-      .mock('checkAnyRoles', false);
+      .mock('checkAnyRoles', false)
+      .mock('checkCustomPermission', false);
     caseRepoMock.mock('queryL2L3User', new List<User>{});
     Case oldCase = oldCaseRecord;
     oldCase.OwnerId = l1User.Id;
@@ -127,7 +128,8 @@ private with sharing class IDRCaseAccessActionsTest {
       .mock('getUser', l1User)
       .mock('checkAnyPermissions', true)
       .mock('checkProfile', true)
-      .mock('checkAnyRoles', false);
+      .mock('checkAnyRoles', false)
+      .mock('checkCustomPermission', false);
     caseRepoMock.mock('queryL2L3User', new List<User>{});
     Case oldCase = oldCaseRecord;
     oldCase.OwnerId = l1User.Id;
@@ -163,7 +165,8 @@ private with sharing class IDRCaseAccessActionsTest {
       .mock('getUser', l2User)
       .mock('checkAnyPermissions', true)
       .mock('checkProfile', false)
-      .mock('checkAnyRoles', false);
+      .mock('checkAnyRoles', false)
+      .mock('checkCustomPermission', false);
     caseRepoMock.mock('queryL2L3User', new List<User>{ l1User });
     Case oldCase = oldCaseRecord;
     oldCase.OwnerId = l2User.Id;
@@ -194,7 +197,8 @@ private with sharing class IDRCaseAccessActionsTest {
       .mock('getUser', l2User)
       .mock('checkAnyPermissions', true)
       .mock('checkProfile', false)
-      .mock('checkAnyRoles', false);
+      .mock('checkAnyRoles', false)
+      .mock('checkCustomPermission', false);
     caseRepoMock.mock('queryL2L3User', new List<User>{ l2User });
     Case oldCase = oldCaseRecord;
     oldCase.OwnerId = l2User.Id;
@@ -225,7 +229,8 @@ private with sharing class IDRCaseAccessActionsTest {
       .mock('getUser', l3User)
       .mock('checkAnyPermissions', true)
       .mock('checkProfile', false)
-      .mock('checkAnyRoles', false);
+      .mock('checkAnyRoles', false)
+      .mock('checkCustomPermission', false);
     caseRepoMock.mock('queryL2L3User', new List<User>{ l1User });
     Case oldCase = oldCaseRecord;
     oldCase.OwnerId = l3User.Id;
@@ -375,7 +380,8 @@ private with sharing class IDRCaseAccessActionsTest {
     userMock
       .mock('checkProfile', true)
       .mock('checkAnyRoles', false)
-      .mock('getUser', l2User);
+      .mock('getUser', l2User)
+      .mock('checkCustomPermission', false);
     Case oldCase = oldCaseRecord;
     oldCase.OwnerId = l3User.Id;
     Case newCase = newCaseRecord;

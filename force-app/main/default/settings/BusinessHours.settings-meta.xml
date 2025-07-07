@@ -73,353 +73,113 @@
         <wednesdayStartTime>00:00:00.000Z</wednesdayStartTime>
     </businessHours>
     <holidays>
-        <activityDate>2026-04-27</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>ANZAC day 2026</description>
-        <isRecurring>false</isRecurring>
-        <name>ANZAC day 26</name>
-    </holidays>
-    <holidays>
-        <activityDate>2027-04-26</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>ANZAC day 2027</description>
-        <isRecurring>false</isRecurring>
-        <name>ANZAC day 27</name>
-    </holidays>
-    <holidays>
-        <activityDate>2028-04-25</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>ANZAC day 2028</description>
-        <isRecurring>false</isRecurring>
-        <name>ANZAC day 28</name>
-    </holidays>
-    <holidays>
-        <activityDate>2029-04-25</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>ANZAC day 2029</description>
-        <isRecurring>false</isRecurring>
-        <name>ANZAC day 29</name>
-    </holidays>
-    <holidays>
+        <name>Anzac Day</name>
         <activityDate>2023-04-25</activityDate>
         <businessHours>ANZx Case Business Hours</businessHours>
         <businessHours>Case Business Hours</businessHours>
         <description>Anzac Day</description>
         <isRecurring>false</isRecurring>
-        <name>Anzac Day</name>
     </holidays>
     <holidays>
-        <activityDate>2025-04-25</activityDate>
-        <description>Anzac Day</description>
-        <isRecurring>false</isRecurring>
-        <name>Anzac Day 2025</name>
-    </holidays>
-    <holidays>
-        <activityDate>2022-04-25</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Anzac Day 22</description>
-        <isRecurring>false</isRecurring>
-        <name>Anzac Day 22</name>
-    </holidays>
-    <holidays>
+        <name>Australia Day</name>
         <activityDate>2023-01-26</activityDate>
         <businessHours>Case Business Hours</businessHours>
         <description>Australia Day</description>
         <isRecurring>false</isRecurring>
-        <name>Australia Day</name>
     </holidays>
     <holidays>
-        <activityDate>2022-01-26</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Australia Day 22</description>
-        <isRecurring>false</isRecurring>
-        <name>Australia Day 22</name>
-    </holidays>
-    <holidays>
-        <activityDate>2025-01-27</activityDate>
-        <description>Australia Day 25</description>
-        <isRecurring>false</isRecurring>
-        <name>Australia Day 25</name>
-    </holidays>
-    <holidays>
-        <activityDate>2026-01-26</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Australia Day 2026</description>
-        <isRecurring>false</isRecurring>
-        <name>Australia Day 26</name>
-    </holidays>
-    <holidays>
-        <activityDate>2027-01-26</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Australia Day 2027</description>
-        <isRecurring>false</isRecurring>
-        <name>Australia Day 27</name>
-    </holidays>
-    <holidays>
-        <activityDate>2028-01-26</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Australia Day 2028</description>
-        <isRecurring>false</isRecurring>
-        <name>Australia Day 28</name>
-    </holidays>
-    <holidays>
-        <activityDate>2029-01-26</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Australia Day 2029</description>
-        <isRecurring>false</isRecurring>
-        <name>Australia Day 29</name>
-    </holidays>
-    <holidays>
+        <name>Boxing Day</name>
         <activityDate>2022-12-26</activityDate>
         <businessHours>ANZx Case Business Hours</businessHours>
         <businessHours>Case Business Hours</businessHours>
         <description>Boxing Day</description>
         <isRecurring>false</isRecurring>
-        <name>Boxing Day</name>
     </holidays>
     <holidays>
-        <activityDate>2025-12-26</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Boxing Day 2025</description>
-        <isRecurring>false</isRecurring>
-        <name>Boxing Day 2025</name>
-    </holidays>
-    <holidays>
-        <activityDate>2022-12-26</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Boxing Day 22</description>
-        <isRecurring>false</isRecurring>
-        <name>Boxing Day 22</name>
-    </holidays>
-    <holidays>
-        <activityDate>2026-12-28</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Boxing Day Holiday 2026</description>
-        <isRecurring>false</isRecurring>
-        <name>Boxing Day 26</name>
-    </holidays>
-    <holidays>
-        <activityDate>2027-12-28</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Boxing Day Holiday 2027</description>
-        <isRecurring>false</isRecurring>
-        <name>Boxing Day 27</name>
-    </holidays>
-    <holidays>
-        <activityDate>2028-12-26</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Boxing Day Holiday 2028</description>
-        <isRecurring>false</isRecurring>
-        <name>Boxing Day 28</name>
-    </holidays>
-    <holidays>
-        <activityDate>2029-12-26</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Boxing Day Holiday 2029</description>
-        <isRecurring>false</isRecurring>
-        <name>Boxing Day 29</name>
-    </holidays>
-    <holidays>
+        <name>Christmas Day</name>
         <activityDate>2022-12-27</activityDate>
         <businessHours>ANZx Case Business Hours</businessHours>
         <businessHours>Case Business Hours</businessHours>
         <description>Christmas Day</description>
         <isRecurring>false</isRecurring>
-        <name>Christmas Day</name>
     </holidays>
     <holidays>
-        <activityDate>2025-12-25</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Christmas Day 2025</description>
-        <isRecurring>false</isRecurring>
-        <name>Christmas Day 2025</name>
-    </holidays>
-    <holidays>
-        <activityDate>2022-12-25</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Christmas Day 22</description>
-        <isRecurring>false</isRecurring>
-        <name>Christmas Day 22</name>
-    </holidays>
-    <holidays>
-        <activityDate>2026-12-25</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Christmas Day 2026</description>
-        <isRecurring>false</isRecurring>
-        <name>Christmas Day 26</name>
-    </holidays>
-    <holidays>
-        <activityDate>2027-12-27</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Christmas Day Holiday 2027</description>
-        <isRecurring>false</isRecurring>
-        <name>Christmas Day 27</name>
-    </holidays>
-    <holidays>
-        <activityDate>2022-12-27</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Christmas Day2 22</description>
-        <isRecurring>false</isRecurring>
-        <name>Christmas Day2 22</name>
-    </holidays>
-    <holidays>
-        <activityDate>2028-12-25</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Christmas Day Holiday 2028</description>
-        <isRecurring>false</isRecurring>
-        <name>Christmas Day 28</name>
-    </holidays>
-    <holidays>
-        <activityDate>2029-12-25</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Christmas Day Holiday 2029</description>
-        <isRecurring>false</isRecurring>
-        <name>Christmas Day 29</name>
-    </holidays>
-    <holidays>
+        <name>Easter Monday</name>
         <activityDate>2023-04-10</activityDate>
         <businessHours>ANZx Case Business Hours</businessHours>
         <businessHours>Case Business Hours</businessHours>
         <description>Easter Monday</description>
         <isRecurring>false</isRecurring>
-        <name>Easter Monday</name>
     </holidays>
     <holidays>
-        <activityDate>2025-04-21</activityDate>
-        <description>Easter Monday 2025</description>
-        <isRecurring>false</isRecurring>
-        <name>Easter Monday 2025</name>
-    </holidays>
-    <holidays>
-        <activityDate>2022-04-18</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Easter Monday 22</description>
-        <isRecurring>false</isRecurring>
-        <name>Easter Monday 22</name>
-    </holidays>
-    <holidays>
-        <activityDate>2026-04-06</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Easter Monday 2026</description>
-        <isRecurring>false</isRecurring>
-        <name>Easter Monday 26</name>
-    </holidays>
-    <holidays>
-        <activityDate>2027-03-29</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Easter Monday 2027</description>
-        <isRecurring>false</isRecurring>
-        <name>Easter Monday 27</name>
-    </holidays>
-    <holidays>
-        <activityDate>2028-04-17</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Easter Monday 2028</description>
-        <isRecurring>false</isRecurring>
-        <name>Easter Monday 28</name>
-    </holidays>
-    <holidays>
-        <activityDate>2029-04-02</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Easter Monday 2029</description>
-        <isRecurring>false</isRecurring>
-        <name>Easter Monday 29</name>
-    </holidays>
-    <holidays>
+        <name>Good Friday</name>
         <activityDate>2023-04-07</activityDate>
         <businessHours>ANZx Case Business Hours</businessHours>
         <businessHours>Case Business Hours</businessHours>
         <description>Good Friday</description>
         <isRecurring>false</isRecurring>
-        <name>Good Friday</name>
     </holidays>
     <holidays>
-        <activityDate>2025-04-18</activityDate>
-        <description>Good Friday 2025</description>
-        <isRecurring>false</isRecurring>
-        <name>Good Friday 2025</name>
-    </holidays>
-    <holidays>
-        <activityDate>2022-04-15</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Good Friday 22</description>
-        <isRecurring>false</isRecurring>
-        <name>Good Friday 22</name>
-    </holidays>
-    <holidays>
-        <activityDate>2026-04-03</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Good Friday 2026</description>
-        <isRecurring>false</isRecurring>
-        <name>Good Friday 26</name>
-    </holidays>
-    <holidays>
-        <activityDate>2027-03-26</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Good Friday 2027</description>
-        <isRecurring>false</isRecurring>
-        <name>Good Friday 27</name>
-    </holidays>
-    <holidays>
-        <activityDate>2028-04-14</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Good Friday 2028</description>
-        <isRecurring>false</isRecurring>
-        <name>Good Friday 28</name>
-    </holidays>
-    <holidays>
-        <activityDate>2029-03-30</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>Good Friday 2029</description>
-        <isRecurring>false</isRecurring>
-        <name>Good Friday 29</name>
-    </holidays>
-    <holidays>
+        <name>New Year&apos;s Day</name>
         <activityDate>2023-01-01</activityDate>
         <businessHours>Case Business Hours</businessHours>
         <description>New Year&apos;s Day</description>
         <isRecurring>false</isRecurring>
-        <name>New Year&apos;s Day</name>
     </holidays>
     <holidays>
-        <activityDate>2022-01-01</activityDate>
-        <description>New Year&apos;s Day</description>
-        <isRecurring>false</isRecurring>
-        <name>New Year&apos;s Day 2025</name>
-    </holidays>
-    <holidays>
-        <activityDate>2022-01-01</activityDate>
+        <name>Anzac Day 22</name>
+        <activityDate>2022-04-25</activityDate>
         <businessHours>Case Business Hours</businessHours>
-        <description>New Year&apos;s Day</description>
+        <description>Anzac Day 22</description>
         <isRecurring>false</isRecurring>
+    </holidays>
+    <holidays>
+        <name>Australia Day 22</name>
+        <activityDate>2022-01-26</activityDate>
+        <businessHours>Case Business Hours</businessHours>
+        <description>Australia Day 22</description>
+        <isRecurring>false</isRecurring>
+    </holidays>
+    <holidays>
+        <name>Boxing Day 22</name>
+        <activityDate>2022-12-26</activityDate>
+        <businessHours>Case Business Hours</businessHours>
+        <description>Boxing Day 22</description>
+        <isRecurring>false</isRecurring>
+    </holidays>
+    <holidays>
+        <name>Christmas Day 22</name>
+        <activityDate>2022-12-25</activityDate>
+        <businessHours>Case Business Hours</businessHours>
+        <description>Christmas Day 22</description>
+        <isRecurring>false</isRecurring>
+    </holidays>
+    <holidays>
+        <name>Christmas Day2 22</name>
+        <activityDate>2022-12-27</activityDate>
+        <businessHours>Case Business Hours</businessHours>
+        <description>Christmas Day2 22</description>
+        <isRecurring>false</isRecurring>
+    </holidays>
+    <holidays>
+        <name>Easter Monday 22</name>
+        <activityDate>2022-04-18</activityDate>
+        <businessHours>Case Business Hours</businessHours>
+        <description>Easter Monday 22</description>
+        <isRecurring>false</isRecurring>
+    </holidays>
+    <holidays>
+        <name>Good Friday 22</name>
+        <activityDate>2022-04-15</activityDate>
+        <businessHours>Case Business Hours</businessHours>
+        <description>Good Friday 22</description>
+        <isRecurring>false</isRecurring>
+    </holidays>
+    <holidays>
         <name>New Year&apos;s Day 22</name>
-    </holidays>
-    <holidays>
-        <activityDate>2026-01-01</activityDate>
+        <activityDate>2022-01-01</activityDate>
         <businessHours>Case Business Hours</businessHours>
-        <description>New Year&apos;s Day 2026</description>
+        <description>New Year&apos;s Day</description>
         <isRecurring>false</isRecurring>
-        <name>New Year&apos;s Day 26</name>
-    </holidays>
-    <holidays>
-        <activityDate>2027-01-01</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>New Year&apos;s Day 2027</description>
-        <isRecurring>false</isRecurring>
-        <name>New Year&apos;s Day 27</name>
-    </holidays>
-    <holidays>
-        <activityDate>2028-01-03</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>New Year&apos;s Day 2028</description>
-        <isRecurring>false</isRecurring>
-        <name>New Year&apos;s Day 28</name>
-    </holidays>
-    <holidays>
-        <activityDate>2029-01-01</activityDate>
-        <businessHours>Case Business Hours</businessHours>
-        <description>New Year&apos;s Day 2029</description>
-        <isRecurring>false</isRecurring>
-        <name>New Year&apos;s Day 29</name>
     </holidays>
 </BusinessHoursSettings>

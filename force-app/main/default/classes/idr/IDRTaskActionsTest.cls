@@ -211,6 +211,49 @@ private with sharing class IDRTaskActionsTest {
       'Subject should be masked.'
     );
   }
+  @IsTest
+  static void testSITaskDueDateUpdate() {
+    registerMocks();
+    Id currentUserId = UserInfo.getUserId();
+    Case caseRecord = new Case(
+      Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType)
+    );
+    Case caseRecord1 = new Case(
+      Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
+      OwnerId = currentUserId
+    );
+
+    Task taskRecord1 = generateSITask(
+      Lib_FakeIdGenerator.getMockId(Task.SObjectType),
+      caseRecord
+    );
+    Task taskRecord2 = generateSITask(taskRecord1.Id, caseRecord);
+    taskRecord2.ActivityDate = System.today().addDays(15);
+    Task taskRecord3 = generateSITask(
+      Lib_FakeIdGenerator.getMockId(Task.SObjectType),
+      caseRecord1
+    );
+    Task taskRecord4 = generateSITask(taskRecord3.Id, caseRecord1);
+    taskRecord4.ActivityDate = System.today().addDays(15);
+
+    taskRepoMock.mock('queryCases', new List<Case>{ caseRecord });
+    Test.startTest();
+    IDRTaskActions.validateSIDueDate(
+      new List<Task>{ taskRecord2 },
+      new Map<Id, Task>{ taskRecord1.Id => taskRecord1 }
+    );
+    IDRTaskActions.validateSIDueDate(
+      new List<Task>{ taskRecord4 },
+      new Map<Id, Task>{ taskRecord3.Id => taskRecord3 }
+    );
+    Test.stopTest();
+    System.assertEquals(
+      IDRTaskActions.SI_DUE_DATE_ERROR_MESSAGE,
+      taskRecord2.getErrors()[0].getMessage(),
+      'Error message should be as expected.'
+    );
+    System.assertEquals(0, taskRecord4.getErrors().size(), 'No error message');
+  }
 
   @IsTest
   static void testIDRTaskClosureOnCaseClose() {
