@@ -737,6 +737,7 @@
         "Existing_Business_Owner__c",
         "My_Region_Flag__c"
       ],
+      "IA-2415983": ["A2Z_Review_Interaction_Type__c"],
       "IA-2415984": [
         "Name",
         "Business_Details__c",
@@ -748,7 +749,10 @@
         "Transaction_Banking__c",
         "CLG_Number__c",
         "CPID__c",
-        "Customer_Number__c"
+        "Customer_Number__c",
+        "Business_Owner_Number__c",
+        "Business_Owner__c",
+        "Business_Contact__c"
       ],
       "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"],
       "IA-2423227": ["COI_Member__c"],
@@ -1593,6 +1597,7 @@
     "COBPrimaryIDDocument__c": {
       "IA-2415860": [
         "Failed_Message__c",
+        "Latest__c",
         "OnboardingAttemptCount__c",
         "SubmittedAt__c",
         "Verified_By__c",
@@ -2670,7 +2675,8 @@
         "Territory__c",
         "Financial_Account__c",
         "ML_DataMigration_Key__c",
-        "My_Region_Flag__c"
+        "My_Region_Flag__c",
+        "CLGCustomer__c"
       ],
       "IA-2530753": [
         "AccountId",
@@ -3022,7 +3028,8 @@
         "My_Team__c",
         "Lead_Owner_Teamcode__c",
         "My_Team_Segment__c",
-        "My_Reportees_Lead__c"
+        "My_Reportees_Lead__c",
+        "My_Managers_Lead__c"
       ],
       "IA-2530753": ["IsNewLead__c"],
       "IA-2697875": ["Referrer_Business_Name__c", "Referrer_Industry_Type__c"],
@@ -3582,7 +3589,8 @@
         "FinServ__ReferredByContact__c",
         "FinServ__ReferredByUser__c",
         "My_Team_Segment__c",
-        "My_Reportees_Opps__c"
+        "My_Reportees_Opps__c",
+        "My_Manager_Opps__c"
       ],
       "IA-2530753": ["Opportunity_Owner__c"],
       "IA-2428130": ["Specialisation__c", "New_to_Bank__c"],

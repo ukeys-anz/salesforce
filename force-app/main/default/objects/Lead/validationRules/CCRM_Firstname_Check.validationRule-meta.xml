@@ -8,7 +8,8 @@
 NOT(CONTAINS( $User.Username,$Label.AdobeIntegrationUserName)),
         RecordType.DeveloperName = &apos;CCRM_Lead&apos;,Text(Status) != &apos;Outcome&apos;,Text(Lead_Outcome__c) != &apos;Expired&apos;,
         ISBLANK( FirstName ),
-NOT(ISCHANGED(RecordTypeId))
+NOT(ISCHANGED(RecordTypeId)),
+ISBLANK(FinServ__ReferredByUser__c)
     )</errorConditionFormula>
     <errorDisplayField>FirstName</errorDisplayField>
     <errorMessage>First Name is a mandatory field.</errorMessage>

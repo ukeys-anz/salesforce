@@ -7,10 +7,16 @@
     <inlineHelpText>Check the Related Cases section in the Related tab for any other cases linked to this case.</inlineHelpText>
     <lookupFilter>
         <active>true</active>
+        <booleanFilter>1 OR 2</booleanFilter>
         <filterItems>
             <field>Case.ParentId</field>
             <operation>equals</operation>
             <value></value>
+        </filterItems>
+        <filterItems>
+            <field>Case.RecordType.DeveloperName</field>
+            <operation>equals</operation>
+            <value>TrustMe_eIDV_QA_Case</value>
         </filterItems>
         <infoMessage>To stop creating grand parent or grand child cases</infoMessage>
         <isOptional>false</isOptional>

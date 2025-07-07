@@ -100,7 +100,7 @@ public with sharing class AutoKYCQACaseRepository {
   }
 
   /**
-   * @description Get list of not downgraded Accounts by account Ids
+   * @description Get list of Accounts By account Ids
    * @param accountIds set of account Ids
    * @return List<Account> list of Accounts
    */
@@ -125,15 +125,12 @@ public with sharing class AutoKYCQACaseRepository {
             AND FinServ__FinancialAccount__r.FinServ__Status__c = 'Active'
         )
       FROM Account
-      WHERE
-        Id IN :accountIds
-        AND (FinServ__KYCStatus__c != 'PC'
-        OR KYC_Verification_Level__c != 'RR')
+      WHERE Id IN :accountIds
     ];
   }
 
   /**
-   * @description Get list of not-exited and not upgraded Accounts By account Ids
+   * @description Get list of not-exited Accounts By account Ids
    * @param accountIds set of account Ids
    * @return List<Account> list of Accounts
    */
@@ -163,11 +160,7 @@ public with sharing class AutoKYCQACaseRepository {
           ORDER BY CreatedDate DESC
         )
       FROM Account
-      WHERE
-        Id IN :accountIds
-        AND CustomerExitFlag__c = FALSE
-        AND (FinServ__KYCStatus__c != 'CO'
-        OR KYC_Verification_Level__c != 'VE')
+      WHERE Id IN :accountIds AND CustomerExitFlag__c = FALSE
     ];
   }
 

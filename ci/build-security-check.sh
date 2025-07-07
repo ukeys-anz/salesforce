@@ -73,7 +73,7 @@ function checkValidationRuleBypass() {
 # Make a deploy and destroy directories to check the profile & permission set changes
 mkdir -p ${DEPLOY_DIR}
 
-DIFF="git diff -z --ignore-all-space --name-only --diff-filter=d $(git tag --sort=-creatordate | grep ${BRANCH_NAME} | head -1)..HEAD ./force-app/"
+DIFF="git diff -z --ignore-all-space --name-only --diff-filter=d origin/${BRANCH_NAME}..HEAD -- ./force-app/"
 DIFFENDCOMMAND="xargs -0 git archive -o package.zip HEAD"
 
 echo "Diff statement on files changed: ${DIFF} | ${DIFFENDCOMMAND}"

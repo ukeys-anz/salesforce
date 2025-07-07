@@ -38,7 +38,7 @@
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>PersonDigitalIdentity__x.Archive_User</value>
+                            <value>PersonDigitalIdentity__x.lwc_auf_ArchiveUser</value>
                             <visibilityRule>
                                 <booleanFilter>(1 OR 2) AND (3 OR 4) AND 5</booleanFilter>
                                 <criteria>
@@ -69,7 +69,7 @@
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>PersonDigitalIdentity__x.Lock_PIN</value>
+                            <value>PersonDigitalIdentity__x.lwc_auf_LockPIN</value>
                             <visibilityRule>
                                 <booleanFilter>1 AND (2 OR 3) AND 4 AND 5</booleanFilter>
                                 <criteria>
@@ -100,7 +100,7 @@
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>PersonDigitalIdentity__x.Unlock_PIN</value>
+                            <value>PersonDigitalIdentity__x.lwc_auf_UnlockPIN</value>
                             <visibilityRule>
                                 <booleanFilter>1 AND (2 OR 3) AND 4 AND 5</booleanFilter>
                                 <criteria>
@@ -131,7 +131,7 @@
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>PersonDigitalIdentity__x.Suspend</value>
+                            <value>PersonDigitalIdentity__x.lwc_auf_Suspend</value>
                             <visibilityRule>
                                 <booleanFilter>1 AND (2 OR 3) AND 4</booleanFilter>
                                 <criteria>
@@ -157,7 +157,7 @@
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>PersonDigitalIdentity__x.Unsuspend</value>
+                            <value>PersonDigitalIdentity__x.lwc_auf_Unsuspend</value>
                             <visibilityRule>
                                 <booleanFilter>1 AND (2 OR 3) AND 4</booleanFilter>
                                 <criteria>
@@ -183,7 +183,7 @@
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>PersonDigitalIdentity__x.UpdateMobileNumber</value>
+                            <value>PersonDigitalIdentity__x.lwc_auf_MobileNumber</value>
                             <visibilityRule>
                                 <booleanFilter>(1 OR 2 )AND (3 OR 4) AND 5</booleanFilter>
                                 <criteria>
@@ -214,7 +214,7 @@
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>PersonDigitalIdentity__x.Update_OCV_Number</value>
+                            <value>PersonDigitalIdentity__x.lwc_auf_OCVNumber</value>
                             <visibilityRule>
                                 <booleanFilter>(1 OR 2) AND (3 OR 4) AND 5</booleanFilter>
                                 <criteria>
@@ -245,7 +245,7 @@
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>PersonDigitalIdentity__x.Reset_PIN</value>
+                            <value>PersonDigitalIdentity__x.lwc_auf_ResetPIN</value>
                             <visibilityRule>
                                 <booleanFilter>1 AND 2 AND 3</booleanFilter>
                                 <criteria>

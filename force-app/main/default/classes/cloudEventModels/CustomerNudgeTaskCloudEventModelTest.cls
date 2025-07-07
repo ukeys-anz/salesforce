@@ -49,13 +49,13 @@ public with sharing class CustomerNudgeTaskCloudEventModelTest {
     // Validate the data model (CustomerNudgeTaskCloudDataModel)
     CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel dataModel = (CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel) model.ce_data;
     Assert.isNotNull(
-      dataModel.notification,
+      dataModel.data.notification,
       'Notification node should not be null'
     );
     Assert.areEqual(
       taskRecord.Pub_Sub_Event_Id__c,
-      dataModel.producer_command_key,
-      'producer_command_key is set correctly.'
+      dataModel.data.producerCommandKey,
+      'producerCommandKey is set correctly.'
     );
   }
 
@@ -71,7 +71,7 @@ public with sharing class CustomerNudgeTaskCloudEventModelTest {
     );
 
     CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel dataModel = (CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel) model.ce_data;
-    Assert.isNull(dataModel.notification, 'Notification node be null');
+    Assert.isNull(dataModel.data.notification, 'Notification node be null');
   }
 
   /**

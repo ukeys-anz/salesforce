@@ -19,11 +19,11 @@ public with sharing class CustomerNudgeNotificationModel {
   /**
    * @description Holds action_uri
    */
-  public String action_uri { get; set; }
+  public String actionUri { get; set; }
   /**
    * @description Holds icon_uri
    */
-  public IconUri icon_uri { get; set; }
+  public IconUri iconUri { get; set; }
 
   /**
    * @description this model is for holding icon details
@@ -32,11 +32,11 @@ public with sharing class CustomerNudgeNotificationModel {
     /**
      * @description Holds light uri
      */
-    public String icon_light_uri { get; set; }
+    public String iconLightUri { get; set; }
     /**
      * @description Holds dark uri
      */
-    public String icon_dark_uri { get; set; }
+    public String iconDarkUri { get; set; }
 
     /**
      * @description Constructor for IconuRI
@@ -44,8 +44,8 @@ public with sharing class CustomerNudgeNotificationModel {
      * @param darkUri holds dark uri
      */
     public IconUri(String lightUri, String darkUri) {
-      this.icon_light_uri = lightUri;
-      this.icon_dark_uri = darkUri;
+      this.iconLightUri = lightUri;
+      this.iconDarkUri = darkUri;
     }
   }
 
@@ -57,8 +57,8 @@ public with sharing class CustomerNudgeNotificationModel {
   public CustomerNudgeNotificationModel(AemDataModel.Items item, Task theTask) {
     this.title = item.title;
     this.body = item.subtitle + '\n' + item.bodyText;
-    this.action_uri =
+    this.actionUri =
       System.Label.Push_Task_To_App_Deeplink + theTask.Pub_Sub_Event_Id__c;
-    this.icon_uri = new IconUri(item.iconLightURI, item.iconDarkURI);
+    this.iconUri = new IconUri(item.iconLightURI, item.iconDarkURI);
   }
 }

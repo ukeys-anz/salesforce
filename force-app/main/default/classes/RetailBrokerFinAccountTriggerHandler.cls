@@ -83,7 +83,7 @@ public with sharing class RetailBrokerFinAccountTriggerHandler extends Lib_Trigg
     if (!homeLoanMarketingCodes.contains(financialAccount.Marketing_Code__c)) {
       return false;
     }
-    if (FinServ__FinancialAccount__c.Assisted_Broker_TPMI_SAO__c == null) {
+    if (financialAccount.Assisted_Broker_TPMI_SAO__c == null) {
       return false;
     }
     return true;

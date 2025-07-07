@@ -8,27 +8,6 @@ public class SOPUpdateSOPandPartyHelper {
   private static final LendingAccountRepository ACCOUNT_SOQL_HELPER = (LendingAccountRepository) Lib_InstanceProvider.forType(
     LendingAccountRepository.class
   );
-  /**
-   * @description transform the spouce earn income value
-   * @param soleIncomeEarner string parameter
-   * @return Boolean
-   */
-  public static Boolean transformSpouceEarnIncome(String soleIncomeEarner) {
-    return !(soleIncomeEarner.equalsIgnoreCase('Yes'));
-  }
-  /**
-   * @description Method to transform the text to upper case and append RELATIONSHIP_STATE_ prefix
-   * @param state string parameter
-   * @return string
-   */
-  public static String transformToRelationshipState(String state) {
-    // Convert the text to uppercase and prepend the prefix
-    String prefixText = 'RELATIONSHIP_STATE_';
-    if (state.equalsIgnoreCase('In a relationship')) {
-      return prefixText + 'IN_RELATIONSHIP';
-    }
-    return prefixText + state.toUpperCase();
-  }
 
   /**
    * @description To transform the parties list

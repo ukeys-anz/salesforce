@@ -1008,7 +1008,13 @@
       "name": "AEM Integration User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": ["AEM_Integration"],
-      "permissionsets": ["API_Only", "Disable_MFA"],
+      "permissionsets": [
+        "API_Only",
+        "Disable_MFA",
+        "Case_Read_Write_AEM_Integration",
+        "Lead_Newsletter_AEM_Integration",
+        "Password_Never_Expires"
+      ],
       "type": "system"
     },
     {

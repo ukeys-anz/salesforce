@@ -20,6 +20,8 @@ public class CommercialAppFormProductActionsRepo {
         OpportunityId,
         Opportunity.RecordTypeId,
         Opportunity.closeDate,
+        Opportunity.OwnerId,
+        OwnerId,
         (SELECT Id, ApplicationFormId FROM ApplicationFormProducts)
       FROM ApplicationForm
       WHERE

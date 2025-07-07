@@ -7,6 +7,8 @@
 
 @isTest
 public inherited sharing class HomeLoanControllerTest {
+  static Lib_MockProvider farRepoMock;
+  static Lib_MockProvider homeLoanAPIRepoMock;
   private static final Id FAKER_ACCOUNT_ID = Lib_FakeIdGenerator.getMockId(
     Account.getSObjectType()
   );
@@ -14,10 +16,14 @@ public inherited sharing class HomeLoanControllerTest {
     FinServ__FinancialAccount__c.getSObjectType()
   );
 
-  static Lib_MockProvider farRepoMock;
   static void registerMocks() {
     farRepoMock = Lib_MockProvider.forType(FinancialAccountRepository.class);
+    homeLoanAPIRepoMock = Lib_MockProvider.forType(HomeLoanAPIRepository.class);
   }
+
+  static OffsetAccountModel mockLinkedOffsetAccount = OffsetAccountModel.parse(
+    Service.getStaticResource('mock_linkedOffsetAccount')
+  );
 
   /**
    * @description Add required PermissionSet
@@ -157,46 +163,88 @@ public inherited sharing class HomeLoanControllerTest {
     return financialAccountRoles;
   }
 
+  /**
+   * @description Test Success scenarios for Get List Offset
+   */
   @isTest
   static void testGetListOffset() {
+    String ocvId = '11111231';
+    Id recordId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    registerMocks();
+    farRepoMock.mock(
+      'getFinAccountList',
+      new List<FinServ__FinancialAccount__c>{ getFinancialAccount }
+    );
+    homeLoanAPIRepoMock.mock('getOffsetAccounts', mockLinkedOffsetAccount);
     Test.startTest();
     OffsetAccountModel response = HomeLoanController.getListOffset(
-      '2222',
+      ocvId,
       null,
-      '121212'
+      recordId
     );
     Test.stopTest();
     Assert.isNotNull(response, 'Success Response');
+    Assert.areEqual(
+      'accounts/111111113',
+      response.loanOffsets[0].offsetAccounts[0],
+      'Should get the Offset for the loan account'
+    );
   }
 
+  /**
+   * @description Test Server Error scenarios for Get List Offset
+   */
   @isTest
   static void testGetListOffsetException() {
     String ocvId = '11111231';
-    String loanAccNumber = 'abcd';
+    String loanAccNumber = '1234';
+    try {
+      HttpCalloutResponse errorResponse = new HttpCalloutResponse();
+      errorResponse.successful = false;
+      errorResponse.statusCode = 500;
+      errorResponse.error = new CalloutException('callout failed');
+      registerMocks();
 
-    Test.startTest();
-    OffsetAccountModel offsetDetails = HomeLoanController.getListOffset(
-      ocvId,
-      loanAccNumber,
-      null
-    );
-    Test.stopTest();
+      homeLoanAPIRepoMock.mockException(
+        'getOffsetAccounts',
+        new HomeLoanAPIRepository.ServerErrorException(
+          errorResponse,
+          'getOffsetAccounts'
+        )
+      );
 
-    Assert.isTrue(offsetDetails.hasError, 'recordId is missing');
+      Test.startTest();
+      HomeLoanController.getListOffset(ocvId, loanAccNumber, FAKER_FINACC_ID);
+      Test.stopTest();
+      Assert.fail('An Exception should be thrown');
+    } catch (Exception ex) {
+      Assert.isInstanceOfType(
+        ex,
+        AuraHandledException.class,
+        'Exception should be an instanceof AuraHandledException.'
+      );
+    }
   }
 
+  /**
+   * @description Test Error scenarios for Get List Offset with Null response
+   */
   @isTest
   static void testGetListOffsetNullResponse() {
     Id recordId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
     String ocvId = '11111231';
     String loanAccNumber = '1234';
 
-    // Setting response for empty details
-    HttpCalloutResponse res = getResponseWithEmptyList();
-    Service finAccountService = ServiceProvider.getService(
-      FinancialAccountService.class
+    HttpCalloutResponse emptyResponse = new HttpCalloutResponse();
+    emptyResponse.statusCode = 200;
+    emptyResponse.successful = true;
+    emptyResponse.body = '{"loanOffsets": []}';
+
+    OffsetAccountModel offsetModel = OffsetAccountModel.parse(
+      emptyResponse.body
     );
-    finAccountService.setCalloutResponse(res);
+    registerMocks();
+    homeLoanAPIRepoMock.mock('getOffsetAccounts', offsetModel);
 
     Test.startTest();
     OffsetAccountModel response = HomeLoanController.getListOffset(
@@ -205,50 +253,55 @@ public inherited sharing class HomeLoanControllerTest {
       recordId
     );
     Test.stopTest();
-
     Assert.isNull(response, 'No linked offset details available');
   }
 
+  /**
+   * @description Test Error scenarios for Get List Offset with Not Found error
+   */
   @isTest
-  static void getListOffsetNotFoundException() {
-    Id recordId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+  static void testGetListOffsetNotFoundException() {
     String ocvId = '11111231';
     String loanAccNumber = '1234';
 
-    // Setting response for NotFound error
-    HttpCalloutResponse res = getNotFoundException();
-    Service finAccountService = ServiceProvider.getService(
-      FinancialAccountService.class
-    );
-    finAccountService.setCalloutResponse(res);
-    Test.startTest();
-    OffsetAccountModel offsetDetails = HomeLoanController.getListOffset(
-      ocvId,
-      loanAccNumber,
-      recordId
-    );
-    Test.stopTest();
-
-    Assert.isNull(offsetDetails, 'Should handle No Offset Found Exception');
-  }
-
-  private static HttpCalloutResponse getNotFoundException() {
-    HttpCalloutResponse response = new HttpCalloutResponse();
-    response.statusCode = 404;
-    response.successful = false;
-    response.body = null;
-    response.error = new CalloutException(
+    HttpCalloutResponse errorResponse = new HttpCalloutResponse();
+    errorResponse.error = new CalloutException(
       '{"code": "ERROR","additionalInfo": {"reason": "HTTP:NOT_FOUND","category": "TECHNICAL"}}'
     );
-    return response;
+    errorResponse.body = null;
+    errorResponse.successful = false;
+    errorResponse.statusCode = 404;
+
+    registerMocks();
+    homeLoanAPIRepoMock.mockException(
+      'getOffsetAccounts',
+      new HomeLoanAPIRepository.UserErrorException(
+        errorResponse,
+        'get Offset Accounts'
+      )
+    );
+
+    Test.startTest();
+    OffsetAccountModel response = HomeLoanController.getListOffset(
+      ocvId,
+      loanAccNumber,
+      FAKER_FINACC_ID
+    );
+    Test.stopTest();
+    Assert.isNull(response, 'Should return null response');
   }
 
-  private static HttpCalloutResponse getResponseWithEmptyList() {
-    String emptyBody = '{"loanOffsets": []}';
-    HttpCalloutResponse response = new HttpCalloutResponse();
-    response.statusCode = 200;
-    response.successful = true;
-    response.body = emptyBody;
-    return response;
+  /**
+   * @description Static method to return FinServ__FinancialAccount__c
+   */
+  static FinServ__FinancialAccount__c getFinancialAccount {
+    get {
+      return new FinServ__FinancialAccount__c(
+        Id = Lib_FakeIdGenerator.getMockId(
+          FinServ__FinancialAccount__c.SObjectType
+        ),
+        FinServ__FinancialAccountNumber__c = '391450876'
+      );
+    }
   }
 }

@@ -25,7 +25,6 @@ public with sharing class FinancialAccountQueryBaseRepository {
     Map<String, String> roleTypes
   ) {
     if (
-      !PermissionUtils.canQuery('FinServ__FinancialAccountRole__c') ||
       customerIds.isEmpty() ||
       String.isBlank(recordTypeName) ||
       productTypes.isEmpty() ||
@@ -33,7 +32,7 @@ public with sharing class FinancialAccountQueryBaseRepository {
     ) {
       return new List<FinServ__FinancialAccountRole__c>();
     }
-    List<FinServ__FinancialAccountRole__c> faRoles = [
+    return [
       SELECT
         FinServ__FinancialAccount__c,
         FinServ__FinancialAccount__r.Account_Key__c,
@@ -68,9 +67,9 @@ public with sharing class FinancialAccountQueryBaseRepository {
         AND (FinServ__FinancialAccount__r.FinServ__CloseDate__c = NULL
         OR FinServ__FinancialAccount__r.FinServ__CloseDate__c >= LAST_N_MONTHS:18)))
         AND FinServ__FinancialAccount__r.System_Record_Status__c != :OCV_DELETED
+      WITH USER_MODE
       ORDER BY FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
     ];
-    return faRoles;
   }
 
   /**
@@ -81,13 +80,10 @@ public with sharing class FinancialAccountQueryBaseRepository {
   public List<FinServ__FinancialAccountRole__c> getFinancialAccountsWithAcctNum(
     String accountKey
   ) {
-    if (
-      !PermissionUtils.canQuery('FinServ__FinancialAccountRole__c') ||
-      String.isBlank(accountKey)
-    ) {
+    if (String.isBlank(accountKey)) {
       return new List<FinServ__FinancialAccountRole__c>();
     }
-    List<FinServ__FinancialAccountRole__c> faRoles = [
+    return [
       SELECT
         FinServ__FinancialAccount__c,
         FinServ__FinancialAccount__r.Account_Key__c,
@@ -105,8 +101,8 @@ public with sharing class FinancialAccountQueryBaseRepository {
         FinServ__FinancialAccount__r.Sub_product_Code_Display__c
       FROM FinServ__FinancialAccountRole__c
       WHERE FinServ__FinancialAccount__r.Account_Key__c = :accountKey
+      WITH USER_MODE
     ];
-    return faRoles;
   }
 
   /**
@@ -119,14 +115,10 @@ public with sharing class FinancialAccountQueryBaseRepository {
     String accountKey,
     Set<String> roleTypes
   ) {
-    if (
-      !PermissionUtils.canQuery('FinServ__FinancialAccountRole__c') ||
-      String.isBlank(accountKey) ||
-      roleTypes.isEmpty()
-    ) {
+    if (String.isBlank(accountKey) || roleTypes.isEmpty()) {
       return new List<FinServ__FinancialAccountRole__c>();
     }
-    List<FinServ__FinancialAccountRole__c> relatedCustomers = [
+    return [
       SELECT
         FinServ__RelatedAccount__r.External_Id__c,
         FinServ__FinancialAccount__r.Product_Type__c,
@@ -137,8 +129,8 @@ public with sharing class FinancialAccountQueryBaseRepository {
         FinServ__FinancialAccount__r.Account_Key__c = :accountKey
         AND FinServ__Active__c = TRUE
         AND FinServ__EndDate__c = NULL
+      WITH USER_MODE
     ];
-    return relatedCustomers;
   }
 
   /**
@@ -147,19 +139,13 @@ public with sharing class FinancialAccountQueryBaseRepository {
    * @return Industry__c
    */
   public Industry__c getIndustryCodeAndDescription(String industryCode) {
-    if (
-      !PermissionUtils.canQuery('Industry__c') || String.isBlank(industryCode)
-    ) {
-      return new Industry__c();
-    }
-    List<Industry__c> result;
-    result = [
+    return [
       SELECT Name, Code__c
       FROM Industry__c
       WHERE Code__c = :industryCode
+      WITH USER_MODE
       LIMIT 1
-    ];
-    return result.isEmpty() ? null : result[0];
+    ] ?? null;
   }
 
   /**
@@ -168,16 +154,15 @@ public with sharing class FinancialAccountQueryBaseRepository {
    * @return List<Account>
    */
   public List<Account> getCustomerUsingExternalId(Set<String> externalIdValue) {
-    if (!PermissionUtils.canQuery('Account') || externalIdValue.isEmpty()) {
+    if (externalIdValue.isEmpty()) {
       return new List<Account>();
     }
-    List<Account> result;
-    result = [
+    return [
       SELECT Id, Name, External_Id__c
       FROM Account
       WHERE External_Id__c IN :externalIdValue
+      WITH USER_MODE
     ];
-    return result;
   }
 
   /**
@@ -190,23 +175,18 @@ public with sharing class FinancialAccountQueryBaseRepository {
     String externalIdValue,
     String recordTypeName
   ) {
-    if (
-      !PermissionUtils.canQuery('Account') ||
-      String.isBlank(externalIdValue) ||
-      String.isBlank(recordTypeName)
-    ) {
+    if (String.isBlank(externalIdValue) || String.isBlank(recordTypeName)) {
       return new List<Account>();
     }
-    List<Account> result = new List<Account>();
-    result = [
+    return [
       SELECT Id, Name, External_Id__c
       FROM Account
       WHERE
         External_Id__c = :externalIdValue
         AND RecordType.DeveloperName = :recordTypeName
+      WITH USER_MODE
       LIMIT 1
     ];
-    return result;
   }
 
   /**
@@ -224,8 +204,8 @@ public with sharing class FinancialAccountQueryBaseRepository {
       RTAccount.businessAccount,
       RTAccount.personAccount
     };
-    List<FinServ__AccountAccountRelation__c> result = new List<FinServ__AccountAccountRelation__c>();
-    result = [
+
+    return [
       SELECT Id, FinServ__RelatedAccount__r.External_Id__c
       FROM FinServ__AccountAccountRelation__c
       WHERE
@@ -235,7 +215,6 @@ public with sharing class FinancialAccountQueryBaseRepository {
         AND FinServ__RelatedAccount__r.RecordTypeId IN :recordTypeIds
       WITH USER_MODE
     ];
-    return result;
   }
 
   /**
@@ -244,14 +223,11 @@ public with sharing class FinancialAccountQueryBaseRepository {
    * @return List<Industry__c> list of industry codes
    */
   public List<Industry__c> getIndustry(Set<String> industryCodesSet) {
-    if (!Schema.sObjectType.Industry__c.isQueryable()) {
-      return new List<Industry__c>();
-    }
-
     return [
       SELECT Id, Name, Code__c
       FROM Industry__c
       WHERE Code__c IN :industryCodesSet
+      WITH USER_MODE
     ];
   }
 }
