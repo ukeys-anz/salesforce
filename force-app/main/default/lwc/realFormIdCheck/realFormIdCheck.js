@@ -55,7 +55,7 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
   startValidation() {
     let data = {};
     this.callFromOmni = true;
-    if (this.omniJsonData.Case) {
+    if (this.omniJsonData.Case.ResolutionInformation) {
       if (
         this.omniJsonData.Case.ResolutionInformation &&
         this.omniJsonData.Case.ResolutionInformation.realFormRequired ===
