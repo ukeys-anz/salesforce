@@ -1780,7 +1780,7 @@
         "Sync_Status__c"
       ],
       "IA-2415860": ["Occurrence_Number__c"],
-      "IA-2453350": ["External_Id__c"],
+      "IA-2453350": ["External_Id__c" ,"Survivor_Party_Id__c","Victim_Party_Id__c","OCV_Profile_ID__c" ],
       "IA-2415984": [
         "Birthdate",
         "Email",

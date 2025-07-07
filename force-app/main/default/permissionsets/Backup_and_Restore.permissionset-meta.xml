@@ -3689,6 +3689,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Contact.OCV_Profile_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Contact.OCV_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3729,6 +3734,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Contact.Survivor_Party_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Contact.Sync_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3765,6 +3775,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Contact.SAO_State__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Contact.Victim_Party_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
