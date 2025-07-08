@@ -11,14 +11,14 @@
     <columns>Expiry_Date__c</columns>
     <columns>Expiry_Indicator__c</columns>
     <columns>Lead_Owner_Link__c</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>My_Managers_Lead__c</field>
         <operation>equals</operation>
         <value>1</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>My Manager’s Leads</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
+        <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
     </sharedTo>
 </ListView>
