@@ -1984,10 +1984,14 @@
         &quot;data&quot; : &quot;true&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;showRealFormInfo&quot;
+      }, {
+        &quot;field&quot; : &quot;hideRealForm&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;  
       } ]
     }
   },
-  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;It appears that&lt;/em&gt;&amp;nbsp;&lt;em&gt;A REaL form may be required for this complaint. Please take a moment to review the complaint and record a new REaL form if necessary.&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;\n&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;Please refer to&lt;/em&gt;&amp;nbsp;&lt;em&gt;&lt;a class=\&quot;external-link\&quot; href=\&quot;https://anz.sharepoint.com/sites/max-work/SitePages/Report-NFR-Event.aspx\&quot; target=\&quot;_blank\&quot; rel=\&quot;nofollow noopener\&quot; style=\&quot;color: #e03e2d;\&quot;&gt;&lt;u&gt;Non-financial risk max page&lt;/u&gt;&lt;/a&gt;&lt;/em&gt;&amp;nbsp;&lt;em&gt;for further information on when to record a REaL Form&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;It appears that&lt;/em&gt;&amp;nbsp;&lt;em&gt;a REaL form may be required for this complaint. Please take a moment to review the complaint and record a new REaL form if necessary.&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;\n&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;Please refer to the &lt;/em&gt;&lt;em&gt;&lt;a class=\&quot;external-link\&quot; href=\&quot;https://anz.sharepoint.com/sites/max-banking/Shared Documents/QRG Adding REaL Form details in CMOS.pdf?web=1\&quot; target=\&quot;_blank\&quot; rel=\&quot;nofollow noopener\&quot; style=\&quot;color: #e03e2d;\&quot;&gt;&lt;u&gt;REaL Form Management in CMOS&lt;/u&gt;&lt;/a&gt;&lt;/em&gt;&amp;nbsp;QRG for steps on how to record the REaL Form&lt;/span&gt;&lt;/p&gt;&quot;,
   &quot;label&quot; : &quot;TextBlock6&quot;,
   &quot;controlWidth&quot; : null
 }</propertySetConfig>
@@ -4812,6 +4816,30 @@
             <type>Text</type>
         </childElements>
         <childElements>
+            <name>RealFormMaxIdFormula</name>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : null,
+  &quot;label&quot; : &quot;RealFormMaxIdFormula&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;expression&quot; : &quot;IF(%REALFormMAXID% , %REALFormMAXID%,%Case:REALFormMAXID_OLD%)&quot;,
+  &quot;hide&quot; : true,
+  &quot;show&quot; : null,
+  &quot;mask&quot; : null,
+  &quot;dataType&quot; : null,
+  &quot;hideGroupSep&quot; : false,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>112.0</sequenceNumber>
+            <type>Formula</type>
+        </childElements>
+        <childElements>
             <name>realFormRequired</name>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
             <isActive>true</isActive>
@@ -4854,7 +4882,16 @@
     &quot;type&quot; : &quot;&quot;,
     &quot;source&quot; : &quot;&quot;
   },
-  &quot;show&quot; : null,
+   &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;true&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;hideRealForm&quot;
+      } ]
+    }
+  },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -6309,8 +6346,6 @@
     }, {
       &quot;ComplaintSubRemedy1&quot; : &quot;Complaint Sub Remedy 1&quot;
     }, {
-      &quot;realFormRequired&quot; : &quot;Is a REaL form required?&quot;
-    }, {
       &quot;isSystemicIssue&quot; : &quot;Are any of the issues possibly systemic?&quot;
     } ],
     &quot;secCmpMap&quot; : [ {
@@ -6332,8 +6367,6 @@
     }, {
       &quot;ComplaintSubRemedy1Offered&quot; : &quot;Complaint Sub Remedy 1 Offered&quot;
     }, {
-      &quot;realFormRequired&quot; : &quot;Is a REaL form required?&quot;
-    }, {
       &quot;isSystemicIssue&quot; : &quot;Are any of the issues possibly systemic?&quot;
     } ],
     &quot;SeccloseReqMapOffered&quot; : [ {
@@ -6354,8 +6387,6 @@
       &quot;ComplaintRemedy1Accepted&quot; : &quot;Complaint Remedy 1&quot;
     }, {
       &quot;ComplaintSubRemedy1Accepted&quot; : &quot;Complaint Sub Remedy 1&quot;
-    }, {
-      &quot;realFormRequired&quot; : &quot;Is a REaL form required?&quot;
     }, {
       &quot;isSystemicIssue&quot; : &quot;Are any of the issues possibly systemic?&quot;
     } ],
