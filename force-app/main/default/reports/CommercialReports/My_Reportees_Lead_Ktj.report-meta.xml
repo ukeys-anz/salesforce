@@ -26,7 +26,7 @@
     </columns>
     <description>Comprehensive listing of all lead records under my ownership and those managed by my subordinates.</description>
     <filter>
-        <booleanFilter>1 OR 2</booleanFilter>
+        <booleanFilter>(1 OR 2) AND 3</booleanFilter>
         <criteriaItems>
             <column>Lead.My_Reportees_Lead__c</column>
             <columnToColumn>false</columnToColumn>
@@ -40,6 +40,13 @@
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
             <value>$USER</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STATUS</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Assigned,Outcome,In progress</value>
         </criteriaItems>
         <language>en_US</language>
     </filter>

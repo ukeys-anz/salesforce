@@ -53,24 +53,4 @@ public class CommercialAppFormProductActionsRepo {
       ]
     );
   }
-
-  /**
-   * @description fetchOppLineItems - To fetch the Opp Line Items
-   * @param opportunityIdsList - List of Opportunity Ids
-   * @return  List<OpportunityLineItem> Opportunity line item list
-   */
-  public List<OpportunityLineItem> fetchOppLineItems(
-    List<Id> opportunityIdsList
-  ) {
-    if (opportunityIdsList.isEmpty()) {
-      return new List<OpportunityLineItem>();
-    }
-
-    return [
-      SELECT Id, Product2Id, OpportunityId
-      FROM OpportunityLineItem
-      WHERE OpportunityId IN :opportunityIdsList
-      WITH USER_MODE
-    ];
-  }
 }

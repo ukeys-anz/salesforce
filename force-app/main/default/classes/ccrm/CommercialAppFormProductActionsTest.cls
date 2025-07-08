@@ -8,7 +8,6 @@ private class CommercialAppFormProductActionsTest {
   static Lib_MockProvider appFormProductRepoMock;
   static Lib_MockProvider commercialOppRepoMock;
   static Lib_MockProvider dmlRepoMock;
-  static Lib_MockProvider afpHelper;
   static Lib_MockProvider oppTeamMemberRepo;
 
   static void registerMocks() {
@@ -19,9 +18,6 @@ private class CommercialAppFormProductActionsTest {
       CommercialOpportunityRepository.class
     );
     dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
-    afpHelper = Lib_MockProvider.forType(
-      CommercialAppFormProductActionsHelper.class
-    );
     oppTeamMemberRepo = Lib_MockProvider.forType(
       CommercialOppTeamMemberRepository.class
     );
@@ -161,17 +157,11 @@ private class CommercialAppFormProductActionsTest {
       )
     };
 
-    CommercialAppFormProductActionsHelper.AppFormProductWrapper afpWrap = new CommercialAppFormProductActionsHelper.AppFormProductWrapper();
-    afpWrap.filteredAppFormProducts = appFormProductList;
-    afpWrap.apFormToOppIdMap = new Map<Id, Id>{ appFormId => oppId };
-
     appFormProductRepoMock.mock(
       'getApplicationForms',
       new List<ApplicationForm>{ appFormobj }
     );
     appFormProductRepoMock.mock('getOppProductRelatedToAFP', oppLineItemList);
-
-    afpHelper.mock('getAppFormProductsRelatedToCommercialOpportunity', afpWrap);
 
     //WHEN populateCloseDate method get called
     Test.startTest();
@@ -353,15 +343,10 @@ private class CommercialAppFormProductActionsTest {
       )
     };
 
-    CommercialAppFormProductActionsHelper.AppFormProductWrapper afpWrap = new CommercialAppFormProductActionsHelper.AppFormProductWrapper();
-    afpWrap.filteredAppFormProducts = appFormProductList;
-
     appFormProductRepoMock.mock(
       'getApplicationForms',
       new List<ApplicationForm>{ appFormobj }
     );
-
-    afpHelper.mock('getAppFormProductsRelatedToCommercialOpportunity', afpWrap);
 
     Test.startTest();
     CommercialAppFormProductActions.mapStageWithSourceSystemStatus(
@@ -430,66 +415,6 @@ private class CommercialAppFormProductActionsTest {
       'Record got updated'
     );
   }
-
-  @isTest
-  static void validateProductOnAFPTest() {
-    registerMocks();
-    //GIVEN records, oldMap
-    Id afpId = Lib_FakeIdGenerator.getMockId(
-      ApplicationFormProduct.SObjectType
-    );
-    Id afId = Lib_FakeIdGenerator.getMockId(ApplicationForm.SObjectType);
-    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
-    Id prodId = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
-    Id prodId1 = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
-
-    Map<Id, ApplicationFormProduct> oldMap = new Map<Id, ApplicationFormProduct>{
-      afpId => new ApplicationFormProduct(
-        Id = afpId,
-        ApplicationFormId = afId,
-        ProductId = prodId,
-        ApplicationForm = new ApplicationForm(OpportunityId = oppId)
-      )
-    };
-
-    List<ApplicationFormProduct> records = new List<ApplicationFormProduct>{
-      new ApplicationFormProduct(
-        Id = afpId,
-        ApplicationFormId = afId,
-        ProductId = prodId1,
-        ApplicationForm = new ApplicationForm(OpportunityId = oppId)
-      )
-    };
-
-    CommercialAppFormProductActionsHelper.AppFormProductWrapper afpWrapper = new CommercialAppFormProductActionsHelper.AppFormProductWrapper();
-    afpWrapper.apFormToOppIdMap = new Map<Id, Id>{ afId => oppId };
-    afpWrapper.filteredAppFormProducts = records;
-
-    List<OpportunityLineItem> oppLineItemList = new List<OpportunityLineItem>{
-      new OpportunityLineItem(
-        Id = Lib_FakeIdGenerator.getMockId(OpportunityLineItem.SObjectType),
-        OpportunityId = oppId,
-        Product2Id = prodId
-      )
-    };
-
-    afpHelper.mock(
-      'getAppFormProductsRelatedToCommercialOpportunity',
-      afpWrapper
-    );
-    appFormProductRepoMock.mock('fetchOppLineItems', oppLineItemList);
-
-    //WHEN calling a method
-    CommercialAppFormProductActions.validateProductOnAFP(records, oldMap);
-
-    //THEN it should throw error
-    Assert.areEqual(
-      true,
-      records[0].hasErrors(),
-      'should throw error as product is not added on Opportunity'
-    );
-  }
-
   @isTest
   static void createAppFormShareRecordsTest() {
     registerMocks();

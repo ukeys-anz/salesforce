@@ -16,12 +16,10 @@ public with sharing class CommercialAppFormProductActions {
   private static final UserInfoRepository USER_REPO = (UserInfoRepository) Lib_InstanceProvider.forType(
     UserInfoRepository.class
   );
-  private static final CommercialAppFormProductActionsHelper AFP_HELPER = (CommercialAppFormProductActionsHelper) Lib_InstanceProvider.forType(
-    CommercialAppFormProductActionsHelper.class
-  );
   private static final CommercialOppTeamMemberRepository OPPTEAMMEMBER_REPOSITORY = (CommercialOppTeamMemberRepository) Lib_InstanceProvider.forType(
     CommercialOppTeamMemberRepository.class
   );
+
   private static final String ANZ_CCRM_STANDARD_USER = 'ANZ CCRM Standard User';
 
   /**
@@ -34,7 +32,7 @@ public with sharing class CommercialAppFormProductActions {
       records,
       ApplicationFormProduct.ApplicationFormId
     );
-    CommercialAppFormProductActionsHelper.AppFormProductWrapper appFormProductWrapper = AFP_HELPER.getAppFormProductsRelatedToCommercialOpportunity(
+    CommercialAppFormProductActionsHelper.AppFormProductWrapper appFormProductWrapper = CommercialAppFormProductActionsHelper.getAppFormProductsRelatedToCommercialOpportunity(
       appFormIds,
       records
     );
@@ -63,7 +61,7 @@ public with sharing class CommercialAppFormProductActions {
       records,
       ApplicationFormProduct.ApplicationFormId
     );
-    CommercialAppFormProductActionsHelper.AppFormProductWrapper appFormProductWrapper = AFP_HELPER.getAppFormProductsRelatedToCommercialOpportunity(
+    CommercialAppFormProductActionsHelper.AppFormProductWrapper appFormProductWrapper = CommercialAppFormProductActionsHelper.getAppFormProductsRelatedToCommercialOpportunity(
       appFormIds,
       records
     );
@@ -113,7 +111,7 @@ public with sharing class CommercialAppFormProductActions {
         records,
         ApplicationFormProduct.ApplicationFormId
       );
-      CommercialAppFormProductActionsHelper.AppFormProductWrapper appFormProductWrapper = AFP_HELPER.getAppFormProductsRelatedToCommercialOpportunity(
+      CommercialAppFormProductActionsHelper.AppFormProductWrapper appFormProductWrapper = CommercialAppFormProductActionsHelper.getAppFormProductsRelatedToCommercialOpportunity(
         appFormIds,
         records
       );
@@ -240,7 +238,7 @@ public with sharing class CommercialAppFormProductActions {
         filterAfpList,
         ApplicationFormProduct.ApplicationFormId
       );
-      CommercialAppFormProductActionsHelper.AppFormProductWrapper appFormProductWrapper = AFP_HELPER.getAppFormProductsRelatedToCommercialOpportunity(
+      CommercialAppFormProductActionsHelper.AppFormProductWrapper appFormProductWrapper = CommercialAppFormProductActionsHelper.getAppFormProductsRelatedToCommercialOpportunity(
         appFormIds,
         records
       );
@@ -249,52 +247,6 @@ public with sharing class CommercialAppFormProductActions {
       );
     } catch (Exception e) {
       Logger.error('Error while mapping status with source system status', e)
-        .save();
-    }
-  }
-
-  /**
-   * @description validateProductOnAFP This is to used to validate product on AFP
-   * @param records applicationFormProduct records list
-   * @param oldMap old applicationFormProduct map
-   */
-  public static void validateProductOnAFP(
-    List<ApplicationFormProduct> records,
-    Map<Id, ApplicationFormProduct> oldMap
-  ) {
-    try {
-      List<ApplicationFormProduct> filteredAfpList = ListUtil.filter(
-          records,
-          oldMap
-        )
-        .changed(ApplicationFormProduct.ProductId)
-        .tolist();
-
-      Set<Id> appFormIds = ListUtil.getIds(
-        filteredAfpList,
-        ApplicationFormProduct.ApplicationFormId
-      );
-
-      CommercialAppFormProductActionsHelper.AppFormProductWrapper appFormProductWrapper = AFP_HELPER.getAppFormProductsRelatedToCommercialOpportunity(
-        appFormIds,
-        filteredAfpList
-      );
-
-      List<OpportunityLineItem> oppLineItemList = AFP_REPOSITORY.fetchOppLineItems(
-        appFormProductWrapper.apFormToOppIdMap.values()
-      );
-
-      Map<Id, List<OpportunityLineItem>> oppIdToOliMap = (Map<Id, List<OpportunityLineItem>>) ListUtil.groupBy(
-        oppLineItemList,
-        OpportunityLineItem.OpportunityId
-      );
-
-      CommercialAppFormProductActionsHelper.validateProduct(
-        appFormProductWrapper,
-        oppIdToOliMap
-      );
-    } catch (Exception e) {
-      Logger.error('Error while updating the Product on App Form Product', e)
         .save();
     }
   }

@@ -4,8 +4,6 @@
  * @description  CommercialAppFormProductActionsHelper is the helper class for commercial app form product Action class.
  */
 public with sharing class CommercialAppFormProductActionsHelper {
-  private static final String AFP_PRODUCT_ERROR = 'Updating product here does not automatically reflect in Opportunity product. Please delete the existing product and add a new product on Opportunity product';
-
   private static final CommercialOpportunityRepository COMMERCIALOPP_REPOSITORY = (CommercialOpportunityRepository) Lib_InstanceProvider.forType(
     CommercialOpportunityRepository.class
   );
@@ -25,7 +23,7 @@ public with sharing class CommercialAppFormProductActionsHelper {
    * @param records list of new app form products records
    * @return AppFormProductWrapper afp wrapper
    */
-  public AppFormProductWrapper getAppFormProductsRelatedToCommercialOpportunity(
+  public static AppFormProductWrapper getAppFormProductsRelatedToCommercialOpportunity(
     Set<Id> appFormIds,
     List<ApplicationFormProduct> records
   ) {
@@ -35,11 +33,9 @@ public with sharing class CommercialAppFormProductActionsHelper {
       List<ApplicationForm> appForms = AFP_REPOSITORY.getApplicationForms(
         appFormIds
       );
-
       Map<Id, ApplicationForm> appFormMap = new Map<Id, ApplicationForm>(
         appForms
       );
-
       appFormProductWrapper.filteredAppFormProducts = ListUtil.filter(records)
         .equals(ApplicationFormProduct.ApplicationFormId, appFormMap.keySet())
         .toList();
@@ -299,35 +295,6 @@ public with sharing class CommercialAppFormProductActionsHelper {
         continue;
       }
       record.Stage = mappingRec.Application_Product_Stage__c ?? record.Stage;
-    }
-  }
-
-  /**
-   * @description validateProduct used to validate product
-   * @param afpWrap AppFormProductWrapper
-   * @param oppIdToOliMap Map of OppId to List of OLIs
-   */
-  public static void validateProduct(
-    AppFormProductWrapper afpWrap,
-    Map<Id, List<OpportunityLineItem>> oppIdToOliMap
-  ) {
-    for (ApplicationFormProduct afpRecord : afpWrap.filteredAppFormProducts) {
-      List<OpportunityLineItem> oliList = oppIdToOliMap.get(
-        afpWrap.apFormToOppIdMap.get(afpRecord.ApplicationFormId)
-      );
-      if (oliList == null) {
-        afpRecord.addError(AFP_PRODUCT_ERROR);
-        continue;
-      }
-
-      Set<Id> productIdsSet = ListUtil.getIds(
-        oliList,
-        OpportunityLineItem.Product2Id
-      );
-      if (!productIdsSet.contains(afpRecord.ProductId)) {
-        afpRecord.addError(AFP_PRODUCT_ERROR);
-        continue;
-      }
     }
   }
 

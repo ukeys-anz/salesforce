@@ -26,7 +26,7 @@ public with sharing class COBOrphanedKYCQABatch implements Database.Batchable<SO
       );
     }
     return Database.getQueryLocator(
-      'SELECT Id, OCV_Id__c, PersonaId__c, CustomerOnboardingApplication__c, ' +
+      'SELECT Id, OCV_Id__c, PersonaId__c, AccountId, CustomerOnboardingApplication__c, ' +
         'CustomerOnboardingApplication__r.SecurityMobile__c ' +
         'FROM Case ' +
         'WHERE RecordType.DeveloperName = \'KYC_QA\' ' +
