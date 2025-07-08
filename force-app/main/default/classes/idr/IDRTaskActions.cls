@@ -662,6 +662,17 @@ public without sharing class IDRTaskActions {
         siTasks.add(record);
       }
     }
+    List<Case> caselist = TASK_REPOSITORY.queryCases(caseIds);
+    Map<Id, Case> caseOwnerMap = new Map<Id, Case>(caselist);
+
+    for (Task siTask : siTasks) {
+      if (!caseOwnerMap.containsKey(siTask.WhatId)) {
+        continue;
+      }
+      if (caseOwnerMap.get(siTask.WhatId).OwnerId != UserInfo.getUserId()) {
+        siTask.addError(SI_DUE_DATE_ERROR_MESSAGE);
+      }
+    }
   }
 
   /**

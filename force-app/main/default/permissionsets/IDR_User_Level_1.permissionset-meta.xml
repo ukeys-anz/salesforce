@@ -209,11 +209,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Account.Principal_Place_of_Business_Formula__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>Quality_Assessment__c.Satisfactory_contact_made_or_attempted__c</field>
         <readable>true</readable>

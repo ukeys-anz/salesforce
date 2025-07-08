@@ -3,6 +3,9 @@
     <name>IDR Disputes</name>
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+    <queueSobject>
         <sobjectType>Task</sobjectType>
     </queueSobject>
 </Queue>

@@ -63,7 +63,7 @@
         <label>Other Information</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>ActivityDate</field>
             </layoutItems>
             <layoutItems>

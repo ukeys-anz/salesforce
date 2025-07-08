@@ -205,8 +205,6 @@ public with sharing class IDRConstants {
   //Channel Received
   public static final String CHANNEL_RECEIVED_AFCA_REFERRED = '11';
   public static final String CHANNEL_RECEIVED_ANZ_COM = '8';
-  public static final String CHANNEL_RECEIVED_ANZ_PLUS_WEB = 'ANZ Plus Web';
-  public static final String CHANNEL_RECEIVED_ANZ_PLUS_APP = 'ANZ Plus App';
 
   //IDREmailServiceConstants
   public static final String CASE_NO_REGEX = '\\d{4,8}';

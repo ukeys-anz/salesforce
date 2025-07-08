@@ -298,11 +298,9 @@ public with sharing class AccountCommonActions {
    * @param accounts The Account records passed from Trigger.new()
    */
   public static void linkKYCQACasesToAccount(List<Account> accounts) {
-    Logger.debug('Linking KYCQACases To ANZ Accounts started.');
     List<Account> filteredAccs = ListUtil.filter(accounts)
       .equals(Account.ANZx_Customer__c, true)
       .toList();
-    Logger.debug('Number of ANZ Accounts to process: ' + filteredAccs.size());
 
     //Concidering OCV matching take presedence, we first run Mobile and DOB matches, and then OCV ID and DOB matches,
     //so it will overide the matching Mobile and DOB with the matching OCV ID and DOB
@@ -314,12 +312,7 @@ public with sharing class AccountCommonActions {
     accIdToCOBMap.putAll(
       KYCQACustomerLinkingUtil.getCobByAccountOCVIdAndDOB(filteredAccs)
     );
-    Logger.debug(
-      'Number of matching Customer Onboarding Applications found: ' +
-      accIdToCOBMap.size()
-    );
     List<Case> kycQACases = setKYCQACase(accIdToCOBMap);
-    Logger.debug('Number of KYC QA Cases to be updated: ' + kycQACases.size());
 
     DML.doUpdate(
       kycQACases,
@@ -328,7 +321,6 @@ public with sharing class AccountCommonActions {
         .systemMode()
         .errorLog(CUSTOMER_LINKED_TO_KYC_QA_ERROR)
     );
-    Logger.debug('Linking KYCQACases To ANZ Accounts completed').save();
   }
 
   /**
