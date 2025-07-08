@@ -87,30 +87,16 @@ public with sharing class KYCQACustomerLinkingUtil {
   public static Map<Id, CustomerOnboardingApplication__c> getCobByAccountOCVIdAndDOB(
     List<Account> accs
   ) {
-    Logger.debug(
-        'KYCQACustomerLinkingUtil.getCobByAccountOCVIdAndDOB started. Number of accounts: ' +
-        accs.size()
-      )
-      .setPayload(JSON.serializePretty(accs));
-
     Set<String> ocvIds = ListUtil.getStrings(accs, Account.OCV_Id__c);
     Set<Date> dobs = (Set<Date>) ListUtil.getUniques(
       accs,
       Account.PersonBirthdate
     );
 
-    Logger.debug(
-      'Retrieving Customer Onboarding Applications by OCV Ids and DOBs.'
-    );
     List<CustomerOnboardingApplication__c> cobs = REPOSITORY.queryCobsByOCVIdAndDOB(
       ocvIds,
       dobs
     );
-    Logger.debug(
-        'Number of Customer Onboarding Applications retrieved: ' + cobs.size()
-      )
-      .setPayload(JSON.serializePretty(cobs))
-      .save();
 
     return getAccountIdsWithCOBs(
       accs,
@@ -129,30 +115,15 @@ public with sharing class KYCQACustomerLinkingUtil {
   public static Map<Id, CustomerOnboardingApplication__c> getCobByAccountMobileAndDOB(
     List<Account> accs
   ) {
-    Logger.debug(
-        'KYCQACustomerLinkingUtil.getCobByAccountMobileAndDOB started. Number of accounts: ' +
-        accs.size()
-      )
-      .setPayload(JSON.serializePretty(accs));
-
     Set<String> mobiles = retrieveAccFormattedMobiles(accs);
     Set<Date> dobs = (Set<Date>) ListUtil.getUniques(
       accs,
       Account.PersonBirthdate
     );
-
-    Logger.debug(
-      'Retrieving Customer Onboarding Applications by mobiles and DOBs.'
-    );
     List<CustomerOnboardingApplication__c> cobs = REPOSITORY.queryCobsByMobileNumberAndDOB(
       mobiles,
       dobs
     );
-    Logger.debug(
-        'Number of Customer Onboarding Applications retrieved: ' + cobs.size()
-      )
-      .setPayload(JSON.serializePretty(cobs))
-      .save();
 
     return getAccountIdsWithCOBs(
       accs,

@@ -814,12 +814,12 @@
         <protected>false</protected>
         <shortDescription>ServiceNow env url</shortDescription>
         <value>{
-    &quot;anz--cmosadev25&quot;: &quot;https://anzbankdev.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=CASEID&amp;sysparm_case_number=CASENUMBER&quot;,
-    &quot;anz--cmosa&quot;: &quot;https://anzbankdev.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=CASEID&amp;sysparm_case_number=CASENUMBER&quot;,
-    &quot;anz--anzxbau25&quot;: &quot;https://anztechtest.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=CASEID&amp;sysparm_case_number=CASENUMBER&quot;,
-    &quot;anz--test25&quot;: &quot;https://anzbankuat.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=CASEID&amp;sysparm_case_number=CASENUMBER&quot;,
-    &quot;anz&quot;: &quot;https://anztech.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=CASEID&amp;sysparm_case_number=CASENUMBER&quot;
-    }</value>
+&quot;anz--cmosadev25&quot;: &quot;https://anzbankdev.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=&quot;,
+&quot;anz--cmosa&quot;: &quot;https://anzbankdev.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=&quot;,
+&quot;anz--anzxbau25&quot;: &quot;https://anztechtest.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=&quot;,
+&quot;anz--test25&quot;: &quot;https://anzbankuat.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=&quot;,
+&quot;anz&quot;: &quot;https://anztech.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=&quot;
+}</value>
     </labels>
     <labels>
         <fullName>IDR_Toggle_Old_New_Resolution_Pathway</fullName>
@@ -2708,7 +2708,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>EDRM Business Streams Mapping</shortDescription>
-        <value>Commercial Lending:CMOS_CS_CL,Unsecured Lending:CMOS_CS_UL,Business Lending:CMOS_CS_BL,Home Lending (RLS &amp; ELF):CMOS_CS_HLELF,Home Lending (IKNOW &amp; FSR):CMOS_CS_HL</value>
+        <value>Commercial Lending:CMOS_CS_CL,Unsecured Lending:CMOS_CS_UL,Business Lending:CMOS_CS_BL,Home Lending:CMOS_CS_HL</value>
     </labels>
     <labels>
         <fullName>EDRM_URL_DEV</fullName>
@@ -2729,7 +2729,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>EDRM Desktop Params</shortDescription>
-        <value>CMOS_CS_CL:desktop=ComplaintManagement,CMOS_CS_UL:desktop=ComplaintManagementUL,CMOS_CS_BL:desktop=ComplaintManagementBL,CMOS_CS_HL:desktop=ComplaintManagementHL,CMOS_CS_HLELF:desktop=ComplaintManagementHLELF</value>
+        <value>CMOS_CS_CL:desktop=ComplaintManagement,CMOS_CS_UL:desktop=ComplaintManagementUL,CMOS_CS_BL:desktop=ComplaintManagementBL,CMOS_CS_HL:desktop=ComplaintManagementHL</value>
     </labels>
     <labels>
         <fullName>MS_Get_Linked_Offset</fullName>
@@ -2847,14 +2847,6 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>LoanappPrerequisiteLabel</shortDescription>
         <value>Information missing. To Create Loanapp, please fill in the Amount, Customer Needs (Home Loans options only), Servicing Branch, Expected Settlement Date and ensure all customers have a DOB and gender. Expected Settlement Date must be in the future and must fall on a weekday.</value>
-    </labels>
-    <labels>
-        <fullName>Complaints_Anz_Com_Sender_Address</fullName>
-        <categories>IDR</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Anz.com email address to send complaint on complaints@anz.com inbox</shortDescription>
-        <value>complaints@anz.com</value>
     </labels>
     <labels>
         <fullName>LoanappFriendlyErrorMessage</fullName>

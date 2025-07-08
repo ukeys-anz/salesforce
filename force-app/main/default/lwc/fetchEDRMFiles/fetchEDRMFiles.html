@@ -21,7 +21,7 @@
           label="Account Number"
           value={accountNumber}
           onchange={updateAccountNumber}
-          pattern="^[0-9-]{1,12}$"
+          pattern="[0-9]{1,10}"
           title="Enter a valid Account Number"
         >
         </lightning-input>
@@ -33,7 +33,7 @@
           label="Application Number"
           value={applicationNumber}
           onchange={updateApplicationNumber}
-          pattern="^[0-9-]{1,12}$"
+          pattern="[0-9]{1,10}"
           title="Enter a valid Application Number"
         >
         </lightning-input>
