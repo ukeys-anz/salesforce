@@ -73,6 +73,14 @@ You will see prettier notices in your terminal everytime you run `git-commit`
 sf org login web -r https://anz.my.salesforce.com -a DevHub -d
 ```
 
+### 4. Creating a scrarch org
+
+There is a pre-written shell script, so to create a scratch org run:
+
+```bash
+./setup.sh
+```
+
 </details>
 
 ## Development Expectations
