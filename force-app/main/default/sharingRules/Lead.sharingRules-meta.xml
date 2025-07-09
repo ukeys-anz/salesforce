@@ -174,7 +174,7 @@
             <group>AEM_Integration_User_group</group>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinatesInternal>ANZ_Mobile_Lending</roleAndSubordinatesInternal>
+            <roleAndSubordinates>ANZ_Mobile_Lending</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>

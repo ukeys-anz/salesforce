@@ -9,14 +9,14 @@
     <columns>OPPORTUNITY.CLOSE_DATE</columns>
     <columns>OPPORTUNITY.AMOUNT</columns>
     <columns>CORE.USERS.FULL_NAME</columns>
-    <filterScope>ScopingRule</filterScope>
     <filters>
         <field>My_Manager_Opps__c</field>
         <operation>equals</operation>
         <value>1</value>
     </filters>
+    <filterScope>ScopingRule</filterScope>
     <label>My Manager’s Opportunities</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
+        <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
     </sharedTo>
 </ListView>
