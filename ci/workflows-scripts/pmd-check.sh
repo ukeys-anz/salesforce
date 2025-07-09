@@ -39,6 +39,7 @@ if [[ "${CHECK_PMD_FLAG}" != "true" ]]; then
   {
     echo "result<<EOF"
     echo "<p>✅ PMD check passed</p>"
+    echo "<br/>"
     echo "EOF"
   } >> "$GITHUB_OUTPUT"
   exit 0
@@ -100,6 +101,7 @@ else
   {
     echo "result<<EOF"
     echo "<p>✅ PMD check passed</p>"
+    echo "<br/>"
     echo "EOF"
   } >> "$GITHUB_OUTPUT"
 fi

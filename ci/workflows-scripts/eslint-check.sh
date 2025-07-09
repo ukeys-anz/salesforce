@@ -36,6 +36,7 @@ if [[ "${CHECK_LWC_FLAG}" != "true" ]]; then
   {
     echo "result<<EOF"
     echo "<p>✅ ESLint check passed</p>"
+    echo "<br/>"
     echo "EOF"
   } >> "$GITHUB_OUTPUT"
   exit 0
@@ -69,6 +70,7 @@ else
   {
     echo "result<<EOF"
     echo "<p>✅ ESLint check passed</p>"
+    echo "<br/>"
     echo "EOF"
   } >> "$GITHUB_OUTPUT"
 fi
