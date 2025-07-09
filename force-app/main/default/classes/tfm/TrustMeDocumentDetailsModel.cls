@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Anuj Jain
  * @group             :
- * @last modified on  : 04-29-2025
+ * @last modified on  : 05-07-2025
  **/
 @SuppressWarnings('PMD.TooManyFields')
 public with sharing class TrustMeDocumentDetailsModel extends CalloutModel {
@@ -58,6 +58,8 @@ public with sharing class TrustMeDocumentDetailsModel extends CalloutModel {
     @AuraEnabled
     public String evOutcome;
     @AuraEnabled
+    public String evEvaluationDateTime;
+    @AuraEnabled
     public List<Providers> providers;
   }
 
@@ -81,6 +83,8 @@ public with sharing class TrustMeDocumentDetailsModel extends CalloutModel {
   public class SelfieEvaluationOutcome {
     @AuraEnabled
     public String selfieOutcome;
+    @AuraEnabled
+    public String selfieMatchDateTime;
   }
 
   /**
@@ -159,6 +163,8 @@ public with sharing class TrustMeDocumentDetailsModel extends CalloutModel {
     public String sequenceNumber;
     @AuraEnabled
     public String colour;
+    @AuraEnabled
+    public String documentOutcome;
   }
 
   /**

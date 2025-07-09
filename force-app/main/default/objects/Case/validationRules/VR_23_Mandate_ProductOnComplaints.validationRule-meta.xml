@@ -10,12 +10,21 @@ OR(
 RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
 RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 ),
+OR(
+AND(
 ISCHANGED(Status),
 NOT(ISPICKVAL(Status, &apos;Case - On Hold&apos;)) ,
 ISPICKVAL(PRIORVALUE(Status), &apos;Escalated&apos;) ,
 NOT(ISCHANGED(RecordTypeId)),
 NOT(ISBLANK(IDR_Inbox_Email_Address__c)),
 ISBLANK(Product__c)
+),
+AND(
+ISPICKVAL(Status, &apos;Closed&apos;),
+NOT(ISBLANK(PRIORVALUE(Product__c))),
+ISBLANK(Product__c)    
+)
+)
 )</errorConditionFormula>
     <errorMessage>Product or service name is mandatory</errorMessage>
 </ValidationRule>

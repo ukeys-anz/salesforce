@@ -494,6 +494,7 @@ public with sharing class IDRCollectionActions {
             FROM Case
             WHERE IsClosed = FALSE OR Id IN :caseIds
           )
+        ALL ROWS
       ]) {
         // Only build startCollectionMap on trimmed Account Numbers.
         if (String.isBlank(taskRec.IDR_Collection_Number__c)) {

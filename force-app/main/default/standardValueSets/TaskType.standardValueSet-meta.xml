@@ -74,6 +74,11 @@
     <standardValue>
         <fullName>ACTIVITY_TYPE_PUSH_TO_APP</fullName>
         <default>false</default>
+        <label>Push To App (Deprecated)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>TASK_TYPE_PUSH_TO_APP</fullName>
+        <default>false</default>
         <label>Push To App</label>
     </standardValue>
 </StandardValueSet>

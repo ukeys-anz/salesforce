@@ -68,7 +68,7 @@ export default class FetchEDRMFiles extends NavigationMixin(LightningElement) {
     this.businessStream = event.detail.value;
   }
   validateInputFields() {
-    let validPattern = /^([0-9]{1,10})$/;
+    let validPattern = /^([0-9-]{1,12})$/;
 
     if (this.checkIsEmpty(this.businessStream)) {
       this.showErrorToast("Please select a Business Stream");
@@ -122,13 +122,30 @@ export default class FetchEDRMFiles extends NavigationMixin(LightningElement) {
   }
   setEdrmURLSuffix() {
     let edrmURLSuffix = this.getDesktopUrl(this.businessStream) + EDRMURLString;
-    if (this.applicationNumber) {
+    if (this.applicationNumber && this.businessStream !== "CMOS_CS_HLELF") {
       edrmURLSuffix +=
         this.businessStream + "&OriginatingSourceID=" + this.applicationNumber;
+    } else if (
+      this.applicationNumber &&
+      this.businessStream === "CMOS_CS_HLELF"
+    ) {
+      edrmURLSuffix +=
+        this.businessStream + "&AccountID=" + this.applicationNumber;
     } else if (this.showCustomerComplaint && this.customerNumber) {
       edrmURLSuffix += this.businessStream + "&capId=" + this.customerNumber;
-    } else if (!this.showCustomerComplaint && this.accountNumber) {
+    } else if (
+      !this.showCustomerComplaint &&
+      this.accountNumber &&
+      this.businessStream !== "CMOS_CS_HLELF"
+    ) {
       edrmURLSuffix += this.businessStream + "&AccountID=" + this.accountNumber;
+    } else if (
+      !this.showCustomerComplaint &&
+      this.accountNumber &&
+      this.businessStream === "CMOS_CS_HLELF"
+    ) {
+      edrmURLSuffix +=
+        this.businessStream + "&AccountNumber=" + this.accountNumber;
     }
     return edrmURLSuffix;
   }

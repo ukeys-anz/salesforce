@@ -5,7 +5,7 @@
  */
 @isTest
 public with sharing class CustomerNudgeTaskAutoArchiveScheduleTest {
-  private static final String TASK_AUTO_ARCHIVED = 'ACTIVITY_STATE_AUTO_ARCHIVED';
+  private static final String TASK_AUTO_ARCHIVED = 'TASK_STATE_AUTO_ARCHIVED';
   private static final String FAKER_TASK_ID = (String) Lib_FakeIdGenerator.getMockId(
     Task.SObjectType
   );

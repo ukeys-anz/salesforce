@@ -149,7 +149,7 @@ private class LaunchAppOnOppHelperTest {
     Test.startTest();
     CommercialAMBITRequestModel ambitModel = LaunchAppOnOppHelper.createAMBITRequestBody(
       oppId,
-      oliIdsList
+      oliIdsList[0]
     );
     Test.stopTest();
 

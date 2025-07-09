@@ -8,6 +8,7 @@ private class CommercialAppFormProductActionsTest {
   static Lib_MockProvider appFormProductRepoMock;
   static Lib_MockProvider commercialOppRepoMock;
   static Lib_MockProvider dmlRepoMock;
+  static Lib_MockProvider oppTeamMemberRepo;
 
   static void registerMocks() {
     appFormProductRepoMock = Lib_MockProvider.forType(
@@ -17,6 +18,9 @@ private class CommercialAppFormProductActionsTest {
       CommercialOpportunityRepository.class
     );
     dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
+    oppTeamMemberRepo = Lib_MockProvider.forType(
+      CommercialOppTeamMemberRepository.class
+    );
   }
 
   @isTest
@@ -410,5 +414,176 @@ private class CommercialAppFormProductActionsTest {
       appFormProductList[0].Stage,
       'Record got updated'
     );
+  }
+  @isTest
+  static void createAppFormShareRecordsTest() {
+    registerMocks();
+
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id appFormId = Lib_FakeIdGenerator.getMockId(ApplicationForm.SObjectType);
+    Id appFormProductId = Lib_FakeIdGenerator.getMockId(
+      ApplicationFormProduct.SObjectType
+    );
+    Id userId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+
+    ApplicationForm appFormobj = new ApplicationForm(
+      Id = appFormId,
+      OpportunityId = oppId,
+      Opportunity = new Opportunity(
+        Id = oppId,
+        RecordTypeId = RTOpportunity.commercialOpportunity
+      )
+    );
+
+    List<ApplicationFormProduct> appFormProductList = new List<ApplicationFormProduct>{
+      new ApplicationFormProduct(
+        Id = appFormProductId,
+        Stage = 'Approved & Offered',
+        ApplicationFormId = appFormId,
+        Source_System_Status__c = 'test 2'
+      )
+    };
+    OpportunityTeamMember oppTeamMember = new OpportunityTeamMember(
+      OpportunityId = oppId,
+      UserId = userId
+    );
+    appFormProductRepoMock.mock(
+      'getApplicationForms',
+      new List<ApplicationForm>{ appFormobj }
+    );
+    oppTeamMemberRepo.mock(
+      'getOppTeamMembersRelatedToOpp',
+      new List<OpportunityTeamMember>{ oppTeamMember }
+    );
+    Test.startTest();
+    CommercialAppFormProductActions.createAppFormShareRecords(
+      appFormProductList
+    );
+    Test.stopTest();
+    List<ApplicationFormShare> appFormShares = (List<ApplicationFormShare>) dmlRepoMock.getHistory(
+        'doInsert'
+      )
+      .getParam('records');
+    Assert.areEqual(
+      appFormShares[0].ParentId,
+      appFormId,
+      'App Form Record is not shared'
+    );
+  }
+
+  @isTest
+  static void createAppFormShareRecordsNegativeTest() {
+    registerMocks();
+
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id appFormId = Lib_FakeIdGenerator.getMockId(ApplicationForm.SObjectType);
+    Id appFormProductId = Lib_FakeIdGenerator.getMockId(
+      ApplicationFormProduct.SObjectType
+    );
+    Id userId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+
+    ApplicationForm appFormobj = new ApplicationForm(
+      Id = appFormId,
+      OpportunityId = oppId,
+      OwnerId = userId,
+      Opportunity = new Opportunity(
+        Id = oppId,
+        RecordTypeId = RTOpportunity.commercialOpportunity,
+        OwnerId = userId
+      )
+    );
+
+    List<ApplicationFormProduct> appFormProductList = new List<ApplicationFormProduct>{
+      new ApplicationFormProduct(
+        Id = appFormProductId,
+        Stage = 'Approved & Offered',
+        ApplicationFormId = appFormId,
+        Source_System_Status__c = 'test 2'
+      )
+    };
+
+    appFormProductRepoMock.mock(
+      'getApplicationForms',
+      new List<ApplicationForm>{ appFormobj }
+    );
+    oppTeamMemberRepo.mock(
+      'getOppTeamMembersRelatedToOpp',
+      new List<OpportunityTeamMember>()
+    );
+    Test.startTest();
+    CommercialAppFormProductActions.createAppFormShareRecords(
+      appFormProductList
+    );
+    Test.stopTest();
+    List<ApplicationFormShare> appFormShares = (List<ApplicationFormShare>) dmlRepoMock.getHistory(
+        'doInsert'
+      )
+      .getParam('records');
+    Assert.areEqual(appFormShares.size(), 0, 'App Form Record is shared');
+  }
+  @isTest
+  static void getOppTeamMemberIdsTest() {
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id appFormId = Lib_FakeIdGenerator.getMockId(ApplicationForm.SObjectType);
+    Id userId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+
+    ApplicationForm appFormobj = new ApplicationForm(
+      Id = appFormId,
+      OpportunityId = oppId,
+      Opportunity = new Opportunity(
+        Id = oppId,
+        RecordTypeId = RTOpportunity.commercialOpportunity
+      )
+    );
+    OpportunityTeamMember oppTeamMember = new OpportunityTeamMember(
+      OpportunityId = oppId,
+      UserId = userId
+    );
+    Map<Id, List<OpportunityTeamMember>> oppIdToTeamMembersMap = new Map<Id, List<OpportunityTeamMember>>{
+      oppId => new List<OpportunityTeamMember>{ oppTeamMember }
+    };
+    Test.startTest();
+    Map<Id, Set<Id>> oppIdToMemberIds = CommercialAppFormProductActions.getOppTeamMemberIds(
+      new List<ApplicationForm>{ appFormobj },
+      oppIdToTeamMembersMap
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      1,
+      oppIdToMemberIds.values().size(),
+      'no team members found'
+    );
+  }
+
+  @isTest
+  static void getOppTeamMemberIdsNegativeTest() {
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id appFormId = Lib_FakeIdGenerator.getMockId(ApplicationForm.SObjectType);
+    Id userId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+
+    ApplicationForm appFormobj = new ApplicationForm(
+      Id = appFormId,
+      OpportunityId = oppId,
+      OwnerId = userId,
+      Opportunity = new Opportunity(
+        Id = oppId,
+        RecordTypeId = RTOpportunity.commercialOpportunity,
+        OwnerId = userId
+      )
+    );
+    OpportunityTeamMember oppTeamMember = new OpportunityTeamMember(
+      OpportunityId = oppId,
+      UserId = userId
+    );
+    Map<Id, List<OpportunityTeamMember>> oppIdToTeamMembersMap = new Map<Id, List<OpportunityTeamMember>>{
+      oppId => new List<OpportunityTeamMember>{ oppTeamMember }
+    };
+    Test.startTest();
+    Map<Id, Set<Id>> oppIdToMemberIds = CommercialAppFormProductActions.getOppTeamMemberIds(
+      new List<ApplicationForm>{ appFormobj },
+      oppIdToTeamMembersMap
+    );
+    Test.stopTest();
+    Assert.areEqual(0, oppIdToMemberIds.values().size(), 'team members found');
   }
 }
