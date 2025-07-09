@@ -111,7 +111,7 @@ else
   echo "✅ Sysl Check Passed"
   {
     echo "result<<EOF"
-    echo "✅ Sysl check passed"
+    echo "<p>✅ Sysl check passed</p>"
     echo "<br/>"
     echo "EOF"
   } >> "$GITHUB_OUTPUT"
