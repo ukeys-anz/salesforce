@@ -15,7 +15,7 @@ public with sharing class DisputesCaseTriggerHandler extends Lib_TriggerHandler 
     RTCase.payToDispute
   };
 
-  public static final String IMT_NEW_EXTERNAL_STATUS = 'IMT_New';
+  public static final String IMT_NEW_EXTERNAL_STATUS = 'IMT_New_SF';
   public static final String NPP_NEW_EXTERNAL_STATUS = 'NPP_New';
   public static final String UNAUTHORISED_TRANSACTION_DISPUTE_REASON = 'Unauthorised Transaction';
 
