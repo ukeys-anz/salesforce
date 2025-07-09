@@ -23,6 +23,7 @@ export default class HomeLoanAccountCard extends NavigationMixin(
   @api hasOffsetError;
   @api componentTitle;
   timestamp;
+  stringified = "";
   financialAccounts = [];
   showBalanceModal = false;
   offsetList;
