@@ -77,7 +77,7 @@ jobs:
       result: ${{ steps.run-check.outputs.result }}
       skipped: ${{ steps.should-skip.outputs.skip }}
     steps:
-      - name: Check if sysl check is needed
+      - name: Check if security check is needed
         id: should-skip
         run: |
           if [[ "${{ needs.detect-changes.outputs.sysl_needed }}" != "true" ]]; then
