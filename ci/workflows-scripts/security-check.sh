@@ -134,7 +134,7 @@ else
   echo "✅ Security Check Passed"
   {
     echo "result<<EOF"
-    echo "<p>✅ Security check passed</p>"
+    echo "✅ Security check passed"
     echo "<br/>"
     echo "EOF"
   } >> "$GITHUB_OUTPUT"

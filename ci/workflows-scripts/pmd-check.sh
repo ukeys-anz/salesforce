@@ -3,7 +3,6 @@
 set -euo pipefail
 
 CHANGED_FILES_BASE64="$1"
-CHECK_PMD_FLAG=false
 
 echo ""
 echo "***************************************************************"
@@ -18,7 +17,6 @@ allFilesPath=""
 while IFS= read -r file_path; do
   if [[ -f "$file_path" ]]; then
     echo "Adding: $file_path"
-    CHECK_PMD_FLAG=true
     allFilesPath+="$file_path "
   else
     echo "⚠️ File not found locally (probably deleted): $file_path"
@@ -33,17 +31,6 @@ echo "***************************************************************"
 echo "                  Running PMD Checks                           "
 echo "***************************************************************"
 echo ""
-
-if [[ "${CHECK_PMD_FLAG}" != "true" ]]; then
-  echo "⚠️ No files to check. Skipping PMD."
-  {
-    echo "result<<EOF"
-    echo "<p>✅ PMD check passed</p>"
-    echo "<br/>"
-    echo "EOF"
-  } >> "$GITHUB_OUTPUT"
-  exit 0
-fi
 
 VALIDATION_FAILED=false
 WARNING_FAILED=false
@@ -100,7 +87,7 @@ else
   echo "✅ PMD check passed"
   {
     echo "result<<EOF"
-    echo "<p>✅ PMD check passed</p>"
+    echo "✅ PMD check passed"
     echo "<br/>"
     echo "EOF"
   } >> "$GITHUB_OUTPUT"

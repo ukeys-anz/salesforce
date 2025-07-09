@@ -19,7 +19,7 @@ CHANGED=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json files --jq '[.files[].pa
 # Filter paths
 SECURITY_FILES=$(echo "$CHANGED" | jq -r '.[] | select(startswith("force-app/") or startswith("knowledge-mgm/"))')
 SYSL_FILES=$(echo "$CHANGED" | jq -r '.[] | select(test("^force-app/main/default/objects/") or test("^force-app/main/sf-lending/objects/") or test("^knowledge-mgm/main/default/objects/"))')
-PMD_FILES=$(echo "$CHANGED" | jq -r '.[] | select(test("^force-app/main/default/") or test("^force-app/main/sf-lending/") or test("^knowledge-mgm/main/default/"))')
+PMD_FILES=$(echo "$CHANGED" | jq -r '.[] | select(test("^force-app/main/default/") or test("^force-app/main/sf-lending/") or test("^knowledge-mgm/main/default/objects/"))')
 PRETTIER_FILES=$(echo "$CHANGED" | jq -r '.[] |
   select(
     test("^force-app/main/default/.*\\.(trigger|cls)$") or

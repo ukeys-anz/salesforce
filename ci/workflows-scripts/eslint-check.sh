@@ -3,7 +3,7 @@
 set -euo pipefail
 
 CHANGED_FILES_BASE64="$1"
-CHECK_LWC_FLAG=false
+CHECK_FAILED_LWC_FLAG=false
 
 echo ""
 echo "***************************************************************"
@@ -18,7 +18,7 @@ allFilesPath=""
 while IFS= read -r file_path; do
   if [[ -f "$file_path" ]]; then
     echo "Adding: $file_path"
-    CHECK_LWC_FLAG=true
+    CHECK_FAILED_LWC_FLAG=true
     allFilesPath+="$file_path "
   else
     echo "⚠️ File not found locally (probably deleted): $file_path"
@@ -31,14 +31,9 @@ echo "                    Running ESLint Check                       "
 echo "***************************************************************"
 echo ""
 
-if [[ "${CHECK_LWC_FLAG}" != "true" ]]; then
+if [[ "${CHECK_FAILED_LWC_FLAG}" != "true" ]]; then
   echo "⚠️ No LWC files to lint. Skipping ESLint."
-  {
-    echo "result<<EOF"
-    echo "<p>✅ ESLint check passed</p>"
-    echo "<br/>"
-    echo "EOF"
-  } >> "$GITHUB_OUTPUT"
+  echo "result=✅" >> "$GITHUB_OUTPUT"
   exit 0
 fi
 
@@ -69,7 +64,7 @@ else
   echo "✅ ESLint check passed"
   {
     echo "result<<EOF"
-    echo "<p>✅ ESLint check passed</p>"
+    echo "✅ ESLint check passed"
     echo "<br/>"
     echo "EOF"
   } >> "$GITHUB_OUTPUT"

@@ -110,7 +110,7 @@ else
   echo "✅ All Prettier checks passed."
   {
     echo "result<<EOF"
-    echo "<p>✅ Prettier check passed</p>"
+    echo "✅ Prettier check passed"
     echo "<br/>"
     echo "EOF"
   } >> "$GITHUB_OUTPUT"
