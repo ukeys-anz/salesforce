@@ -3,7 +3,7 @@
 set -euo pipefail
 
 CHANGED_FILES_BASE64="$1"
-CHECK_LWC_FLAG=false
+CHECK_JEST_FLAG=false
 
 echo ""
 echo "***************************************************************"
@@ -17,58 +17,64 @@ CHANGED_FILES=$(echo "$CHANGED_FILES_BASE64" | base64 --decode)
 allFilesPath=""
 while IFS= read -r file_path; do
   if [[ -f "$file_path" ]]; then
-    echo "Adding: $file_path"
-    CHECK_LWC_FLAG=true
+    echo "✅ Adding: $file_path"
+    CHECK_JEST_FLAG=true
     allFilesPath+="$file_path "
   else
     echo "⚠️ File not found locally (probably deleted): $file_path"
   fi
 done <<< "$CHANGED_FILES"
 
+# Remove trailing space
+allFilesPath="${allFilesPath%" "}"
+
 echo ""
 echo "***************************************************************"
-echo "                    Running ESLint Check                       "
+echo "                  Running Jest Check                           "
 echo "***************************************************************"
 echo ""
 
-if [[ "${CHECK_LWC_FLAG}" != "true" ]]; then
-  echo "⚠️ No LWC files to lint. Skipping ESLint."
+if [[ "${CHECK_JEST_FLAG}" != "true" ]]; then
+  echo "⚠️ No jest files to check. Skipping jest."
   {
     echo "result<<EOF"
-    echo "<p>✅ ESLint check passed</p>"
+    echo "<p>✅ Jest check passed</p>"
     echo "EOF"
   } >> "$GITHUB_OUTPUT"
   exit 0
 fi
 
-echo "⚙️ Running ESLint with .lwc-eslintrc.json..."
-eslint_failed=false
+echo "⚙️ Running Jest..."
+jest_failed=false
 
-# Capture ESLint output
-eslint_output_file="$RUNNER_TEMP/eslint_output.log"
-npx eslint ${allFilesPath} -c .lwc-eslintrc.json > "$eslint_output_file" 2>&1 || eslint_failed=true
+# Run Jest
+if ! npx jest --coverage --silent --no-warnings > jest.txt 2>&1; then
+  jest_failed=true
+fi
 
-# Fail the step if ESLint failed
-if [[ "$eslint_failed" == "true" ]]; then
-  # Output content to console
-  cat "$eslint_output_file"
+cat jest.txt
 
-  # Send formatted output back to GitHub Actions
+if [[ "$jest_failed" == true ]]; then
   {
     echo "result<<EOF"
-    echo "<details><summary>❌ ESLint check failed</summary><pre>"
-    cat "$eslint_output_file"
+    echo "<details><summary>❌ Jest check failed</summary><pre>"
+
+    # Extract output from summary onward, strip ANSI, escape for HTML
+    sed -n '/Summary of all failing tests/,$p' jest.txt \
+      | grep '^FAIL' \
+      | sed -E 's/ *\([^)]*s\) *//g'
+
     echo "</pre></details>"
     echo "EOF"
   } >> "$GITHUB_OUTPUT"
   echo ""
-  echo "❌ ESLint check failed."
+  echo "❌ Jest check failed."
   exit 1
 else
-  echo "✅ ESLint check passed"
+  echo "✅ Jest check passed"
   {
     echo "result<<EOF"
-    echo "<p>✅ ESLint check passed</p>"
+    echo "<p>✅ Jest check passed</p>"
     echo "EOF"
   } >> "$GITHUB_OUTPUT"
 fi

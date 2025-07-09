@@ -9,10 +9,8 @@ report_check() {
 
   if [[ "$skipped" == "true" ]]; then
     echo "<p>✅ $label check skipped (no relevant changes)</p>" >> summary.html
-    echo "<br/>" >> summary.html
   elif [[ ("$skipped" == "false" || -z "$skipped") && -z "$result" ]]; then
     echo "<p>❌ $label check did not complete properly – please re-run the job.</p>" >> summary.html
-    echo "<br/>" >> summary.html
   else
     echo "$result" >> summary.html
   fi

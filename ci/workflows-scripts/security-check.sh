@@ -109,7 +109,6 @@ echo "***************************************************************"
 echo ""
 
 if [[ "$CHECK_FLAG" == true ]]; then
-  echo "" >> result.txt
   checkSpecificMetadata "permissionsets" >> result.txt
   checkSpecificMetadata "profiles" >> result.txt
   checkBypassString "flows" >> result.txt
@@ -135,7 +134,6 @@ else
   {
     echo "result<<EOF"
     echo "<p>✅ Security check passed</p>"
-    echo "<br/>"
     echo "EOF"
   } >> "$GITHUB_OUTPUT"
 fi

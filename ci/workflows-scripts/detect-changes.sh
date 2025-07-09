@@ -17,7 +17,7 @@ fi
 CHANGED=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json files --jq '[.files[].path]')
 
 # Filter paths
-SECURITY_FILES=$(echo "$CHANGED" | jq -r '.[] | select(startswith("force-app/") or startswith("knowledge-mgm/"))')
+SECURITY_JEST_FILES=$(echo "$CHANGED" | jq -r '.[] | select(startswith("force-app/") or startswith("knowledge-mgm/"))')
 SYSL_FILES=$(echo "$CHANGED" | jq -r '.[] | select(test("^force-app/main/default/objects/") or test("^force-app/main/sf-lending/objects/") or test("^knowledge-mgm/main/default/objects/"))')
 PMD_FILES=$(echo "$CHANGED" | jq -r '.[] | select(test("^force-app/main/default/") or test("^force-app/main/sf-lending/") or test("^knowledge-mgm/main/default/"))')
 PRETTIER_FILES=$(echo "$CHANGED" | jq -r '.[] |
@@ -37,15 +37,17 @@ PRETTIER_FILES=$(echo "$CHANGED" | jq -r '.[] |
 )
 ESLINT_LWC_FILES=$(echo "$CHANGED" | jq -r '.[] |
   select(
-    test("^force-app/main/default/lwc/.*\\.js$") or
-    test("^force-app/main/sf-lending/lwc/.*\\.js$") or
-    test("^knowledge-mgm/main/default/lwc/.*\\.js$")
+    (test("^force-app/main/default/lwc/.*\\.js$") or
+     test("^force-app/main/sf-lending/lwc/.*\\.js$") or
+     test("^knowledge-mgm/main/default/lwc/.*\\.js$"))
+    and
+    (test("\\.test\\.js$") | not)
   )'
 )
 
 echo ""
-echo "==== Security-related files ===="
-echo "$SECURITY_FILES"
+echo "==== Security & Jest-related files ===="
+echo "$SECURITY_JEST_FILES"
 echo "========"
 echo ""
 echo "==== Sysl-related files ===="
@@ -66,7 +68,7 @@ echo "========"
 echo ""
 
 # Encode newline-separated strings to base64
-SECURITY_ENCODED=$(echo "$SECURITY_FILES" | base64 | tr -d '\n')
+SECURITY_JEST_ENCODED=$(echo "$SECURITY_JEST_FILES" | base64 | tr -d '\n')
 SYSL_ENCODED=$(echo "$SYSL_FILES" | base64 | tr -d '\n')
 PMD_ENCODED=$(echo "$PMD_FILES" | base64 | tr -d '\n')
 PRETTIER_ENCODED=$(echo "$PRETTIER_FILES" | base64 | tr -d '\n')
@@ -74,12 +76,12 @@ ESLINT_LWC_ENCODED=$(echo "$ESLINT_LWC_FILES" | base64 | tr -d '\n')
 
 # Set GitHub Actions outputs
 {
-  echo "security_changed_files=$SECURITY_ENCODED"
+  echo "security_jest_changed_files=$SECURITY_JEST_ENCODED"
   echo "sysl_changed_files=$SYSL_ENCODED"
   echo "pmd_changed_files=$PMD_ENCODED"
   echo "prettier_changed_files=$PRETTIER_ENCODED"
   echo "eslint_lwc_changed_files=$ESLINT_LWC_ENCODED"
-  echo "security_needed=$([[ -n "$SECURITY_FILES" ]] && echo true || echo false)"
+  echo "security_jest_needed=$([[ -n "$SECURITY_JEST_FILES" ]] && echo true || echo false)"
   echo "sysl_needed=$([[ -n "$SYSL_FILES" ]] && echo true || echo false)"
   echo "pmd_needed=$([[ -n "$PMD_FILES" ]] && echo true || echo false)"
   echo "prettier_needed=$([[ -n "$PRETTIER_FILES" ]] && echo true || echo false)"
