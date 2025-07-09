@@ -28,7 +28,7 @@
     </values>
     <values>
         <field>PEGA_Dispute_Status__c</field>
-        <value xsi:nil="true"/>
+        <value xsi:type="xsd:string">Resolved-No Action</value>
     </values>
     <values>
         <field>PEGA_Investigation_Outcome__c</field>
