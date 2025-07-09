@@ -20,6 +20,13 @@ private with sharing class IDRCaseAssignmentRulesTest {
     OwnerId = testUserId
   );
 
+  static Case caseRecord3 = new Case(
+    Id = caseRecord1.Id,
+    RecordTypeId = RTCase.customerComplaint,
+    Status = IDRConstants.ESCALATED_STATUS,
+    OwnerId = testUserId
+  );
+
   static Lib_MockProvider caseActionMock;
   static Lib_MockProvider dmlRepoMock;
 
@@ -531,9 +538,15 @@ private with sharing class IDRCaseAssignmentRulesTest {
       IDR_Workbasket__c = 'IDR_ANZ_Plus'
     );
 
+    Product_Family__c productFamily3 = new Product_Family__c(
+      Id = Lib_FakeIdGenerator.getMockId(Product_Family__c.SObjectType),
+      Name = 'ANZ Plus'
+    );
+
     Map<Id, Product_Family__c> mockProductFamilies = new Map<Id, Product_Family__c>{
       productFamily1.Id => productFamily1,
-      productFamily2.Id => productFamily2
+      productFamily2.Id => productFamily2,
+      productFamily3.Id => productFamily3
     };
     QueryProductFamily.productFamilyById = mockProductFamilies;
 
@@ -541,20 +554,36 @@ private with sharing class IDRCaseAssignmentRulesTest {
       productFamily2.Id
     );
 
+    Product_Family__c newproductfamily1 = QueryProductFamily.productFamilyById.get(
+      productFamily3.Id
+    );
+
     Case newcase = caseRecord2;
     newCase.IDR_Product_Family__c = newproductfamily.Id;
+
+    Case newcase1 = caseRecord3;
+    newcase1.IDR_Product_Family__c = newproductfamily1.Id;
     Test.startTest();
     Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
       newCase,
       oldCase
     );
+    Id workbasketId1 = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
+      newCase1,
+      oldCase
+    );
     Test.stopTest();
-    System.assertEquals(
+    Assert.areEqual(
       workbasketId,
       QueryQueue.get('IDR_ANZ_Plus').Id,
       'Owner should be IDR_ANZ_Plus'
     );
-    System.assertNotEquals(
+    Assert.areEqual(
+      workbasketId1,
+      QueryQueue.get('IDR_ANZ_Plus').Id,
+      'Owner should be IDR_ANZ_Plus'
+    );
+    Assert.areNotEqual(
       workbasketId,
       newCase.OwnerId,
       'Owner should be updated and should not be the case owner'
@@ -842,5 +871,57 @@ private with sharing class IDRCaseAssignmentRulesTest {
     Test.stopTest();
 
     System.AssertEquals(isValidIssueType, true, 'Boolean should return true');
+  }
+  /**
+   * @description : This is the test method to get assign respective owner Id to Case.
+   */
+  @IsTest
+  private static void testOwnerisANZPlusforANZPlusApp() {
+    Case oldCase = caseRecord1;
+
+    Case newCase = caseRecord2;
+    newCase.Origin = IDRConstants.CHANNEL_RECEIVED_ANZ_PLUS_APP;
+    Test.startTest();
+    Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
+      newCase,
+      oldCase
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      workbasketId,
+      QueryQueue.get('IDR_ANZ_Plus').Id,
+      'Owner should be IDR_ANZ_Plus'
+    );
+    Assert.areNotEqual(
+      workbasketId,
+      newCase.OwnerId,
+      'Owner should be updated and should not be the case owner'
+    );
+  }
+  /**
+   * @description : This is the test method to get assign respective owner Id to Case.
+   */
+  @IsTest
+  private static void testOwnerisANZPlusforANZPlusWeb() {
+    Case oldCase = caseRecord1;
+
+    Case newCase = caseRecord2;
+    newCase.Origin = IDRConstants.CHANNEL_RECEIVED_ANZ_PLUS_WEB;
+    Test.startTest();
+    Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
+      newCase,
+      oldCase
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      workbasketId,
+      QueryQueue.get('IDR_ANZ_Plus').Id,
+      'Owner should be IDR_ANZ_Plus'
+    );
+    Assert.areNotEqual(
+      workbasketId,
+      newCase.OwnerId,
+      'Owner should be updated and should not be the case owner'
+    );
   }
 }

@@ -37,6 +37,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   fetchedAccounts;
   processedAccounts = [];
   savingAccountExist = false;
+  hasOffsetError = false;
 
   connectedCallback() {
     window.addEventListener(
@@ -138,13 +139,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
       });
       return response;
     } catch (error) {
-      handleErrorShowToast(
-        this,
-        "Failed To Retrieve offset Details.",
-        error,
-        "Failed To Retrieve offset Details. Please refresh and try again. If issue persists please contact your System Administrator",
-        "pester"
-      );
+      this.hasOffsetError = true;
     }
     return null;
   }

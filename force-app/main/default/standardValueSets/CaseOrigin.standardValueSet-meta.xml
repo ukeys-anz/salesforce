@@ -271,4 +271,9 @@
         <default>false</default>
         <label>Other EDR Schemes or Tribunal (Post IDR)</label>
     </standardValue>
+    <standardValue>
+        <fullName>ReKYC</fullName>
+        <default>false</default>
+        <label>ReKYC</label>
+    </standardValue>
 </StandardValueSet>

@@ -23,10 +23,6 @@ public with sharing class LoanPreferenceControllerTest {
     Service.getStaticResource('mock_GetLoanPreference')
   );
 
-  static LoanPreferenceUpdateResponseModel mockUpdateLoanPref = LoanPreferenceUpdateResponseModel.parse(
-    Service.getStaticResource('mock_UpdateLoanPreference')
-  );
-
   @isTest
   static void testGetCalculateLoanRepaymentSuccess() {
     Id recordId = Lib_FakeIdGenerator.getMockId(
@@ -44,25 +40,20 @@ public with sharing class LoanPreferenceControllerTest {
 
   @isTest
   static void testGetCalculateLoanRepaymentFailure() {
-    Exception resultException;
-    Test.startTest();
     try {
-      LoanPreferenceResponseModel response = LoanPreferenceController.getCalculateLoanRepayment(
-        null
+      registerMocks();
+      loanPrefMock.mock('queryLAFByRLAId', null);
+      Test.startTest();
+      LoanPreferenceController.getCalculateLoanRepayment(null);
+      Test.stopTest();
+      Assert.fail('An Exception should be thrown');
+    } catch (Exception ex) {
+      Assert.isInstanceOfType(
+        ex,
+        AuraHandledException.class,
+        'Exception should be an instanceof AuraHandledException.'
       );
-    } catch (Exception exp) {
-      resultException = exp;
     }
-    Test.stopTest();
-    Assert.isTrue(
-      resultException instanceof AuraHandledException,
-      'Exception should be thrown.'
-    );
-    Assert.areEqual(
-      'Script-thrown exception',
-      resultException.getMessage(),
-      'Should throw invalid details exception'
-    );
   }
 
   /**
@@ -71,15 +62,14 @@ public with sharing class LoanPreferenceControllerTest {
   @isTest
   static void testUpdateLoanPreferenceSuccess() {
     registerMocks();
-    mockUpdateLoanPref.successful = true;
-    loanPrefAPIRepoMock.mock('updateLoanPreference', mockUpdateLoanPref);
+    loanPrefAPIRepoMock.mock('updateLoanPreference', true);
     Test.startTest();
-    LoanPreferenceUpdateResponseModel response = LoanPreferenceController.updateLoanPreference(
+    Boolean response = LoanPreferenceController.updateLoanPreference(
       getUpdateLoanViewModelData,
       getAdditionalFundsData
     );
     Test.stopTest();
-    Assert.isTrue(response.successful, 'Successful Response');
+    Assert.isTrue(response, 'Successful Response');
   }
   /**
    * @description Test Error scenarios with Invalid data for Update Loan Preference
@@ -87,29 +77,56 @@ public with sharing class LoanPreferenceControllerTest {
 
   @isTest
   static void testUpdateLoanPreferenceFailure() {
-    Test.startTest();
-    LoanPreferenceUpdateResponseModel response = LoanPreferenceController.updateLoanPreference(
-      null,
-      getAdditionalFundsData
-    );
-    Assert.isFalse(response.successful, 'Failure Response');
+    try {
+      Test.startTest();
+      LoanPreferenceController.updateLoanPreference(
+        null,
+        getAdditionalFundsData
+      );
+      Test.stopTest();
+      Assert.fail('An Exception should be thrown');
+    } catch (Exception ex) {
+      Assert.isInstanceOfType(
+        ex,
+        AuraHandledException.class,
+        'Exception should be an instanceof AuraHandledException.'
+      );
+    }
   }
   /**
    * @description Test Error scenarios with Invalid response for Update Loan Preference
    */
   @isTest
   static void testUpdateLoanPreferenceFailureResponse() {
-    HttpCalloutResponse res = getInvalidUpdateResponse();
-    Service finAccountService = ServiceProvider.getService(
-      LoanPreferenceService.class
-    );
-    finAccountService.setCalloutResponse(res);
-    Test.startTest();
-    LoanPreferenceUpdateResponseModel response = LoanPreferenceController.updateLoanPreference(
-      getUpdateLoanViewModelData,
-      getAdditionalFundsData
-    );
-    Assert.isFalse(response.successful, 'Failure Response');
+    try {
+      HttpCalloutResponse errorResponse = new HttpCalloutResponse();
+      errorResponse.successful = false;
+      errorResponse.statusCode = 500;
+      errorResponse.error = new CalloutException('callout failed');
+      registerMocks();
+
+      loanPrefAPIRepoMock.mockException(
+        'updateLoanPreference',
+        new LoanPreferenceAPIRepository.ServerErrorLoanPreferenceException(
+          errorResponse,
+          'updateLoanPreference'
+        )
+      );
+
+      Test.startTest();
+      LoanPreferenceController.updateLoanPreference(
+        getUpdateLoanViewModelData,
+        getAdditionalFundsData
+      );
+      Test.stopTest();
+      Assert.fail('An Exception should be thrown');
+    } catch (Exception ex) {
+      Assert.isInstanceOfType(
+        ex,
+        AuraHandledException.class,
+        'Exception should be an instanceof AuraHandledException.'
+      );
+    }
   }
 
   @isTest
@@ -128,38 +145,20 @@ public with sharing class LoanPreferenceControllerTest {
 
   @isTest
   static void testGetLoanPreferenceFailure() {
-    Exception resultException;
-    Test.startTest();
     try {
-      LoanPreferenceViewModel response = LoanPreferenceController.getLoanPreference(
-        null
+      registerMocks();
+      loanPrefMock.mock('queryLAFByRLAId', null);
+      Test.startTest();
+      LoanPreferenceController.getLoanPreference(null);
+      Test.stopTest();
+      Assert.fail('An Exception should be thrown');
+    } catch (Exception ex) {
+      Assert.isInstanceOfType(
+        ex,
+        AuraHandledException.class,
+        'Exception should be an instanceof AuraHandledException.'
       );
-    } catch (Exception exp) {
-      resultException = exp;
     }
-    Test.stopTest();
-    Assert.isTrue(
-      resultException instanceof AuraHandledException,
-      'Exception should be thrown.'
-    );
-    Assert.areEqual(
-      'Script-thrown exception',
-      resultException.getMessage(),
-      'Should throw invalid details exception'
-    );
-  }
-
-  private static HttpCalloutResponse getInvalidUpdateResponse() {
-    HttpCalloutResponse response = new HttpCalloutResponse();
-    response.error = new CalloutException('Invalid Details');
-    response.statusCode = 500;
-    response.successful = false;
-    response.body =
-      '{\n' +
-      '"errorCode": 340210,\n' +
-      '"errorReason": "loan_amount outside minimum and maximum"\n' +
-      '}';
-    return response;
   }
 
   static ResidentialLoanApplication getRLA {
@@ -169,7 +168,13 @@ public with sharing class LoanPreferenceControllerTest {
           ResidentialLoanApplication.SObjectType
         ),
         Name = 'Test Loan Application',
-        Property_Use__c = 'LOAN_PRODUCT_TYPE_INVESTOR'
+        Property_Use__c = 'LOAN_PRODUCT_TYPE_INVESTOR',
+        ApplicationExtIdentifier = '1234',
+        Account = new Account(
+          Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+          FirstName = 'FakeNameB',
+          OCV_ID__c = '11111231'
+        )
       );
     }
   }
@@ -222,7 +227,6 @@ public with sharing class LoanPreferenceControllerTest {
   /**
    * @description Static method to return AdditionalFundsViewModel Record
    */
-
   static AdditionalFundsViewModel getAdditionalFundsData {
     get {
       AdditionalFundsViewModel updateAddFundsData = new AdditionalFundsViewModel();

@@ -8,11 +8,13 @@
     }
     cmp.set("v.isLWC", true);
 
-    const lwcCmp = actionName.substr(idx + 5);
+    const lwc = actionName.substr(idx + 5);
+    const [lwcCmp, action] = lwc.split("_");
     $A.createComponent(
       "c:" + lwcCmp,
       {
         recordId: recordId,
+        actionName: action,
         oncloseaction: cmp.getReference("c.closeAction")
       },
       function (lwcComponent, status, error) {

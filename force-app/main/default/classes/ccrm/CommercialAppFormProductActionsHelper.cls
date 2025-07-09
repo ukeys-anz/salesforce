@@ -36,7 +36,6 @@ public with sharing class CommercialAppFormProductActionsHelper {
       Map<Id, ApplicationForm> appFormMap = new Map<Id, ApplicationForm>(
         appForms
       );
-
       appFormProductWrapper.filteredAppFormProducts = ListUtil.filter(records)
         .equals(ApplicationFormProduct.ApplicationFormId, appFormMap.keySet())
         .toList();

@@ -1,0 +1,276 @@
+<template>
+  <template lwc:if={componentSpinner}>
+    <!--Spinner-->
+    <lightning-spinner
+      alternative-text="Loading"
+      varient="brand"
+      size="large"
+      class="slds-align_absolute-center"
+    ></lightning-spinner>
+  </template>
+  <template lwc:else>
+    <!--Display modal header-->
+    <template lwc:if={isEditApplicantDetails}>
+      <lightning-modal-header
+        class="modal-header slds-text-align_center"
+        label="Edit Applicant Details"
+      ></lightning-modal-header>
+    </template>
+    <template lwc:else>
+      <lightning-modal-header
+        class="modal-header slds-text-align_center"
+        label="Edit Current Circumstances"
+      ></lightning-modal-header>
+    </template>
+    <!--Display modal header end-->
+    <!-- Edit SOP screen starts -->
+    <lightning-modal-body>
+      <lightning-layout>
+        <lightning-layout-item
+          size="12"
+          class="requiredTextStyle slds-text-align_right slds-p-top_xx-small slds-p-right_medium"
+        >
+          <lightning-formatted-text value="*" class="slds-required">
+          </lightning-formatted-text>
+          <lightning-formatted-text value="= Required fields">
+          </lightning-formatted-text>
+        </lightning-layout-item>
+      </lightning-layout>
+
+      <lightning-layout multiple-rows class="slds-box slds-m-around_medium">
+        <!-- Edit screen for Applicants data starts -->
+        <template lwc:if={isEditApplicantDetails}>
+          <lightning-layout-item size="1" flexibility="shrink">
+            <img src={sopProfileImage} class="logoStyle" />
+          </lightning-layout-item>
+          <lightning-layout-item size="12" class="slds-p-vertical_medium">
+            <lightning-formatted-text
+              value="Some details have been pre-filled from connected data."
+              class="requiredTextStyle slds-p-bottom_medium"
+            >
+            </lightning-formatted-text>
+          </lightning-layout-item>
+
+          <lightning-layout-item
+            size="12"
+            flexibility="shrink"
+            class="labelHeading slds-theme_shade slds-p-around_xx-small"
+          >
+            <lightning-formatted-text
+              value={editApplicantData.applicantLabel}
+            ></lightning-formatted-text>
+          </lightning-layout-item>
+
+          <!--Applicant name -->
+
+          <lightning-layout-item size="6">
+            <lightning-layout multiple-rows vertical-align="center">
+              <lightning-layout-item
+                size="12"
+                class="labelStyle slds-p-vertical_small slds-p-right_small"
+              >
+                <lightning-formatted-text
+                  value="Applicant Name"
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+              <lightning-layout-item
+                size="12"
+                class="valueStyle slds-p-bottom_small slds-p-right_small"
+              >
+                <lightning-formatted-text
+                  value={editApplicantData.applicantName}
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+            </lightning-layout>
+          </lightning-layout-item>
+
+          <!--Home Address -->
+          <lightning-layout-item size="6">
+            <lightning-layout multiple-rows vertical-align="center">
+              <lightning-layout-item
+                size="12"
+                class="labelStyle slds-p-vertical_small"
+              >
+                Home Address
+              </lightning-layout-item>
+              <lightning-layout-item
+                size="12"
+                class="valueStyle slds-p-bottom_small"
+              >
+                <lightning-formatted-text
+                  value={editApplicantData.applicantAddress}
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+            </lightning-layout>
+          </lightning-layout-item>
+
+          <!--Living Situation-->
+          <lightning-layout-item size="6">
+            <lightning-layout multiple-rows vertical-align="center">
+              <lightning-layout-item
+                size="12"
+                class="slds-p-vertical_small slds-p-right_small"
+              >
+                <lightning-combobox
+                  name="LivingStituation"
+                  label="Living Situation"
+                  value={editApplicantData.currentHousingStatus}
+                  options={livingSituationOptions}
+                  onchange={handleApplicantChange}
+                  required
+                  data-id="currentHousingStatus"
+                >
+                </lightning-combobox>
+              </lightning-layout-item>
+            </lightning-layout>
+          </lightning-layout-item>
+
+          <!--Living Situation Description-->
+          <template
+            lwc:if={editApplicantData.livingSituationDescriptionVisible}
+          >
+            <lightning-layout-item size="6">
+              <lightning-layout multiple-rows vertical-align="center">
+                <lightning-layout-item size="12" class="slds-p-vertical_small">
+                  <lightning-input
+                    label="Living Situation Description"
+                    value={editApplicantData.livingStatusOther}
+                    type="text"
+                    data-id="livingStatusOther"
+                    data-index={index}
+                    max-length="255"
+                    lwc:ref="livingStatusOther"
+                    required
+                    onchange={handleApplicantChange}
+                    message-when-value-missing="Living Situation Description is required."
+                  ></lightning-input>
+                </lightning-layout-item>
+              </lightning-layout>
+            </lightning-layout-item>
+          </template>
+        </template>
+        <!-- Edit screen for Applicants data ends -->
+        <!-- Edit screen for Current Circumstances data starts -->
+        <template lwc:else>
+          <lightning-layout-item size="1" flexibility="shrink">
+            <img src={sopRelationshipImage} class="logoStyle" />
+          </lightning-layout-item>
+
+          <lightning-layout-item size="12" class="slds-p-vertical_medium">
+            <lightning-formatted-text
+              value="Some details have been pre-filled from connected data."
+              class="requiredTextStyle slds-p-bottom_medium"
+            >
+            </lightning-formatted-text>
+          </lightning-layout-item>
+          <lightning-layout-item
+            size="12"
+            flexibility="shrink"
+            class="slds-p-right_small"
+          >
+            <lightning-layout>
+              <lightning-layout-item
+                size="12"
+                flexibility="shrink"
+                class="labelHeading slds-theme_shade slds-p-around_xx-small"
+              >
+                <lightning-formatted-text value={currentCircumstancesLabel}>
+                </lightning-formatted-text>
+              </lightning-layout-item>
+            </lightning-layout>
+          </lightning-layout-item>
+
+          <!--Shared Finances With Partner-->
+          <template lwc:if={isApplicationJoint}>
+            <lightning-layout-item
+              size="6"
+              class="slds-p-vertical_small slds-p-right_small"
+            >
+              <lightning-layout multiple-rows vertical-align="center">
+                <lightning-layout-item class="slds-p-bottom_x-small" size="12">
+                  <lightning-formatted-text
+                    value="Shared Finances With Partner"
+                  ></lightning-formatted-text>
+                </lightning-layout-item>
+                <lightning-layout-item size="6">
+                  <lightning-formatted-text
+                    value={editPartyData.shareFinanceWithPartner}
+                  ></lightning-formatted-text>
+                </lightning-layout-item>
+              </lightning-layout>
+            </lightning-layout-item>
+          </template>
+          <template lwc:else>
+            <lightning-layout-item
+              size="6"
+              class="slds-p-vertical_small slds-p-right_small"
+            >
+              <lightning-combobox
+                label="Shared Finances With Partner"
+                value={editPartyData.shareFinanceWithPartner}
+                onchange={handleCurrentCircumstancesChange}
+                options={soleIncomesAndShareFinancesOptions}
+                data-id="shareFinanceWithPartner"
+              ></lightning-combobox>
+            </lightning-layout-item>
+          </template>
+
+          <template lwc:if={isSoleIncomeEarnerVisible}>
+            <!--Sole Income Earner -->
+            <lightning-layout-item
+              size="6"
+              class="slds-p-vertical_small slds-p-right_small"
+            >
+              <lightning-combobox
+                label="Sole Income Earner"
+                value={editPartyData.soleIncomeEarner}
+                onchange={handleCurrentCircumstancesChange}
+                options={soleIncomesAndShareFinancesOptions}
+                data-id="soleIncomeEarner"
+                disabled={isSoleIncomeEarnerReadOnly}
+              ></lightning-combobox>
+            </lightning-layout-item>
+          </template>
+
+          <!--Dependents -->
+          <lightning-layout-item
+            size="6"
+            class="slds-p-vertical_small slds-p-right_small"
+          >
+            <lightning-input
+              label="Dependants"
+              value={editPartyData.partyDependantsCount}
+              type="number"
+              data-id="partyDependantsCount"
+              max-length="255"
+              required
+              min="0"
+              onchange={handleDependentsChange}
+              message-when-range-underflow={dependantsIncorrectFormatError}
+              message-when-bad-input={dependantsIncorrectFormatError}
+            ></lightning-input>
+          </lightning-layout-item>
+        </template>
+        <!-- Edit screen for Current Circumstances data ends -->
+      </lightning-layout>
+    </lightning-modal-body>
+    <lightning-modal-footer class="slds-text-align_center">
+      <!-- Action buttons -->
+      <lightning-layout horizontal-align="center">
+        <lightning-layout-item size="auto">
+          <lightning-button
+            variant="neutral"
+            label="Cancel"
+            onclick={handleClose}
+          ></lightning-button>
+          <lightning-button
+            variant="brand"
+            label="Save"
+            class="slds-p-left_medium"
+            onclick={handleSave}
+          ></lightning-button>
+        </lightning-layout-item>
+      </lightning-layout>
+    </lightning-modal-footer>
+  </template>
+</template>

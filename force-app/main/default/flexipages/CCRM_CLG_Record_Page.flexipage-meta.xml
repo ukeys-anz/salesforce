@@ -731,6 +731,9 @@
                         <valueListItems>
                             <value>CPID__c</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>ExtraCare__c</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -1188,7 +1191,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListApiName</name>
-                    <value>Interactions</value>
+                    <value>CLGInteractions__r</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListDisplayType</name>

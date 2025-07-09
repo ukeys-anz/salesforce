@@ -17,13 +17,8 @@ import { createTag } from "../Services/tag-service.mjs";
 
 /// Find all the env, argv & other variables values
 
-const {
-  WHICH_JOB,
-  BASE_REF,
-  BASE_REF_LAST_TAG,
-  RUN_ID,
-  WORKING_DIR
-} = process.env;
+const { WHICH_JOB, BASE_REF, BASE_REF_LAST_TAG, RUN_ID, WORKING_DIR } =
+  process.env;
 
 const PROPER_FOLDER_NAME = renameItem(BASE_REF);
 const SOURCE_DIR = `artifact-${PROPER_FOLDER_NAME}-${RUN_ID}`;
@@ -53,7 +48,6 @@ const deployment = () => {
 const clean = () => {
   unauthenticate(BASE_REF);
   deleteFolder(SOURCE_DIR);
-  createTag(BASE_REF, RUN_ID);
 };
 
 /////////

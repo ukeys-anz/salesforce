@@ -76,7 +76,7 @@
                     <lightning-icon
                       icon-name="utility:info"
                       size="xx-small"
-                      class="tooltip"
+                      class="tooltip tooltip-margin-modal"
                       onclick={handleBalanceModal}
                     ></lightning-icon>
                   </p>
@@ -97,7 +97,7 @@
                     <lightning-icon
                       icon-name="utility:info"
                       size="xx-small"
-                      class="tooltip"
+                      class="tooltip tooltip-margin-modal"
                       onclick={handleRedrawAvailableModal}
                     ></lightning-icon>
                   </p>
@@ -113,7 +113,7 @@
                   <p class="slds-text-color_weak">
                     Payments Made
                     <lightning-helptext
-                      class="tooltip"
+                      class="tooltip tooltip-margin"
                       content="Calculated by subtracting Loan Balance from Loan Amount. Amount may also include fees and charges you have paid that have been applied to the Loan Balance."
                     ></lightning-helptext>
                   </p>
@@ -165,10 +165,10 @@
             </div>
             <div class="slds-col slds-grid slds-size_1-of-3">
               <div class="header-column r">
-                <p class="slds-text-color_weak slds-align_absolute-center">
+                <p class="slds-text-color_weak">
                   Loan Amount
                   <lightning-helptext
-                    class="tooltip"
+                    class="tooltip tooltip-margin"
                     content="As of the loan commencement or the date certain changes were made to the loan."
                   ></lightning-helptext>
                 </p>
@@ -189,7 +189,7 @@
                 <p class="slds-text-color_weak">
                   Term
                   <lightning-helptext
-                    class="tooltip"
+                    class="tooltip tooltip-margin"
                     content="As of the loan commencement or the date certain changes were made to the loan."
                   ></lightning-helptext>
                 </p>
@@ -219,7 +219,7 @@
                 <p class="slds-text-color_weak">
                   Linked Offset
                   <lightning-helptext
-                    class="tooltip"
+                    class="tooltip tooltip-margin"
                     content="Offset uses the money in an eligible account to offset the loan balance - reducing the interest paid."
                   ></lightning-helptext>
                 </p>
@@ -287,10 +287,10 @@
             </div>
             <div class="slds-col slds-grid slds-size_1-of-4">
               <div class="header-column">
-                <p class="slds-text-color_weak slds-align_absolute-center">
+                <p class="slds-text-color_weak">
                   Minimum Repayment
                   <lightning-helptext
-                    class="tooltip"
+                    class="tooltip tooltip-margin"
                     content="This is your Repayment Amount under your credit contract. Does not include any arrears (if applicable)."
                   ></lightning-helptext>
                 </p>

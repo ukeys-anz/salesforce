@@ -89,6 +89,54 @@
         <layoutColumns/>
         <style>CustomLinks</style>
     </layoutSections>
+    <platformActionList>
+        <actionListContext>Record</actionListContext>
+        <platformActionListItems>
+            <actionName>PersonDigitalIdentity__x.lwc_auf_ArchiveUser</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>0</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>PersonDigitalIdentity__x.DataSharing</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>1</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>PersonDigitalIdentity__x.lwc_auf_LockPIN</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>2</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>PersonDigitalIdentity__x.lwc_auf_ResetPIN</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>3</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>PersonDigitalIdentity__x.lwc_auf_Suspend</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>4</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>PersonDigitalIdentity__x.lwc_auf_UnlockPIN</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>5</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>PersonDigitalIdentity__x.lwc_auf_Unsuspend</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>6</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>PersonDigitalIdentity__x.lwc_auf_MobileNumber</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>7</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>PersonDigitalIdentity__x.lwc_auf_OCVNumber</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>8</sortOrder>
+        </platformActionListItems>
+    </platformActionList>
     <relatedLists>
         <fields>CASES.CASE_NUMBER</fields>
         <fields>CASES.SUBJECT</fields>
@@ -114,7 +162,6 @@
     </relatedLists>
     <relatedLists>
         <fields>Name__c</fields>
-        <fields>CreatedBy__c</fields>
         <fields>CreatedTime__c</fields>
         <relatedList>AccessControl__x.PersonId__c</relatedList>
     </relatedLists>

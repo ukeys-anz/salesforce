@@ -41,6 +41,7 @@ public class RTCase {
   public static Id confirmationOfPayee = base.getId('Confirmation_Of_Payee');
   public static Id trustMeQA = base.getId('TrustMe_eIDV_QA_Case');
   public static Id trustMeManualReview = base.getId('TrustMe_eIDV_Case');
+  public static Id rekycQA = base.getId('ReKYC_QA_Case');
 
   /**
    * @description Get the record type info for a given record type id

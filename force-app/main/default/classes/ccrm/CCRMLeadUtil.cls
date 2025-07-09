@@ -22,6 +22,11 @@ public with sharing class CCRMLeadUtil {
     'Business' => 'Business_ID__c',
     'CLG' => 'CLG_ID__c'
   };
+  private static final Map<Id, String> ACCOUNT_TYPE_MAP = new Map<Id, String>{
+    RTAccount.businessAccount => 'Business',
+    RTAccount.personAccount => 'Customer',
+    RTAccount.clgAccount => 'CLG'
+  };
 
   /**
    * @description Check if record type is of CCRM Lead type for Commercial.
@@ -244,7 +249,7 @@ public with sharing class CCRMLeadUtil {
       String.isNotBlank(record.FinServ__RelatedAccount__c) &&
       mapOfSourceSystemIds.containsKey(record.FinServ__RelatedAccount__c)
     ) {
-      string accountType = CCRMLeadMappingEngine.getAccountType(
+      string accountType = ACCOUNT_TYPE_MAP.get(
         mapOfSourceSystemIds.get(record.FinServ__RelatedAccount__c).RecordTypeId
       );
       //Map Customer Type
@@ -290,7 +295,7 @@ public with sharing class CCRMLeadUtil {
       String.isNotBlank(record.FinServ__RelatedAccount__c) &&
       mapOfSourceSystemIds.containsKey(record.FinServ__RelatedAccount__c)
     ) {
-      string accountType = CCRMLeadMappingEngine.getAccountType(
+      string accountType = ACCOUNT_TYPE_MAP.get(
         mapOfSourceSystemIds.get(record.FinServ__RelatedAccount__c).RecordTypeId
       );
 

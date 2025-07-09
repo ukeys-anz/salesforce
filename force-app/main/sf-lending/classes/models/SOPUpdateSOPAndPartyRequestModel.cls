@@ -26,12 +26,11 @@ public with sharing class SOPUpdateSOPAndPartyRequestModel extends CalloutModel 
     /**
      * @description parameterized constrcutor
      * @param partiesList
-     * @param ocvId
      */
-    public PartyData(List<SOPViewModel.Parties> partiesList, String ocvId) {
+    public PartyData(List<SOPViewModel.Parties> partiesList) {
       this.party = new List<Party>();
       for (SOPViewModel.Parties sopViewPartyDetails : partiesList) {
-        this.party.add(new Party(sopViewPartyDetails, ocvId));
+        this.party.add(new Party(sopViewPartyDetails));
       }
     }
   }
@@ -53,24 +52,15 @@ public with sharing class SOPUpdateSOPAndPartyRequestModel extends CalloutModel 
     /**
      * @description parameterized constrcutor
      * @param sopViewPartyDetails
-     * @param ocvId
      */
-    public Party(SOPViewModel.Parties sopViewPartyDetails, String ocvId) {
+    public Party(SOPViewModel.Parties sopViewPartyDetails) {
       this.id = sopViewPartyDetails.id;
       this.currentHousingStatus = sopViewPartyDetails.currentHousingStatus;
-
-      this.livingStatusOther = this.currentHousingStatus ==
-        'LIVING_STATUS_OTHER'
-        ? sopViewPartyDetails.livingStatusOther
-        : null;
-      if (sopViewPartyDetails.ocvId == ocvId) {
-        this.spouseEarnsIncome = SOPUpdateSOPandPartyHelper.transformSpouceEarnIncome(
-          sopViewPartyDetails.soleIncomeEarner
-        );
-        this.relationshipState = SOPUpdateSOPandPartyHelper.transformToRelationshipState(
-          sopViewPartyDetails.relationshipState
-        );
-      }
+      this.livingStatusOther = sopViewPartyDetails.livingStatusOther;
+      this.spouseEarnsIncome = sopViewPartyDetails.soleIncomeEarner.equalsIgnoreCase(
+        'No'
+      );
+      this.relationshipState = sopViewPartyDetails.relationshipState;
     }
   }
 
@@ -103,13 +93,11 @@ public with sharing class SOPUpdateSOPAndPartyRequestModel extends CalloutModel 
   /**
    * @description parameterized constrcutor
    * @param sopDetails
-   * @param ocvId
    */
-  public SOPUpdateSOPAndPartyRequestModel(
-    SOPViewModel sopDetails,
-    String ocvId
-  ) {
-    this.partyData = new PartyData(sopDetails.parties, ocvId);
-    this.sopData = new SopData(sopDetails);
+  public SOPUpdateSOPAndPartyRequestModel(SOPViewModel sopDetails) {
+    this.partyData = sopDetails.isPartyDataUpdated
+      ? new PartyData(sopDetails.parties)
+      : null;
+    this.sopData = sopDetails.isSOPDataUpdated ? new SopData(sopDetails) : null;
   }
 }

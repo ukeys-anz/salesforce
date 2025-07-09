@@ -88,8 +88,6 @@ ARG GO_TEMPLATE_SHA256
 ARG GCLOUD_VERSION
 ARG GCLOUD_SHA256SUM
 
-ARG PYTHON_VERSION="3.9.16"
-
 RUN mkdir -p ${CLIENT_TOOLS_DIR}/helm && \
     cd ${CLIENT_TOOLS_DIR}/helm && \
     HELM_FILE=helm-${HELM_VERSION}-linux-amd64.tar.gz && \
@@ -155,9 +153,10 @@ RUN curl -fsSL --output /usr/local/bin/devexcli "${ARTIFACTORY_URL}/anzx-binarie
     chmod +x /usr/local/bin/devexcli
 
 # Install Python
-RUN yum update -y && \
-  yum install -y python3 python3-pip && \
-  yum clean all
+RUN yum install -y python39 python39-devel && \
+  # Update default python
+  ln -sf /usr/bin/python3.9 /usr/bin/python3 && \
+  ln -sf /usr/bin/python3.9 /usr/bin/python
 
 # Ensure that a non-root owned folder exists for gcloud installation
 RUN install -o delegate -g delegate -d /opt/harness-delegate/gcloud && \
@@ -191,3 +190,5 @@ RUN cd /opt/harness-delegate/gcloud && \
 ENV CLOUDSDK_PYTHON=python3
 ENV PATH=/opt/harness-delegate/gcloud/google-cloud-sdk/bin:$PATH
 
+RUN python3 --version
+RUN python --version

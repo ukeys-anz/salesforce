@@ -17,12 +17,14 @@
         <restricted>true</restricted>
         <valueSetName>Quality_Assessment_Rating</valueSetName>
         <valueSettings>
+            <controllingFieldValue>Appointment</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
             <controllingFieldValue>Simple</controllingFieldValue>
             <controllingFieldValue>Complex</controllingFieldValue>
             <valueName>Outstanding</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Appointment</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
             <controllingFieldValue>Email</controllingFieldValue>
             <controllingFieldValue>Simple</controllingFieldValue>
@@ -30,6 +32,7 @@
             <valueName>Effective</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Appointment</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
             <controllingFieldValue>Email</controllingFieldValue>
             <controllingFieldValue>Simple</controllingFieldValue>
@@ -37,6 +40,7 @@
             <valueName>Almost There</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Appointment</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
             <controllingFieldValue>Email</controllingFieldValue>
             <controllingFieldValue>Simple</controllingFieldValue>

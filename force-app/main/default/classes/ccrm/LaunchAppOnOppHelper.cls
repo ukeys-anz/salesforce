@@ -125,44 +125,33 @@ public with sharing class LaunchAppOnOppHelper {
     Opportunity opps
   ) {
     List<LaunchAppOnOppController.RecordTypeWrapper> typesList = new List<LaunchAppOnOppController.RecordTypeWrapper>();
-    LaunchAppOnOppController.RecordTypeWrapper ambitRTWrapper = new LaunchAppOnOppController.RecordTypeWrapper();
-    LaunchAppOnOppController.RecordTypeWrapper bbdRTWrapper = new LaunchAppOnOppController.RecordTypeWrapper();
-    LaunchAppOnOppController.RecordTypeWrapper acmRTWrapper = new LaunchAppOnOppController.RecordTypeWrapper();
-    LaunchAppOnOppController.RecordTypeWrapper internalAppRTWrapper = new LaunchAppOnOppController.RecordTypeWrapper();
-
-    ambitRTWrapper.recordTypeName = RTApplicationForm.ambitApplicationName;
-    ambitRTWrapper.recordTypeId = RTApplicationForm.ambitApplication;
-    ambitRTWrapper.allowMultiple = false;
-    ambitRTWrapper.url =
-      'https://' +
-      Label.Commercial_Abmit_Instance_URL +
-      '/Opportunity/GetQuotes/?iko=' +
-      opps.Opp_Id__c +
-      '&ikpr={OppProductId}';
+    LaunchAppOnOppController.RecordTypeWrapper ambitRTWrapper = new LaunchAppOnOppController.RecordTypeWrapper(
+      RTApplicationForm.ambitApplicationName,
+      RTApplicationForm.ambitApplication,
+      false,
+      opps
+    );
     typesList.add(ambitRTWrapper);
-
-    bbdRTWrapper.recordTypeName = RTApplicationForm.bbdApplicationName;
-    bbdRTWrapper.recordTypeId = RTApplicationForm.bbdApplication;
-    bbdRTWrapper.allowMultiple = true;
-    bbdRTWrapper.url = String.isNotBlank(opps.Account.Source_System_ID__c)
-      ? Label.BBD_Link
-          .replace(
-            '{!Account.Source_System_ID__c}',
-            opps.Account.Source_System_ID__c
-          )
-          .replace('{!Opportunity.Opp_Id__c}', opps.Opp_Id__c)
-      : Label.BBD_Link;
+    LaunchAppOnOppController.RecordTypeWrapper bbdRTWrapper = new LaunchAppOnOppController.RecordTypeWrapper(
+      RTApplicationForm.bbdApplicationName,
+      RTApplicationForm.bbdApplication,
+      true,
+      opps
+    );
     typesList.add(bbdRTWrapper);
-
-    acmRTWrapper.recordTypeName = RTApplicationForm.acmApplicationName;
-    acmRTWrapper.recordTypeId = RTApplicationForm.acmApplication;
-    acmRTWrapper.allowMultiple = true;
-    acmRTWrapper.url = Label.ACM_Link;
+    LaunchAppOnOppController.RecordTypeWrapper acmRTWrapper = new LaunchAppOnOppController.RecordTypeWrapper(
+      RTApplicationForm.acmApplicationName,
+      RTApplicationForm.acmApplication,
+      true,
+      opps
+    );
     typesList.add(acmRTWrapper);
-
-    internalAppRTWrapper.recordTypeName = RTApplicationForm.internalApplicationName;
-    internalAppRTWrapper.recordTypeId = RTApplicationForm.internalApplication;
-    internalAppRTWrapper.allowMultiple = true;
+    LaunchAppOnOppController.RecordTypeWrapper internalAppRTWrapper = new LaunchAppOnOppController.RecordTypeWrapper(
+      RTApplicationForm.internalApplicationName,
+      RTApplicationForm.internalApplication,
+      true,
+      opps
+    );
     typesList.add(internalAppRTWrapper);
     return typesList;
   }
@@ -171,17 +160,17 @@ public with sharing class LaunchAppOnOppHelper {
    * @description This is used to create the Request body need to send AMBIT
    * @name createAMBITRequestBody
    * @param opportunityId opportunity Id
-   * @param oppLineItemIds string of opp line items Ids
+   * @param oppLineItemId string of opp line items Id
    * @return CommercialAMBITRequestModel
    */
   public static CommercialAMBITRequestModel createAMBITRequestBody(
     Id opportunityId,
-    List<Id> oppLineItemIds
+    Id oppLineItemId
   ) {
     Opportunity oppRec = APP_REPOSITORY.getOpportunityData(opportunityId);
     CommercialAMBITRequestModel ambitModel = new CommercialAMBITRequestModel(
       oppRec,
-      oppLineItemIds[0]
+      oppLineItemId
     );
     return ambitModel;
   }

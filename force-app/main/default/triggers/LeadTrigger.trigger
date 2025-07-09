@@ -6,5 +6,8 @@ trigger LeadTrigger on Lead(
   after update
 ) {
   LeadTriggerHandler handler = new LeadTriggerHandler();
+  MobileLendingLeadTriggerHandler mobileLendingHandler = new MobileLendingLeadTriggerHandler();
   CommercialLeadTriggerHandler commercialHandler = new CommercialLeadTriggerHandler();
+  CommercialReferralLeadTriggerHandler referralLeadHandler = new CommercialReferralLeadTriggerHandler();
+  BOHLeadTriggerHandler bohLeadHandler = new BOHLeadTriggerHandler();
 }
