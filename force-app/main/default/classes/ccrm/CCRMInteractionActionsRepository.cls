@@ -4,6 +4,7 @@
  * @description  : This class containspublic repository for all queries used in InteractionCEController
  **/
 public with sharing class CCRMInteractionActionsRepository {
+  private static final String CLG = 'Customer Lending Group';
   /**
    * @description get Customers data based on Ids
    * @param relatedCustomerIds
@@ -77,5 +78,59 @@ public with sharing class CCRMInteractionActionsRepository {
       WHERE Id IN :relatedUserIds
       WITH USER_MODE
     ];
+  }
+
+  /**
+   * @description to query account account relationship records
+   * @name getAccountAccountRelations
+   * @param accountIdsSet set of Account Ids
+   * @return List<FinServ__AccountAccountRelation__c>
+   */
+  public List<FinServ__AccountAccountRelation__c> getRelatedCLGAccounts(
+    Set<Id> accountIdsSet
+  ) {
+    if (accountIdsSet.isEmpty()) {
+      return new List<FinServ__AccountAccountRelation__c>();
+    }
+
+    return [
+      SELECT
+        Id,
+        Name,
+        Relationship__c,
+        FinServ__Account__c,
+        FinServ__Account__r.RecordTypeId,
+        FinServ__RelatedAccount__c,
+        FinServ__RelatedAccount__r.CLG__c,
+        FinServ__RelatedAccount__r.CPID__c,
+        FinServ__RelatedAccount__r.RecordTypeId,
+        FinServ__RelatedAccount__r.Controlling_Post__r.OwnerId
+      FROM FinServ__AccountAccountRelation__c
+      WHERE
+        FinServ__Account__c IN :accountIdsSet
+        AND Relationship__c = :CLG
+        AND FinServ__RelatedAccount__r.RecordTypeId = :RTAccount.clgAccount
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description To get a list of account with record types
+   * @param accountIds
+   * @return Map<Id, Account>
+   */
+  public Map<Id, Account> getAccountsWithRecordTypes(Set<Id> accountIds) {
+    if (accountIds.isEmpty()) {
+      return new Map<Id, Account>();
+    }
+
+    return new Map<Id, Account>(
+      [
+        SELECT Id, RecordTypeId
+        FROM Account
+        WHERE Id IN :accountIds
+        WITH USER_MODE
+      ]
+    );
   }
 }

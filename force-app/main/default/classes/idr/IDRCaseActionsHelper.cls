@@ -169,6 +169,7 @@ public with sharing class IDRCaseActionsHelper {
     String strUserName = UserInfo.getName();
     String message =
       'Case Created: ' +
+      'Case Creation Success: 200 - Case Created: ' +
       caseId +
       ' by ' +
       strUserName +
@@ -184,7 +185,11 @@ public with sharing class IDRCaseActionsHelper {
    */
   @AuraEnabled
   public static void logCaseError(String message) {
-    Logger.error('Required field is missing or invalid:' + ' ' + message);
+    Logger.error(
+      'Case Creation Failure: 400 - Required field is missing or invalid:' +
+        ' ' +
+        message
+    );
     Logger.saveLog();
   }
 }

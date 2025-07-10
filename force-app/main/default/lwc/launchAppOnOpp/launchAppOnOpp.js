@@ -221,7 +221,7 @@ export default class LaunchAppOnOpp extends NavigationMixin(LightningElement) {
       case "AMBIT":
         getAMBITResponse({
           oppId: this._recordId,
-          oppLineItemIds: this.selectedRowIds
+          oppLineItemId: this.selectedRowIds[0]
         })
           .then((result) => {
             if (result === true) {

@@ -1,0 +1,39 @@
+.requiredTextStyle {
+  font-size: var(--slds-g-font-scale-neg-1);
+  font-weight: var(--slds-g-font-weight-4);
+  line-height: var(--slds-g-font-scale-3);
+  color: var(--slds-g-color-neutral-base-10);
+}
+
+.modal-header {
+  --slds-c-modal-header-color-background: var(--slds-g-color-palette-blue-30);
+  --slds-c-modal-header-text-color: var(--slds-g-color-neutral-base-100);
+  font-size: var(--slds-g-font-scale-4);
+  font-weight: var(--slds-g-font-weight-7);
+  line-height: 30px;
+}
+
+.labelHeading {
+  font-size: var(--slds-g-font-scale-2);
+  font-weight: 590;
+  line-height: var(--slds-g-font-lineheight-3);
+}
+
+.logoStyle {
+  width: 60px;
+  height: 60px;
+}
+
+.labelStyle {
+  font-size: var(--slds-g-font-scale-neg-1);
+  font-weight: var(--slds-g-font-weight-4);
+  line-height: var(--slds-g-font-scale-3);
+  color: var(--slds-g-color-neutral-base-30);
+}
+
+.valueStyle {
+  font-size: var(--slds-g-font-size-base);
+  font-weight: var(--slds-g-font-weight-4);
+  line-height: var(--slds-g-font-scale-3);
+  color: var(--slds-g-color-neutral-base-10);
+}
