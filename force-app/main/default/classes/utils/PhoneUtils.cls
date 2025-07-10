@@ -6,6 +6,10 @@
  */
 
 public with sharing class PhoneUtils {
+  private static final Pattern MOBILE_PATTERN = Pattern.compile(
+    '^\\+?(61)?0?4([0-9]{1,8}+)$'
+  );
+
   /**
    * @description Standardise the format for Australian mobile numbers
    * @param strMobileNumber uncleaned mobile phone number
@@ -13,21 +17,24 @@ public with sharing class PhoneUtils {
    * @return Validated Australian Mobile Number with spaces and '+' removed.
    */
   public static String cleanupMobile(String strMobileNumber) {
-    String strCleanedMobile = strMobileNumber;
-    if (String.isNotBlank(strCleanedMobile)) {
-      strCleanedMobile = strCleanedMobile.replaceAll(' ', '');
-      Matcher mtMatcher = Pattern.compile('^\\+?(61)?0?4([0-9]{1,8}+)$')
-        .matcher(strCleanedMobile);
-      if (
-        mtMatcher.matches() &&
-        mtMatcher.hitEnd() &&
-        mtMatcher.groupCount() == 2
-      ) {
-        strCleanedMobile = '614' + mtMatcher.group(2);
-      } else if (strCleanedMobile.startsWith('+')) {
-        strCleanedMobile = strCleanedMobile.substringAfter('+');
-      }
+    if (String.isBlank(strMobileNumber)) {
+      return strMobileNumber;
     }
-    return strCleanedMobile;
+
+    String strCleanedMobile = strMobileNumber.replaceAll(' ', '')
+      .replaceAll('-', '');
+    Matcher mtMatcher = MOBILE_PATTERN.matcher(strCleanedMobile);
+
+    if (
+      mtMatcher.matches() &&
+      mtMatcher.hitEnd() &&
+      mtMatcher.groupCount() == 2
+    ) {
+      return '614' + mtMatcher.group(2);
+    }
+    if (strCleanedMobile.startsWith('+')) {
+      return strCleanedMobile.substringAfter('+');
+    }
+    return '';
   }
 }

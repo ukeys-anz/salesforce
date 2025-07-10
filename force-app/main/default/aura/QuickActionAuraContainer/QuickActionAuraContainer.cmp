@@ -10,15 +10,6 @@
 >
   <aura:handler name="init" value="{!this}" action="{!c.handleInit}" />
   <lightning:quickActionAPI aura:id="quickActionAPI" />
-  <aura:attribute name="recordIdToBePassed" type="String" default="" />
-  <aura:attribute name="isOmni" type="Boolean" default="false" />
-  <aura:if isTrue="{!v.isOmni}">
-    <!--<c:tFMAssistedUserFunctionsParentOSEnglish
-      prefill="{!v.recordIdToBePassed}"
-      recordId="{!v.recordIdToBePassed}"
-    />-->
-  </aura:if>
-
   <aura:attribute name="isLWC" type="Boolean" default="false" />
   <aura:attribute name="lwcErrorMessage" type="String" default="" />
   <aura:if isTrue="{!v.isLWC}">

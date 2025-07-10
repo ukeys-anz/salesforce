@@ -136,6 +136,11 @@ public with sharing class SOPViewModel extends CalloutModel {
           ? 'Yes'
           : 'No';
       }
+      set {
+        relationshipState = value.equalsIgnoreCase('Yes')
+          ? 'RELATIONSHIP_STATE_IN_RELATIONSHIP'
+          : 'RELATIONSHIP_STATE_IN_SINGLE';
+      }
     }
 
     /**

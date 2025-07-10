@@ -2059,23 +2059,23 @@
             <default>true</default>
         </values>
         <values>
-            <fullName>ACTIVITY_STATE_AUTO_ARCHIVED</fullName>
+            <fullName>TASK_STATE_AUTO_ARCHIVED</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>ACTIVITY_STATE_COACH_ARCHIVED</fullName>
+            <fullName>TASK_STATE_COACH_ARCHIVED</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>ACTIVITY_STATE_CUSTOMER_ARCHIVED</fullName>
+            <fullName>TASK_STATE_CUSTOMER_ARCHIVED</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>ACTIVITY_STATE_READ</fullName>
+            <fullName>TASK_STATE_READ</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>ACTIVITY_STATE_SENT</fullName>
+            <fullName>TASK_STATE_SENT</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -2207,7 +2207,7 @@
     <picklistValues>
         <picklist>Type</picklist>
         <values>
-            <fullName>ACTIVITY_TYPE_PUSH_TO_APP</fullName>
+            <fullName>TASK_TYPE_PUSH_TO_APP</fullName>
             <default>false</default>
         </values>
     </picklistValues>

@@ -54,6 +54,7 @@ public with sharing class CommercialAppFormProductTriggerHandler extends Lib_Tri
       records,
       null
     );
+    CommercialAppFormProductActions.createAppFormShareRecords(records);
   }
   /**
    * @description onAfterUpdate to handle after update trigger actions.

@@ -313,7 +313,7 @@ public with sharing class NewCaseFlowWrapperController {
       Logger.error(
         e.getMessage() +
           ' ' +
-          'Error from NewCaseFlowWrapperController.getCaseRecordTypes'
+          'Error from NewCaseFlowWrapperController.getCaseRecordTypes failure:400'
       );
       Logger.saveLog();
       throw new AuraHandledException(e.getMessage());
@@ -327,7 +327,9 @@ public with sharing class NewCaseFlowWrapperController {
     String message =
       +strUserName +
       ' Clicked on New Button at ' +
-      Datetime.now();
+      Datetime.now() +
+      ' ' +
+      'from NewCaseFlowWrapperController.getCaseRecordTypes success: 200';
     Logger.info(message);
     Logger.saveLog();
   }

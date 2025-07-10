@@ -255,7 +255,10 @@ private class CommercialAFPActionsHelperTest {
     );
     Test.stopTest();
     errors = afpList[0].getErrors();
-    Assert.isTrue(errors.isEmpty(), 'Expected no errors, but found: ' + errors.size());
+    Assert.isTrue(
+      errors.isEmpty(),
+      'Expected no errors, but found: ' + errors.size()
+    );
   }
 
   @isTest

@@ -20,6 +20,7 @@ export default class HomeLoanAccountCard extends NavigationMixin(
   @api ownershipType;
   @api accountOwnersList;
   @api offsetDetails;
+  @api hasOffsetError;
   @api componentTitle;
   timestamp;
   financialAccounts = [];
@@ -144,10 +145,6 @@ export default class HomeLoanAccountCard extends NavigationMixin(
 
   get showOffsetData() {
     return this.offsetList?.length > 0;
-  }
-
-  get hasOffsetError() {
-    return this.offsetDetails?.hasError;
   }
 
   handleAccountActive(state) {
@@ -286,7 +283,7 @@ export default class HomeLoanAccountCard extends NavigationMixin(
   //USED IN FINANCIAL ACCOUNT AND CUSTOMER FINANCIALS PAGE
   handleOffsetDetails(account, offsetAccountDetails) {
     var offsetData = [];
-    if (offsetAccountDetails == null || offsetAccountDetails?.hasError) {
+    if (offsetAccountDetails == null || this.hasOffsetError) {
       return offsetData;
     }
     offsetData = offsetAccountDetails.loanOffsets

@@ -95,7 +95,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>required</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reference__c</fieldItem>
                 <identifier>RecordReference__cField</identifier>
@@ -125,7 +125,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>required</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Parent_Quality_Evaluation__c</fieldItem>
                 <identifier>RecordParent_Quality_Evaluation_cField</identifier>
@@ -135,7 +135,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>required</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Application_ID__c</fieldItem>
                 <identifier>RecordApplication_ID_cField</identifier>
@@ -1014,16 +1014,31 @@
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection11</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
+                    <booleanFilter>(1 AND 2) OR (3 AND (4 OR 5))</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Status__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Complete</rightValue>
                     </criteria>
                     <criteria>
+                        <leftValue>{!Record.Sub_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Evaluation Completed</rightValue>
+                    </criteria>
+                    <criteria>
                         <leftValue>{!Record.Status__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Referred</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Sub_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Compliance Review</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Sub_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Other</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>

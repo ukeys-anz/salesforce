@@ -1,20 +1,21 @@
 import { LightningElement, wire, api } from "lwc";
 import { loadStyle } from "lightning/platformResourceLoader";
 import styling from "@salesforce/resourceUrl/sopStyling";
+import getSOP from "@salesforce/apex/BOHController.getSOP";
+import hasEditPermission from "@salesforce/customPermission/Party_Edit";
+import RLA_STATUS_APINAME from "@salesforce/schema/ResidentialLoanApplication.Status";
+import RLA_ACCOUNT_OCVID from "@salesforce/schema/ResidentialLoanApplication.Account.OCV_ID__c";
+import aboutYouEditModel from "c/aboutYouEditDetails";
+import { getRecord, getFieldValue } from "lightning/uiRecordApi";
+import { subscribe, MessageContext } from "lightning/messageService";
+import RefreshSOP from "@salesforce/messageChannel/RefreshSOP__c";
 import {
   EnclosingTabId,
   getTabInfo,
   openSubtab
 } from "lightning/platformWorkspaceApi";
 
-import getSOP from "@salesforce/apex/BOHController.getSOP";
-import hasEditPermission from "@salesforce/customPermission/Party_Edit";
-import RLA_STATUS_APINAME from "@salesforce/schema/ResidentialLoanApplication.Status";
-import RLA_ACCOUNT_OCVID from "@salesforce/schema/ResidentialLoanApplication.Account.OCV_ID__c";
-import { getRecord, getFieldValue } from "lightning/uiRecordApi";
-
 export default class AboutYouViewDetails extends LightningElement {
-  @wire(EnclosingTabId) tabId;
   @api recordId;
   componentSpinner = false;
   showViewScreen = false;
@@ -60,9 +61,12 @@ export default class AboutYouViewDetails extends LightningElement {
     return Object.entries(this.currentCircumstancesData).length > 0;
   }
 
-  connectedCallback() {
-    Promise.all([loadStyle(this, styling)]);
-  }
+  @wire(EnclosingTabId) tabId;
+
+  @wire(MessageContext)
+  messageContext;
+  subscription;
+
   //wired method to get residential loan data
   @wire(getRecord, {
     recordId: "$recordId",
@@ -73,6 +77,7 @@ export default class AboutYouViewDetails extends LightningElement {
       this.applicationStatus = getFieldValue(data, RLA_STATUS_APINAME); // Storing the loan status field value
       this.ocvId = getFieldValue(data, RLA_ACCOUNT_OCVID); // Storing the account ocvId field value
       this.loadGetSOPData(); // calling getSOP API after getting ocvId
+      this.subscribeToMessageChannel();
     }
   }
   //apex method to get getSOP API data
@@ -93,7 +98,8 @@ export default class AboutYouViewDetails extends LightningElement {
       this.filteredSOPData = JSON.parse(JSON.stringify(result));
 
       // assigning the primary party for current circumstances details data
-      this.currentCircumstancesData = this.filterSOPData(result)?.[0] ?? {};
+      this.currentCircumstancesData =
+        this.filterPartyData(result.parties, this.ocvId)?.[0] ?? {};
 
       //assigning parties data to display in applicants tab
       this.applicantData = result.parties;
@@ -104,6 +110,10 @@ export default class AboutYouViewDetails extends LightningElement {
     } finally {
       this.componentSpinner = false;
     }
+  }
+
+  connectedCallback() {
+    Promise.all([loadStyle(this, styling)]);
   }
 
   //Transforming data to map label from API values and editibility of fields on Applicant level
@@ -120,7 +130,8 @@ export default class AboutYouViewDetails extends LightningElement {
         applicantLabel: this.isApplicationJoint
           ? "Applicant " + (index + 1)
           : "Applicant",
-        livingSituationDescriptionVisible: party.livingStatusOther != null
+        livingSituationDescriptionVisible:
+          party.livingStatusOther != null && party.livingStatusOther !== ""
       };
     });
   }
@@ -146,14 +157,25 @@ export default class AboutYouViewDetails extends LightningElement {
     return sopData.parties.length > 1;
   }
 
-  //method to filter SOP data based on RLA ocvId.
-  filterSOPData(data) {
-    return data?.parties?.filter((party) => party.ocvId === this.ocvId) ?? [];
+  //method to filter Party data based on RLA ocvId.
+  filterPartyData(data, ocvId) {
+    return data?.filter((party) => party.ocvId === ocvId) ?? [];
   }
 
-  //Method to call Edit model upon click on Edit button
   handleEditApplicant(e) {
-    //In design under development - TBD
+    let applicantOcvId = e.target.dataset.id;
+    let editModelAction = e.target.dataset.name;
+    aboutYouEditModel.open({
+      size: "medium",
+      recordId: this.recordId,
+      applicantData:
+        this.filterPartyData(this.applicantData, applicantOcvId)?.[0] ?? {},
+      partiesData: this.currentCircumstancesData,
+      filteredSOPData: this.filteredSOPData,
+      editModelAction: editModelAction,
+      isApplicationJoint: this.isApplicationJoint,
+      ocvId: applicantOcvId
+    });
   }
 
   async navigateToRecordViewPage(event) {
@@ -167,5 +189,19 @@ export default class AboutYouViewDetails extends LightningElement {
 
     // Open a record as a subtab of the current tab
     await openSubtab(primaryTabId, { recordId: recordIdToOpen, focus: true });
+  }
+
+  subscribeToMessageChannel() {
+    if (!this.subscription) {
+      this.subscription = subscribe(
+        this.messageContext,
+        RefreshSOP,
+        (message) => {
+          if (message.refresh) {
+            this.loadGetSOPData();
+          }
+        }
+      );
+    }
   }
 }
