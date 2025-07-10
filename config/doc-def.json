@@ -32,6 +32,7 @@
     "COBIDVSearchResult__c",
     "COBPrimaryIDDocument__c",
     "COBTaxResidency__c",
+    "Complaint_Resolution__c",
     "Contact",
     "ContactRequest",
     "ContactPointAddress",

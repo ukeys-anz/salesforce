@@ -136,6 +136,7 @@
     "CampaignMember": "Associates a prospective or active customer with a campaign.",
     "CaseComment": "Plain text comment attached to a case",
     "Case": "Record of a customer interaction",
+    "CaseHistory": "Represents historical information about changes that have been made to the associated Case.",
     "Case_Product__c": "Many to Many relationship between Case and Product2",
     "CFaaS_File__c": "Custom object that will hold metadata of the files retrieved from CFaaS",
     "CFMS_Migrated_Document__c": "Custom object to store migrated CFMS documents, not the documents themselves but links to them in EDRM.",
@@ -1445,6 +1446,17 @@
         "Financial_Account_Name__c",
         "Opt_Out_Reason__c"
       ]
+    },
+    "CaseHistory": {
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ],
+      "IA-2530753": ["CaseId", "DataType", "Field", "IsDeleted"],
+      "IA-2415828": ["NewValue", "OldValue"]
     },
     "Case_Reporting_Field__c": {
       "IA-2453595": [
@@ -5980,6 +5992,67 @@
           "description": "The time zone of the business hours.",
           "securityClassification": "Internal",
           "type": "Picklist"
+        },
+        {
+          "fullName": "CreatedById"
+        },
+        {
+          "fullName": "CreatedDate"
+        },
+        {
+          "fullName": "Id"
+        },
+        {
+          "fullName": "LastModifiedById"
+        },
+        {
+          "fullName": "LastModifiedDate"
+        }
+      ]
+    },
+    "CaseHistory": {
+      "fields": [
+        {
+          "fullName": "CaseId",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "The unique identifier for the case.",
+          "securityClassification": "Internal",
+          "type": "reference(Case)"
+        },
+        {
+          "fullName": "DataType",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "The data type for the case history field.",
+          "securityClassification": "Internal",
+          "type": "picklist"
+        },
+        {
+          "fullName": "Field",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "The name of the field that was changed.",
+          "securityClassification": "Internal",
+          "type": "picklist"
+        },
+        {
+          "fullName": "IsDeleted",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "If the record has been deleted, this field is true; otherwise, it is false.",
+          "securityClassification": "Internal",
+          "type": "checkbox"
+        },
+        {
+          "fullName": "NewValue",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "The new value of the field after the change.",
+          "securityClassification": "Internal",
+          "type": "anyType"
+        },
+        {
+          "fullName": "OldValue",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "The previous value of the field before the change.",
+          "securityClassification": "Internal",
+          "type": "anyType"
         },
         {
           "fullName": "CreatedById"
