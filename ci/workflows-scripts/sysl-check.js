@@ -1,4 +1,4 @@
-const pantherManualDesc = require("../config/panther-manual-desc.json");
+const pantherManualDesc = require("../../config/panther-manual-desc.json");
 
 const findInfoOnObject = (objectName, info) =>
   pantherManualDesc[info][objectName];
