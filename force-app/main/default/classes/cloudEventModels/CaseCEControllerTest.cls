@@ -30,13 +30,10 @@ public class CaseCEControllerTest {
       'Cloud Event should be generated'
     );
   }
-
+  // test cloud event for the IMT Dispute
   @isTest
   public static void testIMTDisputeCase() {
     Case theCase = TestDataFactory.createCase('IMT_Dispute');
-    RecordType rt = CommonUtil.getRecordTypeDeveloperName(theCase.RecordTypeId);
-    theCase = (Case) TestDataFactory.populateRecordType(theCase, rt);
-    theCase.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
     Test.startTest();
     CaseCEController.publishCloudEvents(new List<Case>{ theCase });
     Test.stopTest();

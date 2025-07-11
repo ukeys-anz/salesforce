@@ -587,4 +587,139 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
       'Should return the Name of expected queue.'
     );
   }
+
+  /**
+   * @description : This is to test for IMT dispute assignment rule for Suport Coach queue
+   * case is assigned correctly
+   */
+  @isTest
+  static void testSupportCoachQueueIMT() {
+    List<String> disputeReasons = new List<String>{
+      GetHelpConstants.CANCEL_TRANSFER,
+      GetHelpConstants.PAYEE_HAS_NOT_RECIEVED_FUNDS
+    };
+    List<Case> imtCases = new List<Case>();
+    Set<ID> caseRecordIds = new Set<Id>();
+    for (String disputeReason : disputeReasons) {
+      Case imtCase = new Case(
+        RecordTypeId = RTCase.imtDispute,
+        Status = GetHelpConstants.OPEN_STATUS,
+        Subject = 'Test IMT Case assignment to Support Coach queue',
+        Dispute_Reason__c = disputeReason,
+        Submitted__c = true,
+        Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType)
+      );
+      imtCases.add(imtCase);
+      caseRecordIds.add(imtCase.Id);
+    }
+
+    Test.startTest();
+    List<Case> imtCaseRecords = CaseDisputesRepository.getCaseRecords(
+      caseRecordIds
+    );
+    Group supportCoachQueue = QueryQueue.get(
+      GetHelpConstants.SUPPORT_COACH_QUEUE
+    );
+    Test.stopTest();
+    for (Case imtCaseRecord : imtCaseRecords) {
+      System.assertEquals(
+        supportCoachQueue.Id,
+        imtCaseRecord.OwnerId,
+        'Case must be assigned to the Support Coach Queue.'
+      );
+    }
+  }
+
+  /**
+   * @description : This is to test for IMT dispute assignment rule for DIGITAL_FRAUD_QUEUE
+   * case is assigned correctly
+   */
+  @isTest
+  static void testDigitalFraudQueueIMT() {
+    List<String> disputeReasons = new List<String>{
+      GetHelpConstants.SUSPECTED_FRAUD
+    };
+    List<Case> imtCases = new List<Case>();
+    Set<ID> caseRecordIds = new Set<Id>();
+
+    for (String disputeReason : disputeReasons) {
+      Case imatCase = new Case(
+        RecordTypeId = RTCase.imtDispute,
+        Status = GetHelpConstants.OPEN_STATUS,
+        Subject = 'Test IMT Case assignment to DIGITAL_FRAUD_QUEUE',
+        Dispute_Reason__c = disputeReason,
+        Submitted__c = true,
+        Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType)
+      );
+      imtCases.add(imatCase);
+      caseRecordIds.add(imatCase.Id);
+    }
+
+    Test.startTest();
+    List<Case> imtCaseRecords = CaseDisputesRepository.getCaseRecords(
+      caseRecordIds
+    );
+    Group digitalFraudQueue = QueryQueue.get(
+      GetHelpConstants.DIGITAL_FRAUD_QUEUE
+    );
+    Test.stopTest();
+    for (Case imtCaseRecord : imtCaseRecords) {
+      System.assertEquals(
+        digitalFraudQueue.Id,
+        imtCaseRecord.OwnerId,
+        'Case must be assigned to the Digital Fraud Queue.'
+      );
+    }
+  }
+
+  /**
+   * @description : This is to test for IMT dispute case reassignment
+   * When changing the dispute reason, Case owner must change
+   */
+  @isTest
+  static void testCaseReassignmentIMT() {
+    List<String> disputeReasons = new List<String>{
+      GetHelpConstants.SUSPECTED_FRAUD
+    };
+    List<Case> imtCases = new List<Case>();
+    Set<ID> caseRecordIds = new Set<Id>();
+    for (String disputeReason : disputeReasons) {
+      Case imtCase = new Case(
+        RecordTypeId = RTCase.imtDispute,
+        Status = GetHelpConstants.OPEN_STATUS,
+        Subject = 'Test IMT Case assignment to DIGITAL_FRAUD_QUEUE',
+        Dispute_Reason__c = disputeReason,
+        Submitted__c = true,
+        Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType)
+      );
+      imtCases.add(imtCase);
+      caseRecordIds.add(imtCase.Id);
+    }
+    Test.startTest();
+    List<Case> casesWithFraudQueueOwner = CaseDisputesRepository.getCaseRecords(
+      caseRecordIds
+    );
+
+    List<Case> casesToUpdate = new List<Case>();
+    for (Case fraudQueueCase : casesWithFraudQueueOwner) {
+      fraudQueueCase.Dispute_Reason__c = GetHelpConstants.CANCEL_TRANSFER;
+      casesToUpdate.add(fraudQueueCase);
+    }
+    DMLUtil.updateRecords(casesToUpdate, false, false);
+    List<Case> updatedCases = CaseDisputesRepository.getCaseRecords(
+      caseRecordIds
+    );
+    Test.stopTest();
+    Group supportCoachQueue = QueryQueue.get(
+      GetHelpConstants.SUPPORT_COACH_QUEUE
+    );
+
+    for (Case imtCaseRecord : updatedCases) {
+      System.assertEquals(
+        supportCoachQueue.Id,
+        imtCaseRecord.OwnerId,
+        'Case must be reassigned from Digital Fraud Queue to Support Coach'
+      );
+    }
+  }
 }

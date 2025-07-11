@@ -359,6 +359,7 @@ public without sharing class TestDataFactory {
     theCase.Submitted__c = false;
     theCase.Transaction_Id__c = 'Transaction Id Test_IMT_Text_255';
     theCase.Transaction_UUID__c = 'Transaction UUID Test_IMT_Text_255';
+    theCase.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
     return theCase;
   }
 
