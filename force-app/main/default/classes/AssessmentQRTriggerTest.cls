@@ -15,7 +15,7 @@ public class AssessmentQRTriggerTest {
       AssessmentQuestionResponse record : (List<AssessmentQuestionResponse>) aqrth.records
     ) {
       if (record.Name == 'Test Tax') {
-        Assert.areEqual(record.ResponseText, '***********1234 TAX ****4214');
+        Assert.areEqual(record.ResponseText, '*************** TAX ********');
       }
       if (record.Name == 'Test Without Tax') {
         Assert.areEqual(
