@@ -35,6 +35,14 @@ public with sharing class QualityAssessmentGetHelpTriggerHandler extends Lib_Tri
       (List<Quality_Assessment__c>) records,
       (Map<Id, Quality_Assessment__c>) oldMap
     );
+    QualityAssessmentTriggerActions.calculateQAGetHelpForInProgress(
+      (List<Quality_Assessment__c>) records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
+    QualityAssessmentTriggerActions.calculateComplianceOutcome(
+      (List<Quality_Assessment__c>) records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
   }
 
   /**
