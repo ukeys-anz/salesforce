@@ -40,7 +40,7 @@
                         <valueListItems>
                             <value>PersonDigitalIdentity__x.lwc_auf_ArchiveUser</value>
                             <visibilityRule>
-                                <booleanFilter>(1 OR 2) AND (3 OR 4) AND 5</booleanFilter>
+                                <booleanFilter>(1 OR 2 OR 6) AND (3 OR 4) AND 5</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.Status__c}</leftValue>
                                     <operator>EQUAL</operator>
@@ -65,6 +65,11 @@
                                     <leftValue>{!$Permission.CustomPermission.ArchiveCustomer}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>true</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Padlocked</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
@@ -183,9 +188,35 @@
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
+                            <value>PersonDigitalIdentity__x.lwc_auf_Unpadlock</value>
+                            <visibilityRule>
+                                <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Padlocked</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.ManagePadlock}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.IAL_Identity_Assurance_Level__c}</leftValue>
+                                    <operator>GT</operator>
+                                    <rightValue>1</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.IAL_Identity_Assurance_Level__c}</leftValue>
+                                    <operator>LE</operator>
+                                    <rightValue>4</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
                             <value>PersonDigitalIdentity__x.lwc_auf_MobileNumber</value>
                             <visibilityRule>
-                                <booleanFilter>(1 OR 2 )AND (3 OR 4) AND 5</booleanFilter>
+                                <booleanFilter>(1 OR 2 )AND (3 OR 4 OR 6) AND 5</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.IAL_Identity_Assurance_Level__c}</leftValue>
                                     <operator>GT</operator>
@@ -211,12 +242,17 @@
                                     <operator>EQUAL</operator>
                                     <rightValue>true</rightValue>
                                 </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Padlocked</rightValue>
+                                </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>PersonDigitalIdentity__x.lwc_auf_OCVNumber</value>
                             <visibilityRule>
-                                <booleanFilter>(1 OR 2) AND (3 OR 4) AND 5</booleanFilter>
+                                <booleanFilter>(1 OR 2) AND (3 OR 4 OR 6) AND 5</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.IAL_Identity_Assurance_Level__c}</leftValue>
                                     <operator>LE</operator>
@@ -242,12 +278,17 @@
                                     <operator>EQUAL</operator>
                                     <rightValue>true</rightValue>
                                 </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Padlocked</rightValue>
+                                </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>PersonDigitalIdentity__x.lwc_auf_ResetPIN</value>
                             <visibilityRule>
-                                <booleanFilter>1 AND 2 AND 3</booleanFilter>
+                                <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.Status__c}</leftValue>
                                     <operator>NE</operator>
@@ -262,6 +303,11 @@
                                     <leftValue>{!Record.Status__c}</leftValue>
                                     <operator>NE</operator>
                                     <rightValue>Archived</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Padlocked</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>

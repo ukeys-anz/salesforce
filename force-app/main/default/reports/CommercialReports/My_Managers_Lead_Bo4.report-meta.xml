@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>My Manager&apos;s Lead</name>
     <columns>
         <field>COMPANY</field>
     </columns>
@@ -48,7 +49,6 @@
         <field>STATUS</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>My Manager&apos;s Lead</name>
     <params>
         <name>co</name>
         <value>1</value>

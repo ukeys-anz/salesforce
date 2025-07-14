@@ -32,6 +32,12 @@ export default class AssistedUserFunctions extends NavigationMixin(
 
   toast = new SimpleToast(this);
 
+  UPDATE_STATUS_MAP = {
+    Suspend: "Suspended",
+    Unsuspend: "Unsuspend",
+    Unpadlock: "Active"
+  };
+
   // Getter for Update PIN
   get isUpdatePin() {
     return this.actionName === "LockPIN" || this.actionName === "UnlockPIN";
@@ -43,11 +49,11 @@ export default class AssistedUserFunctions extends NavigationMixin(
   }
 
   get isUpdateStatus() {
-    return this.actionName === "Suspend" || this.actionName === "Unsuspend";
+    return this.actionName in this.UPDATE_STATUS_MAP;
   }
 
   get status() {
-    return this.actionName === "Suspend" ? "Suspended" : "Unsuspend";
+    return this.UPDATE_STATUS_MAP[this.actionName];
   }
 
   get isResetPin() {

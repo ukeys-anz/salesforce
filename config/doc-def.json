@@ -18,6 +18,7 @@
     "Activity",
     "AuthenticationHistory__c",
     "Automatic_Repayment_Preference__c",
+    "Broker_Relation__c",
     "Campaign",
     "CampaignMember",
     "Campaign_Document__c",
@@ -645,7 +646,8 @@
         "Broker_Details_Integration",
         "Financial_Accounts_Read_and_Edit",
         "Bypass_TSP",
-        "Read_Write_Customer_Details"
+        "Read_Write_Customer_Details",
+        "Case_Read_Write_KYC_QA_Integration"
       ],
       "type": "system"
     },
