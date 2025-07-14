@@ -9,7 +9,8 @@
         RecordType.DeveloperName = &quot;Broker&quot;,
         OR(ISBLANK(OCV_Event_Version__c),
         OCV_Event_Version__c &lt;= 0,
-       OCV_Event_Version__c &lt; PRIORVALUE(OCV_Event_Version__c)))</errorConditionFormula>
+       OCV_Event_Version__c &lt; PRIORVALUE(OCV_Event_Version__c)),
+ Override_OCV_Version__c =false)</errorConditionFormula>
     <errorDisplayField>OCV_Event_Version__c</errorDisplayField>
     <errorMessage>LOW VERSION: Event Version lower than existing Version.</errorMessage>
 </ValidationRule>
