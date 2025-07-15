@@ -31,7 +31,7 @@ private class EmailTriggerHandlerTest {
     System.assertEquals(
       [SELECT Id, TextBody, HtmlBody FROM EmailMessage WHERE Id = :email.Id][0]
       .HtmlBody,
-      'Test email PP is **********',
+      'Test email PP is PP****5678',
       'Expected email to be masked'
     );
     Test.stopTest();

@@ -78,7 +78,7 @@ private with sharing class CommonCaseTriggerActionsTest {
     Test.stopTest();
 
     Assert.areEqual(
-      'A sample text with TFN: **********',
+      'A sample text with TFN: ******7890',
       theCase.Description,
       'Description should be masked'
     );
@@ -98,7 +98,7 @@ private with sharing class CommonCaseTriggerActionsTest {
     Test.stopTest();
 
     Assert.areEqual(
-      'A sample text with TFN: **********',
+      'A sample text with TFN: ******7890',
       theCase.Comments,
       'Comments should be masked'
     );
