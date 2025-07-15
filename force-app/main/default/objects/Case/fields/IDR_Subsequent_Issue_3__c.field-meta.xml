@@ -602,6 +602,11 @@
                 <label>Partial or incorrect information captured or provided</label>
             </value>
             <value>
+                <fullName>132</fullName>
+                <default>false</default>
+                <label>Account Closure due to KYC Non-compliance</label>
+            </value>
+            <value>
                 <fullName>115</fullName>
                 <default>false</default>
                 <label>Default judgement obtained</label>
@@ -757,6 +762,10 @@
         <valueSettings>
             <controllingFieldValue>Know Your Customer</controllingFieldValue>
             <valueName>114</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Know Your Customer</controllingFieldValue>
+            <valueName>132</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>22</controllingFieldValue>
