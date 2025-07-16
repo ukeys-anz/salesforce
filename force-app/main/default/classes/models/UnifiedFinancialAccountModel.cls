@@ -38,6 +38,8 @@ public with sharing class UnifiedFinancialAccountModel extends CalloutModel {
   public Decimal sortOrder;
   @AuraEnabled
   public String accountType;
+  @AuraEnabled
+  public String icon;
 
   /**
    * @description Accounts information related to the account
@@ -362,6 +364,8 @@ public with sharing class UnifiedFinancialAccountModel extends CalloutModel {
     public String sub_product_code;
     @AuraEnabled
     public List<String> transact_options;
+    @AuraEnabled
+    public String origin;
   }
 
   /**

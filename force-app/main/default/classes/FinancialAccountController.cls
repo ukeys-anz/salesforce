@@ -38,6 +38,7 @@ public with sharing class FinancialAccountController {
     'OWNERSHIP_TYPE_MULTIPARTY' => 'Joint',
     'OWNERSHIP_TYPE_SINGLEPARTY' => 'Single'
   };
+  public static final String ORIGIN = 'PRODUCT_ORIGIN_ARC';
 
   /**
    * @description This method is an orchestration layer for retrieving financial accounts, grouped accounts , add metadata values and sort grouped records
@@ -157,10 +158,20 @@ public with sharing class FinancialAccountController {
     UnifiedFinancialAccountModel.AccountList finAccount,
     FinServ__FinancialAccount__c finAccountFromDatabase
   ) {
-    String finAccountKey =
-      finAccount.product_details.marketing_code +
-      '_' +
-      FABRIC_OWNERSHIP_UI.get(finAccount.ownership?.type);
+    String finAccountKey;
+    if (finAccount?.product_details?.origin == ORIGIN) {
+      finAccountKey =
+        TextUtils.removeNonAlphanumericChar(
+          finAccount.product_details.sub_product_code
+        ) +
+        '_' +
+        FABRIC_OWNERSHIP_UI.get(finAccount.ownership?.type);
+    } else {
+      finAccountKey =
+        finAccount.product_details.marketing_code +
+        '_' +
+        FABRIC_OWNERSHIP_UI.get(finAccount.ownership?.type);
+    }
     FinancialAccountUIConfiguration__mdt finAccConfig = QueryFinancialAccountUIConfig.configByDeveloperName.get(
       finAccountKey
     );

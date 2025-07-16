@@ -6,7 +6,8 @@
  */
 public with sharing class FinancialAccountControllerAction {
   private static final Integer DEFAULT_SORT_ORDER = 999;
-
+  public static final String ORIGIN = 'PRODUCT_ORIGIN_ARC';
+  public static final String DEFAULT_ICON = 'custom:custom51';
   /**
    * @description Groups financial accounts based on product code .
    * @param finAccounts list of financial accounts received from fabric or database.
@@ -29,7 +30,13 @@ public with sharing class FinancialAccountControllerAction {
     Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupedAccounts = new Map<String, List<UnifiedFinancialAccountModel.AccountList>>();
 
     for (UnifiedFinancialAccountModel.AccountList account : finAccounts) {
-      String productCode = account.product_details.marketing_code;
+      String productCode;
+
+      if (account?.product_details?.origin == ORIGIN) {
+        productCode = account.product_details.sub_product_code;
+      } else {
+        productCode = account.product_details.marketing_code;
+      }
 
       FinancialAccountUIConfiguration__mdt uiConfig = QueryFinancialAccountUIConfig.configByProductCode.get(
         productCode
@@ -69,6 +76,7 @@ public with sharing class FinancialAccountControllerAction {
 
       uiModelUpdate.productCode = productCode;
       uiModelUpdate.sortOrder = uiConfig?.Sort_Order__c ?? DEFAULT_SORT_ORDER;
+      uiModelUpdate.icon = uiConfig?.Icon__c ?? DEFAULT_ICON;
       uiModelUpdate.accountType = uiConfig?.Account_Type__c ?? 'Non Savings';
       uiModelUpdate.balanceTitle = uiConfig?.Balance_Title__c ?? '';
       uiModelUpdate.sectionHeaderTitle = uiConfig?.Section_Header_Title__c ??

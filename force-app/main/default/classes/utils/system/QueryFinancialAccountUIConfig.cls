@@ -20,6 +20,7 @@ public with sharing class QueryFinancialAccountUIConfig {
         Balance_Title__c,
         Section_Header_Title__c,
         Is_Active__c,
+        Icon__c,
         Include_In_Total_Financial_Position__c
       FROM FinancialAccountUIConfiguration__mdt
       WITH USER_MODE
