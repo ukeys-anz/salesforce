@@ -7,6 +7,8 @@
 
 @isTest
 public inherited sharing class HomeLoanAPIRepositoryTest {
+  static Lib_MockProvider finAccServiceMock;
+  static Lib_MockProvider homeLoanServiceMock;
   /**
    * @description Add required PermissionSet
    */
@@ -14,26 +16,171 @@ public inherited sharing class HomeLoanAPIRepositoryTest {
   public static void setup() {
     TestUtil.addPermissionSets(new List<String>{ 'BoH_Read_Only' });
   }
+
+  static void registerMocks() {
+    finAccServiceMock = Lib_MockProvider.forType(FinancialAccountService.class);
+    homeLoanServiceMock = Lib_MockProvider.forType(HomeLoanService.class);
+  }
+
   @isTest
-  static void homeLoanAccountValidResponse() {
+  static void testGetHomeLoanAccountsSuccess() {
+    String ocvId = '2222';
+
+    HttpCalloutResponse successResponse = new HttpCalloutResponse();
+    successResponse.body = Service.getStaticResource('mock_homeloanaccounts');
+    successResponse.successful = true;
+    successResponse.statusCode = 200;
+
+    registerMocks();
+    homeLoanServiceMock.mock('getHomeLoanAccounts', successResponse);
     User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
       Test.startTest();
-      HomeLoanAPIRepository hLoan = new HomeLoanAPIRepository();
-      HomeLoanModel model = hLoan.getHomeLoanAccounts('2222', null);
-
+      HomeLoanAPIRepository homeLoan = new HomeLoanAPIRepository();
+      HomeLoanModel model = homeLoan.getHomeLoanAccounts(ocvId, null);
       Test.stopTest();
 
-      System.assertEquals(
+      Assert.areEqual(
         1,
         model.accounts.size(),
         'No home loan found with ocvId'
       );
-      System.assertEquals(
+      // Check if the data is stored in cache
+      HomeLoanModel cachedData = (HomeLoanModel) DataPartitionUtil.getDataFromCache(
+        ocvId
+      );
+      Assert.areEqual(
         '222222222',
-        model.accounts[0].account_number,
+        cachedData.accounts[0].account_number,
         'Account number is corresponding to OCVId'
       );
+    }
+  }
+
+  @isTest
+  static void testGetHomeLoanAccountsCache() {
+    String ocvId = '11111231';
+
+    HomeLoanModel mockHomeLoanAccount = HomeLoanModel.parse(
+      Service.getStaticResource('mock_homeloanaccounts')
+    );
+
+    // Storing the data in cache
+    DataPartitionUtil.storeDataToCache(ocvId, mockHomeLoanAccount);
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Test.startTest();
+      HomeLoanAPIRepository homeLoan = new HomeLoanAPIRepository();
+      HomeLoanModel model = homeLoan.getHomeLoanAccounts(ocvId, null);
+      Test.stopTest();
+
+      Assert.areEqual(
+        '390899612',
+        model.accounts[0].account_number,
+        'Should get the home loan details from Cache'
+      );
+    }
+  }
+
+  @isTest
+  static void testGetHomeLoanAccountsServerException() {
+    String ocvId = '11111231';
+
+    HttpCalloutResponse errorResponse = new HttpCalloutResponse();
+    errorResponse.error = new CalloutException('callout failed');
+    errorResponse.successful = false;
+    errorResponse.statusCode = 500;
+
+    registerMocks();
+    homeLoanServiceMock.mock('getHomeLoanAccounts', errorResponse);
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      try {
+        Test.startTest();
+        HomeLoanAPIRepository homeLoan = new HomeLoanAPIRepository();
+        homeLoan.getHomeLoanAccounts(ocvId, null);
+        Test.stopTest();
+
+        Assert.fail('An Exception should be thrown');
+      } catch (Exception exp) {
+        Assert.isInstanceOfType(
+          exp,
+          HomeLoanAPIRepository.ServerErrorException.class,
+          'Exception should be an instanceof HomeLoanAPIRepository.ServerErrorException.'
+        );
+
+        Assert.areEqual(
+          'callout failed',
+          exp.getMessage(),
+          'Should throw callout failed exception'
+        );
+      }
+    }
+  }
+
+  @isTest
+  static void testGetHomeLoanAccountsUserException() {
+    String ocvId = '11111231';
+
+    HttpCalloutResponse errorResponse = new HttpCalloutResponse();
+    errorResponse.error = new CalloutException('callout failed');
+    errorResponse.successful = false;
+    errorResponse.statusCode = 400;
+
+    registerMocks();
+    homeLoanServiceMock.mock('getHomeLoanAccounts', errorResponse);
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      try {
+        Test.startTest();
+        HomeLoanAPIRepository homeLoan = new HomeLoanAPIRepository();
+        homeLoan.getHomeLoanAccounts(ocvId, null);
+        Test.stopTest();
+
+        Assert.fail('An Exception should be thrown');
+      } catch (Exception exp) {
+        Assert.isInstanceOfType(
+          exp,
+          HomeLoanAPIRepository.UserErrorException.class,
+          'Exception should be an instanceof HomeLoanAPIRepository.UserErrorException.'
+        );
+
+        Assert.areEqual(
+          'callout failed',
+          exp.getMessage(),
+          'Should throw callout failed exception'
+        );
+      }
+    }
+  }
+
+  @isTest
+  static void testGetHomeLoanAccountsUnhandledException() {
+    String ocvId = '11111231';
+
+    HttpCalloutResponse errorResponse = new HttpCalloutResponse();
+    errorResponse.body = null;
+    errorResponse.successful = false;
+    errorResponse.error = new CalloutException('callout failed');
+
+    registerMocks();
+    homeLoanServiceMock.mock('getHomeLoanAccounts', errorResponse);
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      try {
+        Test.startTest();
+        HomeLoanAPIRepository homeLoan = new HomeLoanAPIRepository();
+        homeLoan.getHomeLoanAccounts(ocvId, null);
+        Test.stopTest();
+
+        Assert.fail('An Exception should be thrown');
+      } catch (Exception exp) {
+        Assert.isInstanceOfType(
+          exp,
+          HomeLoanAPIRepository.UnhandledException.class,
+          'Exception should be an instanceof HomeLoanAPIRepository.UnhandledException.'
+        );
+      }
     }
   }
 
@@ -41,11 +188,21 @@ public inherited sharing class HomeLoanAPIRepositoryTest {
   static void testGetOffsetAccountsSuccess() {
     Id recordId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
     String ocvId = '11111231';
-    String loanAccNumber = '8321158';
+    String loanAccNumber = '111111111';
+
+    HttpCalloutResponse successResponse = new HttpCalloutResponse();
+    successResponse.body = Service.getStaticResource(
+      'mock_linkedOffsetAccount'
+    );
+    successResponse.successful = true;
+    successResponse.statusCode = 200;
+
+    registerMocks();
+    finAccServiceMock.mock('getOffsetAccounts', successResponse);
 
     Test.startTest();
-    HomeLoanAPIRepository offsetapi = new HomeLoanAPIRepository();
-    OffsetAccountModel responseModel = offsetapi.getOffsetAccounts(
+    HomeLoanAPIRepository offsetApi = new HomeLoanAPIRepository();
+    OffsetAccountModel responseModel = offsetApi.getOffsetAccounts(
       ocvId,
       loanAccNumber,
       recordId
@@ -72,7 +229,7 @@ public inherited sharing class HomeLoanAPIRepositoryTest {
   static void testGetOffsetAccountsCache() {
     Id recordId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
     String ocvId = '11111231';
-    String loanAccNumber = '8321158';
+    String loanAccNumber = '111111111';
     StaticResource mockResponse = [
       SELECT Body
       FROM StaticResource
@@ -86,8 +243,8 @@ public inherited sharing class HomeLoanAPIRepositoryTest {
     DataPartitionUtil.storeDataToCache(recordId, offsetDetails);
 
     Test.startTest();
-    HomeLoanAPIRepository offsetapi = new HomeLoanAPIRepository();
-    OffsetAccountModel response = offsetapi.getOffsetAccounts(
+    HomeLoanAPIRepository offsetApi = new HomeLoanAPIRepository();
+    OffsetAccountModel response = offsetApi.getOffsetAccounts(
       ocvId,
       loanAccNumber,
       recordId
@@ -102,118 +259,142 @@ public inherited sharing class HomeLoanAPIRepositoryTest {
   }
 
   @isTest
-  static void testGetOffsetAccountsException() {
-    Id recordId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-    String ocvId = '11111231';
-    String loanAccNumber = '8321158';
-
-    // Setting response for exception
-    HttpCalloutResponse res = getResponseWithNoBody();
-    Service finAccountService = ServiceProvider.getService(
-      FinancialAccountService.class
-    );
-    finAccountService.setCalloutResponse(res);
-
-    Exception resultException;
-    Test.startTest();
-    try {
-      HomeLoanAPIRepository offsetapi = new HomeLoanAPIRepository();
-      offsetapi.getOffsetAccounts(ocvId, loanAccNumber, recordId);
-    } catch (Exception exp) {
-      resultException = exp;
-    }
-    Test.stopTest();
-
-    Assert.areEqual(
-      'Attempt to de-reference a null object',
-      resultException.getMessage(),
-      'Should throw null pointer exception'
-    );
-  }
-
-  @isTest
-  static void testGetOffsetAccountsCalloutException() {
+  static void testUserErrorGetListOffsetException() {
     Id recordId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
     String ocvId = '11111231';
     String loanAccNumber = 'abcd';
 
-    // Setting response for exception
-    HttpCalloutResponse res = getInvalidResponse();
-    Service finAccountService = ServiceProvider.getService(
-      FinancialAccountService.class
-    );
-    finAccountService.setCalloutResponse(res);
+    HttpCalloutResponse errorResponse = new HttpCalloutResponse();
+    errorResponse.error = new CalloutException('Invalid Account Number');
+    errorResponse.successful = false;
+    errorResponse.statusCode = 400;
 
-    Exception resultException;
-    Test.startTest();
+    registerMocks();
+    finAccServiceMock.mock('getOffsetAccounts', errorResponse);
+
     try {
-      HomeLoanAPIRepository offsetapi = new HomeLoanAPIRepository();
-      offsetapi.getOffsetAccounts(ocvId, loanAccNumber, recordId);
-    } catch (Exception exp) {
-      resultException = exp;
-    }
-    Test.stopTest();
+      Test.startTest();
+      HomeLoanAPIRepository offsetApi = new HomeLoanAPIRepository();
+      offsetApi.getOffsetAccounts(ocvId, loanAccNumber, recordId);
+      Test.stopTest();
 
-    Assert.areEqual(
-      'Invalid Account Number',
-      resultException.getMessage(),
-      'Should throw invalid account number exception'
-    );
+      Assert.fail('An Exception should be thrown');
+    } catch (Exception exp) {
+      Assert.isInstanceOfType(
+        exp,
+        HomeLoanAPIRepository.UserErrorException.class,
+        'Exception should be an instanceof HomeLoanAPIRepository.UserErrorException.'
+      );
+
+      Assert.areEqual(
+        'Invalid Account Number',
+        exp.getMessage(),
+        'Should throw invalid details exception'
+      );
+    }
   }
 
   @isTest
-  static void getOffsetAccountsNotFoundResponse() {
+  static void testGetOffsetAccountsServerException() {
     Id recordId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
     String ocvId = '11111231';
-    String loanAccNumber = '1234';
+    String loanAccNumber = 'abcd';
 
-    // Setting response for NotFound error
-    HttpCalloutResponse res = getResponseNotFound();
-    Service finAccountService = ServiceProvider.getService(
-      FinancialAccountService.class
-    );
-    finAccountService.setCalloutResponse(res);
-    Exception resultException;
-    Test.startTest();
+    HttpCalloutResponse errorResponse = new HttpCalloutResponse();
+    errorResponse.error = new CalloutException('callout failed');
+    errorResponse.successful = false;
+    errorResponse.statusCode = 500;
+
+    registerMocks();
+    finAccServiceMock.mock('getOffsetAccounts', errorResponse);
+
     try {
+      Test.startTest();
       HomeLoanAPIRepository offsetApi = new HomeLoanAPIRepository();
       offsetApi.getOffsetAccounts(ocvId, loanAccNumber, recordId);
-    } catch (Exception exp) {
-      resultException = exp;
-    }
-    Test.stopTest();
+      Test.stopTest();
 
-    Assert.areEqual(
-      'No Offset Found Exception',
-      resultException.getMessage(),
-      'Should throw No Offset Found Exception'
-    );
+      Assert.fail('An Exception should be thrown');
+    } catch (Exception exp) {
+      Assert.isInstanceOfType(
+        exp,
+        HomeLoanAPIRepository.ServerErrorException.class,
+        'Exception should be an instanceof HomeLoanAPIRepository.ServerErrorException.'
+      );
+
+      Assert.areEqual(
+        'callout failed',
+        exp.getMessage(),
+        'Should throw callout failed exception'
+      );
+    }
   }
 
-  private static HttpCalloutResponse getResponseNotFound() {
-    HttpCalloutResponse response = new HttpCalloutResponse();
-    response.statusCode = 404;
-    response.successful = false;
-    response.body = null;
-    response.error = new CalloutException(
+  @isTest
+  static void testGetOffsetAccountsNotFoundException() {
+    Id recordId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    String ocvId = '11111231';
+    String loanAccNumber = 'abcd';
+
+    HttpCalloutResponse errorResponse = new HttpCalloutResponse();
+    errorResponse.error = new CalloutException(
       '{"code": "ERROR","additionalInfo": {"reason": "HTTP:NOT_FOUND","category": "TECHNICAL"}}'
     );
-    return response;
+    errorResponse.body = null;
+    errorResponse.successful = false;
+    errorResponse.statusCode = 404;
+
+    registerMocks();
+    finAccServiceMock.mock('getOffsetAccounts', errorResponse);
+
+    try {
+      Test.startTest();
+      HomeLoanAPIRepository offsetApi = new HomeLoanAPIRepository();
+      offsetApi.getOffsetAccounts(ocvId, loanAccNumber, recordId);
+      Test.stopTest();
+
+      Assert.fail('An Exception should be thrown');
+    } catch (Exception exp) {
+      Assert.isInstanceOfType(
+        exp,
+        HomeLoanAPIRepository.UserErrorException.class,
+        'Exception should be an instanceof HomeLoanAPIRepository.UserErrorException.'
+      );
+
+      Assert.isTrue(
+        exp.getMessage().contains('HTTP:NOT_FOUND'),
+        'Should throw not found exception'
+      );
+    }
   }
 
-  private static HttpCalloutResponse getResponseWithNoBody() {
-    HttpCalloutResponse response = new HttpCalloutResponse();
-    response.statusCode = 200;
-    response.successful = true;
-    response.body = null;
-    return response;
-  }
+  @isTest
+  static void testGetListOffsetUnhandledException() {
+    Id recordId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    String ocvId = '11111231';
+    String loanAccNumber = 'abcd';
 
-  private static HttpCalloutResponse getInvalidResponse() {
-    HttpCalloutResponse response = new HttpCalloutResponse();
-    response.error = new CalloutException('Invalid Account Number');
-    response.statusCode = 500;
-    response.successful = false;
-    return response;
+    HttpCalloutResponse errorResponse = new HttpCalloutResponse();
+    errorResponse.body = null;
+    errorResponse.successful = false;
+    errorResponse.error = new CalloutException('callout failed');
+
+    registerMocks();
+    finAccServiceMock.mock('getOffsetAccounts', errorResponse);
+
+    try {
+      Test.startTest();
+      HomeLoanAPIRepository offsetApi = new HomeLoanAPIRepository();
+      offsetApi.getOffsetAccounts(ocvId, loanAccNumber, recordId);
+      Test.stopTest();
+
+      Assert.fail('An Exception should be thrown');
+    } catch (Exception exp) {
+      Assert.isInstanceOfType(
+        exp,
+        HomeLoanAPIRepository.UnhandledException.class,
+        'Exception should be an instanceof HomeLoanAPIRepository.UnhandledException.'
+      );
+    }
   }
 }

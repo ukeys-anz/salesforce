@@ -34,6 +34,11 @@
                 <default>false</default>
                 <label>MLCRM</label>
             </value>
+            <value>
+                <fullName>Lender Engage</fullName>
+                <default>false</default>
+                <label>Lender Engage</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

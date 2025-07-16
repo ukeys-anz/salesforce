@@ -86,3 +86,6 @@ allure-report
 
 # automation-test
 automation-test/*
+
+# Git module temporary file
+.gitmodules.bak

@@ -2,6 +2,7 @@
 <PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
     <hasActivationRequired>false</hasActivationRequired>
     <label>Support Coach</label>
+    <permissionSets>AccessControlReadOnly</permissionSets>
     <permissionSets>AccessOpenBanking</permissionSets>
     <permissionSets>Account_Closure_LWC</permissionSets>
     <permissionSets>Accounts_Goals_Read_Only</permissionSets>
@@ -35,6 +36,7 @@
     <permissionSets>Customer_Feedback_Read_Only</permissionSets>
     <permissionSets>Customer_Profile_Update_Read_Write</permissionSets>
     <permissionSets>Customer_Read_Only</permissionSets>
+    <permissionSets>DeviceReadOnly</permissionSets>
     <permissionSets>dupcheck_CMOS</permissionSets>
     <permissionSets>Email_Based_Identity_Verification_Option</permissionSets>
     <permissionSets>Export_Reports</permissionSets>
@@ -50,17 +52,23 @@
     <permissionSets>Interaction_Read_Write</permissionSets>
     <permissionSets>Interaction_Tag_Read_Only</permissionSets>
     <permissionSets>InteractionOmniClasses</permissionSets>
+    <permissionSets>Interest_Tag_Assign</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>Lead_Read_Write</permissionSets>
+    <permissionSets>Lending_Case_Read</permissionSets>
     <permissionSets>Life_Event_Read_Write</permissionSets>
+    <permissionSets>ManageANZConnect</permissionSets>
     <permissionSets>OCV_Flags_Read_Only</permissionSets>
     <permissionSets>Outbound_Dialling</permissionSets>
     <permissionSets>Outbound_Message</permissionSets>
+    <permissionSets>PasskeyDelete</permissionSets>
+    <permissionSets>PasskeyReadOnly</permissionSets>
     <permissionSets>PayTo_Cancel_Agreements</permissionSets>
     <permissionSets>PayTo_Suspend_Unsuspend_Agreements</permissionSets>
     <permissionSets>PayTo_View_Agreements</permissionSets>
     <permissionSets>PersonDigitalEntityReadOnly</permissionSets>
     <permissionSets>Product_Read_Only</permissionSets>
+    <permissionSets>Push_To_App_Read_Only</permissionSets>
     <permissionSets>Quality_Assessment_Read_Only</permissionSets>
     <permissionSets>Raise_Dispute</permissionSets>
     <permissionSets>Record_Access_Log</permissionSets>

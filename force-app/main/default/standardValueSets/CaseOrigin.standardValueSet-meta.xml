@@ -127,6 +127,11 @@
         <label>Law Enforcement</label>
     </standardValue>
     <standardValue>
+        <fullName>Digital Padlock</fullName>
+        <default>false</default>
+        <label>Digital Padlock</label>
+    </standardValue>
+    <standardValue>
         <fullName>App</fullName>
         <default>false</default>
         <label>App</label>
@@ -270,5 +275,10 @@
         <fullName>23</fullName>
         <default>false</default>
         <label>Other EDR Schemes or Tribunal (Post IDR)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>ReKYC</fullName>
+        <default>false</default>
+        <label>ReKYC</label>
     </standardValue>
 </StandardValueSet>

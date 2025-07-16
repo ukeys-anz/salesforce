@@ -7,6 +7,13 @@ on:
         required: false
         description: "Secret Name as an Input"
         type: string
+    secrets:
+      token:
+        required: true
+        description: "Repo token"
+      plugin-token:
+        required: true
+        description: "Plugin repo token"
 
 permissions:
   contents: read
@@ -16,25 +23,17 @@ jobs:
   validation:
     name: Validation ${{inputs.sfdx_name}}
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.3.0"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.5.0"
       options: --user root
     runs-on: anzx-default-np
     steps:
-      - name: Link SGD plugin
-        run: |
-          cd /opt/harness-delegate/.local/share/sf
-          sf plugins:link node_modules/sfdx-git-delta/bin
-
-      - name: NPM package Version | node, sfdx, sf, sgd version
-        run: |
-          echo "node version: $(node -v)"
-          echo "sf version: $(sf -v)"
-          echo "sf plugins: $(sf plugins)"
-
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          submodules: "true"
+          token: ${{ secrets.token }}
+          path: salesforce
 
       - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
         id: "authenticate-harness-delegate"
@@ -43,9 +42,12 @@ jobs:
           service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
 
       - name: ENV vars
+        working-directory: salesforce
         run: |
           baseRef="${{ github.base_ref }}"
           [[ "$baseRef" == "release" ]] && baseRef=develop
+          [[ "${{inputs.sfdx_name}}" == "sf-platform-np-intpnv" ]] && baseRef=intpnv
+          [[ "${{inputs.sfdx_name}}" == "sf-platform-np-blm" ]] && baseRef=blm
           echo BASE_REF="$baseRef" >> $GITHUB_ENV
           echo BRANCH_NAME="${{ github.head_ref }}" >> $GITHUB_ENV
           echo PR_NUMBER="${{ github.event.number }}" >> $GITHUB_ENV
@@ -60,6 +62,7 @@ jobs:
           echo ARTIFACTORY_SECRET_NAME="sf-platform-np-artifact" >> $GITHUB_ENV
 
       - name: Find Secret Names
+        working-directory: salesforce
         run: |
           sfdxURL="${{ inputs.sfdx_name }}"
           projectId=anz-x-bootstrap-np-487e09
@@ -84,11 +87,28 @@ jobs:
             sfdxurl:projects/${{ env.PROJECT_ID }}/secrets/${{ env.SECRET_NAME}}/versions/latest
             artifactory:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/${{ env.ARTIFACTORY_SECRET_NAME }}/versions/latest
 
+      - name: Checkout salesforce-plugin repo
+        uses: actions/checkout@v4
+        with:
+          repository: anzx/salesforce-plugin
+          token: ${{ secrets.plugin-token }}
+          path: salesforce-plugin
+
+      - name: Install plugin
+        working-directory: salesforce-plugin
+        shell: bash
+        run: |
+          rm -rf node_modules && yarn install --frozen-lockfile
+          yarn build
+          sf plugins link .
+
       - name: Run Validation
+        working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/validation.mjs "${{ steps.secrets.outputs.sfdxurl }}" "${{ steps.secrets.outputs.artifactory }}"
           echo WHICH_JOB="clean" >> $GITHUB_ENV
 
       - name: Code Coverage and Cleaning
+        working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/validation.mjs

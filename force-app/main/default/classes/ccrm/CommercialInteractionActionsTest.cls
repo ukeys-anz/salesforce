@@ -503,4 +503,196 @@ private class CommercialInteractionActionsTest {
       'Error while inserting Interaction record with Image.'
     );
   }
+
+  @isTest
+  static void testPerformRedactionTest() {
+    //GIVEN List of Interaction Record
+    List<Interaction> interactionList = new List<Interaction>{
+      new Interaction(
+        Id = Lib_FakeIdGenerator.getMockId(Interaction.SObjectType),
+        Name = 'Sample Interaction',
+        RecordTypeId = RTInteraction.CommercialInteraction,
+        comment__c = 'Test 1234123412341234'
+      )
+    };
+
+    String expectedResult = 'Test ************1234';
+
+    //WHEN calling a performRedaction method
+
+    Test.startTest();
+    CommercialInteractionActions.performRedaction(interactionList);
+    Test.stopTest();
+
+    Interaction actualInteractionInstance = interactionList[0];
+
+    //THEN sensitive info must be redacted
+    Assert.areEqual(
+      expectedResult,
+      actualInteractionInstance.comment__c,
+      'Redaction is Not Completed'
+    );
+  }
+
+  @isTest
+  static void testPerformRedactionNegativeTest() {
+    //GIVEN List of Interaction Record
+    List<Interaction> interactionList = new List<Interaction>{
+      new Interaction(
+        Id = Lib_FakeIdGenerator.getMockId(Interaction.SObjectType),
+        Name = 'Sample Interaction - Empty Comment',
+        RecordTypeId = RTInteraction.CommercialInteraction,
+        comment__c = 'This is a safe comment'
+      )
+    };
+
+    //WHEN calling performRedaction method for all cases
+    Test.startTest();
+    CommercialInteractionActions.performRedaction(interactionList);
+    Test.stopTest();
+
+    Interaction actualInteractionInstance = interactionList[0];
+
+    //THEN sensitive info must be redacted
+    Assert.areEqual(
+      'This is a safe comment',
+      actualInteractionInstance.comment__c,
+      'Redaction should not occur on safe comment'
+    );
+  }
+
+  @IsTest
+  static void testValidateAndPopulateCLG() {
+    registerMocks();
+
+    Id accountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id clgAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+
+    List<Interaction> interactions = new List<Interaction>{
+      new Interaction(
+        Id = Lib_FakeIdGenerator.getMockId(Interaction.SObjectType),
+        AccountId = accountId,
+        CLGCustomer__c = null
+      )
+    };
+    interactionActionRepoMock.mock(
+      'getRelatedCLGAccounts',
+      new List<FinServ__AccountAccountRelation__c>{
+        new FinServ__AccountAccountRelation__c(
+          FinServ__Account__c = accountId,
+          FinServ__RelatedAccount__c = clgAccountId
+        )
+      }
+    );
+    interactionActionRepoMock.mock('getAccounts', new Map<Id, Account>());
+    Test.startTest();
+    CommercialInteractionActions.validateAndPopulateCLG(
+      interactions,
+      new Map<Id, Interaction>()
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      clgAccountId,
+      clgAccountId,
+      'CLGCustomer__c should be auto-populated with the only related CLG'
+    );
+  }
+
+  @IsTest
+  static void testValidateAndPopulateCLGAllowNoCLGsNoErrors() {
+    registerMocks();
+    Id accountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id interactionId = Lib_FakeIdGenerator.getMockId(Interaction.SObjectType);
+
+    Interaction interaction = new Interaction(
+      Id = interactionId,
+      AccountId = accountId,
+      CLGCustomer__c = null
+    );
+    interactionActionRepoMock.mock(
+      'getRelatedCLGAccounts',
+      new List<FinServ__AccountAccountRelation__c>()
+    );
+
+    interactionActionRepoMock.mock(
+      'getAccounts',
+      new Map<Id, Account>{
+        accountId => new Account(
+          Id = accountId,
+          RecordTypeId = RTAccount.clgAccount
+        )
+      }
+    );
+    Test.startTest();
+    CommercialInteractionActions.validateAndPopulateCLG(
+      new List<Interaction>{ interaction },
+      new Map<Id, Interaction>{ interaction.Id => interaction }
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      accountId,
+      accountId,
+      'Should fallback to AccountId itself if no CLGs exist and account is CLG'
+    );
+  }
+
+  @IsTest
+  static void testMapCustomerToCLGAccounts() {
+    Id accountId1 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id accountId2 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id relatedAccountId1 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id relatedAccountId2 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+
+    List<FinServ__AccountAccountRelation__c> relations = new List<FinServ__AccountAccountRelation__c>{
+      new FinServ__AccountAccountRelation__c(
+        FinServ__Account__c = accountId1,
+        FinServ__RelatedAccount__c = relatedAccountId1
+      ),
+      new FinServ__AccountAccountRelation__c(
+        FinServ__Account__c = accountId1,
+        FinServ__RelatedAccount__c = relatedAccountId2
+      ),
+      new FinServ__AccountAccountRelation__c(
+        FinServ__Account__c = accountId2,
+        FinServ__RelatedAccount__c = relatedAccountId1
+      ),
+      new FinServ__AccountAccountRelation__c(
+        FinServ__Account__c = null,
+        FinServ__RelatedAccount__c = relatedAccountId1
+      ),
+      new FinServ__AccountAccountRelation__c(
+        FinServ__Account__c = accountId2,
+        FinServ__RelatedAccount__c = null
+      )
+    };
+
+    Map<Id, Set<Id>> result = CommercialInteractionActions.mapCustomerToCLGAccounts(
+      relations
+    );
+
+    Assert.isTrue(
+      result.containsKey(accountId1),
+      'Map should contain accountId1'
+    );
+    Assert.isTrue(
+      result.containsKey(accountId2),
+      'Map should contain accountId2'
+    );
+
+    Assert.areEqual(
+      2,
+      result.get(accountId1).size(),
+      'accountId1 should have 2 related CLGs'
+    );
+    Assert.areEqual(
+      1,
+      result.get(accountId2).size(),
+      'accountId2 should have 1 related CLG'
+    );
+    Assert.isFalse(
+      result.containsKey(null),
+      'Map should not contain null keys'
+    );
+  }
 }

@@ -57,12 +57,12 @@
             <value>
                 <fullName>LENDING_PURPOSE_PERSONAL_HOUSEHOLD_GOODS</fullName>
                 <default>false</default>
-                <label>Household and personal goods</label>
+                <label>Household items</label>
             </value>
             <value>
                 <fullName>LENDING_PURPOSE_PERSONAL_HOLIDAY_TRAVEL</fullName>
                 <default>false</default>
-                <label>Travel and holidays</label>
+                <label>Travel</label>
             </value>
             <value>
                 <fullName>LENDING_PURPOSE_PERSONAL_OTHER_INVESTMENT</fullName>
@@ -72,7 +72,7 @@
             <value>
                 <fullName>LENDING_PURPOSE_PERSONAL_OTHER_EDUCATION</fullName>
                 <default>false</default>
-                <label>Education expenses</label>
+                <label>Education</label>
             </value>
             <value>
                 <fullName>LENDING_PURPOSE_PERSONAL_OTHER_WEDDING</fullName>
@@ -82,17 +82,17 @@
             <value>
                 <fullName>LENDING_PURPOSE_PERSONAL_OTHER_LEGAL</fullName>
                 <default>false</default>
-                <label>Legal expenses</label>
+                <label>Legal fees</label>
             </value>
             <value>
                 <fullName>LENDING_PURPOSE_PERSONAL_OTHER_MEDICAL</fullName>
                 <default>false</default>
-                <label>Medical expenses</label>
+                <label>Health</label>
             </value>
             <value>
                 <fullName>LENDING_PURPOSE_PERSONAL_OTHER_MOTOR_VEHICLE_EXPENSES</fullName>
                 <default>false</default>
-                <label>Motor vehicle expenses</label>
+                <label>Vehicle costs</label>
             </value>
             <value>
                 <fullName>LENDING_PURPOSE_PERSONAL_OTHER_PROPERTY_MAINTENANCE</fullName>
@@ -103,6 +103,16 @@
                 <fullName>LENDING_PURPOSE_PERSONAL_OTHER</fullName>
                 <default>false</default>
                 <label>Other</label>
+            </value>
+            <value>
+                <fullName>LENDING_PURPOSE_ALTERATIONS_DWELLING_EXISTING_INVESTOR</fullName>
+                <default>false</default>
+                <label>Non-Structural alterations or additions - Investment</label>
+            </value>
+            <value>
+                <fullName>LENDING_PURPOSE_REFINANCE_INVESTOR</fullName>
+                <default>false</default>
+                <label>Refinance - Investor</label>
             </value>
         </valueSetDefinition>
     </valueSet>

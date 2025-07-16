@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
+        <fullName>Grant_Read_Access_on_Aem_Integration_users</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Rule to provide Read access on AEM Integration User</description>
+        <label>Grant Read Access on Aem Integration users</label>
+        <sharedTo>
+            <roleAndSubordinates>ANZ_Mobile_Lending</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>Username</field>
+            <operation>startsWith</operation>
+            <value>aem.user</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Grant_Read_Access_on_OCV_Integration_users</fullName>
         <accessLevel>Read</accessLevel>
         <description>Rule to provide ‘Read’ access to all OCV Integration User records.</description>
@@ -85,6 +100,17 @@
         </sharedTo>
         <sharedFrom>
             <group>NLP_Public_Group</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>ANZ_Role_To_AEM_Group</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>ANZ Role To AEM Group</label>
+        <sharedTo>
+            <group>AEM_Integration_User_group</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZ_Mobile_Lending</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>

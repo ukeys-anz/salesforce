@@ -16,9 +16,12 @@ public class CommercialAppFormProductActionsRepo {
     return [
       SELECT
         Id,
+        RecordTypeId,
         OpportunityId,
         Opportunity.RecordTypeId,
         Opportunity.closeDate,
+        Opportunity.OwnerId,
+        OwnerId,
         (SELECT Id, ApplicationFormId FROM ApplicationFormProducts)
       FROM ApplicationForm
       WHERE

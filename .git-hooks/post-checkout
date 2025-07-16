@@ -1,0 +1,27 @@
+#!/bin/sh
+
+RED="\033[1;31m"
+GREEN="\033[1;32m"
+YELLOW="\033[1;33m"
+NC="\033[0m"
+
+if [ ! -f .gitmodules ]; then
+  echo "${YELLOW}! There is no submodule on this branch"
+  exit 0
+fi
+
+# Read all submodule paths from .gitmodules (this should properly extract the paths)
+SUBMODULES=$(grep -o 'path = [^ ]*' .gitmodules | cut -d ' ' -f 3)
+
+# Check if we got submodule paths
+if [ -z "$SUBMODULES" ]; then
+  echo "${RED} No submodules found in .gitmodules ${NC}"
+  exit 1
+fi
+
+echo "${GREEN}Cleaning | Remove Cached Submodule...${NC}"
+.git-hooks/remove-cached-submodules.sh
+
+for SUBMODULE_PATH in $SUBMODULES; do
+  .git-hooks/update-submodules.sh "$SUBMODULE_PATH"
+done

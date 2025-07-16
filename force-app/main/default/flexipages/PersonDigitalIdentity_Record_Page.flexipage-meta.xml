@@ -7,6 +7,27 @@
                     <name>actionNames</name>
                     <valueList>
                         <valueListItems>
+                            <value>PersonDigitalIdentity__x.lwc_pdiDisconnectANZAccounts</value>
+                            <visibilityRule>
+                                <booleanFilter>1 AND 2 AND 3</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.MigrationType__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>MIGRATION_TYPE_BANK_LED</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.ANZConnectStatus__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>CONNECTED</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.ManageANZConnect}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
                             <value>PersonDigitalIdentity__x.DataSharing</value>
                             <visibilityRule>
                                 <criteria>
@@ -17,9 +38,9 @@
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>PersonDigitalIdentity__x.Archive_User</value>
+                            <value>PersonDigitalIdentity__x.lwc_auf_ArchiveUser</value>
                             <visibilityRule>
-                                <booleanFilter>(1 OR 2) AND (3 OR 4) AND 5</booleanFilter>
+                                <booleanFilter>(1 OR 2 OR 6) AND (3 OR 4) AND 5</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.Status__c}</leftValue>
                                     <operator>EQUAL</operator>
@@ -45,10 +66,15 @@
                                     <operator>EQUAL</operator>
                                     <rightValue>true</rightValue>
                                 </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Padlocked</rightValue>
+                                </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>PersonDigitalIdentity__x.Lock_PIN</value>
+                            <value>PersonDigitalIdentity__x.lwc_auf_LockPIN</value>
                             <visibilityRule>
                                 <booleanFilter>1 AND (2 OR 3) AND 4 AND 5</booleanFilter>
                                 <criteria>
@@ -79,7 +105,7 @@
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>PersonDigitalIdentity__x.Unlock_PIN</value>
+                            <value>PersonDigitalIdentity__x.lwc_auf_UnlockPIN</value>
                             <visibilityRule>
                                 <booleanFilter>1 AND (2 OR 3) AND 4 AND 5</booleanFilter>
                                 <criteria>
@@ -110,7 +136,7 @@
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>PersonDigitalIdentity__x.Suspend</value>
+                            <value>PersonDigitalIdentity__x.lwc_auf_Suspend</value>
                             <visibilityRule>
                                 <booleanFilter>1 AND (2 OR 3) AND 4</booleanFilter>
                                 <criteria>
@@ -136,7 +162,7 @@
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>PersonDigitalIdentity__x.Unsuspend</value>
+                            <value>PersonDigitalIdentity__x.lwc_auf_Unsuspend</value>
                             <visibilityRule>
                                 <booleanFilter>1 AND (2 OR 3) AND 4</booleanFilter>
                                 <criteria>
@@ -162,9 +188,35 @@
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>PersonDigitalIdentity__x.UpdateMobileNumber</value>
+                            <value>PersonDigitalIdentity__x.lwc_auf_Unpadlock</value>
                             <visibilityRule>
-                                <booleanFilter>(1 OR 2 )AND (3 OR 4) AND 5</booleanFilter>
+                                <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Padlocked</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.ManagePadlock}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.IAL_Identity_Assurance_Level__c}</leftValue>
+                                    <operator>GT</operator>
+                                    <rightValue>1</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.IAL_Identity_Assurance_Level__c}</leftValue>
+                                    <operator>LE</operator>
+                                    <rightValue>4</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>PersonDigitalIdentity__x.lwc_auf_MobileNumber</value>
+                            <visibilityRule>
+                                <booleanFilter>(1 OR 2 )AND (3 OR 4 OR 6) AND 5</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.IAL_Identity_Assurance_Level__c}</leftValue>
                                     <operator>GT</operator>
@@ -190,12 +242,17 @@
                                     <operator>EQUAL</operator>
                                     <rightValue>true</rightValue>
                                 </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Padlocked</rightValue>
+                                </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>PersonDigitalIdentity__x.Update_OCV_Number</value>
+                            <value>PersonDigitalIdentity__x.lwc_auf_OCVNumber</value>
                             <visibilityRule>
-                                <booleanFilter>(1 OR 2) AND (3 OR 4) AND 5</booleanFilter>
+                                <booleanFilter>(1 OR 2) AND (3 OR 4 OR 6) AND 5</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.IAL_Identity_Assurance_Level__c}</leftValue>
                                     <operator>LE</operator>
@@ -221,12 +278,17 @@
                                     <operator>EQUAL</operator>
                                     <rightValue>true</rightValue>
                                 </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Padlocked</rightValue>
+                                </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>PersonDigitalIdentity__x.Reset_PIN</value>
+                            <value>PersonDigitalIdentity__x.lwc_auf_ResetPIN</value>
                             <visibilityRule>
-                                <booleanFilter>1 AND 2 AND 3</booleanFilter>
+                                <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.Status__c}</leftValue>
                                     <operator>NE</operator>
@@ -241,6 +303,11 @@
                                     <leftValue>{!Record.Status__c}</leftValue>
                                     <operator>NE</operator>
                                     <rightValue>Archived</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Padlocked</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
@@ -289,6 +356,14 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>PersonDigitalIdentity__x.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>Cases__r</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>relatedListComponentOverride</name>
                     <value>NONE</value>
                 </componentInstanceProperties>
@@ -300,8 +375,66 @@
                     <name>showActionBar</name>
                     <value>true</value>
                 </componentInstanceProperties>
-                <componentName>force:relatedListContainer</componentName>
-                <identifier>force_relatedListContainer2</identifier>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>PersonDigitalIdentity__x.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>Passkeys__r</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>NONE</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.AccessPasskey}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>PersonDigitalIdentity__x.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>AccessControls__r</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>NONE</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>rowsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer4</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.AccessAccessControl}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>Facet-e3e91e5f-4ba2-4e6d-ad0f-a669f00fdcd6</name>
@@ -363,11 +496,43 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>PersonDigitalIdentity__x.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>Devices__r</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>NONE</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer3</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.AccessDevice}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>flexcardName</name>
                     <value>TFMDeviceDetailsCard</value>
                 </componentInstanceProperties>
                 <componentName>runtime_omnistudio:flexcard</componentName>
                 <identifier>runtime_omnistudio_flexcard</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.AccessDevice}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>false</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>

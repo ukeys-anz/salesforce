@@ -55,30 +55,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>COI Proactive</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>COI Reactive</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>COI Relationship Building</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Existing Proactive</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Existing Reactive</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Existing Relationship Building</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>General</fullName>
             <default>false</default>
         </values>
@@ -88,18 +64,6 @@
         </values>
         <values>
             <fullName>Needs Conversation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>New Proactive</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>New Reactive</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>New Relationship Building</fullName>
             <default>false</default>
         </values>
         <values>
@@ -135,10 +99,6 @@
     </picklistValues>
     <picklistValues>
         <picklist>InteractionType</picklist>
-        <values>
-            <fullName>A-Z Review</fullName>
-            <default>false</default>
-        </values>
         <values>
             <fullName>Annual Review</fullName>
             <default>false</default>
@@ -384,6 +344,49 @@
         </values>
         <values>
             <fullName>Walk In</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+     <picklistValues>
+        <picklist>Interaction_Type__c</picklist>
+        <values>
+            <fullName>COI Proactive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>COI Reactive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>COI Relationship building</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing Proactive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing Reactive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing Relationship Building</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Proactive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Reactive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Relationship Building</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quote Required</fullName>
             <default>false</default>
         </values>
     </picklistValues>

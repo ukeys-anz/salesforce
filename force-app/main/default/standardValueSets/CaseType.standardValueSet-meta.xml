@@ -202,6 +202,11 @@
         <label>My Security</label>
     </standardValue>
     <standardValue>
+        <fullName>Manage Home Loans</fullName>
+        <default>false</default>
+        <label>Manage Home Loans</label>
+    </standardValue>
+    <standardValue>
         <fullName>Product Information</fullName>
         <default>false</default>
         <label>Product Information</label>
@@ -340,6 +345,11 @@
         <fullName>Impersonation (Other)</fullName>
         <default>false</default>
         <label>Impersonation (Other)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Goods &amp; Services</fullName>
+        <default>false</default>
+        <label>Goods &amp; Services</label>
     </standardValue>
     <standardValue>
         <fullName>11</fullName>
@@ -505,5 +515,10 @@
         <fullName>24</fullName>
         <default>false</default>
         <label>Card Scheme Disputes</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Goodwill Gesture Payment</fullName>
+        <default>false</default>
+        <label>Goodwill Gesture Payment</label>
     </standardValue>
 </StandardValueSet>

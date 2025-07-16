@@ -25,7 +25,7 @@ public with sharing class TrustMeDocumentDetailsHelper {
         UserInfo.getUserId(),
         attachmentObj.fileType,
         attachmentObj.documentId,
-        response.evaluation_id
+        response.evaluationId
       };
       String uuid = String.join(keys, '-');
       uuidByType.put(attachmentObj.fileType, uuid);
@@ -135,8 +135,8 @@ public with sharing class TrustMeDocumentDetailsHelper {
         Datetime.now() +
         ' UserId ' +
         UserInfo.getUserId() +
-        ' viewed DAON documents on ' +
-        requestModel.related_id +
+        ' viewed TrustMe documents on ' +
+        requestModel.relatedId +
         ' Record - ' +
         caseNumber +
         ' Security Classification: CONFIDENTIAL';

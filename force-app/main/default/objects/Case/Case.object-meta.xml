@@ -228,6 +228,7 @@
         <searchResultsAdditionalFields>OWNER_NAME</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CASES.RECORDTYPE</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CASES.PRIORITY</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>IDR_Subject__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
 </CustomObject>

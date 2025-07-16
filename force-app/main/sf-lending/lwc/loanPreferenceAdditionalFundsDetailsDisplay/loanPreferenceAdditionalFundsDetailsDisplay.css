@@ -1,0 +1,51 @@
+.slds-box {
+  width: 100%;
+  padding: 0px;
+}
+.textStyle {
+  font-size: var(--slds-g-font-size-base);
+  font-weight: var(--slds-g-font-weight-7);
+  line-height: var(--slds-g-font-lineheight-2);
+}
+.helpTextStyle {
+  font-size: var(--slds-g-font-scale-neg-1);
+  font-weight: var(--slds-g-font-weight-4);
+  line-height: 18px;
+  color: #3c3c4399;
+}
+.amountStyle {
+  font-size: var(--slds-g-font-size-base);
+  font-weight: var(--slds-g-font-weight-4);
+  line-height: var(--slds-g-font-lineheight-2);
+  color: var(--slds-g-color-neutral-base-10);
+}
+.purposeStyle {
+  font-size: 15px;
+  font-weight: var(--slds-g-font-weight-4);
+  line-height: var(--slds-g-font-lineheight-2);
+  letter-spacing: -0.23999999463558197px;
+  color: var(--slds-g-color-neutral-base-10);
+}
+.amountValueStyle {
+  font-size: var(--slds-g-font-size-base);
+  font-weight: var(--slds-g-font-weight-6);
+  line-height: 18px;
+  color: var(--slds-g-color-neutral-base-10);
+}
+.imgStyle {
+  height: 64px;
+  width: 67px;
+  padding-top: 11.02px;
+  padding-left: 4.68px;
+}
+.otherReasonStyle {
+  font-size: var(--slds-g-font-size-base);
+  font-weight: var(--slds-g-font-weight-4);
+  line-height: var(--slds-g-font-lineheight-2);
+  letter-spacing: -0.23999999463558197px;
+}
+.buttonSpacing {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}

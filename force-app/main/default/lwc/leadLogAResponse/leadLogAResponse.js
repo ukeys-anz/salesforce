@@ -1,9 +1,8 @@
 import { LightningElement, api, wire, track } from "lwc";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
-import responseStatusDependentValues from "@salesforce/apex/CCRMLogAResponseController.responseStatusDependentValues";
-import createResponseRecord from "@salesforce/apex/CCRMLogAResponseController.createResponseRecord";
-import getLeadResponseGuidanceMapping from "@salesforce/apex/CCRMLogAResponseController.getLeadResponseGuidanceMapping";
-import contactInfoNotRequired from "@salesforce/apex/CCRMLogAResponseController.contactInfoNotRequired";
+import responseStatusDependentValues from "@salesforce/apex/LogAResponseController.responseStatusDependentValues";
+import createResponseRecord from "@salesforce/apex/LogAResponseController.createResponseRecord";
+import getLeadResponseGuidanceMapping from "@salesforce/apex/LogAResponseController.getLeadResponseGuidanceMapping";
 import {
   updateRecord,
   getRecord,
@@ -32,7 +31,6 @@ import Proceed_Confirmation_Message from "@salesforce/label/c.Proceed_Confirmati
 
 const MOBILE_LENDING_RECORDTYPE = "MLCRM_Lead";
 const CCRM_RECORDTYPE = "CCRM_Lead";
-const CONTACT_INFO_ERROR = "Please enter customer's contact details.";
 
 export default class LeadLogAResponse extends LightningElement {
   @api recordId;
@@ -426,83 +424,69 @@ export default class LeadLogAResponse extends LightningElement {
   }
 
   submitResponse() {
+    if (this.noOpportunityValue && this.noOpportunitySelected === false) {
+      this.noOpportunitySelected = true;
+      this.yesOpportunity = false;
+      this.fields = {
+        Id: this.recordId,
+        Status: "No Opportunity",
+        Skip_Validations__c: "noOpptyCreation"
+      };
+      return;
+    }
+    if (!this.noOpportunitySelected && !this.validateRecord()) {
+      return;
+    }
     this.isLoading = true;
-    contactInfoNotRequired({
+    const leadResponseWrapperValue = {
+      responseStatus: this.selectedResponseStatusValue,
+      leadQuality: this.selectedLeadQualityValue,
+      outcomeReason: this.selectedOutcomeResponseValue,
+      followUpDate: this.selectedFollowUpDateValue,
+      dueDate: this.selectedDueDateValue,
+      autoCreateActivities: this.autoCreateActivities,
+      commentVal: this.commentValue,
       leadId: this.recordId,
-      responseStatus: this.selectedResponseStatusValue
+      responseTypeValue: this.selectedResponseTypeId
+    };
+    createResponseRecord({
+      leadRespString: JSON.stringify(leadResponseWrapperValue)
     })
-      .then((data) => {
-        if (!data) {
-          this.isLoading = false;
-          this.handleError(CONTACT_INFO_ERROR);
-          return;
+      .then((result) => {
+        this.isLoading = false;
+        // CC-1057 to set the default value of expiry date for Manually created ML Lead
+        let strResponse = JSON.parse(result);
+        if (strResponse.responseData.includes("Warning Message:")) {
+          this.sendToastMessage("warning", result, "dismissable");
+        } else if (strResponse.responseData.includes("Error Message:")) {
+          this.handleError(result);
+        } else {
+          if (strResponse.isCampaignEndDateMax) {
+            this.sendToastMessage(
+              "info",
+              this.label.ML_MaxExpiryDateErrorMessage,
+              "sticky"
+            );
+          }
+          this.sendToastMessage(
+            "success",
+            "Response Logged Successfully.",
+            "dismissable"
+          );
+          if (this.noOpportunitySelected) {
+            updateRecord({
+              fields: this.fields
+            });
+          }
         }
-        if (this.noOpportunityValue && this.noOpportunitySelected === false) {
-          this.noOpportunitySelected = true;
-          this.yesOpportunity = false;
-          this.fields = {
-            Id: this.recordId,
-            Status: "No Opportunity",
-            Skip_Validations__c: "noOpptyCreation"
-          };
-          return;
-        }
-        if (!this.noOpportunitySelected && !this.validateRecord()) {
-          return;
-        }
-        const leadResponseWrapperValue = {
-          responseStatus: this.selectedResponseStatusValue,
-          leadQuality: this.selectedLeadQualityValue,
-          outcomeReason: this.selectedOutcomeResponseValue,
-          followUpDate: this.selectedFollowUpDateValue,
-          dueDate: this.selectedDueDateValue,
-          autoCreateActivities: this.autoCreateActivities,
-          commentVal: this.commentValue,
-          leadId: this.recordId,
-          responseTypeValue: this.selectedResponseTypeId
-        };
-        createResponseRecord({
-          leadRespString: JSON.stringify(leadResponseWrapperValue)
-        })
-          .then((result) => {
-            this.isLoading = false;
-            // CC-1057 to set the default value of expiry date for Manually created ML Lead
-            let strResponse = JSON.parse(result);
-            if (strResponse.responseData.includes("Warning Message:")) {
-              this.sendToastMessage("warning", result, "dismissable");
-            } else if (strResponse.responseData.includes("Error Message:")) {
-              this.handleError(result);
-            } else {
-              if (strResponse.isCampaignEndDateMax) {
-                this.sendToastMessage(
-                  "info",
-                  this.label.ML_MaxExpiryDateErrorMessage,
-                  "sticky"
-                );
-              }
-              this.sendToastMessage(
-                "success",
-                "Response Logged Successfully.",
-                "dismissable"
-              );
-              if (this.noOpportunitySelected) {
-                updateRecord({
-                  fields: this.fields
-                });
-              }
-            }
-            getRecordNotifyChange([{ recordId: this.recordId }]);
-            this.dispatchEvent(new CustomEvent("handleSaveRecord"));
-            this.closeQuickAction();
-          })
-          .catch((error) => {
-            this.isLoading = false;
-            this.handleError(error);
-            this.resetFields();
-          });
+        getRecordNotifyChange([{ recordId: this.recordId }]);
+        this.dispatchEvent(new CustomEvent("handleSaveRecord"));
+        this.closeQuickAction();
       })
       .catch((error) => {
+        this.isLoading = false;
         this.handleError(error);
+        this.resetFields();
       })
       .finally(() => {
         this.isLoading = false;

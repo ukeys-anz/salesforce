@@ -198,6 +198,18 @@ public class ExternalQueryContextMock {
       'AccountRelationship',
       new List<String>{ 'AFAMBITContractNumber', '4019028722-13521-0' }
     );
+    parentColumnMap.put(
+      'CardHolder',
+      new List<String>{ 'CreditCardId', '4715149920842161' }
+    );
+    parentColumnMap.put(
+      'CreditCardFee',
+      new List<String>{ 'CreditCardId', '4715149920842161' }
+    );
+    parentColumnMap.put(
+      'LinkedAccount',
+      new List<String>{ 'PortfolioOfLoanId', '10000000038' }
+    );
     return parentColumnMap;
   }
   /**

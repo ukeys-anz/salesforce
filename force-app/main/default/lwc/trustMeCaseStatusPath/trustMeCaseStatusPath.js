@@ -1,8 +1,13 @@
 import { LightningElement, wire, api, track } from "lwc";
-import { getRecord, notifyRecordUpdateAvailable } from "lightning/uiRecordApi";
+import {
+  getRecord,
+  getFieldValue,
+  notifyRecordUpdateAvailable
+} from "lightning/uiRecordApi";
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
 import STATUS_FIELD from "@salesforce/schema/Case.Status";
 import SUBJECT_FIELD from "@salesforce/schema/Case.Subject";
+import CASENUMBER_FIELD from "@salesforce/schema/Case.CaseNumber";
 import PRIMARY_FAILED_REASON_FIELD from "@salesforce/schema/Case.OnboardingVerificationFailedReason__c";
 import SECONDARY_FAILED_REASON_FIELD from "@salesforce/schema/Case.SecondaryVerificationFailedReason__c";
 import EVALUATION_ID from "@salesforce/schema/Case.Evaluation_Id__c";
@@ -17,6 +22,7 @@ import ID_DOC_SECUIRTY_CHECK from "@salesforce/schema/Case.Fraud_Security_Featur
 import IS_CLOSED from "@salesforce/schema/Case.IsClosed";
 import RECORD_TYPE_FIELD from "@salesforce/schema/Case.RecordTypeId";
 import StatusUpdateModal from "c/trustMeCaseStatusUpdateModal";
+import KYC_VERIFICATION_ID from "@salesforce/schema/Case.KYC_Verification_Id__c";
 
 export default class TrustMeCaseStatusPath extends LightningElement {
   @api recordId;
@@ -45,7 +51,9 @@ export default class TrustMeCaseStatusPath extends LightningElement {
       PIC_OF_PIC_CHECK,
       CUSTOMER_PHOTO_MOD_CHECK,
       ID_DOC_SECUIRTY_CHECK,
-      IS_CLOSED
+      IS_CLOSED,
+      KYC_VERIFICATION_ID,
+      CASENUMBER_FIELD
     ]
   })
   wiredCaseFields({ data }) {
@@ -53,31 +61,54 @@ export default class TrustMeCaseStatusPath extends LightningElement {
       return;
     }
     this.recordTypeInfo = data.recordTypeInfo;
-    this.caseData.Status = data.fields.Status.value;
+    this.caseData.Status = getFieldValue(data, STATUS_FIELD);
+    this.caseData.CaseNumber = getFieldValue(data, CASENUMBER_FIELD);
     this.caseData.Id = this.recordId;
-    this.caseData.Subject = data.fields.Subject.value;
+    this.caseData.Subject = getFieldValue(data, SUBJECT_FIELD);
     this.caseData.RecordTypeId = data.recordTypeInfo.recordTypeId;
-    this.caseData.OnboardingVerificationFailedReason__c =
-      data.fields.OnboardingVerificationFailedReason__c.value;
-    this.caseData.SecondaryVerificationFailedReason__c =
-      data.fields.SecondaryVerificationFailedReason__c.value;
-    this.caseData.Evaluation_Id__c = data.fields.Evaluation_Id__c.value;
-    this.caseData.IsClosed = data.fields.IsClosed.value;
-    this.caseData.Fraud_Customer_Details__c =
-      data.fields.Fraud_Customer_Details__c.value;
-    this.caseData.Fraud_MiddleNameCheck__c =
-      data.fields.Fraud_MiddleNameCheck__c.value;
-    this.caseData.Fraud_Selfie_Comparison_Match__c =
-      data.fields.Fraud_Selfie_Comparison_Match__c.value;
-    this.caseData.Fraud_Address_Valid__c =
-      data.fields.Fraud_Address_Valid__c.value;
-    this.caseData.Fraud_ID_Legible__c = data.fields.Fraud_ID_Legible__c.value;
-    this.caseData.Fraud_ID_Not_Picture__c =
-      data.fields.Fraud_ID_Not_Picture__c.value;
-    this.caseData.Fraud_Customer_Photo_Modified__c =
-      data.fields.Fraud_Customer_Photo_Modified__c.value;
-    this.caseData.Fraud_Security_Features__c =
-      data.fields.Fraud_Security_Features__c.value;
+    this.caseData.OnboardingVerificationFailedReason__c = getFieldValue(
+      data,
+      PRIMARY_FAILED_REASON_FIELD
+    );
+    this.caseData.SecondaryVerificationFailedReason__c = getFieldValue(
+      data,
+      SECONDARY_FAILED_REASON_FIELD
+    );
+    this.caseData.Evaluation_Id__c = getFieldValue(data, EVALUATION_ID);
+    this.caseData.IsClosed = getFieldValue(data, IS_CLOSED);
+    this.caseData.Fraud_Customer_Details__c = getFieldValue(data, KYC_CHECK);
+    this.caseData.Fraud_MiddleNameCheck__c = getFieldValue(
+      data,
+      MIDDLE_NAME_CHECK
+    );
+    this.caseData.Fraud_Selfie_Comparison_Match__c = getFieldValue(
+      data,
+      SELFIE_COMPARISON_CHECK
+    );
+    this.caseData.Fraud_Address_Valid__c = getFieldValue(
+      data,
+      RESIDENTIAL_ADDRESS_CHECK
+    );
+    this.caseData.Fraud_ID_Legible__c = getFieldValue(
+      data,
+      CUSTOMER_PHOTO_LEGI_CHECK
+    );
+    this.caseData.Fraud_ID_Not_Picture__c = getFieldValue(
+      data,
+      PIC_OF_PIC_CHECK
+    );
+    this.caseData.Fraud_Customer_Photo_Modified__c = getFieldValue(
+      data,
+      CUSTOMER_PHOTO_MOD_CHECK
+    );
+    this.caseData.Fraud_Security_Features__c = getFieldValue(
+      data,
+      ID_DOC_SECUIRTY_CHECK
+    );
+    this.caseData.KYC_Verification_Id__c = getFieldValue(
+      data,
+      KYC_VERIFICATION_ID
+    );
   }
 
   @wire(getPicklistValues, {

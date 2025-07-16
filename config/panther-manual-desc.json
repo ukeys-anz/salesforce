@@ -6,6 +6,19 @@
       "FinServ__Status__c": "Financial account status of the customer",
       "FinServ__CustomerType__c": "The type of organisation in OCV source system."
     },
+    "Broker_Relation__c": {
+      "Address1__c": "To capture the address related to Office Group",
+      "Address2__c": "To capture the address related to Office Group",
+      "Aggregator__c": "Aggregator to which this Broker Set would be associated with.",
+      "Associated_Broker_Set__c": "Represents the association between the office group and Broker set.",
+      "External_Id__c": "External Id",
+      "Is_MyOfficeGroup__c": "Evaluated to true when ever the logged user id is equal to Primary RBM/Secondary RBM on associated Broker Set.",
+      "IsActive__c": "To capture whether the Broker Set / Office Group is active or not.",
+      "Primary_RBM__c": "Primary RBM who would be managing this Broker Set.",
+      "Secondary_RBM__c": "Secondary RBM who would be managing this Broker Set.",
+      "Segment__c": "Signifies the type of segment this Broker Set is related.",
+      "State__c": "Represents the state to which this Broker Set is Associated"
+    },
     "Case": {
       "FinServ__FinancialAccount__c": "Look up field for financial account, relates a case to a customer's financial account",
       "IDR_Milestone_Sla__c": "Milestone updates this field which is used by the IDR_Time_To_Escalation__c formula field to show the appropriate image on Case",
@@ -26,8 +39,15 @@
       "Fraud_Analytics_Date_Complete__c": "Completed review date for Fraud Analytics Investigation"
     },
     "Contact": {
+      "Broker_Set__c": "Represents the Broker Set to which this contact is associated with.",
       "FinServ__MaritalStatus__c": "The current state of a person in relation to the marriage laws or customs.",
-      "Is_Beta_Broker__c": "Identify if a broker is a beta broker"
+      "Is_Beta_Broker__c": "Identify if a broker is a beta broker",
+      "Is_MyBroker__c": "Evaluated to true when ever the logged user id is equal to Primary RBM/Secondary RBM on associated Broker Set.",
+      "Office_Group__c": "Represents the Office Group to which this contact is associated with.",
+      "Primary_RBM__c": "Captures the Primary RBM Information.",
+      "Secondary_RBM__c": "Captures the Secondary  RBM Information.",
+      "Segment__c": "Captures the Segment of the associated Broker Set.",
+      "SAO_State__c": "Represents the state to which Broker's Broker Set is Associated."
     },
     "ContentVersion": {
       "ContentSize": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
@@ -131,11 +151,13 @@
     "AuthenticationHistory__c": "Help user to view the history/information of Auth Request made on an Interaction",
     "Automatic_Repayment_Preference__c": "Used for repayment preferences for settlements",
     "BusinessHours": "Specifies the business hours of your support organization.",
+    "Broker_Relation__c": "Facilitates RBMs & Enablement Mangers to establish and manage relationship between RBMs & and their brokers.",
     "Campaign": "Represents and tracks a marketing campaign.",
     "Balance_History__x": "Balance history external object",
     "CampaignMember": "Associates a prospective or active customer with a campaign.",
     "CaseComment": "Plain text comment attached to a case",
     "Case": "Record of a customer interaction",
+    "CaseHistory": "Represents historical information about changes that have been made to the associated Case.",
     "Case_Product__c": "Many to Many relationship between Case and Product2",
     "CFaaS_File__c": "Custom object that will hold metadata of the files retrieved from CFaaS",
     "CFMS_Migrated_Document__c": "Custom object to store migrated CFMS documents, not the documents themselves but links to them in EDRM.",
@@ -156,6 +178,8 @@
     "Customer_Dispute_Management__c": "To manage customer disputes, limiting creation of disputes. This object linked with Account based on related cases it manages disputes",
     "CustomerOnboardingApplication__c": "The main record maintaining Salesforce's copy of the state of a prospect's onboarding journey",
     "Customer_Profile_Updates__c": "This custom object is a staging object which will store the changes made by the bankers on Account and all Contact Point objects.",
+    "Customer_Task_Configuration__c": "Stores preconfigured template values for push to app implemtation",
+    "Customer_Task_Data__c": "Holds aemcontent data that is utilized on Mobile screens for push to app implementation",
     "Deposit_Account__x": "External Direct Deposit financial accounts",
     "Drawdown__c": "Contains account details and drawdown details for the settlement funds",
     "Drawdown_Transaction__c": "Transaction details of the part of funds accessed for the settlement drawdown",
@@ -221,6 +245,19 @@
     "User": "A Salesforce user (ANZ employee)"
   },
   "pantherId": {
+    "AccessControl__x": {
+      "IA-2530753": [
+        "Channel__c",
+        "CreatedBy__c",
+        "CreatedTime__c",
+        "DeleteWhenMet__c",
+        "MinimumAAL__c",
+        "Name__c",
+        "PersonId__c",
+        "PersonaId__c",
+        "Policy__c"
+      ]
+    },
     "Account": {
       "IA-2415720": [
         "ANZx_Customer__c",
@@ -305,7 +342,14 @@
         "IsSkeleton__c",
         "IsSnapshotError__c",
         "IsSnapshotInProgress__c",
-        "Migration_Status_Date__c"
+        "Migration_Status_Date__c",
+        "ExtraCareTimePeriod__c",
+        "ExtraCareReason__c",
+        "ExtraCareNotes__c",
+        "ExtraCareReviewDate__c",
+        "ExtraCareDisclosure__c",
+        "ExtraCareConsent__c",
+        "ShowExtraCareAlert__c"
       ],
       "IA-2415860": [
         "Deleted_in_OCV__c",
@@ -420,7 +464,12 @@
       ]
     },
     "Activity": {
-      "IA-2530753": ["Pega_CDH_Id__c"],
+      "IA-2530753": [
+        "Pega_CDH_Id__c",
+        "Customer_Task_Configuration__c",
+        "Customer_Task_Data__c",
+        "TaskNumber__c"
+      ],
       "IA-2468713": ["Pub_Sub_Event_Id__c"],
       "IA-2415999": ["PEGA_Case_Status__c"],
       "IA-2415984": ["Customer_Name__c"],
@@ -706,8 +755,11 @@
         "RecordTypeId",
         "Review_Date__c",
         "Segment_Type__c",
-        "Source_System_Identifier__c"
+        "Source_System_Identifier__c",
+        "Existing_Business_Owner__c",
+        "My_Region_Flag__c"
       ],
+      "IA-2415983": ["A2Z_Review_Interaction_Type__c"],
       "IA-2415984": [
         "Name",
         "Business_Details__c",
@@ -719,12 +771,35 @@
         "Transaction_Banking__c",
         "CLG_Number__c",
         "CPID__c",
-        "Customer_Number__c"
+        "Customer_Number__c",
+        "Business_Owner_Number__c",
+        "Business_Owner__c",
+        "Business_Contact__c"
       ],
       "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"],
       "IA-2423227": ["COI_Member__c"],
       "IA-2415790": ["Broker_Name__c"],
-      "IA-2460507": ["My_Team_A2Z_Review__c"]
+      "IA-2460507": [
+        "My_Team_A2Z_Review__c",
+        "My_Sub_Team__c",
+        "My_Team_Segment__c"
+      ]
+    },
+    "Broker_Relation__c": {
+      "IA-2415790": ["Aggregator__c", "RecordTypeID", "State__c"],
+      "IA-2453350": ["External_Id__c", "IsActive__c"],
+      "IA-2460507": [
+        "Address1__c",
+        "Address2__c",
+        "Primary_RBM__c",
+        "Secondary_RBM__c"
+      ],
+      "IA-2530753": [
+        "Name",
+        "Associated_Broker_Set__c",
+        "Is_MyOfficeGroup__c",
+        "Segment__c"
+      ]
     },
     "BrokerSettings__c": {
       "IA-253075": [
@@ -733,7 +808,8 @@
         "BypassCaseEvent__c",
         "BypassContractEvent__c",
         "BypassCustomerEvent__c",
-        "BypassSettlementAccountEvent__c"
+        "BypassSettlementAccountEvent__c",
+        "BypassBrokerRelationEvent__c"
       ]
     },
     "Campaign": {
@@ -1376,7 +1452,9 @@
         "Process_Definition_Name__c",
         "Process_Definition_Version__c",
         "Unique_External_Id__c",
-        "SecondaryVerificationFailedReason__c"
+        "SecondaryVerificationFailedReason__c",
+        "KYC_Verification_Id__c",
+        "PersonId_Txt__c"
       ],
       "IA-2594111": [
         "CustomerOnboardingApplication__c",
@@ -1387,6 +1465,7 @@
       ],
       "IA-2468710": ["SLATesting__c", "CardScamType__c"],
       "IA-2594109": ["Sync_Status__c"],
+      "IA-2415983": ["Loan_Account_Change_Number__c", "Change_To__c"],
       "IA-2594116": [
         "AcceptableDocumentType__c",
         "CertificateShowsCurrentContactName__c",
@@ -1405,6 +1484,17 @@
         "Financial_Account_Name__c",
         "Opt_Out_Reason__c"
       ]
+    },
+    "CaseHistory": {
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ],
+      "IA-2530753": ["CaseId", "DataType", "Field", "IsDeleted"],
+      "IA-2415828": ["NewValue", "OldValue"]
     },
     "Case_Reporting_Field__c": {
       "IA-2453595": [
@@ -1557,6 +1647,7 @@
     "COBPrimaryIDDocument__c": {
       "IA-2415860": [
         "Failed_Message__c",
+        "Latest__c",
         "OnboardingAttemptCount__c",
         "SubmittedAt__c",
         "Verified_By__c",
@@ -1728,23 +1819,30 @@
         "Active_To__c",
         "External_Id__c",
         "Is_Beta_Broker__c",
+        "Is_MyBroker__c",
         "Occurrence_Number__c",
         "After_Hours_Availability__c",
         "Broker_Customer_Profile__c",
         "Occurrence_Number__c",
-        "Preferred_Contact__c"
+        "Preferred_Contact__c",
+        "Primary_RBM__c",
+        "Secondary_RBM__c",
+        "Segment__c"
       ],
       "IA-2415790": [
         "Accreditation_CompactLayout__c",
         "Asset_Finance_Accreditation_Status__c",
         "AssetFinanceTPMISAO__c",
         "Broker_Accreditation_Type__c",
+        "Broker_Set__c",
         "Commercial_Accreditation_Status__c",
         "CommercialTPMISAO__c",
         "Industry_Body_Member__c",
+        "Office_Group__c",
         "RecordTypeID",
         "Retail_Accreditation_Status__c",
-        "RetailTPMISAO__c"
+        "RetailTPMISAO__c",
+        "SAO_State__c"
       ],
       "IA-2460507": [
         "Lan_Id__c",
@@ -1966,7 +2064,15 @@
         "Accepted_Date__c",
         "Mortgage_Contract__c"
       ],
-      "IA-2530753": ["Created__c", "Completed__c", "Completed_By__c"],
+      "IA-2530753": [
+        "Created__c",
+        "Completed__c",
+        "Completed_By__c",
+        "Action_UUID__c",
+        "Action_Name__c",
+        "Action_Counter__c",
+        "Customer_Task_Data__c"
+      ],
       "IA-2415998": ["Eligible_to_Complete__c", "Accepted_By__c"],
       "IA-2415720": [
         "Action__c",
@@ -2101,6 +2207,18 @@
       "IA-2468715": ["Source_System_Name__c"],
       "IA-2415720": ["Customer_Status__c"]
     },
+    "Customer_Task_Configuration__c": {
+      "IA-2468707": [
+        "AEM_Content_Id__c",
+        "Applicable_Record_Types__c",
+        "Applicable_User_Role__c",
+        "Expire_After_Days__c",
+        "SObject_Type__c"
+      ]
+    },
+    "Customer_Task_Data__c": {
+      "IA-2468707": ["AEM_Content_Data__c"]
+    },
     "Customer_Profile_Update_Event__e": {
       "IA-2415860": [
         "RecordType_Name__c",
@@ -2114,6 +2232,26 @@
     "DCRM_Customer_Management_Non_KYC_Fields__mdt": {
       "IA-2530743": ["Object_Name__c", "RecordType_Name__c"],
       "IA-2415993": ["Customer_Status__c", "Field_Name__c", "Profile_Name__c"]
+    },
+    "Device__x": {
+      "IA-2530753": [
+        "AppCorrelationId__c",
+        "AppVersion__c",
+        "BiometricId__c",
+        "BiometricLastAuthenticationTime__c",
+        "BiometricRegisteredTime__c",
+        "BiometricStatus__c",
+        "CreatedTime__c",
+        "DeviceCorrelationId__c",
+        "LastAuthenticationTime__c",
+        "Make__c",
+        "Model__c",
+        "Name__c",
+        "OSVersion__c",
+        "PersonId__c",
+        "Status__c",
+        "UpdatedTime__c"
+      ]
     },
     "Drawdown__c": {
       "IA-2530753": [
@@ -2355,7 +2493,8 @@
         "FinServ__StartDate__c",
         "System_Individual_Relationship__c",
         "CPID__c",
-        "Customer_Type__c"
+        "Customer_Type__c",
+        "ExtraCare__c"
       ],
       "IA-2594111": ["FinServ__Account__c", "FinServ__RelatedAccount__c"],
       "IA-2415860": [
@@ -2592,7 +2731,9 @@
         "Customer_Relationship__c",
         "Territory__c",
         "Financial_Account__c",
-        "ML_DataMigration_Key__c"
+        "ML_DataMigration_Key__c",
+        "My_Region_Flag__c",
+        "CLGCustomer__c"
       ],
       "IA-2530753": [
         "AccountId",
@@ -2666,9 +2807,18 @@
         "ReasonforVisit__c",
         "Product__c",
         "Actual_Topic_Formula__c",
-        "Reason_for_Visit_Formula__c"
+        "Reason_for_Visit_Formula__c",
+        "Actual_Topic__c",
+        "Reason_For_Visit__c",
+        "Products__c"
       ],
-      "IA-2423227": ["COI_Member__c"]
+      "IA-2423227": ["COI_Member__c"],
+      "IA-2415983": ["Interaction_Type__c"],
+      "IA-2460507": [
+        "My_Reportees_Interactions__c",
+        "My_Sub_Team__c",
+        "My_Team_Segment__c"
+      ]
     },
     "Interaction_Tag__c": {
       "IA-2415840": ["Name", "Type__c", "Sub_Type__c", "Tag__c"],
@@ -2798,7 +2948,9 @@
         "Assignee_Group__c",
         "Channel__c",
         "Referral_Category__c",
-        "My_teams_referrer__c"
+        "My_teams_referrer__c",
+        "Referral_Customer_Needs__c",
+        "External_Referral_Status__c"
       ],
       "IA-2468713": ["SmartphoneOS__c", "Pub_Sub_Event_Id__c"],
       "IA-2468715": [
@@ -2933,7 +3085,8 @@
         "My_Team__c",
         "Lead_Owner_Teamcode__c",
         "My_Team_Segment__c",
-        "My_Reportees_Lead__c"
+        "My_Reportees_Lead__c",
+        "My_Managers_Lead__c"
       ],
       "IA-2530753": ["IsNewLead__c"],
       "IA-2697875": ["Referrer_Business_Name__c", "Referrer_Industry_Type__c"],
@@ -2946,7 +3099,16 @@
       "IA-2431669": ["Primary_Franchise_Owner__c"],
       "IA-2453350": ["Customer_Pre_Exist__c"],
       "IA-2415790": ["Broker_Name__c"],
-      "IA-2415828": ["Circle_Of_Influence__c"]
+      "IA-2415828": ["Circle_Of_Influence__c"],
+      "IA-3254438": [
+        "Referral_Status__c",
+        "Referrer_Lead__c",
+        "Referral_Acknowledged_Date__c",
+        "Lead_Created_Date__c"
+      ]
+    },
+    "Lead_Event__e": {
+      "IA-2423278": ["Expressed_Interest__c"]
     },
     "Lead_Response_Event__e": {
       "IA-2415860": ["Campaign_Code__c"]
@@ -2968,6 +3130,14 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
+      ]
+    },
+    "Lead_To_Referral_Status_Mapping__mdt": {
+      "IA-3254438": [
+        "Lead_Outcome__c",
+        "Lead_Status__c",
+        "Record_Type_Name__c",
+        "Referral_Status__c"
       ]
     },
     "Lead_Stage_Automation__mdt": {
@@ -3002,6 +3172,13 @@
         "Commercial_Segment__c",
         "Current_Stage__c",
         "Object_Name__c"
+      ]
+    },
+    "Loan_Application_System_Status_Mapping__mdt": {
+      "IA-2434298": [
+        "Application_Product_Stage__c",
+        "Application_Record_Type__c",
+        "Source_System_Status__c"
       ]
     },
     "Loan_Applicant_Group__c": {
@@ -3136,7 +3313,8 @@
         "Loan_Repayment_Frequency__c",
         "Borrow_Additional_Funds__c",
         "Current_Loan_Balance__c",
-        "LoanExclFinMortInsAmt"
+        "LoanExclFinMortInsAmt",
+        "Percentage_Deductible__c"
       ],
       "IA-2415840": [
         "Property_Valuation_Id__c",
@@ -3404,7 +3582,8 @@
         "Has_Close_Date_Changed__c",
         "CLG__c",
         "Secondary_Customer_Needs__c",
-        "My_Notes__c"
+        "My_Notes__c",
+        "Industry__c"
       ],
       "IA-2468715": [
         "CreatedById",
@@ -3467,7 +3646,8 @@
         "FinServ__ReferredByContact__c",
         "FinServ__ReferredByUser__c",
         "My_Team_Segment__c",
-        "My_Reportees_Opps__c"
+        "My_Reportees_Opps__c",
+        "My_Manager_Opps__c"
       ],
       "IA-2530753": ["Opportunity_Owner__c"],
       "IA-2428130": ["Specialisation__c", "New_to_Bank__c"],
@@ -3533,6 +3713,15 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
+      ]
+    },
+    "Passkey__x": {
+      "IA-2530753": [
+        "AAGUID__c",
+        "CreatedTime__c",
+        "LastAuthenticationTime__c",
+        "Name__c",
+        "PersonId__c"
       ]
     },
     "PriceBook2": {
@@ -3771,10 +3960,12 @@
     "Quality_Assessment__c": {
       "IA-2415840": [
         "Accountability_and_Next_Steps__c",
+        "Accountability_Next_Steps_Top_Line__c",
         "Accountability_and_Next_Steps_Comments__c",
         "Accurate_information_in_final_response__c",
         "Action_Taken__c",
         "Actions_and_Momentum__c",
+        "Action_Momentum_Top_Line__c",
         "Actions_and_Momentum_Comments__c",
         "Advice_Best_Interest_Duty__c",
         "Advice_Best_Interests_Duty_Comments__c",
@@ -3797,6 +3988,7 @@
         "Advice_Substantive_Advice_OFSN__c",
         "Advice_Substantive_Advice_OFSN_Comments__c",
         "Advice_Supplement__c",
+        "Appoinment_Type__c",
         "Appropriately_assessed_information__c",
         "Assigned_to__c",
         "Assessment_Completion_Date__c",
@@ -3804,7 +3996,10 @@
         "Business_score__c",
         "Call_details__c",
         "Case_Manager_Score__c",
+        "Case_Notes_Comment__c",
+        "Case_Notes_Outcome__c",
         "Case_records_are_complete_and_accurate__c",
+        "Channel__c",
         "Clear_actions_for_acceptance_provided__c",
         "CM_asked_customer_for_resolution_sought__c",
         "CM_asked_for_further_information__c",
@@ -3856,10 +4051,17 @@
         "CMOS_Comment_27__c",
         "CMOS_Comment_28__c",
         "CMOS_Comment_29__c",
+        "Collateral_Valuation_Comments__c",
+        "Collateral_Valuation_Outcome__c",
+        "Collateral_Valuation_Referral_Codes__c",
         "Compliance_Outcome__c",
         "Complaint_outcome_(Actual)__c",
+        "Conduct_Comments__c",
+        "Conduct_Outcome__c",
+        "Conduct_Referral_Codes__c",
         "Confirmation_of_resolution_letter_used__c",
         "Connection_and_Trust__c",
+        "Connection_Trust_Top_Line__c",
         "Connection_and_Trust_Comments__c",
         "Context_and_General_Comments__c",
         "COR_Event__c",
@@ -3876,28 +4078,46 @@
         "Customer_authority_obtained_as_required__c",
         "Customer_correctly_identified__c",
         "Customer_information_correct__c",
+        "Debts_Serviceability_Comments__c",
+        "Debts_Serviceability_Outcome__c",
+        "Debts_Serviceability_Referral_Codes__c",
         "Discover_and_Align__c",
+        "Discover_Align_Top_Line__c",
         "Discover_and_Align_Comments__c",
         "Duration_of_calls_retrieved_minutes__c",
         "EDR_CM_explained_role_in_AFCA_process__c",
         "Energy_and_Adaptability__c",
+        "Energy_Adaptability_Top_Line__c",
         "Energy_and_Adaptability_Comments__c",
         "Evaluation_Type__c",
+        "Expenses_Serviceability_Comments__c",
+        "Expenses_Serviceability_Outcome__c",
+        "Expenses_Serviceability_Referral_Codes__c",
         "Feedback_summary_for_the_Case_Manager__c",
         "Financial_product_advice_not_provided__c",
         "Finishing_Touches__c",
         "Finishing_Touches_Comments__c",
         "Followed_call_authentication_process__c",
         "Gave_extra_care_for_vulnerable_customer__c",
+        "Governance_Checklist__c",
+        "Governance_Insights_Use_Only__c",
         "Has_a_complaint_LOA_been_loaded_to_PCC__c",
         "Have_we_clearly_articulated_the_custo__c",
         "Has_a_REaL_form_been_raised__c",
+        "HEM_Usage__c",
+        "HEM_Variance__c",
         "High_risk_criteria_identified__c",
+        "Hypercare_Focus_Area_Checks__c",
+        "Hypercare_Focus_Area_Comments__c",
+        "Hypercare_Focus_Area_Outcome__c",
         "Identified_additional_assistance_needs__c",
         "Identified_flagged_PSI_where_needed__c",
         "Identified_what_needed_investigation__c",
         "IDR_delay_decision_notice_appropriate__c",
         "If_unlicensed_did_communication_stop__c",
+        "Income_Serviceability_Comments__c",
+        "Income_Serviceability_Outcome__c",
+        "Income_Serviceability_Referral_Codes__c",
         "Incomplete_Inaccurate_Warning_Comments__c",
         "Investigation_notes_documented_clearly__c",
         "In_phone_resolutions_gave_AFCA_details__c",
@@ -3919,9 +4139,14 @@
         "Lead__c",
         "Letter_flows_headings_relevant_clear__c",
         "Loss_offer_correctly_considered__c",
+        "Material_Change_Comments__c",
+        "Material_Change_Outcome__c",
+        "Material_Change_Referral_Codes__c",
         "Met_call_recording_disclosure_rules__c",
         "Met_process_for_handling_restricted_info__c",
         "New_Starter__c",
+        "Number_of_Applications__c",
+        "Number_of_Resubmissions__c",
         "Other_practical_options_explored__c",
         "Outcome_details_correctly_recorded__c",
         "Prompt_response_to_customer_in_hardship__c",
@@ -3943,10 +4168,19 @@
         "Join_Customer_Welcoming__c",
         "Join_Financial_Operation_Accuracy__c",
         "Join_Overall_Decision_Supported__c",
+        "Other__c",
+        "Other_Comments__c",
+        "Other_Referral_Codes__c",
+        "Parent_Quality_Evaluation__c",
+        "Process_Execution_Comments__c",
+        "Process_Execution_Outcome__c",
         "Preparation_and_Framing__c",
         "Preparation_and_Framing_Comments__c",
         "Professionalism_of_response__c",
         "Proposed_resolution_is_fair_reasonable__c",
+        "Purpose_of_Loan_Comments__c",
+        "Purpose_of_Loan_Outcome__c",
+        "Purpose_of_Loan_Referral_Codes__c",
         "Rating__c",
         "Relevant_info_obtained_from_customer__c",
         "Reason_C_Q_SM1_Q1__c",
@@ -3987,12 +4221,16 @@
         "Relevant_internal_information_obtained__c",
         "Risk_and_Compliance_Category__c",
         "Risk_and_Compliance_Comments__c",
+        "Risk_and_Compliance_Outcome__c",
         "Risk_and_Compliance_Sub_Category__c",
         "Resolution_declined_next_steps_advised__c",
         "Response_has_customer_s_desired_outcome__c",
         "Response_has_investigation_info_reason__c",
         "Response_uses_correct_grammar_spelling__c",
         "Score__c",
+        "Serviceability_Comments__c",
+        "Serviceability_Outcome__c",
+        "Serviceability_Referral_Codes__c",
         "Stakeholder_comms_clear_relevant_etc__c",
         "Satisfactory_contact_made_or_attempted__c",
         "Status__c",
@@ -4006,14 +4244,17 @@
         "TM_Comments_for_C_Q_Manager_Review__c",
         "Verbal_customer_comms_organised_etc__c",
         "TM_Attestation_feedback_provided_to_CM__c",
+        "Uncomitted_Monthly_Income__c",
         "Was_the_DMF_paid_rep_licensed__c",
         "Was_quick_resolution_offer_appropriate__c",
         "Were_all_relevant_calls_retrieved__c",
+        "Were_Expenses_updated__c",
         "Were_the_CM_s_calls_recorded__c",
         "What_how_the_issues_arose_explainedHave__c",
         "What_corrective_actions_are_required__c",
         "Written_customer_comms_professional_etc__c"
       ],
+      "IA-2415983": ["Application_ID__c"],
       "IA-2415984": ["Customer__c", "Customer_Name__c", "Calculated__c"],
       "IA-2460507": ["Interaction_Owner__c"],
       "IA-2468715": [
@@ -4042,6 +4283,13 @@
         "CreatedDate",
         "LastModifiedById",
         "LastModifiedDate"
+      ]
+    },
+    "Referral_Customer_Need_Mapping__mdt": {
+      "IA-2423278": [
+        "Customer_Need__c",
+        "Lead_Record_Type__c",
+        "Referral_Customer_Needs__c"
       ]
     },
     "Referral_Reason__c": {
@@ -4118,6 +4366,38 @@
         "LastModifiedDate"
       ]
     },
+    "ReKYC_Document_Detail__c": {
+      "IA-2415999": [
+        "TrustMe_First_Name__c",
+        "TrustMe_Middle_Name__c",
+        "TrustMe_Last_Name__c",
+        "TrustMe_Residential_Address__c",
+        "TrustMe_Residential_Address_Geolocation__c",
+        "Evaluation_Date__c",
+        "Evaluation_Outcome__c",
+        "eIDV_Verification_Outcome__c",
+        "Manual_Verification_Outcome__c",
+        "TrustMe_Primary_Document_ID__c",
+        "Customer_UUID__c",
+        "Date_Of_Birth__c",
+        "Residential_Address__c",
+        "Residential_Address_Geolocation__c",
+        "QAS__c",
+        "Daon_Evaluation_Outcome__c",
+        "TrustMe_Secondary_Document_ID__c",
+        "Rekyc_Case__c",
+        "TrustMe_Date_Of_Birth__c",
+        "Customer_UUID__c",
+        "Daon_Selfie_Match_ID__c",
+        "Existing_Selfie__c",
+        "PersonId_Txt__c",
+        "Primary_Documents__c",
+        "Secondary_Documents__c",
+        "Selfie_Verification_Outcome__c",
+        "TrustMe_Selfie_Reference__c",
+        "PersonID__c"
+      ]
+    },
     "ResidentialLoanApplication": {
       "IA-2415855": ["Assessment_Outcome__c", "Credit_Version__c"],
       "IA-2415983": [
@@ -4135,7 +4415,9 @@
         "Loan_Term__c",
         "Other_Cancellation_Reason__c",
         "Cancellation_Reason__c",
-        "InterestRate"
+        "InterestRate",
+        "Property_Use__c",
+        "Loan_Amount__c"
       ],
       "IA-2415997": ["SOP_Id__c"],
       "IA-2530753": [
@@ -4420,7 +4702,8 @@
         "LastModifiedById",
         "LastModifiedDate"
       ],
-      "IA-2594109": ["Call_Transcript__c"]
+      "IA-2594109": ["Call_Transcript__c"],
+      "IA-2646045": ["Summary__c"]
     },
     "Title_Detail__c": {
       "IA-2415983": ["Title_Reference__c", "State__c", "Estate_Type__c"],
@@ -5271,6 +5554,20 @@
     }
   },
   "lineageInformation": {
+    "Broker_Relation__c": {
+      "Address1__c": "ANZx::Salesforce",
+      "Address2__c": "ANZx::Salesforce",
+      "Aggregator__c": "ANZx::Salesforce",
+      "Associated_Broker_Set__c": "ANZx::Salesforce",
+      "External_Id__c": "ANZx::Salesforce",
+      "Is_MyOfficeGroup__c": "ANZx::Salesforce",
+      "IsActive__c": "ANZx::Salesforce",
+      "Name": "ANZx::Salesforce",
+      "Primary_RBM__c": "ANZx::Salesforce",
+      "Secondary_RBM__c": "ANZx::Salesforce",
+      "Segment__c": "ANZx::Salesforce",
+      "State__c": "ANZx::Salesforce"
+    },
     "COBAddress__c": {
       "AddressBuildingName__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_ManualEntry :: building_name",
       "AddressCity__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_ManualEntry :: city",
@@ -5384,7 +5681,14 @@
       "TaxIdentificationNumber__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidency%2Eoneof_disclosure :: tax_identification_number_token"
     },
     "Contact": {
-      "Is_Beta_Broker__c": "ANZx::Salesforce"
+      "Broker_Set__c": "ANZx::Salesforce",
+      "Is_Beta_Broker__c": "ANZx::Salesforce",
+      "Is_MyBroker__c": "ANZx::Salesforce",
+      "Office_Group__c": "ANZx::Salesforce",
+      "Primary_RBM__c": "ANZx::Salesforce",
+      "Secondary_RBM__c": "ANZx::Salesforce",
+      "Segment__c": "ANZx::Salesforce",
+      "SAO_State__c": "ANZx::Salesforce"
     },
     "CustomerOnboardingApplication__c": {
       "AustralianTaxResident__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidencyStatus :: australian_tax_resident",
@@ -5449,6 +5753,19 @@
     }
   },
   "lineageTransformInformation": {
+    "Broker_Relation__c": {
+      "Address1__c": "TextAreaLong field",
+      "Address2__c": "TextAreaLong field",
+      "Aggregator__c": "Lookup to Account",
+      "Associated_Broker_Set__c": "Self-Lookup to Broker_Relation__c",
+      "External_Id__c": "External unique Id",
+      "Is_MyOfficeGroup__c": "Formula field",
+      "IsActive__c": "Checkbox field",
+      "Primary_RBM__c": "Lookup to User",
+      "Secondary_RBM__c": "Lookup to User",
+      "Segment__c": "Picklist field",
+      "State__c": "Picklist field"
+    },
     "COBAddress__c": {
       "AddressBuildingName__c": "1:1 Transformation",
       "AddressCity__c": "1:1 Transformation",
@@ -5562,7 +5879,14 @@
       "TaxIdentificationNumber__c": "1:1 Transformation"
     },
     "Contact": {
-      "Is_Beta_Broker__c": "1:1 Transformation"
+      "Broker_Set__c": "Lookup to Broker_Relation__c",
+      "Is_Beta_Broker__c": "1:1 Transformation",
+      "Is_MyBroker__c": "Formula field through Broker_Relation__c",
+      "Office_Group__c": "Lookup to Broker_Relation__c",
+      "Primary_RBM__c": "Formula field through Broker_Relation__c",
+      "Secondary_RBM__c": "Formula field through Broker_Relation__c",
+      "Segment__c": "Formula field through Broker_Relation__c",
+      "SAO_State__c": "Formula field through Broker_Relation__c"
     },
     "CustomerOnboardingApplication__c": {
       "AustralianTaxResident__c": "1:1 Transformation",
@@ -5754,6 +6078,67 @@
           "description": "The time zone of the business hours.",
           "securityClassification": "Internal",
           "type": "Picklist"
+        },
+        {
+          "fullName": "CreatedById"
+        },
+        {
+          "fullName": "CreatedDate"
+        },
+        {
+          "fullName": "Id"
+        },
+        {
+          "fullName": "LastModifiedById"
+        },
+        {
+          "fullName": "LastModifiedDate"
+        }
+      ]
+    },
+    "CaseHistory": {
+      "fields": [
+        {
+          "fullName": "CaseId",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "The unique identifier for the case.",
+          "securityClassification": "Internal",
+          "type": "reference(Case)"
+        },
+        {
+          "fullName": "DataType",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "The data type for the case history field.",
+          "securityClassification": "Internal",
+          "type": "picklist"
+        },
+        {
+          "fullName": "Field",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "The name of the field that was changed.",
+          "securityClassification": "Internal",
+          "type": "picklist"
+        },
+        {
+          "fullName": "IsDeleted",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "If the record has been deleted, this field is true; otherwise, it is false.",
+          "securityClassification": "Internal",
+          "type": "checkbox"
+        },
+        {
+          "fullName": "NewValue",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "The new value of the field after the change.",
+          "securityClassification": "Internal",
+          "type": "anyType"
+        },
+        {
+          "fullName": "OldValue",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "The previous value of the field before the change.",
+          "securityClassification": "Internal",
+          "type": "anyType"
         },
         {
           "fullName": "CreatedById"

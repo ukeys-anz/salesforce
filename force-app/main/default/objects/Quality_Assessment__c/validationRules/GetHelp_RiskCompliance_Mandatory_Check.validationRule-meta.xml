@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GetHelp_RiskCompliance_Mandatory_Check</fullName>
+    <active>true</active>
+    <description>This validation rule makes the Risk and Compliance Category field mandatory for Get Help RTs.</description>
+    <errorConditionFormula>AND(
+  ($Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false),
+  !ISNEW(),
+  OR(
+        AND(
+            ISPICKVAL(Status__c, &apos;Complete&apos;),
+            ISPICKVAL(Sub_Status__c , &apos;Evaluation Completed&apos;)
+        ),
+        AND(
+            ISPICKVAL(Status__c, &apos;Referred&apos;),
+            OR(
+                ISPICKVAL(Sub_Status__c, &apos;Compliance Review&apos;),
+                ISPICKVAL(Sub_Status__c, &apos;Other&apos;)
+            )
+        )
+  ),
+  OR(
+    (RecordType.DeveloperName = &quot;Get_Help&quot;),
+    (RecordType.DeveloperName = &quot;Get_Help_Appointment&quot;)
+  ),
+  ISBLANK(TEXT(Risk_and_Compliance_Category__c))
+)</errorConditionFormula>
+    <errorDisplayField>Risk_and_Compliance_Category__c</errorDisplayField>
+    <errorMessage>Please ensure Risk and Compliance Category is populated.</errorMessage>
+</ValidationRule>

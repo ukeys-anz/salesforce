@@ -40,9 +40,88 @@ public with sharing class LaunchAppOnOppControllerRepository {
       return new List<OpportunityLineItem>();
     }
     return [
-      SELECT Id, Product2Id, UnitPrice
+      SELECT Id, Product2Id, UnitPrice, OpportunityId, Opportunity.Opp_Id__c
       FROM OpportunityLineItem
       WHERE Id IN :oppLineItemsIds
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description get app form products related to opp
+   * @name getAppFormProductsRelatedToOpp
+   * @param oppId opp Id
+   * @param recordTypeName  app form record type name
+   * @return List<ApplicationFormProduct> app form products list
+   */
+  public List<ApplicationFormProduct> getAppFormProductsRelatedToOpp(
+    Id oppId,
+    String recordTypeName
+  ) {
+    if (
+      oppId == null ||
+      recordTypeName != RTApplicationForm.ambitApplicationName
+    ) {
+      return new List<ApplicationFormProduct>();
+    }
+    return [
+      SELECT
+        Id,
+        Source_System_Id__c,
+        ApplicationForm.OpportunityId,
+        ApplicationForm.RecordTypeId,
+        ApplicationForm.RecordType.DeveloperName
+      FROM ApplicationFormProduct
+      WHERE
+        ApplicationForm.OpportunityId = :oppId
+        AND ApplicationForm.RecordTypeId = :RTApplicationForm.ambitApplication
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description get field values
+   * @name getOppIdAndSourceSystemId
+   * @param oppId opp Id
+   * @return Opportunity opportunity record
+   */
+  public Opportunity getOppIdAndSourceSystemId(Id oppId) {
+    return [
+      SELECT Id, Opp_Id__c, Account.Source_System_ID__c
+      FROM Opportunity
+      WHERE Id = :oppId
+      WITH USER_MODE
+    ] ?? null;
+  }
+
+  /**
+   * @description get the Opportunity and its related object field value
+   * @name getOpportunityData
+   * @param oppId Opportunity Id
+   * @return Opportunity Opportunity record
+   */
+  public Opportunity getOpportunityData(Id oppId) {
+    return [
+      SELECT
+        Id,
+        AccountId,
+        Opp_Id__c,
+        Account.RecordType.Name,
+        Broker_Name__c,
+        Broker_Name__r.Broker_Accreditation_Type__c,
+        Broker_Name__r.Asset_Finance_Accreditation_Status__c,
+        Owner.Lan_Id__c,
+        Broker_Name__r.AssetFinanceTPMISAO__c,
+        Account.Source_System_ID__c,
+        (
+          SELECT Id, User.Name, TeamMemberRole, User.Lan_Id__c
+          FROM OpportunityTeamMembers
+          WHERE TeamMemberRole = 'Asset Finance'
+          ORDER BY Createddate DESC
+          LIMIT 1
+        )
+      FROM Opportunity
+      WHERE Id = :oppId
       WITH USER_MODE
     ];
   }

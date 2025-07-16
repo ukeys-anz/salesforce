@@ -5,6 +5,9 @@
  * @group Repository
  */
 public with sharing class StravinskyAPIRepository extends RepositoryBase {
+  private static final StravinskyService SERVICE = (StravinskyService) Lib_InstanceProvider.forType(
+    StravinskyService.class
+  );
   @TestVisible
   public static Boolean throwException = false; // This is to force an exception to increase unit test coverage as current mock framework only returns positive response. A PDR will be raised to extend the mock framework if similar instances arise.
   @TestVisible
@@ -45,9 +48,8 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
     Set<String> setOfAccountNumberToBeClosed,
     List<String> customerOCVIds
   ) {
-    Service s = ServiceProvider.getService(StravinskyService.class);
     //Updated ClosedPackage method to accept OCVId and ClosureCaseRequest
-    HttpCalloutResponse response = s.closePackage(
+    HttpCalloutResponse response = SERVICE.closePackage(
       caseRecord.Account.OCV_ID__c,
       generateJsonRequest(
         caseRecord,
@@ -64,7 +66,7 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
       }
     } else {
       if (response.statusCode == 500) {
-        Logger.error(FAILURE_MESSAGE, response.error, Logger.Severity.HIGH);
+        Logger.error(FAILURE_MESSAGE, response.error);
       }
       throw CommonUtil.logException(response);
     }
@@ -76,8 +78,9 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
    * @description triggers Temporal Case Workflow API
    */
   public CxStageWrapper triggerTemporalCaseWorkflow(Case caseRecord) {
-    Service s = ServiceProvider.getService(StravinskyService.class);
-    HttpCalloutResponse response = s.triggerTemporalCaseWorkflow(caseRecord);
+    HttpCalloutResponse response = SERVICE.triggerTemporalCaseWorkflow(
+      caseRecord
+    );
     return handleTemporalWorkflowResponse(response);
   }
 
@@ -138,8 +141,7 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
       transformValue
     );
 
-    Service s = ServiceProvider.getService(StravinskyService.class);
-    HttpCalloutResponse response = s.detokenize(personaId, request);
+    HttpCalloutResponse response = SERVICE.detokenize(personaId, request);
 
     if (response.successful == false) {
       throw CommonUtil.logException(response);
@@ -163,8 +165,7 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
       caseId
     );
 
-    Service s = ServiceProvider.getService(StravinskyService.class);
-    HttpCalloutResponse response = s.updatePrimaryIDDocument(
+    HttpCalloutResponse response = SERVICE.updatePrimaryIDDocument(
       record.PersonaId__c,
       requestBody
     );
@@ -190,8 +191,9 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
   public COBTaxResidencyModel cobTaxResidencyDetokenization(
     COBTaxResidency__c taxResidency
   ) {
-    Service s = ServiceProvider.getService(StravinskyService.class);
-    HttpCalloutResponse response = s.detokenizeCOBTaxResidency(taxResidency);
+    HttpCalloutResponse response = SERVICE.detokenizeCOBTaxResidency(
+      taxResidency
+    );
 
     if (response.successful == false || throwException == true) {
       throw CommonUtil.logException(mockException());

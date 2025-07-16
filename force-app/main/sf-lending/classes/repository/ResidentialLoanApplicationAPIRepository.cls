@@ -6,6 +6,9 @@
  */
 //@SuppressWarnings('PMD.ExcessiveParameterList')
 public with sharing class ResidentialLoanApplicationAPIRepository extends RepositoryBase {
+  private static final SOPService SOP_SERVICE = (SOPService) Lib_InstanceProvider.forType(
+    SOPService.class
+  );
   /**
    * @param ocvId ocv id of the customer account
    * @param sopId sop id to retrieve customer information
@@ -130,26 +133,13 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
    * @description fetches a list of assets from flex for a sop, deserialized to a model
    */
   public SOPModel getSOP(String ocvId, String sopId) {
-    Service s = ServiceProvider.getService(BOHService.class);
     SOPModel sopCache = DataPartitionUtil.getSOPDetailsCache(sopId);
     if (sopCache != null) {
       return sopCache;
     }
 
-    HttpCalloutResponse response = s.getSOP(ocvId, sopId);
-    if (response.successful == false) {
-      throw response.error;
-    }
-    try {
-      DataPartitionUtil.storeSOPDetailsCache(
-        sopId,
-        SOPModel.parse(response.body)
-      );
-      return SOPModel.parse(response.body);
-    } catch (Exception e) {
-      handleErrors(response, e, SOPModel.class);
-    }
-    return null;
+    HttpCalloutResponse response = SOP_SERVICE.getSOP(ocvId, sopId);
+    return handleGetSOPResponse(response, sopId);
   }
 
   /**
@@ -294,6 +284,45 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
     } catch (Exception e) {
       handleErrors(response, e, ResidentialLoanApplicationAPIRepository.class);
       return null;
+    }
+  }
+
+  /**
+   * @description process the response received from callout
+   * @param response Http Callout Response
+   * @param sopId sop id to retrieve customer information
+   * @return SOPModel
+   */
+  private static SOPModel handleGetSOPResponse(
+    HttpCalloutResponse response,
+    String sopId
+  ) {
+    if (response.successful == false) {
+      throw new UnhandledGetSOPException(response);
+    }
+    DataPartitionUtil.storeDataToCache(
+      BOHConstants.CACHE_DATA_KEY_PREFIX_SOPINELIGIBLE + sopId,
+      SOPModel.parse(response.body)
+    );
+
+    return SOPModel.parse(response.body);
+  }
+
+  /**
+   * @description Exception class for Unhandled Get SOP API Response
+   */
+  public class UnhandledGetSOPException extends Exception {
+    /**
+     * @description Exception class for Unhandled Get SOP API Response
+     * @param response HttpCalloutResponse
+     */
+    public UnhandledGetSOPException(HttpCalloutResponse response) {
+      this(response.error.getMessage());
+      Logger.error(
+          'UnhandledGetSOPException SOPService: getSOP',
+          response.error
+        )
+        .save();
     }
   }
 }

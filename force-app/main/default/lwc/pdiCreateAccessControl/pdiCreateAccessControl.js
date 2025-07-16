@@ -1,0 +1,146 @@
+import { LightningElement, api, wire, track } from "lwc";
+import { NavigationMixin } from "lightning/navigation";
+import { EnclosingTabId, closeTab } from "lightning/platformWorkspaceApi";
+import { getRecord, getFieldValue } from "lightning/uiRecordApi";
+import { SimpleToast, SimpleNav } from "c/utils";
+
+export default class PdiCreateAccessControl extends NavigationMixin(
+  LightningElement
+) {
+  ERROR_MAP = {
+    already_exists: "Access control already exists."
+  };
+  toast = new SimpleToast(this);
+  nav = new SimpleNav(this);
+
+  @api recordId;
+  @api objectApiName;
+  @api parentId;
+  @api parentObjectApiName;
+
+  layoutInfo;
+  objectInfo;
+  fieldCounter = 0;
+  isLoading = true;
+  @track record = {};
+
+  @wire(EnclosingTabId) tabId;
+
+  //NOTE: field names are hard-coded since importing from schema is bugged for external objects.
+  @wire(getRecord, {
+    recordId: "$parentId",
+    fields: [
+      "PersonDigitalIdentity__x.UUID__c",
+      "PersonDigitalIdentity__x.Persona_ID__c"
+    ]
+  })
+  wireParentRecord({ error, data }) {
+    if (error) {
+      this.toast.error("Error loading parent record");
+      this.handler.close();
+    }
+    if (!data) return;
+
+    this.record = {
+      PersonId__c: getFieldValue(data, "PersonDigitalIdentity__x.UUID__c"),
+      PersonaId__c: getFieldValue(
+        data,
+        "PersonDigitalIdentity__x.Persona_ID__c"
+      )
+    };
+    this.isLoading = false;
+  }
+
+  get sections() {
+    return this.layoutInfo.filter((section) => {
+      let visible = true;
+      if (section.heading === "Conditional Advice") {
+        visible = this.record.Policy__c === "POLICY_CONDITIONAL";
+      }
+      section.fields.forEach((field) => {
+        if (!visible) {
+          delete this.record[field.apiName];
+        }
+        field.value = this.record[field.apiName];
+      });
+      return visible;
+    });
+  }
+
+  connectedCallback() {
+    if (this.parentId) return;
+
+    this.toast.error("Parent record not found");
+    closeTab(this.tabId);
+  }
+
+  handler = {
+    load: (e) => {
+      if (this.objectInfo) return;
+
+      this.objectInfo = e.detail.objectInfos.AccessControl__x;
+      this.layoutInfo = this.helper.transformLayout(e.detail.layout);
+    },
+    change: (e) => (this.record[e.target.dataset.apiname] = e.detail.value),
+    submit: (e) => {
+      this.isLoading = true;
+      e.preventDefault();
+      this.template.querySelector("lightning-record-edit-form").submit({
+        ...e.detail.fields,
+        ...this.record
+      });
+    },
+    error: (e) => {
+      this.isLoading = false;
+      let message = e.detail.message;
+      try {
+        const error = JSON.parse(e.detail.detail);
+        const code = error.additionalInfo.errorDetails.code;
+        message = this.ERROR_MAP[code] ?? e.detail.message;
+      } catch {
+        console.error("Error parsing message, fallback to default message.");
+      }
+      this.toast.error(message);
+    },
+    success: (e) => {
+      this.toast.success(`${this.objectInfo.label} created successfully`);
+      this.nav.toRecord(e.detail.id);
+    },
+    close: () => this.nav.toRecord(this.parentId)
+  };
+
+  helper = {
+    transformLayout: (layoutInfo) =>
+      layoutInfo.sections
+        .map((section) => ({
+          heading: section.heading,
+          fields: section.layoutRows
+            .flatMap((row) => row.layoutItems)
+            .flatMap((item) => this.helper.transformLayoutItem(item))
+        }))
+        .filter((section) =>
+          section.fields.some((field) => field.is.visible && field.apiName)
+        ),
+    transformLayoutItem: (item) =>
+      item.layoutComponents.map((cmp) => {
+        const editable = this.helper.fieldEditable(cmp.apiName);
+        const readonly = item.uiBehavior === "Readonly";
+        return {
+          id: this.fieldCounter++,
+          is: {
+            [cmp.apiName ?? "blankSpace"]: true,
+            required: item.required,
+            visible: editable || !cmp.apiName,
+            disabled: readonly && editable
+          },
+          ...cmp
+        };
+      }),
+    fieldEditable: (field) => {
+      const info = this.objectInfo.fields[field];
+      if (!info) return false;
+
+      return this.recordId ? info.updateable : info.createable;
+    }
+  };
+}

@@ -26,6 +26,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Support_Topics__c</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>ANZ_Number__c</field>
             <table>Interaction</table>
         </columns>
@@ -176,6 +181,26 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Loan_Application__c</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Products__c</field>
+            <table>Interaction.Interactions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Loan_Application__c</field>
+            <table>Interaction.Interactions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ReasonforVisit__c</field>
+            <table>Interaction.Interactions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>LastModifiedBy</field>
             <table>Interaction</table>
         </columns>
@@ -249,6 +274,26 @@
             <field>Owner</field>
             <table>Interaction</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Actual_Topic__c</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Reason_For_Visit__c</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Products__c</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Actual_Topic__c</field>
+            <table>Interaction.Interactions__r</table>
+        </columns>
         <masterLabel>Interactions</masterLabel>
     </sections>
     <sections>
@@ -264,8 +309,18 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Support_Topics__c</field>
+            <table>Interaction.Interactions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Category__c</field>
             <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Reason_For_Visit__c</field>
+            <table>Interaction.Interactions__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>

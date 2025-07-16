@@ -24,6 +24,18 @@ public with sharing class MobileLendingOpportunityTriggerHandler extends Lib_Tri
   }
 
   /**
+   * @description onBeforeUpdate to handle after update trigger actions.
+   * @name onBeforeUpdate
+   * @param oldMap old trigger values
+   */
+  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    OpportunityActions.transferOpportunityOwnership(
+      records,
+      (Map<Id, Opportunity>) oldMap
+    );
+  }
+
+  /**
    * @description onAfterUpdate to handle after update trigger actions.
    * @name onAfterUpdate
    * @param oldMap This Map<Id, SObject> contains the map which holds the previous values of Opportunity.

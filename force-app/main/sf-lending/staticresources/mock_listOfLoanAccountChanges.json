@@ -1,0 +1,18 @@
+{
+  "changes": [
+    {
+      "name": "accounts/391450876/changes/aa15100e-ce05-4c2e-bbc4-b9d1031da112",
+      "request": {
+        "productType": "LOAN_PRODUCT_TYPE_INVESTOR"
+      },
+      "updateMask": "Property Use",
+      "response": {
+        "productType": "LOAN_PRODUCT_TYPE_OWNER_OCCUPIED"
+      },
+      "approval": {
+        "state": "STATE_APPROVED",
+        "updatedTime": "2025-02-20T06:21:43.340395613Z"
+      }
+    }
+  ]
+}

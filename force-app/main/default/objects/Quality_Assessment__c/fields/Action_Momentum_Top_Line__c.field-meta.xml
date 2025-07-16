@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Action_Momentum_Top_Line__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Multi-select values for the Action &amp; Momentum.</description>
+    <label>Action &amp; Momentum Top Line</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Appropriate Solutions</fullName>
+                <default>false</default>
+                <label>Appropriate Solutions</label>
+            </value>
+            <value>
+                <fullName>Coaching / Educating the Customer</fullName>
+                <default>false</default>
+                <label>Coaching / Educating the Customer</label>
+            </value>
+            <value>
+                <fullName>Reducing Customer Time / Effort</fullName>
+                <default>false</default>
+                <label>Reducing Customer Time / Effort</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Relevant Process Completed Correctly</fullName>
+                <default>false</default>
+                <label>Relevant Process Completed Correctly</label>
+            </value>
+            <value>
+                <fullName>Complete &amp; Relevant Information</fullName>
+                <default>false</default>
+                <label>Complete &amp; Relevant Information</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>

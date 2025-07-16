@@ -71,4 +71,9 @@
         <default>false</default>
         <label>BOH Web Explore call back request</label>
     </standardValue>
+    <standardValue>
+        <fullName>TASK_TYPE_PUSH_TO_APP</fullName>
+        <default>false</default>
+        <label>Push To App</label>
+    </standardValue>
 </StandardValueSet>

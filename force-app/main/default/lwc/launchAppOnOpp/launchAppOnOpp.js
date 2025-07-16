@@ -1,141 +1,210 @@
 import { LightningElement, api, track, wire } from "lwc";
 import { CloseActionScreenEvent } from "lightning/actions";
-import { ShowToastEvent } from "lightning/platformShowToastEvent";
-import OPPORTUNITY_ID from "@salesforce/schema/Opportunity.Opp_Id__c";
-import SOURCE_SYSTEM_ID from "@salesforce/schema/Opportunity.Account.Source_System_ID__c";
-import { getRecord, getFieldValue } from "lightning/uiRecordApi";
-import { getObjectInfo } from "lightning/uiObjectInfoApi";
 import getOpportunityLineItems from "@salesforce/apex/LaunchAppOnOppController.getOpportunityLineItems";
 import createApplication from "@salesforce/apex/LaunchAppOnOppController.createApplication";
-import BBD_Link from "@salesforce/label/c.BBD_Link";
-import CLP_Link from "@salesforce/label/c.CLP_Link";
-import ACM_Link from "@salesforce/label/c.ACM_Link";
+import populateRecordTypeWrapper from "@salesforce/apex/LaunchAppOnOppController.populateRecordTypeWrapper";
+import validateOpportunity from "@salesforce/apex/LaunchAppOnOppController.validateOpportunity";
+import getAMBITResponse from "@salesforce/apex/LaunchAppOnOppController.getAMBITResponse";
 import { NavigationMixin } from "lightning/navigation";
 import { publish, MessageContext } from "lightning/messageService";
 import CloseModal from "@salesforce/messageChannel/CloseModal__c";
-
-const columns = [
-  {
-    label: "Product",
-    fieldName: "productURL",
-    type: "url",
-    typeAttributes: {
-      label: {
-        fieldName: "productName"
-      },
-      target: "_self"
-    },
-    sortable: true
-  },
-  {
-    label: "Unit Price",
-    fieldName: "unitPrice",
-    type: "currency",
-    cellAttributes: { alignment: "left" }
-  },
-  { label: "Funding Purpose", fieldName: "fundingPurpose" }
-];
-const fields = [OPPORTUNITY_ID, SOURCE_SYSTEM_ID];
+import { showToast, handleErrorShowToast } from "c/utils"; // Importing the methods from Utils.js
 
 export default class LaunchAppOnOpp extends NavigationMixin(LightningElement) {
   disableNext = true;
-  disableSave = true;
-  showRadio = true;
-  @api recordId;
+  showRecordTypes = true;
   @track
   data = [];
   @track
-  columns = columns;
-  isLoading = true;
+  isLoading = false;
   CONSTANT = {
     HEADER_TEXT: "Where would you like to launch this application?",
-    AMBIT: "AMBIT",
-    BBD: "BBD",
-    CLP: "CLP",
-    INTERNAL_APPLICATION: "Internal Application",
     CANCEL: "Cancel",
     SAVE: "Save",
     BACK: "Back",
-    ACM: "ACM"
+    PRODUCT: "Product",
+    UNITPRICE: "Unit Price",
+    FUNDINGPURPOSE: "Funding Purpose"
   };
-  selectedOppLineItemIds = [];
   buttonLabel;
-  oppId;
-  sourceSystemId;
-  originationSystemLinks = [
-    {
-      BBD: BBD_Link
-    },
-    { CLP: CLP_Link },
-    { ACM: ACM_Link }
-  ];
   noOppItemsMessage = "No opportunity line items found";
   showTable = false;
-  @track appFormRecordTypes = [];
+  @track selectedRowIds = [];
+  allRowsSelected = false;
+  @track
+  recordTypeList = [];
+  allowMultiple;
+  _recordId;
+  invalidOpportunity = false;
+  @track validationMessage = [];
+  @api
+  set recordId(value) {
+    this._recordId = value;
+    this.getAppFormRecordTypeWrapper();
+  }
+  recordTypeRec;
+  recordTypeIdValue;
+
+  get recordId() {
+    return this._recordId;
+  }
+
+  get disableSave() {
+    return this.selectedRowIds.length > 0 ? false : true;
+  }
 
   @wire(MessageContext)
   messageContext;
 
-  @wire(getObjectInfo, { objectApiName: "ApplicationForm" })
-  getObjectInfo({ error, data }) {
-    if (data) {
-      this.appFormRecordTypes = [];
-      for (let key in data.recordTypeInfos) {
-        if (data.recordTypeInfos[key].name !== "Master") {
-          this.appFormRecordTypes.push({
-            value: key,
-            label: data.recordTypeInfos[key].name
-          });
-        }
-      }
-    } else if (error) {
-      this.showToast("Error", "Error", error.body.message, "Dismissable");
-      this.appFormRecordTypes = [];
-    }
-  }
-
-  @wire(getRecord, { recordId: "$recordId", fields }) record({ data }) {
-    if (data) {
-      this.oppId = getFieldValue(data, OPPORTUNITY_ID);
-      this.sourceSystemId = getFieldValue(data, SOURCE_SYSTEM_ID);
-    }
-  }
-
-  handleClick(event) {
-    this.buttonLabel = event.target.label;
-    this.showRadio = this.buttonLabel ? false : true;
-    if (this.showRadio) {
-      return;
-    }
-    getOpportunityLineItems({
-      oppId: this.recordId
+  getAppFormRecordTypeWrapper() {
+    this.isLoading = true;
+    populateRecordTypeWrapper({
+      oppId: this._recordId
     })
       .then((result) => {
-        this.showTable = result && result.length > 0;
         if (result) {
-          this.data = result;
+          this.recordTypeList = result;
+          this.showRecordTypes = this.recordTypeList.length > 0;
+        } else {
+          handleErrorShowToast(
+            this,
+            "Error",
+            result,
+            "Loan Origination Systems could not be retrieved.",
+            "dismissable"
+          );
         }
       })
       .catch((error) => {
-        this.showToast("Error", "Error", error.body.message, "Dismissable");
+        handleErrorShowToast(
+          this,
+          "Error",
+          error,
+          "Error fetching Loan Origination Systems.",
+          "dismissable"
+        );
       })
       .finally(() => {
         this.isLoading = false;
       });
   }
-  handleBack() {
-    this.showRadio = true;
+
+  handleClick(event) {
+    this.isLoading = true;
+    this.invalidOpportunity = false;
+    this.validationMessage = [];
+    this.buttonLabel = event.target.label;
+    const row = this.recordTypeList.find(
+      (recType) => recType.recordTypeName === this.buttonLabel
+    );
+    this.allowMultiple = row.allowMultiple;
+    this.showRecordTypes = false;
+    this.selectedRowIds = [];
+    this.validateOpportunityDetails(row);
   }
 
-  getSelectedRow(event) {
-    this.selectedOppLineItemIds = [];
-    const selectedRows = event.detail.selectedRows;
-    this.disableSave = selectedRows.length > 0 ? false : true;
-    for (let row in selectedRows) {
-      if (selectedRows[row].oppLineItemId) {
-        this.selectedOppLineItemIds.push(selectedRows[row].oppLineItemId);
-      }
+  validateOpportunityDetails(row) {
+    const selectedRecordType = row.recordTypeName;
+    switch (selectedRecordType) {
+      case "AMBIT":
+        validateOpportunity({
+          oppId: this._recordId
+        })
+          .then((result) => {
+            if (result) {
+              this.isLoading = false;
+              this.invalidOpportunity = true;
+              this.validationMessage.push({
+                id: this.validationMessage.length + 1,
+                body: result
+              });
+            } else {
+              this.getOpportunityLineItemsDetails();
+            }
+          })
+          .catch((error) => {
+            this.showToast("Error", "Error", error.body.message, "Dismissable");
+            this.isLoading = false;
+          });
+        break;
+      default:
+        this.getOpportunityLineItemsDetails();
     }
+  }
+
+  getOpportunityLineItemsDetails() {
+    getOpportunityLineItems({
+      oppId: this._recordId,
+      recordTypeName: this.buttonLabel
+    })
+      .then((result) => {
+        this.showTable = result && result.length > 0;
+        if (result.length > 0) {
+          this.data = result;
+        } else {
+          this.invalidOpportunity = true;
+          this.validationMessage.push({
+            id: this.validationMessage.length + 1,
+            body: this.noOppItemsMessage
+          });
+        }
+      })
+      .catch((error) => {
+        handleErrorShowToast(
+          this,
+          "Error",
+          error,
+          "Error fetching Opportunity Line Items.",
+          "dismissable"
+        );
+      })
+      .finally(() => {
+        this.isLoading = false;
+      });
+  }
+
+  handleBack() {
+    this.showRecordTypes = true;
+    this.data = [];
+    this.selectedRowIds = [];
+  }
+
+  // Handle the individual checkbox/radio selection
+  handleChange(event) {
+    const rowId = event.target.dataset.id;
+    const name = event.target.dataset.name;
+    const checked = event.target.checked;
+
+    // Find the row by id and update its selected state for checkbox
+    const row = this.data.find((item) => item.oppLineItemId === rowId);
+    if (row) {
+      row.isSelected = checked;
+    }
+    // Find the rows and update their selected/unselected state for radio
+    if (name === "radioGroup") {
+      this.data.forEach((x) => {
+        x.isSelected = x.oppLineItemId === rowId;
+      });
+    }
+    this.getSelectedOppLineItemIds();
+  }
+
+  // Handle the 'Select All' checkbox selection
+  handleSelectAll(event) {
+    const checked = event.target.checked;
+
+    // Update all rows selected state based on 'Select All' checkbox
+    this.data.forEach((row) => {
+      row.isSelected = checked;
+    });
+    this.getSelectedOppLineItemIds();
+  }
+
+  getSelectedOppLineItemIds() {
+    this.selectedRowIds = this.data
+      .filter((row) => row.isSelected)
+      .map((row) => row.oppLineItemId);
+    this.allRowsSelected = this.selectedRowIds.length === this.data.length;
   }
 
   handleCancel() {
@@ -144,40 +213,76 @@ export default class LaunchAppOnOpp extends NavigationMixin(LightningElement) {
 
   handleSave() {
     this.isLoading = true;
-    let recordTypeRec = this.appFormRecordTypes.filter(
-      (recType) => recType.label === this.buttonLabel
+    this.recordTypeRec = this.recordTypeList.filter(
+      (recType) => recType.recordTypeName === this.buttonLabel
     );
-    let recordTypeId =
-      recordTypeRec && recordTypeRec.length > 0 ? recordTypeRec[0].value : "";
+    this.recordTypeIdValue = this.recordTypeRec?.[0]?.recordTypeId ?? "";
+    switch (this.recordTypeRec?.[0]?.recordTypeName) {
+      case "AMBIT":
+        getAMBITResponse({
+          oppId: this._recordId,
+          oppLineItemId: this.selectedRowIds[0]
+        })
+          .then((result) => {
+            if (result === true) {
+              this.createAFAndAFP();
+            }
+          })
+          .catch((error) => {
+            handleErrorShowToast(
+              this,
+              "Error",
+              "",
+              error.body.message,
+              "Dismissable"
+            );
+          })
+          .finally(() => {
+            this.isLoading = false;
+          });
+        break;
+      default:
+        this.createAFAndAFP();
+    }
+  }
 
+  createAFAndAFP() {
     createApplication({
-      oppId: this.recordId,
-      oppLineItemIds: this.selectedOppLineItemIds,
-      recordTypeId: recordTypeId
+      oppId: this._recordId,
+      oppLineItemIds: this.selectedRowIds,
+      recordTypeId: this.recordTypeIdValue
     })
       .then((result) => {
+        this.dispatchEvent(new CloseActionScreenEvent());
         if (result && result.length > 0) {
-          this.dispatchEvent(new CloseActionScreenEvent());
           this.refresh();
-          this.showToast(
-            "Success",
+          showToast(
+            this,
             "Success",
             "Application Created Successfully",
-            "Dismissable"
+            "",
+            "success",
+            "sticky"
           );
-          this.openOriginationSystemLink();
+          this.openOriginationSystemLink(this.recordTypeRec[0]?.url);
         } else {
-          this.dispatchEvent(new CloseActionScreenEvent());
-          this.showToast(
+          handleErrorShowToast(
+            this,
             "Error",
-            "Error",
-            "Some error occured!",
-            "Dismissable"
+            result,
+            "Some error occurred while creating the application.",
+            "dismissable"
           );
         }
       })
       .catch((error) => {
-        this.showToast("Error", "Error", error.body.message, "Dismissable");
+        handleErrorShowToast(
+          this,
+          "Error",
+          error,
+          "Error creating the application.",
+          "dismissable"
+        );
       })
       .finally(() => {
         this.isLoading = false;
@@ -190,36 +295,12 @@ export default class LaunchAppOnOpp extends NavigationMixin(LightningElement) {
     });
   }
 
-  // method to show toast message
-  showToast(title, variant, message, mode) {
-    const toastEvent = new ShowToastEvent({
-      title: title,
-      message: message,
-      variant: variant,
-      mode: mode
-    });
-    this.dispatchEvent(toastEvent);
-  }
-  openOriginationSystemLink() {
-    let systemName = this.buttonLabel;
-    let url;
-    this.originationSystemLinks.forEach(function (record) {
-      if (record[systemName]) {
-        url = record[systemName];
-      }
-    });
-    this.navigateToUrl(url, systemName);
-  }
-  navigateToUrl(url, systemName) {
-    let sourceSystemId = this.sourceSystemId;
-    let oppId = this.oppId;
+  openOriginationSystemLink(url) {
     if (!url) {
       return;
     }
-    if (systemName === "BBD") {
-      url = url
-        .replace("{!Account.Source_System_ID__c}", sourceSystemId)
-        .replace("{!Opportunity.Opp_Id__c}", oppId);
+    if (url.includes("{OppProductId}")) {
+      url = url.replace("{OppProductId}", this.selectedRowIds[0]);
     }
     this[NavigationMixin.Navigate]({
       type: "standard__webPage",

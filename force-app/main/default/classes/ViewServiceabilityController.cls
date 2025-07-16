@@ -65,13 +65,11 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
       String.isNotBlank(loanRec?.SOP_Id__c);
     if (result.isSubmitted && !result.reassessRequired) {
       try {
+        ViewUMIRequestModel requestBody = new ViewUMIRequestModel(loanRec);
         ViewServiceabilityAPIRepository api = new ViewServiceabilityAPIRepository();
         ViewServiceabilityModel apiResponse = api.getUMIAssessments(
-          new List<String>{ loanRec?.SOP_Id__c },
-          loanRec?.Credit_ID__c,
           loanRec?.Account?.OCV_ID__c,
-          Integer.valueOf(loanRec?.AmortizationTerm),
-          loanRec?.LotOriginalCost
+          requestBody
         );
         transformAPIToUIResponse(result, apiResponse);
       } catch (Exception ex) {
@@ -96,6 +94,7 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
     Boolean isSubmitted;
     Boolean reassessRequired;
     Decimal totalUmi;
+    Decimal maxBorrowingLimitUmi;
     String lastModified;
     List<Assessment> incomeAssessment = new List<Assessment>();
     List<Assessment> hemExpenses = new List<Assessment>();
@@ -236,6 +235,7 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
     ViewServiceabilityModel apiResponse
   ) {
     result.totalUmi = apiResponse?.totalUMI?.value();
+    result.maxBorrowingLimitUmi = apiResponse?.maxBorrowingLimitUmi?.value();
     result.lastModified = BOHService.getFormatedDate(apiResponse?.createTime);
 
     Set<String> ocvIds = new Set<String>();
@@ -351,7 +351,8 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
         Account.OCV_ID__c,
         AmortizationTerm,
         LotOriginalCost,
-        Credit_Reassess_Required__c
+        Credit_Reassess_Required__c,
+        Property_Use__c
       FROM ResidentialLoanApplication
       WHERE Id = :loanId
       LIMIT 1

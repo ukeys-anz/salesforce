@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Loan_Amount__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Sum of all Loan Application Financials</description>
+    <label>Loan Amount</label>
+    <securityClassification>Confidential</securityClassification>
+    <summarizedField>LoanApplicationFinancial.LoanExclFinMortInsAmt</summarizedField>
+    <summaryForeignKey>LoanApplicationFinancial.LoanApplicationId</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <type>Summary</type>
+</CustomField>

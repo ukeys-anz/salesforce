@@ -19,6 +19,10 @@
                 <field>Loan_Purpose__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Property_Use__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Loan_Term__c</field>
             </layoutItems>

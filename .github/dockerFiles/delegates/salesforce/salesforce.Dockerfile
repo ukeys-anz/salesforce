@@ -25,13 +25,6 @@ ARG ARTIFACTORY
 ENV NPM_CONFIG_REGISTRY=https://${ARTIFACTORY}/artifactory/api/npm/npmjs-org NODE_VERSION=20.18.0
 
 USER root
-# Install python
-# hadolint ignore=DL3033
-RUN yum install -y python27 python2-pip && \
-    yum clean all
-
-# Set Python and Pip default to Python 2, so that it is backward compatible
-RUN alternatives --set python /usr/bin/python2 && ln -s /usr/bin/pip2 /usr/bin/pip
 
 # Install yq
 ARG YQ_VERSION
@@ -53,7 +46,7 @@ RUN curl -o node.tar.gz https://${ARTIFACTORY}:443/artifactory/nodejs-dist/v${NO
   rm node.tar.gz
 
 # Install Salesforce CLI, ignore scripts to avoid binary downloads (e.g. ngrok)
-RUN npm install @salesforce/cli@2.74.6 -g --ignore-scripts
+RUN npm install @salesforce/cli@2.92.7 -g --ignore-scripts
 
 # Label image to assist in grouping/filtering of scanning reports within the twistlock console
 LABEL ci_group="ANZx-Salesforce" ci_name="ANZx-Platform"

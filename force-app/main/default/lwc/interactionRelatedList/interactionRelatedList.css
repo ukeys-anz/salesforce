@@ -34,3 +34,7 @@
 .headerFontStyling {
   font-size: 0.875rem;
 }
+
+.headerFontStyling.slds-tabs_scoped__link {
+  padding: 0 var(--lwc-spacingSmall, 1rem) !important;
+}

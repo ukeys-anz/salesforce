@@ -4,13 +4,25 @@
     <columns>
         <field>CUST_NAME</field>
     </columns>
+    <columns>
+        <field>A_Z_Review__c.Customer__c</field>
+    </columns>
+    <columns>
+        <field>CUST_OWNER_NAME</field>
+    </columns>
+    <columns>
+        <field>CUST_CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>A_Z_Review__c.A2Z_Review_Interaction_Type__c</field>
+    </columns>
     <description>A-Z Reviews completed this week</description>
     <filter>
-        <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+        <booleanFilter>1 AND (2 OR 3) AND 4</booleanFilter>
         <criteriaItems>
             <column>A_Z_Review__c.Status__c</column>
             <columnToColumn>false</columnToColumn>
-            <isUnlocked>true</isUnlocked>
+            <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
             <value>Completed</value>
         </criteriaItems>
@@ -27,6 +39,13 @@
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
             <value>$USER</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>A_Z_Review__c.My_Team_Segment__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
         </criteriaItems>
         <language>en_US</language>
     </filter>

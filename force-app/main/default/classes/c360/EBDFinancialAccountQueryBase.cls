@@ -6,8 +6,8 @@
  */
 public abstract with sharing class EBDFinancialAccountQueryBase extends ExternalObjectQueryBase {
   protected FinancialAccountExternalQueryHelper externalQueryHelper = new FinancialAccountExternalQueryHelper();
-  protected String productCategory;  
-  
+  protected String productCategory;
+
   /**
    * @description Class constractor
    */
@@ -24,13 +24,16 @@ public abstract with sharing class EBDFinancialAccountQueryBase extends External
     DataSource.QueryContext queryContext
   ) {
     this.tableName = queryContext.TableSelection.tableSelected;
-    ExternalObjectCalloutRequestBase calloutRequest = prepareCallout(queryContext, queryContext.TableSelection);
+    ExternalObjectCalloutRequestBase calloutRequest = prepareCallout(
+      queryContext,
+      queryContext.TableSelection
+    );
     HttpCalloutResponse response = makeCallout(calloutRequest);
     calloutResponse = parseResponse(response.body);
     return createExternalRecords(calloutResponse);
   }
-  
-   /**
+
+  /**
    * @description Parse query filters and prepare for API callout
    * @param queryContext DataSource QueryContext
    * @param tableSelection DataSource.TableSelection
@@ -40,15 +43,15 @@ public abstract with sharing class EBDFinancialAccountQueryBase extends External
     DataSource.QueryContext queryContext,
     DataSource.TableSelection tableSelection
   ) {
-    super.prepareCallout(
-      queryContext, 
-      queryContext.TableSelection
+    super.prepareCallout(queryContext, queryContext.TableSelection);
+    FinancialAccountEntities.FinancialAccountCalloutRequest calloutRequest = new FinancialAccountEntities.FinancialAccountCalloutRequest(
+      queryContext,
+      this.queryMode
     );
-    FinancialAccountEntities.FinancialAccountCalloutRequest calloutRequest = new FinancialAccountEntities.FinancialAccountCalloutRequest(queryContext, this.queryMode);
     calloutRequest.productCategory = this.productCategory;
-    return calloutRequest;   
-  }      
-  
+    return calloutRequest;
+  }
+
   /**
    * @description Rest API callout to get financial accounts by product codes and account numbers
    * @param calloutRequest ExternalObjectCalloutRequest
@@ -59,16 +62,17 @@ public abstract with sharing class EBDFinancialAccountQueryBase extends External
   ) {
     ARNCService service = new ARNCService();
     HttpCalloutResponse response = service.queryExternalData(calloutRequest);
-    if(response == null || !response.successful) {
+    if (response == null || !response.successful) {
       String errorMessge = String.format(
-        'Unexepcted error from makeCallout - {0} and query mode: {1}',
-        new List<Object>{ this.tableName, calloutRequest.queryMode }
+        'Unexpected error from makeCallout - {0} and query mode: {1}.\n {2}',
+        new List<Object>{
+          this.tableName,
+          calloutRequest.queryMode,
+          response?.error.getMessage()
+        }
       );
-      Logger.error(errorMessge);
-      Logger.saveLog();
-      throw new TypeException(errorMessge);
+      throw new CalloutException(errorMessge);
     }
     return response;
   }
-    
 }

@@ -69,7 +69,8 @@ public with sharing class DAONFileRequestBuilder {
       DAONFileType.DAON_FILE_TYPE_SELFIE_ENROLLED => this.idxUserId,
       DAONFileType.DAON_FILE_TYPE_SELFIE_TO_BE_ENROLLED => this.idxIdCheckId,
       DAONFileType.DAON_FILE_TYPE_EXTRACTED_FACE => this.idxExtractedFaceId,
-      DAONFileType.DAON_FILE_TYPE_SELFIE_TO_BE_VERIFIED => this.challengeId
+      DAONFileType.DAON_FILE_TYPE_SELFIE_TO_BE_VERIFIED => this.challengeId,
+      DAONFileType.DAON_FILE_TYPE_SELFIE_ANZX_REKYC_FACE => this.idxIdCheckId
     };
     Map<DAONFileType, String> uuidByType = new Map<DAONFileType, String>();
     for (String fileType : fileTypes) {

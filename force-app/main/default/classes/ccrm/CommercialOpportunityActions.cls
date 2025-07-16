@@ -4,6 +4,12 @@
  * @description This is the action class for CommercialOpportunityTriggerHandler
  */
 public with sharing class CommercialOpportunityActions {
+  @testVisible
+  private static final String OPP_WON = 'Opportunity Won';
+  @testVisible
+  private static final String OPP_LOST = 'Opportunity Lost';
+  @testVisible
+  private static final String NEW_STAGE = 'New';
   private static final CommercialOpportunityRepository OPP_REPOSITORY = (CommercialOpportunityRepository) Lib_InstanceProvider.forType(
     CommercialOpportunityRepository.class
   );
@@ -47,6 +53,7 @@ public with sharing class CommercialOpportunityActions {
     Map<Id, Opportunity> oldMap
   ) {
     Set<Id> accountIdsSet = extractAccountIds(records, oldMap);
+    Map<Id, Account> accMap = OPP_REPOSITORY.getAccountMap(accountIdsSet);
     List<FinServ__AccountAccountRelation__c> aarList = OPP_REPOSITORY.getAccountAccountRelations(
       accountIdsSet
     );
@@ -56,7 +63,7 @@ public with sharing class CommercialOpportunityActions {
       FinServ__AccountAccountRelation__c.FinServ__Account__c
     );
 
-    populateCLGAccount(records, accountToAARMap);
+    populateCLGAccount(records, accMap, accountToAARMap);
   }
 
   /**
@@ -85,20 +92,68 @@ public with sharing class CommercialOpportunityActions {
    * @description This method will populate CLG account
    * @name populateCLGAccount
    * @param oppList from the trigger
+   * @param accMap map of account
    * @param accountToAARMap Map of account to AAR
    */
   public static void populateCLGAccount(
     List<Opportunity> oppList,
+    Map<Id, Account> accMap,
     Map<Id, FinServ__AccountAccountRelation__c> accountToAARMap
   ) {
+    if (accMap.isEmpty()) {
+      return;
+    }
     for (Opportunity oppRecord : oppList) {
-      if (!accountToAARMap.containsKey(oppRecord.AccountId)) {
+      if (
+        accMap.get(oppRecord.AccountId)?.RecordTypeId == RTAccount.clgAccount
+      ) {
+        oppRecord.CLG__c = oppRecord.AccountId;
         continue;
       }
-      FinServ__AccountAccountRelation__c aarRecord = accountToAARMap.get(
-        oppRecord.AccountId
-      );
-      oppRecord.CLG__c = aarRecord?.FinServ__RelatedAccount__c;
+      oppRecord.CLG__c = accountToAARMap.get(oppRecord.AccountId)
+        ?.FinServ__RelatedAccount__c;
     }
+  }
+
+  /**
+   * @description This method will validate if AFPs are present for Opp Products and are closed before an Opportunity is closed
+   * @name validateAFPBeforeOppClose
+   * @param records from the trigger
+   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values
+   */
+  public static void validateAFPBeforeOppClose(
+    List<Opportunity> records,
+    Map<Id, Opportunity> oldMap
+  ) {
+    List<Opportunity> closedOppsList = ListUtil.filter(records, oldMap)
+      .changed(Opportunity.StageName)
+      .anyEqual(
+        new Set<SObjectField>{ Opportunity.StageName },
+        new Set<String>{ OPP_WON, OPP_LOST }
+      )
+      .toList();
+
+    Map<Id, Opportunity> closedOppsMap = new Map<Id, Opportunity>(
+      closedOppsList
+    );
+
+    //get AFPs related to Opportunities
+    List<ApplicationFormProduct> appFormProducts = OPP_REPOSITORY.getAFPRelatedToOpportunity(
+      closedOppsMap.keySet()
+    );
+
+    Map<Id, Set<Id>> oppIdToOpenAFPMap = CommercialOpportunityHelper.formOppIdToOpenAFPMap(
+      appFormProducts
+    );
+
+    Map<Id, Set<Id>> oppIdToAllAFPIdMap = CommercialOpportunityHelper.formOppIdToAllAFPIdMap(
+      appFormProducts
+    );
+
+    CommercialOpportunityHelper.addErrorOnOppForOpenAFP(
+      closedOppsMap,
+      oppIdToOpenAFPMap,
+      oppIdToAllAFPIdMap
+    );
   }
 }

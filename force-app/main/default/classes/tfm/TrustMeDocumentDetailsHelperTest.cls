@@ -97,9 +97,9 @@ public with sharing class TrustMeDocumentDetailsHelperTest {
       attachmentList.add(obj1);
       attachmentList.add(obj2);
       TrustMeDocumentRequestModel obj = new TrustMeDocumentRequestModel();
-      obj.related_user = userinfo.getUserId();
-      obj.evaluation_id = caseRecord[0].Evaluation_Id__c;
-      obj.related_id = caseRecord[0].Id;
+      obj.requestedUser = userinfo.getUserId();
+      obj.evaluationId = caseRecord[0].Evaluation_Id__c;
+      obj.relatedId = caseRecord[0].Id;
       obj.attachments = attachmentList;
       return obj;
     }

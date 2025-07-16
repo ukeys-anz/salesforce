@@ -67,7 +67,8 @@ public abstract with sharing class FinancialAccountQueryBase extends ExternalObj
   protected SourceSystemEnum sourceSystem;
   protected Boolean useProductCodeFromFinancialAccount = false;
   protected Boolean retrieveBySOQLQuery = false;
-  private static final String ML_USER_PROFILE_NAME = 'ANZ ML Standard User';
+  private static final String CCRM_USER_PROFILE_NAME = 'ANZ CCRM Standard User';
+
   /**
    * @description Class constractor
    */
@@ -129,14 +130,16 @@ public abstract with sharing class FinancialAccountQueryBase extends ExternalObj
       queryContext
     );
     response = getDetailAccounts(service, payload, response);
-    if (response == null) {
+    if (response == null || !response.successful) {
       String errorMessge = String.format(
-        'Invalid source system: {0} or query mode: {1}',
-        new List<Object>{ this.sourceSystem, queryMode }
+        'Unexpected error from makeCallout - {0} and query mode: {1}.\n {2}',
+        new List<Object>{
+          this.tableName,
+          queryMode,
+          response?.error.getMessage()
+        }
       );
-      Logger.error(errorMessge);
-      Logger.saveLog();
-      throw new TypeException(errorMessge);
+      throw new CalloutException(errorMessge);
     }
     return response;
   }
@@ -190,21 +193,12 @@ public abstract with sharing class FinancialAccountQueryBase extends ExternalObj
   private Map<String, FinServ__FinancialAccountRole__c> getRelatedFinancialAccounts(
     String parentId
   ) {
-    List<FinServ__FinancialAccountRole__c> faRoles;
-    Set<String> customerIds = new Set<String>();
     if (String.isBlank(parentId)) {
       return new Map<String, FinServ__FinancialAccountRole__c>();
     }
-    if (
-      UserInfo.getProfileId() !=
-      CommonUtil.getProfileByName(ML_USER_PROFILE_NAME).Id
-    ) {
-      customerIds = getCLGRelatedCustomerIds(this.parentId);
-    } else {
-      customerIds.add(this.parentId);
-    }
-    faRoles = externalQueryHelper.retrieveFinancialAccountsByCustomerId(
-      customerIds,
+
+    List<FinServ__FinancialAccountRole__c> faRoles = externalQueryHelper.retrieveFinancialAccountsByCustomerId(
+      new Set<String>{ this.parentId },
       productTypes,
       roleTypes
     );
@@ -428,9 +422,12 @@ public abstract with sharing class FinancialAccountQueryBase extends ExternalObj
     if (!(isQueryCAPSummaryViewAccounts() && String.isBlank(payload))) {
       return response;
     }
-    for (Integer i = 0; i < accountNumberList.size(); i++) {
-      queryParams.accounts.add(accountNumberList[i]);
+    if (accountNumberList.isEmpty()) {
+      response = new HttpCalloutResponse();
+      response.successful = true;
+      return response;
     }
+    queryParams.accounts.addAll(accountNumberList);
     response = service.queryCAPAccounts(this.productCategory, queryParams);
     return response;
   }
@@ -458,7 +455,16 @@ public abstract with sharing class FinancialAccountQueryBase extends ExternalObj
     ) {
       return response;
     }
-    Set<String> customerIds = getCLGRelatedCustomerIds(this.parentId);
+
+    Set<String> customerIds = new Set<String>{ this.parentId };
+    if (
+      //for CCRM users only
+      UserInfo.getProfileId() ==
+      CommonUtil.getProfileByName(CCRM_USER_PROFILE_NAME).Id
+    ) {
+      // retrieve the entities related to CLG
+      customerIds = getCLGRelatedCustomerIds(this.parentId);
+    }
     for (String customerId : customerIds) {
       customerId = customerId.contains('_')
         ? customerId.substringAfter('_')

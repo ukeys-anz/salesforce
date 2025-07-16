@@ -4,22 +4,26 @@
     <description>Connected app for AWS Splunk Integration.</description>
     <label>AWS Splunk Integration</label>
     <oauthConfig>
-        <callbackUrl>https://anzplus.splunkcloud.com/en-GB/app/Splunk_TA_salesforce/splunk_ta_salesforce_redirect</callbackUrl>
+        <callbackUrl>https://anzplus.splunkcloud.com/en-GB/app/Splunk_TA_salesforce/splunk_ta_salesforce_redirect
+https://anzplus.splunkcloud.com/en-US/app/Splunk_TA_salesforce/splunk_ta_salesforce_redirect</callbackUrl>
         <isAdminApproved>true</isAdminApproved>
-        <isClientCredentialEnabled>false</isClientCredentialEnabled>
+        <isClientCredentialEnabled>true</isClientCredentialEnabled>
         <isCodeCredentialEnabled>false</isCodeCredentialEnabled>
         <isCodeCredentialPostOnly>false</isCodeCredentialPostOnly>
         <isConsumerSecretOptional>false</isConsumerSecretOptional>
         <isIntrospectAllTokens>false</isIntrospectAllTokens>
+        <isNamedUserJwtEnabled>false</isNamedUserJwtEnabled>
+        <isPkceRequired>false</isPkceRequired>
+        <isRefreshTokenRotationEnabled>false</isRefreshTokenRotationEnabled>
         <isSecretRequiredForRefreshToken>true</isSecretRequiredForRefreshToken>
+        <isSecretRequiredForTokenExchange>false</isSecretRequiredForTokenExchange>
+        <isTokenExchangeEnabled>false</isTokenExchangeEnabled>
         <scopes>Api</scopes>
-        <scopes>Full</scopes>
-        <scopes>RefreshToken</scopes>
     </oauthConfig>
     <oauthPolicy>
         <ipRelaxation>ENFORCE</ipRelaxation>
+        <isTokenExchangeFlowEnabled>false</isTokenExchangeFlowEnabled>
         <refreshTokenPolicy>infinite</refreshTokenPolicy>
     </oauthPolicy>
-    <permissionSetName>Splunk Integration Tech Ops</permissionSetName>
     <profileName>Minimum Access - External Apps</profileName>
 </ConnectedApp>

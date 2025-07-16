@@ -21,7 +21,10 @@
       <template lwc:else>
         <!-- Rest of your component markup -->
         <!-- Accordion for Document Details and Documents -->
-        <lightning-accordion allow-multiple-sections-open>
+        <lightning-accordion
+          allow-multiple-sections-open
+          active-section-name={activeSections}
+        >
           <!-- Document Details Section -->
           <lightning-accordion-section
             name="evaluationOutcomes"
@@ -80,16 +83,6 @@
           </lightning-accordion-section>
 
           <lightning-accordion-section
-            name="qualityReportSelfieAndPrimaryDocument"
-            label="Quality Report - Selfie & Primary Document"
-          >
-            <c-trust-me-document-details-child
-              fields={qualityReportSelfieAndPrimaryDocument}
-              trust-me-doc-sec-error-message={trustMeDocSecErrorMessage}
-            ></c-trust-me-document-details-child>
-          </lightning-accordion-section>
-
-          <lightning-accordion-section
             name="primaryDocAndSelfie"
             label="Primary Document & Selfie Details"
           >
@@ -105,34 +98,6 @@
                 ></c-trust-me-file-download>
               </div>
             </template>
-          </lightning-accordion-section>
-
-          <lightning-accordion-section
-            name="secondaryDocuments"
-            label="Secondary Document Details"
-          >
-            <c-trust-me-document-details-child
-              fields={secondaryDocuments}
-              trust-me-doc-sec-error-message={trustMeDocSecErrorMessage}
-            ></c-trust-me-document-details-child>
-            <template lwc:if={mdtReqBodyForSecDoc}>
-              <div class="slds-p-top_medium">
-                <c-trust-me-file-download
-                  layout={secondaryLayout}
-                  metadata={mdtReqBodyForSecDoc}
-                ></c-trust-me-file-download>
-              </div>
-            </template>
-          </lightning-accordion-section>
-
-          <lightning-accordion-section
-            name="qualityReportSecDocuments"
-            label="Quality Report - Secondary Document"
-          >
-            <c-trust-me-document-details-child
-              fields={qualityReportSecDocuments}
-              trust-me-doc-sec-error-message={trustMeDocSecErrorMessage}
-            ></c-trust-me-document-details-child>
           </lightning-accordion-section>
 
           <lightning-accordion-section
@@ -160,6 +125,44 @@
                 {trustMeDocSecErrorMessage}
               </p>
             </template>
+          </lightning-accordion-section>
+
+          <lightning-accordion-section
+            name="secondaryDocuments"
+            label="Secondary Document Details"
+          >
+            <c-trust-me-document-details-child
+              fields={secondaryDocuments}
+              trust-me-doc-sec-error-message={trustMeDocSecErrorMessage}
+            ></c-trust-me-document-details-child>
+            <template lwc:if={mdtReqBodyForSecDoc}>
+              <div class="slds-p-top_medium">
+                <c-trust-me-file-download
+                  layout={secondaryLayout}
+                  metadata={mdtReqBodyForSecDoc}
+                ></c-trust-me-file-download>
+              </div>
+            </template>
+          </lightning-accordion-section>
+
+          <lightning-accordion-section
+            name="qualityReportSelfieAndPrimaryDocument"
+            label="Quality Report - Selfie & Primary Document"
+          >
+            <c-trust-me-document-details-child
+              fields={qualityReportSelfieAndPrimaryDocument}
+              trust-me-doc-sec-error-message={trustMeDocSecErrorMessage}
+            ></c-trust-me-document-details-child>
+          </lightning-accordion-section>
+
+          <lightning-accordion-section
+            name="qualityReportSecDocuments"
+            label="Quality Report - Secondary Document"
+          >
+            <c-trust-me-document-details-child
+              fields={qualityReportSecDocuments}
+              trust-me-doc-sec-error-message={trustMeDocSecErrorMessage}
+            ></c-trust-me-document-details-child>
           </lightning-accordion-section>
 
           <lightning-accordion-section

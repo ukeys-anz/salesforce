@@ -54,6 +54,10 @@ public with sharing class QualityAssessmentActions {
     DmlRepository.class
   );
 
+  static final QualityAssessmentRepository QA_REPOSITORY = (QualityAssessmentRepository) Lib_InstanceProvider.forType(
+    QualityAssessmentRepository.class
+  );
+
   /**
    * @description method to determine if a Case is a Dispute case, not CMOS case, if Dispute case, add this case to qaQualifiedCases List
    * @param record case record to determine
@@ -72,24 +76,32 @@ public with sharing class QualityAssessmentActions {
     List<Quality_Assessment__c> records,
     Map<Id, Quality_Assessment__c> oldMap
   ) {
-    Set<Id> interactionIds = new Set<Id>();
-    for (Quality_Assessment__c record : records) {
-      Id oldRelatedInteraction = oldMap?.get(record.Id).Interaction__c;
-      if (record.Interaction__c != oldRelatedInteraction) {
-        interactionIds.add(record.Interaction__c);
-      }
-    }
+    List<Quality_Assessment__c> eligibleRecords = ListUtil.filter(
+        records,
+        oldMap
+      )
+      .changed(Quality_Assessment__c.Interaction__c)
+      .toList();
 
-    if (interactionIds.size() > 0) {
-      Map<Id, Interaction> interations = getInteractions(interactionIds);
-      for (Quality_Assessment__c record : records) {
-        record.Interaction_Date_Time__c = interations.get(record.Interaction__c)
-          ?.CreatedDate;
-        record.Lead__c = interations.get(record.Interaction__c)?.Lead__c;
-        record.Related_Case__c = interations.get(record.Interaction__c)
-          ?.CaseId__c;
-        record.Customer__c = interations.get(record.Interaction__c)?.AccountId;
-      }
+    Set<Id> interactionIds = ListUtil.getIds(
+      eligibleRecords,
+      Quality_Assessment__c.Interaction__c
+    );
+
+    Map<Id, Interaction> interations = QA_REPOSITORY.getInteractions(
+      interactionIds
+    );
+
+    List<Quality_Assessment__c> filteredQARecords = ListUtil.filter(records)
+      .equals(Quality_Assessment__c.Interaction__c, interations.keySet())
+      .toList();
+
+    for (Quality_Assessment__c record : filteredQARecords) {
+      Interaction interactionRecord = interations.get(record.Interaction__c);
+      record.Interaction_Date_Time__c = interactionRecord?.CreatedDate;
+      record.Lead__c = interactionRecord?.Lead__c;
+      record.Related_Case__c = interactionRecord?.CaseId__c;
+      record.Customer__c = interactionRecord?.AccountId;
     }
   }
   /**
@@ -134,61 +146,24 @@ public with sharing class QualityAssessmentActions {
     Map<Id, Quality_Assessment__c> qaMap = new Map<Id, Quality_Assessment__c>(
       qaRecordsWithRelatedCase
     );
-
-    if (Quality_Assessment__c.SObjectType.getDescribe().isAccessible()) {
-      List<Quality_Assessment__c> recordsWithcaseDetails = getRelatedCaseDetailsForQARecords(
-        qaMap.keySet()
-      );
-      for (Quality_Assessment__c record : recordsWithcaseDetails) {
-        calculateAndAssignFieldsToQA(record);
-        recordsToUpdate.add(record);
-      }
+    if (
+      Quality_Assessment__c.SObjectType.getDescribe().isAccessible() == false
+    ) {
+      return recordsToUpdate;
     }
+
+    List<Quality_Assessment__c> recordsWithcaseDetails = QA_REPOSITORY.getRelatedCaseDetailsForQARecords(
+      qaMap.keySet()
+    );
+
+    for (Quality_Assessment__c record : recordsWithcaseDetails) {
+      calculateAndAssignFieldsToQA(record);
+      recordsToUpdate.add(record);
+    }
+
     return recordsToUpdate;
   }
-  /**
-   * @description method to get details of related case fields for set of QA records
-   * @param qaRecordIds set of quality assessment record Ids
-   * @return list of Quality Assessment Records with case Details
-   */
-  @TestVisible
-  private static List<Quality_Assessment__c> getRelatedCaseDetailsForQARecords(
-    Set<Id> qaRecordIds
-  ) {
-    return [
-      SELECT
-        Id,
-        OwnerId,
-        Evaluation_Type__c,
-        RecordTypeId,
-        Interaction_Type__c,
-        Interaction_Date_Time__c,
-        Related_Case__c,
-        Related_Case__r.CaseNumber,
-        Related_Case__r.Owner.Type,
-        Related_Case__r.OwnerId,
-        Related_Case__r.Origin,
-        Related_Case__r.AccountId,
-        Related_Case__r.ClosedDate,
-        toLabel(Related_Case__r.Type),
-        toLabel(Related_Case__r.IDR_Subsequent_Issue__c)
-      FROM Quality_Assessment__c
-      WHERE Id IN :qaRecordIds
-    ];
-  }
 
-  /**
-   * @description method to get details of related case fields for set of case records
-   * @param caseIds set of caseIds
-   * @return list of Case records
-   */
-  private static List<Case> getUserDetailsFromCase(Set<Id> caseIds) {
-    return [
-      SELECT Id, OwnerId, Owner.Type, CaseOwnerManager__c
-      FROM Case
-      WHERE Id IN :caseIds
-    ];
-  }
   /**
    * @description populate related Case User Details on QA REcord
    * @param records new values
@@ -206,13 +181,21 @@ public with sharing class QualityAssessmentActions {
       }
       caseIds.add(record.Related_Case__c);
     }
-    if (Case.SObjectType.getDescribe().isAccessible()) {
-      Map<Id, Case> caseMap = new Map<Id, Case>(
-        getUserDetailsFromCase(caseIds)
-      );
-      assignUsersDetailsToQaFields(caseMap, records);
+    if (Case.SObjectType.getDescribe().isAccessible() == false) {
+      return;
     }
+
+    Map<Id, Case> caseMap = new Map<Id, Case>(
+      QA_REPOSITORY.getUserDetailsFromCase(caseIds)
+    );
+
+    if (caseMap.isEmpty()) {
+      return;
+    }
+
+    assignUsersDetailsToQaFields(caseMap, records);
   }
+
   /**
    * @description method to assign User Details for Case Manager, Team Manager and CQ Specialist on a Quality Assessment record
    * @param caseMap Map of related case records
@@ -481,43 +464,34 @@ public with sharing class QualityAssessmentActions {
     List<Quality_Assessment__c> records,
     Map<Id, Quality_Assessment__c> oldMap
   ) {
-    List<Quality_Assessment__c> qaToCreateSharingRecord = new List<Quality_Assessment__c>();
-    for (Quality_Assessment__c qa : records) {
-      if (oldMap != null) {
-        Quality_Assessment__c oldRecord = oldMap.get(qa.Id);
-        //share evaluation completed QA with interaction owner
-        if (
-          qa.Interaction_Owner__c != null &&
-          oldRecord.Sub_Status__c != 'Evaluation Completed' &&
-          qa.Sub_Status__c == 'Evaluation Completed'
-        ) {
-          qaToCreateSharingRecord.add(qa);
+    List<Quality_Assessment__Share> qaShareRecords = new List<Quality_Assessment__Share>();
+
+    List<Quality_Assessment__c> eligibleRecords = ListUtil.filter(
+        records,
+        oldMap
+      )
+      .changedTo(Quality_Assessment__c.Sub_Status__c, 'Evaluation Completed')
+      .isNotNull(Quality_Assessment__c.Interaction_Owner__c)
+      .notEquals(
+        Quality_Assessment__c.RecordTypeId,
+        new Set<Id>{
+          RTQualityAssessment.getHelp,
+          RTQualityAssessment.lendingEvaluation,
+          RTQualityAssessment.getHelpAppointment
         }
-      }
+      )
+      .toList();
+
+    for (Quality_Assessment__c qa : eligibleRecords) {
+      Quality_Assessment__Share newQAShare = new Quality_Assessment__Share(
+        AccessLevel = 'Read',
+        ParentId = qa.Id,
+        UserOrGroupId = qa.Interaction_Owner__c
+      );
+      qaShareRecords.add(newQAShare);
     }
-    if (!qaToCreateSharingRecord.isEmpty()) {
-      List<Quality_Assessment__Share> qaShareRecords = new List<Quality_Assessment__Share>();
-      for (Quality_Assessment__c qa : qaToCreateSharingRecord) {
-        Quality_Assessment__Share newQAShare = new Quality_Assessment__Share(
-          AccessLevel = 'Read',
-          ParentId = qa.Id,
-          UserOrGroupId = qa.Interaction_Owner__c
-        );
-        qaShareRecords.add(newQAShare);
-      }
-      try {
-        if (
-          Quality_Assessment__Share.SObjectType.getDescribe().isCreateable()
-        ) {
-          insert qaShareRecords;
-        }
-      } catch (Exception e) {
-        Logger.error(
-          'Error creating Quality Assessment Sharing Record: ' + e.getMessage()
-        );
-        Logger.saveLog();
-      }
-    }
+
+    DML.doInsert(qaShareRecords);
   }
   /**
    * @description update related case after QA is inserted or updated
@@ -625,23 +599,5 @@ public with sharing class QualityAssessmentActions {
       }
     }
     return groupsByName;
-  }
-  /**
-   * @description get related interaction by ids
-   * @param interactionIds interaction ids
-   * @return  `Map<Id, Interaction>` map of interaction
-   */
-  public static Map<Id, Interaction> getInteractions(Set<Id> interactionIds) {
-    Map<Id, Interaction> interactions = new Map<Id, Interaction>();
-    if (Interaction.SObjectType.getDescribe().isQueryable()) {
-      interactions = new Map<Id, Interaction>(
-        [
-          SELECT Id, CreatedDate, Lead__c, CaseId__c, AccountId
-          FROM Interaction
-          WHERE Id IN :interactionIds
-        ]
-      );
-    }
-    return interactions;
   }
 }

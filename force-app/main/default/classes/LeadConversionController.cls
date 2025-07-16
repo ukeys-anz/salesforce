@@ -70,7 +70,7 @@ public with sharing class LeadConversionController {
   /**
    * @param record Lead record from lwc component.
    * @return CCRMSearchPartyInfo for lwc
-   * @description called from lead conversion lwc component
+   * @description called from lead conversion lwc component.
    */
   @AuraEnabled(cacheable=false)
   public static CCRMSearchPartyInformationWrapper.CCRMSearchPartyInfoWrapper searchPartyInfoLWC(
@@ -280,6 +280,9 @@ public with sharing class LeadConversionController {
           record
         );
         leadConverionFlow = true;
+        leadRecord.New_to_Bank__c = record.RecordTypeId == RTLead.commercialLead
+          ? 'Yes'
+          : leadRecord.New_to_Bank__c;
         Boolean isLeadUpdated = LeadConversionHelper.updateLead(leadRecord);
         if (!isLeadUpdated) {
           return maintainResult;

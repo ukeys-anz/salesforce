@@ -56,6 +56,32 @@ public with sharing class COBCaseRepository {
   }
 
   /**
+   * @description Queries Customer Onboarding Applications with their primary ID documents.
+   * @param cobIds Set of Customer Onboarding Application IDs.
+   * @return List<CustomerOnboardingApplication__c> List of Customer Onboarding Applications with their primary ID documents.
+   */
+  public List<CustomerOnboardingApplication__c> queryCobsWithPid(
+    Set<Id> cobIds
+  ) {
+    if (cobIds.isEmpty()) {
+      return new List<CustomerOnboardingApplication__c>();
+    }
+    return [
+      SELECT
+        Id,
+        (
+          SELECT Id
+          FROM COBPrimaryIDDocuments__r
+          ORDER BY CreatedDate DESC
+          LIMIT 1
+        )
+      FROM CustomerOnboardingApplication__c
+      WHERE Id IN :cobIds
+      WITH USER_MODE
+    ];
+  }
+
+  /**
    * @description Check whether the logged in user has Join Leasd role
    * @return Boolean True if a user is Join Lead, false otherwise
    */
