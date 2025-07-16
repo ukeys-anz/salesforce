@@ -6,8 +6,8 @@
  */
 public with sharing class FinancialAccountControllerAction {
   private static final Integer DEFAULT_SORT_ORDER = 999;
-  public static final String ORIGIN = 'PRODUCT_ORIGIN_ARC';
-  public static final String DEFAULT_ICON = 'custom:custom51';
+  private static final String ORIGIN = 'PRODUCT_ORIGIN_ARC';
+  private static final String DEFAULT_ICON = 'custom:custom51';
   /**
    * @description Groups financial accounts based on product code .
    * @param finAccounts list of financial accounts received from fabric or database.

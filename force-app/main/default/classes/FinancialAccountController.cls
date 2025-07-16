@@ -38,7 +38,7 @@ public with sharing class FinancialAccountController {
     'OWNERSHIP_TYPE_MULTIPARTY' => 'Joint',
     'OWNERSHIP_TYPE_SINGLEPARTY' => 'Single'
   };
-  public static final String ORIGIN = 'PRODUCT_ORIGIN_ARC';
+  private static final String ORIGIN = 'PRODUCT_ORIGIN_ARC';
 
   /**
    * @description This method is an orchestration layer for retrieving financial accounts, grouped accounts , add metadata values and sort grouped records
