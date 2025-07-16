@@ -1,5 +1,8 @@
 import { LightningElement, api } from "lwc";
-import { fetchTooltipContent } from "./helper/dynamicTooltipUtilHelper";
+import {
+  loadTooltipMap,
+  fetchTooltipContent
+} from "./helper/dynamicTooltipUtilHelper";
 
 export default class DynamicTooltipUtil extends LightningElement {
   @api headerTitle;
@@ -7,9 +10,12 @@ export default class DynamicTooltipUtil extends LightningElement {
   @api productName;
   hasRendered = false;
 
-  renderedCallback() {
+  async renderedCallback() {
     if (!this.hasRendered) {
       this.hasRendered = true;
+
+      await loadTooltipMap();
+
       const tooltipContentMarkup = this.template.querySelector(
         ".tooltip-content-markup"
       );
