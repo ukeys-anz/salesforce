@@ -106,6 +106,13 @@ public with sharing class CommercialLeadPlatformEventActions {
     Map<Id, Account> mapOfAccount
   ) {
     List<Lead_Event__e> leadEventList = new List<Lead_Event__e>();
+    List<CCRM_Lead_to_Platform_Event_Mapping__mdt> filteredMdtRecords = QueryLeadToPlatformEventMapping.get(
+      DESTINATION_SYSTEM_ALL
+    );
+
+    filteredMdtRecords.addAll(
+      QueryLeadToPlatformEventMapping.get(DESTINATION_SYSTEM_UNICA)
+    );
     for (Lead record : records) {
       Lead_Event__e leadEvent = new Lead_Event__e();
 
@@ -114,34 +121,13 @@ public with sharing class CommercialLeadPlatformEventActions {
 
       mapOwnerLanIds(record, mapOfOwnerLanIds, leadEvent);
 
-      getUnicaPlatformEventMapping(record, leadEvent);
+      generateLeadEventFromMd(record, filteredMdtRecords, leadEvent);
 
       mapSourceSystemIds(mapOfAccount, record, leadEvent);
 
       leadEventList.add(leadEvent);
     }
     return leadEventList;
-  }
-
-  /**
-   * @description This method returns required platform event fields for UNICA
-   * @name getUnicaPlatformEventMapping
-   * @param record Lead record
-   * @param leadEvent Platform event
-   */
-  private static void getUnicaPlatformEventMapping(
-    Lead record,
-    Lead_Event__e leadEvent
-  ) {
-    List<CCRM_Lead_to_Platform_Event_Mapping__mdt> filteredMdtRecords = QueryLeadToPlatformEventMapping.get(
-      DESTINATION_SYSTEM_ALL
-    );
-
-    filteredMdtRecords.addAll(
-      QueryLeadToPlatformEventMapping.get(DESTINATION_SYSTEM_UNICA)
-    );
-
-    generateLeadEventFromMd(record, filteredMdtRecords, leadEvent);
   }
 
   /**
