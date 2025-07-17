@@ -518,9 +518,7 @@ public without sharing class MLCRMSharingUtil {
         Sobject objShareObject = getNewSObject(
           objTerritoryMtd.Sharing_Object__c
         );
-        String strParentId = !strSobjectName.contains(
-            MLCRMConstants.UNDERSCORE_C
-          )
+        String strParentId = !objTerritoryMtd.IsParentIdField__c
           ? strSobjectName + 'Id'
           : 'ParentId';
         String strAccessLevel = !strSobjectName.contains(

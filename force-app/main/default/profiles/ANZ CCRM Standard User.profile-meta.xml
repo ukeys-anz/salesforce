@@ -457,7 +457,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CCRMCampaignActions</apexClass>
+        <apexClass>CampaignActions</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -565,10 +565,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CCRMLeadActionsHelperTest</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>LeadConversionController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -621,10 +617,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CCRMLeadTriggerHandlerTest</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>CCRMLeadUtil</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -637,7 +629,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CCRMLogAResponseController</apexClass>
+        <apexClass>LogAResponseController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>

@@ -28,7 +28,7 @@ private class EmailTriggerHandlerTest {
     email.TextBody = 'Test email PP is PP12345678';
     update email;
 
-    System.assertEquals(
+    Assert.areEqual(
       [SELECT Id, TextBody, HtmlBody FROM EmailMessage WHERE Id = :email.Id][0]
       .HtmlBody,
       'Test email PP is PP****5678',

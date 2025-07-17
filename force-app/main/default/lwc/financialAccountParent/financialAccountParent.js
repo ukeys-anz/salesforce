@@ -103,6 +103,7 @@ export default class FinancialAccountParent extends LightningElement {
   financialAccount = [];
   fetchedAccounts;
   componentSubTitle;
+  hasOffsetError = false;
 
   get isSoleAccount() {
     return `${this.accountOwnershipType}` === "Single";
@@ -406,13 +407,7 @@ export default class FinancialAccountParent extends LightningElement {
       });
       return response;
     } catch (error) {
-      handleErrorShowToast(
-        this,
-        "Failed To Retrieve offset Details.",
-        error,
-        "Failed To Retrieve offset Details. Please refresh and try again. If issue persists please contact your System Administrator",
-        "pester"
-      );
+      this.hasOffsetError = true;
     }
     return null;
   }

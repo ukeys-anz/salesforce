@@ -78,10 +78,12 @@ public with sharing class BOHControllerTest {
     Id recordId = Lib_FakeIdGenerator.getMockId(
       ResidentialLoanApplication.SObjectType
     );
+    String ocvId = '123456';
     Test.startTest();
     SOPViewModel result = BOHController.updateSOPAndParty(
       getSOPViewModel,
-      recordId
+      recordId,
+      ocvId
     );
     Test.stopTest();
     Assert.isNotNull(result, 'update party callout should success');
@@ -99,13 +101,11 @@ public with sharing class BOHControllerTest {
       'updateSOPAndParty',
       new CalloutException('Error calling out')
     );
+    String ocvId = '123456';
     Exception resultException;
     Test.startTest();
     try {
-      BOHController.updateSOPAndParty(
-        getSOPViewModel,
-        null
-      );
+      BOHController.updateSOPAndParty(getSOPViewModel, null, ocvId);
     } catch (Exception exp) {
       resultException = exp;
     }

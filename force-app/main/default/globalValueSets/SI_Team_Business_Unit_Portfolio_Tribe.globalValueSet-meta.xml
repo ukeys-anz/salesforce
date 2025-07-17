@@ -16,6 +16,21 @@
         <label>ANZi</label>
     </customValue>
     <customValue>
+        <fullName>ANZ Plus</fullName>
+        <default>false</default>
+        <label>ANZ Plus</label>
+    </customValue>
+    <customValue>
+        <fullName>ANZ Plus &amp; Digital - ANZ Plus</fullName>
+        <default>false</default>
+        <label>ANZ Plus &amp; Digital - ANZ Plus</label>
+    </customValue>
+    <customValue>
+        <fullName>ANZ Plus &amp; Digital - Digital Portfolio</fullName>
+        <default>false</default>
+        <label>ANZ Plus &amp; Digital - Digital Portfolio</label>
+    </customValue>
+    <customValue>
         <fullName>ANZ Private</fullName>
         <default>false</default>
         <label>ANZ Private</label>
@@ -146,6 +161,11 @@
         <label>Capabilities (Human-Centred Design and Group Marketing)</label>
     </customValue>
     <customValue>
+        <fullName>Chief Investment Office</fullName>
+        <default>false</default>
+        <label>Chief Investment Office</label>
+    </customValue>
+    <customValue>
         <fullName>Commercial</fullName>
         <default>false</default>
         <label>Commercial (AR&amp;C)</label>
@@ -206,6 +226,16 @@
         <label>Complaint Transformation</label>
     </customValue>
     <customValue>
+        <fullName>Controls and Customer Outcomes</fullName>
+        <default>false</default>
+        <label>Controls and Customer Outcomes</label>
+    </customValue>
+    <customValue>
+        <fullName>Controls Office</fullName>
+        <default>false</default>
+        <label>Controls Office</label>
+    </customValue>
+    <customValue>
         <fullName>Credit and Quality Governance</fullName>
         <default>false</default>
         <label>Credit and Quality Governance</label>
@@ -231,6 +261,11 @@
         <label>Credit Cards and Personal Lending (CCPL) Tribe</label>
     </customValue>
     <customValue>
+        <fullName>Customer &amp; Identity Services</fullName>
+        <default>false</default>
+        <label>Customer &amp; Identity Services</label>
+    </customValue>
+    <customValue>
         <fullName>Customer Advocate</fullName>
         <default>false</default>
         <label>Customer Advocate</label>
@@ -253,7 +288,7 @@
     <customValue>
         <fullName>Customer Contact Centre</fullName>
         <default>false</default>
-        <label>Customer Contact Centre</label>
+        <label>Customer Contact Centre (CCC)</label>
     </customValue>
     <customValue>
         <fullName>Customer Digital Experience (CDX)</fullName>
@@ -536,9 +571,19 @@
         <label>Insurance &amp; Super</label>
     </customValue>
     <customValue>
+        <fullName>Join &amp; Identify</fullName>
+        <default>false</default>
+        <label>Join &amp; Identify</label>
+    </customValue>
+    <customValue>
         <fullName>Know Your Customer (KYC)</fullName>
         <default>false</default>
         <label>Know Your Customer (KYC)</label>
+    </customValue>
+    <customValue>
+        <fullName>Legacy ANZFP Advice</fullName>
+        <default>false</default>
+        <label>Legacy ANZFP Advice</label>
     </customValue>
     <customValue>
         <fullName>Lend and Grow</fullName>
@@ -636,6 +681,11 @@
         <label>Portfolio Performance</label>
     </customValue>
     <customValue>
+        <fullName>Portfolio Strategy and Transformation</fullName>
+        <default>false</default>
+        <label>Portfolio Strategy and Transformation</label>
+    </customValue>
+    <customValue>
         <fullName>Prevention and Detection</fullName>
         <default>false</default>
         <label>Prevention and Detection</label>
@@ -644,6 +694,16 @@
         <fullName>Pricing COE</fullName>
         <default>false</default>
         <label>Pricing COE</label>
+    </customValue>
+    <customValue>
+        <fullName>Private Advice</fullName>
+        <default>false</default>
+        <label>Private Advice</label>
+    </customValue>
+    <customValue>
+        <fullName>Private Banking</fullName>
+        <default>false</default>
+        <label>Private Banking</label>
     </customValue>
     <customValue>
         <fullName>Private Banking &amp; Advice (PB&amp;A)</fullName>

@@ -166,4 +166,15 @@
             <group>Transactional_Banking</group>
         </sharedFrom>
     </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Lead_RW_Access_to_AEM_User</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Lead RW Access to AEM User</label>
+        <sharedTo>
+            <group>AEM_Integration_User_group</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZ_Mobile_Lending</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
 </SharingRules>

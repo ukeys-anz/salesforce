@@ -9,6 +9,12 @@ public with sharing class CommercialOpportunityHelper {
   private static final String LOST_REASON_DETAIL_MISSING_AFP = 'please provide valid Lost Reason/Lost Reason Detail.';
   @testVisible
   private static final String WON_LOST_MANDATORY_AFP = 'please provide valid Won From/Lost To.';
+  @testVisible
+  private static final String LAUNCH_APP_ERROR = 'Please LAUNCH APPLICATION and mark the Application form product as WON or LOST before closing the opportunity. Please select Internal Application if none of the Origination systems are involved.';
+  @testVisible
+  private static final String CLOSE_AFP_FIRST_ERROR = 'Please mark all application form products as WON or LOST before closing the opportunity.';
+  private static final String OPP_WON = 'Opportunity Won';
+  private static final String OPP_LOST = 'Opportunity Lost';
   private static final CommercialOpportunityRepository COMMERCIALOPP_REPOSITORY = (CommercialOpportunityRepository) Lib_InstanceProvider.forType(
     CommercialOpportunityRepository.class
   );
@@ -172,5 +178,91 @@ public with sharing class CommercialOpportunityHelper {
       String error = String.join(errors, '\n');
       closedOppsMap.get(afp.ApplicationForm.OpportunityId).addError(error);
     }
+  }
+
+  /**
+   * @description add error on opportunity when AFP/Product are not closed
+   * @name addErrorOnOppForOpenAFP
+   * @param closedOppsMap map of closed won/lost opps
+   * @param oppIdToOpenAFPMap map of oppID to open AFP Ids
+   * @param oppIdToAllAFPIdMap map of oppID to all AFP Ids
+   */
+  public static void addErrorOnOppForOpenAFP(
+    Map<Id, Opportunity> closedOppsMap,
+    Map<Id, Set<Id>> oppIdToOpenAFPMap,
+    Map<Id, Set<Id>> oppIdToAllAFPIdMap
+  ) {
+    //get Opp products related to Opportunities
+    List<OpportunityLineItem> oppProducts = COMMERCIALOPP_REPOSITORY.getOppProductsForOpportunity(
+      closedOppsMap.keySet()
+    );
+    //create OppId -> Opp Product map
+    Map<Id, List<OpportunityLineItem>> oppIdToOppProductMap = (Map<Id, List<OpportunityLineItem>>) ListUtil.groupBy(
+      oppProducts,
+      OpportunityLineItem.OpportunityId
+    );
+
+    for (Opportunity oppRecord : closedOppsMap.values()) {
+      Integer afpRelatedToOppSize = oppIdToAllAFPIdMap.get(oppRecord.Id)
+        ?.size();
+      Integer oliRelatedToOppSize = oppIdToOppProductMap.get(oppRecord.Id)
+        ?.size();
+      if (afpRelatedToOppSize != oliRelatedToOppSize) {
+        oppRecord.addError(LAUNCH_APP_ERROR);
+        continue;
+      }
+      Integer openAfpRelatedToOppSize = oppIdToOpenAFPMap.get(oppRecord.Id)
+        ?.size();
+      if (openAfpRelatedToOppSize > 0) {
+        oppRecord.addError(CLOSE_AFP_FIRST_ERROR);
+      }
+    }
+  }
+
+  /**
+   * @description This method returns map of opportunity ID To only existing open AFP ID
+   * @name formOppIdToOpenAFPMap
+   * @param appFormProductList list of AFPs
+   * @return Map<Id,Set<Id>> map of opportunity ID To all existing AFP ID
+   */
+  public static Map<Id, Set<Id>> formOppIdToOpenAFPMap(
+    List<ApplicationFormProduct> appFormProductList
+  ) {
+    Map<Id, Set<Id>> oppIdToOpenAFPMap = new Map<Id, Set<Id>>();
+    List<ApplicationFormProduct> openAFPList = ListUtil.filter(
+        appFormProductList
+      )
+      .notEquals(ApplicationFormProduct.Stage, OPP_LOST)
+      .notEquals(ApplicationFormProduct.Stage, OPP_WON)
+      .toList();
+
+    for (ApplicationFormProduct afpRecord : openAFPList) {
+      Id oppId = afpRecord.ApplicationForm.OpportunityId;
+      if (!oppIdToOpenAFPMap.containsKey(oppId)) {
+        oppIdToOpenAFPMap.put(oppId, new Set<Id>());
+      }
+      oppIdToOpenAFPMap.get(oppId).add(afpRecord.Id);
+    }
+    return oppIdToOpenAFPMap;
+  }
+
+  /**
+   * @description This method returns map of opportunity ID To all existing AFP ID
+   * @name formOppIdToAllAFPIdMap
+   * @param appFormProducts list of AFPs
+   * @return Map<Id,Set<Id>> map of opportunity ID To all existing AFP ID
+   */
+  public static Map<Id, Set<Id>> formOppIdToAllAFPIdMap(
+    List<ApplicationFormProduct> appFormProducts
+  ) {
+    Map<Id, Set<Id>> oppIdToAllAFPIdMap = new Map<Id, Set<Id>>();
+    for (ApplicationFormProduct afpRecord : appFormProducts) {
+      Id oppId = afpRecord.ApplicationForm.OpportunityId;
+      if (!oppIdToAllAFPIdMap.containsKey(oppId)) {
+        oppIdToAllAFPIdMap.put(oppId, new Set<Id>());
+      }
+      oppIdToAllAFPIdMap.get(oppId).add(afpRecord.ProductId);
+    }
+    return oppIdToAllAFPIdMap;
   }
 }

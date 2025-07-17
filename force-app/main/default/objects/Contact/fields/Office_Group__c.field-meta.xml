@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Office_Group__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source_Salesforce</complianceGroup>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Represents the Office Group to which this contact is associated with.
+Requirements: Only populated on a Broker Contact, and only an Office Group can be selected whose Broker Set is the same as the Broker Contact.</description>
+    <label>Office Group</label>
+    <lookupFilter>
+        <active>true</active>
+        <booleanFilter>1 AND 2 AND 3</booleanFilter>
+        <errorMessage>The Office Group is linked to a different Broker Set, please change the Broker Set for the broker first before changing the Office Group.</errorMessage>
+        <filterItems>
+            <field>Broker_Relation__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Office Group</value>
+        </filterItems>
+        <filterItems>
+            <field>Broker_Relation__c.Associated_Broker_Set__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Broker_Set__c</valueField>
+        </filterItems>
+        <filterItems>
+            <field>$Source.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Broker</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Broker_Relation__c</referenceTo>
+    <relationshipLabel>Brokers (Office Group)</relationshipLabel>
+    <relationshipName>Office_Group_Brokers</relationshipName>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Lookup</type>
+</CustomField>

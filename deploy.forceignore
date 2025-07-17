@@ -68,6 +68,7 @@ force-app/main/default/objects/Case/fields/IDR_EntitlementStartDate__c.field-met
 
 #Ignoring apex classes below as they have been renamed
 force-app/main/default/classes/EverydayAccountController.cls
+force-app/main/default/classes/ccrm/MobileLendingLeadTriggerHandler.cls  
 force-app/main/default/classes/FinancialGoalsComponentController.cls
 force-app/main/default/classes/UpdateAccountsAndGoals.cls
 force-app/main/default/messageChannels/FinancialAccountsGoalsUpdate.messageChannel-meta.xml
@@ -98,10 +99,6 @@ force-app/main/default/flows/PolicyCondition_CAnUFBTTUBeMOfuFueUb.flow-meta.xml
 #ANZX-29577 Ignoring Knowledge Process to force engineers to deploy this manually and do a post deployment step
 #to re-reference the queue otherwise the flow will not pick up the correct Queue Id in the destination environment
 force-app/main/default/flows/Knowledge_Process.flow-meta.xml
-
-#ignore pushing harness stuffs for making a scratchOrg
-force-app/main/default/duplicateRules/
-force-app/main/default/matchingRules/
 
 # Now that entitlementProcesses are versioned we no longer need to ignore them.
 #force-app/main/default/entitlementProcesses/
@@ -220,8 +217,8 @@ force-app/main/default/ActionLauncherItemDef/CaseResolutionPathwaysEnglish_1d1ti
 force-app/main/default/recordActionDeployments/ResolutionPathway_Launcher_V2.deployment-meta.xml
 
 #Add Automation Test Profile to Deploy.forceignore - Not required in Production 
-force-app/main/default/profiles/ANZ Standard Automation User.profile-meta.xml
-force-app/main/default/profiles/ANZx Standard Automation User.profile-meta.xml
+# force-app/main/default/profiles/ANZ Standard Automation User.profile-meta.xml
+# force-app/main/default/profiles/ANZx Standard Automation User.profile-meta.xml
 
 ## [AR-197357] Decommission the Trialhead apps
 ## -------------------------------------------

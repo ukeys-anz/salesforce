@@ -9,9 +9,9 @@
  */
 public virtual with sharing class CustomerNudgeTaskCloudEventModel extends TaskCloudEventModel {
   private static final Set<String> ARCHIVED_STATUSES = new Set<String>{
-    'ACTIVITY_STATE_CUSTOMER_ARCHIVED',
-    'ACTIVITY_STATE_COACH_ARCHIVED',
-    'ACTIVITY_STATE_AUTO_ARCHIVED'
+    'TASK_STATE_CUSTOMER_ARCHIVED',
+    'TASK_STATE_COACH_ARCHIVED',
+    'TASK_STATE_AUTO_ARCHIVED'
   };
 
   /**
@@ -51,20 +51,11 @@ public virtual with sharing class CustomerNudgeTaskCloudEventModel extends TaskC
   /**
    * @description this model is for customer nudge cloud event data part
    */
-  public virtual class CustomerNudgeTaskCloudDataModel extends TaskCloudEventModel.TaskCloudEventDataModel {
+  public virtual class CustomerNudgeTaskCloudDataModel extends CloudEventModel.CloudEventDataModel {
     /**
-     * @description Holds producer command key
+     * @description Wrapper Class to hold ce_data inside the data node
      */
-    public String producer_command_key { get; set; }
-    /**
-     * @description Holds idempotency key
-     */
-    public String idempotency_key { get; set; }
-    /**
-     * @description Holds notification
-     */
-    public CustomerNudgeNotificationModel notification { get; set; }
-
+    public CustomerNudgeTaskCloudEventWrapper data { get; set; }
     /**
      * @description Constructor
      * @param theTask The task record
@@ -78,9 +69,48 @@ public virtual with sharing class CustomerNudgeTaskCloudEventModel extends TaskC
       Account theAccount,
       UserModel theOwner
     ) {
+      this.data = new CustomerNudgeTaskCloudEventWrapper(
+        theTask,
+        aemContentData,
+        theAccount,
+        theOwner
+      );
+    }
+  }
+
+  /**
+   * @description this wrapper is for customer nudge cloud event ce_data part
+   */
+  public class CustomerNudgeTaskCloudEventWrapper extends TaskCloudEventModel.TaskCloudEventDataModel {
+    /**
+     * @description Holds producer command key
+     */
+    public String producerCommandKey { get; set; }
+    /**
+     * @description Holds idempotency key
+     */
+    public String idempotencyKey { get; set; }
+    /**
+     * @description Holds notification
+     */
+    public CustomerNudgeNotificationModel notification { get; set; }
+
+    /**
+     * @description Constructor
+     * @param theTask The task record
+     * @param aemContentData Holds aemContentData Information
+     * @param theAccount Holds Account Information
+     * @param theOwner Holds Owner Information
+     */
+    public CustomerNudgeTaskCloudEventWrapper(
+      Task theTask,
+      String aemContentData,
+      Account theAccount,
+      UserModel theOwner
+    ) {
       super(theTask, theAccount, theOwner);
-      this.producer_command_key = theTask.Pub_Sub_Event_Id__c;
-      this.idempotency_key = theTask.Pub_Sub_Event_Id__c.split('_')[0];
+      this.producerCommandKey = theTask.Pub_Sub_Event_Id__c;
+      this.idempotencyKey = theTask.Pub_Sub_Event_Id__c.split('_')[0];
 
       if (String.isBlank(aemContentData) || theTask.Status != 'New') {
         return;

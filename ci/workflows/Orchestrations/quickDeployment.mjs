@@ -59,7 +59,7 @@ const ARTIFACTORY_SECRET_VALUE = args[1];
 
 /// functions
 
-const quickDeployment = () => {
+const quickDeployment = async () => {
   authenticate(BRANCH_NAME_ALIAS, SFDX_URL);
   const quickDeployment = quickDeploy(
     JOB_ID_FILE_NAME,
@@ -68,7 +68,7 @@ const quickDeployment = () => {
     ARTIFACTORY_REPO_NAME,
     BRANCH_NAME_ALIAS
   );
-  quickDeployProgress(
+  await quickDeployProgress(
     quickDeployment,
     BRANCH_NAME_ALIAS,
     ARTIFACT_PACKAGE_XML,

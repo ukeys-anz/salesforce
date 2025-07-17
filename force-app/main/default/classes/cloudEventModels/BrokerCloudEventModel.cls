@@ -119,6 +119,13 @@ public virtual with sharing class BrokerCloudEventModel extends CloudEventModel 
     brokerTargetNode.status = brokerDataMap.get('targetObjects_status');
     brokerTargetNode.parent = new List<ParentNode>{ brokerParentNode };
 
+    if (brokerDataMap.containsKey('targetObjects_parent_nodes')) {
+      brokerTargetNode.parent = (List<ParentNode>) JSON.deserialize(
+        brokerDataMap.get('targetObjects_parent_nodes'),
+        List<ParentNode>.class
+      );
+    }
+
     MasterNode brokerMasterNode = new MasterNode();
     brokerMasterNode.sourceObjectExtId = brokerDataMap.get('sourceObjectExtId');
     brokerMasterNode.sourceObjectName = brokerDataMap.get('sourceObjectName');
