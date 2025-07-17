@@ -2,16 +2,22 @@
 
 set -euo pipefail
 
-CHANGED_FILES_BASE64="$1"
-
 echo ""
 echo "***************************************************************"
 echo ""
 echo "-------------------- Find files to be checked -----------------------"
 echo ""
 
-# Decode the list of changed files (newline-separated)
-CHANGED_FILES=$(echo "$CHANGED_FILES_BASE64" | base64 --decode)
+# Find all relevant files for Sysl checks
+CHANGED_FILES=$(gh api \
+  -H "Accept: application/vnd.github+json" \
+  "/repos/$REPO/pulls/$PR_NUMBER/files?per_page=100" \
+  --paginate | jq -r '
+    [.[] | select(.status != "removed") | .filename] |
+    .[] | 
+    select(test("^(force-app|knowledge-mgm)/main/(default|sf-lending)/objects/"))
+  ')
+
 
 # Initialize flags
 CHECK_FLAG=false
@@ -112,7 +118,6 @@ else
   {
     echo "result<<EOF"
     echo "<p>✅ Sysl check passed</p>"
-    echo "<br/>"
     echo "EOF"
   } >> "$GITHUB_OUTPUT"
 fi

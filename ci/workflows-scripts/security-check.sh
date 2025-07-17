@@ -2,7 +2,6 @@
 
 set -euo pipefail
 
-CHANGED_FILES_BASE64="$1"
 DEPLOY_DIR="./tmp/deploy"
 CHECK_FLAG=false
 SECURITY_FAILED_CHECK_FLAG=false
@@ -20,8 +19,15 @@ echo ""
 rm -rf ./tmp
 mkdir -p "$DEPLOY_DIR"
 
-# Decode and loop over changed files (newline-separated)
-CHANGED_FILES=$(echo "$CHANGED_FILES_BASE64" | base64 --decode)
+# Find all relevant files for Security checks
+CHANGED_FILES=$(gh api \
+  -H "Accept: application/vnd.github+json" \
+  "/repos/$REPO/pulls/$PR_NUMBER/files?per_page=100" \
+  --paginate | jq -r '
+    [.[] | select(.status != "removed") | .filename] |
+    .[] | 
+    select(test("^(force-app|knowledge-mgm)/main/(default|sf-lending)/"))
+  ')
 
 while IFS= read -r file_path; do
   if [[ -f "$file_path" ]]; then
@@ -54,6 +60,28 @@ function checkSpecificMetadata() {
             SECURITY_FAILED_CHECK_FLAG=true
           fi
         done
+      fi
+    done
+  done
+}
+
+function checkRoleAndSubordinatesInternal() {
+  local BASE_DIRS=("force-app" "knowledge-mgm")
+  for BASE_DIR in "${BASE_DIRS[@]}"; do
+    for SCOPE in "default" "sf-lending"; do
+      SEARCH_DIR="$DEPLOY_DIR/$BASE_DIR/main/$SCOPE"
+      if [[ -d "$SEARCH_DIR" ]]; then
+        while IFS= read -r -d '' file; do
+          if grep -q "roleAndSubordinatesInternal" "$file"; then
+            original_path="${FILE_MAP[$file]}"
+            echo "❗ Do not use 'roleAndSubordinatesInternal'. Please change it with 'roleAndSubordinates'"
+            echo ""
+            echo "  • Issue Found: ${original_path:-$file}"
+            echo "________________________________________________________________________"
+            echo ""
+            SECURITY_FAILED_CHECK_FLAG=true
+          fi
+        done < <(find "$SEARCH_DIR" -type f -print0)
       fi
     done
   done
@@ -109,11 +137,11 @@ echo "***************************************************************"
 echo ""
 
 if [[ "$CHECK_FLAG" == true ]]; then
-  echo "" >> result.txt
   checkSpecificMetadata "permissionsets" >> result.txt
   checkSpecificMetadata "profiles" >> result.txt
   checkBypassString "flows" >> result.txt
   checkValidationRuleBypass >> result.txt
+  checkRoleAndSubordinatesInternal >> result.txt
 else
   echo "No files copied — nothing to check."
 fi
@@ -135,7 +163,6 @@ else
   {
     echo "result<<EOF"
     echo "<p>✅ Security check passed</p>"
-    echo "<br/>"
     echo "EOF"
   } >> "$GITHUB_OUTPUT"
 fi

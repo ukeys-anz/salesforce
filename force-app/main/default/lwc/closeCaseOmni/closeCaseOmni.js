@@ -8,7 +8,16 @@ const REFERRED_TO_PRODUCT = "3";
 const OTHER = "99";
 const REMS = ["1"];
 const SUBREMS = ["10", "18"];
-
+const VALIDATION_MSG =
+  "Review the following field: Is this a complaint about a complaint? If 'Yes', complete CAC Sub Category, Review Outcome of Original Complaint and Parent Case fields. If 'No', CAC Sub Category, Review Outcome of Original Complaint fields must be blank.";
+const USER_VALIDATION_MSG =
+  "Review the following fields: \n" +
+  "<b>Resolution Information Section</b> \n" +
+  "Is this a complaint about a complaint? \n" +
+  "CAC Sub Category \n" +
+  "Review Outcome of Original Complaint. \n" +
+  "\n" +
+  "These fields can only be completed when the Subsequent Issue Type 1, 2 or 3 is 'Failure to properly respond to complaint' otherwise all field must be 'None'";
 export default class CloseCaseOmni extends OmniscriptBaseMixin(
   LightningElement
 ) {
@@ -95,25 +104,23 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       };
       // Navigate to the case record that has been closed by IP
       this.omniRemoteCall(params, true).then((res) => {
-        console.log("res ", JSON.parse(JSON.stringify(res)));
         this.loading = false;
-        this.modalMsg = "";
-        if (res.result && res.result.IPResult && res.result.IPResult.result) {
-          let errorPath = res.result.IPResult.result.errorsAsJson;
-          if (errorPath && errorPath.DRError) {
-            if (errorPath.DRError.includes("required")) {
-              this.modalMsg = errorPath.DRError;
-            } else {
-              this.modalMsg =
-                "Update Failed: You are not authorized to make updates to this field.";
-            }
-            this.showModal = true;
-          } else {
-            this.closeModalAndRefreshTab(this.omniJsonData.recordId);
-          }
-        } else {
+        let errorMsg = res?.result?.IPResult?.result?.errorsAsJson?.DRError;
+        if (!errorMsg) {
           this.closeModalAndRefreshTab(this.omniJsonData.recordId);
+          return;
         }
+        this.showModal = true;
+        if (errorMsg.includes("required")) {
+          this.modalMsg = errorMsg;
+          return;
+        }
+        if (errorMsg.trim() === VALIDATION_MSG) {
+          this.modalMsg = USER_VALIDATION_MSG;
+          return;
+        }
+        this.modalMsg =
+          "Update Failed: You are not authorized to make updates to this field.";
       });
     }
   }

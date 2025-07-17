@@ -9,17 +9,13 @@ jobs:
     runs-on: anzx-default
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      REPO: ${{ github.repository }}
     outputs:
-      security_needed: ${{ steps.set-flags.outputs.security_needed }}
+      security_pmd_jest_needed: ${{ steps.set-flags.outputs.security_pmd_jest_needed }}
       sysl_needed: ${{ steps.set-flags.outputs.sysl_needed }}
-      pmd_needed: ${{ steps.set-flags.outputs.pmd_needed }}
       prettier_needed: ${{ steps.set-flags.outputs.prettier_needed }}
       eslint_lwc_needed: ${{ steps.set-flags.outputs.eslint_lwc_needed }}
-      security_changed_files: ${{ steps.set-flags.outputs.security_changed_files }}
-      sysl_changed_files: ${{ steps.set-flags.outputs.sysl_changed_files }}
-      pmd_changed_files: ${{ steps.set-flags.outputs.pmd_changed_files }}
-      prettier_changed_files: ${{ steps.set-flags.outputs.prettier_changed_files }}
-      eslint_lwc_changed_files: ${{ steps.set-flags.outputs.eslint_lwc_changed_files }}
     steps:
       - name: Checkout repo (shallow)
         uses: actions/checkout@v3
@@ -35,14 +31,35 @@ jobs:
         id: set-flags
         run: |
           chmod +x ci/workflows-scripts/detect-changes.sh
-          ./ci/workflows-scripts/detect-changes.sh
-        env:
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          REPO: ${{ github.repository }}
+          ci/workflows-scripts/detect-changes.sh
+
+      - name: Post initial Quality Checks comment
+        shell: bash
+        run: |
+          set -e
+
+          # Prepare the summary content
+          {
+            echo "<h2>🚦 Quality Checks Summary</h2>"
+            echo "<p>🔄 Checks are currently running... please wait.</p>"
+          } > summary.html
+
+          # Post the comment
+          existing_comment_id=$(gh pr view $PR_NUMBER --json comments --jq '.comments[] | select(.body | contains("🚦 Quality Checks Summary")) | .id' || echo "")
+
+          if [[ -n "$existing_comment_id" ]]; then
+            gh pr comment $PR_NUMBER --body-file "summary.html" --edit-last
+          else
+            gh pr comment $PR_NUMBER --body-file "summary.html"
+          fi
 
   security-check:
     needs: detect-changes
     runs-on: anzx-default
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      REPO: ${{ github.repository }}
     outputs:
       result: ${{ steps.run-check.outputs.result }}
       skipped: ${{ steps.should-skip.outputs.skip }}
@@ -50,7 +67,7 @@ jobs:
       - name: Check if security check is needed
         id: should-skip
         run: |
-          if [[ "${{ needs.detect-changes.outputs.security_needed }}" != "true" ]]; then
+          if [[ "${{ needs.detect-changes.outputs.security_pmd_jest_needed }}" != "true" ]]; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
             echo "✅ No security-related files changed. Skipping security check."
           else
@@ -68,11 +85,15 @@ jobs:
         id: run-check
         run: |
           chmod +x ci/workflows-scripts/security-check.sh
-          ci/workflows-scripts/security-check.sh "${{ needs.detect-changes.outputs.security_changed_files }}"
+          ci/workflows-scripts/security-check.sh
 
   sysl-check:
     needs: detect-changes
     runs-on: anzx-default
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      REPO: ${{ github.repository }}
     outputs:
       result: ${{ steps.run-check.outputs.result }}
       skipped: ${{ steps.should-skip.outputs.skip }}
@@ -104,22 +125,25 @@ jobs:
         id: run-check
         run: |
           chmod +x ci/workflows-scripts/sysl-check.sh
-          ci/workflows-scripts/sysl-check.sh "${{ needs.detect-changes.outputs.sysl_changed_files }}"
+          ci/workflows-scripts/sysl-check.sh
 
   pmd:
     needs: detect-changes
     runs-on: anzx-default
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      REPO: ${{ github.repository }}
+      JAVA_URL: "https://artifactory.gcp.anz/artifactory/git-github/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.10%2B9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.10_9.tar.gz"
+      PMD_URL: "https://artifactory.gcp.anz/artifactory/github/pmd/pmd/releases/download/pmd_releases%2F7.2.0/pmd-dist-7.2.0-bin.zip"
     outputs:
       result: ${{ steps.run-check.outputs.result }}
       skipped: ${{ steps.should-skip.outputs.skip }}
-    env:
-      JAVA_URL: "https://artifactory.gcp.anz/artifactory/git-github/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.10%2B9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.10_9.tar.gz"
-      PMD_URL: "https://artifactory.gcp.anz/artifactory/github/pmd/pmd/releases/download/pmd_releases%2F7.2.0/pmd-dist-7.2.0-bin.zip"
     steps:
       - name: Check if pmd check is needed
         id: should-skip
         run: |
-          if [[ "${{ needs.detect-changes.outputs.pmd_needed }}" != 'true' ]]; then
+          if [[ "${{ needs.detect-changes.outputs.security_pmd_jest_needed }}" != 'true' ]]; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
             echo "✅ No pmd-related files changed. Skipping pmd check."
           else
@@ -167,7 +191,7 @@ jobs:
         id: run-check
         run: |
           chmod +x ci/workflows-scripts/pmd-check.sh
-          ci/workflows-scripts/pmd-check.sh "${{ needs.detect-changes.outputs.pmd_changed_files }}"
+          ci/workflows-scripts/pmd-check.sh
 
       - name: "Cleaning"
         if: always()
@@ -176,11 +200,14 @@ jobs:
   prettier:
     needs: detect-changes
     runs-on: anzx-default
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      REPO: ${{ github.repository }}
+      JAVA_URL: "https://artifactory.gcp.anz/artifactory/git-github/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.10%2B9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.10_9.tar.gz"
     outputs:
       result: ${{ steps.run-check.outputs.result }}
       skipped: ${{ steps.should-skip.outputs.skip }}
-    env:
-      JAVA_URL: "https://artifactory.gcp.anz/artifactory/git-github/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.10%2B9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.10_9.tar.gz"
     steps:
       - name: Check if prettier check is needed
         id: should-skip
@@ -237,7 +264,7 @@ jobs:
         id: run-check
         run: |
           chmod +x ci/workflows-scripts/prettier-check.sh
-          ci/workflows-scripts/prettier-check.sh "${{ needs.detect-changes.outputs.prettier_changed_files }}"
+          ci/workflows-scripts/prettier-check.sh
 
       - name: Cleanup temp logs
         if: steps.should-skip.outputs.skip == 'false'
@@ -248,6 +275,10 @@ jobs:
   eslint:
     needs: detect-changes
     runs-on: anzx-default
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      REPO: ${{ github.repository }}
     outputs:
       result: ${{ steps.run-check.outputs.result }}
       skipped: ${{ steps.should-skip.outputs.skip }}
@@ -286,7 +317,50 @@ jobs:
         id: run-check
         run: |
           chmod +x ci/workflows-scripts/eslint-check.sh
-          ci/workflows-scripts/eslint-check.sh "${{ needs.detect-changes.outputs.eslint_lwc_changed_files }}"
+          ci/workflows-scripts/eslint-check.sh
+
+  jest:
+    needs: detect-changes
+    runs-on: anzx-default
+    outputs:
+      result: ${{ steps.run-check.outputs.result }}
+      skipped: ${{ steps.should-skip.outputs.skip }}
+    steps:
+      - name: Check if jest check is needed
+        id: should-skip
+        run: |
+          if [[ "${{ needs.detect-changes.outputs.security_pmd_jest_needed }}" != "true" ]]; then
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+              echo "✅ No jest-related files changed. Skipping jest check."
+          else
+              echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout repo (shallow)
+        if: steps.should-skip.outputs.skip == 'false'
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Install node
+        if: steps.should-skip.outputs.skip == 'false'
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Install node packages
+        if: steps.should-skip.outputs.skip == 'false'
+        run: |
+          mv ci.npmrc .npmrc
+          npm ci -f
+
+      - name: RUN Jest test
+        if: steps.should-skip.outputs.skip == 'false'
+        shell: bash
+        id: run-check
+        run: |
+          chmod +x ci/workflows-scripts/jest-check.sh
+          ci/workflows-scripts/jest-check.sh
 
   aggregate-report:
     needs:
@@ -295,6 +369,7 @@ jobs:
       - pmd
       - prettier
       - eslint
+      - jest
     runs-on: anzx-default
     if: ${{ always() && !cancelled() && needs.security-check.result != 'skipped' && needs.sysl-check.result != 'skipped' && needs.pmd.result != 'skipped' && needs.prettier.result != 'skipped' && needs.eslint.result != 'skipped' }}
     env:
@@ -341,10 +416,14 @@ jobs:
           ESLINT_SKIPPED="${{ needs.eslint.outputs.skipped }}"
           ESLINT_RESULT="${{ needs.eslint.outputs.result }}"
 
+          JEST_SKIPPED="${{ needs.jest.outputs.skipped }}"
+          JEST_RESULT="${{ needs.jest.outputs.result }}"
+
           # Use the function
           report_check "PMD" "$PMD_SKIPPED" "$PMD_RESULT"
           report_check "Prettier" "$PRETTIER_SKIPPED" "$PRETTIER_RESULT"
           report_check "ESLint" "$ESLINT_SKIPPED" "$ESLINT_RESULT"
+          report_check "Jest" "$JEST_SKIPPED" "$JEST_RESULT"
           report_check "Sysl" "$SYSL_SKIPPED" "$SYSL_RESULT"
           report_check "Security" "$SECURITY_SKIPPED" "$SECURITY_RESULT"
 

@@ -5,7 +5,7 @@ set -euo pipefail
 echo ""
 echo "***************************************************************"
 echo ""
-echo "----------- Detecting Changed Files ------------"
+echo "----------- Detecting Which Check To Run ------------"
 echo ""
 
 if [[ -z "${PR_NUMBER:-}" || -z "${REPO:-}" || -z "${GITHUB_OUTPUT:-}" ]]; then
@@ -13,77 +13,57 @@ if [[ -z "${PR_NUMBER:-}" || -z "${REPO:-}" || -z "${GITHUB_OUTPUT:-}" ]]; then
   exit 1
 fi
 
-# Get all changed files as a JSON array
-CHANGED=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json files --jq '[.files[].path]')
+# Find a json files of salesforce changed files 
+# Filter to not bring removed files.
+CHANGED_JSON=$(gh api \
+  -H "Accept: application/vnd.github+json" \
+  "/repos/$REPO/pulls/$PR_NUMBER/files?per_page=100" \
+  --paginate | jq '
+    [ .[] 
+      | select(.status != "removed") 
+      | .filename 
+      | select(test("^(force-app|knowledge-mgm)/main/(default|sf-lending)/"))
+    ]
+  ')
 
-# Filter paths
-SECURITY_FILES=$(echo "$CHANGED" | jq -r '.[] | select(startswith("force-app/") or startswith("knowledge-mgm/"))')
-SYSL_FILES=$(echo "$CHANGED" | jq -r '.[] | select(test("^force-app/main/default/objects/") or test("^force-app/main/sf-lending/objects/") or test("^knowledge-mgm/main/default/objects/"))')
-PMD_FILES=$(echo "$CHANGED" | jq -r '.[] | select(test("^force-app/main/default/") or test("^force-app/main/sf-lending/") or test("^knowledge-mgm/main/default/"))')
-PRETTIER_FILES=$(echo "$CHANGED" | jq -r '.[] |
-  select(
-    test("^force-app/main/default/.*\\.(trigger|cls)$") or
-    test("^force-app/main/default/lwc/.*\\.(js|html|css)$") or
-    test("^force-app/main/default/aura/.*\\.(js|css|cmp)$") or
+# PMD | Jest | Security: Any file in the relevant file paths
+SECURITY_PMD_JEST_NEEDED=$(echo "$CHANGED_JSON" | jq 'length > 0')
 
-    test("^knowledge-mgm/main/default/.*\\.(trigger|cls)$") or
-    test("^knowledge-mgm/main/default/lwc/.*\\.(js|html|css)$") or
-    test("^knowledge-mgm/main/default/aura/.*\\.(js|css|cmp)$") or
 
-    test("^force-app/main/sf-lending/.*\\.(trigger|cls)$") or
-    test("^force-app/main/sf-lending/lwc/.*\\.(js|html|css)$") or
-    test("^force-app/main/sf-lending/aura/.*\\.(js|css|cmp)$")
-  )'
-)
-ESLINT_LWC_FILES=$(echo "$CHANGED" | jq -r '.[] |
-  select(
-    test("^force-app/main/default/lwc/.*\\.js$") or
-    test("^force-app/main/sf-lending/lwc/.*\\.js$") or
-    test("^knowledge-mgm/main/default/lwc/.*\\.js$")
-  )'
-)
+# SYSL: Any object file
+SYSL_NEEDED=$(echo "$CHANGED_JSON" | jq 'any(.[]; test("/objects/"))')
 
-echo ""
-echo "==== Security-related files ===="
-echo "$SECURITY_FILES"
-echo "========"
-echo ""
-echo "==== Sysl-related files ===="
-echo "$SYSL_FILES"
-echo "========"
-echo ""
-echo "==== PMD-related files ===="
-echo "$PMD_FILES"
-echo "========"
-echo ""
-echo "==== Prettier-related files ===="
-echo "$PRETTIER_FILES"
-echo "========"
-echo ""
-echo "==== ESLint LWC-related files ===="
-echo "$ESLINT_LWC_FILES"
-echo "========"
-echo ""
 
-# Encode newline-separated strings to base64
-SECURITY_ENCODED=$(echo "$SECURITY_FILES" | base64 | tr -d '\n')
-SYSL_ENCODED=$(echo "$SYSL_FILES" | base64 | tr -d '\n')
-PMD_ENCODED=$(echo "$PMD_FILES" | base64 | tr -d '\n')
-PRETTIER_ENCODED=$(echo "$PRETTIER_FILES" | base64 | tr -d '\n')
-ESLINT_LWC_ENCODED=$(echo "$ESLINT_LWC_FILES" | base64 | tr -d '\n')
+# ESLint: Any LWC JS files excluding *.test.js
+ESLINT_LWC_NEEDED=$(echo "$CHANGED_JSON" | jq 'any(.[]; test("/lwc/.*\\.js$") and (test("\\.test\\.js$") | not))')
+
+
+# Prettier: True if ESLint needed, else check other source file patterns
+if [[ "$ESLINT_LWC_NEEDED" == "true" ]]; then
+  PRETTIER_NEEDED=true
+else
+  # Prettier: Any trigger, class, aura, or lwc source files
+  PRETTIER_NEEDED=$(echo "$CHANGED_JSON" | jq 'any(.[]; 
+    test("\\.(trigger|cls)$") or
+    test("/lwc/.*\\.(js|html|css)$") or
+    test("/aura/.*\\.(js|css|cmp)$")
+  )')
+fi
+
+# Debugs
+echo ""
+echo "====> Security & Jest & PMD should run: $SECURITY_PMD_JEST_NEEDED"
+echo "====> Sysl-related should run: $SYSL_NEEDED"
+echo "====> Prettier should run: $PRETTIER_NEEDED"
+echo "====> ESLint LWC should run: $ESLINT_LWC_NEEDED"
+echo ""
 
 # Set GitHub Actions outputs
 {
-  echo "security_changed_files=$SECURITY_ENCODED"
-  echo "sysl_changed_files=$SYSL_ENCODED"
-  echo "pmd_changed_files=$PMD_ENCODED"
-  echo "prettier_changed_files=$PRETTIER_ENCODED"
-  echo "eslint_lwc_changed_files=$ESLINT_LWC_ENCODED"
-  echo "security_needed=$([[ -n "$SECURITY_FILES" ]] && echo true || echo false)"
-  echo "sysl_needed=$([[ -n "$SYSL_FILES" ]] && echo true || echo false)"
-  echo "pmd_needed=$([[ -n "$PMD_FILES" ]] && echo true || echo false)"
-  echo "prettier_needed=$([[ -n "$PRETTIER_FILES" ]] && echo true || echo false)"
-  echo "eslint_lwc_needed=$([[ -n "$ESLINT_LWC_FILES" ]] && echo true || echo false)"
+  echo "security_pmd_jest_needed=$SECURITY_PMD_JEST_NEEDED"
+  echo "sysl_needed=$SYSL_NEEDED"
+  echo "prettier_needed=$PRETTIER_NEEDED"
+  echo "eslint_lwc_needed=$ESLINT_LWC_NEEDED"
 } >> "$GITHUB_OUTPUT"
 
 echo ""

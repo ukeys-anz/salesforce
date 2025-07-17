@@ -2,7 +2,6 @@
 
 set -euo pipefail
 
-CHANGED_FILES_BASE64="$1"
 CHECK_APEX_TRIGGER_FLAG=false
 CHECK_LWC_FLAG=false
 CHECK_AURA_FLAG=false
@@ -13,8 +12,19 @@ echo ""
 echo "-------------------- Find files to be checked -----------------------"
 echo ""
 
-# Decode the list of changed files (newline-separated)
-CHANGED_FILES=$(echo "$CHANGED_FILES_BASE64" | base64 --decode)
+# Find all relevant files for Prettier checks
+CHANGED_FILES=$(gh api \
+  -H "Accept: application/vnd.github+json" \
+  "/repos/$REPO/pulls/$PR_NUMBER/files?per_page=100" \
+  --paginate | jq -r '
+    [.[] | select(.status != "removed") | .filename] |
+    .[] | 
+    select(
+      test("^(force-app|knowledge-mgm)/main/(default|sf-lending)/.*\\.(trigger|cls)$") or
+      test("^(force-app|knowledge-mgm)/main/(default|sf-lending)/lwc/.*\\.(js|html|css)$") or
+      test("^(force-app|knowledge-mgm)/main/(default|sf-lending)/aura/.*\\.(js|css|cmp)$")
+    )
+  ')
 
 apexTriggerFilePaths=""
 lwcFilePaths=""
@@ -111,7 +121,6 @@ else
   {
     echo "result<<EOF"
     echo "<p>✅ Prettier check passed</p>"
-    echo "<br/>"
     echo "EOF"
   } >> "$GITHUB_OUTPUT"
 fi

@@ -44,6 +44,34 @@
         <value>/credit-assessment/v1/debts</value>
     </labels>
     <labels>
+        <fullName>Broker_Set_Deactivation_Error_Message_Unlink_Brokers</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Broker Set Deactivation Error Message - Unlink Brokers</shortDescription>
+        <value>Unlink the brokers before Deactivate of Broker Set</value>
+    </labels>
+    <labels>
+        <fullName>Broker_Set_Deactivation_Error_Message_Unlink_Office_Group</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Broker Set Deactivation Error Message - Unlink Office Group</shortDescription>
+        <value>Unlink Office Group before Deactivate of Broker Set</value>
+    </labels>
+    <labels>
+        <fullName>Broker_Set_Deactivation_Success_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Broker Set Deactivation Success Message</shortDescription>
+        <value>Broker Set is deactivated</value>
+    </labels>
+    <labels>
+        <fullName>Broker_Set_activation_Success_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Broker Set activation Success Message</shortDescription>
+        <value>Broker Set is activated</value>
+    </labels>
+    <labels>
         <fullName>Broker_Staff_Issue_with_Valid_Owner_Id</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -427,6 +455,34 @@
         <protected>false</protected>
         <shortDescription>Xpression will use this address to send letters to Xpression recipient address</shortDescription>
         <value>Yourfeedback@anz.com</value>
+    </labels>
+    <labels>
+        <fullName>ErrorMsg_BrokerSet_Change_Agg_Has_Brokers</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Broker Set Error Message on Aggregator Change</shortDescription>
+        <value>You need to move any brokers assigned from this Broker Set first before removing the aggregator from the broker set</value>
+    </labels>
+    <labels>
+        <fullName>ErrorMsg_BrokerSet_Change_Agg_Has_OG</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Broker Set Error Message on Aggregator Change</shortDescription>
+        <value>You need to move any office group assigned from this Broker Set first before removing the aggregator from the broker set</value>
+    </labels>
+    <labels>
+        <fullName>ErrorMsg_OfficeGroup_Change_BrokerSets_Has_Brokers</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Office Group Error Message on Broker Set Change</shortDescription>
+        <value>Please remove all brokers from the Office Group before changing the Broker Set</value>
+    </labels>
+    <labels>
+        <fullName>ErrorMsg_OfficeGroup_Deactication_Has_Brokers</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Office Group Error Message on Deactivation</shortDescription>
+        <value>The office group can only be deactivated when it has no member</value>
     </labels>
     <labels>
         <fullName>XpressionRecepientInboxAddress</fullName>
@@ -2901,6 +2957,34 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>A phone record of this type is already available for this customer. Please edit the existing phone record for the customer.</value>
     </labels>
     <labels>
+        <fullName>ANZX_Broker_Relation_event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Brokerrelation cloud event type</shortDescription>
+        <value>anzx.salesforce.broker.v1alpha1.brokerrelation.</value>
+    </labels>
+    <labels>
+        <fullName>ANZX_Broker_Relation_event_batch_size</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Brokerrelation cloud event batch size</shortDescription>
+        <value>100</value>
+    </labels>
+    <labels>
+        <fullName>Office_Group_Activation_Success_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Office Group Activation Success Message</shortDescription>
+        <value>Office group is activated</value>
+    </labels>
+    <labels>
+        <fullName>Office_Group_Deactivation_Success_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Office Group Deactivation Success Message</shortDescription>
+        <value>Office group is deactivated</value>
+    </labels>
+    <labels>
         <fullName>Extra_Care_Info_Message</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2921,14 +3005,6 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>Anz.com email address to send complaint on complaints@anz.com inbox</shortDescription>
         <value>complaints@anz.com</value>
-    </labels>
-    <labels>
-        <fullName>ExistingContactPointPhoneError</fullName>
-        <categories>MLCRM</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>ExistingContactPointPhoneError</shortDescription>
-        <value>A phone record of this type is already available for this customer. Please edit the existing phone record for the customer.</value>
     </labels>
     <labels>
         <fullName>MS_Retrieve_Party_Individual</fullName>
@@ -3042,7 +3118,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Push Task To App Deeplink</shortDescription>
-        <value>https://plus.anz/support/</value>
+        <value>https://plus.anz/support/activity/producer/1/key/</value>
     </labels>
     <labels>
         <fullName>DefaultLeadExpiryDate</fullName>

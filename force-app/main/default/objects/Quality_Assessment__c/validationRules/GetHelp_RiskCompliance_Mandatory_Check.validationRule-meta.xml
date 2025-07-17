@@ -6,8 +6,19 @@
     <errorConditionFormula>AND(
   ($Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false),
   !ISNEW(),
-  ISPICKVAL(Status__c, &quot;Complete&quot;),
-  ISPICKVAL(Sub_Status__c, &quot;Evaluation Completed&quot;),
+  OR(
+        AND(
+            ISPICKVAL(Status__c, &apos;Complete&apos;),
+            ISPICKVAL(Sub_Status__c , &apos;Evaluation Completed&apos;)
+        ),
+        AND(
+            ISPICKVAL(Status__c, &apos;Referred&apos;),
+            OR(
+                ISPICKVAL(Sub_Status__c, &apos;Compliance Review&apos;),
+                ISPICKVAL(Sub_Status__c, &apos;Other&apos;)
+            )
+        )
+  ),
   OR(
     (RecordType.DeveloperName = &quot;Get_Help&quot;),
     (RecordType.DeveloperName = &quot;Get_Help_Appointment&quot;)
