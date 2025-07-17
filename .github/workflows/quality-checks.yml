@@ -4,6 +4,15 @@ on:
   pull_request:
     branches: [master, develop, release, epic/*]
 
+permissions:
+  contents: write
+  id-token: write
+  pull-requests: write
+
+concurrency:
+  group: "${{ github.run_id }}"
+  cancel-in-progress: false
+
 jobs:
   detect-changes:
     runs-on: anzx-default
@@ -32,26 +41,6 @@ jobs:
         run: |
           chmod +x ci/workflows-scripts/detect-changes.sh
           ci/workflows-scripts/detect-changes.sh
-
-      - name: Post initial Quality Checks comment
-        shell: bash
-        run: |
-          set -e
-
-          # Prepare the summary content
-          {
-            echo "<h2>🚦 Quality Checks Summary</h2>"
-            echo "<p>🔄 Checks are currently running... please wait.</p>"
-          } > summary.html
-
-          # Post the comment
-          existing_comment_id=$(gh pr view $PR_NUMBER --json comments --jq '.comments[] | select(.body | contains("🚦 Quality Checks Summary")) | .id' || echo "")
-
-          if [[ -n "$existing_comment_id" ]]; then
-            gh pr comment $PR_NUMBER --body-file "summary.html" --edit-last
-          else
-            gh pr comment $PR_NUMBER --body-file "summary.html"
-          fi
 
   security-check:
     needs: detect-changes
@@ -427,11 +416,19 @@ jobs:
           report_check "Sysl" "$SYSL_SKIPPED" "$SYSL_RESULT"
           report_check "Security" "$SECURITY_SKIPPED" "$SECURITY_RESULT"
 
-          # Post the comment
-          existing_comment_id=$(gh pr view $PR_NUMBER --json comments --jq '.comments[] | select(.body | contains("🚦 Quality Checks Summary")) | .id' || echo "")
+          # Find an existing comment with the tag
+          existing_comment_id=$(gh api repos/"$REPO"/issues/"$PR_NUMBER"/comments \
+            --jq '.[] | select(.body | contains("🚦 Quality Checks Summary")) | .id')
 
+          COMMENT_FILE="summary.html"
           if [[ -n "$existing_comment_id" ]]; then
-            gh pr comment $PR_NUMBER --body-file "summary.html" --edit-last
+            echo "✅ Found existing comment with tag. Editing PR comment..."
+            gh api \
+              -X PATCH \
+              -H "Accept: application/vnd.github+json" \
+              /repos/"$REPO"/issues/comments/"$existing_comment_id" \
+              -f body="$(<"$COMMENT_FILE")"
           else
-            gh pr comment $PR_NUMBER --body-file "summary.html"
+            echo "🆕 No existing comment found. Posting new comment..."
+            gh pr comment "$PR_NUMBER" --repo "$REPO" --body-file "$COMMENT_FILE"
           fi

@@ -3083,7 +3083,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Reactive logging keywords</shortDescription>
-        <value>TAX,TIN,TFN,FILE,ATO,SUPER,SUPERANNUATION,PASSPORT,PP,DL,DRIVER&apos;S LICENCE,LICENCE,DRIVER&apos;S LICENSE,LICENSE,MEDICARE,CENTRELINK CRN,DVA NUMBER</value>
+        <value>TAX,TIN,TFN,FILE,ATO,SUPER,SUPERANNUATION,DL,DRIVER&apos;S LICENCE,LICENCE,DRIVER&apos;S LICENSE,LICENSE,MEDICARE,CENTRELINK CRN,DVA NUMBER</value>
     </labels>
     <labels>
         <fullName>ANZX_Customer_Nudge_Event_Proto_Data_Schema</fullName>
