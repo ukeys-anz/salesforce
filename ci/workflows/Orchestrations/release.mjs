@@ -69,7 +69,7 @@ const ARTIFACTORY_SECRET_VALUE = args[3];
 
 /// functions
 
-const preprodDeployment = () => {
+const preprodDeployment = async () => {
   createDiffOnDeploy(SOURCE_DIR, BASE_REF, BASE_REF_LAST_TAG);
   uploadToArtifactory(
     ARTIFACTORY_SECRET_VALUE,
@@ -78,7 +78,7 @@ const preprodDeployment = () => {
   );
   authenticate(DEPLOY_USER_USERNAME, SFDX_URL);
   const deployment = deployWithoutTest(DEPLOY_USER_USERNAME, SOURCE_DIR);
-  deployProgress(
+  await deployProgress(
     deployment,
     DEPLOY_USER_USERNAME,
     ARTIFACT_PACKAGE_XML,
@@ -86,7 +86,7 @@ const preprodDeployment = () => {
   );
 };
 
-const prodValidation = () => {
+const prodValidation = async () => {
   authenticateWithJWT(
     CONSUMER_KEY_SECRET_VALUE,
     CERT_SECRET_VALUE,
@@ -99,7 +99,7 @@ const prodValidation = () => {
     ARTIFACTORY_REPO_NAME,
     DEPLOY_USER_USERNAME
   );
-  validateProgress(
+  await validateProgress(
     validation,
     DEPLOY_USER_USERNAME,
     ARTIFACT_PACKAGE_XML,
@@ -108,7 +108,7 @@ const prodValidation = () => {
   createProdValidationJobIdFile(validation, JOB_ID_FILE_NAME);
 };
 
-const prodDeployment = () => {
+const prodDeployment = async () => {
   authenticateWithJWT(
     CONSUMER_KEY_SECRET_VALUE,
     CERT_SECRET_VALUE,
@@ -122,7 +122,7 @@ const prodDeployment = () => {
     ARTIFACTORY_REPO_NAME,
     DEPLOY_USER_USERNAME
   );
-  quickDeployProgress(
+  await quickDeployProgress(
     deployment,
     DEPLOY_USER_USERNAME,
     ARTIFACT_PACKAGE_XML,
