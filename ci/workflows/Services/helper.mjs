@@ -35,7 +35,9 @@ const runSfCommand = (command) => {
       maxBuffer: 1024 * 1024 * 100
     }).toString("utf-8");
   } catch (e) {
-    logger("ERROR: " + JSON.parse(e.stdout.toString("utf-8")).message);
+    const errorOutput =
+      e.stdout?.toString("utf-8") || e.stderr?.toString("utf-8") || e.message;
+    logger("runSfCommand failed. Output/Error:\n" + errorOutput);
     process.exit(1);
   }
 };
