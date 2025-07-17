@@ -139,6 +139,10 @@ public with sharing class CommercialLeadTriggerHandler extends Lib_TriggerHandle
       records,
       (Map<Id, Lead>) oldMap
     );
+    CommercialLeadActions.sendLeadOwnerUpdateToUnica(
+      records,
+      (Map<Id, Lead>) oldMap
+    );
     CommercialLeadActions.sendLeadUpdateToUnicaOrAdobe(
       records,
       (Map<Id, Lead>) oldMap

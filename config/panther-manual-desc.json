@@ -6,6 +6,19 @@
       "FinServ__Status__c": "Financial account status of the customer",
       "FinServ__CustomerType__c": "The type of organisation in OCV source system."
     },
+    "Broker_Relation__c": {
+      "Address1__c": "To capture the address related to Office Group",
+      "Address2__c": "To capture the address related to Office Group",
+      "Aggregator__c": "Aggregator to which this Broker Set would be associated with.",
+      "Associated_Broker_Set__c": "Represents the association between the office group and Broker set.",
+      "External_Id__c": "External Id",
+      "Is_MyOfficeGroup__c": "Evaluated to true when ever the logged user id is equal to Primary RBM/Secondary RBM on associated Broker Set.",
+      "IsActive__c": "To capture whether the Broker Set / Office Group is active or not.",
+      "Primary_RBM__c": "Primary RBM who would be managing this Broker Set.",
+      "Secondary_RBM__c": "Secondary RBM who would be managing this Broker Set.",
+      "Segment__c": "Signifies the type of segment this Broker Set is related.",
+      "State__c": "Represents the state to which this Broker Set is Associated"
+    },
     "Case": {
       "FinServ__FinancialAccount__c": "Look up field for financial account, relates a case to a customer's financial account",
       "IDR_Milestone_Sla__c": "Milestone updates this field which is used by the IDR_Time_To_Escalation__c formula field to show the appropriate image on Case",
@@ -26,8 +39,15 @@
       "Fraud_Analytics_Date_Complete__c": "Completed review date for Fraud Analytics Investigation"
     },
     "Contact": {
+      "Broker_Set__c": "Represents the Broker Set to which this contact is associated with.",
       "FinServ__MaritalStatus__c": "The current state of a person in relation to the marriage laws or customs.",
-      "Is_Beta_Broker__c": "Identify if a broker is a beta broker"
+      "Is_Beta_Broker__c": "Identify if a broker is a beta broker",
+      "Is_MyBroker__c": "Evaluated to true when ever the logged user id is equal to Primary RBM/Secondary RBM on associated Broker Set.",
+      "Office_Group__c": "Represents the Office Group to which this contact is associated with.",
+      "Primary_RBM__c": "Captures the Primary RBM Information.",
+      "Secondary_RBM__c": "Captures the Secondary  RBM Information.",
+      "Segment__c": "Captures the Segment of the associated Broker Set.",
+      "SAO_State__c": "Represents the state to which Broker's Broker Set is Associated."
     },
     "ContentVersion": {
       "ContentSize": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
@@ -131,11 +151,13 @@
     "AuthenticationHistory__c": "Help user to view the history/information of Auth Request made on an Interaction",
     "Automatic_Repayment_Preference__c": "Used for repayment preferences for settlements",
     "BusinessHours": "Specifies the business hours of your support organization.",
+    "Broker_Relation__c": "Facilitates RBMs & Enablement Mangers to establish and manage relationship between RBMs & and their brokers.",
     "Campaign": "Represents and tracks a marketing campaign.",
     "Balance_History__x": "Balance history external object",
     "CampaignMember": "Associates a prospective or active customer with a campaign.",
     "CaseComment": "Plain text comment attached to a case",
     "Case": "Record of a customer interaction",
+    "CaseHistory": "Represents historical information about changes that have been made to the associated Case.",
     "Case_Product__c": "Many to Many relationship between Case and Product2",
     "CFaaS_File__c": "Custom object that will hold metadata of the files retrieved from CFaaS",
     "CFMS_Migrated_Document__c": "Custom object to store migrated CFMS documents, not the documents themselves but links to them in EDRM.",
@@ -763,6 +785,22 @@
         "My_Team_Segment__c"
       ]
     },
+    "Broker_Relation__c": {
+      "IA-2415790": ["Aggregator__c", "RecordTypeID", "State__c"],
+      "IA-2453350": ["External_Id__c", "IsActive__c"],
+      "IA-2460507": [
+        "Address1__c",
+        "Address2__c",
+        "Primary_RBM__c",
+        "Secondary_RBM__c"
+      ],
+      "IA-2530753": [
+        "Name",
+        "Associated_Broker_Set__c",
+        "Is_MyOfficeGroup__c",
+        "Segment__c"
+      ]
+    },
     "BrokerSettings__c": {
       "IA-253075": [
         "BypassApplicationEvent__c",
@@ -770,7 +808,8 @@
         "BypassCaseEvent__c",
         "BypassContractEvent__c",
         "BypassCustomerEvent__c",
-        "BypassSettlementAccountEvent__c"
+        "BypassSettlementAccountEvent__c",
+        "BypassBrokerRelationEvent__c"
       ]
     },
     "Campaign": {
@@ -1446,6 +1485,17 @@
         "Opt_Out_Reason__c"
       ]
     },
+    "CaseHistory": {
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ],
+      "IA-2530753": ["CaseId", "DataType", "Field", "IsDeleted"],
+      "IA-2415828": ["NewValue", "OldValue"]
+    },
     "Case_Reporting_Field__c": {
       "IA-2453595": [
         "Case__c",
@@ -1769,23 +1819,30 @@
         "Active_To__c",
         "External_Id__c",
         "Is_Beta_Broker__c",
+        "Is_MyBroker__c",
         "Occurrence_Number__c",
         "After_Hours_Availability__c",
         "Broker_Customer_Profile__c",
         "Occurrence_Number__c",
-        "Preferred_Contact__c"
+        "Preferred_Contact__c",
+        "Primary_RBM__c",
+        "Secondary_RBM__c",
+        "Segment__c"
       ],
       "IA-2415790": [
         "Accreditation_CompactLayout__c",
         "Asset_Finance_Accreditation_Status__c",
         "AssetFinanceTPMISAO__c",
         "Broker_Accreditation_Type__c",
+        "Broker_Set__c",
         "Commercial_Accreditation_Status__c",
         "CommercialTPMISAO__c",
         "Industry_Body_Member__c",
+        "Office_Group__c",
         "RecordTypeID",
         "Retail_Accreditation_Status__c",
-        "RetailTPMISAO__c"
+        "RetailTPMISAO__c",
+        "SAO_State__c"
       ],
       "IA-2460507": [
         "Lan_Id__c",
@@ -5497,6 +5554,20 @@
     }
   },
   "lineageInformation": {
+    "Broker_Relation__c": {
+      "Address1__c": "ANZx::Salesforce",
+      "Address2__c": "ANZx::Salesforce",
+      "Aggregator__c": "ANZx::Salesforce",
+      "Associated_Broker_Set__c": "ANZx::Salesforce",
+      "External_Id__c": "ANZx::Salesforce",
+      "Is_MyOfficeGroup__c": "ANZx::Salesforce",
+      "IsActive__c": "ANZx::Salesforce",
+      "Name": "ANZx::Salesforce",
+      "Primary_RBM__c": "ANZx::Salesforce",
+      "Secondary_RBM__c": "ANZx::Salesforce",
+      "Segment__c": "ANZx::Salesforce",
+      "State__c": "ANZx::Salesforce"
+    },
     "COBAddress__c": {
       "AddressBuildingName__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_ManualEntry :: building_name",
       "AddressCity__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_ManualEntry :: city",
@@ -5610,7 +5681,14 @@
       "TaxIdentificationNumber__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidency%2Eoneof_disclosure :: tax_identification_number_token"
     },
     "Contact": {
-      "Is_Beta_Broker__c": "ANZx::Salesforce"
+      "Broker_Set__c": "ANZx::Salesforce",
+      "Is_Beta_Broker__c": "ANZx::Salesforce",
+      "Is_MyBroker__c": "ANZx::Salesforce",
+      "Office_Group__c": "ANZx::Salesforce",
+      "Primary_RBM__c": "ANZx::Salesforce",
+      "Secondary_RBM__c": "ANZx::Salesforce",
+      "Segment__c": "ANZx::Salesforce",
+      "SAO_State__c": "ANZx::Salesforce"
     },
     "CustomerOnboardingApplication__c": {
       "AustralianTaxResident__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidencyStatus :: australian_tax_resident",
@@ -5675,6 +5753,19 @@
     }
   },
   "lineageTransformInformation": {
+    "Broker_Relation__c": {
+      "Address1__c": "TextAreaLong field",
+      "Address2__c": "TextAreaLong field",
+      "Aggregator__c": "Lookup to Account",
+      "Associated_Broker_Set__c": "Self-Lookup to Broker_Relation__c",
+      "External_Id__c": "External unique Id",
+      "Is_MyOfficeGroup__c": "Formula field",
+      "IsActive__c": "Checkbox field",
+      "Primary_RBM__c": "Lookup to User",
+      "Secondary_RBM__c": "Lookup to User",
+      "Segment__c": "Picklist field",
+      "State__c": "Picklist field"
+    },
     "COBAddress__c": {
       "AddressBuildingName__c": "1:1 Transformation",
       "AddressCity__c": "1:1 Transformation",
@@ -5788,7 +5879,14 @@
       "TaxIdentificationNumber__c": "1:1 Transformation"
     },
     "Contact": {
-      "Is_Beta_Broker__c": "1:1 Transformation"
+      "Broker_Set__c": "Lookup to Broker_Relation__c",
+      "Is_Beta_Broker__c": "1:1 Transformation",
+      "Is_MyBroker__c": "Formula field through Broker_Relation__c",
+      "Office_Group__c": "Lookup to Broker_Relation__c",
+      "Primary_RBM__c": "Formula field through Broker_Relation__c",
+      "Secondary_RBM__c": "Formula field through Broker_Relation__c",
+      "Segment__c": "Formula field through Broker_Relation__c",
+      "SAO_State__c": "Formula field through Broker_Relation__c"
     },
     "CustomerOnboardingApplication__c": {
       "AustralianTaxResident__c": "1:1 Transformation",
@@ -5980,6 +6078,67 @@
           "description": "The time zone of the business hours.",
           "securityClassification": "Internal",
           "type": "Picklist"
+        },
+        {
+          "fullName": "CreatedById"
+        },
+        {
+          "fullName": "CreatedDate"
+        },
+        {
+          "fullName": "Id"
+        },
+        {
+          "fullName": "LastModifiedById"
+        },
+        {
+          "fullName": "LastModifiedDate"
+        }
+      ]
+    },
+    "CaseHistory": {
+      "fields": [
+        {
+          "fullName": "CaseId",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "The unique identifier for the case.",
+          "securityClassification": "Internal",
+          "type": "reference(Case)"
+        },
+        {
+          "fullName": "DataType",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "The data type for the case history field.",
+          "securityClassification": "Internal",
+          "type": "picklist"
+        },
+        {
+          "fullName": "Field",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "The name of the field that was changed.",
+          "securityClassification": "Internal",
+          "type": "picklist"
+        },
+        {
+          "fullName": "IsDeleted",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "If the record has been deleted, this field is true; otherwise, it is false.",
+          "securityClassification": "Internal",
+          "type": "checkbox"
+        },
+        {
+          "fullName": "NewValue",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "The new value of the field after the change.",
+          "securityClassification": "Internal",
+          "type": "anyType"
+        },
+        {
+          "fullName": "OldValue",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "The previous value of the field before the change.",
+          "securityClassification": "Internal",
+          "type": "anyType"
         },
         {
           "fullName": "CreatedById"

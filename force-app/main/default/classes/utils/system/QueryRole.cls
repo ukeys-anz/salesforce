@@ -27,6 +27,10 @@ public with sharing class QueryRole {
     'Credit_Assessment_Officer'
   );
   public static UserRole creditAssessorLeadRole = get('Credit_Assessor_Lead');
+  public static UserRole residentialBrokerManager = get(
+    'Residential_Broker_Manager'
+  );
+  public static UserRole enablementManager = get('Enablement_Manager');
 
   /**
    * @description Get UserRole by UserRole DeveloperName

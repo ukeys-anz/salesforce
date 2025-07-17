@@ -18,7 +18,7 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     if (data && data.Case) {
       this.populateAccountNumbers(this._omniData);
       this.validateNAoption(this._omniData);
-      this.clearAccountFields(this._omniData.Case.ComplaintDetails);
+      this.clearAccountFields(this._omniData.Case);
     }
   }
 
@@ -36,8 +36,7 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
       data.ComplaintDetails &&
       data.ComplaintDetails.Issue2Checkbox === "No" &&
       data.ComplaintDetails.AccountPolicyNumber2 &&
-      this.omniJsonDef.name === "AccountPolicyNumber2" &&
-      !data.CustomerDetails.complaintAbout
+      this.omniJsonDef.name === "AccountPolicyNumber2"
     ) {
       this.omniUpdateDataJson("");
       this.value = "";
@@ -48,8 +47,7 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
       (data.ComplaintDetails.Issue2Checkbox === "No" ||
         data.ComplaintDetails.Issue3Checkbox === "No") &&
       data.ComplaintDetails.AccountPolicyNumber3 &&
-      this.omniJsonDef.name === "AccountPolicyNumber3" &&
-      !data.CustomerDetails.complaintAbout
+      this.omniJsonDef.name === "AccountPolicyNumber3"
     ) {
       this.omniUpdateDataJson("");
       this.value = "";
