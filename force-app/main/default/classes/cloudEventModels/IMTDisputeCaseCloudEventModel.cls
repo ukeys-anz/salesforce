@@ -59,7 +59,7 @@ public with sharing class IMTDisputeCaseCloudEventModel extends DisputeCaseCloud
      * @description receipt
      */
     public String receipt { get; set; }
-    
+
     /**
      * @description Constructor
      * @param theCase Case record
