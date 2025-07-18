@@ -8,6 +8,7 @@ import { showToast } from "c/utils";
 export default class CloseCaseOmniBtn extends LightningElement {
   @api recordId;
   isComplaintAboutComplaint;
+  isChildCompCalled = false;
 
   @wire(getRecord, {
     recordId: "$recordId",
@@ -15,6 +16,9 @@ export default class CloseCaseOmniBtn extends LightningElement {
   })
   caseData({ data }) {
     if (!data) {
+      return;
+    }
+    if (this.isChildCompCalled) {
       return;
     }
     this.isComplaintAboutComplaint = getFieldValue(
@@ -49,12 +53,14 @@ export default class CloseCaseOmniBtn extends LightningElement {
   }
 
   handleRefreshTabCloseModal = (evt) => {
-    if (evt?.detail?.caseRecId && evt.detail.caseRecId === this.recordId) {
-      getFocusedTabInfo().then((tabInfo) => {
-        const { tabId } = tabInfo;
-        refreshTab(tabId, false);
-      });
-      this.dispatchEvent(new CloseActionScreenEvent());
+    this.isChildCompCalled = true;
+    if (evt?.detail?.caseRecId !== this.recordId) {
+      return;
     }
+    getFocusedTabInfo().then((tabInfo) => {
+      const { tabId } = tabInfo;
+      refreshTab(tabId, false);
+    });
+    this.dispatchEvent(new CloseActionScreenEvent());
   };
 }
