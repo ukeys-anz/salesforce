@@ -47,21 +47,20 @@ public with sharing class DisputesCaseTriggerHandler extends Lib_TriggerHandler 
         UNAUTHORISED_TRANSACTION_DISPUTE_REASON
       )
       .toList();
-    if (!nppNonFraudDisputes.isEmpty()) {
       DisputesCaseActions.createExternalCaseStatuses(
         nppNonFraudDisputes,
         NPP_NEW_EXTERNAL_STATUS
       );
-    }
 
     List<Case> imtDisputes = ListUtil.filter(records)
       .equals(Case.RecordTypeId, RTCase.imtDispute)
       .toList();
-    if (!imtDisputes.isEmpty()) {
       DisputesCaseActions.createExternalCaseStatuses(
         imtDisputes,
         IMT_NEW_EXTERNAL_STATUS
       );
-    }
+
+      
+    
   }
 }
