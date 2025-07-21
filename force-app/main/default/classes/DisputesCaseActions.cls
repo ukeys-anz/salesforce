@@ -17,7 +17,9 @@ public with sharing class DisputesCaseActions {
     List<Case> records,
     String statusMappingMetadataDevName
   ) {
-    if (records.isEmpty()) {return;}
+    if (records.isEmpty()) {
+      return;
+    }
 
     List<External_Case_Status__c> externalCaseStatuses = new List<External_Case_Status__c>();
 

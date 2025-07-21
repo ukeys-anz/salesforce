@@ -134,6 +134,6 @@ public with sharing class CaseDisputesRepository {
       SELECT Id, OwnerId, Queue__c
       FROM Case
       WHERE Id IN :recordIds
-   ];
+    ];
   }
 }
