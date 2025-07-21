@@ -117,12 +117,41 @@
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Amount__c</fieldItem>
-                <identifier>RecordAmount_cField</identifier>
+                <identifier>RecordAmount_cField3</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.ApplicationForm.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>AMBIT</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.CCRM_Edit_Amount_on_Application_Form_Product}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>false</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Amount__c</fieldItem>
+                <identifier>RecordAmount_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.ApplicationForm.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>AMBIT</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.CCRM_Edit_Amount_on_Application_Form_Product}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>

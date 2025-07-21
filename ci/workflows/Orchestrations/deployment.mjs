@@ -33,11 +33,11 @@ const SFDX_URL = args[0];
 
 /// functions
 
-const deployment = () => {
+const deployment = async () => {
   createDiffOnDeploy(SOURCE_DIR, BASE_REF, BASE_REF_LAST_TAG);
   authenticate(BASE_REF, SFDX_URL);
   const deployment = deployWithoutTest(BASE_REF, SOURCE_DIR);
-  deployProgress(
+  await deployProgress(
     deployment,
     BASE_REF,
     ARTIFACT_PACKAGE_XML,

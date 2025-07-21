@@ -3,6 +3,7 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { CloseActionScreenEvent } from "lightning/actions";
 import { getRecord, getFieldValue } from "lightning/uiRecordApi";
 import { getPicklistValuesByRecordType } from "lightning/uiObjectInfoApi";
+import { CurrentPageReference } from "lightning/navigation";
 import saveAccountDetails from "@salesforce/apex/ManageExtraCareController.handleExtraCareUpdate";
 import getStagingRecordStatus from "@salesforce/apex/ManageExtraCareController.getStagingRecordStatus";
 import canManageHighRiskVictim from "@salesforce/customPermission/ManageExtraCareHighRiskScamVictim";
@@ -41,7 +42,7 @@ const HIGH_RISK_VICTIM_ERROR =
 const PENDING_STATUS_MESSAGE =
   "The latest request is observed to be in 'Pending' Status. Please try again after some time";
 const ERROR_STATUS_MESSAGE =
-  "The latest request is observed to be in 'Error' Status that was sent to OCV on the Extra Care Updates. Please click 'Retry' to re-submit the request to OCV from the latest Extra Care Updates to Customer record.";
+  "Unable to edit Extra Care information. Click retry to try again.";
 const SENSITIVE_REASONS = [
   "Cognitive capacity concerns",
   "Disability",
@@ -58,6 +59,7 @@ const NOTES_HELP_TEXT =
 
 export default class ManageExtraCare extends LightningElement {
   @api recordId;
+  accountId;
   @track oldAccount = {};
   @track newAccount = {};
   isLoading = true;
@@ -86,6 +88,16 @@ export default class ManageExtraCare extends LightningElement {
     }
   }
 
+  @wire(CurrentPageReference)
+  getStateParameters(currentPageReference) {
+    if (currentPageReference) {
+      this.accountId = currentPageReference.state.recordId;
+    }
+  }
+
+  connectedCallback() {
+    this.fetchStagingRecordStatus();
+  }
   @wire(getPicklistValuesByRecordType, {
     objectApiName: ACCOUNT_OBJECT,
     recordTypeId: "$recordTypeId"
@@ -114,7 +126,7 @@ export default class ManageExtraCare extends LightningElement {
       Pending: PENDING_STATUS_MESSAGE,
       Error: ERROR_STATUS_MESSAGE
     };
-    getStagingRecordStatus({ accountId: this.recordId })
+    getStagingRecordStatus({ accountId: this.accountId })
       .then((data) => {
         if (!Object.keys(invalidStatuses).includes(data)) {
           return;
@@ -345,6 +357,7 @@ export default class ManageExtraCare extends LightningElement {
     let oneYearFromToday = futureDate.toISOString().split("T")[0];
     // Review Date is not visible
     if (!this.showReviewDate) {
+      this.newAccount.ExtraCareReviewDate__c = null;
       return;
     }
     // Reason is changed with having no prior value (Or)

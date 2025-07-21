@@ -7,11 +7,11 @@
     <columns>OPPORTUNITY.CLOSE_DATE</columns>
     <columns>OPPORTUNITY.STAGE_NAME</columns>
     <columns>CORE.USERS.ALIAS</columns>
-    <filterScope>Mine</filterScope>
     <filters>
         <field>OPPORTUNITY.STAGE_NAME</field>
         <operation>notEqual</operation>
         <value>Opportunity Lost,Opportunity Won</value>
     </filters>
+    <filterScope>Mine</filterScope>
     <label>My In-progres Opportunities</label>
 </ListView>

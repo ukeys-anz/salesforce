@@ -1,4 +1,3 @@
-import { exec, execSync } from "child_process";
 import {
   createArtifactFolder,
   renameForceignore
@@ -22,8 +21,12 @@ import {
   salesforceDestructiveChanges,
   loggerInStep,
   destructivePackageChangesExist,
-  moveDestructiveFolderToForceApp
+  moveDestructiveFolderToForceApp,
+  runSpawnCommand
 } from "./helper.mjs";
+
+const POLL_INTERVAL = 15 * 1000; // 15 seconds
+const TIMEOUT_MS = 2 * 60 * 60 * 1000; // 2 hour timeout
 
 const validateWithoutTest = (targetOrg, artifactPath) => {
   if (!salesforceDiffExist(artifactPath)) return;
@@ -305,7 +308,52 @@ const cancel = (
   }
 };
 
-const commandProgress = (
+const logDeployProgress = (status, reportResult, whichJob) => {
+  if (status === "Pending") {
+    console.log(
+      `⏳ ${whichJob} is pending — waiting for the org to start the job...`
+    );
+    return;
+  }
+
+  const {
+    numberTestsCompleted,
+    numberTestsTotal,
+    numberTestErrors,
+    numberComponentsTotal,
+    numberComponentsDeployed,
+    numberComponentErrors,
+    stateDetail
+  } = reportResult || {};
+
+  const hasTests = numberTestsTotal > 0;
+
+  const logParts = [`🔧 ${whichJob} Progress`];
+
+  if (hasTests) {
+    logParts.push(
+      `🧪 Running Tests: ${numberTestsCompleted}/${numberTestsTotal}`
+    );
+    if (numberTestErrors) {
+      logParts.push(`❌ Errors: ${numberTestErrors}`);
+    }
+  } else {
+    logParts.push(
+      `📦 Components: ${numberComponentsDeployed}/${numberComponentsTotal}`
+    );
+    if (numberComponentErrors) {
+      logParts.push(`❌ Errors: ${numberComponentErrors}`);
+    }
+  }
+
+  if (stateDetail) {
+    logParts.push(`ℹ️ ${stateDetail}`);
+  }
+
+  console.log(logParts.join(" | "));
+};
+
+const commandProgress = async (
   command,
   targetOrg,
   artifactPackage,
@@ -318,7 +366,7 @@ const commandProgress = (
     process.exit();
   }
 
-  logger(`${whichJob} Progress`);
+  logger(`🔄 ${whichJob} Progress`);
 
   createDeployCacheFile(
     jobId,
@@ -327,52 +375,41 @@ const commandProgress = (
     artifactDestructivePackage
   );
 
-  const resumeCommand = `npx sf project deploy resume --job-id ${jobId}`;
-  console.log(resumeCommand);
+  const start = Date.now();
 
-  const runCommandProcess = exec(resumeCommand);
-  runCommandProcess.stdout.on("data", (data) => {
+  const pollDeployStatus = async () => {
+    if (Date.now() - start > TIMEOUT_MS) {
+      console.error(`⏰ ${whichJob} timed out after 2 hour.`);
+      process.exit(1);
+    }
+
+    let report;
     try {
-      const output = JSON.parse(data);
-      if (output.status === 0) {
-        console.log(`${whichJob} completed successfully`);
-        deployReport(jobId, targetOrg, whichJob);
-      } else if (output.progress) {
-        console.log(`Progress: ${output.progress}`);
-      } else {
-        console.log(data);
-      }
+      report = await runSpawnCommand(jobId);
     } catch (err) {
-      console.log(data);
+      console.error("❌ Failed on report output:", err);
+      deployReport(jobId, targetOrg, whichJob);
     }
-  });
 
-  runCommandProcess.stderr.on("data", (data) => {
-    const dataReport = data.toString();
-    if (dataReport.toLowerCase().includes("status")) {
-      console.error(`Progress: ${data.toString()}`);
-    }
-  });
+    const status = report?.result?.status;
 
-  runCommandProcess.on("close", (code) => {
-    if (code !== 0) {
-      const report = commandReport(jobId, targetOrg);
-      const status = JSON.parse(report)["result"]["status"];
-      if (status !== "InProgress" && status !== "Pending") {
-        console.error(`${whichJob} failed with exit code: \n${code}`);
-        deployReport(jobId, targetOrg, whichJob);
-        process.exit(1);
-      } else {
-        return commandProgress(
-          command,
-          targetOrg,
-          artifactPackage,
-          artifactDestructivePackage,
-          whichJob
-        );
-      }
+    if (status === "Succeeded") {
+      console.log(`✅ ${whichJob} completed successfully.`);
+      deployReport(jobId, targetOrg, whichJob);
+    } else if (status === "Failed" || status === "Canceled") {
+      console.error(`❌ ${whichJob} failed with status: ${status}`);
+      deployReport(jobId, targetOrg, whichJob);
+      process.exit(1);
+    } else if (status === "InProgress" || status === "Pending") {
+      logDeployProgress(status, report?.result, whichJob);
+      setTimeout(pollDeployStatus, POLL_INTERVAL);
+    } else {
+      console.warn(`⚠️ Unexpected status: ${status}`);
+      setTimeout(pollDeployStatus, POLL_INTERVAL);
     }
-  });
+  };
+
+  await pollDeployStatus(); // start polling
 };
 
 const commandReport = (jobId, targetOrg) =>
@@ -380,47 +417,50 @@ const commandReport = (jobId, targetOrg) =>
     `npx sf project deploy report --job-id ${jobId} -o ${targetOrg} --json`
   );
 
-const validateProgress = (
+const validateProgress = async (
   validationReport,
   targetOrg,
   artifactPackage,
   artifactDestructivePackage
-) =>
-  commandProgress(
+) => {
+  await commandProgress(
     validationReport,
     targetOrg,
     artifactPackage,
     artifactDestructivePackage,
     "Validation"
   );
+};
 
-const quickDeployProgress = (
+const quickDeployProgress = async (
   quickDeploymentCommand,
   targetOrg,
   artifactPackage,
   artifactDestructivePackage
-) =>
-  commandProgress(
+) => {
+  await commandProgress(
     quickDeploymentCommand,
     targetOrg,
     artifactPackage,
     artifactDestructivePackage,
     "Quick Deployment"
   );
+};
 
-const deployProgress = (
+const deployProgress = async (
   deploymentCommand,
   targetOrg,
   artifactPackage,
   artifactDestructivePackage
-) =>
-  commandProgress(
+) => {
+  await commandProgress(
     deploymentCommand,
     targetOrg,
     artifactPackage,
     artifactDestructivePackage,
     "Deployment"
   );
+};
 
 const deployReport = (jobId, targetOrg, whichJob) => {
   logger(`${whichJob} Report`);
@@ -429,43 +469,6 @@ const deployReport = (jobId, targetOrg, whichJob) => {
       `npx sf project deploy report --job-id ${jobId} -o ${targetOrg}`
     )
   );
-};
-
-// This code will find the json report for specific job
-// Will find the test result and then the number of covered lines and not covered lines
-// Then will print the apex code coverage
-const codeCoverage = (jobIdFilePath, draftPR) => {
-  const jobId = printContextFromFile(jobIdFilePath, "| Code Coverage");
-  if (!jobId || jobId.includes("File not found")) return;
-
-  logger("Apex Code Coverage");
-  if (booleanMap(draftPR)) {
-    console.log("Draft PR | No test");
-    return;
-  }
-
-  const reportJson = JSON.parse(
-    runSfCommand(`npx sf project deploy report --job-id ${jobId} --json`)
-  );
-  const runTestResult = reportJson["result"]["details"]["runTestResult"];
-  const numTestsRun = runTestResult["numTestsRun"];
-  if (!numTestsRun) {
-    console.log("No test");
-    return;
-  }
-  const codeCoverage = runTestResult["codeCoverage"];
-  const coveredLines = codeCoverage.reduce((s, v) => s + +v.numLocations, 0);
-  const notCoveredLines = codeCoverage.reduce(
-    (s, v) => s + +v.numLocationsNotCovered,
-    0
-  );
-  const percentage = (
-    (1 - notCoveredLines / (coveredLines + notCoveredLines)) *
-    100
-  ).toFixed(2);
-
-  console.log(`Apex test coverage: ${percentage}%`);
-  return;
 };
 
 const retrieveDestructiveFiles = (
@@ -508,6 +511,5 @@ export {
   uploadJobId,
   createProdValidationJobIdFile,
   uploadProdValidationJobIdFile,
-  codeCoverage,
   quickDeploy
 };

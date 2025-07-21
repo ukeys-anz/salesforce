@@ -41,5 +41,3 @@ const createTag = (epicBranchName) => {
 };
 
 export { createEpicBranch, fetchEverything, createTag };
-
-console.log(createTag("ar-128766"));

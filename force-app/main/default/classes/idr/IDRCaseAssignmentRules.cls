@@ -166,7 +166,8 @@ public with sharing class IDRCaseAssignmentRules {
     if (
       originCeoBasket.contains(rec.Origin) ||
       (rec.Type == '8' &&
-      rec.IDR_Subsequent_Issue__c == '49')
+      rec.IDR_Subsequent_Issue__c == '49' &&
+      rec.Origin != IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED)
     ) {
       return QueryQueue.get('IDR_CEO').Id;
     }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Broker_Set</fullName>
+    <active>true</active>
+    <compactLayoutAssignment>Broker_Set_Compact_Layout</compactLayoutAssignment>
+    <label>Broker Set</label>
+    <picklistValues>
+        <picklist>Segment__c</picklist>
+        <values>
+            <fullName>APN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TD</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>State__c</picklist>
+        <values>
+            <fullName>NSW%2FACT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>QLD%2FNT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VIC%2FTAS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WA</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

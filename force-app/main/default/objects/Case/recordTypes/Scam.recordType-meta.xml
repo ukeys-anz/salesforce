@@ -4098,6 +4098,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Digital Padlock</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>OFI</fullName>
             <default>false</default>
         </values>

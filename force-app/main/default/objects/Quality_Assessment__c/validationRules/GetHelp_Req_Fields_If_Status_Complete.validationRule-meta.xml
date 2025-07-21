@@ -2,12 +2,23 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>GetHelp_Req_Fields_If_Status_Complete</fullName>
     <active>true</active>
-    <description>Fields should be mandatory for Get Help and Get Help Appointment RT when status moved to Complete</description>
+    <description>Fields should be mandatory for Get Help and Get Help Appointment RT when status moved to Complete or Referred</description>
     <errorConditionFormula>AND(
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 !ISNEW(), 
-ISPICKVAL(Status__c, &apos;Complete&apos;),
-ISPICKVAL(Sub_Status__c , &apos;Evaluation Completed&apos;),
+OR(
+        AND(
+            ISPICKVAL(Status__c, &apos;Complete&apos;),
+            ISPICKVAL(Sub_Status__c , &apos;Evaluation Completed&apos;)
+        ),
+        AND(
+            ISPICKVAL(Status__c, &apos;Referred&apos;),
+            OR(
+                ISPICKVAL(Sub_Status__c, &apos;Compliance Review&apos;),
+                ISPICKVAL(Sub_Status__c, &apos;Other&apos;)
+            )
+        )
+),
 OR( RecordType.DeveloperName = &apos;Get_Help&apos;,
     RecordType.DeveloperName = &apos;Get_Help_Appointment&apos; 
   ),

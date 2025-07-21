@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Office_Groups</fullName>
+    <columns>NAME</columns>
+    <columns>Associated_Broker_Set__c</columns>
+    <columns>Aggregator__c</columns>
+    <columns>Segment__c</columns>
+    <columns>Address1__c</columns>
+    <columns>IsActive__c</columns>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Broker_Relation__c.Office_Group</value>
+    </filters>
+    <filterScope>Everything</filterScope>
+    <label>All Office Groups</label>
+    <sharedTo>
+        <role>Enablement_Manager</role>
+        <role>Residential_Broker_Manager</role>
+    </sharedTo>
+</ListView>

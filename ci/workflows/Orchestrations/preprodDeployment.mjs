@@ -65,7 +65,7 @@ const deployFunc = () =>
     ? deployWithoutTestSkipDestructive
     : deployWithoutTest;
 
-const preprodDeployment = () => {
+const preprodDeployment = async () => {
   createDiffOnDeploy(SOURCE_DIR, BASE_REF, BASE_REF_LAST_TAG);
   uploadToArtifactory(
     ARTIFACTORY_SECRET_VALUE,
@@ -75,7 +75,7 @@ const preprodDeployment = () => {
   authenticate(DEPLOY_USER_USERNAME, SFDX_URL);
   const deploymentFunc = deployFunc();
   const deployment = deploymentFunc(DEPLOY_USER_USERNAME, SOURCE_DIR);
-  deployProgress(
+  await deployProgress(
     deployment,
     DEPLOY_USER_USERNAME,
     ARTIFACT_PACKAGE_XML,
@@ -83,7 +83,7 @@ const preprodDeployment = () => {
   );
 };
 
-const deployDestructiveToPreprod = () => {
+const deployDestructiveToPreprod = async () => {
   authenticate(DEPLOY_USER_USERNAME, SFDX_URL);
   const destructiveDeploy = destructiveDeployment(
     DESTRUCTIVE_ARTIFACT,
@@ -91,7 +91,7 @@ const deployDestructiveToPreprod = () => {
     ARTIFACTORY_REPO_NAME,
     DEPLOY_USER_USERNAME
   );
-  deployProgress(
+  await deployProgress(
     destructiveDeploy,
     DEPLOY_USER_USERNAME,
     DESTRUCTIVE_PACKAGE_XML,

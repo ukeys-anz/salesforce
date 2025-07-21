@@ -127,6 +127,11 @@
         <label>Law Enforcement</label>
     </standardValue>
     <standardValue>
+        <fullName>Digital Padlock</fullName>
+        <default>false</default>
+        <label>Digital Padlock</label>
+    </standardValue>
+    <standardValue>
         <fullName>App</fullName>
         <default>false</default>
         <label>App</label>

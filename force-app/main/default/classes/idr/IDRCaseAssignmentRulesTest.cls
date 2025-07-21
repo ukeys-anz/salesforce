@@ -206,6 +206,35 @@ private with sharing class IDRCaseAssignmentRulesTest {
     );
   }
   /**
+   * @description : This is the test method to check Case assignment for IDR CEO wb when Channel received is not Referred from AFCA.
+   */
+  @isTest
+  private static void testOwnerisIDRCEOwhenNotReferredFromAfca() {
+    Case oldCase = caseRecord1;
+
+    Case newCase = caseRecord2;
+    newCase.Origin = 'Email';
+    newCase.Type = '8';
+    newCase.IDR_Subsequent_Issue__c = '49';
+    newCase.Status = IDRConstants.ESCALATED_STATUS;
+    Test.startTest();
+    Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
+      newCase,
+      oldCase
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      workbasketId,
+      QueryQueue.get('IDR_CEO').Id,
+      'Owner should be IDR_CEO'
+    );
+    Assert.areNotEqual(
+      workbasketId,
+      newCase.OwnerId,
+      'Owner should be updated and should not be the case owner'
+    );
+  }
+  /**
    * @description : This is the test method to get assign respective owner Id to Case.
    */
   @isTest
