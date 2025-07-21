@@ -40,27 +40,32 @@ public with sharing class DisputesCaseTriggerHandler extends Lib_TriggerHandler 
    * @description onAfterInsert to handle after update trigger actions.
    */
   public override void onAfterInsert() {
-    List<Case> nppNonFraudDisputes = ListUtil.filter(records)
-      .equals(Case.RecordTypeId, RTCase.nppDispute)
+    Map<Id, List<Case>> recordTypeIdToCases = (Map<Id, List<Case>>) ListUtil.groupBy(
+      records,
+      Case.RecordTypeId
+    );
+    for (Id recordTypeId : recordTypeIdToCases.keySet()) {
+      List<Case> filteredRecords = new List<Case>();
+      String externalCaseStatus;
+
+      if (recordTypeId == RTCase.nppDispute) {
+        filteredRecords = ListUtil.filter(recordTypeIdToCases.get(recordTypeId))
       .notEquals(
         Case.Dispute_Reason__c,
         UNAUTHORISED_TRANSACTION_DISPUTE_REASON
       )
       .toList();
+        externalCaseStatus = NPP_NEW_EXTERNAL_STATUS;
+      } else if (recordTypeId == RTCase.imtDispute) {
+        filteredRecords = recordTypeIdToCases.get(recordTypeId);
+        externalCaseStatus = IMT_NEW_EXTERNAL_STATUS;
+      } else {
+        continue;
+      }
       DisputesCaseActions.createExternalCaseStatuses(
-        nppNonFraudDisputes,
-        NPP_NEW_EXTERNAL_STATUS
+        filteredRecords,
+        externalCaseStatus
       );
-
-    List<Case> imtDisputes = ListUtil.filter(records)
-      .equals(Case.RecordTypeId, RTCase.imtDispute)
-      .toList();
-      DisputesCaseActions.createExternalCaseStatuses(
-        imtDisputes,
-        IMT_NEW_EXTERNAL_STATUS
-      );
-
-      
-    
+    }
   }
 }
