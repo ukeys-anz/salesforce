@@ -5,7 +5,7 @@
  * @last modified on  : 06-09-2025
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
  **/
-@SuppressWarnings('PMD.CyclomaticComplexity')
+ @SuppressWarnings('PMD.CyclomaticComplexity')
 @IsTest
 public with sharing class AUFControllerTest {
   static Faker faker = new Faker('AU');

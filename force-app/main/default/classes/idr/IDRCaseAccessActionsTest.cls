@@ -348,7 +348,9 @@ private with sharing class IDRCaseAccessActionsTest {
   @isTest
   static void testgetNonAnzxStandardUserCases() {
     registerMocks();
-    userMock.mock('checkProfile', false).mock('getUser', l2User);
+    userMock
+      .mock('checkProfile', false)
+      .mock('getUser', l2User);
     Case oldCase = oldCaseRecord;
     oldCase.OwnerId = l3User.Id;
     Case newCase = newCaseRecord;

@@ -96,9 +96,8 @@ public with sharing class SICaseActions {
       ReminderDateTime = (DateTime) (activityDate - 1)
     );
   }
-  private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(
-    UserInfoRepository.class
-  );
+private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class);
   /**
    * @description Remove pending monitoring tasks when cases are no longer in Monitoring
    * @param cases Cases to process, which the tasks relates to
@@ -109,6 +108,7 @@ public with sharing class SICaseActions {
     List<Case> cases,
     Map<Id, Case> oldMap
   ) {
+
     if (
       !Task.sObjectType.getDescribe().isQueryable() ||
       !Task.sObjectType.getDescribe().isDeletable() ||
@@ -170,3 +170,4 @@ public with sharing class SICaseActions {
     DML_REPOSITORY.doUpdate(systemicIssuesToUpdate);
   }
 }
+
