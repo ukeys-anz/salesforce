@@ -255,6 +255,7 @@ export default class FinancialAccountParent extends LightningElement {
       this.financialAccount = this.fetchedAccounts[0];
       this.componentSubTitle =
         this.financialAccount.accounts[0].finserv_product_display_name;
+      this.componentTitle = this.financialAccount.transactionTitle;
       this.showGoals = this.financialAccount.accounts[0].finserv_showgoal;
     } catch (error) {
       this.financialAccount = [{ no_account: true }];
@@ -330,15 +331,6 @@ export default class FinancialAccountParent extends LightningElement {
       this.clearTransactions = true;
     } else {
       this.clearTransactions = false;
-    }
-    //Set default component title here to ensure theres always a title
-    //even if the try catch fails
-    if (this.isHomeLoan) {
-      this.componentTitle = "Transaction History";
-    } else {
-      this.componentTitle = this.isSavings
-        ? "All Savings Transaction History"
-        : "All Everyday Transaction History";
     }
     try {
       this.transactionData = await getTransactionHistoryAura({

@@ -8,6 +8,7 @@ public with sharing class FinancialAccountControllerAction {
   private static final Integer DEFAULT_SORT_ORDER = 999;
   private static final String ORIGIN = 'PRODUCT_ORIGIN_ARC';
   private static final String DEFAULT_ICON = 'custom:custom51';
+  private static final String DEFAULT_TRANSACTION_TITLE = 'Transaction History';
   /**
    * @description Groups financial accounts based on product code .
    * @param finAccounts list of financial accounts received from fabric or database.
@@ -41,7 +42,7 @@ public with sharing class FinancialAccountControllerAction {
       FinancialAccountUIConfiguration__mdt uiConfig = QueryFinancialAccountUIConfig.configByProductCode.get(
         productCode
       );
-
+      
       if (uiConfig != null && !uiConfig.Is_Active__c) {
         continue;
       }
@@ -76,7 +77,8 @@ public with sharing class FinancialAccountControllerAction {
 
       uiModelUpdate.productCode = productCode;
       uiModelUpdate.sortOrder = uiConfig?.Sort_Order__c ?? DEFAULT_SORT_ORDER;
-      uiModelUpdate.icon = uiConfig?.Icon__c ?? DEFAULT_ICON;
+      uiModelUpdate.icon = uiConfig?.FinancialAccountConfiguration__r.Icon__c ?? DEFAULT_ICON;
+      uiModelUpdate.transactionTitle = uiConfig?.FinancialAccountConfiguration__r.Transaction_Title__c ?? DEFAULT_TRANSACTION_TITLE;
       uiModelUpdate.accountType = uiConfig?.Account_Type__c ?? 'Non Savings';
       uiModelUpdate.balanceTitle = uiConfig?.Balance_Title__c ?? '';
       uiModelUpdate.sectionHeaderTitle = uiConfig?.Section_Header_Title__c ??

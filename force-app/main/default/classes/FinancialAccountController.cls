@@ -190,10 +190,10 @@ public with sharing class FinancialAccountController {
     finAccount.finserv_ownership = finAccountFromDatabase == null
       ? FABRIC_OWNERSHIP.get(finAccount.ownership?.type)
       : finAccountFromDatabase.Ownership__c;
-
+      
     finAccount.finserv_sortorder = finAccConfig?.Sort_Order__c ??
       DEFAULT_SORT_ORDER;
-    finAccount.finserv_showgoal = finAccConfig?.Show_Goals__c ?? true;
+      finAccount.finserv_showgoal = finAccConfig?.Show_Goals__c ?? false;
 
     return finAccount;
   }
@@ -304,11 +304,11 @@ public with sharing class FinancialAccountController {
   private static List<UnifiedFinancialAccountModel.AccountList> fetchAllFinancialAccountsDB(
     Id ownerId
   ) {
-    List<FinServ__FinancialAccountRole__c> allRelatedAccountsRoles = FINANCIAL_ACCOUNT_REPOSITORY.getAllAccountNumberPerOwner(
+        List<FinServ__FinancialAccountRole__c> allRelatedAccountsRoles = FINANCIAL_ACCOUNT_REPOSITORY.getAllAccountNumberPerOwner(
       ownerId,
       QueryFinancialAccountUIConfig.configByProductCode.keySet()
     );
-
+    
     Set<String> allRelatedAccountNumbers = ListUtil.getStrings(
       allRelatedAccountsRoles,
       FinServ__FinancialAccountRole__c.Account_Number__c
@@ -318,7 +318,7 @@ public with sharing class FinancialAccountController {
       ownerId,
       new List<String>(allRelatedAccountNumbers)
     );
-
+    
     return UnifiedFinancialAccountModelConverter.convertToUnifiedFinancialAccountModel(
       financialAccount
     );
