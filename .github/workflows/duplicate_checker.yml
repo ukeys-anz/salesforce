@@ -11,6 +11,11 @@ on:
       - "force-app/**"
       - ".gitmodules"
       - ".github/workflows/duplicate_checker.yml"
+    types:
+      - opened
+      - reopened
+      - ready_for_review
+      - synchronize
 
 permissions:
   contents: write

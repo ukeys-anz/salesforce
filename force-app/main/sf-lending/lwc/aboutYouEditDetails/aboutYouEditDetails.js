@@ -214,7 +214,7 @@ export default class AboutYouEditDetails extends LightningModal {
         });
         this.close("okay");
       })
-      .catch(() => {
+      .catch((error) => {
         handleErrorShowToast(
           this,
           "",
