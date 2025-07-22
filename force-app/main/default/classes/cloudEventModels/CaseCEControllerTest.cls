@@ -9,8 +9,6 @@ public class CaseCEControllerTest {
   @isTest
   public static void testNPPDisputeCase() {
     Case theCase = TestDataFactory.createCase('NPP_Dispute');
-    RecordType rt = CommonUtil.getRecordTypeDeveloperName(theCase.RecordTypeId);
-    theCase = (Case) TestDataFactory.populateRecordType(theCase, rt);
     theCase.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
     Test.startTest();
     CaseCEController.publishCloudEvents(new List<Case>{ theCase });
@@ -325,15 +323,12 @@ public class CaseCEControllerTest {
     String recordTypeDeveloperName
   ) {
     Case theCase = TestDataFactory.createCase(recordTypeDeveloperName);
-    RecordType rt = CommonUtil.getRecordTypeDeveloperName(theCase.RecordTypeId);
-    theCase = (Case) TestDataFactory.populateRecordType(theCase, rt);
     theCase.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
     theCase.AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
     theCase.OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
     Case theOldCase = TestDataFactory.createCase(recordTypeDeveloperName);
     theOldCase.Id = theCase.Id;
     theOldCase.Status = 'On Hold';
-    theOldCase = (Case) TestDataFactory.populateRecordType(theOldCase, rt);
     return new Map<String, Case>{
       'newCase' => theCase,
       'oldCase' => theOldCase

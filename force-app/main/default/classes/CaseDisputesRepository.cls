@@ -120,20 +120,4 @@ public with sharing class CaseDisputesRepository {
         AND Dispute_Reason__c != :GetHelpCaseAssignmentRules.UNAUTHORISED_TRANSACTION))
     ];
   }
-
-  /**
-   * @description to get the Cases
-   * @param recordIds List of Case Ids
-   * @return List<Case> case list
-   */
-  public static List<Case> getCaseRecords(Set<Id> recordIds) {
-    if (Schema.SObjectType.Case.isQueryable() == false || recordIds.isEmpty()) {
-      return new List<Case>();
-    }
-    return [
-      SELECT Id, OwnerId, Queue__c
-      FROM Case
-      WHERE Id IN :recordIds
-    ];
-  }
 }

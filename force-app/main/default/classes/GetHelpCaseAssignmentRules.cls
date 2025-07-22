@@ -45,6 +45,9 @@ public with sharing class GetHelpCaseAssignmentRules {
    */
   public static void assignDisputeCases(Case[] cases, Map<Id, Case> oldMap) {
     for (Case c : cases) {
+      if (c.RecordTypeId == RTCase.imtDispute) {
+        continue;
+      }
       if (CheckCaseRecordType.isDispute(c) && c.submitted__c == true) {
         Case oldCase = (oldMap != null ? oldMap.get(c.Id) : null);
         if (isSubmittedOrReasonChanged(c, oldCase)) {
@@ -114,15 +117,6 @@ public with sharing class GetHelpCaseAssignmentRules {
         return QUEUE_MAP.get(GetHelpConstants.CARD_DISPUTE_FRAUD_QUEUE);
       } else {
         return QUEUE_MAP.get(GetHelpConstants.CARD_DISPUTE_GENERAL_QUEUE);
-      }
-    } else if (rec.RecordTypeId == RTCase.imtDispute) {
-      if (
-        rec.Dispute_Reason__c == GetHelpConstants.CANCEL_TRANSFER ||
-        rec.Dispute_Reason__c == GetHelpConstants.PAYEE_HAS_NOT_RECIEVED_FUNDS
-      ) {
-        return QUEUE_MAP.get(GetHelpConstants.SUPPORT_COACH_QUEUE);
-      } else {
-        return QUEUE_MAP.get(GetHelpConstants.DIGITAL_FRAUD_QUEUE);
       }
     } else {
       if (

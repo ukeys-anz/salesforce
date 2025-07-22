@@ -220,9 +220,6 @@ public with sharing class GetHelpConstants {
   public static final String TRANSACTION_STATUS_PENDING = 'TRANSACTION_STATUS_PENDING';
   public static final String TRANSACTION_STATUS_POSTED = 'TRANSACTION_STATUS_POSTED';
   public static final String TRANSACTION_PENDING = 'PENDING';
-  public static final String SUSPECTED_FRAUD = 'Suspected fraud';
-  public static final String CANCEL_TRANSFER = 'Cancel transfer';
-  public static final String PAYEE_HAS_NOT_RECIEVED_FUNDS = 'Payee has not received funds';
 
   /**
    * @description Static variable to list ANZX workbaskets' API names
