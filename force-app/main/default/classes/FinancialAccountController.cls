@@ -158,22 +158,18 @@ public with sharing class FinancialAccountController {
     UnifiedFinancialAccountModel.AccountList finAccount,
     FinServ__FinancialAccount__c finAccountFromDatabase
   ) {
-    String finAccountKey;
-    if (finAccount?.product_details?.origin == ORIGIN) {
-      finAccountKey =
-        TextUtils.removeNonAlphanumericChar(
-          finAccount.product_details.sub_product_code
-        ) +
-        '_' +
-        FABRIC_OWNERSHIP_UI.get(finAccount.ownership?.type);
-    } else {
-      finAccountKey =
-        finAccount.product_details.marketing_code +
-        '_' +
-        FABRIC_OWNERSHIP_UI.get(finAccount.ownership?.type);
-    }
-    FinancialAccountUIConfiguration__mdt finAccConfig = QueryFinancialAccountUIConfig.configByDeveloperName.get(
-      finAccountKey
+    String linkedCode = finAccount?.linkedProductCode;
+    String marketingCode = finAccount?.product_details?.marketing_code;
+    String subProductCode = TextUtils.removeNonAlphanumericChar(
+      finAccount?.product_details?.sub_product_code
+    );
+
+    String productCode =
+      (linkedCode ?? (marketingCode ?? subProductCode)) +
+      '_' +
+      FABRIC_OWNERSHIP_UI.get(finAccount.ownership?.type);
+    FinancialAccountUIConfiguration__mdt uiConfig = QueryFinancialAccountUIConfig.configByDeveloperName.get(
+      productCode
     );
     finAccount.Id = finAccountFromDatabase?.Id;
     finAccount.finserv_product_name = finAccountFromDatabase
@@ -190,10 +186,9 @@ public with sharing class FinancialAccountController {
     finAccount.finserv_ownership = finAccountFromDatabase == null
       ? FABRIC_OWNERSHIP.get(finAccount.ownership?.type)
       : finAccountFromDatabase.Ownership__c;
-      
-    finAccount.finserv_sortorder = finAccConfig?.Sort_Order__c ??
+    finAccount.finserv_sortorder = uiConfig?.Sort_Order__c ??
       DEFAULT_SORT_ORDER;
-      finAccount.finserv_showgoal = finAccConfig?.Show_Goals__c ?? false;
+    finAccount.finserv_showgoal = uiConfig?.Show_Goals__c ?? false;
 
     return finAccount;
   }
@@ -304,21 +299,20 @@ public with sharing class FinancialAccountController {
   private static List<UnifiedFinancialAccountModel.AccountList> fetchAllFinancialAccountsDB(
     Id ownerId
   ) {
-        List<FinServ__FinancialAccountRole__c> allRelatedAccountsRoles = FINANCIAL_ACCOUNT_REPOSITORY.getAllAccountNumberPerOwner(
+    List<FinServ__FinancialAccountRole__c> allRelatedAccountsRoles = FINANCIAL_ACCOUNT_REPOSITORY.getAllAccountNumberPerOwner(
       ownerId,
       QueryFinancialAccountUIConfig.configByProductCode.keySet()
     );
-    
+
     Set<String> allRelatedAccountNumbers = ListUtil.getStrings(
       allRelatedAccountsRoles,
       FinServ__FinancialAccountRole__c.Account_Number__c
     );
 
     List<FinServ__FinancialAccount__c> financialAccount = FINANCIAL_ACCOUNT_REPOSITORY.getFinancialAccounts(
-      ownerId,
       new List<String>(allRelatedAccountNumbers)
     );
-    
+
     return UnifiedFinancialAccountModelConverter.convertToUnifiedFinancialAccountModel(
       financialAccount
     );

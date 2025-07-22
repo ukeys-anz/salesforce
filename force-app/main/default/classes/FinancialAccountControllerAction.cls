@@ -31,18 +31,16 @@ public with sharing class FinancialAccountControllerAction {
     Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupedAccounts = new Map<String, List<UnifiedFinancialAccountModel.AccountList>>();
 
     for (UnifiedFinancialAccountModel.AccountList account : finAccounts) {
-      String productCode;
+      String linkedCode = account?.linkedProductCode;
+      String marketingCode = account?.product_details?.marketing_code;
+      String subProductCode = account?.product_details?.sub_product_code;
 
-      if (account?.product_details?.origin == ORIGIN) {
-        productCode = account.product_details.sub_product_code;
-      } else {
-        productCode = account.product_details.marketing_code;
-      }
+      String productCode = (linkedCode ?? (marketingCode ?? subProductCode));
 
       FinancialAccountUIConfiguration__mdt uiConfig = QueryFinancialAccountUIConfig.configByProductCode.get(
         productCode
       );
-      
+
       if (uiConfig != null && !uiConfig.Is_Active__c) {
         continue;
       }
@@ -77,8 +75,11 @@ public with sharing class FinancialAccountControllerAction {
 
       uiModelUpdate.productCode = productCode;
       uiModelUpdate.sortOrder = uiConfig?.Sort_Order__c ?? DEFAULT_SORT_ORDER;
-      uiModelUpdate.icon = uiConfig?.FinancialAccountConfiguration__r.Icon__c ?? DEFAULT_ICON;
-      uiModelUpdate.transactionTitle = uiConfig?.FinancialAccountConfiguration__r.Transaction_Title__c ?? DEFAULT_TRANSACTION_TITLE;
+      uiModelUpdate.icon = uiConfig?.FinancialAccountConfiguration__r.Icon__c ??
+        DEFAULT_ICON;
+      uiModelUpdate.transactionTitle = uiConfig
+        ?.FinancialAccountConfiguration__r.Transaction_Title__c ??
+        DEFAULT_TRANSACTION_TITLE;
       uiModelUpdate.accountType = uiConfig?.Account_Type__c ?? 'Non Savings';
       uiModelUpdate.balanceTitle = uiConfig?.Balance_Title__c ?? '';
       uiModelUpdate.sectionHeaderTitle = uiConfig?.Section_Header_Title__c ??

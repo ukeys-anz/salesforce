@@ -71,6 +71,7 @@ public with sharing class FinancialAccountRepository {
         Id,
         FinServ__FinancialAccountNumber__c,
         Ownership__c,
+        Linked_Product_Code__c,
         FinServ__ProductName__c,
         Product_Name_Display__c
       FROM FinServ__FinancialAccount__c
@@ -129,15 +130,13 @@ public with sharing class FinancialAccountRepository {
 
   /**
    * @description gets all the finanacial account which needds to be displayed on UI
-   * @param ownerId owner of fin account
    * @param allRelatedAccountNumbers all the rekated financial account numbers
    * @return list of FinServ__FinancialAccount__c
    */
   public List<FinServ__FinancialAccount__c> getFinancialAccounts(
-    Id ownerId,
     List<String> allRelatedAccountNumbers
   ) {
-    if (String.isBlank(ownerId) || allRelatedAccountNumbers.isEmpty()) {
+    if (allRelatedAccountNumbers.isEmpty()) {
       return new List<FinServ__FinancialAccount__c>();
     }
     return [
@@ -155,12 +154,12 @@ public with sharing class FinancialAccountRepository {
         LastModifiedDate,
         Ownership__c,
         OCV_ID__c,
-        FinServ__ProductName__c
+        FinServ__ProductName__c,
+        Linked_Product_Code__c,
+        Product_Name_Display__c
       FROM FinServ__FinancialAccount__c
       WHERE
-        (FinServ__PrimaryOwner__c = :ownerId
-        OR FinServ__FinancialAccountNumber__c IN :allRelatedAccountNumbers)
-        AND RecordTypeId != :RTFinancialAccount.bankAccount
+        FinServ__FinancialAccountNumber__c IN :allRelatedAccountNumbers
         AND FinServ__Status__c != 'Closed'
       WITH USER_MODE
       ORDER BY FinServ__Status__c DESC, FinServ__OpenDate__c DESC
@@ -197,14 +196,14 @@ public with sharing class FinancialAccountRepository {
    * @description builds a list of financial account roles for the customer sent from the UI
    * Account_Number__c (formula field) = FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
    * @param customerRecordPrimaryOwnerId customer id receive from the UI
-   * @param marketingCodes ANZX marketing codes
+   * @param productCodes product codes
    * @return List<String> list of the financial account roles
    */
   public List<FinServ__FinancialAccountRole__c> getAllAccountNumberPerOwner(
     Id customerRecordPrimaryOwnerId,
-    Set<String> marketingCodes
+    Set<String> productCodes
   ) {
-    if (customerRecordPrimaryOwnerId == null || marketingCodes.isEmpty()) {
+    if (customerRecordPrimaryOwnerId == null || productCodes.isEmpty()) {
       return new List<FinServ__FinancialAccountRole__c>();
     }
 
@@ -214,7 +213,7 @@ public with sharing class FinancialAccountRepository {
       WHERE
         FinServ__RelatedAccount__c = :customerRecordPrimaryOwnerId
         AND FinServ__Active__c = TRUE
-        AND FinServ__FinancialAccount__r.Marketing_Code__c IN :marketingCodes
+        AND FinServ__FinancialAccount__r.Linked_Product_Code__c IN :productCodes
         AND FinServ__Role__c IN :FinancialAccountConstant.FINSERV_ROLE_TYPES
       WITH USER_MODE
     ];

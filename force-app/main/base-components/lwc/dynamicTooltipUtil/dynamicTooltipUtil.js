@@ -8,24 +8,24 @@ export default class DynamicTooltipUtil extends LightningElement {
   @api headerTitle;
   @api resourceName;
   @api productName;
-  hasRendered = false;
 
-  async renderedCallback() {
-    if (!this.hasRendered) {
-      this.hasRendered = true;
+  async connectedCallback() {
+    // Load the tooltip data from the static resource
+    await this.loadTooltipMap();
+  }
 
-      await loadTooltipMap();
+  async loadTooltipMap() {
+    await loadTooltipMap();
 
-      const tooltipContentMarkup = this.template.querySelector(
-        ".tooltip-content-markup"
+    const tooltipContentMarkup = this.template.querySelector(
+      ".tooltip-content-markup"
+    );
+    if (tooltipContentMarkup) {
+      // eslint-disable-next-line @lwc/lwc/no-inner-html
+      tooltipContentMarkup.innerHTML = fetchTooltipContent(
+        this.resourceName,
+        this.productName
       );
-      if (tooltipContentMarkup) {
-        // eslint-disable-next-line @lwc/lwc/no-inner-html
-        tooltipContentMarkup.innerHTML = fetchTooltipContent(
-          this.resourceName,
-          this.productName
-        );
-      }
     }
   }
 

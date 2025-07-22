@@ -91,6 +91,8 @@ public with sharing class UnifiedFinancialAccountModel extends CalloutModel {
     public Deposit_details deposit_details;
     @AuraEnabled
     public Ownership ownership;
+    @AuraEnabled
+    public String linkedProductCode;
 
     /**
      * @description Returns the value of the specified field.

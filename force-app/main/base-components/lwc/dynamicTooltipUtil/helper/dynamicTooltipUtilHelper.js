@@ -1,3 +1,4 @@
+////Moved the hardcoded tooltip data from js to the static resource
 import TOOLTIP_JSON from "@salesforce/resourceUrl/tooltipData";
 
 let TOOLTIP_MAP = {};
