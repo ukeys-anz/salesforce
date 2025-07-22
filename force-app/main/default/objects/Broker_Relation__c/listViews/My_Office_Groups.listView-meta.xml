@@ -6,6 +6,7 @@
     <columns>Aggregator__c</columns>
     <columns>Segment__c</columns>
     <columns>Address1__c</columns>
+    <filterScope>Everything</filterScope>
     <filters>
         <field>RECORDTYPE</field>
         <operation>equals</operation>
@@ -16,7 +17,6 @@
         <operation>equals</operation>
         <value>1</value>
     </filters>
-    <filterScope>Everything</filterScope>
     <label>My Office Groups</label>
     <sharedTo>
         <role>Enablement_Manager</role>

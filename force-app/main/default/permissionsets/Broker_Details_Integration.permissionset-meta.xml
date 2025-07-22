@@ -271,7 +271,7 @@
         <field>Broker_Code__c.TPMI_SAO_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+<fieldPermissions>
         <editable>false</editable>
         <field>Broker_Relation__c.Address1__c</field>
         <readable>true</readable>
@@ -341,7 +341,7 @@
         <field>Contact.Broker_Customer_Profile__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+<fieldPermissions>
         <editable>false</editable>
         <field>Contact.Broker_Set__c</field>
         <readable>true</readable>
@@ -431,7 +431,7 @@
         <field>Contact.OCV_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+<fieldPermissions>
         <editable>false</editable>
         <field>Contact.Office_Group__c</field>
         <readable>true</readable>
@@ -451,7 +451,7 @@
         <field>Contact.Retail_Accreditation_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+<fieldPermissions>
         <editable>false</editable>
         <field>Contact.Segment__c</field>
         <readable>true</readable>
@@ -1670,7 +1670,7 @@
         <object>Broker_Code__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
-    <objectPermissions>
+<objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>false</allowEdit>
