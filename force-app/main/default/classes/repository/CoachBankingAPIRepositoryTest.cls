@@ -55,7 +55,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       );
       Test.stopTest();
 
-      System.assertEquals(
+      Assert.areEqual(
         21,
         transactionModel.embedded.transactions.size(),
         'Transactions size should be as expected.'
@@ -104,7 +104,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       );
       Test.stopTest();
 
-      System.assertEquals(
+      Assert.areEqual(
         21,
         transactionModel.embedded.transactions.size(),
         'Transactions size should be as expected.'
@@ -130,7 +130,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       resultException = e;
     }
     Test.stopTest();
-    System.assertEquals(
+    Assert.areEqual(
       'Get transaction history failed',
       resultException.getMessage(),
       'Error message should be as expected.'
@@ -157,7 +157,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       );
       Test.stopTest();
 
-      System.assertEquals(
+      Assert.areEqual(
         21,
         transactionModel.embedded.transactions.size(),
         'Transactions size should be as expected.'
@@ -232,7 +232,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
         resultException = e;
       }
       Test.stopTest();
-      System.assertEquals(
+      Assert.areEqual(
         'Get card list failed',
         resultException.getMessage(),
         'Error message should be as expected.'
@@ -249,7 +249,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       String replaceNumber = coachAPI.replaceCard('1111', '1234', 'stolen');
       Test.stopTest();
 
-      System.assertEquals(
+      Assert.areEqual(
         '9741329257534100',
         replaceNumber,
         'Replace number should be as expected.'
@@ -269,7 +269,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       } catch (CoachBankingAPIRepository.InvalidInformationException e) {
         errorMsg = e.getMessage();
       }
-      System.assertEquals(
+      Assert.areEqual(
         'The replace reason is not valid.',
         errorMsg,
         'Error message should be as expected.'
@@ -294,7 +294,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
         resultException = e;
       }
       Test.stopTest();
-      System.assertEquals(
+      Assert.areEqual(
         'Replace card failed',
         resultException.getMessage(),
         'Error message should be as expected.'
@@ -322,7 +322,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
 
       // THEN
       // parsing data on to CardListModel should not fail
-      System.assertEquals(
+      Assert.areEqual(
         mockedCardsSize,
         cardsModel.cards.size(),
         'Error occured while parsing JSON payload related to cards'
@@ -344,7 +344,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       CardControlModel cardControlModel = coachAPI.getCardControlsList('1111');
       Test.stopTest();
 
-      System.assertEquals(
+      Assert.areEqual(
         6,
         cardControlModel.card_controls.size(),
         'Card control mock response should be received'
@@ -375,7 +375,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
         resultException = e;
       }
       Test.stopTest();
-      System.assertEquals(
+      Assert.areEqual(
         'Get card control list failed',
         resultException.getMessage(),
         'Exception should be returned for failed call'
@@ -400,7 +400,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       );
       Test.stopTest();
 
-      System.assertEquals(
+      Assert.areEqual(
         CardTempLockController.GCT_GLOBAL_CONTROL_STRING,
         lockCardResponse?.card_controls[0].control_type,
         'Successful lock card control response should be received'
@@ -430,7 +430,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
         resultException = e;
       }
       Test.stopTest();
-      System.assertEquals(
+      Assert.areEqual(
         'Place lock on card failed',
         resultException.getMessage(),
         'Exception should be returned for failed call'
@@ -456,7 +456,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
 
     String expectedString = '?status_filter=BUCKET_STATUS_FILTER_OPEN&page_size=7';
 
-    System.assertEquals(
+    Assert.areEqual(
       expectedString,
       paramUrlString,
       'Parameter URL string should be built as expected'
@@ -486,7 +486,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       ? '?account_numbers=000000000&origin_time.after=2018-07-02T14:00:00.000Z&origin_time.before=2018-07-26T13:59:59.000Z&page_size=20'
       : '?account_numbers=000000000&start_time=2018-07-02T14:00:00.000Z&end_time=2018-07-26T13:59:59.000Z&page_size=20';
 
-    System.assertEquals(
+    Assert.areEqual(
       expectedString,
       paramUrlString,
       'Parameter URL string should be built as expected'
