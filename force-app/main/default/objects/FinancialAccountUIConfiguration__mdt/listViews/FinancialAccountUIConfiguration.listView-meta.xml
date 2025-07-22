@@ -11,6 +11,8 @@
     <columns>Balance_Title__c</columns>
     <columns>Section_Header_Title__c</columns>
     <columns>Include_In_Total_Financial_Position__c</columns>
+    <columns>Is_Active__c</columns>
+    <columns>FinancialAccountConfiguration__c</columns>
     <filters>
         <field>Product_Code__c</field>
         <operation>notEqual</operation>

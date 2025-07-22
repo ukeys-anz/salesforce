@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FinancialAccountConfigurations</fullName>
+    <columns>DeveloperName</columns>
+    <columns>MasterLabel</columns>
+    <columns>Icon__c</columns>
+    <columns>Transaction_Title__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>FinancialAccountConfigurations</label>
+    <language>en_US</language>
+</ListView>

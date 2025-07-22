@@ -2635,7 +2635,14 @@
         "Show_Goals__c",
         "Sort_Order__c",
         "Include_In_Total_Financial_Position__c",
-        "Is_Active__c"
+        "Is_Active__c",
+        "FinancialAccountConfiguration__c"
+      ]
+    },
+    "FinancialAccountConfiguration__mdt": {
+      "IA-2468715": [
+        "Icon__c",
+        "Transaction_Title__c"
       ]
     },
     "Group": {
