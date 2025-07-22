@@ -2535,6 +2535,7 @@
       ],
       "IA-2415987": [
         "FinServ__ProductName__c",
+        "Linked_Product_Code__c",
         "Interest_Rate_URL__c",
         "Is_Interest_Tab_Visible__c"
       ],
@@ -2640,10 +2641,7 @@
       ]
     },
     "FinancialAccountConfiguration__mdt": {
-      "IA-2468715": [
-        "Icon__c",
-        "Transaction_Title__c"
-      ]
+      "IA-2468715": ["Icon__c", "Transaction_Title__c"]
     },
     "Group": {
       "IA-2468715": [

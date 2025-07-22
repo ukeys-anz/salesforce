@@ -403,6 +403,7 @@
     "FinServ__JointOwner__c",
     "FinServ__LastTransactionDate__c",
     "FinServ__LastUpdated__c",
+    "Linked_Product_Code__c",
     "FinServ__LienHolder__c",
     "FinServ__LoanEndDate__c",
     "FinServ__LoanAmount__c",
