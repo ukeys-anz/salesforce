@@ -1359,7 +1359,8 @@
         "NascScamSubCategory__c",
         "OnboardingVerificationFailedReason__c",
         "PassportNumber__c",
-        "RemoteAccessUsed__c"
+        "RemoteAccessUsed__c",
+        "EventTimestamp__c"
       ],
       "IA-2415840": [
         "Advocacy_Score__c",

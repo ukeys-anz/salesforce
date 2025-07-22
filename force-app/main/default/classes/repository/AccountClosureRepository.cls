@@ -494,4 +494,43 @@ public with sharing class AccountClosureRepository {
       WITH USER_MODE
     ];
   }
+  /**
+   * @description Get details of Parent Case Group Cases which have any open account closure child cases
+   * @param caseGroupIdsToClose set of Parent Case Group Ids which need to be closed
+   * @return List<Case> list of cases
+   */
+  public List<Case> queryNotClosedAccountClosureCases(Set<Id> caseGroupIdsToClose) {
+
+    if (caseGroupIdsToClose.isEmpty()) {
+      return new List<Case>();
+    }
+
+    return [
+      SELECT ParentId
+      FROM Case
+      WHERE
+      IsClosed = false
+      AND ParentId IN :caseGroupIdsToClose
+      AND RecordTypeId = :RTCase.accountClosure
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description Get details of Parent Case Group Cases which is not closed and type is Account Closure
+   * @return List<Case> list of case group cases having atleast one account closure child cases
+   */
+  public List<Case> queryCaseGroupCasesToClose() {
+    return [
+      SELECT Id, ParentId, Status
+      FROM Case
+      WHERE
+      RecordTypeId = :RTCase.accountClosure
+      AND IsClosed = true
+      AND Parent.IsClosed = false
+      AND Parent.RecordTypeId = :RTCase.caseGroup
+      AND Parent.Type = :CaseGroupCaseConstants.ACCOUNT_CLOSURE
+      WITH USER_MODE
+    ];
+  }
 }
