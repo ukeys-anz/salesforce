@@ -158,18 +158,13 @@ public with sharing class FinancialAccountController {
     UnifiedFinancialAccountModel.AccountList finAccount,
     FinServ__FinancialAccount__c finAccountFromDatabase
   ) {
-    String linkedCode = finAccount?.linkedProductCode;
-    String marketingCode = finAccount?.product_details?.marketing_code;
-    String subProductCode = TextUtils.removeNonAlphanumericChar(
-      finAccount?.product_details?.sub_product_code
-    );
-
-    String productCode =
-      (linkedCode ?? (marketingCode ?? subProductCode)) +
+    String productCodeKey =
+      FinancialAccountControllerAction.getProductKey(finAccount, true) +
       '_' +
       FABRIC_OWNERSHIP_UI.get(finAccount.ownership?.type);
+
     FinancialAccountUIConfiguration__mdt uiConfig = QueryFinancialAccountUIConfig.configByDeveloperName.get(
-      productCode
+      productCodeKey
     );
     finAccount.Id = finAccountFromDatabase?.Id;
     finAccount.finserv_product_name = finAccountFromDatabase
