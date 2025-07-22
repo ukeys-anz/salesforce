@@ -63,11 +63,12 @@ public with sharing class AccountClosureRepository {
       return new List<Case>();
     }
     return [
-      SELECT Id, ParentId, Status
+      SELECT Id, ParentId, Status, Origin
       FROM Case
       WHERE
         ParentId IN :parentIds
-        AND (RecordTypeId = :RTCase.accountClosure
+        AND ((RecordTypeId = :RTCase.accountClosure
+        AND Origin != :CaseGroupCaseConstants.SELF_SERVICE_ORIGIN)
         OR RecordTypeId = :RTCase.confirmationOfPayee)
       WITH USER_MODE
     ];
@@ -494,13 +495,36 @@ public with sharing class AccountClosureRepository {
       WITH USER_MODE
     ];
   }
+
+  /**
+   * @description Get details of Parent / Case Group cases linked to the inserted child cases which does not have status as escalated
+   * @param parentIds set of Parent Ids associated to the child case
+   * @return List<Case> list of parent/Case Group cases
+   */
+  public List<Case> queryNotEscalatedParentCaseDetails(Set<Id> parentIds) {
+    if (parentIds.isEmpty()) {
+      return new List<Case>();
+    }
+
+    return [
+      SELECT Id, OwnerId, Status, Type
+      FROM Case
+      WHERE
+        Type = :CaseGroupCaseConstants.ACCOUNT_CLOSURE
+        AND Status != :CaseGroupCaseConstants.ESCALATED_STATUS
+        AND Id IN :parentIds
+      WITH USER_MODE
+    ];
+  }
+
   /**
    * @description Get details of Parent Case Group Cases which have any open account closure child cases
    * @param caseGroupIdsToClose set of Parent Case Group Ids which need to be closed
    * @return List<Case> list of cases
    */
-  public List<Case> queryNotClosedAccountClosureCases(Set<Id> caseGroupIdsToClose) {
-
+  public List<Case> queryNotClosedAccountClosureCases(
+    Set<Id> caseGroupIdsToClose
+  ) {
     if (caseGroupIdsToClose.isEmpty()) {
       return new List<Case>();
     }
@@ -509,9 +533,9 @@ public with sharing class AccountClosureRepository {
       SELECT ParentId
       FROM Case
       WHERE
-      IsClosed = false
-      AND ParentId IN :caseGroupIdsToClose
-      AND RecordTypeId = :RTCase.accountClosure
+        IsClosed = FALSE
+        AND ParentId IN :caseGroupIdsToClose
+        AND RecordTypeId = :RTCase.accountClosure
       WITH USER_MODE
     ];
   }
@@ -525,11 +549,11 @@ public with sharing class AccountClosureRepository {
       SELECT Id, ParentId, Status
       FROM Case
       WHERE
-      RecordTypeId = :RTCase.accountClosure
-      AND IsClosed = true
-      AND Parent.IsClosed = false
-      AND Parent.RecordTypeId = :RTCase.caseGroup
-      AND Parent.Type = :CaseGroupCaseConstants.ACCOUNT_CLOSURE
+        RecordTypeId = :RTCase.accountClosure
+        AND IsClosed = TRUE
+        AND Parent.IsClosed = FALSE
+        AND Parent.RecordTypeId = :RTCase.caseGroup
+        AND Parent.Type = :CaseGroupCaseConstants.ACCOUNT_CLOSURE
       WITH USER_MODE
     ];
   }
