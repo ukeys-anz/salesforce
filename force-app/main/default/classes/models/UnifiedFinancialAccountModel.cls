@@ -40,6 +40,8 @@ public with sharing class UnifiedFinancialAccountModel extends CalloutModel {
   public String accountType;
   @AuraEnabled
   public String icon;
+  @AuraEnabled
+  public String transactionTitle;
 
   /**
    * @description Accounts information related to the account
