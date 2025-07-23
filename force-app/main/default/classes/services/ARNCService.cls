@@ -19,6 +19,13 @@ public with sharing class ARNCService extends Service {
     public String type;
     public String pageSize;
   }
+
+  /**
+   * @description Wrapper class to Electronics access API payload body
+   */
+  public class AccountJsonWrapper {
+    public String accountNumber;
+  }
   /**
    * @description Wrapper class to create diary comment API request
    */
@@ -256,21 +263,26 @@ public with sharing class ARNCService extends Service {
   }
 
   /**
-   * @param endPoint parameters
+   * @param accNumber parameters
    * @return HttpCalloutResponse
    * @description query exernal Account Registration for customer/financial accounts via API
    */
-  public HttpCalloutResponse queryAccountRegistrations(String endPoint) {
+  public HttpCalloutResponse queryAccountRegistrations(String accNumber) {
     Map<String, String> headers = new Map<String, String>();
     setCommonHeaders(headers);
     HttpCalloutResponse response;
+    String endPoint = Label.Account_Registration_Endpoint;
+    String payload;
     try {
       Lib_HttpCallout calloutService = new Lib_HttpCallout();
+      AccountJsonWrapper customer = new AccountJsonWrapper();
+      customer.accountNumber = accNumber;
+      payload = JSON.serialize(customer);
       response = calloutService.makeRestCallout(
         endPoint,
-        HTTP_METHOD.HTTP_GET,
+        HTTP_METHOD.HTTP_POST,
         headers,
-        null
+        payload
       );
     } catch (Exception e) {
       Logger.error(e.getMessage());
