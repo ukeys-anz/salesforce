@@ -30,6 +30,7 @@ public with sharing class QueryQueue {
   public static Group confirmationOfPayee = get('Confirmation_of_Payee_Queue');
   public static Group cqLeads = get('C_Q_Leads');
   public static Group reKycQACaseQueue = get('ReKYC_QA_Case_Queue');
+  public static Group supportCoachQueue = get('Support_Coach_Queue');
 
   /**
    * @description Returns a queue based on the provided name.

@@ -7,6 +7,10 @@
 @isTest
 public with sharing class GetHelpCaseAssignmentRulesTest {
   private static final String COACH_TEST_FIRST_NAME = 'CoachUserDisTest22';
+  private static final String SUSPECTED_FRAUD = 'Suspected fraud';
+  private static final String CANCEL_TRANSFER = 'Cancel transfer';
+  private static final String PAYEE_HAS_NOT_RECIEVED_FUNDS = 'Payee has not received funds';
+  private static final String OPEN_STATUS = 'Open';
 
   @TestSetup
   static void setup() {
@@ -586,5 +590,72 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
       QueryQueue.digitalFraudQueue.Name,
       'Should return the Name of expected queue.'
     );
+  }
+
+  /**
+   * @description : This is to test for IMT dispute assignment rule for Suport Coach queue
+   * For dispute reason CANCEL_TRANSFER and PAYEE_HAS_NOT_RECIEVED_FUNDS, case must be assigned to supportCoachQueue
+   */
+  @isTest
+  static void testSupportCoachQueueIMT() {
+    List<String> disputeReasons = new List<String>{
+      CANCEL_TRANSFER,
+      PAYEE_HAS_NOT_RECIEVED_FUNDS
+    };
+    List<Case> imtCases = new List<Case>();
+    for (String disputeReason : disputeReasons) {
+      Case imtCase = new Case(
+        RecordTypeId = RTCase.imtDispute,
+        Status = OPEN_STATUS,
+        Subject = 'Test IMT Case assignment to Support Coach queue',
+        Dispute_Reason__c = disputeReason,
+        Submitted__c = true
+      );
+      imtCases.add(imtCase);
+    }
+
+    Test.startTest();
+    GetHelpCaseAssignmentRules.assignDisputeCases(imtCases, null);
+    Test.stopTest();
+    for (Case imtCaseRecord : imtCases) {
+      Assert.areEqual(
+        QueryQueue.supportCoachQueue.Id,
+        imtCaseRecord.OwnerId,
+        'Case must be assigned to the Support Coach Queue.'
+      );
+    }
+  }
+
+  /**
+   * @description : This is to test for IMT dispute assignment rule for DIGITAL_FRAUD_QUEUE
+   * For dispute reason SUSPECTED_FRAUD, case must be assigned to digitalFraudQueue
+   */
+  @isTest
+  static void testDigitalFraudQueueIMT() {
+    List<String> disputeReasons = new List<String>{ SUSPECTED_FRAUD };
+    List<Case> imtCases = new List<Case>();
+    Set<ID> caseRecordIds = new Set<Id>();
+
+    for (String disputeReason : disputeReasons) {
+      Case imatCase = new Case(
+        RecordTypeId = RTCase.imtDispute,
+        Status = OPEN_STATUS,
+        Subject = 'Test IMT Case assignment to DIGITAL_FRAUD_QUEUE',
+        Dispute_Reason__c = disputeReason,
+        Submitted__c = true
+      );
+      imtCases.add(imatCase);
+    }
+
+    Test.startTest();
+    GetHelpCaseAssignmentRules.assignDisputeCases(imtCases, null);
+    Test.stopTest();
+    for (Case imtCaseRecord : imtCases) {
+      Assert.areEqual(
+        QueryQueue.digitalFraudQueue.Id,
+        imtCaseRecord.OwnerId,
+        'Case must be assigned to the Digital Fraud Queue.'
+      );
+    }
   }
 }

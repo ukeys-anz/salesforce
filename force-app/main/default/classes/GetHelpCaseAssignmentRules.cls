@@ -10,6 +10,9 @@ public with sharing class GetHelpCaseAssignmentRules {
   public static final String DID_NOT_AUTHORISE_TRANSACTION = 'Didn\'t authorise transaction';
   public static final String DO_NOT_RECOGNISE_TRANSACTION = 'Don\'t recognise the transaction';
   public static final String HOME_LOANS_PRODUCT_CATEGORY = 'Home loans';
+  public static final String CANCEL_TRANSFER = 'Cancel transfer';
+  public static final String SUSPECTED_FRAUD = 'Suspected fraud';
+  public static final String PAYEE_HAS_NOT_RECIEVED_FUNDS = 'Payee has not received funds';
   public static final Group COACH_QUEUE = CommonUtil.getQueueByName(
     'Coach_Queue'
   );
@@ -45,9 +48,6 @@ public with sharing class GetHelpCaseAssignmentRules {
    */
   public static void assignDisputeCases(Case[] cases, Map<Id, Case> oldMap) {
     for (Case c : cases) {
-      if (c.RecordTypeId == RTCase.imtDispute) {
-        continue;
-      }
       if (CheckCaseRecordType.isDispute(c) && c.submitted__c == true) {
         Case oldCase = (oldMap != null ? oldMap.get(c.Id) : null);
         if (isSubmittedOrReasonChanged(c, oldCase)) {
@@ -118,6 +118,17 @@ public with sharing class GetHelpCaseAssignmentRules {
       } else {
         return QUEUE_MAP.get(GetHelpConstants.CARD_DISPUTE_GENERAL_QUEUE);
       }
+    } else if (
+      rec.RecordTypeId == RTCase.imtDispute &&
+      (rec.Dispute_Reason__c == CANCEL_TRANSFER ||
+      rec.Dispute_Reason__c == PAYEE_HAS_NOT_RECIEVED_FUNDS)
+    ) {
+      return QueryQueue.supportCoachQueue.Id;
+    } else if (
+      rec.RecordTypeId == RTCase.imtDispute &&
+      rec.Dispute_Reason__c == SUSPECTED_FRAUD
+    ) {
+      return QueryQueue.digitalFraudQueue.Id;
     } else {
       if (
         rec.Dispute_Reason__c == UNAUTHORISED_TRANSACTION &&
