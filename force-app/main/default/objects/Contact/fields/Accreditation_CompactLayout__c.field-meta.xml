@@ -5,9 +5,28 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_OCV</complianceGroup>
     <description>Formaula to display accrediation type value in compact layout</description>
     <externalId>false</externalId>
-    <formula>IF(INCLUDES( Broker_Accreditation_Type__c , &quot;Asset Finance&quot;), &quot;Asset Finance&quot; + &quot;, &quot;, NULL) + 
-IF(INCLUDES( Broker_Accreditation_Type__c , &quot;Retail&quot;), &quot;Retail&quot; + &quot;, &quot;, NULL) + 
-IF(INCLUDES( Broker_Accreditation_Type__c , &quot;Commercial&quot;), &quot;Commercial&quot; , NULL)</formula>
+    <formula>IF( ISBLANK(Broker_Accreditation_Type__c ),
+  NULL, 
+  SUBSTITUTE(
+    (
+      IF(INCLUDES( Broker_Accreditation_Type__c , &quot;Asset Finance&quot;),
+        &quot;Asset Finance&quot; + &quot;, &quot;, 
+        NULL
+      )
+      + IF(INCLUDES( Broker_Accreditation_Type__c , &quot;Retail&quot;),
+        &quot;Retail&quot; + &quot;, &quot;, 
+        NULL
+      )
+      + IF(INCLUDES( Broker_Accreditation_Type__c , &quot;Commercial&quot;),
+        &quot;Commercial&quot; + &quot;, &quot; ,
+        NULL
+      )
+      + &quot;#&quot;
+    ),
+    &quot;, #&quot;,
+    NULL
+  )
+)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Accreditation Type</label>
     <required>false</required>

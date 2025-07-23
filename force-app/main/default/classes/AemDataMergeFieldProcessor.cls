@@ -18,7 +18,7 @@ public class AemDataMergeFieldProcessor {
   public static String replaceMergedFields(String aemContentData, Id recordId) {
     Matcher mergedFieldMatcher = getMergedFieldMatcher(aemContentData);
     //Extract field names from the JSON string
-    Set<String> fieldsToQuery = extractFieldNames(mergedFieldMatcher);
+    Set<String> fieldsToQuery = extractFieldNames(mergedFieldMatcher, recordId);
 
     // Query the database for the necessary fields
     SObject recordDetail = PUSH_TO_APP_REPOSITORY.queryMergeFieldsData(
@@ -43,14 +43,42 @@ public class AemDataMergeFieldProcessor {
 
   // Extracts the field names from the JSON string
   @TestVisible
-  private static Set<String> extractFieldNames(Matcher mergedFieldMatcher) {
+  private static Set<String> extractFieldNames(
+    Matcher mergedFieldMatcher,
+    Id recordId
+  ) {
     Set<String> fieldsToQuery = new Set<String>();
     while (mergedFieldMatcher.find()) {
-      String fieldName = mergedFieldMatcher.group(1);
-      fieldsToQuery.add(fieldName);
+      fieldsToQuery.add(mergedFieldMatcher.group(1));
     }
 
-    return fieldsToQuery;
+    // This will give fieldsMap which we can use to retrieve the field type
+    Map<String, Schema.SObjectField> fieldsMap = recordId
+      .getSObjectType()
+      .getDescribe()
+      .fields.getMap();
+
+    Set<String> finalFields = new Set<String>();
+
+    for (String fieldName : fieldsToQuery) {
+      // Add relationship fields (e.g., Account.Name) as-is
+      if (fieldName.contains('.')) {
+        finalFields.add(fieldName);
+        continue;
+      }
+
+      // Apply toLabel only for picklist fields
+      if (
+        fieldsMap.get(fieldName).getDescribe().getType() ==
+        Schema.DisplayType.Picklist
+      ) {
+        finalFields.add('toLabel(' + fieldName + ')');
+      } else {
+        finalFields.add(fieldName);
+      }
+    }
+
+    return finalFields;
   }
 
   // Replaces the field placeholders in the JSON string with actual values from the database

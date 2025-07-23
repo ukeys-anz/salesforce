@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>State__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source_Salesforce</complianceGroup>
+    <description>Represents the state to which this Broker Set is Associated.
+SAO = Sub-Aggregator Originator</description>
+    <label>SAO State</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>NSW/ACT</fullName>
+                <default>false</default>
+                <label>NSW/ACT</label>
+            </value>
+            <value>
+                <fullName>QLD/NT</fullName>
+                <default>false</default>
+                <label>QLD/NT</label>
+            </value>
+            <value>
+                <fullName>VIC/TAS</fullName>
+                <default>false</default>
+                <label>VIC/TAS</label>
+            </value>
+            <value>
+                <fullName>SA</fullName>
+                <default>false</default>
+                <label>SA</label>
+            </value>
+            <value>
+                <fullName>WA</fullName>
+                <default>false</default>
+                <label>WA</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

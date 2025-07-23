@@ -21,8 +21,13 @@ public with sharing class QualityAssessmentTriggerActions {
     Quality_Assessment__c.Accountability_and_Next_Steps__c
   };
 
+  private static final Set<SObjectField> FIELDS_TO_CHECK_FOR_COMPLIANCE_CHANGE = new Set<SObjectField>{
+    Quality_Assessment__c.Status__c,
+    Quality_Assessment__c.Risk_and_Compliance_Category__c
+  };
+
   /**
-   * @description calculates the score and compliance outcome for the quality assessment record
+   * @description calculates the score for the quality assessment record
    * @param records Quality_Assessment__c records
    * @param oldMap Quality_Assessment__c  oldMap
    */
@@ -35,21 +40,29 @@ public with sharing class QualityAssessmentTriggerActions {
         records,
         oldMap
       )
+      .anyChanged(FIELDS_TO_CHECK_FOR_CHANGE)
       .equals(
         Quality_Assessment__c.Status__c,
         new List<String>{ 'Complete', 'Referred' }
       )
-      .anyChanged(FIELDS_TO_CHECK_FOR_CHANGE)
       .toList();
 
+    List<Quality_Assessment__c> eligibleRecordsInProgress = ListUtil.filter(
+        records,
+        oldMap
+      )
+      .anyChanged(FIELDS_TO_CHECK_FOR_CHANGE)
+      .equals(Quality_Assessment__c.Status__c, 'In Progress')
+      .allNotNull(FIELDS_TO_CHECK_FOR_CHANGE)
+      .toList();
+
+    eligibleRecords.addAll(eligibleRecordsInProgress);
+
     for (Quality_Assessment__c qaRecord : eligibleRecords) {
-      qaRecord.calculated__c = true;
       qaRecord.Score__c = CalculateQARatingandAssessment.calculateRatingScore(
         qaRecord
       );
-      qaRecord.Compliance_Outcome__c = CalculateQARatingandAssessment.calculateComplianceOutcome(
-        qaRecord
-      );
+
       qaRecord.Advice_Outcome__c = CalculateQARatingandAssessment.calculateAdviceOutcome(
         qaRecord
       );
@@ -57,6 +70,65 @@ public with sharing class QualityAssessmentTriggerActions {
         qaRecord.Score__c,
         getHelpRatingTable
       );
+    }
+  }
+
+  /**
+   * @description sets the score as blank for the quality assessment record that are In Progress Status
+   * @param records Quality_Assessment__c records
+   * @param oldMap Quality_Assessment__c  oldMap
+   */
+  public static void calculateQAGetHelpForInProgress(
+    List<Quality_Assessment__c> records,
+    Map<Id, Quality_Assessment__c> oldMap
+  ) {
+    List<Quality_Assessment__c> eligibleRecordsInProgress = ListUtil.filter(
+        records,
+        oldMap
+      )
+      .anyChanged(FIELDS_TO_CHECK_FOR_CHANGE)
+      .equals(Quality_Assessment__c.Status__c, 'In Progress')
+      .anyEqual(FIELDS_TO_CHECK_FOR_CHANGE, null)
+      .toList();
+
+    ListUtil.setField(
+      eligibleRecordsInProgress,
+      new Map<SObjectField, Object>{
+        Quality_Assessment__c.Score__c => null,
+        Quality_Assessment__c.Advice_Outcome__c => null,
+        Quality_Assessment__c.Rating__c => null
+      }
+    );
+  }
+
+  /**
+   * @description calculates the compliance outcome for the quality assessment record
+   * @param records Quality_Assessment__c records
+   * @param oldMap Quality_Assessment__c  oldMap
+   */
+  public static void calculateComplianceOutcome(
+    List<Quality_Assessment__c> records,
+    Map<Id, Quality_Assessment__c> oldMap
+  ) {
+    List<Quality_Assessment__c> eligibleRecords = ListUtil.filter(
+        records,
+        oldMap
+      )
+      .anyChanged(FIELDS_TO_CHECK_FOR_COMPLIANCE_CHANGE)
+      .equals(
+        Quality_Assessment__c.Status__c,
+        new List<String>{ 'Complete', 'Referred', 'In Progress' }
+      )
+      .toList();
+
+    for (Quality_Assessment__c qaRecord : eligibleRecords) {
+      qaRecord.Compliance_Outcome__c = CalculateQARatingandAssessment.calculateComplianceOutcome(
+        qaRecord
+      );
+
+      if (qaRecord.Risk_and_Compliance_Category__c == null) {
+        qaRecord.Compliance_Outcome__c = null;
+      }
     }
   }
 

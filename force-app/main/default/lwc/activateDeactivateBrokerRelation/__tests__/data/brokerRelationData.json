@@ -1,0 +1,45 @@
+{
+  "apiName": "Broker_Relation__c",
+  "childRelationships": {},
+  "fields": {
+    "IsActive__c": {
+      "displayValue": null,
+      "value": true
+    },
+    "Name": {
+      "displayValue": null,
+      "value": "OG 4 1"
+    },
+    "RecordType": {
+      "displayValue": "Office Group",
+      "value": {
+        "apiName": "RecordType",
+        "childRelationships": {},
+        "fields": {
+          "DeveloperName": {
+            "displayValue": null,
+            "value": "Office_Group"
+          }
+        },
+        "id": "012AD000001sGQcYAM",
+        "lastModifiedById": "005Oa000003vx1fIAA",
+        "lastModifiedDate": "2025-02-06T09:51:26.000Z",
+        "recordTypeId": null,
+        "recordTypeInfo": null,
+        "systemModstamp": "2025-02-06T09:51:26.000Z"
+      }
+    }
+  },
+  "id": "a2oAD000000Yq0zYAC",
+  "lastModifiedById": "005AD00000CMIdjYAH",
+  "lastModifiedDate": "2025-03-25T02:27:56.000Z",
+  "recordTypeId": "012AD000001sGQcYAM",
+  "recordTypeInfo": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "Office Group",
+    "recordTypeId": "012AD000001sGQcYAM"
+  },
+  "systemModstamp": "2025-03-25T02:27:56.000Z"
+}

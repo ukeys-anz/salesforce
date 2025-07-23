@@ -6,7 +6,7 @@
         <description>Rule to provide Read access on AEM Integration User</description>
         <label>Grant Read Access on Aem Integration users</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>ANZ_Mobile_Lending</roleAndSubordinatesInternal>
+            <roleAndSubordinates>ANZ_Mobile_Lending</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
             <field>Username</field>
@@ -110,7 +110,7 @@
             <group>AEM_Integration_User_group</group>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinatesInternal>ANZ_Mobile_Lending</roleAndSubordinatesInternal>
+            <roleAndSubordinates>ANZ_Mobile_Lending</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>
