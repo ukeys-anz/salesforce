@@ -12,43 +12,42 @@ echo ""
 echo "-------------------- Find files to be checked -----------------------"
 echo ""
 
+QUALITY_CHECK_FILE_NAME="quality-check-${REPO_NAME}-${PR_NUMBER}.txt"
+
+if [[ ! -f "$QUALITY_CHECK_FILE_NAME" ]]; then
+  echo "$QUALITY_CHECK_FILE_NAME could not be found"
+  exit 1
+fi
+
 # Find all relevant files for Prettier checks
-CHANGED_FILES=$(gh api \
-  -H "Accept: application/vnd.github+json" \
-  "/repos/$REPO/pulls/$PR_NUMBER/files?per_page=100" \
-  --paginate | jq -r '
-    [.[] | select(.status != "removed") | .filename] |
-    .[] | 
-    select(
-      test("^(force-app|knowledge-mgm)/main/(default|sf-lending)/.*\\.(trigger|cls)$") or
-      test("^(force-app|knowledge-mgm)/main/(default|sf-lending)/lwc/.*\\.(js|html|css)$") or
-      test("^(force-app|knowledge-mgm)/main/(default|sf-lending)/aura/.*\\.(js|css|cmp)$")
-    )
-  ')
+CHANGED_FILES=$(cat "$QUALITY_CHECK_FILE_NAME" | jq -R -s -r '
+  split("\n")[] |
+  select(
+    test("^(force-app|knowledge-mgm)/main/(default|sf-lending)/.*\\.(trigger|cls)$") or
+    test("^(force-app|knowledge-mgm)/main/(default|sf-lending)/lwc/.*\\.(js|html|css)$") or
+    test("^(force-app|knowledge-mgm)/main/(default|sf-lending)/aura/.*\\.(js|css|cmp)$")
+  )
+')
 
 apexTriggerFilePaths=""
 lwcFilePaths=""
 auraFilePaths=""
 
 while IFS= read -r file_path; do
-  if [[ -f "$file_path" ]]; then
-    if [[ "$file_path" =~ ^(force-app|knowledge-mgm)/main/(default|sf-lending)/.*\.(trigger|cls)$ ]]; then
-        echo "✅ Adding to apex/trigger check: $file_path"
-        CHECK_APEX_TRIGGER_FLAG=true
-      apexTriggerFilePaths+="$file_path "
-    elif [[ "$file_path" =~ ^(force-app|knowledge-mgm)/main/(default|sf-lending)/lwc/.*\.(js|html|css)$ ]]; then
-        echo "✅ Adding to lwc check: $file_path"
-        CHECK_LWC_FLAG=true
-      lwcFilePaths+="$file_path "
-    elif [[ "$file_path" =~ ^(force-app|knowledge-mgm)/main/(default|sf-lending)/aura/.*\.(js|css|cmp)$ ]]; then
-        echo "✅ Adding to aura check: $file_path"
-        CHECK_AURA_FLAG=true
-      auraFilePaths+="$file_path "
-    fi
-
-  else
-    echo "⚠️ File not found locally (probably deleted): $file_path"
+  if [[ "$file_path" =~ ^(force-app|knowledge-mgm)/main/(default|sf-lending)/.*\.(trigger|cls)$ ]]; then
+      echo "✅ Adding to apex/trigger check: $file_path"
+      CHECK_APEX_TRIGGER_FLAG=true
+    apexTriggerFilePaths+="$file_path "
+  elif [[ "$file_path" =~ ^(force-app|knowledge-mgm)/main/(default|sf-lending)/lwc/.*\.(js|html|css)$ ]]; then
+      echo "✅ Adding to lwc check: $file_path"
+      CHECK_LWC_FLAG=true
+    lwcFilePaths+="$file_path "
+  elif [[ "$file_path" =~ ^(force-app|knowledge-mgm)/main/(default|sf-lending)/aura/.*\.(js|css|cmp)$ ]]; then
+      echo "✅ Adding to aura check: $file_path"
+      CHECK_AURA_FLAG=true
+    auraFilePaths+="$file_path "
   fi
+
 done <<< "$CHANGED_FILES"
 
 echo ""

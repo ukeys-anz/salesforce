@@ -105,7 +105,7 @@ jobs:
           node --no-warnings ci/workflows/Orchestrations/quickDeployment.mjs "${{ steps.secrets.outputs.sfdxurl }}" "${{ steps.secrets.outputs.artifactory }}"
           echo WHICH_JOB="quickClean" >> $GITHUB_ENV
 
-      - name: Creating New Tag and Cleaning
+      - name: Cleanup
         working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/quickDeployment.mjs

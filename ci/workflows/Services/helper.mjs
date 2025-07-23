@@ -97,6 +97,35 @@ const runSfCommand = (command) => {
   }
 };
 
+const runDiffCommand = (command) => {
+  try {
+    return execSync(command, {
+      stdio: "pipe",
+      maxBuffer: 1024 * 1024 * 100
+    })
+      .toString("utf-8")
+      .trim();
+  } catch (e) {
+    const stdout = e.stdout?.toString("utf-8").trim();
+    const stderr = e.stderr?.toString("utf-8").trim();
+    const code = e.status;
+
+    if (stdout) {
+      console.warn(`⚠️ runCommand threw, but output exists for: ${command}`);
+      console.warn(`⚠️ Exit code: ${code}. Using stdout anyway.`);
+      return stdout;
+    }
+
+    console.error(`❌ runCommand failed: ${command}`);
+    if (stderr) {
+      console.error(`🔍 stderr:\n${stderr}`);
+    } else {
+      console.error(`🔍 Error: ${e.message}`);
+    }
+    throw e;
+  }
+};
+
 const printContextFromFile = (jobIdFilePath, comment = "") => {
   if (!existsSync(jobIdFilePath)) {
     logger(`There is no jobId. ${comment}`);
@@ -177,7 +206,8 @@ const salesforceIgnoredFileChanges = (artifactPath) => {
 };
 
 const canSkipTest = (artifactPath, baseRef) => {
-  if (baseRef == "master") {
+  const doNotSkipTestsBaseRef = ["master", "blm", "intpnv"];
+  if (doNotSkipTestsBaseRef.includes(baseRef)) {
     return false;
   }
   const packagePath = "/package/package.xml";
@@ -536,6 +566,7 @@ const findAllArgvs = () => {
 
 export {
   runCommand,
+  runDiffCommand,
   runSfCommand,
   runSpawnCommand,
   runCommandToFile,
