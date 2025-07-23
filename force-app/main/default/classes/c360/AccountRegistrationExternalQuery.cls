@@ -63,6 +63,7 @@ public with sharing class AccountRegistrationExternalQuery extends ExternalObjec
     public String registrationType;
     public String registrationStatus;
     public String cardStatus;
+    public String cardLast4digits;
   }
 
   /**
@@ -126,6 +127,9 @@ public with sharing class AccountRegistrationExternalQuery extends ExternalObjec
           crnDetails.registrationType
         )
         ?.get('statuses');
+      Integer strNumberofAsterisk = (Integer) MAP_OF_STATUS
+        ?.get(crnDetails.registrationType)
+        ?.get('asteriskCount');
       String statusValue = crnDetails.registrationType ==
         CUSTOMER_REGISTRATION_NUMBER
         ? crnDetails.registrationStatus
@@ -136,8 +140,12 @@ public with sharing class AccountRegistrationExternalQuery extends ExternalObjec
         'registrationStatus' => mapOfStatus?.get(statusValue) ?? statusValue,
         'customerPreferredName' => crnDetails.customerPreferredName,
         'crnLast4Digits' => getMaskedRegistrationNumber(
-          crnDetails.registrationType,
+          strNumberofAsterisk,
           crnDetails.crnLast4Digits
+        ),
+        'cardLast4digits' => getMaskedRegistrationNumber(
+          12,
+          crnDetails.cardLast4digits
         ),
         this.parentField => this.parentId,
         'ExternalId' => this.parentId?.substringAfter('-') +
@@ -145,7 +153,7 @@ public with sharing class AccountRegistrationExternalQuery extends ExternalObjec
         crnDetails.tokenizedRegistrationNo +
         '-' +
         getMaskedRegistrationNumber(
-          crnDetails.registrationType,
+          strNumberofAsterisk,
           crnDetails.crnLast4Digits
         ),
         'DisplayUrl' => getDisplayUrl(
@@ -169,8 +177,8 @@ public with sharing class AccountRegistrationExternalQuery extends ExternalObjec
     DataSource.QueryContext queryContext
   ) {
     ARNCService service = new ARNCService();
-    String endPoint = buildEndpoint(queryMode);
-    HttpCalloutResponse response = service.queryAccountRegistrations(endPoint);
+    String accNumber = getAccountNumber(queryMode);
+    HttpCalloutResponse response = service.queryAccountRegistrations(accNumber);
     return response;
   }
 
@@ -180,30 +188,26 @@ public with sharing class AccountRegistrationExternalQuery extends ExternalObjec
    * @description method to build endpoint
    */
   @TestVisible
-  private String buildEndpoint(QueryModeEnum queryMode) {
-    String endPoint = Label.Account_Registration_Endpoint;
+  private String getAccountNumber(QueryModeEnum queryMode) {
+    String accNumber;
     // endpoint in case of related list
     if (queryMode == QueryModeEnum.RELATED_LIST) {
-      String accNumber = this.parentId.substringAfter('-');
-      endPoint = endPoint.replace('{accountNumber}', accNumber);
+      accNumber = this.parentId.substringAfter('|');
     }
-    return endPoint;
+    return accNumber;
   }
 
   /**
-   * @param registrationType String
-   * @param crnLast4Digits String
+   * @param strNumberofAsterisk String
+   * @param cardNumber String
    * @return String
    * @description method to generate masked CRN
    */
   @TestVisible
   private String getMaskedRegistrationNumber(
-    String registrationType,
-    String crnLast4Digits
+    Integer strNumberofAsterisk,
+    String cardNumber
   ) {
-    return '*'
-        .repeat(
-          (Integer) MAP_OF_STATUS?.get(registrationType).get('asteriskCount')
-        ) + crnLast4Digits;
+    return '*'.repeat(strNumberofAsterisk) + cardNumber;
   }
 }
