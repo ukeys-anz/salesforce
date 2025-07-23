@@ -632,4 +632,8 @@ force-app/main/default/workflows/Access_Request__c.workflow-meta.xml
 force-app/main/default/permissionsets/SOP_Add.permissionset-meta.xml
 force-app/main/default/permissionsets/SOP_Delete.permissionset-meta.xml
 force-app/main/default/permissionsets/SOP_Edit.permissionset-meta.xml
+force-app/main/default/staticresources/mock_sop.resource-meta.xml
+force-app/main/default/staticresources/mock_getConsolidateSOP
+force-app/main/default/staticresources/mock_getConsolidateSOP.json
+force-app/main/default/staticresources/mock_getConsolidateSOP.resource-meta.xml
 force-app/main/default/staticresources/mock_sop.json
