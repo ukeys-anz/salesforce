@@ -4,6 +4,7 @@
     <active>true</active>
     <description>Restrict the user from changing the status of closed case for Pin &amp; Selfie Recovery Cases &amp; TrustMe Cases</description>
     <errorConditionFormula>AND(
+   NOT( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c ),   
 ISCHANGED( Status ) ,
 OR(
   RecordType.DeveloperName == &apos;PIN_Recovery&apos;,

@@ -4,6 +4,7 @@
     <active>true</active>
     <description>Block user from manually updating the status to closed from record for TrustMe Cases</description>
     <errorConditionFormula>AND(
+     NOT( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c ),
    AND(
       AND(NOT(ISPICKVAL(Status, &apos;Rectify Defect&apos;)),
           NOT(ISPICKVAL(Status, &apos;Refer to Fraud&apos;))
