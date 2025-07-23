@@ -4,7 +4,6 @@
  * @description HomeLoanHistoryController retrieves Home loan History details
  */
 public with sharing class HomeLoanHistoryController {
-
   private static final HomeLoanHistoryAPIRepository HL_API_REPOSITORY = (HomeLoanHistoryAPIRepository) Lib_InstanceProvider.forType(
     HomeLoanHistoryAPIRepository.class
   );
@@ -73,5 +72,4 @@ public with sharing class HomeLoanHistoryController {
       throw err;
     }
   }
-
 }

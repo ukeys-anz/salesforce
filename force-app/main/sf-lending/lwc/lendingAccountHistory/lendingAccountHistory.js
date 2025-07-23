@@ -93,8 +93,8 @@ export default class LendingAccountHistory extends NavigationMixin(
       .then((result) => {
         const currentDate = new Date();
         this.lastUpdated = this.setTimestamp(currentDate, true);
-        
-        if ((result?.accountHistoryList?.length ?? 0 ) === 0) {
+
+        if ((result?.accountHistoryList?.length ?? 0) === 0) {
           this.accountHistoryData = null;
           this.noHistoryData = true;
         } else if (result && result.accountHistoryList.length > 0) {

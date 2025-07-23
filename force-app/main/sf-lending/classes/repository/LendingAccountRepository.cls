@@ -4,7 +4,6 @@
  * @since 05/2025
  */
 public with sharing class LendingAccountRepository {
-
   /**
    * @description get multiple account record details from ocvids
    * @return List<Account>

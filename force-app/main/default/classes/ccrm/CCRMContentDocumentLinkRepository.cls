@@ -61,12 +61,14 @@ public with sharing class CCRMContentDocumentLinkRepository {
    * @param cvRecordTypes list of recordtypes
    * @return List<ContentVersion>
    */
-  public List<ContentVersion> getCVList(List<ContentDocument> cdList, List<String> cvRecordTypes) {
+  public List<ContentVersion> getCVList(
+    List<ContentDocument> cdList,
+    List<String> cvRecordTypes
+  ) {
     return [
       SELECT ContentDocumentId
       FROM ContentVersion
-      WHERE RecordTypeID IN: cvRecordTypes
-      AND ContentDocumentId IN :cdList
+      WHERE RecordTypeID IN :cvRecordTypes AND ContentDocumentId IN :cdList
     ];
   }
 }

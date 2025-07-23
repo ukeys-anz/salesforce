@@ -207,7 +207,9 @@ public with sharing class TrustMeDocumentDetailsControllerTest {
       .mock('contentVersionsByUUIDs', new List<ContentVersion>());
     try {
       Test.startTest();
-      TrustMeDocumentDetailsController.getTrustMeDocuments(trustMeDocumentRequestModel);
+      TrustMeDocumentDetailsController.getTrustMeDocuments(
+        trustMeDocumentRequestModel
+      );
       Test.stopTest();
     } catch (Exception e) {
       Assert.isInstanceOfType(

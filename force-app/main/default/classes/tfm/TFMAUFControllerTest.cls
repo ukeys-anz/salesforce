@@ -170,9 +170,7 @@ public with sharing class TFMAUFControllerTest {
     Object isInvoked = controller.call('checkAccountsOpen', args);
     Test.stopTest();
 
-    Boolean isAnyAccountOpen = (Boolean) output.get(
-      'isAnyAccountOpen'
-    );
+    Boolean isAnyAccountOpen = (Boolean) output.get('isAnyAccountOpen');
 
     Assert.areEqual(true, isInvoked, 'Method not invoked.');
     Assert.areEqual(

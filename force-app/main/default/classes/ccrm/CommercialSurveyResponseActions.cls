@@ -36,9 +36,7 @@ public with sharing class CommercialSurveyResponseActions {
       surveyResponses,
       qualtrics__Survey_Response__c.RecipientId__c
     );
-    List<User> userList = SR_REPOSITORY.getUserByLANId(
-      userLANIds
-    );
+    List<User> userList = SR_REPOSITORY.getUserByLANId(userLANIds);
     Map<String, User> lanIdWithUserRecordMap = (Map<String, User>) ListUtil.mapBy(
       userList,
       User.Lan_Id__c

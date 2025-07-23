@@ -5,8 +5,8 @@
  * @group Services
  */
 
-public with sharing virtual class HomeLoanHistoryService  extends Service {
-    private static final Lib_HttpCallout HTTP_CALLOUT = (Lib_HttpCallout) Lib_InstanceProvider.forType(
+public with sharing virtual class HomeLoanHistoryService extends Service {
+  private static final Lib_HttpCallout HTTP_CALLOUT = (Lib_HttpCallout) Lib_InstanceProvider.forType(
     Lib_HttpCallout.class
   );
 

@@ -58,9 +58,9 @@ global class InteractionContextRequest {
   /**
    * @description fetch account id based on ocvId
    */
-  public Account existingAccount {get; set;}
+  public Account existingAccount { get; set; }
   /**
    * @description fetch task record based on pubSubEventId
    */
-  public Task pushToAppTask {get; set;}
+  public Task pushToAppTask { get; set; }
 }

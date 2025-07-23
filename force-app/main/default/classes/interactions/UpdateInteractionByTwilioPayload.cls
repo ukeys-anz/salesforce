@@ -4,7 +4,6 @@
  * @description Wrapper class to store Twilio Context Response parameters
  */
 global class UpdateInteractionByTwilioPayload {
-
   /**
    * @description Interaction ID
    */
@@ -60,5 +59,5 @@ global class UpdateInteractionByTwilioPayload {
   /**
    * @description agent user id
    */
-  public Id agentUserId {get; set;}
+  public Id agentUserId { get; set; }
 }

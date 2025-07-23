@@ -1120,4 +1120,3 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     return model;
   }
 }
-

@@ -106,11 +106,7 @@ public with sharing class TrustMeCaseStatusPathHelperTest {
       'comments testing'
     );
     Test.stopTest();
-    Assert.areEqual(
-      'Refer to Fraud',
-      caseRecord[0].Status,
-      'Case not updated'
-    );
+    Assert.areEqual('Refer to Fraud', caseRecord[0].Status, 'Case not updated');
   }
 
   @isTest
@@ -145,10 +141,6 @@ public with sharing class TrustMeCaseStatusPathHelperTest {
       'Refer to Fraud'
     );
     Test.stopTest();
-    Assert.areEqual(
-      'Refer to Fraud',
-      caseRecord[0].Status,
-      'Case not updated'
-    );
+    Assert.areEqual('Refer to Fraud', caseRecord[0].Status, 'Case not updated');
   }
 }

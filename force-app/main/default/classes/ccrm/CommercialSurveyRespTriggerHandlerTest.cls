@@ -43,7 +43,10 @@ public class CommercialSurveyRespTriggerHandlerTest {
     surveyRespActRepo.mock(
       'getUserByLANId',
       new List<User>{
-        new User(Id = Lib_FakeIdGenerator.getMockId(User.SObjectType), Lan_Id__c = 'user1')
+        new User(
+          Id = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+          Lan_Id__c = 'user1'
+        )
       }
     );
     Test.startTest();
@@ -60,7 +63,10 @@ public class CommercialSurveyRespTriggerHandlerTest {
 
   @isTest
   static void testsetSurveyResponseFields() {
-    User runningUser = new User(Id = Lib_FakeIdGenerator.getMockId(User.SObjectType), Lan_Id__c = 'user1');
+    User runningUser = new User(
+      Id = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+      Lan_Id__c = 'user1'
+    );
     Account acc = new Account(Id = ACCID, Source_System_ID__c = SOURCEID);
     qualtrics__Survey_Response__c mockData = getMockedData();
     Test.startTest();
@@ -96,7 +102,7 @@ public class CommercialSurveyRespTriggerHandlerTest {
       assert.areEqual(true, expectedExceptionThrown, e.getMessage());
     }
   }
-    
+
   @isTest
   static void testsetSurveyResponseFieldsForOwner() {
     Id userId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
@@ -110,11 +116,6 @@ public class CommercialSurveyRespTriggerHandlerTest {
       new List<qualtrics__Survey_Response__c>{ mockData }
     );
     Test.stopTest();
-    assert.areEqual(
-      mockData.OwnerId,
-      userId,
-      'User Id is matched to owner Id'
-    );
+    assert.areEqual(mockData.OwnerId, userId, 'User Id is matched to owner Id');
   }
-
 }

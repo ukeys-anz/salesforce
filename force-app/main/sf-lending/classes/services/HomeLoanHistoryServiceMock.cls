@@ -4,8 +4,8 @@
  * @description Mock implementation of mule api service for home loan history, automatically injected if Non_Prod_Settings__c.MockCallouts__c is set or if the application is running in Tests
  * @group Services
  */
- public with sharing class HomeLoanHistoryServiceMock extends HomeLoanHistoryService{
-    /**
+public with sharing class HomeLoanHistoryServiceMock extends HomeLoanHistoryService {
+  /**
    * @description constructor which sets default code as succesful
    */
 

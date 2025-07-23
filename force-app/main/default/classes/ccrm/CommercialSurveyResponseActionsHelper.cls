@@ -31,7 +31,9 @@ public with sharing class CommercialSurveyResponseActionsHelper {
       response.qualtrics__Account__c = custIdWithAccRecordMap
         ?.get(response.customer_number__c)
         .Id;
-      response.OwnerId = lanIdWithUserRecordMap?.get(response.RecipientId__c)?.Id??response.OwnerId;
+      response.OwnerId = lanIdWithUserRecordMap
+        ?.get(response.RecipientId__c)
+        ?.Id ?? response.OwnerId;
     }
   }
 

@@ -279,7 +279,7 @@ global with sharing class TFMAUFController implements omnistudio.VlocityOpenInte
     try {
       String ocvId = (String) input.get(TFMConstants.AUF_OCV_ID);
       output.put('isAnyAccountOpen', isAnyAccountOpen(ocvId));
-    } catch(FinancialAccountAPIRepository.PermissionException e) {
+    } catch (FinancialAccountAPIRepository.PermissionException e) {
       output.put('PermissionException', true);
     } catch (Exception e) {
       output.put(TFMConstants.SHOWSUCCESSTOAST, false);

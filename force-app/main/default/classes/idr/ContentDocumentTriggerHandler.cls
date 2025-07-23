@@ -20,7 +20,11 @@ public without sharing class ContentDocumentTriggerHandler extends Lib_TriggerHa
    * @param cdList list of  ContentDocument in the current trigger context
    */
   public static void restrictFileDeleteAction(List<ContentDocument> cdList) {
-    List<String> cvRecordTypes = new List<String> {IDRConstants.CFAAS_FILE_RT_ID, RTContentVersion.daonFile, RTContentVersion.daonTrustXFile};
+    List<String> cvRecordTypes = new List<String>{
+      IDRConstants.CFAAS_FILE_RT_ID,
+      RTContentVersion.daonFile,
+      RTContentVersion.daonTrustXFile
+    };
     List<String> profileNames = System.Label.DCRM_ProfileAllowToDeleteOutlookAttachments.split(
       ';'
     );
@@ -28,7 +32,10 @@ public without sharing class ContentDocumentTriggerHandler extends Lib_TriggerHa
     Map<Id, Id> cdIdToCdlIdMap = new Map<Id, Id>();
     Map<Id, Id> cdlIdToEmIdMap = new Map<Id, Id>();
 
-    List<ContentVersion> cVersionList = CDL_REPOSITORY.getCVList(cdList, cvRecordTypes);
+    List<ContentVersion> cVersionList = CDL_REPOSITORY.getCVList(
+      cdList,
+      cvRecordTypes
+    );
 
     List<Id> idList = new List<Id>();
     for (ContentVersion cv : cVersionList) {

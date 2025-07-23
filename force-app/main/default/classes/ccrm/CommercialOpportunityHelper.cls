@@ -232,8 +232,8 @@ public with sharing class CommercialOpportunityHelper {
     List<ApplicationFormProduct> openAFPList = ListUtil.filter(
         appFormProductList
       )
-      .notEquals(ApplicationFormProduct.Stage,OPP_LOST)
-      .notEquals(ApplicationFormProduct.Stage,OPP_WON)
+      .notEquals(ApplicationFormProduct.Stage, OPP_LOST)
+      .notEquals(ApplicationFormProduct.Stage, OPP_WON)
       .toList();
 
     for (ApplicationFormProduct afpRecord : openAFPList) {
