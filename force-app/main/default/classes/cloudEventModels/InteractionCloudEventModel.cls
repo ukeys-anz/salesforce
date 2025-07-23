@@ -161,7 +161,8 @@ public without sharing class InteractionCloudEventModel extends CloudEventModel 
       this.interactionNumber = theInteraction?.interaction_Auto_Number__c;
       this.category = theInteraction?.category__c;
       this.startTime = theInteraction
-        ?.startTime.format('yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'');
+        ?.startTime
+        ?.format('yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'');
     }
   }
 }
