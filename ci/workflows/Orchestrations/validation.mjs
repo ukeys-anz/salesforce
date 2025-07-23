@@ -14,8 +14,7 @@ import {
   cancel,
   validateProgress,
   deployReport,
-  uploadJobId,
-  codeCoverage
+  uploadJobId
 } from "../Services/deploy-service.mjs";
 import {
   booleanMap,
@@ -87,7 +86,7 @@ const validationFunction = () => {
   return validationFunctionMapping[chosenTest];
 };
 
-const validate = () => {
+const validate = async () => {
   createAndUploadArtifact(
     SOURCE_DIR,
     BASE_REF_LAST_TAG,
@@ -114,7 +113,7 @@ const validate = () => {
     ARTIFACTORY_SECRET_VALUE,
     ARTIFACTORY_REPO_NAME
   );
-  validateProgress(
+  await validateProgress(
     validation,
     BRANCH_NAME_ALIAS,
     ARTIFACT_PACKAGE_XML,
@@ -123,7 +122,6 @@ const validate = () => {
 };
 
 const clean = () => {
-  codeCoverage(JOB_ID_FILE_NAME, DRAFT_PR);
   unauthenticate(BRANCH_NAME_ALIAS);
   deleteFolder(SOURCE_DIR);
   deleteFile(JOB_ID_FILE_NAME);
