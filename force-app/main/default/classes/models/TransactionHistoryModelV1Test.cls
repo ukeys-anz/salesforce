@@ -51,6 +51,6 @@ public class TransactionHistoryModelV1Test {
       'Merchants should not be null.'
     );
 
-    System.assertEquals(-64.19, testValue, 'Value should not be null.');
+    Assert.areEqual(-64.19, testValue, 'Value should not be null.');
   }
 }
