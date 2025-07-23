@@ -34,47 +34,52 @@ public class AccountRegistrationExternalQueryTest {
       context
     );
     Test.stopTest();
-    System.assertEquals(
+    Assert.areEqual(
       5,
       result.externalRecords.size(),
       'Response not returned correctly'
     );
-    System.assertEquals(
+    Assert.areEqual(
       '*****5685',
       result.externalRecords[0].get('crnLast4Digits'),
       'CRN Not populated correctly'
     );
-    System.assertEquals(
+    Assert.areEqual(
       'A - Active',
       result.externalRecords[0].get('registrationStatus'),
       'Registration Status Not populated correctly'
     );
-    System.assertEquals(
+    Assert.areEqual(
       'Customer Registration Number',
       result.externalRecords[0].get('registrationType'),
       'Registration Status Not populated correctly'
     );
-    System.assertEquals(
+    Assert.areEqual(
       'I - Issued',
       result.externalRecords[4].get('registrationStatus'),
       'Registration Status Not populated correctly'
+    );
+    Assert.areEqual(
+      '************2833',
+      result.externalRecords[4].get('cardLast4digits'),
+      'Card Number Not populated correctly'
     );
   }
   /**
    * @description test method for buildEndpoint
    */
   @isTest
-  static void buildEndpointTest() {
-    String strAccNum = '2345685859';
+  static void getAccountNumberTest() {
+    String strAccNum = '00011234455-|DDA-2345685859';
     ExternalObjectQueryBase.QueryModeEnum queryMode = ExternalObjectQueryBase.QueryModeEnum.RELATED_LIST;
     AccountRegistrationExternalQuery obj = new AccountRegistrationExternalQuery();
     obj.parentId = strAccNum;
     Test.startTest();
-    String strEndPoint = obj.buildEndpoint(queryMode);
+    String accNumber = obj.getAccountNumber(queryMode);
     Test.stopTest();
-    System.assertEquals(
-      false,
-      strEndPoint.contains('{accountNumber}'),
+    Assert.areEqual(
+      accNumber,
+      'DDA-2345685859',
       'Endpoint not formed correctly'
     );
   }
