@@ -33,7 +33,9 @@ const findDiffOnPR = (baseRef, headRef) => {
     Merge base: ${mergeBase}
   `);
 
-  const diffCommand = `git diff --name-only ${mergeBase} ${headRef}`;
+  const cleanHeadRef = headRef.trim();
+  const cleanMergeBase = mergeBase.trim();
+  const diffCommand = `git diff --name-only ${cleanMergeBase} ${cleanHeadRef}`;
   const changedFilesRaw = runDiffCommand(diffCommand);
 
   if (!changedFilesRaw) {
