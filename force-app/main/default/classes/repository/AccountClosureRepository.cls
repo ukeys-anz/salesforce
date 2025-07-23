@@ -67,8 +67,7 @@ public with sharing class AccountClosureRepository {
       FROM Case
       WHERE
         ParentId IN :parentIds
-        AND ((RecordTypeId = :RTCase.accountClosure
-        AND Origin != :CaseGroupCaseConstants.SELF_SERVICE_ORIGIN)
+        AND (RecordTypeId = :RTCase.accountClosure
         OR RecordTypeId = :RTCase.confirmationOfPayee)
       WITH USER_MODE
     ];

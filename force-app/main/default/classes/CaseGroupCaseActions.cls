@@ -31,15 +31,16 @@ public with sharing class CaseGroupCaseActions {
     for (Case childCase : childCaseRecords) {
       Case parentCase = parentIdAndCaseDetailsMap.get(childCase.ParentId);
       childCase.OwnerId = parentCase.OwnerId;
+      childCase.Circumstance__c = parentCase.Circumstance__c;
+      childCase.Type = parentCase.Type;
       if (
         !CaseGroupCaseConstants.STATUSES_NOT_ALLOWED_FOR_UPDATE.contains(
           childCase.Status
-        )
+        ) &&
+        !CaseGroupCaseConstants.SELF_SERVICE_ORIGIN.contains(childCase.Origin)
       ) {
         childCase.Status = parentCase.Status;
       }
-      childCase.Circumstance__c = parentCase.Circumstance__c;
-      childCase.Type = parentCase.Type;
     }
 
     DML_REPOSITORY.doUpdate(childCaseRecords);

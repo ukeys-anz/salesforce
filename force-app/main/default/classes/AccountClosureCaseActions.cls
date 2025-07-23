@@ -196,7 +196,13 @@ public with sharing class AccountClosureCaseActions {
   public static void setParentCaseStatusAsEscalated(List<Case> childCases) {
     List<Case> validEscalatedCases = ListUtil.filter(childCases)
       .equals(Case.Status, CaseGroupCaseConstants.ESCALATED_STATUS)
-      .equals(Case.Sub_Status__c, CaseGroupCaseConstants.FAILED)
+      .equals(
+        Case.Sub_Status__c,
+        new Set<String>{
+          CaseGroupCaseConstants.FAILED,
+          CaseGroupCaseConstants.SUCCESS
+        }
+      )
       .equals(Case.Origin, CaseGroupCaseConstants.SELF_SERVICE_ORIGIN)
       .isNotNull(Case.FinServ__FinancialAccount__c)
       .isNotNull(Case.ParentId)
