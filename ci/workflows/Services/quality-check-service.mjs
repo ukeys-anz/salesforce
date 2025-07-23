@@ -28,14 +28,13 @@ const findDiffOnPR = (baseRef, headRef) => {
   }
 
   loggerInStep(`
-        Base ref: ${baseRef}
-        Head ref: ${headRef}
-        Merge base: ${mergeBase}
-    `);
+    Base ref: ${baseRef}
+    Head ref: ${headRef}
+    Merge base: ${mergeBase}
+  `);
 
-  const changedFilesRaw = runDiffCommand(
-    `git diff --name-only ${mergeBase} ${headRef}`
-  );
+  const diffCommand = `git diff --name-only ${mergeBase} ${headRef}`;
+  const changedFilesRaw = runDiffCommand(diffCommand);
 
   if (!changedFilesRaw) {
     loggerInStep("No changed files detected");
