@@ -62,7 +62,7 @@ export function updateCardFields(cards) {
       return;
     }
     let replacementCard = cards.find(
-      (newCard) => card.newName == `cards/${newCard.tokenized_card_number}`
+      (newCard) => card.newName === `cards/${newCard.tokenized_card_number}`
     );
     if (replacementCard) {
       card.replacementCard = {

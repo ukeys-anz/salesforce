@@ -88,7 +88,7 @@ export default class SopCreditBureauCheck extends LightningElement {
         if (liabilitySource) {
           if (
             check.retrievedTime >= CREATED_DATE_LABEL &&
-            check.subType == "Illion"
+            check.subType === "Illion"
           ) {
             liabilitySource.isLiabilityHidden = true;
             return;

@@ -513,6 +513,7 @@ export default class SopAddEditDebts extends LightningModal {
     let index = event.target.dataset.id;
     this.ownerDetails[index].split = this.payload.liability.ownership[
       index
+      // eslint-disable-next-line radix
     ].proportion.value = parseInt(event.detail.value);
 
     let splitFields = this.template.querySelectorAll(
@@ -635,6 +636,7 @@ export default class SopAddEditDebts extends LightningModal {
   }
 
   handlePropertyAddressChange(event) {
+    // eslint-disable-next-line radix
     let index = parseInt(event.target.dataset.id);
     if (event.detail.value) {
       this.propertyDetails[index].property = event.detail.value;
@@ -660,6 +662,7 @@ export default class SopAddEditDebts extends LightningModal {
   }
 
   handleDeleteProperty(event) {
+    // eslint-disable-next-line radix
     let index = parseInt(event.target.dataset.id);
     this.propertyDetails.splice(index, 1);
     this.payload.liability.assets.splice(index, 1);
@@ -736,6 +739,7 @@ export default class SopAddEditDebts extends LightningModal {
 
         this.ownerDetails[index] = {
           owner: ownerValue,
+          // eslint-disable-next-line radix
           split: parseInt(owner.proportion),
           isNotFirst: index !== 0 && !this.preventAllOwnerDelete
         };
@@ -881,6 +885,7 @@ export default class SopAddEditDebts extends LightningModal {
     if (field.getAttribute("data-name") !== "ownershipSplit") {
       return;
     }
+    // eslint-disable-next-line radix
     let ownerSplitSum = parseInt(
       this.ownerDetails.reduce((a, b) => a + b.split, 0)
     );
@@ -894,6 +899,7 @@ export default class SopAddEditDebts extends LightningModal {
       return;
     }
 
+    // eslint-disable-next-line radix
     if (parseInt(field.value) === 0) {
       //Owners must have an ownership split greater than 0%
       field.setCustomValidity("Cannot have an owner with 0% ownership.");
@@ -932,6 +938,7 @@ export default class SopAddEditDebts extends LightningModal {
     //remove from the field list based on data id index when delete
     if (isDelete) {
       fieldList = fieldList.filter(
+        // eslint-disable-next-line radix
         (field) => parseInt(field.dataset.id) !== parseInt(index)
       );
     }

@@ -191,7 +191,7 @@ const DEBT_TYPES = {
           debt.readableSourceType !== SOURCE_ANZ),
       showLinkedProperty: (debt) => debt.linkedProperty.length > 0,
       showCustomerExcludedDebt: (debt) =>
-        debt.readableSourceType == SOURCE_CREDIT_BUREAU,
+        debt.readableSourceType === SOURCE_CREDIT_BUREAU,
       showRepaymentFrequency: (debt) =>
         !debt.customerStatedClosed &&
         debt.homeLoanType !== CONSTRUCTION_LOAN &&
@@ -389,7 +389,7 @@ const DEBT_TYPES = {
         debt.readableSourceType === SOURCE_ANZ && debt.productName,
       showTaxDeductible: (debt) => !debt.customerStatedClosed,
       showCustomerExcludedDebt: (debt) =>
-        debt.readableSourceType == SOURCE_CREDIT_BUREAU,
+        debt.readableSourceType === SOURCE_CREDIT_BUREAU,
       image: (debt) => {
         return debt.readableSourceType === SOURCE_ANZ
           ? ANZ_IMG

@@ -164,6 +164,7 @@ export default class LendingAccountHistory extends NavigationMixin(
     this.handleClearFilter();
     const start = new Date(this.startDate);
     const end = new Date(this.endDate);
+    // eslint-disable-next-line
     this.accountHistoryData = this.historyDetails.filter((item) => {
       const itemDate = this.convertStringToDate(item.updatedTime);
       if (this.startDate && this.endDate) {

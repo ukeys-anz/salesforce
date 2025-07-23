@@ -1215,6 +1215,7 @@ export function handleEditPayload(debt) {
   });
   //Clear nulls
   payload = Object.fromEntries(
+    // eslint-disable-next-line
     Object.entries(payload).filter(([_, v]) => v != null)
   );
   return payload;

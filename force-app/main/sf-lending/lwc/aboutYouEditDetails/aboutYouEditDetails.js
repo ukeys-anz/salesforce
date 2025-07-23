@@ -214,6 +214,7 @@ export default class AboutYouEditDetails extends LightningModal {
         });
         this.close("okay");
       })
+      // eslint-disable-next-line
       .catch((error) => {
         handleErrorShowToast(
           this,
