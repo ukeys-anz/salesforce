@@ -245,7 +245,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCaseDetailsCustom6611</globalKey>
-        <inputFieldName>Case:ComplaintDetails:AccountPolicyNumber3</inputFieldName>
+        <inputFieldName>AccountPolicyThree</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
@@ -745,21 +745,6 @@
         <outputFieldName>Case:ComplaintDetails:CustomerDesiredOutcome</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-     <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRTransformCaseDetailsCustom6611</globalKey>
-        <inputFieldName>AccountPolicyThree</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCaseDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:ComplaintDetails:AccountPolicyNumber3</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <transformValuesMappings>{ }</transformValuesMappings>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
@@ -1799,21 +1784,6 @@
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
-     <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRTransformCaseDetailsCustom2200</globalKey>
-        <inputFieldName>AccountPolicyTwo</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCaseDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:ComplaintDetails:AccountPolicyNumber2</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <transformValuesMappings>{ }</transformValuesMappings>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRTransformCaseDetails</name>
         <disabled>false</disabled>
@@ -1847,7 +1817,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCaseDetailsCustom2200</globalKey>
-        <inputFieldName>Case:ComplaintDetails:AccountPolicyNumber2</inputFieldName>
+        <inputFieldName>AccountPolicyTwo</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
