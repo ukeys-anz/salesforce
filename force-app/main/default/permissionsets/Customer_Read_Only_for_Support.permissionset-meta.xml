@@ -28,6 +28,10 @@
         <name>FinancialAccountUIConfiguration__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <name>FinancialAccountConfiguration__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <description>Should only have required permissions to view Custom related information for support users. It doesn&apos;t have access to card, financial account and financial goals. Also doesn&apos;t have access to transaction history and account and goals</description>
     <fieldPermissions>
         <editable>false</editable>
