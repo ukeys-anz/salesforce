@@ -15,7 +15,7 @@ permissions:
 jobs:
   Release:
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.5.0"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:2.0.0"
       options: --user root
       volumes:
         - ${{ github.workspace }}/release:/opt/harness-delegate/release
@@ -59,6 +59,18 @@ jobs:
       PROD_URL: "https://anz.my.salesforce.com"
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: "true"
+          token: ${{ secrets.SALESFORCE_PROD_CHECKOUT_TOKEN }}
+
+      - name: Link plugin
+        run: |
+          cd /opt/harness-delegate/sf-plugin
+          sf plugins link .
+
       - name: Environment Varibales Debug
         run: |
           echo "DEBUG: PREPROD_DEPLOYMENT_STEP=${{ env.PREPROD_DEPLOYMENT_STEP }}"
@@ -66,14 +78,6 @@ jobs:
           echo "DEBUG: PROD_DEPLOYMENT_STEP=${{ env.PROD_DEPLOYMENT_STEP }}"
           echo "DEBUG: STAGE_NAME=${{ env.STAGE_NAME }}"
           echo "DEBUG: REPO_NAME=${{ env.REPO_NAME }}"
-
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          submodules: "true"
-          token: ${{ secrets.SALESFORCE_PROD_CHECKOUT_TOKEN }}
-          path: salesforce
 
       - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
         id: "authenticate-harness-delegate"
@@ -91,38 +95,20 @@ jobs:
             prod-cert:projects/anz-x-gh-sf-prod-be3529/secrets/${{ env.PROD_CERT_SECRET_NAME }}/versions/latest
             artifactory:projects/anz-x-gh-sf-prod-be3529/secrets/${{ env.ARTIFACTORY_SECRET_NAME }}/versions/latest
 
-      - name: Add Genral Secrets to ENV
-        working-directory: salesforce
+      - name: Prepare ENV Variables
         run: |
           echo CLEANING_JOB="false" >> $GITHUB_ENV
           echo WORKING_DIR="$(pwd)" >> $GITHUB_ENV
           lastTag="$( git describe --abbrev=0 --tags --match master* )"
           echo BASE_REF_LAST_TAG="$lastTag" >> $GITHUB_ENV
 
-      - name: Checkout salesforce-plugin repo
-        uses: actions/checkout@v4
-        with:
-          repository: anzx/salesforce-plugin
-          token: ${{ secrets.SALESFORCE_PROD_PLUGIN_TOKEN }}
-          path: salesforce-plugin
-
-      - name: Install plugin
-        working-directory: salesforce-plugin
-        shell: bash
-        run: |
-          rm -rf node_modules && yarn install --frozen-lockfile
-          yarn build
-          sf plugins link .
-
       - name: Run ${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}
         id: deployment
-        working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/release.mjs "${{ steps.secrets.outputs.preprod }}" "${{ steps.secrets.outputs.prod-consumer-key }}" "${{ steps.secrets.outputs.prod-cert }}" "${{ steps.secrets.outputs.artifactory }}"
           echo CLEANING_JOB="true" >> $GITHUB_ENV
 
       - name: Cleaning | Create Tag
-        working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/release.mjs "${{ steps.secrets.outputs.preprod }}" "${{ steps.secrets.outputs.prod-consumer-key }}" "${{ steps.secrets.outputs.prod-cert }}" "${{ steps.secrets.outputs.artifactory }}"
 
