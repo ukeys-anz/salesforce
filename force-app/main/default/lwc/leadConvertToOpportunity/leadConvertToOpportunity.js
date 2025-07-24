@@ -33,6 +33,7 @@ import MLCRM_CustomerNeedsError from "@salesforce/label/c.MLCRM_CustomerNeedsErr
 import MLCRM_LeadSourceError from "@salesforce/label/c.MLCRM_LeadSourceError";
 import MLCRM_ConversionStatusValidationError from "@salesforce/label/c.MLCRM_ConversionStatusValidationError";
 import MLCRM_Lead_MisMatch_Warning_Message from "@salesforce/label/c.MLCRM_Lead_MisMatch_Warning_Message"; //CC-857
+import Commercial_GoBiz_Referral_Error from "@salesforce/label/c.Commercial_GoBiz_Referral_Error";
 
 const columns = [
   {
@@ -196,7 +197,8 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
     CCRM_RegisteredCompanyError,
     CCRM_ExistingCustomerError,
     CCRM_LeadDetailsSubText,
-    MLCRM_Lead_MisMatch_Warning_Message
+    MLCRM_Lead_MisMatch_Warning_Message,
+    Commercial_GoBiz_Referral_Error
   };
 
   connectedCallback() {
@@ -463,8 +465,9 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
       }
       //Block lead conversion if Company is not registered
       if (
-        this.leadConvertData.leadRecord.Registered_Company__c === undefined ||
-        this.leadConvertData.leadRecord.Registered_Company__c === "No"
+        !this.isIndividual &&
+        (this.leadConvertData.leadRecord.Registered_Company__c === undefined ||
+          this.leadConvertData.leadRecord.Registered_Company__c === "No")
       ) {
         this.setInvalidLead();
         this.validationMessage.push({
@@ -541,6 +544,19 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
       this.validationMessage.push({
         id: this.validationMessage.length + 1,
         body: this.label.CCRM_RegisteredCompanyError
+      });
+    }
+
+    //# Criteria #11 Go-Biz Referrals
+    if (
+      this.leadConvertData.leadRecord.LeadSource === "Go Biz" &&
+      this.leadConvertData.leadRecord.FinServ__ReferredByUser__c &&
+      this.leadConvertData.leadRecord.Lead_Originator__c === "CCRM"
+    ) {
+      this.setInvalidLead();
+      this.validationMessage.push({
+        id: this.validationMessage.length + 1,
+        body: this.label.Commercial_GoBiz_Referral_Error
       });
     }
   }

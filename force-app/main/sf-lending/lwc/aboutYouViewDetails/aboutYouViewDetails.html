@@ -1,0 +1,309 @@
+<template>
+  <template lwc:if={componentSpinner}>
+    <lightning-spinner
+      alternative-text="Loading"
+      varient="brand"
+      size="large"
+      class="slds-align_absolute-center"
+    ></lightning-spinner>
+  </template>
+  <template lwc:if={showGetSOPErrorScreen}>
+    <lightning-layout multiple-rows>
+      <lightning-layout-item
+        size="12"
+        flexibility="shrink"
+        class="slds-p-horizontal_small slds-p-top_x-small"
+      >
+        <lightning-formatted-text
+          class="errorHeadingStyle"
+          value={sopAPIErrorHeader}
+        >
+        </lightning-formatted-text>
+      </lightning-layout-item>
+      <lightning-layout-item
+        size="12"
+        flexibility="shrink"
+        class="slds-p-horizontal_small slds-p-top_x-small slds-p-bottom_x-large"
+      >
+        <lightning-formatted-text class="valueStyle" value={sopAPIErrorDetail}>
+        </lightning-formatted-text>
+      </lightning-layout-item>
+    </lightning-layout>
+  </template>
+  <!-- View only screen starts -->
+  <template lwc:if={showViewScreen}>
+    <lightning-card>
+      <!-- View only screen for Applicants data starts -->
+      <template for:each={applicantData} for:item="applicant" for:index="index">
+        <lightning-accordion
+          allow-multiple-sections-open
+          active-section-name="applicantDetails"
+          key={applicant.ocvId}
+        >
+          <lightning-accordion-section
+            class="accordianSection"
+            name="applicantDetails"
+            label={applicant.applicantLabel}
+          >
+            <!-- Edit button -->
+            <template lwc:if={applicant.isLivingSituationEditable}>
+              <lightning-layout
+                class="slds-text-align_right slds-p-vertical_x-small"
+              >
+                <lightning-layout-item size="12">
+                  <lightning-button
+                    variant="neutral"
+                    label="Edit"
+                    onclick={handleEditApplicant}
+                    data-id={applicant.ocvId}
+                    data-name="editApplicant"
+                  ></lightning-button>
+                </lightning-layout-item>
+              </lightning-layout>
+            </template>
+            <lightning-layout multiple-rows>
+              <lightning-layout-item
+                size="6"
+                flexibility="shrink"
+                class="slds-p-horizontal_small"
+              >
+                <!-- Applicant Name -->
+                <lightning-layout class="slds-p-top_x-small">
+                  <lightning-layout-item
+                    size="4"
+                    flexibility="shrink"
+                    class="labelStyle slds-border_bottom slds-p-vertical_xx-small"
+                  >
+                    <lightning-formatted-text
+                      value="Applicant Name"
+                    ></lightning-formatted-text>
+                  </lightning-layout-item>
+
+                  <lightning-layout-item
+                    size="8"
+                    flexibility="shrink"
+                    class="valueStyle slds-border_bottom slds-p-vertical_xx-small"
+                  >
+                    <a
+                      onclick={navigateToRecordViewPage}
+                      data-id={applicant.applicantId}
+                      class="slds-truncate"
+                      title={applicant.applicantName}
+                    >
+                      <span>{applicant.applicantName}</span>
+                    </a>
+                  </lightning-layout-item>
+                </lightning-layout>
+              </lightning-layout-item>
+
+              <!-- Home Address -->
+              <lightning-layout-item
+                size="6"
+                flexibility="shrink"
+                class="slds-p-horizontal_small"
+              >
+                <lightning-layout class="slds-p-top_x-small">
+                  <lightning-layout-item
+                    size="4"
+                    flexibility="shrink"
+                    class="labelStyle slds-border_bottom slds-p-vertical_xx-small"
+                  >
+                    <lightning-formatted-text
+                      value="Home Address"
+                    ></lightning-formatted-text>
+                  </lightning-layout-item>
+
+                  <lightning-layout-item
+                    size="8"
+                    flexibility="shrink"
+                    class="valueStyle slds-border_bottom slds-p-vertical_xx-small"
+                  >
+                    <lightning-formatted-text
+                      value={applicant.applicantAddress}
+                    ></lightning-formatted-text>
+                  </lightning-layout-item>
+                </lightning-layout>
+              </lightning-layout-item>
+
+              <!-- Living Situation -->
+              <lightning-layout-item
+                size="6"
+                flexibility="shrink"
+                class="slds-p-horizontal_small"
+              >
+                <lightning-layout class="slds-p-top_x-small">
+                  <lightning-layout-item
+                    size="4"
+                    flexibility="shrink"
+                    class="labelStyle slds-border_bottom slds-p-vertical_xx-small"
+                  >
+                    <lightning-formatted-text
+                      value="Living Situation"
+                    ></lightning-formatted-text>
+                  </lightning-layout-item>
+
+                  <lightning-layout-item
+                    size="8"
+                    flexibility="shrink"
+                    class="valueStyle slds-border_bottom slds-p-vertical_xx-small"
+                  >
+                    <lightning-formatted-text
+                      value={applicant.livingSituationValue}
+                    ></lightning-formatted-text>
+                  </lightning-layout-item>
+                </lightning-layout>
+              </lightning-layout-item>
+
+              <!-- Living Situation Description (if visible) -->
+              <template lwc:if={applicant.livingSituationDescriptionVisible}>
+                <lightning-layout-item
+                  size="6"
+                  flexibility="shrink"
+                  class="slds-p-horizontal_small"
+                >
+                  <lightning-layout class="slds-p-top_x-small">
+                    <lightning-layout-item
+                      size="4"
+                      flexibility="shrink"
+                      class="labelStyle slds-border_bottom slds-p-vertical_xx-small"
+                    >
+                      <lightning-formatted-text
+                        value="Living Situation Description"
+                      ></lightning-formatted-text>
+                    </lightning-layout-item>
+
+                    <lightning-layout-item
+                      size="8"
+                      flexibility="shrink"
+                      class="valueStyle slds-border_bottom slds-p-vertical_xx-small"
+                    >
+                      <lightning-formatted-text
+                        value={applicant.livingStatusOther}
+                      ></lightning-formatted-text>
+                    </lightning-layout-item>
+                  </lightning-layout>
+                </lightning-layout-item>
+              </template>
+            </lightning-layout>
+          </lightning-accordion-section>
+        </lightning-accordion>
+      </template>
+      <!-- View only screen for Applicants data ends -->
+      <!-- View only screen for primary party data starts -->
+      <lightning-accordion
+        allow-multiple-sections-open
+        active-section-name="currentCircumstances"
+      >
+        <lightning-accordion-section
+          class="accordianSection"
+          name="currentCircumstances"
+          label="Current Circumstances"
+        >
+          <!-- Edit button -->
+          <template lwc:if={isFieldEditable}>
+            <lightning-layout
+              class="slds-text-align_right slds-p-vertical_x-small"
+            >
+              <lightning-layout-item size="12">
+                <lightning-button
+                  variant="neutral"
+                  label="Edit"
+                  onclick={handleEditApplicant}
+                  data-id={currentCircumstancesData.ocvId}
+                  data-name="editPartyCircumstances"
+                ></lightning-button>
+              </lightning-layout-item>
+            </lightning-layout>
+          </template>
+          <lightning-layout multiple-rows>
+            <lightning-layout-item
+              size="6"
+              flexibility="shrink"
+              class="slds-p-horizontal_small slds-p-top_x-small"
+            >
+              <lightning-layout>
+                <lightning-layout-item
+                  size="4"
+                  flexibility="shrink"
+                  class="labelStyle slds-border_bottom slds-p-vertical_xx-small"
+                >
+                  <lightning-formatted-text value="Share Finances With Partner">
+                  </lightning-formatted-text>
+                </lightning-layout-item>
+
+                <lightning-layout-item
+                  size="8"
+                  flexibility="shrink"
+                  class="valueStyle slds-border_bottom slds-p-vertical_xx-small"
+                >
+                  <lightning-formatted-text
+                    value={currentCircumstancesData.shareFinanceWithPartner}
+                  >
+                  </lightning-formatted-text>
+                </lightning-layout-item>
+              </lightning-layout>
+            </lightning-layout-item>
+            <template lwc:if={isSoleIncomeEarnerVisible}>
+              <lightning-layout-item
+                size="6"
+                flexibility="shrink"
+                class="slds-p-horizontal_small slds-p-top_x-small"
+              >
+                <lightning-layout>
+                  <lightning-layout-item
+                    size="4"
+                    flexibility="shrink"
+                    class="labelStyle slds-border_bottom slds-p-vertical_xx-small"
+                  >
+                    <lightning-formatted-text value="Sole Income Earner">
+                    </lightning-formatted-text>
+                  </lightning-layout-item>
+
+                  <lightning-layout-item
+                    size="8"
+                    flexibility="shrink"
+                    class="valueStyle slds-border_bottom slds-p-vertical_xx-small"
+                  >
+                    <lightning-formatted-text
+                      value={currentCircumstancesData.soleIncomeEarner}
+                    >
+                    </lightning-formatted-text>
+                  </lightning-layout-item>
+                </lightning-layout>
+              </lightning-layout-item>
+            </template>
+            <lightning-layout-item
+              size="6"
+              flexibility="shrink"
+              class="slds-p-horizontal_small slds-p-top_x-small"
+            >
+              <lightning-layout>
+                <lightning-layout-item
+                  size="4"
+                  flexibility="shrink"
+                  class="labelStyle slds-border_bottom slds-p-vertical_xx-small"
+                >
+                  <lightning-formatted-text value="Dependants">
+                  </lightning-formatted-text>
+                </lightning-layout-item>
+
+                <lightning-layout-item
+                  size="8"
+                  flexibility="shrink"
+                  class="valueStyle slds-border_bottom slds-p-vertical_xx-small"
+                >
+                  <lightning-formatted-number
+                    value={currentCircumstancesData.partyDependantsCount}
+                  >
+                  </lightning-formatted-number>
+                </lightning-layout-item>
+              </lightning-layout>
+            </lightning-layout-item>
+          </lightning-layout>
+        </lightning-accordion-section>
+      </lightning-accordion>
+      <!-- View only screen for primary party data ends -->
+    </lightning-card>
+  </template>
+  <!-- View only screen ends -->
+</template>

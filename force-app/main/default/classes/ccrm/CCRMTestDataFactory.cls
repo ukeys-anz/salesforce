@@ -704,6 +704,7 @@ public with sharing class CCRMTestDataFactory {
     leadRecord.Email = 'sam' + staticNumber + '@test.com';
     leadRecord.RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID;
     leadRecord.Description = 'Need a new Credit Card';
+    leadRecord.Company = 'Test Company';
     leadRecord.Registered_Company__c = 'No';
     leadRecord.Expiry_Date__c = System.today() + 10;
     leadRecord.FinServ__ExpressedInterest__c = 'Purchasing Property';
@@ -892,6 +893,7 @@ public with sharing class CCRMTestDataFactory {
       leadRecord.Email = 'sam' + staticNumber + '@test.com';
       leadRecord.RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID;
       leadRecord.Description = 'Need a new Credit Card';
+      leadRecord.Company = 'Test Company';
       leadRecord.Registered_Company__c = 'No';
       leadRecord.Expiry_Date__c = System.today() + 10;
       leadRecord.FinServ__ExpressedInterest__c = 'Purchasing Property';
@@ -931,7 +933,7 @@ public with sharing class CCRMTestDataFactory {
     for (Integer i = 1; i <= count; i++) {
       Campaign campaignRecord = new Campaign();
       campaignRecord.Name = 'CRM Manual Leads';
-      campaignRecord.Code__c = System.Label.CCRM_DefaultCampaign;
+      campaignRecord.Code__c = System.Label.Commercial_DefaultCampaign;
       campaignRecord.Type = 'Targeted Offer';
       campaignRecord.StartDate = System.today();
       campaignRecord.EndDate = campaignRecord.StartDate.addMonths(1);
@@ -1648,7 +1650,7 @@ public with sharing class CCRMTestDataFactory {
     }
     return finAccountRole;
   }
- 
+
   /**
    * @description creates and/or returns list of CCRMA2ZReview records for testing purpose
    * note that the lookup on these records are not populated

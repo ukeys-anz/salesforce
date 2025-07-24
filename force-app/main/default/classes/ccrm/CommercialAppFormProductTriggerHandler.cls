@@ -31,7 +31,15 @@ public with sharing class CommercialAppFormProductTriggerHandler extends Lib_Tri
       records,
       (Map<Id, ApplicationFormProduct>) oldMap
     );
-
+    //map stage with source system status
+    CommercialAppFormProductActions.mapStageWithSourceSystemStatus(
+      records,
+      (Map<Id, ApplicationFormProduct>) oldMap
+    );
+    CommercialAppFormProductActions.populateCloseDateForAmbitOnStageChange(
+      records,
+      (Map<Id, ApplicationFormProduct>) oldMap
+    );
     //populate last updated stage date
     CommercialAppFormProductActions.populateStageUpdatedDate(
       records,
@@ -46,6 +54,7 @@ public with sharing class CommercialAppFormProductTriggerHandler extends Lib_Tri
       records,
       null
     );
+    CommercialAppFormProductActions.createAppFormShareRecords(records);
   }
   /**
    * @description onAfterUpdate to handle after update trigger actions.

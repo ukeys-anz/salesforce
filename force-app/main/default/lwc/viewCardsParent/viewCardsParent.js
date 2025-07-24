@@ -16,6 +16,8 @@ export default class ViewCardsParent extends LightningElement {
   ocvId;
   hasPermissionIssue = !hasViewCardsPermission;
   noActiveCardMessage = `This customer doesn't have any accounts with an active card attached.`;
+  accNumberToFilter = [];
+  allCards = [];
 
   @wire(CurrentPageReference)
   pageRef;
@@ -36,10 +38,8 @@ export default class ViewCardsParent extends LightningElement {
     try {
       let cardsDetails = await getCardList({ ocvId: this.ocvId });
       if (cardsDetails?.cards.length > 0) {
-        let cards = updateCardFields(cardsDetails.cards);
-        const { activeCards, closedCards } = filterCardsBasedOnStatus(cards);
-        this.activeCardList = activeCards;
-        this.closedCardList = closedCards;
+        this.allCards = updateCardFields(cardsDetails.cards);
+        this.setCardsByStatus(this.allCards);
       }
     } catch (error) {
       this.cardHasError = true;
@@ -56,6 +56,25 @@ export default class ViewCardsParent extends LightningElement {
     }
   }
 
+  handleFilterChange(event) {
+    this.accNumberToFilter = event.detail.value;
+    if (this.accNumberToFilter.length === 0) {
+      this.setCardsByStatus(this.allCards);
+      return;
+    }
+
+    let filteredCards = this.allCards.filter((card) =>
+      this.accNumberToFilter.includes(card.concatAccountNumber)
+    );
+    this.setCardsByStatus(filteredCards);
+  }
+
+  setCardsByStatus(cards) {
+    const { activeCards, closedCards } = filterCardsBasedOnStatus(cards);
+    this.activeCardList = activeCards;
+    this.closedCardList = closedCards;
+  }
+
   get showClosedCardsSection() {
     return !this.noClosedCards;
   }
@@ -70,6 +89,20 @@ export default class ViewCardsParent extends LightningElement {
 
   get noClosedCards() {
     return this.closedCardList.length === 0;
+  }
+
+  get accNumberOptions() {
+    if (this.allCards.length === 0) {
+      return [];
+    }
+
+    const accNumbers = new Set(
+      this.allCards.map((card) => card.concatAccountNumber)
+    );
+    return Array.from(accNumbers).map((accNumber) => ({
+      label: accNumber,
+      value: accNumber
+    }));
   }
 
   //Refetch the card details in order to get the latest cards list on any button click

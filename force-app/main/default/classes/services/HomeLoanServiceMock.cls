@@ -5,7 +5,7 @@
  * @group Services
  */
 
-public with sharing class HomeLoanServiceMock extends Service {
+public with sharing class HomeLoanServiceMock extends HomeLoanService {
   /**
    * @description constructor which sets default code as succesful
    */

@@ -41,7 +41,7 @@ public with sharing class TrustMeCaseStatusPathHelperTest {
           Evaluation_Id__c = '1234',
           Subject = 'TrustMe Manual Review - Document',
           RecordTypeId = RTCase.trustMeManualReview,
-          Status = 'ID and Selfie Check Passed',
+          Status = 'Refer to Fraud',
           OnboardingVerificationFailedReason__c = 'Doc fail - suspected fraud, based on document',
           SecondaryVerificationFailedReason__c = 'Doc fail - suspected fraud, based on document'
         );
@@ -90,7 +90,7 @@ public with sharing class TrustMeCaseStatusPathHelperTest {
     TrustMeCaseStatusPathHelper.makeAPICallout(caseRecord[0]);
     Test.stopTest();
     Assert.areEqual(
-      'ID and Selfie Check Passed',
+      'Refer to Fraud',
       caseRecord[0].Status,
       'Case update failed'
     );
@@ -106,11 +106,7 @@ public with sharing class TrustMeCaseStatusPathHelperTest {
       'comments testing'
     );
     Test.stopTest();
-    Assert.areEqual(
-      'ID and Selfie Check Passed',
-      caseRecord[0].Status,
-      'Case not updated'
-    );
+    Assert.areEqual('Refer to Fraud', caseRecord[0].Status, 'Case not updated');
   }
 
   @isTest
@@ -133,5 +129,18 @@ public with sharing class TrustMeCaseStatusPathHelperTest {
       checks.customer_photo_id_legibility,
       'Flag not set to true in TrustMeCaseUpdateModel.checks'
     );
+  }
+
+  @isTest
+  static void testUpdateOwnerandStatus() {
+    Lib_MockProvider.forType(DmlRepository.class)
+      .mock('doUpdate', TestUtil.getMockSaveResult('{"success":true}'));
+    Test.startTest();
+    TrustMeCaseStatusPathHelper.updateOwnerandStatus(
+      caseRecord[0].Id,
+      'Refer to Fraud'
+    );
+    Test.stopTest();
+    Assert.areEqual('Refer to Fraud', caseRecord[0].Status, 'Case not updated');
   }
 }

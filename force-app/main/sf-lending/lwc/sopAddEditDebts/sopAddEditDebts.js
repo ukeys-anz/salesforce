@@ -367,7 +367,15 @@ export default class SopAddEditDebts extends LightningModal {
     if (this.actionType === "Add") {
       this.payload.liability.institutionalLiability.debtType = this.debtType;
     }
-    this.handlePropertyOptions(this.propertyAssets);
+
+    let multiPropsSources = [
+      "LIABILITY_TYPE_LINE_OF_CREDIT",
+      "LIABILITY_TYPE_HOME_LOAN"
+    ];
+
+    if (multiPropsSources.includes(this.debtType)) {
+      this.handlePropertyOptions(this.propertyAssets);
+    }
     if (this.parties && this.parties.length > 0) {
       this.handleBelongsToOptions(this.parties);
     }
@@ -407,18 +415,14 @@ export default class SopAddEditDebts extends LightningModal {
       this.fieldVisibility.disableOwnershipSplit = true;
     }
 
-    let editableANZSource = [
-      "LIABILITY_TYPE_LINE_OF_CREDIT",
-      "LIABILITY_TYPE_HOME_LOAN"
-    ];
     //Prevent change of ownership split for ANZ LOC and HL sources with a single owner
     //and for other debt types
     if (
       this.actionType === "Edit" &&
       this.debtData?.sourceType === "LIABILITY_SOURCE_TYPE_ANZ" &&
       ((this.ownerDetails.length === 1 &&
-        editableANZSource.includes(this.debtType)) ||
-        !editableANZSource.includes(this.debtType))
+        multiPropsSources.includes(this.debtType)) ||
+        !multiPropsSources.includes(this.debtType))
     ) {
       this.fieldVisibility.disableOwnershipSplit = true;
     }
@@ -509,6 +513,7 @@ export default class SopAddEditDebts extends LightningModal {
     let index = event.target.dataset.id;
     this.ownerDetails[index].split = this.payload.liability.ownership[
       index
+      // eslint-disable-next-line radix
     ].proportion.value = parseInt(event.detail.value);
 
     let splitFields = this.template.querySelectorAll(
@@ -616,9 +621,8 @@ export default class SopAddEditDebts extends LightningModal {
   }
 
   handleAvailableRedrawChange(event) {
-    this.payload.liability.institutionalLiability.redrawAmountValue = Math.abs(
-      event.detail.value
-    );
+    this.payload.liability.institutionalLiability.redrawAmountValue =
+      event.detail.value !== "" ? Math.abs(event.detail.value) : null;
   }
 
   handleRemainingTermCheckbox(event) {
@@ -632,6 +636,7 @@ export default class SopAddEditDebts extends LightningModal {
   }
 
   handlePropertyAddressChange(event) {
+    // eslint-disable-next-line radix
     let index = parseInt(event.target.dataset.id);
     if (event.detail.value) {
       this.propertyDetails[index].property = event.detail.value;
@@ -657,6 +662,7 @@ export default class SopAddEditDebts extends LightningModal {
   }
 
   handleDeleteProperty(event) {
+    // eslint-disable-next-line radix
     let index = parseInt(event.target.dataset.id);
     this.propertyDetails.splice(index, 1);
     this.payload.liability.assets.splice(index, 1);
@@ -733,6 +739,7 @@ export default class SopAddEditDebts extends LightningModal {
 
         this.ownerDetails[index] = {
           owner: ownerValue,
+          // eslint-disable-next-line radix
           split: parseInt(owner.proportion),
           isNotFirst: index !== 0 && !this.preventAllOwnerDelete
         };
@@ -878,6 +885,7 @@ export default class SopAddEditDebts extends LightningModal {
     if (field.getAttribute("data-name") !== "ownershipSplit") {
       return;
     }
+    // eslint-disable-next-line radix
     let ownerSplitSum = parseInt(
       this.ownerDetails.reduce((a, b) => a + b.split, 0)
     );
@@ -891,6 +899,7 @@ export default class SopAddEditDebts extends LightningModal {
       return;
     }
 
+    // eslint-disable-next-line radix
     if (parseInt(field.value) === 0) {
       //Owners must have an ownership split greater than 0%
       field.setCustomValidity("Cannot have an owner with 0% ownership.");
@@ -929,6 +938,7 @@ export default class SopAddEditDebts extends LightningModal {
     //remove from the field list based on data id index when delete
     if (isDelete) {
       fieldList = fieldList.filter(
+        // eslint-disable-next-line radix
         (field) => parseInt(field.dataset.id) !== parseInt(index)
       );
     }

@@ -1,10 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
+        <fullName>MS_Update_SOP_Party</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Update_SOP_Party</shortDescription>
+        <value>callout:SF_MS_CH2/credit-assessment/v1/sop/{0}?update-sop={1}&amp;update-party={2}</value>
+    </labels>
+    <labels>
+        <fullName>MS_Update_LoanPreference</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Update_LoanPreference</shortDescription>
+        <value>callout:SF_MS_CH2/credit-assessment/v1/loan/{0}/preferences/{1}</value>
+    </labels>
+    <labels>
+        <fullName>MS_CalculateLoanRepayment</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_CalculateLoanRepayment</shortDescription>
+        <value>callout:SF_MS_CH2/credit-assessment/v1/loan/calculateRepayment</value>
+    </labels>
+    <labels>
+        <fullName>MS_SubmitLoanAccountChangeApprovalOrReject</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_SubmitLoanAccountChangeApprovalOrReject</shortDescription>
+        <value>callout:SF_MS_CH2/credit-assessment/v1/loan/{0}/changes/{1}/submit</value>
+    </labels>
+    <labels>
         <fullName>SOP_Expense_Config</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>SOP_Expense_Config</shortDescription>
         <value>1695597985652695,1701819944151648,1714356391121987</value>
+    </labels>
+    <labels>
+        <fullName>NoIllionDataForCreditBureau</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Not to display Illion if the Retrieved Time is greater than 30th November 2024</shortDescription>
+        <value>2024-12-01T00:00:00.000Z</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_LoanChanges</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS Get List Of Loan Account Changes</shortDescription>
+        <value>callout:SF_MS_CH2/credit-assessment/v1/loan/{0}/changes</value>
     </labels>
 </CustomLabels>

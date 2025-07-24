@@ -9,6 +9,7 @@ public with sharing class OpportunityContactRoleActions {
   private static final OpportunityActionsRepository OPPORTUNITY_REPOSITORY = (OpportunityActionsRepository) Lib_InstanceProvider.forType(
     OpportunityActionsRepository.class
   );
+
   private static final OpportunityContactRoleActionsRepository OCR_REPOSITORY = (OpportunityContactRoleActionsRepository) Lib_InstanceProvider.forType(
     OpportunityContactRoleActionsRepository.class
   );
@@ -54,8 +55,9 @@ public with sharing class OpportunityContactRoleActions {
     if (USER_INFO_REPO.checkProfile('System Administrator')) {
       return;
     }
+    List<Opportunity> lstOfOpp = getParentOpportunities(oldRecords);
     Map<Id, Opportunity> mapofOpp = (Map<Id, Opportunity>) ListUtil.mapBy(
-      oldRecords,
+      lstOfOpp,
       Opportunity.Id
     );
     List<OpportunityContactRole> lstOfContactRole = filterPrimaryApplicant(
@@ -141,7 +143,10 @@ public with sharing class OpportunityContactRoleActions {
       ocrSyncList.add(createOcrSyncInstance(filteredOCRRecordsMap.get(ocr.Id)));
     }
     OpportunityContactRoleSyncActions.isOCRSync = true;
-    DML.doInsert(ocrSyncList, new DmlConfig().systemMode().withoutSharing());
+    DML.doInsert(
+      ocrSyncList,
+      new DmlConfig().systemMode().withoutSharing().allowPartial()
+    );
   }
 
   /**
@@ -184,15 +189,12 @@ public with sharing class OpportunityContactRoleActions {
     if (OpportunityContactRoleSyncActions.isOCRSync) {
       return;
     }
-    Set<String> externalIdSet = ListUtil.getStrings(
-      oldOcrList,
-      OpportunityContactRole.ExternalId__c
-    );
+    Set<Id> ocrIds = ListUtil.getIds(oldOcrList, OpportunityContactRole.Id);
     List<Opportunity_Contact_Role_Sync__c> ocrSyncListToDelete = OCR_REPOSITORY.getOpportunityContactRoleSyncRecords(
-      externalIdSet
+      ocrIds
     );
     OpportunityContactRoleSyncActions.isOCRSync = true;
-    DML.doDelete(ocrSyncListToDelete);
+    DML.doDelete(ocrSyncListToDelete, new DmlConfig().allowPartial());
   }
 
   /**

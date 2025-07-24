@@ -1,0 +1,49 @@
+/*Global stylesheet added for radio button styling*/
+
+/*radio button color
+  radio button font styling
+*/
+.optionStyle .slds-radio,
+.slds-checkbox {
+  margin-bottom: var(--slds-g-spacing-3);
+  color: var(--slds-g-color-on-surface-2);
+  line-height: var(--slds-g-font-lineheight-1);
+  font-weight: var(--slds-g-font-weight-4);
+  font-size: var(--slds-g-font-size-base);
+}
+
+/*radio button border styling*/
+.optionStyle .slds-radio_faux,
+.slds-checkbox_faux {
+  border: var(--slds-g-sizing-border-1) solid
+    var(--slds-g-color-surface-container-3);
+}
+
+/*radio button spacing*/
+.optionStyle .slds-form-element__legend {
+  margin-bottom: var(--slds-g-spacing-4);
+}
+
+/*To make the list of pupose auto open towards left*/
+.slds-dropdown_left {
+  left: auto !important;
+  right: 0px !important;
+}
+
+/* hide the arrow in the dropdown of button menu*/
+.slds-button__icon_x-small {
+  width: 0px;
+  height: 0px;
+}
+
+/*Remove box-shadow from the Add Additional Funds button when purpose is selected*/
+.buttonStyle .slds-button:focus {
+  box-shadow: none;
+}
+
+/*Set the styling of accordion content*/
+.slds-accordion__summary-content {
+  font-size: var(--slds-g-sizing-5);
+  font-weight: var(--slds-g-font-weight-4);
+  line-height: var(--slds-g-font-lineheight-4);
+}

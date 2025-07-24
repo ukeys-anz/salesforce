@@ -113,7 +113,7 @@
     <enableHistory>false</enableHistory>
     <enableLicensing>false</enableLicensing>
     <enableReports>false</enableReports>
-    <enableSearch>false</enableSearch>
+    <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <label>Circle Of Influence</label>
@@ -123,7 +123,27 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>Circle Of Influences</pluralLabel>
-    <searchLayouts/>
+    <profileSearchLayouts>
+        <fields>NAME</fields>
+        <fields>COI_Type__c</fields>
+        <fields>First_Name__c</fields>
+        <fields>Last_Name__c</fields>
+        <fields>Mobile__c</fields>
+        <fields>Email__c</fields>
+        <fields>OWNER.ALIAS</fields>
+        <profileName>ANZ CCRM Standard User</profileName>
+    </profileSearchLayouts>
+    <profileSearchLayouts>
+        <fields>NAME</fields>
+        <fields>COI_Type__c</fields>
+        <fields>First_Name__c</fields>
+        <fields>Last_Name__c</fields>
+        <fields>Mobile__c</fields>
+        <fields>Email__c</fields>
+        <fields>OWNER.ALIAS</fields>
+        <profileName>System Administrator</profileName>
+    </profileSearchLayouts>
+    <searchLayouts></searchLayouts>
     <sharingModel>Private</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

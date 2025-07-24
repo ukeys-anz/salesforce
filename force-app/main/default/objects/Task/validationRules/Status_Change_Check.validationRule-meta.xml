@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status_Change_Check</fullName>
+    <active>true</active>
+    <description>Trigger an error if someone tries to change the status back to its prior value.</description>
+    <errorConditionFormula>AND( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false, RecordType.Name == &apos;Customer Nudge&apos;,
+   ISCHANGED(Status),
+   OR(
+      AND(
+            ISPICKVAL( PRIORVALUE( Status ), &quot;TASK_STATE_SENT&quot;),
+            ISPICKVAL(Status, &apos;New&apos;)
+         ),
+      AND(
+            ISPICKVAL( PRIORVALUE( Status ), &quot;TASK_STATE_READ&quot;),
+            OR (
+                  ISPICKVAL(Status, &apos;New&apos;),
+                  ISPICKVAL(Status, &apos;TASK_STATE_SENT&apos;)
+            )
+         ),
+      AND(
+            ISPICKVAL( PRIORVALUE( Status ), &quot;TASK_STATE_CUSTOMER_ARCHIVED&quot;),
+            OR (
+                  ISPICKVAL(Status, &apos;New&apos;),
+                  ISPICKVAL(Status, &apos;TASK_STATE_SENT&apos;),
+                  ISPICKVAL(Status, &apos;TASK_STATE_READ&apos;)
+            )
+         ),
+         AND(
+            ISPICKVAL( PRIORVALUE( Status ), &quot;TASK_STATE_COACH_ARCHIVED&quot;),
+            OR (
+                  ISPICKVAL(Status, &apos;New&apos;),
+                  ISPICKVAL(Status, &apos;TASK_STATE_SENT&apos;),
+                  ISPICKVAL(Status, &apos;TASK_STATE_READ&apos;),
+                  ISPICKVAL(Status, &apos;TASK_STATE_CUSTOMER_ARCHIVED&apos;)
+            )
+         ),
+         AND(
+            ISPICKVAL( PRIORVALUE( Status ), &quot;TASK_STATE_AUTO_ARCHIVED&quot;),
+            OR (
+                  ISPICKVAL(Status, &apos;New&apos;),
+                  ISPICKVAL(Status, &apos;TASK_STATE_SENT&apos;),
+                  ISPICKVAL(Status, &apos;TASK_STATE_READ&apos;),
+                  ISPICKVAL(Status, &apos;TASK_STATE_CUSTOMER_ARCHIVED&apos;),
+                  ISPICKVAL(Status, &apos;TASK_STATE_COACH_ARCHIVED&apos;)
+            )
+         )
+   )
+)</errorConditionFormula>
+    <errorMessage>Reverting the Status to a previous value is not allowed. Please select a different status.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lending_Req_Fields_if_Status_Complete</fullName>
+    <active>true</active>
+    <description>Validation rule to restrict users to move the status to Complete/Referred if Governance Criteria fields are blank.</description>
+    <errorConditionFormula>AND(
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    !ISNEW(),
+    RecordType.DeveloperName = &apos;ANZ_Plus_Governance_Lending_Evaluation&apos;,
+    OR(
+        AND(
+            ISPICKVAL(Status__c, &apos;Complete&apos;),
+            ISPICKVAL(Sub_Status__c , &apos;Evaluation Completed&apos;)
+        ),
+        AND(
+            ISPICKVAL(Status__c, &apos;Referred&apos;),
+            OR(
+                ISPICKVAL(Sub_Status__c, &apos;Compliance Review&apos;),
+                ISPICKVAL(Sub_Status__c, &apos;Other&apos;)
+            )
+        )
+    ),
+    OR(
+        ISBLANK(TEXT(Serviceability_Outcome__c)),
+        ISBLANK(TEXT(Case_Notes_Outcome__c)),
+        ISBLANK(TEXT(Collateral_Valuation_Outcome__c)),
+        ISBLANK(TEXT(Conduct_Outcome__c)),
+        ISBLANK(TEXT(Debts_Serviceability_Outcome__c)),
+        ISBLANK(TEXT(Expenses_Serviceability_Outcome__c)),
+        ISBLANK(TEXT(Hypercare_Focus_Area_Outcome__c)),
+        ISBLANK(TEXT(Income_Serviceability_Outcome__c)),
+        ISBLANK(TEXT(Purpose_of_Loan_Outcome__c)),
+        ISBLANK(TEXT(Material_Change_Outcome__c))
+    )
+)</errorConditionFormula>
+    <errorMessage>Please ensure all picklist fields in the Governance Criteria section are completed before changing the status to Complete/Referred.</errorMessage>
+</ValidationRule>

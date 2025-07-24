@@ -8,6 +8,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LoanApplicationFinancial.Percentage_Deductible__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LoanApplicationFinancial.FinancialExtIdentifier</field>
         <readable>true</readable>
     </fieldPermissions>

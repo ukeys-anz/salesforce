@@ -20,6 +20,10 @@ public with sharing class TrustMeCaseUpdateModel extends CalloutModel {
    */
   public String case_type { get; set; }
   /**
+   * @description case_number
+   */
+  public String case_number { get; set; }
+  /**
    * @description primary_denied_reason
    */
   public String primary_denied_reason { get; set; }
@@ -31,6 +35,18 @@ public with sharing class TrustMeCaseUpdateModel extends CalloutModel {
    * @description checks
    */
   public Checks checks { get; set; }
+  /**
+   * @description case_id
+   */
+  public String case_id { get; set; }
+  /**
+   * @description qa_review_state
+   */
+  public String qa_review_state { get; set; }
+  /**
+   * @description kyc_reverification_id
+   */
+  public String kyc_reverification_id { get; set; }
   /**
    * @description checks
    */

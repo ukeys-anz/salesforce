@@ -86,7 +86,19 @@
     <picklistValues>
         <picklist>SI_Assigned_to_Portfolios__c</picklist>
         <values>
+            <fullName>ANZ Plus %26 Digital - ANZ Plus</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ Plus %26 Digital - Digital Portfolio</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>ANZ Private</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australia Risk</fullName>
             <default>false</default>
         </values>
         <values>
@@ -98,7 +110,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Commercial Digital and Customer Experience</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Commercial Strategic Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Controls and Customer Outcomes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer %26 Identity Services</fullName>
             <default>false</default>
         </values>
         <values>
@@ -106,27 +130,15 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Experience - ANZx</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Experience - Digital Portfolio</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Experience - Open Banking</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Customer Migration</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Resolution %26 Remediation</fullName>
+            <fullName>Customer Service Operations</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Service Operations</fullName>
+            <fullName>Data and Technology Risk</fullName>
             <default>false</default>
         </values>
         <values>
@@ -138,11 +150,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Financial Wellbeing Research and Design</fullName>
+            <fullName>Group Compliance</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Group Risk</fullName>
+            <fullName>Group Wholesale Credit</fullName>
             <default>false</default>
         </values>
         <values>
@@ -154,7 +166,23 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Lending Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Markets Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Risk Metrics and Measurement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Risk Strategy and Transformation</fullName>
             <default>false</default>
         </values>
         <values>
@@ -826,15 +854,7 @@
     <picklistValues>
         <picklist>SI_Relevant_Tribes__c</picklist>
         <values>
-            <fullName>ANZ Private</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ANZx</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Australia Risk</fullName>
+            <fullName>ANZ Plus</fullName>
             <default>false</default>
         </values>
         <values>
@@ -858,7 +878,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Commercial Broker and Origination</fullName>
+            <fullName>Chief Investment Office</fullName>
             <default>false</default>
         </values>
         <values>
@@ -866,11 +886,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Commercial Strategic Delivery</fullName>
+            <fullName>Complaints</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Complaints</fullName>
+            <fullName>Controls Office</fullName>
             <default>false</default>
         </values>
         <values>
@@ -898,15 +918,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Service Innovation</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Data Portfolio</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Data and Technology Risk</fullName>
             <default>false</default>
         </values>
         <values>
@@ -915,10 +927,6 @@
         </values>
         <values>
             <fullName>Digital Asset Services</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Diversified and Specialist Industries</fullName>
             <default>false</default>
         </values>
         <values>
@@ -938,19 +946,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Group Compliance</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Group Payments</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Group Services</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Group Wholesale Credit</fullName>
             <default>false</default>
         </values>
         <values>
@@ -962,15 +962,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Lend and Grow</fullName>
+            <fullName>Join %26 Identify</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Lending Services</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Markets Risk</fullName>
+            <fullName>Legacy ANZFP Advice</fullName>
             <default>false</default>
         </values>
         <values>
@@ -986,10 +982,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Operational Performance</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Other</fullName>
             <default>false</default>
         </values>
@@ -1002,7 +994,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Portfolio Strategy and Transformation</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Pricing COE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private Advice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private Banking</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1014,23 +1018,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Retail Credit Risk %28Group%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Retail Lending</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Risk Metrics and Measurement</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Risk Strategy and Transformation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>SME Banking</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1047,10 +1035,6 @@
         </values>
         <values>
             <fullName>Third Party Deposits</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Transact and Save</fullName>
             <default>false</default>
         </values>
         <values>

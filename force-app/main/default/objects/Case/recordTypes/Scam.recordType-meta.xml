@@ -4098,6 +4098,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Digital Padlock</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>OFI</fullName>
             <default>false</default>
         </values>
@@ -4286,6 +4290,10 @@
         </values>
         <values>
             <fullName>Dating %26 Romance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Goods %26 Services</fullName>
             <default>false</default>
         </values>
         <values>

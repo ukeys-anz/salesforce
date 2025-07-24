@@ -14,22 +14,26 @@ public with sharing class CCRMLeadPlatformEventActions {
   private static String action;
   private static string originator;
 
+  private static final LeadActionsRepository LEAD_ACTION_REPOSITORY = (LeadActionsRepository) Lib_InstanceProvider.forType(
+    LeadActionsRepository.class
+  );
+
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
+
   /**
    * @description Publish manual CCRM leads to UNICA via MuleSoft.
    * @param listOfLeads List of leads
    */
   public static void publishManualLeads(List<Lead> listOfLeads) {
-    if (listOfLeads.size() > 0) {
-      List<Lead_Event__e> leadEventsList;
-
-      // Get a list of platform events
-      leadEventsList = getLeadPlatformEvents(listOfLeads);
-
-      // Publish platform events
-      if (leadEventsList.size() > 0) {
-        PlatformEventUtils.publishEvents(leadEventsList);
-      }
+    if (listOfLeads.isEmpty()) {
+      return;
     }
+    // Get a list of platform events
+    List<Lead_Event__e> leadEventsList = getLeadPlatformEvents(listOfLeads);
+    // Publish platform events
+    DML_REPOSITORY.doPublish(leadEventsList);
   }
 
   /**
@@ -42,20 +46,17 @@ public with sharing class CCRMLeadPlatformEventActions {
     List<Lead> listOfLeads,
     Map<Id, Lead> oldMap
   ) {
-    Set<Id> leadIds = new Set<Id>();
-    for (Lead record : listOfLeads) {
-      leadIds.add(record.Id);
+    if (listOfLeads.isEmpty()) {
+      return;
     }
-
+    Set<Id> leadIds = ListUtil.getIds(listOfLeads, Lead.Id);
     List<Lead_Response_Event__e> leadResponseEventList = CCRMLeadPlatformEventHelper.getLeadResponseEventList(
       listOfLeads,
       leadIds
     );
 
     // Publish platform events
-    if (leadResponseEventList.size() > 0) {
-      PlatformEventUtils.publishEvents(leadResponseEventList);
-    }
+    DML_REPOSITORY.doPublish(leadResponseEventList);
   }
 
   /**
@@ -67,17 +68,17 @@ public with sharing class CCRMLeadPlatformEventActions {
     List<Lead> listOfLeads,
     List<Task> taskList
   ) {
-    if (listOfLeads.size() > 0) {
-      List<Lead_Event__e> leadEventsList;
-      originator = CCRMConstants.ORIGINATOR_UNICA_OR_ADOBE_OR_CCRM;
-      // Get a list of platform events
-      leadEventsList = getLeadUpdatePlatformEvents(listOfLeads, taskList);
-
-      // Publish platform events
-      if (leadEventsList.size() > 0) {
-        PlatformEventUtils.publishEvents(leadEventsList);
-      }
+    if (listOfLeads.isEmpty()) {
+      return;
     }
+    originator = CCRMConstants.ORIGINATOR_UNICA_OR_ADOBE_OR_CCRM;
+    // Get a list of platform events
+    List<Lead_Event__e> leadEventsList = getLeadUpdatePlatformEvents(
+      listOfLeads,
+      taskList
+    );
+    // Publish platform events
+    DML_REPOSITORY.doPublish(leadEventsList);
   }
 
   /**
@@ -195,7 +196,7 @@ public with sharing class CCRMLeadPlatformEventActions {
    * @description This method returns List of lead platform events
    * @name getLeadPlatformEvents
    * @param records List of leads
-   * @return List<Lead_Event__e> List of Lead platform events
+   * @return List<Lead_Event__e> List of Lead platform events.
    */
   private static List<Lead_Event__e> getLeadPlatformEvents(List<Lead> records) {
     List<Lead_Event__e> leadEventList = new List<Lead_Event__e>();
@@ -308,12 +309,19 @@ public with sharing class CCRMLeadPlatformEventActions {
               leadStatusTransMap.get(record.Status).UNICA_Lead_Status__c
             );
           }
-        } else {
+          continue;
+        }
+        if (mapping.Platform_Event_Field_API_Name__c == 'Description__c') {
           leadEvent.put(
             mapping.Platform_Event_Field_API_Name__c,
-            record.get(mapping.Lead_Field_API_Name__c)
+            record.Note__c?.stripHtmlTags().left(1950)
           );
+          continue;
         }
+        leadEvent.put(
+          mapping.Platform_Event_Field_API_Name__c,
+          record.get(mapping.Lead_Field_API_Name__c)
+        );
       }
     }
   }
@@ -329,10 +337,12 @@ public with sharing class CCRMLeadPlatformEventActions {
     Lead record,
     Lead_Event__e leadEvent
   ) {
-    leadEvent.put(
-      'Last_Modified_By_LAN_ID__c',
-      mapOfLastModifiedUserLanIds.get(record.LastModifiedById).Lan_Id__c
-    );
+    if (mapOfLastModifiedUserLanIds.containsKey(record.LastModifiedById)) {
+      leadEvent.put(
+        'Last_Modified_By_LAN_ID__c',
+        mapOfLastModifiedUserLanIds.get(record.LastModifiedById).Lan_Id__c
+      );
+    }
 
     //Map Response_Type - UNICA Lead SubStatus to PE SubStatus__c
     //Map from Opportunity if lead got converted otherwise from Lead
@@ -393,12 +403,19 @@ public with sharing class CCRMLeadPlatformEventActions {
               leadStatusTransMap.get(record.Status).UNICA_Lead_Status__c
             );
           }
-        } else {
+          continue;
+        }
+        if (mapping.Platform_Event_Field_API_Name__c == 'Description__c') {
           leadEvent.put(
             mapping.Platform_Event_Field_API_Name__c,
-            record.get(mapping.Lead_Field_API_Name__c)
+            record.Note__c?.stripHtmlTags().left(1950)
           );
+          continue;
         }
+        leadEvent.put(
+          mapping.Platform_Event_Field_API_Name__c,
+          record.get(mapping.Lead_Field_API_Name__c)
+        );
       }
     }
   }
@@ -419,10 +436,10 @@ public with sharing class CCRMLeadPlatformEventActions {
       return;
     }
     mapOfOpportunityId = mapOppId;
-    publishLeadUpdateToUnicaOrAdobe(
-      CCRMLeadPlatformEventHelper.getLeadData(new Set<Id>{ leadId }),
-      taskList
+    List<Lead> leadList = LEAD_ACTION_REPOSITORY.getLeadData(
+      new Set<Id>{ leadId }
     );
+    publishLeadUpdateToUnicaOrAdobe(leadList, taskList);
   }
 
   /**
@@ -431,9 +448,7 @@ public with sharing class CCRMLeadPlatformEventActions {
    * @param leadIds Set of lead ids
    */
   public static void resendManualLeadPlatformEvent(Set<Id> leadIds) {
-    List<Lead> leads = CCRMLeadPlatformEventHelper.getLeadData(leadIds);
-    if (leads.size() > 0) {
-      publishManualLeads(leads);
-    }
+    List<Lead> leadList = LEAD_ACTION_REPOSITORY.getLeadData(leadIds);
+    publishManualLeads(leadList);
   }
 }

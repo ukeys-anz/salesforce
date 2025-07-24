@@ -55,14 +55,25 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
   startValidation() {
     let data = {};
     this.callFromOmni = true;
-    if (this.omniJsonData.Case) {
+    if (
+      this.omniJsonData.EditRealFormID?.RealFormRequired === "Y_EXI" &&
+      !(
+        this.omniJsonData.EditRealFormID?.RealFormID === null ||
+        this.omniJsonData.EditRealFormID?.RealFormID === undefined
+      )
+    ) {
+      data.EditRealFormID = {
+        RealFormID: this.omniJsonData.EditRealFormID.RealFormID.trim()
+      };
+      this.callAPI(this.omniJsonData.EditRealFormID.RealFormID);
+    } else {
       if (
-        this.omniJsonData.Case.ResolutionInformation &&
-        this.omniJsonData.Case.ResolutionInformation.realFormRequired ===
+        this.omniJsonData.Case?.ResolutionInformation?.realFormRequired ===
           "Y_EXI" &&
         !(
-          this.omniJsonData.Case.ResolutionInformation.realFormMAXId === null ||
-          this.omniJsonData.Case.ResolutionInformation.realFormMAXId ===
+          this.omniJsonData.Case?.ResolutionInformation?.realFormMAXId ===
+            null ||
+          this.omniJsonData.Case?.ResolutionInformation?.realFormMAXId ===
             undefined
         )
       ) {
@@ -76,27 +87,16 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
           this.omniJsonData.Case.ResolutionInformation.realFormMAXId
         );
       }
-      if (this.omniJsonData.Case.REALFormMAXID) {
+      if (this.omniJsonData.Case?.REALFormMAXID) {
         data.Case = {
           REALFormMAXID: this.omniJsonData.Case.REALFormMAXID.trim()
         };
         this.callAPI(this.omniJsonData.Case.REALFormMAXID);
       }
-    } else if (
-      this.omniJsonData.EditRealFormID &&
-      this.omniJsonData.EditRealFormID.RealFormRequired === "Y_EXI" &&
-      !(
-        this.omniJsonData.EditRealFormID.RealFormID === null ||
-        this.omniJsonData.EditRealFormID.RealFormID === undefined
-      )
-    ) {
-      data.EditRealFormID = {
-        RealFormID: this.omniJsonData.EditRealFormID.RealFormID.trim()
-      };
-      this.callAPI(this.omniJsonData.EditRealFormID.RealFormID);
     }
     this.omniApplyCallResp(data);
   }
+
   showValidations(result, error, riskEventId) {
     this.apiRun = true;
     let data = {
@@ -153,7 +153,12 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
         "Please contact your system administrator to set the required redirection url."
       );
     } else {
-      let redirectionUrl = snowInstanceUrl + this.omniJsonData.recordId;
+      let redirectionUrl = snowInstanceUrl
+        .replace("CASEID", encodeURIComponent(this.omniJsonData.recordId))
+        .replace(
+          "CASENUMBER",
+          encodeURIComponent(this.omniJsonData.Case.CaseNumber)
+        );
 
       this[NavigationMixin.Navigate]({
         type: "standard__webPage",

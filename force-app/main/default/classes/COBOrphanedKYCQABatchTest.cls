@@ -6,134 +6,303 @@
 
 @IsTest
 private class COBOrphanedKYCQABatchTest {
-  private static final String MOBILE1 = '61412121212';
-  private static final String ACCOUNT_ID = '001000000000000AAA';
+  static Date dob1 = Date.today();
+  static Date dob2 = dob1.addDays(1);
+  static Date dob3 = dob2.addDays(1);
+  static Case caseWithCOBAndPid1 = KYCQACustomerLinkingUtilTestHelper.constructCaseWithCOBAndPid(
+    KYCQACustomerLinkingUtilTestHelper.OCV_ID_1,
+    KYCQACustomerLinkingUtilTestHelper.COB_SECURITY_MOBILE_1,
+    dob1
+  );
+  static Case caseWithCOBAndPid2 = KYCQACustomerLinkingUtilTestHelper.constructCaseWithCOBAndPid(
+    KYCQACustomerLinkingUtilTestHelper.OCV_ID_2,
+    KYCQACustomerLinkingUtilTestHelper.COB_SECURITY_MOBILE_2,
+    dob2
+  );
+  static Case caseWithCOBAndPid3 = KYCQACustomerLinkingUtilTestHelper.constructCaseWithCOBAndPid(
+    KYCQACustomerLinkingUtilTestHelper.OCV_ID_3,
+    KYCQACustomerLinkingUtilTestHelper.COB_SECURITY_MOBILE_3,
+    dob3
+  );
+  static Case caseWithCOBNoPid = KYCQACustomerLinkingUtilTestHelper.constructCaseWithCOBNoPid(
+    KYCQACustomerLinkingUtilTestHelper.OCV_ID_NO_PID,
+    KYCQACustomerLinkingUtilTestHelper.COB_SECURITY_MOBILE_NO_PID
+  );
 
-  @TestSetup
-  static void setup() {
-    AutoKYCQATestDataFactory.setup();
+  static Account acc1 = KYCQACustomerLinkingUtilTestHelper.constructAccount(
+    KYCQACustomerLinkingUtilTestHelper.OCV_ID_1,
+    KYCQACustomerLinkingUtilTestHelper.ACCOUNT_PERSON_MOBILE_1,
+    dob1,
+    true
+  );
+  static Account acc2 = KYCQACustomerLinkingUtilTestHelper.constructAccount(
+    KYCQACustomerLinkingUtilTestHelper.OCV_ID_2,
+    KYCQACustomerLinkingUtilTestHelper.ACCOUNT_PERSON_MOBILE_2,
+    dob2,
+    true
+  );
+  static Account acc3 = KYCQACustomerLinkingUtilTestHelper.constructAccount(
+    KYCQACustomerLinkingUtilTestHelper.OCV_ID_3,
+    KYCQACustomerLinkingUtilTestHelper.ACCOUNT_PERSON_MOBILE_3,
+    dob3,
+    true
+  );
+
+  static Lib_MockProvider kycQACustomerLinkingUtilRepoMock;
+  static Lib_MockProvider dmlRepoMock;
+
+  static void registerMocks() {
+    kycQACustomerLinkingUtilRepoMock = Lib_MockProvider.forType(
+      KYCQACustomerLinkingUtilRepository.class
+    );
+    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
   }
 
   @IsTest
-  static void buildUpdatesMobile() {
-    Case oCase = new Case(
-      CustomerOnboardingApplication__r = new CustomerOnboardingApplication__c(
-        SecurityMobile__c = MOBILE1
-      )
-    );
-    Map<String, String> mpOCVId2AccountId = new Map<String, String>();
-    Map<String, String> mpMobilePhone2AccountId = new Map<String, String>{
-      MOBILE1 => ACCOUNT_ID
+  static void testSetKYCQACase() {
+    Map<Id, Account> accsMap = new Map<Id, Account>{
+      caseWithCOBAndPid1.CustomerOnboardingApplication__c => acc1,
+      caseWithCOBAndPid2.CustomerOnboardingApplication__c => acc2
     };
-    List<Case> lstUpdates = COBOrphanedKYCQABatch.buildUpdatesList(
-      new List<Case>{ oCase },
-      mpOCVId2AccountId,
-      mpMobilePhone2AccountId
-    );
 
-    Assert.isTrue(
-      lstUpdates.size() == 1,
-      'Should return exactly 1 Case for update.'
-    );
-    Assert.areEqual(
-      ACCOUNT_ID,
-      lstUpdates[0].AccountId,
-      'Account Id was not updated'
-    );
-  }
-
-  @IsTest
-  static void buildUpdatesMobilePlus() {
-    Case oCase = new Case(
-      CustomerOnboardingApplication__r = new CustomerOnboardingApplication__c(
-        SecurityMobile__c = MOBILE1
-      )
-    );
-    Map<String, String> mpOCVId2AccountId = new Map<String, String>();
-    Map<String, String> mpMobilePhone2AccountId = new Map<String, String>{
-      '+' + MOBILE1 => ACCOUNT_ID
-    };
-    List<Case> lstUpdates = COBOrphanedKYCQABatch.buildUpdatesList(
-      new List<Case>{ oCase },
-      mpOCVId2AccountId,
-      mpMobilePhone2AccountId
-    );
-
-    Assert.isTrue(
-      lstUpdates.size() == 1,
-      'Should return exactly 1 Case for update.'
-    );
-    Assert.areEqual(
-      ACCOUNT_ID,
-      lstUpdates[0].AccountId,
-      'Account Id was not updated'
-    );
-  }
-
-  @IsTest
-  static void schedulerExecuteOCV() {
-    List<CustomerOnboardingApplication__c> lstCOBApps = [
-      SELECT Id, OCVId__c, SecurityMobile__c
-      FROM CustomerOnboardingApplication__c
-      WHERE SecurityMobile__c != NULL
-    ];
-    Assert.isTrue(
-      lstCOBApps.size() > 0,
-      'COB Application records should be returned'
-    );
-    String strMobile = '+' + lstCOBApps[0].SecurityMobile__c;
-    // This is the PersonAccount that will be connected to the Case by matching mobile number
-    List<Account> lstPersonAccounts = [
-      SELECT Id, PersonMobilePhone, OCV_ID__c
-      FROM Account
-      WHERE PersonMobilePhone = :strMobile
-    ];
-    Assert.isTrue(
-      lstPersonAccounts.size() > 0,
-      'Person Accounts should be returned'
-    );
-    // Prevent Case from matching on MobileNumber
-    lstPersonAccounts[0].PersonMobilePhone += 9;
-    update lstPersonAccounts;
-
-    Case oCase = createKYCQACase(lstCOBApps[0].Id, UserInfo.getUserId());
-    insert oCase;
-
-    // setup linkage by OCVId
-    lstCOBApps[0].OCVId__c = lstPersonAccounts[0].OCV_ID__c;
-    update lstCOBApps;
-
-    oCase = [
-      SELECT Id, AccountId, CustomerOnboardingApplication__c, OCV_Id__c
-      FROM Case
-      WHERE Id = :oCase.Id
-    ];
-    Assert.isNull(
-      oCase.AccountId,
-      'AccountId should be null before batch process.'
-    );
     Test.startTest();
-    (new COBOrphanedKYCQAScheduler()).execute(null);
+    COBOrphanedKYCQABatch.setKYCQACase(
+      new List<Case>{ caseWithCOBAndPid1, caseWithCOBAndPid2 },
+      accsMap
+    );
     Test.stopTest();
-    oCase = [
-      SELECT Id, AccountId, CustomerOnboardingApplication__c, OCV_Id__c
-      FROM Case
-      WHERE Id = :oCase.Id
-    ];
-    Assert.isNotNull(
-      oCase.AccountId,
-      'AccountId should not be null after batch process.'
+
+    Assert.areEqual(
+      acc1.Id,
+      caseWithCOBAndPid1.AccountId,
+      'AccountId for Case with COB and PID 1 should match Account 1'
+    );
+    Assert.areEqual(
+      acc2.Id,
+      caseWithCOBAndPid2.AccountId,
+      'AccountId for Case with COB and PID 2 should match Account 2'
     );
   }
 
-  private static Case createKYCQACase(Id cobAppId, Id caseOwnerId) {
-    Case c = new Case(
-      Status = GetHelpConstants.OPEN_STATUS,
-      RecordTypeId = RTCase.kycQa,
-      CustomerOnboardingApplication__c = cobAppId,
-      OwnerId = caseOwnerId
+  @IsTest
+  static void testExecuteNoPid() {
+    registerMocks();
+    kycQACustomerLinkingUtilRepoMock.mock(
+      'queryCobByIds',
+      new List<CustomerOnboardingApplication__c>{
+        caseWithCOBNoPid.CustomerOnboardingApplication__r
+      }
+    );
+    kycQACustomerLinkingUtilRepoMock.mock(
+      'queryAccountsByMobileNumberAndDOB',
+      new List<Account>{}
+    );
+    kycQACustomerLinkingUtilRepoMock.mock(
+      'queryAccountsByOCVIdAndDOB',
+      new List<Account>{}
     );
 
-    return c;
+    Test.startTest();
+    (new COBOrphanedKYCQABatch())
+      .execute(null, new List<Case>{ caseWithCOBNoPid });
+    Test.stopTest();
+
+    Assert.isFalse(
+      dmlRepoMock.getHistories('doUpdate').isEmpty(),
+      'doUpdate should have been called.'
+    );
+    List<Case> casesToUpdate = (List<Case>) dmlRepoMock.getHistory('doUpdate')
+      .getParam('records');
+    Assert.areEqual(
+      0,
+      casesToUpdate.size(),
+      '0 records should have been passed on to the doUpdate method'
+    );
+  }
+
+  @isTest
+  static void testExecuteMatchMobileFirst() {
+    registerMocks();
+    kycQACustomerLinkingUtilRepoMock.mock(
+      'queryCobByIds',
+      new List<CustomerOnboardingApplication__c>{
+        caseWithCOBAndPid1.CustomerOnboardingApplication__r,
+        caseWithCOBAndPid2.CustomerOnboardingApplication__r,
+        caseWithCOBAndPid3.CustomerOnboardingApplication__r
+      }
+    );
+
+    // Different OCV ID to ensure no match
+    acc1.OCV_ID__c = KYCQACustomerLinkingUtilTestHelper.OCV_ID_1 + 'Dummy';
+    // Different mobile to ensure no match
+    acc2.PersonMobilePhone = KYCQACustomerLinkingUtilTestHelper.ACCOUNT_DUMMY_MOBILE;
+    // Different DOB to ensure no match
+    acc3.PersonBirthdate = dob3.addDays(2);
+    kycQACustomerLinkingUtilRepoMock.mock(
+      'queryAccountsByMobileNumberAndDOB',
+      new List<Account>{ acc1, acc2, acc3 }
+    );
+    kycQACustomerLinkingUtilRepoMock.mock(
+      'queryAccountsByOCVIdAndDOB',
+      new List<Account>{ acc1, acc2, acc3 }
+    );
+
+    Test.startTest();
+    (new COBOrphanedKYCQABatch())
+      .execute(
+        null,
+        new List<Case>{
+          caseWithCOBAndPid1,
+          caseWithCOBAndPid2,
+          caseWithCOBAndPid3
+        }
+      );
+    Test.stopTest();
+
+    Assert.isFalse(
+      dmlRepoMock.getHistories('doUpdate').isEmpty(),
+      'doUpdate should have been called.'
+    );
+    List<Case> casesToUpdate = (List<Case>) dmlRepoMock.getHistory('doUpdate')
+      .getParam('records');
+    Assert.areEqual(
+      2,
+      casesToUpdate.size(),
+      '2 records should have been passed on to the doUpdate method'
+    );
+    Assert.areEqual(
+      acc1.Id,
+      casesToUpdate[0].AccountId,
+      'KYC QA Case should be linked to acc1'
+    );
+    Assert.areEqual(
+      acc2.Id,
+      casesToUpdate[1].AccountId,
+      'KYC QA Case should be linked to acc2'
+    );
+  }
+
+  @isTest
+  static void testExecuteMatchOCVFirst() {
+    registerMocks();
+    kycQACustomerLinkingUtilRepoMock.mock(
+      'queryCobByIds',
+      new List<CustomerOnboardingApplication__c>{
+        caseWithCOBAndPid1.CustomerOnboardingApplication__r,
+        caseWithCOBAndPid2.CustomerOnboardingApplication__r,
+        caseWithCOBAndPid3.CustomerOnboardingApplication__r
+      }
+    );
+
+    // Different mobile to ensure no match
+    acc1.PersonMobilePhone = KYCQACustomerLinkingUtilTestHelper.ACCOUNT_DUMMY_MOBILE;
+    // Different OCV ID to ensure no match
+    acc2.OCV_ID__c = KYCQACustomerLinkingUtilTestHelper.OCV_ID_2 + 'Dummy';
+    // Different DOB to ensure no match
+    acc3.PersonBirthdate = dob3.addDays(2);
+
+    kycQACustomerLinkingUtilRepoMock.mock(
+      'queryAccountsByMobileNumberAndDOB',
+      new List<Account>{ acc1, acc2, acc3 }
+    );
+    kycQACustomerLinkingUtilRepoMock.mock(
+      'queryAccountsByOCVIdAndDOB',
+      new List<Account>{ acc1, acc2, acc3 }
+    );
+
+    Test.startTest();
+    (new COBOrphanedKYCQABatch())
+      .execute(
+        null,
+        new List<Case>{
+          caseWithCOBAndPid1,
+          caseWithCOBAndPid2,
+          caseWithCOBAndPid3
+        }
+      );
+    Test.stopTest();
+
+    Assert.isFalse(
+      dmlRepoMock.getHistories('doUpdate').isEmpty(),
+      'doUpdate should have been called.'
+    );
+    List<Case> casesToUpdate = (List<Case>) dmlRepoMock.getHistory('doUpdate')
+      .getParam('records');
+    Assert.areEqual(
+      2,
+      casesToUpdate.size(),
+      '2 records should have been passed on to the doUpdate method'
+    );
+    Assert.areEqual(
+      acc1.Id,
+      casesToUpdate[0].AccountId,
+      'KYC QA Case should be linked to acc1'
+    );
+    Assert.areEqual(
+      acc2.Id,
+      casesToUpdate[1].AccountId,
+      'KYC QA Case should be linked to acc2'
+    );
+  }
+
+  @isTest
+  static void testExecuteMatchAll() {
+    registerMocks();
+    kycQACustomerLinkingUtilRepoMock.mock(
+      'queryCobByIds',
+      new List<CustomerOnboardingApplication__c>{
+        caseWithCOBAndPid1.CustomerOnboardingApplication__r,
+        caseWithCOBAndPid2.CustomerOnboardingApplication__r,
+        caseWithCOBAndPid3.CustomerOnboardingApplication__r
+      }
+    );
+
+    kycQACustomerLinkingUtilRepoMock.mock(
+      'queryAccountsByMobileNumberAndDOB',
+      new List<Account>{ acc1, acc2, acc3 }
+    );
+    kycQACustomerLinkingUtilRepoMock.mock(
+      'queryAccountsByOCVIdAndDOB',
+      new List<Account>{ acc1, acc2, acc3 }
+    );
+
+    Test.startTest();
+    (new COBOrphanedKYCQABatch())
+      .execute(
+        null,
+        new List<Case>{
+          caseWithCOBAndPid1,
+          caseWithCOBAndPid2,
+          caseWithCOBAndPid3
+        }
+      );
+    Test.stopTest();
+
+    Assert.isFalse(
+      dmlRepoMock.getHistories('doUpdate').isEmpty(),
+      'doUpdate should have been called.'
+    );
+    List<Case> casesToUpdate = (List<Case>) dmlRepoMock.getHistory('doUpdate')
+      .getParam('records');
+    Assert.areEqual(
+      3,
+      casesToUpdate.size(),
+      '3 records should have been passed on to the doUpdate method'
+    );
+    Assert.areEqual(
+      acc1.Id,
+      casesToUpdate[0].AccountId,
+      'KYC QA Case should be linked to acc1'
+    );
+    Assert.areEqual(
+      acc2.Id,
+      casesToUpdate[1].AccountId,
+      'KYC QA Case should be linked to acc2'
+    );
+    Assert.areEqual(
+      acc3.Id,
+      casesToUpdate[2].AccountId,
+      'KYC QA Case should be linked to acc3'
+    );
   }
 }

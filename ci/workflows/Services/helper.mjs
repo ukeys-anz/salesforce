@@ -1,4 +1,4 @@
-import { execSync } from "child_process";
+import { execSync, spawn } from "child_process";
 import {
   readdirSync,
   readFileSync,
@@ -17,6 +17,59 @@ const renameFile = (oldFilepath, newFilepath) => {
   console.log(`${oldFilepath} renamed to ${newFilepath}.`);
 };
 
+const runSpawnCommand = (jobId) => {
+  return new Promise((resolve, reject) => {
+    const child = spawn(
+      "npx",
+      ["sf", "project", "deploy", "report", "--job-id", jobId, "--json"],
+      {
+        encoding: "utf-8",
+        shell: true
+      }
+    );
+
+    let stdout = "";
+    let stderr = "";
+
+    child.stdout.on("data", (data) => {
+      stdout += data.toString();
+    });
+
+    child.stderr.on("data", (data) => {
+      stderr += data.toString();
+    });
+
+    child.on("close", (code) => {
+      if (code !== 0) {
+        return reject(new Error(`Command exited with code ${code}: ${stderr}`));
+      }
+
+      try {
+        const parsed = JSON.parse(stdout);
+        resolve(parsed);
+      } catch (err) {
+        reject(new Error(`Failed to parse JSON output: ${stdout}`));
+      }
+    });
+  });
+};
+
+const runCommandToFile = (command, filePath, whatFile) => {
+  try {
+    const output = execSync(command, {
+      stdio: "pipe",
+      maxBuffer: 1024 * 1024 * 100 // 100MB
+    }).toString("utf-8");
+
+    writeFileSync(filePath, output, "utf8");
+    console.log(`Created ${whatFile} file`);
+    return output;
+  } catch (e) {
+    logger(`ERROR: Failed to generate ${whatFile}:`, e.message);
+    process.exit(1);
+  }
+};
+
 const runCommand = (command) => {
   try {
     return execSync(command, {
@@ -24,7 +77,9 @@ const runCommand = (command) => {
       maxBuffer: 1024 * 1024 * 100
     }).toString("utf-8");
   } catch (e) {
-    logger("ERROR: " + JSON.parse(e.stdout.toString("utf-8")).message);
+    const errorOutput =
+      e.stdout?.toString("utf-8") || e.stderr?.toString("utf-8") || e.message;
+    logger("runCommand failed. Output/Error:\n" + errorOutput);
   }
 };
 
@@ -35,8 +90,39 @@ const runSfCommand = (command) => {
       maxBuffer: 1024 * 1024 * 100
     }).toString("utf-8");
   } catch (e) {
-    logger("ERROR: " + JSON.parse(e.stdout.toString("utf-8")).message);
+    const errorOutput =
+      e.stdout?.toString("utf-8") || e.stderr?.toString("utf-8") || e.message;
+    logger("runSfCommand failed. Output/Error:\n" + errorOutput);
     process.exit(1);
+  }
+};
+
+const runDiffCommand = (command) => {
+  try {
+    return execSync(command, {
+      stdio: "pipe",
+      maxBuffer: 1024 * 1024 * 100
+    })
+      .toString("utf-8")
+      .trim();
+  } catch (e) {
+    const stdout = e.stdout?.toString("utf-8").trim();
+    const stderr = e.stderr?.toString("utf-8").trim();
+    const code = e.status;
+
+    if (stdout) {
+      console.warn(`⚠️ runCommand threw, but output exists for: ${command}`);
+      console.warn(`⚠️ Exit code: ${code}. Using stdout anyway.`);
+      return stdout;
+    }
+
+    console.error(`❌ runCommand failed: ${command}`);
+    if (stderr) {
+      console.error(`🔍 stderr:\n${stderr}`);
+    } else {
+      console.error(`🔍 Error: ${e.message}`);
+    }
+    throw e;
   }
 };
 
@@ -52,6 +138,7 @@ const printContextFromFile = (jobIdFilePath, comment = "") => {
 // Case scenario to use this: Will go through all the changed classes -
 // and will find all the specified tests on them, if we want to run specified tests
 const findAllFiles = (dir, files = []) => {
+  if (!existsSync(dir)) return files;
   // Get an array of all files and directories in the passed directory using fs.readdirSync
   const fileList = readdirSync(dir);
   // Create the full path of the file/directory by concatenating the passed directory and file/directory name
@@ -119,7 +206,8 @@ const salesforceIgnoredFileChanges = (artifactPath) => {
 };
 
 const canSkipTest = (artifactPath, baseRef) => {
-  if (baseRef == "master") {
+  const doNotSkipTestsBaseRef = ["master", "blm", "intpnv"];
+  if (doNotSkipTestsBaseRef.includes(baseRef)) {
     return false;
   }
   const packagePath = "/package/package.xml";
@@ -347,6 +435,11 @@ const printXMLNamesAndMembers = (xmlJsonFile) => {
   return result;
 };
 
+const createReportFile = (content, fileName, whatFile) => {
+  console.log(`Create ${whatFile} File`);
+  writeFileSync(fileName, content, "utf8");
+};
+
 const createFile = (context, fileName, whatFile) => {
   console.log(`Create ${whatFile} File`);
   execSync(`
@@ -473,13 +566,17 @@ const findAllArgvs = () => {
 
 export {
   runCommand,
+  runDiffCommand,
   runSfCommand,
+  runSpawnCommand,
+  runCommandToFile,
   printContextFromFile,
   salesforceDiffExist,
   salesforceForceAppChangesExist,
   destructivePackageChangesExist,
   moveDestructiveFolderToForceApp,
   findAllSpecifiedTests,
+  findNamesAndMembersXML,
   currentDate,
   renameFile,
   findJobIdFromCommand,
@@ -490,6 +587,7 @@ export {
   loggerInStep,
   booleanMap,
   createFile,
+  createReportFile,
   uploadFile,
   downloadFile,
   deleteFile,

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MigrationType__c</fullName>
+    <businessStatus>Hidden</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Aegis</complianceGroup>
+    <description>Indicates whether the customer has been flagged for Migration</description>
+    <externalDeveloperName>MigrationType</externalDeveloperName>
+    <inlineHelpText>• ANZ Migration - Customer is part of the ANZ to ANZ Plus customer migration
+• Blank - Customer is not currently part of ANZ customer migration</inlineHelpText>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Migration Type</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>MIGRATION_TYPE_BANK_LED</fullName>
+                <default>false</default>
+                <label>ANZ Migration</label>
+            </value>
+            <value>
+                <fullName>MIGRATION_TYPE_UNSPECIFIED</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -189,10 +189,9 @@ const DEBT_TYPES = {
         ((debt.readableSourceType === SOURCE_ANZ &&
           debt.homeLoanType === CONSTRUCTION_LOAN) ||
           debt.readableSourceType !== SOURCE_ANZ),
-      showLinkedProperty: (debt) =>
-        debt.linkedProperty.length > 0 && !debt.customerStatedClosed,
+      showLinkedProperty: (debt) => debt.linkedProperty.length > 0,
       showCustomerExcludedDebt: (debt) =>
-        debt.readableSourceType == SOURCE_CREDIT_BUREAU,
+        debt.readableSourceType === SOURCE_CREDIT_BUREAU,
       showRepaymentFrequency: (debt) =>
         !debt.customerStatedClosed &&
         debt.homeLoanType !== CONSTRUCTION_LOAN &&
@@ -273,7 +272,7 @@ const DEBT_TYPES = {
       showBalanceOwingMessage: (debt) =>
         debt.validatedOutstandingBalance && !debt.customerStatedClosed,
       showRedraw: (debt) => debt.readableSourceType === SOURCE_ANZ,
-      showLoanType: (debt) => debt.readableSourceType === SOURCE_ANZ,
+      showRateType: (debt) => debt.readableSourceType === SOURCE_ANZ,
       showInterestRate: (debt) => debt.readableSourceType === SOURCE_ANZ,
       showRemainingTerm: (debt) => !debt.customerStatedClosed,
       showRemainingTermMessage: (debt) =>
@@ -384,14 +383,13 @@ const DEBT_TYPES = {
       showBalanceOwingMessage: (debt) =>
         debt.validatedOutstandingBalance && !debt.customerStatedClosed,
       showInterestRate: (debt) => debt.readableSourceType === SOURCE_ANZ,
-      showLinkedProperty: (debt) =>
-        debt.linkedProperty.length > 0 && !debt.customerStatedClosed,
+      showLinkedProperty: (debt) => debt.linkedProperty.length > 0,
       showOwnershipSplit: true,
       showProductName: (debt) =>
         debt.readableSourceType === SOURCE_ANZ && debt.productName,
       showTaxDeductible: (debt) => !debt.customerStatedClosed,
       showCustomerExcludedDebt: (debt) =>
-        debt.readableSourceType == SOURCE_CREDIT_BUREAU,
+        debt.readableSourceType === SOURCE_CREDIT_BUREAU,
       image: (debt) => {
         return debt.readableSourceType === SOURCE_ANZ
           ? ANZ_IMG

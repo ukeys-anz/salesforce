@@ -17,8 +17,17 @@
                     , NOW() + VALUE($Label.CCRM_ExpiryDateDays) + 2
                     , NOW() + (VALUE($Label.CCRM_ExpiryDateDays))
                 )
-            )
-            ,NULL
+            ),
+            &apos;Referral&apos;,
+            IF((WEEKDAY(DATEVALUE(NOW() + VALUE($Label.Referral_ExpiryDateDays))) = 1)
+                , NOW() + (VALUE($Label.Referral_ExpiryDateDays) + 1),
+                IF((WEEKDAY(DATEVALUE(NOW() + VALUE($Label.Referral_ExpiryDateDays))) = 7)
+                    , NOW() + VALUE($Label.Referral_ExpiryDateDays) + 2
+                    , NOW() + (VALUE($Label.Referral_ExpiryDateDays))
+                )
+            ),
+            NULL
+
     )
     ,NULL
 )</defaultValue>
@@ -28,6 +37,6 @@
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>Date</type>
 </CustomField>

@@ -93,9 +93,9 @@ public with sharing class TrustMeDocumentDetailsControllerTest {
       attachmentList.add(obj1);
       attachmentList.add(obj2);
       TrustMeDocumentRequestModel obj = new TrustMeDocumentRequestModel();
-      obj.related_user = userinfo.getUserId();
-      obj.evaluation_id = caseRecord[0].Evaluation_Id__c;
-      obj.related_id = caseRecord[0].Id;
+      obj.requestedUser = userinfo.getUserId();
+      obj.evaluationId = caseRecord[0].Evaluation_Id__c;
+      obj.relatedId = caseRecord[0].Id;
       obj.attachments = attachmentList;
       return obj;
     }
@@ -207,7 +207,9 @@ public with sharing class TrustMeDocumentDetailsControllerTest {
       .mock('contentVersionsByUUIDs', new List<ContentVersion>());
     try {
       Test.startTest();
-      TrustMeDocumentDetailsController.getTrustMeDocuments(trustMeDocumentRequestModel);
+      TrustMeDocumentDetailsController.getTrustMeDocuments(
+        trustMeDocumentRequestModel
+      );
       Test.stopTest();
     } catch (Exception e) {
       Assert.isInstanceOfType(

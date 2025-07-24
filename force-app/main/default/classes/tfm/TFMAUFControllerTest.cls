@@ -2,11 +2,58 @@
  * @description       :
  * @author            : Anuj Jain
  * @group             :
- * @last modified on  : 07-12-2024
+ * @last modified on  : 05-06-2025
  **/
 
 @isTest
 public with sharing class TFMAUFControllerTest {
+  private static final Id FAKER_ACCOUNT_ID = Lib_FakeIdGenerator.getMockId(
+    Account.getSObjectType()
+  );
+  static Lib_MockProvider finAccRepoMock;
+  static Lib_MockProvider userMock;
+  static Lib_MockProvider dmlRepoMock;
+
+  private static List<FinServ__FinancialAccount__c> createMockFinancialAccount() {
+    Id productId = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
+    Product2 product = new Product2(
+      Id = productId,
+      Name = 'Test Product',
+      ANZ_Product_Code__c = 'SAVING01'
+    );
+    Account testAccount = TestDataFactory.createPersonAccount('1111', false);
+    testAccount.Id = FAKER_ACCOUNT_ID;
+    List<FinServ__FinancialAccount__c> financialAccountsList = new List<FinServ__FinancialAccount__c>();
+    FinServ__FinancialAccount__c finAccount1 = TestDataFactory.createFinancialAccountRecord(
+      GetHelpConstants.SAVINGS_ACCOUNT_RT_ID,
+      FAKER_ACCOUNT_ID,
+      false
+    );
+    FinServ__FinancialAccount__c finAccount = (FinServ__FinancialAccount__c) TestUtil.setFields(
+      finAccount1,
+      new Map<String, Object>{ 'Ownership__c' => 'Single' }
+    );
+    finAccount.FinServ__ProductName__r = product;
+    finAccount.FinServ__FinancialAccountNumber__c = '111111111';
+    financialAccountsList.add(finAccount);
+    return financialAccountsList;
+  }
+
+  /**
+   * @description Add required PermissionSet
+   */
+  @testSetup
+  public static void setup() {
+    TestUtil.addPermissionSets(new List<String>{ 'Accounts_Goals_Read_Only' });
+  }
+
+  static void registerMocks() {
+    userMock = Lib_MockProvider.forType(UserInfoRepository.class)
+      .mock('checkCustomPermission', true);
+    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
+    finAccRepoMock = Lib_MockProvider.forType(FinancialAccountRepository.class);
+  }
+
   @isTest
   static void testupdateStatuslocked() {
     TFMAUFController controller = new TFMAUFController();
@@ -107,29 +154,29 @@ public with sharing class TFMAUFControllerTest {
 
   @isTest
   static void testupdateStatusArchive() {
+    registerMocks();
+    finAccRepoMock.mock('getFinAccountList', createMockFinancialAccount());
     TFMAUFController controller = new TFMAUFController();
     Map<String, Object> input = new Map<String, Object>();
     Map<String, Object> output = new Map<String, Object>();
     input.put(TFMConstants.IDVALUE, 'F7AE26D3-5AFA-427D-9DDC-fake');
+    input.put('ocvId', '11111');
     Map<String, Object> args = new Map<String, Object>{
       'input' => input,
       'output' => output,
       'options' => new Map<String, Object>()
     };
     Test.startTest();
-    Object isInvoked = controller.call('archiveUser', args);
+    Object isInvoked = controller.call('checkAccountsOpen', args);
     Test.stopTest();
 
-    Boolean showToast = (Boolean) output.get(TFMConstants.SHOWSUCCESSTOAST);
-
-    Boolean isValid = (Boolean) output.get(TFMConstants.ISVALID);
+    Boolean isAnyAccountOpen = (Boolean) output.get('isAnyAccountOpen');
 
     Assert.areEqual(true, isInvoked, 'Method not invoked.');
-    Assert.areEqual(true, showToast, 'Error Toast is displayed');
     Assert.areEqual(
       true,
-      isValid,
-      'User is not having access to do the operation'
+      isAnyAccountOpen,
+      'One of the accounts is open or active'
     );
   }
 
@@ -150,8 +197,7 @@ public with sharing class TFMAUFControllerTest {
     Test.startTest();
     controller.call('archiveUser', args);
     Test.stopTest();
-    Boolean showToast = (Boolean) output.get(TFMConstants.SHOWSUCCESSTOAST);
-    Assert.areEqual(false, showToast, 'Error Toast is not displayed');
+    Assert.areEqual(false, res.successful, 'Callout is successful');
   }
 
   @isTest

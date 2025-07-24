@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_MyBroker__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source_Salesforce</complianceGroup>
+    <description>Evaluated to true when ever the logged user id is equal to Primary RBM/Secondary RBM on associated Broker Set.</description>
+    <formula>OR(
+  Broker_Set__r.Primary_RBM__c == $User.Id,
+  Broker_Set__r.Secondary_RBM__c == $User.Id,
+  $UserRole.DeveloperName == &quot;Enablement_Manager&quot;
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Is_MyBroker</label>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -59,6 +59,10 @@ public with sharing class CardListModelV1 extends CalloutModel {
     public Tracking tracking;
     @AuraEnabled
     public String cardBlockType;
+    @AuraEnabled
+    public String newName;
+    @AuraEnabled
+    public CardListModel.FormattedDate replacementDate;
   }
 
   /**

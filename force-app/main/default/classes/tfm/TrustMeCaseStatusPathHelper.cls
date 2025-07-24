@@ -2,7 +2,7 @@
  * @description       : TrustMeCaseStatusPathHelper helper class for TrustMeCaseStatusController
  * @author            : Shivraj Kadam
  * @group             :
- * @last modified on  : March 2025
+ * @last modified on  : 05-07-2025
  **/
 public with sharing class TrustMeCaseStatusPathHelper {
   private static Map<String, String> sfValueToTrustXValue = new Map<String, String>{
@@ -18,7 +18,13 @@ public with sharing class TrustMeCaseStatusPathHelper {
     'Doc fail - document is expired' => 'MANUAL_REVIEW_DENIED_REASON_ID_DOC_EXPIRED',
     'Doc fail - document is a picture of a picture' => 'MANUAL_REVIEW_DENIED_REASON_ID_DOC_PICTURE_OF_PICTURE',
     'Doc fail - document is ineligible type' => 'MANUAL_REVIEW_DENIED_REASON_ID_DOC_TYPE_NOT_ACCEPTABLE',
-    'Doc fail - document details unreadable' => 'MANUAL_REVIEW_DENIED_REASON_ID_DOC_UNREADABLE'
+    'Doc fail - document details unreadable' => 'MANUAL_REVIEW_DENIED_REASON_ID_DOC_UNREADABLE',
+    'Closed - No Defect' => 'STATE_CLOSED_NO_DEFECT',
+    'Fraud Confirmed' => 'STATE_FRAUD_CONFIRMED',
+    'No Response' => 'STATE_NO_RESPONSE',
+    'Closed - Defect Unresolved' => 'STATE_CLOSED_DEFECT_UNRESOLVED',
+    'Closed - Defect Resolved' => 'STATE_DEFECT_RESOLVED',
+    'Closed - No Fraud' => 'STATE_CLOSED_NO_FRAUD'
   };
 
   private static final TrustMeAPIRepository TRUSTME_REPO = (TrustMeAPIRepository) Lib_InstanceProvider.forType(
@@ -50,10 +56,13 @@ public with sharing class TrustMeCaseStatusPathHelper {
     caseUpdateDetails.secondary_denied_reason = sfValueToTrustXValue.get(
       trustMeCase.SecondaryVerificationFailedReason__c
     );
-    caseUpdateDetails.checks = populateChecksForQACase(
-      trustMeCase
+    caseUpdateDetails.case_id = trustMeCase.Id;
+    caseUpdateDetails.qa_review_state = sfValueToTrustXValue.get(
+      trustMeCase.Status
     );
-
+    caseUpdateDetails.kyc_reverification_id = trustMeCase.KYC_Verification_Id__c;
+    caseUpdateDetails.checks = populateChecksForQACase(trustMeCase);
+    caseUpdateDetails.case_number = trustMeCase.CaseNumber;
     TRUSTME_REPO.updateCaseStatus(caseUpdateDetails);
   }
   /**
@@ -66,12 +75,30 @@ public with sharing class TrustMeCaseStatusPathHelper {
     Case updateCase = new Case(
       Id = trustMeCase.Id,
       Status = trustMeCase.Status,
-      OnboardingVerificationFailedReason__c = String.isNotBlank(trustMeCase.OnboardingVerificationFailedReason__c) ? trustMeCase.OnboardingVerificationFailedReason__c : '',
-      SecondaryVerificationFailedReason__c = String.isNotBlank(trustMeCase.SecondaryVerificationFailedReason__c) ? trustMeCase.SecondaryVerificationFailedReason__c : '',
-      Comments = comments
+      OnboardingVerificationFailedReason__c = String.isNotBlank(
+          trustMeCase.OnboardingVerificationFailedReason__c
+        )
+        ? trustMeCase.OnboardingVerificationFailedReason__c
+        : '',
+      SecondaryVerificationFailedReason__c = String.isNotBlank(
+          trustMeCase.SecondaryVerificationFailedReason__c
+        )
+        ? trustMeCase.SecondaryVerificationFailedReason__c
+        : '',
+      Comments = comments,
+      Verified_By__c = UserInfo.getUserId(),
+      Verified_Date__c = System.now(),
+      Fraud_Customer_Details__c = trustMeCase.Fraud_Customer_Details__c,
+      Fraud_MiddleNameCheck__c = trustMeCase.Fraud_MiddleNameCheck__c,
+      Fraud_Selfie_Comparison_Match__c = trustMeCase.Fraud_Selfie_Comparison_Match__c,
+      Fraud_Address_Valid__c = trustMeCase.Fraud_Address_Valid__c,
+      Fraud_ID_Legible__c = trustMeCase.Fraud_ID_Legible__c,
+      Fraud_ID_Not_Picture__c = trustMeCase.Fraud_ID_Not_Picture__c,
+      Fraud_Customer_Photo_Modified__c = trustMeCase.Fraud_Customer_Photo_Modified__c,
+      Fraud_Security_Features__c = trustMeCase.Fraud_Security_Features__c
     );
 
-    DML_REPOSITORY.doUpdate(updateCase, new DmlConfig().allowPartial());
+    DML_REPOSITORY.doUpdate(updateCase);
   }
 
   /**
@@ -121,5 +148,21 @@ public with sharing class TrustMeCaseStatusPathHelper {
     );
 
     return checksFields;
+  }
+
+  /**
+   * @description updateOwnerandStatus
+   * @param recordId recordId
+   * @param statusValue statusValue
+   */
+  public static void updateOwnerandStatus(String recordId, String statusValue) {
+    Case updateCase = new Case(
+      Id = recordId,
+      Status = statusValue,
+      OwnerId = statusValue == 'Refer to Fraud'
+        ? QueryQueue.digitalFraudQueue.Id
+        : QueryQueue.reKycQACaseQueue.Id
+    );
+    DML_REPOSITORY.doUpdate(updateCase);
   }
 }

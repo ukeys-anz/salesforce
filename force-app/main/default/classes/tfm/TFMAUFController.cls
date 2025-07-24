@@ -2,7 +2,7 @@
  * @description       : class contains method that is used in IP/OS to invoke Assisted User functionality
  * @author            : Hinduja Upadhyay
  * @group             : TFM
- * @last modified on  : 01-05-2024
+ * @last modified on  : 05-05-2025
  **/
 global with sharing class TFMAUFController implements omnistudio.VlocityOpenInterface, Callable {
   // Remote methods
@@ -48,6 +48,8 @@ global with sharing class TFMAUFController implements omnistudio.VlocityOpenInte
       return archiveUser(input, output, options);
     } else if (methodName.equals(RESETPIN)) {
       return resetPin(input, output, options);
+    } else if (methodName.equals('checkAccountsOpen')) {
+      return checkAccountsOpen(input, output, options);
     }
     return false;
   }
@@ -260,5 +262,50 @@ global with sharing class TFMAUFController implements omnistudio.VlocityOpenInte
       Logger.saveLog();
     }
     return true;
+  }
+
+  /**
+   * @param input arg for omnistudio flex card
+   * @param output arg for omnistudio flex card
+   * @param options arg for omnistudio flex card
+   * @return `Boolean`
+   * @description update Mobile number or OCV ID based on user's input
+   */
+  private Boolean checkAccountsOpen(
+    Map<String, Object> input,
+    Map<String, Object> output,
+    Map<String, Object> options
+  ) {
+    try {
+      String ocvId = (String) input.get(TFMConstants.AUF_OCV_ID);
+      output.put('isAnyAccountOpen', isAnyAccountOpen(ocvId));
+    } catch (FinancialAccountAPIRepository.PermissionException e) {
+      output.put('PermissionException', true);
+    } catch (Exception e) {
+      output.put(TFMConstants.SHOWSUCCESSTOAST, false);
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
+    }
+    return true;
+  }
+  /**
+   * @description checking if any account is not closed
+   * @param ocvId the ocv id of the customer
+   * @return Boolean
+   */
+  private static Boolean isAnyAccountOpen(String ocvId) {
+    List<String> accountNumbers = new List<String>();
+    List<UnifiedFinancialAccountModel.AccountList> financialAccList = FinancialAccountController.getFinancialAccountsFromFabric(
+      ocvId,
+      accountNumbers
+    );
+    for (
+      UnifiedFinancialAccountModel.AccountList finAccObj : financialAccList
+    ) {
+      if (!finAccObj.finserv_status.equalsIgnoreCase('Closed')) {
+        return true;
+      }
+    }
+    return false;
   }
 }

@@ -1,0 +1,134 @@
+<template>
+  <!-- SPINNER -->
+  <template lwc:if={showSpinner}>
+    <lightning-spinner
+      alternative-text="Loading"
+      variant="brand"
+      size="medium"
+      class="slds-align_absolute-center"
+    ></lightning-spinner>
+  </template>
+
+  <!-- Refresh All button section -->
+  <article class="accountHistoryBoard slds-card">
+    <lightning-layout>
+      <lightning-layout-item
+        class="slds-col slds-size_1-of-11 slds-text-align_right slds-p-top_small slds-p-bottom_small slds-p-right_x-small"
+      >
+        <lightning-button
+          variant="neutral"
+          label="Refresh All"
+          onclick={handleRefresh}
+        ></lightning-button>
+      </lightning-layout-item>
+    </lightning-layout>
+
+    <!-- Account History image and title section -->
+    <header class="card-title">
+      <lightning-layout class="slds-grid">
+        <lightning-layout-item class="slds-size_1-of-11">
+          <lightning-icon
+            icon-name="standard:person_account"
+            size="small"
+            class="slds-m-left_small slds-m-top_medium"
+          ></lightning-icon>
+        </lightning-layout-item>
+        <lightning-layout-item
+          class="slds-col slds-size_2-of-11 headingStyle slds-p-around_medium"
+        >
+          Account History
+        </lightning-layout-item>
+      </lightning-layout>
+    </header>
+
+    <!-- Start Date/End Date and Search button section -->
+    <lightning-card class="slds-card__body slds-card__body_inner">
+      <lightning-layout
+        class="search-section slds-p-top_medium slds-p-bottom_small"
+      >
+        <lightning-formatted-text
+          class="slds-text-title_bold slds-p-left_small"
+          value="Account History"
+        ></lightning-formatted-text>
+
+        <lightning-layout class="slds-form--inline startEndDate">
+          <lightning-layout-item class="slds-form-element">
+            <lightning-input
+              placeholder="Start Date"
+              type="date"
+              name="startDate"
+              label="Start Date"
+              value={startDate}
+              onchange={handleStartDateChange}
+            ></lightning-input>
+          </lightning-layout-item>
+
+          <lightning-layout-item class="slds-form-element">
+            <lightning-input
+              placeholder="End Date"
+              type="date"
+              name="endDate"
+              label="End Date"
+              value={endDate}
+              onchange={handleEndDateChange}
+            ></lightning-input>
+          </lightning-layout-item>
+
+          <lightning-layout-item class="slds-form-element">
+            <lightning-button
+              variant="neutral"
+              label="Search"
+              title="Search"
+              class="slds-m-left_x-small"
+              onclick={handleSearch}
+              disabled={disableSearch}
+            ></lightning-button>
+          </lightning-layout-item>
+        </lightning-layout>
+      </lightning-layout>
+
+      <!-- Data Table section -->
+      <template lwc:if={accountHistoryData}>
+        <lightning-datatable
+          key-field="Id"
+          data={accountHistoryData}
+          columns={columns}
+          hide-checkbox-column
+          enable-infinite-loading
+          wrap-text-max-lines="1"
+          onrowaction={handleClick}
+        ></lightning-datatable>
+      </template>
+
+      <!-- No History section -->
+      <template lwc:else>
+        <lightning-layout
+          class="slds-card__header-title main-title noHistorySection slds-p-top_medium"
+        >
+          <template lwc:if={noHistoryData}>
+            <lightning-formatted-text
+              class="not-found"
+              value="No Account History Found"
+            ></lightning-formatted-text>
+          </template>
+        </lightning-layout>
+      </template>
+
+      <!-- Last updated section -->
+      <lightning-layout>
+        <lightning-layout-item
+          size="12"
+          class="slds-p-top_small slds-p-right_x-small lastUpdatedstyle slds-text-align_right"
+        >
+          <lightning-formatted-text
+            class="slds-p-right_x-small"
+            value="Last Updated"
+          ></lightning-formatted-text>
+          <lightning-formatted-text
+            value={lastUpdated}
+          ></lightning-formatted-text>
+        </lightning-layout-item>
+      </lightning-layout>
+    </lightning-card>
+  </article>
+</template>

@@ -42,7 +42,7 @@ jobs:
           repository: anzx/salesforce-plugin
           token: ${{ secrets.SALESFORCE_ACTIONS_CHECKOUT_TOKEN }}
           path: salesforce-plugin
-          ref: a2988df1ab001c5ea0546dad0168ec23bd696333
+          ref: v1.0.2
           # this is a particular commit on master. Change this when a new plugin version is required for sf xschema generate
       - name: Install npm packages
         if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
@@ -95,7 +95,7 @@ jobs:
           sfdatasync_object_list=$(jq -r '.sfdatasync_object_whitelist[]' ./config/object-changes-list.json)
           for object in $sfdatasync_object_list; do
             echo "running xschema-generate on sfdatasync user for $object..."
-            if  ! ./salesforce-plugin/bin/run.js xschema generate -a sfdatasync.user@anzx.com.test25 -e ./config/bigq_exclusionfile.json -n $object \
+            if  ! ./salesforce-plugin/bin/run.js xschema generate -a sfdatasync.user@anzx.com.test25 -e ./config/bigq_exclusionfile.json -r ./config/bigq_remappingfile.json -n $object \
                   -f sfdatasync_user_output; then
                 errors+=("$object for user sfdatasync.user@anzx.com.test25")
                 echo "Errors occurred while running the xSchema generate."

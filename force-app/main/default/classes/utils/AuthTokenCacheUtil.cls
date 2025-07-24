@@ -9,9 +9,19 @@ public with sharing class AuthTokenCacheUtil {
   private final static String SESSIONPART = 'local.SessionAzureTokens.';
   @TestVisible
   private final static String STAFFPART = 'local.ForgeToken.';
-  private final static Non_Prod_Settings__c NON_PROD_SETTINGS = Non_Prod_Settings__c.getInstance(
-    UserInfo.getUserId()
-  );
+
+  private static Boolean ssoNotConfigured {
+    get {
+      if (ssoNotConfigured != null) {
+        return ssoNotConfigured;
+      }
+      UserInfoRepository repo = (UserInfoRepository) Lib_InstanceProvider.forType(
+        UserInfoRepository.class
+      );
+      return ssoNotConfigured = repo.checkSsoNotConfigured();
+    }
+    set;
+  }
   private static final Set<String> VALID_PROFILES_SET = new Set<String>{
     'ANZx Standard User',
     'ANZ ML Standard User'
@@ -135,7 +145,7 @@ public with sharing class AuthTokenCacheUtil {
   @AuraEnabled
   public static String getSessionIdToken() {
     Id userId = UserInfo.getUserId();
-    String refreshToken = NON_PROD_SETTINGS.SSO_Not_Configured__c
+    String refreshToken = ssoNotConfigured
       ? AzureTestRefreshToken.REFRESHTESTVALUE
       : getRefreshToken();
     String idToken = (String) Cache.Session.get(
@@ -255,7 +265,7 @@ public with sharing class AuthTokenCacheUtil {
         'Unable to query Foregerock - permission denied'
       );
     }
-    Forgerock_Auth__mdt forgeAuth = Forgerock_Auth__mdt.getInstance(
+    Forgerock_Auth__mdt forgeAuth = QueryForgeRockAuth.getByDevName(
       staffModelWrapper.apiScopesRequested
     );
 

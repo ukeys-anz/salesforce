@@ -74,8 +74,7 @@ public with sharing class AnzxLoanApplicationActions {
         records,
         oldMap
       )
-      .notEquals(ResidentialLoanApplication.Status, SUNSET_STATUSES)
-      .oldEquals(ResidentialLoanApplication.Status, SUNSET_STATUSES)
+      .changedFrom(ResidentialLoanApplication.Status, SUNSET_STATUSES)
       .toList();
 
     // Set sunset timestamp

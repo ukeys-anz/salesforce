@@ -11,10 +11,12 @@ public with sharing class CommercialSurveyResponseActionsHelper {
   /**
    * @description setSurveyResponseFields set fields on survey response
    * @param custIdWithAccRecordMap map of string
+   * @param lanIdWithUserRecordMap map of LANIds to user
    * @param surveyResponses list of survey response.
    */
   public static void setSurveyResponseFields(
     Map<String, Account> custIdWithAccRecordMap,
+    Map<String, User> lanIdWithUserRecordMap,
     List<qualtrics__Survey_Response__c> surveyResponses
   ) {
     for (qualtrics__Survey_Response__c response : surveyResponses) {
@@ -29,6 +31,9 @@ public with sharing class CommercialSurveyResponseActionsHelper {
       response.qualtrics__Account__c = custIdWithAccRecordMap
         ?.get(response.customer_number__c)
         .Id;
+      response.OwnerId = lanIdWithUserRecordMap
+        ?.get(response.RecipientId__c)
+        ?.Id ?? response.OwnerId;
     }
   }
 

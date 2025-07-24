@@ -1,11 +1,13 @@
 import { api, LightningElement, wire, track } from "lwc";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { getRelatedListRecords } from "lightning/uiRelatedListApi";
+import { getRecord } from "lightning/uiRecordApi";
 import { handleErrorShowToast, handleErrors } from "c/utils";
 import { NavigationMixin } from "lightning/navigation";
 import getCFaaSDocument from "@salesforce/apex/CFaaSController.getCFaaSDocument";
 import previewCFaaSFilesPermission from "@salesforce/customPermission/ANZx_CFaaS_View_Files";
 import ACCOUNT_OBJECT from "@salesforce/schema/Account";
+import CASE_OBJECT from "@salesforce/schema/Case";
 import RESIDENTIAL_LOAN_APP_OBJECT from "@salesforce/schema/ResidentialLoanApplication";
 import FINANCIAL_ACCOUNT_OBJECT from "@salesforce/schema/FinServ__FinancialAccount__c";
 import CFAAS_FILE_OBJECT from "@salesforce/schema/CFaaS_File__c";
@@ -17,6 +19,7 @@ import SECURITY_CLASSIFICATION_FIELD from "@salesforce/schema/CFaaS_File__c.Secu
 import CUSTOMER_OCV_ID_FIELD from "@salesforce/schema/CFaaS_File__c.Customer__r.OCV_Id__c";
 import RESIDENTIAL_LOAN_OCV_ID_FIELD from "@salesforce/schema/CFaaS_File__c.Residential_Loan_Id__r.Account.OCV_Id__c";
 import FINANCIAL_ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/CFaas_File__c.Financial_Account__r.FinServ__PrimaryOwner__r.OCV_Id__c";
+import CASE_FIN_ID_FIELD from "@salesforce/schema/Case.FinServ__FinancialAccount__r.Id";
 
 const MAX_RECORD_COUNT = 1999;
 const RECORD_PAGE_ROW_SIZE = 5;
@@ -83,6 +86,14 @@ export default class CfaasFilesRelatedList extends NavigationMixin(
 ) {
   @api recordId;
   @api objectApiName;
+  @api
+  get isCase() {
+    return this.isCaseObject;
+  }
+  set isCase(value) {
+    this.isCaseObject = value;
+  }
+  @track isCaseObject = false;
   @track isLoading = true;
   @track showSpinner;
   records;
@@ -93,9 +104,34 @@ export default class CfaasFilesRelatedList extends NavigationMixin(
   defaultSortDirection = "desc";
   sortDirection = "desc";
   sortedBy = "dateCreated";
+  caseFinAccount;
+
+  @wire(getRecord, {
+    recordId: "$recordId",
+    fields: [CASE_FIN_ID_FIELD]
+  })
+  caseRecord({ data, error }) {
+    if (this.objectApiName === "Case") {
+      if (data) {
+        this.isCaseObject = true;
+        this.caseFinAccount =
+          data.fields.FinServ__FinancialAccount__r.value?.fields.Id.value;
+        if (!this.caseFinAccount) {
+          this.isLoading = false;
+        }
+      } else if (error) {
+        this.isLoading = false;
+        this.handleError(error);
+      }
+    }
+  }
+
+  get parentRecordId() {
+    return this.objectApiName === "Case" ? this.caseFinAccount : this.recordId;
+  }
 
   @wire(getRelatedListRecords, {
-    parentRecordId: "$recordId",
+    parentRecordId: "$parentRecordId",
     relatedListId: RELATED_LIST_ID,
     fields: FIELDS,
     pageSize: MAX_RECORD_COUNT
@@ -159,6 +195,7 @@ export default class CfaasFilesRelatedList extends NavigationMixin(
   setComponentTitle() {
     switch (this.objectApiName) {
       case ACCOUNT_OBJECT.objectApiName:
+      case CASE_OBJECT.objectApiName:
         this.title = CUSTOMER_LIST_TITLE;
         break;
       case RESIDENTIAL_LOAN_APP_OBJECT.objectApiName:
@@ -196,7 +233,6 @@ export default class CfaasFilesRelatedList extends NavigationMixin(
   getOCVIdValue(row) {
     let ocvIdValue;
     let objectPageName = this.objectApiName ?? this.getObjectNameByTitle();
-
     switch (objectPageName) {
       case RESIDENTIAL_LOAN_APP_OBJECT.objectApiName:
         ocvIdValue =
@@ -207,6 +243,7 @@ export default class CfaasFilesRelatedList extends NavigationMixin(
         ocvIdValue = row.fields.Customer__r.value?.fields.OCV_ID__c.value;
         break;
       case FINANCIAL_ACCOUNT_OBJECT.objectApiName:
+      case CASE_OBJECT.objectApiName:
         ocvIdValue =
           row.fields.Financial_Account__r.value?.fields.FinServ__PrimaryOwner__r
             ?.value.fields.OCV_ID__c.value;
@@ -243,6 +280,7 @@ export default class CfaasFilesRelatedList extends NavigationMixin(
   filterFilesLinkedToMultipleObjects(ogRecords) {
     return ogRecords.filter((item) => {
       return this.title === CUSTOMER_LIST_TITLE &&
+        !this.isCaseObject &&
         item.fields.Customer__r.value &&
         (item.fields.Residential_Loan_Id__r?.value ||
           item.fields.Financial_Account__r?.value)
@@ -343,8 +381,9 @@ export default class CfaasFilesRelatedList extends NavigationMixin(
         componentName: COMPONENT_NAME
       },
       state: {
-        c__recordId: this.recordId,
-        c__cmpTitle: this.title
+        c__recordId: this.parentRecordId,
+        c__cmpTitle: this.title,
+        c__isCase: this.isCaseObject
       }
     });
   }

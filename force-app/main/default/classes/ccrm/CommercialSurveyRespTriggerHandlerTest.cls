@@ -24,7 +24,8 @@ public class CommercialSurveyRespTriggerHandlerTest {
       Other_Feedback__c = 'Some other feedback',
       qualtrics__Overall_Satisfaction__c = 'Satisfied',
       Survey_Name__c = 'A-Z Reviews',
-      Survey_Trigger__c = 'Commercial'
+      Survey_Trigger__c = 'Commercial',
+      RecipientId__c = 'user1'
     );
     return sr;
   }
@@ -37,6 +38,15 @@ public class CommercialSurveyRespTriggerHandlerTest {
       'filterAccounts',
       new List<Account>{
         new Account(Id = ACCID, Source_System_ID__c = SOURCEID)
+      }
+    );
+    surveyRespActRepo.mock(
+      'getUserByLANId',
+      new List<User>{
+        new User(
+          Id = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+          Lan_Id__c = 'user1'
+        )
       }
     );
     Test.startTest();
@@ -53,11 +63,16 @@ public class CommercialSurveyRespTriggerHandlerTest {
 
   @isTest
   static void testsetSurveyResponseFields() {
+    User runningUser = new User(
+      Id = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+      Lan_Id__c = 'user1'
+    );
     Account acc = new Account(Id = ACCID, Source_System_ID__c = SOURCEID);
     qualtrics__Survey_Response__c mockData = getMockedData();
     Test.startTest();
     CommercialSurveyResponseActionsHelper.setSurveyResponseFields(
       new Map<String, Account>{ mockData.customer_number__c => acc },
+      new Map<String, User>{ 'user1' => runningUser },
       new List<qualtrics__Survey_Response__c>{ mockData }
     );
     Test.stopTest();
@@ -86,5 +101,21 @@ public class CommercialSurveyRespTriggerHandlerTest {
         : false;
       assert.areEqual(true, expectedExceptionThrown, e.getMessage());
     }
+  }
+
+  @isTest
+  static void testsetSurveyResponseFieldsForOwner() {
+    Id userId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    User runningUser = new User(Id = userId, Lan_Id__c = 'user1');
+    Account acc = new Account(Id = ACCID, Source_System_ID__c = SOURCEID);
+    qualtrics__Survey_Response__c mockData = getMockedData();
+    Test.startTest();
+    CommercialSurveyResponseActionsHelper.setSurveyResponseFields(
+      new Map<String, Account>{ mockData.customer_number__c => acc },
+      new Map<String, User>{ 'user1' => runningUser },
+      new List<qualtrics__Survey_Response__c>{ mockData }
+    );
+    Test.stopTest();
+    assert.areEqual(mockData.OwnerId, userId, 'User Id is matched to owner Id');
   }
 }

@@ -4,6 +4,8 @@
     <booleanFilter>1 AND (2 OR (3 AND 4))</booleanFilter>
     <columns>Expiry_Indicator__c</columns>
     <columns>LEAD.COMPANY</columns>
+    <columns>CLG_Name__c</columns>
+    <columns>Campaign_Name__c</columns>
     <columns>FULL_NAME</columns>
     <columns>LEAD.LEAD_SOURCE</columns>
     <columns>LEAD.STATUS</columns>
