@@ -17,6 +17,6 @@
     <filterScope>ScopingRule</filterScope>
     <label>My Reportee’s Opportunities</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
+        <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
     </sharedTo>
 </ListView>

@@ -319,10 +319,21 @@
                 <fieldItem>Record.Score__c</fieldItem>
                 <identifier>RecordScore__cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.Calculated__c}</leftValue>
+                        <leftValue>{!Record.Status__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>true</rightValue>
+                        <rightValue>In Progress</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Referred</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -336,10 +347,21 @@
                 <fieldItem>Record.Compliance_Outcome__c</fieldItem>
                 <identifier>RecordCompliance_Outcome__cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.Calculated__c}</leftValue>
+                        <leftValue>{!Record.Status__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>true</rightValue>
+                        <rightValue>In Progress</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Referred</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -357,10 +379,21 @@
                 <fieldItem>Record.Rating__c</fieldItem>
                 <identifier>RecordRating__cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.Calculated__c}</leftValue>
+                        <leftValue>{!Record.Status__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>true</rightValue>
+                        <rightValue>In Progress</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Referred</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -957,16 +990,26 @@
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection3</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND (2 OR 3 OR 4)</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.Name}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Get Help - Appointments</rightValue>
                     </criteria>
                     <criteria>
-                        <leftValue>{!Record.Calculated__c}</leftValue>
+                        <leftValue>{!Record.Status__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>true</rightValue>
+                        <rightValue>In Progress</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Referred</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -1166,6 +1209,10 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Tabs</value>
+                </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>tabs</name>
                     <value>maintabs</value>

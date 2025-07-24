@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Broker_Set__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Represents the Broker Set to which this contact is associated with.
+Requirements: Only populated on a Broker Contact, and only an broker set can be selected whose Aggregator is the same as the Broker Contact.</description>
+    <label>Broker Set</label>
+    <lookupFilter>
+        <active>true</active>
+        <errorMessage>Brokers must be from the aggregators linked to this Broker Set.</errorMessage>
+        <filterItems>
+            <field>Broker_Relation__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Broker Set</value>
+        </filterItems>
+        <filterItems>
+            <field>Broker_Relation__c.Aggregator__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.AccountId</valueField>
+        </filterItems>
+        <filterItems>
+            <field>$Source.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Broker</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Broker_Relation__c</referenceTo>
+    <relationshipLabel>Brokers (Broker Set)</relationshipLabel>
+    <relationshipName>Broker_Set_Brokers</relationshipName>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Lookup</type>
+</CustomField>

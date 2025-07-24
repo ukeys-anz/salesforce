@@ -4,7 +4,7 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>Export Reports</label>
     <userPermissions>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
         <name>ExportReport</name>
     </userPermissions>
     <userPermissions>

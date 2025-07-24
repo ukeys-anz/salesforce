@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_RBM_Update_Others_OfficeGroup</fullName>
+    <active>true</active>
+    <description>Prevent RBMs from updating Office Groups not assigned to them.</description>
+    <errorConditionFormula>AND(
+  $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+  RecordType.DeveloperName == &apos;Office_Group&apos;, 
+  $UserRole.DeveloperName == &apos;Residential_Broker_Manager&apos;,
+  Is_MyOfficeGroup__c == false
+)</errorConditionFormula>
+    <errorMessage>You can only create or update Office Groups for Broker Sets assigned to you.</errorMessage>
+</ValidationRule>

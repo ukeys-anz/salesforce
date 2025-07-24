@@ -19,6 +19,6 @@
     <filterScope>Everything</filterScope>
     <label>My Manager’s Leads</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
+        <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
     </sharedTo>
 </ListView>

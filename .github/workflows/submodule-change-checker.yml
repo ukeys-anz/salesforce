@@ -10,10 +10,13 @@ jobs:
     runs-on: anzx-default
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      REPO: ${{ github.repository }}
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Detect submodule changes in the PR
         id: diff
@@ -25,8 +28,12 @@ jobs:
           echo "Base ref: $BASE_REF"
           echo "Head ref: $HEAD_REF"
 
-          # Get list of changed files between base and head
-          changed_files=$(git diff --name-only $BASE_REF $HEAD_REF)
+          # Find the common ancestor of base and head
+          MERGE_BASE=$(git merge-base $BASE_REF $HEAD_REF)
+          echo "Merge base: $MERGE_BASE"
+
+          # Get list of changed files introduced by the PR
+          changed_files=$(git diff --name-only $MERGE_BASE $HEAD_REF)
 
           echo "Changed files:"
           echo "$changed_files"
@@ -43,8 +50,8 @@ jobs:
           for submodule_path in "${submodule_paths[@]}"; do
             if echo "$changed_files" | grep -q "^$submodule_path"; then
               echo "Submodule changed: $submodule_path"
-              
-              if [[ $submodule_changed == '' ]];then
+
+              if [[ -z "$submodule_changed" ]]; then
                 submodule_changed=$submodule_path
               else
                 submodule_changed="$submodule_changed, $submodule_path"
@@ -62,9 +69,19 @@ jobs:
       - name: Send PR comment
         if: ${{ steps.diff.outputs.submodule_changed != '' }}
         run: |
-          check=$(gh pr view ${{ github.event.pull_request.number }} -c )
-          if [[ $check == *'🗂️ Submodule Change'* ]];then
-            gh pr comment ${{ github.event.pull_request.number }} --body "🗂️ Submodule Change Detected: ${{ steps.diff.outputs.submodule_changed }}" --edit-last
-          else
-            gh pr comment ${{ github.event.pull_request.number }} --body "🗂️ Submodule Change Detected: ${{ steps.diff.outputs.submodule_changed }}"
+          existing_comment_id=$(gh api repos/"$REPO"/issues/"$PR_NUMBER"/comments \
+            --jq '.[] | select(.body | contains("🗂️ Submodule Change")) | .id')
+
+          SUBMODULE_CHANGED="${{ steps.diff.outputs.submodule_changed }}"
+          COMMENT="🗂️ Submodule Change Detected: $SUBMODULE_CHANGED"
+
+          if [[ -n "$existing_comment_id" ]]; then
+            echo "✅ Found existing comment. Editing PR comment..."
+            gh api \
+              -X PATCH \
+              -H "Accept: application/vnd.github+json" \
+              /repos/"$REPO"/issues/comments/"$existing_comment_id" \
+              -f body="$COMMENT"
+          elif [[ "$SUBMODULE_CHANGED" != '' ]]; then
+            gh pr comment ${{ github.event.pull_request.number }} --body "$COMMENT"
           fi

@@ -616,6 +616,12 @@ private class QualityAssessmentTriggerHandlerTest {
       qaRecord1.Status__c = 'Referred';
       qaRecord1.Sub_Status__c = 'Compliance Review';
       qaRecord1.Reference__c = REFERENCE_VALUE;
+      qaRecord1.Risk_and_Compliance_Category__c = 'Yes - Requirements met';
+      qaRecord1.Connection_and_Trust__c = 'Outstanding';
+      qaRecord1.Energy_and_Adaptability__c = 'Outstanding';
+      qaRecord1.Discover_and_Align__c = 'Outstanding';
+      qaRecord1.Actions_and_Momentum__c = 'Outstanding';
+      qaRecord1.Accountability_and_Next_Steps__c = 'Outstanding';
       update qaRecord1;
       Test.stopTest();
 
