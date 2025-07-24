@@ -1814,8 +1814,7 @@
         "Preferred_Contact__c",
         "Primary_RBM__c",
         "Secondary_RBM__c",
-        "Segment__c",
-        "Override_OCV_Version__c"
+        "Segment__c"
       ],
       "IA-2415790": [
         "Accreditation_CompactLayout__c",
@@ -5691,8 +5690,7 @@
       "Primary_RBM__c": "ANZx::Salesforce",
       "Secondary_RBM__c": "ANZx::Salesforce",
       "Segment__c": "ANZx::Salesforce",
-      "SAO_State__c": "ANZx::Salesforce",
-      "Override_OCV_Version__c": "ANZx::Salesforce"
+      "SAO_State__c": "ANZx::Salesforce"
     },
     "CustomerOnboardingApplication__c": {
       "AustralianTaxResident__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidencyStatus :: australian_tax_resident",
@@ -5890,8 +5888,7 @@
       "Primary_RBM__c": "Formula field through Broker_Relation__c",
       "Secondary_RBM__c": "Formula field through Broker_Relation__c",
       "Segment__c": "Formula field through Broker_Relation__c",
-      "SAO_State__c": "Formula field through Broker_Relation__c",
-      "Override_OCV_Version__c": "Checkbox"
+      "SAO_State__c": "Formula field through Broker_Relation__c"
     },
     "CustomerOnboardingApplication__c": {
       "AustralianTaxResident__c": "1:1 Transformation",
