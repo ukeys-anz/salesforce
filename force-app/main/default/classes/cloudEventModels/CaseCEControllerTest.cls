@@ -30,8 +30,8 @@ public class CaseCEControllerTest {
   }
   // test cloud event for the IMT Dispute
   @isTest
-  public static void testIMTDisputeCase() {
-    Case theCase = TestDataFactory.createCase('IMT_Dispute');
+  public static void testImtDisputeCase() {
+    Case theCase = createImtDisputeCase();
     Test.startTest();
     CaseCEController.publishCloudEvents(new List<Case>{ theCase });
     Test.stopTest();
@@ -81,8 +81,8 @@ public class CaseCEControllerTest {
 
   // test cloud event for the IMT Dispute
   @isTest
-  public static void testIMTDisputeCaseForStatusChange() {
-    Map<String, Case> theCaseMap = getTestCaseRecord('IMT_Dispute');
+  public static void testImtDisputeCaseForStatusChange() {
+    Map<String, Case> theCaseMap = getTestImtCaseRecord();
     Test.startTest();
     CaseCEController.publishCloudEvents(
       new List<Case>{ theCaseMap.get('newCase') },
@@ -327,6 +327,43 @@ public class CaseCEControllerTest {
     theCase.AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
     theCase.OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
     Case theOldCase = TestDataFactory.createCase(recordTypeDeveloperName);
+    theOldCase.Id = theCase.Id;
+    theOldCase.Status = 'On Hold';
+    return new Map<String, Case>{
+      'newCase' => theCase,
+      'oldCase' => theOldCase
+    };
+  }
+  /**
+   * @description Create Case record with fields relevant to IMT_Dispute
+   * @return Case
+   */
+  public static Case createImtDisputeCase() {
+    Case theCase = new Case();
+    theCase.RecordTypeId = RTCase.imtDispute;
+    theCase.Description = 'IMT Dispute Case Description Test_Text_32k';
+    theCase.Intended_Account_BSB__c = '012345';
+    theCase.Intended_Account_Name__c = 'Intended Account Name Test_Text_255';
+    theCase.Intended_Account_Number__c = '0123456789';
+    theCase.Intended_Amount__c = 1000.00;
+    theCase.Intended_Pay_Id_Type__c = 'ABN';
+    theCase.Intended_Pay_Id_Value__c = 'Intended Pay Id Value Test_Text_255';
+    theCase.Status = 'Open';
+    theCase.Submitted__c = false;
+    theCase.Transaction_Id__c = 'Transaction Id Test_IMT_Text_255';
+    theCase.Transaction_UUID__c = 'Transaction UUID Test_IMT_Text_255';
+    theCase.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    return theCase;
+  }
+  /**
+   * @description get IMT test case and old case record for test
+   * @return Map of new IMT case and old IMT case
+   */
+  private static Map<String, Case> getTestImtCaseRecord() {
+    Case theCase = createImtDisputeCase();
+    theCase.AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    theCase.OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    Case theOldCase = createImtDisputeCase();
     theOldCase.Id = theCase.Id;
     theOldCase.Status = 'On Hold';
     return new Map<String, Case>{
