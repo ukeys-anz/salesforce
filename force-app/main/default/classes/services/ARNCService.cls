@@ -286,7 +286,7 @@ public with sharing class ARNCService extends Service {
       );
     } catch (Exception e) {
       Logger.error(
-          'Error while retrieving Account Registration card details from ServiceName: ',
+          'Error while retrieving Account Registration card details from ARNCService: ',
           e.getMessage()
         )
         .save();
