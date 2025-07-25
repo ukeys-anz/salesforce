@@ -66,7 +66,7 @@ public class AccountRegistrationExternalQueryTest {
     );
   }
   /**
-   * @description test method for buildEndpoint
+   * @description test method for getAccountNumber
    */
   @isTest
   static void getAccountNumberTest() {
