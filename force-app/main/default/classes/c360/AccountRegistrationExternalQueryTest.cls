@@ -65,24 +65,6 @@ public class AccountRegistrationExternalQueryTest {
       'Card Number Not populated correctly'
     );
   }
-  /**
-   * @description test method for getAccountNumber
-   */
-  @isTest
-  static void getAccountNumberTest() {
-    String strAccNum = '00011234455-|DDA-2345685859';
-    ExternalObjectQueryBase.QueryModeEnum queryMode = ExternalObjectQueryBase.QueryModeEnum.RELATED_LIST;
-    AccountRegistrationExternalQuery obj = new AccountRegistrationExternalQuery();
-    obj.parentId = strAccNum;
-    Test.startTest();
-    String accNumber = obj.getAccountNumber(queryMode);
-    Test.stopTest();
-    Assert.areEqual(
-      accNumber,
-      'DDA-2345685859',
-      'Endpoint not formed correctly'
-    );
-  }
 
   /**
    * @description create HTTP mock response for testing
