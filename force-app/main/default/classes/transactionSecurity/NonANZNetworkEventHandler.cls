@@ -1,7 +1,6 @@
 /**
  * @description       : Transaction Security Policies Handler class for Non ANZ Network (Salesforce PAC-303)
- * @author            : Hannah Sainumkheaw
- * @last modified     : 19 July 2024
+ * @last modified     : July 2025
  **/
 global with sharing class NonANZNetworkEventHandler implements TxnSecurity.EventCondition, TxnSecurity.AsyncCondition {
   private static final Boolean ALLOWED = false;
@@ -19,32 +18,73 @@ global with sharing class NonANZNetworkEventHandler implements TxnSecurity.Event
   public static Boolean evaluate(SObject event) {
     switch on event {
       when ApiEvent apiEventNonANZNetworkPolicy {
-        return evaluateApiEvent(apiEventNonANZNetworkPolicy);
+        return evaluateEvent(apiEventNonANZNetworkPolicy);
+      }
+      when LoginEvent loginIPEvent {
+        return evaluateEvent(loginIPEvent);
       }
     }
     return ALLOWED;
   }
 
   /**
-   * @description evaluating Apievent type of non anz network condition(s)
+   * @description evaluating events for non ANZ network condition(s)
    * @param event SObject which is the name of the event.
-   * @return `Boolean` evaluation results, based on condition added to apiEvent for non ANZ Network policy
+   * @return `Boolean` ALLOWED if exempted profile or source IP is allowed, otherwise NOT_ALLOWED
    */
   @testVisible
-  private static Boolean evaluateApiEvent(ApiEvent event) {
-    //check if ApiEvent is called by user with exempted profile for Non ANZ network policy before checking sourceIp
-    User eventUser = TSP_REPOSITORY.queryProfilebyEventUserId(event.userId);
-    String userProfile = eventUser.Profile.Name;
-    if (isAllowedProfile(userProfile)) {
-      return ALLOWED;
+  private static Boolean evaluateEvent(SObject event) {
+    Id userId = (Id) event.get('userId');
+    String sourceIP = (String) event.get('sourceIP');
+    String username = (String) event.get('Username');
+    String eventType = event.getSObjectType().getDescribe().getName();
+    try {
+      User eventUser = TSP_REPOSITORY.queryProfilebyEventUserId(userId);
+      String userProfile = eventUser.Profile.Name;
+      //scenario 1 - allowed IP Resticted Profile to be exempted for non ANZ Network Policy
+      if (isAllowedProfile(userProfile)) {
+        return ALLOWED;
+      }
+      //scenario 2 - allowed Masked IP Address to be exempted for non ANZ Network Policy
+      if (isAllowedMaskedIP(sourceIP)) {
+        return ALLOWED;
+      }
+      //scenario 3 - allowed Source IP Address to be exempted for non ANZ Network Policy
+
+      Decimal sourceIpAsDecimal = ipToDecimal(sourceIP);
+      if (isIPInRange(sourceIpAsDecimal)) {
+        return ALLOWED;
+      }
+      String logMessage =
+        'Non ANZ network has been detected on' +
+        eventType +
+        ' performed by ' +
+        username +
+        '( Id:' +
+        userId +
+        ') ' +
+        'with sourceIp: ' +
+        sourceIP;
+      Logger.error(logMessage, Logger.Severity.HIGH);
+    } catch (Exception e) {
+      String logMessage =
+        'Error while processing Non ANZ network event for user: ' +
+        username +
+        '( Id:' +
+        userId +
+        ') ' +
+        'with sourceIp: ' +
+        sourceIP;
+      Logger.error(logMessage, e, Logger.Severity.HIGH);
     }
-    return isAllowedSourceIp(event.sourceIP, event.userId, event.Username);
+    Logger.saveLog(Logger.SaveMethod.QUEUEABLE);
+    return NOT_ALLOWED;
   }
 
   @testVisible
   /**
    * @description to validate profiles with ip restricted to be exempted for non ANZ Network Policy
-   * @param  userProfile `String` incoming ApiEvent
+   * @param  userProfile `String` incoming (Sobject) Event
    * @return result `Boolean` isAllowedProfile; return TRUE for allowedProfile; FALSE for not allowed profile
    */
   public static Boolean isAllowedProfile(String userProfile) {
@@ -53,54 +93,6 @@ global with sharing class NonANZNetworkEventHandler implements TxnSecurity.Event
       'Minimum Access - External Apps'
     };
     return allowedProfiles.contains(userProfile);
-  }
-
-  @testVisible
-  /**
-   * @description to validate isAllowedSourceIp
-   * @param  eventSourceIp `String` of the incoming ApiEvent
-   * @param eventUserId `Id` of the incoming ApiEvent
-   * @param eventUsername `String` of the incoming ApiEvent
-   * @return result `Boolean` isAllowedSourceIp: return FALSE (ALLOWED) if sourceIP is allowed, otherwise RETURN TRUE(not allowed) and TSP is triggered.
-   */
-  public static Boolean isAllowedSourceIp(
-    String eventSourceIp,
-    Id eventUserId,
-    String eventUsername
-  ) {
-    if (isAllowedMaskedIP(eventSourceIp)) {
-      return ALLOWED;
-    }
-
-    try {
-      Decimal sourceIpAsDecimal = ipToDecimal(eventSourceIp);
-      if (isIPInRange(sourceIpAsDecimal)) {
-        return ALLOWED;
-      }
-
-      String logMessage =
-        'Non ANZ network has been detected on ApiEvent, performed by ' +
-        eventUsername +
-        '( Id:' +
-        eventUserId +
-        ') ' +
-        'with sourceIp: ' +
-        eventSourceIp;
-
-      Logger.error(logMessage, Logger.Severity.HIGH);
-    } catch (Exception e) {
-      String logMessage =
-        'Failed to process ANZ Network Security Policy or IP Address is invalid for ' +
-        eventSourceIp +
-        ' performed by ' +
-        eventUsername +
-        ' ( Id:' +
-        eventUserId +
-        ')';
-      Logger.error(logMessage, e, Logger.Severity.HIGH);
-    }
-    Logger.saveLog(Logger.SaveMethod.QUEUEABLE);
-    return NOT_ALLOWED;
   }
 
   @testVisible

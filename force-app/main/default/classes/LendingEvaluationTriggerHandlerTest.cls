@@ -1,10 +1,10 @@
 /**
- * @author Hrushikesh
- * @since 14/2025
- * @description Test class for LendingEvaluationActions.
+ * @author Sanskriti Routray
+ * @since 23 July 2025
+ * @description test class for LendingEvaluationTriggerHandler
  */
 @isTest
-public with sharing class LendingEvaluationActionsTest {
+public with sharing class LendingEvaluationTriggerHandlerTest {
   private static Lib_MockProvider dmlRepoMock;
   private static Lib_MockProvider qaRepoMock;
 
@@ -162,14 +162,46 @@ public with sharing class LendingEvaluationActionsTest {
     };
   }
 
-  @isTest
-  private static void testSetProcessExecutionOutcome() {
-    List<Quality_Assessment__c> records = getQARecords();
-    Test.startTest();
-    LendingEvaluationActions.setProcessExecutionOutcome(
-      records,
-      getOldQARecords()
+  @IsTest
+  private static void testIsValidRecordPositive() {
+    Quality_Assessment__c qaRecord = new Quality_Assessment__c();
+    qaRecord.Id = Lib_FakeIdGenerator.getMockId(
+      Quality_Assessment__c.SObjectType
     );
+    qaRecord.RecordTypeId = RTQualityAssessment.lendingEvaluation;
+
+    Test.startTest();
+    LendingEvaluationTriggerHandler handler = new LendingEvaluationTriggerHandler();
+    Boolean isValidQA = handler.isValidRecord(qaRecord);
+    Test.stopTest();
+
+    Assert.isTrue(isValidQA, 'Should return true for Lending Evaluation');
+  }
+
+  @IsTest
+  private static void testIsValidRecordNegative() {
+    Quality_Assessment__c qaRecord = new Quality_Assessment__c();
+    qaRecord.Id = Lib_FakeIdGenerator.getMockId(
+      Quality_Assessment__c.SObjectType
+    );
+    qaRecord.RecordTypeId = RTQualityAssessment.getHelpAppointment;
+
+    Test.startTest();
+    LendingEvaluationTriggerHandler handler = new LendingEvaluationTriggerHandler();
+    Boolean isValidQA = handler.isValidRecord(qaRecord);
+    Test.stopTest();
+
+    Assert.isFalse(isValidQA, 'Should return false for get help appointments');
+  }
+
+  @isTest
+  private static void testOnBeforeUpdate() {
+    registerMocks();
+    List<Quality_Assessment__c> records = getQARecords();
+    LendingEvaluationTriggerHandler handler = new LendingEvaluationTriggerHandler();
+    handler.records = records;
+    Test.startTest();
+    handler.onBeforeUpdate(getOldQARecords());
     Test.stopTest();
     Assert.areEqual(
       records[0].Process_Execution_Outcome__c,
@@ -179,87 +211,30 @@ public with sharing class LendingEvaluationActionsTest {
   }
 
   @isTest
-  private static void testSetRiskAndComplianceOutcome() {
+  private static void testOnBeforeInsert() {
+    registerMocks();
     List<Quality_Assessment__c> records = getQARecords();
+    LendingEvaluationTriggerHandler handler = new LendingEvaluationTriggerHandler();
+    handler.records = records;
     Test.startTest();
-    LendingEvaluationActions.setRiskAndComplianceOutcome(
-      records,
-      getOldQARecords()
-    );
-    Test.stopTest();
-    Assert.areEqual(
-      records[0].Risk_and_Compliance_Outcome__c,
-      REQUIREMENT_MET,
-      'Risk & Complaince Outcome should be requirement met'
-    );
-  }
-
-  @isTest
-  private static void testSetRiskAndComplianceOutcomeNotMet() {
-    List<Quality_Assessment__c> records = getQARecords();
-    records[0]
-      .Collateral_Valuation_Outcome__c = REQUIREMENT_NOT_MEANT_COMPLIANCE;
-    Test.startTest();
-    LendingEvaluationActions.setRiskAndComplianceOutcome(
-      records,
-      getOldQARecords()
-    );
-    Test.stopTest();
-    Assert.areEqual(
-      records[0].Risk_and_Compliance_Outcome__c,
-      REQUIREMENT_NOT_MEANT_COMPLIANCE,
-      'Risk & Complaince Outcome should be requirement met'
-    );
-  }
-
-  @isTest
-  private static void testSetProcessExecutionOutcomeNotMet() {
-    List<Quality_Assessment__c> records = getQARecords();
-    records[0]
-      .Expenses_Serviceability_Outcome__c = REQUIREMENT_NOT_MEANT_PROCESS_ONLY;
-    Test.startTest();
-    LendingEvaluationActions.setProcessExecutionOutcome(
-      records,
-      getOldQARecords()
-    );
+    handler.onBeforeInsert();
     Test.stopTest();
     Assert.areEqual(
       records[0].Process_Execution_Outcome__c,
-      REQUIREMENT_NOT_MEANT_PROCESS_ONLY,
+      REQUIREMENT_MET,
       'Process Execution Outcome should be requirement met'
     );
   }
 
   @isTest
-  private static void testCalculateAndSetNumberOfApplication() {
+  private static void testAfterUpdate() {
     registerMocks();
     List<Quality_Assessment__c> records = getQARecords();
+    LendingEvaluationTriggerHandler handler = new LendingEvaluationTriggerHandler();
+    handler.records = records;
     Test.startTest();
-    LendingEvaluationActions.calculateAndSetNumberOfApplication(
-      records,
-      getOldQARecords()
-    );
+    handler.onAfterUpdate(getOldQARecords());
     Test.stopTest();
-    Assert.areEqual(
-      records[0].Number_of_Applications__c,
-      null,
-      'Number of application field should be empty'
-    );
-  }
-
-  @isTest
-  private static void createQAShareRecordsForLendingEvaluation() {
-    registerMocks();
-    Map<Id, Quality_Assessment__c> oldMap = getOldQARecords();
-    List<Quality_Assessment__c> qaRecords = getQARecords();
-
-    Test.startTest();
-    LendingEvaluationActions.createQAShareRecordsForLendingEvaluation(
-      qaRecords,
-      oldMap
-    );
-    Test.stopTest();
-
     List<Quality_Assessment__share> qaToDelete = (List<Quality_Assessment__share>) dmlRepoMock.getHistory(
         'doDelete'
       )
@@ -279,23 +254,6 @@ public with sharing class LendingEvaluationActionsTest {
     Assert.isTrue(
       qaShares[0].UserOrGroupId == UserInfo.getUserId(),
       'Share with user should be created'
-    );
-  }
-
-  @isTest
-  private static void testSetOutcomesForInProgress() {
-    List<Quality_Assessment__c> records = getQARecords();
-    records[0].Status__c = 'In Progress';
-    records[0].Other__c = null;
-    Test.startTest();
-    LendingEvaluationActions.setOutcomesForInProgress(
-      records,
-      getOldQARecords()
-    );
-    Test.stopTest();
-    Assert.isNull(
-      records[0].Risk_and_Compliance_Outcome__c,
-      'Risk & Complaince Outcome should be null'
     );
   }
 }
