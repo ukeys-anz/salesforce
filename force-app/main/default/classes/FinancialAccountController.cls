@@ -38,7 +38,6 @@ public with sharing class FinancialAccountController {
     'OWNERSHIP_TYPE_MULTIPARTY' => 'Joint',
     'OWNERSHIP_TYPE_SINGLEPARTY' => 'Single'
   };
-  private static final String ORIGIN = 'PRODUCT_ORIGIN_ARC';
 
   /**
    * @description This method is an orchestration layer for retrieving financial accounts, grouped accounts , add metadata values and sort grouped records
@@ -108,6 +107,12 @@ public with sharing class FinancialAccountController {
       String.class
     );
 
+    List<FinServ__FinancialAccount__c> digitallyConnectedFinAccountList = FINANCIAL_ACCOUNT_REPOSITORY.getDigitallyConnectedFinAccounts(
+      ocvId,
+      financialAccountNumbers
+    );
+    updateFinAccounts(digitallyConnectedFinAccountList);
+
     List<FinServ__FinancialAccount__c> financialAccountList = FINANCIAL_ACCOUNT_REPOSITORY.getFinAccountList(
       financialAccountNumbers
     );
@@ -146,6 +151,20 @@ public with sharing class FinancialAccountController {
     return processedFinancialAccounts;
   }
 
+  private static void updateFinAccounts(
+    List<FinServ__FinancialAccount__c> digitallyConnectedFinAccountList
+  ) {
+    ListUtil.setField(
+      digitallyConnectedFinAccountList,
+      FinServ__FinancialAccount__c.Is_ANZ_Connected__c,
+      false
+    );
+    DML.doUpdate(
+      digitallyConnectedFinAccountList,
+      new DmlConfig().withoutSharing()
+    );
+  }
+
   /**
    * @description
    * Creates a instance of Financial Account Record to display it on UI
@@ -159,7 +178,11 @@ public with sharing class FinancialAccountController {
     FinServ__FinancialAccount__c finAccountFromDatabase
   ) {
     String productCodeKey =
-      FinancialAccountControllerAction.getProductKey(finAccount, true) +
+      FinancialAccountControllerAction.getProductKey(
+        finAccount,
+        finAccountFromDatabase,
+        true
+      ) +
       '_' +
       FABRIC_OWNERSHIP_UI.get(finAccount.ownership?.type);
 
@@ -203,6 +226,7 @@ public with sharing class FinancialAccountController {
     FinServ__FinancialAccount__c record = new FinServ__FinancialAccount__c();
     record.Id = finAccountFromDatabase.Id;
     record.Name = finAccount.account_name;
+    record.Is_ANZ_Connected__c = true;
     record.FinServ__Balance__c = finAccount.balances.balance.value;
     record.FinServ__CurrentPostedBalance__c = finAccount.balances.current_balance.value;
     record.FinServ__CloseDate__c = finAccount.close_date == null
@@ -252,6 +276,7 @@ public with sharing class FinancialAccountController {
     String ocvId,
     Id ownerId
   ) {
+    FinancialAccountControllerAction.isFabricFailed = true;
     List<UnifiedFinancialAccountModel.AccountList> combinedFinancialAccountList = new List<UnifiedFinancialAccountModel.AccountList>();
 
     try {

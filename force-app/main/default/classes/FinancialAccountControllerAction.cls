@@ -8,6 +8,7 @@ public with sharing class FinancialAccountControllerAction {
   private static final Integer DEFAULT_SORT_ORDER = 999;
   private static final String DEFAULT_ICON = 'custom:custom51';
   private static final String DEFAULT_TRANSACTION_TITLE = 'Transaction History';
+  public static Boolean isFabricFailed = false;
   /**
    * @description Groups financial accounts based on product code .
    * @param finAccounts list of financial accounts received from fabric or database.
@@ -30,7 +31,7 @@ public with sharing class FinancialAccountControllerAction {
     Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupedAccounts = new Map<String, List<UnifiedFinancialAccountModel.AccountList>>();
 
     for (UnifiedFinancialAccountModel.AccountList account : finAccounts) {
-      String productCode = getProductKey(account, false);
+      String productCode = getProductKey(account, null, false);
       FinancialAccountUIConfiguration__mdt uiConfig = QueryFinancialAccountUIConfig.configByProductCode.get(
         productCode
       );
@@ -62,6 +63,9 @@ public with sharing class FinancialAccountControllerAction {
       FinancialAccountUIConfiguration__mdt uiConfig = QueryFinancialAccountUIConfig.configByProductCode.get(
         productCode
       );
+      if (isFabricFailed && uiConfig?.Account_Type__c == 'Loan') {
+        continue;
+      }
 
       UnifiedFinancialAccountModel uiModelUpdate = new UnifiedFinancialAccountModel(
         groupedAccounts.get(productCode)
@@ -94,15 +98,19 @@ public with sharing class FinancialAccountControllerAction {
   /**
    * @description Forms the product key based on the product code.
    * @param account financial accounts received from fabric or database.
+   * @param finAccountFromDatabase fin account record from db
    * @param removeAlphaNumeric flag for removing non alpha numeric characters.
-   * @return map of product code and list of financial accounts associated with that product code.
+   * @return String product code
    */
   public static String getProductKey(
     UnifiedFinancialAccountModel.AccountList account,
+    FinServ__FinancialAccount__c finAccountFromDatabase,
     Boolean removeAlphaNumeric
   ) {
-    String linkedCode = account?.linkedProductCode;
-    String marketingCode = account?.product_details?.marketing_code;
+    String linkedCode = finAccountFromDatabase?.Linked_Product_Code__c ??
+      account?.linkedProductCode;
+    String marketingCode = finAccountFromDatabase?.Marketing_Code__c ??
+      account?.product_details?.marketing_code;
     String subProductCode = removeAlphaNumeric
       ? TextUtils.removeNonAlphanumericChar(
           account?.product_details?.sub_product_code
