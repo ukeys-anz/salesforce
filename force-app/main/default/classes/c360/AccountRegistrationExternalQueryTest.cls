@@ -66,6 +66,18 @@ public class AccountRegistrationExternalQueryTest {
     );
   }
 
+  @IsTest
+  static void testGetMaskedRegistrationNumber() {
+    AccountRegistrationExternalQuery obj = new AccountRegistrationExternalQuery();
+    String result = obj.getMaskedRegistrationNumber(4, '1234567890');
+    // Verify the output
+    Assert.areEqual(
+      '****1234567890',
+      result,
+      'Should mask with correct number of asterisks'
+    );
+  }
+
   /**
    * @description create HTTP mock response for testing
    */
