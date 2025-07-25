@@ -268,7 +268,7 @@ public with sharing class ARNCService extends Service {
    * @description query exernal Account Registration for customer/financial accounts via API
    */
   public HttpCalloutResponse queryAccountRegistrations(String accNumber) {
-    if(accNumber == null) {
+    if (accNumber == null) {
       return new HttpCalloutResponse();
     }
     Map<String, String> headers = new Map<String, String>();
@@ -286,11 +286,13 @@ public with sharing class ARNCService extends Service {
       );
     } catch (Exception e) {
       Logger.error(
-        'Error while retrieving Account Registration card details from ServiceName: ',
-        e.getMessage()
-      )
-      .save();
-      throw new AuraHandledException('An error occurred while retrieving card details. Please reach out to your administrator for assistance.');
+          'Error while retrieving Account Registration card details from ServiceName: ',
+          e.getMessage()
+        )
+        .save();
+      throw new AuraHandledException(
+        'An error occurred while retrieving card details. Please reach out to your administrator for assistance.'
+      );
     }
     return response;
   }

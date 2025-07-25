@@ -176,12 +176,12 @@ public with sharing class AccountRegistrationExternalQuery extends ExternalObjec
     QueryModeEnum queryMode,
     DataSource.QueryContext queryContext
   ) {
-    if(this.parentId == null) {
+    if (this.parentId == null) {
       return new HttpCalloutResponse();
     }
     ARNCService service = new ARNCService();
     String accNumber = this.parentId.substringAfter('|');
-    if(accNumber == null) {
+    if (accNumber == null) {
       return new HttpCalloutResponse();
     }
     HttpCalloutResponse response = service.queryAccountRegistrations(accNumber);
