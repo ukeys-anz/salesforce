@@ -285,8 +285,11 @@ public with sharing class ARNCService extends Service {
         JSON.serialize(customer)
       );
     } catch (Exception e) {
-      Logger.error(e.getMessage());
-      Logger.saveLog();
+      Logger.error(
+        'Error while retrieving Account Registration card details from ServiceName: ',
+        e.getMessage()
+      )
+      .save();
       throw new AuraHandledException('An error occurred while retrieving card details. Please reach out to your administrator for assistance.');
     }
     return response;

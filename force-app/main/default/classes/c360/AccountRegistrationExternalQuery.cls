@@ -181,6 +181,9 @@ public with sharing class AccountRegistrationExternalQuery extends ExternalObjec
     }
     ARNCService service = new ARNCService();
     String accNumber = this.parentId.substringAfter('|');
+    if(accNumber == null) {
+      return new HttpCalloutResponse();
+    }
     HttpCalloutResponse response = service.queryAccountRegistrations(accNumber);
     return response;
   }
