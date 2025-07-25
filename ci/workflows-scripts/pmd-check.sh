@@ -8,24 +8,20 @@ echo ""
 echo "-------------------- Find files to be checked -----------------------"
 echo ""
 
-# Find all relevant files for PMD check
-CHANGED_FILES=$(gh api \
-  -H "Accept: application/vnd.github+json" \
-  "/repos/$REPO/pulls/$PR_NUMBER/files?per_page=100" \
-  --paginate | jq -r '
-    [.[] | select(.status != "removed") | .filename] |
-    .[] | 
-    select(test("^(force-app|knowledge-mgm)/main/(default|sf-lending)/"))
-  ')
+QUALITY_CHECK_FILE_NAME="quality-check-${REPO_NAME}-${PR_NUMBER}.txt"
+
+if [[ ! -f "$QUALITY_CHECK_FILE_NAME" ]]; then
+  echo "$QUALITY_CHECK_FILE_NAME could not be found"
+  exit 1
+fi
+
+# Find all relevant files for Security checks
+CHANGED_FILES=$(cat "$QUALITY_CHECK_FILE_NAME")
 
 allFiles=()
 while IFS= read -r file_path; do
-  if [[ -f "$file_path" ]]; then
     echo "✅ Adding: $file_path"
     allFiles+=("$file_path")
-  else
-    echo "⚠️ File not found locally (probably deleted): $file_path"
-  fi
 done <<< "$CHANGED_FILES"
 
 echo ""

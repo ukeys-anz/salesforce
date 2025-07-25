@@ -8,16 +8,20 @@ echo ""
 echo "-------------------- Find files to be checked -----------------------"
 echo ""
 
-# Find all relevant files for Sysl checks
-CHANGED_FILES=$(gh api \
-  -H "Accept: application/vnd.github+json" \
-  "/repos/$REPO/pulls/$PR_NUMBER/files?per_page=100" \
-  --paginate | jq -r '
-    [.[] | select(.status != "removed") | .filename] |
-    .[] | 
-    select(test("^(force-app|knowledge-mgm)/main/(default|sf-lending)/objects/"))
-  ')
+QUALITY_CHECK_FILE_NAME="quality-check-${REPO_NAME}-${PR_NUMBER}.txt"
 
+if [[ ! -f "$QUALITY_CHECK_FILE_NAME" ]]; then
+  echo "$QUALITY_CHECK_FILE_NAME could not be found"
+  exit 1
+fi
+
+# Find all relevant files for Security checks
+CHANGED_FILES=$(cat "$QUALITY_CHECK_FILE_NAME" | jq -R -s -r '
+  split("\n")[] |
+  select(
+    test("^(force-app|knowledge-mgm)/main/(default|sf-lending)/objects/")
+  )
+')
 
 # Initialize flags
 CHECK_FLAG=false
@@ -30,14 +34,10 @@ mkdir -p "$DEPLOY_DIR"
 
 # Copy relevant files
 while IFS= read -r file_path; do
-  if [[ -f "$file_path" ]]; then
-    echo "✅ Found and copying: $file_path"
-    CHECK_FLAG=true
-    mkdir -p "$DEPLOY_DIR/$(dirname "$file_path")"
-    cp "$file_path" "$DEPLOY_DIR/$file_path"
-  else
-    echo "⚠️ File not found locally (probably deleted): $file_path"
-  fi
+  echo "✅ Found and copying: $file_path"
+  CHECK_FLAG=true
+  mkdir -p "$DEPLOY_DIR/$(dirname "$file_path")"
+  cp "$file_path" "$DEPLOY_DIR/$file_path"
 done <<< "$CHANGED_FILES"
 
 # ========== SYSL CHECK FUNCTIONS ==========
