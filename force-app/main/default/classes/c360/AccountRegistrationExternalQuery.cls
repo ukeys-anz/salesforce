@@ -177,7 +177,7 @@ public with sharing class AccountRegistrationExternalQuery extends ExternalObjec
     DataSource.QueryContext queryContext
   ) {
     if(this.parentId == null) {
-      return;
+      return new HttpCalloutResponse();
     }
     ARNCService service = new ARNCService();
     String accNumber = this.parentId.substringAfter('|');

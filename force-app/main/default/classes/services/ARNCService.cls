@@ -269,7 +269,7 @@ public with sharing class ARNCService extends Service {
    */
   public HttpCalloutResponse queryAccountRegistrations(String accNumber) {
     if(accNumber == null) {
-      return;
+      return new HttpCalloutResponse();
     }
     Map<String, String> headers = new Map<String, String>();
     setCommonHeaders(headers);
@@ -279,10 +279,10 @@ public with sharing class ARNCService extends Service {
       AccountJsonWrapper customer = new AccountJsonWrapper();
       customer.accountNumber = accNumber;
       response = calloutService.makeRestCallout(
-        Label.Account_Registration_Endpoint;,
+        Label.Account_Registration_Endpoint,
         HTTP_METHOD.HTTP_POST,
         headers,
-        JSON.serialize(customer);
+        JSON.serialize(customer)
       );
     } catch (Exception e) {
       Logger.error(e.getMessage());
