@@ -176,25 +176,13 @@ public with sharing class AccountRegistrationExternalQuery extends ExternalObjec
     QueryModeEnum queryMode,
     DataSource.QueryContext queryContext
   ) {
+    if(this.parentId == null) {
+      return;
+    }
     ARNCService service = new ARNCService();
-    String accNumber = getAccountNumber(queryMode);
+    String accNumber = this.parentId.substringAfter('|');
     HttpCalloutResponse response = service.queryAccountRegistrations(accNumber);
     return response;
-  }
-
-  /**
-   * @param queryMode enum to determine if it is related list or detail page
-   * @return HttpCalloutResponse
-   * @description method to build endpoint
-   */
-  @TestVisible
-  private String getAccountNumber(QueryModeEnum queryMode) {
-    String accNumber;
-    // endpoint in case of related list
-    if (queryMode == QueryModeEnum.RELATED_LIST) {
-      accNumber = this.parentId.substringAfter('|');
-    }
-    return accNumber;
   }
 
   /**
