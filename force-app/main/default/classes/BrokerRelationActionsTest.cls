@@ -6,13 +6,13 @@
 @isTest
 public class BrokerRelationActionsTest {
   // Mock provider for the BrokerRelationRepository class
-  static Lib_MockProvider brokerRelationMock = Lib_MockProvider.forType(
+  private static final Lib_MockProvider BROKER_RELATION_REPOSITORY_MOCK = Lib_MockProvider.forType(
     BrokerRelationRepository.class
   );
-  static Lib_MockProvider retailContactMock = Lib_MockProvider.forType(
+  private static final Lib_MockProvider RETAIL_CONTACT_REPOSITORY_MOCK = Lib_MockProvider.forType(
     RetailContactRepository.class
   );
-  static Lib_MockProvider brokerSettingsMock = Lib_MockProvider.forType(
+  private static final Lib_MockProvider BROKER_SETTINGS_REPOSITORY_MOCK = Lib_MockProvider.forType(
     BrokerSettingsRepository.class
   );
 
@@ -51,17 +51,17 @@ public class BrokerRelationActionsTest {
   }
 
   /**
-   * @description test method for populateExternalIdOnFilteredBS
+   * @description test method for populateExternalIdOnFilteredBrokerSet
    * @author  Grace Anusha | Salesforce | 11-02-2025
    **/
   @isTest
-  static void testPopulateExternalIdOnFilteredBS() {
+  static void testPopulateExternalIdOnFilteredBrokerSet() {
     Broker_Relation__c brokerSet2 = mockBrokerRelation().clone(true, true);
     brokerSet2.Name = 'Broker Set 2';
     brokerSet2.state__c = 'SA';
     brokerSet2.segment__c = 'TD';
 
-    BrokerRelationActions.populateExternalIdOnFilteredBS(
+    BrokerRelationActions.populateExternalIdOnFilteredBrokerSet(
       new Map<Id, Broker_Relation__c>{
         mockBrokerRelation().Id => mockBrokerRelation()
       },
@@ -80,11 +80,9 @@ public class BrokerRelationActionsTest {
    **/
   @isTest
   static void testRestrictAggregatorChange() {
-    brokerRelationMock.mock(
-      'getBrokerMap',
-      new Map<Id, Broker_Relation__c>{
-        mockBrokerRelation().Id => mockBrokerRelation()
-      }
+    BROKER_RELATION_REPOSITORY_MOCK.mock(
+      'getBrokerSetWithBrokerAndOfficeGroup',
+      new List<Broker_Relation__c>{ mockBrokerRelation() }
     );
     Broker_Relation__c brokerSetNew = mockBrokerRelation().clone(true, true);
     brokerSetNew.Aggregator__c = Lib_FakeIdGenerator.getMockId(
@@ -109,24 +107,23 @@ public class BrokerRelationActionsTest {
     brokerSetNew.Aggregator__c = Lib_FakeIdGenerator.getMockId(
       Account.SObjectType
     );
-    BrokerRelationActions.showError(
+    BrokerRelationActions.showErrorAggregatorChange(
       new Map<Id, Broker_Relation__c>{
         mockBrokerRelation().Id => mockBrokerRelation()
       },
       new List<Broker_Relation__c>{ brokerSetNew }
     );
-
     Assert.isTrue(brokerSetNew.hasErrors(), 'Broker set should have errors.');
   }
 
   /**
-   * @description test method for showErrorOfficeGroupHasBrokers
+   * @description test method for showErrorIfOfficeGroupHasBrokers
    * @author  Grace Anusha | Salesforce | 11-02-2025
    **/
   @isTest
-  static void testShowErrorOfficeGroupHasBrokers() {
+  static void testShowErrorIfOfficeGroupHasBrokers() {
     Broker_Relation__c officeGroup = mockOfficeGroup();
-    BrokerRelationActions.showErrorOfficeGroupHasBrokers(
+    BrokerRelationActions.showErrorIfOfficeGroupHasBrokers(
       new Map<Id, Broker_Relation__c>{ officeGroup.Id => officeGroup },
       new List<Broker_Relation__c>{ officeGroup },
       'error msg'
@@ -138,23 +135,22 @@ public class BrokerRelationActionsTest {
     );
     Assert.isTrue(officeGroup.hasErrors(), 'Broker set should have errors.');
   }
+
   /**
-   * @description test method for restrictBrokerSetChangeOnOG
+   * @description test method for restrictBrokerSetChangeOnOfficeGroup
    * @author  Grace Anusha | Salesforce | 11-02-2025
    **/
   @isTest
-  static void testRestrictBrokerSetChangeOnOG() {
-    brokerRelationMock.mock(
+  static void testRestrictBrokerSetChangeOnOfficeGroup() {
+    BROKER_RELATION_REPOSITORY_MOCK.mock(
       'getBrokerMapOfficeGroup',
-      new Map<Id, Broker_Relation__c>{
-        mockOfficeGroup().Id => mockOfficeGroup()
-      }
+      new List<Broker_Relation__c>{ mockOfficeGroup() }
     );
     Broker_Relation__c officeGroupNew = mockOfficeGroup().clone(true, true);
     officeGroupNew.Associated_Broker_Set__c = Lib_FakeIdGenerator.getMockId(
       Broker_Relation__c.SObjectType
     );
-    BrokerRelationActions.restrictBrokerSetChangeOnOG(
+    BrokerRelationActions.restrictBrokerSetChangeOnOfficeGroup(
       new Map<Id, Broker_Relation__c>{
         mockOfficeGroup().Id => mockOfficeGroup()
       },
@@ -170,11 +166,9 @@ public class BrokerRelationActionsTest {
    **/
   @isTest
   static void testBlockDeactivationOfficeGroup() {
-    brokerRelationMock.mock(
+    BROKER_RELATION_REPOSITORY_MOCK.mock(
       'getBrokerMapOfficeGroup',
-      new Map<Id, Broker_Relation__c>{
-        mockBrokerRelation().Id => mockBrokerRelation()
-      }
+      new List<Broker_Relation__c>{ mockBrokerRelation() }
     );
     Broker_Relation__c officeGroupNew = mockOfficeGroup().clone(true, true);
     officeGroupNew.IsActive__c = false;
@@ -187,9 +181,10 @@ public class BrokerRelationActionsTest {
 
     Assert.isFalse(
       officeGroupNew.hasErrors(),
-      'Broker set should have errors.'
+      'Broker Set should not have errors.'
     );
   }
+
   /**
    * @description This method tests the case where no deactivation restrictions apply
    * and the Broker_Relation__c record can be deactivated without errors.
@@ -197,14 +192,8 @@ public class BrokerRelationActionsTest {
    **/
   @isTest
   static void testNoDeactivationRestriction() {
-    brokerRelationMock.mock(
+    BROKER_RELATION_REPOSITORY_MOCK.mock(
       'getBrokerMap',
-      new Map<Id, Broker_Relation__c>{
-        mockBrokerRelation().Id => mockBrokerRelation()
-      }
-    );
-    brokerRelationMock.mock(
-      'brokerRelationMock',
       new List<Broker_Relation__c>{ mockBrokerRelation() }
     );
     Broker_Relation__c brokerSet2 = mockBrokerRelation().clone(true, true);
@@ -221,21 +210,19 @@ public class BrokerRelationActionsTest {
   }
 
   /**
-   * @description test method for restrictDeactivationRelatedOG
+   * @description test method for restrictDeactivationRelatedOfficeGroup
    * @author  Saurabh Chauhan | Salesforce | 07-04-2025
    **/
   @isTest
-  static void testRestrictDeactivationRelatedOG() {
-    brokerRelationMock.mock(
+  static void testRestrictDeactivationRelatedOfficeGroup() {
+    BROKER_RELATION_REPOSITORY_MOCK.mock(
       'getOfficeGroupRelatedToBrokerSet',
-      new Map<Id, Broker_Relation__c>{
-        mockBrokerRelation().Id => mockBrokerRelation()
-      }
+      new List<Broker_Relation__c>{ mockBrokerRelation() }
     );
     Broker_Relation__c brokerSet2 = mockBrokerRelation().clone(true, true);
     brokerSet2.IsActive__c = false;
 
-    BrokerRelationActions.restrictDeactivationRelatedOG(
+    BrokerRelationActions.restrictDeactivationRelatedOfficeGroup(
       new Map<Id, Broker_Relation__c>{
         mockBrokerRelation().Id => mockBrokerRelation()
       },
@@ -244,27 +231,25 @@ public class BrokerRelationActionsTest {
 
     Assert.isFalse(
       brokerSet2.Office_Groups__r.isEmpty(),
-      'Broker set has office group.'
+      'Broker set should have office groups.'
     );
     Assert.isTrue(brokerSet2.hasErrors(), 'Broker set should have errors.');
   }
 
   /**
-   * @description test method for showErrorBrokerSetHasOGs
+   * @description test method for showErrorIfBrokerSetHasOfficeGroups
    * @author  Saurabh Chauhan | Salesforce | 07-04-2025
    **/
   @isTest
-  static void testShowErrorBrokerSetHasOGs() {
-    brokerRelationMock.mock(
+  static void testShowErrorIfBrokerSetHasOfficeGroups() {
+    BROKER_RELATION_REPOSITORY_MOCK.mock(
       'getOfficeGroupRelatedToBrokerSet',
-      new Map<Id, Broker_Relation__c>{
-        mockBrokerRelation().Id => mockBrokerRelation()
-      }
+      new List<Broker_Relation__c>{ mockBrokerRelation() }
     );
     Broker_Relation__c brokerSet2 = mockBrokerRelation().clone(true, true);
     brokerSet2.IsActive__c = false;
 
-    BrokerRelationActions.showErrorBrokerSetHasOGs(
+    BrokerRelationActions.showErrorIfBrokerSetHasOfficeGroups(
       new Map<Id, Broker_Relation__c>{
         mockBrokerRelation().Id => mockBrokerRelation()
       },
@@ -273,27 +258,25 @@ public class BrokerRelationActionsTest {
 
     Assert.isFalse(
       brokerSet2.Office_Groups__r.isEmpty(),
-      'Broker set has office group.'
+      'Broker set should have office groups.'
     );
     Assert.isTrue(brokerSet2.hasErrors(), 'Broker set should have errors.');
   }
 
   /**
-   * @description test method for showErrorBrokerSetHasBrokers
+   * @description test method for showErrorIfBrokerSetHasBrokers
    * @author  Saurabh Chauhan | Salesforce | 07-04-2025
    **/
   @isTest
-  static void testShowErrorBrokerSetHasBrokers() {
-    brokerRelationMock.mock(
+  static void testShowErrorIfBrokerSetHasBrokers() {
+    BROKER_RELATION_REPOSITORY_MOCK.mock(
       'getOfficeGroupRelatedToBrokerSet',
-      new Map<Id, Broker_Relation__c>{
-        mockBrokerRelation().Id => mockBrokerRelation()
-      }
+      new List<Broker_Relation__c>{ mockBrokerRelation() }
     );
     Broker_Relation__c brokerSet2 = mockBrokerRelation().clone(true, true);
     brokerSet2.IsActive__c = false;
 
-    BrokerRelationActions.showErrorBrokerSetHasBrokers(
+    BrokerRelationActions.showErrorIfBrokerSetHasBrokers(
       new Map<Id, Broker_Relation__c>{
         mockBrokerRelation().Id => mockBrokerRelation()
       },
@@ -302,7 +285,7 @@ public class BrokerRelationActionsTest {
 
     Assert.isFalse(
       brokerSet2.Broker_Set_Brokers__r.isEmpty(),
-      'Broker set has office group.'
+      'Broker set should have office groups.'
     );
     Assert.isTrue(brokerSet2.hasErrors(), 'Broker set should have errors.');
   }
@@ -313,25 +296,22 @@ public class BrokerRelationActionsTest {
    **/
   @isTest
   static void testPublishBrokerRelationEvents() {
-    retailContactMock.mock(
+    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
       'getContacts',
       new List<Contact>{ RetailBrokerRelationEventActionsTest.mockContact() }
     );
-    brokerRelationMock.mock(
+    BROKER_RELATION_REPOSITORY_MOCK.mock(
       'queryBrokerRelationWithRbmDetails',
-      RetailBrokerRelationEventActionsTest.mockBrokerSetMap()
+      mockBrokerList()
     );
-    retailContactMock.mock(
+    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
       'getBrokerSetContacts',
       new List<Contact>{ RetailBrokerRelationEventActionsTest.mockContact() }
     );
-    brokerRelationMock.mock(
-      'queryRbmUsers',
-      RetailBrokerRelationEventActionsTest.mockRbmUserMap()
-    );
+    BROKER_RELATION_REPOSITORY_MOCK.mock('queryRbmUsers', mockRbmUserList());
     BrokerSettings__c mockSettings = new BrokerSettings__c();
     mockSettings.BypassBrokerRelationEvent__c = false;
-    brokerSettingsMock.mock('get', mockSettings);
+    BROKER_SETTINGS_REPOSITORY_MOCK.mock('get', mockSettings);
 
     Broker_Relation__c newBrokerSet = (Broker_Relation__c) JSON.deserialize(
       '{"attributes":{"type":"Broker_Relation__c","url":"/services/data/v63.0/sobjects/Broker_Relation__c/a2oAD000000ZI5JYAW"},"Id":"a2oAD000000ZI5JYAW","Primary_RBM__c":"005Oa000005OyubIAC","Secondary_RBM__c":"005Oa000003fFuDIAU","RecordTypeId":"012AD000001tpEDYAY","Primary_RBM__r":{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/005Oa000005OyubIAC"},"Id":"005Oa000005OyubIAC","Lan_Id__c":"manish5"},"Secondary_RBM__r":{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/005Oa000003fFuDIAU"},"Id":"005Oa000003fFuDIAU","Lan_Id__c":"sauDevtest"}}',
@@ -348,6 +328,42 @@ public class BrokerRelationActionsTest {
       new Map<Id, Broker_Relation__c>{ newBrokerSet.Id => newBrokerSet }
     );
 
-    Assert.isFalse(publishedEvents.isEmpty(), 'Published events were returned');
+    Assert.isFalse(
+      publishedEvents.isEmpty(),
+      'No published events were returned'
+    );
+  }
+
+  /**
+   * @description to create mock Broker Relation List
+   * @author  Atharv Jakate | Salesforce | 23-06-2025
+   * @return List<Broker_Relation__c>
+   **/
+  private static List<Broker_Relation__c> mockBrokerList() {
+    Broker_Relation__c newBrokerSet = (Broker_Relation__c) JSON.deserialize(
+      '{"attributes":{"type":"Broker_Relation__c","url":"/services/data/v63.0/sobjects/Broker_Relation__c/a2oAD000000ZI5JYAW"},"Id":"a2oAD000000ZI5JYAW","Primary_RBM__c":"005Oa000005OyubIAC","Secondary_RBM__c":"005Oa000003fFuDIAU","RecordTypeId":"012AD000001tpEDYAY","Primary_RBM__r":{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/005Oa000005OyubIAC"},"Id":"005Oa000005OyubIAC","Lan_Id__c":"manish5"},"Secondary_RBM__r":{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/005Oa000003fFuDIAU"},"Id":"005Oa000003fFuDIAU","Lan_Id__c":"sauDevtest"}}',
+      Broker_Relation__c.class
+    );
+
+    Broker_Relation__c oldBrokerSet = (Broker_Relation__c) JSON.deserialize(
+      '{"attributes":{"type":"Broker_Relation__c","url":"/services/data/v63.0/sobjects/Broker_Relation__c/a2oAD000000ZUuTYAW"},"Id":"a2oAD000000ZUuTYAW","Primary_RBM__c":"005Oa000003fFuDIAU","Secondary_RBM__c":"005Oa000003wiQMIAY","RecordTypeId":"012AD000001tpEDYAY","Primary_RBM__r":{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/005Oa000003fFuDIAU"},"Id":"005Oa000003fFuDIAU","Lan_Id__c":"sauDevtest"},"Secondary_RBM__r":{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/005Oa000003wiQMIAY"},"Id":"005Oa000003wiQMIAY","Lan_Id__c":"utkarsh9"}}',
+      Broker_Relation__c.class
+    );
+
+    return new List<Broker_Relation__c>{ oldBrokerSet, newBrokerSet };
+  }
+
+  /**
+   * @description to create mock rbm users
+   * @author  Atharv Jakate | Salesforce | 23-06-2025
+   * @return List<User>
+   **/
+  private static List<User> mockRbmUserList() {
+    List<User> userList = (List<User>) JSON.deserialize(
+      '[{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/005Oa000003fFuDIAU"},"Id":"005Oa000003fFuDIAU","Name":"Saurabh Chauhan","Lan_Id__c":"sauDevtest"},{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/0055m000000XnEPAA0"},"Id":"0055m000000XnEPAA0","Name":"Jasmine Nguyen","Lan_Id__c":"jasTest"},{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/005Oa000005OyubIAC"},"Id":"005Oa000005OyubIAC","Name":"Manish Bisht","Lan_Id__c":"manish5"},{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/005Oa000003wiQMIAY"},"Id":"005Oa000003wiQMIAY","Name":"Utkarsh Singh","Lan_Id__c":"utkarsh9"}]',
+      List<User>.class
+    );
+
+    return userList;
   }
 }

@@ -17,6 +17,11 @@ public without sharing class LeadConversionOperations {
   private static final String CONVERT_LEAD = 'ConvertLead';
   private static final String MLCRM = 'MLCRM';
   private static final String INDIVIDUAL = 'Individual';
+  private static final Set<String> LEAD_ORIGINATOR_FOR_PLATFORMEVENT = new Set<String>{
+    'UNICA',
+    'Adobe',
+    'CCRM'
+  };
 
   /**
    * @description convertLead convert leads
@@ -194,8 +199,7 @@ public without sharing class LeadConversionOperations {
   @testVisible
   private static Id getLeadIdForUnicaAdobeOnLC(Lead leadRecord) {
     if (
-      leadRecord.RecordTypeId != RTLead.mlcrmLead ||
-      leadRecord.Lead_Originator__c != MLCRM
+      LEAD_ORIGINATOR_FOR_PLATFORMEVENT.contains(leadRecord.Lead_Originator__c)
     ) {
       return leadRecord.id;
     }

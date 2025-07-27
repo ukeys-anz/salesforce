@@ -22,7 +22,7 @@ public with sharing class BrokerRelationDataCEBuilder {
    * @param rbmType type of rbm primary or secondary
    * @return BrokerCloudEventModel.MasterNode
    **/
-  public static BrokerCloudEventModel.MasterNode buildBrokerRelationAdd(
+  public static BrokerCloudEventModel.MasterNode buildBrokerRelationAddEvent(
     Contact record,
     String rbmType
   ) {
@@ -49,7 +49,7 @@ public with sharing class BrokerRelationDataCEBuilder {
    * @param oldBrokerSet older broker set record of type LanIdWrapper
    * @return BrokerCloudEventModel.MasterNode
    **/
-  public static BrokerCloudEventModel.MasterNode buildBrokerRelationDelete(
+  public static BrokerCloudEventModel.MasterNode buildBrokerRelationDeleteEvent(
     Contact record,
     String rbmType,
     RetailBrokerRelationEventActions.LanIdWrapper oldBrokerSet

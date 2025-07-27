@@ -7,11 +7,9 @@
 public with sharing class SOPUpdateSOPAndPartyRequestModelTest {
   @isTest
   static void testSOPUpdateSOPAndPartyRequestModel() {
-    String ocvId = '123456';
     Test.startTest();
     SOPUpdateSOPAndPartyRequestModel updateModel = new SOPUpdateSOPAndPartyRequestModel(
-      getSOPViewModel,
-      ocvId
+      getSOPViewModel
     );
     SOPUpdateSOPAndPartyRequestModel updateModelWithoutParameters = new SOPUpdateSOPAndPartyRequestModel();
     Test.stopTest();

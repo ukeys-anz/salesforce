@@ -28,7 +28,7 @@
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>true</isNavPersonalizationDisabled>
     <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
-    <label>Broker Workbench</label>
+        <label>Broker Workbench</label>
     <navType>Console</navType>
     <profileActionOverrides>
         <actionName>View</actionName>

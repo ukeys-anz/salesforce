@@ -3,7 +3,7 @@
     <fullName>Prevent_RBM_Update_Each_Others_Broker</fullName>
     <active>true</active>
     <description>Prevent Residential Broker Managers(RMBs) from updating Brokers not assigned to them.</description>
-    <errorConditionFormula>RecordType.DeveloperName == &apos;Broker&apos;
+    <errorConditionFormula>$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false &amp;&amp; RecordType.DeveloperName == &apos;Broker&apos;
 &amp;&amp;  $UserRole.DeveloperName ==  &apos;Residential_Broker_Manager&apos;
 &amp;&amp;  Is_MyBroker__c == false</errorConditionFormula>
     <errorMessage>You can only update the brokers assigned to you.</errorMessage>

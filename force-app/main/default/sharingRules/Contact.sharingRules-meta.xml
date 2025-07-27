@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
-        <fullName>Broker_Contacts</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Share Contact records with Broker record type to Retail Brokers and
-            Subordinates.</description>
-        <label>Broker Contacts</label>
-        <sharedTo>
-            <roleAndSubordinates>Retail_Broker</roleAndSubordinates>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Broker</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>Commercial_Broker_Contacts_Read_Only_Access</fullName>
         <accessLevel>Read</accessLevel>
         <description>Share Contact records with Broker record type to Commercial Banking</description>
@@ -42,21 +26,6 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Organisation,Individual,Business</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Enablement_Manager_Edit_Broker_Contact</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Grant Enablement Manager access to Read/Write Broker Profile (Contact) records.</description>
-        <label>Enablement Manager Edit Broker Contact</label>
-        <sharedTo>
-            <role>Broker_Enablement_Manager</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Broker</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

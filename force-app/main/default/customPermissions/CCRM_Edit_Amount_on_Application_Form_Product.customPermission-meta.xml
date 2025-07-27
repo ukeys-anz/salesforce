@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Enables Users to Edit Amount field on Application Form Product Page</description>
+    <isLicensed>false</isLicensed>
+    <label>CCRM_Edit_Amount_on_Application_Form_Product</label>
+</CustomPermission>

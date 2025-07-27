@@ -72,7 +72,7 @@
         <label>BOH Web Explore call back request</label>
     </standardValue>
     <standardValue>
-        <fullName>ACTIVITY_TYPE_PUSH_TO_APP</fullName>
+        <fullName>TASK_TYPE_PUSH_TO_APP</fullName>
         <default>false</default>
         <label>Push To App</label>
     </standardValue>

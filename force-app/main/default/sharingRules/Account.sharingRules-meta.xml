@@ -227,6 +227,16 @@
             <operation>equals</operation>
             <value>Organisation</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>OCV_ID__c</field>
+            <operation>equals</operation>
+            <value>anzx-broker-aggregator</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>External_Id__c</field>
+            <operation>equals</operation>
+            <value>anzx-broker-aggregator</value>
+        </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>

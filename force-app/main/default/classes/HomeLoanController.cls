@@ -28,7 +28,7 @@ public with sharing class HomeLoanController {
       );
       return hloanapi.getHomeLoanAccounts(ocvId, accountNumbers);
     } catch (Exception exp) {
-      throw new AuraHandledException(exp.getMessage());
+      throw new AuraHandledException('Failure on Get Home Loan Account');
     }
   }
 
@@ -92,14 +92,12 @@ public with sharing class HomeLoanController {
         accNumberToFinAccountMap
       );
       return result;
-    } catch (NotFoundException exp) {
+    } catch (HomeLoanAPIRepository.UserErrorException exp) {
       return null;
     } catch (Exception ex) {
-      OffsetAccountModel offsetError = new OffsetAccountModel();
-      offsetError.hasError = true;
-      Logger.error('Failure on Get List Offset', ex);
+      Logger.info('Failure on Get List Offset', ex);
       Logger.saveLog();
-      return offsetError;
+      throw new AuraHandledException('Failure on Get List Offset');
     }
   }
 
@@ -117,10 +115,5 @@ public with sharing class HomeLoanController {
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
     }
-  }
-  /**
-   * @description custom exception
-   */
-  public class NotFoundException extends Exception {
   }
 }

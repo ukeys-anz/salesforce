@@ -16,69 +16,90 @@ public with sharing class RetailBrokerRelationEventActions {
   );
   /**
    * @description Publish event for broker relation when triggered from Contact
-   * @param brokerIdToEventTypeMap Map of broker Id to event type
+   * @param updatedBrokers broker record Ids eligible for Broker Relation event
    * @param oldMap map of old contacts from trigger context
    * @return List of success published events
    */
-  public static List<SObject> publishEventForBrokerRelation(
-    Map<Id, String> brokerIdToEventTypeMap,
+  public static List<SObject> publishBrokerRelationEventFromContact(
+    Set<Id> updatedBrokers,
     Map<Id, Contact> oldMap
   ) {
-    List<Contact> brokers = CONTACT_REPOSITORY.getContacts(
-      brokerIdToEventTypeMap.keySet()
+    List<Contact> brokers = CONTACT_REPOSITORY.getContacts(updatedBrokers);
+    Set<Id> oldBrokerSetIds = ListUtil.getIds(
+      oldMap.values(),
+      Contact.Broker_Set__c
     );
-    Map<Id, Broker_Relation__c> brokerSetMapForOldContacts = BROKER_RELATION_REPOSITORY.queryBrokerRelationWithRbmDetails(
-      ListUtil.getIds(oldMap.values(), Contact.Broker_Set__c)
+    List<Broker_Relation__c> brokerRelationsWithRBMInfo = BROKER_RELATION_REPOSITORY.queryBrokerRelationWithRbmDetails(
+      oldBrokerSetIds
     );
-    Map<Id, LanIdWrapper> contIdAndOldRbmLanIdMap = createContactAndLanIdMap(
+    Map<Id, Broker_Relation__c> brokerSetMapForOldContacts = (Map<Id, Broker_Relation__c>) ListUtil.mapBy(
+      brokerRelationsWithRBMInfo,
+      Broker_Relation__c.Id
+    );
+    List<PayloadInputWrapper> payloadInputList = getPayloadInputListForContacts(
       brokers,
       oldMap,
       brokerSetMapForOldContacts
     );
-    BrokerRelationEventWrapper brokerRelationEvent = getBrokerRelationEvent(
-      brokers,
-      brokerIdToEventTypeMap,
-      contIdAndOldRbmLanIdMap
-    );
-    List<BrokerCloudEventModel> cloudEventModels = createCloudEvents(
-      brokerRelationEvent
-    );
-    List<SObject> successPublishedEvents = CloudEventController.publishCloudEvents(
-      cloudEventModels
-    );
-    logSuccessEvents(successPublishedEvents);
+    List<SObject> successPublishedEvents = publishEvents(payloadInputList);
     return successPublishedEvents;
   }
 
   /**
    * @description Publish event for broker relation when triggered from Broker Set
-   * @param updatedBrokerSets contains the updated broker set where at least one rbm got changed
+   * @param oldBrokerSetRecords contains old broker set records where, at least one rbm got changed
    * @return List of success published events
    */
-  public static List<SObject> publishEventForBrokerRelation(
-    List<Broker_Relation__c> updatedBrokerSets
+  public static List<SObject> publishBrokerRelationEventFromBrokerSet(
+    List<Broker_Relation__c> oldBrokerSetRecords
   ) {
+    Map<Id, Broker_Relation__c> brokerSetMap = (Map<Id, Broker_Relation__c>) ListUtil.mapBy(
+      oldBrokerSetRecords,
+      Broker_Relation__c.Id
+    );
     List<Contact> brokerList = CONTACT_REPOSITORY.getBrokerSetContacts(
-      ListUtil.getIds(updatedBrokerSets, Broker_Relation__c.Id)
+      brokerSetMap.keySet()
     );
-    Map<Id, User> rbmUserMap = BROKER_RELATION_REPOSITORY.queryRbmUsers(
-      ListUtil.getIds(updatedBrokerSets, Broker_Relation__c.Primary_RBM__c),
-      ListUtil.getIds(updatedBrokerSets, Broker_Relation__c.Secondary_RBM__c)
+    Set<Id> oldPrimaryRbms = ListUtil.getIds(
+      oldBrokerSetRecords,
+      Broker_Relation__c.Primary_RBM__c
     );
-    Map<Id, LanIdWrapper> bsIdAndOldRbmLanIdMap = createBsAndLanIdMap(
+    Set<Id> oldSecondaryRbms = ListUtil.getIds(
+      oldBrokerSetRecords,
+      Broker_Relation__c.Secondary_RBM__c
+    );
+    List<User> rbUsers = BROKER_RELATION_REPOSITORY.queryRbmUsers(
+      oldPrimaryRbms,
+      oldSecondaryRbms
+    );
+    Map<Id, User> rbmUserMap = (Map<Id, User>) ListUtil.mapBy(rbUsers, User.Id);
+    List<PayloadInputWrapper> payloadInputList = getPayloadInputListForBrokerSet(
       brokerList,
       rbmUserMap,
-      (Map<Id, Broker_Relation__c>) ListUtil.mapBy(
-        updatedBrokerSets,
-        Broker_Relation__c.Id
-      )
+      brokerSetMap
     );
-    BrokerRelationEventWrapper brokerRelationEvent = getBrokerRelationEvent(
-      brokerList,
-      bsIdAndOldRbmLanIdMap
+    List<SObject> successPublishedEvents = publishEvents(payloadInputList);
+    return successPublishedEvents;
+  }
+
+  /**
+   * @description Publish broker relation events
+   * @param payloadInputList list of input wrapper needed to build payload for add and delete event
+   * @return List of success published events
+   */
+  @TestVisible
+  private static List<SObject> publishEvents(
+    List<PayloadInputWrapper> payloadInputList
+  ) {
+    List<BrokerCloudEventModel.MasterNode> cloudEventModelsAdd = generateAddEventModel(
+      payloadInputList
     );
-    List<BrokerCloudEventModel> cloudEventModels = RetailBrokerRelationEventActions.createCloudEvents(
-      brokerRelationEvent
+    List<BrokerCloudEventModel.MasterNode> cloudEventModelsDelete = generateDeleteEventModel(
+      payloadInputList
+    );
+    List<BrokerCloudEventModel> cloudEventModels = createCloudEvents(
+      cloudEventModelsAdd,
+      cloudEventModelsDelete
     );
     List<SObject> successPublishedEvents = CloudEventController.publishCloudEvents(
       cloudEventModels
@@ -88,169 +109,199 @@ public with sharing class RetailBrokerRelationEventActions {
   }
 
   /**
-   * @description Create a map of broker Id and it's old rbm lan Ids
+   * @description Create a list of PayloadInputWrapper
    * @param brokerList contact related to updated broker sets
    * @param oldMap map of old contacts from trigger context
    * @param brokerSetMapForOldContacts map of old broker set id and it's detail map
-   * @return Map<Id, LanIdWrapper>
+   * @return List<PayloadInputWrapper>
    */
   @TestVisible
-  private static Map<Id, LanIdWrapper> createContactAndLanIdMap(
+  private static List<PayloadInputWrapper> getPayloadInputListForContacts(
     List<Contact> brokerList,
     Map<Id, Contact> oldMap,
     Map<Id, Broker_Relation__c> brokerSetMapForOldContacts
   ) {
-    Map<Id, LanIdWrapper> contactIdAndOldRbmLanIdMap = new Map<Id, LanIdWrapper>();
+    List<PayloadInputWrapper> inputWrapperList = new List<PayloadInputWrapper>();
     for (Contact broker : brokerList) {
-      LanIdWrapper brokerSetRbmLanIds = new LanIdWrapper();
+      LanIdWrapper oldRbmLanIds = new LanIdWrapper();
       Id olderBrokerSetId = oldMap.get(broker.Id).Broker_Set__c;
-      brokerSetRbmLanIds.prbmLanId = brokerSetMapForOldContacts.get(
-          olderBrokerSetId
-        )
+      oldRbmLanIds.prbmLanId = brokerSetMapForOldContacts.get(olderBrokerSetId)
         ?.Primary_RBM__r
         ?.Lan_Id__c;
-      brokerSetRbmLanIds.srbmLanId = brokerSetMapForOldContacts.get(
-          olderBrokerSetId
-        )
+      oldRbmLanIds.srbmLanId = brokerSetMapForOldContacts.get(olderBrokerSetId)
         ?.Secondary_RBM__r
         ?.Lan_Id__c;
-      contactIdAndOldRbmLanIdMap.put(broker.Id, brokerSetRbmLanIds);
+
+      PayloadInputWrapper inputWrapper = new PayloadInputWrapper();
+      inputWrapper.oldBrokerSet = oldRbmLanIds;
+      inputWrapper.broker = broker;
+      inputWrapper.rbmType = returnRbmType(broker, oldRbmLanIds);
+      inputWrapperList.add(inputWrapper);
     }
-    return contactIdAndOldRbmLanIdMap;
+    return inputWrapperList;
   }
 
   /**
-   * @description Create a map of broker set Id and it's old rbm lan ids
+   * @description Create a list of PayloadInputWrapper
    * @param brokerList contact related to updated broker sets
    * @param rbmUserMap user id and user detail map
    * @param oldBrokerSetRecordMap old broker set id and it's detail map
-   * @return Map<Id, LanIdWrapper>
+   * @return List<PayloadInputWrapper>
    */
   @TestVisible
-  private static Map<Id, LanIdWrapper> createBsAndLanIdMap(
+  private static List<PayloadInputWrapper> getPayloadInputListForBrokerSet(
     List<Contact> brokerList,
     Map<Id, User> rbmUserMap,
     Map<Id, Broker_Relation__c> oldBrokerSetRecordMap
   ) {
-    Map<Id, LanIdWrapper> bsIdAndOldRbmLanIdMap = new Map<Id, LanIdWrapper>();
+    List<PayloadInputWrapper> inputWrapperList = new List<PayloadInputWrapper>();
     for (Contact broker : brokerList) {
-      LanIdWrapper brokerSetRbmLanIds = new LanIdWrapper();
-      brokerSetRbmLanIds.prbmLanId = rbmUserMap.get(
+      LanIdWrapper oldRbmLanIds = new LanIdWrapper();
+      oldRbmLanIds.prbmLanId = rbmUserMap.get(
           oldBrokerSetRecordMap.get(broker.Broker_Set__c)?.Primary_RBM__c
         )
         ?.Lan_Id__c;
-      brokerSetRbmLanIds.srbmLanId = rbmUserMap.get(
+      oldRbmLanIds.srbmLanId = rbmUserMap.get(
           oldBrokerSetRecordMap.get(broker.Broker_Set__c)?.Secondary_RBM__c
         )
         ?.Lan_Id__c;
-      bsIdAndOldRbmLanIdMap.put(broker.Broker_Set__c, brokerSetRbmLanIds);
+
+      PayloadInputWrapper inputWrapper = new PayloadInputWrapper();
+      inputWrapper.oldBrokerSet = oldRbmLanIds;
+      inputWrapper.rbmType = returnRbmType(broker, oldRbmLanIds);
+      inputWrapper.broker = broker;
+      inputWrapperList.add(inputWrapper);
     }
-    return bsIdAndOldRbmLanIdMap;
+    return inputWrapperList;
   }
 
   /**
-   * @description Generate BrokerRelationEventWrapper instance to pass it for publishing broker relation event triggered from Contact update
-   * @param brokers List of broker contact
-   * @param brokerIdToEventTypeMap Map of broker Id to event type
-   * @param contIdAndOldRbmLanIdMap map of old contacts and it's rbm's lanIds
-   * @return BrokerRelationEventWrapper
+   * @description Generate Broker Relation related Cloud Event Model for Add event
+   * @param payloadInputList List of payload input wrapper
+   * @return List<BrokerCloudEventModel.MasterNode>
    */
   @TestVisible
-  private static BrokerRelationEventWrapper getBrokerRelationEvent(
-    List<Contact> brokers,
-    Map<Id, String> brokerIdToEventTypeMap,
-    Map<Id, LanIdWrapper> contIdAndOldRbmLanIdMap
+  private static List<BrokerCloudEventModel.MasterNode> generateAddEventModel(
+    List<PayloadInputWrapper> payloadInputList
   ) {
-    List<BrokerCloudEventModel.MasterNode> cloudEventModelsDelete = new List<BrokerCloudEventModel.MasterNode>();
-    List<BrokerCloudEventModel.MasterNode> cloudEventModelsAdd = new List<BrokerCloudEventModel.MasterNode>();
-
-    for (Contact broker : brokers) {
-      String eventType = brokerIdToEventTypeMap.get(broker.Id);
-      LanIdWrapper oldBrokerSet = contIdAndOldRbmLanIdMap.get(broker.Id);
-      cloudEventModelsAdd.addAll(
-        generateBrokerRelationCEModel(
-          broker,
-          BROKER_RELATION_EVENT_ADD,
-          oldBrokerSet
-        )
-      );
-      if (eventType == BROKER_RELATION_EVENT_DELETE) {
-        cloudEventModelsDelete.addAll(
-          generateBrokerRelationCEModel(
-            broker,
-            BROKER_RELATION_EVENT_DELETE,
-            oldBrokerSet
+    List<BrokerCloudEventModel.MasterNode> masterNodes = new List<BrokerCloudEventModel.MasterNode>();
+    for (PayloadInputWrapper inputWrapper : payloadInputList) {
+      if (inputWrapper.rbmType.contains('PRBM' + BROKER_RELATION_EVENT_ADD)) {
+        masterNodes.add(
+          BrokerRelationDataCEBuilder.buildBrokerRelationAddEvent(
+            inputWrapper.broker,
+            'PRBM'
+          )
+        );
+      }
+      if (inputWrapper.rbmType.contains('SRBM' + BROKER_RELATION_EVENT_ADD)) {
+        masterNodes.add(
+          BrokerRelationDataCEBuilder.buildBrokerRelationAddEvent(
+            inputWrapper.broker,
+            'SRBM'
           )
         );
       }
     }
-    BrokerRelationEventWrapper brokerRelationEvent = new BrokerRelationEventWrapper();
-    brokerRelationEvent.cloudEventModelsDelete = cloudEventModelsDelete;
-    brokerRelationEvent.cloudEventModelsAdd = cloudEventModelsAdd;
-    return brokerRelationEvent;
+    return masterNodes;
   }
 
   /**
-   * @description Generate BrokerRelationEventWrapper instance to pass it for publishing broker relation event triggered from Broker Relation update
-   * @param brokers List of broker contact
-   * @param bsIdAndOldRbmLanIdMap Map of broker set Id to it's old rbm lanIds
-   * @return BrokerRelationEventWrapper
+   * @description Generate Broker Relation related Cloud Event Model for Delete event
+   * @param payloadInputList List of payload input wrapper
+   * @return List<BrokerCloudEventModel.MasterNode>
    */
   @TestVisible
-  private static RetailBrokerRelationEventActions.BrokerRelationEventWrapper getBrokerRelationEvent(
-    List<Contact> brokers,
-    Map<Id, LanIdWrapper> bsIdAndOldRbmLanIdMap
+  private static List<BrokerCloudEventModel.MasterNode> generateDeleteEventModel(
+    List<PayloadInputWrapper> payloadInputList
   ) {
-    RetailBrokerRelationEventActions.BrokerRelationEventWrapper brokerRelationEvent = new RetailBrokerRelationEventActions.BrokerRelationEventWrapper();
-    List<BrokerCloudEventModel.MasterNode> cloudEventModelsDelete = new List<BrokerCloudEventModel.MasterNode>();
-    List<BrokerCloudEventModel.MasterNode> cloudEventModelsAdd = new List<BrokerCloudEventModel.MasterNode>();
-
-    for (Contact broker : brokers) {
-      RetailBrokerRelationEventActions.LanIdWrapper oldBrokerSetLanIds = bsIdAndOldRbmLanIdMap.get(
-        broker.Broker_Set__c
-      );
-      cloudEventModelsAdd.addAll(
-        RetailBrokerRelationEventActions.generateBrokerRelationCEModel(
-          broker,
-          RetailBrokerRelationEventActions.BROKER_RELATION_EVENT_ADD,
-          oldBrokerSetLanIds
-        )
-      );
-      cloudEventModelsDelete.addAll(
-        RetailBrokerRelationEventActions.generateBrokerRelationCEModel(
-          broker,
-          RetailBrokerRelationEventActions.BROKER_RELATION_EVENT_DELETE,
-          oldBrokerSetLanIds
-        )
-      );
+    List<BrokerCloudEventModel.MasterNode> masterNodes = new List<BrokerCloudEventModel.MasterNode>();
+    for (PayloadInputWrapper inputWrapper : payloadInputList) {
+      if (
+        inputWrapper.rbmType.contains('PRBM' + BROKER_RELATION_EVENT_DELETE)
+      ) {
+        masterNodes.add(
+          BrokerRelationDataCEBuilder.buildBrokerRelationDeleteEvent(
+            inputWrapper.broker,
+            'PRBM',
+            inputWrapper.oldBrokerSet
+          )
+        );
+      }
+      if (
+        inputWrapper.rbmType.contains('SRBM' + BROKER_RELATION_EVENT_DELETE)
+      ) {
+        masterNodes.add(
+          BrokerRelationDataCEBuilder.buildBrokerRelationDeleteEvent(
+            inputWrapper.broker,
+            'SRBM',
+            inputWrapper.oldBrokerSet
+          )
+        );
+      }
     }
-    brokerRelationEvent.cloudEventModelsDelete = cloudEventModelsDelete;
-    brokerRelationEvent.cloudEventModelsAdd = cloudEventModelsAdd;
-    return brokerRelationEvent;
+    return masterNodes;
+  }
+
+  /**
+   * @description To decide which rbms are needed to be passed in broker relation event payload
+   * @param broker Contact record
+   * @param oldBrokerSet older broker set record of type LanIdWrapper
+   * @return Set<String>
+   */
+  @TestVisible
+  private static Set<String> returnRbmType(
+    Contact broker,
+    LanIdWrapper oldBrokerSet
+  ) {
+    Set<String> rbmType = new Set<String>();
+
+    if (
+      broker.Broker_Set__r.Primary_RBM__r.Lan_Id__c != oldBrokerSet.prbmLanId
+    ) {
+      rbmType.add('PRBM' + BROKER_RELATION_EVENT_ADD);
+    }
+
+    if (oldBrokerSet.prbmLanId != null && !rbmType.isEmpty()) {
+      rbmType.add('PRBM' + BROKER_RELATION_EVENT_DELETE);
+    }
+
+    if (
+      broker.Broker_Set__r?.Secondary_RBM__r?.Lan_Id__c ==
+      oldBrokerSet.srbmLanId
+    ) {
+      return rbmType;
+    }
+
+    if (broker.Broker_Set__r?.Secondary_RBM__c != null) {
+      rbmType.add('SRBM' + BROKER_RELATION_EVENT_ADD);
+    }
+
+    if (oldBrokerSet?.srbmLanId != null) {
+      rbmType.add('SRBM' + BROKER_RELATION_EVENT_DELETE);
+    }
+
+    return rbmType;
   }
 
   /**
    * @description To transform broker relation event as List<BrokerCloudEventModel>
-   * @param brokerRelationEvent instance of BrokerRelationEventWrapper class
+   * @param cloudEventModelsAdd Add event payload for Broker Relation event
+   * @param cloudEventModelsDelete Delete event payload for Broker Relation event
    * @return List<BrokerCloudEventModel>
    */
   @TestVisible
   private static List<BrokerCloudEventModel> createCloudEvents(
-    BrokerRelationEventWrapper brokerRelationEvent
+    List<BrokerCloudEventModel.MasterNode> cloudEventModelsAdd,
+    List<BrokerCloudEventModel.MasterNode> cloudEventModelsDelete
   ) {
     List<BrokerCloudEventModel> cloudEventModels = new List<BrokerCloudEventModel>();
 
     cloudEventModels.addAll(
-      createEventBatches(
-        brokerRelationEvent.cloudEventModelsAdd,
-        BROKER_RELATION_EVENT_ADD
-      )
+      createEventBatches(cloudEventModelsAdd, BROKER_RELATION_EVENT_ADD)
     );
     cloudEventModels.addAll(
-      createEventBatches(
-        brokerRelationEvent.cloudEventModelsDelete,
-        BROKER_RELATION_EVENT_DELETE
-      )
+      createEventBatches(cloudEventModelsDelete, BROKER_RELATION_EVENT_DELETE)
     );
 
     return cloudEventModels;
@@ -268,143 +319,28 @@ public with sharing class RetailBrokerRelationEventActions {
     String eventType
   ) {
     List<BrokerCloudEventModel> cloudEventModels = new List<BrokerCloudEventModel>();
-    Integer maxSize = Integer.valueOf(
+    final Integer eventBatchSize = Integer.valueOf(
       System.Label.ANZX_Broker_Relation_event_batch_size
     );
-    for (Integer i = 0; i < cloudEventModelsList.size(); i += maxSize) {
-      List<Object> eventBatch = ListUtil.subList(
+    final Integer numOfEvents = cloudEventModelsList.size();
+
+    // process all cloud events in chunks of size = 'eventBatchSize'.
+    for (Integer i = 0; i < numOfEvents; i += eventBatchSize) {
+      // increments by 'eventBatchSize'
+      List<Object> anEventBatch = ListUtil.subList(
         cloudEventModelsList,
         i,
-        maxSize
+        eventBatchSize
       );
+      // prepare a list of batches, each with a maximum of "eventBatchSize" events.
       cloudEventModels.add(
         new BrokerRelationDataCloudEventModel(
-          (List<BrokerCloudEventModel.MasterNode>) eventBatch,
+          (List<BrokerCloudEventModel.MasterNode>) anEventBatch,
           eventType
         )
       );
     }
     return cloudEventModels;
-  }
-
-  /**
-   * @description Generate Broker Relation related Cloud Event Model
-   * @param broker Contact record
-   * @param eventType event type
-   * @param oldBrokerSet older broker set record of type LanIdWrapper
-   * @return List<BrokerCloudEventModel.MasterNode>
-   */
-  @TestVisible
-  private static List<BrokerCloudEventModel.MasterNode> generateBrokerRelationCEModel(
-    Contact broker,
-    String eventType,
-    LanIdWrapper oldBrokerSet
-  ) {
-    Set<String> rbmType = returnRbmType(broker, oldBrokerSet, eventType);
-
-    if (rbmType.isEmpty()) {
-      return new List<BrokerCloudEventModel.MasterNode>();
-    }
-
-    List<BrokerCloudEventModel.MasterNode> masterNodes = new List<BrokerCloudEventModel.MasterNode>();
-    if (rbmType.contains('PRBM')) {
-      List<BrokerCloudEventModel.MasterNode> primaryRbmMasterNodes = eventType ==
-        BROKER_RELATION_EVENT_ADD
-        ? buildBrokerRelationAdd(broker, 'PRBM')
-        : buildBrokerRelationDelete(broker, 'PRBM', oldBrokerSet);
-      masterNodes.addAll(primaryRbmMasterNodes);
-    }
-
-    if (rbmType.contains('SRBM')) {
-      List<BrokerCloudEventModel.MasterNode> secondaryRbmMasterNodes = eventType ==
-        BROKER_RELATION_EVENT_ADD
-        ? buildBrokerRelationAdd(broker, 'SRBM')
-        : buildBrokerRelationDelete(broker, 'SRBM', oldBrokerSet);
-      masterNodes.addAll(secondaryRbmMasterNodes);
-    }
-    return masterNodes;
-  }
-
-  /**
-   * @description To decide which rbms are needed to be passed in broker relation event payload
-   * @param broker Contact record
-   * @param oldBrokerSet older broker set record of type LanIdWrapper
-   * @param eventType event type
-   * @return Set<String>
-   */
-  @TestVisible
-  private static Set<String> returnRbmType(
-    Contact broker,
-    LanIdWrapper oldBrokerSet,
-    String eventType
-  ) {
-    Boolean primaryRbmChanged =
-      broker?.Broker_Set__r?.Primary_RBM__r?.Lan_Id__c !=
-      oldBrokerSet?.prbmLanId;
-
-    Boolean secondaryRbmChanged =
-      broker?.Broker_Set__r?.Secondary_RBM__r?.Lan_Id__c !=
-      oldBrokerSet?.srbmLanId;
-
-    Boolean secRbmOnContactAvailable =
-      broker?.Broker_Set__r?.Secondary_RBM__c != null;
-
-    Boolean secRbmOnBrokerSetAvailable = oldBrokerSet.srbmLanId != null;
-
-    Set<String> rbmType = new Set<String>();
-    if (primaryRbmChanged) {
-      rbmType.add('PRBM');
-    }
-    if (
-      secondaryRbmChanged &&
-      ((secRbmOnContactAvailable && eventType == BROKER_RELATION_EVENT_ADD) ||
-      (secRbmOnBrokerSetAvailable && eventType == BROKER_RELATION_EVENT_DELETE))
-    ) {
-      rbmType.add('SRBM');
-    }
-    return rbmType;
-  }
-
-  /**
-   * @description Build the master nodes for broker relation add event
-   * @param record the new contact record in trigger context
-   * @param rbmType type of event
-   * @return List<BrokerCloudEventModel.MasterNode>
-   */
-  @TestVisible
-  private static List<BrokerCloudEventModel.MasterNode> buildBrokerRelationAdd(
-    Contact record,
-    String rbmType
-  ) {
-    List<BrokerCloudEventModel.MasterNode> masterNodes = new List<BrokerCloudEventModel.MasterNode>();
-    masterNodes.add(
-      BrokerRelationDataCEBuilder.buildBrokerRelationAdd(record, rbmType)
-    );
-    return masterNodes;
-  }
-
-  /**
-   * @description Build the master nodes for broker relation delete event
-   * @param record the new contact record in trigger context
-   * @param rbmType type of event
-   * @param oldBrokerSet older broker set record of broker contact
-   * @return List<BrokerCloudEventModel.MasterNode>
-   */
-  @TestVisible
-  private static List<BrokerCloudEventModel.MasterNode> buildBrokerRelationDelete(
-    Contact record,
-    String rbmType,
-    LanIdWrapper oldBrokerSet
-  ) {
-    List<BrokerCloudEventModel.MasterNode> masterNodes = new List<BrokerCloudEventModel.MasterNode>();
-    masterNodes.add(
-      BrokerRelationDataCEBuilder.buildBrokerRelationDelete(
-        record,
-        rbmType,
-        oldBrokerSet
-      )
-    );
-    return masterNodes;
   }
 
   /**
@@ -423,26 +359,6 @@ public with sharing class RetailBrokerRelationEventActions {
   }
 
   /**
-   * @description Master Node class for creating and storing MasterNode details
-   **/
-  public class BrokerRelationEventWrapper {
-    /**
-     * @description to capture source object external id
-     **/
-    public List<BrokerCloudEventModel.MasterNode> cloudEventModelsAdd {
-      get;
-      set;
-    }
-    /**
-     * @description to capture source object name
-     **/
-    public List<BrokerCloudEventModel.MasterNode> cloudEventModelsDelete {
-      get;
-      set;
-    }
-  }
-
-  /**
    * @description Wrapper class to hold details of old broker set
    **/
   public class LanIdWrapper {
@@ -454,5 +370,23 @@ public with sharing class RetailBrokerRelationEventActions {
      * @description to capture secondary rbm lan id
      **/
     public String srbmLanId { get; set; }
+  }
+
+  /**
+   * @description Wrapper class to get inputs needed to generate event payload
+   **/
+  public class PayloadInputWrapper {
+    /**
+     * @description to capture broker details
+     **/
+    public Contact broker { get; set; }
+    /**
+     * @description to capture old rbm lan ids
+     **/
+    public LanIdWrapper oldBrokerSet { get; set; }
+    /**
+     * @description to capture changed RBMs
+     **/
+    public Set<String> rbmType { get; set; }
   }
 }

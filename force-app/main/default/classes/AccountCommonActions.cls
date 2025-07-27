@@ -16,6 +16,9 @@ public with sharing class AccountCommonActions {
   @TestVisible
   public static Boolean forceDMLError = false; // This is to force a DML error to increase unit test coverage
 
+  private static final DmlRepository DML = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
   /**
    * @description checkForAccountDeletion is called to check if the Deleted_In_OCV__c flag is updated for deletion
    * @param records The Account records passed from Trigger.new()
@@ -295,67 +298,56 @@ public with sharing class AccountCommonActions {
    * @param accounts The Account records passed from Trigger.new()
    */
   public static void linkKYCQACasesToAccount(List<Account> accounts) {
-    Set<String> ocvIds = AccountCommonActionsHelper.getOcvIdsFromAccounts(
-      accounts
-    );
-    Map<String, Case> ocvIdToKYCQACaseMap = AccountCommonActionsHelper.getKYCQACasesFromOcvIds(
-      ocvIds
-    );
+    Logger.debug('Linking KYCQACases To ANZ Accounts started.');
+    List<Account> filteredAccs = ListUtil.filter(accounts)
+      .equals(Account.ANZx_Customer__c, true)
+      .toList();
+    Logger.debug('Number of ANZ Accounts to process: ' + filteredAccs.size());
 
-    Set<String> mobileNumbers = AccountCommonActionsHelper.getMobileNumbersFromAccounts(
-      accounts
+    //Concidering OCV matching take presedence, we first run Mobile and DOB matches, and then OCV ID and DOB matches,
+    //so it will overide the matching Mobile and DOB with the matching OCV ID and DOB
+    //but also match accounts that are not already matched by Mobile and DOB
+    Map<Id, CustomerOnboardingApplication__c> accIdToCOBMap = new Map<Id, CustomerOnboardingApplication__c>();
+    accIdToCOBMap.putAll(
+      KYCQACustomerLinkingUtil.getCobByAccountMobileAndDOB(filteredAccs)
     );
-    Map<String, Case> mobileNumberToKYCQACaseMap = AccountCommonActionsHelper.getKYCQACasesFromMobileNumbers(
-      mobileNumbers
+    accIdToCOBMap.putAll(
+      KYCQACustomerLinkingUtil.getCobByAccountOCVIdAndDOB(filteredAccs)
     );
+    Logger.debug(
+      'Number of matching Customer Onboarding Applications found: ' +
+      accIdToCOBMap.size()
+    );
+    List<Case> kycQACases = setKYCQACase(accIdToCOBMap);
+    Logger.debug('Number of KYC QA Cases to be updated: ' + kycQACases.size());
 
-    List<Case> kycQACaseToUpdateList = new List<Case>();
-    for (Account acc : accounts) {
-      String sanitisedMobileNumber = TextUtils.sanitiseMobileNumber(
-        acc.PersonMobilePhone
-      );
-      if (
-        String.isNotEmpty(acc.OCV_Id__c) &&
-        ocvIdToKYCQACaseMap.containsKey(acc.OCV_Id__c)
-      ) {
-        Case kycQACase = ocvIdToKYCQACaseMap.get(acc.OCV_Id__c);
-        kycQACase.AccountId = acc.Id;
-        kycQACaseToUpdateList.add(kycQACase);
-      } else if (
-        String.isNotEmpty(sanitisedMobileNumber) &&
-        mobileNumberToKYCQACaseMap.containsKey(sanitisedMobileNumber)
-      ) {
-        Case kycQACase = mobileNumberToKYCQACaseMap.get(sanitisedMobileNumber);
-        kycQACase.AccountId = acc.Id;
-        kycQACaseToUpdateList.add(kycQACase);
+    DML.doUpdate(
+      kycQACases,
+      new DmlConfig()
+        .allowPartial()
+        .systemMode()
+        .errorLog(CUSTOMER_LINKED_TO_KYC_QA_ERROR)
+    );
+    Logger.debug('Linking KYCQACases To ANZ Accounts completed').save();
+  }
+
+  /**
+   * @description setKYCQACase is called to set the KYC QA Case for each account
+   * @param cobsMap Map of Account Id to Customer Onboarding Application
+   * @return List<Case> list of KYC QA Cases to be updated
+   */
+  @TestVisible
+  private static List<Case> setKYCQACase(
+    Map<Id, CustomerOnboardingApplication__c> cobsMap
+  ) {
+    List<Case> cases = new List<Case>();
+    for (Id accId : cobsMap.keySet()) {
+      CustomerOnboardingApplication__c cob = cobsMap.get(accId);
+      if (cob == null || cob.Cases__r.isEmpty()) {
+        continue;
       }
+      cases.add(new Case(Id = cob.Cases__r[0].Id, AccountId = accId));
     }
-
-    List<Database.SaveResult> results = DMLUtil.updateRecords(
-      kycQACaseToUpdateList,
-      DMLUtil.ALLOW_PARTIAL_UPDATE,
-      DMLUtil.SYSTEM_MODE
-    );
-    for (Integer i = 0; i < results.size(); i++) {
-      if (results[i].isSuccess() == false || forceDMLError == true) {
-        Logger.error(
-          CUSTOMER_LINKED_TO_KYC_QA_ERROR +
-            ' Persona ID: ' +
-            kycQACaseToUpdateList.get(i).PersonaId__c +
-            (results[i].getErrors().isEmpty()
-              ? ''
-              : ' Error: ' + results[i].getErrors().get(0)),
-          Logger.Severity.HIGH
-        );
-      } else {
-        Logger.debug(
-          CUSTOMER_LINKED_TO_KYC_QA_SUCCESS +
-            ' Persona ID: ' +
-            kycQACaseToUpdateList.get(i).PersonaId__c
-        );
-      }
-    }
-
-    Logger.saveLog();
+    return cases;
   }
 }

@@ -9,6 +9,7 @@
     <columns>Broker_Set__c</columns>
     <columns>Office_Group__c</columns>
     <columns>Segment__c</columns>
+    <filterScope>Everything</filterScope>
     <filters>
         <field>Broker_Accreditation_Type__c</field>
         <operation>includes</operation>
@@ -19,7 +20,6 @@
         <operation>equals</operation>
         <value>Contact.Broker</value>
     </filters>
-    <filterScope>Everything</filterScope>
     <label>Retail Brokers</label>
     <sharedTo>
         <role>Enablement_Manager</role>

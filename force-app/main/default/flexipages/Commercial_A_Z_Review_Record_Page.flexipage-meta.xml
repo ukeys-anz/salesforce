@@ -118,10 +118,20 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.COI_Member__c</fieldItem>
-                <identifier>RecordCOI_Member_cField</identifier>
+                <fieldItem>Record.Existing_Business_Owner__c</fieldItem>
+                <identifier>RecordExisting_Business_Owner__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.A2Z_Review_Interaction_Type__c</fieldItem>
+                <identifier>RecordA2Z_Review_Interaction_Type__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-be7c276b-8c76-4aaa-8294-b8ec56f87ca6</name>
@@ -132,7 +142,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>required</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Status__c</fieldItem>
                 <identifier>RecordStatus_cField</identifier>
@@ -144,18 +154,42 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Broker_Name__c</fieldItem>
-                <identifier>RecordBroker_Name_cField</identifier>
+                <fieldItem>Record.OwnerId</fieldItem>
+                <identifier>RecordOwnerIdField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.OwnerId</fieldItem>
-                <identifier>RecordOwnerIdField</identifier>
+                <fieldItem>Record.Business_Owner__c</fieldItem>
+                <identifier>RecordBusiness_Owner_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Existing_Business_Owner__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Business_Contact__c</fieldItem>
+                <identifier>RecordIndividual_Customer_Name__cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Existing_Business_Owner__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>No</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-4dff0352-3b44-4457-bdaf-40a6b787f626</name>
@@ -220,8 +254,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Personal_Banking__c</fieldItem>
-                <identifier>RecordPersonal_Banking_cField</identifier>
+                <fieldItem>Record.Transaction_Banking__c</fieldItem>
+                <identifier>RecordTransaction_Banking_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-4893fae6-ffa5-4287-9aff-3d027319108c</name>
@@ -248,8 +282,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Transaction_Banking__c</fieldItem>
-                <identifier>RecordTransaction_Banking_cField</identifier>
+                <fieldItem>Record.Personal_Banking__c</fieldItem>
+                <identifier>RecordPersonal_Banking_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-itr2nlelvn</name>

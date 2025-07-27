@@ -39,7 +39,7 @@ public with sharing class BrokerSetTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap
    **/
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    BrokerRelationActions.populateExternalIdOnFilteredBS(
+    BrokerRelationActions.populateExternalIdOnFilteredBrokerSet(
       (Map<Id, Broker_Relation__c>) oldMap,
       (List<Broker_Relation__c>) records
     );
@@ -51,7 +51,7 @@ public with sharing class BrokerSetTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Broker_Relation__c>) oldMap,
       (List<Broker_Relation__c>) records
     );
-    BrokerRelationActions.restrictDeactivationRelatedOG(
+    BrokerRelationActions.restrictDeactivationRelatedOfficeGroup(
       (Map<Id, Broker_Relation__c>) oldMap,
       (List<Broker_Relation__c>) records
     );

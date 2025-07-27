@@ -173,7 +173,50 @@ public with sharing class CommercialLeadPlatformEventActionsTest {
     //WHEN calling a method
     Test.startTest();
     new CommercialLeadPlatformEventActions()
-      .publishLeadUpdateToUnicaOrAdobe(leadList, new List<Task>());
+      .publishLeadUpdateToUnicaOrAdobe(leadList, new List<Task>(), false);
+    Test.stopTest();
+
+    //THEN it should publish the platform Event
+    Assert.isNotNull(
+      dmlRepo.getHistory('doPublish'),
+      'doPublish should have been invoked from publishLeadUpdateToUnicaOrAdobe'
+    );
+  }
+
+  @isTest
+  static void publishLeadUpdateToUnicaOrAdobeForOwnerChangeTest() {
+    registerMocks();
+    //GIVEN leadList, userList & accList
+    Id userId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    List<Lead> leadList = new List<Lead>{
+      new Lead(
+        Id = Lib_FakeIdGenerator.getMockId(Lead.SObjectType),
+        RecordTypeId = RTLead.commercialLead,
+        OwnerId = userId,
+        Status = 'New'
+      )
+    };
+
+    Map<Id, User> mapOfOwnerLanIds = new Map<Id, User>{
+      userId => new User(Id = userId, Lan_Id__c = 'lanId1')
+    };
+
+    Map<Id, Account> mapOfAccount = new Map<Id, Account>{
+      accId => new Account(
+        Id = accId,
+        Source_System_Name__c = 'CAP-CIS',
+        Source_System_ID__c = '1245'
+      )
+    };
+
+    userActionsRepo.mock('getUserMapFromUserIds', mapOfOwnerLanIds);
+    leadActionsRepo.mock('getAccountRecords', mapOfAccount);
+
+    //WHEN calling a method
+    Test.startTest();
+    new CommercialLeadPlatformEventActions()
+      .publishLeadUpdateToUnicaOrAdobe(leadList, new List<Task>(), true);
     Test.stopTest();
 
     //THEN it should publish the platform Event
@@ -219,7 +262,7 @@ public with sharing class CommercialLeadPlatformEventActionsTest {
       leadList,
       mapOfOwnerLanIds,
       mapOfAccount,
-      mapOfOwnerLanIds
+      false
     );
     Test.stopTest();
 
@@ -254,7 +297,11 @@ public with sharing class CommercialLeadPlatformEventActionsTest {
 
     //WHEN calling a method
     Test.startTest();
-    CommercialLeadPlatformEventActions.mapSubstatus(leadList[0], leadEvent);
+    CommercialLeadPlatformEventActions.mapSubstatus(
+      leadList[0],
+      leadEvent,
+      false
+    );
     Test.stopTest();
 
     //THEN it should successfully assert

@@ -6,12 +6,6 @@
  */
 
 public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerHandler {
-  private static final Id RECORD_TYPE_ID_BROKER = RTContact.broker;
-  private static final CustomSettingsRepository BROKER_SETTINGS_REPOSITORY = (CustomSettingsRepository) Lib_InstanceProvider.forType(
-    CustomSettingsRepository.class
-  );
-  private static final String RETAIL_BROKER_ACCREDITATION_TYPE = 'Retail';
-
   /**
    * @description Constructor to initialise Trigger Handler library
    */
@@ -27,11 +21,7 @@ public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerH
   public override Boolean isValidRecord(SObject record) {
     Contact contact = (Contact) record;
 
-    return contact.RecordTypeId == RTContact.broker &&
-      contact.Broker_Accreditation_Type__c != null &&
-      contact.Broker_Accreditation_Type__c.contains(
-        RETAIL_BROKER_ACCREDITATION_TYPE
-      );
+    return contact.RecordTypeId == RTContact.broker;
   }
 
   /**

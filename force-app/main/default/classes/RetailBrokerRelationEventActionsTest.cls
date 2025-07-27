@@ -5,13 +5,13 @@
  */
 @IsTest
 public with sharing class RetailBrokerRelationEventActionsTest {
-  static Lib_MockProvider brokerRelationMock = Lib_MockProvider.forType(
+  private static final Lib_MockProvider BROKER_RELATION_REPOSITORY_MOCK = Lib_MockProvider.forType(
     BrokerRelationRepository.class
   );
-  static Lib_MockProvider retailContactMock = Lib_MockProvider.forType(
+  private static final Lib_MockProvider RETAIL_CONTACT_REPOSITORY_MOCK = Lib_MockProvider.forType(
     RetailContactRepository.class
   );
-  static Lib_MockProvider brokerSettingsMock = Lib_MockProvider.forType(
+  private static final Lib_MockProvider BROKER_SETTINGS_REPOSITORY_MOCK = Lib_MockProvider.forType(
     BrokerSettingsRepository.class
   );
 
@@ -21,165 +21,168 @@ public with sharing class RetailBrokerRelationEventActionsTest {
    **/
   @isTest
   static void testPublishBrokerRelationEvent() {
-    retailContactMock.mock('getContacts', new List<Contact>{ mockContact() });
-    brokerRelationMock.mock(
-      'queryBrokerRelationWithRbmDetails',
-      mockBrokerSetMap()
+    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
+      'getContacts',
+      new List<Contact>{ mockContact() }
     );
-    retailContactMock.mock(
+    BROKER_RELATION_REPOSITORY_MOCK.mock(
+      'queryBrokerRelationWithRbmDetails',
+      mockBrokerList()
+    );
+    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
       'getBrokerSetContacts',
       new List<Contact>{ mockContact() }
     );
-    brokerRelationMock.mock('queryRbmUsers', mockRbmUserMap());
+    BROKER_RELATION_REPOSITORY_MOCK.mock('queryRbmUsers', mockRbmUserList());
     BrokerSettings__c mockSettings = new BrokerSettings__c();
     mockSettings.BypassBrokerRelationEvent__c = false;
-    brokerSettingsMock.mock('get', mockSettings);
+    BROKER_SETTINGS_REPOSITORY_MOCK.mock('get', mockSettings);
 
     Contact oldContact = mockContact();
     oldContact.Broker_Set__c = null;
-    List<SObject> publishedEventsFromContact = RetailBrokerRelationEventActions.publishEventForBrokerRelation(
-      new Map<Id, String>{ mockContact().Id => 'add' },
+    List<SObject> publishedEventsFromContact = RetailBrokerRelationEventActions.publishBrokerRelationEventFromContact(
+      new Set<Id>{ mockContact().Id },
       new Map<Id, Contact>{ oldContact.Id => oldContact }
     );
 
-    List<SObject> publishedEventsFromBrokerSet = RetailBrokerRelationEventActions.publishEventForBrokerRelation(
+    List<SObject> publishedEventsFromBrokerSet = RetailBrokerRelationEventActions.publishBrokerRelationEventFromBrokerSet(
       mockBrokerSetMap().values()
     );
 
     Assert.isFalse(
       publishedEventsFromBrokerSet.isEmpty(),
-      'Events got published from Broker Set'
+      'Events should have published from Broker Set'
     );
     Assert.isFalse(
       publishedEventsFromContact.isEmpty(),
-      'Events got published from Contact'
+      'Events should have published from Contact'
     );
   }
 
   /**
-   * @description test method for createContactAndLanIdMap
-   * @author  Saurabh Chauhan | Salesforce | 06-03-2025
+   * @description test method for publishEvents
+   * @author  Saurabh Chauhan | Salesforce | 30-04-2025
    **/
   @isTest
-  static void testCreateContactAndLanIdMap() {
+  static void testPublishEvents() {
     Broker_Relation__c oldBrokerSet = mockBrokerSetMap().values()[0];
     Contact oldContact = mockContact();
     oldContact.Broker_Set__c = oldBrokerSet.Id;
 
-    Map<Id, RetailBrokerRelationEventActions.LanIdWrapper> contIdAndOldRbmLanIdMap = RetailBrokerRelationEventActions.createContactAndLanIdMap(
+    List<RetailBrokerRelationEventActions.PayloadInputWrapper> payloadInputList = RetailBrokerRelationEventActions.getPayloadInputListForContacts(
       new List<Contact>{ mockContact() },
       new Map<Id, Contact>{ mockContact().Id => oldContact },
       mockBrokerSetMap()
     );
-
+    List<SObject> successPublishedEvents = RetailBrokerRelationEventActions.publishEvents(
+      payloadInputList
+    );
     Assert.isFalse(
-      contIdAndOldRbmLanIdMap.isEmpty(),
-      'Map should not be empty'
-    );
-    Assert.areEqual(
-      contIdAndOldRbmLanIdMap.get(mockContact().Id).prbmLanId,
-      oldBrokerSet.Primary_RBM__r.Lan_Id__c,
-      'Old Broker set\'s primary rbm lan id is set as prbmLanId'
-    );
-    Assert.areEqual(
-      contIdAndOldRbmLanIdMap.get(mockContact().Id).srbmLanId,
-      oldBrokerSet.Secondary_RBM__r.Lan_Id__c,
-      'Old Broker set\'s secondary rbm lan id is set as srbmLanId'
+      successPublishedEvents.isEmpty(),
+      'Broker Relation events should have published'
     );
   }
 
   /**
-   * @description test method for createBsAndLanIdMap
-   * @author  Saurabh Chauhan | Salesforce | 06-03-2025
+   * @description test method for getPayloadInputListForBrokerSet
+   * @author  Saurabh Chauhan | Salesforce | 30-04-2025
    **/
   @isTest
-  static void testCreateBsAndLanIdMap() {
-    Broker_Relation__c oldBrokerSet = mockBrokerSetMap().values()[1];
-    Contact oldContact = mockContact();
-    oldContact.Broker_Set__c = oldBrokerSet.Id;
-
-    Map<Id, RetailBrokerRelationEventActions.LanIdWrapper> bsIdAndOldRbmLanIdMap = RetailBrokerRelationEventActions.createBsAndLanIdMap(
+  static void testGetPayloadInputListForBrokerSet() {
+    List<RetailBrokerRelationEventActions.PayloadInputWrapper> payloadInputList = RetailBrokerRelationEventActions.getPayloadInputListForBrokerSet(
       new List<Contact>{ mockContact() },
       mockRbmUserMap(),
       mockBrokerSetMap()
     );
 
-    Assert.isFalse(bsIdAndOldRbmLanIdMap.isEmpty(), 'Map should not be empty');
-    Assert.areEqual(
-      bsIdAndOldRbmLanIdMap.get(mockContact().Broker_Set__c).prbmLanId,
-      oldBrokerSet.Primary_RBM__r.Lan_Id__c,
-      'Old Broker set\'s primary rbm lan id is set as prbmLanId'
+    Assert.isNotNull(
+      payloadInputList[0].broker,
+      'Broker was not set on the wrapper instance'
     );
-    Assert.areEqual(
-      bsIdAndOldRbmLanIdMap.get(mockContact().Broker_Set__c).srbmLanId,
-      oldBrokerSet.Secondary_RBM__r.Lan_Id__c,
-      'Old Broker set\'s secondary rbm lan id is set as srbmLanId'
+    Assert.isNotNull(
+      payloadInputList[0].rbmType,
+      'rbmType was not set on the wrapper instance'
     );
-  }
-
-  /**
-   * @description test method for getBrokerRelationEvent triggered from Contact Update
-   * @author  Saurabh Chauhan | Salesforce | 06-03-2025
-   **/
-  @isTest
-  static void testGetBrokerRelationEventFromContact() {
-    brokerRelationMock.mock(
-      'queryBrokerRelationWithRbmDetails',
-      mockBrokerSetMap()
-    );
-
-    RetailBrokerRelationEventActions.BrokerRelationEventWrapper brokerRelationAddEvent = RetailBrokerRelationEventActions.getBrokerRelationEvent(
-      new List<Contact>{ mockContact() },
-      new Map<Id, String>{ mockContact().Id => 'add' },
-      new Map<Id, RetailBrokerRelationEventActions.LanIdWrapper>{
-        mockContact().Id => mockLanIdWrapper()
-      }
-    );
-    RetailBrokerRelationEventActions.BrokerRelationEventWrapper brokerRelationDeleteEvent = RetailBrokerRelationEventActions.getBrokerRelationEvent(
-      new List<Contact>{ mockContact() },
-      new Map<Id, String>{ mockContact().Id => 'delete' },
-      new Map<Id, RetailBrokerRelationEventActions.LanIdWrapper>{
-        mockContact().Id => mockLanIdWrapper()
-      }
-    );
-    Assert.isFalse(
-      brokerRelationAddEvent.cloudEventModelsAdd.isEmpty(),
-      'Add events were returned'
-    );
-    Assert.isFalse(
-      brokerRelationDeleteEvent.cloudEventModelsDelete.isEmpty(),
-      'Delete events were returned'
+    Assert.isNotNull(
+      payloadInputList[0].oldBrokerSet,
+      'oldBrokerSet was not set on the wrapper instance'
     );
   }
 
   /**
-   * @description test method for getBrokerRelationEvent triggered from Broker Set Update
-   * @author  Saurabh Chauhan | Salesforce | 06-03-2025
+   * @description test method for getPayloadInputListForContacts
+   * @author  Saurabh Chauhan | Salesforce | 30-04-2025
    **/
   @isTest
-  static void testGetBrokerRelationEvent() {
-    Broker_Relation__c oldBrokerSet = mockBrokerSetMap().values()[1];
+  static void testGetPayloadInputListForContacts() {
+    Broker_Relation__c oldBrokerSet = mockBrokerSetMap().values()[0];
     Contact oldContact = mockContact();
     oldContact.Broker_Set__c = oldBrokerSet.Id;
 
-    Map<Id, RetailBrokerRelationEventActions.LanIdWrapper> bsIdAndOldRbmLanIdMap = RetailBrokerRelationEventActions.createBsAndLanIdMap(
+    List<RetailBrokerRelationEventActions.PayloadInputWrapper> payloadInputList = RetailBrokerRelationEventActions.getPayloadInputListForContacts(
       new List<Contact>{ mockContact() },
-      mockRbmUserMap(),
+      new Map<Id, Contact>{ mockContact().Id => oldContact },
       mockBrokerSetMap()
     );
+    Assert.isNotNull(
+      payloadInputList[0].broker,
+      'Broker was not set on the wrapper instance'
+    );
+    Assert.isNotNull(
+      payloadInputList[0].rbmType,
+      'rbmType was not set on the wrapper instance'
+    );
+    Assert.isNotNull(
+      payloadInputList[0].oldBrokerSet,
+      'oldBrokerSet was not set on the wrapper instance'
+    );
+  }
 
-    RetailBrokerRelationEventActions.BrokerRelationEventWrapper brokerRelationEvent = RetailBrokerRelationEventActions.getBrokerRelationEvent(
+  /**
+   * @description test method for generateAddEventModel
+   * @author  Saurabh Chauhan | Salesforce | 30-04-2025
+   **/
+  @isTest
+  static void testGenerateAddEventModel() {
+    Broker_Relation__c oldBrokerSet = mockBrokerSetMap().values()[0];
+    Contact oldContact = mockContact();
+    oldContact.Broker_Set__c = oldBrokerSet.Id;
+
+    List<RetailBrokerRelationEventActions.PayloadInputWrapper> payloadInputList = RetailBrokerRelationEventActions.getPayloadInputListForContacts(
       new List<Contact>{ mockContact() },
-      bsIdAndOldRbmLanIdMap
+      new Map<Id, Contact>{ mockContact().Id => oldContact },
+      mockBrokerSetMap()
     );
+    List<BrokerCloudEventModel.MasterNode> cloudEventModelsAdd = RetailBrokerRelationEventActions.generateAddEventModel(
+      payloadInputList
+    );
+    Assert.isFalse(
+      cloudEventModelsAdd.isEmpty(),
+      'Add events should have generated.'
+    );
+  }
 
-    Assert.isFalse(
-      brokerRelationEvent.cloudEventModelsAdd.isEmpty(),
-      'Add events were returned'
+  /**
+   * @description test method for generateDeleteEventModel
+   * @author  Saurabh Chauhan | Salesforce | 30-04-2025
+   **/
+  @isTest
+  static void testGenerateDeleteEventModel() {
+    Broker_Relation__c oldBrokerSet = mockBrokerSetMap().values()[0];
+    Contact oldContact = mockContact();
+    oldContact.Broker_Set__c = oldBrokerSet.Id;
+
+    List<RetailBrokerRelationEventActions.PayloadInputWrapper> payloadInputList = RetailBrokerRelationEventActions.getPayloadInputListForContacts(
+      new List<Contact>{ mockContact() },
+      new Map<Id, Contact>{ mockContact().Id => oldContact },
+      mockBrokerSetMap()
+    );
+    List<BrokerCloudEventModel.MasterNode> cloudEventModelsDelete = RetailBrokerRelationEventActions.generateDeleteEventModel(
+      payloadInputList
     );
     Assert.isFalse(
-      brokerRelationEvent.cloudEventModelsDelete.isEmpty(),
-      'Delete events were returned'
+      cloudEventModelsDelete.isEmpty(),
+      'Delete events should have generated.'
     );
   }
 
@@ -189,26 +192,35 @@ public with sharing class RetailBrokerRelationEventActionsTest {
    **/
   @isTest
   static void testCreateCloudEvents() {
-    brokerRelationMock.mock(
+    BROKER_RELATION_REPOSITORY_MOCK.mock(
       'queryBrokerRelationWithRbmDetails',
       mockBrokerSetMap()
     );
 
-    RetailBrokerRelationEventActions.BrokerRelationEventWrapper brokerRelationAddEvent = RetailBrokerRelationEventActions.getBrokerRelationEvent(
+    Broker_Relation__c oldBrokerSet = mockBrokerSetMap().values()[0];
+    Contact oldContact = mockContact();
+    oldContact.Broker_Set__c = oldBrokerSet.Id;
+
+    List<RetailBrokerRelationEventActions.PayloadInputWrapper> payloadInputList = RetailBrokerRelationEventActions.getPayloadInputListForContacts(
       new List<Contact>{ mockContact() },
-      new Map<Id, String>{ mockContact().Id => 'add' },
-      new Map<Id, RetailBrokerRelationEventActions.LanIdWrapper>{
-        mockContact().Id => mockLanIdWrapper()
-      }
+      new Map<Id, Contact>{ mockContact().Id => oldContact },
+      mockBrokerSetMap()
     );
 
+    List<BrokerCloudEventModel.MasterNode> cloudEventModelsAdd = RetailBrokerRelationEventActions.generateAddEventModel(
+      payloadInputList
+    );
+    List<BrokerCloudEventModel.MasterNode> cloudEventModelsDelete = RetailBrokerRelationEventActions.generateDeleteEventModel(
+      payloadInputList
+    );
     List<BrokerCloudEventModel> cloudEventModels = RetailBrokerRelationEventActions.createCloudEvents(
-      brokerRelationAddEvent
+      cloudEventModelsAdd,
+      cloudEventModelsDelete
     );
 
     Assert.isFalse(
       cloudEventModels.isEmpty(),
-      'A list of type BrokerCloudEventModel is returned'
+      'A list of type BrokerCloudEventModel should have returned'
     );
   }
 
@@ -218,22 +230,28 @@ public with sharing class RetailBrokerRelationEventActionsTest {
    **/
   @isTest
   static void testCreateEventBatches() {
-    brokerRelationMock.mock(
+    BROKER_RELATION_REPOSITORY_MOCK.mock(
       'queryBrokerRelationWithRbmDetails',
       mockBrokerSetMap()
     );
 
-    RetailBrokerRelationEventActions.BrokerRelationEventWrapper brokerRelationAddEvent = RetailBrokerRelationEventActions.getBrokerRelationEvent(
+    Broker_Relation__c oldBrokerSet = mockBrokerSetMap().values()[0];
+    Contact oldContact = mockContact();
+    oldContact.Broker_Set__c = oldBrokerSet.Id;
+
+    List<RetailBrokerRelationEventActions.PayloadInputWrapper> payloadInputList = RetailBrokerRelationEventActions.getPayloadInputListForContacts(
       new List<Contact>{ mockContact() },
-      new Map<Id, String>{ mockContact().Id => 'add' },
-      new Map<Id, RetailBrokerRelationEventActions.LanIdWrapper>{
-        mockContact().Id => mockLanIdWrapper()
-      }
+      new Map<Id, Contact>{ mockContact().Id => oldContact },
+      mockBrokerSetMap()
+    );
+
+    List<BrokerCloudEventModel.MasterNode> cloudEventModelsAdd = RetailBrokerRelationEventActions.generateAddEventModel(
+      payloadInputList
     );
 
     List<BrokerCloudEventModel.MasterNode> cloudEventModelsList = new List<BrokerCloudEventModel.MasterNode>();
     for (integer i = 0; i < 60; i++) {
-      cloudEventModelsList.addAll(brokerRelationAddEvent.cloudEventModelsAdd);
+      cloudEventModelsList.addAll(cloudEventModelsAdd);
     }
     List<BrokerCloudEventModel> listOfBatches = RetailBrokerRelationEventActions.createEventBatches(
       cloudEventModelsList,
@@ -258,28 +276,6 @@ public with sharing class RetailBrokerRelationEventActionsTest {
   }
 
   /**
-   * @description test method for generateBrokerRelationCEModel
-   * @author  Saurabh Chauhan | Salesforce | 06-03-2025
-   **/
-  @isTest
-  static void testGenerateBrokerRelationCEModel() {
-    List<BrokerCloudEventModel.MasterNode> returnNodesForRbms = RetailBrokerRelationEventActions.generateBrokerRelationCEModel(
-      mockContact(),
-      'add',
-      mockLanIdWrapper()
-    );
-
-    Assert.isTrue(
-      returnNodesForRbms[0].sourceObjectExtId.contains('PRBM'),
-      'Node for Primary RBM is returned'
-    );
-    Assert.isTrue(
-      returnNodesForRbms[1].sourceObjectExtId.contains('SRBM'),
-      'Node for Secondary RBM is returned'
-    );
-  }
-
-  /**
    * @description test method for returnRbmType
    * @author  Saurabh Chauhan | Salesforce | 06-03-2025
    **/
@@ -287,52 +283,24 @@ public with sharing class RetailBrokerRelationEventActionsTest {
   static void testReturnRbmType() {
     Set<String> rbmTypeSet = RetailBrokerRelationEventActions.returnRbmType(
       mockContact(),
-      mockLanIdWrapper(),
-      'add'
-    );
-
-    Assert.isTrue(
-      rbmTypeSet.contains('PRBM'),
-      'As Primary RBM was changed, set should return PRBM'
-    );
-    Assert.isTrue(
-      rbmTypeSet.contains('SRBM'),
-      'As Primary RBM was changed, set should return SRBM'
-    );
-  }
-
-  /**
-   * @description test method for buildBrokerRelationAdd
-   * @author  Saurabh Chauhan | Salesforce | 06-03-2025
-   **/
-  @isTest
-  static void testBuildBrokerRelationAdd() {
-    List<BrokerCloudEventModel.MasterNode> addEventNode = RetailBrokerRelationEventActions.buildBrokerRelationAdd(
-      mockContact(),
-      'PRBM'
-    );
-
-    Assert.isFalse(
-      addEventNode[0].targetObjects.parent.isEmpty(),
-      'There is a parent node for add event'
-    );
-  }
-
-  /**
-   * @description test method for buildBrokerRelationDelete
-   * @author  Saurabh Chauhan | Salesforce | 06-03-2025
-   **/
-  @isTest
-  static void testBuildBrokerRelationDelete() {
-    List<BrokerCloudEventModel.MasterNode> deleteEventNode = RetailBrokerRelationEventActions.buildBrokerRelationDelete(
-      mockContact(),
-      'PRBM',
       mockLanIdWrapper()
     );
 
     Assert.isTrue(
-      deleteEventNode[0].targetObjects.parent == null,
-      'There is no parent node for delete event'
+      rbmTypeSet.contains('PRBMadd') && rbmTypeSet.contains('PRBMdelete'),
+      'As Primary RBM was changed to other value, set should return PRBMadd'
+    );
+    Assert.isTrue(
+      rbmTypeSet.contains('PRBMdelete'),
+      'As Primary RBM was changed to other value, set should return PRBMdelete'
+    );
+    Assert.isTrue(
+      rbmTypeSet.contains('SRBMadd'),
+      'As Primary RBM was changed to other value, set should return SRBMadd'
+    );
+    Assert.isTrue(
+      rbmTypeSet.contains('SRBMdelete'),
+      'As Primary RBM was changed to other value, set should return SRBMdelete'
     );
   }
 
@@ -402,5 +370,38 @@ public with sharing class RetailBrokerRelationEventActionsTest {
       userList[2].Id => userList[2],
       userList[3].Id => userList[3]
     };
+  }
+
+  /**
+   * @description to create mock rbm users
+   * @author  Atharv Jakate | Salesforce | 23-06-2025
+   * @return List<User>
+   **/
+  private static List<User> mockRbmUserList() {
+    List<User> userList = (List<User>) JSON.deserialize(
+      '[{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/005Oa000003fFuDIAU"},"Id":"005Oa000003fFuDIAU","Name":"Saurabh Chauhan","Lan_Id__c":"sauDevtest"},{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/0055m000000XnEPAA0"},"Id":"0055m000000XnEPAA0","Name":"Jasmine Nguyen","Lan_Id__c":"jasTest"},{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/005Oa000005OyubIAC"},"Id":"005Oa000005OyubIAC","Name":"Manish Bisht","Lan_Id__c":"manish5"},{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/005Oa000003wiQMIAY"},"Id":"005Oa000003wiQMIAY","Name":"Utkarsh Singh","Lan_Id__c":"utkarsh9"}]',
+      List<User>.class
+    );
+
+    return userList;
+  }
+
+  /**
+   * @description to create mock Broker Relation List
+   * @author  Atharv Jakate | Salesforce | 23-06-2025
+   * @return List<Broker_Relation__c>
+   **/
+  private static List<Broker_Relation__c> mockBrokerList() {
+    Broker_Relation__c newBrokerSet = (Broker_Relation__c) JSON.deserialize(
+      '{"attributes":{"type":"Broker_Relation__c","url":"/services/data/v63.0/sobjects/Broker_Relation__c/a2oAD000000ZI5JYAW"},"Id":"a2oAD000000ZI5JYAW","Primary_RBM__c":"005Oa000005OyubIAC","Secondary_RBM__c":"005Oa000003fFuDIAU","RecordTypeId":"012AD000001tpEDYAY","Primary_RBM__r":{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/005Oa000005OyubIAC"},"Id":"005Oa000005OyubIAC","Lan_Id__c":"manish5"},"Secondary_RBM__r":{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/005Oa000003fFuDIAU"},"Id":"005Oa000003fFuDIAU","Lan_Id__c":"sauDevtest"}}',
+      Broker_Relation__c.class
+    );
+
+    Broker_Relation__c oldBrokerSet = (Broker_Relation__c) JSON.deserialize(
+      '{"attributes":{"type":"Broker_Relation__c","url":"/services/data/v63.0/sobjects/Broker_Relation__c/a2oAD000000ZUuTYAW"},"Id":"a2oAD000000ZUuTYAW","Primary_RBM__c":"005Oa000003fFuDIAU","Secondary_RBM__c":"005Oa000003wiQMIAY","RecordTypeId":"012AD000001tpEDYAY","Primary_RBM__r":{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/005Oa000003fFuDIAU"},"Id":"005Oa000003fFuDIAU","Lan_Id__c":"sauDevtest"},"Secondary_RBM__r":{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/005Oa000003wiQMIAY"},"Id":"005Oa000003wiQMIAY","Lan_Id__c":"utkarsh9"}}',
+      Broker_Relation__c.class
+    );
+
+    return new List<Broker_Relation__c>{ oldBrokerSet, newBrokerSet };
   }
 }

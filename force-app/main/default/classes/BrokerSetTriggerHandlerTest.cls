@@ -5,62 +5,94 @@
  */
 @isTest
 public class BrokerSetTriggerHandlerTest {
-  static Lib_MockProvider brokerSettingsMock = Lib_MockProvider.forType(
-    BrokerSettingsRepository.class
+  private static final Lib_MockProvider BROKER_RELATION_REPOSITORY_MOCK = Lib_MockProvider.forType(
+    BrokerRelationRepository.class
   );
-  /**
-   * @description for trigger test coverage, needs DMLs as this needs actual data
-   * @author  Saurabh Chauhan | Salesforce | 06-03-2025
-   **/
-  @isTest
-  static void testTriggers() {
-    BrokerSettings__c mockSettings = new BrokerSettings__c();
-    mockSettings.BypassBrokerRelationEvent__c = true;
-    brokerSettingsMock.mock('get', mockSettings);
 
-    User emUser = TestUtil.createTestUserWithProfile('ANZx Standard User');
-    emUser.UserRoleId = CommonUtil.getUserRoleByDevName('Enablement_Manager')
-      .Id;
-
-    User testUser = TestUtil.createTestUserWithProfile('ANZx Standard User');
-    testUser.UserRoleId = CommonUtil.getUserRoleByDevName(
-        'Residential_Broker_Manager'
-      )
-      .Id;
-
-    List<User> allUsers = new List<User>();
-    allUsers.add(emUser);
-    allUsers.add(testUser);
-    insert allUsers;
-
-    TestUtil.assignPermissionSetGroups(
-      new List<String>{ 'Enablement_Manager' },
-      allUsers
+  private static List<Broker_Relation__c> createBrokerSetList() {
+    List<Broker_Relation__c> brokerSetList = new List<Broker_Relation__c>();
+    Broker_Relation__c brokerSet = new Broker_Relation__c();
+    brokerSet.Id = Lib_FakeIdGenerator.getMockId(
+      Broker_Relation__c.SObjectType
     );
+    brokerSet.RecordTypeId = RTBrokerRelation.brokerSet;
+    brokerSet.Name = 'Broker Set 1';
+    brokerSet.State__c = 'WA';
+    brokerSet.Segment__c = 'APN';
+    brokerSet.External_Id__c = '';
+    brokerSetList.add(brokerSet);
+    return brokerSetList;
+  }
 
-    System.runAs(emUser) {
-      Account acc1 = new Account();
-      acc1.Name = 'Acc 1';
-      acc1.OCV_ID__c = '23456';
-      acc1.RecordTypeId = RTAccount.businessAccount;
-      insert acc1;
+  @isTest
+  private static void testOnBeforeUpdate() {
+    BROKER_RELATION_REPOSITORY_MOCK.mock(
+      'getBrokerSetWithBrokerAndOfficeGroup',
+      createBrokerSetList()
+    );
+    BROKER_RELATION_REPOSITORY_MOCK.mock('getBrokerMap', createBrokerSetList());
+    BROKER_RELATION_REPOSITORY_MOCK.mock(
+      'getOfficeGroupRelatedToBrokerSet',
+      createBrokerSetList()
+    );
+    Broker_Relation__c oldBrokerSet = createBrokerSetList()[0];
+    Broker_Relation__c newBrokerSet = new Broker_Relation__c();
+    newBrokerSet.Id = oldBrokerSet.Id;
+    newBrokerSet.State__c = 'MH';
+    newBrokerSet.Name = 'Broker Set 1';
+    newBrokerSet.Segment__c = 'APN';
 
-      Broker_Relation__c brokerSet1 = new Broker_Relation__c();
-      brokerSet1.Name = 'Broker Set 1';
-      brokerSet1.Primary_RBM__c = testUser.Id;
-      brokerSet1.state__c = 'WA';
-      brokerSet1.segment__c = 'APN';
-      brokerSet1.Aggregator__c = acc1.Id;
-      brokerSet1.RecordTypeId = RTBrokerRelation.brokerSet;
-      brokerSet1.IsActive__c = true;
-      insert brokerSet1;
+    BrokerSetTriggerHandler handler = new BrokerSetTriggerHandler();
+    handler.records = new List<Broker_Relation__c>{ newBrokerSet };
+    handler.onBeforeUpdate(
+      new Map<Id, Broker_Relation__c>{ oldBrokerSet.Id => oldBrokerSet }
+    );
+    Assert.areEqual(
+      newBrokerSet.External_Id__c,
+      'Broker_Set_1-APN-MH',
+      'Broker external Id not populated'
+    );
+  }
 
-      Assert.isTrue(brokerSet1.Id != null, 'Broker set is inserted');
+  @isTest
+  private static void testOnBeforeInsert() {
+    Broker_Relation__c newBrokerSet = createBrokerSetList()[0];
+    newBrokerSet.State__c = 'MH';
+    newBrokerSet.Name = 'Broker Set 1';
+    newBrokerSet.Segment__c = 'APN';
 
-      brokerSet1.Name = 'Broker Set 2';
-      update brokerSet1;
+    BrokerSetTriggerHandler handler = new BrokerSetTriggerHandler();
+    handler.records = new List<Broker_Relation__c>{ newBrokerSet };
+    handler.onBeforeInsert();
+    Assert.areEqual(
+      newBrokerSet.External_Id__c,
+      'Broker_Set_1-APN-MH',
+      'Broker external Id not populated'
+    );
+  }
 
-      Assert.isTrue(brokerSet1.Name == 'Broker Set 2', 'Broker set is updated');
-    }
+  @IsTest
+  private static void testIsValidRecordPositive() {
+    Broker_Relation__c brokerSet = createBrokerSetList()[0];
+
+    Test.startTest();
+    BrokerSetTriggerHandler handler = new BrokerSetTriggerHandler();
+    Boolean isBrokerRelation = handler.isValidRecord(brokerSet);
+    Test.stopTest();
+
+    Assert.isTrue(isBrokerRelation, 'Should return true for broker Set');
+  }
+
+  @IsTest
+  private static void testIsValidRecordNegative() {
+    Broker_Relation__c officeGroup = createBrokerSetList()[0];
+    officeGroup.RecordTypeId = RTBrokerRelation.officeGroup;
+
+    Test.startTest();
+    BrokerSetTriggerHandler handler = new BrokerSetTriggerHandler();
+    Boolean isBrokerRelation = handler.isValidRecord(officeGroup);
+    Test.stopTest();
+
+    Assert.isFalse(isBrokerRelation, 'Should return false for broker Relation');
   }
 }

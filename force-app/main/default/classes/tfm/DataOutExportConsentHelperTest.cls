@@ -140,7 +140,11 @@ public with sharing class DataOutExportConsentHelperTest {
       exportConsentModelObj
     );
     Test.stopTest();
-    Assert.areEqual('Consent Data Sharing History for:', response[2][0], 'csv content not generated');
+    Assert.areEqual(
+      'Consent Data Sharing History for:',
+      response[2][0],
+      'csv content not generated'
+    );
     Assert.isNotNull(response[0][0], 'csv content not generated');
   }
 
@@ -154,7 +158,6 @@ public with sharing class DataOutExportConsentHelperTest {
 
   @IsTest
   static void testGetReportHeader() {
-   
     Test.startTest();
     List<String> response = DataOutExportConsentHelper.getReportHeader();
     Test.stopTest();
@@ -409,11 +412,7 @@ public with sharing class DataOutExportConsentHelperTest {
     Test.startTest();
     List<String> response = DataOutExportConsentHelper.getDataSharingHistoryHeaders();
     Test.stopTest();
-    Assert.areEqual(
-      'Account',
-      response[0],
-      'data sharing header is incorrect'
-    );
+    Assert.areEqual('Account', response[0], 'data sharing header is incorrect');
     Assert.areEqual(
       'Sharing Date',
       response[1],

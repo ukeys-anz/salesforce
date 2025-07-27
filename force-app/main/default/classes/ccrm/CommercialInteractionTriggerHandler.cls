@@ -36,6 +36,7 @@ public with sharing class CommercialInteractionTriggerHandler extends Lib_Trigge
     CommercialInteractionActions.setCustomerOnInteraction(records, null);
     CommercialInteractionActions.restrictImagesInRichTextFields(records, null);
     CommercialInteractionActions.performRedaction(records);
+    CommercialInteractionActions.populateCLG(records, null);
   }
 
   /**
@@ -53,6 +54,10 @@ public with sharing class CommercialInteractionTriggerHandler extends Lib_Trigge
       (Map<Id, Interaction>) oldMap
     );
     CommercialInteractionActions.restrictImagesInRichTextFields(
+      records,
+      (Map<Id, Interaction>) oldMap
+    );
+    CommercialInteractionActions.validateAndPopulateCLG(
       records,
       (Map<Id, Interaction>) oldMap
     );

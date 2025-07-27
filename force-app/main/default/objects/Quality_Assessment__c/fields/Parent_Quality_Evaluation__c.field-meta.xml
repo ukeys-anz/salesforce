@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Self lookup to Quality Evaluation.</description>
-    <label>Parent Quality Evaluation</label>
+    <label>Related Quality Evaluation</label>
     <referenceTo>Quality_Assessment__c</referenceTo>
     <relationshipLabel>Quality Assessments</relationshipLabel>
     <relationshipName>Quality_Assessments</relationshipName>

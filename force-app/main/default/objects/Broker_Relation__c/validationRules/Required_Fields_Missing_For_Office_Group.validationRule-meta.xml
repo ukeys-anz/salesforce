@@ -4,6 +4,7 @@
     <active>true</active>
     <description>Enforce required fields for Office Groups.</description>
     <errorConditionFormula>AND(
+  $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
   RecordType.DeveloperName == &apos;Office_Group&apos;,
   OR (
     ISBLANK(Associated_Broker_Set__c),

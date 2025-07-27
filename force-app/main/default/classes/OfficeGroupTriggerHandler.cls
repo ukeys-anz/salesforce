@@ -32,7 +32,7 @@ public with sharing class OfficeGroupTriggerHandler extends Lib_TriggerHandler {
    **/
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     //Please remove all brokers from the Office Group before changing the Broker Set
-    BrokerRelationActions.restrictBrokerSetChangeOnOG(
+    BrokerRelationActions.restrictBrokerSetChangeOnOfficeGroup(
       (Map<Id, Broker_Relation__c>) oldMap,
       (List<Broker_Relation__c>) records
     );

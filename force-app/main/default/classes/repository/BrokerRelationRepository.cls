@@ -11,25 +11,23 @@ public with sharing class BrokerRelationRepository {
    * @param brokerSetIds broker set Ids
    * @return Map<Id, Broker_Relation__c> Map of contacts(brokers) assigned to broker set
    */
-  public Map<Id, Broker_Relation__c> getBrokerMap(Set<Id> brokerSetIds) {
+  public List<Broker_Relation__c> getBrokerMap(Set<Id> brokerSetIds) {
     if (brokerSetIds.isEmpty()) {
-      return new Map<Id, Broker_Relation__c>();
+      return new List<Broker_Relation__c>();
     }
-    return new Map<Id, Broker_Relation__c>(
-      [
-        SELECT
-          Id,
-          (
-            SELECT id
-            FROM Broker_Set_Brokers__r
-            WHERE RecordTypeId = :RTContact.broker
-            LIMIT 1
-          )
-        FROM Broker_Relation__c
-        WHERE Id IN :brokerSetIds
-        WITH USER_MODE
-      ]
-    );
+    return [
+      SELECT
+        Id,
+        (
+          SELECT id
+          FROM Broker_Set_Brokers__r
+          WHERE RecordTypeId = :RTContact.broker
+          LIMIT 1
+        )
+      FROM Broker_Relation__c
+      WHERE Id IN :brokerSetIds
+      WITH USER_MODE
+    ];
   }
 
   /**
@@ -37,27 +35,25 @@ public with sharing class BrokerRelationRepository {
    * @param brokerSetIds broker set Ids
    * @return Map<Id, Broker_Relation__c> Map of contacts(brokers) assigned to office group
    */
-  public Map<Id, Broker_Relation__c> getBrokerMapOfficeGroup(
+  public List<Broker_Relation__c> getBrokerMapOfficeGroup(
     Set<Id> brokerSetIds
   ) {
     if (brokerSetIds.isEmpty()) {
-      return new Map<Id, Broker_Relation__c>();
+      return new List<Broker_Relation__c>();
     }
-    return new Map<Id, Broker_Relation__c>(
-      [
-        SELECT
-          Id,
-          (
-            SELECT id
-            FROM Office_Group_Brokers__r
-            WHERE RecordTypeId = :RTContact.broker
-            LIMIT 1
-          )
-        FROM Broker_Relation__c
-        WHERE Id IN :brokerSetIds
-        WITH USER_MODE
-      ]
-    );
+    return [
+      SELECT
+        Id,
+        (
+          SELECT id
+          FROM Office_Group_Brokers__r
+          WHERE RecordTypeId = :RTContact.broker
+          LIMIT 1
+        )
+      FROM Broker_Relation__c
+      WHERE Id IN :brokerSetIds
+      WITH USER_MODE
+    ];
   }
 
   /**
@@ -66,20 +62,18 @@ public with sharing class BrokerRelationRepository {
    * @param  brokerSetIds a set Id to get selected Broker Set
    * @return Map<Id, Broker_Relation__c> Map of Broker Relation along with Primary and Secondary RBM details
    */
-  public Map<Id, Broker_Relation__c> queryBrokerRelationWithRbmDetails(
+  public List<Broker_Relation__c> queryBrokerRelationWithRbmDetails(
     Set<Id> brokerSetIds
   ) {
     if (brokerSetIds.isEmpty()) {
-      return new Map<Id, Broker_Relation__c>();
+      return new List<Broker_Relation__c>();
     }
-    return new Map<Id, Broker_Relation__c>(
-      [
-        SELECT Id, Primary_RBM__r.Lan_Id__c, Secondary_RBM__r.Lan_Id__c
-        FROM Broker_Relation__c
-        WHERE Id IN :brokerSetIds
-        WITH USER_MODE
-      ]
-    );
+    return [
+      SELECT Id, Primary_RBM__r.Lan_Id__c, Secondary_RBM__r.Lan_Id__c
+      FROM Broker_Relation__c
+      WHERE Id IN :brokerSetIds
+      WITH USER_MODE
+    ];
   }
 
   /**
@@ -89,44 +83,71 @@ public with sharing class BrokerRelationRepository {
    * @param  srbmUserIds set of secondary rbm user ids
    * @return Map<Id, User>
    */
-  public Map<Id, User> queryRbmUsers(Set<Id> prbmUserIds, Set<Id> srbmUserIds) {
+  public List<User> queryRbmUsers(Set<Id> prbmUserIds, Set<Id> srbmUserIds) {
     if (prbmUserIds.isEmpty() && srbmUserIds.isEmpty()) {
-      return new Map<Id, User>();
+      return new List<User>();
     }
-    return new Map<Id, User>(
-      [
-        SELECT Id, Lan_Id__c
-        FROM User
-        WHERE (Id IN :prbmUserIds OR Id IN :srbmUserIds) AND Lan_Id__c != NULL
-        WITH USER_MODE
-      ]
-    );
+    return [
+      SELECT Id, Lan_Id__c
+      FROM User
+      WHERE (Id IN :prbmUserIds OR Id IN :srbmUserIds) AND Lan_Id__c != NULL
+      WITH USER_MODE
+    ];
   }
 
   /**
    * @description Gets list of active office groups
    * @param brokerSetIds broker set Ids
-   * @return Map<Id, Broker_Relation__c> Map of contacts(brokers) assigned to office group
+   * @return Map<Id, Broker_Relation__c> Map of broker set with office groups
    */
-  public Map<Id, Broker_Relation__c> getOfficeGroupRelatedToBrokerSet(
+  public List<Broker_Relation__c> getOfficeGroupRelatedToBrokerSet(
     Set<Id> brokerSetIds
   ) {
     if (brokerSetIds.isEmpty()) {
-      return new Map<Id, Broker_Relation__c>();
+      return new List<Broker_Relation__c>();
     }
-    return new Map<Id, Broker_Relation__c>(
-      [
-        SELECT
-          Id,
-          (
-            SELECT Id
-            FROM Office_Groups__r
-            LIMIT 1
-          )
-        FROM Broker_Relation__c
-        WHERE Id IN :brokerSetIds
-        WITH USER_MODE
-      ]
-    );
+    return [
+      SELECT
+        Id,
+        (
+          SELECT Id
+          FROM Office_Groups__r
+          LIMIT 1
+        )
+      FROM Broker_Relation__c
+      WHERE Id IN :brokerSetIds
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description Gets list of broker sets with brokers and office groups
+   * @param brokerSetIds broker set Ids
+   * @return Map<Id, Broker_Relation__c> Map of broker set with office groups
+   */
+  public List<Broker_Relation__c> getBrokerSetWithBrokerAndOfficeGroup(
+    Set<Id> brokerSetIds
+  ) {
+    if (brokerSetIds.isEmpty()) {
+      return new List<Broker_Relation__c>();
+    }
+    return [
+      SELECT
+        Id,
+        (
+          SELECT Id
+          FROM Office_Groups__r
+          LIMIT 1
+        ),
+        (
+          SELECT id
+          FROM Broker_Set_Brokers__r
+          WHERE RecordTypeId = :RTContact.broker
+          LIMIT 1
+        )
+      FROM Broker_Relation__c
+      WHERE Id IN :brokerSetIds
+      WITH USER_MODE
+    ];
   }
 }

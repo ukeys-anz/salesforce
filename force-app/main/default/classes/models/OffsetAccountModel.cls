@@ -8,8 +8,7 @@
 public with sharing class OffsetAccountModel extends CalloutModel {
   @AuraEnabled
   public List<LoanOffsets> loanOffsets;
-  @AuraEnabled
-  public Boolean hasError = false;
+  
   /**
    * @description Offset account details
    */

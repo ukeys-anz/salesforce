@@ -212,17 +212,14 @@ public with sharing class IDRCaseAccessActions {
     List<Case> newCases,
     Map<Id, Case> oldMap
   ) {
-    Boolean isCurrentUserIsBankerOrBankLineManager = USER_INFO.checkAnyRoles(
+    Boolean isCurrentUserBankerOrBankLineManager = USER_INFO.checkAnyRoles(
       new Set<String>{
         IDRConstants.ROLE_BANKER,
         IDRConstants.ROLE_BANKER_LINE_MANAGER
       }
     );
 
-    if (
-      isCurrentUserIsBankerOrBankLineManager ||
-      USER_INFO.checkCustomPermission('ANZx_HyperCare_User')
-    ) {
+    if (isCurrentUserBankerOrBankLineManager) {
       return new List<Case>();
     }
 

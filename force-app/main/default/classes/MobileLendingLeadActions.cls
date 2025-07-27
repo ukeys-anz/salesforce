@@ -268,4 +268,24 @@ public with sharing class MobileLendingLeadActions {
       }
     }
   }
+  /**
+   * @description This method to set the default expiry date of expiry date for AEM Leads
+   * @name setExpiryDateforAEM
+   * @param records List of Lead records
+   */
+  public static void setExpiryDateforAEM(List<Lead> records) {
+    Map<String, Integer> mapExpiryDays = new Map<String, Integer>{
+      'Sat' => 2,
+      'Sun' => 1
+    };
+    Integer expiryDays = Integer.valueOf(Label.DefaultAEMLeadExpiryDate);
+    String dayName = DateTimeUtils.getDay(System.today().addDays(expiryDays));
+    expiryDays += mapExpiryDays.get(dayName) ?? 0;
+    Date expiryDate = System.today().addDays(expiryDays);
+    List<Lead> filteredLeads = ListUtil.filter(records)
+      .equals(Lead.Lead_Originator__c, LEAD_ORIGINATOR_LENDER_ENGAGE)
+      .isNull(Lead.Expiry_Date__c)
+      .toList();
+    ListUtil.setField(filteredLeads, Lead.Expiry_Date__c, expiryDate);
+  }
 }
