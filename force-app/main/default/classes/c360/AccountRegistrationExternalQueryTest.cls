@@ -78,6 +78,25 @@ public class AccountRegistrationExternalQueryTest {
     );
   }
 
+  @isTest
+  static void tesRecordDetailWithExternalId() {
+    Test.setMock(HttpCalloutMock.class, new AccountRegistrationExternalQueryTest.AccountRegistrationQueryTestMock());
+    DataSource.QueryContext context = ExternalQueryContextMock.createQueryContextWithExternalId(
+      'AccountRegistration'
+    );
+    AccountRegistrationExternalQuery accountQuery = new AccountRegistrationExternalQuery();
+    Test.startTest();
+    ExternalObjectQueryBase.ExternalQueryResult result = accountQuery.execute(
+      context
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      result.externalRecords[0].get('AdditionalInformation'),
+      'No further information available',
+      'Record detail for account registration not showing proper details'
+    ); 
+  }
+
   /**
    * @description create HTTP mock response for testing
    */
