@@ -34,6 +34,10 @@ public class TransactionHistoryModelV1Test {
     Assert.isNotNull(obj.embedded.tags, 'Tags should not be null');
     Assert.isNotNull(obj.embedded.merchants, 'Merchants should not be null.');
 
-    Assert.areEqual(-64.19, testValue, 'Value should not be null.');
+    Assert.areEqual(
+      -64.19,
+      testValue,
+      'Value should match amout.value and nanos from 1st transaction of mock_transactionHistoryV1.json.'
+    );
   }
 }
