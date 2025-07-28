@@ -29,6 +29,15 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
   }
 
   startValidation() {
+    let reaFormId =
+      this.omniJsonData?.EditRealFormID?.RealFormID ??
+      this.omniJsonData?.Case?.ResolutionInformation?.realFormMAXId ??
+      this.omniJsonData.Case?.REALFormMAXID;
+
+    if (!reaFormId) {
+      return;
+    }
+
     if (this.omniJsonData?.EditRealFormID?.RealFormID) {
       this.callAPI(this.omniJsonData.EditRealFormID.RealFormID);
       this.omniApplyCallResp({
