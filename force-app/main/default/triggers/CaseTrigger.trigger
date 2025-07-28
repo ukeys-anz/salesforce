@@ -10,6 +10,7 @@ trigger CaseTrigger on Case(
   COBCaseTriggerHandler cobhandler = new COBCaseTriggerHandler();
   AutoKYCQACaseTriggerHandler kycQaHandler = new AutoKYCQACaseTriggerHandler();
   DisputesCaseTriggerHandler disputesHandler = new DisputesCaseTriggerHandler();
+  ImtDisputesCaseTriggerHandler imtDisputesHandler = new ImtDisputesCaseTriggerHandler();
   AccountClosureCaseTriggerHandler accountClosureHandler = new AccountClosureCaseTriggerHandler();
   CaseGroupTriggerHandler caseGroupHandler = new CaseGroupTriggerHandler();
   ConfirmationOfPayeeCaseTriggerHandler copHandler = new ConfirmationOfPayeeCaseTriggerHandler();

@@ -31,8 +31,8 @@ public class CaseCEControllerTest {
   // test cloud event for the IMT Dispute
   @isTest
   public static void testImtDisputeCase() {
-    Case theCase = createImtDisputeCase();
     Test.startTest();
+    Case theCase = createImtDisputeCase();
     CaseCEController.publishCloudEvents(new List<Case>{ theCase });
     Test.stopTest();
     String payload = CloudEventController.cloudEvents[0].Data_1__c;
@@ -82,8 +82,8 @@ public class CaseCEControllerTest {
   // test cloud event for the IMT Dispute
   @isTest
   public static void testImtDisputeCaseForStatusChange() {
-    Map<String, Case> theCaseMap = getTestImtCaseRecord();
     Test.startTest();
+    Map<String, Case> theCaseMap = getTestImtCaseRecord();
     CaseCEController.publishCloudEvents(
       new List<Case>{ theCaseMap.get('newCase') },
       new Map<Id, Case>{

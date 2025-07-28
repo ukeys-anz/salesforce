@@ -9,13 +9,11 @@ public with sharing class DisputesCaseTriggerHandler extends Lib_TriggerHandler 
     RTCase.bpayDispute,
     RTCase.cardDispute,
     RTCase.nppDispute,
-    RTCase.imtDispute,
     RTCase.directDebitDispute,
     RTCase.directEntryDispute,
     RTCase.payToDispute
   };
 
-  public static final String IMT_NEW_EXTERNAL_STATUS = 'IMT_New_SF';
   public static final String NPP_NEW_EXTERNAL_STATUS = 'NPP_New';
   public static final String UNAUTHORISED_TRANSACTION_DISPUTE_REASON = 'Unauthorised Transaction';
 
@@ -40,11 +38,6 @@ public with sharing class DisputesCaseTriggerHandler extends Lib_TriggerHandler 
    * @description onAfterInsert to handle after update trigger actions.
    */
   public override void onAfterInsert() {
-    createNppExternalCase();
-    createImtExternalCase();
-  }
-
-  private void createNppExternalCase() {
     List<Case> nppNonFraudDisputes = ListUtil.filter(records)
       .equals(Case.RecordTypeId, RTCase.nppDispute)
       .notEquals(
@@ -56,16 +49,6 @@ public with sharing class DisputesCaseTriggerHandler extends Lib_TriggerHandler 
     DisputesCaseActions.createExternalCaseStatuses(
       nppNonFraudDisputes,
       NPP_NEW_EXTERNAL_STATUS
-    );
-  }
-  private void createImtExternalCase() {
-    List<Case> imtDisputes = ListUtil.filter(records)
-      .equals(Case.RecordTypeId, RTCase.imtDispute)
-      .toList();
-
-    DisputesCaseActions.createExternalCaseStatuses(
-      imtDisputes,
-      IMT_NEW_EXTERNAL_STATUS
     );
   }
 }
