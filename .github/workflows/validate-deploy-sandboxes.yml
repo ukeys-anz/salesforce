@@ -1,0 +1,27 @@
+name: Validation/Deployment Sandboxes
+
+on:
+  pull_request:
+    branches: [master]
+    types: [closed]
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: "${{ github.run_id }}"
+  cancel-in-progress: false
+
+jobs:
+  validation-deployment-different-sandboxes:
+    if: ${{ github.event.pull_request.merged == true }}
+    strategy:
+      fail-fast: false
+      matrix:
+        secret-name: ["sf-platform-np-intpnv", "sf-platform-np-blm"]
+    uses: ./.github/workflows/_validation-quick-deployment.yml
+    with:
+      sfdx_name: ${{ matrix.secret-name }}
+    secrets:
+      token: ${{ secrets.SALESFORCE_ACTIONS_CHECKOUT_TOKEN }}

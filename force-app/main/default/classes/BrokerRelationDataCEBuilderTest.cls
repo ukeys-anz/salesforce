@@ -6,12 +6,12 @@
 @IsTest
 public with sharing class BrokerRelationDataCEBuilderTest {
   /**
-   * @description test method for buildBrokerRelationAdd
+   * @description test method for buildBrokerRelationAddEvent
    * @author  Saurabh Chauhan | Salesforce | 06-03-2025
    **/
   @isTest
-  static void testBuildBrokerRelationAdd() {
-    BrokerCloudEventModel.MasterNode addEventNode = BrokerRelationDataCEBuilder.buildBrokerRelationAdd(
+  static void testBuildBrokerRelationAddEvent() {
+    BrokerCloudEventModel.MasterNode addEventNode = BrokerRelationDataCEBuilder.buildBrokerRelationAddEvent(
       RetailBrokerRelationEventActionsTest.mockContact(),
       'PRBM'
     );
@@ -23,12 +23,12 @@ public with sharing class BrokerRelationDataCEBuilderTest {
   }
 
   /**
-   * @description test method for buildBrokerRelationDelete
+   * @description test method for buildBrokerRelationDeleteEvent
    * @author  Saurabh Chauhan | Salesforce | 06-03-2025
    **/
   @isTest
-  static void testBuildBrokerRelationDelete() {
-    BrokerCloudEventModel.MasterNode deleteEventNode = BrokerRelationDataCEBuilder.buildBrokerRelationDelete(
+  static void testBuildBrokerRelationDeleteEvent() {
+    BrokerCloudEventModel.MasterNode deleteEventNode = BrokerRelationDataCEBuilder.buildBrokerRelationDeleteEvent(
       RetailBrokerRelationEventActionsTest.mockContact(),
       'PRBM',
       mockLanIdWrapper()

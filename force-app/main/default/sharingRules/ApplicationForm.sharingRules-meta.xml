@@ -1,15 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingOwnerRules>
-        <fullName>Commercial_Application_Form_Read_Only_Sharing_Rule</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>This is to provide Read only access.</description>
-        <label>Commercial Application Form Read Only Sharing Rule</label>
+        <fullName>Commercial_AF_Read_Write_Access_AF</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Commercial AF Read Write Access AF</label>
         <sharedTo>
-            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+            <group>Asset_Finance</group>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+            <group>Asset_Finance</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Commercial_AF_Read_Write_Access_CBO</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Commercial AF Read Write Access CBO</label>
+        <sharedTo>
+            <group>Commercial_Broker</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Commercial_Broker</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Commercial_AF_Read_Write_Access_PB</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Commercial AF Read Write Access PB</label>
+        <sharedTo>
+            <group>Private_Bank_and_Advise</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Private_Bank_and_Advise</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Commercial_AF_Read_Write_Access_SME</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Commercial AF Read Write Access SME</label>
+        <sharedTo>
+            <group>Small_to_Medium_Enterprises</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Small_to_Medium_Enterprises</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Commercial_AF_Read_Write_Access_TB</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Commercial AF Read Write Access TB</label>
+        <sharedTo>
+            <group>Transactional_Banking</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Transactional_Banking</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Commercial_Opportunity_Read_Write_Access_DSI</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This is to provide Read and Write access to DSI.</description>
+        <label>Commercial Opportunity Read Write Access DSI</label>
+        <sharedTo>
+            <group>Diversified_and_Specialist_Industries</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Diversified_and_Specialist_Industries</group>
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>

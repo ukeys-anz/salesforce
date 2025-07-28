@@ -49,7 +49,7 @@
         <description>All CCRM Leads will be accessible to CLO in Edit Mode</description>
         <label>CCRM_LeadEditAccessToCLO</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>Commercial_Lending_Operations</roleAndSubordinatesInternal>
+            <roleAndSubordinates>Commercial_Lending_Operations</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -164,6 +164,17 @@
         </sharedTo>
         <sharedFrom>
             <group>Transactional_Banking</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Lead_RW_Access_to_AEM_User</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Lead RW Access to AEM User</label>
+        <sharedTo>
+            <group>AEM_Integration_User_group</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZ_Mobile_Lending</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>

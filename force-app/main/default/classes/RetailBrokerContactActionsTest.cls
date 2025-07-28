@@ -6,20 +6,19 @@
 
 @IsTest
 private class RetailBrokerContactActionsTest {
-  private static final Id RECORD_TYPE_ID_BROKER = RTContact.broker;
-  static Lib_MockProvider brokerRelationMock = Lib_MockProvider.forType(
+  private static final Lib_MockProvider BROKER_RELATION_REPOSITORY_MOCK = Lib_MockProvider.forType(
     BrokerRelationRepository.class
   );
-  static Lib_MockProvider retailContactMock = Lib_MockProvider.forType(
+  private static final Lib_MockProvider RETAIL_CONTACT_REPOSITORY_MOCK = Lib_MockProvider.forType(
     RetailContactRepository.class
   );
-  static Lib_MockProvider brokerSettingsMock = Lib_MockProvider.forType(
+  private static final Lib_MockProvider BROKER_SETTINGS_REPOSITORY_MOCK = Lib_MockProvider.forType(
     BrokerSettingsRepository.class
   );
-  static Lib_MockProvider userInfoMock = Lib_MockProvider.forType(
+  private static final Lib_MockProvider USER_INFO_REPOSITORY_MOCK = Lib_MockProvider.forType(
     UserInfoRepository.class
   );
-  //private static final Id RECORD_TYPE_ID_BROKER = RTContact.broker; Commented for backmerge error
+  private static final Id RECORD_TYPE_ID_BROKER = RTContact.broker;
 
   static Contact createTestContact() {
     Contact testContact = new Contact();
@@ -32,10 +31,10 @@ private class RetailBrokerContactActionsTest {
 
   @IsTest
   static void testPublishBrokerEvents() {
-    userInfoMock.mock('checkCustomPermission', true);
+    USER_INFO_REPOSITORY_MOCK.mock('checkCustomPermission', true);
     BrokerSettings__c mockSettings = new BrokerSettings__c();
     mockSettings.BypassBrokerEvent__c = false;
-    brokerSettingsMock.mock('get', mockSettings);
+    BROKER_SETTINGS_REPOSITORY_MOCK.mock('get', mockSettings);
 
     Contact contactOld = createTestContact();
     contactOld.Id = Lib_FakeIdGenerator.getMockId(Contact.SObjectType);
@@ -170,8 +169,8 @@ private class RetailBrokerContactActionsTest {
       'Contact should not be an eligible broker contact for publishing'
     );
   }
-  /* Commented for backmerge error -   RetailBrokerContactActionsTest    Method already defined: testIsSyncStatusValidForPublishing void RetailBrokerContactActionsTest.testIsSyncStatusValidForPublishing() */
-  /* @IsTest
+
+  @IsTest
   static void testIsSyncStatusValidForPublishing() {
     Contact contactNew = createTestContact();
     contactNew.Sync_Status__c = null;
@@ -193,7 +192,7 @@ private class RetailBrokerContactActionsTest {
       ),
       'Contact should not be an eligible broker contact for publishing'
     );
-  }*/
+  }
 
   @IsTest
   static void testGetAction() {
@@ -266,129 +265,7 @@ private class RetailBrokerContactActionsTest {
       ),
       'Contact should be eligible for update Sync Status'
     );
-
-    contactNew = createTestContact();
-    contactNew.RetailTPMISAO__c = 'RetailTPMISAOTest001';
-    contactNew.Is_Beta_Broker__c = true;
-    Assert.isTrue(
-      RetailBrokerContactActions.isRecordAnEligibleBrokerContact(contactNew),
-      'Contact should be an eligible broker contact for publishing'
-    );
-
-    contactNew = createTestContact();
-    contactNew.RetailTPMISAO__c = 'RetailTPMISAOTest001';
-    contactNew.Is_Beta_Broker__c = false;
-    Assert.isFalse(
-      RetailBrokerContactActions.isRecordAnEligibleBrokerContact(contactNew),
-      'Contact should not be an eligible broker contact for publishing'
-    );
-
-    contactNew = createTestContact();
-    contactNew.RetailTPMISAO__c = '';
-    contactNew.Is_Beta_Broker__c = true;
-    Assert.isFalse(
-      RetailBrokerContactActions.isRecordAnEligibleBrokerContact(contactNew),
-      'Contact should not be an eligible broker contact for publishing'
-    );
   }
-
-  @IsTest
-  static void testIsSyncStatusValidForPublishing() {
-    Contact contactNew = createTestContact();
-    contactNew.Sync_Status__c = null;
-    Assert.isFalse(
-      RetailBrokerContactActions.isSyncStatusValidForPublishing(
-        contactNew,
-        null,
-        ''
-      ),
-      'Contact should not be an eligible broker contact for publishing'
-    );
-
-    contactNew.Sync_Status__c = 'Broker Org';
-    Assert.isFalse(
-      RetailBrokerContactActions.isSyncStatusValidForPublishing(
-        contactNew,
-        null,
-        ''
-      ),
-      'Contact should not be an eligible broker contact for publishing'
-    );
-  }
-  /* Commented for backmerge error-  Method already defined: testGetAction void RetailBrokerContactActionsTest.testGetAction() */
-  /*@IsTest
-  static void testGetAction() {
-    Contact contactOld = createTestContact();
-    contactOld.OCV_Event_Version__c = 0;
-    Contact contactNew = createTestContact();
-    contactNew.OCV_Event_Version__c = 0;
-    Assert.areEqual(
-      '',
-      RetailBrokerContactActions.getAction(contactNew, contactOld),
-      'Action type should be blank, neither add nor update'
-    );
-    contactNew.OCV_Event_Version__c = 1;
-    Assert.areEqual(
-      'add',
-      RetailBrokerContactActions.getAction(contactNew, contactOld),
-      'Action type should be blank, neither add nor update'
-    );
-  }*/
-
-  /* Commented for backmerge error-  Method already defined: testIsSyncStatusEligibleForUpdate void RetailBrokerContactActionsTest.testIsSyncStatusEligibleForUpdate()*/
-  /* @IsTest
-  static void testIsSyncStatusEligibleForUpdate() {
-    Contact contactOld = createTestContact();
-    contactOld.OCV_Event_Version__c = null;
-    Contact contactNew = createTestContact();
-    contactNew.OCV_Event_Version__c = 0;
-    Assert.isFalse(
-      RetailBrokerContactActions.isSyncStatusEligibleForUpdate(
-        contactNew,
-        contactOld
-      ),
-      'Contact should not be eligible for update Sync Status'
-    );
-
-    contactNew.OCV_Event_Version__c = 1;
-    contactOld.Sync_Status__c = 'Broker Org';
-    Assert.isFalse(
-      RetailBrokerContactActions.isSyncStatusEligibleForUpdate(
-        contactNew,
-        contactOld
-      ),
-      'Contact should not be eligible for update Sync Status'
-    );
-    contactOld.Sync_Status__c = 'Blocked';
-    contactNew.Sync_Status__c = 'Blocked';
-    Assert.isFalse(
-      RetailBrokerContactActions.isSyncStatusEligibleForUpdate(
-        contactNew,
-        contactOld
-      ),
-      'Contact should not be eligible for update Sync Status'
-    );
-
-    contactOld.Sync_Status__c = 'Blocked';
-    contactNew.Sync_Status__c = 'Broker Org';
-    Assert.isFalse(
-      RetailBrokerContactActions.isSyncStatusEligibleForUpdate(
-        contactNew,
-        contactOld
-      ),
-      'Contact should not be eligible for update Sync Status'
-    );
-
-    contactOld.Sync_Status__c = 'Blocked';
-    contactNew.Sync_Status__c = null;
-    Assert.isTrue(
-      RetailBrokerContactActions.isSyncStatusEligibleForUpdate(
-        contactNew,
-        contactOld
-      ),
-      'Contact should be eligible for update Sync Status'
-    );
-  }*/
 
   /**
    * @description test method for publishBrokerRelationEvents
@@ -396,25 +273,22 @@ private class RetailBrokerContactActionsTest {
    **/
   @isTest
   static void testPublishBrokerRelationEvents() {
-    retailContactMock.mock(
+    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
       'getContacts',
       new List<Contact>{ RetailBrokerRelationEventActionsTest.mockContact() }
     );
-    brokerRelationMock.mock(
+    BROKER_RELATION_REPOSITORY_MOCK.mock(
       'queryBrokerRelationWithRbmDetails',
-      RetailBrokerRelationEventActionsTest.mockBrokerSetMap()
+      mockBrokerList()
     );
-    retailContactMock.mock(
+    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
       'getBrokerSetContacts',
       new List<Contact>{ RetailBrokerRelationEventActionsTest.mockContact() }
     );
-    brokerRelationMock.mock(
-      'queryRbmUsers',
-      RetailBrokerRelationEventActionsTest.mockRbmUserMap()
-    );
+    BROKER_RELATION_REPOSITORY_MOCK.mock('queryRbmUsers', mockRbmUserList());
     BrokerSettings__c mockSettings = new BrokerSettings__c();
     mockSettings.BypassBrokerRelationEvent__c = false;
-    brokerSettingsMock.mock('get', mockSettings);
+    BROKER_SETTINGS_REPOSITORY_MOCK.mock('get', mockSettings);
 
     Contact oldContact = RetailBrokerRelationEventActionsTest.mockContact();
     oldContact.Broker_Set__c = null;
@@ -423,38 +297,9 @@ private class RetailBrokerContactActionsTest {
       new List<Contact>{ RetailBrokerRelationEventActionsTest.mockContact() },
       new Map<Id, Contact>{ oldContact.Id => oldContact }
     );
-    Assert.isFalse(publishedEvents.isEmpty(), 'Published events were returned');
-  }
-
-  /**
-   * @description test method for getBrokerIdToEventTypeMap
-   * @author  Saurabh Chauhan | Salesforce | 06-03-2025
-   **/
-  @isTest
-  static void testGetBrokerIdToEventTypeMap() {
-    Contact contactForAddEvent = RetailBrokerRelationEventActionsTest.mockContact();
-    Set<Id> contactsForAddEvent = new Set<Id>{ contactForAddEvent.Id };
-
-    Contact contactForDeleteEvent = RetailBrokerRelationEventActionsTest.mockContact();
-    contactForDeleteEvent.Id = Lib_FakeIdGenerator.getMockId(
-      Contact.SObjectType
-    );
-    Set<Id> contactsForDeleteEvent = new Set<Id>{ contactForDeleteEvent.Id };
-
-    Map<Id, String> brokerIdToEventTypeMap = RetailBrokerContactActions.getBrokerIdToEventTypeMap(
-      contactsForAddEvent,
-      contactsForDeleteEvent
-    );
-
-    Assert.areEqual(
-      'add',
-      brokerIdToEventTypeMap.get(contactForAddEvent.Id),
-      'This contact Id should be of add event'
-    );
-    Assert.areEqual(
-      'delete',
-      brokerIdToEventTypeMap.get(contactForDeleteEvent.Id),
-      'This contact Id should be of delete event'
+    Assert.isFalse(
+      publishedEvents.isEmpty(),
+      'No published events were returned'
     );
   }
 
@@ -464,7 +309,7 @@ private class RetailBrokerContactActionsTest {
    **/
   @isTest
   static void testIsBrokerSetOrOffGroupChanged() {
-    userInfoMock.mock('checkCustomPermission', true);
+    USER_INFO_REPOSITORY_MOCK.mock('checkCustomPermission', true);
     Contact oldContact = RetailBrokerRelationEventActionsTest.mockContact();
     oldContact.Broker_Set__c = null;
     Boolean brokerSetChanged = RetailBrokerContactActions.isBrokerSetOrOffGroupChanged(
@@ -472,7 +317,10 @@ private class RetailBrokerContactActionsTest {
       oldContact
     );
 
-    Assert.isTrue(brokerSetChanged, 'Broker set of the contact is changed');
+    Assert.isTrue(
+      brokerSetChanged,
+      'Broker set of the contact should have changed'
+    );
   }
   // Helper method to create test Contact records
   private static List<Contact> createTestContacts(Integer count) {
@@ -532,7 +380,40 @@ private class RetailBrokerContactActionsTest {
 
     Assert.isNotNull(
       newContacts[3].Office_Group__c,
-      'Office_Group__c should not be null for contact 3'
+      'Office_Group__c should not be null for contact 4'
     );
+  }
+
+  /**
+   * @description to create mock Broker Relation List
+   * @author  Atharv Jakate | Salesforce | 23-06-2025
+   * @return List<Broker_Relation__c>
+   **/
+  private static List<Broker_Relation__c> mockBrokerList() {
+    Broker_Relation__c newBrokerSet = (Broker_Relation__c) JSON.deserialize(
+      '{"attributes":{"type":"Broker_Relation__c","url":"/services/data/v63.0/sobjects/Broker_Relation__c/a2oAD000000ZI5JYAW"},"Id":"a2oAD000000ZI5JYAW","Primary_RBM__c":"005Oa000005OyubIAC","Secondary_RBM__c":"005Oa000003fFuDIAU","RecordTypeId":"012AD000001tpEDYAY","Primary_RBM__r":{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/005Oa000005OyubIAC"},"Id":"005Oa000005OyubIAC","Lan_Id__c":"manish5"},"Secondary_RBM__r":{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/005Oa000003fFuDIAU"},"Id":"005Oa000003fFuDIAU","Lan_Id__c":"sauDevtest"}}',
+      Broker_Relation__c.class
+    );
+
+    Broker_Relation__c oldBrokerSet = (Broker_Relation__c) JSON.deserialize(
+      '{"attributes":{"type":"Broker_Relation__c","url":"/services/data/v63.0/sobjects/Broker_Relation__c/a2oAD000000ZUuTYAW"},"Id":"a2oAD000000ZUuTYAW","Primary_RBM__c":"005Oa000003fFuDIAU","Secondary_RBM__c":"005Oa000003wiQMIAY","RecordTypeId":"012AD000001tpEDYAY","Primary_RBM__r":{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/005Oa000003fFuDIAU"},"Id":"005Oa000003fFuDIAU","Lan_Id__c":"sauDevtest"},"Secondary_RBM__r":{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/005Oa000003wiQMIAY"},"Id":"005Oa000003wiQMIAY","Lan_Id__c":"utkarsh9"}}',
+      Broker_Relation__c.class
+    );
+
+    return new List<Broker_Relation__c>{ oldBrokerSet, newBrokerSet };
+  }
+
+  /**
+   * @description to create mock rbm users
+   * @author  Atharv Jakate | Salesforce | 23-06-2025
+   * @return List<User>
+   **/
+  private static List<User> mockRbmUserList() {
+    List<User> userList = (List<User>) JSON.deserialize(
+      '[{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/005Oa000003fFuDIAU"},"Id":"005Oa000003fFuDIAU","Name":"Saurabh Chauhan","Lan_Id__c":"sauDevtest"},{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/0055m000000XnEPAA0"},"Id":"0055m000000XnEPAA0","Name":"Jasmine Nguyen","Lan_Id__c":"jasTest"},{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/005Oa000005OyubIAC"},"Id":"005Oa000005OyubIAC","Name":"Manish Bisht","Lan_Id__c":"manish5"},{"attributes":{"type":"User","url":"/services/data/v63.0/sobjects/User/005Oa000003wiQMIAY"},"Id":"005Oa000003wiQMIAY","Name":"Utkarsh Singh","Lan_Id__c":"utkarsh9"}]',
+      List<User>.class
+    );
+
+    return userList;
   }
 }

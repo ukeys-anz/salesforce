@@ -9,6 +9,8 @@ public with sharing class RetailBrokerContactActions {
   @TestVisible
   private static final String SYNC_STATUS_BROKER_ORG = 'Broker Org';
   @TestVisible
+  private static final String RETAIL_BROKER_ACCREDITATION_TYPE = 'Retail';
+  @TestVisible
   private static final String SYNC_STATUS_BLOCKED = 'Blocked';
   private static final BrokerSettingsRepository BROKER_SETTINGS_REPOSITORY = (BrokerSettingsRepository) Lib_InstanceProvider.forType(
     BrokerSettingsRepository.class
@@ -27,70 +29,62 @@ public with sharing class RetailBrokerContactActions {
     List<Contact> records,
     Map<Id, Contact> oldMap
   ) {
+    List<SObject> publishedEvents = new List<SObject>();
     try {
       if (BROKER_SETTINGS_REPOSITORY.get().BypassBrokerRelationEvent__c) {
-        return new List<SObject>();
+        return publishedEvents;
       }
       //Get list of contact records, where OCV Version is > 0 and sync status has Broker Org value in it, and broker is moved under a broker set for the first time
       Set<Id> contactsForAddEvent = ListUtil.getIds(
         ListUtil.filter(records, oldMap)
+          .oldEquals(Contact.Broker_Set__c, null)
           .notEquals(Contact.OCV_Event_Version__c, 0)
           .isNotNull(Contact.OCV_Event_Version__c)
-          .oldEquals(Contact.Broker_Set__c, null)
           .isNotNull(Contact.Broker_Set__c)
           .contains(Contact.Sync_Status__c, SYNC_STATUS_BROKER_ORG)
+          .contains(
+            Contact.Broker_Accreditation_Type__c,
+            RETAIL_BROKER_ACCREDITATION_TYPE
+          )
           .toList(),
         Contact.Id
       );
       //Get list of contact records, where OCV Version is > 0 and sync status has Broker Org value in it, and Broker is transferred to a different broker set
       Set<Id> contactsForDeleteEvent = ListUtil.getIds(
         ListUtil.filter(records, oldMap)
+          .oldNotEquals(Contact.Broker_Set__c, null)
           .notEquals(Contact.OCV_Event_Version__c, 0)
           .isNotNull(Contact.OCV_Event_Version__c)
-          .contains(Contact.Sync_Status__c, SYNC_STATUS_BROKER_ORG)
-          .oldNotEquals(Contact.Broker_Set__c, null)
-          .changed(Contact.Broker_Set__c)
           .isNotNull(Contact.Broker_Set__c)
+          .contains(Contact.Sync_Status__c, SYNC_STATUS_BROKER_ORG)
+          .contains(
+            Contact.Broker_Accreditation_Type__c,
+            RETAIL_BROKER_ACCREDITATION_TYPE
+          )
+          .changed(Contact.Broker_Set__c)
           .toList(),
         Contact.Id
       );
-      List<SObject> publishedEvents = RetailBrokerRelationEventActions.publishEventForBrokerRelation(
-        getBrokerIdToEventTypeMap(contactsForAddEvent, contactsForDeleteEvent),
+
+      Set<Id> contactsForBrokerRelationEvent = new Set<Id>();
+      contactsForBrokerRelationEvent.addAll(contactsForAddEvent);
+      contactsForBrokerRelationEvent.addAll(contactsForDeleteEvent);
+
+      publishedEvents = RetailBrokerRelationEventActions.publishBrokerRelationEventFromContact(
+        contactsForBrokerRelationEvent,
         oldMap
       );
       return publishedEvents;
     } catch (Exception e) {
-      Logger.error(e.getMessage());
-      Logger.saveLog();
-      return new List<SObject>();
+      Logger.error(
+          'Encountered error when publishing Broker Relation event. RBM info in Broker Org was not updated.',
+          e
+        )
+        .save();
+      return publishedEvents;
+    } finally {
+      return publishedEvents;
     }
-  }
-
-  /**
-   * @description To create a map of contact Id and broker relation event type
-   * @param contactsForAddEvent filtered set of add event contact ids
-   * @param contactsForDeleteEvent  filtered set of delete event contact ids
-   * @return Map<Id, String> filtered map of contact id and broker relation event type
-   */
-  @TestVisible
-  private static Map<Id, String> getBrokerIdToEventTypeMap(
-    Set<Id> contactsForAddEvent,
-    Set<Id> contactsForDeleteEvent
-  ) {
-    Set<Id> contactsForBothEvents = new Set<Id>();
-    contactsForBothEvents.addAll(contactsForAddEvent);
-    contactsForBothEvents.addAll(contactsForDeleteEvent);
-
-    Map<Id, String> brokerIdToEventTypeMap = new Map<Id, String>();
-    for (Id contactId : contactsForBothEvents) {
-      brokerIdToEventTypeMap.put(
-        contactId,
-        contactsForAddEvent.contains(contactId)
-          ? RetailBrokerRelationEventActions.BROKER_RELATION_EVENT_ADD
-          : RetailBrokerRelationEventActions.BROKER_RELATION_EVENT_DELETE
-      );
-    }
-    return brokerIdToEventTypeMap;
   }
 
   /**

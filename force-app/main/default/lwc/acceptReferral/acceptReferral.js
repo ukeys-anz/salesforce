@@ -8,6 +8,7 @@ import ID_FIELD from "@salesforce/schema/Lead.Id";
 import RECORDTYPEID_FIELD from "@salesforce/schema/Lead.RecordTypeId";
 import LEADID_FIELD from "@salesforce/schema/Lead.Lead_Id__c";
 import { getObjectInfo } from "lightning/uiObjectInfoApi";
+import checkCampaignMember from "@salesforce/apex/AcceptReferralController.checkCampaignMember";
 
 export default class AcceptReferral extends LightningElement {
   @track selectedValue;
@@ -71,6 +72,7 @@ export default class AcceptReferral extends LightningElement {
           "success",
           "dismissable"
         );
+        this.checkCampaignMember(this.recordId);
       })
       .catch((error) => {
         handleErrorShowToast(
@@ -84,6 +86,21 @@ export default class AcceptReferral extends LightningElement {
       .finally(() => {
         this.isLoading = false;
         this.dispatchEvent(new CloseActionScreenEvent());
+      });
+  }
+  checkCampaignMember(leadId) {
+    checkCampaignMember({ leadId: leadId })
+      .then(() => {})
+      .catch((error) => {
+        if (error.body) {
+          handleErrorShowToast(
+            this,
+            "Error",
+            error,
+            "Campaign Member Creation is not successful.",
+            "dismissable"
+          );
+        }
       });
   }
 }

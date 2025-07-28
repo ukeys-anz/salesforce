@@ -4,10 +4,6 @@
  * @description  : A2ZReviewTriggerHandler is the handler class for A2ZReview Trigger which extends Lib_TriggerHandler from the trigger framework used.
  **/
 public with sharing class CommercialA2ZReviewTriggerHandler extends Lib_TriggerHandler {
-  private static final Id AZ_REVIEW_RT_ID = Schema.SObjectType.A_Z_Review__c.getRecordTypeInfosByDeveloperName()
-    .get('Commercial_A_Z_Review')
-    .getRecordTypeId();
-
   /**
    * @description Constructor to call the trigger framework
    * which will call the appropriate methods such as onBeforeInsert etc.
@@ -24,7 +20,7 @@ public with sharing class CommercialA2ZReviewTriggerHandler extends Lib_TriggerH
    */
   public override Boolean isValidRecord(SObject record) {
     A_Z_Review__c recordA2ZReview = (A_Z_Review__c) record;
-    return recordA2ZReview.RecordTypeId == AZ_REVIEW_RT_ID;
+    return recordA2ZReview.RecordTypeId == RTA2ZReview.commercialA2ZReview;
   }
 
   /**
@@ -36,6 +32,7 @@ public with sharing class CommercialA2ZReviewTriggerHandler extends Lib_TriggerH
     CommercialA2ZReviewActions.setCustomerOnA2ZReview(records);
     CommercialA2ZReviewActions.performRedaction(records);
     CommercialA2ZReviewActions.restrictImagesInRichTextFields(records, null);
+    CommercialA2ZReviewActions.populateBusinessOwner(records, null);
   }
 
   /**
@@ -51,6 +48,18 @@ public with sharing class CommercialA2ZReviewTriggerHandler extends Lib_TriggerH
     CommercialA2ZReviewActions.performRedaction(records);
     CommercialA2ZReviewActions.restrictImagesInRichTextFields(
       (List<A_Z_Review__c>) records,
+      (Map<Id, A_Z_Review__c>) oldMap
+    );
+    CommercialA2ZReviewActions.setBusinessOwnerToBlank(
+      records,
+      (Map<Id, A_Z_Review__c>) oldMap
+    );
+    CommercialA2ZReviewActions.setBusinessContactToBlank(
+      records,
+      (Map<Id, A_Z_Review__c>) oldMap
+    );
+    CommercialA2ZReviewActions.populateBusinessOwner(
+      records,
       (Map<Id, A_Z_Review__c>) oldMap
     );
   }

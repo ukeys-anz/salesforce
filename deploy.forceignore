@@ -68,6 +68,7 @@ force-app/main/default/objects/Case/fields/IDR_EntitlementStartDate__c.field-met
 
 #Ignoring apex classes below as they have been renamed
 force-app/main/default/classes/EverydayAccountController.cls
+force-app/main/default/classes/ccrm/MobileLendingLeadTriggerHandler.cls  
 force-app/main/default/classes/FinancialGoalsComponentController.cls
 force-app/main/default/classes/UpdateAccountsAndGoals.cls
 force-app/main/default/messageChannels/FinancialAccountsGoalsUpdate.messageChannel-meta.xml
@@ -219,8 +220,8 @@ force-app/main/default/ActionLauncherItemDef/CaseResolutionPathwaysEnglish_1d1ti
 force-app/main/default/recordActionDeployments/ResolutionPathway_Launcher_V2.deployment-meta.xml
 
 #Add Automation Test Profile to Deploy.forceignore - Not required in Production 
-force-app/main/default/profiles/ANZ Standard Automation User.profile-meta.xml
-force-app/main/default/profiles/ANZx Standard Automation User.profile-meta.xml
+# force-app/main/default/profiles/ANZ Standard Automation User.profile-meta.xml
+# force-app/main/default/profiles/ANZx Standard Automation User.profile-meta.xml
 
 ## [AR-197357] Decommission the Trialhead apps
 ## -------------------------------------------

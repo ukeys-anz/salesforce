@@ -331,6 +331,35 @@ public with sharing class CommercialLeadActions {
 
   /**
    * @description This method send CCRM/UNICA/ADOBE lead change update to UNICA or ADOBE
+   * @name sendLeadOwnerUpdateToUnica
+   * @param records List of lead records
+   * @param oldMap Map of old lead records
+   */
+  public static void sendLeadOwnerUpdateToUnica(
+    List<Lead> records,
+    Map<Id, Lead> oldMap
+  ) {
+    if (USER_REPOSITORY.isIntegrationUser()) {
+      return;
+    }
+    Set<SObjectField> fieldsToValidateChange = new Set<SObjectField>{
+      Lead.OwnerID
+    };
+    List<Lead> listOfLeads = ListUtil.filter(records, oldMap)
+      .equals(Lead.Lead_Originator__c, SET_OF_ELIGIBLE_LEAD_ORIGINATOR)
+      .notEquals(Lead.Id, LeadManagementActions.calloutLeadIds)
+      .anyChanged(fieldsToValidateChange)
+      .isNull(Lead.FinServ__ReferredByUser__c)
+      .toList();
+    PLATFORM_EVENT_ACTIONS.publishLeadUpdateToUnicaOrAdobe(
+      listOfLeads,
+      new List<Task>(),
+      true
+    );
+  }
+
+  /**
+   * @description This method send CCRM/UNICA/ADOBE lead change update to UNICA or ADOBE
    * @name sendLeadUpdateToUnicaOrAdobe
    * @param records List of lead records
    * @param oldMap Map of old lead records
@@ -343,7 +372,6 @@ public with sharing class CommercialLeadActions {
       return;
     }
     Set<SObjectField> fieldsToValidateChange = new Set<SObjectField>{
-      Lead.OwnerID,
       Lead.Expiry_Date__c,
       Lead.Status
     };
@@ -355,7 +383,8 @@ public with sharing class CommercialLeadActions {
       .toList();
     PLATFORM_EVENT_ACTIONS.publishLeadUpdateToUnicaOrAdobe(
       listOfLeads,
-      new List<Task>()
+      new List<Task>(),
+      false
     );
   }
 

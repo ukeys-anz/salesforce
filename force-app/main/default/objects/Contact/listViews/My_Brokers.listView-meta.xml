@@ -11,6 +11,7 @@
     <columns>Office_Group__c</columns>
     <columns>Segment__c</columns>
     <columns>SAO_State__c</columns>
+    <filterScope>Everything</filterScope>
     <filters>
         <field>CONTACT.RECORDTYPE</field>
         <operation>equals</operation>
@@ -21,7 +22,6 @@
         <operation>equals</operation>
         <value>1</value>
     </filters>
-    <filterScope>Everything</filterScope>
     <label>My Brokers</label>
     <sharedTo>
         <role>Enablement_Manager</role>

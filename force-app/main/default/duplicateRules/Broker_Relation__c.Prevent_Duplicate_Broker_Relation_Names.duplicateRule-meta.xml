@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<DuplicateRule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://soap.sforce.com/2006/04/metadata">
+<DuplicateRule xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <actionOnInsert>Block</actionOnInsert>
     <actionOnUpdate>Block</actionOnUpdate>
     <alertText>Name must be unique. A record already exists with the same Name.</alertText>
@@ -9,14 +9,14 @@
         <duplicateRuleFilterItems>
             <field>RecordType</field>
             <operation>equals</operation>
+            <value>Broker Set, Office Group</value>
             <sortOrder>1</sortOrder>
             <table>Broker_Relation__c</table>
-            <value>Broker Set, Office Group</value>
         </duplicateRuleFilterItems>
     </duplicateRuleFilter>
     <duplicateRuleMatchRules>
-        <matchingRule>Broker_Relation_Name_Matching_Rule</matchingRule>
         <matchRuleSObjectType>Broker_Relation__c</matchRuleSObjectType>
+        <matchingRule>Broker_Relation_Name_Matching_Rule</matchingRule>
         <objectMapping xsi:nil="true"/>
     </duplicateRuleMatchRules>
     <isActive>true</isActive>

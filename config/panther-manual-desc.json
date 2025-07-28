@@ -157,6 +157,7 @@
     "CampaignMember": "Associates a prospective or active customer with a campaign.",
     "CaseComment": "Plain text comment attached to a case",
     "Case": "Record of a customer interaction",
+    "CaseHistory": "Represents historical information about changes that have been made to the associated Case.",
     "Case_Product__c": "Many to Many relationship between Case and Product2",
     "CFaaS_File__c": "Custom object that will hold metadata of the files retrieved from CFaaS",
     "CFMS_Migrated_Document__c": "Custom object to store migrated CFMS documents, not the documents themselves but links to them in EDRM.",
@@ -762,6 +763,7 @@
         "Existing_Business_Owner__c",
         "My_Region_Flag__c"
       ],
+      "IA-2415983": ["A2Z_Review_Interaction_Type__c"],
       "IA-2415984": [
         "Name",
         "Business_Details__c",
@@ -773,7 +775,10 @@
         "Transaction_Banking__c",
         "CLG_Number__c",
         "CPID__c",
-        "Customer_Number__c"
+        "Customer_Number__c",
+        "Business_Owner_Number__c",
+        "Business_Owner__c",
+        "Business_Contact__c"
       ],
       "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"],
       "IA-2423227": ["COI_Member__c"],
@@ -1484,6 +1489,17 @@
         "Opt_Out_Reason__c"
       ]
     },
+    "CaseHistory": {
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ],
+      "IA-2530753": ["CaseId", "DataType", "Field", "IsDeleted"],
+      "IA-2415828": ["NewValue", "OldValue"]
+    },
     "Case_Reporting_Field__c": {
       "IA-2453595": [
         "Case__c",
@@ -1635,6 +1651,7 @@
     "COBPrimaryIDDocument__c": {
       "IA-2415860": [
         "Failed_Message__c",
+        "Latest__c",
         "OnboardingAttemptCount__c",
         "SubmittedAt__c",
         "Verified_By__c",
@@ -2719,7 +2736,8 @@
         "Territory__c",
         "Financial_Account__c",
         "ML_DataMigration_Key__c",
-        "My_Region_Flag__c"
+        "My_Region_Flag__c",
+        "CLGCustomer__c"
       ],
       "IA-2530753": [
         "AccountId",
@@ -3089,7 +3107,8 @@
         "My_Team__c",
         "Lead_Owner_Teamcode__c",
         "My_Team_Segment__c",
-        "My_Reportees_Lead__c"
+        "My_Reportees_Lead__c",
+        "My_Managers_Lead__c"
       ],
       "IA-2530753": ["IsNewLead__c"],
       "IA-2697875": ["Referrer_Business_Name__c", "Referrer_Industry_Type__c"],
@@ -3649,7 +3668,8 @@
         "FinServ__ReferredByContact__c",
         "FinServ__ReferredByUser__c",
         "My_Team_Segment__c",
-        "My_Reportees_Opps__c"
+        "My_Reportees_Opps__c",
+        "My_Manager_Opps__c"
       ],
       "IA-2530753": ["Opportunity_Owner__c"],
       "IA-2428130": ["Specialisation__c", "New_to_Bank__c"],
@@ -6080,6 +6100,67 @@
           "description": "The time zone of the business hours.",
           "securityClassification": "Internal",
           "type": "Picklist"
+        },
+        {
+          "fullName": "CreatedById"
+        },
+        {
+          "fullName": "CreatedDate"
+        },
+        {
+          "fullName": "Id"
+        },
+        {
+          "fullName": "LastModifiedById"
+        },
+        {
+          "fullName": "LastModifiedDate"
+        }
+      ]
+    },
+    "CaseHistory": {
+      "fields": [
+        {
+          "fullName": "CaseId",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "The unique identifier for the case.",
+          "securityClassification": "Internal",
+          "type": "reference(Case)"
+        },
+        {
+          "fullName": "DataType",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "The data type for the case history field.",
+          "securityClassification": "Internal",
+          "type": "picklist"
+        },
+        {
+          "fullName": "Field",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "The name of the field that was changed.",
+          "securityClassification": "Internal",
+          "type": "picklist"
+        },
+        {
+          "fullName": "IsDeleted",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "If the record has been deleted, this field is true; otherwise, it is false.",
+          "securityClassification": "Internal",
+          "type": "checkbox"
+        },
+        {
+          "fullName": "NewValue",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "The new value of the field after the change.",
+          "securityClassification": "Internal",
+          "type": "anyType"
+        },
+        {
+          "fullName": "OldValue",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "The previous value of the field before the change.",
+          "securityClassification": "Internal",
+          "type": "anyType"
         },
         {
           "fullName": "CreatedById"

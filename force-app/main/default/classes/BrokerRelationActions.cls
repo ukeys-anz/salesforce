@@ -8,9 +8,6 @@
  **/
 
 public class BrokerRelationActions {
-  private static final RetailContactRepository CONTACT_REPOSITORY = (RetailContactRepository) Lib_InstanceProvider.forType(
-    RetailContactRepository.class
-  );
   private static final BrokerRelationRepository BROKER_RELATION_REPOSITORY = (BrokerRelationRepository) Lib_InstanceProvider.forType(
     BrokerRelationRepository.class
   );
@@ -26,9 +23,6 @@ public class BrokerRelationActions {
     Broker_Relation__c.Segment__c,
     Broker_Relation__c.State__c
   };
-  public static final String SEPERATOR_HYPHEN = '-';
-  public static final String SEPERATOR_UNDERSCORE = '_';
-  public static final String SEPERATOR_WHITESPACE = ' ';
   /**
    * @description updates external id field with format Name-Segment-State
    * @author  Grace Anusha | Salesforce | 07-02-2025
@@ -36,15 +30,14 @@ public class BrokerRelationActions {
    **/
   public static void populateExternalId(List<Broker_Relation__c> records) {
     for (Broker_Relation__c brokerRelation : records) {
-      brokerRelation.External_Id__c =
-        brokerRelation.Name.replace(
-          SEPERATOR_WHITESPACE,
-          SEPERATOR_UNDERSCORE
-        ) +
-        SEPERATOR_HYPHEN +
-        brokerRelation.Segment__c +
-        SEPERATOR_HYPHEN +
-        brokerRelation.State__c;
+      brokerRelation.External_Id__c = String.format(
+        '{0}-{1}-{2}',
+        new List<Object>{
+          brokerRelation.Name.replace(' ', '_'),
+          brokerRelation.Segment__c,
+          brokerRelation.State__c
+        }
+      );
     }
   }
 
@@ -54,17 +47,17 @@ public class BrokerRelationActions {
    * @param oldMap contains old value
    * @param records contains new value
    **/
-  public static void populateExternalIdOnFilteredBS(
+  public static void populateExternalIdOnFilteredBrokerSet(
     Map<Id, Broker_Relation__c> oldMap,
     List<Broker_Relation__c> records
   ) {
-    List<Broker_Relation__c> extIdConstituentFieldBSChangeRecords = ListUtil.filter(
+    List<Broker_Relation__c> brokerRelationsWithChangedExIds = ListUtil.filter(
         records,
         oldMap
       )
       .anyChanged(EXT_ID_CONSTITUENT_FIELDS)
       .toList();
-    populateExternalId(extIdConstituentFieldBSChangeRecords);
+    populateExternalId(brokerRelationsWithChangedExIds);
   }
 
   /**
@@ -77,13 +70,24 @@ public class BrokerRelationActions {
     Map<Id, Broker_Relation__c> oldMap,
     List<Broker_Relation__c> records
   ) {
-    records = ListUtil.filter(records, oldMap)
+    List<Broker_Relation__c> changedBrokerSets = ListUtil.filter(
+        records,
+        oldMap
+      )
       .changed(Broker_Relation__c.Aggregator__c)
       .toList();
-    Map<Id, Broker_Relation__c> brokerMap = BROKER_RELATION_REPOSITORY.getBrokerMap(
-      ListUtil.getIds(records, Broker_Relation__c.Id)
+    Set<Id> changedBrokerSetIds = ListUtil.getIds(
+      changedBrokerSets,
+      Broker_Relation__c.Id
     );
-    showError(brokerMap, records);
+    List<Broker_Relation__c> brokerSetsWithRelatedInfo = BROKER_RELATION_REPOSITORY.getBrokerSetWithBrokerAndOfficeGroup(
+      changedBrokerSetIds
+    );
+    Map<Id, Broker_Relation__c> brokerSetsWithRelatedInfoById = (Map<Id, Broker_Relation__c>) ListUtil.mapBy(
+      brokerSetsWithRelatedInfo,
+      Broker_Relation__c.Id
+    );
+    showErrorAggregatorChange(brokerSetsWithRelatedInfoById, changedBrokerSets);
   }
 
   /**
@@ -92,18 +96,30 @@ public class BrokerRelationActions {
    * @param oldMap contains old value
    * @param records contains new value
    **/
-  public static void restrictBrokerSetChangeOnOG(
+  public static void restrictBrokerSetChangeOnOfficeGroup(
     Map<Id, Broker_Relation__c> oldMap,
     List<Broker_Relation__c> records
   ) {
-    records = ListUtil.filter(records, oldMap)
+    List<Broker_Relation__c> changedOfficeGroups = ListUtil.filter(
+        records,
+        oldMap
+      )
       .changed(Broker_Relation__c.Associated_Broker_Set__c)
       .toList();
-    showErrorOfficeGroupHasBrokers(
-      BROKER_RELATION_REPOSITORY.getBrokerMapOfficeGroup(
-        ListUtil.getIds(records, Broker_Relation__c.Id)
-      ),
-      records,
+    Set<Id> changedOfficeGroupIds = ListUtil.getIds(
+      changedOfficeGroups,
+      Broker_Relation__c.Id
+    );
+    List<Broker_Relation__c> officeGroupsWithBrokers = BROKER_RELATION_REPOSITORY.getBrokerMapOfficeGroup(
+      changedOfficeGroupIds
+    );
+    Map<Id, Broker_Relation__c> officeGroupsWithBrokersById = (Map<Id, Broker_Relation__c>) ListUtil.mapBy(
+      officeGroupsWithBrokers,
+      Broker_Relation__c.Id
+    );
+    showErrorIfOfficeGroupHasBrokers(
+      officeGroupsWithBrokersById,
+      changedOfficeGroups,
       System.Label.ErrorMsg_OfficeGroup_Change_BrokerSets_Has_Brokers
     );
   }
@@ -118,14 +134,26 @@ public class BrokerRelationActions {
     Map<Id, Broker_Relation__c> oldMap,
     List<Broker_Relation__c> records
   ) {
-    records = ListUtil.filter(records, oldMap)
+    List<Broker_Relation__c> changedOfficeGroups = ListUtil.filter(
+        records,
+        oldMap
+      )
       .changedTo(Broker_Relation__c.IsActive__c, false)
       .toList();
-    showErrorOfficeGroupHasBrokers(
-      BROKER_RELATION_REPOSITORY.getBrokerMapOfficeGroup(
-        ListUtil.getIds(records, Broker_Relation__c.Id)
-      ),
-      records,
+    Set<Id> changedOfficeGroupIds = ListUtil.getIds(
+      changedOfficeGroups,
+      Broker_Relation__c.Id
+    );
+    List<Broker_Relation__c> changedOfficeGroupsWithBrokers = BROKER_RELATION_REPOSITORY.getBrokerMapOfficeGroup(
+      changedOfficeGroupIds
+    );
+    Map<Id, Broker_Relation__c> changedOfficeGroupsWithBrokersById = (Map<Id, Broker_Relation__c>) ListUtil.mapBy(
+      changedOfficeGroupsWithBrokers,
+      Broker_Relation__c.Id
+    );
+    showErrorIfOfficeGroupHasBrokers(
+      changedOfficeGroupsWithBrokersById,
+      changedOfficeGroups,
       System.Label.ErrorMsg_OfficeGroup_Deactication_Has_Brokers
     );
   }
@@ -133,21 +161,27 @@ public class BrokerRelationActions {
   /**
    * @description Displays error when aggregator is changed on Broker Set
    * @author  Grace Anusha | Salesforce | 07-02-2025
-   * @param brokerMap contains new broker relation value
+   * @param brokerRelationMap contains new broker set value with broker and office group
    * @param records contains new value
    **/
   @TestVisible
-  private static void showError(
-    Map<Id, Broker_Relation__c> brokerMap,
+  private static void showErrorAggregatorChange(
+    Map<Id, Broker_Relation__c> brokerRelationMap,
     List<Broker_Relation__c> records
   ) {
     for (Broker_Relation__c record : records) {
-      if (
-        brokerMap.containsKey(record.Id) &&
-        !brokerMap.get(record.Id).Broker_Set_Brokers__r.isEmpty()
-      ) {
+      if (!brokerRelationMap.containsKey(record.Id)) {
+        continue;
+      }
+
+      if ((!brokerRelationMap.get(record.Id).Broker_Set_Brokers__r.isEmpty())) {
         record.Aggregator__c.addError(
           System.Label.ErrorMsg_BrokerSet_Change_Agg_Has_Brokers
+        );
+      }
+      if ((!brokerRelationMap.get(record.Id).Office_Groups__r.isEmpty())) {
+        record.Aggregator__c.addError(
+          System.Label.ErrorMsg_BrokerSet_Change_Agg_Has_OG
         );
       }
     }
@@ -161,7 +195,7 @@ public class BrokerRelationActions {
    * @param errorMessageCutomLabel conatins error message
    **/
   @TestVisible
-  private static void showErrorOfficeGroupHasBrokers(
+  private static void showErrorIfOfficeGroupHasBrokers(
     Map<Id, Broker_Relation__c> brokerMap,
     List<Broker_Relation__c> records,
     String errorMessageCutomLabel
@@ -185,31 +219,44 @@ public class BrokerRelationActions {
     Map<Id, Broker_Relation__c> oldMap,
     List<Broker_Relation__c> records
   ) {
-    records = ListUtil.filter(records, oldMap)
+    List<Broker_Relation__c> changedBrokerSets = ListUtil.filter(
+        records,
+        oldMap
+      )
       .changedTo(Broker_Relation__c.IsActive__c, false)
       .toList();
-    showErrorBrokerSetHasBrokers(
-      BROKER_RELATION_REPOSITORY.getBrokerMap(
-        ListUtil.getIds(records, Broker_Relation__c.Id)
-      ),
-      records
+    Set<Id> changedBrokerSetIds = ListUtil.getIds(
+      changedBrokerSets,
+      Broker_Relation__c.Id
+    );
+    List<Broker_Relation__c> brokerSetsWithBrokers = BROKER_RELATION_REPOSITORY.getBrokerMap(
+      changedBrokerSetIds
+    );
+    Map<Id, Broker_Relation__c> brokerSetsWithBrokersById = (Map<Id, Broker_Relation__c>) ListUtil.mapBy(
+      brokerSetsWithBrokers,
+      Broker_Relation__c.Id
+    );
+    showErrorIfBrokerSetHasBrokers(
+      brokerSetsWithBrokersById,
+      changedBrokerSets
     );
   }
 
   /**
    * @description displays error if broker set has brokers tagged to it
    * @author  Grace Anusha | Salesforce | 24-03-2025
-   * @param brokerMap contains new broker set value
-   * @param records contains new value
+   * @param brokerSetsWithBrokersById contains new broker set value
+   * @param brokerRelations contains new value
    **/
-  public static void showErrorBrokerSetHasBrokers(
-    Map<Id, Broker_Relation__c> brokerMap,
-    List<Broker_Relation__c> records
+  public static void showErrorIfBrokerSetHasBrokers(
+    Map<Id, Broker_Relation__c> brokerSetsWithBrokersById,
+    List<Broker_Relation__c> brokerRelations
   ) {
-    for (Broker_Relation__c brokerSet : records) {
+    for (Broker_Relation__c brokerSet : brokerRelations) {
       if (
-        brokerMap.containsKey(brokerSet.id) &&
-        !brokerMap.get(brokerSet.id).Broker_Set_Brokers__r.isEmpty()
+        brokerSetsWithBrokersById.containsKey(brokerSet.id) &&
+        !brokerSetsWithBrokersById.get(brokerSet.id)
+          .Broker_Set_Brokers__r.isEmpty()
       ) {
         brokerSet.adderror(
           System.Label.Broker_Set_Deactivation_Error_Message_Unlink_Brokers
@@ -223,35 +270,48 @@ public class BrokerRelationActions {
    * @param oldMap contains old value
    * @param records contains new value
    **/
-  public static void restrictDeactivationRelatedOG(
+  public static void restrictDeactivationRelatedOfficeGroup(
     Map<Id, Broker_Relation__c> oldMap,
     List<Broker_Relation__c> records
   ) {
-    records = ListUtil.filter(records, oldMap)
+    List<Broker_Relation__c> changedBrokerSets = ListUtil.filter(
+        records,
+        oldMap
+      )
       .changedTo(Broker_Relation__c.IsActive__c, false)
       .toList();
-    showErrorBrokerSetHasOGs(
-      BROKER_RELATION_REPOSITORY.getOfficeGroupRelatedToBrokerSet(
-        ListUtil.getIds(records, Broker_Relation__c.Id)
-      ),
-      records
+    Set<Id> changedBrokerSetIds = ListUtil.getIds(
+      changedBrokerSets,
+      Broker_Relation__c.Id
+    );
+    List<Broker_Relation__c> changedBrokerSetsWithRelatedOGs = BROKER_RELATION_REPOSITORY.getOfficeGroupRelatedToBrokerSet(
+      changedBrokerSetIds
+    );
+    Map<Id, Broker_Relation__c> changedBrokerSetsWithRelatedOGsById = (Map<Id, Broker_Relation__c>) ListUtil.mapBy(
+      changedBrokerSetsWithRelatedOGs,
+      Broker_Relation__c.Id
+    );
+    showErrorIfBrokerSetHasOfficeGroups(
+      changedBrokerSetsWithRelatedOGsById,
+      changedBrokerSets
     );
   }
 
   /**
    * @description displays error if broker set with related office groups is deactivated
    * @author Grace Anusha | Salesforce | 24-03-2025
-   * @param officeGroupMap contains Broker Relation triggered value
-   * @param records contains new value
+   * @param changedBrokerSetsWithRelatedOGsById contains Broker Relation triggered value
+   * @param brokerRelations contains new value
    **/
-  public static void showErrorBrokerSetHasOGs(
-    Map<Id, Broker_Relation__c> officeGroupMap,
-    List<Broker_Relation__c> records
+  public static void showErrorIfBrokerSetHasOfficeGroups(
+    Map<Id, Broker_Relation__c> changedBrokerSetsWithRelatedOGsById,
+    List<Broker_Relation__c> brokerRelations
   ) {
-    for (Broker_Relation__c brokerSet : records) {
+    for (Broker_Relation__c brokerSet : brokerRelations) {
       if (
-        officeGroupMap.containsKey(brokerSet.id) &&
-        !officeGroupMap.get(brokerSet.id).Office_Groups__r.isEmpty()
+        changedBrokerSetsWithRelatedOGsById.containsKey(brokerSet.id) &&
+        !changedBrokerSetsWithRelatedOGsById.get(brokerSet.id)
+          .Office_Groups__r.isEmpty()
       ) {
         brokerSet.adderror(
           System.Label.Broker_Set_Deactivation_Error_Message_Unlink_Office_Group
@@ -271,18 +331,27 @@ public class BrokerRelationActions {
     Map<Id, Broker_Relation__c> oldMap,
     Map<Id, Broker_Relation__c> newMap
   ) {
-    if (BROKER_SETTINGS_REPOSITORY.get().BypassBrokerRelationEvent__c) {
-      return new List<SObject>();
+    List<SObject> publishedEvents = new List<SObject>();
+    try {
+      if (BROKER_SETTINGS_REPOSITORY.get().BypassBrokerRelationEvent__c) {
+        return publishedEvents;
+      }
+      List<Broker_Relation__c> updatedBrokerSets = ListUtil.filter(
+          oldMap.values(),
+          newMap
+        )
+        .anyChanged(BROKER_RELATION_RBM_FIELDS)
+        .toList();
+      publishedEvents = RetailBrokerRelationEventActions.publishBrokerRelationEventFromBrokerSet(
+        updatedBrokerSets
+      );
+    } catch (Exception e) {
+      Logger.error(
+          'Encountered error when publishing Broker Relation event. RBM info in Broker Org was not updated.',
+          e
+        )
+        .save();
     }
-    List<Broker_Relation__c> updatedBrokerSets = ListUtil.filter(
-        oldMap.values(),
-        newMap
-      )
-      .anyChanged(BROKER_RELATION_RBM_FIELDS)
-      .toList();
-    List<SObject> publishedEvents = RetailBrokerRelationEventActions.publishEventForBrokerRelation(
-      updatedBrokerSets
-    );
     return publishedEvents;
   }
 }

@@ -19,7 +19,7 @@ public with sharing class PushToAppController {
   );
 
   private static final Map<String, String> TASK_TYPE = new Map<String, String>{
-    'ACTIVITY_TYPE_PUSH_TO_APP' => 'Push to App'
+    'TASK_TYPE_PUSH_TO_APP' => 'Push to App'
   };
 
   /**
@@ -209,8 +209,8 @@ public with sharing class PushToAppController {
     return new Task(
       Subject = taskData.subject +
         ' - ' +
-        TASK_TYPE.get('ACTIVITY_TYPE_PUSH_TO_APP'),
-      Type = 'ACTIVITY_TYPE_PUSH_TO_APP',
+        TASK_TYPE.get('TASK_TYPE_PUSH_TO_APP'),
+      Type = 'TASK_TYPE_PUSH_TO_APP',
       WhatId = taskData.whatId,
       WhoId = taskWhoId,
       ActivityDate = Date.parse(taskData.activityDate),

@@ -424,4 +424,76 @@
             <role>ANZ_Mobile_Lending_Support_Team</role>
         </sharedFrom>
     </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>MLCRM_Franchise_User_To_Lending_Team</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule is used to share record owned by Franchise user to lending team since interaction role setting is disabled</description>
+        <label>MLCRM Franchise User To Lending Team</label>
+        <sharedTo>
+            <role>ANZ_Mobile_Lending_Team</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>Mobile_Lending_Franchise_Users</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>MLCRM_Franchise_User_To_Mobile_Lending_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This sharing rule is used to share record owned by Franchise user to mobile lending team since interaction role setting is disabled</description>
+        <label>MLCRM Franchise User To Mobile Lending Team</label>
+        <sharedTo>
+            <role>ANZ_Mobile_Lending</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>Mobile_Lending_Franchise_Users</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>MLCRM_Franchise_User_To_Support_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This sharing rule is used to share record owned by Franchise user to support user since interaction role setting is disabled</description>
+        <label>MLCRM Franchise User To Support Team</label>
+        <sharedTo>
+            <role>ANZ_Mobile_Lending_Support_Team</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>Mobile_Lending_Franchise_Users</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>MLCRM_Lending_Team_User_To_Support_User</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This sharing rule is used to share record owned by mobile lending user to support team since interaction role setting is disabled</description>
+        <label>MLCRM Lending Team User To Support User</label>
+        <sharedTo>
+            <role>ANZ_Mobile_Lending_Support_Team</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>ANZ_Mobile_Lending_Team</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>MLCRM_Lending_Team_User_To_Mobile_Lending_User_User</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This sharing rule is used to share record owned by mobile lending to lending user since interaction role setting is disabled</description>
+        <label>MLCRM Lending Team User To Mobile Lending User User</label>
+        <sharedTo>
+            <role>ANZ_Mobile_Lending</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>ANZ_Mobile_Lending_Team</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>MLCRM_Support_Team_User_To_Mobile_Lending_User</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This sharing rule is used to share record owned by support user to mobile lending since interaction role setting is disabled</description>
+        <label>MLCRM Support Team User To Mobile Lending User</label>
+        <sharedTo>
+            <role>ANZ_Mobile_Lending</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>ANZ_Mobile_Lending_Support_Team</role>
+        </sharedFrom>
+    </sharingOwnerRules>
 </SharingRules>

@@ -43,19 +43,19 @@ public with sharing class OpportunityContactRoleActionsRepository {
 
   /**
    * @description getOppContactRoleByContacts method return list of Opportunity_Contact_Role_Sync__c associated to the given externalids
-   * @param externalIdSet externalIds
+   * @param ocrIds OCR ids
    * @return List<Opportunity_Contact_Role_Sync__c> map of Opportunity_Contact_Role_Sync__c List
    */
   public List<Opportunity_Contact_Role_Sync__c> getOpportunityContactRoleSyncRecords(
-    Set<String> externalIdSet
+    Set<Id> ocrIds
   ) {
-    if (externalIdSet.isEmpty()) {
+    if (ocrIds.isEmpty()) {
       return new List<Opportunity_Contact_Role_Sync__c>();
     }
     return [
       SELECT Id
       FROM Opportunity_Contact_Role_Sync__c
-      WHERE ExternalId__c IN :externalIdSet
+      WHERE OpportunityContactRoleId__c IN :ocrIds
       WITH USER_MODE
     ];
   }

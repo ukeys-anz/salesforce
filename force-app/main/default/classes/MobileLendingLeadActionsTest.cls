@@ -130,6 +130,70 @@ private class MobileLendingLeadActionsTest {
   }
 
   @isTest
+  static void testSetExpiryDateforAEMWithoutExpiryDate() {
+    Lead leadrecord = new Lead(
+      Id = Lib_FakeIdGenerator.getMockId(Schema.Lead.getSObjectType()),
+      Expiry_Date__c = null,
+      Lead_Originator__c = MobileLendingLeadActions.LEAD_ORIGINATOR_LENDER_ENGAGE,
+      RecordTypeId = RTLead.mlcrmLead
+    );
+    Test.startTest();
+    MobileLendingLeadActions.setExpiryDateforAEM(new List<Lead>{ leadrecord });
+    Test.stopTest();
+    String dayName = DateTimeUtils.getDay(
+      System.today()
+        .addDays(Integer.valueOf(System.Label.DefaultAEMLeadExpiryDate))
+    );
+    switch on dayName {
+      when 'Sat' {
+        Assert.areEqual(
+          System.today()
+            .addDays(
+              Integer.valueOf(System.Label.DefaultAEMLeadExpiryDate) + 2
+            ),
+          leadrecord.Expiry_Date__c,
+          'Expiry_Date__c is not getting populated correctly when day is Saturday'
+        );
+      }
+      when 'Sun' {
+        Assert.areEqual(
+          System.today()
+            .addDays(
+              Integer.valueOf(System.Label.DefaultAEMLeadExpiryDate) + 1
+            ),
+          leadrecord.Expiry_Date__c,
+          'Expiry_Date__c is not getting populated correctly when day is Sunday'
+        );
+      }
+      when else {
+        Assert.areEqual(
+          System.today()
+            .addDays(Integer.valueOf(System.Label.DefaultAEMLeadExpiryDate)),
+          leadrecord.Expiry_Date__c,
+          'For Monday to Friday Expiry Date is not getting populated correctly'
+        );
+      }
+    }
+  }
+
+  @isTest
+  static void testSetExpiryDateforAEMWithExpiryDate() {
+    Lead leadrecord = new Lead(
+      Id = Lib_FakeIdGenerator.getMockId(Schema.Lead.getSObjectType()),
+      Expiry_Date__c = System.today() + 14,
+      Lead_Originator__c = MobileLendingLeadActions.LEAD_ORIGINATOR_LENDER_ENGAGE
+    );
+    Test.startTest();
+    MobileLendingLeadActions.setExpiryDateforAEM(new List<Lead>{ leadrecord });
+    Test.stopTest();
+    Assert.areEqual(
+      System.today() + 14,
+      leadrecord.Expiry_Date__c,
+      'Expiry_Date__c is not getting populated correctly when day is Saturday'
+    );
+  }
+
+  @isTest
   static void testNoLongerNewLeads() {
     Lead leadrecord = new Lead(
       Id = Lib_FakeIdGenerator.getMockId(Schema.Lead.getSObjectType()),

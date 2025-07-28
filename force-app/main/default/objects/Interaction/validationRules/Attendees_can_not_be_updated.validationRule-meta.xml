@@ -3,6 +3,6 @@
     <fullName>Attendees_can_not_be_updated</fullName>
     <active>true</active>
     <description>Attendee Category, Office Group, Broker can not be updated once the record is saved.</description>
-    <errorConditionFormula>AND(OR(ISCHANGED(Attendee_Category__c),ISCHANGED( Broker__c ),ISCHANGED( Office_Group__c )),RecordType.DeveloperName = &quot;RBM_Broker_Interaction&quot;)</errorConditionFormula>
+    <errorConditionFormula>AND($Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,OR(ISCHANGED(Attendee_Category__c),ISCHANGED( Broker__c ),ISCHANGED( Office_Group__c )),RecordType.DeveloperName = &quot;RBM_Broker_Interaction&quot;)</errorConditionFormula>
     <errorMessage>Attendee Category , Office Group or Broker can not be updated.</errorMessage>
 </ValidationRule>
