@@ -17,38 +17,68 @@ jobs:
   detect-changes:
     runs-on: anzx-default
     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      PR_NUMBER: ${{ github.event.pull_request.number }}
-      REPO: ${{ github.repository }}
+      SERVICE_ACCOUNT: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
+      BASE_REF: "${{ github.event.pull_request.base.sha }}"
+      HEAD_REF: "${{ github.event.pull_request.head.sha }}"
+      PR_NUMBER: "${{ github.event.pull_request.number }}"
+      REPO_NAME: "${{ github.event.repository.name }}"
     outputs:
       security_pmd_jest_needed: ${{ steps.set-flags.outputs.security_pmd_jest_needed }}
       sysl_needed: ${{ steps.set-flags.outputs.sysl_needed }}
       prettier_needed: ${{ steps.set-flags.outputs.prettier_needed }}
       eslint_lwc_needed: ${{ steps.set-flags.outputs.eslint_lwc_needed }}
     steps:
-      - name: Checkout repo (shallow)
+      - name: Checkout repo
         uses: actions/checkout@v3
         with:
-          fetch-depth: 1
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.ref }}
 
-      - name: Setup Github CLI
-        uses: anzx/github-reusable-actions/setup-gh-cli@main
+      - name: Install node
+        uses: actions/setup-node@v3
         with:
-          gh-cli-version: "2.50.0"
+          node-version: "20"
 
       - name: Detect Changed Files
         id: set-flags
         run: |
-          chmod +x ci/workflows-scripts/detect-changes.sh
-          ci/workflows-scripts/detect-changes.sh
+          node --no-warnings ci/workflows/Orchestrations/quality-check.mjs
+          echo WHICH_JOB="upload" >> $GITHUB_ENV
+
+      - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
+        if: ${{ steps.set-flags.outputs.security_pmd_jest_needed == 'true' }}
+        id: "authenticate-harness-delegate"
+        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
+        with:
+          service_account: ${{ env.SERVICE_ACCOUNT }}
+
+      - name: Retrieve GSM Credentials
+        if: ${{ steps.set-flags.outputs.security_pmd_jest_needed == 'true' }}
+        id: secrets
+        uses: google-github-actions/get-secretmanager-secrets@main
+        with:
+          secrets: |-
+            artifactory:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-artifact/versions/latest
+
+      - name: Upload changed files
+        run: |
+          if [[ "${{ steps.set-flags.outputs.security_pmd_jest_needed }}" == 'true' ]];then
+            node --no-warnings ci/workflows/Orchestrations/quality-check.mjs "${{ steps.secrets.outputs.artifactory }}"
+          fi
+          echo WHICH_JOB="clean" >> $GITHUB_ENV
+
+      - name: Cleanup
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/quality-check.mjs
 
   security-check:
     needs: detect-changes
     runs-on: anzx-default
     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      SERVICE_ACCOUNT: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
       PR_NUMBER: ${{ github.event.pull_request.number }}
-      REPO: ${{ github.repository }}
+      REPO_NAME: "${{ github.event.repository.name }}"
+      WHICH_JOB: "download"
     outputs:
       result: ${{ steps.run-check.outputs.result }}
       skipped: ${{ steps.should-skip.outputs.skip }}
@@ -69,6 +99,33 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Install node
+        if: steps.should-skip.outputs.skip == 'false'
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
+        if: steps.should-skip.outputs.skip == 'false'
+        id: "authenticate-harness-delegate"
+        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
+        with:
+          service_account: ${{ env.SERVICE_ACCOUNT }}
+
+      - name: Retrieve GSM Credentials
+        if: steps.should-skip.outputs.skip == 'false'
+        id: secrets
+        uses: google-github-actions/get-secretmanager-secrets@main
+        with:
+          secrets: |-
+            artifactory:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-artifact/versions/latest
+
+      - name: Find all changed files
+        if: steps.should-skip.outputs.skip == 'false'
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/quality-check.mjs "${{ steps.secrets.outputs.artifactory }}"
+          echo WHICH_JOB="clean" >> $GITHUB_ENV
+
       - name: Run Security Check
         if: steps.should-skip.outputs.skip == 'false'
         id: run-check
@@ -76,13 +133,19 @@ jobs:
           chmod +x ci/workflows-scripts/security-check.sh
           ci/workflows-scripts/security-check.sh
 
+      - name: cleanup
+        if: steps.should-skip.outputs.skip == 'false'
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/quality-check.mjs
+
   sysl-check:
     needs: detect-changes
     runs-on: anzx-default
     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      SERVICE_ACCOUNT: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
       PR_NUMBER: ${{ github.event.pull_request.number }}
-      REPO: ${{ github.repository }}
+      REPO_NAME: "${{ github.event.repository.name }}"
+      WHICH_JOB: "download"
     outputs:
       result: ${{ steps.run-check.outputs.result }}
       skipped: ${{ steps.should-skip.outputs.skip }}
@@ -109,6 +172,27 @@ jobs:
         with:
           node-version: "20"
 
+      - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
+        if: steps.should-skip.outputs.skip == 'false'
+        id: "authenticate-harness-delegate"
+        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
+        with:
+          service_account: ${{ env.SERVICE_ACCOUNT }}
+
+      - name: Retrieve GSM Credentials
+        if: steps.should-skip.outputs.skip == 'false'
+        id: secrets
+        uses: google-github-actions/get-secretmanager-secrets@main
+        with:
+          secrets: |-
+            artifactory:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-artifact/versions/latest
+
+      - name: Find all changed files
+        if: steps.should-skip.outputs.skip == 'false'
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/quality-check.mjs "${{ steps.secrets.outputs.artifactory }}"
+          echo WHICH_JOB="clean" >> $GITHUB_ENV
+
       - name: Run Sysl Check
         if: steps.should-skip.outputs.skip == 'false'
         id: run-check
@@ -116,13 +200,19 @@ jobs:
           chmod +x ci/workflows-scripts/sysl-check.sh
           ci/workflows-scripts/sysl-check.sh
 
+      - name: cleanup
+        if: steps.should-skip.outputs.skip == 'false'
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/quality-check.mjs
+
   pmd:
     needs: detect-changes
     runs-on: anzx-default
     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      SERVICE_ACCOUNT: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
       PR_NUMBER: ${{ github.event.pull_request.number }}
-      REPO: ${{ github.repository }}
+      REPO_NAME: "${{ github.event.repository.name }}"
+      WHICH_JOB: "download"
       JAVA_URL: "https://artifactory.gcp.anz/artifactory/git-github/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.10%2B9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.10_9.tar.gz"
       PMD_URL: "https://artifactory.gcp.anz/artifactory/github/pmd/pmd/releases/download/pmd_releases%2F7.2.0/pmd-dist-7.2.0-bin.zip"
     outputs:
@@ -175,6 +265,33 @@ jobs:
           unzip pmd.zip
           chmod +x $GITHUB_WORKSPACE/pmd-bin-7.2.0/bin
 
+      - name: Install node
+        if: steps.should-skip.outputs.skip == 'false'
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
+        if: steps.should-skip.outputs.skip == 'false'
+        id: "authenticate-harness-delegate"
+        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
+        with:
+          service_account: ${{ env.SERVICE_ACCOUNT }}
+
+      - name: Retrieve GSM Credentials
+        if: steps.should-skip.outputs.skip == 'false'
+        id: secrets
+        uses: google-github-actions/get-secretmanager-secrets@main
+        with:
+          secrets: |-
+            artifactory:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-artifact/versions/latest
+
+      - name: Find all changed files
+        if: steps.should-skip.outputs.skip == 'false'
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/quality-check.mjs "${{ steps.secrets.outputs.artifactory }}"
+          echo WHICH_JOB="clean" >> $GITHUB_ENV
+
       - name: Run PMD Check
         if: steps.should-skip.outputs.skip == 'false'
         id: run-check
@@ -186,13 +303,19 @@ jobs:
         if: always()
         run: rm -rf ./tmpPMD ./pmdReport.html ./pmdValidationReport.html ./pmdWarningReport.html
 
+      - name: cleanup
+        if: steps.should-skip.outputs.skip == 'false'
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/quality-check.mjs
+
   prettier:
     needs: detect-changes
     runs-on: anzx-default
     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      SERVICE_ACCOUNT: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
       PR_NUMBER: ${{ github.event.pull_request.number }}
-      REPO: ${{ github.repository }}
+      REPO_NAME: "${{ github.event.repository.name }}"
+      WHICH_JOB: "download"
       JAVA_URL: "https://artifactory.gcp.anz/artifactory/git-github/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.10%2B9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.10_9.tar.gz"
     outputs:
       result: ${{ steps.run-check.outputs.result }}
@@ -248,6 +371,27 @@ jobs:
           mv ci.npmrc .npmrc
           npm ci -f
 
+      - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
+        if: steps.should-skip.outputs.skip == 'false'
+        id: "authenticate-harness-delegate"
+        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
+        with:
+          service_account: ${{ env.SERVICE_ACCOUNT }}
+
+      - name: Retrieve GSM Credentials
+        if: steps.should-skip.outputs.skip == 'false'
+        id: secrets
+        uses: google-github-actions/get-secretmanager-secrets@main
+        with:
+          secrets: |-
+            artifactory:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-artifact/versions/latest
+
+      - name: Find all changed files
+        if: steps.should-skip.outputs.skip == 'false'
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/quality-check.mjs "${{ steps.secrets.outputs.artifactory }}"
+          echo WHICH_JOB="clean" >> $GITHUB_ENV
+
       - name: Run Prettier Check
         if: steps.should-skip.outputs.skip == 'false'
         id: run-check
@@ -261,13 +405,19 @@ jobs:
           echo "🧹 Cleaning up temporary error logs..."
           rm -f $RUNNER_TEMP/*_error.log
 
+      - name: cleanup
+        if: steps.should-skip.outputs.skip == 'false'
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/quality-check.mjs
+
   eslint:
     needs: detect-changes
     runs-on: anzx-default
     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      SERVICE_ACCOUNT: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
       PR_NUMBER: ${{ github.event.pull_request.number }}
-      REPO: ${{ github.repository }}
+      REPO_NAME: "${{ github.event.repository.name }}"
+      WHICH_JOB: "download"
     outputs:
       result: ${{ steps.run-check.outputs.result }}
       skipped: ${{ steps.should-skip.outputs.skip }}
@@ -300,13 +450,39 @@ jobs:
           mv ci.npmrc .npmrc
           npm ci -f
 
-      - name: RUN ESLINT Check
+      - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
+        if: steps.should-skip.outputs.skip == 'false'
+        id: "authenticate-harness-delegate"
+        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
+        with:
+          service_account: ${{ env.SERVICE_ACCOUNT }}
+
+      - name: Retrieve GSM Credentials
+        if: steps.should-skip.outputs.skip == 'false'
+        id: secrets
+        uses: google-github-actions/get-secretmanager-secrets@main
+        with:
+          secrets: |-
+            artifactory:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-artifact/versions/latest
+
+      - name: Find all changed files
+        if: steps.should-skip.outputs.skip == 'false'
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/quality-check.mjs "${{ steps.secrets.outputs.artifactory }}"
+          echo WHICH_JOB="clean" >> $GITHUB_ENV
+
+      - name: Run ESLINT Check
         if: steps.should-skip.outputs.skip == 'false'
         shell: bash
         id: run-check
         run: |
           chmod +x ci/workflows-scripts/eslint-check.sh
           ci/workflows-scripts/eslint-check.sh
+
+      - name: cleanup
+        if: steps.should-skip.outputs.skip == 'false'
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/quality-check.mjs
 
   jest:
     needs: detect-changes
@@ -343,7 +519,7 @@ jobs:
           mv ci.npmrc .npmrc
           npm ci -f
 
-      - name: RUN Jest test
+      - name: Run Jest test
         if: steps.should-skip.outputs.skip == 'false'
         shell: bash
         id: run-check
@@ -362,8 +538,11 @@ jobs:
     runs-on: anzx-default
     if: ${{ always() && !cancelled() && needs.security-check.result != 'skipped' && needs.sysl-check.result != 'skipped' && needs.pmd.result != 'skipped' && needs.prettier.result != 'skipped' && needs.eslint.result != 'skipped' }}
     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      SERVICE_ACCOUNT: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
       PR_NUMBER: ${{ github.event.pull_request.number }}
+      REPO_NAME: "${{ github.event.repository.name }}"
+      WHICH_JOB: "compare"
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       REPO: ${{ github.repository }}
     steps:
       - name: Checkout repo (shallow)
@@ -371,16 +550,12 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Setup GitHub CLI
-        uses: anzx/github-reusable-actions/setup-gh-cli@main
-        with:
-          gh-cli-version: "2.50.0"
-
-      - name: Post Aggregate Results Comment
+      - name: Prepare new report html file
         id: post-comment
         shell: bash
         run: |
           set -e
+
           # Prepare summary lines:
           echo "<h2>🚦 Quality Checks Summary</h2>" > summary.html
           echo "" >> summary.html
@@ -416,6 +591,63 @@ jobs:
           report_check "Sysl" "$SYSL_SKIPPED" "$SYSL_RESULT"
           report_check "Security" "$SECURITY_SKIPPED" "$SECURITY_RESULT"
 
+      - name: Install node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
+        id: "authenticate-harness-delegate"
+        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
+        with:
+          service_account: ${{ env.SERVICE_ACCOUNT }}
+
+      - name: Retrieve GSM Credentials
+        id: secrets
+        uses: google-github-actions/get-secretmanager-secrets@main
+        with:
+          secrets: |-
+            artifactory:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-artifact/versions/latest
+
+      - name: Compare files
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/quality-check.mjs "${{ steps.secrets.outputs.artifactory }}"
+          echo WHICH_JOB="cleanPRComment" >> $GITHUB_ENV
+
+      - name: Check sending new pr comment
+        id: pr-comment-run
+        run: |
+          PR_COMPARE_FILE="quality-check-${REPO_NAME}-${PR_NUMBER}-report"
+          QUALITY_CHECK_FILE_NAME="summary.html"
+          skip=false
+
+          if [[ ! -f "$QUALITY_CHECK_FILE_NAME" ]]; then
+            skip=true
+          fi
+
+          if [[ -f "$PR_COMPARE_FILE" ]]; then
+            compare=$(cat "$PR_COMPARE_FILE")
+            echo "Same PR comment as before? $compare"
+
+            if [[ "$compare" == *'true'* ]]; then
+              skip=true
+            fi
+          else
+            echo "$PR_COMPARE_FILE or $QUALITY_CHECK_FILE_NAME does not exist..."
+          fi
+
+          echo "skip=$skip" >> "$GITHUB_OUTPUT"
+
+      - name: Setup GitHub CLI
+        if: steps.pr-comment-run.outputs.skip == 'false'
+        uses: anzx/github-reusable-actions/setup-gh-cli@main
+        with:
+          gh-cli-version: "2.50.0"
+
+      - name: Send PR Comment
+        if: steps.pr-comment-run.outputs.skip == 'false'
+        shell: bash
+        run: |
           # Find an existing comment with the tag
           existing_comment_id=$(gh api repos/"$REPO"/issues/"$PR_NUMBER"/comments \
             --jq '.[] | select(.body | contains("🚦 Quality Checks Summary")) | .id')
@@ -432,3 +664,7 @@ jobs:
             echo "🆕 No existing comment found. Posting new comment..."
             gh pr comment "$PR_NUMBER" --repo "$REPO" --body-file "$COMMENT_FILE"
           fi
+
+      - name: Cleanup
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/quality-check.mjs "${{ steps.secrets.outputs.artifactory }}"

@@ -7,11 +7,14 @@
     <columns>OPPORTUNITY.CLOSE_DATE</columns>
     <columns>OPPORTUNITY.STAGE_NAME</columns>
     <columns>CORE.USERS.ALIAS</columns>
+    <filterScope>Mine</filterScope>
     <filters>
         <field>OPPORTUNITY.STAGE_NAME</field>
         <operation>notEqual</operation>
         <value>Opportunity Lost,Opportunity Won</value>
     </filters>
-    <filterScope>Mine</filterScope>
-    <label>My In-progres Opportunities</label>
+    <label>My In-progress Opportunities</label>
+    <sharedTo>
+        <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+    </sharedTo>
 </ListView>
