@@ -268,32 +268,18 @@ public with sharing class ARNCService extends Service {
    * @description query exernal Account Registration for customer/financial accounts via API
    */
   public HttpCalloutResponse queryAccountRegistrations(String accNumber) {
-    if (accNumber == null) {
-      return new HttpCalloutResponse();
-    }
     Map<String, String> headers = new Map<String, String>();
     setCommonHeaders(headers);
     HttpCalloutResponse response;
-    try {
-      Lib_HttpCallout calloutService = new Lib_HttpCallout();
-      AccountJsonWrapper customer = new AccountJsonWrapper();
-      customer.accountNumber = accNumber;
-      response = calloutService.makeRestCallout(
-        Label.Account_Registration_Endpoint,
-        HTTP_METHOD.HTTP_POST,
-        headers,
-        JSON.serialize(customer)
-      );
-    } catch (Exception e) {
-      Logger.error(
-          'Error while retrieving Account Registration card details from ARNCService: ',
-          e.getMessage()
-        )
-        .save();
-      throw new AuraHandledException(
-        'An error occurred while retrieving card details. Please reach out to your administrator for assistance.'
-      );
-    }
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    AccountJsonWrapper customer = new AccountJsonWrapper();
+    customer.accountNumber = accNumber;
+    response = calloutService.makeRestCallout(
+      Label.Account_Registration_Endpoint,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      JSON.serialize(customer)
+    );
     return response;
   }
 

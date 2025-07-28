@@ -177,14 +177,20 @@ public with sharing class AccountRegistrationExternalQuery extends ExternalObjec
     DataSource.QueryContext queryContext
   ) {
     if (this.parentId == null) {
-      return new HttpCalloutResponse();
+      throw new System.IllegalArgumentException(
+        'parentId cannot be null or empty.'
+      );
     }
-    ARNCService service = new ARNCService();
     String accNumber = this.parentId.substringAfter('|');
     if (accNumber == null) {
-      return new HttpCalloutResponse();
+      throw new System.IllegalArgumentException(
+        'Account number cannot be null or empty.'
+      );
     }
-    HttpCalloutResponse response = service.queryAccountRegistrations(accNumber);
+    ElectronicAccessAPIRepository electrnicAccessApi = new ElectronicAccessAPIRepository();
+    HttpCalloutResponse response = electrnicAccessApi.retrieveCardDetails(
+      accNumber
+    );
     return response;
   }
 
