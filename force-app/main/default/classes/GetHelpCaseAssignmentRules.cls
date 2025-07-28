@@ -13,6 +13,7 @@ public with sharing class GetHelpCaseAssignmentRules {
   public static final String CANCEL_TRANSFER = 'Cancel transfer';
   public static final String SUSPECTED_FRAUD = 'Suspected fraud';
   public static final String PAYEE_HAS_NOT_RECIEVED_FUNDS = 'Payee has not received funds';
+  public static final String AMENDMENT_REQUEST = 'Amendment Request';
   public static final Group COACH_QUEUE = CommonUtil.getQueueByName(
     'Coach_Queue'
   );
@@ -121,7 +122,8 @@ public with sharing class GetHelpCaseAssignmentRules {
     } else if (
       rec.RecordTypeId == RTCase.imtDispute &&
       (rec.Dispute_Reason__c == CANCEL_TRANSFER ||
-      rec.Dispute_Reason__c == PAYEE_HAS_NOT_RECIEVED_FUNDS)
+      rec.Dispute_Reason__c == PAYEE_HAS_NOT_RECIEVED_FUNDS ||
+      rec.Dispute_Reason__c == AMENDMENT_REQUEST)
     ) {
       return QueryQueue.supportCoachQueue.Id;
     } else if (

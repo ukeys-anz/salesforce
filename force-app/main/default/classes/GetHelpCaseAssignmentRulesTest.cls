@@ -11,6 +11,7 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
   private static final String CANCEL_TRANSFER = 'Cancel transfer';
   private static final String PAYEE_HAS_NOT_RECIEVED_FUNDS = 'Payee has not received funds';
   private static final String OPEN_STATUS = 'Open';
+  private static final String AMENDMENT_REQUEST = 'Amendment Request';
 
   @TestSetup
   static void setup() {
@@ -594,13 +595,14 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
 
   /**
    * @description : This is to test for IMT dispute assignment rule for Suport Coach queue
-   * For dispute reason CANCEL_TRANSFER and PAYEE_HAS_NOT_RECIEVED_FUNDS, case must be assigned to supportCoachQueue
+   * For dispute reason CANCEL_TRANSFER, PAYEE_HAS_NOT_RECIEVED_FUNDS and AMENDMENT_REQUEST  case must be assigned to supportCoachQueue
    */
   @isTest
   static void testSupportCoachQueueIMT() {
     List<String> disputeReasons = new List<String>{
       CANCEL_TRANSFER,
-      PAYEE_HAS_NOT_RECIEVED_FUNDS
+      PAYEE_HAS_NOT_RECIEVED_FUNDS,
+      AMENDMENT_REQUEST
     };
     List<Case> imtCases = new List<Case>();
     for (String disputeReason : disputeReasons) {
@@ -634,7 +636,6 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
   static void testDigitalFraudQueueIMT() {
     List<String> disputeReasons = new List<String>{ SUSPECTED_FRAUD };
     List<Case> imtCases = new List<Case>();
-    Set<ID> caseRecordIds = new Set<Id>();
 
     for (String disputeReason : disputeReasons) {
       Case imatCase = new Case(
