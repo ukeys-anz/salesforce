@@ -156,7 +156,7 @@ public with sharing class FinancialAccountController {
   ) {
     ListUtil.setField(
       digitallyConnectedFinAccountList,
-      FinServ__FinancialAccount__c.Is_ANZ_Connected__c,
+      FinServ__FinancialAccount__c.Is_Digitally_Active__c,
       false
     );
     DML.doUpdate(
@@ -226,7 +226,7 @@ public with sharing class FinancialAccountController {
     FinServ__FinancialAccount__c record = new FinServ__FinancialAccount__c();
     record.Id = finAccountFromDatabase.Id;
     record.Name = finAccount.account_name;
-    record.Is_ANZ_Connected__c = true;
+    record.Is_Digitally_Active__c = true;
     record.FinServ__Balance__c = finAccount.balances.balance.value;
     record.FinServ__CurrentPostedBalance__c = finAccount.balances.current_balance.value;
     record.FinServ__CloseDate__c = finAccount.close_date == null

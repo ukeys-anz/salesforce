@@ -2536,6 +2536,7 @@
       "IA-2415987": [
         "FinServ__ProductName__c",
         "Linked_Product_Code__c",
+        "Is_Digitally_Active__c",
         "Interest_Rate_URL__c",
         "Is_Interest_Tab_Visible__c"
       ],

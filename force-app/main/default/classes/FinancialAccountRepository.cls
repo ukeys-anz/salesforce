@@ -73,7 +73,7 @@ public with sharing class FinancialAccountRepository {
         Ownership__c,
         Linked_Product_Code__c,
         Marketing_Code__c,
-        Is_ANZ_Connected__c,
+        Is_Digitally_Active__c,
         FinServ__ProductName__c,
         Product_Name_Display__c
       FROM FinServ__FinancialAccount__c
@@ -101,7 +101,7 @@ public with sharing class FinancialAccountRepository {
           FROM FinServ__FinancialAccountRole__c
           WHERE
             FinServ__RelatedAccount__r.OCV_ID__c = :ocvId
-            AND FinServ__FinancialAccount__r.Is_ANZ_Connected__c = TRUE
+            AND FinServ__FinancialAccount__r.Is_Digitally_Active__c = TRUE
             AND FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c NOT IN :financialAccountNumbers
         )
       WITH USER_MODE
@@ -241,7 +241,7 @@ public with sharing class FinancialAccountRepository {
       WHERE
         FinServ__RelatedAccount__c = :customerRecordPrimaryOwnerId
         AND FinServ__Active__c = TRUE
-        AND FinServ__FinancialAccount__r.Is_ANZ_Connected__c = TRUE
+        AND FinServ__FinancialAccount__r.Is_Digitally_Active__c = TRUE
         AND FinServ__FinancialAccount__r.Linked_Product_Code__c IN :productCodes
         AND FinServ__Role__c IN :FinancialAccountConstant.FINSERV_ROLE_TYPES
       WITH USER_MODE
@@ -270,7 +270,7 @@ public with sharing class FinancialAccountRepository {
         FinServ__RelatedAccount__c = :customerRecordPrimaryOwnerId
         AND FinServ__Active__c = TRUE
         AND FinServ__FinancialAccount__r.Linked_Product_Code__c IN :productCodes
-        AND FinServ__FinancialAccount__r.Is_ANZ_Connected__c = TRUE
+        AND FinServ__FinancialAccount__r.Is_Digitally_Active__c = TRUE
         AND FinServ__FinancialAccount__r.RecordTypeId = :RTFinancialAccount.savingAccount
         AND FinServ__Role__c IN :FinancialAccountConstant.FINSERV_ROLE_TYPES
       WITH USER_MODE

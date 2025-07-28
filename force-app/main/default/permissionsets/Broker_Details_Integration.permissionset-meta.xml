@@ -853,6 +853,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>FinServ__FinancialAccount__c.Is_Digitally_Active__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>FinServ__FinancialAccount__c.FinServ__City__c</field>
         <readable>true</readable>
     </fieldPermissions>
