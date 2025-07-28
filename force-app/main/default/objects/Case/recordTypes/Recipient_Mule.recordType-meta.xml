@@ -155,7 +155,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Fraud Agent Delay</fullName>
+            <fullName>Fraud Agent Delay - Purged Alert</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud Agent Delay - Quarantine Timeout</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2964,6 +2968,10 @@
         </values>
         <values>
             <fullName>Law Enforcement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Padlock</fullName>
             <default>false</default>
         </values>
         <values>

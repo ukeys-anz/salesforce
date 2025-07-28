@@ -47,6 +47,76 @@ private class PDIApiRepositoryTest {
   }
 
   @IsTest
+  static void testDeletePublicKeyCredentialSuccess() {
+    HttpCalloutResponse success = new HttpCalloutResponse();
+    success.successful = true;
+    success.statusCode = 200;
+    Lib_MockProvider.forType(PDIService.class)
+      .mock('deletePublicKeyCredential', success);
+    Exception ex;
+    try {
+      new PDIApiRepository().deletePublicKeyCredential(CUSTOMER_ID, null);
+    } catch (Exception e) {
+      ex = e;
+    }
+    Assert.isNull(ex, 'Exception should not be thrown');
+  }
+
+  @IsTest
+  static void testDeletePublicKeyCredentialError() {
+    HttpCalloutResponse error = new HttpCalloutResponse();
+    error.successful = false;
+    error.statusCode = 500;
+    error.error = new CalloutException('Error');
+    Lib_MockProvider.forType(PDIService.class)
+      .mock('deletePublicKeyCredential', error);
+    Exception ex;
+    try {
+      new PDIApiRepository().deletePublicKeyCredential(CUSTOMER_ID, null);
+    } catch (Exception e) {
+      ex = e;
+    }
+    Assert.isTrue(
+      ex instanceof RepositoryBase.ServerErrorException,
+      'Exception should be thrown.'
+    );
+  }
+
+  @IsTest
+  static void testDisconnectCRNSuccess() {
+    HttpCalloutResponse success = new HttpCalloutResponse();
+    success.successful = true;
+    success.statusCode = 200;
+    Lib_MockProvider.forType(PDIService.class).mock('disconnectCRN', success);
+    Exception ex;
+    try {
+      new PDIApiRepository().disconnectCRN(CUSTOMER_ID, 'personaid');
+    } catch (Exception e) {
+      ex = e;
+    }
+    Assert.isNull(ex, 'Exception should not be thrown');
+  }
+
+  @IsTest
+  static void testDisconnectCRNError() {
+    HttpCalloutResponse error = new HttpCalloutResponse();
+    error.successful = false;
+    error.statusCode = 500;
+    error.error = new CalloutException('Error');
+    Lib_MockProvider.forType(PDIService.class).mock('disconnectCRN', error);
+    Exception ex;
+    try {
+      new PDIApiRepository().disconnectCRN(CUSTOMER_ID, 'personaid');
+    } catch (Exception e) {
+      ex = e;
+    }
+    Assert.isTrue(
+      ex instanceof RepositoryBase.ServerErrorException,
+      'Exception should be thrown.'
+    );
+  }
+
+  @IsTest
   static void testGetAccessControlsSuccess() {
     HttpCalloutResponse success = new HttpCalloutResponse();
     success.successful = true;

@@ -9,6 +9,7 @@ import updateCOBPIDData from "@salesforce/apex/COBPIDViewAndEditController.updat
 import COUNTRY_OF_ISSUE_FIELD from "@salesforce/schema/COBPrimaryIDDocument__c.CountryOfIssue__c";
 import modal from "@salesforce/resourceUrl/OnboardingCSS";
 import { loadStyle } from "lightning/platformResourceLoader";
+import showCobPidFalloutWorkflow from "@salesforce/label/c.ShowCobPidFalloutWorkflow";
 
 const RECORD_FIELDS = [
   "COBPrimaryIDDocument__c.IdDocumentType__c",
@@ -28,6 +29,8 @@ export default class CobPidViewAndEdit extends LightningElement {
 
   isLoading = false;
   error;
+  showCobPidFalloutWorkflow =
+    showCobPidFalloutWorkflow.toLowerCase() === "true";
 
   async connectedCallback() {
     // give ReadOnly lightning-input lwc component a default indentation to align the text in default lightning-input
