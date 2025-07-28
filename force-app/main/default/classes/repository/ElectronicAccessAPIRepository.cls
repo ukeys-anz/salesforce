@@ -3,7 +3,7 @@
  * @since  July 2025
  * @description Repository class for Electronic Access APIs
  */
-public class ElectronicAccessAPIRepository extends RepositoryBase {
+public with sharing class ElectronicAccessAPIRepository extends RepositoryBase {
   private static final ARNCService ARNC_SERVICE = (ARNCService) Lib_InstanceProvider.forType(
     ARNCService.class
   );
