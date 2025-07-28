@@ -16,7 +16,7 @@ public class AccountRegistrationExternalQueryTest {
     aRNCServiceMock = Lib_MockProvider.forType(ARNCService.class);
   }
 
-   @isTest
+  @isTest
   static void testCalloutError500() {
     HttpCalloutResponse res = new HttpCalloutResponse();
     res.successful = false;
@@ -36,7 +36,7 @@ public class AccountRegistrationExternalQueryTest {
       Test.stopTest();
       Assert.fail('An Exception should be thrown');
     } catch (Exception e) {
-       Assert.isInstanceOfType(
+      Assert.isInstanceOfType(
         e,
         AuraHandledException.class,
         'Exception should be an instanceof AuraHandledException.'
@@ -64,14 +64,14 @@ public class AccountRegistrationExternalQueryTest {
       Test.stopTest();
       Assert.fail('An Exception should be thrown');
     } catch (Exception e) {
-       Assert.isInstanceOfType(
+      Assert.isInstanceOfType(
         e,
         AuraHandledException.class,
         'Exception should be an instanceof AuraHandledException.'
       );
     }
   }
-    
+
   @isTest
   static void testCalloutExceptionError() {
     HttpCalloutResponse res = new HttpCalloutResponse();
@@ -92,7 +92,7 @@ public class AccountRegistrationExternalQueryTest {
       Test.stopTest();
       Assert.fail('An Exception should be thrown');
     } catch (Exception e) {
-       Assert.isInstanceOfType(
+      Assert.isInstanceOfType(
         e,
         AuraHandledException.class,
         'Exception should be an instanceof AuraHandledException.'
@@ -166,10 +166,13 @@ public class AccountRegistrationExternalQueryTest {
       'Card Number Not populated correctly'
     );
   }
-    
+
   @isTest
   static void tesRecordDetailWithExternalId() {
-    Test.setMock(HttpCalloutMock.class, new AccountRegistrationExternalQueryTest.AccountRegistrationQueryTestMock());
+    Test.setMock(
+      HttpCalloutMock.class,
+      new AccountRegistrationExternalQueryTest.AccountRegistrationQueryTestMock()
+    );
     DataSource.QueryContext context = ExternalQueryContextMock.createQueryContextWithExternalId(
       'AccountRegistration'
     );
@@ -183,7 +186,7 @@ public class AccountRegistrationExternalQueryTest {
       result.externalRecords[0].get('AdditionalInformation'),
       'No further information available',
       'Record detail for account registration not showing proper details'
-    ); 
+    );
   }
 
   @IsTest
