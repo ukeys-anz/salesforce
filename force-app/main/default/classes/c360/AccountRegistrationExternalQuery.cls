@@ -203,7 +203,7 @@ public with sharing class AccountRegistrationExternalQuery extends ExternalObjec
       );
     } catch (Exception e) {
       throw new AuraHandledException(
-        'Error occured while retrieving cards details, please contact your administrator'
+        'Error occured while retrieving cards details. Please refresh and try again. Please raise a fault if the problem persists.'
       );
     }
   }
