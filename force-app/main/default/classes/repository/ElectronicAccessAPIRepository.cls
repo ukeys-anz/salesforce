@@ -14,7 +14,6 @@ public class ElectronicAccessAPIRepository extends RepositoryBase {
    * @description calls the service class methods for integration/callout
    */
   public HttpCalloutResponse retrieveCardDetails(String accNumber) {
-    validateAccountNumber(accNumber);
     HttpCalloutResponse response = ARNC_SERVICE.queryAccountRegistrations(
       accNumber
     );
@@ -68,9 +67,7 @@ public class ElectronicAccessAPIRepository extends RepositoryBase {
      * @description constructs UserErrorException with error message and logs info
      */
     public UserErrorException(HttpCalloutResponse response) {
-      this(
-        'An error occurred while retrieving card details. Please reach out to your administrator for assistance.'
-      );
+      this(response.error.getMessage());
       Logger.info(
           'HTTP ' + response.statusCode + ' Error from ARNC_SERVICE',
           response.error

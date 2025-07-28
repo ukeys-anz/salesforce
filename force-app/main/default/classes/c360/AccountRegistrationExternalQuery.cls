@@ -187,11 +187,25 @@ public with sharing class AccountRegistrationExternalQuery extends ExternalObjec
         'Account number cannot be null or empty.'
       );
     }
-    ElectronicAccessAPIRepository electrnicAccessApi = new ElectronicAccessAPIRepository();
-    HttpCalloutResponse response = electrnicAccessApi.retrieveCardDetails(
-      accNumber
-    );
-    return response;
+    try {
+      ElectronicAccessAPIRepository electrnicAccessApi = new ElectronicAccessAPIRepository();
+      HttpCalloutResponse response = electrnicAccessApi.retrieveCardDetails(
+        accNumber
+      );
+      return response;
+    } catch (ElectronicAccessAPIRepository.UserErrorException ex) {
+      throw new AuraHandledException(
+        'You do not have required permission to perform this action.'
+      );
+    } catch (ElectronicAccessAPIRepository.ServerErrorException ex) {
+      throw new AuraHandledException(
+        'The server encountered an unexpected error. Please retry after some time.'
+      );
+    } catch (Exception e) {
+      throw new AuraHandledException(
+        'Error occured while retrieving cards details, please contact your administrator'
+      );
+    }
   }
 
   /**
