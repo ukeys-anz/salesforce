@@ -5356,7 +5356,8 @@
         "Number_Tokenised__c",
         "Status__c",
         "Term_Deposit__c",
-        "Type__c"
+        "Type__c",
+        "Card_Number__c"
       ],
       "IA-2530753": ["Additional_Information__c"]
     },
