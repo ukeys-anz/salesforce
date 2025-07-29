@@ -63,6 +63,7 @@ public with sharing class AccountRegistrationExternalQuery extends ExternalObjec
     public String registrationType;
     public String registrationStatus;
     public String cardStatus;
+    public String cardLast4digits;
   }
 
   /**
@@ -126,6 +127,9 @@ public with sharing class AccountRegistrationExternalQuery extends ExternalObjec
           crnDetails.registrationType
         )
         ?.get('statuses');
+      Integer strNumberofAsterisk = (Integer) MAP_OF_STATUS
+        ?.get(crnDetails.registrationType)
+        ?.get('asteriskCount');
       String statusValue = crnDetails.registrationType ==
         CUSTOMER_REGISTRATION_NUMBER
         ? crnDetails.registrationStatus
@@ -136,8 +140,12 @@ public with sharing class AccountRegistrationExternalQuery extends ExternalObjec
         'registrationStatus' => mapOfStatus?.get(statusValue) ?? statusValue,
         'customerPreferredName' => crnDetails.customerPreferredName,
         'crnLast4Digits' => getMaskedRegistrationNumber(
-          crnDetails.registrationType,
+          strNumberofAsterisk,
           crnDetails.crnLast4Digits
+        ),
+        'cardLast4digits' => getMaskedRegistrationNumber(
+          12,
+          crnDetails.cardLast4digits
         ),
         this.parentField => this.parentId,
         'ExternalId' => this.parentId?.substringAfter('-') +
@@ -145,7 +153,7 @@ public with sharing class AccountRegistrationExternalQuery extends ExternalObjec
         crnDetails.tokenizedRegistrationNo +
         '-' +
         getMaskedRegistrationNumber(
-          crnDetails.registrationType,
+          strNumberofAsterisk,
           crnDetails.crnLast4Digits
         ),
         'DisplayUrl' => getDisplayUrl(
@@ -168,42 +176,49 @@ public with sharing class AccountRegistrationExternalQuery extends ExternalObjec
     QueryModeEnum queryMode,
     DataSource.QueryContext queryContext
   ) {
-    ARNCService service = new ARNCService();
-    String endPoint = buildEndpoint(queryMode);
-    HttpCalloutResponse response = service.queryAccountRegistrations(endPoint);
-    return response;
-  }
-
-  /**
-   * @param queryMode enum to determine if it is related list or detail page
-   * @return HttpCalloutResponse
-   * @description method to build endpoint
-   */
-  @TestVisible
-  private String buildEndpoint(QueryModeEnum queryMode) {
-    String endPoint = Label.Account_Registration_Endpoint;
-    // endpoint in case of related list
-    if (queryMode == QueryModeEnum.RELATED_LIST) {
-      String accNumber = this.parentId.substringAfter('-');
-      endPoint = endPoint.replace('{accountNumber}', accNumber);
+    if (this.parentId == null) {
+      throw new System.IllegalArgumentException(
+        'parentId cannot be null or empty.'
+      );
     }
-    return endPoint;
+    String accNumber = this.parentId.substringAfter('|');
+    if (accNumber == null) {
+      throw new System.IllegalArgumentException(
+        'Account number cannot be null or empty.'
+      );
+    }
+    try {
+      ElectronicAccessAPIRepository electrnicAccessApi = new ElectronicAccessAPIRepository();
+      HttpCalloutResponse response = electrnicAccessApi.retrieveCardDetails(
+        accNumber
+      );
+      return response;
+    } catch (ElectronicAccessAPIRepository.UserErrorException ex) {
+      throw new AuraHandledException(
+        'You do not have required permission to perform this action.'
+      );
+    } catch (ElectronicAccessAPIRepository.ServerErrorException ex) {
+      throw new AuraHandledException(
+        'The server encountered an unexpected error. Please retry after some time.'
+      );
+    } catch (Exception e) {
+      throw new AuraHandledException(
+        'Error occured while retrieving cards details. Please refresh and try again. Please raise a fault if the problem persists.'
+      );
+    }
   }
 
   /**
-   * @param registrationType String
-   * @param crnLast4Digits String
+   * @param strNumberofAsterisk String
+   * @param cardNumber String
    * @return String
    * @description method to generate masked CRN
    */
   @TestVisible
   private String getMaskedRegistrationNumber(
-    String registrationType,
-    String crnLast4Digits
+    Integer strNumberofAsterisk,
+    String cardNumber
   ) {
-    return '*'
-        .repeat(
-          (Integer) MAP_OF_STATUS?.get(registrationType).get('asteriskCount')
-        ) + crnLast4Digits;
+    return '*'.repeat(strNumberofAsterisk) + cardNumber;
   }
 }

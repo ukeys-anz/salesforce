@@ -887,10 +887,6 @@
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>
-        <name>Facet-50d42b02-46aa-4b0f-8937-ad1c03a3e30e</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -1107,7 +1103,7 @@
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>
-        <name>Facet-61dc4ddc-51f4-4a0c-b1f0-9839834a26e4</name>
+        <name>Facet-50d42b02-46aa-4b0f-8937-ad1c03a3e30e</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -1119,16 +1115,6 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:column</componentName>
                 <identifier>flexipage_column8</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-61dc4ddc-51f4-4a0c-b1f0-9839834a26e4</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column9</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-c58e5433-46a3-4601-bab6-8bbd935376fd</name>

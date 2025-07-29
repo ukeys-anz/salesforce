@@ -143,6 +143,7 @@ export default class DaonFileDownload extends LightningElement {
         this.helper.scheduleRetry();
       } catch (e) {
         this.helper.handleError(e);
+        this.isLoading = false;
       } finally {
         this.isCallingOut = false;
       }

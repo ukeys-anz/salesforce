@@ -1386,6 +1386,7 @@
       "IA-2530753": [
         "CertificateIdentifier__c",
         "DocumentFailureReason__c",
+        "ePaymentsCodeApplicable__c",
         "External_Request_Id__c",
         "IDR_Product_Family__c",
         "LicenceCardNumber__c",
@@ -1398,6 +1399,7 @@
         "NascScamSubCategory__c",
         "OnboardingVerificationFailedReason__c",
         "PassportNumber__c",
+        "ReimbursementReason__c",
         "RemoteAccessUsed__c"
       ],
       "IA-2415840": [
@@ -2744,6 +2746,7 @@
         "Assisted__c",
         "Attendees_and_Roles__c",
         "Authentication_Method__c",
+        "Broker__c",
         "Call_Recording_ID__c",
         "CaseId__c",
         "Channel_Booked__c",
@@ -5354,7 +5357,8 @@
         "Number_Tokenised__c",
         "Status__c",
         "Term_Deposit__c",
-        "Type__c"
+        "Type__c",
+        "Card_Number__c"
       ],
       "IA-2530753": ["Additional_Information__c"]
     },
