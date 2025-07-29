@@ -637,7 +637,7 @@
                 <label>Partial or incorrect information captured or provided</label>
             </value>
             <value>
-                <fullName>132</fullName>
+                <fullName>131</fullName>
                 <default>false</default>
                 <label>Account Closure due to KYC Non-compliance</label>
             </value>
@@ -686,11 +686,6 @@
                 <default>false</default>
                 <label>Dissatisfied with process/policy</label>
             </value>
-            <value>
-                <fullName>131</fullName>
-                <default>false</default>
-                <label>ANZ Padlock</label>
-            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Know Your Customer</controllingFieldValue>
@@ -714,7 +709,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Know Your Customer</controllingFieldValue>
-            <valueName>132</valueName>
+            <valueName>131</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>22</controllingFieldValue>
@@ -999,10 +994,6 @@
         <valueSettings>
             <controllingFieldValue>Fraud</controllingFieldValue>
             <valueName>86</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Fraud</controllingFieldValue>
-            <valueName>131</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Fraud</controllingFieldValue>
