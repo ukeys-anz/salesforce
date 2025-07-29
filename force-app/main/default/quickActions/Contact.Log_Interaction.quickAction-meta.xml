@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>This is used to create interaction on COI Member.</description>
+    <description>This is used to create interaction on Broker Contact.</description>
     <fieldOverrides>
         <field>Name</field>
         <formula>&quot;Interaction&quot;</formula>
@@ -13,7 +13,7 @@
             <quickActionLayoutItems>
                 <emptySpace>false</emptySpace>
                 <field>Category__c</field>
-                <uiBehavior>Required</uiBehavior>
+                <uiBehavior>Edit</uiBehavior>
             </quickActionLayoutItems>
             <quickActionLayoutItems>
                 <emptySpace>false</emptySpace>
@@ -23,7 +23,7 @@
             <quickActionLayoutItems>
                 <emptySpace>false</emptySpace>
                 <field>InteractionType</field>
-                <uiBehavior>Required</uiBehavior>
+                <uiBehavior>Edit</uiBehavior>
             </quickActionLayoutItems>
             <quickActionLayoutItems>
                 <emptySpace>false</emptySpace>
@@ -39,18 +39,28 @@
         <quickActionLayoutColumns>
             <quickActionLayoutItems>
                 <emptySpace>false</emptySpace>
-                <field>COI_Member__c</field>
-                <uiBehavior>Readonly</uiBehavior>
+                <field>Broker__c</field>
+                <uiBehavior>Edit</uiBehavior>
             </quickActionLayoutItems>
             <quickActionLayoutItems>
                 <emptySpace>false</emptySpace>
                 <field>Name</field>
                 <uiBehavior>Required</uiBehavior>
             </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>AccountId</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Opportunity__c</field>
+                <uiBehavior>Edit</uiBehavior>
+            </quickActionLayoutItems>
         </quickActionLayoutColumns>
     </quickActionLayout>
     <targetObject>Interaction</targetObject>
-    <targetParentField>COI_Member__c</targetParentField>
+    <targetParentField>Broker__c</targetParentField>
     <targetRecordType>Interaction.CCRM_Interaction</targetRecordType>
     <type>Create</type>
 </QuickAction>

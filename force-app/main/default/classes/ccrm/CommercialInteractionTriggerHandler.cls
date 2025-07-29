@@ -57,6 +57,7 @@ public with sharing class CommercialInteractionTriggerHandler extends Lib_Trigge
       records,
       (Map<Id, Interaction>) oldMap
     );
+    CommercialInteractionActions.performRedaction(records);
     CommercialInteractionActions.validateAndPopulateCLG(
       records,
       (Map<Id, Interaction>) oldMap
@@ -71,6 +72,7 @@ public with sharing class CommercialInteractionTriggerHandler extends Lib_Trigge
       records,
       ACTION_CODE_CREATE
     );
+    CommercialInteractionActions.createBrokerInteractionAttendee(records);
   }
 
   /**

@@ -2746,6 +2746,7 @@
         "Assisted__c",
         "Attendees_and_Roles__c",
         "Authentication_Method__c",
+        "Broker__c",
         "Call_Recording_ID__c",
         "CaseId__c",
         "Channel_Booked__c",
@@ -5356,7 +5357,8 @@
         "Number_Tokenised__c",
         "Status__c",
         "Term_Deposit__c",
-        "Type__c"
+        "Type__c",
+        "Card_Number__c"
       ],
       "IA-2530753": ["Additional_Information__c"]
     },
