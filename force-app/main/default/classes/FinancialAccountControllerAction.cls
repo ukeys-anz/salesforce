@@ -112,9 +112,9 @@ public with sharing class FinancialAccountControllerAction {
     String marketingCode = finAccountFromDatabase?.Marketing_Code__c ??
       account?.product_details?.marketing_code;
     String subProductCode = account?.product_details?.sub_product_code;
-    String finalProductCode = linkedCode ?? marketingCode ?? subProductCode;
+    String productCodeKey = linkedCode ?? marketingCode ?? subProductCode;
     return removeAlphaNumeric
-      ? TextUtils.removeNonAlphanumericChar(finalProductCode)
-      : finalProductCode;
+      ? TextUtils.removeNonAlphanumericChar(productCodeKey)
+      : productCodeKey;
   }
 }
