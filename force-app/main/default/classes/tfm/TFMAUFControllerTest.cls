@@ -159,6 +159,7 @@ public with sharing class TFMAUFControllerTest {
   static void testupdateStatusArchive() {
     registerMocks();
     finAccRepoMock.mock('getFinAccountList', createMockFinancialAccount());
+    finAccRepoMock.mock('getDigitallyConnectedFinAccounts', createMockFinancialAccount());
     TFMAUFController controller = new TFMAUFController();
     Map<String, Object> input = new Map<String, Object>();
     Map<String, Object> output = new Map<String, Object>();
