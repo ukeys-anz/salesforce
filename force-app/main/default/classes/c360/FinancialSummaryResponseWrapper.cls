@@ -70,4 +70,14 @@ public class FinancialSummaryResponseWrapper {
    */
   @AuraEnabled
   public String totalLimitValue { get; set; }
+  /**
+   * @description Hold the value of TotalMortageLimit value exist in cache
+   */
+  @AuraEnabled
+  public String totalMortageLendingAck { get; set; }
+  /**
+   * @description Hold the value of TotalMortageLimit response published by mule
+   */
+  @AuraEnabled
+  public String totalMortageLendingValue { get; set; }
 }

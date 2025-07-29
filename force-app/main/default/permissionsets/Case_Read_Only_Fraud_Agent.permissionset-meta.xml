@@ -840,6 +840,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.ReimbursementReason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.RemoteAccessUsed__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -946,6 +951,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Type</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.ePaymentsCodeApplicable__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

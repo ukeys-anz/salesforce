@@ -1,5 +1,13 @@
 <template>
-  <div class="slds-p-left_x-large">{headerName}</div>
+  <div class="slds-p-left_x-large" style="display: flex">
+    <div class="slds-m-top_xx-small">{headerName}</div>
+    <template if:true={showHelpText}>
+      <lightning-helptext
+        class="slds-m-left_xx-small"
+        content={helpText}
+      ></lightning-helptext>
+    </template>
+  </div>
   <br />
   <template lwc:if={showOtherValue}>
     <lightning-formatted-text

@@ -1750,6 +1750,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>0</value>
     </labels>
     <labels>
+        <fullName>ShowCobPidFalloutWorkflow</fullName>
+        <categories>Join</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ShowCobPidFalloutWorkflow</shortDescription>
+        <value>true</value>
+    </labels>
+    <labels>
         <fullName>User_LAN_Id_Error</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
