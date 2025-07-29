@@ -2,9 +2,13 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>BlockStatusUpdateOfClosedPinSelfieCases</fullName>
     <active>true</active>
-    <description>Restrict the user from changing the status of closed case for Pin &amp; Selfie Recovery Cases &amp; TrustMe Cases</description>
+    <description>Restrict the user from changing the Status and Date Received of a closed case for Pin &amp; Selfie Recovery Cases, TrustMe Cases &amp; ReKYC Case</description>
     <errorConditionFormula>AND(
-ISCHANGED( Status ) ,
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+OR (
+ ISCHANGED( Status ) ,
+ ISCHANGED( IDR_Date_Received__c )
+),
 OR(
   RecordType.DeveloperName == &apos;PIN_Recovery&apos;,
   RecordType.DeveloperName == &apos;Selfie_Recovery&apos;,
@@ -14,5 +18,5 @@ OR(
 ),
 IsClosed
 )</errorConditionFormula>
-    <errorMessage>You are not allowed to change the status of a closed case.</errorMessage>
+    <errorMessage>You are not allowed to modify a closed case.</errorMessage>
 </ValidationRule>

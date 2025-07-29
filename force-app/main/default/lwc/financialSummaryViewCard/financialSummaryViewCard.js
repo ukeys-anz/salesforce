@@ -6,4 +6,9 @@ export default class financialSummaryViewCard extends LightningElement {
   @api showOtherValue;
   @api headerOtherValue;
   @api showHeaderValueText;
+  @api helpText;
+
+  get showHelpText() {
+    return this.helpText ? true : false;
+  }
 }
