@@ -1386,6 +1386,7 @@
       "IA-2530753": [
         "CertificateIdentifier__c",
         "DocumentFailureReason__c",
+        "ePaymentsCodeApplicable__c",
         "External_Request_Id__c",
         "IDR_Product_Family__c",
         "LicenceCardNumber__c",
@@ -1398,6 +1399,7 @@
         "NascScamSubCategory__c",
         "OnboardingVerificationFailedReason__c",
         "PassportNumber__c",
+        "ReimbursementReason__c",
         "RemoteAccessUsed__c"
       ],
       "IA-2415840": [

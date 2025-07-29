@@ -530,16 +530,24 @@
               </lightning-layout>
             </div>
           </template>
-          <!--Onboarding Fallout Component-->
+          <!--Onboarding Fallout Workflow Component-->
           <template lwc:if={recordId}>
-            <div
-              class="slds-box slds-box_xx-small box-background slds-m-top--medium"
-            >
-              <c-onboarding-fallout-workflow
+            <template lwc:if={showCobPidFalloutWorkflow}>
+              <c-cob-pid-fallout-workflow
                 record-id={recordId}
                 oncloseparentmodel={handleClose}
-              ></c-onboarding-fallout-workflow>
-            </div>
+              ></c-cob-pid-fallout-workflow>
+            </template>
+            <template lwc:else>
+              <div
+                class="slds-box slds-box_xx-small box-background slds-m-top--medium"
+              >
+                <c-onboarding-fallout-workflow
+                  record-id={recordId}
+                  oncloseparentmodel={handleClose}
+                ></c-onboarding-fallout-workflow>
+              </div>
+            </template>
           </template>
         </div>
       </div>

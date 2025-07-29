@@ -11241,7 +11241,7 @@
         <field>Broker_Relation__c.Address2__c</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Broker_Relation__c.Associated_Broker_Set__c</field>
         <readable>true</readable>
