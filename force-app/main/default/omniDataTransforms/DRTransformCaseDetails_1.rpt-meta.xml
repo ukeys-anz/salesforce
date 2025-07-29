@@ -245,7 +245,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCaseDetailsCustom6611</globalKey>
-        <inputFieldName>Case:ComplaintDetails:AccountPolicyNumber3</inputFieldName>
+        <inputFieldName>AccountPolicyThree</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
@@ -1320,6 +1320,23 @@
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
+     <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:ComplaintDetails:Issue2Checkbox &quot;Yes&quot; == var:Case:ComplaintDetails:AccountPolicyNumber2 &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF(Case:ComplaintDetails:Issue2Checkbox==&quot;Yes&quot;,%Case:ComplaintDetails:AccountPolicyNumber2%,&quot;&quot;)</formulaExpression>
+        <formulaResultPath>AccountPolicyTwo</formulaResultPath>
+        <formulaSequence>21.0</formulaSequence>
+        <globalKey>aea35957-ac68-49e0-9c6b-6af84245a899</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRTransformCaseDetails</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRTransformCaseDetails</name>
         <disabled>false</disabled>
@@ -1410,6 +1427,23 @@
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Case:ResolutionInformation:complaintStatus1</outputFieldName>
         <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:ComplaintDetails:Issue3Checkbox &quot;Yes&quot; == var:Case:ComplaintDetails:AccountPolicyNumber3 &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF(Case:ComplaintDetails:Issue3Checkbox==&quot;Yes&quot;,%Case:ComplaintDetails:AccountPolicyNumber3%,&quot;&quot;)</formulaExpression>
+        <formulaResultPath>AccountPolicyThree</formulaResultPath>
+        <formulaSequence>20.0</formulaSequence>
+        <globalKey>3e6e7cfa-6e04-48ff-9c06-bbe9a2d42900</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRTransformCaseDetails</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -1783,7 +1817,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCaseDetailsCustom2200</globalKey>
-        <inputFieldName>Case:ComplaintDetails:AccountPolicyNumber2</inputFieldName>
+        <inputFieldName>AccountPolicyTwo</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>

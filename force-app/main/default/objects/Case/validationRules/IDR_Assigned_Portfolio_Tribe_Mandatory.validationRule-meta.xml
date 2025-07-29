@@ -6,7 +6,6 @@
     <errorConditionFormula>AND(
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 RecordType.DeveloperName = &apos;Systemic_Issue&apos;,
-ISPICKVAL(Status, &quot;Closed&quot;),
 OR(
   ISNULL(SI_Assigned_to_Portfolios__c),
   ISNULL(SI_Relevant_Tribes__c) 
