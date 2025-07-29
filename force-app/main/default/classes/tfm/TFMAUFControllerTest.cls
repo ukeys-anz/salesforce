@@ -31,7 +31,10 @@ public with sharing class TFMAUFControllerTest {
     );
     FinServ__FinancialAccount__c finAccount = (FinServ__FinancialAccount__c) TestUtil.setFields(
       finAccount1,
-      new Map<String, Object>{ 'Ownership__c' => 'Single' }
+      new Map<String, Object>{
+        'Ownership__c' => 'Single',
+        'Linked_Product_Code__c' => 'SAVING01'
+      }
     );
     finAccount.FinServ__ProductName__r = product;
     finAccount.FinServ__FinancialAccountNumber__c = '111111111';

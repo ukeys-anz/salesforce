@@ -33,6 +33,7 @@ public with sharing class FinancialAccountControllerTest {
   public static void testGetFinancialAccountFabricPositive() {
     registerMocks();
     finAccRepoMock.mock('getFinAccountList', createMockFinancialAccount());
+    finAccRepoMock.mock('getDigitallyConnectedFinAccounts', createMockFinancialAccount());
 
     Test.startTest();
     List<UnifiedFinancialAccountModel> processedfinancialAccounts = FinancialAccountController.getFinancialAccountFabric(
@@ -280,7 +281,7 @@ public with sharing class FinancialAccountControllerTest {
       finAccount1,
       new Map<String, Object>{
         'Ownership__c' => 'Single',
-        'Linked_Product_Code__c' => 'CAP-CIS:DDAHL'
+        'Linked_Product_Code__c' => 'SAVING01'
       }
     );
     finAccount.FinServ__ProductName__r = product;
