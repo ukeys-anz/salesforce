@@ -5039,6 +5039,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Interaction.Broker__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Interaction.Call_Recording_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
