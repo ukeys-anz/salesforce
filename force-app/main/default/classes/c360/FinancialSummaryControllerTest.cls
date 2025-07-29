@@ -5,7 +5,7 @@
  * @group Service
  */
 @isTest
-private class FinancialSummaryTest {
+private class FinancialSummaryControllerTest {
   public static FinancialSummaryWrapper.FinSummaryCallout finSummaryCallout = new FinancialSummaryWrapper.FinSummaryCallout();
   public static Set<String> accountList;
   static Lib_MockProvider faRepoMock;
@@ -21,11 +21,15 @@ private class FinancialSummaryTest {
   static void getFinSummaryCallout(
     String responseId,
     Boolean callTotalCustBalanceApi,
-    Boolean callAssetFinanceBalanceApi
+    Boolean callAssetFinanceBalanceApi,
+    Boolean callTotalLimitsApi,
+    Boolean callMortageLendingApi
   ) {
     finSummaryCallout.responseId = responseId;
     finSummaryCallout.callTotalCustBalanceApi = callTotalCustBalanceApi;
     finSummaryCallout.callAssetFinanceBalanceApi = callAssetFinanceBalanceApi;
+    finSummaryCallout.callTotalLimitsApi = callTotalLimitsApi;
+    finSummaryCallout.callMortageLendingApi = callMortageLendingApi;
   }
 
   static Set<String> getAccountList() {
@@ -46,7 +50,7 @@ private class FinancialSummaryTest {
     String status = '';
     Test.setMock(
       HttpCalloutMock.class,
-      new CCRMTestDataFactory.GetTotalCustomerBalanceMock()
+      new FinancialSummaryServiceMock.GetTotalCustomerBalanceMock()
     );
 
     Test.startTest();
@@ -60,7 +64,7 @@ private class FinancialSummaryTest {
     Test.stopTest();
 
     //THEN the response should be 'Request Received' from Total Balance API
-    System.assertEquals(
+    Assert.areEqual(
       status,
       FinancialSummaryController.MULE_RESPONSE,
       'Errored out while calling the Total Balance API'
@@ -77,7 +81,7 @@ private class FinancialSummaryTest {
     String status = '';
     Test.setMock(
       HttpCalloutMock.class,
-      new CCRMTestDataFactory.GetTotalCustomerBalanceMock()
+      new FinancialSummaryServiceMock.GetTotalCustomerBalanceMock()
     );
 
     Test.startTest();
@@ -91,7 +95,41 @@ private class FinancialSummaryTest {
     Test.stopTest();
 
     //THEN the response should be 'Request Received' from Total Limit API
-    System.assertEquals(
+    Assert.areEqual(
+      status,
+      FinancialSummaryController.MULE_RESPONSE,
+      'Errored out while calling the Total Balance API'
+    );
+  }
+
+  @isTest
+  static void testGetTotalMortageLending() {
+    String responseId = (String) Lib_FakeIdGenerator.getMockId(
+      Account.SobjectType
+    );
+    //load forge staff token
+    Cache.Session.put(
+      AuthTokenCacheUtil.STAFFPART +
+      AuthTokenCacheUtil.getHashedKey('forgeJWTToken' + '' + 'DCRM_FinSummary'),
+      AuthServiceTest.IDTESTVALUE
+    );
+    String status = '';
+    Test.setMock(
+      HttpCalloutMock.class,
+      new FinancialSummaryServiceMock.GetTotalMortageLendingMock()
+    );
+
+    Test.startTest();
+    status = FinancialSummaryController.getTotalMortageLending(
+      responseId,
+      new Set<String>{ '12345678' },
+      FinancialSummaryController.TOTAL_MORTAGE_LENDING,
+      true
+    );
+    Test.stopTest();
+
+    //Response should be 'Request Received'
+    Assert.areEqual(
       status,
       FinancialSummaryController.MULE_RESPONSE,
       'Errored out while calling the Total Balance API'
@@ -123,7 +161,7 @@ private class FinancialSummaryTest {
     Test.stopTest();
 
     //THEN there should be an error as no mock data is present
-    System.assert(
+    Assert.isTrue(
       errorMessage != null,
       'Total Balance API called without any error'
     );
@@ -140,7 +178,7 @@ private class FinancialSummaryTest {
 
     Test.setMock(
       HttpCalloutMock.class,
-      new CCRMTestDataFactory.GetTotalAssetFinanceBalanceMock()
+      new FinancialSummaryServiceMock.GetTotalAssetFinanceBalanceMock()
     );
 
     Test.startTest();
@@ -155,7 +193,7 @@ private class FinancialSummaryTest {
     Test.stopTest();
 
     //THEN the response should be 'Request Received' from Total Asset Finance Balance API
-    system.assertEquals(
+    Assert.areEqual(
       status,
       FinancialSummaryController.MULE_RESPONSE,
       'Errored out while calling the Asset Balance API'
@@ -179,11 +217,7 @@ private class FinancialSummaryTest {
     Test.stopTest();
 
     //THEN data should not be found in cache as the data not inserted yet
-    System.assertEquals(
-      null,
-      dataInCache,
-      'Expected null but data found in cache'
-    );
+    Assert.areEqual(null, dataInCache, 'Expected null but data found in cache');
   }
 
   @isTest
@@ -234,7 +268,7 @@ private class FinancialSummaryTest {
     );
 
     //THEN the data should be inserted in cache successfully
-    System.assertEquals(
+    Assert.areEqual(
       expectedJSON.totalBalance,
       dataInCacheJSON.totalBalance,
       'Data not found in cache after insertion'
@@ -252,7 +286,7 @@ private class FinancialSummaryTest {
     );
     String currentDateTime = DateTime.now().format('dd/MM/yyyy hh:mm a');
     String expectedData =
-      '{"totalLimitValue":null,"totalLimitAck":null,"totalDebitBalanceAck":"Unexpected error","totalDebitBalance":null,"totalCreditBalanceAck":"Unexpected error","totalCreditBalance":null,"totalBalanceAck":"Unexpected error","totalBalance":null,"totalAssetFinanceBalance":null,"lastSummaryUpdateDate":"' +
+      '{"totalMortageLendingValue":null,"totalMortageLendingAck":null,"totalLimitValue":null,"totalLimitAck":null,"totalDebitBalanceAck":"Unexpected error","totalDebitBalance":null,"totalCreditBalanceAck":"Unexpected error","totalCreditBalance":null,"totalBalanceAck":"Unexpected error","totalBalance":null,"totalAssetFinanceBalance":null,"lastSummaryUpdateDate":"' +
       currentDateTime +
       '","assetBalanceAck":"Unexpected error"}';
 
@@ -279,7 +313,7 @@ private class FinancialSummaryTest {
     dataInCache = (String) sessionPart.get(responseId);
 
     //THEN the data should be inserted in cache successfully
-    System.assertEquals(
+    Assert.areEqual(
       expectedData,
       dataInCache,
       'Data not found in cache after insertion'
@@ -307,7 +341,7 @@ private class FinancialSummaryTest {
     expectedData.lastSummaryUpdateDate = DateTime.now()
       .format('dd/MM/yyyy hh:mm a');
 
-    getFinSummaryCallout(responseId, false, false);
+    getFinSummaryCallout(responseId, false, false, false, false);
 
     Test.startTest();
     FinancialSummaryController.insertDataInCache(totalBalanceResponse);
@@ -318,7 +352,7 @@ private class FinancialSummaryTest {
     Test.stopTest();
 
     //THEN user able to successfully get the data from cache
-    System.assertEquals(
+    Assert.areEqual(
       JSON.serialize(expectedData),
       JSON.serialize(finSumRespFromCache),
       'Not able to get the data from Cache.'
@@ -337,7 +371,7 @@ private class FinancialSummaryTest {
     Test.stopTest();
 
     //THEN no records should be returned as list is empty
-    System.assertEquals(
+    Assert.areEqual(
       0,
       accList.size(),
       'Able to retrieve records the financial account records.'
@@ -403,7 +437,7 @@ private class FinancialSummaryTest {
     Test.stopTest();
 
     //THEN user should be able to get the record
-    System.assertEquals(
+    Assert.areEqual(
       1,
       retrievedAccountSet.size(),
       'Not Able to retrieve the financial account records by customer Ids.'
@@ -468,7 +502,7 @@ private class FinancialSummaryTest {
     Test.stopTest();
 
     //THEN user should be able to get 1 record
-    System.assertEquals(
+    Assert.areEqual(
       1,
       custIdWrapper.capIdsList.size(),
       'CAP customer Id not found'
@@ -532,7 +566,7 @@ private class FinancialSummaryTest {
     Test.stopTest();
 
     //THEN user should get an exception
-    System.assert(
+    Assert.isTrue(
       errorMessage != null,
       'Able to access all the field included in query'
     );
@@ -581,7 +615,7 @@ private class FinancialSummaryTest {
       FinServ__FinancialAccount__c.SobjectType
     );
 
-    getFinSummaryCallout(primaryAccRec.Id, true, true);
+    getFinSummaryCallout(primaryAccRec.Id, true, true, true, false);
 
     expectedData = new FinancialSummaryResponseWrapper();
     expectedData.responseId = primaryAccRec.Id;
@@ -592,9 +626,10 @@ private class FinancialSummaryTest {
     expectedData.totalAssetFinanceBalance = null;
     expectedData.assetBalanceAck = FinancialSummaryController.MULE_RESPONSE;
     expectedData.cacheAck = null;
+    expectedData.totalLimitValue = null;
+    expectedData.totalLimitAck = FinancialSummaryController.MULE_RESPONSE;
 
     fsRepoMock.mock('getAccountById', primaryAccRec);
-
     fsRepoMock.mock(
       'getActiveClgAccAccRelations',
       new List<FinServ__FinancialAccountRole__c>{ finAccountRoleRecord }
@@ -609,15 +644,15 @@ private class FinancialSummaryTest {
 
     Test.setMock(
       HttpCalloutMock.class,
-      new CCRMTestDataFactory.GetTotalCustomerBalanceMock()
+      new FinancialSummaryServiceMock.GetTotalCustomerBalanceMock()
     );
     Test.setMock(
       HttpCalloutMock.class,
-      new CCRMTestDataFactory.GetTotalTerminalsMock()
+      new FinancialSummaryServiceMock.GetTotalTerminalsMock()
     );
     Test.setMock(
       HttpCalloutMock.class,
-      new CCRMTestDataFactory.GetTotalAssetFinanceBalanceMock()
+      new FinancialSummaryServiceMock.GetTotalAssetFinanceBalanceMock()
     );
 
     Test.startTest();
@@ -628,7 +663,7 @@ private class FinancialSummaryTest {
     Test.stopTest();
 
     //THEN it will successfully able to make the API callout and return the response
-    System.assertEquals(
+    Assert.areEqual(
       JSON.serialize(expectedData),
       JSON.serialize(responseData),
       'Errored out while calling the APIs'
@@ -651,7 +686,7 @@ private class FinancialSummaryTest {
     );
     String currentDateTime = DateTime.now().format('dd/MM/yyyy hh:mm a');
     String expectedData =
-      '{"totalLimitValue":null,"totalLimitAck":null,"totalDebitBalanceAck":null,"totalDebitBalance":null,"totalCreditBalanceAck":null,"totalCreditBalance":null,"totalBalanceAck":"Request Received","totalBalance":null,"totalAssetFinanceBalance":null,"lastSummaryUpdateDate":"' +
+      '{"totalMortageLendingValue":null,"totalMortageLendingAck":null,"totalLimitValue":null,"totalLimitAck":null,"totalDebitBalanceAck":null,"totalDebitBalance":null,"totalCreditBalanceAck":null,"totalCreditBalance":null,"totalBalanceAck":"Request Received","totalBalance":null,"totalAssetFinanceBalance":null,"lastSummaryUpdateDate":"' +
       currentDateTime +
       '","assetBalanceAck":"Request Received"}';
 
@@ -664,46 +699,7 @@ private class FinancialSummaryTest {
     Test.stopTest();
 
     //THEN the data should be successfully inserted/populated in cache
-    System.assertEquals(expectedData, cacheData, 'Data not populated in cache');
-  }
-
-  @isTest
-  static void testMakeApiCallout() {
-    //GIVEN accountList, endPoint, responseId, totalBalanceWrapper which is required to make a Callout
-    Set<String> accountList = getAccountList();
-    String endPoint = FinancialSummaryController.BASE_CALLOUT_URL + 'summaries';
-    String responseId = (String) Lib_FakeIdGenerator.getMockId(
-      Account.SobjectType
-    );
-    FinancialSummaryWrapper.TotalBalance totalBalanceWrapper = new FinancialSummaryWrapper.TotalBalance(
-      accountList,
-      FinancialSummaryController.TOTAL_CUSTOMER_BALANCE_FIELDSET,
-      responseId
-    );
-    String status = '';
-
-    Test.setMock(
-      HttpCalloutMock.class,
-      new CCRMTestDataFactory.GetTotalCustomerBalanceMock()
-    );
-
-    Test.startTest();
-    //WHEN making a callout to TotalCustomerBalance API
-    Map<String, String> headers = FinancialSummaryController.generateHeader();
-    status = FinancialSummaryController.makeApiCallout(
-      endPoint,
-      HTTP_METHOD.HTTP_POST,
-      headers,
-      JSON.serialize(totalBalanceWrapper)
-    );
-    Test.stopTest();
-
-    //THEN receive a successful response from the API
-    System.assertEquals(
-      status,
-      FinancialSummaryController.MULE_RESPONSE,
-      'Error while making the API caloout.'
-    );
+    Assert.areEqual(expectedData, cacheData, 'Data not populated in cache');
   }
 
   @isTest
@@ -725,12 +721,12 @@ private class FinancialSummaryTest {
     Map<String, Object> responseMap = FinancialSummaryController.prepareResponseMap(
       response
     );
-    system.assertEquals(
+    Assert.areEqual(
       'Success',
       (string) responseMap.get('Status__c'),
       'prepareResponseMap is not returning correct status'
     );
-    system.assertEquals(
+    Assert.areEqual(
       responseId,
       (string) responseMap.get('Response_Id__c'),
       'prepareResponseMap is not returning correct ResponseId'
@@ -744,7 +740,7 @@ private class FinancialSummaryTest {
       (string) ((Map<String, Object>) JSON.deserializeUntyped(response))
         .get('Summary__c')
     );
-    system.assertEquals(
+    Assert.areEqual(
       3,
       Decimal.valueOf((string) responseMap.get('TERMINALS')),
       'prepareSummaryMapTest is showing correct output'
@@ -772,7 +768,7 @@ private class FinancialSummaryTest {
     fsRepoMock.mock('getFinSummaryMetadata', metadataRecords);
     Test.startTest();
     FinancialSummaryController.wrapFinancialSummary mockedRecords = FinancialSummaryController.getFinSummaryMetadata();
-    system.assertEquals(
+    Assert.areEqual(
       2,
       mockedRecords.lstOfSymmarySetting.size(),
       'getFinSummaryMetadata is not Returning correct list'
@@ -798,6 +794,33 @@ private class FinancialSummaryTest {
     Assert.isFalse(
       filteredAccountNumbers.contains('PCA-abcd123'),
       'removeEncryptedPca is removing wrong number'
+    );
+  }
+
+  @isTest
+  static void getFinancialSummaryDetailsTest() {
+    HttpCalloutResponse resSuccess = new HttpCalloutResponse();
+    resSuccess.successful = true;
+    resSuccess.statusCode = 200;
+    resSuccess.body = '{"status": "SUCCESS"}';
+
+    HttpCalloutResponse resException = new HttpCalloutResponse();
+    resException.successful = true;
+    resException.statusCode = 200;
+    resException.body = 'Success';
+    Test.startTest();
+    String statusSuccess = FinancialSummaryController.getFinancialSummaryDetails(
+      resSuccess
+    );
+    String statusException = FinancialSummaryController.getFinancialSummaryDetails(
+      resException
+    );
+    Test.stopTest();
+    Assert.areEqual('SUCCESS', statusSuccess, 'Expected status to be SUCCESS');
+    Assert.areEqual(
+      'Unexpected error',
+      statusException,
+      'Expected status to be Unexpected Error'
     );
   }
 }
