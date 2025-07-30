@@ -34,8 +34,8 @@
     <permissionSets>Lending_Case_Read</permissionSets>
     <permissionSets>Life_Event_Read_Write</permissionSets>
     <permissionSets>Loan_Preference_Add</permissionSets>
-    <permissionSets>Loan_Preference_Edit</permissionSets>
     <permissionSets>Loan_Preference_Delete</permissionSets>
+    <permissionSets>Loan_Preference_Edit</permissionSets>
     <permissionSets>Outbound_Dialling</permissionSets>
     <permissionSets>Outbound_Message</permissionSets>
     <permissionSets>Party_Edit</permissionSets>
