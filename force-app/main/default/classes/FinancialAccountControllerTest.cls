@@ -242,6 +242,44 @@ public with sharing class FinancialAccountControllerTest {
       'Ocv Id should be null as we are passing fake record Id'
     );
   }
+  
+  @isTest
+  public static void testGetFinancialAccountDBException() {
+    registerMocks();
+    finAccRepoMock.mock('getFinAccountList', new List<FinServ__FinancialAccount__c>());
+    finAccRepoMock.mock('getDigitallyConnectedFinAccounts', new List<FinServ__FinancialAccount__c>());
+    Exception ex;
+    try {
+     FinancialAccountController.getFinancialAccountDB(
+      '12345',
+      null
+      );
+    } catch (Exception e) {
+      ex = e;
+    }
+     Assert.areEqual(
+     ex.getMessage(),
+       'Script-thrown exception'
+     );
+  }
+  @isTest
+  public static void testGetFinancialAccountFabricException() {
+    registerMocks();
+    Lib_MockProvider.forType(UserInfoRepository.class).mock('checkCustomPermission', false);
+    Exception ex;
+    try {
+      FinancialAccountController.getFinancialAccountFabric(
+      '12345',
+      null
+    );
+    } catch (Exception e) {
+      ex = e;
+    }
+     Assert.areEqual(
+     ex.getMessage(),
+       'Script-thrown exception'
+     );
+  }
 
   /**
    * @description This method helps in providing the mock response from Fabric

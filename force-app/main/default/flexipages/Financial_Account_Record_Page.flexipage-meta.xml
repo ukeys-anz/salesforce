@@ -251,6 +251,12 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Marketing_Code__c}</leftValue>
+                        <operator>NE</operator>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>Facet-7188c568-afd4-48b9-a8df-672656f1f07a</name>
