@@ -287,7 +287,6 @@ public with sharing class FinancialAccountController {
     Id ownerId
   ) {
     FinancialAccountControllerAction.isFabricFailed = true;
-    List<UnifiedFinancialAccountModel.AccountList> combinedFinancialAccountList = new List<UnifiedFinancialAccountModel.AccountList>();
 
     try {
       List<UnifiedFinancialAccountModel.AccountList> financialAccountsFromDatabase = fetchAllFinancialAccountsDB(
