@@ -111,8 +111,8 @@ export default class HomeLoanAccountCard extends NavigationMixin(
 
         if (this.isFinAccountTab) {
           this.singleFinAccount = this.financialAccounts[0];
-          if (finAccount.product_details?.marketing_code) {
-            finAccount.showOffsetDetails = true;
+          if (this.singleFinAccount.product_details?.marketing_code) {
+            this.singleFinAccount.showOffsetDetails = true;
           }
           this.offsetList = this.handleOffsetDetails(
             this.singleFinAccount,
