@@ -183,9 +183,12 @@ public with sharing class FinancialAccountController {
     UnifiedFinancialAccountModel.AccountList finAccount,
     FinServ__FinancialAccount__c finAccountFromDatabase
   ) {
-    String productCodeKey = finAccountFromDatabase?.Linked_Product_Code__c ??
-      finAccount?.product_details?.marketing_code ??
-      finAccount?.product_details?.sub_product_code +
+    String productCodeKey =
+      TextUtils.removeNonAlphanumericChar(
+        finAccountFromDatabase?.Linked_Product_Code__c ??
+          finAccount?.product_details?.marketing_code ??
+          finAccount?.product_details?.sub_product_code
+      ) +
       '_' +
       FABRIC_OWNERSHIP_UI.get(finAccount.ownership?.type);
 
@@ -207,6 +210,7 @@ public with sharing class FinancialAccountController {
     finAccount.finserv_ownership = finAccountFromDatabase == null
       ? FABRIC_OWNERSHIP.get(finAccount.ownership?.type)
       : finAccountFromDatabase.Ownership__c;
+
     finAccount.finserv_sortorder = finAccConfig?.Sort_Order__c ??
       DEFAULT_SORT_ORDER;
     finAccount.finserv_showgoal = finAccConfig?.Show_Goals__c ?? false;
