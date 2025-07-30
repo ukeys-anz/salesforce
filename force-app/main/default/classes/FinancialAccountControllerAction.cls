@@ -31,7 +31,8 @@ public with sharing class FinancialAccountControllerAction {
     Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupedAccounts = new Map<String, List<UnifiedFinancialAccountModel.AccountList>>();
 
     for (UnifiedFinancialAccountModel.AccountList account : finAccounts) {
-      String productCode = getProductKey(account, null, false);
+      String productCode = account.linkedProductCode;
+
       FinancialAccountUIConfiguration__mdt uiConfig = QueryFinancialAccountUIConfig.configByProductCode.get(
         productCode
       );
@@ -93,28 +94,5 @@ public with sharing class FinancialAccountControllerAction {
     }
 
     return groupedByProductCode;
-  }
-
-  /**
-   * @description Forms the product key based on the product code.
-   * @param account financial accounts received from fabric or database.
-   * @param finAccountFromDatabase fin account record from db
-   * @param removeAlphaNumeric flag for removing non alpha numeric characters.
-   * @return String product code
-   */
-  public static String getProductKey(
-    UnifiedFinancialAccountModel.AccountList account,
-    FinServ__FinancialAccount__c finAccountFromDatabase,
-    Boolean removeAlphaNumeric
-  ) {
-    String linkedCode = finAccountFromDatabase?.Linked_Product_Code__c ??
-      account?.linkedProductCode;
-    String marketingCode = finAccountFromDatabase?.Marketing_Code__c ??
-      account?.product_details?.marketing_code;
-    String subProductCode = account?.product_details?.sub_product_code;
-    String productCodeKey = linkedCode ?? marketingCode ?? subProductCode;
-    return removeAlphaNumeric
-      ? TextUtils.removeNonAlphanumericChar(productCodeKey)
-      : productCodeKey;
   }
 }

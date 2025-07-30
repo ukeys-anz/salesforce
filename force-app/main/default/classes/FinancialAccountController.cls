@@ -107,12 +107,6 @@ public with sharing class FinancialAccountController {
       String.class
     );
 
-    List<FinServ__FinancialAccount__c> digitallyConnectedFinAccountList = FINANCIAL_ACCOUNT_REPOSITORY.getDigitallyConnectedFinAccounts(
-      ocvId,
-      financialAccountNumbers
-    );
-    updateFinAccounts(digitallyConnectedFinAccountList);
-
     List<FinServ__FinancialAccount__c> financialAccountList = FINANCIAL_ACCOUNT_REPOSITORY.getFinAccountList(
       financialAccountNumbers
     );
@@ -146,23 +140,35 @@ public with sharing class FinancialAccountController {
       }
     }
 
+    financialAccountsToUpdate.addAll(
+      updateDigitallyConnectedAccountFlag(ocvId, financialAccountNumbers)
+    );
     DML.doUpdate(financialAccountsToUpdate, new DmlConfig().withoutSharing());
 
     return processedFinancialAccounts;
   }
 
-  private static void updateFinAccounts(
-    List<FinServ__FinancialAccount__c> digitallyConnectedFinAccountList
+  /**
+   * @description Set digitally active flag to false if the fin account is not present in the list of fin accounts
+   * received from the API
+   * @param ocvId the ocv id of the customer
+   * @param financialAccountNumbers fin account number
+   * @return List<FinServ__FinancialAccount__c> list of financial accounts
+   */
+  private static List<FinServ__FinancialAccount__c> updateDigitallyConnectedAccountFlag(
+    String ocvId,
+    List<String> financialAccountNumbers
   ) {
+    List<FinServ__FinancialAccount__c> digitallyConnectedFinAccountList = FINANCIAL_ACCOUNT_REPOSITORY.getDigitallyConnectedFinAccounts(
+      ocvId,
+      financialAccountNumbers
+    );
     ListUtil.setField(
       digitallyConnectedFinAccountList,
       FinServ__FinancialAccount__c.Is_Digitally_Active__c,
       false
     );
-    DML.doUpdate(
-      digitallyConnectedFinAccountList,
-      new DmlConfig().withoutSharing()
-    );
+    return digitallyConnectedFinAccountList;
   }
 
   /**
@@ -177,12 +183,9 @@ public with sharing class FinancialAccountController {
     UnifiedFinancialAccountModel.AccountList finAccount,
     FinServ__FinancialAccount__c finAccountFromDatabase
   ) {
-    String productCodeKey =
-      FinancialAccountControllerAction.getProductKey(
-        finAccount,
-        finAccountFromDatabase,
-        true
-      ) +
+    String productCodeKey = finAccountFromDatabase?.Linked_Product_Code__c ??
+      finAccount?.product_details?.marketing_code ??
+      finAccount?.product_details?.sub_product_code +
       '_' +
       FABRIC_OWNERSHIP_UI.get(finAccount.ownership?.type);
 
@@ -207,6 +210,9 @@ public with sharing class FinancialAccountController {
     finAccount.finserv_sortorder = uiConfig?.Sort_Order__c ??
       DEFAULT_SORT_ORDER;
     finAccount.finserv_showgoal = uiConfig?.Show_Goals__c ?? false;
+    finAccount.linkedProductCode = finAccountFromDatabase
+      ?.Linked_Product_Code__c ?? finAccount?.product_details?.marketing_code ??
+      finAccount?.product_details?.sub_product_code;
 
     return finAccount;
   }
@@ -280,29 +286,16 @@ public with sharing class FinancialAccountController {
     List<UnifiedFinancialAccountModel.AccountList> combinedFinancialAccountList = new List<UnifiedFinancialAccountModel.AccountList>();
 
     try {
-      List<UnifiedFinancialAccountModel.AccountList> homeLoanAccountDetailsCache = DataPartitionUtil.getLoanAccountDetailsCache(
-        ocvId
-      );
-
       List<UnifiedFinancialAccountModel.AccountList> financialAccountsFromDatabase = fetchAllFinancialAccountsDB(
         ownerId
       );
 
-      if (
-        homeLoanAccountDetailsCache == null &&
-        financialAccountsFromDatabase.isEmpty()
-      ) {
+      if (financialAccountsFromDatabase.isEmpty()) {
         return new List<UnifiedFinancialAccountModel>();
       }
 
-      if (homeLoanAccountDetailsCache != null) {
-        combinedFinancialAccountList.addAll(homeLoanAccountDetailsCache);
-      }
-
-      combinedFinancialAccountList.addAll(financialAccountsFromDatabase);
-
       return FinancialAccountControllerAction.processFinancialAccounts(
-        combinedFinancialAccountList
+        financialAccountsFromDatabase
       );
     } catch (Exception objException) {
       CommonUtil.logException(objException);

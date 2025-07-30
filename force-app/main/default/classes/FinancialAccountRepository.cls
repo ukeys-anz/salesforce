@@ -92,6 +92,9 @@ public with sharing class FinancialAccountRepository {
     String ocvId,
     List<String> financialAccountNumbers
   ) {
+    if (financialAccountNumbers.isEmpty()) {
+      return new List<FinServ__FinancialAccount__c>();
+    }
     return [
       SELECT Id, FinServ__FinancialAccountNumber__c
       FROM FinServ__FinancialAccount__c
