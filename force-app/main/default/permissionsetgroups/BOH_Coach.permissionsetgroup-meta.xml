@@ -48,10 +48,10 @@
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>Lead_Read_Write</permissionSets>
     <permissionSets>Lending_Case_Read_Write</permissionSets>
-    <permissionSets>Loan_Preference_Add</permissionSets>
-    <permissionSets>Loan_Preference_Edit</permissionSets>
-    <permissionSets>Loan_Preference_Delete</permissionSets>
     <permissionSets>Life_Event_Read_Write</permissionSets>
+    <permissionSets>Loan_Preference_Add</permissionSets>
+    <permissionSets>Loan_Preference_Delete</permissionSets>
+    <permissionSets>Loan_Preference_Edit</permissionSets>
     <permissionSets>OCV_Flags_Read_Only</permissionSets>
     <permissionSets>Outbound_Dialling</permissionSets>
     <permissionSets>Outbound_Message</permissionSets>
