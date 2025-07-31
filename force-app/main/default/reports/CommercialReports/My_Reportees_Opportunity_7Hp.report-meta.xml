@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>My Reportee&apos;s Opportunity</name>
     <columns>
         <field>OPPORTUNITY_NAME</field>
     </columns>
@@ -47,7 +48,6 @@
         <field>STAGE_NAME</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>My Reportee&apos;s Opportunity</name>
     <params>
         <name>open</name>
         <value>all</value>

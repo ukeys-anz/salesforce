@@ -26,11 +26,11 @@
     <permissionSets>InteractionOmniClasses</permissionSets>
     <permissionSets>Interest_Tag_Assign</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
-    <permissionSets>Loan_Preference_Add</permissionSets>
-    <permissionSets>Loan_Preference_Edit</permissionSets>
-    <permissionSets>Loan_Preference_Delete</permissionSets>
     <permissionSets>Lead_Read_Write</permissionSets>
     <permissionSets>Lending_Case_Read</permissionSets>
+    <permissionSets>Loan_Preference_Add</permissionSets>
+    <permissionSets>Loan_Preference_Delete</permissionSets>
+    <permissionSets>Loan_Preference_Edit</permissionSets>
     <permissionSets>Outbound_Dialling</permissionSets>
     <permissionSets>Outbound_Message</permissionSets>
     <permissionSets>Party_Edit</permissionSets>

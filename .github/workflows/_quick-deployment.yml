@@ -11,9 +11,6 @@ on:
       token:
         required: true
         description: "Repo token"
-      plugin-token:
-        required: true
-        description: "Plugin repo token"
 
 permissions:
   contents: write
@@ -23,7 +20,7 @@ jobs:
   Quick-Deployment:
     name: Quick Deployment ${{inputs.sfdx_name}}
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.5.0"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:2.1.0"
       options: --user root
     runs-on: anzx-default-np
     steps:
@@ -33,7 +30,11 @@ jobs:
           fetch-depth: 0
           submodules: "true"
           token: ${{ secrets.token }}
-          path: salesforce
+
+      - name: Link plugin
+        run: |
+          cd /opt/harness-delegate/sf-plugin
+          sf plugins link .
 
       - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
         id: "authenticate-harness-delegate"
@@ -42,7 +43,6 @@ jobs:
           service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
 
       - name: ENV vars
-        working-directory: salesforce
         run: |
           baseRef="${{ github.base_ref }}"
           [[ "${{inputs.sfdx_name}}" == "sf-platform-np-intpnv" ]] && baseRef=intpnv
@@ -58,7 +58,6 @@ jobs:
           echo WHICH_JOB="quickDeployment" >> $GITHUB_ENV
 
       - name: Find Secret Names
-        working-directory: salesforce
         run: |
           sfdxURL="${{ inputs.sfdx_name }}"
           projectId=anz-x-bootstrap-np-487e09
@@ -83,30 +82,13 @@ jobs:
             sfdxurl:projects/${{ env.PROJECT_ID }}/secrets/${{ env.SECRET_NAME }}/versions/latest
             artifactory:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/${{ env.ARTIFACTORY_SECRET_NAME }}/versions/latest
 
-      - name: Checkout salesforce-plugin repo
-        uses: actions/checkout@v4
-        with:
-          repository: anzx/salesforce-plugin
-          token: ${{ secrets.plugin-token }}
-          path: salesforce-plugin
-
-      - name: Install plugin
-        working-directory: salesforce-plugin
-        shell: bash
-        run: |
-          rm -rf node_modules && yarn install --frozen-lockfile
-          yarn build
-          sf plugins link .
-
       - name: Run Quick Deployment
         id: deployment
-        working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/quickDeployment.mjs "${{ steps.secrets.outputs.sfdxurl }}" "${{ steps.secrets.outputs.artifactory }}"
           echo WHICH_JOB="quickClean" >> $GITHUB_ENV
 
       - name: Cleanup
-        working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/quickDeployment.mjs
 

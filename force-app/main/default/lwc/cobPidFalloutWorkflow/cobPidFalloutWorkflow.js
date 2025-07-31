@@ -226,8 +226,8 @@ export default class CobPidFalloutWorkflow extends LightningElement {
     );
     const daonLocationUri = this.daonLocationUri?.split("/");
     const customerToken = {
-      customerId: getFieldValue(this.cobPidData, FIELD_COB_OCVID),
-      customerIdType: "OCVID"
+      customerId: getFieldValue(this.cobPidData, FIELD_COB_PERSONID),
+      customerIdType: "UUID"
     };
 
     return {
