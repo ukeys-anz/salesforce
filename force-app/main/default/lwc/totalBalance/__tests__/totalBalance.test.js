@@ -6,6 +6,22 @@ import { setImmediate } from "timers";
 
 const DUMMY_ACCOUNT_RECORD_ID = "001AD00000NmIfxYAF";
 
+const mockToolTip = require("./data/mockToolTip.json");
+
+jest.mock(
+  "@salesforce/resourceUrl/tooltipData",
+  () => "./data/mockToolTip.json",
+  {
+    virtual: true
+  }
+);
+
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    json: () => mockToolTip
+  })
+);
+
 jest.mock(
   "@salesforce/apex/TotalBalanceController.getTotalBalance",
   () => ({

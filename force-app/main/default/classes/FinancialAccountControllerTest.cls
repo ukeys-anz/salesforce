@@ -259,7 +259,8 @@ public with sharing class FinancialAccountControllerTest {
     }
      Assert.areEqual(
      ex.getMessage(),
-       'Script-thrown exception'
+    'Script-thrown exception',
+    'Exception will be thrown'
      );
   }
   @isTest
@@ -277,7 +278,8 @@ public with sharing class FinancialAccountControllerTest {
     }
      Assert.areEqual(
      ex.getMessage(),
-       'Script-thrown exception'
+       'Script-thrown exception',
+       'Exception will be thrown'
      );
   }
 
