@@ -20,8 +20,15 @@ public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerH
    */
   public override Boolean isValidRecord(SObject record) {
     Contact contact = (Contact) record;
-
     return contact.RecordTypeId == RTContact.broker;
+  }
+
+  /**
+   * @description To perform business logic on before insert trigger context
+   */
+  @TestVisible
+  protected override void onBeforeInsert() {
+    RetailBrokerContactActions.checkDuplicateContacts(records);
   }
 
   /**
@@ -47,12 +54,21 @@ public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerH
    */
   @TestVisible
   protected override void onAfterUpdate(Map<Id, SObject> oldMap) {
+    RetailBrokerContactActions.contactMergeEvent(
+      records,
+      (Map<Id, Contact>) oldMap
+    );
     RetailBrokerContactActions.publishBrokerRelationEvents(
       records,
       (Map<Id, Contact>) oldMap
     );
 
     RetailBrokerContactActions.publishBrokerEvents(
+      records,
+      (Map<Id, Contact>) oldMap
+    );
+
+    RetailBrokerContactActions.updateAssistedBrokerLookup(
       records,
       (Map<Id, Contact>) oldMap
     );

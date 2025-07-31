@@ -56,6 +56,14 @@ public with sharing class BrokerCloudEventBuilder {
       'targetObjects_parent_referenceField' => FIELD_ACCOUNT_ID,
       'targetObjects_parent_extId' => record.External_Id__c
     };
+
+    // Only add serialized merge node if it's not null
+    BrokerCloudEventModel.ContactMergeTargetNode mergeNode = buildMergeContactNode(
+      record
+    );
+    if (mergeNode != null) {
+      dataContractMap.put('merge_contact', JSON.serialize(mergeNode));
+    }
     return BrokerCloudEventModel.buildMasterNode(dataContractMap);
   }
 
@@ -66,7 +74,8 @@ public with sharing class BrokerCloudEventBuilder {
    * @return BrokerCloudEventModel.MasterNode MasterNode for cloud event
    */
   public static BrokerCloudEventModel.MasterNode buildFinancialAccountNode(
-    FinServ__FinancialAccount__c record, Account acc
+    FinServ__FinancialAccount__c record,
+    Account acc
   ) {
     Map<String, String> dataContractMap = new Map<String, String>{
       'sourceObjectParentExtIdName' => FIELD_FINANCIAL_ACCOUNT_PRIMARY_OWNER,
@@ -153,5 +162,32 @@ public with sharing class BrokerCloudEventBuilder {
       'sourceObjectParentExtId' => record.Account.External_Id__c
     };
     return BrokerCloudEventModel.buildMasterNode(dataLoanAppMap);
+  }
+
+  /**
+   * @description Builds a ContactMergeTargetNode used in broker cloud event payloads.
+   *              Returns null if required fields are missing.
+   * @author      Madhuri Edke
+   * @param       record The Contact record used to populate the node.
+   * @return      BrokerCloudEventModel.ContactMergeTargetNode or null if input is incomplete.
+   */
+  private static BrokerCloudEventModel.ContactMergeTargetNode buildMergeContactNode(
+    Contact record
+  ) {
+    List<String> requiredFields = new List<String>{
+      'Survivor_Party_Id__c',
+      'Victim_Party_Id__c'
+    };
+
+    for (String fieldName : requiredFields) {
+      if (record.get(fieldName) == null) {
+        return null;
+      }
+    }
+
+    BrokerCloudEventModel.ContactMergeTargetNode mergeContactNode = new BrokerCloudEventModel.ContactMergeTargetNode();
+    mergeContactNode.survivorPartyId = record.Survivor_Party_Id__c;
+    mergeContactNode.victimPartyId = record.Victim_Party_Id__c;
+    return mergeContactNode;
   }
 }

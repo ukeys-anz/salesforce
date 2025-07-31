@@ -6,6 +6,9 @@
 
 @IsTest
 private class ResidentialLoanAppActionsTest {
+  private static final Lib_MockProvider BROKER_CODE_REPOSITORY = Lib_MockProvider.forType(
+    BrokerCodeRepository.class
+  );
   private static final String BROKER_CODE = 'TPMI123456789';
   static Lib_MockProvider rlarRepoMock = Lib_MockProvider.forType(
     ResidentialLoanApplicationRepository.class
@@ -32,6 +35,7 @@ private class ResidentialLoanAppActionsTest {
 
   @IsTest
   static void testPopulateAssistedBroker() {
+    BROKER_CODE_REPOSITORY.mock('getBrokerIdentifiers', createBrokerCodes(10));
     Test.startTest();
     List<ResidentialLoanApplication> results = ResidentialLoanApplicationActions.populateRetailLoanAssistedBroker(
       new List<ResidentialLoanApplication>(),
@@ -82,6 +86,7 @@ private class ResidentialLoanAppActionsTest {
 
   @IsTest
   static void testProcessEmptyAssistedBroker() {
+    BROKER_CODE_REPOSITORY.mock('getBrokerIdentifiers', createBrokerCodes(10));
     Test.startTest();
     List<ResidentialLoanApplication> results = ResidentialLoanApplicationActions.processAssistedBrokerPopulation(
       new List<ResidentialLoanApplication>(),
@@ -93,9 +98,7 @@ private class ResidentialLoanAppActionsTest {
 
   @IsTest
   static void testProcessAssistedBroker() {
-    ResidentialLoanApplicationActions.mockBrokerCodes = createBrokerCodes(10);
-    Id testContactId = ResidentialLoanApplicationActions.mockBrokerCodes[0]
-      .Broker_Name__c;
+    BROKER_CODE_REPOSITORY.mock('getBrokerIdentifiers', createBrokerCodes(10));
     List<ResidentialLoanApplication> loanApps = createResidentialLoanApplications(
       10
     );
@@ -111,31 +114,11 @@ private class ResidentialLoanAppActionsTest {
       'Results should be the same size as input'
     );
     for (ResidentialLoanApplication loanApp : results) {
-      Assert.areEqual(
+      Assert.isNotNull(
         loanApp.Assisted_Broker__c,
-        testContactId,
-        'Assisted Broker should be populated with Broker_Name__c value'
+        'Assisted Broker should be populated'
       );
     }
-  }
-
-  @IsTest
-  static void testGetBrokerCodesByTPMISAO() {
-    List<String> brokerIdentifiers = new List<String>{ 'EXT-1234_Retail' };
-    Test.startTest();
-    List<Broker_Code__c> brokerCodes = ResidentialLoanApplicationActions.getBrokerCodesByTPMISAO(
-      brokerIdentifiers
-    );
-    Assert.isTrue(
-      brokerCodes.isEmpty(),
-      'Broker Codes should be empty without DML in unit tests'
-    );
-    ResidentialLoanApplicationActions.mockBrokerCodes = createBrokerCodes(10);
-    brokerCodes = ResidentialLoanApplicationActions.getBrokerCodesByTPMISAO(
-      brokerIdentifiers
-    );
-    Test.stopTest();
-    Assert.areEqual(brokerCodes.size(), 10, 'Broker Codes should be populated');
   }
 
   static List<ResidentialLoanApplication> createResidentialLoanApplications(

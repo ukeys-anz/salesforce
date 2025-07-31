@@ -35,11 +35,6 @@
                 <default>false</default>
                 <label>Duplicate - OCV Id</label>
             </value>
-            <value>
-                <fullName>Delete</fullName>
-                <default>false</default>
-                <label>Delete</label>
-            </value>
         </valueSetDefinition>
     </valueSet>
     <visibleLines>4</visibleLines>

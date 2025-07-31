@@ -161,13 +161,27 @@ public with sharing class RetailBrokerFinancialAccountAction {
       records,
       accreditationType
     );
-    // Convert the values of extIdToBrokerIdMap to a Set<String>
+
     Set<String> brokerIdentifiers = new Set<String>(
       extIdToBrokerIdMap.values()
     );
 
+    List<Broker_Code__c> validBrokerCodes = new List<Broker_Code__c>();
+
+    for (
+      Broker_Code__c brokerCode : BROKER_CODE_REPOSITORY.getBrokerIdentifiers(
+        brokerIdentifiers
+      )
+    ) {
+      String syncStatus = brokerCode.Broker_Name__r.Sync_Status__c;
+      if (isInvalidSyncStatus(syncStatus)) {
+        continue;
+      }
+      validBrokerCodes.add(brokerCode);
+    }
+
     Map<String, Broker_Code__c> externalIdVsBrokerCodeMap = (Map<String, Broker_Code__c>) Listutil.mapBy(
-      BROKER_CODE_REPOSITORY.getBrokerIdentifiers(brokerIdentifiers),
+      validBrokerCodes,
       Broker_Code__c.External_Id__c
     );
 
@@ -218,5 +232,23 @@ public with sharing class RetailBrokerFinancialAccountAction {
     Logger.info(
       'Financial Account Published' + successEvents.size() + ' Cloud Events'
     );
+  }
+
+  /**
+   * @description Filters out invalid Broker_Code__c records based on Sync_Status__c values in the related Financial Account record.
+   * @param syncStatus  sync status of the related contact record.
+   * @return Boolean true if the record is invalid, false otherwise.
+   */
+  private static Boolean isInvalidSyncStatus(String syncStatus) {
+    if (String.isBlank(syncStatus)) {
+      return false;
+    }
+
+    String padded = ';' + syncStatus + ';';
+
+    return padded.contains(
+        ';' + BrokerConstants.SYNC_STATUS_DUPLICATE_EMAIL + ';'
+      ) ||
+      padded.contains(';' + BrokerConstants.SYNC_STATUS_DUPLICATE_OCVID + ';');
   }
 }

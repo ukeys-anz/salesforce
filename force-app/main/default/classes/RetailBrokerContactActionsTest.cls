@@ -41,7 +41,6 @@ private class RetailBrokerContactActionsTest {
     contactOld.OCV_Event_Version__c = null;
     contactOld.Sync_Status__c = null;
 
-    //Test on add
     Contact contactNew = createTestContact();
     contactNew.Id = contactOld.Id;
     contactNew.OCV_Event_Version__c = 1;
@@ -93,9 +92,9 @@ private class RetailBrokerContactActionsTest {
       CloudEventController.cloudEvents[0].Data_1__c
     );
     Assert.areEqual(
-      'anzx.salesforce.broker.v1alpha1.brokerdata.update',
+      'anzx.salesforce.broker.v1alpha1.brokerdata.add',
       (String) cloudEventmap.get('ce_type'),
-      'Event generated should be of type - update'
+      'Event generated should be of type - add'
     );
   }
 
@@ -123,7 +122,7 @@ private class RetailBrokerContactActionsTest {
       'The size of the result should be the same as the input'
     );
     Assert.areEqual(
-      RetailBrokerContactActions.SYNC_STATUS_BROKER_ORG,
+      BrokerConstants.SYNC_STATUS_BROKER_ORG,
       results[0].Sync_Status__c,
       'The sync status should be set to Broker Org'
     );
@@ -171,30 +170,6 @@ private class RetailBrokerContactActionsTest {
   }
 
   @IsTest
-  static void testIsSyncStatusValidForPublishing() {
-    Contact contactNew = createTestContact();
-    contactNew.Sync_Status__c = null;
-    Assert.isFalse(
-      RetailBrokerContactActions.isSyncStatusValidForPublishing(
-        contactNew,
-        null,
-        ''
-      ),
-      'Contact should not be an eligible broker contact for publishing'
-    );
-
-    contactNew.Sync_Status__c = 'Broker Org';
-    Assert.isFalse(
-      RetailBrokerContactActions.isSyncStatusValidForPublishing(
-        contactNew,
-        null,
-        ''
-      ),
-      'Contact should not be an eligible broker contact for publishing'
-    );
-  }
-
-  @IsTest
   static void testGetAction() {
     Contact contactOld = createTestContact();
     contactOld.OCV_Event_Version__c = 0;
@@ -206,64 +181,11 @@ private class RetailBrokerContactActionsTest {
       'Action type should be blank, neither add nor update'
     );
     contactNew.OCV_Event_Version__c = 1;
+    contactNew.Sync_Status__c = BrokerConstants.SYNC_STATUS_BROKER_ORG;
     Assert.areEqual(
       'add',
       RetailBrokerContactActions.getAction(contactNew, contactOld),
       'Action type should be blank, neither add nor update'
-    );
-  }
-
-  @IsTest
-  static void testIsSyncStatusEligibleForUpdate() {
-    Contact contactOld = createTestContact();
-    contactOld.OCV_Event_Version__c = null;
-    Contact contactNew = createTestContact();
-    contactNew.OCV_Event_Version__c = 0;
-    Assert.isFalse(
-      RetailBrokerContactActions.isSyncStatusEligibleForUpdate(
-        contactNew,
-        contactOld
-      ),
-      'Contact should not be eligible for update Sync Status'
-    );
-
-    contactNew.OCV_Event_Version__c = 1;
-    contactOld.Sync_Status__c = 'Broker Org';
-    Assert.isFalse(
-      RetailBrokerContactActions.isSyncStatusEligibleForUpdate(
-        contactNew,
-        contactOld
-      ),
-      'Contact should not be eligible for update Sync Status'
-    );
-    contactOld.Sync_Status__c = 'Blocked';
-    contactNew.Sync_Status__c = 'Blocked';
-    Assert.isFalse(
-      RetailBrokerContactActions.isSyncStatusEligibleForUpdate(
-        contactNew,
-        contactOld
-      ),
-      'Contact should not be eligible for update Sync Status'
-    );
-
-    contactOld.Sync_Status__c = 'Blocked';
-    contactNew.Sync_Status__c = 'Broker Org';
-    Assert.isFalse(
-      RetailBrokerContactActions.isSyncStatusEligibleForUpdate(
-        contactNew,
-        contactOld
-      ),
-      'Contact should not be eligible for update Sync Status'
-    );
-
-    contactOld.Sync_Status__c = 'Blocked';
-    contactNew.Sync_Status__c = null;
-    Assert.isTrue(
-      RetailBrokerContactActions.isSyncStatusEligibleForUpdate(
-        contactNew,
-        contactOld
-      ),
-      'Contact should be eligible for update Sync Status'
     );
   }
 
@@ -353,19 +275,16 @@ private class RetailBrokerContactActionsTest {
 
   @IsTest
   static void testBlankAggregatorOnBrokerSetChange() {
-    // Prepare test data
-    List<Contact> newContacts = createTestContacts(5); // 5 new contacts
-    List<Contact> oldContacts = newContacts.deepClone(true); // Clone the contacts for oldMap
+    List<Contact> newContacts = createTestContacts(5);
+    List<Contact> oldContacts = newContacts.deepClone(true);
 
-    // Modify some Broker_Set__c values to simulate a change
     oldContacts[0].Broker_Set__c = Lib_FakeIdGenerator.getMockId(
       Broker_Relation__c.SObjectType
-    ); //  change Id
+    );
 
-    // Create the oldMap from the cloned list
     Map<Id, Contact> oldMap = new Map<Id, Contact>(oldContacts);
+    USER_INFO_REPOSITORY_MOCK.mock('checkProfile', false);
 
-    // Call the method under test
     Test.startTest();
     RetailBrokerContactActions.setBlankOfficeGroupOnChangeBrokerSet(
       newContacts,

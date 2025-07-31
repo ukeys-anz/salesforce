@@ -386,13 +386,8 @@
         <field>Contact.Broker_Customer_Profile__c</field>
         <readable>true</readable>
     </fieldPermissions>
-<fieldPermissions>
-        <editable>false</editable>
-        <field>Contact.Broker_Set__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Contact.Broker_Set__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -482,7 +477,7 @@
         <readable>true</readable>
     </fieldPermissions>
 <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Contact.Office_Group__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1738,7 +1733,7 @@
     </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
-        <allowDelete>false</allowDelete>
+        <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>

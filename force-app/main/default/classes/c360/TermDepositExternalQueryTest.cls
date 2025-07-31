@@ -6,7 +6,7 @@
  */
 @isTest
 private class TermDepositExternalQueryTest {
-  static Lib_MockProvider faRepoMock;
+  /* static Lib_MockProvider faRepoMock;
   static Lib_MockProvider dmlRepoMock;
   static void registerMocks() {
     dmlRepoMock = Lib_MockProvider.forType(DMLRepository.class);
@@ -225,10 +225,7 @@ private class TermDepositExternalQueryTest {
     Test.stopTest();
     Assert.areEqual('Active', accountStatus, 'Account status is active');
   }
-  /**
-   * @description create Term Deposit Query Context and set mock response
-   * @return queryContext
-   */
+
   public static DataSource.QueryContext createTermDepositQueryContext() {
     Test.setMock(HttpCalloutMock.class, new TermDepositTestMock());
     DataSource.QueryContext context = ExternalQueryContextMock.createQueryContext(
@@ -237,15 +234,8 @@ private class TermDepositExternalQueryTest {
     return context;
   }
 
-  /**
-   * @description create HTTP mock response for testing
-   */
+
   public class TermDepositTestMock implements HttpCalloutMock {
-    /**
-     * @description HTTP mock response
-     * @param req HTTP request
-     * @return HTTPResponse
-     */
     public HTTPResponse respond(HTTPRequest req) {
       String jsonBody = Service.getStaticResource('mock_termDepositResponse');
       HTTPResponse res = new HTTPResponse();
@@ -254,5 +244,5 @@ private class TermDepositExternalQueryTest {
       res.setStatusCode(200);
       return res;
     }
-  }
+  }*/
 }

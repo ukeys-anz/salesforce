@@ -5,7 +5,6 @@
  * @runTests ResidentialLoanAppActionsTest
  */
 public with sharing class ResidentialLoanApplicationActions {
-
   @TestVisible
   private static final String ACCREDITATION_RETAIL = 'Retail';
   @TestVisible
@@ -14,6 +13,9 @@ public with sharing class ResidentialLoanApplicationActions {
   private static final String SYNC_STATUS_BLOCKED = 'Blocked';
   private static final ResidentialLoanApplicationRepository RLA_REPOSITORY = (ResidentialLoanApplicationRepository) Lib_InstanceProvider.forType(
     ResidentialLoanApplicationRepository.class
+  );
+  private static final BrokerCodeRepository BROKER_CODE_REPOSITORY = (BrokerCodeRepository) Lib_InstanceProvider.forType(
+    BrokerCodeRepository.class
   );
   private static final CustomSettingsRepository BROKER_SETTINGS_REPOSITORY = (CustomSettingsRepository) Lib_InstanceProvider.forType(
     CustomSettingsRepository.class
@@ -42,9 +44,6 @@ public with sharing class ResidentialLoanApplicationActions {
     );
   }
 
-  
-
- 
   /**
    * @description populate Assisted Broker for Retail Residential Loan Applications
    * @param records records to update
@@ -90,11 +89,24 @@ public with sharing class ResidentialLoanApplicationActions {
         accreditationType;
       extIdToBrokerIdMap.put(record.ApplicationExtIdentifier, brokerIdentifier);
     }
-    List<Broker_Code__c> brokerCodes = getBrokerCodesByTPMISAO(
+    Set<String> brokerIdentifiers = new Set<String>(
       extIdToBrokerIdMap.values()
     );
-    Map<String, Id> brokerCodeToContactMap = new Map<String, Id>();
+    List<Broker_Code__c> brokerCodes = BROKER_CODE_REPOSITORY.getBrokerIdentifiers(
+      brokerIdentifiers
+    );
+    List<Broker_Code__c> validBrokerCodes = new List<Broker_Code__c>();
+
     for (Broker_Code__c brokerCode : brokerCodes) {
+      String syncStatus = brokerCode.Broker_Name__r.Sync_Status__c;
+      if (isInvalidSyncStatus(syncStatus)) {
+        continue;
+      }
+      validBrokerCodes.add(brokerCode);
+    }
+
+    Map<String, Id> brokerCodeToContactMap = new Map<String, Id>();
+    for (Broker_Code__c brokerCode : validBrokerCodes) {
       brokerCodeToContactMap.put(
         brokerCode.External_Id__c,
         brokerCode.Broker_Name__c
@@ -111,6 +123,24 @@ public with sharing class ResidentialLoanApplicationActions {
       }
     }
     return records;
+  }
+
+  /**
+   * @description Filters out invalid Broker_Code__c records based on Sync_Status__c values in the related contact record.
+   * @param syncStatus  sync status of the related contact record.
+   * @return Boolean true if the record is invalid, false otherwise.
+   */
+  private static Boolean isInvalidSyncStatus(String syncStatus) {
+    if (String.isBlank(syncStatus)) {
+      return false;
+    }
+
+    String padded = ';' + syncStatus + ';';
+
+    return padded.contains(
+        ';' + BrokerConstants.SYNC_STATUS_DUPLICATE_EMAIL + ';'
+      ) ||
+      padded.contains(';' + BrokerConstants.SYNC_STATUS_DUPLICATE_OCVID + ';');
   }
 
   /**
@@ -169,31 +199,6 @@ public with sharing class ResidentialLoanApplicationActions {
     );
     ApplicationEventActions.logSuccessEvents(cloudEvents);
     return cloudEvents;
-  }
-
-  @TestVisible
-  private static List<Broker_Code__c> mockBrokerCodes = new List<Broker_Code__c>();
-
-  /**
-   * @description get Broker Codes by TPMI SAO
-   * @param brokerIdentifiers concatenated broker identifiers + accreditation type
-   * @return List<Broker_Code__c> broker codes
-   */
-  @TestVisible
-  private static List<Broker_Code__c> getBrokerCodesByTPMISAO(
-    List<String> brokerIdentifiers
-  ) {
-    if (mockBrokerCodes.isEmpty() == false) {
-      return mockBrokerCodes;
-    }
-    if (brokerIdentifiers.isEmpty() == true) {
-      return new List<Broker_Code__c>();
-    }
-    return [
-      SELECT Id, External_Id__c, Broker_Name__c
-      FROM Broker_Code__c
-      WHERE External_Id__c IN :brokerIdentifiers
-    ];
   }
 
   /**

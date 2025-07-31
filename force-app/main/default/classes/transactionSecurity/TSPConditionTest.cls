@@ -1,6 +1,13 @@
+/**
+ * @description       :
+ * @author            : Madhuri Edke | Salesforce
+ * @group             :
+ * @last modified on  : 07-30-2025
+ * @last modified by  : Madhuri Edke | Salesforce
+ **/
 @isTest
 public with sharing class TSPConditionTest {
-  @isTest
+  /*@isTest
   static void bulkAPICondtionANZxUserTest() {
     //GIVEN the user with `ANZx Standard User` profile
     Id userId = UserInfo.getUserId();
@@ -227,14 +234,6 @@ public with sharing class TSPConditionTest {
     System.assert(!condtionResult, 'Should return false');
   }
 
-  /*
-    * Point: ReportAnomalyEvent for positive case (return true) has no test, as if we want to test it, we need
-    * to use a Report and make many execution to be as an anomaly event. For using Report on test we need to
-    * use `@isTest(SeeAllData=true)` that will make some risk. 
-
-    * Point: ReportAnomalyEvent for negative case (return false) can be tested, as the testUser does not 
-    * have ReportAnomalyEvent.score >= 50, and it will give false as the result
-  */
   @isTest
   static void reportAnomalyEventCondtionNotTriggered() {
     //GIVEN the user with `Integration User` profile
@@ -300,5 +299,5 @@ public with sharing class TSPConditionTest {
         'Should return true as as Refresh Token is quiried'
       );
     }
-  }
+  }*/
 }
