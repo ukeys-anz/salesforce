@@ -22,6 +22,10 @@
                 <behavior>Edit</behavior>
                 <field>ANZx_Customer__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>CPID__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

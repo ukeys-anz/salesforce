@@ -12,7 +12,7 @@ public with sharing class AccountClosureWizardControllerTest {
   public static void setup() {
     TestUtil.addPermissionSets(new List<String>{ 'Accounts_Goals_Read_Only' });
   }
-    
+
   private static final Id FAKER_PARENT_CASE_ID = Lib_FakeIdGenerator.getMockId(
     Case.getSObjectType()
   );
@@ -91,37 +91,40 @@ public with sharing class AccountClosureWizardControllerTest {
   }
   @isTest
   public static void testGetFilteredFinancialAccountsPositive() {
-      Map<String, String> paramsMap = new Map<String, String>{
-        'issueType' => 'Account Closure',
-        'parentCaseId' => FAKER_PARENT_CASE_ID,
-        'ocvId' => '12345'
-      };
-      registerMocks();
-      finAccRepoMock.mock('getFinAccountList', mockFinancialAccounts());
-      finAccRepoMock.mock('getDigitallyConnectedFinAccounts', mockFinancialAccounts());
+    Map<String, String> paramsMap = new Map<String, String>{
+      'issueType' => 'Account Closure',
+      'parentCaseId' => FAKER_PARENT_CASE_ID,
+      'ocvId' => '12345'
+    };
+    registerMocks();
+    finAccRepoMock.mock('getFinAccountList', mockFinancialAccounts());
+    finAccRepoMock.mock(
+      'getDigitallyConnectedFinAccounts',
+      mockFinancialAccounts()
+    );
 
-      accountClosureRepoMock.mock(
-        'getCasesByFinancialAccountIds',
-        new List<Case>()
-      );
+    accountClosureRepoMock.mock(
+      'getCasesByFinancialAccountIds',
+      new List<Case>()
+    );
 
-      accountClosureRepoMock.mock(
-        'fetchFilteredFinancialAccountsDetails',
-        mockFinancialAccounts()
-      );
+    accountClosureRepoMock.mock(
+      'fetchFilteredFinancialAccountsDetails',
+      mockFinancialAccounts()
+    );
 
-      Test.startTest();
-      AccountClosureWizardController controller = new AccountClosureWizardController();
-      List<CaseGroupFinancialAccountModel> response = controller.getData(
-        paramsMap
-      );
-      Test.stopTest();
+    Test.startTest();
+    AccountClosureWizardController controller = new AccountClosureWizardController();
+    List<CaseGroupFinancialAccountModel> response = controller.getData(
+      paramsMap
+    );
+    Test.stopTest();
 
-      Assert.areEqual(
-        response[0].Id,
-        FAKER_FIN_ACC_ID,
-        'Financial account id should be same'
-      );
+    Assert.areEqual(
+      response[0].Id,
+      FAKER_FIN_ACC_ID,
+      'Financial account id should be same'
+    );
   }
 
   private static List<Case> mockListOfCases() {
@@ -159,22 +162,24 @@ public with sharing class AccountClosureWizardControllerTest {
     accounts.add(
       (FinServ__FinancialAccount__c) TestUtil.setFields(
         new FinServ__FinancialAccount__c(
-        Id = FAKER_FIN_ACC_ID,
-        FinServ__FinancialAccountNumber__c = '111111111',
-        FinServ__Balance__c = 1.99,
-        FinServ__CurrentPostedBalance__c = 1.99,
-        BSB__c = '014111',
-        FinServ__ProductName__c = '01t2P000000GKT7QAO',
-        FinServ__OpenDate__c = Date.newInstance(2016, 9, 21),
-        FinServ__CloseDate__c = null,
-        FinServ__Status__c = 'Active',
-        Marketing_Code__c = 'SAVING01',
-        FinServ__Ownership__c = 'Single'),
+          Id = FAKER_FIN_ACC_ID,
+          FinServ__FinancialAccountNumber__c = '111111111',
+          FinServ__Balance__c = 1.99,
+          FinServ__CurrentPostedBalance__c = 1.99,
+          BSB__c = '014111',
+          FinServ__ProductName__c = '01t2P000000GKT7QAO',
+          FinServ__OpenDate__c = Date.newInstance(2016, 9, 21),
+          FinServ__CloseDate__c = null,
+          FinServ__Status__c = 'Active',
+          Marketing_Code__c = 'SAVING01',
+          FinServ__Ownership__c = 'Single'
+        ),
         new Map<String, Object>{
           'Ownership__c' => 'Single',
           'Linked_Product_Code__c' => 'SAVING01'
         }
-      ));
+      )
+    );
     return accounts;
   }
 }

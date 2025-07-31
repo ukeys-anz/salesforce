@@ -33,7 +33,10 @@ public with sharing class FinancialAccountControllerTest {
   public static void testGetFinancialAccountFabricPositive() {
     registerMocks();
     finAccRepoMock.mock('getFinAccountList', createMockFinancialAccount());
-    finAccRepoMock.mock('getDigitallyConnectedFinAccounts', createMockFinancialAccount());
+    finAccRepoMock.mock(
+      'getDigitallyConnectedFinAccounts',
+      createMockFinancialAccount()
+    );
 
     Test.startTest();
     List<UnifiedFinancialAccountModel> processedfinancialAccounts = FinancialAccountController.getFinancialAccountFabric(
@@ -242,45 +245,46 @@ public with sharing class FinancialAccountControllerTest {
       'Ocv Id should be null as we are passing fake record Id'
     );
   }
-  
+
   @isTest
   public static void testGetFinancialAccountDBException() {
     registerMocks();
-    finAccRepoMock.mock('getFinAccountList', new List<FinServ__FinancialAccount__c>());
-    finAccRepoMock.mock('getDigitallyConnectedFinAccounts', new List<FinServ__FinancialAccount__c>());
+    finAccRepoMock.mock(
+      'getFinAccountList',
+      new List<FinServ__FinancialAccount__c>()
+    );
+    finAccRepoMock.mock(
+      'getDigitallyConnectedFinAccounts',
+      new List<FinServ__FinancialAccount__c>()
+    );
     Exception ex;
     try {
-     FinancialAccountController.getFinancialAccountDB(
-      '12345',
-      null
-      );
+      FinancialAccountController.getFinancialAccountDB('12345', null);
     } catch (Exception e) {
       ex = e;
     }
-     Assert.areEqual(
-     ex.getMessage(),
-    'Script-thrown exception',
-    'Exception will be thrown'
-     );
+    Assert.areEqual(
+      ex.getMessage(),
+      'Script-thrown exception',
+      'Exception will be thrown'
+    );
   }
   @isTest
   public static void testGetFinancialAccountFabricException() {
     registerMocks();
-    Lib_MockProvider.forType(UserInfoRepository.class).mock('checkCustomPermission', false);
+    Lib_MockProvider.forType(UserInfoRepository.class)
+      .mock('checkCustomPermission', false);
     Exception ex;
     try {
-      FinancialAccountController.getFinancialAccountFabric(
-      '12345',
-      null
-    );
+      FinancialAccountController.getFinancialAccountFabric('12345', null);
     } catch (Exception e) {
       ex = e;
     }
-     Assert.areEqual(
-     ex.getMessage(),
-       'Script-thrown exception',
-       'Exception will be thrown'
-     );
+    Assert.areEqual(
+      ex.getMessage(),
+      'Script-thrown exception',
+      'Exception will be thrown'
+    );
   }
 
   /**
