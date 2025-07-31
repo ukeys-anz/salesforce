@@ -10,8 +10,8 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: "${{ github.run_id }}"
-  cancel-in-progress: false
+  group: "quality-check-${{ github.event.repository.name }}-${{ github.event.pull_request.number }}"
+  cancel-in-progress: true
 
 jobs:
   detect-changes:
@@ -27,6 +27,7 @@ jobs:
       sysl_needed: ${{ steps.set-flags.outputs.sysl_needed }}
       prettier_needed: ${{ steps.set-flags.outputs.prettier_needed }}
       eslint_lwc_needed: ${{ steps.set-flags.outputs.eslint_lwc_needed }}
+      xml_lint_needed: ${{ steps.set-flags.outputs.xml_lint_needed }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -484,6 +485,80 @@ jobs:
         run: |
           node --no-warnings ci/workflows/Orchestrations/quality-check.mjs
 
+  xmlLint:
+    needs: detect-changes
+    runs-on: anzx-default
+    env:
+      SERVICE_ACCOUNT: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      REPO_NAME: "${{ github.event.repository.name }}"
+      WHICH_JOB: "download"
+    outputs:
+      result: ${{ steps.run-check.outputs.result }}
+      skipped: ${{ steps.should-skip.outputs.skip }}
+    steps:
+      - name: Check if xml lint check is needed
+        id: should-skip
+        run: |
+          if [[ "${{ needs.detect-changes.outputs.xml_lint_needed }}" != 'true' ]]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "✅ No xml lint-related files changed. Skipping eslint check."
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout repo (shallow)
+        if: steps.should-skip.outputs.skip == 'false'
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Install node
+        if: steps.should-skip.outputs.skip == 'false'
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Install node packages
+        if: steps.should-skip.outputs.skip == 'false'
+        run: |
+          mv ci.npmrc .npmrc
+          npm ci -f
+
+      - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
+        if: steps.should-skip.outputs.skip == 'false'
+        id: "authenticate-harness-delegate"
+        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
+        with:
+          service_account: ${{ env.SERVICE_ACCOUNT }}
+
+      - name: Retrieve GSM Credentials
+        if: steps.should-skip.outputs.skip == 'false'
+        id: secrets
+        uses: google-github-actions/get-secretmanager-secrets@main
+        with:
+          secrets: |-
+            artifactory:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-artifact/versions/latest
+
+      - name: Find all changed files
+        if: steps.should-skip.outputs.skip == 'false'
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/quality-check.mjs "${{ steps.secrets.outputs.artifactory }}"
+          echo WHICH_JOB="clean" >> $GITHUB_ENV
+
+      - name: Run XML Lint Check
+        if: steps.should-skip.outputs.skip == 'false'
+        shell: bash
+        id: run-check
+        run: |
+          chmod +x ci/workflows-scripts/xml-lint-check.sh
+          ci/workflows-scripts/xml-lint-check.sh
+
+      - name: cleanup
+        if: steps.should-skip.outputs.skip == 'false'
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/quality-check.mjs
+
   jest:
     needs: detect-changes
     runs-on: anzx-default
@@ -534,9 +609,10 @@ jobs:
       - pmd
       - prettier
       - eslint
+      - xmlLint
       - jest
     runs-on: anzx-default
-    if: ${{ always() && !cancelled() && needs.security-check.result != 'skipped' && needs.sysl-check.result != 'skipped' && needs.pmd.result != 'skipped' && needs.prettier.result != 'skipped' && needs.eslint.result != 'skipped' }}
+    if: ${{ always() && !cancelled() && needs.security-check.result != 'skipped' && needs.sysl-check.result != 'skipped' && needs.pmd.result != 'skipped' && needs.prettier.result != 'skipped' && needs.eslint.result != 'skipped' && needs.xmlLint.result != 'skipped' && needs.jest.result != 'skipped' }}
     env:
       SERVICE_ACCOUNT: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
       PR_NUMBER: ${{ github.event.pull_request.number }}
@@ -580,6 +656,9 @@ jobs:
           ESLINT_SKIPPED="${{ needs.eslint.outputs.skipped }}"
           ESLINT_RESULT="${{ needs.eslint.outputs.result }}"
 
+          XML_LINT_SKIPPED="${{ needs.xmlLint.outputs.skipped }}"
+          XML_LINT_RESULT="${{ needs.xmlLint.outputs.result }}"
+
           JEST_SKIPPED="${{ needs.jest.outputs.skipped }}"
           JEST_RESULT="${{ needs.jest.outputs.result }}"
 
@@ -587,6 +666,7 @@ jobs:
           report_check "PMD" "$PMD_SKIPPED" "$PMD_RESULT"
           report_check "Prettier" "$PRETTIER_SKIPPED" "$PRETTIER_RESULT"
           report_check "ESLint" "$ESLINT_SKIPPED" "$ESLINT_RESULT"
+          report_check "XML Lint" "$XML_LINT_SKIPPED" "$XML_LINT_RESULT"
           report_check "Jest" "$JEST_SKIPPED" "$JEST_RESULT"
           report_check "Sysl" "$SYSL_SKIPPED" "$SYSL_RESULT"
           report_check "Security" "$SECURITY_SKIPPED" "$SECURITY_RESULT"
