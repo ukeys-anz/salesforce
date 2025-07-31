@@ -2201,13 +2201,18 @@
         "LastModifiedById",
         "LastModifiedDate"
       ],
-      "IA-2423981": ["Status__c", "Action"],
-      "IA-2435462": ["Object_Name__c", "TriggeredFrom__c", "UserLanId__c"],
-      "IA-2530753": ["Customer_Name__c"],
+      "IA-2460507": ["UserLanId__c"],
+      "IA-2530753": [
+        "Customer_Name__c",
+        "Status__c",
+        "Action",
+        "TriggeredFrom__c"
+      ],
       "IA-2571531": ["Error_Description__c"],
       "IA-2453595": ["Action__c"],
       "IA-2468715": ["Source_System_Name__c"],
-      "IA-2415720": ["Customer_Status__c"]
+      "IA-2415720": ["Customer_Status__c"],
+      "IA-2530743": ["Object_Name__c"]
     },
     "Customer_Task_Configuration__c": {
       "IA-2468707": [
@@ -3092,7 +3097,7 @@
         "My_Managers_Lead__c"
       ],
       "IA-2530753": ["IsNewLead__c"],
-      "IA-2697875": ["Referrer_Business_Name__c", "Referrer_Industry_Type__c"],
+      "IA-2415860": ["Referrer_Business_Name__c", "Referrer_Industry_Type__c"],
       "IA-2618706": [
         "PreferredName__c",
         "AdvertisingIndicator__c",
