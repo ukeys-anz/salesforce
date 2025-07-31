@@ -5,14 +5,17 @@
  */
 @isTest
 public with sharing class AccountClosureWizardControllerTest {
-  /**
-   * @description Add required PermissionSet
-   */
+  private static User thisUser = [
+    SELECT Id
+    FROM User
+    WHERE Id = :UserInfo.getUserId()
+  ];
   @testSetup
-  public static void setup() {
-    TestUtil.addPermissionSets(new List<String>{ 'Accounts_Goals_Read_Only' });
+  static void setup() {
+    System.runAs(thisUser) {
+      TestUtil.addAccountsGoalsPs();
+    }
   }
-
   private static final Id FAKER_PARENT_CASE_ID = Lib_FakeIdGenerator.getMockId(
     Case.getSObjectType()
   );
@@ -91,40 +94,42 @@ public with sharing class AccountClosureWizardControllerTest {
   }
   @isTest
   public static void testGetFilteredFinancialAccountsPositive() {
-    Map<String, String> paramsMap = new Map<String, String>{
-      'issueType' => 'Account Closure',
-      'parentCaseId' => FAKER_PARENT_CASE_ID,
-      'ocvId' => '12345'
-    };
-    registerMocks();
-    finAccRepoMock.mock('getFinAccountList', mockFinancialAccounts());
-    finAccRepoMock.mock(
+    System.runAs(thisUser) {
+      Map<String, String> paramsMap = new Map<String, String>{
+        'issueType' => 'Account Closure',
+        'parentCaseId' => FAKER_PARENT_CASE_ID,
+        'ocvId' => '12345'
+      };
+      registerMocks();
+      finAccRepoMock.mock('getFinAccountList', mockFinancialAccounts());
+      finAccRepoMock.mock(
       'getDigitallyConnectedFinAccounts',
       mockFinancialAccounts()
-    );
+      );
 
-    accountClosureRepoMock.mock(
-      'getCasesByFinancialAccountIds',
-      new List<Case>()
-    );
+      accountClosureRepoMock.mock(
+        'getCasesByFinancialAccountIds',
+        new List<Case>()
+      );
 
-    accountClosureRepoMock.mock(
-      'fetchFilteredFinancialAccountsDetails',
-      mockFinancialAccounts()
-    );
+      accountClosureRepoMock.mock(
+        'fetchFilteredFinancialAccountsDetails',
+        mockFinancialAccounts()
+      );
 
-    Test.startTest();
-    AccountClosureWizardController controller = new AccountClosureWizardController();
-    List<CaseGroupFinancialAccountModel> response = controller.getData(
-      paramsMap
-    );
-    Test.stopTest();
+      Test.startTest();
+      AccountClosureWizardController controller = new AccountClosureWizardController();
+      List<CaseGroupFinancialAccountModel> response = controller.getData(
+        paramsMap
+      );
+      Test.stopTest();
 
-    Assert.areEqual(
-      response[0].Id,
-      FAKER_FIN_ACC_ID,
-      'Financial account id should be same'
-    );
+      Assert.areEqual(
+        response[0].Id,
+        FAKER_FIN_ACC_ID,
+        'Financial account id should be same'
+      );
+    }
   }
 
   private static List<Case> mockListOfCases() {

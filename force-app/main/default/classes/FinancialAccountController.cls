@@ -155,6 +155,7 @@ public with sharing class FinancialAccountController {
    * @param financialAccountNumbers fin account number
    * @return List<FinServ__FinancialAccount__c> list of financial accounts
    */
+  @TestVisible
   private static List<FinServ__FinancialAccount__c> updateDigitallyConnectedAccountFlag(
     String ocvId,
     List<String> financialAccountNumbers
