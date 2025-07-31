@@ -85,7 +85,8 @@ export default class HomeLoanAccountCard extends NavigationMixin(
                 finAccount.recordId = account.FinServ__FinancialAccount__c;
               }
             });
-            finAccount.showOffsetDetails = finAccount.product_details?.marketing_code;
+            finAccount.showOffsetDetails =
+              finAccount.product_details?.marketing_code;
             finAccount.offsetDetails = this.handleOffsetDetails(
               finAccount,
               this.offsetDetails
@@ -109,7 +110,8 @@ export default class HomeLoanAccountCard extends NavigationMixin(
 
         if (this.isFinAccountTab) {
           this.singleFinAccount = this.financialAccounts[0];
-          this.singleFinAccount.showOffsetDetails = this.singleFinAccount.product_details?.marketing_code;
+          this.singleFinAccount.showOffsetDetails =
+            this.singleFinAccount.product_details?.marketing_code;
           this.offsetList = this.handleOffsetDetails(
             this.singleFinAccount,
             this.offsetDetails
