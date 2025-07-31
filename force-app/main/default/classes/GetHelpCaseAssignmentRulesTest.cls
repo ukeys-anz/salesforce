@@ -12,6 +12,9 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
   private static final String PAYEE_HAS_NOT_RECIEVED_FUNDS = 'Payee has not received funds';
   private static final String OPEN_STATUS = 'Open';
   private static final String AMENDMENT_REQUEST = 'Amendment Request';
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+    );
 
   @TestSetup
   static void setup() {
@@ -643,12 +646,14 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
         Status = OPEN_STATUS,
         Subject = 'Test IMT Case assignment to DIGITAL_FRAUD_QUEUE',
         Dispute_Reason__c = disputeReason,
-        Submitted__c = true
+        Submitted__c = true,
+        Description='Test IMT'
       );
       imtCases.add(imatCase);
     }
 
     Test.startTest();
+    DML_REPOSITORY.doInsert(imtCases);
     GetHelpCaseAssignmentRules.assignDisputeCases(imtCases, null);
     Test.stopTest();
     for (Case imtCaseRecord : imtCases) {
