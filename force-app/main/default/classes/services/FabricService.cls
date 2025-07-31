@@ -16,7 +16,7 @@ public with sharing class FabricService extends Service {
     String ocvId,
     List<String> accountNumbers
   ) {
-    String urlParam = 'filter.view_type='+FILTER_DIGITAL_LINKED_ACCOUNT+'&';
+    String urlParam = 'filter.view_type=' + FILTER_DIGITAL_LINKED_ACCOUNT + '&';
     for (String accountNumber : accountNumbers) {
       String accountFilter = 'accounts/' + accountNumber;
       urlParam +=

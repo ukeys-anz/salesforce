@@ -83,9 +83,10 @@ public with sharing class FinancialAccountRepository {
   }
 
   /**
-   * @description Fetch all the Financial account records for given finAccountNumbers and return the List
+   * @description Fetch fin account records based on the fin account numbers and return the List
+   * this method is used to get the list of fin account records which are not present in the financialAccountNumbers
    * @param ocvId of the customer record
-   * @param financialAccountNumbers the List of offset account numbers
+   * @param financialAccountNumbers the fin account numbers to be excluded from query
    * @return `List<FinServ__FinancialAccount__c>` List of financial accounts records
    */
   public List<FinServ__FinancialAccount__c> getDigitallyConnectedFinAccounts(
@@ -191,7 +192,7 @@ public with sharing class FinancialAccountRepository {
       FROM FinServ__FinancialAccount__c
       WHERE
         FinServ__FinancialAccountNumber__c IN :allRelatedAccountNumbers
-        AND FinServ__Status__c != 'Closed'
+        AND FinServ__Status__c != :FinancialAccountConstant.CLOSED
       WITH USER_MODE
       ORDER BY FinServ__Status__c DESC, FinServ__OpenDate__c DESC
     ];

@@ -186,11 +186,11 @@ public with sharing class FinancialAccountController {
     String productCodeKey =
       TextUtils.removeNonAlphanumericChar(
         finAccountFromDatabase?.Linked_Product_Code__c ??
-          finAccount?.product_details?.marketing_code ??
-          finAccount?.product_details?.sub_product_code
+          finAccount.product_details?.marketing_code ??
+          finAccount.product_details?.sub_product_code
       ) +
       '_' +
-      FABRIC_OWNERSHIP_UI.get(finAccount.ownership?.type);
+      FABRIC_OWNERSHIP_UI.get(finAccount.ownership.type);
 
     FinancialAccountUIConfiguration__mdt finAccConfig = QueryFinancialAccountUIConfig.configByDeveloperName.get(
       productCodeKey
@@ -208,15 +208,15 @@ public with sharing class FinancialAccountController {
       : Date.valueOf(finAccount.close_date.value);
     finAccount.finserv_status = FABRIC_STATUSES.get(finAccount.state);
     finAccount.finserv_ownership = finAccountFromDatabase == null
-      ? FABRIC_OWNERSHIP.get(finAccount.ownership?.type)
+      ? FABRIC_OWNERSHIP.get(finAccount.ownership.type)
       : finAccountFromDatabase.Ownership__c;
 
     finAccount.finserv_sortorder = finAccConfig?.Sort_Order__c ??
       DEFAULT_SORT_ORDER;
     finAccount.finserv_showgoal = finAccConfig?.Show_Goals__c ?? false;
     finAccount.linkedProductCode = finAccountFromDatabase
-      ?.Linked_Product_Code__c ?? finAccount?.product_details?.marketing_code ??
-      finAccount?.product_details?.sub_product_code;
+      ?.Linked_Product_Code__c ?? finAccount.product_details?.marketing_code ??
+      finAccount.product_details?.sub_product_code;
 
     return finAccount;
   }
