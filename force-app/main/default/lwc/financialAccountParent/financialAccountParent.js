@@ -148,7 +148,8 @@ export default class FinancialAccountParent extends LightningElement {
         this.offsetData = await this.getOffsetHomeLoanResponse();
       } else {
         this.showRaiseDispute = data.fields.Marketing_Code__c?.value;
-        this.isSavings = this.accRecordTypeApiName === SAVINGS_ACCOUNT_RT_APINAME;
+        this.isSavings =
+          this.accRecordTypeApiName === SAVINGS_ACCOUNT_RT_APINAME;
         if (this.disputeRecordTypes.length === 0) {
           await this.handleGetDisputeRecordTypeDetails();
         }
