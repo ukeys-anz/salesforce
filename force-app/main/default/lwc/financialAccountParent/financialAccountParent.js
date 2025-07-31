@@ -14,7 +14,7 @@ import FIN_ACCOUNT_OCV_ID from "@salesforce/schema/FinServ__FinancialAccount__c.
 import FIN_ACCOUNT_RT_APINAME from "@salesforce/schema/FinServ__FinancialAccount__c.RecordType.DeveloperName";
 import FIN_ACCOUNT_PRIMARY_OWNER from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__PrimaryOwner__c";
 import FIN_ACCOUNT_OWNERSHIP_TYPE from "@salesforce/schema/FinServ__FinancialAccount__c.Ownership__c";
-import MARKETING_CODE from "@salesforce/schema/FinServ__FinancialAccount__c.Marketing_Code__c";
+import FIN_MARKETING_CODE from "@salesforce/schema/FinServ__FinancialAccount__c.Marketing_Code__c";
 
 import FIN_ACCOUNT_INTEREST from "@salesforce/schema/FinServ__FinancialAccount__c.Interest_Accrued__c";
 import { TRANSACTION_HISTORY_RETRIEVE_ERROR } from "c/transactionHistoryService";
@@ -115,7 +115,7 @@ export default class FinancialAccountParent extends LightningElement {
       FIN_ACCOUNT_PRIMARY_OWNER,
       FIN_ACCOUNT_INTEREST,
       FIN_ACCOUNT_OWNERSHIP_TYPE,
-      MARKETING_CODE
+      FIN_MARKETING_CODE
     ]
   })
   async wiredRecord({ data }) {
