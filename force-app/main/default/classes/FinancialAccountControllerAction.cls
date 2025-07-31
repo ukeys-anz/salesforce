@@ -8,7 +8,6 @@ public with sharing class FinancialAccountControllerAction {
   private static final Integer DEFAULT_SORT_ORDER = 999;
   private static final String DEFAULT_ICON = 'custom:custom51';
   private static final String DEFAULT_TRANSACTION_TITLE = 'Transaction History';
-  public static Boolean isFabricFailed = false;
   /**
    * @description Groups financial accounts based on product code .
    * @param finAccounts list of financial accounts received from fabric or database.
@@ -64,9 +63,6 @@ public with sharing class FinancialAccountControllerAction {
       FinancialAccountUIConfiguration__mdt uiConfig = QueryFinancialAccountUIConfig.configByProductCode.get(
         productCode
       );
-      if (isFabricFailed && uiConfig?.Account_Type__c == 'Loan') {
-        continue;
-      }
 
       UnifiedFinancialAccountModel uiModelUpdate = new UnifiedFinancialAccountModel(
         groupedAccounts.get(productCode)

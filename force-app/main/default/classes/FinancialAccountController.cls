@@ -286,7 +286,6 @@ public with sharing class FinancialAccountController {
     String ocvId,
     Id ownerId
   ) {
-    FinancialAccountControllerAction.isFabricFailed = true;
 
     try {
       List<UnifiedFinancialAccountModel.AccountList> financialAccountsFromDatabase = fetchAllFinancialAccountsDB(
@@ -297,9 +296,13 @@ public with sharing class FinancialAccountController {
         return new List<UnifiedFinancialAccountModel>();
       }
 
-      return FinancialAccountControllerAction.processFinancialAccounts(
-        financialAccountsFromDatabase
-      );
+      List<UnifiedFinancialAccountModel> groupedAccounts = new List<UnifiedFinancialAccountModel>();
+      for(UnifiedFinancialAccountModel model : FinancialAccountControllerAction.processFinancialAccounts(financialAccountsFromDatabase)) {
+        if(!model.isHomeLoan) {
+          groupedAccounts.add(model);
+        }
+      }
+      return groupedAccounts;
     } catch (Exception objException) {
       CommonUtil.logException(objException);
       throw new AuraHandledException(FAILED_TO_RETRIEVE);
