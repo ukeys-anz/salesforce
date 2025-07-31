@@ -191,7 +191,7 @@ public with sharing class FinancialAccountController {
           finAccount.product_details?.sub_product_code
       ) +
       '_' +
-      FABRIC_OWNERSHIP_UI.get(finAccount.ownership.type);
+      FABRIC_OWNERSHIP_UI.get(finAccount.ownership?.type);
 
     FinancialAccountUIConfiguration__mdt finAccConfig = QueryFinancialAccountUIConfig.configByDeveloperName.get(
       productCodeKey
@@ -209,7 +209,7 @@ public with sharing class FinancialAccountController {
       : Date.valueOf(finAccount.close_date.value);
     finAccount.finserv_status = FABRIC_STATUSES.get(finAccount.state);
     finAccount.finserv_ownership = finAccountFromDatabase == null
-      ? FABRIC_OWNERSHIP.get(finAccount.ownership.type)
+      ? FABRIC_OWNERSHIP.get(finAccount.ownership?.type)
       : finAccountFromDatabase.Ownership__c;
 
     finAccount.finserv_sortorder = finAccConfig?.Sort_Order__c ??
@@ -287,7 +287,6 @@ public with sharing class FinancialAccountController {
     String ocvId,
     Id ownerId
   ) {
-
     try {
       List<UnifiedFinancialAccountModel.AccountList> financialAccountsFromDatabase = fetchAllFinancialAccountsDB(
         ownerId
@@ -298,8 +297,12 @@ public with sharing class FinancialAccountController {
       }
 
       List<UnifiedFinancialAccountModel> groupedAccounts = new List<UnifiedFinancialAccountModel>();
-      for(UnifiedFinancialAccountModel model : FinancialAccountControllerAction.processFinancialAccounts(financialAccountsFromDatabase)) {
-        if(!model.isHomeLoan) {
+      for (
+        UnifiedFinancialAccountModel model : FinancialAccountControllerAction.processFinancialAccounts(
+          financialAccountsFromDatabase
+        )
+      ) {
+        if (!model.isHomeLoan) {
           groupedAccounts.add(model);
         }
       }
