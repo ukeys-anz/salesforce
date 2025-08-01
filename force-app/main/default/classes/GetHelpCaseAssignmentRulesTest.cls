@@ -653,7 +653,7 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
     }
 
     Test.startTest();
-    DML_REPOSITORY.doInsert(imtCases, new DMLConfig().allowPartial());
+    DML_REPOSITORY.doInsert(imtCases, new DMLConfig().systemMode());
     GetHelpCaseAssignmentRules.assignDisputeCases(imtCases, null);
     Test.stopTest();
     for (Case imtCaseRecord : imtCases) {

@@ -371,4 +371,28 @@ public class CaseCEControllerTest {
       'oldCase' => theOldCase
     };
   }
+  //Check Case is Account Closure case
+  @isTest
+  public static void testAccountClosureDisputeCase() {
+    boolean isFlag;
+    Case theCase = new Case();
+    theCase.RecordTypeId = RTCase.accountClosure;
+    theCase.Description = 'Dispute Case Description Test_Text_32k';
+    theCase.Intended_Account_BSB__c = '012345';
+    theCase.Intended_Account_Name__c = 'Intended Account Name Test_Text_255';
+    theCase.Intended_Account_Number__c = '0123456789';
+    theCase.Intended_Amount__c = 1000.00;
+    theCase.Intended_Pay_Id_Type__c = 'ABN';
+    theCase.Intended_Pay_Id_Value__c = 'Intended Pay Id Value Test_Text_255';
+    theCase.Status = 'Open';
+    theCase.Submitted__c = false;
+    theCase.Transaction_Id__c = 'Transaction Id Test_IMT_Text_255';
+    theCase.Transaction_UUID__c = 'Transaction UUID Test_IMT_Text_255';
+    theCase.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+
+    Test.startTest();
+    isFlag = CheckCaseRecordType.isAccountClosure(theCase, null);
+    Test.stopTest();
+    Assert.areEqual(true, isFlag, 'Case is a account closure case.');
+  }
 }
