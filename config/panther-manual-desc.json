@@ -2201,7 +2201,7 @@
         "LastModifiedById",
         "LastModifiedDate"
       ],
-      "IA-2460507": ["UserLanId__c"],
+      "IA-2460507": ["UserLanId__c", "Object_Name__c"],
       "IA-2530753": [
         "Customer_Name__c",
         "Status__c",
@@ -2211,8 +2211,7 @@
       "IA-2571531": ["Error_Description__c"],
       "IA-2453595": ["Action__c"],
       "IA-2468715": ["Source_System_Name__c"],
-      "IA-2415720": ["Customer_Status__c"],
-      "IA-2530743": ["Object_Name__c"]
+      "IA-2415720": ["Customer_Status__c"]
     },
     "Customer_Task_Configuration__c": {
       "IA-2468707": [
@@ -2237,7 +2236,7 @@
       ]
     },
     "DCRM_Customer_Management_Non_KYC_Fields__mdt": {
-      "IA-2530743": ["Object_Name__c", "RecordType_Name__c"],
+      "IA-2460507": ["Object_Name__c", "RecordType_Name__c"],
       "IA-2415993": ["Customer_Status__c", "Field_Name__c", "Profile_Name__c"]
     },
     "Device__x": {
