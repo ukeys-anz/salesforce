@@ -103,8 +103,8 @@ public with sharing class AccountClosureWizardControllerTest {
       registerMocks();
       finAccRepoMock.mock('getFinAccountList', mockFinancialAccounts());
       finAccRepoMock.mock(
-      'getDigitallyConnectedFinAccounts',
-      mockFinancialAccounts()
+        'getDigitallyConnectedFinAccounts',
+        mockFinancialAccounts()
       );
 
       accountClosureRepoMock.mock(
