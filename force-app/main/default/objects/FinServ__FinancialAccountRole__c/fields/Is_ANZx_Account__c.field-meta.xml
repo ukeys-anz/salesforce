@@ -8,11 +8,8 @@
     <formula>IF(
     OR
     (
-     FinServ__FinancialAccount__r.Marketing_Code__c == &apos;TRANSACT01&apos;, 
-     FinServ__FinancialAccount__r.Marketing_Code__c == &apos;SAVING01&apos;,
-     FinServ__FinancialAccount__r.Marketing_Code__c == &apos;SAVING02&apos;,
-     FinServ__FinancialAccount__r.Marketing_Code__c == &apos;HLVAR01&apos;,
-     FinServ__FinancialAccount__r.Marketing_Code__c == &apos;HLFXD01&apos;
+      FinServ__FinancialAccount__r.Marketing_Code__c != NULL, 
+      FinServ__FinancialAccount__r.Is_Digitally_Active__c == true
     ),
     true,
     false

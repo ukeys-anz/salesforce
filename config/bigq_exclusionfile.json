@@ -467,6 +467,8 @@
     "Interest_Accrued__c",
     "Interest_Rate_URL__c",
     "LastViewedDate",
+    "Linked_Product_Code__c",
+    "Is_Digitally_Active__c",
     "Additional_Owner_Count__c",
     "BSB__c",
     "System_Record_Status__c",

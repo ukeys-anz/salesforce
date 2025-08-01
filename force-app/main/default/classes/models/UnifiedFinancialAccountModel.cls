@@ -38,6 +38,10 @@ public with sharing class UnifiedFinancialAccountModel extends CalloutModel {
   public Decimal sortOrder;
   @AuraEnabled
   public String accountType;
+  @AuraEnabled
+  public String icon;
+  @AuraEnabled
+  public String transactionTitle;
 
   /**
    * @description Accounts information related to the account
@@ -87,6 +91,8 @@ public with sharing class UnifiedFinancialAccountModel extends CalloutModel {
     public Deposit_details deposit_details;
     @AuraEnabled
     public Ownership ownership;
+    @AuraEnabled
+    public String linkedProductCode;
 
     /**
      * @description Returns the value of the specified field.

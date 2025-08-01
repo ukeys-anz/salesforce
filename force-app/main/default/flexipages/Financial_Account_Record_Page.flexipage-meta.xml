@@ -15,7 +15,7 @@
                         <valueListItems>
                             <value>FinServ__FinancialAccount__c.Update_Account_Details</value>
                             <visibilityRule>
-                                <booleanFilter>1 AND 2</booleanFilter>
+                                <booleanFilter>1 AND 2 AND 3</booleanFilter>
                                 <criteria>
                                     <leftValue>{!$Permission.CustomPermission.ANZx_Financial_Account_Maintenance}</leftValue>
                                     <operator>EQUAL</operator>
@@ -25,6 +25,10 @@
                                     <leftValue>{!Record.Ownership__c}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>Multi-party</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Marketing_Code__c}</leftValue>
+                                    <operator>NE</operator>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
@@ -207,6 +211,12 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>customTab2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Marketing_Code__c}</leftValue>
+                        <operator>NE</operator>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -221,6 +231,12 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Marketing_Code__c}</leftValue>
+                        <operator>NE</operator>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -235,6 +251,12 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Marketing_Code__c}</leftValue>
+                        <operator>NE</operator>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>Facet-7188c568-afd4-48b9-a8df-672656f1f07a</name>
