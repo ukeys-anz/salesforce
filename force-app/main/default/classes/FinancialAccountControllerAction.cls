@@ -81,8 +81,8 @@ public with sharing class FinancialAccountControllerAction {
         '';
       uiModelUpdate.isSaving = uiConfig?.Account_Type__c == 'Savings';
       uiModelUpdate.isOthers =
-        uiConfig == null ||
-        uiConfig?.Account_Type__c == 'Non Savings';
+        (uiConfig == null) ||
+        'Non Savings ; Card'.contains(uiConfig?.Account_Type__c);
       uiModelUpdate.isHomeLoan = uiConfig?.Account_Type__c == 'Loan';
       uiModelUpdate.accounts = groupedAccounts.get(productCode);
 

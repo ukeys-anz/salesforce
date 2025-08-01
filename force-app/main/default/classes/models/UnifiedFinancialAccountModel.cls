@@ -62,6 +62,8 @@ public with sharing class UnifiedFinancialAccountModel extends CalloutModel {
     @AuraEnabled
     public Decimal finserv_sortorder;
     @AuraEnabled
+    public String finserv_account_type;
+    @AuraEnabled
     public Boolean finserv_showgoal;
     @AuraEnabled
     public String account_number;
@@ -224,6 +226,21 @@ public with sharing class UnifiedFinancialAccountModel extends CalloutModel {
     public String currency_code;
     @AuraEnabled
     public String units;
+
+    /**
+     * @description calculate the value of the amount charged
+     */
+    @AuraEnabled
+    public Decimal value {
+      get {
+        //Need to check if units and nanos exist as they aren't always returned
+        Decimal unitValue = String.isNotBlank(this.units)
+          ? decimal.valueOf(this.units)
+          : 0;
+        Decimal nanoValue = this.nanos != null ? this.nanos : 0;
+        return unitValue + (nanoValue / 1000000000);
+      }
+    }
   }
 
   /**
