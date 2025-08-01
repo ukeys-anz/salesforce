@@ -14,7 +14,7 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
   private static final String AMENDMENT_REQUEST = 'Amendment Request';
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
-    );
+  );
 
   @TestSetup
   static void setup() {
@@ -647,7 +647,7 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
         Subject = 'Test IMT Case assignment to DIGITAL_FRAUD_QUEUE',
         Dispute_Reason__c = disputeReason,
         Submitted__c = true,
-        Description='Test IMT'
+        Description = 'Test IMT'
       );
       imtCases.add(imatCase);
     }
