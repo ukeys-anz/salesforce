@@ -72,6 +72,7 @@ export default class FinancialAccount extends NavigationMixin(
           finAccount.showMultipartyBadge = true;
           finAccount.finserv_ownership = "Joint";
         }
+        finAccount.isCard = finAccount.finserv_account_type === "Card";
         return finAccount;
       });
       accountDetails = this.sortFinancialAccounts(accountDetails);
