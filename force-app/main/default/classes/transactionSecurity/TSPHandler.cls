@@ -30,8 +30,8 @@ global with sharing class TSPHandler implements TxnSecurity.EventCondition, TxnS
         eventName = 'Block RefreshToken Queried APIEvent';
         uId = refreshTokenQueriedEvent.userId;
       }
-      when LoginEvent reportBreakGlassLoginEvent {
-        return loginEventEvaluation(reportBreakGlassLoginEvent);
+      when LoginEvent reportLoginEvent {
+        return loginEventEvaluation(reportLoginEvent);
       }
       when FileEventStore fileEventStoreBlock {
         eventName = 'Block user for downloading content version records';
@@ -95,7 +95,7 @@ global with sharing class TSPHandler implements TxnSecurity.EventCondition, TxnS
    * @return result `Boolean`
    */
   private static Boolean loginEventEvaluation(LoginEvent event) {
-    return checkBreakGlassUser(event);
+    return (checkBreakGlassUser(event) || checkLoginType(event));
   }
 
   @testVisible
@@ -120,5 +120,39 @@ global with sharing class TSPHandler implements TxnSecurity.EventCondition, TxnS
     Logger.error(breakGlassMessage, Logger.Severity.CRITICAL);
     Logger.saveLog(Logger.SaveMethod.QUEUEABLE);
     return true;
+  }
+
+  @testVisible
+  /**
+   * @description to provision LoginType of the Login Event
+   * @param  event `LoginEvent` event developer name
+   * @return result `Boolean` whether loginType is allowed
+   */
+  private static Boolean checkLoginType(LoginEvent event) {
+    if (isAllowedLoginType(event)) {
+      return false;
+    }
+    String nonSSOMessage =
+      'Login Event without using Single-Sign-On has been done by ' +
+      event.Username +
+      '( Id:' +
+      event.UserId +
+      ')';
+    Logger.info(nonSSOMessage);
+    Logger.saveLog(Logger.SaveMethod.QUEUEABLE);
+    return true;
+  }
+
+  /**
+   * @description to validate isAllowedLoginType Type
+   * @param  event `LoginEvent` LoginEvent
+   * @return result `Boolean` isAllowedLoginType
+   */
+  private static Boolean isAllowedLoginType(LoginEvent event) {
+    Set<String> allowedTypes = new Set<String>{
+      'Third Party SSO',
+      'Remote Access 2.0'
+    };
+    return (allowedTypes.contains(event.loginType));
   }
 }
