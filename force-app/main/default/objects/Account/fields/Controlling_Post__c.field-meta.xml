@@ -2,10 +2,16 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Controlling_Post__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_OCV</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - OCV</complianceGroup>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Controlling Post of the Account</description>
-    <externalId>false</externalId>
+    <inlineHelpText>A controlling post number identifies an account or customer record and is used for distribution of reports and online information within the Retail network.
+A controlling post is a five character code. The first character is a letter indicating the post category; the other four characters are numeric.
+ 
+A - Collections / Hardship / Lending Services
+F &amp; L - Retail, Small Business (Retail)
+P - Private Bank
+R, W - Small Business - Managed</inlineHelpText>
     <label>Controlling Post</label>
     <referenceTo>Controlling_Post__c</referenceTo>
     <relationshipLabel>Accounts</relationshipLabel>
