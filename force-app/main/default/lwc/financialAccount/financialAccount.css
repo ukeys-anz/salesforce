@@ -54,5 +54,5 @@
 }
 
 .card-icon-color {
-  background-color: #ff9a3c;
+  --sds-c-icon-color-background: rgb(255, 154, 60);
 }
