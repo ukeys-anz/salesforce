@@ -33,6 +33,25 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
       insert ac;
     }
   }
+
+  /**
+   * @description set mock parent Account records for testing
+   * @return Account fake record  to be used to fetch source system information on case
+   */
+  static Account getAccountsWithSourceSystemInformation() {
+    Faker faker = new Faker('AU');
+    Account personAcc = new Account();
+    personAcc.RecordTypeId = RTAccount.personAccount;
+    personAcc.FirstName = faker.randomString(5);
+    personAcc.LastName = faker.randomString(5);
+    personAcc.OCV_ID__c = faker.randomString(10);
+    personAcc.ANZx_Customer__c = true;
+    personAcc.External_Id__c = 'ExID_20010101';
+    personAcc.Source_System_Name__c = 'ABC';
+    personAcc.Source_System_ID__c = '123';
+    DML_REPOSITORY.doInsert(personAcc, new DMLConfig().systemMode());
+    return personAcc;
+  }
   /**
    * @description : This is to test for ATM/Card/NPP dispute types, when in unauthorised transaction situation
    * case is assigned correctly
@@ -639,6 +658,7 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
   static void testDigitalFraudQueueIMT() {
     List<String> disputeReasons = new List<String>{ SUSPECTED_FRAUD };
     List<Case> imtCases = new List<Case>();
+    Account acc = getAccountsWithSourceSystemInformation();
 
     for (String disputeReason : disputeReasons) {
       Case imatCase = new Case(
@@ -647,7 +667,8 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
         Subject = 'Test IMT Case assignment to DIGITAL_FRAUD_QUEUE',
         Dispute_Reason__c = disputeReason,
         Submitted__c = true,
-        Description = 'Test IMT'
+        Description = 'Test IMT',
+        AccountId = acc.Id
       );
       imtCases.add(imatCase);
     }
