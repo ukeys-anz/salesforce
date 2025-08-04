@@ -20,6 +20,7 @@ export default class FinancialAccount extends NavigationMixin(
   @api titleIcon;
   @api iconColor;
   @api productCode;
+  @api accountType;
   showInfoModal = false;
   productTitle;
 
@@ -57,7 +58,11 @@ export default class FinancialAccount extends NavigationMixin(
   get processedFinAccounts() {
     return this.handleAccountInformation(this.accountDetails);
   }
-
+  get iconWrapperClass() {
+    return this.accountType === "Card"
+      ? `${this.iconColor} card-icon-color`
+      : this.iconColor;
+  }
   handleAccountInformation(finAccounts) {
     // As per story ANZX-113310 Colour of status “Active”, “Dormant“, “Closed” is changed .Hence, changing the badge class
     if (!finAccounts) {
@@ -90,6 +95,7 @@ export default class FinancialAccount extends NavigationMixin(
         finAccount.showMultipartyBadge = true;
         finAccount.finserv_ownership = "Joint";
       }
+      finAccount.isCard = finAccount.finserv_account_type === "Card";
       return finAccount;
     });
   }

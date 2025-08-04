@@ -20,10 +20,17 @@ export default class FinancialAccount extends NavigationMixin(
   @api titleIcon;
   @api iconColor;
   @api productCode;
+  @api accountType;
   showInfoModal = false;
 
   get displayContent() {
     return hasAccountsGoalsPermission;
+  }
+
+  get iconWrapperClass() {
+    return this.accountType === "Card"
+      ? `${this.iconColor} card-icon-color`
+      : this.iconColor;
   }
 
   get processedFinAccounts() {
