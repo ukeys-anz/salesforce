@@ -3069,7 +3069,13 @@
         "OpportunityType__c",
         "Contactpreferences__c",
         "Is_BOH_Lead__c",
-        "Lead_Record_Name__c"
+        "Lead_Record_Name__c",
+        "Referral_Status__c",
+        "Referrer_Lead__c",
+        "Referral_Acknowledged_Date__c",
+        "Lead_Created_Date__c",
+        "Referrer_Business_Name__c",
+        "Referrer_Industry_Type__c"
       ],
       "IA-2415720": [
         "Account_Number__c",
@@ -3096,7 +3102,6 @@
         "My_Managers_Lead__c"
       ],
       "IA-2530753": ["IsNewLead__c"],
-      "IA-2415860": ["Referrer_Business_Name__c", "Referrer_Industry_Type__c"],
       "IA-2618706": [
         "PreferredName__c",
         "AdvertisingIndicator__c",
@@ -3106,13 +3111,7 @@
       "IA-2431669": ["Primary_Franchise_Owner__c"],
       "IA-2453350": ["Customer_Pre_Exist__c"],
       "IA-2415790": ["Broker_Name__c"],
-      "IA-2415828": ["Circle_Of_Influence__c"],
-      "IA-3254438": [
-        "Referral_Status__c",
-        "Referrer_Lead__c",
-        "Referral_Acknowledged_Date__c",
-        "Lead_Created_Date__c"
-      ]
+      "IA-2415828": ["Circle_Of_Influence__c"]
     },
     "Lead_Event__e": {
       "IA-2423278": ["Expressed_Interest__c"]
@@ -3140,7 +3139,7 @@
       ]
     },
     "Lead_To_Referral_Status_Mapping__mdt": {
-      "IA-3254438": [
+      "IA-2415860": [
         "Lead_Outcome__c",
         "Lead_Status__c",
         "Record_Type_Name__c",
