@@ -19,6 +19,7 @@
         "product_code": "CAP-CIS:DDA",
         "sub_product_code": "CAP-CIS:DDAXD"
       },
+      "linkedProductCode": "SAVING01",
       "balances": {
         "balance": {
           "currency_code": "AUD",
@@ -130,6 +131,7 @@
         "product_code": "CAP-CIS:DDA",
         "sub_product_code": "CAP-CIS:DDAXD"
       },
+      "linkedProductCode": "TRANSACT01",
       "balances": {
         "balance": {
           "currency_code": "AUD",
@@ -224,6 +226,7 @@
         "product_code": "CAP-CIS:ILS",
         "sub_product_code": "CAP-CIS:ILSXL1"
       },
+      "linkedProductCode": "HLVAR01",
       "balances": {
         "balance": {
           "currency_code": "AUD",

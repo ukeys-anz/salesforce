@@ -91,10 +91,10 @@ export default class FinancialGoalsPersonAccount extends NavigationMixin(
     this.hasGoals = true;
 
     goalDetails.forEach((record) => {
-      // Check if record has valid buckets and showGoal is true
-      if (!record.buckets || record.showGoal !== true) {
-        record.haveGoals = false;
-        return;
+      if (record.buckets.length > 0) {
+        record.haveBuckets = true;
+      } else {
+        record.haveBuckets = false;
       }
 
       // Handle the buckets
@@ -109,7 +109,7 @@ export default class FinancialGoalsPersonAccount extends NavigationMixin(
       }
 
       // General flags and properties
-      record.haveGoals = true;
+      record.showGoals = true;
       record.showMultipartyBadge = record.ownershipType === MULTI_PARTY;
       record.ownershipType = record.showMultipartyBadge
         ? JOINT

@@ -2,6 +2,21 @@ import { createElement } from "lwc";
 import FinancialGoalsPersonAccount from "c/financialGoalsPersonAccount";
 
 const GOAL_DATA = require("./data/goalData.json");
+const mockToolTip = require("./data/mockToolTip.json");
+
+jest.mock(
+  "@salesforce/resourceUrl/tooltipData",
+  () => "./data/mockToolTip.json",
+  {
+    virtual: true
+  }
+);
+
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    json: () => mockToolTip
+  })
+);
 
 global.structuredClone = jest.fn((obj) => JSON.parse(JSON.stringify(obj)));
 

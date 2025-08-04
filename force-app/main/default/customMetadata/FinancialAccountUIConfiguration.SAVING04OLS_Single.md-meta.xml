@@ -11,6 +11,10 @@
         <value xsi:type="xsd:string">Total Saved</value>
     </values>
     <values>
+        <field>FinancialAccountConfiguration__c</field>
+        <value xsi:type="xsd:string">Savings_Account_Configuration</value>
+    </values>
+    <values>
         <field>Include_In_Total_Financial_Position__c</field>
         <value xsi:type="xsd:boolean">true</value>
     </values>
@@ -36,6 +40,6 @@
     </values>
     <values>
         <field>Sort_Order__c</field>
-        <value xsi:type="xsd:double">13.0</value>
+        <value xsi:type="xsd:double">999.0</value>
     </values>
 </CustomMetadata>

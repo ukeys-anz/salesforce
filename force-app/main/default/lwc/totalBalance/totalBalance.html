@@ -1,139 +1,141 @@
 <template>
-  <article class="total-amounts slds-card slds-m-bottom_small">
-    <template lwc:if={displayContent}>
-      <h1 class="card-title-header">
-        <div class="slds-grid slds-wrap">
-          <div class="slds-col slds-grid slds-size_1-of-1">
-            <div class="slds-grid slds-wrap slds-size_1-of-1">
-              <div
-                class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small"
-              >
-                <div class="heading-font">
-                  <lightning-icon
-                    icon-name="custom:custom41"
-                    size="medium"
-                    class="slds-m-right_small"
-                  ></lightning-icon>
-
-                  Financial Position
-                </div>
-              </div>
-              <template lwc:if={isFinancesTab}>
+  <template if:true={showComponent}>
+    <article class="total-amounts slds-card slds-m-bottom_small">
+      <template lwc:if={displayContent}>
+        <h1 class="card-title-header">
+          <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-grid slds-size_1-of-1">
+              <div class="slds-grid slds-wrap slds-size_1-of-1">
                 <div
                   class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small"
                 >
-                  <c-refresh-finances record-id={recordId}>
-                  </c-refresh-finances>
+                  <div class="heading-font">
+                    <lightning-icon
+                      icon-name="custom:custom41"
+                      size="medium"
+                      class="slds-m-right_small"
+                    ></lightning-icon>
+
+                    Financial Position
+                  </div>
                 </div>
-              </template>
+                <template lwc:if={isFinancesTab}>
+                  <div
+                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small"
+                  >
+                    <c-refresh-finances record-id={recordId}>
+                    </c-refresh-finances>
+                  </div>
+                </template>
+              </div>
             </div>
           </div>
-        </div>
-      </h1>
+        </h1>
 
-      <template lwc:if={loading}>
-        <div
-          class="slds-align_absolute-center"
-          style="height: 4rem"
-          data-id="loading-spinner"
-        >
-          <div role="status" class="slds-spinner_inline">
-            <lightning-spinner
-              alternative-text="Loading"
-              variant="brand"
-            ></lightning-spinner>
+        <template lwc:if={loading}>
+          <div
+            class="slds-align_absolute-center"
+            style="height: 4rem"
+            data-id="loading-spinner"
+          >
+            <div role="status" class="slds-spinner_inline">
+              <lightning-spinner
+                alternative-text="Loading"
+                variant="brand"
+              ></lightning-spinner>
+            </div>
           </div>
-        </div>
-      </template>
-      <template lwc:else>
-        <template lwc:if={totalBalanceError}>
-          <c-error message={totalBalanceError} data-id="error"></c-error>
         </template>
         <template lwc:else>
-          <div class="slds-card__body slds-card__body_inner">
-            <article class="slds-card">
-              <div class="slds-grid slds-wrap">
-                <div class="slds-col slds-grid slds-size_1-of-1">
-                  <div class="slds-grid slds-wrap slds-size_1-of-1">
-                    <div class={totalSavedColumn}>
-                      <div class="header-column">
-                        <p class="card-heading-font">
-                          Total Financial Position
-                          <lightning-icon
-                            icon-name="utility:info"
-                            size="xx-small"
-                            class="tooltip"
-                            onclick={handleInfoModal}
-                            data-id="total-fin-position"
-                          ></lightning-icon>
-                        </p>
-                        <p class="slds-text-heading_large">
-                          <lightning-formatted-number
-                            value={totalBalance}
-                            format-style="currency"
-                            data-id="total-balance"
-                            class="fontstyle"
-                          ></lightning-formatted-number>
-                        </p>
+          <template lwc:if={totalBalanceError}>
+            <c-error message={totalBalanceError} data-id="error"></c-error>
+          </template>
+          <template lwc:else>
+            <div class="slds-card__body slds-card__body_inner">
+              <article class="slds-card">
+                <div class="slds-grid slds-wrap">
+                  <div class="slds-col slds-grid slds-size_1-of-1">
+                    <div class="slds-grid slds-wrap slds-size_1-of-1">
+                      <div class={totalSavedColumn}>
+                        <div class="header-column">
+                          <p class="card-heading-font">
+                            Total Financial Position
+                            <lightning-icon
+                              icon-name="utility:info"
+                              size="xx-small"
+                              class="tooltip"
+                              onclick={handleInfoModal}
+                              data-id="total-fin-position"
+                            ></lightning-icon>
+                          </p>
+                          <p class="slds-text-heading_large">
+                            <lightning-formatted-number
+                              value={totalBalance}
+                              format-style="currency"
+                              data-id="total-balance"
+                              class="fontstyle"
+                            ></lightning-formatted-number>
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                    <div class={totalSavedColumn}>
-                      <div class={totalSavedAlignment}>
-                        <p class="card-heading-font">
-                          Total Saved
-                          <lightning-icon
-                            icon-name="utility:info"
-                            size="xx-small"
-                            class="tooltip"
-                            onclick={handleInfoModal}
-                            data-id="total-saved"
-                          ></lightning-icon>
-                        </p>
-                        <p class="slds-text-heading_large">
-                          <lightning-formatted-number
-                            value={totalSaved}
-                            format-style="currency"
-                            data-id="amount-saved"
-                            class="fontstyle"
-                          ></lightning-formatted-number>
-                        </p>
+                      <div class={totalSavedColumn}>
+                        <div class={totalSavedAlignment}>
+                          <p class="card-heading-font">
+                            Total Saved
+                            <lightning-icon
+                              icon-name="utility:info"
+                              size="xx-small"
+                              class="tooltip"
+                              onclick={handleInfoModal}
+                              data-id="total-saved"
+                            ></lightning-icon>
+                          </p>
+                          <p class="slds-text-heading_large">
+                            <lightning-formatted-number
+                              value={totalSaved}
+                              format-style="currency"
+                              data-id="amount-saved"
+                              class="fontstyle"
+                            ></lightning-formatted-number>
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </article>
-          </div>
-          <template lwc:if={showInfoModal}>
-            <template lwc:if={totalFinPositionClicked}>
-              <c-dynamic-tooltip-util
-                header-title="Total Financial Position*"
-                resource-name="totalFinancialPosition"
-                product-name={allProductNames}
-                onclosemodal={closeModal}
-                data-id="fin-position-modal"
-              ></c-dynamic-tooltip-util>
-            </template>
-            <template lwc:else>
-              <c-dynamic-tooltip-util
-                header-title="Total Saved"
-                resource-name="totalSavedFinancialPosition"
-                product-name={savingProductNames}
-                onclosemodal={closeModal}
-                data-id="total-saved-modal"
-              ></c-dynamic-tooltip-util>
+              </article>
+            </div>
+            <template lwc:if={showInfoModal}>
+              <template lwc:if={totalFinPositionClicked}>
+                <c-dynamic-tooltip-util
+                  header-title="Total Financial Position*"
+                  resource-name="totalFinancialPosition"
+                  product-name={allProductNames}
+                  onclosemodal={closeModal}
+                  data-id="fin-position-modal"
+                ></c-dynamic-tooltip-util>
+              </template>
+              <template lwc:else>
+                <c-dynamic-tooltip-util
+                  header-title="Total Saved"
+                  resource-name="totalSavedFinancialPosition"
+                  product-name={savingProductNames}
+                  onclosemodal={closeModal}
+                  data-id="total-saved-modal"
+                ></c-dynamic-tooltip-util>
+              </template>
             </template>
           </template>
         </template>
       </template>
-    </template>
-    <template lwc:else>
-      <div class="slds-grid">
-        <p class="field-padding">
-          Don’t worry, it’s not broken. To view this you need a higher
-          permission level.
-        </p>
-      </div>
-    </template>
-  </article>
+      <template lwc:else>
+        <div class="slds-grid">
+          <p class="field-padding">
+            Don’t worry, it’s not broken. To view this you need a higher
+            permission level.
+          </p>
+        </div>
+      </template>
+    </article>
+  </template>
 </template>

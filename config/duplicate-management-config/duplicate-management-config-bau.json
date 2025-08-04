@@ -1,0 +1,612 @@
+{
+  "exportTime": "2023-05-30T22:42:54.460Z",
+  "managed": true,
+  "dcVersion": "3.343.0",
+  "mergeRulesv2": {},
+  "objects": [
+    {
+      "crossObjects": [
+        {
+          "fieldTo": "FirstName",
+          "fieldFrom": "FirstName",
+          "objectTo": "Contact",
+          "objectFrom": "Lead"
+        },
+        {
+          "fieldTo": "LastName",
+          "fieldFrom": "LastName",
+          "objectTo": "Contact",
+          "objectFrom": "Lead"
+        },
+        {
+          "fieldTo": "Email",
+          "fieldFrom": "Email",
+          "objectTo": "Contact",
+          "objectFrom": "Lead"
+        },
+        {
+          "fieldTo": "Name",
+          "fieldFrom": "Company",
+          "objectTo": "Account",
+          "objectFrom": "Lead"
+        },
+        {
+          "fieldTo": "FirstName",
+          "fieldFrom": "FirstName",
+          "objectTo": "PAccount",
+          "objectFrom": "Lead"
+        },
+        {
+          "fieldTo": "LastName",
+          "fieldFrom": "LastName",
+          "objectTo": "PAccount",
+          "objectFrom": "Lead"
+        },
+        {
+          "fieldTo": "PersonEmail",
+          "fieldFrom": "Email",
+          "objectTo": "PAccount",
+          "objectFrom": "Lead"
+        }
+      ],
+      "resultFields": [
+        {
+          "order": 0,
+          "field": "Name"
+        },
+        {
+          "order": 1,
+          "field": "Company"
+        },
+        {
+          "order": 2,
+          "field": "Email"
+        },
+        {
+          "order": 3,
+          "field": "Phone"
+        },
+        {
+          "order": 4,
+          "field": "City"
+        }
+      ],
+      "scenarios": [
+        {
+          "fields": [
+            {
+              "indexGroup": "1",
+              "doNotIndex": false,
+              "weight": 20,
+              "matchConfig": null,
+              "matchMethod": "FUZZY_PERSON",
+              "frequentList": "NAME",
+              "field": "FirstName"
+            },
+            {
+              "indexGroup": "2",
+              "doNotIndex": false,
+              "weight": 20,
+              "matchConfig": null,
+              "matchMethod": "FUZZY_PERSON",
+              "frequentList": "NAME",
+              "field": "LastName"
+            },
+            {
+              "indexGroup": "3",
+              "doNotIndex": false,
+              "weight": 30,
+              "matchConfig": null,
+              "matchMethod": "FUZZY_COMPANY_EXTRA_STRICT",
+              "frequentList": "COMPANY",
+              "field": "Company"
+            },
+            {
+              "indexGroup": "4",
+              "doNotIndex": false,
+              "weight": 50,
+              "matchConfig": null,
+              "matchMethod": "EMAIL",
+              "frequentList": null,
+              "field": "Email"
+            }
+          ],
+          "onFlow": true,
+          "onDataApi": true,
+          "onApi": true,
+          "threshold": 75,
+          "scoreMethod": "SEARCH",
+          "onWeb2Lead": true,
+          "onUpload": true,
+          "onUpdate": false,
+          "onSearch": true,
+          "onInsert": false,
+          "onConvert": true,
+          "onCheck": true,
+          "onBatch": true,
+          "onLayout": true,
+          "onEntry": true,
+          "onDirect": true,
+          "onRVUpdate": true,
+          "onRVInsert": true,
+          "onSingleUpload": true,
+          "name": "Lead Default"
+        }
+      ],
+      "recordRefresh": "2023-05-05T01:56:05.000Z",
+      "mergeUnique": null,
+      "mergeDisable": null,
+      "directThreshold": 100,
+      "directMergeOn": null,
+      "directMerge": false,
+      "directConvertStatus": null,
+      "directConvertOn": null,
+      "directConvert": false,
+      "mergeFieldIgnore": null,
+      "mergeFallbackApply": "GENERAL",
+      "indexCustomIndexField": null,
+      "indexCustomRecordTypeField": null,
+      "leadConvertStatus": null,
+      "leadConvertOwner": null,
+      "filter": "NONE;",
+      "isStandard": false,
+      "isCustom": false,
+      "isBasic": true,
+      "indexCreationType": "AUTO",
+      "isSingleDelta": false,
+      "recordCount": 4,
+      "mergeSharingOverride": false,
+      "mergeFeed": true,
+      "indexWildcard": true,
+      "mergeOverride": false,
+      "mergeFallback": "LATEST-MODIFIED",
+      "directConvertThreshold": 100,
+      "directMergeThreshold": 100,
+      "isLogging": false,
+      "disableSetForMerge": false,
+      "enforceSharing": false,
+      "isDelta": false,
+      "mergeRule": "LATEST-MODIFIED",
+      "crossObject": true,
+      "batchDedupChunkSize": 5,
+      "batchIndexChunkSize": 50,
+      "indexCreate": false,
+      "indexField": "INDEX",
+      "indexQueryLimit": 15,
+      "objectId": "a209n0000009yo9AAA",
+      "objectName": "Lead",
+      "objectPrefix": "00Q"
+    },
+    {
+      "crossObjects": [
+        {
+          "fieldTo": "Company",
+          "fieldFrom": "Name",
+          "objectTo": "Lead",
+          "objectFrom": "Account"
+        }
+      ],
+      "resultFields": [
+        {
+          "order": 0,
+          "field": "Name"
+        },
+        {
+          "order": 1,
+          "field": "BillingCity"
+        },
+        {
+          "order": 2,
+          "field": "Phone"
+        }
+      ],
+      "scenarios": [
+        {
+          "fields": [
+            {
+              "indexGroup": "1",
+              "doNotIndex": false,
+              "weight": 50,
+              "matchConfig": null,
+              "matchMethod": "FUZZY_COMPANY_EXTRA_STRICT",
+              "frequentList": "COMPANY",
+              "field": "Name"
+            },
+            {
+              "indexGroup": "2",
+              "doNotIndex": false,
+              "weight": 20,
+              "matchConfig": null,
+              "matchMethod": "EQUAL",
+              "frequentList": null,
+              "field": "BillingCity"
+            },
+            {
+              "indexGroup": "3",
+              "doNotIndex": false,
+              "weight": 30,
+              "matchConfig": null,
+              "matchMethod": "PHONE",
+              "frequentList": null,
+              "field": "Phone"
+            }
+          ],
+          "onFlow": true,
+          "onDataApi": true,
+          "onApi": true,
+          "threshold": 75,
+          "scoreMethod": "SEARCH",
+          "onWeb2Lead": true,
+          "onUpload": true,
+          "onUpdate": false,
+          "onSearch": true,
+          "onInsert": false,
+          "onConvert": true,
+          "onCheck": true,
+          "onBatch": true,
+          "onLayout": true,
+          "onEntry": true,
+          "onDirect": true,
+          "onRVUpdate": true,
+          "onRVInsert": true,
+          "onSingleUpload": true,
+          "name": "Account Default"
+        }
+      ],
+      "recordRefresh": "2023-05-05T01:56:10.000Z",
+      "mergeUnique": null,
+      "mergeDisable": null,
+      "directThreshold": 100,
+      "directMergeOn": null,
+      "directMerge": false,
+      "directConvertStatus": null,
+      "directConvertOn": null,
+      "directConvert": false,
+      "mergeFieldIgnore": null,
+      "mergeFallbackApply": "GENERAL",
+      "indexCustomIndexField": null,
+      "indexCustomRecordTypeField": null,
+      "leadConvertStatus": null,
+      "leadConvertOwner": null,
+      "filter": "NONE;",
+      "isStandard": false,
+      "isCustom": false,
+      "isBasic": true,
+      "indexCreationType": "AUTO",
+      "isSingleDelta": false,
+      "recordCount": 4,
+      "mergeSharingOverride": false,
+      "mergeFeed": true,
+      "indexWildcard": true,
+      "mergeOverride": false,
+      "mergeFallback": "LATEST-MODIFIED",
+      "directConvertThreshold": 100,
+      "directMergeThreshold": 100,
+      "isLogging": false,
+      "disableSetForMerge": false,
+      "enforceSharing": false,
+      "isDelta": false,
+      "mergeRule": "LATEST-MODIFIED",
+      "crossObject": true,
+      "batchDedupChunkSize": 5,
+      "batchIndexChunkSize": 50,
+      "indexCreate": false,
+      "indexField": "INDEX",
+      "indexQueryLimit": 15,
+      "objectId": "a209n0000009yoAAAQ",
+      "objectName": "Account",
+      "objectPrefix": "001"
+    },
+    {
+      "crossObjects": [
+        {
+          "fieldTo": "FirstName",
+          "fieldFrom": "FirstName",
+          "objectTo": "Lead",
+          "objectFrom": "Contact"
+        },
+        {
+          "fieldTo": "LastName",
+          "fieldFrom": "LastName",
+          "objectTo": "Lead",
+          "objectFrom": "Contact"
+        },
+        {
+          "fieldTo": "Email",
+          "fieldFrom": "Email",
+          "objectTo": "Lead",
+          "objectFrom": "Contact"
+        }
+      ],
+      "resultFields": [
+        {
+          "order": 0,
+          "field": "FirstName"
+        },
+        {
+          "order": 1,
+          "field": "LastName"
+        },
+        {
+          "order": 2,
+          "field": "AccountId"
+        },
+        {
+          "order": 3,
+          "field": "Email"
+        },
+        {
+          "order": 4,
+          "field": "Phone"
+        }
+      ],
+      "scenarios": [
+        {
+          "fields": [
+            {
+              "indexGroup": "1",
+              "doNotIndex": false,
+              "weight": 20,
+              "matchConfig": null,
+              "matchMethod": "FUZZY_PERSON",
+              "frequentList": "NAME",
+              "field": "FirstName"
+            },
+            {
+              "indexGroup": "2",
+              "doNotIndex": false,
+              "weight": 20,
+              "matchConfig": null,
+              "matchMethod": "FUZZY_PERSON",
+              "frequentList": "NAME",
+              "field": "LastName"
+            },
+            {
+              "indexGroup": "3",
+              "doNotIndex": false,
+              "weight": 30,
+              "matchConfig": null,
+              "matchMethod": "PHONE",
+              "frequentList": null,
+              "field": "Phone"
+            },
+            {
+              "indexGroup": "4",
+              "doNotIndex": false,
+              "weight": 50,
+              "matchConfig": null,
+              "matchMethod": "EMAIL",
+              "frequentList": null,
+              "field": "Email"
+            }
+          ],
+          "onFlow": true,
+          "onDataApi": true,
+          "onApi": true,
+          "threshold": 75,
+          "scoreMethod": "SEARCH",
+          "onWeb2Lead": true,
+          "onUpload": true,
+          "onUpdate": false,
+          "onSearch": true,
+          "onInsert": false,
+          "onConvert": true,
+          "onCheck": true,
+          "onBatch": true,
+          "onLayout": true,
+          "onEntry": true,
+          "onDirect": true,
+          "onRVUpdate": true,
+          "onRVInsert": true,
+          "onSingleUpload": true,
+          "name": "Contact Default"
+        }
+      ],
+      "recordRefresh": "2023-05-05T01:56:13.000Z",
+      "mergeUnique": null,
+      "mergeDisable": null,
+      "directThreshold": 100,
+      "directMergeOn": null,
+      "directMerge": false,
+      "directConvertStatus": null,
+      "directConvertOn": null,
+      "directConvert": false,
+      "mergeFieldIgnore": null,
+      "mergeFallbackApply": "GENERAL",
+      "indexCustomIndexField": null,
+      "indexCustomRecordTypeField": null,
+      "leadConvertStatus": null,
+      "leadConvertOwner": null,
+      "filter": "NONE;",
+      "isStandard": false,
+      "isCustom": false,
+      "isBasic": true,
+      "indexCreationType": "AUTO",
+      "isSingleDelta": false,
+      "recordCount": 3,
+      "mergeSharingOverride": false,
+      "mergeFeed": true,
+      "indexWildcard": true,
+      "mergeOverride": false,
+      "mergeFallback": "LATEST-MODIFIED",
+      "directConvertThreshold": 100,
+      "directMergeThreshold": 100,
+      "isLogging": false,
+      "disableSetForMerge": false,
+      "enforceSharing": false,
+      "isDelta": false,
+      "mergeRule": "LATEST-MODIFIED",
+      "crossObject": true,
+      "batchDedupChunkSize": 5,
+      "batchIndexChunkSize": 50,
+      "indexCreate": false,
+      "indexField": "INDEX",
+      "indexQueryLimit": 15,
+      "objectId": "a209n0000009yoBAAQ",
+      "objectName": "Contact",
+      "objectPrefix": "003"
+    },
+    {
+      "crossObjects": [
+        {
+          "fieldTo": "FirstName",
+          "fieldFrom": "FirstName",
+          "objectTo": "Lead",
+          "objectFrom": "PAccount"
+        },
+        {
+          "fieldTo": "LastName",
+          "fieldFrom": "LastName",
+          "objectTo": "Lead",
+          "objectFrom": "PAccount"
+        },
+        {
+          "fieldTo": "Email",
+          "fieldFrom": "PersonEmail",
+          "objectTo": "Lead",
+          "objectFrom": "PAccount"
+        }
+      ],
+      "resultFields": [
+        {
+          "order": 0,
+          "field": "FirstName"
+        },
+        {
+          "order": 1,
+          "field": "LastName"
+        },
+        {
+          "order": 2,
+          "field": "PersonEmail"
+        },
+        {
+          "order": 3,
+          "field": "Phone"
+        }
+      ],
+      "scenarios": [
+        {
+          "fields": [
+            {
+              "indexGroup": "1",
+              "doNotIndex": false,
+              "weight": 20,
+              "matchConfig": null,
+              "matchMethod": "FUZZY_PERSON",
+              "frequentList": null,
+              "field": "FirstName"
+            },
+            {
+              "indexGroup": "2",
+              "doNotIndex": false,
+              "weight": 20,
+              "matchConfig": null,
+              "matchMethod": "FUZZY_PERSON",
+              "frequentList": null,
+              "field": "LastName"
+            },
+            {
+              "indexGroup": "3",
+              "doNotIndex": false,
+              "weight": 30,
+              "matchConfig": null,
+              "matchMethod": "PHONE",
+              "frequentList": null,
+              "field": "Phone"
+            },
+            {
+              "indexGroup": "4",
+              "doNotIndex": false,
+              "weight": 50,
+              "matchConfig": null,
+              "matchMethod": "EMAIL",
+              "frequentList": null,
+              "field": "PersonEmail"
+            }
+          ],
+          "onFlow": false,
+          "onDataApi": true,
+          "onApi": true,
+          "threshold": 75,
+          "scoreMethod": "SEARCH",
+          "onWeb2Lead": true,
+          "onUpload": true,
+          "onUpdate": false,
+          "onSearch": true,
+          "onInsert": false,
+          "onConvert": true,
+          "onCheck": true,
+          "onBatch": true,
+          "onLayout": true,
+          "onEntry": true,
+          "onDirect": true,
+          "onRVUpdate": true,
+          "onRVInsert": true,
+          "onSingleUpload": true,
+          "name": "Person Account Default"
+        }
+      ],
+      "recordRefresh": "2023-05-05T01:56:14.000Z",
+      "mergeUnique": null,
+      "mergeDisable": null,
+      "directThreshold": 100,
+      "directMergeOn": null,
+      "directMerge": false,
+      "directConvertStatus": null,
+      "directConvertOn": null,
+      "directConvert": false,
+      "mergeFieldIgnore": null,
+      "mergeFallbackApply": "GENERAL",
+      "indexCustomIndexField": null,
+      "indexCustomRecordTypeField": null,
+      "leadConvertStatus": null,
+      "leadConvertOwner": null,
+      "filter": "NONE;",
+      "isStandard": false,
+      "isCustom": false,
+      "isBasic": true,
+      "indexCreationType": "AUTO",
+      "isSingleDelta": false,
+      "recordCount": 14542,
+      "mergeSharingOverride": false,
+      "mergeFeed": true,
+      "indexWildcard": true,
+      "mergeOverride": false,
+      "mergeFallback": "LATEST-MODIFIED",
+      "directConvertThreshold": 100,
+      "directMergeThreshold": 100,
+      "isLogging": false,
+      "disableSetForMerge": false,
+      "enforceSharing": false,
+      "isDelta": false,
+      "mergeRule": "LATEST-MODIFIED",
+      "crossObject": false,
+      "batchDedupChunkSize": 5,
+      "batchIndexChunkSize": 50,
+      "indexCreate": false,
+      "indexField": "INDEX",
+      "indexQueryLimit": 15,
+      "objectId": "a209n0000009yoCAAQ",
+      "objectName": "PAccount",
+      "objectPrefix": "001P"
+    }
+  ],
+  "customSettings": {
+    "UseNewMergeRules": "true",
+    "ImprovedFreqWordMatcher": "true",
+    "GetStartedShow": "true",
+    "CustomErrorMessage": "Duplicates Found - Please review them below",
+    "MergeShowReadOnly": "true",
+    "MaxResultCount": "5",
+    "PreventionOnAllFields": "false",
+    "AuditLogging": "false",
+    "OpenTarget": "NEW",
+    "DisableTrigger": "false",
+    "PluginGeneral": "NONE",
+    "PluginSearch": "NONE",
+    "PluginPrevention": "NONE",
+    "PluginConvert": "NONE",
+    "PluginMerge": "NONE"
+  }
+}

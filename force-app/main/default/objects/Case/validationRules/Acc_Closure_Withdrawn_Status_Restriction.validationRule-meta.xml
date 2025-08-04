@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Acc_Closure_Withdrawn_Status_Restriction</fullName>
+    <active>true</active>
+    <description>If the case status is &quot;Withdrawn&quot;, it should not allow updates to previous statuses.</description>
+    <errorConditionFormula>AND(
+   $Setup.Salesforce_Library_Settings__c.Disable_VRs__c == false,
+  RecordType.DeveloperName = &quot;Account_Closure&quot;,
+  ISPICKVAL(PRIORVALUE(Status), &quot;Withdrawn&quot;),
+  OR(
+    ISPICKVAL(Status, &quot;Open&quot;),
+    ISPICKVAL(Status, &quot;On Hold&quot;),
+    ISPICKVAL(Status, &quot;Escalated&quot;)
+  )
+)</errorConditionFormula>
+    <errorMessage>You cannot update the Case status from Withdrawn to Open, On Hold, or Escalated.</errorMessage>
+</ValidationRule>
