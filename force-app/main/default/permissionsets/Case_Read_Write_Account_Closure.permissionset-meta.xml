@@ -86,6 +86,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.Ownership__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>FinServ__FinancialAccountRole__c.FinServ__Active__c</field>
         <readable>true</readable>
     </fieldPermissions>
