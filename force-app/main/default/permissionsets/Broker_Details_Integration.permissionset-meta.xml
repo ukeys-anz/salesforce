@@ -271,7 +271,7 @@
         <field>Broker_Code__c.TPMI_SAO_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
-<fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Broker_Relation__c.Address1__c</field>
         <readable>true</readable>
@@ -476,7 +476,7 @@
         <field>Contact.OCV_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
-<fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Contact.Office_Group__c</field>
         <readable>true</readable>
@@ -506,7 +506,7 @@
         <field>Contact.Retail_Accreditation_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
-<fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Contact.Segment__c</field>
         <readable>true</readable>
@@ -1597,7 +1597,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>ResidentialLoanApplication.Assisted_Broker_TPMI_SAO__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1698,6 +1698,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ResidentialLoanApplication.Sync_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Settlement__c.Loan_Application_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1740,7 +1745,7 @@
         <object>Broker_Code__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
-<objectPermissions>
+    <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>false</allowEdit>
@@ -1896,7 +1901,7 @@
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
-        <allowEdit>false</allowEdit>
+        <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>ResidentialLoanApplication</object>

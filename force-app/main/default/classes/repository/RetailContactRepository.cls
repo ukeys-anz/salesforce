@@ -126,8 +126,8 @@ public with sharing class RetailContactRepository {
       SELECT Id, Assisted_Broker__c, Assisted_Broker_TPMI_SAO__c
       FROM ResidentialLoanApplication
       WHERE
-        Assisted_Broker__c = NULL
-        AND Assisted_Broker_TPMI_SAO__c IN :brokerTPMIIds
+        Assisted_Broker_TPMI_SAO__c IN :brokerTPMIIds
+        AND Assisted_Broker__c = NULL
       WITH USER_MODE
     ];
   }
@@ -148,8 +148,8 @@ public with sharing class RetailContactRepository {
       SELECT id, Assisted_Broker__c, Assisted_Broker_TPMI_SAO__c
       FROM FinServ__FinancialAccount__c
       WHERE
-        Assisted_Broker__c = NULL
-        AND Assisted_Broker_TPMI_SAO__c IN :brokerTPMIIds
+        Assisted_Broker_TPMI_SAO__c IN :brokerTPMIIds
+        AND Assisted_Broker__c = NULL
     ];
   }
 
@@ -166,9 +166,7 @@ public with sharing class RetailContactRepository {
     return [
       SELECT Id, RetailTPMISAO__c
       FROM Contact
-      WHERE
-        RetailTPMISAO__c IN :brokerTPMIIds
-        OR CommercialTPMISAO__c IN :brokerTPMIIds
+      WHERE RetailTPMISAO__c IN :brokerTPMIIds
       WITH USER_MODE
     ];
   }
