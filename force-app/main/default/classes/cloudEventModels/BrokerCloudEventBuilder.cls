@@ -5,7 +5,7 @@
  * @runTests  BrokerCloudEventBuilderTest
  */
 
-public with sharing class BrokerCloudEventBuilder {
+ public with sharing class BrokerCloudEventBuilder {
   // Event Contract Variables
   private static final String OBJECT_ACCOUNT = 'Account';
   private static final String OBJECT_CONTACT = 'Contact';
@@ -41,7 +41,6 @@ public with sharing class BrokerCloudEventBuilder {
   /**
    * @description Build the contact node for the cloud event
    * @param record the new contact record in trigger context
-   * @param oldRecord the old contact record in trigger context
    * @return master object
    */
   public static BrokerCloudEventModel.MasterNode buildContactNode(

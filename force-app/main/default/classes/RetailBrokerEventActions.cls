@@ -5,7 +5,7 @@
  * @runTests  RetailBrokerEventActionsTest
  */
 
-public with sharing class RetailBrokerEventActions {
+ public with sharing class RetailBrokerEventActions {
   public static final String BROKER_EVENT_ADD = 'add';
   public static final String BROKER_EVENT_UPDATE = 'update';
   private static final RetailBrokerRepository RETAIL_BROKER_REPOSITORY = (RetailBrokerRepository) Lib_InstanceProvider.forType(

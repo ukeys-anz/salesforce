@@ -5,7 +5,7 @@
  * @runTests  RetailBrokerContactActionsTest
  */
 
-public with sharing class RetailBrokerContactActions {
+ public with sharing class RetailBrokerContactActions {
   private static Boolean isMergeInProgress = false;
 
   private static final BrokerSettingsRepository BROKER_SETTINGS_REPOSITORY = (BrokerSettingsRepository) Lib_InstanceProvider.forType(
@@ -512,18 +512,18 @@ public with sharing class RetailBrokerContactActions {
           if (victim.Office_Group__c != null) {
             contactIdByOfficeGroup.put(survivor.Id, victim.Office_Group__c);
           }
+          if (
+            doesSyncStatusContain(
+              survivor,
+              BrokerConstants.SYNC_STATUS_BROKER_ORG
+            ) == false
+          ) {
+            successfulSurvivorIds.add(survivor.Id);
+          }
 
           Database.MergeResult result = Database.merge(survivor, victim, false);
 
           if (result.isSuccess()) {
-            if (
-              doesSyncStatusContain(
-                survivor,
-                BrokerConstants.SYNC_STATUS_BROKER_ORG
-              ) == false
-            ) {
-              successfulSurvivorIds.add(survivor.Id);
-            }
           } else {
             for (Database.Error err : result.getErrors()) {
               Logger.error(
@@ -539,7 +539,6 @@ public with sharing class RetailBrokerContactActions {
           }
         }
       }
-
       updateBrokerRelationLookup(
         successfulSurvivorIds,
         contactIdByBrokerSet,
@@ -575,7 +574,6 @@ public with sharing class RetailBrokerContactActions {
       records,
       Contact.Victim_Party_Id__c
     );
-
     List<contact> filterDuplicateEmailRecords = ListUtil.filter(
         records,
         contactsOldMap

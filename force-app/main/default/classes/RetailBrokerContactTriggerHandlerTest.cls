@@ -5,7 +5,7 @@
  */
 @IsTest
 private class RetailBrokerContactTriggerHandlerTest {
-  /* public static Lib_MockProvider retailBrokerRepo = Lib_MockProvider.forType(
+  public static Lib_MockProvider retailBrokerRepo = Lib_MockProvider.forType(
     RetailBrokerRepository.class
   );
   private static final Id RECORD_TYPE_ID_BROKER = RTContact.broker;
@@ -112,9 +112,10 @@ private class RetailBrokerContactTriggerHandlerTest {
     testContacts[0].OCV_Event_Version__c = null;
     testContacts[0].Sync_Status__c = null;
     Contact oldContact = testContacts[0];
+    oldContact.OCV_Event_Version__c = 1;
 
     testContacts[1].Id = oldContact.Id;
-    testContacts[1].OCV_Event_Version__c = 1;
+    testContacts[1].OCV_Event_Version__c = 2;
     testContacts[1].Sync_Status__c = 'Broker Org';
     testContacts[1].CommercialTPMISAO__c = 'CommTMPITest001';
     Contact contactNew = testContacts[1];
@@ -134,6 +135,10 @@ private class RetailBrokerContactTriggerHandlerTest {
     Assert.areEqual(1, cloudEventsAfter, 'Cloud event should be created.');
   }
 
+  /**
+   * @description test method with DMLs to cover contact trigger
+   * @author  Saurabh Chauhan | Salesforce | 20-03-2025
+   **/
   @IsTest
   static void testTriggers() {
     BrokerSettings__c mockSettings = new BrokerSettings__c();
@@ -162,5 +167,5 @@ private class RetailBrokerContactTriggerHandlerTest {
       'Contact got updated'
     );
     Test.stopTest();
-  }*/
+  }
 }
