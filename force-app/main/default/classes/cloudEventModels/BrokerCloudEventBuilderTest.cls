@@ -86,9 +86,12 @@ private class BrokerCloudEventBuilderTest {
   @IsTest
   static void testBuildContactNode() {
     Contact testContact = createTestContact();
+    List<Contact> oldContacts = new List<Contact>{ testContact }
+      .deepClone(true);
     Test.startTest();
     BrokerCloudEventModel.MasterNode contactNode = BrokerCloudEventBuilder.buildContactNode(
-      testContact
+      testContact,
+      oldContacts[0]
     );
     Test.stopTest();
     Assert.areEqual(
