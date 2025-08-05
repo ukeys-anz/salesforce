@@ -201,6 +201,12 @@ public class TransactionHistoryModelConverter {
       if (sourceTransaction.payment != null) {
         destTransaction.pay_anyone = convertPayment(sourceTransaction.payment);
       }
+      //Mapping International Payment
+      if (sourceTransaction.international_payment != null) {
+        destTransaction.imt_anyone = convertPaymentIMT(
+          sourceTransaction.international_payment
+        );
+      }
       //Mapping Interest
       if (sourceTransaction.interest != null) {
         destTransaction.interest = TransactionHistoryModelConverterHelper.convertInterest(
@@ -262,6 +268,21 @@ public class TransactionHistoryModelConverter {
       destPayanyone.other_entity = convertOtherEntity(
         sourcePayment.other_entity
       );
+    }
+    return destPayanyone;
+  }
+
+  private static TransactionHistoryModel.Imt_anyone convertPaymentIMT(
+    TransactionHistoryModelV1.InternationalPayment sourceInternationalPayment
+  ) {
+    TransactionHistoryModel.Imt_anyone destPayanyone = new TransactionHistoryModel.Imt_anyone();
+
+    if (
+      sourceInternationalPayment != null &&
+      sourceInternationalPayment.outbound_payment != null
+    ) {
+      destPayanyone.puid = sourceInternationalPayment.outbound_payment.puid;
+      destPayanyone.payment_reference = sourceInternationalPayment.outbound_payment.payment_reference;
     }
     return destPayanyone;
   }

@@ -84,12 +84,18 @@ function processPayAnyone(transaction) {
       transaction.pay_anyone.other_entity.alias_name
     );
 
-    transaction.pay_anyone.npp_customer_reference_number = getOptionalFieldValue(
-      transaction.pay_anyone.npp_customer_reference_number
-    );
+    transaction.pay_anyone.npp_customer_reference_number =
+      getOptionalFieldValue(
+        transaction.pay_anyone.npp_customer_reference_number
+      );
 
     //Need to check if account details are actually returned for pay anyone
-    if (!transaction.pay_anyone.other_entity.hasOwnProperty("account")) {
+    if (
+      !Object.prototype.hasOwnProperty.call(
+        transaction.pay_anyone.other_entity,
+        "account"
+      )
+    ) {
       transaction.pay_anyone.other_entity.account = {
         bsb: "Unknown",
         transactionAccountNumber: "Unknown"
