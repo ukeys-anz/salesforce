@@ -306,6 +306,7 @@
                                   icon-name="utility:info"
                                   size="xx-small"
                                   class="tooltip"
+                                  data-field="funds"
                                   onclick={handleInfoModal}
                                 ></lightning-icon>
                               </p>
@@ -350,8 +351,8 @@
   </article>
   <template lwc:if={showInfoModal}>
     <c-dynamic-tooltip-util
-      header-title={balanceTitle}
-      resource-name={productCode}
+      header-title={headerTitle}
+      resource-name={tooltipCode}
       product-name={componentSubTitle}
       onclosemodal={closeModal}
     ></c-dynamic-tooltip-util>

@@ -22,6 +22,8 @@ export default class FinancialAccount extends NavigationMixin(
   @api productCode;
   @api accountType;
   showInfoModal = false;
+  tooltipCode = "";
+  headerTitle = "";
 
   get displayContent() {
     return hasAccountsGoalsPermission;
@@ -145,11 +147,25 @@ export default class FinancialAccount extends NavigationMixin(
     });
   }
 
-  handleInfoModal() {
+  handleInfoModal({ currentTarget }) {
+    const field = currentTarget.dataset.field;
+    if (field) {
+      this.tooltipCode = `${this.productCode}${field.toUpperCase()}`;
+      this.headerTitle = this.formatBalanceTitle(field);
+    } else {
+      this.tooltipCode = this.productCode;
+      this.headerTitle = this.balanceTitle;
+    }
     this.showInfoModal = !this.showInfoModal;
   }
 
   closeModal() {
     this.showInfoModal = false;
+  }
+  formatBalanceTitle(balanceTitle) {
+    return balanceTitle
+      .split("_")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
   }
 }
