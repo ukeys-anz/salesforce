@@ -5,7 +5,7 @@
  * @runTests  RetailBrokerContactActionsTest
  */
 
- public with sharing class RetailBrokerContactActions {
+public with sharing class RetailBrokerContactActions {
   private static Boolean isMergeInProgress = false;
 
   private static final BrokerSettingsRepository BROKER_SETTINGS_REPOSITORY = (BrokerSettingsRepository) Lib_InstanceProvider.forType(

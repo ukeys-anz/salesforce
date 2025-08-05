@@ -5,7 +5,7 @@
  * @runTests  RetailBrokerContactTriggerHandlerTest
  */
 
- public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerHandler {
+public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerHandler {
   /**
    * @description Constructor to initialise Trigger Handler library
    */
