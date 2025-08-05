@@ -239,7 +239,9 @@ public with sharing class FinancialAccountController {
   ) {
     FinServ__FinancialAccount__c record = new FinServ__FinancialAccount__c();
     record.Id = finAccountFromDatabase.Id;
-    record.Name = finAccount.account_name;
+    if (String.isNotBlank(finAccount.product_details?.marketing_code)) {
+      record.Name = finAccount.account_name;
+    }
     record.Is_Digitally_Active__c = true;
     record.FinServ__Balance__c = finAccount.balances.balance.value;
     record.FinServ__CurrentPostedBalance__c = finAccount.balances.current_balance.value;

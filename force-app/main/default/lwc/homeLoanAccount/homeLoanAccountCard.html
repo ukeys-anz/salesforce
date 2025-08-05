@@ -65,7 +65,9 @@
                           icon-name="utility:info"
                           size="xx-small"
                           class="tooltip"
-                          onclick={handleBalanceModal}
+                          data-field="loan_balance"
+                          data-id={finAccount.linkedProductCode}
+                          onclick={handleInfoModal}
                         ></lightning-icon>
                       </p>
                       <p data-test-id="balance">
@@ -98,7 +100,9 @@
                           icon-name="utility:info"
                           size="xx-small"
                           class="tooltip"
-                          onclick={handleRedrawAvailableModal}
+                          data-field="redraw_amount"
+                          data-id={finAccount.linkedProductCode}
+                          onclick={handleInfoModal}
                         ></lightning-icon>
                       </p>
                       <p data-test-id="amount">
@@ -180,7 +184,7 @@
 
                   <template lwc:else>
                     <div
-                      class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small slds-text-align_left"
+                      class="slds-col slds-size_1-of-1 slds-large-size_2-of-2 slds-var-p-around_small slds-text-align_right"
                     >
                       <p class="card-heading-font">
                         Term
@@ -230,123 +234,12 @@
       </footer>
     </article>
   </template>
-  <template lwc:if={showBalanceModal}>
-    <section role="dialog" class="slds-modal slds-fade-in-open">
-      <div class="slds-modal__container">
-        <header class="slds-modal__header modal-header">
-          <lightning-icon
-            icon-name="utility:close"
-            onclick={handleBalanceModal}
-            class="slds-button slds-button_icon slds-modal__close close-modal"
-          ></lightning-icon>
-          <h2 class="slds-modal__title slds-hyphenate">
-            What does Loan Balance mean?
-          </h2>
-        </header>
-        <div class="slds-modal__content slds-p-around_medium">
-          <span>
-            <p class="slds-text-title_bold">
-              Loan Balance is indicative of the amount you owe.
-            </p>
-            <br />
-            It generally reflects money in or out but:
-            <ul class="slds-list_dotted slds-m-top_medium slds-m-bottom_medium">
-              <li>
-                some transactions that have occurred may not have updated the
-                amount shown; and
-              </li>
-              <li>
-                some transactions that have occurred may have updated the amount
-                shown but are not yet processed (e.g. cheques deposited, funds
-                transfers in) or are awaiting for bank decision (e.g.
-                transactions which may be blocked or refused, accounts with
-                blocks).
-              </li>
-            </ul>
-          </span>
-        </div>
-        <footer class="slds-modal__footer">
-          <button
-            class="slds-button slds-button_neutral"
-            onclick={handleBalanceModal}
-          >
-            Close
-          </button>
-        </footer>
-      </div>
-    </section>
-    <div class="slds-backdrop slds-backdrop_open"></div>
-  </template>
-  <!--Added changes here-->
-  <template lwc:if={showRedrawAvailableModal}>
-    <section role="dialog" class="slds-modal slds-fade-in-open">
-      <div class="slds-modal__container">
-        <header class="slds-modal__header modal-header">
-          <lightning-icon
-            icon-name="utility:close"
-            onclick={handleRedrawAvailableModal}
-            class="slds-button slds-button_icon slds-modal__close close-modal"
-          ></lightning-icon>
-          <h2 class="slds-modal__title slds-hyphenate">
-            What does Redraw Amount mean?
-          </h2>
-        </header>
-        <div class="slds-modal__content slds-p-around_medium">
-          <span>
-            <p class="slds-text-title_bold">
-              This is an indicative amount of how much you may be able to redraw
-              at any time. It’s generally the total of all the payments made
-              minus all the payments required to have been made, minus amounts
-              that’ve already been redrawn.
-            </p>
-            <br />
-            <p>
-              Some or all of it may not be available right away, or in some
-              circumstances, at all. There are a number of reasons for this.
-            </p>
-            <br />
-            <p>You may not be able to redraw extra payments if:</p>
-            <ul class="slds-list_dotted slds-m-top_medium slds-m-bottom_medium">
-              <li>
-                You've paid us everything owing under this contract, or your
-                Loan Balance is positive
-              </li>
-              <li>
-                You try to redraw using a method your Loan Account does not
-                support
-              </li>
-              <li>You have an overdue payment, or a Default has happened</li>
-              <li>
-                If there is more than one borrower:
-                <ul class="slds-list_dotted">
-                  <li>One of you has asked us that redraw be blocked or</li>
-                  <li>
-                    One of you has asked us that both of you have to approve a
-                    redraw and the other borrower doesn't approve the redraw or
-                  </li>
-                </ul>
-              </li>
-              <li>
-                Transactions are delayed, blocked or not being processed for any
-                reason.
-              </li>
-            </ul>
-            <p>
-              See ‘Redraw’ and other terms in the ANZ Plus Home Loan T&Cs for
-              more details.
-            </p>
-          </span>
-        </div>
-        <footer class="slds-modal__footer">
-          <button
-            class="slds-button slds-button_neutral"
-            onclick={handleRedrawAvailableModal}
-          >
-            Close
-          </button>
-        </footer>
-      </div>
-    </section>
-    <div class="slds-backdrop slds-backdrop_open"></div>
+  <template lwc:if={showInfoModal}>
+    <c-dynamic-tooltip-util
+      header-title={headerTitle}
+      resource-name={tooltipCode}
+      product-name={tooltipCode}
+      onclosemodal={closeModal}
+    ></c-dynamic-tooltip-util>
   </template>
 </template>
