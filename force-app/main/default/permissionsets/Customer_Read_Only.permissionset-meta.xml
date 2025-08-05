@@ -32,11 +32,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.CPID__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Account.CustomerExitDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
