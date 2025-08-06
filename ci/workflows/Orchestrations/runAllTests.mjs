@@ -23,8 +23,6 @@ const {
   PR_NUMBER,
   WORKING_DIR,
   REPO_NAME,
-  GITHUB_EVENT,
-  INPUTS_BRANCH,
   INPUTS_JOB_ID
 } = process.env;
 

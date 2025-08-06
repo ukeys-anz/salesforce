@@ -11,13 +11,9 @@ on:
       - synchronize
   workflow_dispatch:
     inputs:
-      BRANCH:
-        description: "branch to create the report"
-        required: true
-        type: string
       BASE_REF:
         description: "baseRef to create the report"
-        required: false
+        required: true
         type: string
       JOB_ID:
         description: "Last Validation Job Id (Optional)"
@@ -29,7 +25,7 @@ permissions:
   id-token: "write"
 
 concurrency:
-  group: "run-all-tests-${{ github.event.repository.name }}-${{ github.event.inputs.BRANCH }}-${{ github.event.inputs.JOB_ID }}"
+  group: "run-all-tests-${{ github.event.repository.name }}-${{ github.event.inputs.BASE_REF }}-${{ github.event.inputs.JOB_ID }}"
   cancel-in-progress: true
 
 jobs:
@@ -40,11 +36,10 @@ jobs:
     runs-on: anzx-default-np
     env:
       GITHUB_EVENT: ${{ github.event_name }}
-      INPUTS_BRANCH: ${{ github.event.inputs.BRANCH }}
       INPUTS_JOB_ID: ${{ github.event.inputs.JOB_ID }}
       PR_NUMBER: ${{ github.event.number }}
       REPO_NAME: ${{ github.event.repository.name }}
-      BASE_REF: ${{ github.event_name == 'pull_request' && 'develop' || github.event.inputs.BASE_REF || github.event.inputs.BRANCH }}
+      BASE_REF: ${{ github.event_name == 'pull_request' && 'develop' || github.event.inputs.BASE_REF }}
       WHICH_JOB: "runAllTests"
 
     steps:
