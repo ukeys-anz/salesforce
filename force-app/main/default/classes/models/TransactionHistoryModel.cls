@@ -90,8 +90,6 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
     @AuraEnabled
     public Pay_anyone pay_anyone;
     @AuraEnabled
-    public Imt_anyone imt_anyone;
-    @AuraEnabled
     public Transfer transfer;
     @AuraEnabled
     public Interest interest;
@@ -434,16 +432,6 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
     public FieldValue payment_receipt_number;
     @AuraEnabled
     public FieldValue fabric_payee_id;
-  }
-
-  /**
-   * @description International payment information related to the IMT transaction
-   */
-  public class Imt_anyone {
-    @AuraEnabled
-    public String puid;
-    @AuraEnabled
-    public String payment_reference;
   }
 
   /**

@@ -632,3 +632,7 @@ force-app/main/default/workflows/Access_Request__c.workflow-meta.xml
 
 # AR-224436 Temporary added for renamed transactionSecurityPolicies to be deploy manually due to duplicate security policy error
 force-app/main/default/transactionSecurityPolicies
+
+
+# Revert "[ANZX-224452] IMT1 to Develop" | Temporary add force-app into deploy.forceignore
+force-app

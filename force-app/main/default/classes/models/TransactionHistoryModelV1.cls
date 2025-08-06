@@ -198,21 +198,6 @@ public class TransactionHistoryModelV1 extends CalloutModel {
   }
 
   /**
-   * @description imt anyone information related to the IMT transaction
-   */
-  public class InternationalPayment {
-    public OutboundPayment outbound_payment;
-  }
-
-  /**
-   * @description imt anyone information related to the IMT transaction
-   */
-  public class OutboundPayment {
-    public String puid;
-    public String payment_reference;
-  }
-
-  /**
    * @description details of other entity invovled in transaction
    */
   public class Other_entity {
@@ -267,7 +252,6 @@ public class TransactionHistoryModelV1 extends CalloutModel {
     public Card card;
     public International international;
     public Payment payment;
-    public InternationalPayment international_payment;
     public Interest interest;
     public Transfer transfer;
     public OpenBanking open_banking;

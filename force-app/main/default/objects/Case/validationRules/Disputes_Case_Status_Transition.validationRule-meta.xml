@@ -11,8 +11,7 @@
         RecordType.DeveloperName  = &apos;Direct_Debit_Dispute&apos;,
         RecordType.DeveloperName  = &apos;Direct_Entry_Dispute&apos;,
         RecordType.DeveloperName  = &apos;BPAY_Dispute&apos;,
-        RecordType.DeveloperName  = &apos;PayTo_Dispute&apos;,
-        RecordType.DeveloperName  = &apos;IMT_Dispute&apos;),
+        RecordType.DeveloperName  = &apos;PayTo_Dispute&apos;),
     ISCHANGED(Status),     
     ISPICKVAL(PRIORVALUE(Status), &apos;Closed&apos;),
     ISPICKVAL(Status,&apos;Open&apos;))</errorConditionFormula>

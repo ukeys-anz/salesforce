@@ -16,8 +16,7 @@ public with sharing class GetHelpCaseActionsHelper {
   public static final Set<Id> DISPUTE_PEGA_RT_IDS = new Set<Id>{
     RTCase.atmDispute,
     RTCase.cardDispute,
-    RTCase.nppDispute,
-    RTCase.imtDispute
+    RTCase.nppDispute
   };
 
   private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(

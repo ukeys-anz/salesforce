@@ -9,6 +9,13 @@ public class CaseCEControllerTest {
   @isTest
   public static void testNPPDisputeCase() {
     Case theCase = TestDataFactory.createCase('NPP_Dispute');
+    RecordType rt = [
+      SELECT Id, DeveloperName
+      FROM RecordType
+      WHERE Id = :(theCase.RecordTypeId)
+      LIMIT 1
+    ];
+    theCase = (Case) TestDataFactory.populateRecordType(theCase, rt);
     theCase.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
     Test.startTest();
     CaseCEController.publishCloudEvents(new List<Case>{ theCase });
@@ -20,28 +27,6 @@ public class CaseCEControllerTest {
     );
     Assert.isTrue(
       nppDisputeCaseCloudEventModel.ce_type.contains('v1beta1.dispute.npp'),
-      'ce_type is incorrect'
-    );
-    Assert.areEqual(
-      1,
-      CloudEventController.cloudEvents.size(),
-      'Cloud Event should be generated'
-    );
-  }
-  // test cloud event for the IMT Dispute
-  @isTest
-  public static void testImtDisputeCase() {
-    Test.startTest();
-    Case theCase = createImtDisputeCase();
-    CaseCEController.publishCloudEvents(new List<Case>{ theCase });
-    Test.stopTest();
-    String payload = CloudEventController.cloudEvents[0].Data_1__c;
-    IMTDisputeCaseCloudEventModel imtDisputeCaseCloudEventModel = (IMTDisputeCaseCloudEventModel) JSON.deserialize(
-      payload,
-      IMTDisputeCaseCloudEventModel.class
-    );
-    Assert.isTrue(
-      IMTDisputeCaseCloudEventModel.ce_type.contains('v1beta1.dispute.imt'),
       'ce_type is incorrect'
     );
     Assert.areEqual(
@@ -70,34 +55,6 @@ public class CaseCEControllerTest {
     );
     Assert.isTrue(
       nppDisputeCaseCloudEventModel.ce_type.contains('v1beta1.dispute.npp'),
-      'ce_type is incorrect'
-    );
-    Assert.areEqual(
-      2,
-      CloudEventController.cloudEvents.size(),
-      'Cloud Event should be generated'
-    );
-  }
-
-  // test cloud event for the IMT Dispute
-  @isTest
-  public static void testImtDisputeCaseForStatusChange() {
-    Test.startTest();
-    Map<String, Case> theCaseMap = getTestImtCaseRecord();
-    CaseCEController.publishCloudEvents(
-      new List<Case>{ theCaseMap.get('newCase') },
-      new Map<Id, Case>{
-        theCaseMap.get('oldCase').Id => theCaseMap.get('oldCase')
-      }
-    );
-    Test.stopTest();
-    String payload = CloudEventController.cloudEvents[0].Data_1__c;
-    IMTDisputeCaseCloudEventModel imtDisputeCaseCloudEventModel = (IMTDisputeCaseCloudEventModel) JSON.deserialize(
-      payload,
-      IMTDisputeCaseCloudEventModel.class
-    );
-    Assert.isTrue(
-      imtDisputeCaseCloudEventModel.ce_type.contains('v1beta1.dispute.imt'),
       'ce_type is incorrect'
     );
     Assert.areEqual(
@@ -323,180 +280,23 @@ public class CaseCEControllerTest {
     String recordTypeDeveloperName
   ) {
     Case theCase = TestDataFactory.createCase(recordTypeDeveloperName);
+    RecordType rt = [
+      SELECT Id, DeveloperName
+      FROM RecordType
+      WHERE Id = :(theCase.RecordTypeId)
+      LIMIT 1
+    ];
+    theCase = (Case) TestDataFactory.populateRecordType(theCase, rt);
     theCase.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
     theCase.AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
     theCase.OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
     Case theOldCase = TestDataFactory.createCase(recordTypeDeveloperName);
     theOldCase.Id = theCase.Id;
     theOldCase.Status = 'On Hold';
+    theOldCase = (Case) TestDataFactory.populateRecordType(theOldCase, rt);
     return new Map<String, Case>{
       'newCase' => theCase,
       'oldCase' => theOldCase
     };
-  }
-  /**
-   * @description Create Case record with fields relevant to IMT_Dispute
-   * @return Case
-   */
-  public static Case createImtDisputeCase() {
-    Case theCase = new Case();
-    theCase.RecordTypeId = RTCase.imtDispute;
-    theCase.Description = 'IMT Dispute Case Description Test_Text_32k';
-    theCase.Intended_Account_BSB__c = '012345';
-    theCase.Intended_Account_Name__c = 'Intended Account Name Test_Text_255';
-    theCase.Intended_Account_Number__c = '0123456789';
-    theCase.Intended_Amount__c = 1000.00;
-    theCase.Intended_Pay_Id_Type__c = 'ABN';
-    theCase.Intended_Pay_Id_Value__c = 'Intended Pay Id Value Test_Text_255';
-    theCase.Status = 'Open';
-    theCase.Submitted__c = false;
-    theCase.Transaction_Id__c = 'Transaction Id Test_IMT_Text_255';
-    theCase.Transaction_UUID__c = 'Transaction UUID Test_IMT_Text_255';
-    theCase.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-    return theCase;
-  }
-  /**
-   * @description get IMT test case and old case record for test
-   * @return Map of new IMT case and old IMT case
-   */
-  private static Map<String, Case> getTestImtCaseRecord() {
-    Case theCase = createImtDisputeCase();
-    theCase.AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-    theCase.OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
-    Case theOldCase = createImtDisputeCase();
-    theOldCase.Id = theCase.Id;
-    theOldCase.Status = 'On Hold';
-    return new Map<String, Case>{
-      'newCase' => theCase,
-      'oldCase' => theOldCase
-    };
-  }
-
-  /**
-   * @description Check Case is Account Closure case
-   */
-  @isTest
-  public static void testAccountClosureDisputeCase() {
-    boolean isFlag;
-    Case theCase = new Case();
-    theCase.RecordTypeId = RTCase.accountClosure;
-    theCase.Description = 'Dispute Case Description Test_Text_32k';
-    theCase.Intended_Account_BSB__c = '012345';
-    theCase.Intended_Account_Name__c = 'Intended Account Name Test_Text_255';
-    theCase.Intended_Account_Number__c = '0123456789';
-    theCase.Intended_Amount__c = 1000.00;
-    theCase.Intended_Pay_Id_Type__c = 'ABN';
-    theCase.Intended_Pay_Id_Value__c = 'Intended Pay Id Value Test_Text_255';
-    theCase.Status = 'Open';
-    theCase.Submitted__c = false;
-    theCase.Transaction_Id__c = 'Transaction Id Test_IMT_Text_255';
-    theCase.Transaction_UUID__c = 'Transaction UUID Test_IMT_Text_255';
-    theCase.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-
-    Test.startTest();
-    isFlag = CheckCaseRecordType.isAccountClosure(theCase, null);
-    Test.stopTest();
-    Assert.areEqual(true, isFlag, 'Case is a account closure case.');
-  }
-
-  /**
-   * @description test get method which query Open status cases by passing blank list of IDs
-   */
-  @isTest
-  public static void testGetOpenCasesForBlankIds() {
-    Test.startTest();
-    CaseDisputesRepository obj = new CaseDisputesRepository();
-    List<Case> listNewCase = obj.getOpenCases(new List<Id>());
-    Test.stopTest();
-    Assert.areEqual(
-      listNewCase,
-      new List<Case>(),
-      'Should return blank List of Case.'
-    );
-  }
-  /**
-   * @description test get method which query Open status cases by passing Case of IDs
-   */
-  @isTest
-  public static void testGetOpenCasesForCaseIds() {
-    Case theCase = new Case();
-    List<Id> lstCaseId = new List<Id>();
-    theCase.RecordTypeId = RTCase.nppDispute;
-    theCase.Description = 'Dispute Case Description Test_Text_32k';
-    theCase.Intended_Account_BSB__c = '012345';
-    theCase.Intended_Account_Name__c = 'Intended Account Name Test_Text_255';
-    theCase.Intended_Account_Number__c = '0123456789';
-    theCase.Intended_Amount__c = 1000.00;
-    theCase.Intended_Pay_Id_Type__c = 'ABN';
-    theCase.Intended_Pay_Id_Value__c = 'Intended Pay Id Value Test_Text_255';
-    theCase.Status = 'Open';
-    theCase.Submitted__c = false;
-    theCase.Transaction_Id__c = 'Transaction Id Test_IMT_Text_255';
-    theCase.Transaction_UUID__c = 'Transaction UUID Test_IMT_Text_255';
-    theCase.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-    lstCaseId.add(theCase.Id);
-    Test.startTest();
-    CaseDisputesRepository obj = new CaseDisputesRepository();
-    List<Case> listNewCase = obj.getOpenCases(lstCaseId);
-    Test.stopTest();
-    Assert.areEqual(
-      listNewCase,
-      new List<Case>(),
-      'Should return List of Case.'
-    );
-  }
-
-  /**
-   * @description test get method which query cases by passing blank list of IDs
-   */
-  @isTest
-  public static void testGetCasesForBlankIds() {
-    Test.startTest();
-    CaseDisputesRepository obj = new CaseDisputesRepository();
-    List<Case> listNewCase = obj.getCases(new Set<Id>());
-    Test.stopTest();
-    Assert.areEqual(
-      listNewCase,
-      new List<Case>(),
-      'Should return blank List of Case.'
-    );
-  }
-  /**
-   * @description test get method which query Closed cases
-   */
-  @isTest
-  public static void isClosedTest() {
-    Case theCase = new Case();
-    theCase.RecordTypeId = RTCase.imtDispute;
-    theCase.Description = 'Dispute Case Description Test_Text_32k';
-    theCase.Status = 'Closed';
-    theCase.Submitted__c = true;
-    theCase.Is_PayTo_Dispute__c = true;
-    theCase.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-
-    Boolean value = GetHelpCaseActionsHelper.isClosed(theCase);
-
-    Case theCase1 = new Case();
-    theCase1.RecordTypeId = RTCase.imtDispute;
-    theCase1.Description = 'Dispute Case Description Test_Text_32k';
-    theCase1.Status = 'Under Investigation';
-    theCase1.Submitted__c = true;
-    theCase1.Is_PayTo_Dispute__c = true;
-    theCase1.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-    theCase1.BusinessHoursId = QueryBusinessHours.anzXBusinessHours.Id;
-    theCase1.IDR_Date_Received__c = system.now();
-
-    Case theCase2 = new Case();
-    theCase2.RecordTypeId = RTCase.imtDispute;
-    theCase2.Description = 'Dispute Case Description Test_Text_32k';
-    theCase2.Status = 'Open';
-    theCase2.Submitted__c = true;
-    theCase2.Is_PayTo_Dispute__c = true;
-    theCase2.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-    theCase2.BusinessHoursId = QueryBusinessHours.anzXBusinessHours.Id;
-
-    GetHelpCaseActionsHelper.handleEntitlementForUpdate(theCase1, theCase2);
-
-    Assert.areEqual(value, true, 'Case Status is closed.');
   }
 }

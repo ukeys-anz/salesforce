@@ -6,8 +6,7 @@
 public with sharing class CaseDisputesRepository {
   private static final Set<Id> VALID_DISPUTE_RT_IDS_TO_UPDATE_CASE = new Set<Id>{
     RTCase.atmDispute,
-    RTCase.cardDispute,
-    RTCase.imtDispute
+    RTCase.cardDispute
   };
 
   /**
