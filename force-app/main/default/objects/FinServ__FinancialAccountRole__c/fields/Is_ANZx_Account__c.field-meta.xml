@@ -14,7 +14,7 @@
     true,
     false
 )</formula>
-    <label>Is ANZx Account</label>
+    <label>Is Digitally Active</label>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
