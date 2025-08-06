@@ -36,8 +36,7 @@
         <name>ANZx_View_Cards</name>
         <enabled>true</enabled>
     </customPermissions>
-    <description>Permission set for Specialist lender to give access to Case record types, transfer
-        ownership of cases and edit credit referral reason</description>
+    <description>Permission set for Specialist lender to give access to Case record types, transfer ownership of cases and edit credit referral reason</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.Collections__c</field>
@@ -909,10 +908,6 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Case.Direct_Entry_Dispute</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>Case.IMT_Dispute</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

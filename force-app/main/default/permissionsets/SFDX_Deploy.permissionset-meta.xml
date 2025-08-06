@@ -3422,10 +3422,6 @@
         <recordType>Case.NPP_Dispute</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>Case.IMT_Dispute</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
     <userPermissions>
         <enabled>true</enabled>
         <name>AICreateInsightObjects</name>

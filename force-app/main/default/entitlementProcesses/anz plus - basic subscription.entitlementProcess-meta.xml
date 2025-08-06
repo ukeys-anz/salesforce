@@ -49,7 +49,7 @@
         <milestoneCriteriaFilterItems>
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
-            <value>BPAY, Direct Debit, Direct Entry, NPP, IMT</value>
+            <value>BPAY, Direct Debit, Direct Entry, NPP</value>
         </milestoneCriteriaFilterItems>
         <milestoneCriteriaFilterItems>
             <field>Case.Priority</field>
@@ -86,7 +86,7 @@
         <milestoneCriteriaFilterItems>
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
-            <value>BPAY, Direct Debit, Direct Entry, NPP, IMT</value>
+            <value>BPAY, Direct Debit, Direct Entry, NPP</value>
         </milestoneCriteriaFilterItems>
         <milestoneCriteriaFilterItems>
             <field>Case.Priority</field>
@@ -437,7 +437,7 @@
         <milestoneCriteriaFilterItems>
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
-            <value>NPP, BPAY, IMT</value>
+            <value>NPP, BPAY</value>
         </milestoneCriteriaFilterItems>
         <milestoneName>Resolution Time</milestoneName>
         <minutesToComplete>30240</minutesToComplete>

@@ -513,9 +513,6 @@ export default class TransactionHistoryBoard extends LightningElement {
         return this.transactionTypeDisputeIdMapFromParent.Direct_Debit_Dispute;
       case transaction.formatted_type === TRANSACTION_TYPES.BPAY:
         return this.transactionTypeDisputeIdMapFromParent.BPAY_Dispute;
-      case transaction.formatted_type ===
-        TRANSACTION_TYPES.International_Payment:
-        return this.transactionTypeDisputeIdMapFromParent.IMT_Dispute;
       default:
         return "";
     }
