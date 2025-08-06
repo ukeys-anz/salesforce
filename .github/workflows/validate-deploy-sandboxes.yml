@@ -25,4 +25,3 @@ jobs:
       sfdx_name: ${{ matrix.secret-name }}
     secrets:
       token: ${{ secrets.SALESFORCE_ACTIONS_CHECKOUT_TOKEN }}
-      plugin-token: ${{ secrets.SALESFORCE_PLUGIN_CHECKOUT_TOKEN }}

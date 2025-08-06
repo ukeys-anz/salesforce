@@ -99,9 +99,6 @@ public with sharing class OtherLimitsAndLiabilitiesExternalQuery extends Financi
       OtherLimitsAndLiabilitiesModel fa : ((OLLCalloutResponse) this.calloutResponse)
         .accounts
     ) {
-      if (String.isBlank(fa.status) || fa.status == 'DEL') {
-        continue;
-      }
       Map<String, Object> row = new Map<String, Object>{
         this.parentField => this.parentId,
         'ExternalId' => getExternalId(fa, this.accountRoleMap),

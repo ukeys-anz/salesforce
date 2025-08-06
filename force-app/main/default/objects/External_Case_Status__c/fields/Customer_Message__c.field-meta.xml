@@ -14,7 +14,7 @@ ISPICKVAL(External_Status__c, &quot;New&quot;),
 $Label.PEGA_Dispute_Status_New,
 IF(
 ISPICKVAL(External_Status__c, &quot;Pending-CheckBlockedCard&quot;),
-$Label.PEGA_Dispute_Status_Pending_CheckBlockedCard,
+&quot;&quot;,
 IF(
 ISPICKVAL(External_Status__c, &quot;Pending-QualifyDispute&quot;),
 $Label.PEGA_Dispute_Status_Pending_QualifyDispute,

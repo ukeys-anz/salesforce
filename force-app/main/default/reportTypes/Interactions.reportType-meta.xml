@@ -4262,6 +4262,16 @@
             <field>Interaction_Summary__c.Name</field>
             <table>Interaction</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CaseId__c.ePaymentsCodeApplicable__c</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CaseId__c.ReimbursementReason__c</field>
+            <table>Interaction</table>
+        </columns>
         <masterLabel>Interactions</masterLabel>
     </sections>
     <sections>

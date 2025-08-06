@@ -13,5 +13,8 @@
         <value>Opportunity Lost,Opportunity Won</value>
     </filters>
     <filterScope>Mine</filterScope>
-    <label>My In-progres Opportunities</label>
+    <label>My In-progress Opportunities</label>
+    <sharedTo>
+        <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+    </sharedTo>
 </ListView>

@@ -112,7 +112,7 @@ const findSubmoduleFilePath = (filename, submoduleFilesObj) => {
 };
 
 const notSalesforceChange = (filename) => {
-  const notSalesforceCheckerMap = [".git", ".md", "/ci/"];
+  const notSalesforceCheckerMap = [".git", ".md", "/ci/", "force-app/tests"];
   return notSalesforceCheckerMap.some((checker) => filename.includes(checker));
 };
 

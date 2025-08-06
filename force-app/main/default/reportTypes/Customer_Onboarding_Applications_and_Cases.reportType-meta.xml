@@ -2283,6 +2283,16 @@
             <field>Fraud_MiddleNameCheck__c</field>
             <table>CustomerOnboardingApplication__c.Cases__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ePaymentsCodeApplicable__c</field>
+            <table>CustomerOnboardingApplication__c.Cases__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ReimbursementReason__c</field>
+            <table>CustomerOnboardingApplication__c.Cases__r</table>
+        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
 </ReportType>

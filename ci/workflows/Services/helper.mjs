@@ -206,7 +206,8 @@ const salesforceIgnoredFileChanges = (artifactPath) => {
 };
 
 const canSkipTest = (artifactPath, baseRef) => {
-  if (baseRef == "master") {
+  const doNotSkipTestsBaseRef = ["master", "blm", "intpnv"];
+  if (doNotSkipTestsBaseRef.includes(baseRef)) {
     return false;
   }
   const packagePath = "/package/package.xml";

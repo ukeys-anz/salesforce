@@ -281,4 +281,21 @@ public with sharing class LendingEvaluationActionsTest {
       'Share with user should be created'
     );
   }
+
+  @isTest
+  private static void testSetOutcomesForInProgress() {
+    List<Quality_Assessment__c> records = getQARecords();
+    records[0].Status__c = 'In Progress';
+    records[0].Other__c = null;
+    Test.startTest();
+    LendingEvaluationActions.setOutcomesForInProgress(
+      records,
+      getOldQARecords()
+    );
+    Test.stopTest();
+    Assert.isNull(
+      records[0].Risk_and_Compliance_Outcome__c,
+      'Risk & Complaince Outcome should be null'
+    );
+  }
 }

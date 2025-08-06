@@ -29,7 +29,7 @@ permissions:
 jobs:
   preprod-deployment:
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.5.0"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:2.1.0"
       options: --user root
       volumes:
         - ${{ github.workspace }}/preprod-deployment:/opt/harness-delegate/preprod-deployment
@@ -55,20 +55,24 @@ jobs:
       SKIP_DESTRUCTIVE_CHANGES: "${{ github.event.inputs.SKIP_DESTRUCTIVE }}"
 
     steps:
-      - name: Environment Varibales Debug
-        run: |
-          echo "DEBUG: WHICH_JOB=${{ env.WHICH_JOB }}"
-          echo "DEBUG: REPO_NAME=${{ env.REPO_NAME }}"
-          echo "DEBUG: PIPELINE_NAME=${{ env.PIPELINE_NAME }}"
-          echo "DEBUG: SKIP_DESTRUCTIVE_CHANGES=${{ env.SKIP_DESTRUCTIVE_CHANGES }}"
-
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           submodules: "true"
           token: ${{ secrets.SALESFORCE_ACTIONS_CHECKOUT_TOKEN }}
-          path: salesforce
+
+      - name: Link plugin
+        run: |
+          cd /opt/harness-delegate/sf-plugin
+          sf plugins link .
+
+      - name: Environment Varibales Debug
+        run: |
+          echo "DEBUG: WHICH_JOB=${{ env.WHICH_JOB }}"
+          echo "DEBUG: REPO_NAME=${{ env.REPO_NAME }}"
+          echo "DEBUG: PIPELINE_NAME=${{ env.PIPELINE_NAME }}"
+          echo "DEBUG: SKIP_DESTRUCTIVE_CHANGES=${{ env.SKIP_DESTRUCTIVE_CHANGES }}"
 
       - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
         id: "authenticate-harness-delegate"
@@ -84,37 +88,19 @@ jobs:
             preprod:projects/anz-x-gh-sf-prod-be3529/secrets/${{ env.PREPROD_SECRET_NAME }}/versions/latest
             artifactory:projects/anz-x-gh-sf-prod-be3529/secrets/${{ env.ARTIFACTORY_SECRET_NAME }}/versions/latest
 
-      - name: Add Genral Secrets to ENV
-        working-directory: salesforce
+      - name: Prepare ENV Variables
         run: |
           echo CLEANING_JOB="false" >> $GITHUB_ENV
           echo WORKING_DIR="$(pwd)" >> $GITHUB_ENV
           lastTag="$( git describe --abbrev=0 --tags --match master* )"
           echo BASE_REF_LAST_TAG="$lastTag" >> $GITHUB_ENV
 
-      - name: Checkout salesforce-plugin repo
-        uses: actions/checkout@v4
-        with:
-          repository: anzx/salesforce-plugin
-          token: ${{ secrets.SALESFORCE_PLUGIN_CHECKOUT_TOKEN }}
-          path: salesforce-plugin
-
-      - name: Install plugin
-        working-directory: salesforce-plugin
-        shell: bash
-        run: |
-          rm -rf node_modules && yarn install --frozen-lockfile
-          yarn build
-          sf plugins link .
-
       - name: Run "${{ matrix.config.DEPLOYMENT_TITLE }}" | "${{ env.WHICH_JOB }}"
-        working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/preprodDeployment.mjs "${{ steps.secrets.outputs.preprod }}" "${{ steps.secrets.outputs.artifactory }}"
           echo CLEANING_JOB="true" >> $GITHUB_ENV
 
       - name: Cleaning
-        working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/preprodDeployment.mjs "${{ steps.secrets.outputs.preprod }}" "${{ steps.secrets.outputs.artifactory }}"
 

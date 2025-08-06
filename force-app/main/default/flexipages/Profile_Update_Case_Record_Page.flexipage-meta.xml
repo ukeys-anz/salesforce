@@ -313,6 +313,19 @@
         </itemInstances>
         <itemInstances>
             <fieldInstance>
+                <fieldItem>Record.Account.PersonOtherAddress</fieldItem>
+                <identifier>RecordAccountPersonOtherAddressField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Type}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Legal Name QA</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
                     <value>readonly</value>
@@ -471,8 +484,8 @@
                     <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.LicenceCardNumber__c</fieldItem>
-                <identifier>RecordLicenceCardNumber_cField</identifier>
+                <fieldItem>Record.LicenceNumber__c</fieldItem>
+                <identifier>RecordLicenceNumber_cField</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.DocumentType__c}</leftValue>
@@ -488,8 +501,8 @@
                     <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.LicenceNumber__c</fieldItem>
-                <identifier>RecordLicenceNumber_cField</identifier>
+                <fieldItem>Record.LicenceCardNumber__c</fieldItem>
+                <identifier>RecordLicenceCardNumber_cField</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.DocumentType__c}</leftValue>
@@ -1048,7 +1061,7 @@
                 <fieldItem>Record.VerificationRequest__c</fieldItem>
                 <identifier>RecordVerificationRequest_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3 AND (4 OR 5)</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.AcceptableDocumentType__c}</leftValue>
                         <operator>NE</operator>
@@ -1058,6 +1071,59 @@
                         <leftValue>{!Record.AcceptableDocumentQuality__c}</leftValue>
                         <operator>NE</operator>
                         <rightValue>No</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Fraud_Review_Outcome__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Pass</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Fraud_Review_Outcome__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Failed - Document Provided Invalid</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.DocumentFailureReason__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>No Match - DVS check failed</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.VerificationRequest__c</fieldItem>
+                <identifier>RecordVerificationRequest_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2 AND ( 3 OR  (4 AND 5))</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.AcceptableDocumentType__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>No</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.AcceptableDocumentQuality__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>No</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Fraud_Review_Outcome__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Pass</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Fraud_Review_Outcome__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Failed - Document Provided Invalid</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.DocumentFailureReason__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>No Match - DVS check failed</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -1075,7 +1141,7 @@
                 <fieldItem>Record.VerificationOutcome__c</fieldItem>
                 <identifier>RecordVerificationOutcome_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3 AND (4 OR 5)</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.AcceptableDocumentType__c}</leftValue>
                         <operator>NE</operator>
@@ -1085,6 +1151,59 @@
                         <leftValue>{!Record.AcceptableDocumentQuality__c}</leftValue>
                         <operator>NE</operator>
                         <rightValue>No</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Fraud_Review_Outcome__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Pass</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Fraud_Review_Outcome__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Failed - Document Provided Invalid</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.DocumentFailureReason__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>No Match - DVS check failed</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.VerificationOutcome__c</fieldItem>
+                <identifier>RecordVerificationOutcome_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2 AND (3 OR (4 AND 5))</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.AcceptableDocumentType__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>No</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.AcceptableDocumentQuality__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>No</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Fraud_Review_Outcome__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Pass</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Fraud_Review_Outcome__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Failed - Document Provided Invalid</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.DocumentFailureReason__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>No Match - DVS check failed</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
