@@ -6,6 +6,8 @@
  */
 
 public with sharing class RetailBrokerContactActions {
+  private static Boolean isMergeInProgress = false;
+
   private static final BrokerSettingsRepository BROKER_SETTINGS_REPOSITORY = (BrokerSettingsRepository) Lib_InstanceProvider.forType(
     BrokerSettingsRepository.class
   );
@@ -105,20 +107,26 @@ public with sharing class RetailBrokerContactActions {
   /**
    * @description Generate and publish Broker contact GCP cloud events
    * @param records list of new version of contacts from trigger context
-   * @param contactsOldMap map of old version of contacts from trigger context
+   * @param contactsOldMap  map of old version of contacts
    */
   public static void publishBrokerEvents(
     List<Contact> records,
     Map<Id, Contact> contactsOldMap
   ) {
-    if (BROKER_SETTINGS_REPOSITORY.get().BypassBrokerEvent__c) {
+    if (
+      BROKER_SETTINGS_REPOSITORY.get().BypassBrokerEvent__c ||
+      isMergeInProgress == true
+    ) {
       return;
     }
     Map<Id, String> brokerIdToEventTypeMap = getBrokerIdToEventTypeMap(
       records,
       contactsOldMap
     );
-    RetailBrokerEventActions.publishEventForBrokers(brokerIdToEventTypeMap);
+    RetailBrokerEventActions.publishEventForBrokers(
+      brokerIdToEventTypeMap,
+      contactsOldMap
+    );
   }
 
   /**
@@ -228,13 +236,6 @@ public with sharing class RetailBrokerContactActions {
    */
   @TestVisible
   private static String getAction(Contact contactNew, Contact contactOld) {
-    if (
-      (contactOld.Victim_Party_Id__c == null &&
-      contactNew.Victim_Party_Id__c != null)
-    ) {
-      return '';
-    }
-
     if (
       doesSyncStatusContain(
         contactNew,
@@ -392,7 +393,7 @@ public with sharing class RetailBrokerContactActions {
     }
 
     List<Broker_Code__c> brokerCodesToBeDeleted = BROKER_CODE_REPOSITORY.getRelatedBrokerCodes(
-      new Map<id, contact>(records).keySet()
+      new Map<id, contact>(filteredContactList).keySet()
     );
 
     DML_REPOSITORY.doDelete(brokerCodesToBeDeleted, new DmlConfig());
@@ -410,13 +411,6 @@ public with sharing class RetailBrokerContactActions {
       Contact.External_Id__c
     );
 
-    List<Contact> contactsToUpdate = getContactsTobeUpdated(
-      filteredContactList,
-      survivorcontactsWithExternalIds
-    );
-
-    DML_REPOSITORY.doUpdate(contactsToUpdate, new DMLConfig());
-
     map<String, string> mergesToProcess = getDataMergeRecords(
       filteredContactList
     );
@@ -426,7 +420,15 @@ public with sharing class RetailBrokerContactActions {
     List<contact> allContactsWithExternalIds = CONTACT_REPOSITORY.queryContactRecordsByExternalIds(
       contactids
     );
+
     processDataMerge(mergesToProcess, allContactsWithExternalIds);
+
+    List<Contact> contactsToUpdate = getContactsTobeUpdated(
+      filteredContactList,
+      survivorcontactsWithExternalIds
+    );
+
+    DML_REPOSITORY.doUpdate(contactsToUpdate, new DMLConfig());
   }
 
   /**
@@ -443,14 +445,15 @@ public with sharing class RetailBrokerContactActions {
     if (filteredRecords.isEmpty()) {
       return contactTobeUpdated;
     }
-    for (Contact contact : filteredRecords) {
-      String survivorId = contact.Survivor_Party_Id__c;
+    for (Contact victimCon : filteredRecords) {
+      String survivorId = victimCon.Survivor_Party_Id__c;
       Contact survivorCon = new Contact(
         Id = contactsWithExternalIds.get(survivorId).Id
       );
-      survivorCon.Survivor_Party_Id__c = contact.Survivor_Party_Id__c;
-      survivorCon.Victim_Party_Id__c = contact.Victim_Party_Id__c;
+      survivorCon.Survivor_Party_Id__c = victimCon.Survivor_Party_Id__c;
+      survivorCon.Victim_Party_Id__c = victimCon.Victim_Party_Id__c;
       survivorCon.Sync_Status__c = 'Broker Org';
+
       if (
         doesSyncStatusContain(
           contactsWithExternalIds.get(survivorId),
@@ -496,6 +499,7 @@ public with sharing class RetailBrokerContactActions {
     List<Id> successfulSurvivorIds = new List<Id>();
     Map<Id, String> contactIdByBrokerSet = new Map<Id, String>();
     Map<Id, String> contactIdByOfficeGroup = new Map<Id, String>();
+    isMergeInProgress = true;
     try {
       for (String survivorId : mergesToProcess.keySet()) {
         String victimId = mergesToProcess.get(survivorId);
@@ -508,11 +512,18 @@ public with sharing class RetailBrokerContactActions {
           if (victim.Office_Group__c != null) {
             contactIdByOfficeGroup.put(survivor.Id, victim.Office_Group__c);
           }
+          if (
+            doesSyncStatusContain(
+              survivor,
+              BrokerConstants.SYNC_STATUS_BROKER_ORG
+            ) == false
+          ) {
+            successfulSurvivorIds.add(survivor.Id);
+          }
 
           Database.MergeResult result = Database.merge(survivor, victim, false);
 
           if (result.isSuccess()) {
-            successfulSurvivorIds.add(survivor.Id);
           } else {
             for (Database.Error err : result.getErrors()) {
               Logger.error(
@@ -528,7 +539,6 @@ public with sharing class RetailBrokerContactActions {
           }
         }
       }
-
       updateBrokerRelationLookup(
         successfulSurvivorIds,
         contactIdByBrokerSet,
@@ -537,6 +547,8 @@ public with sharing class RetailBrokerContactActions {
     } catch (Exception e) {
       Logger.error(e.getMessage());
       Logger.saveLog();
+    } finally {
+      isMergeInProgress = false;
     }
   }
 
@@ -562,7 +574,6 @@ public with sharing class RetailBrokerContactActions {
       records,
       Contact.Victim_Party_Id__c
     );
-
     List<contact> filterDuplicateEmailRecords = ListUtil.filter(
         records,
         contactsOldMap
@@ -666,6 +677,7 @@ public with sharing class RetailBrokerContactActions {
         contactsToUpdate.add(contactRec);
       }
     }
+
     DML_REPOSITORY.doUpdate(contactsToUpdate, new DMLConfig());
   }
 }

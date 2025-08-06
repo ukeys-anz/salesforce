@@ -41,10 +41,12 @@ public with sharing class BrokerCloudEventBuilder {
   /**
    * @description Build the contact node for the cloud event
    * @param record the new contact record in trigger context
+   * @param oldRecord the old contact record in trigger context
    * @return master object
    */
   public static BrokerCloudEventModel.MasterNode buildContactNode(
-    Contact record
+    Contact record,
+    Contact oldRecord
   ) {
     Map<String, String> dataContractMap = new Map<String, String>{
       'sourceObjectName' => OBJECT_CONTACT,
@@ -59,7 +61,8 @@ public with sharing class BrokerCloudEventBuilder {
 
     // Only add serialized merge node if it's not null
     BrokerCloudEventModel.ContactMergeTargetNode mergeNode = buildMergeContactNode(
-      record
+      record,
+      oldRecord
     );
     if (mergeNode != null) {
       dataContractMap.put('merge_contact', JSON.serialize(mergeNode));
@@ -169,20 +172,20 @@ public with sharing class BrokerCloudEventBuilder {
    *              Returns null if required fields are missing.
    * @author      Madhuri Edke
    * @param       record The Contact record used to populate the node.
+   * @param       oldRecord The old Contact record used to populate the node.
    * @return      BrokerCloudEventModel.ContactMergeTargetNode or null if input is incomplete.
+   *
    */
   private static BrokerCloudEventModel.ContactMergeTargetNode buildMergeContactNode(
-    Contact record
+    Contact record,
+    Contact oldRecord
   ) {
-    List<String> requiredFields = new List<String>{
-      'Survivor_Party_Id__c',
-      'Victim_Party_Id__c'
-    };
-
-    for (String fieldName : requiredFields) {
-      if (record.get(fieldName) == null) {
-        return null;
-      }
+    Boolean nonEligibleRec =
+      record.Survivor_Party_Id__c == null ||
+      record.Victim_Party_Id__c == null ||
+      record.Victim_Party_Id__c == oldRecord.Victim_Party_Id__c;
+    if (nonEligibleRec == true) {
+      return null;
     }
 
     BrokerCloudEventModel.ContactMergeTargetNode mergeContactNode = new BrokerCloudEventModel.ContactMergeTargetNode();
