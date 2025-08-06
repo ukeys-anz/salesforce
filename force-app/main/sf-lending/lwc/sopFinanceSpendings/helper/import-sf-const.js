@@ -100,7 +100,10 @@ export const EXPENSES_WITH_PROMPTS = [
   "Bills, Insurance & General",
   "Health & Wellbeing",
   "Subscriptions, Phone & Internet",
-  "Transport"
+  "Transport",
+  "Clothing & Personal Care",
+  "Car, Travel & Belongings",
+  "Health, Life & Other"
 ];
 
 export const EXPENSES_WITH_PROPERTIES = [

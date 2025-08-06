@@ -17,6 +17,14 @@
         <visible>false</visible>
     </applicationVisibilities>
     <classAccesses>
+        <apexClass>AcceptReferralController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>AcceptReferralRepository</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CommercialOppTeamMemberActions</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -5448,6 +5456,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>InsuranceProfile.SourceSystemIdentifier</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Interaction.Broker__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

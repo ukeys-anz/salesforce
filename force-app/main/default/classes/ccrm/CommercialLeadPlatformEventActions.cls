@@ -30,6 +30,8 @@ public with sharing class CommercialLeadPlatformEventActions {
   private static final String PROSPECT_VALUE = 'Prospect';
   private static final String NEW_VALUE = 'New';
   private static final String LEAD_SUBSTATUS_NEW = 'New';
+  private static final String LEAD_SUBSTATUS_DEFAULT = 'CBK_RA';
+  private static final String ORIGINATOR_UNICA = 'UNICA';
 
   private static final Map<Id, String> ACCOUNT_TYPE_MAP = new Map<Id, String>{
     RTAccount.businessAccount => 'Business',
@@ -106,6 +108,13 @@ public with sharing class CommercialLeadPlatformEventActions {
     Map<Id, Account> mapOfAccount
   ) {
     List<Lead_Event__e> leadEventList = new List<Lead_Event__e>();
+    List<CCRM_Lead_to_Platform_Event_Mapping__mdt> filteredMdtRecords = QueryLeadToPlatformEventMapping.get(
+      DESTINATION_SYSTEM_ALL
+    );
+
+    filteredMdtRecords.addAll(
+      QueryLeadToPlatformEventMapping.get(DESTINATION_SYSTEM_UNICA)
+    );
     for (Lead record : records) {
       Lead_Event__e leadEvent = new Lead_Event__e();
 
@@ -114,34 +123,13 @@ public with sharing class CommercialLeadPlatformEventActions {
 
       mapOwnerLanIds(record, mapOfOwnerLanIds, leadEvent);
 
-      getUnicaPlatformEventMapping(record, leadEvent);
+      generateLeadEventFromMd(record, filteredMdtRecords, leadEvent);
 
       mapSourceSystemIds(mapOfAccount, record, leadEvent);
 
       leadEventList.add(leadEvent);
     }
     return leadEventList;
-  }
-
-  /**
-   * @description This method returns required platform event fields for UNICA
-   * @name getUnicaPlatformEventMapping
-   * @param record Lead record
-   * @param leadEvent Platform event
-   */
-  private static void getUnicaPlatformEventMapping(
-    Lead record,
-    Lead_Event__e leadEvent
-  ) {
-    List<CCRM_Lead_to_Platform_Event_Mapping__mdt> filteredMdtRecords = QueryLeadToPlatformEventMapping.get(
-      DESTINATION_SYSTEM_ALL
-    );
-
-    filteredMdtRecords.addAll(
-      QueryLeadToPlatformEventMapping.get(DESTINATION_SYSTEM_UNICA)
-    );
-
-    generateLeadEventFromMd(record, filteredMdtRecords, leadEvent);
   }
 
   /**
@@ -185,18 +173,21 @@ public with sharing class CommercialLeadPlatformEventActions {
    * @description Publish CCRM/UNICA/ADOBE leads to UNICA or ADOBE via MuleSoft.
    * @param listOfLeads List of leads
    * @param taskList list Of Tasks
+   * @param ownerChange owner change flag
    */
   public void publishLeadUpdateToUnicaOrAdobe(
     List<Lead> listOfLeads,
-    List<Task> taskList
+    List<Task> taskList,
+    Boolean ownerChange
   ) {
     if (listOfLeads.isEmpty()) {
       return;
     }
-    Set<Id> leadOwnerIdsSet = ListUtil.getIds(listOfLeads, Lead.OwnerId);
-
-    Map<Id, User> mapOfOwnerLanIds = USER_ACTIONS_REPOSITORY.getUserMapFromUserIds(
-      leadOwnerIdsSet
+    Set<Id> userIdsSet = new Set<Id>();
+    userIdsSet.addAll(ListUtil.getIds(listOfLeads, Lead.OwnerId));
+    userIdsSet.addAll(ListUtil.getIds(listOfLeads, Lead.LastModifiedById));
+    Map<Id, User> mapOfUsers = USER_ACTIONS_REPOSITORY.getUserMapFromUserIds(
+      userIdsSet
     );
 
     Set<Id> leadAccountIdsSet = ListUtil.getIds(
@@ -207,16 +198,6 @@ public with sharing class CommercialLeadPlatformEventActions {
     Map<Id, Account> mapOfAccount = LEAD_REPOSITORY.getAccountRecords(
       leadAccountIdsSet
     );
-
-    Set<Id> leadLastModifiedByIdsSet = ListUtil.getIds(
-      listOfLeads,
-      Lead.LastModifiedById
-    );
-
-    Map<Id, User> mapOfLastModifiedUserLanIds = USER_ACTIONS_REPOSITORY.getUserMapFromUserIds(
-      leadLastModifiedByIdsSet
-    );
-
     mapOfResponseLogLeadSubStatus = CCRMLeadPlatformEventHelper.getMapOfResponseLogLeadSubStatus(
       listOfLeads,
       mapOfOpportunityId,
@@ -225,9 +206,9 @@ public with sharing class CommercialLeadPlatformEventActions {
 
     List<Lead_Event__e> leadEventsList = formLeadEventList(
       listOfLeads,
-      mapOfOwnerLanIds,
+      mapOfUsers,
       mapOfAccount,
-      mapOfLastModifiedUserLanIds
+      ownerChange
     );
 
     if (leadEventsList.isEmpty()) {
@@ -241,17 +222,17 @@ public with sharing class CommercialLeadPlatformEventActions {
    * @description This method returns List of lead platform events
    * @name formLeadEventList
    * @param records List of leads
-   * @param mapOfOwnerLanIds Map of Owner Lan's Id
+   * @param mapOfUsers Map of users
    * @param mapOfAccount Map Of Id and Account
-   * @param mapOfLastModifiedUserLanIds Map of Last Modified Lan's Id
+   * @param ownerChange owner change flag
    * @return List<Lead_Event__e> List of Lead platform events
    */
   @TestVisible
   private static List<Lead_Event__e> formLeadEventList(
     List<Lead> records,
-    Map<Id, User> mapOfOwnerLanIds,
+    Map<Id, User> mapOfUsers,
     Map<Id, Account> mapOfAccount,
-    Map<Id, User> mapOfLastModifiedUserLanIds
+    Boolean ownerChange
   ) {
     List<Lead_Event__e> leadEventList = new List<Lead_Event__e>();
     for (Lead record : records) {
@@ -260,11 +241,11 @@ public with sharing class CommercialLeadPlatformEventActions {
       leadEvent.put(ACTION_FIELD, ACTION_UPDATE);
       leadEvent.put(RECORD_TYPE_FIELD, CCRM_LEAD);
 
-      mapOwnerLanIds(record, mapOfOwnerLanIds, leadEvent);
+      mapOwnerLanIds(record, mapOfUsers, leadEvent);
 
-      mapLastModifiedLanIds(record, mapOfLastModifiedUserLanIds, leadEvent);
+      mapLastModifiedLanIds(record, mapOfUsers, leadEvent);
 
-      mapSubstatus(record, leadEvent);
+      mapSubstatus(record, leadEvent, ownerChange);
 
       getLeadToPlatformEventMapping(record, leadEvent);
 
@@ -318,9 +299,18 @@ public with sharing class CommercialLeadPlatformEventActions {
    * @name mapSubstatus
    * @param record Lead record
    * @param leadEvent Lead platform event
+   * @param ownerChange owner change flag
    */
   @TestVisible
-  private static void mapSubstatus(Lead record, Lead_Event__e leadEvent) {
+  private static void mapSubstatus(
+    Lead record,
+    Lead_Event__e leadEvent,
+    Boolean ownerChange
+  ) {
+    if (ownerChange && record.Lead_Originator__c == ORIGINATOR_UNICA) {
+      leadEvent.put(SUBSTATUS_FIELD, LEAD_SUBSTATUS_DEFAULT);
+      return;
+    }
     if (mapOfOpportunityId.containsKey(record.Id)) {
       leadEvent.put(
         SUBSTATUS_FIELD,

@@ -1001,7 +1001,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Fraud Agent Delay</fullName>
+            <fullName>Fraud Agent Delay - Purged Alert</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud Agent Delay - Quarantine Timeout</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4098,6 +4102,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Digital Padlock</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>OFI</fullName>
             <default>false</default>
         </values>
@@ -4161,6 +4169,53 @@
         </values>
         <values>
             <fullName>User didn%27t attend training</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ReimbursementReason__c</picklist>
+        <values>
+            <fullName>Awareness 1 - Internal Detection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Awareness 2 - Assisted Red Flags</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Awareness 3 - Payment Inconsistencies</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Awareness 4 - Quarantine Release</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Awareness 5 - Delayed Reporting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Awareness 6 - Scam History</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GWG - Hardship</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GWG - Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GWG - Vulnerability</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non-Financial 1 - Inform Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non-Financial 2 - Customer Expectations</fullName>
             <default>false</default>
         </values>
     </picklistValues>

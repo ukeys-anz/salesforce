@@ -67,6 +67,12 @@ public virtual with sharing class RepositoryBase {
   }
 
   /**
+   * @description UnhandledException
+   */
+  public class UnhandledException extends Exception {
+  }
+
+  /**
    *
    * @param response - HttpCalloutResponse response to check for errors
    * @param error - Occured execption/error from code

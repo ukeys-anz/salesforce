@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Inactive_Broker_Set</fullName>
+    <columns>NAME</columns>
+    <columns>Segment__c</columns>
+    <columns>Primary_RBM__c</columns>
+    <columns>State__c</columns>
+    <columns>IsActive__c</columns>
+    <filters>
+        <field>IsActive__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Broker_Relation__c.Broker_Set</value>
+    </filters>
+    <filterScope>Everything</filterScope>
+    <label>Inactive Broker Set</label>
+    <sharedTo>
+        <role>Enablement_Manager</role>
+    </sharedTo>
+</ListView>

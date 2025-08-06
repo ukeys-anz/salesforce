@@ -3618,12 +3618,32 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.ReimbursementReason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Show_Account_Closure__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Show_Initiate_Account_Closure__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Change_To__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Loan_Account_Change_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.ePaymentsCodeApplicable__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4459,6 +4479,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Interaction.Authentication_Method__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Interaction.Broker__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

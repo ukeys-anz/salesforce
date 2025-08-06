@@ -1,5 +1,8 @@
 import { LightningElement, api } from "lwc";
-import { loadTooltipMap, fetchTooltipContent } from "./helper/dynamicTooltipUtilHelper";
+import {
+  loadTooltipMap,
+  fetchTooltipContent
+} from "./helper/dynamicTooltipUtilHelper";
 
 export default class DynamicTooltipUtil extends LightningElement {
   @api headerTitle;
@@ -13,16 +16,16 @@ export default class DynamicTooltipUtil extends LightningElement {
   }
 
   getTooltipContent() {
-      const tooltipContentMarkup = this.template.querySelector(
-        ".tooltip-content-markup"
+    const tooltipContentMarkup = this.template.querySelector(
+      ".tooltip-content-markup"
+    );
+    if (tooltipContentMarkup) {
+      // eslint-disable-next-line @lwc/lwc/no-inner-html
+      tooltipContentMarkup.innerHTML = fetchTooltipContent(
+        this.resourceName,
+        this.productName
       );
-      if (tooltipContentMarkup) {
-        // eslint-disable-next-line @lwc/lwc/no-inner-html
-        tooltipContentMarkup.innerHTML = fetchTooltipContent(
-          this.resourceName,
-          this.productName
-        );
-      }
+    }
   }
 
   closeModal(event) {

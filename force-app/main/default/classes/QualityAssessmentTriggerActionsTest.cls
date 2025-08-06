@@ -16,6 +16,7 @@ public with sharing class QualityAssessmentTriggerActionsTest {
   public static final String NOT_THERE_YET = 'Not There Yet';
   public static final String OUTSTANDING = 'Outstanding';
   public static final String REFERENCE_VALUE = 'TestRef';
+  public static final String YES_REQUIREMENTS_MET = 'Yes - Requirements met';
   public static final Id GET_HELP_RT_ID = QUeryRT.of(
       Quality_Assessment__c.SObjectType
     )
@@ -60,6 +61,7 @@ public with sharing class QualityAssessmentTriggerActionsTest {
     qa.Accountability_and_Next_Steps__c = EFFECTIVE;
     qa.Id = FAKER_QA_ASSESS_RECORD_ID;
     qa.Interaction_Owner__c = UserInfo.getUserId();
+    qa.Risk_and_Compliance_Category__c = YES_REQUIREMENTS_MET;
     records.add(qa);
     return records;
   }
@@ -110,8 +112,78 @@ public with sharing class QualityAssessmentTriggerActionsTest {
     Test.startTest();
     QualityAssessmentTriggerActions.calculateQAGetHelp(qaRecords, oldMap);
     Test.stopTest();
+    Assert.areEqual(
+      qaRecords[0].Score__c,
+      0,
+      'Score should be O as evaluation type is not set'
+    );
+  }
 
-    Assert.isTrue(qaRecords[0].calculated__c, 'Calculated should be true');
+  @isTest
+  private static void testCalculateQAGetHelpForEvalTypeAppointment() {
+    Map<Id, Quality_Assessment__c> oldMap = getOldQARecords();
+    List<Quality_Assessment__c> qaRecords = getQARecords();
+    qaRecords[0].Evaluation_Type__c = 'Appointment';
+    qaRecords[0].RecordTypeId = GET_HELP_APPOINTMENT_RT_ID;
+    Test.startTest();
+    QualityAssessmentTriggerActions.calculateQAGetHelp(qaRecords, oldMap);
+    Test.stopTest();
+    Assert.areEqual(
+      qaRecords[0].Score__c,
+      87.5,
+      'Score should be calculated and not equal to 0'
+    );
+  }
+
+  @isTest
+  private static void testCalculateQAGetHelpForInProgress() {
+    Map<Id, Quality_Assessment__c> oldMap = getOldQARecords();
+    List<Quality_Assessment__c> qaRecords = getQARecords();
+    qaRecords[0].Status__c = 'In Progress';
+    qaRecords[0].Energy_and_Adaptability__c = null;
+    Test.startTest();
+    QualityAssessmentTriggerActions.calculateQAGetHelpForInProgress(
+      qaRecords,
+      oldMap
+    );
+    Test.stopTest();
+    Assert.areEqual(qaRecords[0].Score__c, null, 'Score is not null');
+  }
+
+  @isTest
+  private static void testCalculateComplianceOutcome() {
+    Map<Id, Quality_Assessment__c> oldMap = getOldQARecords();
+    List<Quality_Assessment__c> qaRecords = getQARecords();
+    Test.startTest();
+    QualityAssessmentTriggerActions.calculateComplianceOutcome(
+      qaRecords,
+      oldMap
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      qaRecords[0].Compliance_Outcome__c,
+      REQUIREMENTS_MET,
+      'Compliance outcome should be Requirements met'
+    );
+  }
+
+  @isTest
+  private static void testCalculateComplianceOutcomeNull() {
+    Map<Id, Quality_Assessment__c> oldMap = getOldQARecords();
+    List<Quality_Assessment__c> qaRecords = getQARecords();
+    qaRecords[0].Risk_and_Compliance_Category__c = null;
+    Test.startTest();
+    QualityAssessmentTriggerActions.calculateComplianceOutcome(
+      qaRecords,
+      oldMap
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      qaRecords[0].Compliance_Outcome__c,
+      null,
+      'Compliance outcome should be blank'
+    );
   }
 
   @isTest

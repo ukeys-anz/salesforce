@@ -55,6 +55,9 @@ public with sharing class PDIDeviceDataRepository extends PDIDataConnection.Data
       return null;
     }
     PDIApiModel.PublicKeyCredential record = (PDIApiModel.PublicKeyCredential) apiRecord;
+    if (record.trustLevel != 'TRUST_LEVEL_STRONG') {
+      return null;
+    }
     switch on record.type {
       when 'TYPE_BIOMETRIC' {
         return mapBiometric(record);
