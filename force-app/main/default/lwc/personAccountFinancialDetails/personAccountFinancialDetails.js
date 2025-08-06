@@ -113,7 +113,9 @@ export default class PersonAccountFinancialDetails extends LightningElement {
         ocvId: this.ocvId,
         ownerId: this.recordId
       });
-      this.processedAccounts = this.fetchedAccounts;
+      this.processedAccounts = this.fetchedAccounts
+        .filter((group) => !group.isHomeLoan)
+        .flatMap((group) => group.accounts);
       this.processedAccounts.sort(
         (firstGroup, secondGroup) =>
           firstGroup.sortOrder - secondGroup.sortOrder

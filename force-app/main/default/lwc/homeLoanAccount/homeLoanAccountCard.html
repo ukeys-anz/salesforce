@@ -165,39 +165,18 @@
                     </div>
                   </template>
 
-                  <template lwc:if={finAccount.showOffsetDetails}>
-                    <div
-                      class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small slds-text-align_right"
-                    >
-                      <p class="card-heading-font">
-                        Term
-                        <lightning-helptext
-                          class="tooltip"
-                          content="As of the loan commencement or the date certain changes were made to the loan."
-                        ></lightning-helptext>
-                      </p>
-                      <p data-test-id="term" class="fontstyle">
-                        {finAccount.loanTerm}
-                      </p>
-                    </div>
-                  </template>
-
-                  <template lwc:else>
-                    <div
-                      class="slds-col slds-size_1-of-1 slds-large-size_2-of-2 slds-var-p-around_small slds-text-align_right"
-                    >
-                      <p class="card-heading-font">
-                        Term
-                        <lightning-helptext
-                          class="tooltip"
-                          content="As of the loan commencement or the date certain changes were made to the loan."
-                        ></lightning-helptext>
-                      </p>
-                      <p data-test-id="term" class="fontstyle">
-                        {finAccount.loanTerm}
-                      </p>
-                    </div>
-                  </template>
+                  <div class={finAccount.termFieldAlingment}>
+                    <p class="card-heading-font">
+                      Term
+                      <lightning-helptext
+                        class="tooltip"
+                        content="As of the loan commencement or the date certain changes were made to the loan."
+                      ></lightning-helptext>
+                    </p>
+                    <p data-test-id="term" class="fontstyle">
+                      {finAccount.loanTerm}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
