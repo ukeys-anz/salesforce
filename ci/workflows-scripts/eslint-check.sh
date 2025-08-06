@@ -60,7 +60,7 @@ if [[ "$eslint_failed" == "true" ]]; then
   {
     echo "result<<EOF"
     echo "<details><summary>❌ ESLint check failed</summary><pre>"
-    cat "$eslint_output_file"
+    sed 's/potentially fixable with the `--fix` option//g' "$eslint_output_file"
     echo "</pre></details>"
     echo "EOF"
   } >> "$GITHUB_OUTPUT"
