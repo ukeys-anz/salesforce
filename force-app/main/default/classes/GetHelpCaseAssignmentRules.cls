@@ -10,6 +10,10 @@ public with sharing class GetHelpCaseAssignmentRules {
   public static final String DID_NOT_AUTHORISE_TRANSACTION = 'Didn\'t authorise transaction';
   public static final String DO_NOT_RECOGNISE_TRANSACTION = 'Don\'t recognise the transaction';
   public static final String HOME_LOANS_PRODUCT_CATEGORY = 'Home loans';
+  public static final String CANCEL_TRANSFER = 'Cancel transfer';
+  public static final String SUSPECTED_FRAUD = 'Suspected fraud';
+  public static final String PAYEE_HAS_NOT_RECIEVED_FUNDS = 'Payee has not received funds';
+  public static final String AMENDMENT_REQUEST = 'Amendment Request';
   public static final Group COACH_QUEUE = CommonUtil.getQueueByName(
     'Coach_Queue'
   );
@@ -22,6 +26,18 @@ public with sharing class GetHelpCaseAssignmentRules {
   public static final Group DIGITAL_FRAUD_QUEUE = CommonUtil.getQueueByName(
     GetHelpConstants.DIGITAL_FRAUD_QUEUE
   );
+
+  private static final Set<String> CARD_DISPUTE_FRAUD_REASONS = new Set<String>{
+    DID_NOT_AUTHORISE_TRANSACTION,
+    DO_NOT_RECOGNISE_TRANSACTION,
+    UNAUTHORISED_TRANSACTION
+  };
+
+  private static final Set<String> SUPPORT_COACH_DISPUTE_REASONS = new Set<String>{
+    CANCEL_TRANSFER,
+    PAYEE_HAS_NOT_RECIEVED_FUNDS,
+    AMENDMENT_REQUEST
+  };
 
   private static final Map<String, String> SUB_TYPE_TO_TYPE_MAP_SUPPORT_COACH = new Map<String, String>{
     'VAU Opt-In' => 'Cards',
@@ -101,29 +117,20 @@ public with sharing class GetHelpCaseAssignmentRules {
    * @return Queue Id
    */
   private static ID getOwnerId(Case rec) {
-    //rules to run only on escalation
     if (
-      rec.RecordTypeId == GetHelpConstants.CARD_DISPUTE_RT_ID ||
-      rec.RecordTypeId == GetHelpConstants.ATM_DISPUTE_RT_ID
+      CheckCaseRecordType.isCardDispute(rec) ||
+      CheckCaseRecordType.isAtmDispute(rec)
     ) {
-      if (
-        rec.Dispute_Reason__c == DID_NOT_AUTHORISE_TRANSACTION ||
-        rec.Dispute_Reason__c == DO_NOT_RECOGNISE_TRANSACTION ||
-        rec.Dispute_Reason__c == UNAUTHORISED_TRANSACTION
-      ) {
-        return QUEUE_MAP.get(GetHelpConstants.CARD_DISPUTE_FRAUD_QUEUE);
-      } else {
-        return QUEUE_MAP.get(GetHelpConstants.CARD_DISPUTE_GENERAL_QUEUE);
-      }
+      return getCardDisputeOwnerId(rec);
+    } else if (CheckCaseRecordType.isImtDispute(rec)) {
+      return getOwnerIdForImt(rec);
+    } else if (
+      rec.Dispute_Reason__c == UNAUTHORISED_TRANSACTION &&
+      !CheckCaseRecordType.isDirectDebitDispute(rec)
+    ) {
+      return QueryQueue.digitalFraudQueue.Id;
     } else {
-      if (
-        rec.Dispute_Reason__c == UNAUTHORISED_TRANSACTION &&
-        rec.RecordTypeId != GetHelpConstants.DIRECT_DEBIT_DISPUTE_RT_ID
-      ) {
-        return QUEUE_MAP.get(GetHelpConstants.DIGITAL_FRAUD_QUEUE);
-      } else {
-        return QUEUE_MAP.get(GetHelpConstants.SUPPORT_COACH_QUEUE);
-      }
+      return QueryQueue.supportCoachQueue.Id;
     }
   }
 
@@ -186,6 +193,54 @@ public with sharing class GetHelpCaseAssignmentRules {
         record.OwnerId = QueryQueue.digitalFraudQueue.Id;
         record.Queue__c = QueryQueue.digitalFraudQueue.Name;
       }
+    }
+  }
+
+  /**
+   * @description to deterine if record's dispute reason belong to matching support queue
+   * Will return true of Record.Dispute reason is one of from SUPPORT_COACH_DISPUTE_REASONS
+   * @param disputeReason String.
+   * @return true if the case dispute reason is any from SUPPORT_COACH_DISPUTE_REASONS
+   */
+  private static boolean isSupportCoachDisputeReasons(String disputeReason) {
+    return SUPPORT_COACH_DISPUTE_REASONS.contains(disputeReason);
+  }
+
+  /**
+   * @description to deterine if record's dispute reason belong to matching card sispute fraud or general queue
+   * Will return true of Record.Dispute reason is one of from CARD_DISPUTE_FRAUD_REASONS
+   * @return true if the case dispute reason is any from CARD_DISPUTE_FRAUD_REASONS
+   * @param disputeReason String.
+   */
+  private static boolean isCardDisputeFraudDisputeReasons(
+    String disputeReason
+  ) {
+    return CARD_DISPUTE_FRAUD_REASONS.contains(disputeReason);
+  }
+
+  /**
+   * @description method to run the Case assignment rules conditions for Card or Atm case
+   * @param rec case record
+   * @return Queue Id
+   */
+  private static Id getCardDisputeOwnerId(Case rec) {
+    if (isCardDisputeFraudDisputeReasons(rec.Dispute_Reason__c)) {
+      return QueryQueue.cardDisputeFraudQueue.Id;
+    } else {
+      return QueryQueue.cardDisputeGeneralQueue.Id;
+    }
+  }
+
+  /**
+   * @description method to run the Case assignment rules conditions for IMT_Dispute case
+   * @param rec case record
+   * @return Queue Id
+   */
+  private static Id getOwnerIdForImt(Case rec) {
+    if (isSupportCoachDisputeReasons(rec.Dispute_Reason__c)) {
+      return QueryQueue.supportCoachQueue.Id;
+    } else {
+      return QueryQueue.digitalFraudQueue.Id;
     }
   }
 }

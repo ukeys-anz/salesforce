@@ -19,6 +19,7 @@ export const TRANSACTION_TYPES = {
   Fee: "Fee",
   Interest: "Interest",
   Deposit_Withdrawal: "Deposit Withdrawal",
+  International_Payment: "International Payment",
   Transfer: "Transfer",
   PAYID: "PAYID",
   BSB_ACC: "BSB/ACC",
@@ -92,6 +93,7 @@ export const transactionTypeMapping = {
   CARD: TRANSACTION_TYPES.Card,
   DIRECT_DEBIT: TRANSACTION_TYPES.Direct_Debit,
   INTEREST: TRANSACTION_TYPES.Interest,
+  INTERNATIONAL_PAYMENT: TRANSACTION_TYPES.International_Payment,
   DEPOSIT_WITHDRAWAL: TRANSACTION_TYPES.Deposit_Withdrawal, // DEPOSIT_WITHDRAWAL with typo as this is what Fabric sends, confirmed with their team
   TRANSFER: TRANSACTION_TYPES.Transfer,
   PAYID: TRANSACTION_TYPES.PAYID,

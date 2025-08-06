@@ -1,5 +1,5 @@
 {
-  "count": "20",
+  "count": "21",
   "embedded": {
     "transactions": [
       {
@@ -41,6 +41,68 @@
         },
         "primary_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
         "transaction_posted_time": "2021-08-22T00:00:00Z",
+        "transaction_value_time": "2021-08-22T14:00:00Z",
+        "is_npp_details_available": false,
+        "traceId": "trace-id-12345",
+        "origination_id": "CT5M00000024404234",
+        "ob_transaction_type": {
+          "value": "ob-transaction-type"
+        },
+        "ob_extension_u_type": {
+          "value": "ob-extension-u-type"
+        },
+        "payment_crn": {
+          "value": "payment-crn"
+        },
+        "merchant_category_code": {
+          "value": "merchant-category-code"
+        },
+        "de_user_id": {
+          "value": "0000000"
+        },
+        "aux_dom": { "value": "aux-dom" },
+        "original_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
+        "title": "1-$2 Shop Purchase"
+      },
+      {
+        "transaction_id": "4313ds-51d2-4ve2-ba7e-0b339p157da1",
+        "account": {
+          "bsb": "014111",
+          "number": "210433904"
+        },
+        "transaction_time": "2021-11-12T02:57:58Z",
+        "last_update_time": "2021-08-23T11:49:14.025984Z",
+        "status": "TRANSACTION_STATUS_POSTED",
+        "long_desc": "Payment with card at some place",
+        "short_desc": "Card payment somewhere",
+        "amount": {
+          "currency_code": "AUD",
+          "units": null,
+          "nanos": 0
+        },
+        "international_amount": {
+          "charged": {
+            "currency_code": "AUD",
+            "units": "-18",
+            "nanos": -1300000
+          },
+          "exchange_rate": {
+            "value": 1
+          }
+        },
+        "enrichment_id": "Payment to place with card",
+        "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
+        "merchant_id": { "value": "M12345" },
+        "tags": ["T12345"],
+        "type": "TRANSACTION_TYPE_CARD",
+        "card": {
+          "last_four_digits": "7265",
+          "scheme": "CARD_SCHEME_EFTPOS",
+          "method": "CARD_METHOD_SWIPE",
+          "wallet": "CARD_WALLET_EFTPOS_MTR"
+        },
+        "primary_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
+        "transaction_posted_time": null,
         "transaction_value_time": "2021-08-22T14:00:00Z",
         "is_npp_details_available": false,
         "traceId": "trace-id-12345",
