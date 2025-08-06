@@ -462,6 +462,21 @@ const deployProgress = async (
   );
 };
 
+const runAllTestsProgress = async (
+  runAllTestsCommand,
+  targetOrg,
+  artifactPackage,
+  artifactDestructivePackage
+) => {
+  await commandProgress(
+    runAllTestsCommand,
+    targetOrg,
+    artifactPackage,
+    artifactDestructivePackage,
+    "Run All Tests"
+  );
+};
+
 const deployReport = (jobId, targetOrg, whichJob) => {
   logger(`${whichJob} Report`);
   console.log(
@@ -508,6 +523,7 @@ export {
   deployProgress,
   deployReport,
   quickDeployProgress,
+  runAllTestsProgress,
   uploadJobId,
   createProdValidationJobIdFile,
   uploadProdValidationJobIdFile,

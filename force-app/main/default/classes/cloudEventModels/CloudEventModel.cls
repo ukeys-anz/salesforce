@@ -61,8 +61,16 @@ public virtual with sharing class CloudEventModel {
     }
 
     public UserModel(User theUser) {
-      this.name = theUser?.UserName;
-      this.email = theUser?.Email;
+      if (theUser == null) {
+        return;
+      }
+      this.name = theUser.UserName;
+      this.email = theUser.Email;
+      if (
+        theUser.getPopulatedFieldsAsMap().containsKey(User.Lan_id__c.tostring())
+      ) {
+        this.lanId = theUser.Lan_Id__c;
+      }
     }
 
     public UserModel(Group theQueue) {

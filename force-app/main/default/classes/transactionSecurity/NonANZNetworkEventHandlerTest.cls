@@ -1,6 +1,6 @@
 /**
  * @author Hannah Sainumkheaw
- * @last modified:   July 2025
+ * @last modified:   1 Oct 2024
  * @description Test class for {@link NonANZNetworkEventHandler}
  */
 
@@ -9,13 +9,7 @@ public with sharing class NonANZNetworkEventHandlerTest {
   static Faker faker = new Faker('AU');
   static String anzxUserProfile = 'ANZx Standard User';
   static String externalAppProfile = 'Minimum Access - External Apps';
-  static String allowedIPAddress = '165.225.226.251';
-  static String allowedMaskedIPAddress = 'Salesforce.com IP';
-  static String nonANZAddress = '255.255.255.255';
-  static String invalidIPFormat = '233.1680.0';
-  static String unknownMaskIPAddress = 'Sales.force.com.ip';
 
-  //Mockdata required for Salesforce Transaction Security Policy
   static Lib_MockProvider testUserMock = Lib_MockProvider.forType(
     TSPRepository.class
   );
@@ -51,101 +45,59 @@ public with sharing class NonANZNetworkEventHandlerTest {
     );
   }
 
-  @IsTest
-  static void testEvaluate() {
-    //GIVEN non exemted Profile - ANZxStandard User Profile
+  @isTest
+  static void testApiEventAllowListIpNotAllowed() {
+    //GIVEN ApiEvent with for non ANZ Network with non-ip exempted profile (ANZxStandard User)
     testUserMock.mock('queryProfilebyEventUserId', anzxUser);
-    //Api Events
-    ApiEvent testApiEvent1AllowIP = new ApiEvent();
-    testApiEvent1AllowIP.sourceIp = allowedIPAddress;
-    ApiEvent testApiEvent2NotAllowIP = new ApiEvent();
-    testApiEvent2NotAllowIP.sourceIp = nonANZAddress;
-    ApiEvent testApiEvent3ExemptedMaskedIP = new ApiEvent();
-    testApiEvent3ExemptedMaskedIP.sourceIp = allowedMaskedIPAddress;
-    ApiEvent testApiEvent4invalidIPFormat = new ApiEvent();
-    testApiEvent4invalidIPFormat.sourceIp = invalidIPFormat;
-    //LoginEvents
-    LoginEvent testLoginEvent1AllowIP = new LoginEvent();
-    testLoginEvent1AllowIP.SourceIp = allowedIPAddress;
-    LoginEvent testLoginEvent2NotAllowIP = new LoginEvent();
-    testLoginEvent2NotAllowIP.SourceIp = nonANZAddress;
-    LoginEvent testLoginEvent3ExemptedMaskedIP = new LoginEvent();
-    testLoginEvent3ExemptedMaskedIP.SourceIp = allowedMaskedIPAddress;
-    LoginEvent testLoginEvent4invalidIPFormat = new LoginEvent();
-    testLoginEvent4invalidIPFormat.SourceIp = invalidIPFormat;
+    ApiEvent testevent = new ApiEvent();
+    testevent.sourceIp = '165.225.222';
 
     //WHEN evalute for TSP & policycheck for AllowList is called
     Test.startTest();
-    //Api Events
-    Boolean testApiEvent1AllowIPResult = NonANZNetworkEventHandler.evaluate(
-      testApiEvent1AllowIP
-    );
-    Boolean testApiEvent2NotAllowIPResult = NonANZNetworkEventHandler.evaluate(
-      testApiEvent2NotAllowIP
-    );
-    Boolean testApiEvent3ExemptedMaskedIPResult = NonANZNetworkEventHandler.evaluate(
-      testApiEvent3ExemptedMaskedIP
-    );
-    Boolean testApiEvent4invalidIPFormatResult = NonANZNetworkEventHandler.evaluate(
-      testApiEvent4invalidIPFormat
-    );
-    //Login Events
-    Boolean testLoginEvent1AllowIPResult = NonANZNetworkEventHandler.evaluate(
-      testLoginEvent1AllowIP
-    );
-    Boolean testLoginEvent2NotAllowIPResult = NonANZNetworkEventHandler.evaluate(
-      testLoginEvent2NotAllowIP
-    );
-    Boolean testLoginEvent3ExemptedMaskedIPResult = NonANZNetworkEventHandler.evaluate(
-      testLoginEvent3ExemptedMaskedIP
-    );
-    Boolean testLoginEvent4invalidIPFormatResult = NonANZNetworkEventHandler.evaluate(
-      testLoginEvent4invalidIPFormat
-    );
+    Boolean tspResult = NonANZNetworkEventHandler.evaluate(testevent);
     Test.stopTest();
 
-    // THEN evalute method for TSP & policycheck with following expected results:
-    // **** Api Events
-    // testApiEvent1AllowIPResult should return FALSE(ALLOWED)
-    Assert.isFalse(
-      testApiEvent1AllowIPResult,
-      'ApiEvent for anz network should be marked as allowed and return FALSE'
-    );
-    //testApiEvent2NotAllowIPResult should return TRUE(NOT ALLOWED)
+    // THEN evalute method for TSP & policycheck for AllowList should return TRUE(NOT ALLOWED)
     Assert.isTrue(
-      testApiEvent2NotAllowIPResult,
+      tspResult,
       'ApiEvent for non anz network should be detected and returned TRUE'
     );
-    //testApiEvent3ExemptedMaskedIPResult should return FALSE(ALLOWED)
+  }
+
+  @isTest
+  static void testApiEventWithExemptedProfile() {
+    //GIVEN ApiEvent with for non ANZ Network with exempted profile
+    testUserMock.mock('queryProfilebyEventUserId', externalAppUser);
+    ApiEvent testevent = new ApiEvent();
+
+    //WHEN evalute for TSP & policycheck for AllowList is called
+    Test.startTest();
+    Boolean tspResult = NonANZNetworkEventHandler.evaluate(testevent);
+    Test.stopTest();
+
+    // THEN evalute method for TSP & policycheck for AllowList should return TRUE(NOT ALLOWED)
     Assert.isFalse(
-      testApiEvent3ExemptedMaskedIPResult,
+      tspResult,
+      'ApiEvent for IP Retricted Profile should be allowed and TSP should return FLASE(NOT ALLOWED)'
+    );
+  }
+
+  @isTest
+  static void testApiEventAllowListIpAllowed() {
+    //GIVEN ApiEvent with for non ANZ Network and known ZScaler IP Address for ANZ
+    testUserMock.mock('queryProfilebyEventUserId', anzxUser);
+    ApiEvent testevent = new ApiEvent();
+    testevent.sourceIp = '165.225.226.251';
+
+    //WHEN evalute for TSP & policycheck for AllowList is called
+    Test.startTest();
+    Boolean tspResult = NonANZNetworkEventHandler.evaluate(testevent);
+    Test.stopTest();
+
+    // THEN evalute method for TSP & policycheck for AllowList should return FALSE(ALLOWED)
+    Assert.isFalse(
+      tspResult,
       'ApiEvent for anz network should be marked as allowed and return FALSE'
-    );
-    //testApiEvent4invalidIPFormatResult should return TRUE(NOT ALLOWED)
-    Assert.isTrue(
-      testApiEvent4invalidIPFormatResult,
-      'ApiEvent for non anz network should be detected and returned TRUE'
-    );
-    // *** Login Events
-    //testLoginEvent1AllowIPResult should return FALSE(ALLOWED)
-    Assert.isFalse(
-      testLoginEvent1AllowIPResult,
-      'LoginEvent for anz network should be marked as allowed and return FALSE'
-    );
-    //testLoginEvent2NotAllowIPResult should return TRUE(NOT ALLOWED)
-    Assert.isTrue(
-      testLoginEvent2NotAllowIPResult,
-      'LoginEvent for non anz network should be detected and returned TRUE'
-    );
-    //testLoginEvent3ExemptedMaskedIPResult should return FALSE(ALLOWED)
-    Assert.isFalse(
-      testLoginEvent3ExemptedMaskedIPResult,
-      'LoginEvent for anz network should be marked as allowed and return FALSE'
-    );
-    //testLoginEvent4invalidIPFormatResult should return TRUE(NOT ALLOWED)
-    Assert.isTrue(
-      testLoginEvent4invalidIPFormatResult,
-      'LoginEvent for non anz network should be detected and returned TRUE'
     );
   }
 
@@ -164,6 +116,68 @@ public with sharing class NonANZNetworkEventHandlerTest {
     Assert.isFalse(
       tspResult,
       'ApiEvent for anz network should be marked as allowed for CIDR/32 Range and return FALSE(ALLOWED)'
+    );
+  }
+
+  @isTest
+  static void testIsAllowedSourceIpAllowed() {
+    //GIVEN IP Address at a known ZScaler Australia's Broadcast Ip of 165.225.0.0 & Exception IP for Internal Salesforce IP
+    String testKnownAnzIPeventSourceIp = '165.225.0.0';
+    String testSalesforceIPeventSourceIp = 'Salesforce.com IP';
+
+    //WHEN validate incoming source IPs
+    Test.startTest();
+    Boolean testKnownAnzIP = NonANZNetworkEventHandler.isAllowedSourceIp(
+      testKnownAnzIPeventSourceIp,
+      anzxUser.Id,
+      anzxUser.Username
+    );
+    Boolean testKnownSalesforceIP = NonANZNetworkEventHandler.isAllowedSourceIp(
+      testSalesforceIPeventSourceIp,
+      anzxUser.Id,
+      anzxUser.Username
+    );
+    Test.stopTest();
+
+    // THEN evalute method for AllowList should return FALSE(ALLOWED)
+    Assert.isFalse(
+      testKnownAnzIP,
+      'ApiEvent for anz network should be marked as allowed for CIDR/32 Range and return FALSE(ALLOWED)'
+    );
+    Assert.isFalse(
+      testKnownSalesforceIP,
+      'Internal Salesforce IP should be allowed and return FALSE(ALLOWED)'
+    );
+  }
+
+  @isTest
+  static void testIsAllowedSourceIpNotAllowed() {
+    //GIVEN IP Address at a unknown ZScaler Australia's Broadcast Ip of 255.255.255.255 & unknown masked IP
+    String knownAnzIpEventSourceIp = '255.255.255.255';
+    String unknownMaskIpEventSourceIp = 'Sales.force.com.ip';
+
+    //WHEN validate incoming source IPs
+    Test.startTest();
+    Boolean testUnknownANZip = NonANZNetworkEventHandler.isAllowedSourceIp(
+      knownAnzIpEventSourceIp,
+      anzxUser.Id,
+      anzxUser.Username
+    );
+    Boolean testUnknownMaskedIp = NonANZNetworkEventHandler.isAllowedSourceIp(
+      unknownMaskIpEventSourceIp,
+      anzxUser.Id,
+      anzxUser.Username
+    );
+    Test.stopTest();
+
+    // THEN evalute method for AllowList should return TRUE(NOT_ALLOWED)
+    Assert.isTrue(
+      testUnknownANZip,
+      'ApiEvent for non anz network should be marked as not allowed TRUE(NOT_ALLOWED)'
+    );
+    Assert.isTrue(
+      testUnknownMaskedIp,
+      'Unknknown masked IP should be not be allowed and return TRUE(NOT_ALLOWED)'
     );
   }
 
@@ -228,25 +242,31 @@ public with sharing class NonANZNetworkEventHandlerTest {
     Assert.isTrue(inRange, 'Known IP Address should be accepted');
     Assert.isFalse(notInRange, 'Unknown IP Address should NOT be accepted');
   }
+
   @isTest
   static void testIsAllowedMaskedIP() {
-    // WHEN validating the source IPs
+    //GIVEN API Event with known & unknown masked IP
+    String knownIPEventSourceIP = 'Salesforce.com IP';
+    String unknownIPEventSourceIP = 'Salesforce.com.ip';
+
+    //WHEN validates if an IPs are in allowed masked IP list
     Test.startTest();
-    Boolean isAllowed = NonANZNetworkEventHandler.isAllowedMaskedIP(
-      allowedMaskedIPAddress
+    Boolean knownMaskedIPTest = NonANZNetworkEventHandler.isAllowedMaskedIP(
+      knownIPEventSourceIP
     );
-    Boolean isNotAllowed = NonANZNetworkEventHandler.isAllowedMaskedIP(
-      unknownMaskIPAddress
+    Boolean unknownMaskedIPTest = NonANZNetworkEventHandler.isAllowedMaskedIP(
+      unknownIPEventSourceIP
     );
     Test.stopTest();
 
-    // THEN verify the results
-    Assert.isTrue(isAllowed, 'The allowed masked IP should return TRUE');
+    // THEN validate
+    Assert.isTrue(knownMaskedIPTest, 'Known masked IP should be accepted');
     Assert.isFalse(
-      isNotAllowed,
-      'The not allowed masked IP should return FALSE'
+      unknownMaskedIPTest,
+      'Unknown masked IP should NOT be accepted'
     );
   }
+
   @isTest
   static void testIsAllowedProfile() {
     //GIVEN exempted profile and un-exempted profile to validate isAllowedProfile
@@ -268,70 +288,6 @@ public with sharing class NonANZNetworkEventHandlerTest {
     Assert.isFalse(
       testNotAllowedProfile,
       'Non IP Restricted Profile should NOT be exempted and isAllowedProfile return False'
-    );
-  }
-  @isTest
-  static void testEvaluateEventExceptionHandling() {
-    // GIVEN an invalid source IP format to trigger the exception block
-    testUserMock.mock('queryProfilebyEventUserId', anzxUser);
-    ApiEvent invalidApiEvent = new ApiEvent();
-    invalidApiEvent.sourceIp = 'invalidIPFormat';
-    invalidApiEvent.userId = anzxUser.Id;
-    invalidApiEvent.Username = anzxUser.Username;
-
-    // WHEN evaluateEvent is called
-    Test.startTest();
-    Boolean result = NonANZNetworkEventHandler.evaluateEvent(invalidApiEvent);
-    Test.stopTest();
-
-    // THEN the result should be NOT_ALLOWED (true) and no unhandled exceptions should occur
-    Assert.isTrue(
-      result,
-      'Invalid IP format should result in NOT_ALLOWED (true) and be handled by the exception block'
-    );
-  }
-
-  @isTest
-  static void testEvaluateEventExceptionHandlingForNullSourceIP() {
-    // GIVEN a null source IP to trigger the exception block
-    testUserMock.mock('queryProfilebyEventUserId', anzxUser);
-    ApiEvent nullSourceIpEvent = new ApiEvent();
-    nullSourceIpEvent.sourceIp = null;
-    nullSourceIpEvent.userId = anzxUser.Id;
-    nullSourceIpEvent.Username = anzxUser.Username;
-
-    // WHEN evaluateEvent is called
-    Test.startTest();
-    Boolean result = NonANZNetworkEventHandler.evaluateEvent(nullSourceIpEvent);
-    Test.stopTest();
-
-    // THEN the result should be NOT_ALLOWED (true) and no unhandled exceptions should occur
-    Assert.isTrue(
-      result,
-      'Null source IP should result in NOT_ALLOWED (true) and be handled by the exception block'
-    );
-  }
-
-  @isTest
-  static void testEvaluateEventExceptionHandlingForInvalidDecimalConversion() {
-    // GIVEN an invalid source IP format that causes decimal conversion failure
-    testUserMock.mock('queryProfilebyEventUserId', anzxUser);
-    ApiEvent invalidDecimalEvent = new ApiEvent();
-    invalidDecimalEvent.sourceIp = '999.999.999.999'; // Invalid IP format
-    invalidDecimalEvent.userId = anzxUser.Id;
-    invalidDecimalEvent.Username = anzxUser.Username;
-
-    // WHEN evaluateEvent is called
-    Test.startTest();
-    Boolean result = NonANZNetworkEventHandler.evaluateEvent(
-      invalidDecimalEvent
-    );
-    Test.stopTest();
-
-    // THEN the result should be NOT_ALLOWED (true) and no unhandled exceptions should occur
-    Assert.isTrue(
-      result,
-      'Invalid decimal conversion should result in NOT_ALLOWED (true) and be handled by the exception block'
     );
   }
 }

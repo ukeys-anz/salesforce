@@ -16,7 +16,8 @@ public with sharing class ExtraCareProfileStagingConfig extends ProfileStagingCo
       'ExtraCareNotes__c',
       'ExtraCareReviewDate__c',
       'ExtraCareDisclosure__c',
-      'ExtraCareConsent__c'
+      'ExtraCareConsent__c',
+      'OCV_Event_Version__c'
     };
   }
 

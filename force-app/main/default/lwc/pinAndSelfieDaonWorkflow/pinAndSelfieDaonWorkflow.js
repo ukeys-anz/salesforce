@@ -108,7 +108,7 @@ export default class PinAndSelfieWorkflow extends LightningElement {
   }
 
   isPinWorkFlow() {
-    return this.caseDetails.recordTypeInfo.name === "Pin Recovery";
+    return this.caseDetails.recordTypeInfo.name === "PIN Recovery";
   }
 
   checkAuthVSChallengeId() {

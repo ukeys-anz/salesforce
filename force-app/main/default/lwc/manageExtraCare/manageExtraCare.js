@@ -15,6 +15,7 @@ import REVIEW_DATE from "@salesforce/schema/Account.ExtraCareReviewDate__c";
 import DISCLOSURE from "@salesforce/schema/Account.ExtraCareDisclosure__c";
 import CONSENT from "@salesforce/schema/Account.ExtraCareConsent__c";
 import OCVID from "@salesforce/schema/Account.OCV_ID__c";
+import OCV_EVENT_VERSION from "@salesforce/schema/Account.OCV_Event_Version__c";
 import SOURCE_SYSTEM_ID from "@salesforce/schema/Account.Source_System_ID__c";
 import SOURCE_SYSTEM_NAME from "@salesforce/schema/Account.Source_System_Name__c";
 import ACCOUNT_OBJECT from "@salesforce/schema/Account";
@@ -34,7 +35,8 @@ const FIELDS = [
   OCVID,
   SOURCE_SYSTEM_ID,
   SOURCE_SYSTEM_NAME,
-  RECORD_TYPE_ID_FIELD
+  RECORD_TYPE_ID_FIELD,
+  OCV_EVENT_VERSION
 ];
 const HIGH_RISK_VICTIM_ERROR =
   "You are not authorised to add or remove 'High risk scam victim'";
