@@ -27,13 +27,20 @@ const ARTIFACTORY_SECRET_VALUE = args[0];
 const detectChanges = () => {
   const changedFiles = findDiffOnPR(BASE_REF, HEAD_REF);
   const filteredFiles = filterDiff(changedFiles);
-  const { allFiles, pmdJestSecurityFlag, syslFlag, prettierFlag, eslintFlag } =
-    filteredFiles;
+  const {
+    allFiles,
+    pmdJestSecurityFlag,
+    syslFlag,
+    prettierFlag,
+    eslintFlag,
+    xmlLinterFlag
+  } = filteredFiles;
   const flagsObject = {
     security_pmd_jest_needed: pmdJestSecurityFlag,
     sysl_needed: syslFlag,
     prettier_needed: prettierFlag,
-    eslint_lwc_needed: eslintFlag
+    eslint_lwc_needed: eslintFlag,
+    xml_lint_needed: xmlLinterFlag
   };
   createDiffFile(allFiles, QUALITY_CHECK_FILE_NAME);
   updateGithubOutput(flagsObject);

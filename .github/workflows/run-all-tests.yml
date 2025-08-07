@@ -9,27 +9,44 @@ on:
       - reopened
       - ready_for_review
       - synchronize
+  workflow_dispatch:
+    inputs:
+      BASE_REF:
+        description: "baseRef to create the report"
+        required: true
+        type: string
+      JOB_ID:
+        description: "Last Validation Job Id (Optional)"
+        required: false
+        type: string
 
 permissions:
   contents: "read"
   id-token: "write"
 
+concurrency:
+  group: "run-all-tests-${{ github.event.repository.name }}-${{ github.event.inputs.BASE_REF }}-${{ github.event.inputs.JOB_ID }}"
+  cancel-in-progress: true
+
 jobs:
   run-all-tests:
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.5.0"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:2.1.0"
       options: --user root
     runs-on: anzx-default-np
-    steps:
-      - name: NPM package Version | node, sfdx, sf, sgd version
-        run: |
-          echo "node version: $(node -v)"
-          echo "sf version: $(sf -v)"
+    env:
+      GITHUB_EVENT: ${{ github.event_name }}
+      INPUTS_JOB_ID: ${{ github.event.inputs.JOB_ID }}
+      PR_NUMBER: ${{ github.event.number }}
+      REPO_NAME: ${{ github.event.repository.name }}
+      BASE_REF: ${{ github.event_name == 'pull_request' && 'develop' || github.event.inputs.BASE_REF }}
+      WHICH_JOB: "runAllTests"
 
+    steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
         id: "authenticate-harness-delegate"
@@ -37,26 +54,13 @@ jobs:
         with:
           service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
 
-      - name: ENV vars
+      - name: Prepare ENV vars
         run: |
-          echo BASE_REF="${{ github.base_ref }}" >> $GITHUB_ENV
-          echo PR_NUMBER="${{ github.event.number }}" >> $GITHUB_ENV
-          echo REPO_NAME="${{ github.event.repository.name }}" >> $GITHUB_ENV
-          echo WORKING_DIR="$(pwd)" >> $GITHUB_ENV
-
-      - name: Find Proper TargetOrg and Secret Name
-        run: |
-          secretName=$( node ci/workflows/Orchestrations/runAllTests.mjs )
-          projectId=anz-x-bootstrap-np-487e09
-
-          if [[ "$secretName" == "sf-platform-np-"* ]];then
-            projectId=anz-x-gh-sf-nonprod-ea5caa
-          fi
-
+          secretName=$( node ci/workflows/Orchestrations/findSecret.mjs )
           echo "$secretName"
+
+          echo WORKING_DIR="$(pwd)" >> $GITHUB_ENV
           echo SECRET_NAME="$secretName" >> $GITHUB_ENV
-          echo PROJECT_ID="$projectId" >> $GITHUB_ENV
-          echo ARTIFACTORY_SECRET_NAME="sf-platform-np-artifact" >> $GITHUB_ENV
           echo WHICH_JOB="runAllTests" >> $GITHUB_ENV
 
       - name: Find GSM credential
@@ -64,10 +68,23 @@ jobs:
         uses: google-github-actions/get-secretmanager-secrets@main
         with:
           secrets: |-
-            sfdxurl:projects/${{ env.PROJECT_ID }}/secrets/${{ env.SECRET_NAME }}/versions/latest
-            artifactory:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/${{ env.ARTIFACTORY_SECRET_NAME }}/versions/latest
+            sfdxurl:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/${{ env.SECRET_NAME }}/versions/latest
+            artifactory:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-artifact/versions/latest
 
       - name: Run all tests
+        run: |
+          if [[ "${{ env.GITHUB_EVENT }}" != 'workflow_dispatch' ]] || [[ "${{ env.GITHUB_EVENT }}" == 'workflow_dispatch' && "${{ env.INPUTS_JOB_ID }}" == '' ]];then
+            node ci/workflows/Orchestrations/runAllTests.mjs "${{ steps.secrets.outputs.sfdxurl }}" "${{ steps.secrets.outputs.artifactory }}"
+          fi
+
+          if [[ "${{ env.GITHUB_EVENT }}" == 'workflow_dispatch' ]];then
+            echo WHICH_JOB="prepareTestReport" >> $GITHUB_ENV
+          else
+            echo WHICH_JOB="clean" >> $GITHUB_ENV
+          fi
+
+      - name: Report Summary
+        if: ${{ env.WHICH_JOB == 'prepareTestReport' }}
         run: |
           node ci/workflows/Orchestrations/runAllTests.mjs "${{ steps.secrets.outputs.sfdxurl }}" "${{ steps.secrets.outputs.artifactory }}"
           echo WHICH_JOB="clean" >> $GITHUB_ENV

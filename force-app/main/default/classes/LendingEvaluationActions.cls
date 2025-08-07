@@ -50,11 +50,11 @@ public with sharing class LendingEvaluationActions {
     List<Quality_Assessment__c> requirmentNotMetQaRecords = ListUtil.filter(
         records
       )
+      .anyChanged(fieldsToCheckForIsChanged)
       .equals(
         Quality_Assessment__c.Status__c,
-        new Set<String>{ 'Complete', 'Referred' }
+        new Set<String>{ 'Complete', 'Referred', 'In Progress' }
       )
-      .anyChanged(fieldsToCheckForIsChanged)
       .anyEqual(
         fieldsToCheckForLendingCalculation,
         REQUIREMENT_NOT_MEANT_PROCESS_ONLY
@@ -91,11 +91,11 @@ public with sharing class LendingEvaluationActions {
     List<Quality_Assessment__c> requirmentNotMetComplianceQaRecords = ListUtil.filter(
         records
       )
+      .anyChanged(fieldsToCheckForIsChanged)
       .equals(
         Quality_Assessment__c.Status__c,
-        new Set<String>{ 'Complete', 'Referred' }
+        new Set<String>{ 'Complete', 'Referred', 'In Progress' }
       )
-      .anyChanged(fieldsToCheckForIsChanged)
       .anyEqual(
         fieldsToCheckForLendingCalculation,
         REQUIREMENT_NOT_MEANT_COMPLIANCE
@@ -117,6 +117,31 @@ public with sharing class LendingEvaluationActions {
         continue;
       }
       qaRecord.Risk_and_Compliance_Outcome__c = REQUIREMENT_MET;
+    }
+  }
+
+  /**
+   * @description sets the outcomes as blank for the quality assessment record that are In Progress Status
+   * @param records Quality_Assessment__c records
+   * @param oldMap Quality_Assessment__c  oldMap
+   */
+  public static void setOutcomesForInProgress(
+    List<Quality_Assessment__c> records,
+    Map<Id, Quality_Assessment__c> oldMap
+  ) {
+    List<Quality_Assessment__c> inProgressGovernanceFieldsIncomplete = ListUtil.filter(
+        records
+      )
+      .anyChanged(fieldsToCheckForIsChanged)
+      .equals(Quality_Assessment__c.Status__c, 'In Progress')
+      .anyEqual(fieldsToCheckForLendingCalculation, null)
+      .toList();
+
+    for (
+      Quality_Assessment__c qaRecord : inProgressGovernanceFieldsIncomplete
+    ) {
+      qaRecord.Risk_and_Compliance_Outcome__c = null;
+      qaRecord.Process_Execution_Outcome__c = null;
     }
   }
 

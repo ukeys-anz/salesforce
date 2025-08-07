@@ -71,7 +71,7 @@ export default class DaonFileDownload extends LightningElement {
     if (this.helper.objEquals(this._metadata, value)) {
       return;
     }
-    this._metadata = value;
+    this._metadata = JSON.parse(JSON.stringify(value));
     this.service.invokeGetDocuments();
   }
   @api
@@ -82,7 +82,7 @@ export default class DaonFileDownload extends LightningElement {
     if (this.helper.objEquals(this._layout, value)) {
       return;
     }
-    this._layout = value;
+    this._layout = JSON.parse(JSON.stringify(value));
     this.viewModel = value.map((group) => ({
       ...GROUP_DEFAULTS,
       ...group,
@@ -143,6 +143,7 @@ export default class DaonFileDownload extends LightningElement {
         this.helper.scheduleRetry();
       } catch (e) {
         this.helper.handleError(e);
+        this.isLoading = false;
       } finally {
         this.isCallingOut = false;
       }

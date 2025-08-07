@@ -99,6 +99,10 @@ public with sharing class CommercialLeadMappingEngineHelper {
         mapping.Account_Field_API_Name__c,
         mapping.Lead_Field_API_Name__c
       );
+      prefillManualLeadWrap.accountToLeadMappingClone.put(
+        mapping.Account_Field_API_Name__c,
+        mapping.Lead_Field_API_Name__c
+      );
     }
     //Create clone to create Map - accountToLeadMappingWithAccount based on account types
     prefillManualLeadWrap.accountToLeadMappingWithAccount.put(

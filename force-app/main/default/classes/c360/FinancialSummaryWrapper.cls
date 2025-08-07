@@ -108,6 +108,33 @@ public class FinancialSummaryWrapper {
   }
 
   /**
+   * @description TotalMortageLending wrapper class to call Total Mortage Limit/Lending API
+   * @name TotalMortageLimit
+   */
+  public class TotalMortageLending {
+    Set<String> capCustomerIds = new Set<String>();
+    String type;
+    String fieldSet;
+    String responseId;
+
+    /**
+     * @description It is the constructor to populate the TerminalAndTotalAsset
+     * @param capCustomerIds SourceSystemId of Customer
+     * @param fieldSet Name of the FieldSet
+     * @param responseId Record Id of customer
+     */
+    public TotalMortageLending(
+      Set<String> capCustomerIds,
+      String fieldSet,
+      String responseId
+    ) {
+      this.capCustomerIds = capCustomerIds;
+      this.fieldSet = fieldSet;
+      this.responseId = responseId;
+    }
+  }
+
+  /**
    * @author Naman Garg
    * @group CCRM (Commercial CRM)
    * @description CacheData wrapper class to insert the data in cache.
@@ -125,6 +152,8 @@ public class FinancialSummaryWrapper {
     public String totalDebitBalanceAck;
     public Decimal totalLimitValue;
     public String totalLimitAck;
+    public String totalMortageLendingAck;
+    public Decimal totalMortageLendingValue;
   }
 
   /**
@@ -154,6 +183,11 @@ public class FinancialSummaryWrapper {
      */
     @AuraEnabled
     public Boolean callTotalLimitsApi { get; set; }
+    /**
+     * @description True if we want to call TotalCustomerLimit Balance API
+     */
+    @AuraEnabled
+    public Boolean callMortageLendingApi { get; set; }
   }
 
   /**
@@ -165,5 +199,6 @@ public class FinancialSummaryWrapper {
   public class CustomerIdWrapper {
     public List<String> capIdsList = new List<String>();
     public List<String> capIdsModifiedList = new List<String>();
+    public String customerSourceSystemId;
   }
 }

@@ -10,9 +10,6 @@ on:
       token:
         required: true
         description: "Repo token"
-      plugin-token:
-        required: true
-        description: "Plugin repo token"
 
 jobs:
   validate:
@@ -21,7 +18,6 @@ jobs:
       sfdx_name: ${{ inputs.sfdx_name }}
     secrets:
       token: ${{ secrets.token }}
-      plugin-token: ${{ secrets.plugin-token }}
 
   deploy:
     needs: [validate]
@@ -30,4 +26,3 @@ jobs:
       sfdx_name: ${{ inputs.sfdx_name }}
     secrets:
       token: ${{ secrets.token }}
-      plugin-token: ${{ secrets.plugin-token }}

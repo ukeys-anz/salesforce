@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ReimbursementReason__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Captures the specific reason an agent has provided reimbursement to a scam victim as per the ANZ Scam Payment Framework.</description>
+    <label>Reimbursement Reason</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Awareness 1 - Internal Detection</fullName>
+                <default>false</default>
+                <label>Awareness 1 - Internal Detection</label>
+            </value>
+            <value>
+                <fullName>Awareness 2 - Assisted Red Flags</fullName>
+                <default>false</default>
+                <label>Awareness 2 - Assisted Red Flags</label>
+            </value>
+            <value>
+                <fullName>Awareness 3 - Payment Inconsistencies</fullName>
+                <default>false</default>
+                <label>Awareness 3 - Payment Inconsistencies</label>
+            </value>
+            <value>
+                <fullName>Awareness 4 - Quarantine Release</fullName>
+                <default>false</default>
+                <label>Awareness 4 - Quarantine Release</label>
+            </value>
+            <value>
+                <fullName>Awareness 5 - Delayed Reporting</fullName>
+                <default>false</default>
+                <label>Awareness 5 - Delayed Reporting</label>
+            </value>
+            <value>
+                <fullName>Awareness 6 - Scam History</fullName>
+                <default>false</default>
+                <label>Awareness 6 - Scam History</label>
+            </value>
+            <value>
+                <fullName>Non-Financial 1 - Inform Customer</fullName>
+                <default>false</default>
+                <label>Non-Financial 1 - Inform Customer</label>
+            </value>
+            <value>
+                <fullName>Non-Financial 2 - Customer Expectations</fullName>
+                <default>false</default>
+                <label>Non-Financial 2 - Customer Expectations</label>
+            </value>
+            <value>
+                <fullName>GWG - Hardship</fullName>
+                <default>false</default>
+                <label>GWG - Hardship</label>
+            </value>
+            <value>
+                <fullName>GWG - Vulnerability</fullName>
+                <default>false</default>
+                <label>GWG - Vulnerability</label>
+            </value>
+            <value>
+                <fullName>GWG - Other</fullName>
+                <default>false</default>
+                <label>GWG - Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>3</visibleLines>
+</CustomField>
