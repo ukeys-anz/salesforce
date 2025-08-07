@@ -1,8 +1,23 @@
-import { runSfCommand, logger } from "./helper.mjs";
+import { runSfCommand, logger, loggerInStep } from "./helper.mjs";
+
+// This function checks if the provided secret value contains any allowed ANZx Salesforce domains.
+const checkAllowedDomains = (secretValue) => {
+  //Required allowedDomains based on sfdx's AuthURL
+  const allowedDomains = [
+    "@anz--",
+    "@anzbankbroker--",
+    "@australiaandnewzealandbanking--"
+  ];
+  return allowedDomains.some((domain) => secretValue.includes(domain));
+};
 
 // This will take the secretValue and branch name and will do the authentication.
 const authenticate = (branchName, secretValue) => {
   logger("Authenticate to targetOrg");
+  if (!checkAllowedDomains(secretValue)) {
+    loggerInStep("❌ Invalid ANZx Salesforce domain. Authentication aborted.");
+    process.exit(1);
+  }
   const authLog = runSfCommand(
     `echo "${secretValue}" | npx sf org login sfdx-url -a "${branchName}" --sfdx-url-file=/dev/stdin`
   );
