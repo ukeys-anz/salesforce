@@ -300,18 +300,9 @@ public with sharing class FinancialAccountController {
       if (financialAccountsFromDatabase.isEmpty()) {
         return new List<UnifiedFinancialAccountModel>();
       }
-
-      List<UnifiedFinancialAccountModel> groupedAccounts = new List<UnifiedFinancialAccountModel>();
-      for (
-        UnifiedFinancialAccountModel model : FinancialAccountControllerAction.processFinancialAccounts(
-          financialAccountsFromDatabase
-        )
-      ) {
-        if (!model.isHomeLoan) {
-          groupedAccounts.add(model);
-        }
-      }
-      return groupedAccounts;
+      return FinancialAccountControllerAction.processFinancialAccounts(
+        financialAccountsFromDatabase
+      );
     } catch (Exception objException) {
       CommonUtil.logException(objException);
       throw new AuraHandledException(FAILED_TO_RETRIEVE);

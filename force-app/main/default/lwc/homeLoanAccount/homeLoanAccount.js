@@ -103,6 +103,8 @@ export default class HomeLoanAccountCard extends NavigationMixin(
           finAccount.nextRepayment = this.handleNextRepayment(finAccount);
           finAccount.repaymentType = this.handleRepaymentType(finAccount);
           finAccount.settlementDate = this.handleSettlementDate(finAccount);
+          finAccount.termFieldAlingment =
+            this.handleTermFieldAlingment(finAccount);
           finAccount.repaymentFrequency =
             this.handleRepaymentFrequency(finAccount);
           finAccount.rateType = this.handleRateType(finAccount);
@@ -240,6 +242,13 @@ export default class HomeLoanAccountCard extends NavigationMixin(
     });
 
     return settleDate;
+  }
+
+  //USED IN ACCOUNT
+  handleTermFieldAlingment(account) {
+    return account.offsetDetails?.length > 0
+      ? "slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small slds-text-align_right"
+      : "slds-col slds-size_1-of-1 slds-large-size_2-of-2 slds-var-p-around_small slds-text-align_right";
   }
 
   //USED IN FINANCIAL ACCOUNT
