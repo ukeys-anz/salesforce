@@ -37,7 +37,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   fetchedAccounts;
   processedAccounts = [];
   //savingAccountExist = false;
-  showSavingGoalsComponent = false;
+  savingGoalsComponentToShow = false;
   hasOffsetError = false;
 
   connectedCallback() {
@@ -51,7 +51,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   // }
 
   get showSavingGoalsComponent() {
-    return this.showSavingGoalsComponent;
+    return this.savingGoalsComponentToShow;
   }
 
   get hasHomeLoan() {
