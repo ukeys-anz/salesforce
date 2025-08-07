@@ -25,7 +25,7 @@ public with sharing class IDRCaseChangeEventActions {
     ListUtil.setField(nonRestrictedCases, Case.IDR_Is_Restricted__c, false);
     List<Case> caseToUpdate = new List<Case>(restrictedCases);
     caseToUpdate.addAll(nonRestrictedCases);
-    DML.doUpdate(caseToUpdate, new DmlConfig().withoutSharing());
+    DML.doUpdate(caseToUpdate, new DmlConfig().systemMode());
   }
 
   /**
@@ -37,24 +37,18 @@ public with sharing class IDRCaseChangeEventActions {
   private static Map<String, List<Case>> getChangeCaseIds(
     CaseChangeEvent[] records
   ) {
-    Set<String> dmlOperation = new Set<String>{ 'CREATE', 'UPDATE' };
     Map<String, List<Case>> mapOfRestrictionStatusToCase = new Map<String, List<Case>>{
       'nonRestricted' => new List<Case>(),
       'restricted' => new List<Case>()
     };
     for (CaseChangeEvent change : (CaseChangeEvent[]) records) {
-      if (
-        !change.ChangeEventHeader.getChangedFields()
-          .contains('IDR_Restriction_Level__c')
-      ) {
+      if (!checkIfValidRecord(change)) {
         continue;
       }
       if (change.IDR_Restriction_Level__c == null) {
         continue;
       }
-      if (!dmlOperation.contains(change.ChangeEventHeader.getChangeType())) {
-        continue;
-      }
+
       if (change.IDR_Restriction_Level__c.equalsIgnoreCase('Restricted Case')) {
         mapOfRestrictionStatusToCase.get('restricted')
           .add(new Case(Id = change.ChangeEventHeader.getRecordIds()[0]));
@@ -66,5 +60,30 @@ public with sharing class IDRCaseChangeEventActions {
       }
     }
     return mapOfRestrictionStatusToCase;
+  }
+  /**
+   * @description Boolean for check valid record to process.
+   * @param record of CaseChangeEvent to process.
+   * @return Boolean return if record is valid or not.
+   */
+  private static Boolean checkIfValidRecord(CaseChangeEvent record) {
+    List<String> dmlOperation = new List<String>{ 'CREATE', 'UPDATE' };
+    if (!dmlOperation.contains(record.ChangeEventHeader.getChangeType())) {
+      return false;
+    }
+    if (
+      !record.ChangeEventHeader.getChangedFields()
+        .contains('IDR_Restriction_Level__c') &&
+      dmlOperation[1] == record.ChangeEventHeader.getChangeType()
+    ) {
+      return false;
+    }
+    if (
+      !(record.IDR_Restriction_Level__c == 'Restricted Case') &&
+      dmlOperation[0] == record.ChangeEventHeader.getChangeType()
+    ) {
+      return false;
+    }
+    return true;
   }
 }
