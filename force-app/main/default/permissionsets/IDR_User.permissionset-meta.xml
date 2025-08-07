@@ -44,6 +44,11 @@
         Levels</description>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.ExtraCareReason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Assessment.Created_Date_Time__c</field>
         <readable>true</readable>
     </fieldPermissions>
