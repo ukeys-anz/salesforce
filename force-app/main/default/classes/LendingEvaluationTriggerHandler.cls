@@ -39,6 +39,10 @@ public with sharing class LendingEvaluationTriggerHandler extends Lib_TriggerHan
       records,
       (Map<Id, Quality_Assessment__c>) oldMap
     );
+    LendingEvaluationActions.setOutcomesForInProgress(
+      records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
     LendingEvaluationActions.calculateAndSetNumberOfApplication(
       records,
       (Map<Id, Quality_Assessment__c>) oldMap
@@ -54,6 +58,10 @@ public with sharing class LendingEvaluationTriggerHandler extends Lib_TriggerHan
       (Map<Id, Quality_Assessment__c>) oldMap
     );
     LendingEvaluationActions.setRiskAndComplianceOutcome(
+      records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
+    LendingEvaluationActions.setOutcomesForInProgress(
       records,
       (Map<Id, Quality_Assessment__c>) oldMap
     );

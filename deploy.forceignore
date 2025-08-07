@@ -74,23 +74,6 @@ force-app/main/default/classes/UpdateAccountsAndGoals.cls
 force-app/main/default/messageChannels/FinancialAccountsGoalsUpdate.messageChannel-meta.xml
 force-app/main/default/classes/GetAccountsAndGoals.cls
 force-app/main/default/classes/utils/CommonUtils.cls
-force-app/main/default/classes/IDRCaseActionsHelper.cls
-force-app/main/default/classes/IDRCaseActionsHelper.cls-meta.xml
-force-app/main/default/classes/IDRCaseActionsHelperTest.cls
-force-app/main/default/classes/IDRCaseActionsHelperTest.cls-meta.xml
-force-app/main/default/classes/ccrm/CCRMContactActions.cls
-force-app/main/default/classes/ccrm/CCRMContactActions.cls-meta.xml
-force-app/main/default/classes/ccrm/CCRMContactActionsTest.cls
-force-app/main/default/classes/ccrm/CCRMContactActionsTest.cls-meta.xml
-force-app/main/default/classes/tfm/TFMExportConsentDetailsHelper.cls
-force-app/main/default/classes/tfm/TFMExportConsentDetailsHelper.cls-meta.xml
-force-app/main/default/classes/ccrm/CCRMCoreBankingDataSourceProvider.cls
-force-app/main/default/classes/ccrm/CCRMCoreBankingDataSourceProvider.cls-meta.xml
-force-app/main/default/classes/ccrm/CCRMCoreBankingDataSourceConnection.cls
-force-app/main/default/classes/ccrm/CCRMCoreBankingDataSourceConnection.cls-meta.xml
-force-app/main/default/classes/ccrm/CCRMExternalObjectQueryBase.cls
-force-app/main/default/classes/ccrm/CCRMExternalObjectQueryBase.cls-meta.xml
-
 
 #Ignore Knowledge validation status field as it is not supported in metadata API
 KnowledgeValidationStatus
@@ -125,6 +108,10 @@ force-app/main/default/entitlementProcesses/complaints_v2.entitlementProcess-met
 force-app/main/default/entitlementProcesses/complaints_v7.entitlementProcess-meta.xml
 force-app/main/default/entitlementProcesses/complaints_v10.entitlementProcess-meta.xml
 force-app/main/default/entitlementProcesses/complaints_v11.entitlementProcess-meta.xml
+force-app/main/default/milestoneTypes/Mail Outcome Letter - Due.milestoneType-meta.xml
+force-app/main/default/layouts/IDR_Omni_Settings_CMOS__mdt-IDR Omni Settings CMOS Layout.layout-meta.xml
+force-app/main/default/entitlementProcesses/complaints.entitlementProcess-meta.xml
+force-app/main/default/objects/Case/fields/Outcome_Letter_to_be_sent_by_Mail__c.field-meta.xml
 force-app/main/default/entitlementProcesses/anz plus - basic subscription v1.entitlementProcess-meta.xml
 
 #to prevent issues when deploying looking for depracated process name
@@ -205,8 +192,6 @@ force-app/main/default/omniScripts
 force-app/main/default/omniUiCard
 
 force-app/main/default/objects/Lead/fields/Not_Registered__c.field-meta.xml
-force-app/main/default/objects/Quality_Assessment__c/fieldSets/Call_Review_Assesment.fieldSet-meta.xml
-force-app/main/default/objects/Quality_Assessment__c/fields/Review_period__c.field-meta.xml
 
 #AR-90796 - Uninstall mvision
 mdapi-source/packages/installedPackages/SkyhighNetworks.installedPackage-meta.xml
@@ -220,9 +205,6 @@ force-app/main/default/staticresources/mock_sopListAssets.resource-meta.xml
 
 #CC-6285 ignore for manual delete
 force-app/main/default/flows/CCRM_Hide_Expired_Contacts_Schedule.flow-meta.xml
-force-app/main/default/flexipages/Commercial_Application_Form_Record_Page.flexipage-meta.xml
-force-app/main/default/applications/Commercial_CRM.app-meta.xml
-
 
 #ANZX-155504 ignore for manual delete
 force-app/main/default/flows/Case_Update_Status_for_Profile_Update.flow-meta.xml
@@ -648,25 +630,5 @@ force-app/main/default/triggers/LogEventTrigger.trigger
 force-app/main/default/triggers/LogEventTrigger.trigger-meta.xml
 force-app/main/default/workflows/Access_Request__c.workflow-meta.xml
 
-#forceignore - bau and cmos-a specific
-force-app/main/default/classes/ResidentialLoanAppActionsTest.cls
-force-app/main/default/classes/ResidentialLoanAppActionsTest.cls-meta.xml
-force-app/main/default/classes/ResidentialLoanApplicationActions.cls
-force-app/main/default/classes/ResidentialLoanApplicationActions.cls-meta.xml
-force-app/main/default/permissionsets/SOP_Add.permissionset-meta.xml
-force-app/main/default/permissionsets/SOP_Delete.permissionset-meta.xml
-force-app/main/default/permissionsets/SOP_Edit.permissionset-meta.xml
-force-app/main/default/staticresources/mock_sop.resource-meta.xml
-force-app/main/default/staticresources/mock_getConsolidateSOP
-force-app/main/default/staticresources/mock_getConsolidateSOP.json
-force-app/main/default/staticresources/mock_getConsolidateSOP.resource-meta.xml
-force-app/main/default/staticresources/mock_sop.json
-
-#Ignore the following files in cmos-a
-force-app/main/default/classes/ccrm/LogAResponseControllerRepository.cls
-force-app/main/default/classes/ccrm/CommercialLogAResponseControllerTest.cls
-force-app/main/default/customMetadata/TrustMe_Docs_Tab_Section_Detail.EV_Check.md-meta.xml
-force-app/main/default/customMetadata/TrustMe_Docs_Tab_Section_Detail.Selfie_Failed.md-meta.xml
-force-app/main/default/objects/Interaction/validationRules/Actual_Topic_2_Validation_Rule.validationRule-meta.xml
-force-app/main/default/objects/Interaction/validationRules/VR3_Select_Product_Max_Five.validationRule-meta.xml
-force-app/main/default/objects/Circle_Of_Influence__c/listViews/All.listView-meta.xml
+# AR-224436 Temporary added for renamed transactionSecurityPolicies to be deploy manually due to duplicate security policy error
+force-app/main/default/transactionSecurityPolicies

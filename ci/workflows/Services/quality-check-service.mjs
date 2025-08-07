@@ -57,8 +57,17 @@ const filterDiff = (changedFiles) => {
     pmdJestSecurityFlag: false,
     syslFlag: false,
     prettierFlag: false,
-    eslintFlag: false
+    eslintFlag: false,
+    xmlLinterFlag: false
   };
+
+  const xmlExcludes = [
+    ".js",
+    ".entitlementProcess",
+    ".md-meta",
+    "ouc-meta.xml"
+  ];
+
   changedFiles.forEach((filePath) => {
     // Step 1: Check if file exists
     if (!existsSync(filePath)) {
@@ -73,16 +82,16 @@ const filterDiff = (changedFiles) => {
       output.allFiles.push(filePath);
 
       // Step 3: Check if file contains /objects/
-      if (filePath.includes("/objects/") && !output.syslFlag) {
+      if (!output.syslFlag && filePath.includes("/objects/")) {
         console.log(`📁 Sysl check should run: ${filePath}`);
         output.syslFlag = true;
       }
 
       // Step 4: Check for LWC .js files (not .test.js)
       if (
+        !output.eslintFlag &&
         /\/lwc\/.*\.js$/.test(filePath) &&
-        !/\.test\.js$/.test(filePath) &&
-        !output.eslintFlag
+        !/\.test\.js$/.test(filePath)
       ) {
         console.log(`📦 ESLint LWC check should run: ${filePath}`);
         output.eslintFlag = true;
@@ -90,13 +99,23 @@ const filterDiff = (changedFiles) => {
 
       // Step 5: Check for Prettier files
       if (
+        !output.prettierFlag &&
         (/\.(trigger|cls)$/.test(filePath) ||
           /\/lwc\/.*\.(js|html|css)$/.test(filePath) ||
-          /\/aura\/.*\.(js|css|cmp)$/.test(filePath)) &&
-        !output.prettierFlag
+          /\/aura\/.*\.(js|css|cmp)$/.test(filePath))
       ) {
         console.log(`🎨 Prettier check should run: ${filePath}`);
         output.prettierFlag = true;
+      }
+
+      // Step 6: Check for XML Linter files
+      if (
+        !output.xmlLinterFlag &&
+        filePath.endsWith(".xml") &&
+        !xmlExcludes.some((exclude) => filePath.includes(exclude))
+      ) {
+        console.log(`🗂️ XML Linter check should run: ${filePath}`);
+        output.xmlLinterFlag = true;
       }
     } else {
       console.log(`🟢 No quality check for this file: ${filePath}`);

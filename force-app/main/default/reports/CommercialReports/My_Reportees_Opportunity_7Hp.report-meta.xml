@@ -25,12 +25,20 @@
     </columns>
     <description>Comprehensive listing of all Opportunity records under my ownership and those managed by my subordinates.</description>
     <filter>
+        <booleanFilter>1 OR 2</booleanFilter>
         <criteriaItems>
             <column>Opportunity.My_Reportees_Opps__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
             <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FULL_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>$USER</value>
         </criteriaItems>
         <language>en_US</language>
     </filter>

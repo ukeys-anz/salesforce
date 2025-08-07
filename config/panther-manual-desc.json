@@ -1387,6 +1387,7 @@
       "IA-2530753": [
         "CertificateIdentifier__c",
         "DocumentFailureReason__c",
+        "ePaymentsCodeApplicable__c",
         "External_Request_Id__c",
         "IDR_Product_Family__c",
         "LicenceCardNumber__c",
@@ -1399,6 +1400,7 @@
         "NascScamSubCategory__c",
         "OnboardingVerificationFailedReason__c",
         "PassportNumber__c",
+        "ReimbursementReason__c",
         "RemoteAccessUsed__c"
       ],
       "IA-2415840": [
@@ -2200,9 +2202,13 @@
         "LastModifiedById",
         "LastModifiedDate"
       ],
-      "IA-2423981": ["Status__c", "Action"],
-      "IA-2435462": ["Object_Name__c", "TriggeredFrom__c", "UserLanId__c"],
-      "IA-2530753": ["Customer_Name__c"],
+      "IA-2460507": ["UserLanId__c", "Object_Name__c"],
+      "IA-2530753": [
+        "Customer_Name__c",
+        "Status__c",
+        "Action",
+        "TriggeredFrom__c"
+      ],
       "IA-2571531": ["Error_Description__c"],
       "IA-2453595": ["Action__c"],
       "IA-2468715": ["Source_System_Name__c"],
@@ -2231,7 +2237,7 @@
       ]
     },
     "DCRM_Customer_Management_Non_KYC_Fields__mdt": {
-      "IA-2530743": ["Object_Name__c", "RecordType_Name__c"],
+      "IA-2460507": ["Object_Name__c", "RecordType_Name__c"],
       "IA-2415993": ["Customer_Status__c", "Field_Name__c", "Profile_Name__c"]
     },
     "Device__x": {
@@ -2745,6 +2751,7 @@
         "Assisted__c",
         "Attendees_and_Roles__c",
         "Authentication_Method__c",
+        "Broker__c",
         "Call_Recording_ID__c",
         "CaseId__c",
         "Channel_Booked__c",
@@ -3066,7 +3073,13 @@
         "OpportunityType__c",
         "Contactpreferences__c",
         "Is_BOH_Lead__c",
-        "Lead_Record_Name__c"
+        "Lead_Record_Name__c",
+        "Referral_Status__c",
+        "Referrer_Lead__c",
+        "Referral_Acknowledged_Date__c",
+        "Lead_Created_Date__c",
+        "Referrer_Business_Name__c",
+        "Referrer_Industry_Type__c"
       ],
       "IA-2415720": [
         "Account_Number__c",
@@ -3093,7 +3106,6 @@
         "My_Managers_Lead__c"
       ],
       "IA-2530753": ["IsNewLead__c"],
-      "IA-2697875": ["Referrer_Business_Name__c", "Referrer_Industry_Type__c"],
       "IA-2618706": [
         "PreferredName__c",
         "AdvertisingIndicator__c",
@@ -3103,13 +3115,7 @@
       "IA-2431669": ["Primary_Franchise_Owner__c"],
       "IA-2453350": ["Customer_Pre_Exist__c"],
       "IA-2415790": ["Broker_Name__c"],
-      "IA-2415828": ["Circle_Of_Influence__c"],
-      "IA-3254438": [
-        "Referral_Status__c",
-        "Referrer_Lead__c",
-        "Referral_Acknowledged_Date__c",
-        "Lead_Created_Date__c"
-      ]
+      "IA-2415828": ["Circle_Of_Influence__c"]
     },
     "Lead_Event__e": {
       "IA-2423278": ["Expressed_Interest__c"]
@@ -3137,7 +3143,7 @@
       ]
     },
     "Lead_To_Referral_Status_Mapping__mdt": {
-      "IA-3254438": [
+      "IA-2415860": [
         "Lead_Outcome__c",
         "Lead_Status__c",
         "Record_Type_Name__c",
@@ -5358,7 +5364,8 @@
         "Number_Tokenised__c",
         "Status__c",
         "Term_Deposit__c",
-        "Type__c"
+        "Type__c",
+        "Card_Number__c"
       ],
       "IA-2530753": ["Additional_Information__c"]
     },

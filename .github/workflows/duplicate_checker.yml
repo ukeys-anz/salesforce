@@ -17,8 +17,8 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "duplicate-checker-${{ github.run_id }}"
-  cancel-in-progress: false
+  group: "duplicate-checker-${{ github.event.repository.name }}-${{ github.event.pull_request.number }}"
+  cancel-in-progress: true
 
 jobs:
   run:
@@ -38,7 +38,7 @@ jobs:
             parent_repo: salesforce
         compare-flag:
           - compare_all: true
-          - compare_all: false
+          # - compare_all: false
     uses: ./.github/workflows/_duplicate_checker.yml
     with:
       parent_repo: ${{ matrix.parent-info.parent_repo }}

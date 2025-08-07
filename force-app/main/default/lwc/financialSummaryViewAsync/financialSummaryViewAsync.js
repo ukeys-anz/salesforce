@@ -18,9 +18,11 @@ const TOTAL_DEBIT_BALANCE = "TOTAL_DEBIT_BALANCE";
 const TOTAL_CREDIT_BALANCE = "TOTAL_CREDIT_BALANCE";
 const TOTAL_CUSTOMER_LIMIT = "TOTAL_CUSTOMER_LIMIT";
 const CLG_CREDIT_RISK = "CLG_CREDIT_RISK";
-const TOTAL_MORTAGE_LIMIT = "TOTAL_MORTAGE_LIMIT";
+const TOTAL_MORTAGE_LENDING = "TOTAL_MORTGAGE_LENDING";
 const WORLDLINE_MERCHANT = "WORLDLINE_MERCHANT";
 const CCRM_PROFILE = "ANZ CCRM Standard User";
+const TOTAL_MORTAGE_HELP_TEXT =
+  "This calculation is based on previous day balances and does not include any in progress application(s).";
 
 export default class financialSummaryViewAsync extends LightningElement {
   @api recordId;
@@ -65,10 +67,9 @@ export default class financialSummaryViewAsync extends LightningElement {
   clgCreditRating = NO_AVAILABLE_BALANCE;
   totalMortageValue;
   showTotalMortageValue = false;
-  totalMortageOtherValue = NO_AVAILABLE_BALANCE;
-  showTotalMortageOtherValue = true;
-  totalMortageCount = 0;
-  callMorageLimitApi = false;
+  totalMortageOtherValue;
+  showTotalMortageOtherValue = false;
+  callMortageLendingApi = false;
   @api jtestRunning = false;
   currentUserProfile;
   summaryValuesToDisplay = [];
@@ -78,7 +79,8 @@ export default class financialSummaryViewAsync extends LightningElement {
   showClgCreditRatingInfo = false;
   showCreditBalanceInfo = false;
   showDebitBalanceInfo = false;
-  showMortageLimitInfo = false;
+  showMortageLendingInfo = false;
+  totalMortageHelpText = TOTAL_MORTAGE_HELP_TEXT;
   showWorldlineMerchantInfo = false;
 
   async connectedCallback() {
@@ -107,13 +109,25 @@ export default class financialSummaryViewAsync extends LightningElement {
       this.showDebitBalOtherValue =
         this.showCreditBalOtherValue =
         this.showLimitOtherValue =
+        this.showTotalMortageOtherValue =
           true;
       this.totalLimitOtherValue =
-        this.totalCreditOtherBalance =
-        this.totalDebitOtherBalance =
-        this.totalBalOtherValue =
-        this.assetOtherValue =
-          CALCULATION_IN_PROGRESS;
+        resultSummaries.totalLimitAck === UNEXPECTED_ERROR
+          ? UNEXPECTED_ERROR
+          : CALCULATION_IN_PROGRESS;
+      this.totalCreditOtherBalance =
+        resultSummaries.totalCreditBalanceAck === UNEXPECTED_ERROR
+          ? UNEXPECTED_ERROR
+          : CALCULATION_IN_PROGRESS;
+      this.totalDebitOtherBalance =
+        resultSummaries.totalDebitBalanceAck === UNEXPECTED_ERROR
+          ? UNEXPECTED_ERROR
+          : CALCULATION_IN_PROGRESS;
+      this.totalMortageOtherValue =
+        resultSummaries.totalMortageLendingAck === UNEXPECTED_ERROR
+          ? UNEXPECTED_ERROR
+          : CALCULATION_IN_PROGRESS;
+      this.totalBalOtherValue = this.assetOtherValue = CALCULATION_IN_PROGRESS;
     } catch (error) {
       this.errorResponse = error;
       this.showSpinner = false;
@@ -187,7 +201,22 @@ export default class financialSummaryViewAsync extends LightningElement {
         this.totalLimitValue = this.financialSummaryData.totalLimitAck;
         this.totalLimitCount++;
       }
-
+      if (this.financialSummaryData.totalMortageLendingValue !== undefined) {
+        this.showTotalMortageOtherValue = false;
+        this.totalMortageValue =
+          this.financialSummaryData.totalMortageLendingValue;
+        this.callMortageLendingApi = false;
+      }
+      if (
+        this.financialSummaryData.totalMortageLendingValue === undefined &&
+        (this.financialSummaryData.totalMortageLendingAck ===
+          NO_AVAILABLE_BALANCE ||
+          this.financialSummaryData.totalMortageLendingAck === UNEXPECTED_ERROR)
+      ) {
+        this.showTotalMortageOtherValue = true;
+        this.totalMortageValue =
+          this.financialSummaryData.totalMortageLendingAck;
+      }
       this.lastSummaryCalculated =
         "Last summary calculated : " +
         this.financialSummaryData.lastSummaryUpdateDate;
@@ -294,6 +323,11 @@ export default class financialSummaryViewAsync extends LightningElement {
       this.totalLimitCount += 1;
       this.callTotalLimitsApi = false;
     }
+    if (mapOfSummaries.has(TOTAL_MORTAGE_LENDING)) {
+      this.showTotalMortageOtherValue = false;
+      this.totalMortageValue = mapOfSummaries.get(TOTAL_MORTAGE_LENDING);
+      this.callMortageLendingApi = false;
+    }
     this.handleLastSummaryCalculation();
     this.showSpinner = false;
   }
@@ -326,6 +360,11 @@ export default class financialSummaryViewAsync extends LightningElement {
       this.totalLimitOtherValue = UNEXPECTED_ERROR;
       this.totalLimitCount += 1;
       this.callTotalLimitsApi = false;
+    }
+    if (mapOfSummaries.has(TOTAL_MORTAGE_LENDING)) {
+      this.showTotalMortageOtherValue = true;
+      this.totalMortageOtherValue = UNEXPECTED_ERROR;
+      this.callMortageLendingApi = false;
     }
     this.handleLastSummaryCalculation();
     this.showSpinner = false;
@@ -414,7 +453,8 @@ export default class financialSummaryViewAsync extends LightningElement {
       responseId: this.recordId,
       callTotalCustBalanceApi: this.callTotalCustBalanceApi,
       callAssetFinanceBalanceApi: this.callAssetFinanceBalanceApi,
-      callTotalLimitsApi: this.callTotalLimitsApi
+      callTotalLimitsApi: this.callTotalLimitsApi,
+      callMortageLendingApi: this.callMortageLendingApi
     };
   }
 
@@ -443,6 +483,11 @@ export default class financialSummaryViewAsync extends LightningElement {
       this.totalLimitOtherValue = NO_AVAILABLE_BALANCE;
       this.totalLimitCount++;
     }
+    if (result.totalMortageLendingAck === NO_AVAILABLE_BALANCE) {
+      this.showTotalMortageValue = false;
+      this.showTotalMortageOtherValue = true;
+      this.totalMortageOtherValue = NO_AVAILABLE_BALANCE;
+    }
     if (this.canUnsubscribePlatformEvent()) {
       this.unsubscribePlatformEvent();
     }
@@ -458,7 +503,8 @@ export default class financialSummaryViewAsync extends LightningElement {
     return !(
       this.callTotalCustBalanceApi ||
       this.callTotalLimitsApi ||
-      this.callAssetFinanceBalanceApi
+      this.callAssetFinanceBalanceApi ||
+      this.callMortageLendingApi
     );
   }
 
@@ -492,9 +538,9 @@ export default class financialSummaryViewAsync extends LightningElement {
       this.showDebitBalanceInfo = true;
       this.callTotalCustBalanceApi = true;
     }
-    if (this.summaryValuesToDisplay.includes(TOTAL_MORTAGE_LIMIT)) {
-      this.showMortageLimitInfo = true;
-      this.callMorageLimitApi = true;
+    if (this.summaryValuesToDisplay.includes(TOTAL_MORTAGE_LENDING)) {
+      this.showMortageLendingInfo = true;
+      this.callMortageLendingApi = true;
     }
     if (this.summaryValuesToDisplay.includes(WORLDLINE_MERCHANT)) {
       this.showWorldlineMerchantInfo = true;

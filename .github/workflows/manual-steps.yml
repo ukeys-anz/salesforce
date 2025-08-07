@@ -38,7 +38,7 @@ jobs:
   manual-steps:
     name: ${{inputs.manual_step_name}} steps | from ${{inputs.from_which_epic}} epic to ${{inputs.to_which_epic}} epic.
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.5.0"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:2.1.0"
       options: --user root
     runs-on: anzx-default-np
     steps:
@@ -49,7 +49,11 @@ jobs:
           submodules: "true"
           token: ${{ secrets.SALESFORCE_ACTIONS_CHECKOUT_TOKEN }}
           ref: ${{ env.FROM_WHICH_EPIC }}
-          path: salesforce
+
+      - name: Link plugin
+        run: |
+          cd /opt/harness-delegate/sf-plugin
+          sf plugins link .
 
       - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
         id: "authenticate-harness-delegate"
@@ -58,7 +62,6 @@ jobs:
           service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
 
       - name: ENV vars
-        working-directory: salesforce
         run: |
           echo BASE_REF="${{ inputs.to_which_epic}}" >> $GITHUB_ENV
           echo WORKING_DIR="$(pwd)" >> $GITHUB_ENV
@@ -71,7 +74,6 @@ jobs:
           echo WHICH_JOB="manualSteps" >> $GITHUB_ENV
 
       - name: Find Secret Names
-        working-directory: salesforce
         run: |
           projectId=anz-x-bootstrap-np-487e09
 
@@ -95,28 +97,11 @@ jobs:
           secrets: |-
             sfdxurl:projects/${{ env.PROJECT_ID }}/secrets/${{ env.SECRET_NAME}}/versions/latest
 
-      - name: Checkout salesforce-plugin repo
-        uses: actions/checkout@v4
-        with:
-          repository: anzx/salesforce-plugin
-          token: ${{ secrets.SALESFORCE_PLUGIN_CHECKOUT_TOKEN }}
-          path: salesforce-plugin
-
-      - name: Install plugin
-        working-directory: salesforce-plugin
-        shell: bash
-        run: |
-          rm -rf node_modules && yarn install --frozen-lockfile
-          yarn build
-          sf plugins link .
-
       - name: Run ${{inputs.manual_step_name}} steps
-        working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/manual-steps.mjs "${{ steps.secrets.outputs.sfdxurl }}"
           echo WHICH_JOB="clean" >> $GITHUB_ENV
 
       - name: Report and Cleaning | ${{inputs.manual_step_name}} steps.
-        working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/manual-steps.mjs
