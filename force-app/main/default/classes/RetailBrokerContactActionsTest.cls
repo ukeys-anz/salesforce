@@ -385,21 +385,105 @@ private class RetailBrokerContactActionsTest {
     );
   }
 
-  /* @IsTest
-     static void testupdateAssistedBrokerLookup() {
-       List<Contact> newContacts = createTestContacts(1);
-       List<Contact> oldContacts = newContacts.deepClone(true);
-      newContacts[0].RetailTPMISAO__c = 'Retail-Active';
-       
-       Test.startTest();
-       RetailBrokerContactActions.updateAssistedBrokerLookup(
-         newContacts,
-           new Map<Id,Contact>(oldContacts)
-       );
-       Test.stopTest();
-   // add asserts
-     }
-   */
+  @IsTest
+  static void testUpdateAssistedBrokerLookup() {
+    List<Contact> newContacts = createTestContacts(1);
+    ResidentialLoanApplication rla = new ResidentialLoanApplication();
+    rla.Assisted_Broker_TPMI_SAO__c = 'Retail-Active';
+
+    FinServ__FinancialAccount__c finServAcc = new FinServ__FinancialAccount__c();
+    finServAcc.Assisted_Broker_TPMI_SAO__c = 'Retail-Active';
+
+    List<Contact> oldContacts = newContacts.deepClone(true);
+    oldContacts[0].RetailTPMISAO__c = 'Retail-Active-Old';
+    newContacts[0].RetailTPMISAO__c = 'Retail-Active';
+    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
+      'getRelatedOrphanResidentialApplications',
+      new List<ResidentialLoanApplication>{ rla }
+    );
+    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
+      'getContactsByTMPI',
+      new List<contact>{ newContacts[0] }
+    );
+    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
+      'getRelatedOrphanFinancialAccounts',
+      new List<FinServ__FinancialAccount__c>{ finServAcc }
+    );
+
+    Test.startTest();
+    RetailBrokerContactActions.updateAssistedBrokerLookup(
+      newContacts,
+      new Map<Id, Contact>(oldContacts)
+    );
+    Test.stopTest();
+
+    Assert.isNotNull(
+      rla.Assisted_Broker__c,
+      'Assisted Broker should be populated'
+    );
+    Assert.areEqual(
+      newContacts[0].Id,
+      rla.Assisted_Broker__c,
+      'Assisted Broker should be updated'
+    );
+  }
+
+  @IsTest
+  static void testProcessDataMerge() {
+    List<Contact> newContacts = createTestContacts(2);
+
+    newContacts[0].Sync_Status__c = BrokerConstants.SYNC_STATUS_BROKER_ORG;
+    newContacts[0].External_Id__c = 'exIdContactTest001';
+    newContacts[1].External_Id__c = 'exIdContactTest002';
+    newContacts[1].Sync_Status__c = BrokerConstants.SYNC_STATUS_DUPLICATE_EMAIL;
+
+    List<Contact> oldContacts = newContacts.deepClone(true);
+    newContacts[0].Survivor_Party_Id__c = newContacts[1].External_Id__c;
+    newContacts[0].Victim_Party_Id__c = newContacts[0].External_Id__c;
+
+    Broker_Code__c brokerCode = createBrokerCode();
+    brokerCode.Broker_Name__c = newContacts[0].Id;
+    BROKER_CODE_REPOSITORY.mock(
+      'getRelatedBrokerCodes',
+      new List<Broker_Code__c>{ brokerCode }
+    );
+    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
+      'queryContactRecordsByExternalIds',
+      new List<Contact>{ newContacts[1], newContacts[0] }
+    );
+
+    Map<String, String> mergesToProcess = new Map<String, String>{
+      newContacts[1].External_Id__c => newContacts[0].Victim_Party_Id__c
+    };
+
+    Test.startTest();
+    RetailBrokerContactActions.processDataMerge(
+      mergesToProcess,
+      new List<contact>{ newContacts[0], newContacts[1] }
+    );
+    Test.stopTest();
+    List<Contact> updatedBrokerContacts = (List<Contact>) dmlRepoMock.getHistory(
+        'doUpdate'
+      )
+      .getParam('records');
+    Assert.areEqual(
+      1,
+      updatedBrokerContacts.size(),
+      'Must have one Contact to Update'
+    );
+
+    Assert.areEqual(
+      newContacts[1].id,
+      updatedBrokerContacts[0].Id,
+      'Survior contact should get updated'
+    );
+
+    Assert.areEqual(
+      newContacts[0].Broker_Set__c,
+      updatedBrokerContacts[0].Broker_Set__c,
+      'Broker Set should get updated'
+    );
+  }
 
   /**
    * @description to create mock Broker Relation List

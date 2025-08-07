@@ -253,4 +253,106 @@ private class BrokerCloudEventBuilderTest {
       'extId should be the External Id of the parent account'
     );
   }
+
+  /**
+   * @description test function to test BrokerCloudEventBuilder.buildResidentialLoanAppNode
+   * Assertion is made against the data populated in the returned data type
+   */
+  @IsTest
+  static void testBuildResidentialLoanAppNode() {
+    Account accnt = new Account();
+    accnt.External_Id__c = 'acc20010101';
+
+    ResidentialLoanApplication rla = new ResidentialLoanApplication();
+    rla.ApplicationExtIdentifier = 'rla20010101';
+    rla.External_Id__c = 'rla20010101';
+    rla.account = accnt;
+
+    Test.startTest();
+    BrokerCloudEventModel.MasterNode brokerRLAMasterNode = BrokerCloudEventBuilder.buildResidentialLoanAppNode(
+      rla
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      'ResidentialLoanApplication',
+      brokerRLAMasterNode.sourceObjectName,
+      'sourceObjectName should be ResidentialLoanApplication'
+    );
+    Assert.areEqual(
+      'rla20010101',
+      brokerRLAMasterNode.sourceObjectExtId,
+      'sourceObjectExtId should be the rla20010101'
+    );
+    Assert.areEqual(
+      'AccountId',
+      brokerRLAMasterNode.sourceObjectParentExtIdName,
+      'sourceObjectParentExtIdName should be AccountId'
+    );
+    Assert.areEqual(
+      'acc20010101',
+      brokerRLAMasterNode.sourceObjectParentExtId,
+      'sourceObjectParentExtId should be should be the External Id of the parent account'
+    );
+    BrokerCloudEventModel.TargetNode targetNode = brokerRLAMasterNode.targetObjects;
+    Assert.areEqual(
+      'ResidentialLoanApplication',
+      targetNode.extObjectName,
+      'extObjectName should be ResidentialLoanApplication'
+    );
+    Assert.areEqual(
+      'External_Id__c',
+      targetNode.extIdField,
+      'extIdField should be should be the external Id of the ResidentialLoanApplication'
+    );
+    List<BrokerCloudEventModel.ParentNode> parent = targetNode.parent;
+    Assert.areEqual(
+      1,
+      parent.size(),
+      'parent node should have only one element'
+    );
+    Assert.areEqual(
+      'Account',
+      parent[0].objectName,
+      'objectName should be Account'
+    );
+    Assert.areEqual(
+      'External_Id__c',
+      parent[0].extIdField,
+      'extIdField should be External_Id__c'
+    );
+  }
+
+  /**
+   * @description test function to test BrokerCloudEventBuilder.buildMergeContactNode
+   * Assertion is made against the data populated in the returned data type
+   */
+  @IsTest
+  static void testBuildMergeContactNode() {
+    Contact testContact = createTestContact();
+    List<Contact> oldContacts = new List<contact>{ testContact }
+      .deepClone(true);
+    oldContacts[0].Survivor_Party_Id__c = 'con10010101';
+    oldContacts[0].Victim_Party_Id__c = 'con20010101';
+
+    testContact.Survivor_Party_Id__c = 'con10010101';
+    testContact.Victim_Party_Id__c = 'con30010101';
+
+    Test.startTest();
+    BrokerCloudEventModel.ContactMergeTargetNode mergeContactNode = BrokerCloudEventBuilder.buildMergeContactNode(
+      testContact,
+      oldContacts[0]
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      'con10010101',
+      mergeContactNode.survivorPartyId,
+      'Survivor Party Id should be con10010101'
+    );
+    Assert.areEqual(
+      'con30010101',
+      mergeContactNode.victimPartyId,
+      'Victim Party Id should be con30010101'
+    );
+  }
 }

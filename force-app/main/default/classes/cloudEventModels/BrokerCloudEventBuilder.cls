@@ -176,6 +176,7 @@ public with sharing class BrokerCloudEventBuilder {
    * @return      BrokerCloudEventModel.ContactMergeTargetNode or null if input is incomplete.
    *
    */
+  @testVisible
   private static BrokerCloudEventModel.ContactMergeTargetNode buildMergeContactNode(
     Contact record,
     Contact oldRecord
