@@ -218,16 +218,17 @@
                 </p>
               </div>
             </div>
-            <template lwc:if={singleFinAccount.showOffsetDetails}>
-              <div class="slds-col slds-grid slds-size_1-of-3 rowgap">
-                <div class="header-column" data-id="offsetAccounts">
-                  <p class="slds-text-color_weak">
-                    Linked Offset
-                    <lightning-helptext
-                      class="tooltip tooltip-margin"
-                      content="Offset uses the money in an eligible account to offset the loan balance - reducing the interest paid."
-                    ></lightning-helptext>
-                  </p>
+
+            <div class="slds-col slds-grid slds-size_1-of-3 rowgap">
+              <div class="header-column" data-id="offsetAccounts">
+                <p class="slds-text-color_weak">
+                  Linked Offset
+                  <lightning-helptext
+                    class="tooltip tooltip-margin"
+                    content="Offset uses the money in an eligible account to offset the loan balance - reducing the interest paid."
+                  ></lightning-helptext>
+                </p>
+                <template lwc:if={singleFinAccount.isAnzPlusAccount}>
                   <p class="slds-text-heading_small slds-align_absolute-center">
                     <template lwc:if={hasOffsetError}>
                       <lightning-icon
@@ -260,9 +261,13 @@
                       </p>
                     </template>
                   </p>
-                </div>
+                </template>
+                <template lwc:else>
+                  <p class="fontstyle">Classic Linked Offset Text TBD</p>
+                </template>
               </div>
-            </template>
+            </div>
+
             <div class="slds-col slds-grid slds-size_1-of-3 rowgap">
               <div class="header-column">
                 <p class="slds-text-color_weak">Property Use</p>

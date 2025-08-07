@@ -120,17 +120,17 @@
                   class="slds-grid slds-wrap slds-p-top_medium"
                   data-id="offsetAccountDetails"
                 >
-                  <template lwc:if={finAccount.showOffsetDetails}>
-                    <div
-                      class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small"
-                    >
-                      <p class="card-heading-font">
-                        Linked Offset
-                        <lightning-helptext
-                          class="tooltip"
-                          content="Offset uses the money in an eligible account to offset the loan balance - reducing the interest paid."
-                        ></lightning-helptext>
-                      </p>
+                  <div
+                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small"
+                  >
+                    <p class="card-heading-font">
+                      Linked Offset
+                      <lightning-helptext
+                        class="tooltip"
+                        content="Offset uses the money in an eligible account to offset the loan balance - reducing the interest paid."
+                      ></lightning-helptext>
+                    </p>
+                    <template lwc:if={finAccount.isAnzPlusAccount}>
                       <p class="fontstyle">
                         <template lwc:if={hasOffsetError}>
                           <lightning-icon
@@ -162,10 +162,16 @@
                           </p>
                         </template>
                       </p>
-                    </div>
-                  </template>
+                    </template>
 
-                  <div class={finAccount.termFieldAlingment}>
+                    <template lwc:else>
+                      <p class="fontstyle">Classic Linked Offset Text TBD</p>
+                    </template>
+                  </div>
+
+                  <div
+                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small slds-text-align_right"
+                  >
                     <p class="card-heading-font">
                       Term
                       <lightning-helptext
