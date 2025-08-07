@@ -36,7 +36,8 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   isS2AccountExist = false;
   fetchedAccounts;
   processedAccounts = [];
-  savingAccountExist = false;
+  //savingAccountExist = false;
+  showSavingGoalsComponent = false;
   hasOffsetError = false;
 
   connectedCallback() {
@@ -45,8 +46,12 @@ export default class PersonAccountFinancialDetails extends LightningElement {
       this.handleRefreshFinances.bind(this)
     );
   }
-  get isSavingAccountExist() {
-    return this.savingAccountExist;
+  // get isSavingAccountExist() {
+  //   return this.savingAccountExist;
+  // }
+
+  get showSavingGoalsComponent() {
+    return this.showSavingGoalsComponent;
   }
 
   get hasHomeLoan() {
@@ -75,10 +80,10 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     }
     if (this.ocvId && hasAccountsGoalsPermission) {
       await this.getFinancialAccount();
-      if (this.handleGoalApiCallout()) {
-        this.savingAccountExist = true;
-        await this.getGoals();
-      }
+      // if (this.handleGoalApiCallout()) {
+      //   this.savingAccountExist = true;
+      //   //await this.getGoals();
+      // }
     }
     if (this.ocvId && hasHomeLoanPermission) {
       const offsetResponse = await this.getOffsetHomeLoanResponse();
@@ -193,7 +198,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   async refreshData() {
     this.loading = true;
     await this.getFinancialAccount();
-    await this.getGoals();
+    //await this.getGoals();
     this.loading = false;
   }
 
@@ -204,10 +209,10 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     );
   }
 
-  handleGoalApiCallout() {
-    return (
-      Array.isArray(this.processedAccounts) &&
-      this.processedAccounts.some((group) => group.isSaving)
-    );
-  }
+  // handleGoalApiCallout() {
+  //   return (
+  //     Array.isArray(this.processedAccounts) &&
+  //     this.processedAccounts.some((group) => group.isSaving)
+  //   );
+  // }
 }

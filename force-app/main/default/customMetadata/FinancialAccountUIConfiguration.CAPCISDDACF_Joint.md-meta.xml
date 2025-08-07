@@ -8,11 +8,11 @@
     </values>
     <values>
         <field>Balance_Title__c</field>
-        <value xsi:type="xsd:string">Everyday Funds</value>
+        <value xsi:type="xsd:string">Funds</value>
     </values>
     <values>
         <field>FinancialAccountConfiguration__c</field>
-        <value xsi:type="xsd:string">Everyday_Account_Configuration</value>
+        <value xsi:type="xsd:string">Classic_Account_Configuration</value>
     </values>
     <values>
         <field>Include_In_Total_Financial_Position__c</field>
