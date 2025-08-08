@@ -11,5 +11,5 @@ INCLUDES( Contact.Sync_Status__c ,&apos;Duplicate - OCV Id&apos;)
 )
 )</errorConditionFormula>
     <errorDisplayField>ContactId</errorDisplayField>
-    <errorMessage>Duplicate Broker is Selected, please add another contact</errorMessage>
+    <errorMessage>Selected contact is a duplicate, please select another contact.</errorMessage>
 </ValidationRule>
