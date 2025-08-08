@@ -95,8 +95,6 @@ public with sharing class UnifiedFinancialAccountModel extends CalloutModel {
     public Ownership ownership;
     @AuraEnabled
     public String linkedProductCode;
-    @AuraEnabled
-    public Boolean isPlus;
 
     /**
      * @description Returns the value of the specified field.

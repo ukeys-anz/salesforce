@@ -87,6 +87,7 @@ public with sharing class ConfirmationOfPayeeRepository {
       FROM FinServ__FinancialAccount__c
       WHERE
         FinServ__ProductName__r.ANZ_Product_Code__c IN :QueryFinancialAccountUIConfig.configByProductCode.keySet()
+        AND FinServ__ProductName__r.SourceSystem__c = 'Zafin'
         AND Id IN (
           SELECT FinServ__FinancialAccount__c
           FROM FinServ__FinancialAccountRole__c

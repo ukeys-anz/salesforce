@@ -41,9 +41,6 @@ public with sharing class UnifiedFinancialAccountModelConverter {
 
       finAccountDetail.id = finAccount.Id;
       finAccountDetail.linkedProductCode = finAccount.Linked_Product_Code__c;
-      finAccountDetail.isPlus = String.isNotBlank(
-        finAccount.FinServ__ProductName__r.ANZ_Product_Code__c
-      );
       finAccountDetail.finserv_product_display_name = finAccount.Product_Name_Display__c;
       finAccountDetail.account_name = finAccount.Name;
       finAccountDetail.account_number = finAccount.FinServ__FinancialAccountNumber__c;

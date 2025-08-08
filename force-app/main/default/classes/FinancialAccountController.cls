@@ -221,10 +221,6 @@ public with sharing class FinancialAccountController {
     finAccount.linkedProductCode = finAccountFromDatabase
       ?.Linked_Product_Code__c ?? finAccount.product_details?.marketing_code ??
       finAccount.product_details?.sub_product_code;
-    finAccount.isPlus =
-      String.isNotBlank(
-        finAccountFromDatabase?.FinServ__ProductName__r?.ANZ_Product_Code__c
-      ) || finAccount.product_details.origin == 'PRODUCT_ORIGIN_ANZX';
 
     return finAccount;
   }
