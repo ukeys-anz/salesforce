@@ -6,18 +6,25 @@ import {
   unauthenticate
 } from "../Services/authentication-service.mjs";
 import { uploadJobId, cancel } from "../Services/deploy-service.mjs";
-import { findSecretName } from "../Services/find-secret-service.mjs";
 import { deleteFile, findAllArgvs, renameItem } from "../Services/helper.mjs";
 import {
   runAllLocalTestsProgress,
-  runAllLocalTests
+  runAllLocalTests,
+  detailedReport
 } from "../Services/run-all-test-service.mjs";
 
 //////////
 
 /// Find all the env, argv & other variables values
 
-const { WHICH_JOB, BASE_REF, PR_NUMBER, WORKING_DIR, REPO_NAME } = process.env;
+const {
+  WHICH_JOB,
+  BASE_REF,
+  PR_NUMBER,
+  WORKING_DIR,
+  REPO_NAME,
+  INPUTS_JOB_ID
+} = process.env;
 
 const RUN_ALL_TEST_PACKAGE_PATH = "ci/workflows/RunAllTestsPackage";
 const ARTIFACTORY_REPO_NAME = `anzx-${REPO_NAME}-releases-np`;
@@ -37,14 +44,7 @@ const ARTIFACTORY_SECRET_VALUE = args[1];
 
 /// functions
 
-const findProperSecret = () => {
-  const branchMapping = {
-    master: "develop"
-  };
-  console.log(findSecretName(branchMapping[BASE_REF], REPO_NAME));
-};
-
-const runAllTests = () => {
+const runAllTests = async () => {
   authenticate(TARGET_ORG, SFDX_URL);
   cancel(
     JOB_ID_FILE_NAME,
@@ -63,25 +63,40 @@ const runAllTests = () => {
     ARTIFACTORY_SECRET_VALUE,
     ARTIFACTORY_REPO_NAME
   );
-  runAllLocalTestsProgress(runAllTestsReport, TARGET_ORG, ARTIFACT_PACKAGE_XML);
+  await runAllLocalTestsProgress(
+    runAllTestsReport,
+    TARGET_ORG,
+    ARTIFACT_PACKAGE_XML
+  );
+};
+
+const prepareTestReport = () => {
+  authenticate(TARGET_ORG, SFDX_URL);
+  detailedReport(
+    INPUTS_JOB_ID,
+    JOB_ID_FILE_NAME,
+    TARGET_ORG,
+    ANZX_CI_PACKAGE_XML
+  );
 };
 
 const clean = () => {
   unauthenticate(TARGET_ORG);
   deleteFile(JOB_ID_FILE_NAME);
 };
+
 //////////
 
 /// Run Tests
 
 const runTests = () => {
-  const runFunctionMapping = {
-    findProperSecret: findProperSecret,
+  const runAllTestsFunctionMapping = {
     runAllTests: runAllTests,
+    prepareTestReport: prepareTestReport,
     clean: clean
   };
 
-  return WHICH_JOB ? runFunctionMapping[WHICH_JOB]() : findProperSecret();
+  return WHICH_JOB ? runAllTestsFunctionMapping[WHICH_JOB]() : runAllTests();
 };
 
 runTests();
