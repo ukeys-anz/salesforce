@@ -15,7 +15,7 @@
                         <valueListItems>
                             <value>FinServ__FinancialAccount__c.Update_Account_Details</value>
                             <visibilityRule>
-                                <booleanFilter>1 AND 2 AND 3</booleanFilter>
+                                <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
                                 <criteria>
                                     <leftValue>{!$Permission.CustomPermission.ANZx_Financial_Account_Maintenance}</leftValue>
                                     <operator>EQUAL</operator>
@@ -27,8 +27,13 @@
                                     <rightValue>Multi-party</rightValue>
                                 </criteria>
                                 <criteria>
-                                    <leftValue>{!Record.Marketing_Code__c}</leftValue>
+                                    <leftValue>{!Record.FinServ__ProductName__r.ANZ_Product_Code__c}</leftValue>
                                     <operator>NE</operator>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.FinServ__ProductName__r.SourceSystem__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Zafin</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
@@ -212,9 +217,15 @@
                 <componentName>flexipage:tab</componentName>
                 <identifier>customTab2</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.Marketing_Code__c}</leftValue>
+                        <leftValue>{!Record.FinServ__ProductName__r.ANZ_Product_Code__c}</leftValue>
                         <operator>NE</operator>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__ProductName__r.SourceSystem__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Zafin</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -232,9 +243,15 @@
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.Marketing_Code__c}</leftValue>
+                        <leftValue>{!Record.FinServ__ProductName__r.ANZ_Product_Code__c}</leftValue>
                         <operator>NE</operator>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__ProductName__r.SourceSystem__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Zafin</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -252,9 +269,15 @@
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab2</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.Marketing_Code__c}</leftValue>
+                        <leftValue>{!Record.FinServ__ProductName__r.ANZ_Product_Code__c}</leftValue>
                         <operator>NE</operator>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__ProductName__r.SourceSystem__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Zafin</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -596,9 +619,15 @@
                 <componentName>lst:dynamicRelatedList</componentName>
                 <identifier>lst_dynamicRelatedList</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.Marketing_Code__c}</leftValue>
+                        <leftValue>{!Record.FinServ__ProductName__r.ANZ_Product_Code__c}</leftValue>
                         <operator>NE</operator>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__ProductName__r.SourceSystem__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Zafin</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -614,15 +643,20 @@
                 <componentName>viewConfirmationOfPayeeInformation</componentName>
                 <identifier>c_viewConfirmationOfPayeeInformation</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.ANZx_COP_View_Financial_Account}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>true</rightValue>
                     </criteria>
                     <criteria>
-                        <leftValue>{!Record.Marketing_Code__c}</leftValue>
+                        <leftValue>{!Record.FinServ__ProductName__r.ANZ_Product_Code__c}</leftValue>
                         <operator>NE</operator>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__ProductName__r.SourceSystem__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Zafin</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>

@@ -239,7 +239,11 @@ public with sharing class FinancialAccountController {
   ) {
     FinServ__FinancialAccount__c record = new FinServ__FinancialAccount__c();
     record.Id = finAccountFromDatabase.Id;
-    if (String.isNotBlank(finAccount.product_details?.marketing_code)) {
+    if (
+      String.isNotBlank(
+        finAccountFromDatabase.FinServ__ProductName__r?.ANZ_Product_Code__c
+      )
+    ) {
       record.Name = finAccount.account_name;
     }
     record.Is_Digitally_Active__c = true;
