@@ -75,7 +75,8 @@ public with sharing class FinancialAccountRepository {
         Marketing_Code__c,
         Is_Digitally_Active__c,
         FinServ__ProductName__c,
-        Product_Name_Display__c
+        Product_Name_Display__c,
+        FinServ__ProductName__r.ANZ_Product_Code__c
       FROM FinServ__FinancialAccount__c
       WHERE FinServ__FinancialAccountNumber__c IN :finAccountNumbers
       WITH USER_MODE
@@ -188,7 +189,8 @@ public with sharing class FinancialAccountRepository {
         OCV_ID__c,
         FinServ__ProductName__c,
         Linked_Product_Code__c,
-        Product_Name_Display__c
+        Product_Name_Display__c,
+        FinServ__ProductName__r.ANZ_Product_Code__c
       FROM FinServ__FinancialAccount__c
       WHERE
         FinServ__FinancialAccountNumber__c IN :allRelatedAccountNumbers

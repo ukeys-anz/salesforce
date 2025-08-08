@@ -86,7 +86,7 @@ public with sharing class ConfirmationOfPayeeRepository {
         FinServ__ProductName__r.Name
       FROM FinServ__FinancialAccount__c
       WHERE
-        Marketing_Code__c IN :QueryFinancialAccountUIConfig.configByProductCode.keySet()
+        FinServ__ProductName__r.ANZ_Product_Code__c IN :QueryFinancialAccountUIConfig.configByProductCode.keySet()
         AND Id IN (
           SELECT FinServ__FinancialAccount__c
           FROM FinServ__FinancialAccountRole__c
@@ -94,7 +94,7 @@ public with sharing class ConfirmationOfPayeeRepository {
             FinServ__RelatedAccount__r.OCV_ID__c = :ocvId
             AND FinServ__Active__c = TRUE
         )
-        AND FinServ__Status__c !=: CaseGroupCaseConstants.CLOSED_STATUS
+        AND FinServ__Status__c != :CaseGroupCaseConstants.CLOSED_STATUS
       WITH USER_MODE
     ];
   }

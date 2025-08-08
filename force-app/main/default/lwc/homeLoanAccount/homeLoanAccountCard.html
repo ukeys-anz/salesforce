@@ -130,7 +130,7 @@
                         content="Offset uses the money in an eligible account to offset the loan balance - reducing the interest paid."
                       ></lightning-helptext>
                     </p>
-                    <template lwc:if={finAccount.isAnzPlusAccount}>
+                    <template lwc:if={finAccount.isPlus}>
                       <p class="fontstyle">
                         <template lwc:if={hasOffsetError}>
                           <lightning-icon
@@ -165,7 +165,7 @@
                     </template>
 
                     <template lwc:else>
-                      <p class="fontstyle">Classic Linked Offset Text TBD</p>
+                      <p class="fontstyle">Offset Unavailable</p>
                     </template>
                   </div>
 
