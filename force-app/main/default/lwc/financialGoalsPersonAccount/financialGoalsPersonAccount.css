@@ -1,0 +1,112 @@
+@import "c/customerAccountPageCssUtility";
+
+.last-updated {
+  float: right;
+  font-size: 0.75rem;
+  position: absolute;
+  bottom: 0.44rem;
+  right: 0.63rem;
+}
+
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 11.13rem;
+}
+
+.progress-ring {
+  position: relative;
+  bottom: 0.5rem;
+  left: 1rem;
+}
+
+.custom-padding {
+  margin-left: 3.5rem;
+}
+.description-tooltip {
+  visibility: hidden;
+  width: 30%;
+  background-color: #18315c;
+  padding: 1.25rem;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  position: absolute;
+  color: #ffffff;
+  z-index: 1;
+  word-break: break-word;
+}
+
+.progress-tooltip {
+  visibility: hidden;
+  background-color: #18315c;
+  padding: 0.313rem;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  position: absolute;
+  color: #ffffff;
+  z-index: 1;
+}
+
+.ellipsis:hover + .description-tooltip,
+.progress-ring:hover + .progress-tooltip {
+  visibility: visible;
+  transition: opacity 0.5s ease;
+  opacity: 1;
+}
+
+.tooltip-modal {
+  cursor: pointer;
+  margin-left: 0.25rem;
+}
+
+.tooltip-modal:hover {
+  --sds-c-icon-color-foreground-default: #014486;
+}
+
+.close-modal {
+  cursor: pointer;
+  --sds-c-icon-color-foreground-default: #fff;
+}
+
+.modal-header {
+  background: #014486;
+  color: #fff;
+}
+
+.message-padding {
+  padding: 1.25rem;
+}
+
+.no-goals {
+  margin: 0;
+  position: absolute;
+  top: 56%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.emoji {
+  font-size: 4vw;
+  top: 1.063rem;
+}
+
+.slds-border_right:last-child {
+  border-right: none;
+}
+
+.emptyCardGoal {
+  margin-bottom: 5rem;
+  margin-top: 5rem;
+}
+
+.dormantBadgeClass {
+  --slds-c-badge-color-background: white;
+  --slds-c-badge-color-border: green;
+  --slds-c-badge-text-color: green;
+}
+
+.dividerTop {
+  border-top: 1px solid rgb(201, 201, 201);
+  border-bottom: none;
+}
