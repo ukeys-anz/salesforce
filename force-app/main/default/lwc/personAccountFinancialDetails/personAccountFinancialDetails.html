@@ -86,7 +86,7 @@
 
             <div class="slds-m-top_medium"></div>
 
-            <template lwc:if={showSavingGoalsComponent}>
+            <template lwc:if={isSavingAccountExist}>
               <c-financial-goals-person-account
                 goal-data={goalDetails}
                 error={goalError}
