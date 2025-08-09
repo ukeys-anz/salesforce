@@ -342,6 +342,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Quality_Assessment__c.CX_Criteria_Comments__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Quality_Assessment__c.Debts_Serviceability_Comments__c</field>
         <readable>true</readable>
     </fieldPermissions>

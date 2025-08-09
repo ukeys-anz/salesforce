@@ -43,6 +43,9 @@ public with sharing class QualityAssessmentGetHelpTriggerHandler extends Lib_Tri
       (List<Quality_Assessment__c>) records,
       (Map<Id, Quality_Assessment__c>) oldMap
     );
+    QualityAssessmentTriggerActions.blockImagesInRichText(
+      (List<Quality_Assessment__c>) records
+    );
   }
 
   /**
