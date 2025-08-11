@@ -8,7 +8,6 @@
     <columns>OWNER_NAME</columns>
     <columns>CASES.PRIORITY</columns>
     <columns>IDR_Date_Received__c</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.STATUS</field>
         <operation>equals</operation>
@@ -19,8 +18,10 @@
         <operation>equals</operation>
         <value>Case.ReKYC_QA_Case</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>All ReKYC QA Open Cases</label>
     <sharedTo>
+        <role>Onboarding_Support_Read_Only</role>
         <roleAndSubordinates>FraudX_Agent</roleAndSubordinates>
         <roleAndSubordinates>Join_Lead</roleAndSubordinates>
     </sharedTo>

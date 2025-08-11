@@ -40,6 +40,7 @@
         <role>Coach_Lead</role>
         <role>FinCrime_Agent</role>
         <role>FraudX_Agent</role>
+        <role>Onboarding_Support_Read_Only</role>
         <role>Support_Coach</role>
         <role>Card_Dispute_Agent</role>
         <role>BOH_Coach_Lead</role>

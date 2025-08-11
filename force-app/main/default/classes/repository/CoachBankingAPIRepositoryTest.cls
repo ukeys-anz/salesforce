@@ -9,7 +9,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
   //jwt containing a single claim of exp 26/11/2050
   public final static String IDTESTVALUE = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI1NTMwMzIxNzh9.eAWGLhTYhn4y9M2t2OHeTLIe7MLPObBFK2Nli8CPTD4';
 
-  private static Integer mockedCardsSize = 18;
+  private static Integer mockedCardsSize = 19;
 
   static Lib_MockProvider finAccRepoMock;
   static Lib_MockProvider userMock;
