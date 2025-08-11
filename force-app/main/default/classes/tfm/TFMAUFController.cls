@@ -301,7 +301,7 @@ global with sharing class TFMAUFController implements omnistudio.VlocityOpenInte
     );
 
     List<UnifiedFinancialAccountModel.AccountList> filteredPlusAccounts = (List<UnifiedFinancialAccountModel.AccountList>) ListUtil.filter(financialAccList)
-      .equals('origin', 'PRODUCT_ORIGIN_ANZX')
+      .equals('origin', FinancialAccountConstant.ANZ_PLUS_ORIGIN)
       .toList();
 
     for (
