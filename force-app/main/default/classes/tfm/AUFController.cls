@@ -127,9 +127,11 @@ global with sharing class AUFController {
         accountNumbers
       );
 
-      List<UnifiedFinancialAccountModel.AccountList> filteredPlusAccounts = (List<UnifiedFinancialAccountModel.AccountList>) ListUtil.filter(financialAccList)
-      .equals('origin', FinancialAccountConstant.ANZ_PLUS_ORIGIN)
-      .toList();
+      List<UnifiedFinancialAccountModel.AccountList> filteredPlusAccounts = (List<UnifiedFinancialAccountModel.AccountList>) ListUtil.filter(
+          financialAccList
+        )
+        .equals('origin', FinancialAccountConstant.ANZ_PLUS_ORIGIN)
+        .toList();
 
       return isAnyAccountOpen(filteredPlusAccounts);
     } catch (FinancialAccountAPIRepository.PermissionException e) {
