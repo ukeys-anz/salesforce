@@ -1,14 +1,15 @@
 import { runSfCommand, logger, loggerInStep } from "./helper.mjs";
 
+// Required allowedDomains based on sfdx's AuthURL
+const ALLOWED_DOMAINS = [
+  "@anz--",
+  "@anzbankbroker--",
+  "@australiaandnewzealandbanking--"
+];
+
 // This function checks if the provided secret value contains any allowed ANZx Salesforce domains.
 const checkAllowedDomains = (secretValue) => {
-  //Required allowedDomains based on sfdx's AuthURL
-  const allowedDomains = [
-    "@anz--",
-    "@anzbankbroker--",
-    "@australiaandnewzealandbanking--"
-  ];
-  return allowedDomains.some((domain) => secretValue.includes(domain));
+  return ALLOWED_DOMAINS.some((domain) => secretValue.includes(domain));
 };
 
 // This will take the secretValue and branch name and will do the authentication.
