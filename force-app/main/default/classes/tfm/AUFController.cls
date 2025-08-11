@@ -126,7 +126,12 @@ global with sharing class AUFController {
         personDigitalRec.OCV_ID__c,
         accountNumbers
       );
-      return isAnyAccountOpen(financialAccList);
+
+      List<UnifiedFinancialAccountModel.AccountList> filteredPlusAccounts = (List<UnifiedFinancialAccountModel.AccountList>) ListUtil.filter(financialAccList)
+      .equals('origin', 'PRODUCT_ORIGIN_ANZX')
+      .toList();
+
+      return isAnyAccountOpen(filteredPlusAccounts);
     } catch (FinancialAccountAPIRepository.PermissionException e) {
       throw new AuraHandledException(
         'You don\'t have access to ANZx Accounts and Goals permission'

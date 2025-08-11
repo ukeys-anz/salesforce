@@ -299,8 +299,13 @@ global with sharing class TFMAUFController implements omnistudio.VlocityOpenInte
       ocvId,
       accountNumbers
     );
+
+    List<UnifiedFinancialAccountModel.AccountList> filteredPlusAccounts = (List<UnifiedFinancialAccountModel.AccountList>) ListUtil.filter(financialAccList)
+      .equals('origin', 'PRODUCT_ORIGIN_ANZX')
+      .toList();
+
     for (
-      UnifiedFinancialAccountModel.AccountList finAccObj : financialAccList
+      UnifiedFinancialAccountModel.AccountList finAccObj : filteredPlusAccounts
     ) {
       if (!finAccObj.finserv_status.equalsIgnoreCase('Closed')) {
         return true;
