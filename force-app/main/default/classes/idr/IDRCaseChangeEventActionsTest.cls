@@ -122,13 +122,13 @@ private class IDRCaseChangeEventActionsTest {
     Test.stopTest();
     List<Case> caseRecords = (List<Case>) dmlRepoMock.getHistory('doUpdate')
       .getParam('records');
-    Assert.isfalse(
+    Assert.isFalse(
       caseRecords[0].IDR_Is_Restricted__c,
       'Case Should be restricted'
     );
   }
   @isTest
-  static void testgetChangeCaseIdsForRestrictionStatusNull() {
+  static void testValidEventsWithNull() {
     CaseChangeEvent event = getEvent(null);
     event.ChangeEventHeader = getHeader(
       'UPDATE',
@@ -136,62 +136,122 @@ private class IDRCaseChangeEventActionsTest {
       new List<String>{ 'IDR_Restriction_Level__c' }
     );
     Test.startTest();
-    Map<String, List<Case>> result = IDRCaseChangeEventActions.getChangeCaseIds(
+    List<CaseChangeEvent> results = IDRCaseChangeEventActions.validEvents(
       new List<CaseChangeEvent>{ event }
     );
     Test.stopTest();
     Assert.isTrue(
-      result.get('nonRestricted').isEmpty(),
-      'No Case records should be returned for IDR_Restriction_Level__c field value as null and only IDR_Restriction_Level__c field change'
-    );
-    Assert.isTrue(
-      result.get('restricted').isEmpty(),
-      'No Case records should be returned for IDR_Restriction_Level__c field value as null and only IDR_Restriction_Level__c field change'
+      results.isEmpty(),
+      'No Case Event records should be returned as IDR_Restriction_Level__c field value is null'
     );
   }
   @isTest
-  static void testgetChangeCaseIdsForNonRestrictionField() {
-    CaseChangeEvent event = getEvent(null);
+  static void testValidEventsForNotRestrictionField() {
+    CaseChangeEvent event = getEvent('Restricted Case');
     event.ChangeEventHeader = getHeader(
       'UPDATE',
       Lib_FakeIdGenerator.getMockId(Case.SObjectType),
       new List<String>{ 'Status' }
     );
     Test.startTest();
-    Map<String, List<Case>> result = IDRCaseChangeEventActions.getChangeCaseIds(
+    List<CaseChangeEvent> results = IDRCaseChangeEventActions.validEvents(
       new List<CaseChangeEvent>{ event }
     );
     Test.stopTest();
     Assert.isTrue(
-      result.get('nonRestricted').isEmpty(),
-      'No Case records should be returned for IDR_Restriction_Level__c field value as null and only Status field change'
-    );
-    Assert.isTrue(
-      result.get('restricted').isEmpty(),
-      'No Case records should be returned for IDR_Restriction_Level__c field value as null and only Status field change'
+      results.isEmpty(),
+      'No Case Event records should be returned as only Status field change'
     );
   }
-
   @isTest
-  static void testgetChangeCaseIdsForDeleteDml() {
-    CaseChangeEvent event = getEvent('No Restriction');
+  static void testValidEventsForRestrictedStatus() {
+    CaseChangeEvent event = getEvent('Restricted Case');
     event.ChangeEventHeader = getHeader(
-      'DELETE',
+      'CREATE',
       Lib_FakeIdGenerator.getMockId(Case.SObjectType),
       new List<String>{ 'IDR_Restriction_Level__c' }
     );
     Test.startTest();
-    Map<String, List<Case>> result = IDRCaseChangeEventActions.getChangeCaseIds(
+    List<CaseChangeEvent> results = IDRCaseChangeEventActions.validEvents(
+      new List<CaseChangeEvent>{ event }
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      results.size(),
+      1,
+      'Valid Event as IDR_Restriction_Level__c field is changed with CREATE dml'
+    );
+  }
+  @isTest
+  static void testGetRestrictedCasesWithStatusAsRestricted() {
+    CaseChangeEvent event = getEvent('Restricted Case');
+    event.ChangeEventHeader = getHeader(
+      'CREATE',
+      Lib_FakeIdGenerator.getMockId(Case.SObjectType),
+      new List<String>{ 'IDR_Restriction_Level__c' }
+    );
+    Test.startTest();
+    List<Case> results = IDRCaseChangeEventActions.getRestrictedCases(
+      new List<CaseChangeEvent>{ event }
+    );
+    Test.stopTest();
+    Assert.isFalse(
+      results.isEmpty(),
+      'ValidEvents method should return a restricted case'
+    );
+  }
+  @isTest
+  static void testGetRestrictedCasesWithStatusAsNonRestricted() {
+    CaseChangeEvent event = getEvent('No Restriction');
+    event.ChangeEventHeader = getHeader(
+      'CREATE',
+      Lib_FakeIdGenerator.getMockId(Case.SObjectType),
+      new List<String>{ 'IDR_Restriction_Level__c' }
+    );
+    Test.startTest();
+    List<Case> results = IDRCaseChangeEventActions.getRestrictedCases(
       new List<CaseChangeEvent>{ event }
     );
     Test.stopTest();
     Assert.isTrue(
-      result.get('nonRestricted').isEmpty(),
-      'No Case records should be returned for DELETE DML operation'
+      results.isEmpty(),
+      'ValidEvents method should return an empty list of cases'
     );
+  }
+  @isTest
+  static void testGetNonRestrictedCasesWithStatusAsNonRestricted() {
+    CaseChangeEvent event = getEvent('No Restriction');
+    event.ChangeEventHeader = getHeader(
+      'CREATE',
+      Lib_FakeIdGenerator.getMockId(Case.SObjectType),
+      new List<String>{ 'IDR_Restriction_Level__c' }
+    );
+    Test.startTest();
+    List<Case> results = IDRCaseChangeEventActions.getNonRestrictedCases(
+      new List<CaseChangeEvent>{ event }
+    );
+    Test.stopTest();
+    Assert.isFalse(
+      results.isEmpty(),
+      'ValidEvents method should return a non-restricted case'
+    );
+  }
+  @isTest
+  static void testGetNonRestrictedCasesWithStatusAsRestricted() {
+    CaseChangeEvent event = getEvent('Restricted Case');
+    event.ChangeEventHeader = getHeader(
+      'CREATE',
+      Lib_FakeIdGenerator.getMockId(Case.SObjectType),
+      new List<String>{ 'IDR_Restriction_Level__c' }
+    );
+    Test.startTest();
+    List<Case> results = IDRCaseChangeEventActions.getNonRestrictedCases(
+      new List<CaseChangeEvent>{ event }
+    );
+    Test.stopTest();
     Assert.isTrue(
-      result.get('restricted').isEmpty(),
-      'No Case records should be returned for DELETE DML operation'
+      results.isEmpty(),
+      'ValidEvents method should return a empty list of cases'
     );
   }
 }
