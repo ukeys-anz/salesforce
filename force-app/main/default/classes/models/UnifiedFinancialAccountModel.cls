@@ -109,6 +109,9 @@ public with sharing class UnifiedFinancialAccountModel extends CalloutModel {
         when 'account_number' {
           return this.account_number;
         }
+        when 'origin' {
+          return this.product_details.origin;
+        }
       }
       throw new IllegalArgumentException(
         'Field not yet supported: ' + fieldName
