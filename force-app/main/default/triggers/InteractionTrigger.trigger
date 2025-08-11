@@ -6,4 +6,5 @@ trigger InteractionTrigger on Interaction(
 ) {
   InteractionTriggerHandler handler = new InteractionTriggerHandler();
   CommercialInteractionTriggerHandler commercialHandler = new CommercialInteractionTriggerHandler();
+  RBMInteractionHandler rbmHandler = new RBMInteractionHandler();
 }

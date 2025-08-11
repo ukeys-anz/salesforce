@@ -625,6 +625,10 @@
     "Assessment": {
       "IA-2453595": ["Created_Date_Time__c", "Last_Modified_Date_Time__c"]
     },
+    "Associated_Loan_Application__c": {
+      "IA-2415983": ["Interaction__c", "Residential_Loan_Application__c"],
+      "IA-2530753": ["UniqueKeyForAssociatedApplication__c"]
+    },
     "AssessmentResponse": {
       "IA-2415840": [
         "External_Id__c",
@@ -2748,6 +2752,8 @@
         "Appointment__c",
         "AppointmentId__c",
         "Attendees__c",
+        "Attendee_Category__c",
+        "Attendance_Confirmed__c",
         "Assisted__c",
         "Attendees_and_Roles__c",
         "Authentication_Method__c",
@@ -2757,6 +2763,7 @@
         "Channel_Booked__c",
         "Chat_or_Call_SID__c",
         "Chat_or_Call_SID_Formula__c",
+        "Closing_Notes__c",
         "Coaching_Summary__c",
         "Comment__c",
         "Contact_Mobile__c",
@@ -2770,12 +2777,17 @@
         "Escalated_Flag__c",
         "Event_Id__c",
         "Expiry_Date__c",
+        "Follow_up_Actions__c",
+        "Interaction__c",
         "Interaction_Auto_Number__c",
         "Interaction_External_Id__c",
         "Interaction_Number__c",
         "Interaction_Number_Link__c",
         "Interaction_Purpose__c",
+        "Interaction_Reason__c",
         "Interaction_Summary__c",
+        "Interaction_Topic__c",
+        "Interaction_Type__c",
         "Is_User_Attendee__c",
         "Is_Record_UnIdentified__c",
         "Lead__c",
@@ -2784,9 +2796,12 @@
         "LastModifiedById",
         "LastModifiedDate",
         "Lead__c",
+        "Meeting_Location__c",
         "Mobile__c",
         "Name",
+        "Office_Group__c",
         "Optional_Notes__c",
+        "Other_Interaction_Topic__c",
         "OwnerId",
         "Permanent__c",
         "Place__c",
@@ -2866,7 +2881,13 @@
         "UniqueKeyForInteractionAttendee__c"
       ],
       "IA-2415860": ["Attendee_Name_Formula__c"],
-      "IA-2530753": ["Conversation_Sid__c"]
+      "IA-2530753": [
+        "Aggregator__c",
+        "Attendee_SubType__c",
+        "Conversation_Sid__c",
+        "Formula_Attendee_Name__c",
+        "Role__c"
+      ]
     },
     "JSONWebTokenAttributes__mdt": {
       "IA-2415860": [
