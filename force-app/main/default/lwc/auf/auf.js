@@ -8,6 +8,7 @@ import updateMobileNumber from "@salesforce/apex/AUFController.updateMobileNumbe
 import updateOcvid from "@salesforce/apex/AUFController.updateOcvid";
 import checkAccountsOpen from "@salesforce/apex/AUFController.checkAccountsOpen";
 import archiveUser from "@salesforce/apex/AUFController.archiveUser";
+import disputedChecksCall from "@salesforce/apex/AUFController.disputedChecks";
 import { NavigationMixin } from "lightning/navigation";
 import { getFocusedTabInfo, refreshTab } from "lightning/platformWorkspaceApi";
 
@@ -29,7 +30,7 @@ export default class AssistedUserFunctions extends NavigationMixin(
   pinMisMatchError = "Oops, that's not the PIN you chose. Try again.";
   invalidMobileError = "Invalid mobile number";
   showSpinner = false;
-
+  disputedChecks = false;
   toast = new SimpleToast(this);
 
   UPDATE_STATUS_MAP = {
@@ -72,6 +73,22 @@ export default class AssistedUserFunctions extends NavigationMixin(
     return this.actionName === "ArchiveUser";
   }
 
+  connectedCallback() {
+    if (!this.isUpdateMobile) {
+      return;
+    }
+    this.showSpinner = true;
+    disputedChecksCall({ recordId: this.recordId })
+      .then((result) => {
+        this.disputedChecks = result;
+      })
+      .catch((error) => {
+        this.handleApiError(error);
+      })
+      .finally(() => {
+        this.showSpinner = false;
+      });
+  }
   // Handle input change for mobile number
   handleMobileInput(event) {
     this.mobileNumber = event.target.value;
@@ -153,17 +170,21 @@ export default class AssistedUserFunctions extends NavigationMixin(
   }
 
   get mobileNumberDisabled() {
-    return !this.mobileNumber;
+    return !this.mobileNumber && !this.mobileNumberDisputed;
   }
 
   handleUpdateMobileNumber() {
-    if (!this.template.querySelector(".mobileNumberCls").reportValidity()) {
-      return;
+    if (!this.mobileNumberDisputed) {
+      if (!this.template.querySelector(".mobileNumberCls").reportValidity()) {
+        return;
+      }
     }
+
     this.showSpinner = true;
     updateMobileNumber({
       recordId: this.recordId,
-      mobileNumber: this.mobileNumber
+      mobileNumber: this.mobileNumber,
+      mobileNumberDisputed: this.mobileNumberDisputed
     })
       .then(() => {
         this.toast.success(SUCCESS_MESSAGE);
@@ -271,5 +292,13 @@ export default class AssistedUserFunctions extends NavigationMixin(
   handleCloseModal() {
     const closeActionEvent = new CustomEvent("closeaction");
     this.dispatchEvent(closeActionEvent);
+  }
+
+  @track mobileNumberDisputed = false;
+  disputedChecked(event) {
+    this.mobileNumberDisputed = event.target.checked;
+    if (this.mobileNumberDisputed) {
+      this.mobileNumber = undefined;
+    }
   }
 }
