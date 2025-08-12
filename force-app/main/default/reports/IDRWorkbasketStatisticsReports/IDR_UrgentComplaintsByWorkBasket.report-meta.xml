@@ -14,6 +14,9 @@
         <field>Account.ExtraCareReason__c</field>
     </columns>
     <columns>
+        <field>Account.ExtraCareTimePeriod__c</field>
+    </columns>
+    <columns>
         <field>STATUS</field>
     </columns>
     <columns>

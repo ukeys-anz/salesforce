@@ -35,6 +35,9 @@
     <columns>
         <field>Account.ExtraCareReason__c</field>
     </columns>
+    <columns>
+        <field>Account.ExtraCareTimePeriod__c</field>
+    </columns>
     <customDetailFormulas>
         <calculatedFormula>IF(OWNER=Case.Queue__c, 1, 0)</calculatedFormula>
         <dataType>Double</dataType>
