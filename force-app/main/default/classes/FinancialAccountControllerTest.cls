@@ -117,22 +117,6 @@ public with sharing class FinancialAccountControllerTest {
   }
 
   @isTest
-  public static void testFilterOutNonHomeLoanAccountsPositive() {
-    registerMocks();
-
-    Test.startTest();
-    List<UnifiedFinancialAccountModel.AccountList> homeloanAccountList = FinancialAccountController.filterOutNonHomeLoanAccounts(
-      mockFabricFinancialAccounts
-    );
-    Test.stopTest();
-
-    Assert.isTrue(
-      homeloanAccountList.size() > 0,
-      'Home Loan Financial Accounts are filtered'
-    );
-  }
-
-  @isTest
   public static void testGetFinancialAccountDBPositive() {
     registerMocks();
 

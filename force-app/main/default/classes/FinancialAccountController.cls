@@ -61,12 +61,6 @@ public with sharing class FinancialAccountController {
         return new List<UnifiedFinancialAccountModel>();
       }
 
-      List<UnifiedFinancialAccountModel.AccountList> homeloanaccounts = filterOutNonHomeLoanAccounts(
-        fabricAccountList
-      );
-
-      DataPartitionUtil.storeLoanAccountDetailsCache(ocvId, homeloanaccounts);
-
       List<UnifiedFinancialAccountModel> processedAccounts = FinancialAccountControllerAction.processFinancialAccounts(
         fabricAccountList
       );
@@ -256,32 +250,6 @@ public with sharing class FinancialAccountController {
       ? null
       : Date.valueOf(finAccount.open_date.value);
     return record;
-  }
-
-  /**
-   * @description Filters and returns only Home Loan accounts based on the product code
-   * @param financialAccountFabric List of all accounts to be filtered.
-   * @return A list of Home Loan accounts.
-   */
-  @TestVisible
-  private static List<UnifiedFinancialAccountModel.AccountList> filterOutNonHomeLoanAccounts(
-    List<UnifiedFinancialAccountModel.AccountList> financialAccountFabric
-  ) {
-    List<UnifiedFinancialAccountModel.AccountList> homeLoanAccounts = new List<UnifiedFinancialAccountModel.AccountList>();
-
-    for (
-      UnifiedFinancialAccountModel.AccountList acc : financialAccountFabric
-    ) {
-      if (
-        QueryFinancialAccountUIConfig.configByProductCode.get(
-            acc.product_details?.marketing_code
-          )
-          ?.Account_Type__c == 'Loan'
-      ) {
-        homeLoanAccounts.add(acc);
-      }
-    }
-    return homeLoanAccounts;
   }
 
   /**
