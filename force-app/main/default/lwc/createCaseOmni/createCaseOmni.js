@@ -111,6 +111,14 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
           logCaseError({
             message: result.error ?? JSON.stringify(result.result.errors)
           });
+          handleErrorShowToast(
+            this,
+            "Case Creation failed : ",
+            undefined,
+            "Please contact your system administrator.",
+            "sticky"
+          );
+          this.loading = false;
         }
 
         if (result?.CaseId) {
