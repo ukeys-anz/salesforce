@@ -396,7 +396,9 @@ private class RetailBrokerContactActionsTest {
 
     List<Contact> oldContacts = newContacts.deepClone(true);
     oldContacts[0].RetailTPMISAO__c = 'Retail-Active-Old';
+    oldContacts[0].Broker_Accreditation_Type__c = 'Commerical';
     newContacts[0].RetailTPMISAO__c = 'Retail-Active';
+    newContacts[0].Broker_Accreditation_Type__c = 'Retail;Commerical';
     RETAIL_CONTACT_REPOSITORY_MOCK.mock(
       'getRelatedOrphanResidentialApplications',
       new List<ResidentialLoanApplication>{ rla }
@@ -412,7 +414,7 @@ private class RetailBrokerContactActionsTest {
 
     Test.startTest();
     RetailBrokerContactActions.updateAssistedBrokerLookup(
-      newContacts,
+      new Map<Id, Contact>{ newContacts[0].Id => newContacts[0] },
       new Map<Id, Contact>(oldContacts)
     );
     Test.stopTest();

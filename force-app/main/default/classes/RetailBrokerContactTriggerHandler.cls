@@ -70,7 +70,7 @@ public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerH
     );
 
     RetailBrokerContactActions.updateAssistedBrokerLookup(
-      records,
+      (Map<Id, Contact>) Trigger.newMap,
       (Map<Id, Contact>) oldMap
     );
   }

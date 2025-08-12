@@ -628,25 +628,49 @@ public with sharing class RetailBrokerContactActions {
 
   /**
    * @description Enqueues a Queueable job to update related RLA records based on contact TPMISAO
-   * @param records List of survivor Contact records used to extract Retail TPMISAO code.
+   * @param newMap Map of new Contact records.
    * @param oldMap Map of old Contact records.
    */
   public static void updateAssistedBrokerLookup(
-    List<Contact> records,
+    Map<Id, Contact> newMap,
     Map<Id, Contact> oldMap
   ) {
+    List<Contact> oldValidContacts = (List<Contact>) ListUtil.filter(
+        oldMap.values()
+      )
+      .notContains(
+        Contact.Broker_Accreditation_Type__c,
+        BrokerConstants.ACCREDITATION_RETAIL
+      )
+      .toList();
+
+    List<Contact> validContacts = new List<Contact>();
+
+    for (Contact con : oldValidContacts) {
+      Contact newCon = newMap.get(con.Id);
+      validContacts.add(newCon);
+    }
+
     List<Contact> updatedContacts = (List<Contact>) ListUtil.filter(
-        records,
+        validContacts,
         oldMap
       )
-      .changed(Contact.RetailTPMISAO__c)
+      .changed(Contact.Broker_Accreditation_Type__c)
+      .contains(
+        Contact.Broker_Accreditation_Type__c,
+        BrokerConstants.ACCREDITATION_RETAIL
+      )
+      .isNotNull(Contact.Broker_Set__c)
       .toList();
 
     Set<String> brokerTPMIIds = ListUtil.getStrings(
       updatedContacts,
       Contact.RetailTPMISAO__c
     );
-    System.enqueueJob(new RetailContactMergeActionsQueueable(brokerTPMIIds));
+
+    System.enqueueJob(
+      new RetailContactMergeActionsQueueable(brokerTPMIIds, oldMap)
+    );
   }
 
   /**

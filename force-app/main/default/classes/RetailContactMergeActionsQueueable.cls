@@ -2,11 +2,12 @@
  * @description       : Queueable Apex class that updates orphaned ResidentialLoanApplication and FinancialAccount records by linking them to the correct
  *                      Contact records using the broker's TPMI Code.
  * @author            : Madhuri Edke | Salesforce
- * @last modified on  : 07-29-2025
+ * @last modified on  : 08-11-2025
  * @last modified by  : Madhuri Edke | Salesforce
  **/
 public class RetailContactMergeActionsQueueable implements Queueable {
   private Set<String> setOfBrokerTPMI;
+  private Map<Id, contact> oldMap;
   private static final RetailContactRepository CONTACT_REPOSITORY = (RetailContactRepository) Lib_InstanceProvider.forType(
     RetailContactRepository.class
   );
@@ -17,9 +18,14 @@ public class RetailContactMergeActionsQueueable implements Queueable {
   /**
    * @description Constructor to initialize the queueable with a set of Broker TPMI codes.
    * @param setOfBrokerTPMI Set of TPMI codes used to process related records.
+   * @param oldMap Map of Contact records before the update.
    */
-  public RetailContactMergeActionsQueueable(Set<String> setOfBrokerTPMI) {
+  public RetailContactMergeActionsQueueable(
+    Set<String> setOfBrokerTPMI,
+    Map<Id, Contact> oldMap
+  ) {
     this.setOfBrokerTPMI = setOfBrokerTPMI;
+    this.oldMap = oldMap;
   }
 
   /**
@@ -32,6 +38,7 @@ public class RetailContactMergeActionsQueueable implements Queueable {
     if (setOfBrokerTPMI.isEmpty()) {
       return;
     }
+
     try {
       List<ResidentialLoanApplication> loanAppList = CONTACT_REPOSITORY.getRelatedOrphanResidentialApplications(
         setOfBrokerTPMI
@@ -57,6 +64,10 @@ public class RetailContactMergeActionsQueueable implements Queueable {
       );
       DML_REPOSITORY.doUpdate(loanAppListToUpdate);
       DML_REPOSITORY.doUpdate(accountsToUpdate);
+      RetailBrokerRelationEventActions.publishBrokerRelationEventFromContact(
+        oldMap.keySet(),
+        null
+      );
     } catch (Exception e) {
       Logger.error(
           'Error during MergeResidentialLoanAppQueueable execution.' +
