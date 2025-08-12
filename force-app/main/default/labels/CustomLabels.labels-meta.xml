@@ -2030,7 +2030,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>There are mismatches in the contact information between this lead and the linked customer profile. Check the customer profile to see if needs to be updated.</value>
     </labels>
     <labels>
-        <fullName>MLCRM_Maximum_Primary_Notes_Error</fullName>
+        <fullName>Maximum_Primary_Notes_Error</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -2038,7 +2038,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>There can be only one primary relationship notes for franchise</value>
     </labels>
     <labels>
-        <fullName>MLCRM_Minimum_Primary_Notes_Error</fullName>
+        <fullName>Minimum_Primary_Notes_Error</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
         <protected>false</protected>

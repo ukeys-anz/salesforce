@@ -31,6 +31,9 @@ public with sharing class CommercialOpportunityTriggerHandler extends Lib_Trigge
   public override void onBeforeInsert() {
     CommercialOpportunityActions.restrictImagesInRichTextFields(records, null);
     CommercialOpportunityActions.populateCLG(records, null);
+    //CC-4053 Redaction
+    TextUtils.maskSObjectDataANZExtended(records, 'Description');
+    TextUtils.maskSObjectDataANZExtended(records, 'My_Notes__c');
   }
 
   /**
@@ -55,5 +58,8 @@ public with sharing class CommercialOpportunityTriggerHandler extends Lib_Trigge
       (List<Opportunity>) records,
       (Map<Id, Opportunity>) oldMap
     );
+    //CC-4053 Redaction
+    TextUtils.maskSObjectDataANZExtended(records, 'Description');
+    TextUtils.maskSObjectDataANZExtended(records, 'My_Notes__c');
   }
 }

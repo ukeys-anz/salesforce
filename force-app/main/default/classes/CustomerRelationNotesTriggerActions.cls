@@ -41,29 +41,24 @@ public with sharing class CustomerRelationNotesTriggerActions {
     Map<Id, Customer_Relationship__c> oldMap,
     List<Customer_Relationship__c> records
   ) {
-    Set<Id> idsOfPrimaryOwner = new Set<Id>();
-    Set<Id> idsOfCustomer = new Set<Id>();
-    String strNotesPrimaryKey;
-    List<Customer_Relationship__c> custRelRecords = records;
-
-    if (oldMap != null) {
-      custRelRecords = ListUtil.filter(records, oldMap)
-        .anyChanged(CUSTOMER_RELATIONSHIP_FIELDS)
-        .toList();
-    }
-
-    idsOfCustomer = ListUtil.getIds(
+    List<Customer_Relationship__c> custRelRecords = ListUtil.filter(
+        records,
+        oldMap
+      )
+      .anyChanged(CUSTOMER_RELATIONSHIP_FIELDS)
+      .toList();
+    Set<Id> idsOfCustomer = ListUtil.getIds(
       custRelRecords,
       Customer_Relationship__c.Customer__c
     );
-
+    Set<Id> idsOfPrimaryOwner = new Set<Id>();
     Map<String, Integer> mapOfPrimaryNotes = new Map<String, Integer>();
     for (
       Customer_Relationship__c objRelation : CUSTOMER_RELATIONSHIP_REPOSITORY.getCustomerRelationshipByCustomerIds(
         idsOfCustomer
       )
     ) {
-      strNotesPrimaryKey =
+      String strNotesPrimaryKey =
         String.valueOf(objRelation.Customer__c) +
         String.valueOf(objRelation.Territory__r.Primary_Franchise_Owner__c);
 
@@ -97,110 +92,103 @@ public with sharing class CustomerRelationNotesTriggerActions {
         objRelationship.Customer__c + strFranchiseOwnerId
       ) ?? 0;
       if (oldMap == null && counter < 1) {
-        objRelationship.addError(LABEL.MLCRM_Minimum_Primary_Notes_Error);
+        objRelationship.addError(LABEL.Minimum_Primary_Notes_Error);
       } else if (counter > 1) {
-        objRelationship.addError(LABEL.MLCRM_Maximum_Primary_Notes_Error);
+        objRelationship.addError(LABEL.Maximum_Primary_Notes_Error);
       }
     }
   }
 
   /**
-   * @description public without sharing class to bypass user sharing setting in lead conversion process
+   * @description CC-2175 create CustomerRelationship against shell prospect after receiving response from cap API
+   * @name createCustomerRelationship
+   * @param shellProspectAccountId shell prospect created after response from cap ocv maintain party API.
+   * @param reqRecord source SObject record i.e lead, Opportunity
    */
-  public without sharing class CustomerRelationshipCreator {
-    /**
-     * @description CC-2175 create CustomerRelationship against shell prospect after receiving response from cap API
-     * @name createCustomerRelationship
-     * @param shellProspectAccountId shell prospect created after response from cap ocv maintain party API.
-     * @param reqRecord source SObject record i.e lead, Opportunity
-     */
-    public void createCustomerRelationship(
-      Id shellProspectAccountId,
-      OCVRequestPayloadWrapper reqRecord
-    ) {
-      ID recordId = ID.valueOf(reqRecord.strRecordId);
-
-      List<SObject> records = CUSTOMER_RELATIONSHIP_REPOSITORY.getCRDetails(
-        recordId
-      );
-
-      Customer_Relationship__c primaryNote = getExistingCustomerRelationships(
-        shellProspectAccountId,
-        records
-      );
-      if (primaryNote != null) {
-        return;
-      }
-      Customer_Relationship__c objRelation = autoCustomerRelationshipCreation(
-        shellProspectAccountId,
-        reqRecord,
-        (ID) records[0].get('Territory__c')
-      );
-      DML_REPOSITORY.doInsert(
-        objRelation,
-        new DmlConfig().allowPartial().systemMode()
-      );
+  public static void createCustomerRelationship(
+    Id shellProspectAccountId,
+    OCVRequestPayloadWrapper reqRecord
+  ) {
+    ID recordId = ID.valueOf(reqRecord.strRecordId);
+    List<SObject> records = CUSTOMER_RELATIONSHIP_REPOSITORY.getCRDetails(
+      recordId
+    );
+    Customer_Relationship__c primaryNote = getExistingCustomerRelationships(
+      shellProspectAccountId,
+      records
+    );
+    if (primaryNote != null) {
+      return;
     }
+    Customer_Relationship__c objRelation = autoCustomerRelationshipCreation(
+      shellProspectAccountId,
+      reqRecord,
+      (ID) records[0].get('Territory__c')
+    );
+    DML_REPOSITORY.doInsert(
+      objRelation,
+      new DmlConfig().allowPartial().withoutSharing().systemMode()
+    );
+  }
 
-    /**
-     * @description CC-2175 create CustomerRelationship against shell prospect after receiving response from cap API
-     * @name getExistingCustomerRelationships
-     * @param shellProspectAccountId prospect record id
-     * @param records List<Sobject> record
-     * @return List<Customer_Relationship__c>
-     */
-    @TestVisible
-    private Customer_Relationship__c getExistingCustomerRelationships(
-      Id shellProspectAccountId,
-      List<SObject> records
-    ) {
-      if (records.isEmpty()) {
-        return null;
-      }
-      Id strPrimaryOwnerId = (Id) records[0]
-        .getSobject('Territory__r')
-        ?.get('Primary_Franchise_Owner__c');
-      List<Customer_Relationship__c> lstprimaryNote = CUSTOMER_RELATIONSHIP_REPOSITORY.getCustRelationshipIdofShellProspectAccount(
-        strPrimaryOwnerId,
-        shellProspectAccountId
-      );
-      if (lstprimaryNote.isEmpty()) {
-        return null;
-      }
-      return lstprimaryNote[0];
+  /**
+   * @description CC-2175 create CustomerRelationship against shell prospect after receiving response from cap API
+   * @name getExistingCustomerRelationships
+   * @param shellProspectAccountId prospect record id
+   * @param records List<Sobject> record
+   * @return List<Customer_Relationship__c>
+   */
+  @TestVisible
+  private static Customer_Relationship__c getExistingCustomerRelationships(
+    Id shellProspectAccountId,
+    List<SObject> records
+  ) {
+    if (records.isEmpty()) {
+      return null;
     }
+    Id strPrimaryOwnerId = (Id) records[0]
+      .getSobject('Territory__r')
+      ?.get('Primary_Franchise_Owner__c');
+    List<Customer_Relationship__c> lstprimaryNote = CUSTOMER_RELATIONSHIP_REPOSITORY.getCustRelationshipIdofShellProspectAccount(
+      strPrimaryOwnerId,
+      shellProspectAccountId
+    );
+    if (lstprimaryNote.isEmpty()) {
+      return null;
+    }
+    return lstprimaryNote[0];
+  }
 
-    /**
-     * @description CC-2175 create CustomerRelationship against shell prospect after receiving response from cap API
-     * @name autoCustomerRelationshipCreation
-     * @param shellProspectAccountId propect id
-     * @param reqRecord shell prospect created after response from cap ocv maintain party API.
-     * @param strTerritoryId territory id
-     * @return Customer_Relationship__c
-     */
-    @TestVisible
-    private Customer_Relationship__c autoCustomerRelationshipCreation(
-      Id shellProspectAccountId,
-      OCVRequestPayloadWrapper reqRecord,
-      Id strTerritoryId
-    ) {
-      Customer_Relationship__c objRelation = new Customer_Relationship__c();
-      List<String> lstOfPreferredName = new List<String>();
-      if (reqRecord.strFirstName != null) {
-        lstOfPreferredName.add(reqRecord.strFirstName);
-      }
-      if (reqRecord.strMiddleName != null) {
-        lstOfPreferredName.add(reqRecord.strMiddleName);
-      }
-      lstOfPreferredName.add(reqRecord.strLastName);
-      objRelation.Preferred_Name__c = String.join(lstOfPreferredName, ' ');
-      objRelation.Customer__c = shellProspectAccountId;
-      objRelation.Territory__c = strTerritoryId;
-      objRelation.OwnerId = reqRecord.strOwnerId;
-      objRelation.Relationship_To_Franchise__c = RELATIONSHIP_TO_FRANCHISE;
-      objRelation.Date_Relationship_Commenced__c = System.today();
-      return objRelation;
+  /**
+   * @description CC-2175 create CustomerRelationship against shell prospect after receiving response from cap API
+   * @name autoCustomerRelationshipCreation
+   * @param shellProspectAccountId propect id
+   * @param reqRecord shell prospect created after response from cap ocv maintain party API.
+   * @param strTerritoryId territory id
+   * @return Customer_Relationship__c
+   */
+  @TestVisible
+  private static Customer_Relationship__c autoCustomerRelationshipCreation(
+    Id shellProspectAccountId,
+    OCVRequestPayloadWrapper reqRecord,
+    Id strTerritoryId
+  ) {
+    Customer_Relationship__c objRelation = new Customer_Relationship__c();
+    List<String> lstOfPreferredName = new List<String>();
+    if (reqRecord.strFirstName != null) {
+      lstOfPreferredName.add(reqRecord.strFirstName);
     }
+    if (reqRecord.strMiddleName != null) {
+      lstOfPreferredName.add(reqRecord.strMiddleName);
+    }
+    lstOfPreferredName.add(reqRecord.strLastName);
+    objRelation.Preferred_Name__c = String.join(lstOfPreferredName, ' ');
+    objRelation.Customer__c = shellProspectAccountId;
+    objRelation.Territory__c = strTerritoryId;
+    objRelation.OwnerId = reqRecord.strOwnerId;
+    objRelation.Relationship_To_Franchise__c = RELATIONSHIP_TO_FRANCHISE;
+    objRelation.Date_Relationship_Commenced__c = System.today();
+    return objRelation;
   }
 
   /**
@@ -213,21 +201,20 @@ public with sharing class CustomerRelationNotesTriggerActions {
     Map<id, Customer_Relationship__c> oldMap,
     List<Customer_Relationship__c> records
   ) {
-    List<Customer_Relationship__c> listOfSobjects = records;
-    if (oldMap != null) {
-      listOfSobjects = ListUtil.filter(records, oldMap)
-        .changed(Customer_Relationship__c.Customer__c)
-        .toList();
-    }
-
+    List<Customer_Relationship__c> filteredRecords = ListUtil.filter(
+        records,
+        oldMap
+      )
+      .changed(Customer_Relationship__c.Customer__c)
+      .toList();
     set<Id> accIdsSet = ListUtil.getIds(
-      listOfSobjects,
+      filteredRecords,
       Customer_Relationship__c.Customer__c
     );
     Map<Id, Account> mapOfAccount = ACCOUNT_REPOSITORY.getAccountByIds(
       accIdsSet
     );
-    for (Customer_Relationship__c obj : listOfSobjects) {
+    for (Customer_Relationship__c obj : filteredRecords) {
       if (mapOfAccount.get(obj.Customer__c) == null) {
         obj.Customer_Name__c = '';
         continue;
@@ -260,7 +247,7 @@ public with sharing class CustomerRelationNotesTriggerActions {
     }
     DML_REPOSITORY.doUpdate(
       listOfCustomerRelationship,
-      new DmlConfig().allowPartial().systemMode()
+      new DmlConfig().allowPartial().withoutSharing().systemMode()
     );
   }
 }
