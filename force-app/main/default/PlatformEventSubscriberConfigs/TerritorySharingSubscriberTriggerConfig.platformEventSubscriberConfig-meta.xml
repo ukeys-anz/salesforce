@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PlatformEventSubscriberConfig xmlns="http://soap.sforce.com/2006/04/metadata">
+    <batchSize>1</batchSize>
+    <isProtected>false</isProtected>
+    <masterLabel>TerritorySharingSubscriberTriggerConfig</masterLabel>
+    <platformEventConsumer>MLCRMTerritorySharingSubscriberTrigger</platformEventConsumer>
+    <user>autoproc@00d9p000004lvjaea2</user>
+</PlatformEventSubscriberConfig>

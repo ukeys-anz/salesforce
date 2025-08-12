@@ -62,6 +62,21 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>RBM_Broker_Interactions_Read_Write_Sharing_Rule</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This sharing rule provides access to Residential Broker Managers, Enablement managers, Retail Broker Business Admins</description>
+        <label>RBM Broker Interactions Read/Write Sharing Rule</label>
+        <sharedTo>
+            <group>RBM_Broker_Interactions_Read_Write</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>RBM Broker Interaction</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Interaction_Coach_Read_Write_Sharing_Rule</fullName>
         <accessLevel>Edit</accessLevel>
         <description>This sharing rule provides read/write access to users with Coach Role for

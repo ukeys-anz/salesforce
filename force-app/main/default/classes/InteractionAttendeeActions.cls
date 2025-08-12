@@ -24,10 +24,23 @@ public with sharing class InteractionAttendeeActions {
    * @param attendees list of new interaction attendees
    */
   public static void validateAttendees(List<InteractionAttendee> attendees) {
+    Set<Id> interactionIds = ListUtil.getIds(
+      attendees,
+      InteractionAttendee.InteractionId
+    );
+    List<Interaction> interactionList = INTERACTION_REPOSITORY.queryRBMBrokerInteractionAndRelatedAttendees(
+      interactionIds
+    );
+
+    Set<Id> rbmInteractionIds = ListUtil.getIds(
+      interactionList,
+      Interaction.Id
+    );
     for (InteractionAttendee attendee : attendees) {
       attendee.Attendee_Name__c = attendee.Attendee_Name_Formula__c;
       attendee.UniqueKeyForInteractionAttendee__c = updateUniqueKeyForInteraction(
-        attendee
+        attendee,
+        rbmInteractionIds
       );
     }
   }
@@ -159,9 +172,6 @@ public with sharing class InteractionAttendeeActions {
       .isNotNull(Interaction.AccountId)
       .toList();
 
-    if (listCallInteractionsWithAccount.isEmpty()) {
-      return;
-    }
     List<interaction> interactionList = INTERACTION_REPOSITORY.queryInteractions(
       listCallInteractionsWithAccount
     );
@@ -354,43 +364,49 @@ public with sharing class InteractionAttendeeActions {
   /**
    * @description Update UniqueKeyForInteractionAttendee__c field for attendees
    * @param attendee list of new interaction attendees
+   * @param rbmInteractionIds set of interaction ids of RBM Broker Interactions
    * @return uniqueKey for restricting duplicate record insertion
    */
   @TestVisible
   private static String updateUniqueKeyForInteraction(
-    InteractionAttendee attendee
+    InteractionAttendee attendee,
+    Set<Id> rbmInteractionIds
   ) {
-    String uniqueKey;
-    switch on attendee.AttendeeType {
-      when 'Internal' {
-        uniqueKey =
-          attendee.InteractionId +
-          '_' +
-          attendee.UserId +
-          '_' +
-          attendee.Conversation_Sid__c;
-      }
-      when 'Customer' {
-        uniqueKey =
-          attendee.InteractionId +
-          '_' +
-          attendee.ContactId +
-          '_' +
-          attendee.Conversation_Sid__c;
-      }
-      when 'External' {
-        uniqueKey =
-          attendee.InteractionId +
-          '_' +
-          attendee.Attendee_Phone__c +
-          '_' +
-          attendee.Conversation_Sid__c;
-      }
-      when 'VirtualAgent' {
-        uniqueKey = attendee.InteractionId + '_' + attendee.Attendee_Name__c;
-      }
+    String attendeeType = attendee.AttendeeType;
+    Boolean isBroker = 'Broker'.equals(attendee.Attendee_SubType__c);
+    Boolean rbmInteractionExists = rbmInteractionIds.contains(
+      attendee.InteractionId
+    );
+    if (attendeeType == 'Internal') {
+      return attendee.InteractionId +
+        '_' +
+        attendee.UserId +
+        '_' +
+        attendee.Conversation_Sid__c;
     }
-    return uniqueKey;
+    if (
+      (attendeeType == 'Customer') ||
+      (attendeeType == 'External' &&
+      isBroker &&
+      rbmInteractionExists)
+    ) {
+      return attendee.InteractionId +
+        '_' +
+        attendee.ContactId +
+        '_' +
+        attendee.Conversation_Sid__c;
+    }
+    if (attendeeType == 'External' && (!isBroker || !rbmInteractionExists)) {
+      return attendee.InteractionId +
+        '_' +
+        attendee.Attendee_Phone__c +
+        '_' +
+        attendee.Conversation_Sid__c;
+    }
+    if (attendeeType == 'VirtualAgent') {
+      return attendee.InteractionId + '_' + attendee.Attendee_Name__c;
+    }
+    return '';
   }
 
   /**

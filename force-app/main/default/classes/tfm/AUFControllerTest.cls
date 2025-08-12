@@ -2,19 +2,33 @@
  * @description       :
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             :
- * @last modified on  : 06-09-2025
+ * @last modified on  : 08-07-2025
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
  **/
- @SuppressWarnings('PMD.CyclomaticComplexity')
+@SuppressWarnings('PMD.CyclomaticComplexity')
 @IsTest
 public with sharing class AUFControllerTest {
   static Faker faker = new Faker('AU');
+  private static final Id FAKER_ACCOUNT_ID = Lib_FakeIdGenerator.getMockId(
+    Account.getSObjectType()
+  );
   static Lib_MockProvider aufQueryMock;
   static Lib_MockProvider aufAPIRepoMock;
+  static Lib_MockProvider finAccRepoMock;
+  static Lib_MockProvider userMock;
+  static Lib_MockProvider dmlRepoMock;
+  static Lib_MockProvider finAccAPIRepoMock;
 
   static void registerMocks() {
     aufQueryMock = Lib_MockProvider.forType(IDOpsQueryRepository.class);
     aufAPIRepoMock = Lib_MockProvider.forType(AUFAPIRepository.class);
+    finAccRepoMock = Lib_MockProvider.forType(FinancialAccountRepository.class);
+    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
+    userMock = Lib_MockProvider.forType(UserInfoRepository.class)
+      .mock('checkCustomPermission', true);
+    finAccAPIRepoMock = Lib_MockProvider.forType(
+      FinancialAccountAPIRepository.class
+    );
   }
 
   static List<Id> personDigitalIds = new List<Id>{
@@ -52,8 +66,48 @@ public with sharing class AUFControllerTest {
       );
       personDigitalIdRecList.add(digitalIdentityRecord1);
 
+      PersonDigitalIdentity__x digitalIdentityRecord2 = new PersonDigitalIdentity__x(
+        credentialsResId__c = TFMConstants.CREDENTIALSRESID,
+        Internal_User_ID__c = TFMConstants.INTERNAL_USER_ID,
+        UUID__c = TFMConstants.UUID_VALUE,
+        OCV_ID__c = '32212110',
+        pinrefid__c = '137532',
+        persona_id__c = '222332322',
+        Status__c = 'Suspended',
+        PIN_Status__c = 'Active',
+        IAL_Identity_Assurance_Level__c = 4,
+        Mobile_Number__c = '0061043211111',
+        Id = personDigitalIds[0]
+      );
+      personDigitalIdRecList.add(digitalIdentityRecord2);
+
       return personDigitalIdRecList;
     }
+  }
+
+  private static List<FinServ__FinancialAccount__c> createMockFinancialAccount() {
+    Id productId = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
+    Product2 product = new Product2(
+      Id = productId,
+      Name = 'Test Product',
+      ANZ_Product_Code__c = 'SAVING01'
+    );
+    Account testAccount = TestDataFactory.createPersonAccount('1111', false);
+    testAccount.Id = FAKER_ACCOUNT_ID;
+    List<FinServ__FinancialAccount__c> financialAccountsList = new List<FinServ__FinancialAccount__c>();
+    FinServ__FinancialAccount__c finAccount1 = TestDataFactory.createFinancialAccountRecord(
+      GetHelpConstants.SAVINGS_ACCOUNT_RT_ID,
+      FAKER_ACCOUNT_ID,
+      false
+    );
+    FinServ__FinancialAccount__c finAccount = (FinServ__FinancialAccount__c) TestUtil.setFields(
+      finAccount1,
+      new Map<String, Object>{ 'Ownership__c' => 'Single' }
+    );
+    finAccount.FinServ__ProductName__r = product;
+    finAccount.FinServ__FinancialAccountNumber__c = '111111111';
+    financialAccountsList.add(finAccount);
+    return financialAccountsList;
   }
 
   @isTest
@@ -366,7 +420,8 @@ public with sharing class AUFControllerTest {
       Test.startTest();
       AUFController.updateMobileNumber(
         personDigitalIdentityRecords[0].Id,
-        '61470896073'
+        '61470896073',
+        false
       );
       Test.stopTest();
     } catch (Exception e) {
@@ -389,7 +444,8 @@ public with sharing class AUFControllerTest {
       Test.startTest();
       AUFController.updateMobileNumber(
         personDigitalIdentityRecords[0].Id,
-        '61470896073'
+        '61470896073',
+        false
       );
       Test.stopTest();
     } catch (Exception e) {
@@ -409,7 +465,8 @@ public with sharing class AUFControllerTest {
       Test.startTest();
       AUFController.updateMobileNumber(
         personDigitalIdentityRecords[0].Id,
-        '61470896073'
+        '61470896073',
+        false
       );
       Test.stopTest();
     } catch (Exception e) {
@@ -438,7 +495,8 @@ public with sharing class AUFControllerTest {
       Test.startTest();
       AUFController.updateMobileNumber(
         personDigitalIdentityRecords[0].Id,
-        '61470896073'
+        '61470896073',
+        false
       );
       Test.stopTest();
     } catch (Exception e) {
@@ -467,7 +525,8 @@ public with sharing class AUFControllerTest {
       Test.startTest();
       AUFController.updateMobileNumber(
         personDigitalIdentityRecords[0].Id,
-        '61470896073'
+        '61470896073',
+        true
       );
       Test.stopTest();
     } catch (Exception e) {
@@ -694,6 +753,128 @@ public with sharing class AUFControllerTest {
         e,
         AuraHandledException.class,
         'ArchiveFailException error expected.'
+      );
+    }
+  }
+
+  @isTest
+  static void testDisputedChecks() {
+    registerMocks();
+    aufQueryMock.mock(
+      'getPersonDigitalIdentityRec',
+      personDigitalIdentityRecords[2]
+    );
+
+    Test.startTest();
+    Boolean disputed = AUFController.disputedChecks(
+      personDigitalIdentityRecords[2].Id
+    );
+    Test.stopTest();
+    Assert.isTrue(disputed, 'PDI can be disputed');
+  }
+
+  @isTest
+  static void testDisputedChecks1() {
+    registerMocks();
+    aufQueryMock.mock(
+      'getPersonDigitalIdentityRec',
+      personDigitalIdentityRecords[0]
+    );
+
+    Test.startTest();
+    Boolean disputed = AUFController.disputedChecks(
+      personDigitalIdentityRecords[0].Id
+    );
+    Test.stopTest();
+    Assert.isFalse(disputed, 'PDI cannot be disputed');
+  }
+
+  @isTest
+  static void testDisputedChecksGenericErrorResp() {
+    registerMocks();
+    aufQueryMock.mockException('getPersonDigitalIdentityRec');
+    try {
+      Test.startTest();
+      AUFController.disputedChecks(personDigitalIdentityRecords[0].Id);
+      Test.stopTest();
+    } catch (Exception e) {
+      Assert.isInstanceOfType(
+        e,
+        AuraHandledException.class,
+        'Query returned no result'
+      );
+    }
+  }
+
+  @isTest
+  public static void testGetFinancialAccountFabricPositive() {
+    registerMocks();
+    finAccRepoMock.mock('getFinAccountList', createMockFinancialAccount());
+
+    Test.startTest();
+    List<UnifiedFinancialAccountModel> processedfinancialAccounts = FinancialAccountController.getFinancialAccountFabric(
+      '12345',
+      null
+    );
+    AUFController.isAnyAccountOpen(processedfinancialAccounts[0].accounts);
+    Test.stopTest();
+
+    Assert.isTrue(
+      processedfinancialAccounts.size() > 0,
+      'Fabric financial accounts should be grouped'
+    );
+  }
+
+  @isTest
+  public static void testCheckAccountsOpenFabric() {
+    registerMocks();
+    aufQueryMock.mock(
+      'getPersonDigitalIdentityRec',
+      personDigitalIdentityRecords[0]
+    );
+    finAccRepoMock.mock('getFinAccountList', createMockFinancialAccount());
+
+    Test.startTest();
+    List<UnifiedFinancialAccountModel> processedfinancialAccounts = FinancialAccountController.getFinancialAccountFabric(
+      '12345',
+      null
+    );
+    processedfinancialAccounts[0].accounts = null;
+    finAccAPIRepoMock.mock('getAccounts', processedfinancialAccounts[0]);
+    AUFController.checkAccountsOpen(personDigitalIdentityRecords[0].Id);
+    Test.stopTest();
+
+    Assert.isTrue(
+      processedfinancialAccounts.size() > 0,
+      'Fabric financial accounts should be grouped'
+    );
+  }
+
+  @isTest
+  static void testPermissionException() {
+    registerMocks();
+    aufQueryMock.mock(
+      'getPersonDigitalIdentityRec',
+      personDigitalIdentityRecords[0]
+    );
+    finAccRepoMock.mock('getFinAccountList', createMockFinancialAccount());
+    userMock = Lib_MockProvider.forType(UserInfoRepository.class)
+      .mock('checkCustomPermission', false);
+    finAccAPIRepoMock.mockException(
+      'getAccounts',
+      new FinancialAccountAPIRepository.PermissionException(
+        'PermissionException'
+      )
+    );
+    try {
+      Test.startTest();
+      AUFController.checkAccountsOpen(personDigitalIdentityRecords[0].Id);
+      Test.stopTest();
+    } catch (Exception e) {
+      Assert.isInstanceOfType(
+        e,
+        AuraHandledException.class,
+        'PermissionException Error'
       );
     }
   }

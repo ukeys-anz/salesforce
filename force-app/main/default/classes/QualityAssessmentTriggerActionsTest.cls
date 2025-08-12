@@ -266,4 +266,15 @@ public with sharing class QualityAssessmentTriggerActionsTest {
       'Share with user should be created'
     );
   }
+
+  @isTest
+  private static void testBlockImagesInRichText() {
+    List<Quality_Assessment__c> qaRecords = getQARecords();
+    qaRecords[0].CX_Criteria_Comments__c = '<img>';
+    Test.startTest();
+    QualityAssessmentTriggerActions.blockImagesInRichText(qaRecords);
+    Test.stopTest();
+
+    Assert.isTrue(qaRecords[0].hasErrors(), 'Record should have error.');
+  }
 }
