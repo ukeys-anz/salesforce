@@ -709,6 +709,66 @@ private class CommercialInteractionActionsTest {
     );
   }
 
+  @isTest
+  static void testPerformRedactionForPassportTest() {
+    //GIVEN List of Interaction Record
+    List<Interaction> interactionList = new List<Interaction>{
+      new Interaction(
+        Id = Lib_FakeIdGenerator.getMockId(Interaction.SObjectType),
+        Name = 'Sample Interaction',
+        RecordTypeId = RTInteraction.CommercialInteraction,
+        Optional_Notes__c = 'Passport C26X3458B'
+      )
+    };
+
+    String expectedResult = 'Passport *****458B';
+
+    //WHEN calling a performRedaction method
+
+    Test.startTest();
+    CommercialInteractionActions.performRedaction(interactionList);
+    Test.stopTest();
+
+    Interaction actualInteractionInstance = interactionList[0];
+
+    //THEN sensitive info must be redacted
+    Assert.areEqual(
+      expectedResult,
+      actualInteractionInstance.Optional_Notes__c,
+      'Redaction is Not Completed'
+    );
+  }
+
+  @isTest
+  static void testPerformRedactionForPassportNegativeTest() {
+    //GIVEN List of Interaction Record
+    List<Interaction> interactionList = new List<Interaction>{
+      new Interaction(
+        Id = Lib_FakeIdGenerator.getMockId(Interaction.SObjectType),
+        Name = 'Sample Interaction',
+        RecordTypeId = RTInteraction.CommercialInteraction,
+        Optional_Notes__c = 'Passport C26X3'
+      )
+    };
+
+    String expectedResult = 'Passport C26X3';
+
+    //WHEN calling a performRedaction method
+
+    Test.startTest();
+    CommercialInteractionActions.performRedaction(interactionList);
+    Test.stopTest();
+
+    Interaction actualInteractionInstance = interactionList[0];
+
+    //THEN sensitive info must not be redacted
+    Assert.areEqual(
+      expectedResult,
+      actualInteractionInstance.Optional_Notes__c,
+      'Redaction is completed'
+    );
+  }
+
   @IsTest
   static void testValidateAndPopulateCLG() {
     registerMocks();
