@@ -24,6 +24,7 @@
         <operation>excludes</operation>
         <value>Duplicate - Email,Duplicate - OCV Id</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>Retail Brokers</label>
     <sharedTo>
         <role>Enablement_Manager</role>

@@ -166,6 +166,7 @@ force-app/main/default/sharingRules/FinServ__FinancialAccount__c.sharingRules-me
 
 #Temporarily adding Case sharing rule to avoid backmerge issue.
 force-app/main/default/sharingRules/Case.sharingRules-meta.xml
+force-app/main/default/sharingRules/ResidentialLoanApplication.sharingRules-meta.xml
 
 #AR-23667 - ignoring Microsoft Defender Pset until all the sandboxes are refreshed
 force-app/main/default/permissionsets/Microsoft_Defender.permissionset-meta.xml
