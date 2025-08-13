@@ -64,6 +64,21 @@
                 <default>false</default>
                 <label>Quote Required</label>
             </value>
+            <value>
+                <fullName>Online/Virtual</fullName>
+                <default>false</default>
+                <label>Online/Virtual</label>
+            </value>
+            <value>
+                <fullName>Phone</fullName>
+                <default>false</default>
+                <label>Phone</label>
+            </value>
+            <value>
+                <fullName>Face to Face</fullName>
+                <default>false</default>
+                <label>Face to Face</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

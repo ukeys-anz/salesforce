@@ -67,6 +67,7 @@ const salesforceSecretNames = {
   "epic/updateloan": "sf-platform-np-updateloan",
   "epic/refinance": "sf-platform-np-refinance",
   "epic/multiprops": "sf-platform-np-multiprops",
+  "epic/cmos-main": "sf-platform-np-cmos",
   "epic/editloan": "sf-platform-np-editloan",
   "epic/extracare": "sf-platform-np-extracare",
   "epic/rlaSharing": "sf-platform-np-rlasharing",

@@ -4,7 +4,7 @@
       "name": "person/4b5c3dcf-c60b-442c-b614-cc8993dd2787/AccessControl/QTAzX0q_OhJqi5BAebp0L3A3Tg_conditional",
       "match": {
         "authChannel": "EDGE_AUTH_CHANNEL_COMPANION",
-        "deviceId": null,
+        "deviceCorrelationId": "device-04",
         "personaId": "b39ea11b-d5f7-43cf-978b-cb0525477aca"
       },
       "policy": "POLICY_CONDITIONAL",
@@ -19,7 +19,7 @@
       "name": "person/4b5c3dcf-c60b-442c-b614-cc8993dd2787/AccessControl/QTAzX0q_OhJqi5BAebp0L3A3Tg_deny",
       "match": {
         "authChannel": "EDGE_AUTH_CHANNEL_COMPANION",
-        "deviceId": null,
+        "deviceCorrelationId": "device-05",
         "personaId": "b39ea11b-d5f7-43cf-978b-cb0525477aca"
       },
       "policy": "POLICY_DENY",

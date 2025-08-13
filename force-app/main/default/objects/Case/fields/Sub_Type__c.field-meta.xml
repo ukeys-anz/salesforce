@@ -789,6 +789,11 @@
                 <label>Manual Valuation Request</label>
             </value>
             <value>
+                <fullName>IMT Enquiry/Disputes</fullName>
+                <default>false</default>
+                <label>IMT Enquiry/Disputes</label>
+            </value>
+            <value>
                 <fullName>Direct Debit or Recurring Payments 13 month statement</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
@@ -1175,6 +1180,10 @@
         <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>
             <valueName>Direct Debit or Recurring Payment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payments</controllingFieldValue>
+            <valueName>IMT Enquiry/Disputes</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>

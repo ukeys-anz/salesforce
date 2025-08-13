@@ -719,7 +719,7 @@
                 <field>LastModifiedById</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>Date_Time_Provisionally_Closed__c</field>
             </layoutItems>
             <layoutItems>

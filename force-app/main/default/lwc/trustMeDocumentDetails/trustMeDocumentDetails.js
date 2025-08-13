@@ -113,7 +113,8 @@ export default class TrustMeDocumentDetails extends LightningElement {
     "selfieEvaluationOutcome",
     "primaryDocAndSelfie",
     "secondaryDocuments",
-    "addressDetails"
+    "addressDetails",
+    "documentQualityEvalOutcome"
   ];
 
   data;
@@ -130,6 +131,7 @@ export default class TrustMeDocumentDetails extends LightningElement {
   mdtReqBodyForPrimaryDoc;
   mdtReqBodyForSecDoc;
   errorMessage;
+  documentQualityEvalOutcome;
 
   connectedCallback() {
     this.showSpinner = true;
@@ -191,6 +193,11 @@ export default class TrustMeDocumentDetails extends LightningElement {
             this.data?.evaluationOutcome?.id
           );
         }
+        this.documentQualityEvalOutcome = this.transformResponse(
+          this.data.documentQualityEvalOutcome,
+          this.data.documentFieldMappingValues
+            ?.Documents_Quality_Evaluation_Outcome
+        );
       })
       .catch((error) => {
         this.errorMessage =
@@ -320,10 +327,13 @@ export default class TrustMeDocumentDetails extends LightningElement {
       return null;
     }
     return response.map((item) => ({
-      type: item.addressTypeDescription,
+      type:
+        item.addressTypeDescription +
+        (item.addressSource ? " (" + item.addressSource + ")" : ""),
       addressValue: this.concatAddress(item),
       latitude: item.latitude,
-      longitude: item.longitude
+      longitude: item.longitude,
+      addressSource: item.addressSource
     }));
   }
 
@@ -331,7 +341,19 @@ export default class TrustMeDocumentDetails extends LightningElement {
     if (!response) {
       return null;
     }
-    if (response.stationInfo) {
+    if (response.countryCode !== "AU") {
+      return [
+        response.addressLine1,
+        response.addressLine2,
+        response.addressLine3,
+        response.city,
+        response.state,
+        response.postalCode,
+        response.countryCode3Chars
+      ]
+        .filter((value) => value)
+        .join(", ");
+    } else if (response.stationInfo) {
       return [
         response.stationInfo,
         response.boxId,
@@ -342,13 +364,17 @@ export default class TrustMeDocumentDetails extends LightningElement {
         .join(", ");
     }
     return [
+      response.residence ? response.residence : response.allotment,
       response.levelNumber,
-      response.residenceNumber,
       response.buildingName,
-      response.streetNumber,
-      response.streetName,
-      response.streetType,
-      response.streetSuffix,
+      [
+        response.streetNumber,
+        response.streetName,
+        response.streetType,
+        response.streetSuffix
+      ]
+        .filter((value) => value)
+        .join(" "),
       response.city,
       response.state,
       response.postalCode,

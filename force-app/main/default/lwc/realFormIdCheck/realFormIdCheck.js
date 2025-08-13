@@ -2,8 +2,7 @@ import { LightningElement, api } from "lwc";
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { NavigationMixin } from "lightning/navigation";
 import getSNOWEventInfoLWC from "@salesforce/apex/IDRAPIRepository.getSNOWEventInfoLWC";
-import { handleErrorShowToast, showToast } from "c/utils";
-import { CloseActionScreenEvent } from "lightning/actions";
+import { handleErrorShowToast, showToast, navigate } from "c/utils";
 import SNOW_URL from "@salesforce/label/c.IDR_ServiceNow_env_url";
 
 export default class RealFormIdCheck extends OmniscriptBaseMixin(
@@ -17,21 +16,9 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
   @api
   recordId;
   realFormId;
-  callFromOmni = false;
-  realFormRequired;
   _showCreate = false;
-  showValidate = false;
   _selectedOption;
   snowUrlJson = JSON.parse(SNOW_URL);
-
-  showError() {
-    handleErrorShowToast(
-      this,
-      "Real Form ID Invalid",
-      undefined,
-      "Please enter a valid Risk Event ID to continue."
-    );
-  }
 
   @api set selectedOption(value) {
     this._showCreate = value === "Y_NEW" ? true : false;
@@ -41,60 +28,50 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
     return this._selectedOption;
   }
 
-  closeAction() {
-    this.dispatchEvent(new CloseActionScreenEvent());
-  }
-  showResponseFailError() {
-    handleErrorShowToast(
-      this,
-      "Unable to Validate",
-      undefined,
-      "CMOS is unable to validate the Risk Event ID at this time, please try again later"
-    );
-  }
   startValidation() {
-    let data = {};
-    this.callFromOmni = true;
-    if (
-      this.omniJsonData.EditRealFormID?.RealFormRequired === "Y_EXI" &&
-      !(
-        this.omniJsonData.EditRealFormID?.RealFormID === null ||
-        this.omniJsonData.EditRealFormID?.RealFormID === undefined
-      )
-    ) {
-      data.EditRealFormID = {
-        RealFormID: this.omniJsonData.EditRealFormID.RealFormID.trim()
-      };
+    let reaFormId =
+      this.omniJsonData?.EditRealFormID?.RealFormID ??
+      this.omniJsonData?.Case?.ResolutionInformation?.realFormMAXId ??
+      this.omniJsonData.Case?.REALFormMAXID;
+
+    let isRealFormRequired =
+      this.omniJsonData.EditRealFormID?.RealFormRequired ??
+      this.omniJsonData.Case?.ResolutionInformation?.realFormRequired ??
+      this.omniJsonData.Case?.realFormRequired;
+
+    if (!reaFormId || isRealFormRequired !== "Y_EXI") {
+      return;
+    }
+
+    if (this.omniJsonData?.EditRealFormID?.RealFormID) {
       this.callAPI(this.omniJsonData.EditRealFormID.RealFormID);
-    } else {
-      if (
-        this.omniJsonData.Case?.ResolutionInformation?.realFormRequired ===
-          "Y_EXI" &&
-        !(
-          this.omniJsonData.Case?.ResolutionInformation?.realFormMAXId ===
-            null ||
-          this.omniJsonData.Case?.ResolutionInformation?.realFormMAXId ===
-            undefined
-        )
-      ) {
-        data.Case = {
+      this.omniApplyCallResp({
+        EditRealFormID: {
+          RealFormID: this.omniJsonData.EditRealFormID.RealFormID.trim()
+        }
+      });
+      return;
+    }
+
+    if (this.omniJsonData?.Case?.ResolutionInformation?.realFormMAXId) {
+      this.callAPI(this.omniJsonData.Case.ResolutionInformation.realFormMAXId);
+      this.omniApplyCallResp({
+        Case: {
           ResolutionInformation: {
             realFormMAXId:
               this.omniJsonData.Case.ResolutionInformation.realFormMAXId.trim()
           }
-        };
-        this.callAPI(
-          this.omniJsonData.Case.ResolutionInformation.realFormMAXId
-        );
-      }
-      if (this.omniJsonData.Case?.REALFormMAXID) {
-        data.Case = {
-          REALFormMAXID: this.omniJsonData.Case.REALFormMAXID.trim()
-        };
-        this.callAPI(this.omniJsonData.Case.REALFormMAXID);
-      }
+        }
+      });
+      return;
     }
-    this.omniApplyCallResp(data);
+
+    this.callAPI(this.omniJsonData.Case?.REALFormMAXID);
+    this.omniApplyCallResp({
+      Case: {
+        REALFormMAXID: this.omniJsonData.Case?.REALFormMAXID.trim()
+      }
+    });
   }
 
   showValidations(result, error, riskEventId) {
@@ -103,43 +80,46 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
       apiRun: false,
       apiSuccess: false,
       RiskFormIDValid: false,
-      validatedEventNumber: undefined
+      validatedEventNumber: null
     };
     this.iconName = "action:close";
-    if (result) {
-      data.apiRun = true;
-      data.apiSuccess = true;
-      if (result.result.length > 0) {
-        let firstResponse = result.result[0];
-        if (firstResponse.eventNumber === riskEventId) {
-          this.iconName = "action:approval";
-          data.RiskFormIDValid = true;
-          data.validatedEventNumber = firstResponse.eventNumber;
-          showToast(
-            this,
-            "Real Form ID Valid",
-            "Real Form ID is Validated from SNOW.",
-            undefined,
-            "success",
-            undefined
-          );
-        } else {
-          this.showError();
-        }
-      } else {
-        this.showError();
-      }
-    }
     if (error) {
-      data.apiRun = true;
-      data.apiSuccess = false;
-      this.showResponseFailError();
+      handleErrorShowToast(
+        this,
+        "Unable to Validate",
+        null,
+        "CMOS is unable to validate the Risk Event ID at this time, please try again later"
+      );
+      this.omniApplyCallResp({ ...data, apiRun: true });
+      return;
     }
-    if (this.callFromOmni) {
-      this.omniApplyCallResp(data);
-    } else {
-      this.closeAction();
+    let eventId = result.result?.[0]?.eventNumber;
+
+    if (eventId !== riskEventId) {
+      handleErrorShowToast(
+        this,
+        "Real Form ID Invalid",
+        null,
+        "Please enter a valid Risk Event ID to continue."
+      );
+      this.omniApplyCallResp({ ...data, apiRun: true, apiSuccess: true });
+      return;
     }
+    this.iconName = "action:approval";
+    showToast(
+      this,
+      "Real Form ID Valid",
+      "Real Form ID is Validated from SNOW.",
+      null,
+      "success",
+      null
+    );
+    this.omniApplyCallResp({
+      apiRun: true,
+      apiSuccess: true,
+      RiskFormIDValid: true,
+      validatedEventNumber: eventId
+    });
   }
 
   redirectToForm() {
@@ -149,37 +129,34 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
       handleErrorShowToast(
         this,
         "Unable to fetch a valid url",
-        undefined,
+        null,
         "Please contact your system administrator to set the required redirection url."
       );
-    } else {
-      let redirectionUrl = snowInstanceUrl
-        .replace("CASEID", encodeURIComponent(this.omniJsonData.recordId))
-        .replace(
-          "CASENUMBER",
-          encodeURIComponent(this.omniJsonData.Case.CaseNumber)
-        );
-
-      this[NavigationMixin.Navigate]({
-        type: "standard__webPage",
-        attributes: {
-          url: redirectionUrl
-        }
-      });
+      return;
     }
+    snowInstanceUrl = snowInstanceUrl
+      .replace("CASEID", encodeURIComponent(this.omniJsonData.recordId))
+      .replace(
+        "CASENUMBER",
+        encodeURIComponent(this.omniJsonData.Case.CaseNumber)
+      );
+
+    navigate(this, "standard__webPage", { url: snowInstanceUrl });
   }
+
   callAPI(riskEventId) {
-    riskEventId = riskEventId.trim();
     this.loading = true;
+    riskEventId = riskEventId.trim();
     getSNOWEventInfoLWC({
-      riskEventId: riskEventId
+      riskEventId
     })
       .then((result) => {
-        this.showValidations(result, undefined, riskEventId);
-        this.loading = false;
+        this.showValidations(result, null, riskEventId);
       })
       .catch((error) => {
-        this.showValidations(undefined, error, undefined);
+        this.showValidations(null, error, null);
+      })
+      .finally(() => {
         this.loading = false;
       });
   }

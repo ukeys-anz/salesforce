@@ -37,6 +37,7 @@ public with sharing class CardListModelConverter {
         mapOfAccountNumberAndOwnership
       );
       destCard.cardBlockType = sourceCard.cardBlockType;
+      destCard.falconEvent = sourceCard.falconEvent;
       destCard.newName = sourceCard.newName;
       destCard.replacementDate = sourceCard.replacementDate;
       cardListModelInstance.cards.add(destCard);

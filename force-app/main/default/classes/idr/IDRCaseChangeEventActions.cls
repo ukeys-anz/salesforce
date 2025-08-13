@@ -6,92 +6,94 @@
  * @group IDR(Internal Dispute Resolution)
  */
 public with sharing class IDRCaseChangeEventActions {
+  private static final DmlRepository DML = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
   /**
-   * @description Restricts or unrestricts cases
+   * @description Updates the case IDR_Is_Restricted__c field value based on the Restriction level field value.
    * @param records The published Case change events
    */
-  public static void updateCaseRestrictions(CaseChangeEvent[] records) {
-    if (
-      Case.sObjectType.getDescribe().isQueryable() &&
-      Case.sObjectType.getDescribe().isUpdateable() &&
-      Schema.sObjectType.Case.fields.IDR_Is_Restricted__c.isUpdateable()
-    ) {
-      Set<String> caseIdsToRestrict = getChangeCaseIds(records)
-        .get('ToRestrict');
-      Set<String> caseIdsToUnRestrict = getChangeCaseIds(records)
-        .get('ToUnRestrict');
-      Case[] casesToRestrict = new List<Case>();
-      Case[] casesToUnRestrict = new List<Case>();
-      Case[] casesToUpdate = new List<Case>();
-
-      if (caseIdsToRestrict.size() != 0) {
-        casesToRestrict = [
-          SELECT IDR_Is_Restricted__c
-          FROM Case
-          WHERE Id IN :caseIdsToRestrict AND IDR_Is_Restricted__c = FALSE
-        ];
-        for (Case c : casesToRestrict) {
-          c.IDR_Is_Restricted__c = true;
-        }
+  public static void updateCaseRestrictions(List<CaseChangeEvent> records) {
+    List<CaseChangeEvent> filteredEvents = validEvents(records);
+    List<Case> restrictedCases = getRestrictedCases(filteredEvents);
+    List<Case> nonRestrictedCases = getNonRestrictedCases(filteredEvents);
+    ListUtil.setField(restrictedCases, Case.IDR_Is_Restricted__c, true);
+    ListUtil.setField(nonRestrictedCases, Case.IDR_Is_Restricted__c, false);
+    List<Case> caseToUpdate = new List<Case>(restrictedCases);
+    caseToUpdate.addAll(nonRestrictedCases);
+    DML.doUpdate(caseToUpdate, new DmlConfig().systemMode());
+  }
+  /**
+   * @description Returns list of case records where IDR_Restriction_Level__c is 'Restricted Case'.
+   * @param listOfEvents List of CaseChangeEvent.
+   * @return `List<Case>` return list of restricted cases.
+   */
+  @TestVisible
+  private static List<Case> getRestrictedCases(
+    List<CaseChangeEvent> listOfEvents
+  ) {
+    List<Case> restrictedCases = new List<Case>();
+    for (CaseChangeEvent change : listOfEvents) {
+      if (
+        !change.IDR_Restriction_Level__c.equalsIgnoreCase('Restricted Case')
+      ) {
+        continue;
       }
-      if (caseIdsToUnRestrict.size() != 0) {
-        casesToUnRestrict = [
-          SELECT IDR_Is_Restricted__c
-          FROM Case
-          WHERE Id IN :caseIdsToUnRestrict AND IDR_Is_Restricted__c = TRUE
-        ];
-        for (Case c : casesToUnRestrict) {
-          c.IDR_Is_Restricted__c = false;
-        }
-      }
-      casesToUpdate.addAll(casesToRestrict);
-      casesToUpdate.addAll(casesToUnRestrict);
-      if (CasesToUpdate.size() != 0) {
-        update casesToUpdate;
-      }
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'IDRCaseChangeEventActions',
-        'updateCaseRestrictions',
-        'Not enough permissions to query or update Case.'
+      restrictedCases.add(
+        new Case(Id = change.ChangeEventHeader.getRecordIds()[0])
       );
     }
+    return restrictedCases;
   }
-
   /**
-   * @description Finds the Ids of the cases that changed and need to be updated
-   * @param records The published Case change events
-   * @return A map containing several sets of case Ids, one set per type of update to be performed.
+   * @description Returns list of case records where IDR_Restriction_Level__c is 'No Restriction'.
+   *  @param listOfEvents List of CaseChangeEvent.
+   * @return `List<Case>` return list of no restricted cases.
    */
-  private static Map<String, Set<String>> getChangeCaseIds(
-    CaseChangeEvent[] records
+  @TestVisible
+  private static List<Case> getNonRestrictedCases(
+    List<CaseChangeEvent> listOfEvents
   ) {
-    Set<String> caseIdsToRestrict = new Set<String>();
-    Set<String> caseIdsToUnRestrict = new Set<String>();
-    Map<String, Set<String>> caseIds = new Map<String, Set<String>>();
-
-    for (CaseChangeEvent change : (CaseChangeEvent[]) records) {
-      //if either case's restriction was updated, or case was inserted as restricted
-      if (
-        (change.ChangeEventHeader.getChangeType() == 'UPDATE' &&
-        change.ChangeEventHeader.getChangedFields()
-          .contains('IDR_Restriction_Level__c')) ||
-        (change.ChangeEventHeader.getChangeType() == 'CREATE' &&
-        change.IDR_Restriction_Level__c == 'Restricted Case')
-      ) {
-        if (change.IDR_Restriction_Level__c == 'Restricted Case') {
-          // Get all Record Ids for this change and add to the set
-          List<String> recordIds = change.ChangeEventHeader.getRecordIds();
-          caseIdsToRestrict.addAll(recordIds);
-        } else if (change.IDR_Restriction_Level__c == 'No Restriction') {
-          // Get all Record Ids for this change and add to the set
-          List<String> recordIds = change.ChangeEventHeader.getRecordIds();
-          caseIdsToUnRestrict.addAll(recordIds);
-        }
+    List<Case> nonRestrictedCases = new List<Case>();
+    for (CaseChangeEvent change : listOfEvents) {
+      if (!change.IDR_Restriction_Level__c.equalsIgnoreCase('No Restriction')) {
+        continue;
       }
+      nonRestrictedCases.add(
+        new Case(Id = change.ChangeEventHeader.getRecordIds()[0])
+      );
     }
-    caseIds.put('ToRestrict', caseIdsToRestrict);
-    caseIds.put('ToUnRestrict', caseIdsToUnRestrict);
-    return caseIds;
+    return nonRestrictedCases;
+  }
+  /**
+   * @description Return valid event records.
+   * @param records List of CaseChangeEvent to process.
+   * @return `List<CaseChangeEvent>` return valid event records.
+   */
+  @TestVisible
+  private static List<CaseChangeEvent> validEvents(
+    List<CaseChangeEvent> records
+  ) {
+    List<CaseChangeEvent> filteredEvents = new List<CaseChangeEvent>();
+    for (CaseChangeEvent record : records) {
+      if (record.IDR_Restriction_Level__c == null) {
+        continue;
+      }
+      if (
+        !record.ChangeEventHeader.getChangedFields()
+          .contains('IDR_Restriction_Level__c') &&
+        record.ChangeEventHeader.getChangeType() == 'UPDATE'
+      ) {
+        continue;
+      }
+      if (
+        record.IDR_Restriction_Level__c != 'Restricted Case' &&
+        record.ChangeEventHeader.getChangeType() == 'CREATE'
+      ) {
+        continue;
+      }
+      filteredEvents.add(record);
+    }
+    return filteredEvents;
   }
 }

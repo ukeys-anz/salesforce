@@ -12,6 +12,8 @@ public with sharing class QualityAssessmentTriggerActions {
     QualityAssessmentRepository.class
   );
 
+  private static final string IMAGE_ERROR = 'Images cannot be shared in comments. Please remove the image from your comment before you save.';
+
   private static final Set<SObjectField> FIELDS_TO_CHECK_FOR_CHANGE = new Set<SObjectField>{
     Quality_Assessment__c.Status__c,
     Quality_Assessment__c.Connection_and_Trust__c,
@@ -195,5 +197,18 @@ public with sharing class QualityAssessmentTriggerActions {
       qaShareRecords.add(newQAShare);
     }
     return qaShareRecords;
+  }
+
+  /**
+   * @description Blocks Images in Rich Text
+   * @param records QA records from trigger
+   */
+  public static void blockImagesInRichText(
+    List<Quality_Assessment__c> records
+  ) {
+    List<Quality_Assessment__c> qaWithImages = ListUtil.filter(records)
+      .contains(Quality_Assessment__c.CX_Criteria_Comments__c, '<img')
+      .toList();
+    ListUtil.addError(qaWithImages, IMAGE_ERROR);
   }
 }

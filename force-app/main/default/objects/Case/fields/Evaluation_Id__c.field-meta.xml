@@ -2,10 +2,11 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Evaluation_Id__c</fullName>
     <businessStatus>Active</businessStatus>
+    <caseSensitive>false</caseSensitive>
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - TrustMe</complianceGroup>
     <description>This field contains the Evaluation Id populated by the Cloud Function during TrustMe case creation.</description>
     <encryptionScheme>None</encryptionScheme>
-    <externalId>false</externalId>
+    <externalId>true</externalId>
     <label>TrustMe Evaluation Id</label>
     <length>255</length>
     <required>false</required>
