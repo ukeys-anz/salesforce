@@ -115,7 +115,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
             this,
             "Case Creation failed : ",
             undefined,
-            "Please contact your system administrator.",
+            "Please contact CMOS Support",
             "sticky"
           );
           this.loading = false;
