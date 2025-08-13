@@ -7,6 +7,14 @@ on:
         description: "Release Name"
         required: true
         type: string
+      CHANGE_REQUEST_RECORD:
+        description: "Change Request Name"
+        required: false
+        type: string
+      CHANGE_REQUEST_URL:
+        description: "Change Request URL"
+        required: false
+        type: string
 
 permissions:
   contents: "write"
@@ -170,3 +178,45 @@ jobs:
           release-tag-or-sha: ${{ steps.info.outputs.last_tag }}
           use-gh-token-vending: true
           app-repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+  prepare-notification:
+    runs-on: anzx-default
+    needs: [Release]
+    environment: "prod-validation"
+    env:
+      CHANGE_REQUEST_URL: "${{ github.event.inputs.CHANGE_REQUEST_URL }}"
+      CHANGE_REQUEST_NUMBER: "${{ github.event.inputs.CHANGE_REQUEST_RECORD }}"
+      RELEASE_NAME: "${{ github.event.inputs.NAME }}"
+      REPO_NAME: "${{ github.event.repository.name }}"
+      RELEASE_PIPELINE: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+    outputs:
+      slack_msg: ${{ steps.set-msg.outputs.slack_msg}}
+
+    steps:
+      - name: Conditional Checkout
+        if: ${{ env.CHANGE_REQUEST_URL == '' || env.CHANGE_REQUEST_NUMBER == '' }}
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Prepare Slack Message
+        id: set-msg
+        run: |
+          CAPITALIZED_REPO_NAME=$(echo "${{ env.REPO_NAME }}" | awk '{print toupper(substr($0,1,1)) substr($0,2)}') 
+          if [[ -z "${{ env.CHANGE_REQUEST_URL }}" ]] || [[ -z "${{ env.CHANGE_REQUEST_NUMBER }}" ]];then
+            lastTag="$( git describe --abbrev=0 --tags --match 'master*' )"
+            RELEASE_VERSION="https://github.com/${{ github.repository }}/tree/$lastTag"
+            msg="☁️ $CAPITALIZED_REPO_NAME Release:\\nRelease: ${{ env.RELEASE_NAME }}\\nRelease Version: $RELEASE_VERSION\\nRelease Pipeline: ${{ env.RELEASE_PIPELINE }}"
+          else
+            msg="☁️ $CAPITALIZED_REPO_NAME Release:\\nRelease: ${{ env.RELEASE_NAME }}\\nChange Request: <${{ env.CHANGE_REQUEST_URL }}|${{ env.CHANGE_REQUEST_NUMBER }}>\\nRelease Pipeline: ${{ env.RELEASE_PIPELINE }}"
+          fi
+          echo "slack_msg=$msg" >> "$GITHUB_OUTPUT"
+
+  send-release-notification:
+    needs: [Release, prepare-notification]
+    uses: anzx/github-reusable-workflows/.github/workflows/notification-hub.yaml@main
+    with:
+      isSlack: true
+      slackChannels: prod-release-notifications
+      slackMessage: "${{ needs.prepare-outputs.outputs.slack_msg }}"
+      slackPrivate: true
