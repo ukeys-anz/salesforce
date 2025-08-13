@@ -5,7 +5,7 @@
  */
 @isTest
 public class SOPIneligibilityControllerTest {
-  /*static Lib_MockProvider loanRecordMock;
+  static Lib_MockProvider loanRecordMock;
 
   static void registerMocks() {
     loanRecordMock = Lib_MockProvider.forType(
@@ -111,5 +111,5 @@ public class SOPIneligibilityControllerTest {
 
       return rla;
     }
-  }*/
+  }
 }

@@ -6,7 +6,7 @@
  */
 @isTest
 public inherited sharing class StravinskyServiceTest {
-  /*private static final String SUCCESS_CLOSE_PACKAGE_RESPONSE =
+  private static final String SUCCESS_CLOSE_PACKAGE_RESPONSE =
     '{' +
     '   \"accountsClosed\": "1"' +
     '   \"cardsClosed\": "0"' +
@@ -487,6 +487,11 @@ public inherited sharing class StravinskyServiceTest {
   }
 
   class MockClosePackageSuccess implements HttpCalloutMock {
+    /**
+     * @description mock response for callout
+     * @param req incoming request
+     * @return HTTPResponse success response
+     */
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
 
@@ -500,6 +505,11 @@ public inherited sharing class StravinskyServiceTest {
   }
 
   class MockClosePackageFailure implements HttpCalloutMock {
+    /**
+     * @description mock response for callout
+     * @param req incoming request
+     * @return HTTPResponse invalid response
+     */
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
 
@@ -512,6 +522,11 @@ public inherited sharing class StravinskyServiceTest {
   }
 
   class MockTemporalCaseWorkflowSuccess implements HttpCalloutMock {
+    /**
+     * @description mock response for callout
+     * @param req incoming request
+     * @return HTTPResponse success response
+     */
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
 
@@ -525,6 +540,11 @@ public inherited sharing class StravinskyServiceTest {
   }
 
   class MockTemporalCaseWorkflowFailure implements HttpCalloutMock {
+    /**
+     * @description mock response for callout
+     * @param req incoming request
+     * @return HTTPResponse invalid response
+     */
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
 
@@ -537,6 +557,11 @@ public inherited sharing class StravinskyServiceTest {
   }
 
   class MockRetrieveDetokenizedCOBPIDSuccess implements HttpCalloutMock {
+    /**
+     * @description mock response for callout
+     * @param req incoming request
+     * @return HTTPResponse success response
+     */
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
 
@@ -551,6 +576,11 @@ public inherited sharing class StravinskyServiceTest {
   }
 
   class MockRetrieveDetokenizedCOBPIDFailure implements HttpCalloutMock {
+    /**
+     * @description mock response for callout
+     * @param req incoming request
+     * @return HTTPResponse invalid response
+     */
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
 
@@ -565,6 +595,11 @@ public inherited sharing class StravinskyServiceTest {
   }
 
   class MockTokenizeCOBPIDSuccess implements HttpCalloutMock {
+    /**
+     * @description mock response for callout
+     * @param req incoming request
+     * @return HTTPResponse success response
+     */
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
 
@@ -577,6 +612,11 @@ public inherited sharing class StravinskyServiceTest {
   }
 
   class MockTokenizeCOBPIDFailure implements HttpCalloutMock {
+    /**
+     * @description mock response for callout
+     * @param req incoming request
+     * @return HTTPResponse invalid response
+     */
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
 
@@ -589,6 +629,11 @@ public inherited sharing class StravinskyServiceTest {
   }
 
   class MockRetrieveDetokenizedCOBTaxResidencySuccess implements HttpCalloutMock {
+    /**
+     * @description mock response for callout
+     * @param req incoming request
+     * @return HTTPResponse success response
+     */
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
 
@@ -603,7 +648,11 @@ public inherited sharing class StravinskyServiceTest {
   }
 
   class MockRetrieveDetokenizedCOBTaxResidencyFailure implements HttpCalloutMock {
-
+    /**
+     * @description mock response for callout
+     * @param req incoming request
+     * @return HTTPResponse invalid response
+     */
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
 
@@ -615,5 +664,5 @@ public inherited sharing class StravinskyServiceTest {
 
       return res;
     }
-  }*/
+  }
 }
