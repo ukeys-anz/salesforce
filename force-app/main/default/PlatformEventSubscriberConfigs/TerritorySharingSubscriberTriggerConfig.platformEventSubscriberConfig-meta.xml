@@ -4,5 +4,4 @@
     <isProtected>false</isProtected>
     <masterLabel>TerritorySharingSubscriberTriggerConfig</masterLabel>
     <platformEventConsumer>MLCRMTerritorySharingSubscriberTrigger</platformEventConsumer>
-    <user>autoproc@00d9p000004lvjaea2</user>
 </PlatformEventSubscriberConfig>
