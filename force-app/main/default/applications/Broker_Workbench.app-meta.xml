@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>RBM_Broker_Interaction_Attendee_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>RBM_Broker_Interaction_Attendee_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
+    </actionOverrides>
     <brand>
         <headerColor>#004165</headerColor>
         <shouldOverrideOrgTheme>true</shouldOverrideOrgTheme>
@@ -10,7 +28,7 @@
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>true</isNavPersonalizationDisabled>
     <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
-        <label>Broker Workbench</label>
+    <label>Broker Workbench</label>
     <navType>Console</navType>
     <profileActionOverrides>
         <actionName>View</actionName>
@@ -282,12 +300,89 @@
         <type>Flexipage</type>
         <profile>Admin</profile>
     </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>RBM_Broker_Interaction_Attendee_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>RBM_Broker_Interaction_Attendee_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>RBM_Broker_Interaction_Attendee_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>RBM_Broker_Interaction_Attendee_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>RBM_Broker_Interaction_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <recordType>Interaction.RBM_Broker_Interaction</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>RBM_Broker_Interaction_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <recordType>Interaction.RBM_Broker_Interaction</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>RBM_Broker_Interaction_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <recordType>Interaction.RBM_Broker_Interaction</recordType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>RBM_Broker_Interaction_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <recordType>Interaction.RBM_Broker_Interaction</recordType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>Tab</actionName>
+        <content>Home_Page_Default</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZ Standard User</profile>
+    </profileActionOverrides>
     <tabs>standard-home</tabs>
     <tabs>standard-Account</tabs>
     <tabs>standard-Contact</tabs>
     <tabs>standard-ResidentialLoanApplication</tabs>
     <tabs>Broker_Relation__c</tabs>
     <tabs>standard-Case</tabs>
+    <tabs>standard-Interaction</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Broker_Workbench_UtilityBar</utilityBar>
     <workspaceConfig>
@@ -302,6 +397,9 @@
         </mappings>
         <mappings>
             <tab>standard-Contact</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-Interaction</tab>
         </mappings>
         <mappings>
             <tab>standard-ResidentialLoanApplication</tab>
