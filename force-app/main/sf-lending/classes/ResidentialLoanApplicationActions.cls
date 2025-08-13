@@ -37,9 +37,7 @@ public with sharing class ResidentialLoanApplicationActions {
   private static final BrokerCodeRepository BROKER_CODE_REPOSITORY = (BrokerCodeRepository) Lib_InstanceProvider.forType(
     BrokerCodeRepository.class
   );
-  private static final CustomSettingsRepository BROKER_SETTINGS_REPOSITORY = (CustomSettingsRepository) Lib_InstanceProvider.forType(
-    CustomSettingsRepository.class
-  );
+
   private static final LendingCaseRepository LENDING_CASE_REPOSITORY = (LendingCaseRepository) Lib_InstanceProvider.forType(
     LendingCaseRepository.class
   );

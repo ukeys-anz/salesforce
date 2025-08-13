@@ -9,12 +9,12 @@
     <columns>Status__c</columns>
     <columns>Broker__c</columns>
     <columns>Office_Group__c</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>Record_Type__c</field>
         <operation>equals</operation>
         <value>RBM Broker Interaction</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>All Broker Interactions</label>
     <sharedTo>
         <group>RBM_Broker_Interactions_Read_Write</group>

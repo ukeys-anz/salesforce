@@ -9,7 +9,6 @@
     <columns>Status__c</columns>
     <columns>Broker__c</columns>
     <columns>Office_Group__c</columns>
-    <filterScope>Mine</filterScope>
     <filters>
         <field>RecordType</field>
         <operation>equals</operation>
@@ -20,6 +19,7 @@
         <operation>notEqual</operation>
         <value>Closed - Completed,Closed - Follow Up Interaction,Closed - Withdrawn</value>
     </filters>
+    <filterScope>Mine</filterScope>
     <label>My Open Interactions</label>
     <sharedTo>
         <group>RBM_Broker_Interactions_Read_Write</group>
