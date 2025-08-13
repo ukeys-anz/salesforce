@@ -80,10 +80,136 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Assisted_Broker__c</fieldItem>
+                <identifier>RecordAssisted_Broker_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-18823139-7690-454b-98cb-a40ae41e1e37</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Assisted_Broker_TPMI_SAO__c</fieldItem>
+                <identifier>RecordAssisted_Broker_TPMI_SAO_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-82197fb0-a000-4460-b317-8cb4659a2604</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-18823139-7690-454b-98cb-a40ae41e1e37</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column5</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-82197fb0-a000-4460-b317-8cb4659a2604</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column6</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-56cad799-e505-4661-af27-625aad19f755</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.ApplicationExtIdentifier</fieldItem>
                 <identifier>RecordApplicationExtIdentifierField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Loan_Purpose__c</fieldItem>
+                <identifier>RecordLoan_Purpose_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Property_Use__c</fieldItem>
+                <identifier>RecordProperty_Use__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Loan_Term__c</fieldItem>
+                <identifier>RecordLoan_Term_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Joint__c</fieldItem>
+                <identifier>RecordJoint_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Ineligible_Reasons__c</fieldItem>
+                <identifier>RecordIneligible_Reasons_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-94a7d455-0fbf-4fa7-b654-d3708d91b63a</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Status</fieldItem>
+                <identifier>RecordStatusField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Application_Progress__c</fieldItem>
+                <identifier>RecordApplication_Progress_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -122,40 +248,6 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Settlement_ID__c</fieldItem>
-                <identifier>RecordSettlement_ID_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet-94a7d455-0fbf-4fa7-b654-d3708d91b63a</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Status</fieldItem>
-                <identifier>RecordStatusField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Application_Progress__c</fieldItem>
-                <identifier>RecordApplication_Progress_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.Expiry_Date__c</fieldItem>
                 <identifier>RecordExpiry_Date_cField</identifier>
             </fieldInstance>
@@ -176,8 +268,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Ineligible_Reasons__c</fieldItem>
-                <identifier>RecordIneligible_Reasons_cField</identifier>
+                <fieldItem>Record.Settlement_ID__c</fieldItem>
+                <identifier>RecordSettlement_ID_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-8f9bb73c-9f82-434f-a12d-6f7edce015b0</name>
@@ -274,110 +366,6 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Assisted_Broker__c</fieldItem>
-                <identifier>RecordAssisted_Broker_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet-18823139-7690-454b-98cb-a40ae41e1e37</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Assisted_Broker_TPMI_SAO__c</fieldItem>
-                <identifier>RecordAssisted_Broker_TPMI_SAO_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet-82197fb0-a000-4460-b317-8cb4659a2604</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-18823139-7690-454b-98cb-a40ae41e1e37</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column5</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-82197fb0-a000-4460-b317-8cb4659a2604</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column6</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-56cad799-e505-4661-af27-625aad19f755</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Assisted_Lender__c</fieldItem>
-                <identifier>RecordAssisted_Lender_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet-1833292b-c949-4877-b3cc-141d57ad7c06</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Assisted_Broker_TPMI_SAO__c</fieldItem>
-                <identifier>RecordAssisted_Broker_TPMI_SAO_cField2</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet-92b3a260-b74f-4139-b052-99b8771005b8</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-1833292b-c949-4877-b3cc-141d57ad7c06</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column9</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-92b3a260-b74f-4139-b052-99b8771005b8</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column10</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-acf810ba-9ee0-4607-a988-3f64e0e79182</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.CreatedById</fieldItem>
@@ -438,7 +426,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>
-                    <value>Application Details</value>
+                    <value>Information</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection</identifier>
@@ -459,18 +447,6 @@
                         <rightValue>true</rightValue>
                     </criteria>
                 </visibilityRule>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentName>requestedLoanDetails</componentName>
-                <identifier>c_requestedLoanDetails</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentName>currentLoanDetailsDisplay</componentName>
-                <identifier>c_currentLoanDetailsDisplay</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -509,34 +485,8 @@
                 <identifier>flexipage_fieldSection3</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!Record.Originated_By__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Broker</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>columns</name>
-                    <value>Facet-acf810ba-9ee0-4607-a988-3f64e0e79182</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>horizontalAlignment</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>label</name>
-                    <value>Lender Information</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:fieldSection</componentName>
-                <identifier>flexipage_fieldSection5</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Originated_By__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Mobile Lender</rightValue>
+                        <leftValue>{!Record.Assisted_Broker_TPMI_SAO__c}</leftValue>
+                        <operator>NE</operator>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -628,8 +578,8 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>loanPreferencesDetails</componentName>
-                <identifier>c_loanPreferencesDetails</identifier>
+                <componentName>loanPreferenceDetailsDisplay</componentName>
+                <identifier>c_loanPreferenceDetailsDisplay</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-454d52e1-a8dd-493e-9168-d1c1c6fc8242</name>
@@ -1264,6 +1214,32 @@
                 </componentInstanceProperties>
                 <componentName>lst:dynamicRelatedList</componentName>
                 <identifier>lst_dynamicRelatedList2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>ResidentialLoanApplication.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>LoanApplicationLiabilities</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>NONE</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>rowsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer6</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
