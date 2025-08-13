@@ -166,6 +166,11 @@
         <label>Individual</label>
     </customValue>
     <customValue>
+        <fullName>ANZ Plus Home Loan - Refinance</fullName>
+        <default>false</default>
+        <label>ANZ Plus Home Loan - Refinance</label>
+    </customValue>
+    <customValue>
         <fullName>Checking Account</fullName>
         <default>false</default>
         <isActive>false</isActive>

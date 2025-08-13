@@ -16,11 +16,11 @@ public class CCRMContentDocumentLinkActionsTest {
   }
 
   /**
- * @description Create and Return EmailMessage record with incoming as false and given From/ToAddress
- * @param givenFromAddr FromAddress for EmailMessage
- * @param givenToAddr toAddress for EmailMessage
- * @return EmailMessage New EmailMessage record
- */
+   * @description Create and Return EmailMessage record with incoming as false and given From/ToAddress
+   * @param givenFromAddr FromAddress for EmailMessage
+   * @param givenToAddr toAddress for EmailMessage
+   * @return EmailMessage New EmailMessage record
+   */
   private static EmailMessage createAndRetEmailMessage(
     String givenFromAddr,
     String givenToAddr
@@ -358,16 +358,22 @@ public class CCRMContentDocumentLinkActionsTest {
   }
 
   /**
-  * @description test method for checkFromAddressExists
-  */
+   * @description test method for checkFromAddressExists
+   */
   @isTest
   static void testCheckFromAddressExists() {
     Assert.isFalse(
-      CCRMContentDocumentLinkActions.checkFromAddressExists('test@anz.com', null),
+      CCRMContentDocumentLinkActions.checkFromAddressExists(
+        'test@anz.com',
+        null
+      ),
       'checkFromAddressExists not returning correct result when AddressToCheck is Null'
     );
     Assert.isTrue(
-      CCRMContentDocumentLinkActions.checkFromAddressExists('test@anz.com', 'test@ANZ.com'),
+      CCRMContentDocumentLinkActions.checkFromAddressExists(
+        'test@anz.com',
+        'test@ANZ.com'
+      ),
       'checkFromAddressExists not returning correct result when AddressToCheck is same as FromAddress'
     );
     Assert.isTrue(
@@ -385,7 +391,10 @@ public class CCRMContentDocumentLinkActionsTest {
       'checkFromAddressExists not returning correct result when AddressToCheck not contains FromAddress'
     );
     Assert.isFalse(
-      CCRMContentDocumentLinkActions.checkFromAddressExists('test@anz.com', 'test3@anz.com'),
+      CCRMContentDocumentLinkActions.checkFromAddressExists(
+        'test@anz.com',
+        'test3@anz.com'
+      ),
       'checkFromAddressExists not returning correct result when AddressToCheck is not equal to FromAddress '
     );
   }

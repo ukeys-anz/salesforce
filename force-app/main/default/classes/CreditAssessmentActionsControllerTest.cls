@@ -18,7 +18,6 @@ public with sharing class CreditAssessmentActionsControllerTest {
    */
   @testSetup
   public static void setup() {
-    Faker faker = new Faker('AU');
     Account acc = TestDataFactory.createAccount(true);
     ResidentialLoanApplication[] newRLA = new List<ResidentialLoanApplication>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -27,7 +26,7 @@ public with sharing class CreditAssessmentActionsControllerTest {
       );
       rla.Credit_ID__c = '000-000-000-00' + String.valueOf(i);
       rla.AccountId = acc.Id;
-
+      rla.RecordTypeId = RTResidentialLoanApplication.anzxHomeLoan;
       newRLA.add(rla);
     }
     insert newRLA;

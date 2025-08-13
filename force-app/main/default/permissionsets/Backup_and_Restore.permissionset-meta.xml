@@ -2974,6 +2974,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.ReimbursementReason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Related_Bug__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3355,6 +3360,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.What_Customer_was_Trying_to_Do__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.ePaymentsCodeApplicable__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5074,6 +5084,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Interaction.Broker__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Interaction.Call_Recording_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -6370,6 +6385,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>LoanApplicationFinancial.FinancialExtIdentifier</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>LoanApplicationFinancial.Interest_Rate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8869,7 +8889,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ResidentialLoanApplication.AIP_AST_Expiry__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ResidentialLoanApplication.AmortizationTerm</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ResidentialLoanApplication.Application_Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ResidentialLoanApplication.Application_Progress__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8880,6 +8915,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>ResidentialLoanApplication.Assisted_Broker__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ResidentialLoanApplication.Assisted_Lender__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8954,6 +8994,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ResidentialLoanApplication.LVR_Excl_LMI__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ResidentialLoanApplication.Needs_Assessment_Created_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8970,6 +9015,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ResidentialLoanApplication.Originated_By__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ResidentialLoanApplication.Product__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ResidentialLoanApplication.Product__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8994,7 +9049,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>ResidentialLoanApplication.Application_Progress__c</field>
+        <field>ResidentialLoanApplication.Source__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -11179,6 +11234,10 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>ResidentialLoanApplication.Loan_Application</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>ResidentialLoanApplication.RLS</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

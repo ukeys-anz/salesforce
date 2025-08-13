@@ -165,6 +165,7 @@ export default class AboutYouViewDetails extends LightningElement {
   handleEditApplicant(e) {
     let applicantOcvId = e.target.dataset.id;
     let editModelAction = e.target.dataset.name;
+    // eslint-disable-next-line @locker/locker/distorted-xml-http-request-window-open
     aboutYouEditModel.open({
       size: "medium",
       recordId: this.recordId,

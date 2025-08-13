@@ -1,0 +1,95 @@
+<template>
+  <template lwc:if={_hasError}>
+    <div class="slds-text-color_error slds-p-around_small">{_errorMessage}</div>
+  </template>
+  <template lwc:elseif={isRecordUrl}>
+    <div class="fieldRow">
+      <lightning-layout>
+        <lightning-layout-item flexibility="auto" size="12">
+          <lightning-button
+            label={_dataValue}
+            onclick={handleNavToDetail}
+            variant="base"
+            data-value={_dataValue}
+          ></lightning-button>
+        </lightning-layout-item>
+      </lightning-layout>
+    </div>
+  </template>
+  <template lwc:else>
+    <div class="fieldRow">
+      <lightning-layout multiple-rows="true">
+        <lightning-layout-item flexibility="auto" size={paddingSize.fieldLabel}>
+          <!-- Checks if there is label-->
+          <template lwc:if={_fieldLabel}>
+            <label class="fieldLabel">{_fieldLabel}</label>
+            <!-- Checks if there is label-->
+            <template lwc:if={_helpText}>
+              <lightning-helptext
+                class="helptextCss"
+                content={_helpText}
+              ></lightning-helptext>
+            </template>
+          </template>
+        </lightning-layout-item>
+        <lightning-layout-item flexibility="auto" size={paddingSize.fieldValue}>
+          <!-- displays the configured component-->
+          <template lwc:if={isNumber}>
+            <lightning-formatted-number
+              class={_fieldCompCss}
+              lwc:spread={_attributes}
+              value={_dataValue}
+            ></lightning-formatted-number>
+          </template>
+          <template lwc:elseif={isEmail}>
+            <lightning-formatted-email
+              class={_fieldCompCss}
+              lwc:spread={_attributes}
+              value={_dataValue}
+            >
+            </lightning-formatted-email>
+          </template>
+          <template lwc:elseif={isUrl}>
+            <lightning-formatted-url
+              class={_fieldCompCss}
+              lwc:spread={_attributes}
+              value={_dataValue}
+            ></lightning-formatted-url>
+          </template>
+          <template lwc:elseif={isDate}>
+            <c-generic-date-handler
+              class={_fieldCompCss}
+              field={field}
+              value={_dataValue}
+            ></c-generic-date-handler>
+          </template>
+          <template lwc:elseif={isText}>
+            <lightning-formatted-text
+              class={_fieldCompCss}
+              lwc:spread={_attributes}
+              value={_dataValue}
+            >
+            </lightning-formatted-text>
+          </template>
+          <template lwc:elseif={isCheckBox}>
+            <lightning-input
+              type="checkbox"
+              class="fieldContent"
+              lwc:spread={_attributes}
+              checked={_dataValue}
+              disabled
+            >
+            </lightning-input>
+          </template>
+          <template lwc:elseif={isRecordLink}>
+            <c-generic-record-link lwc:spread={_attributes}>
+            </c-generic-record-link>
+          </template>
+          <template lwc:else>
+            <!-- placeholder for lwc:component -->
+          </template>
+        </lightning-layout-item>
+      </lightning-layout>
+    </div>
+  </template>
+</template>

@@ -6,6 +6,11 @@
     <columns>Type__c</columns>
     <columns>Status__c</columns>
     <columns>Last_Modified__c</columns>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>STATE_CANCELLED</value>
+    </filters>
     <filterScope>Mine</filterScope>
     <label>My Settlements</label>
 </ListView>

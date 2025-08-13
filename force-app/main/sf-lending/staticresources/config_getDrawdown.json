@@ -1,0 +1,173 @@
+{
+  "fieldConfig": {
+    "title": "",
+    "schema": [
+      {
+        "fieldLabel": "Account Number",
+        "fieldColumn": "loanFacility.loanAccount.apxrsvdNumber",
+        "fieldtype": "lightning-formatted-text"
+      },
+      {
+        "fieldLabel": "Drawdown BSB",
+        "fieldColumn": "loanFacility.loanAccount.bsb",
+        "fieldtype": "lightning-formatted-text"
+      },
+      {
+        "fieldLabel": "Shortfall/Surplus Amount",
+        "fieldColumn": "drawdownSurplusShortfall.units",
+        "fieldtype": "lightning-formatted-number",
+        "attributes": {
+          "format-style": "currency",
+          "currency-code": "AUD"
+        }
+      },
+      {
+        "fieldLabel": "Payout Amount",
+        "fieldColumn": "drawdownPayoutFigure.units",
+        "fieldtype": "lightning-formatted-number",
+        "attributes": {
+          "format-style": "currency",
+          "currency-code": "AUD"
+        }
+      },
+      {
+        "fieldLabel": "Executed Date",
+        "fieldColumn": "createTime",
+        "fieldtype": "lightning-formatted-text",
+        "isDate": true,
+        "attributes": {
+          "year": "numeric",
+          "month": "2-digit",
+          "day": "2-digit",
+          "hour": "2-digit",
+          "minute": "2-digit"
+        }
+      },
+      {
+        "fieldLabel": "Status",
+        "fieldColumn": "state",
+        "fieldtype": "lightning-formatted-text",
+        "isEnum": true,
+        "enumValues": {
+          "STATE_UNSPECIFIED": "Unspecified",
+          "STATE_NEW": "New",
+          "STATE_PROCESSING": "Processing",
+          "STATE_COMPLETED": "Completed",
+          "STATE_REVERSING": "Reversing",
+          "STATE_REVERSED": "Reversed",
+          "STATE_FAILED": "Failed",
+          "STATE_SCHEDULED": "Scheduled"
+        }
+      },
+      {
+        "fieldLabel": "Scheduled Reason",
+        "fieldColumn": "scheduledReason",
+        "fieldtype": "lightning-formatted-text",
+        "isEnum": true,
+        "enumValues": {
+          "SCHEDULED_REASON_UNSPECIFIED": "Unspecified",
+          "SCHEDULED_REASON_PENDING_TRANSACTIONS_DETECTED": "Pending Transaction(s)",
+          "SCHEDULED_REASON_DRAWDOWN_OPERATION_LIMIT_EXCEEDED": "Drawdown Operation Limit Exceeded",
+          "SCHEDULED_REASON_NON_PROCESSING_TIME": "Non Processing Time"
+        }
+      }
+    ],
+    "layoutconfig": {
+      "layout": {
+        "horizontalAlign": "spread",
+        "verticalAlign": "end",
+        "pull-to-boundary": "medium"
+      },
+      "layoutitem": {
+        "flexibility": "auto",
+        "padding": "horizontal-small",
+        "size": "5"
+      }
+    }
+  },
+  "tableConfig": [
+    {
+      "title": "Drawdown Transactions",
+      "dataPath": "drawdownTransactions",
+      "columns": [
+        {
+          "type": "text",
+          "label": "Transaction Type",
+          "fieldName": "type",
+          "originalField": "type",
+          "hideDefaultActions": true,
+          "cellAttributes": {
+            "alignment": "left"
+          },
+          "sortable": true,
+          "isEnum": true,
+          "enumValues": {
+            "TYPE_UNSPECIFIED": "Unspecified",
+            "TYPE_CSTCONT": "Customer Contribution",
+            "TYPE_DRAW": "Draw",
+            "TYPE_DRAWSEC": "Security Fees",
+            "TYPE_DRAWPOF": "Payoff",
+            "TYPE_RSTADVNC": "Reinstatement Of Advance"
+          }
+        },
+        {
+          "type": "text",
+          "label": "Account Type",
+          "fieldName": "accountType",
+          "originalField": "accounts[0].type",
+          "hideDefaultActions": true,
+          "cellAttributes": {
+            "alignment": "left"
+          },
+          "sortable": true,
+          "isEnum": true,
+          "enumValues": {
+            "TYPE_UNSPECIFIED": "Unspecified",
+            "TYPE_PROCESSING": "Processing",
+            "TYPE_CREDIT": "Credit",
+            "TYPE_DEBIT": "Debit",
+            "TYPE_INSURANCE": "Insurance",
+            "TYPE_REDRAW_CREDIT": "Redraw Credit"
+          }
+        },
+        {
+          "type": "currency",
+          "label": "Amount",
+          "fieldName": "amountUnits",
+          "originalField": "amount",
+          "hideDefaultActions": true,
+          "cellAttributes": {
+            "alignment": "left"
+          },
+          "typeAttributes": {
+            "currencyCode": "AUD",
+            "minimumFractionDigits": 2,
+            "maximumFractionDigits": 2
+          },
+          "sortable": true
+        },
+        {
+          "type": "text",
+          "label": "Account Number",
+          "fieldName": "creditAccountNumber",
+          "originalField": "accounts[0].account.apxrsvdNumber",
+          "hideDefaultActions": true,
+          "cellAttributes": {
+            "alignment": "left"
+          },
+          "sortable": true
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "description": "Configuration for drawdown detail view with transactions table",
+    "author": "@fangl6",
+    "updated": "2025-06-27",
+    "controller": "DrawdownTransactionController",
+    "componentType": "genericCard",
+    "apiEndpoint": "/drawdowns/{id}",
+    "requiredParameters": ["id"]
+  }
+}

@@ -1,0 +1,70 @@
+<template>
+  <c-generic-button-handler
+    card-config={cardConfig}
+    card-data={cardData}
+  ></c-generic-button-handler>
+  <lightning-card title={componentTitle}>
+    <template lwc:if={isLoading}>
+      <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-1 spinnerHolder">
+          <lightning-spinner
+            alternative-text="Loading"
+            size="medium"
+            variant="brand"
+          ></lightning-spinner>
+        </div>
+      </div>
+    </template>
+    <template lwc:elseif={_hasError}>
+      <c-error message={_errorMessage}></c-error>
+    </template>
+    <template lwc:else>
+      <div class="slds-card__body slds-card__body_inner">
+        <!-- Field Container -->
+        <template lwc:if={hasFields}>
+          <div class="slds-m-bottom_medium">
+            <c-generic-field-container
+              value={cardData}
+              object-config={fieldConfig}
+              object-key="card"
+              record-id={recordId}
+            ></c-generic-field-container>
+          </div>
+        </template>
+
+        <!-- Data Tables in Accordions -->
+        <template lwc:if={hasTable}>
+          <lightning-accordion
+            class="slds-m-top_medium"
+            onsectiontoggle={handleSectionToggle}
+            allow-multiple-sections-open="true"
+            active-section-name={activeSection}
+          >
+            <template for:each={tableDataSets} for:item="tableDataSet">
+              <lightning-accordion-section
+                key={tableDataSet.id}
+                name={tableDataSet.sectionName}
+                label={tableDataSet.title}
+              >
+                <template lwc:if={tableDataSet.config}>
+                  <c-generic-data-table
+                    table-data={tableDataSet.data}
+                    table-config={tableDataSet.config}
+                    key-field="id"
+                    hide-checkbox-column="true"
+                    column-widths-mode="fixed"
+                  ></c-generic-data-table>
+                </template>
+                <template lwc:else>
+                  <div class="slds-text-color_error">
+                    Datatable missing Config.
+                  </div>
+                </template>
+              </lightning-accordion-section>
+            </template>
+          </lightning-accordion>
+        </template>
+      </div>
+    </template>
+  </lightning-card>
+</template>

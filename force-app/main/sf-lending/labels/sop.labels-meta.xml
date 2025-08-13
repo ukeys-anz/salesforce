@@ -49,4 +49,19 @@
         <shortDescription>MS Get List Of Loan Account Changes</shortDescription>
         <value>callout:SF_MS_CH2/credit-assessment/v1/loan/{0}/changes</value>
     </labels>
+    <labels>
+        <fullName>NoIllionDataForCreditBureau</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Not to display Illion if the Retrieved Time is greater than 30th November 2024</shortDescription>
+        <value>2024-12-01T00:00:00.000Z</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_LoanAccount</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS Get Loan Account</shortDescription>
+        <value>callout:SF_MS_CH2/credit-assessment/v1/loan/{0}</value>
+    </labels>
 </CustomLabels>

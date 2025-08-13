@@ -78,6 +78,30 @@ public with sharing class LoanPreferenceServiceTest {
     }
   }
 
+  /**
+   * @description Static method to return Loan Preference Data
+   */
+  static LexLoanappV1b1_loanapplication_types.LoanPreferences getLoanPreferenceData {
+    get {
+      LexLoanappV1b1_loanapplication_types.LoanPreferences loanPref = new LexLoanappV1b1_loanapplication_types.LoanPreferences();
+      loanPref.uid = '7479fe3d-f0b8-4739-a4cd-7fb334bf3451';
+      loanPref.offset = false;
+      loanPref.repaymentFrequency = 'REPAYMENT_FREQUENCY_MONTHLY';
+      loanPref.etag = '1731984334297';
+      loanPref.taxDeductiblePercentage = 12;
+      loanPref.propertyIds = new List<String>{ 'string', 'string' };
+      loanPref.initialLoanTermDetails = new LexLoanappV1b1_loanapplication_types.LoanTermDetails();
+      loanPref.initialLoanTermDetails.loanTermMonths = 120;
+      loanPref.subsequentLoanTermDetails = new LexLoanappV1b1_loanapplication_types.LoanTermDetails();
+      loanPref.subsequentLoanTermDetails.loanTermMonths = 120;
+      loanPref.funds = new List<LexLoanappV1b1_loanapplication_types.FundPortion>();
+      LexLoanappV1b1_loanapplication_types.FundPortion fund = new LexLoanappV1b1_loanapplication_types.FundPortion();
+      fund.purpose = 'purpose';
+      loanPref.funds.add(fund);
+      return loanPref;
+    }
+  }
+
   @isTest
   static void testGetLoanPrefDetailsSuccess() {
     registerMocks();
@@ -221,6 +245,89 @@ public with sharing class LoanPreferenceServiceTest {
       ocvId,
       urlParams,
       getUpdateLoanpreferenceRequestModel
+    );
+    Test.stopTest();
+
+    Assert.isNotNull(
+      calloutMock.getHistory('makeRestCallout'),
+      'Callout should be made'
+    );
+    Assert.isFalse(response.successful, 'Response should be error');
+    Assert.areEqual(
+      500,
+      response.statusCode,
+      'Status code of the response should be 500'
+    );
+  }
+
+  @isTest
+  static void testUpdateLoanPrefDetails() {
+    registerMocks();
+
+    HttpCalloutResponse successResponse = new HttpCalloutResponse();
+    successResponse.body = Service.getStaticResource('mock_GetLoanApplication');
+    successResponse.successful = true;
+    successResponse.statusCode = 200;
+    calloutMock.mock('makeRestCallout', successResponse);
+
+    String ocvId = '11111231';
+    List<Object> urlParams = new List<Object>{
+      '13241571',
+      '7479fe3d-f0b8-4739-a4cd-7fb334bf3451'
+    };
+    // Need to set Token for mock callout
+    Cache.Session.put(
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + ocvId,
+      AuthServiceTest.IDTESTVALUE
+    );
+
+    Test.startTest();
+    LoanPreferenceService service = new LoanPreferenceService();
+    HttpCalloutResponse response = service.updateLoanPreferenceDetails(
+      ocvId,
+      urlParams,
+      getLoanPreferenceData
+    );
+    Test.stopTest();
+
+    Assert.isNotNull(
+      calloutMock.getHistory('makeRestCallout'),
+      'Callout should be made'
+    );
+    Assert.isTrue(response.successful, 'Response should be successful');
+    Assert.isTrue(
+      response.body.contains('preferences'),
+      'Response should have preferences'
+    );
+  }
+
+  @isTest
+  static void testUpdateLoanPrefDetailsException() {
+    registerMocks();
+
+    HttpCalloutResponse errorResponse = new HttpCalloutResponse();
+    errorResponse.successful = false;
+    errorResponse.statusCode = 500;
+    errorResponse.error = new CalloutException('Error');
+    calloutMock.mock('makeRestCallout', errorResponse);
+
+    String ocvId = '1234';
+    List<Object> urlParams = new List<Object>{
+      '13241571',
+      '7479fe3d-f0b8-4739-a4cd-7fb334bf3451'
+    };
+    // Need to set Token for mock callout
+    Cache.Session.put(
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + ocvId,
+      AuthServiceTest.IDTESTVALUE
+    );
+
+    Test.startTest();
+    LoanPreferenceService service = new LoanPreferenceService();
+    HttpCalloutResponse response = service.updateLoanPreferenceDetails(
+      ocvId,
+      urlParams,
+      getLoanPreferenceData
     );
     Test.stopTest();
 

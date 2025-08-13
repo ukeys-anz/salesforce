@@ -166,19 +166,9 @@ public with sharing class RetailBrokerFinancialAccountAction {
       extIdToBrokerIdMap.values()
     );
 
-    List<Broker_Code__c> validBrokerCodes = new List<Broker_Code__c>();
-
-    for (
-      Broker_Code__c brokerCode : BROKER_CODE_REPOSITORY.getBrokerIdentifiers(
-        brokerIdentifiers
-      )
-    ) {
-      String syncStatus = brokerCode.Broker_Name__r.Sync_Status__c;
-      if (isInvalidSyncStatus(syncStatus)) {
-        continue;
-      }
-      validBrokerCodes.add(brokerCode);
-    }
+    List<Broker_Code__c> validBrokerCodes = BROKER_CODE_REPOSITORY.getBrokerIdentifiers(
+      brokerIdentifiers
+    );
 
     Map<String, Broker_Code__c> externalIdVsBrokerCodeMap = (Map<String, Broker_Code__c>) Listutil.mapBy(
       validBrokerCodes,

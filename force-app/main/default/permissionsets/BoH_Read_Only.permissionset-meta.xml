@@ -9,7 +9,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>CreditReferralCaseController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>FinancialAccountController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>GenericController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -57,6 +65,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>LoanApplicationController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>LoanPreferenceController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -90,6 +102,9 @@
     </customMetadataTypeAccesses>
     <customMetadataTypeAccesses>
         <name>FinancialAccountUIConfiguration__mdt</name>
+    </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <name>FinancialAccountConfiguration__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
     <customPermissions>
@@ -1329,6 +1344,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ResidentialLoanApplication.Assisted_Lender__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ResidentialLoanApplication.Assisted_Broker_TPMI_SAO__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1489,6 +1509,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ResidentialLoanApplication.SOP_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ResidentialLoanApplication.State__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1510,6 +1535,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ResidentialLoanApplication.Version__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.LANID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

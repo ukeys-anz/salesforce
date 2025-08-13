@@ -25,9 +25,9 @@
     "@babel/eslint-parser": "^7.27.5",
     "@babel/preset-env": "^7.27.2",
     "@locker/eslint-config-locker": "^0.20.8",
-    "@lwc/eslint-plugin-lwc": "^2.2.0",
+    "@lwc/eslint-plugin-lwc": "^3.1.0",
     "@sa11y/jest": "^6.6.2",
-    "@salesforce/cli": "^2.92.7",
+    "@salesforce/cli": "^2.100.0",
     "@salesforce/eslint-config-lwc": "^3.7.1",
     "@salesforce/eslint-plugin-lightning": "^1.0.1",
     "@salesforce/sfdx-lwc-jest": "^7.1.0",
@@ -36,19 +36,19 @@
     "@typescript-eslint/parser": "^7.8.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^8.57.1",
-    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jest": "^28.3.0",
     "faker": "^4.1.0",
     "husky": "^6.0.0",
     "jest": "^30.0.0",
     "jest-environment-jsdom": "^30.0.0",
-    "prettier": "^3.3.3",
+    "prettier": "^3.6.2",
     "prettier-plugin-apex": "^2.1.4",
     "pretty-quick": "^4.0.0",
     "saxon-js": "^2.7.0",
     "typescript": "^3.9.7"
   },
   "overrides": {
-    "axios": "1.8.4"
+    "axios": "1.11.0"
   }
 }

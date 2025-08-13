@@ -31,7 +31,10 @@ public with sharing class TFMAUFControllerTest {
     );
     FinServ__FinancialAccount__c finAccount = (FinServ__FinancialAccount__c) TestUtil.setFields(
       finAccount1,
-      new Map<String, Object>{ 'Ownership__c' => 'Single' }
+      new Map<String, Object>{
+        'Ownership__c' => 'Single',
+        'Linked_Product_Code__c' => 'SAVING01'
+      }
     );
     finAccount.FinServ__ProductName__r = product;
     finAccount.FinServ__FinancialAccountNumber__c = '111111111';
@@ -156,6 +159,10 @@ public with sharing class TFMAUFControllerTest {
   static void testupdateStatusArchive() {
     registerMocks();
     finAccRepoMock.mock('getFinAccountList', createMockFinancialAccount());
+    finAccRepoMock.mock(
+      'getDigitallyConnectedFinAccounts',
+      createMockFinancialAccount()
+    );
     TFMAUFController controller = new TFMAUFController();
     Map<String, Object> input = new Map<String, Object>();
     Map<String, Object> output = new Map<String, Object>();
@@ -170,9 +177,7 @@ public with sharing class TFMAUFControllerTest {
     Object isInvoked = controller.call('checkAccountsOpen', args);
     Test.stopTest();
 
-    Boolean isAnyAccountOpen = (Boolean) output.get(
-      'isAnyAccountOpen'
-    );
+    Boolean isAnyAccountOpen = (Boolean) output.get('isAnyAccountOpen');
 
     Assert.areEqual(true, isInvoked, 'Method not invoked.');
     Assert.areEqual(

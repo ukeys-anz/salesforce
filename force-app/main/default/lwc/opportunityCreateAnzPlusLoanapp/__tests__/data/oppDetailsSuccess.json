@@ -1,0 +1,61 @@
+{
+  "attributes": {
+    "type": "Opportunity",
+    "url": "/services/data/v62.0/sobjects/Opportunity/0069h00000Dyn3CAAR"
+  },
+  "Id": "0069h00000Dyn3CAAR",
+  "Name": "New Simpology Test",
+  "Opportunity_ID__c": "0000000986",
+  "Servicing_Branch__c": "1919",
+  "AccountId": "0019h000009mcdkAAA",
+  "AIP_Requested__c": false,
+  "OwnerId": "0059h000007S3WnAAK",
+  "TPMI__c": "3095",
+  "Territory__c": "a1d9h000000nHDEAA2",
+  "Customer_Needs__c": "ANZ Plus Home Loan - Refinance",
+  "Amount": 19880,
+  "Expected_Settlement_Date__c": "2050-01-04",
+  "OpportunityContactRoles": {
+    "totalSize": 1,
+    "done": true,
+    "records": [
+      {
+        "attributes": {
+          "type": "OpportunityContactRole",
+          "url": "/services/data/v62.0/sobjects/OpportunityContactRole/00K9h00000AqAiHEAV"
+        },
+        "OpportunityId": "0069h00000Dyn3CAAR",
+        "Id": "00K9h00000AqAiHEAV",
+        "ContactId": "0039h00000DsuFhAAJ",
+        "Role": "Applicant",
+        "Source_System_Id__c": "4024958365",
+        "Contact": {
+          "attributes": {
+            "type": "Contact",
+            "url": "/services/data/v62.0/sobjects/Contact/0039h00000DsuFhAAJ"
+          },
+          "FirstName": "ARAVIND",
+          "LastName": "KUMAR",
+          "AccountId": "0019h00000BRZ8HAAX",
+          "Birthdate": "1988-05-05",
+          "Gender__c": "M",
+          "Id": "0039h00000DsuFhAAJ"
+        }
+      }
+    ]
+  },
+  "Owner": {
+    "attributes": {
+      "type": "User",
+      "url": "/services/data/v62.0/sobjects/User/0059h000007S3WnAAK"
+    },
+    "Lan_Id__c": "bhadanip",
+    "FirstName": "Prahlad",
+    "LastName": "Bhadani",
+    "Email": "prahlad.bhadani@anz.com",
+    "Id": "0059h000007S3WnAAK"
+  },
+  "Account": {
+    "ANZx_Customer__c": true
+  }
+}

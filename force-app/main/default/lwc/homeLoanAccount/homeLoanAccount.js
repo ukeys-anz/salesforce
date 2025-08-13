@@ -24,9 +24,8 @@ export default class HomeLoanAccountCard extends NavigationMixin(
   @api componentTitle;
   timestamp;
   financialAccounts = [];
-  showBalanceModal = false;
+  showInfoModal = false;
   offsetList;
-  showRedrawAvailableModal = false;
   financialAccounRoleList = [];
   loanImageUrl = getStaticResource + "/images/Mortgage.png";
   errorImageUrl = getStaticResource + "/images/PermissionError.png";
@@ -36,6 +35,8 @@ export default class HomeLoanAccountCard extends NavigationMixin(
     "Failed To Retrieve Home Loan Account. Please refresh and try again. If issue persists please contact your System Administrator";
   singleFinAccount;
   multiparty = false;
+  tooltipCode = "";
+  headerTitle = "";
 
   // Map for rendering the HTML
   templateMap = {
@@ -84,10 +85,13 @@ export default class HomeLoanAccountCard extends NavigationMixin(
                 finAccount.recordId = account.FinServ__FinancialAccount__c;
               }
             });
-            finAccount.offsetDetails = this.handleOffsetDetails(
-              finAccount,
-              this.offsetDetails
-            );
+            if (finAccount.product_details?.marketing_code) {
+              finAccount.isAnzPlusAccount = true;
+              finAccount.offsetDetails = this.handleOffsetDetails(
+                finAccount,
+                this.offsetDetails
+              );
+            }
             finAccount.isOffsetListEmpty =
               (finAccount.offsetDetails?.length ?? 0) === 0;
           }
@@ -107,10 +111,13 @@ export default class HomeLoanAccountCard extends NavigationMixin(
 
         if (this.isFinAccountTab) {
           this.singleFinAccount = this.financialAccounts[0];
-          this.offsetList = this.handleOffsetDetails(
-            this.singleFinAccount,
-            this.offsetDetails
-          );
+          if (this.singleFinAccount.product_details?.marketing_code) {
+            this.singleFinAccount.isAnzPlusAccount = true;
+            this.offsetList = this.handleOffsetDetails(
+              this.singleFinAccount,
+              this.offsetDetails
+            );
+          }
         }
 
         const financialAccountOpenList = this.financialAccounts.filter(
@@ -318,12 +325,12 @@ export default class HomeLoanAccountCard extends NavigationMixin(
     }
   }
 
-  handleBalanceModal() {
-    this.showBalanceModal = !this.showBalanceModal;
-  }
-
-  handleRedrawAvailableModal() {
-    this.showRedrawAvailableModal = !this.showRedrawAvailableModal;
+  handleInfoModal({ currentTarget }) {
+    const field = currentTarget.dataset.field;
+    const code = currentTarget.dataset.id;
+    this.tooltipCode = `${code}${field.toUpperCase()}`;
+    this.headerTitle = this.formatBalanceTitle(field);
+    this.showInfoModal = !this.showInfoModal;
   }
 
   //Sorting the order of accounts based on account product types.
@@ -349,5 +356,16 @@ export default class HomeLoanAccountCard extends NavigationMixin(
       // Return 0 if the 'property_use_type' values are the same
       return 0;
     });
+  }
+
+  closeModal() {
+    this.showInfoModal = false;
+  }
+
+  formatBalanceTitle(balanceTitle) {
+    return balanceTitle
+      .split("_")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
   }
 }

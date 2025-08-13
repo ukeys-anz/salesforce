@@ -32,7 +32,7 @@ public with sharing class UnifiedFinancialAccountModelConverter {
     for (FinServ__FinancialAccount__c finAccount : finAccounts) {
       UnifiedFinancialAccountModel.AccountList finAccountDetail = new UnifiedFinancialAccountModel.AccountList();
       String finAccountKey =
-        finAccount.Marketing_Code__c +
+        TextUtils.removeNonAlphanumericChar(finAccount.Linked_Product_Code__c) +
         '_' +
         FABRIC_OWNERSHIP_UI.get(finAccount.Ownership__c);
       FinancialAccountUIConfiguration__mdt finAccConfig = QueryFinancialAccountUIConfig.configByDeveloperName.get(
@@ -40,6 +40,8 @@ public with sharing class UnifiedFinancialAccountModelConverter {
       );
 
       finAccountDetail.id = finAccount.Id;
+      finAccountDetail.linkedProductCode = finAccount.Linked_Product_Code__c;
+      finAccountDetail.finserv_product_display_name = finAccount.Product_Name_Display__c;
       finAccountDetail.account_name = finAccount.Name;
       finAccountDetail.account_number = finAccount.FinServ__FinancialAccountNumber__c;
       finAccountDetail.finserv_status = finAccount.FinServ__Status__c;
@@ -61,7 +63,6 @@ public with sharing class UnifiedFinancialAccountModelConverter {
 
       finAccountList.add(finAccountDetail);
     }
-
     UnifiedFinancialAccountModel model = new UnifiedFinancialAccountModel(
       finAccountList
     );

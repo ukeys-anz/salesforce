@@ -173,6 +173,7 @@ export default class TrustMeCaseStatusPath extends LightningElement {
     let caseData = this.caseData;
     let primaryFailedReasonFieldInfo = this.primaryFailedReasonFieldInfo;
     let secondaryFailedReasonFieldInfo = this.secondaryFailedReasonFieldInfo;
+    // eslint-disable-next-line @locker/locker/distorted-xml-http-request-window-open
     StatusUpdateModal.open({
       label: "Case Update Modal",
       size: "small",

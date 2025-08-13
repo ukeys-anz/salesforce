@@ -33,6 +33,10 @@ public with sharing class FinancialAccountControllerTest {
   public static void testGetFinancialAccountFabricPositive() {
     registerMocks();
     finAccRepoMock.mock('getFinAccountList', createMockFinancialAccount());
+    finAccRepoMock.mock(
+      'getDigitallyConnectedFinAccounts',
+      createMockFinancialAccount()
+    );
 
     Test.startTest();
     List<UnifiedFinancialAccountModel> processedfinancialAccounts = FinancialAccountController.getFinancialAccountFabric(
@@ -242,6 +246,47 @@ public with sharing class FinancialAccountControllerTest {
     );
   }
 
+  @isTest
+  public static void testGetFinancialAccountDBException() {
+    registerMocks();
+    finAccRepoMock.mock(
+      'getFinAccountList',
+      new List<FinServ__FinancialAccount__c>()
+    );
+    finAccRepoMock.mock(
+      'getDigitallyConnectedFinAccounts',
+      new List<FinServ__FinancialAccount__c>()
+    );
+    Exception ex;
+    try {
+      FinancialAccountController.getFinancialAccountDB('12345', null);
+    } catch (Exception e) {
+      ex = e;
+    }
+    Assert.areEqual(
+      ex.getMessage(),
+      'Script-thrown exception',
+      'Exception will be thrown'
+    );
+  }
+  @isTest
+  public static void testGetFinancialAccountFabricException() {
+    registerMocks();
+    Lib_MockProvider.forType(UserInfoRepository.class)
+      .mock('checkCustomPermission', false);
+    Exception ex;
+    try {
+      FinancialAccountController.getFinancialAccountFabric('12345', null);
+    } catch (Exception e) {
+      ex = e;
+    }
+    Assert.areEqual(
+      ex.getMessage(),
+      'Script-thrown exception',
+      'Exception will be thrown'
+    );
+  }
+
   /**
    * @description This method helps in providing the mock response from Fabric
    * @return Fabric financial accounts
@@ -278,7 +323,10 @@ public with sharing class FinancialAccountControllerTest {
     );
     FinServ__FinancialAccount__c finAccount = (FinServ__FinancialAccount__c) TestUtil.setFields(
       finAccount1,
-      new Map<String, Object>{ 'Ownership__c' => 'Single' }
+      new Map<String, Object>{
+        'Ownership__c' => 'Single',
+        'Linked_Product_Code__c' => 'SAVING01'
+      }
     );
     finAccount.FinServ__ProductName__r = product;
     finAccount.FinServ__FinancialAccountNumber__c = '111111111';

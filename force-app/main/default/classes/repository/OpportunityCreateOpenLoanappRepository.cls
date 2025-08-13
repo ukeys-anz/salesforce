@@ -22,6 +22,8 @@ public with sharing class OpportunityCreateOpenLoanappRepository {
         Servicing_Branch__c,
         AccountId,
         Account.Source_System_Id__c,
+        Account.OCV_ID__c,
+        Account.ANZx_Customer__c,
         AIP_Requested__c,
         OwnerId,
         Owner.Lan_Id__c,
@@ -34,6 +36,7 @@ public with sharing class OpportunityCreateOpenLoanappRepository {
         Expected_Settlement_Date__c,
         Loanapp_Reference__c,
         Application_Key__c,
+        Territory__c,
         (
           SELECT
             Id,
@@ -51,6 +54,28 @@ public with sharing class OpportunityCreateOpenLoanappRepository {
       WHERE Id = :recordId
       WITH USER_MODE
       LIMIT 1
-    ];
+    ] ?? null;
+  }
+
+  /**
+   * @description fetch user territory details
+   * @param ownerId String
+   * @param territoryId String
+   * @return User_Territory__c
+   */
+  public User_Territory__c getUserTerritory(
+    String ownerId,
+    String territoryId
+  ) {
+    if (String.isBlank(ownerId) || String.isBlank(territoryId)) {
+      return null;
+    }
+    return [
+      SELECT Id, SAO__c
+      FROM User_Territory__c
+      WHERE User__c = :ownerId AND Territory__c = :territoryId
+      WITH USER_MODE
+      LIMIT 1
+    ] ?? null;
   }
 }

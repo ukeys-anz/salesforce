@@ -145,10 +145,7 @@ public class PicklistUtilTest {
     Assert.areEqual(
       expected,
       result,
-      'expected result should be: ' +
-      expected +
-      ' but got: ' +
-      result
+      'expected result should be: ' + expected + ' but got: ' + result
     );
   }
 }

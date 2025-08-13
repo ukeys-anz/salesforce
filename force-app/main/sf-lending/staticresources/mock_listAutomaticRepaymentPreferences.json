@@ -1,0 +1,41 @@
+{
+  "automaticRepaymentPreferences": [
+    {
+      "id": "ff69b291-651a-4754-b54d-6ebc76e82bf5",
+      "settlementId": "1c792b92-626f-47ab-a7ae-9b576cd66039",
+      "loanFacilityConfigId": "824bb87a-0d14-4b14-9920-e64b2054de97",
+      "repaymentAccount": {
+        "number": "467300496",
+        "bsbNumber": "014111"
+      },
+      "repaymentFrequency": "REPAYMENT_FREQUENCY_FORTNIGHTLY",
+      "state": "STATE_COMPLETED",
+      "createBy": {
+        "type": "TYPE_PARTY",
+        "id": "1000563949"
+      },
+      "createTime": "2025-05-16T05:13:39.158754264Z",
+      "updateBy": {
+        "type": "TYPE_PARTY",
+        "id": "1000563949"
+      },
+      "updateTime": "2025-05-16T05:13:39.158754264Z",
+      "confirmation": [
+        {
+          "confirmBy": {
+            "type": "TYPE_PARTY",
+            "id": "1000563950"
+          },
+          "confirmTime": "2025-05-16T05:14:24.849553802Z"
+        }
+      ],
+      "etag": "0bbbbd7be4b44ebe76382f4d455d4cc37f662ddc550c9d64423c728d745df8f4",
+      "nominatedRepaymentAccount": {
+        "name": "accounts/467300496",
+        "bsb": "014111",
+        "accountName": "Laron Schamberger",
+        "productDetails": null
+      }
+    }
+  ]
+}

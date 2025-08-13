@@ -3,7 +3,6 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { CloseActionScreenEvent } from "lightning/actions";
 import { getRecord, getFieldValue } from "lightning/uiRecordApi";
 import { getPicklistValuesByRecordType } from "lightning/uiObjectInfoApi";
-import { CurrentPageReference } from "lightning/navigation";
 import saveAccountDetails from "@salesforce/apex/ManageExtraCareController.handleExtraCareUpdate";
 import getStagingRecordStatus from "@salesforce/apex/ManageExtraCareController.getStagingRecordStatus";
 import canManageHighRiskVictim from "@salesforce/customPermission/ManageExtraCareHighRiskScamVictim";
@@ -16,6 +15,7 @@ import REVIEW_DATE from "@salesforce/schema/Account.ExtraCareReviewDate__c";
 import DISCLOSURE from "@salesforce/schema/Account.ExtraCareDisclosure__c";
 import CONSENT from "@salesforce/schema/Account.ExtraCareConsent__c";
 import OCVID from "@salesforce/schema/Account.OCV_ID__c";
+import OCV_EVENT_VERSION from "@salesforce/schema/Account.OCV_Event_Version__c";
 import SOURCE_SYSTEM_ID from "@salesforce/schema/Account.Source_System_ID__c";
 import SOURCE_SYSTEM_NAME from "@salesforce/schema/Account.Source_System_Name__c";
 import ACCOUNT_OBJECT from "@salesforce/schema/Account";
@@ -35,7 +35,8 @@ const FIELDS = [
   OCVID,
   SOURCE_SYSTEM_ID,
   SOURCE_SYSTEM_NAME,
-  RECORD_TYPE_ID_FIELD
+  RECORD_TYPE_ID_FIELD,
+  OCV_EVENT_VERSION
 ];
 const HIGH_RISK_VICTIM_ERROR =
   "You are not authorised to add or remove 'High risk scam victim'";
@@ -58,8 +59,6 @@ const NOTES_HELP_TEXT =
   "Only record information that is needed to ensure appropriate provision of extra care to the customer, keeping the notes brief. DO NOT leave notes with your opinion, derogatory comments, or emotive language. For support or more information, refer to KnowHow or relevant knowledge article.";
 
 export default class ManageExtraCare extends LightningElement {
-  @api recordId;
-  accountId;
   @track oldAccount = {};
   @track newAccount = {};
   isLoading = true;
@@ -79,7 +78,6 @@ export default class ManageExtraCare extends LightningElement {
       this.newAccount.ExtraCareConsent__c = false;
       this.newAccount.ExtraCareDisclosure__c = false;
       this.isLoading = false;
-      this.fetchStagingRecordStatus();
     } else if (error) {
       this.toast.error(
         "Error",
@@ -87,15 +85,13 @@ export default class ManageExtraCare extends LightningElement {
       );
     }
   }
-
-  @wire(CurrentPageReference)
-  getStateParameters(currentPageReference) {
-    if (currentPageReference) {
-      this.accountId = currentPageReference.state.recordId;
-    }
+  _recordId;
+  @api
+  get recordId() {
+    return this._recordId;
   }
-
-  connectedCallback() {
+  set recordId(value) {
+    this._recordId = value;
     this.fetchStagingRecordStatus();
   }
   @wire(getPicklistValuesByRecordType, {
@@ -126,7 +122,7 @@ export default class ManageExtraCare extends LightningElement {
       Pending: PENDING_STATUS_MESSAGE,
       Error: ERROR_STATUS_MESSAGE
     };
-    getStagingRecordStatus({ accountId: this.accountId })
+    getStagingRecordStatus({ accountId: this.recordId })
       .then((data) => {
         if (!Object.keys(invalidStatuses).includes(data)) {
           return;

@@ -10,6 +10,7 @@ export default class DaonFileImage extends LightningElement {
   //Custom css in array format. The CSS classes must be added to daonFileImage.css
   //Example: ["customClass1", "customClass2"]
   @api customClass = [];
+  @api customStyle = "";
 
   //Is image "src" fetching in progress.
   isFetchingSrc = true;
@@ -32,7 +33,7 @@ export default class DaonFileImage extends LightningElement {
   }
 
   get imgClass() {
-    return ["imgCSS", ...this.customClass];
+    return ["imgCSS", ...(this.customClass ?? [])];
   }
 
   get showError() {

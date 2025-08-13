@@ -37,16 +37,12 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;Archive&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;status&quot;
-      }, {
-        &quot;field&quot; : &quot;ialValue&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;4&quot;
-      } ]
+      } ],
+      &quot;operator&quot; : &quot;OR&quot;
     }
   },
   &quot;showPersistentComponent&quot; : [ true, false ],
@@ -1903,10 +1899,6 @@
       }, {
         &quot;field&quot; : &quot;isAnyAccountOpen&quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;false&quot;
-      }, {
-        &quot;field&quot; : &quot;showSuccessToast&quot;,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
         &quot;data&quot; : &quot;false&quot;
       } ]
     }

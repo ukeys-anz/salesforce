@@ -4,6 +4,9 @@
  * @since 24/06/2024
  */
 public with sharing class ResidentialLoanApplicationRepository {
+  @TestVisible
+  private static Map<String, Loan_Application_Validity__mdt> loanApplicationValidityMap = new Map<String, Loan_Application_Validity__mdt>();
+
   /**
    * @description
    * @param loanId loan appklciation id
@@ -44,6 +47,7 @@ public with sharing class ResidentialLoanApplicationRepository {
         Name,
         Sync_Status__c,
         ApplicationExtIdentifier,
+        RecordTypeId,
         Account.External_Id__c
       FROM ResidentialLoanApplication
       WHERE Id IN :loanIds
@@ -69,48 +73,9 @@ public with sharing class ResidentialLoanApplicationRepository {
         Credit_Reassess_Required__c
       FROM ResidentialLoanApplication
       WHERE Id = :recordId
+      WITH USER_MODE
       LIMIT 1
     ] ?? null;
-  }
-
-  /**
-   * @description query account based on OCVId
-   * @param ocvId List of ocvids to search account details
-   * @return  `List<Account>` the result of accounts
-   */
-  public List<Account> getAccountsFromOcvIds(List<String> ocvId) {
-    if (ocvId.isEmpty()) {
-      return new List<Account>();
-    }
-
-    List<Account> accList = [
-      SELECT FirstName, OCV_ID__c
-      FROM Account
-      WHERE OCV_ID__c IN :ocvId
-      WITH USER_MODE
-    ];
-
-    return accList;
-  }
-
-  /**
-   * @description query expense control based on justification codes
-   * @param expenseCodeSet set of justification codes
-   * @return  `List<Expense_Control__c>` the result of exepense control
-   */
-  public List<Expense_Control__c> getExpenseControl(
-    Set<String> expenseCodeSet
-  ) {
-    if (expenseCodeSet.isEmpty()) {
-      return new List<Expense_Control__c>();
-    }
-    List<Expense_Control__c> controlList = [
-      SELECT Id, Justification_Code__c, Justification_Description__c
-      FROM Expense_Control__c
-      WHERE Justification_Code__c IN :expenseCodeSet
-      WITH USER_MODE
-    ];
-    return controlList;
   }
 
   /**
@@ -157,22 +122,83 @@ public with sharing class ResidentialLoanApplicationRepository {
   }
 
   /**
-   * @description
-   * @param rlaRecordIds set of RLA ids
-   * @return  `List<Case>` Cases related to the RLAs
+   * @description query related RLA records
+   * @param idsOfRLA set of RLA ids
+   * @return List<ResidentialLoanApplication> RLA records
+   * queryResidentialLoanApplication -> Added System mode in query since many exisitng test classes were failing they those class had DML on Settlement object and
+     deploy user does not have permission of LANID__c field.
    */
-  public List<Case> queryRelatedCreditReferralCases(Set<Id> rlaRecordIds) {
-    if (rlaRecordIds.isEmpty()) {
-      return new List<Case>();
+  public List<ResidentialLoanApplication> queryResidentialLoanApplication(
+    Set<Id> idsOfRLA
+  ) {
+    if (idsOfRLA.isEmpty()) {
+      return new List<ResidentialLoanApplication>();
     }
     return [
-      SELECT Id, Loan_Application__c
-      FROM Case
+      SELECT Id, Assisted_Broker_TPMI_SAO__c, LANID__c, OpportunityId
+      FROM ResidentialLoanApplication
       WHERE
-        Loan_Application__c IN :rlaRecordIds
-        AND RecordTypeId = :RTCase.creditReferral
-        AND IsClosed = FALSE
-      WITH USER_MODE
+        ID IN :idsOfRLA
+        AND Assisted_Broker_TPMI_SAO__c != NULL
+        AND LANID__c != NULL
+      WITH SYSTEM_MODE
     ];
+  }
+
+  /**
+   * @description get custom metadata type for RLA's status
+   * @param recordTypeName Record type name of RLA
+   * @param status Status of RLA
+   * @return Loan_Application_Validity__mdt cutom metadata type
+   */
+  public Loan_Application_Validity__mdt getLoanApplicationValidityMetadata(
+    String recordTypeName,
+    String status
+  ) {
+    String key = recordTypeName + '_' + status;
+    Loan_Application_Validity__mdt loanApplicationValidityMDT = loanApplicationValidityMap.get(
+      key
+    );
+    if (loanApplicationValidityMDT != null) {
+      return loanApplicationValidityMDT;
+    }
+    loanApplicationValidityMDT = Loan_Application_Validity__mdt.getInstance(
+      key
+    );
+    loanApplicationValidityMap.put(key, loanApplicationValidityMDT);
+    return loanApplicationValidityMDT;
+  }
+
+  /** * @description get assisted brokers by LANID
+   * @param lanIds set of LANIDs
+   * @return List<User> list of users
+   */
+  public List<User> getAssistedLendersByLanId(Set<String> lanIds) {
+    if (lanIds.isEmpty()) {
+      return new List<User>();
+    }
+    return [
+      SELECT Id, Name, Lan_Id__c
+      FROM User
+      WHERE Lan_Id__c IN :lanIds
+      WITH SYSTEM_MODE
+    ];
+  }
+
+  /**
+   * @description get RLA by id
+   * @param recordId RLA recordId
+   * @return  `ResidentialLoanApplication`
+   */
+  public ResidentialLoanApplication queryRLAByIdForLoanPreference(
+    String recordId
+  ) {
+    return [
+      SELECT Id, Name, Account.OCV_ID__c, ApplicationExtIdentifier
+      FROM ResidentialLoanApplication
+      WHERE Id = :recordId
+      WITH USER_MODE
+      LIMIT 1
+    ] ?? null;
   }
 }

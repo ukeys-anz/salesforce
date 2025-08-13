@@ -371,31 +371,6 @@ public with sharing class BOHService extends Service {
   }
 
   /**
-   * @param requestBody body of request to send
-   * @param ocvId ocv id
-   * @return `HttpCalloutResponse` the api response
-   * @description delete income from sop
-   */
-  public override HttpCalloutResponse verifyInsurance(
-    String requestBody,
-    String ocvId
-  ) {
-    Lib_HttpCallout calloutService = new Lib_HttpCallout();
-    Map<String, String> headers = new Map<String, String>();
-    setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
-    headers.put('Content-Type', 'application/json');
-
-    HttpCalloutResponse response = calloutService.makeRestCallout(
-      Label.MS_Verify_Insurance,
-      HTTP_METHOD.HTTP_POST,
-      headers,
-      requestBody
-    );
-
-    return response;
-  }
-
-  /**
    * @param ocvId ocv id of the customer account
    * @param debtBody post data of debt information
    * @return `HttpCalloutResponse` the api response
@@ -467,30 +442,6 @@ public with sharing class BOHService extends Service {
       deleModel
     );
 
-    return response;
-  }
-
-  /**
-   * @param loanAppNumber loan application number
-   * @param ocvId ocv id of the customer account
-   * @return `HttpCalloutResponse` the api response
-   * @description cancelResidentialLoanApp cancels residential loan application
-   */
-  public override HttpCalloutResponse cancelResidentialLoanApp(
-    String loanAppNumber,
-    String ocvId
-  ) {
-    Lib_HttpCallout calloutService = new Lib_HttpCallout();
-    Map<String, String> headers = new Map<String, String>();
-    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
-    headers.put('Content-Type', 'application/json');
-    headers.put('Content-Length', '0');
-    HttpCalloutResponse response = calloutService.makeRestCallout(
-      Label.MS_Cancel_Loan_Application.replace('{loanAppNum}', loanAppNumber),
-      HTTP_METHOD.HTTP_POST,
-      headers,
-      null
-    );
     return response;
   }
 }

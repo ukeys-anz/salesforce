@@ -188,6 +188,7 @@
         "sopName": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/c4ca81f3-bca1-4742-a98f-9913cce8b63f",
         "uid": "c4ca81f3-bca1-4742-a98f-9913cce8b63f",
         "updateTime": "30 September 2024 | 3:30 pm",
+        "isMandatoryExpense": true,
         "description": "Haircut, mani pedi, new pair of socks... this is what is spent on self care and clothing.",
         "icon": "/resource/1693345494000/SOP_Expense_Clothing",
         "children": []
@@ -282,6 +283,7 @@
             "sopName": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/3b0fb3b1-79e9-42cc-929f-c68fde2cc40a",
             "uid": "3b0fb3b1-79e9-42cc-929f-c68fde2cc40a",
             "updateTime": "30 September 2024 | 3:30 pm",
+            "isMandatoryExpense": true,
             "description": "Insurance for car, any precious belongings and travel cover.",
             "children": []
           },
@@ -302,6 +304,7 @@
             "sopName": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/a8642426-7fd0-4d6d-b1f4-00300f9e07f5",
             "uid": "a8642426-7fd0-4d6d-b1f4-00300f9e07f5",
             "updateTime": "30 September 2024 | 3:30 pm",
+            "isMandatoryExpense": true,
             "description": "Health cover and any personal insurance for when life happens.",
             "children": []
           }

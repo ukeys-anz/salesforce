@@ -1,0 +1,39 @@
+<template>
+  <!-- Modal Header-->
+  <lightning-modal-header
+    class="modal-header slds-text-align_center"
+    label="Edit Loan Preferece"
+  ></lightning-modal-header>
+  <!-- Modal Body-->
+  <lightning-modal-body>
+    <lightning-layout
+      multiple-rows
+      class="slds-p-horizontal_medium slds-p-vertical_x-large"
+    >
+      <lightning-layout-item size="12" class="slds-p-left_medium textStyle">
+        <lightning-formatted-rich-text value={deleteConfirmationMessage}>
+        </lightning-formatted-rich-text>
+      </lightning-layout-item>
+    </lightning-layout>
+  </lightning-modal-body>
+  <lightning-modal-footer class="slds-text-align_center">
+    <lightning-layout horizontal-align="center">
+      <!-- Modal footer-->
+      <lightning-layout-item size="auto">
+        <lightning-button
+          variant="neutral"
+          class="slds-p-left_medium"
+          label="Cancel"
+          onclick={handleClose}
+        ></lightning-button>
+        <lightning-button
+          variant="brand"
+          class="slds-p-left_medium"
+          label="Save"
+          disabled={disableSaveButton}
+          onclick={handleSave}
+        ></lightning-button>
+      </lightning-layout-item>
+    </lightning-layout>
+  </lightning-modal-footer>
+</template>

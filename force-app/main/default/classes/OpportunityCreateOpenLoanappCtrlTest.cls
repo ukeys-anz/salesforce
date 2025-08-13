@@ -4,11 +4,13 @@ private class OpportunityCreateOpenLoanappCtrlTest {
   public final static String IDTESTVALUE = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI1NTMwMzIxNzh9.eAWGLhTYhn4y9M2t2OHeTLIe7MLPObBFK2Nli8CPTD4';
   static Lib_MockProvider controllerRepoMock;
   static Lib_MockProvider dmlMockProvider;
+  static Lib_MockProvider loanAppServiceMock;
   static void registerMocks() {
     controllerRepoMock = Lib_MockProvider.forType(
       OpportunityCreateOpenLoanappRepository.class
     );
     dmlMockProvider = Lib_MockProvider.forType(DmlRepository.class);
+    loanAppServiceMock = Lib_MockProvider.forType(LoanappService.class);
   }
   private static Id newOppId = Lib_FakeIdGenerator.getMockId(
     Schema.Opportunity.getSObjectType()
@@ -41,6 +43,13 @@ private class OpportunityCreateOpenLoanappCtrlTest {
     OpportunityId = newOppId,
     ContactId = newConId,
     Role = 'Applicant'
+  );
+
+  private static User_Territory__c ut = new User_Territory__c(
+    SAO__c = '719',
+    Id = Lib_FakeIdGenerator.getMockId(
+      Schema.User_Territory__c.getSObjectType()
+    )
   );
 
   @isTest
@@ -176,6 +185,61 @@ private class OpportunityCreateOpenLoanappCtrlTest {
         'aura handled exception should be thrown'
       );
     }
+  }
+
+  @isTest
+  static void createANZPlusLoanappTest() {
+    registerMocks();
+    HttpCalloutResponse res = new HttpCalloutResponse();
+    res.successful = true;
+    res.statusCode = 200;
+    res.body = '{"applicationId": "213354327"}';
+    loanAppServiceMock.mock('getANZPlusLoanappCalloutResponse', res);
+    Test.startTest();
+    Map<String, String> response = OpportunityCreateOpenLoanappController.createANZPlusLoanapp(
+      JSON.serialize(opp),
+      ut
+    );
+    Test.stopTest();
+    Assert.areEqual('success', response.get('status'), 'callout failed!');
+  }
+
+  @isTest
+  static void createANZPlusLoanappTestNegative() {
+    HttpCalloutResponse res = new HttpCalloutResponse();
+    res.successful = false;
+    res.statusCode = 400;
+    res.body = 'Error';
+    res.error = new CalloutException(
+      'Endpoint or Method cannot be empty for a HTTP callout'
+    );
+    registerMocks();
+    loanAppServiceMock.mock('getANZPlusLoanappCalloutResponse', res);
+    //Exception error;
+    try {
+      Test.startTest();
+      OpportunityCreateOpenLoanappController.createANZPlusLoanapp(
+        JSON.serialize(opp),
+        ut
+      );
+      Test.stopTest();
+      Assert.isTrue(false, 'code was supposed to error out but it did not');
+    } catch (Exception e) {
+      Assert.isNotNull(e, 'code should fail!');
+    }
+  }
+
+  @isTest
+  static void getUserTerritoryTest() {
+    registerMocks();
+    controllerRepoMock.mock('getUserTerritory', ut);
+    Test.startTest();
+    User_Territory__c ut = OpportunityCreateOpenLoanappController.getUserTerritory(
+      UserInfo.getUserId(),
+      Lib_FakeIdGenerator.getMockId(Schema.Territory__c.getSObjectType())
+    );
+    Test.stopTest();
+    Assert.areEqual('719', ut.SAO__c, 'SAO code should be returned!');
   }
 
   /**

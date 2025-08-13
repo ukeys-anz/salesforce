@@ -60,8 +60,8 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
-                <componentName>pinAndSelfieWorkflow</componentName>
-                <identifier>c_pinAndSelfieWorkflow</identifier>
+                <componentName>pinAndSelfieDaonWorkflow</componentName>
+                <identifier>c_pinAndSelfieDaonWorkflow</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.AccessAegisFeatures}</leftValue>
@@ -119,6 +119,10 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Tabs</value>
+                </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>tabs</name>
                     <value>Facet-e0512f90-7de9-476e-898b-68fd12b6a3fc</value>

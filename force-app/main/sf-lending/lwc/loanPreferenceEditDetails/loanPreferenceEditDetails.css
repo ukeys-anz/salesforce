@@ -1,0 +1,12 @@
+:host {
+  --header-button-color: var(--slds-g-color-error-1);
+}
+
+.modal-header {
+  --slds-c-modal-header-color-background: var(--slds-g-color-palette-blue-30);
+  --slds-c-modal-header-text-color: var(--slds-g-color-neutral-base-100);
+  font-size: var(--slds-g-font-scale-4);
+  font-weight: var(--slds-g-font-weight-7);
+  line-height: 30px;
+  height: 56px;
+}

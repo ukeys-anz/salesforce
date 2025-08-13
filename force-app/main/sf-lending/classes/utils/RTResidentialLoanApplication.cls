@@ -7,4 +7,5 @@ public class RTResidentialLoanApplication {
   static QueryRT base = QueryRT.of(ResidentialLoanApplication.SObjectType);
 
   public static Id anzxHomeLoan = base.getId('Loan_Application');
+  public static Id rlsResidentialLoanApplication = base.getId('RLS');
 }

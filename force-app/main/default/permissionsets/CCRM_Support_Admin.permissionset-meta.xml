@@ -408,6 +408,14 @@
         <name>FinancialAccountUIConfiguration__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <name>FinancialAccountConfiguration__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <name>FinancialAccountConfiguration__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <description>Baseline pset for using the AR&amp;C Commercial CRM app. </description>
     <fieldPermissions>
         <editable>true</editable>
@@ -6117,6 +6125,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>InsuranceProfile.SourceSystemIdentifier</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.Broker__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

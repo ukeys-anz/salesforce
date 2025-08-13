@@ -1,0 +1,79 @@
+<template>
+  <template lwc:if={componentSpinner}>
+    <lightning-spinner
+      alternative-text="Loading"
+      varient="brand"
+      size="large"
+      class="slds-align_absolute-center"
+    ></lightning-spinner>
+  </template>
+  <!--Blank screen when status is capture-->
+  <template lwc:if={showBlankScreen}>
+    <div class="slds-p-vertical_xx-large blankSpace"></div>
+  </template>
+  <template lwc:if={showViewScreen}>
+    <lightning-layout
+      multiple-rows
+      class="slds-m-bottom_small slds-m-left_medium slds-m-top_x-large"
+    >
+      <!--Logo Image-->
+      <lightning-layout-item size="1" flexibility="shrink"
+        ><img src={logoImage} class="logoStyle" />
+      </lightning-layout-item>
+      <!--Description Text-->
+      <lightning-layout-item
+        size="7"
+        flexibility="shrink"
+        class="slds-p-top_medium textStyle"
+        ><lightning-formatted-text
+          value="Review and update loan preferences for each loan."
+        ></lightning-formatted-text>
+      </lightning-layout-item>
+      <lightning-layout-item size="4" flexibility="shrink">
+        <lightning-layout class="slds-grid slds-grid_vertical">
+          <lightning-layout-item>
+            <lightning-layout multiple-rows class="slds-p-top_x-small">
+              <!--Display Total Amount Label with utility icon-->
+              <lightning-layout-item
+                size="11"
+                class="slds-text-align_right slds-p-right_x-small"
+              >
+                <lightning-formatted-text
+                  value="Total Amount"
+                  class="totalStyle"
+                >
+                </lightning-formatted-text>
+              </lightning-layout-item>
+              <lightning-layout-item size="1">
+                <lightning-icon
+                  icon-name="utility:info"
+                  alternative-text="Utility image"
+                  title="Image"
+                  size="xx-small"
+                ></lightning-icon>
+              </lightning-layout-item>
+            </lightning-layout>
+          </lightning-layout-item>
+          <!--Total Amount-->
+          <lightning-layout-item class="amountStyle slds-text-align_right">
+            <lightning-formatted-number
+              value="200382"
+              format-style="currency"
+              currency-code="AUD"
+              currency-display-as="symbol"
+              class="slds-p-right_medium"
+            >
+            </lightning-formatted-number>
+          </lightning-layout-item>
+        </lightning-layout>
+      </lightning-layout-item>
+    </lightning-layout>
+    <!--Calling the child component to display Address and Edit button for each preference record-->
+    <template for:each={loanLoanPreferenceData} for:item="prefData">
+      <c-loan-preferences-header
+        key={prefData}
+        preference-data={prefData}
+      ></c-loan-preferences-header>
+    </template>
+  </template>
+</template>

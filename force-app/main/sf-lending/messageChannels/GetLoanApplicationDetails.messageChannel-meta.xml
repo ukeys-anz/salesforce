@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Used to send details of the get Loan Details</description>
+    <isExposed>true</isExposed>
+    <lightningMessageFields>
+        <description>Set details of the response received from API</description>
+        <fieldName>getLoanDetails</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Sets to true if we have a error response else false</description>
+        <fieldName>isError</fieldName>
+    </lightningMessageFields>
+    <masterLabel>GetLoanApplicationDetails</masterLabel>
+</LightningMessageChannel>

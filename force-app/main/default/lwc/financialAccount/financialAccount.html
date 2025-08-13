@@ -4,7 +4,7 @@
       <lightning-icon
         icon-name={titleIcon}
         size="medium"
-        class={iconColor}
+        class={iconWrapperClass}
       ></lightning-icon>
       {componentTitle}
       <p class="sub-title">{componentSubTitle}</p>
@@ -68,15 +68,52 @@
                           ></lightning-icon>
                         </p>
                         <p data-test-id="balance">
-                          <lightning-formatted-number
-                            value={finAccount.balances.balance.value}
-                            format-style="currency"
-                            data-id="amount"
-                            class="fontstyle"
-                          ></lightning-formatted-number>
+                          <template lwc:if={finAccount.isCard}>
+                            <lightning-formatted-number
+                              value={finAccount.balances.current_balance.value}
+                              format-style="currency"
+                              data-id="amount"
+                              class="fontstyle"
+                            ></lightning-formatted-number>
+                          </template>
+                          <template lwc:else>
+                            <lightning-formatted-number
+                              value={finAccount.balances.balance.value}
+                              format-style="currency"
+                              data-id="amount"
+                              class="fontstyle"
+                            ></lightning-formatted-number>
+                          </template>
                         </p>
                       </div>
                     </div>
+
+                    <template lwc:if={finAccount.isCard}>
+                      <div
+                        class="slds-col slds-size_1-of-1 slds-large-size_2-of-2 slds-var-p-around_small slds-text-align_right"
+                      >
+                        <div class="header-column">
+                          <p class="card-heading-font">
+                            Funds
+                            <lightning-icon
+                              icon-name="utility:info"
+                              size="xx-small"
+                              class="tooltip"
+                              data-field="funds"
+                              onclick={handleInfoModal}
+                            ></lightning-icon>
+                          </p>
+                          <p data-test-id="balance">
+                            <lightning-formatted-number
+                              value={finAccount.balances.available_limit.value}
+                              format-style="currency"
+                              data-id="amount"
+                              class="fontstyle"
+                            ></lightning-formatted-number>
+                          </p>
+                        </div>
+                      </div>
+                    </template>
                   </div>
                 </div>
               </div>
@@ -109,8 +146,8 @@
   </article>
   <template lwc:if={showInfoModal}>
     <c-dynamic-tooltip-util
-      header-title={balanceTitle}
-      resource-name={productCode}
+      header-title={headerTitle}
+      resource-name={tooltipCode}
       product-name={componentSubTitle}
       onclosemodal={closeModal}
     ></c-dynamic-tooltip-util>

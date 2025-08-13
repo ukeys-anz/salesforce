@@ -1,17 +1,24 @@
-import { LightningElement, api } from "lwc";
+import { LightningElement, api, track } from "lwc";
 import { handleErrorShowToast, showToast } from "c/utils";
 import verifyInsurance from "@salesforce/apex/ProofOfInsuranceController.verifyInsurance";
-import { CloseActionScreenEvent } from "lightning/actions";
 
 export default class VerifyProofOfInsurance extends LightningElement {
-  _recordId;
-  @api set recordId(recordId) {
-    if (recordId !== this._recordId) {
-      this._recordId = recordId;
-    }
+  @track isShowModal = false;
+
+  showModalBox() {
+    this.isShowModal = true;
   }
-  get recordId() {
-    return this._recordId;
+
+  hideModalBox() {
+    this.isShowModal = false;
+  }
+
+  _requestObj;
+  @api set requestObj(requestObj) {
+    this._requestObj = requestObj;
+  }
+  get requestObj() {
+    return this._requestObj;
   }
 
   isExecuting = false;
@@ -22,11 +29,20 @@ export default class VerifyProofOfInsurance extends LightningElement {
     }
     this.isExecuting = true;
     try {
-      let response = await verifyInsurance({ recordId: this._recordId });
+      let response = await verifyInsurance({
+        settlementId: this.requestObj.settlement_id,
+        mortgageContractId: this.requestObj.mortgage_contract_id,
+        propertyId: this.requestObj.property_id,
+        documentId:
+          this.requestObj.document.document_file_details[0].document_file_id,
+        documentFileVersion:
+          this.requestObj.document.document_file_details[0]
+            .document_file_version
+      });
       //The API should always set to State verified, but the response has multiple states,
       //so handling here just in case something on API ever changes to avoid errors
       if (response?.proofOfInsuranceVerification?.state === "STATE_VERIFIED") {
-        this.dispatchEvent(new CloseActionScreenEvent());
+        this.hideModalBox();
         showToast(
           this,
           "Verify Insurance",
@@ -62,6 +78,9 @@ export default class VerifyProofOfInsurance extends LightningElement {
   }
 
   handleCancel() {
-    this.dispatchEvent(new CloseActionScreenEvent());
+    const selectEvent = new CustomEvent("closeevent", {
+      detail: "closeModal"
+    });
+    this.dispatchEvent(selectEvent);
   }
 }

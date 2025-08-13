@@ -61,6 +61,11 @@
         <field>Territory__c.Business_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>User_Territory__c.SAO__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>MLCRM Create and Edit User Territories</label>
     <license>Salesforce</license>

@@ -1,0 +1,35 @@
+:host {
+  --logo-dimensions: 60px;
+  --text-font-size: 13px;
+  --line-height: 18px;
+  --font-color: var(--slds-g-color-neutral-base-10, #080707);
+}
+
+.logoStyle {
+  width: var(--logo-dimensions);
+  height: var(--logo-dimensions);
+}
+
+.amountStyle {
+  font-size: var(--slds-g-sizing-5);
+  font-weight: var(---slds-g-font-weight-6);
+  line-height: var(--slds-g-font-lineheight-3);
+  color: var(--font-color);
+}
+
+.totalAndAmountStyle {
+  float: right;
+}
+
+.totalStyle {
+  font-size: var(--slds-g-sizing-4);
+  font-weight: var(---slds-g-font-weight-4);
+  line-height: var(--line-height);
+  color: var(--slds-g-color-neutral-base-30);
+}
+
+.textStyle {
+  font-weight: var(--slds-g-font-weight-4);
+  font-size: var(--text-font-size);
+  line-height: var(--line-height);
+}

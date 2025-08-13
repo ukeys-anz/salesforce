@@ -62,7 +62,8 @@ private class ViewServiceabilityControllerTest {
       Status = 'STATE_COMPLETED',
       Property_Use__c = 'LOAN_PRODUCT_TYPE_OWNER_OCCUPIED',
       AmortizationTerm = 60,
-      LotOriginalCost = 123.12
+      LotOriginalCost = 123.12,
+      RecordTypeId = RTResidentialLoanApplication.rlsResidentialLoanApplication
     );
   }
 

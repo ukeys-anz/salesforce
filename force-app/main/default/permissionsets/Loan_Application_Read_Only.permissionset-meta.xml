@@ -138,6 +138,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LoanApplicationFinancial.Interest_Rate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Loan_Applicant_Group__c.Deposit_Amount__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -248,7 +253,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ResidentialLoanApplication.AIP_AST_Expiry__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ResidentialLoanApplication.AmortizationTerm</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.Application_Amount__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -259,6 +274,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ResidentialLoanApplication.Assisted_Broker__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.Assisted_Lender__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -353,6 +373,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ResidentialLoanApplication.LVR_Excl_LMI__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ResidentialLoanApplication.Main_Goal__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -403,12 +428,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ResidentialLoanApplication.Product__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ResidentialLoanApplication.Property_Use__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>ResidentialLoanApplication.Settlement_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.Source__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -501,6 +536,10 @@
         <object>ResidentialLoanApplication</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
+    <recordTypeVisibilities>
+        <recordType>ResidentialLoanApplication.RLS</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>ResidentialLoanApplication.Loan_Application</recordType>
         <visible>true</visible>

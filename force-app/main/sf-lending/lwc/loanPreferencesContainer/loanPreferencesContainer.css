@@ -1,0 +1,41 @@
+.headerStyle {
+  font-weight: var(--slds-g-font-weight-4);
+  font-size: var(--slds-g-sizing-4);
+  line-height: var(--line-height);
+  color: var(--slds-g-color-neutral-base-30);
+}
+.detailsStyle {
+  font-weight: var(--slds-g-font-weight-4);
+  font-size: var(--text-font-size);
+  line-height: var(--line-height);
+  color: var(--font-color);
+}
+.valueStyle {
+  font-weight: var(--slds-g-font-weight-4);
+  font-size: var(--slds-g-sizing-4);
+  line-height: var(--line-height);
+  color: var(--font-color);
+}
+.loanDetailsStyle {
+  font-weight: var(--slds-g-font-weight-7);
+  font-size: var(--text-font-size);
+  line-height: var(--line-height);
+}
+.expandedStyle {
+  border-right: var(--slds-g-sizing-border-1) solid;
+  border-top: var(--slds-g-sizing-border-1) solid;
+  border-left: var(--slds-g-sizing-border-1) solid;
+  border-color: var(--slds-g-color-border-base-1);
+  padding-left: var(--slds-g-spacing-5);
+}
+.colapsedStyle {
+  border-left: none;
+  margin-left: var(--slds-g-spacing-6);
+  padding-right: var(--slds-g-spacing-6);
+}
+.lastModifiedStyle {
+  font-weight: var(--slds-g-font-weight-4);
+  font-size: var(--slds-g-sizing-3);
+  line-height: var(--slds-g-font-lineheight-1);
+  color: var(--slds-g-color-neutral-base-50);
+}
