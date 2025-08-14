@@ -289,8 +289,8 @@
                     <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Description</fieldItem>
-                <identifier>RecordDescriptionField</identifier>
+                <fieldItem>Record.ExtraCareNotes__c</fieldItem>
+                <identifier>RecordExtraCareNotes_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
