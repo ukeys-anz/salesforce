@@ -4605,6 +4605,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Buyback</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>CGU</fullName>
             <default>false</default>
         </values>
@@ -4617,11 +4621,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Internal credit rating upgrade</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Netwealth</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>QBE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reinstatement</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4732,6 +4744,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Buyback</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>CGU</fullName>
             <default>false</default>
         </values>
@@ -4744,11 +4760,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Internal credit rating upgrade</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Netwealth</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>QBE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reinstatement</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4859,6 +4883,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Buyback</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>CGU</fullName>
             <default>false</default>
         </values>
@@ -4871,11 +4899,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Internal credit rating upgrade</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Netwealth</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>QBE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reinstatement</fullName>
             <default>false</default>
         </values>
         <values>
