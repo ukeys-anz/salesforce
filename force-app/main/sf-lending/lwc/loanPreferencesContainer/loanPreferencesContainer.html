@@ -1,0 +1,369 @@
+<template>
+  <lightning-layout multiple-rows>
+    <lightning-layout-item size="12" class={className}>
+      <lightning-layout>
+        <lightning-layout-item size="3">
+          <lightning-layout multiple-rows>
+            <!--Product Name-->
+            <lightning-layout-item
+              size="12"
+              class="slds-p-top_small headerStyle"
+            >
+              <lightning-formatted-text
+                value="Product Name"
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+            <lightning-layout-item size="10" class="detailsStyle">
+              <lightning-formatted-text
+                value={preferenceData.productName}
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+          </lightning-layout>
+        </lightning-layout-item>
+        <!--Current Loan Balance-->
+        <lightning-layout-item size="3">
+          <lightning-layout multiple-rows class="slds-p-left_medium">
+            <lightning-layout-item
+              size="12"
+              class="slds-p-top_small headerStyle"
+            >
+              <lightning-formatted-text
+                value="Current Loan Balance"
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" class="detailsStyle">
+              <lightning-formatted-number
+                value={preferenceData.currentLoanBalance}
+                format-style="currency"
+                currency-code="AUD"
+                currency-display-as="symbol"
+                class="slds-p-right_medium"
+              ></lightning-formatted-number>
+            </lightning-layout-item>
+          </lightning-layout>
+        </lightning-layout-item>
+        <!--Interest Rate-->
+        <lightning-layout-item size="2">
+          <lightning-layout multiple-rows class="slds-p-left_medium">
+            <lightning-layout-item
+              size="12"
+              class="slds-p-top_small headerStyle"
+            >
+              <lightning-formatted-text
+                value="Interest Rate"
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" class="detailsStyle">
+              <lightning-formatted-number
+                value={preferenceData.interestRate}
+                format-style="percent-fixed"
+                maximum-fraction-digits="2"
+              >
+              </lightning-formatted-number>
+            </lightning-layout-item>
+          </lightning-layout>
+        </lightning-layout-item>
+        <!--Interest Type-->
+        <lightning-layout-item size="2">
+          <lightning-layout multiple-rows class="slds-p-left_medium">
+            <lightning-layout-item
+              size="12"
+              class="slds-p-top_small headerStyle"
+            >
+              <lightning-formatted-text
+                value="Interest Type"
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" class="detailsStyle">
+              <lightning-formatted-text
+                value={preferenceData.interestType}
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+          </lightning-layout>
+        </lightning-layout-item>
+        <!--Loan Term-->
+        <lightning-layout-item size="2">
+          <lightning-layout multiple-rows class="slds-p-left_medium">
+            <lightning-layout-item
+              size="12"
+              class="slds-p-top_small headerStyle"
+            >
+              <lightning-formatted-text
+                value="Loan Term"
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" class="detailsStyle">
+              <lightning-formatted-text
+                value={preferenceData.loanTerm}
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+          </lightning-layout>
+        </lightning-layout-item>
+      </lightning-layout>
+    </lightning-layout-item>
+    <!--Display below only when the screen is expanded-->
+    <template lwc:if={showDetailedView}>
+      <lightning-layout-item
+        size="12"
+        class="slds-border_left slds-border_right slds-border_bottom"
+      >
+        <lightning-layout
+          multiple-rows
+          class="slds-m-top_medium slds-m-top_medium slds-m-left_large slds-m-right_large"
+        >
+          <lightning-layout-item size="12" class="slds-border_top">
+          </lightning-layout-item>
+          <!--Loan Deatails Header-->
+          <lightning-layout-item
+            size="12"
+            class="loanDetailsStyle slds-p-top_small"
+          >
+            <lightning-formatted-text
+              value="Loan Details"
+            ></lightning-formatted-text>
+          </lightning-layout-item>
+          <!--Requested Loan Amount-->
+          <lightning-layout-item
+            size="12"
+            class="slds-p-top_x-small valueStyle"
+          >
+            <lightning-layout>
+              <lightning-layout-item size="7">
+                <lightning-formatted-text
+                  value="Requested Loan Amount"
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+              <lightning-layout-item size="5" class="slds-text-align_right">
+                <lightning-formatted-number
+                  value={preferenceData.requestedLoanAmount}
+                  format-style="currency"
+                  currency-code="AUD"
+                  currency-display-as="symbol"
+                >
+                </lightning-formatted-number>
+              </lightning-layout-item>
+            </lightning-layout>
+          </lightning-layout-item>
+          <!--Property Use-->
+          <lightning-layout-item
+            size="12"
+            class="slds-p-top_x-small valueStyle"
+          >
+            <lightning-layout>
+              <lightning-layout-item size="7">
+                <lightning-formatted-text
+                  value="Property Use"
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+              <lightning-layout-item size="5" class="slds-text-align_right">
+                <lightning-formatted-text
+                  value={preferenceData.propertyUse}
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+            </lightning-layout>
+          </lightning-layout-item>
+          <!--Tax Deductible-->
+          <lightning-layout-item
+            size="12"
+            class="slds-p-top_x-small valueStyle"
+          >
+            <lightning-layout>
+              <lightning-layout-item size="7">
+                <lightning-formatted-text
+                  value="Tax Deductible"
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+              <lightning-layout-item size="5" class="slds-text-align_right">
+                <lightning-formatted-text
+                  value={preferenceData.taxDeductible}
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+            </lightning-layout>
+          </lightning-layout-item>
+          <!--Loan Margin-->
+          <lightning-layout-item
+            size="12"
+            class="slds-p-top_x-small valueStyle"
+          >
+            <lightning-layout>
+              <lightning-layout-item size="7">
+                <lightning-formatted-text
+                  value="Loan Margin"
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+              <lightning-layout-item size="5" class="slds-text-align_right">
+                <lightning-formatted-text
+                  value={preferenceData.loanMargin}
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+            </lightning-layout>
+          </lightning-layout-item>
+          <!--Offset-->
+          <lightning-layout-item
+            size="12"
+            class="slds-p-top_x-small valueStyle"
+          >
+            <lightning-layout>
+              <lightning-layout-item size="7">
+                <lightning-formatted-text
+                  value="Offset"
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+              <lightning-layout-item size="5" class="slds-text-align_right">
+                <lightning-formatted-text
+                  value={preferenceData.offset}
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+            </lightning-layout>
+          </lightning-layout-item>
+          <!--Repayment Deatils Header-->
+          <lightning-layout-item
+            size="12"
+            class="loanDetailsStyle slds-p-top_small"
+          >
+            <lightning-formatted-text
+              value="Repayment Details"
+            ></lightning-formatted-text>
+          </lightning-layout-item>
+          <!--Loan Repayment Type-->
+          <lightning-layout-item
+            size="12"
+            class="slds-p-top_x-small valueStyle"
+          >
+            <lightning-layout>
+              <lightning-layout-item size="7">
+                <lightning-formatted-text
+                  value="Loan Repayment Type"
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+              <lightning-layout-item size="5" class="slds-text-align_right">
+                <lightning-formatted-text
+                  value={preferenceData.loanRepaymentType}
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+            </lightning-layout>
+          </lightning-layout-item>
+          <!--Show only if Loan Repayment Type is Interest Only-->
+          <template lwc:if={showInterestFields}>
+            <!--Interest Only Period-->
+            <lightning-layout-item
+              size="12"
+              class="slds-p-top_x-small valueStyle"
+            >
+              <lightning-layout>
+                <lightning-layout-item size="7">
+                  <lightning-formatted-text
+                    value="Interest Only Period"
+                  ></lightning-formatted-text>
+                </lightning-layout-item>
+                <lightning-layout-item size="5" class="slds-text-align_right">
+                  <lightning-formatted-text
+                    value={preferenceData.InterestOnlyPeriod}
+                  ></lightning-formatted-text>
+                </lightning-layout-item>
+              </lightning-layout>
+            </lightning-layout-item>
+            <!--Interest Only Purpose-->
+            <lightning-layout-item
+              size="12"
+              class="slds-p-top_x-small valueStyle"
+            >
+              <lightning-layout>
+                <lightning-layout-item size="7">
+                  <lightning-formatted-text
+                    value="Interest Only Purpose"
+                  ></lightning-formatted-text>
+                </lightning-layout-item>
+                <lightning-layout-item size="5" class="slds-text-align_right">
+                  <lightning-formatted-text
+                    value={preferenceData.InterestOnlyPurpose}
+                  ></lightning-formatted-text>
+                </lightning-layout-item>
+              </lightning-layout>
+            </lightning-layout-item>
+          </template>
+          <!--Loan Repayment Frequency-->
+          <lightning-layout-item
+            size="12"
+            class="slds-p-top_x-small valueStyle"
+          >
+            <lightning-layout>
+              <lightning-layout-item size="7">
+                <lightning-formatted-text
+                  value="Loan Repayment Frequency"
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+              <lightning-layout-item size="5" class="slds-text-align_right">
+                <lightning-formatted-text
+                  value={preferenceData.loanRepaymentFrequency}
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+            </lightning-layout>
+          </lightning-layout-item>
+          <!--Estimated Repayment Amount-->
+          <lightning-layout-item
+            size="12"
+            class="slds-p-top_x-small valueStyle"
+          >
+            <lightning-layout>
+              <lightning-layout-item size="7">
+                <lightning-formatted-text
+                  value="Estimated Repayment Amount"
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+              <lightning-layout-item size="5" class="slds-text-align_right">
+                <lightning-formatted-number
+                  value={preferenceData.estimatedRepaymentAmount}
+                  format-style="currency"
+                  currency-code="AUD"
+                  currency-display-as="symbol"
+                >
+                </lightning-formatted-number>
+              </lightning-layout-item>
+            </lightning-layout>
+          </lightning-layout-item>
+          <!--Addition Funds Header-->
+          <lightning-layout-item
+            size="12"
+            class="loanDetailsStyle slds-p-top_small"
+          >
+            <lightning-formatted-text
+              value="Additional Funds"
+            ></lightning-formatted-text>
+          </lightning-layout-item>
+          <!--Borrow Additional Funds-->
+          <lightning-layout-item
+            size="12"
+            class="slds-p-top_x-small valueStyle slds-p-bottom_small"
+          >
+            <lightning-layout>
+              <lightning-layout-item size="7">
+                <lightning-formatted-text
+                  value="Borrow Additional Funds"
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+              <lightning-layout-item size="5" class="slds-text-align_right">
+                <lightning-formatted-text
+                  value={preferenceData.borrowAdditionalFunds}
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+            </lightning-layout>
+          </lightning-layout-item>
+          <!-- Last Modified Date -->
+          <lightning-layout-item
+            class="slds-p-top_x-small slds-p-bottom_x-small slds-text-align_right lastModifiedStyle"
+            size="12"
+          >
+            <lightning-formatted-text
+              value="Last Modified"
+            ></lightning-formatted-text>
+            <lightning-formatted-text
+              value={preferenceData.lastModified}
+              class="slds-p-left_xx-small"
+            ></lightning-formatted-text>
+          </lightning-layout-item>
+        </lightning-layout>
+      </lightning-layout-item>
+    </template>
+  </lightning-layout>
+</template>

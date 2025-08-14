@@ -53,11 +53,11 @@ public with sharing class OpportunityCreateOpenLoanappController {
       return appKey;
     } catch (CalloutException cex) {
       String errorMessage = getCalloutExceptionErrorMessage(cex.getMessage());
-      Logger.error(errorMessage + '\n' + cex.getStackTraceString());
+      Logger.error(errorMessage);
       Logger.saveLog();
       throw new AuraHandledException(errorMessage);
     } catch (Exception e) {
-      Logger.error(e.getMessage() + '\n' + e.getStackTraceString());
+      Logger.error(e.getMessage());
       Logger.saveLog();
       throw new AuraHandledException(e.getMessage());
     }
@@ -101,5 +101,70 @@ public with sharing class OpportunityCreateOpenLoanappController {
       Logger.info('Unable to parse JSON, error is not of JSON type!');
       return errorMsg;
     }
+  }
+
+  /**
+   * @description to create ANZ Plus loanapp using Service class
+   * @param oppJson String opportunity JSON.
+   * @param ut User_Territory__c
+   * @return String
+   */
+  @AuraEnabled
+  public static Map<String, String> createANZPlusLoanapp(
+    String oppJson,
+    User_Territory__c ut
+  ) {
+    try {
+      Opportunity currentOpp = (Opportunity) JSON.deserialize(
+        oppJson,
+        Opportunity.class
+      );
+      ANZPlusLoanAppModel model = new ANZPlusLoanAppModel(currentOpp, ut);
+      LoanAppAPIRepository loanappApi = new LoanAppAPIRepository();
+      String response = loanappApi.anzPlusLoanAppCallout(model);
+      Map<String, Object> responseMap = (Map<String, Object>) JSON.deserializeUntyped(
+        response
+      );
+      if (
+        !responseMap.containsKey('applicationId') ||
+        responseMap.get('applicationId') == null
+      ) {
+        return new Map<String, String>{
+          'status' => 'error',
+          'message' => 'Application Id not received in response'
+        };
+      }
+      String applicationId = String.valueOf(responseMap.get('applicationId'));
+      DML.doUpdate(
+        new Opportunity(
+          Id = currentOpp.Id,
+          Application_Numbers__c = applicationId
+        ),
+        new DmlConfig()
+          .errorLog('Failed to update Opportunity application Number!')
+      );
+      return new Map<String, String>{
+        'status' => 'success',
+        'applicationId' => applicationId
+      };
+    } catch (Exception e) {
+      Logger.error(e.getMessage());
+      Logger.saveLog();
+      throw new AuraHandledException(e.getMessage());
+    }
+  }
+
+  /**
+   * @description to create ANZ Plus loanapp using Service class
+   * @param ownerId String opportunity ownerId.
+   * @param territoryId String territoryId
+   * @return User_Territory__c
+   */
+  @AuraEnabled
+  public static User_Territory__c getUserTerritory(
+    String ownerId,
+    String territoryId
+  ) {
+    return LOANAPP_CTRL_REPOSITORY.getUserTerritory(ownerId, territoryId);
   }
 }

@@ -58,7 +58,11 @@ public with sharing class FinancialSummaryController {
   private static final String CACHE_ACK = 'Data found in cache';
   @TestVisible
   private static final String TOTAL_CUSTOMER_LIMIT = 'TOTAL_CUSTOMER_LIMIT';
-
+  @TestVisible
+  private static final String TOTAL_MORTAGE_LENDING = 'TOTAL_MORTGAGE_LENDING';
+  private static final String NO_AVAILABLE_BALANCE = 'No available balance';
+  private static final String ERROR_RESPONSE = 'Unexpected error';
+  private static final String SUCCESS_RESPONSE = 'Success';
   /**
    * @description - This method is used to fetch the summaries values from the cache and if no values present then it will
    * 			   make a callout to mule to get the Financial Summaries result
@@ -144,36 +148,39 @@ public with sharing class FinancialSummaryController {
       finSumCallout.callAssetFinanceBalanceApi
     );
 
-    try {
-      //Making a callout to get the Total Limits
-      finSumRespFromCallout.totalLimitAck = getTotalLimts(
-        finSumRespFromCallout.responseId,
-        filterSetofAccountNumberList(accountNumberList),
-        TOTAL_CUSTOMER_LIMIT,
-        finSumCallout.callTotalLimitsApi
-      );
+    //Making a callout to get the Total Limits
+    finSumRespFromCallout.totalLimitAck = getTotalLimts(
+      finSumRespFromCallout.responseId,
+      filterSetofAccountNumberList(accountNumberList),
+      TOTAL_CUSTOMER_LIMIT,
+      finSumCallout.callTotalLimitsApi
+    );
 
-      populateDataInCache(finSumRespFromCallout);
-    } catch (Exception ex) {
-      finSumRespFromCallout.totalLimitAck = null;
-    }
+    //Making a callout to get the Total Mortage Lending/Limit Value
+    finSumRespFromCallout.totalMortageLendingAck = getTotalMortageLending(
+      finSumRespFromCallout.responseId,
+      new Set<String>{ custIdWrapper.customerSourceSystemId },
+      TOTAL_MORTAGE_LENDING,
+      finSumCallout.callMortageLendingApi
+    );
+    populateDataInCache(finSumRespFromCallout);
 
     return finSumRespFromCallout;
   }
-    
+
   /**
    * @description - Get filtered Set of Account Numbers based on Product Types
    * @param accountNumberList - Set of unfiltered Account Numbers
    * @return Set<String> Set of filtered Account Numbers
-   */    
+   */
   private static Set<String> filterSetofAccountNumberList(
     Set<String> accountNumberList
   ) {
     Set<String> filteredSetofAccNumbers = new Set<String>();
-    Set<String> productTypes = new Set<String>{'DDA','OLL','PCA','ILS'};
-    for(String accNum : accountNumberList){
-      if(productTypes.contains(accNum.substringBefore('-'))){
-          filteredSetofAccNumbers.add(accNum);
+    Set<String> productTypes = new Set<String>{ 'DDA', 'OLL', 'PCA', 'ILS' };
+    for (String accNum : accountNumberList) {
+      if (productTypes.contains(accNum.substringBefore('-'))) {
+        filteredSetofAccNumbers.add(accNum);
       }
     }
     return filteredSetofAccNumbers;
@@ -193,11 +200,10 @@ public with sharing class FinancialSummaryController {
     Set<String> capIdSet = new Set<String>();
 
     Account accountRec = FS_REPOSITORY.getAccountById(customerId);
+    custIdWrapper.customerSourceSystemId = accountRec.Source_System_ID__c;
     if (
-      (
-        accountRec.RecordType.DeveloperName != 'CLG' || 
-        UserInfo.getProfileId() == QueryProfile.get(ML_USER_PROFILE_NAME).Id
-      ) &&
+      (accountRec.RecordType.DeveloperName != 'CLG' ||
+      UserInfo.getProfileId() == QueryProfile.get(ML_USER_PROFILE_NAME).Id) &&
       accountRec.External_Id__c != null
     ) {
       custIdWrapper.capIdsList.add(accountRec.External_Id__c);
@@ -232,9 +238,14 @@ public with sharing class FinancialSummaryController {
       custIdWrapper.capIdsModifiedList.addAll(capIdSet);
       return custIdWrapper;
     } catch (Exception e) {
-      Logger.error(e.getMessage());
+      Logger.error(
+        'Exception while Retrieving Financial Customer Ids: < FinancialSummaryController > ' +
+        e.getMessage()
+      );
       Logger.saveLog();
-      throw new AuraHandledException(e.getMessage());
+      throw new AuraHandledException(
+        'Error while reteriving Related Customer Records'
+      );
     }
   }
 
@@ -285,9 +296,14 @@ public with sharing class FinancialSummaryController {
       }
       return accountNumberList;
     } catch (Exception e) {
-      Logger.error(e.getMessage());
+      Logger.error(
+        'Exception while Retrieving Financial Account: < FinancialSummaryController > ' +
+        e.getMessage()
+      );
       Logger.saveLog();
-      throw new AuraHandledException(e.getMessage());
+      throw new AuraHandledException(
+        'Exception while Retrieving Financial Accounts'
+      );
     }
   }
 
@@ -322,14 +338,13 @@ public with sharing class FinancialSummaryController {
     Boolean callTotalCustBalanceApi
   ) {
     if (accountNumbers.isEmpty()) {
-      return CCRMConstants.NO_AVAILABLE_BALANCE;
+      return NO_AVAILABLE_BALANCE;
     }
 
     if (!callTotalCustBalanceApi) {
       return null;
     }
 
-    Map<String, String> headers = generateHeader();
     String endPoint = BASE_CALLOUT_URL + 'summaries';
 
     FinancialSummaryWrapper.TotalBalance totalBalanceWrapper = new FinancialSummaryWrapper.TotalBalance(
@@ -337,13 +352,17 @@ public with sharing class FinancialSummaryController {
       fieldSet,
       responseId
     );
-
-    return makeApiCallout(
-      endPoint,
-      HTTP_METHOD.HTTP_POST,
-      headers,
-      JSON.serialize(totalBalanceWrapper)
-    );
+    try {
+      FinancialSummaryAPIRepository finSummaryApiRepo = new FinancialSummaryAPIRepository();
+      HttpCalloutResponse response = finSummaryApiRepo.getFinancialSummaryResponse(
+        endPoint,
+        JSON.serialize(totalBalanceWrapper),
+        false
+      );
+      return getFinancialSummaryDetails(response);
+    } catch (Exception ex) {
+      return ERROR_RESPONSE;
+    }
   }
 
   /**
@@ -364,13 +383,12 @@ public with sharing class FinancialSummaryController {
     Boolean callTotalCustBalanceApi
   ) {
     if (capCustomerIds.isEmpty()) {
-      return CCRMConstants.NO_AVAILABLE_BALANCE;
+      return NO_AVAILABLE_BALANCE;
     }
     if (!callTotalCustBalanceApi) {
       return null;
     }
 
-    Map<String, String> headers = generateHeader();
     String endPoint = BASE_CALLOUT_URL + 'asset-finance-accounts';
 
     FinancialSummaryWrapper.TerminalAndTotalAsset assetFinanceWrapper = new FinancialSummaryWrapper.TerminalAndTotalAsset(
@@ -379,75 +397,16 @@ public with sharing class FinancialSummaryController {
       fieldSet,
       responseId
     );
-
-    return makeApiCallout(
-      endPoint,
-      HTTP_METHOD.HTTP_POST,
-      headers,
-      JSON.serialize(assetFinanceWrapper)
-    );
-  }
-
-  /**
-   * @description This method is used to generate Header
-   * @return Map<String, String> return the header in form of key-value pair
-   */
-  @TestVisible
-  private static Map<String, String> generateHeader() {
-    Map<String, String> headers = new Map<String, String>();
-    headers.put('Channel', 'DCRM');
-    headers.put('Content-Type', 'application/json');
-    headers.put('X-Workstation', System.Label.Customer_Auth_Workstation);
-    headers.put(
-      'X-Operator-Branch',
-      System.Label.Customer_Auth_Operator_Branch
-    );
-    headers.put(
-      'X-Originating-App',
-      System.Label.Customer_Auth_Originating_App
-    );
-    headers.put('client_id', '{!$Credential.Username}');
-    headers.put('client_secret', '{!$Credential.Password}');
-    headers.put('x-correlation-id', UniqueIdUtil.getTraceId());
-    headers.put('Authorization', 'Bearer ' + ARNCService.generateJWTToken());
-    return headers;
-  }
-
-  /**
-   * @description : This method is used to make a callout to get the Financial Summaries
-   * @param endPoint - endpoint to which we have to make a callout
-   * @param method - Http Method name
-   * @param headers - header
-   * @param requestObj - body of the request
-   * @return String - callout response
-   */
-  @TestVisible
-  private static String makeApiCallout(
-    String endPoint,
-    HTTP_METHOD method,
-    Map<String, String> headers,
-    String requestObj
-  ) {
     try {
-      HttpCalloutResponse httpResponse;
-      Lib_HttpCallout calloutService = new Lib_HttpCallout();
-      httpResponse = calloutService.makeRestCallout(
+      FinancialSummaryAPIRepository finSummaryApiRepo = new FinancialSummaryAPIRepository();
+      HttpCalloutResponse response = finSummaryApiRepo.getFinancialSummaryResponse(
         endPoint,
-        method,
-        headers,
-        requestObj
+        JSON.serialize(assetFinanceWrapper),
+        false
       );
-      Map<String, Object> responseMap = (Map<String, Object>) JSON.deserializeUntyped(
-        JSON.serialize(httpResponse)
-      );
-      Map<String, Object> responseBody = (Map<String, Object>) JSON.deserializeUntyped(
-        (String) responseMap.get('body')
-      );
-      return (String) responseBody.get('status');
-    } catch (Exception e) {
-      Logger.error(e.getMessage());
-      Logger.saveLog();
-      throw new AuraHandledException(e.getMessage());
+      return getFinancialSummaryDetails(response);
+    } catch (Exception ex) {
+      return ERROR_RESPONSE;
     }
   }
 
@@ -467,6 +426,9 @@ public with sharing class FinancialSummaryController {
 
     if (finSumResponse.assetBalanceAck != null) {
       cacheWrapper.assetBalanceAck = finSumResponse.assetBalanceAck;
+    }
+    if (finSumResponse.totalMortageLendingAck != null) {
+      cacheWrapper.totalMortageLendingAck = finSumResponse.totalMortageLendingAck;
     }
     cacheWrapper.lastSummaryUpdateDate = DateTime.now()
       .format('dd/MM/yyyy hh:mm a');
@@ -515,16 +477,19 @@ public with sharing class FinancialSummaryController {
     String errorDescription = (String) resMap.get('Error_Description__c');
 
     if (resMap.containsKey('TOTAL_CUSTOMER_BALANCE')) {
-      cacheWrapper.totalBalanceAck = CCRMConstants.ERROR_RESPONSE;
-      cacheWrapper.totalCreditBalanceAck = CCRMConstants.ERROR_RESPONSE;
-      cacheWrapper.totalDebitBalanceAck = CCRMConstants.ERROR_RESPONSE;
+      cacheWrapper.totalBalanceAck = ERROR_RESPONSE;
+      cacheWrapper.totalCreditBalanceAck = ERROR_RESPONSE;
+      cacheWrapper.totalDebitBalanceAck = ERROR_RESPONSE;
     }
 
     if (resMap.containsKey('TOTAL_ASSET_FINANCE_BALANCE')) {
-      cacheWrapper.assetBalanceAck = CCRMConstants.ERROR_RESPONSE;
+      cacheWrapper.assetBalanceAck = ERROR_RESPONSE;
     }
     if (resMap.containsKey('TOTAL_CUSTOMER_LIMIT')) {
-      cacheWrapper.totalLimitAck = CCRMConstants.ERROR_RESPONSE;
+      cacheWrapper.totalLimitAck = ERROR_RESPONSE;
+    }
+    if (resMap.containsKey('TOTAL_MORTGAGE_LENDING')) {
+      cacheWrapper.totalMortageLendingAck = ERROR_RESPONSE;
     }
 
     cacheWrapper.lastSummaryUpdateDate = DateTime.now()
@@ -572,27 +537,33 @@ public with sharing class FinancialSummaryController {
       cacheWrapper.totalBalance = Decimal.valueOf(
         (string) resMap.get('TOTAL_CUSTOMER_BALANCE')
       );
-      cacheWrapper.totalBalanceAck = CCRMConstants.SUCCESS_RESPONSE;
+      cacheWrapper.totalBalanceAck = SUCCESS_RESPONSE;
       cacheWrapper.totalDebitBalance = Decimal.valueOf(
         (string) resMap.get('TOTAL_DEBIT_BALANCE')
       );
-      cacheWrapper.totalDebitBalanceAck = CCRMConstants.SUCCESS_RESPONSE;
+      cacheWrapper.totalDebitBalanceAck = SUCCESS_RESPONSE;
       cacheWrapper.totalCreditBalance = Decimal.valueOf(
         (string) resMap.get('TOTAL_CREDIT_BALANCE')
       );
-      cacheWrapper.totalCreditBalanceAck = CCRMConstants.SUCCESS_RESPONSE;
+      cacheWrapper.totalCreditBalanceAck = SUCCESS_RESPONSE;
     }
     if (resMap.containsKey('TOTAL_ASSET_FINANCE_BALANCE')) {
       cacheWrapper.totalAssetFinanceBalance = Decimal.valueOf(
         (string) resMap.get('TOTAL_ASSET_FINANCE_BALANCE')
       );
-      cacheWrapper.assetBalanceAck = CCRMConstants.SUCCESS_RESPONSE;
+      cacheWrapper.assetBalanceAck = SUCCESS_RESPONSE;
     }
     if (resMap.containsKey('TOTAL_CUSTOMER_LIMIT')) {
       cacheWrapper.totalLimitValue = Decimal.valueOf(
         (string) resMap.get('TOTAL_CUSTOMER_LIMIT')
       );
-      cacheWrapper.totalLimitAck = CCRMConstants.SUCCESS_RESPONSE;
+      cacheWrapper.totalLimitAck = SUCCESS_RESPONSE;
+    }
+    if (resMap.containsKey('TOTAL_MORTGAGE_LENDING')) {
+      cacheWrapper.totalMortageLendingValue = Decimal.valueOf(
+        (string) resMap.get('TOTAL_MORTGAGE_LENDING')
+      );
+      cacheWrapper.totalMortageLendingAck = SUCCESS_RESPONSE;
     }
     cacheWrapper.lastSummaryUpdateDate = DateTime.now()
       .format('dd/MM/yyyy hh:mm a');
@@ -696,14 +667,13 @@ public with sharing class FinancialSummaryController {
     Boolean callTotalLimitsApi
   ) {
     if (accountNumbers.isEmpty()) {
-      return CCRMConstants.NO_AVAILABLE_BALANCE;
+      return NO_AVAILABLE_BALANCE;
     }
 
     if (!callTotalLimitsApi) {
       return null;
     }
 
-    Map<String, String> headers = generateHeader();
     String endPoint = BASE_CALLOUT_URL + 'summaries';
 
     FinancialSummaryWrapper.TotalLimits totalLimitsWrapper = new FinancialSummaryWrapper.TotalLimits(
@@ -711,18 +681,57 @@ public with sharing class FinancialSummaryController {
       fieldSet,
       responseId
     );
-
     try {
-      return makeApiCallout(
+      FinancialSummaryAPIRepository finSummaryApiRepo = new FinancialSummaryAPIRepository();
+      HttpCalloutResponse response = finSummaryApiRepo.getFinancialSummaryResponse(
         endPoint,
-        HTTP_METHOD.HTTP_POST,
-        headers,
-        JSON.serialize(totalLimitsWrapper)
+        JSON.serialize(totalLimitsWrapper),
+        false
       );
+      return getFinancialSummaryDetails(response);
     } catch (Exception ex) {
-      Logger.error(ex.getMessage());
-      Logger.saveLog();
-      return CCRMConstants.ERROR_RESPONSE;
+      return ERROR_RESPONSE;
+    }
+  }
+
+  /**
+   * @description This method is used to make a callout to get the Total Mortage Lending
+   * @param responseId - Id of the record
+   * @param accountNumbers - CAP Id of customer
+   * @param fieldSet - Constant keyword to unique Identify the callout
+   * @param callTotalMortageLendingApi - true if we need to call this API
+   * @return String - callout response
+   */
+  @TestVisible
+  private static String getTotalMortageLending(
+    String responseId,
+    Set<String> accountNumbers,
+    String fieldSet,
+    Boolean callTotalMortageLendingApi
+  ) {
+    if (accountNumbers.isEmpty()) {
+      return NO_AVAILABLE_BALANCE;
+    }
+    if (!callTotalMortageLendingApi) {
+      return null;
+    }
+    String endPoint = BASE_CALLOUT_URL + 'summaries';
+
+    FinancialSummaryWrapper.TotalMortageLending mortageLimitWrapper = new FinancialSummaryWrapper.TotalMortageLending(
+      accountNumbers,
+      fieldSet,
+      responseId
+    );
+    try {
+      FinancialSummaryAPIRepository finSummaryApiRepo = new FinancialSummaryAPIRepository();
+      HttpCalloutResponse response = finSummaryApiRepo.getFinancialSummaryResponse(
+        endPoint,
+        JSON.serialize(mortageLimitWrapper),
+        true
+      );
+      return getFinancialSummaryDetails(response);
+    } catch (Exception ex) {
+      return ERROR_RESPONSE;
     }
   }
 
@@ -742,5 +751,32 @@ public with sharing class FinancialSummaryController {
       }
     }
     return filteredAccNumbers;
+  }
+
+  /**
+   * @description : This method is used to make a callout to get the Financial Summaries
+   * @param finSummaryResponse - finanacial Summary response.
+   * @return String - callout response
+   */
+  @TestVisible
+  private static String getFinancialSummaryDetails(
+    HttpCalloutResponse finSummaryResponse
+  ) {
+    try {
+      Map<String, Object> responseMap = (Map<String, Object>) JSON.deserializeUntyped(
+        JSON.serialize(finSummaryResponse)
+      );
+      Map<String, Object> responseBody = (Map<String, Object>) JSON.deserializeUntyped(
+        (String) responseMap.get('body')
+      );
+      return (String) responseBody.get('status');
+    } catch (Exception ex) {
+      Logger.error(
+        'Exception while transforming response from ServiceName: < FinancialSummaryService > ' +
+        ex.getMessage()
+      );
+      Logger.saveLog();
+      return ERROR_RESPONSE;
+    }
   }
 }

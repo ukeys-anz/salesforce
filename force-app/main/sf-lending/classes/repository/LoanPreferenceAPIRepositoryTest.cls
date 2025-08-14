@@ -72,6 +72,30 @@ public with sharing class LoanPreferenceAPIRepositoryTest {
     }
   }
 
+  /**
+   * @description Static method to return Loan Preference Data
+   */
+  static LexLoanappV1b1_loanapplication_types.LoanPreferences getLoanPreferenceData {
+    get {
+      LexLoanappV1b1_loanapplication_types.LoanPreferences loanPref = new LexLoanappV1b1_loanapplication_types.LoanPreferences();
+      loanPref.uid = '7479fe3d-f0b8-4739-a4cd-7fb334bf3451';
+      loanPref.offset = false;
+      loanPref.repaymentFrequency = 'REPAYMENT_FREQUENCY_MONTHLY';
+      loanPref.etag = '1731984334297';
+      loanPref.taxDeductiblePercentage = 12;
+      loanPref.propertyIds = new List<String>{ 'string', 'string' };
+      loanPref.initialLoanTermDetails = new LexLoanappV1b1_loanapplication_types.LoanTermDetails();
+      loanPref.initialLoanTermDetails.loanTermMonths = 120;
+      loanPref.subsequentLoanTermDetails = new LexLoanappV1b1_loanapplication_types.LoanTermDetails();
+      loanPref.subsequentLoanTermDetails.loanTermMonths = 120;
+      loanPref.funds = new List<LexLoanappV1b1_loanapplication_types.FundPortion>();
+      LexLoanappV1b1_loanapplication_types.FundPortion fund = new LexLoanappV1b1_loanapplication_types.FundPortion();
+      fund.purpose = 'purpose';
+      loanPref.funds.add(fund);
+      return loanPref;
+    }
+  }
+
   @isTest
   static void testGetLoanPreferenceSuccess() {
     registerMocks();
@@ -280,6 +304,173 @@ public with sharing class LoanPreferenceAPIRepositoryTest {
         ex,
         LoanPreferenceAPIRepository.UserErrorLoanPreferenceException.class,
         'Exception should be an instanceof UserErrorLoanPreferenceException.'
+      );
+    }
+  }
+
+  /**
+   * @description Test case for a valid Input and valid response
+   */
+  @isTest
+  static void testUpdateLoanPreference() {
+    registerMocks();
+
+    HttpCalloutResponse successResponse = new HttpCalloutResponse();
+    successResponse.body = Service.getStaticResource('mock_GetLoanApplication');
+    successResponse.successful = true;
+    successResponse.statusCode = 200;
+    loanPreferenceServiceMock.mock(
+      'updateLoanPreferenceDetails',
+      successResponse
+    );
+
+    String ocvId = '11111231';
+    List<Object> urlParams = new List<Object>{
+      '13241571',
+      '7479fe3d-f0b8-4739-a4cd-7fb334bf3451'
+    };
+    LexLoanappV1b1_loanapplication_types.LoanApplication loanCache;
+    Test.startTest();
+    LoanPreferenceAPIRepository loanPrefapi = new LoanPreferenceAPIRepository();
+    LexLoanappV1b1_loanapplication_types.LoanApplication response = loanPrefapi.updateLoanPreference(
+      ocvId,
+      urlParams,
+      getLoanPreferenceData
+    );
+    loanCache = (LexLoanappV1b1_loanapplication_types.LoanApplication) DataPartitionUtil.getDataFromCache(
+      LoanApplicationAPIRepository.CACHE_DATA_KEY_PREFIX_GETLOANAPI + '13241571'
+    );
+    Test.stopTest();
+
+    Assert.isNotNull(response, 'Status code of the response should be 200');
+    Assert.areEqual(
+      'INTEREST_RATE_TYPE_VARIABLE',
+      response.preferences[0].interestRateType,
+      'Invalid Interest rate type Value '
+    );
+    Assert.isNotNull(loanCache, 'loanCache should not be null');
+    Assert.areEqual(
+      'INTEREST_RATE_TYPE_VARIABLE',
+      loanCache.preferences[0].interestRateType,
+      'Invalid Interest rate type Value '
+    );
+  }
+
+  /**
+   * @description Test case for a invalid Input and exception
+   */
+  @isTest
+  static void testUpdateLoanPreferenceException() {
+    registerMocks();
+
+    HttpCalloutResponse errorResponse = new HttpCalloutResponse();
+    errorResponse.error = new CalloutException(
+      '{"code": "ERROR","errorCode": 340210,"errorReason": "loan_amount outside minimum and maximum", "additionalInfo": {"reason": "HTTP:NOT_FOUND","category": "TECHNICAL"}}'
+    );
+    errorResponse.successful = false;
+    errorResponse.statusCode = 400;
+    loanPreferenceServiceMock.mock(
+      'updateLoanPreferenceDetails',
+      errorResponse
+    );
+
+    String ocvId = '11111231';
+    List<Object> urlParams = new List<Object>{
+      '13241571',
+      '7479fe3d-f0b8-4739-a4cd-7fb334bf3451'
+    };
+
+    try {
+      Test.startTest();
+      LoanPreferenceAPIRepository loanPrefapi = new LoanPreferenceAPIRepository();
+      loanPrefapi.updateLoanPreference(ocvId, urlParams, getLoanPreferenceData);
+      Test.stopTest();
+      Assert.fail('An Exception should be thrown');
+    } catch (Exception ex) {
+      Assert.isInstanceOfType(
+        ex,
+        LoanPreferenceAPIRepository.UserErrorLoanPreferenceException.class,
+        'Exception should be an instanceof UserErrorLoanPreferenceException.'
+      );
+    }
+  }
+
+  @isTest
+  static void testUpdateLoanPreferenceServerException() {
+    registerMocks();
+
+    HttpCalloutResponse errorResponse = new HttpCalloutResponse();
+    errorResponse.error = new CalloutException('callout failed');
+    errorResponse.successful = false;
+    errorResponse.statusCode = 500;
+    loanPreferenceServiceMock.mock(
+      'updateLoanPreferenceDetails',
+      errorResponse
+    );
+
+    String ocvId = '11111231';
+    List<Object> urlParams = new List<Object>{
+      '13241571',
+      '7479fe3d-f0b8-4739-a4cd-7fb334bf3451'
+    };
+
+    try {
+      Test.startTest();
+      LoanPreferenceAPIRepository loanPrefapi = new LoanPreferenceAPIRepository();
+      loanPrefapi.updateLoanPreference(ocvId, urlParams, getLoanPreferenceData);
+      Test.stopTest();
+      Assert.fail('An Exception should be thrown');
+    } catch (Exception exp) {
+      Assert.isInstanceOfType(
+        exp,
+        LoanPreferenceAPIRepository.ServerErrorLoanPreferenceException.class,
+        'Exception should be an instanceof LoanPreferenceAPIRepository.ServerErrorLoanPreferenceException.'
+      );
+
+      Assert.areEqual(
+        'callout failed',
+        exp.getMessage(),
+        'Should throw invalid details exception'
+      );
+    }
+  }
+
+  @isTest
+  static void testUpdateLoanPreferenceUnhandledException() {
+    registerMocks();
+
+    HttpCalloutResponse errorResponse = new HttpCalloutResponse();
+    errorResponse.error = new CalloutException('callout failed');
+    errorResponse.successful = false;
+    errorResponse.statusCode = 404;
+    loanPreferenceServiceMock.mock(
+      'updateLoanPreferenceDetails',
+      errorResponse
+    );
+
+    String ocvId = '11111231';
+    List<Object> urlParams = new List<Object>{
+      '13241571',
+      '7479fe3d-f0b8-4739-a4cd-7fb334bf3451'
+    };
+
+    try {
+      Test.startTest();
+      LoanPreferenceAPIRepository loanPrefapi = new LoanPreferenceAPIRepository();
+      loanPrefapi.updateLoanPreference(ocvId, urlParams, getLoanPreferenceData);
+      Test.stopTest();
+      Assert.fail('An Exception should be thrown');
+    } catch (Exception exp) {
+      Assert.isInstanceOfType(
+        exp,
+        LoanPreferenceAPIRepository.UnhandledLoanPreferenceException.class,
+        'Exception should be an instanceof LoanPreferenceAPIRepository.UnhandledLoanPreferenceException.'
+      );
+
+      Assert.areEqual(
+        'callout failed',
+        exp.getMessage(),
+        'Should throw invalid details exception'
       );
     }
   }

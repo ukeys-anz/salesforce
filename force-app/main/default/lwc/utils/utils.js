@@ -262,3 +262,37 @@ export class SimpleNav {
     );
   }
 }
+
+//Convert Months into years and MonthsAdd commentMore actions
+export function transformMonthToYearMonth(months) {
+  let yearValue;
+  let monthValue;
+  yearValue = Math.floor(months / 12); //divide by 12 and round down
+  monthValue = months % 12; //get the reminder of month
+  if (yearValue === 0) {
+    return monthValue + " months";
+  } else if (monthValue === 0) {
+    return yearValue + " years";
+  }
+  return yearValue + " years, " + monthValue + " months";
+}
+
+// Update timestamp format to numeric style, e.g., '22/11/2024, 6:17 am'
+export function setTimestampShorthand(timestamp) {
+  let lastUpdated = new Date(timestamp).toLocaleString("en-AU", {
+    day: "numeric",
+    month: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true
+  });
+  return lastUpdated;
+}
+
+// Converts units and nanos to salesforce decimal
+export function handleAmountConversion(units, nanos) {
+  let unitValue = isNaN(parseFloat(units)) ? 0 : parseFloat(units);
+  let nanosValue = isNaN(parseFloat(nanos)) ? 0 : parseFloat(nanos);
+  return (unitValue + nanosValue / 1000000000).toFixed(2);
+}

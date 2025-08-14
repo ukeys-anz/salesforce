@@ -92,6 +92,15 @@
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
+                        <valueListItems>
+                            <value>Opportunity.Create_ANZ_Plus_Loan_Application</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.Application_Numbers__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>

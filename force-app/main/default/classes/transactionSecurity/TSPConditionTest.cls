@@ -7,7 +7,7 @@
  **/
 @isTest
 public with sharing class TSPConditionTest {
-  /*@isTest
+  @isTest
   static void bulkAPICondtionANZxUserTest() {
     //GIVEN the user with `ANZx Standard User` profile
     Id userId = UserInfo.getUserId();
@@ -79,12 +79,10 @@ public with sharing class TSPConditionTest {
     );
     System.assert(condtionResult, 'Should return true');
   }
-  
+
   static Lib_MockProvider queryMock;
   static void registerMocks() {
-    queryMock = Lib_MockProvider.forType(
-      TSPRepository.class
-    );
+    queryMock = Lib_MockProvider.forType(TSPRepository.class);
   }
 
   static List<Id> cvIds = new List<Id>{
@@ -131,11 +129,11 @@ public with sharing class TSPConditionTest {
     String profileName = 'ANZx Standard User';
 
     Id conDocId = cvListData[0].ContentDocumentId;
-  
-   	FileEventStore testEvent = new FileEventStore();
+
+    FileEventStore testEvent = new FileEventStore();
     testevent.DocumentId = conDocId;
     testevent.FileAction = 'UI_DOWNLOAD';
-      
+
     //THEN the condition should be true
     Boolean condtionResult = TSPCondition.condition(
       userId,
@@ -144,7 +142,7 @@ public with sharing class TSPConditionTest {
     );
     System.assert(condtionResult, 'Should return true');
   }
-    
+
   @isTest
   static void reportEventCondtionANZUserTest() {
     //GIVEN the user with `ANZx Standard User` profile
@@ -234,6 +232,14 @@ public with sharing class TSPConditionTest {
     System.assert(!condtionResult, 'Should return false');
   }
 
+  /*
+    * Point: ReportAnomalyEvent for positive case (return true) has no test, as if we want to test it, we need
+    * to use a Report and make many execution to be as an anomaly event. For using Report on test we need to
+    * use `@isTest(SeeAllData=true)` that will make some risk. 
+
+    * Point: ReportAnomalyEvent for negative case (return false) can be tested, as the testUser does not 
+    * have ReportAnomalyEvent.score >= 50, and it will give false as the result
+  */
   @isTest
   static void reportAnomalyEventCondtionNotTriggered() {
     //GIVEN the user with `Integration User` profile
@@ -299,5 +305,5 @@ public with sharing class TSPConditionTest {
         'Should return true as as Refresh Token is quiried'
       );
     }
-  }*/
+  }
 }

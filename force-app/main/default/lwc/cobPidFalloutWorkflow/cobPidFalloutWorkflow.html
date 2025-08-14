@@ -1,0 +1,55 @@
+<template>
+  <div lwc:if={hasAegisAccess} class="div-container">
+    <h2
+      class="slds-align_absolute-center slds-text-heading_medium slds-p-around_large"
+    >
+      User Document to be Verified
+    </h2>
+    <!-- Documents/Selfie Section -->
+    <c-daon-file-download
+      layout={pidLayout}
+      metadata={metadata}
+    ></c-daon-file-download>
+    <div class="slds-align_absolute-center">
+      <lightning-input
+        lwc:if={showCheckboxes}
+        type="checkbox"
+        label="Is this a valid document?"
+        name="validDocument"
+        onchange={checkboxHandler}
+        class="slds-p-around_medium"
+      ></lightning-input>
+    </div>
+    <c-daon-file-download
+      layout={selfieLayout}
+      metadata={metadata}
+    ></c-daon-file-download>
+    <div class="slds-align_absolute-center">
+      <lightning-input
+        lwc:if={showCheckboxes}
+        type="checkbox"
+        label="Matches"
+        name="selfieMatch"
+        onchange={checkboxHandler}
+        class="slds-p-around_medium"
+      ></lightning-input>
+    </div>
+    <!-- Approval / Reject Section -->
+    <div class="slds-align_absolute-center">
+      <lightning-button
+        label="Approve"
+        onclick={handleApproval}
+        variant="brand"
+        disabled={isApproveButtonDisable}
+        class="slds-p-around_medium"
+      ></lightning-button>
+      <lightning-button
+        label="Reject"
+        onclick={handleReject}
+        variant="destructive"
+        disabled={isRejectButtonDisable}
+        class="slds-p-around_medium"
+      ></lightning-button>
+    </div>
+  </div>
+</template>

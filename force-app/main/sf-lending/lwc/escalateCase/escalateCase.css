@@ -1,0 +1,12 @@
+:host {
+  --slds-c-modal-header-color-background: var(--slds-g-color-palette-blue-30);
+  --slds-c-modal-header-text-color: var(--slds-g-color-neutral-base-100);
+}
+
+.comment-area {
+  --sds-c-textarea-sizing-min-height: 4rem;
+}
+
+.fontRed {
+  color: var(--slds-g-color-palette-red-50);
+}

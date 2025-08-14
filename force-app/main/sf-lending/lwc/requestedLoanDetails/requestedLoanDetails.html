@@ -1,0 +1,277 @@
+<template>
+  <template lwc:if={componentSpinner}>
+    <lightning-spinner
+      alternative-text="Loading"
+      varient="brand"
+      size="large"
+      class="slds-align_absolute-center"
+    ></lightning-spinner>
+  </template>
+  <lightning-accordion
+    allow-multiple-sections-open
+    active-section-name="otherLoanDetails"
+    class="accordionBorderRadiusStyle iconSpacing accordionPadding"
+  >
+    <lightning-accordion-section
+      name="otherLoanDetails"
+      label="Requested Loan Details"
+      class="accordianSection"
+    >
+      <template lwc:if={preferenceError}>
+        <lightning-layout class="slds-p-left_small">
+          <lightning-layout-item size="12" class="slds-p-top_small">
+            <lightning-icon
+              icon-name={iconName}
+              size="x-small"
+              class="slds-m-right_x-small"
+            ></lightning-icon>
+            <lightning-formatted-text value={errorMessage}>
+            </lightning-formatted-text>
+          </lightning-layout-item>
+        </lightning-layout>
+      </template>
+      <template lwc:else>
+        <lightning-layout
+          multiple-rows
+          class="slds-p-top_small slds-grid_vertical-align-end"
+        >
+          <template lwc:if={multiParty}>
+            <lightning-layout-item size="6" flexibility="shrink">
+              <lightning-layout
+                class="slds-p-top_xx-small slds-p-horizontal_small"
+              >
+                <lightning-layout-item
+                  size="4"
+                  flexibility="shrink"
+                  class="labelStyle slds-border_bottom slds-p-around_xx-small"
+                >
+                  <lightning-formatted-text value="Multi Party">
+                  </lightning-formatted-text>
+                </lightning-layout-item>
+                <lightning-layout-item
+                  size="8"
+                  flexibility="shrink"
+                  class="textStyle slds-border_bottom slds-p-around_xx-small"
+                >
+                  <lightning-formatted-text value={multiParty}>
+                  </lightning-formatted-text>
+                </lightning-layout-item>
+              </lightning-layout>
+            </lightning-layout-item>
+          </template>
+          <template lwc:if={propertyUse}>
+            <lightning-layout-item
+              size="6"
+              flexibility="shrink"
+              class="slds-p-top_xx-small"
+            >
+              <lightning-layout class="slds-p-horizontal_small">
+                <lightning-layout-item
+                  size="4"
+                  flexibility="shrink"
+                  class="labelStyle slds-border_bottom slds-p-around_xx-small"
+                >
+                  <lightning-formatted-text value="Property Use">
+                  </lightning-formatted-text>
+                </lightning-layout-item>
+                <lightning-layout-item
+                  size="8"
+                  flexibility="shrink"
+                  class="textStyle slds-border_bottom slds-p-around_xx-small"
+                >
+                  <lightning-formatted-text value={propertyUse}>
+                  </lightning-formatted-text>
+                </lightning-layout-item>
+              </lightning-layout>
+            </lightning-layout-item>
+          </template>
+          <template lwc:if={borrowAdditionalFunds}>
+            <lightning-layout-item
+              size="6"
+              flexibility="shrink"
+              class="slds-p-top_xx-small"
+            >
+              <lightning-layout class="slds-p-horizontal_small">
+                <lightning-layout-item
+                  size="4"
+                  flexibility="shrink"
+                  class="labelStyle slds-border_bottom slds-p-around_xx-small"
+                >
+                  <lightning-formatted-text value="Borrow Additional Funds">
+                  </lightning-formatted-text>
+                </lightning-layout-item>
+                <lightning-layout-item
+                  size="8"
+                  flexibility="shrink"
+                  class="textStyle slds-border_bottom slds-p-around_xx-small"
+                >
+                  <lightning-formatted-text value="Yes">
+                  </lightning-formatted-text>
+                </lightning-layout-item>
+              </lightning-layout>
+            </lightning-layout-item>
+          </template>
+          <template lwc:if={requestedLoanAmount}>
+            <lightning-layout-item size="6" flexibility="shrink">
+              <lightning-layout
+                class="slds-p-top_xx-small slds-p-horizontal_small"
+              >
+                <lightning-layout-item
+                  size="4"
+                  flexibility="shrink"
+                  class="labelStyle slds-border_bottom slds-p-around_xx-small"
+                >
+                  <lightning-formatted-text value="Requested Loan Amount">
+                  </lightning-formatted-text>
+                </lightning-layout-item>
+                <lightning-layout-item
+                  size="8"
+                  flexibility="shrink"
+                  class="textStyle slds-border_bottom slds-p-around_xx-small"
+                >
+                  <lightning-formatted-number
+                    value={requestedLoanAmount}
+                    format-style="currency"
+                    currency-code="AUD"
+                    currency-display-as="symbol"
+                  >
+                  </lightning-formatted-number>
+                </lightning-layout-item>
+              </lightning-layout>
+            </lightning-layout-item>
+          </template>
+          <template lwc:if={loanTerm}>
+            <lightning-layout-item
+              size="6"
+              flexibility="shrink"
+              class="slds-p-top_xx-small"
+            >
+              <lightning-layout class="slds-p-horizontal_small">
+                <lightning-layout-item
+                  size="4"
+                  flexibility="shrink"
+                  class="labelStyle slds-border_bottom slds-p-around_xx-small"
+                >
+                  <lightning-formatted-text value="Loan Term">
+                  </lightning-formatted-text>
+                </lightning-layout-item>
+                <lightning-layout-item
+                  size="8"
+                  flexibility="shrink"
+                  class="textStyle slds-border_bottom slds-p-around_xx-small"
+                >
+                  <lightning-formatted-text value={loanTerm}>
+                  </lightning-formatted-text>
+                </lightning-layout-item>
+              </lightning-layout>
+            </lightning-layout-item>
+          </template>
+          <template lwc:if={interestRateType}>
+            <lightning-layout-item
+              size="6"
+              flexibility="shrink"
+              class="slds-p-top_xx-small"
+            >
+              <lightning-layout class="slds-p-horizontal_small">
+                <lightning-layout-item
+                  size="4"
+                  flexibility="shrink"
+                  class="labelStyle slds-border_bottom slds-p-around_xx-small"
+                >
+                  <lightning-formatted-text value="Rate Type">
+                  </lightning-formatted-text>
+                </lightning-layout-item>
+                <lightning-layout-item
+                  size="8"
+                  flexibility="shrink"
+                  class="textStyle slds-border_bottom slds-p-around_xx-small"
+                >
+                  <lightning-formatted-text value={interestRateType}>
+                  </lightning-formatted-text>
+                </lightning-layout-item>
+              </lightning-layout>
+            </lightning-layout-item>
+          </template>
+          <template lwc:if={repaymentType}>
+            <lightning-layout-item
+              size="6"
+              flexibility="shrink"
+              class="slds-p-top_xx-small"
+            >
+              <lightning-layout class="slds-p-horizontal_small">
+                <lightning-layout-item
+                  size="4"
+                  flexibility="shrink"
+                  class="labelStyle slds-border_bottom slds-p-around_xx-small"
+                >
+                  <lightning-formatted-text value="Repayment Type">
+                  </lightning-formatted-text>
+                </lightning-layout-item>
+                <lightning-layout-item
+                  size="8"
+                  flexibility="shrink"
+                  class="textStyle slds-border_bottom slds-p-around_xx-small"
+                >
+                  <lightning-formatted-text value={repaymentType}>
+                  </lightning-formatted-text>
+                </lightning-layout-item>
+              </lightning-layout>
+            </lightning-layout-item>
+          </template>
+          <template lwc:if={interestLoanPeriod}>
+            <lightning-layout-item
+              size="6"
+              flexibility="shrink"
+              class="slds-p-top_xx-small"
+            >
+              <lightning-layout class="slds-p-horizontal_small">
+                <lightning-layout-item
+                  size="4"
+                  flexibility="shrink"
+                  class="labelStyle slds-border_bottom slds-p-around_xx-small"
+                >
+                  <lightning-formatted-text value="Interest Only Period">
+                  </lightning-formatted-text>
+                </lightning-layout-item>
+                <lightning-layout-item
+                  size="8"
+                  flexibility="shrink"
+                  class="textStyle slds-border_bottom slds-p-around_xx-small"
+                >
+                  <lightning-formatted-text value={interestLoanPeriod}>
+                  </lightning-formatted-text>
+                </lightning-layout-item>
+              </lightning-layout>
+            </lightning-layout-item>
+          </template>
+          <template lwc:if={repaymentFrequency}>
+            <lightning-layout-item
+              size="6"
+              flexibility="shrink"
+              class="slds-p-top_xx-small"
+            >
+              <lightning-layout class="slds-p-horizontal_small">
+                <lightning-layout-item
+                  size="4"
+                  flexibility="shrink"
+                  class="labelStyle slds-border_bottom slds-p-around_xx-small"
+                >
+                  <lightning-formatted-text value="Repayment Frequency">
+                  </lightning-formatted-text>
+                </lightning-layout-item>
+                <lightning-layout-item
+                  size="8"
+                  flexibility="shrink"
+                  class="textStyle slds-border_bottom slds-p-around_xx-small"
+                >
+                  <lightning-formatted-text value={repaymentFrequency}>
+                  </lightning-formatted-text>
+                </lightning-layout-item>
+              </lightning-layout>
+            </lightning-layout-item>
+          </template>
+        </lightning-layout>
+      </template>
+    </lightning-accordion-section>
+  </lightning-accordion>
+</template>

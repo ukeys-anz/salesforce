@@ -10,7 +10,7 @@
     <filters>
         <field>Status__c</field>
         <operation>notEqual</operation>
-        <value>STATE_COMPLETED</value>
+        <value>STATE_COMPLETED,STATE_CANCELLED</value>
     </filters>
     <filterScope>Everything</filterScope>
     <label>All Open Settlements</label>

@@ -159,7 +159,7 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Associated Loan Applications</pluralLabel>
-    <searchLayouts></searchLayouts>
+    <searchLayouts/>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

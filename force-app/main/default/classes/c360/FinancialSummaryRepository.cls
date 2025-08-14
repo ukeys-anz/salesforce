@@ -10,16 +10,13 @@ public with sharing class FinancialSummaryRepository {
    * @return Account
    **/
   public Account getAccountById(String customerId) {
-    if (String.isEmpty(customerId)) {
-      return new Account();
-    }
     return [
-      SELECT Id, External_Id__c, RecordType.DeveloperName
+      SELECT Id, External_Id__c, RecordType.DeveloperName, Source_System_ID__c
       FROM Account
       WHERE Id = :customerId
       WITH USER_MODE
       LIMIT 1
-    ];
+    ] ?? null;
   }
 
   /**

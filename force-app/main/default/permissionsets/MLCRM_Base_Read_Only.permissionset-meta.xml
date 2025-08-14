@@ -125,7 +125,7 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>FinancialSummaryTest</apexClass>
+        <apexClass>FinancialSummaryControllerTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -190,6 +190,10 @@
     </customMetadataTypeAccesses>
     <customMetadataTypeAccesses>
         <name>FinancialAccountUIConfiguration__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <name>FinancialAccountConfiguration__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
     <description>Baseline PS for using the Mobile Lending CRM app giving read only access to fields
@@ -3577,6 +3581,11 @@ CC-6187 - read only to fields for ML Field Team users</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>User_Territory__c.User__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User_Territory__c.SAO__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

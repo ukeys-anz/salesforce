@@ -1,0 +1,74 @@
+<template>
+  <lightning-layout
+    multiple-rows
+    horizontal-align="spread"
+    class="slds-box slds-m-top_medium"
+  >
+    <lightning-layout-item size="11" class="slds-m-top_x-small">
+      <lightning-layout>
+        <!--Property Logo-->
+        <lightning-layout-item size="1">
+          <img
+            src={propertyImage}
+            class="propertyLogoStyle slds-m-left_small"
+          />
+        </lightning-layout-item>
+        <lightning-layout-item size="11">
+          <lightning-layout multiple-rows>
+            <!--Address Details for the preference record-->
+            <lightning-layout-item
+              size="12"
+              class="addressStyle slds-p-top_xx-small"
+            >
+              <lightning-formatted-text
+                value={preferenceData.address}
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+            <!--Property Status-->
+            <lightning-layout-item size="12" class="statusStyle">
+              <lightning-formatted-text
+                value={preferenceData.propertyStatus}
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+          </lightning-layout>
+        </lightning-layout-item>
+      </lightning-layout>
+    </lightning-layout-item>
+    <lightning-layout-item size="1" flexibility="shrink">
+      <!--Display accordion chevron down if screen is expanded and right if screen is collapsed-->
+      <template lwc:if={showDetailedview}>
+        <lightning-icon
+          icon-name="utility:chevrondown"
+          size="small"
+          class="iconAlignment"
+          onclick={toggleDetails}
+        ></lightning-icon>
+      </template>
+      <template lwc:else>
+        <lightning-icon
+          icon-name="utility:chevronright"
+          size="small"
+          class="iconAlignment"
+          onclick={toggleDetails}
+        ></lightning-icon>
+      </template>
+    </lightning-layout-item>
+    <template lwc:if={showDetailedView}>
+      <!--Show Edit button when the screen is expanded-->
+      <lightning-layout-item size="12" class="slds-text-align_right">
+        <lightning-button
+          variant="neutral"
+          label="Edit"
+          onclick={handleEditClick}
+        ></lightning-button>
+      </lightning-layout-item>
+    </template>
+    <!--Child component to display contents of Loan Preference Record-->
+    <lightning-layout-item size="12" class="slds-m-top_large">
+      <c-loan-preferences-container
+        preference-data={preferenceData}
+        show-detailed-view={showDetailedView}
+      ></c-loan-preferences-container>
+    </lightning-layout-item>
+  </lightning-layout>
+</template>

@@ -47,6 +47,16 @@
                 <label>Fraud Agent Delay</label>
             </value>
             <value>
+                <fullName>Fraud Agent Delay - Purged Alert</fullName>
+                <default>false</default>
+                <label>Fraud Agent Delay - Purged Alert</label>
+            </value>
+            <value>
+                <fullName>Fraud Agent Delay - Quarantine Timeout</fullName>
+                <default>false</default>
+                <label>Fraud Agent Delay - Quarantine Timeout</label>
+            </value>
+            <value>
                 <fullName>Fraud Agent Error</fullName>
                 <default>false</default>
                 <label>Fraud Agent Error</label>

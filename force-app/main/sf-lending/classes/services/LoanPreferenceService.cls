@@ -59,4 +59,32 @@ public with sharing virtual class LoanPreferenceService extends Service {
     );
     return response;
   }
+
+  /**
+   * @description Send the Loan Preference record updates to the external system
+   * @param ocvId String
+   * @param urlParams List<Object>
+   * @param loanPrefData LexLoanappV1b1_loanapplication_types.LoanPreferences
+   * @return `HttpCalloutResponse` the api response
+   */
+  public virtual HttpCalloutResponse updateLoanPreferenceDetails(
+    String ocvId,
+    List<Object> urlParams,
+    LexLoanappV1b1_loanapplication_types.LoanPreferences loanPrefData
+  ) {
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
+    headers.put('Content-Type', 'application/json');
+    String requestUrl = String.format(
+      Label.MS_Update_LoanPreference,
+      urlParams
+    );
+    HttpCalloutResponse response = HTTP_CALLOUT.makeRestCallout(
+      requestUrl,
+      HTTP_METHOD.HTTP_PATCH,
+      headers,
+      JSON.serialize(loanPrefData)
+    );
+    return response;
+  }
 }

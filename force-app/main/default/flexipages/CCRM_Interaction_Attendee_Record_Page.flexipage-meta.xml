@@ -79,21 +79,32 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>required</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Attendee_Phone__c</fieldItem>
                 <identifier>RecordAttendee_Phone_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.AttendeeType}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>External</rightValue>
-                    </criteria>
                     <criteria>
                         <leftValue>{!Record.AttendeeType}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Customer</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Attendee_Phone__c</fieldItem>
+                <identifier>RecordAttendee_Phone_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.AttendeeType}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>External</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>

@@ -1390,6 +1390,7 @@
       "IA-2530753": [
         "CertificateIdentifier__c",
         "DocumentFailureReason__c",
+        "ePaymentsCodeApplicable__c",
         "External_Request_Id__c",
         "IDR_Product_Family__c",
         "LicenceCardNumber__c",
@@ -1402,6 +1403,7 @@
         "NascScamSubCategory__c",
         "OnboardingVerificationFailedReason__c",
         "PassportNumber__c",
+        "ReimbursementReason__c",
         "RemoteAccessUsed__c"
       ],
       "IA-2415840": [
@@ -1797,7 +1799,12 @@
         "Sync_Status__c"
       ],
       "IA-2415860": ["Occurrence_Number__c"],
-      "IA-2453350": ["External_Id__c" ,"Survivor_Party_Id__c","Victim_Party_Id__c","OCV_Profile_ID__c" ],
+      "IA-2453350": [
+        "External_Id__c",
+        "Survivor_Party_Id__c",
+        "Victim_Party_Id__c",
+        "OCV_Profile_ID__c"
+      ],
       "IA-2415984": [
         "Birthdate",
         "Email",
@@ -2203,9 +2210,13 @@
         "LastModifiedById",
         "LastModifiedDate"
       ],
-      "IA-2423981": ["Status__c", "Action"],
-      "IA-2435462": ["Object_Name__c", "TriggeredFrom__c", "UserLanId__c"],
-      "IA-2530753": ["Customer_Name__c"],
+      "IA-2460507": ["UserLanId__c", "Object_Name__c"],
+      "IA-2530753": [
+        "Customer_Name__c",
+        "Status__c",
+        "Action",
+        "TriggeredFrom__c"
+      ],
       "IA-2571531": ["Error_Description__c"],
       "IA-2453595": ["Action__c"],
       "IA-2468715": ["Source_System_Name__c"],
@@ -2234,7 +2245,7 @@
       ]
     },
     "DCRM_Customer_Management_Non_KYC_Fields__mdt": {
-      "IA-2530743": ["Object_Name__c", "RecordType_Name__c"],
+      "IA-2460507": ["Object_Name__c", "RecordType_Name__c"],
       "IA-2415993": ["Customer_Status__c", "Field_Name__c", "Profile_Name__c"]
     },
     "Device__x": {
@@ -2595,6 +2606,8 @@
       ],
       "IA-2415987": [
         "FinServ__ProductName__c",
+        "Linked_Product_Code__c",
+        "Is_Digitally_Active__c",
         "Interest_Rate_URL__c",
         "Is_Interest_Tab_Visible__c"
       ],
@@ -2695,8 +2708,12 @@
         "Show_Goals__c",
         "Sort_Order__c",
         "Include_In_Total_Financial_Position__c",
-        "Is_Active__c"
+        "Is_Active__c",
+        "FinancialAccountConfiguration__c"
       ]
+    },
+    "FinancialAccountConfiguration__mdt": {
+      "IA-2468715": ["Icon__c", "Transaction_Title__c"]
     },
     "Group": {
       "IA-2468715": [
@@ -3084,7 +3101,13 @@
         "OpportunityType__c",
         "Contactpreferences__c",
         "Is_BOH_Lead__c",
-        "Lead_Record_Name__c"
+        "Lead_Record_Name__c",
+        "Referral_Status__c",
+        "Referrer_Lead__c",
+        "Referral_Acknowledged_Date__c",
+        "Lead_Created_Date__c",
+        "Referrer_Business_Name__c",
+        "Referrer_Industry_Type__c"
       ],
       "IA-2415720": [
         "Account_Number__c",
@@ -3111,7 +3134,6 @@
         "My_Managers_Lead__c"
       ],
       "IA-2530753": ["IsNewLead__c"],
-      "IA-2697875": ["Referrer_Business_Name__c", "Referrer_Industry_Type__c"],
       "IA-2618706": [
         "PreferredName__c",
         "AdvertisingIndicator__c",
@@ -3121,13 +3143,7 @@
       "IA-2431669": ["Primary_Franchise_Owner__c"],
       "IA-2453350": ["Customer_Pre_Exist__c"],
       "IA-2415790": ["Broker_Name__c"],
-      "IA-2415828": ["Circle_Of_Influence__c"],
-      "IA-3254438": [
-        "Referral_Status__c",
-        "Referrer_Lead__c",
-        "Referral_Acknowledged_Date__c",
-        "Lead_Created_Date__c"
-      ]
+      "IA-2415828": ["Circle_Of_Influence__c"]
     },
     "Lead_Event__e": {
       "IA-2423278": ["Expressed_Interest__c"]
@@ -3155,7 +3171,7 @@
       ]
     },
     "Lead_To_Referral_Status_Mapping__mdt": {
-      "IA-3254438": [
+      "IA-2415860": [
         "Lead_Outcome__c",
         "Lead_Status__c",
         "Record_Type_Name__c",
@@ -3327,6 +3343,7 @@
       "IA-2530753": ["Last_Updated_Date__c"],
       "IA-2415983": [
         "Offset__c",
+        "Interest_Rate__c",
         "Interest_Rate_Type__c",
         "Loan_Term_in_Months__c",
         "Loan_Term__c",
@@ -4423,14 +4440,21 @@
     "ResidentialLoanApplication": {
       "IA-2415855": ["Assessment_Outcome__c", "Credit_Version__c"],
       "IA-2415983": [
+        "Cancellation_Reason__c",
+        "Credit_Reassess_Required__c",
         "First_Home__c",
+        "InterestRate",
         "LoanPurpose",
         "Loan_Purpose__c",
+        "Loan_Term__c",
         "Loan_Type__c",
+        "LVR_Excl_LMI__c",
         "Main_Goal__c",
+        "Other_Cancellation_Reason__c",
         "Owner_Occupied__c",
         "Package_Code__c",
         "Package_Version__c",
+        "Product__c",
         "Settlement_ID__c",
         "Status",
         "Credit_Reassess_Required__c",
@@ -4444,21 +4468,23 @@
       "IA-2415997": ["SOP_Id__c"],
       "IA-2530753": [
         "Id",
+        "AIP_AST_Expiry__c",
         "CreatedById",
         "CreatedDate",
+        "Created_Date__c",
+        "Expiry_Date__c",
+        "Is_SOP_Ineligible__c",
         "LastModifiedById",
         "LastModifiedDate",
-        "Version__c",
         "Last_Updated_Date__c",
-        "SunsetTimestamp__c",
-        "Expiry_Date__c",
         "Loan_Purpose_Updated_Date__c",
-        "Created_Date__c",
-        "Needs_Assessment_Last_Updated_Date__c",
         "Needs_Assessment_Created_Date__c",
+        "Needs_Assessment_Last_Updated_Date__c",
         "Owner_Name__c",
         "RecordTypeId",
-        "Is_SOP_Ineligible__c"
+        "Source__c",
+        "SunsetTimestamp__c",
+        "Version__c"
       ],
       "IA-2594111": [
         "AccountId",
@@ -4475,16 +4501,19 @@
       ],
       "IA-2594113": ["State__c"],
       "IA-2415840": [
+        "Application_Progress__c",
         "E_Tag__c",
-        "Needs_Assessment_Unsuitability_Reasons__c",
-        "Joint__c",
         "Ineligible_Reasons__c",
-        "Application_Progress__c"
+        "Joint__c",
+        "Needs_Assessment_Unsuitability_Reasons__c",
+        "Settlement_ID__c"
       ],
       "IA-2415860": ["Credit_Reassess_Required__c"],
       "IA-2415790": ["Assisted_Broker__c", "Assisted_Broker_TPMI_SAO__c"],
-      "IA-2453350": ["Sync_Status__c", "Originated_By__c"],
-      "IA-2468715": ["OwnerId"]
+      "IA-2453350": ["Sync_Status__c", "Originated_By__c", "RecordTypeID"],
+      "IA-2468715": ["OwnerId"],
+      "IA-2415999": ["Application_Amount__c"],
+      "IA-2460507": ["LANID__c", "Assisted_Lender__c"]
     },
     "Response_Type__c": {
       "IA-2415860": [
@@ -4823,7 +4852,8 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
-      ]
+      ],
+      "IA-2415840": ["SAO__c"]
     },
     "UUID_Log_Entry__c": {
       "IA-2415840": [
@@ -5376,7 +5406,8 @@
         "Number_Tokenised__c",
         "Status__c",
         "Term_Deposit__c",
-        "Type__c"
+        "Type__c",
+        "Card_Number__c"
       ],
       "IA-2530753": ["Additional_Information__c"]
     },
@@ -5764,8 +5795,12 @@
     "ResidentialLoanApplication": {
       "Assisted_Broker__c": "ANZx::Salesforce",
       "Assisted_Broker_TPMI_SAO__c": "ANZx::Lex::LoanApplication",
+      "LVR_Excl_LMI__c": "ANZx::lex::LoanApplication",
       "Originated_By__c": "ANZx::MuleSoft::Broker",
       "Sync_Status__c": "ANZx::MuleSoft::Broker"
+    },
+    "LoanApplicationFinancial": {
+      "Interest_Rate__c": "ANZx :: Lex :: LoanPreferences.LoanTermDetails.RepaymentTermSummary.interest_rate_basis_points :: interest_rate"
     },
     "Settlement__c": {
       "IsValidCloudEvent__c": "ANZx::Salesforce"
@@ -5962,8 +5997,12 @@
     "ResidentialLoanApplication": {
       "Assisted_Broker__c": "Look up relationship against contact object",
       "Assisted_Broker_TPMI_SAO__c": "1:1 Transformation",
+      "LVR_Excl_LMI__c": "1:1 Transformation",
       "Originated_By__c": "If TPMI_SAO__c is NOT blank then set Originated By to Broker",
       "Sync_Status__c": "If GCP Event Publish where Sync_Status_c not equals to Blocked and Update = TRUE THEN set Sync_Status_c to Broker Org"
+    },
+    "LoanApplicationFinancial": {
+      "Interest_Rate__c": "1:1 Transformation"
     },
     "Settlement__c": {
       "IsValidCloudEvent__c": "If Loan Application Sync_Status is Broker org set isvalidcloudevent to true"

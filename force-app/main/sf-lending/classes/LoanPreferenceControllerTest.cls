@@ -9,6 +9,7 @@
 public with sharing class LoanPreferenceControllerTest {
   static Lib_MockProvider loanPrefMock;
   static Lib_MockProvider loanPrefAPIRepoMock;
+  static Lib_MockProvider rlaMock;
   static void registerMocks() {
     loanPrefMock = Lib_MockProvider.forType(
         LoanApplicationFinancialRepository.class
@@ -17,7 +18,14 @@ public with sharing class LoanPreferenceControllerTest {
     loanPrefAPIRepoMock = Lib_MockProvider.forType(
       LoanPreferenceAPIRepository.class
     );
+    rlaMock = Lib_MockProvider.forType(
+      ResidentialLoanApplicationRepository.class
+    );
   }
+  static LexLoanappV1b1_loanapplication_types.LoanApplication loanPrefAPIResp = (LexLoanappV1b1_loanapplication_types.LoanApplication) CalloutModel.deserialize(
+    Service.getStaticResource('mock_GetLoanApplication'),
+    LexLoanappV1b1_loanapplication_types.LoanApplication.class
+  );
 
   static LoanPreferenceResponseModel mockGetLoanPref = LoanPreferenceResponseModel.parse(
     Service.getStaticResource('mock_GetLoanPreference')
@@ -161,6 +169,66 @@ public with sharing class LoanPreferenceControllerTest {
     }
   }
 
+  /**
+   * @description Test Success scenarios with valid data for Update Loan Preference
+   */
+  @isTest
+  static void testUpdateLoanPreference() {
+    registerMocks();
+    rlaMock.mock('queryRLAByIdForLoanPreference', getRLA);
+    loanPrefAPIRepoMock.mock('updateLoanPreference', loanPrefAPIResp);
+    String loanAppNumber = '1234';
+    Test.startTest();
+    LexLoanappV1b1_loanapplication_types.LoanApplication response = LoanPreferenceController.updateLoanPreferenceDetails(
+      loanAppNumber,
+      getLoanPreferenceData
+    );
+    Test.stopTest();
+    Assert.isNotNull(response, 'Status code of the response should be 200');
+    Assert.areEqual(
+      response.preferences[0].uid,
+      'ac95ebfa-69dd-474c-82a4-34c6dabc9583',
+      'Success response with uid'
+    );
+  }
+
+  /**
+   * @description Test Error scenarios with Invalid response for Update Loan Preference
+   */
+  @isTest
+  static void testUpdateLoanPreferenceException() {
+    String loanAppNumber = '1234';
+    try {
+      HttpCalloutResponse errorResponse = new HttpCalloutResponse();
+      errorResponse.successful = false;
+      errorResponse.statusCode = 500;
+      errorResponse.error = new CalloutException('callout failed');
+      registerMocks();
+
+      loanPrefAPIRepoMock.mockException(
+        'updateLoanPreference',
+        new LoanPreferenceAPIRepository.ServerErrorLoanPreferenceException(
+          errorResponse,
+          'updateLoanPreference'
+        )
+      );
+
+      Test.startTest();
+      LoanPreferenceController.updateLoanPreferenceDetails(
+        loanAppNumber,
+        getLoanPreferenceData
+      );
+      Test.stopTest();
+      Assert.fail('An Exception should be thrown');
+    } catch (Exception ex) {
+      Assert.isInstanceOfType(
+        ex,
+        AuraHandledException.class,
+        'Exception should be an instanceof AuraHandledException.'
+      );
+    }
+  }
+
   static ResidentialLoanApplication getRLA {
     get {
       return new ResidentialLoanApplication(
@@ -237,6 +305,30 @@ public with sharing class LoanPreferenceControllerTest {
       addFundRec.otherReason = '';
       updateAddFundsData.additionalFunds.add(addFundRec);
       return updateAddFundsData;
+    }
+  }
+
+  /**
+   * @description Static method to return Loan Preference Data
+   */
+  static LexLoanappV1b1_loanapplication_types.LoanPreferences getLoanPreferenceData {
+    get {
+      LexLoanappV1b1_loanapplication_types.LoanPreferences loanPref = new LexLoanappV1b1_loanapplication_types.LoanPreferences();
+      loanPref.uid = '7479fe3d-f0b8-4739-a4cd-7fb334bf3451';
+      loanPref.offset = false;
+      loanPref.repaymentFrequency = 'REPAYMENT_FREQUENCY_MONTHLY';
+      loanPref.etag = '1731984334297';
+      loanPref.taxDeductiblePercentage = 12;
+      loanPref.propertyIds = new List<String>{ 'string', 'string' };
+      loanPref.initialLoanTermDetails = new LexLoanappV1b1_loanapplication_types.LoanTermDetails();
+      loanPref.initialLoanTermDetails.loanTermMonths = 120;
+      loanPref.subsequentLoanTermDetails = new LexLoanappV1b1_loanapplication_types.LoanTermDetails();
+      loanPref.subsequentLoanTermDetails.loanTermMonths = 120;
+      loanPref.funds = new List<LexLoanappV1b1_loanapplication_types.FundPortion>();
+      LexLoanappV1b1_loanapplication_types.FundPortion fund = new LexLoanappV1b1_loanapplication_types.FundPortion();
+      fund.purpose = 'purpose';
+      loanPref.funds.add(fund);
+      return loanPref;
     }
   }
 }

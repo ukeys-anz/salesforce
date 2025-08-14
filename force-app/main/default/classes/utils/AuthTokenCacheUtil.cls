@@ -26,6 +26,9 @@ public with sharing class AuthTokenCacheUtil {
     'ANZx Standard User',
     'ANZ ML Standard User'
   };
+  private static final Set<String> APISCOPE_HAVING_JWE_TOKEN = new Set<String>{
+    'DCRM_FinSummary'
+  };
 
   /**
    * @description move the tokens for the current user from org to session cache
@@ -276,7 +279,13 @@ public with sharing class AuthTokenCacheUtil {
           'forgeJWTToken' + cacheKey + staffModelWrapper.apiScopesRequested
         )
       );
-      if (staffToken != null && AuthTokenCacheUtil.isTokenValid(staffToken)) {
+      // For JWE token - Can't extract expiry as it is encrypted.
+      if (
+        staffToken != null &&
+        (APISCOPE_HAVING_JWE_TOKEN.contains(
+          staffModelWrapper.apiScopesRequested
+        ) || AuthTokenCacheUtil.isTokenValid(staffToken))
+      ) {
         return staffToken;
       }
     }
@@ -290,6 +299,13 @@ public with sharing class AuthTokenCacheUtil {
       );
       staffToken = responseModel.accessToken;
       expiresIn = responseModel.expiresIn.intValue();
+      // DCRM_FinSummary has TTL 299,
+      if (
+        staffModelWrapper.apiScopesRequested == 'DCRM_FinSummary' &&
+        expiresIn < 300
+      ) {
+        expiresIn = 300;
+      }
     } catch (Exception e) {
       Logger.error(
         'Unable to retrieve staff token. ' + e.getMessage(),

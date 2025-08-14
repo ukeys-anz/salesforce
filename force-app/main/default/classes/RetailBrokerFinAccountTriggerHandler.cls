@@ -6,8 +6,8 @@
  */
 
 public with sharing class RetailBrokerFinAccountTriggerHandler extends Lib_TriggerHandler {
-  private static final BrokerSettingRepository BROKER_SETTINGS_REPOSITORY = (BrokerSettingRepository) Lib_InstanceProvider.forType(
-    BrokerSettingRepository.class
+  private static final BrokerSettingsRepository BROKER_SETTINGS_REPOSITORY = (BrokerSettingsRepository) Lib_InstanceProvider.forType(
+    BrokerSettingsRepository.class
   );
   private static Boolean bypassSyncEvents {
     get {

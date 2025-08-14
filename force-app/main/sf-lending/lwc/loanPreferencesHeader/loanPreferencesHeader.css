@@ -1,0 +1,19 @@
+.propertyLogoStyle {
+  width: 40px;
+  height: 40px;
+}
+.addressStyle {
+  font-weight: var(--slds-g-font-weight-4);
+  font-size: var(--slds-g-sizing-4);
+  line-height: var(--line-height);
+  color: var(--font-color);
+}
+.statusStyle {
+  font-weight: var(--slds-g-font-weight-4);
+  font-size: var(--slds-g-sizing-4);
+  line-height: var(--line-height);
+  color: var(--slds-g-color-neutral-base-50);
+}
+.iconAlignment {
+  float: right;
+}

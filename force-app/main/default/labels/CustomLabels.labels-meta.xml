@@ -15,6 +15,13 @@
         <value>anzx.salesforce.broker.v1alpha1.contract.</value>
     </labels>
     <labels>
+        <fullName>ANZX_Broker_event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Brokerdata cloud event type</shortDescription>
+        <value>anzx.salesforce.broker.v1alpha1.brokerdata.</value>
+    </labels>
+    <labels>
         <fullName>ANZX_Broker_Event_Proto_Data_Schema</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -27,6 +34,13 @@
         <protected>false</protected>
         <shortDescription>ANZX Case Event ce type</shortDescription>
         <value>anzx.salesforce.broker.v1alpha1.brokerenquiry.</value>
+    </labels>
+    <labels>
+        <fullName>ANZx_ClassicLoanApplication_Event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZx_ClassicLoanApplication_Event_ce_type</shortDescription>
+        <value>anzx.salesforce.broker.v1alpha1.retailclassicapplication.</value>
     </labels>
     <labels>
         <fullName>ANZX_ResidentialLoanApplication_event_ce_type</fullName>
@@ -679,6 +693,14 @@
         <protected>false</protected>
         <shortDescription>MS_Get_SOP</shortDescription>
         <value>callout:SF_MS_CH2/credit-assessment/v1/sop/</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_Settlement</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Settlement</shortDescription>
+        <value>callout:SF_MS_CH2/credit-assessment/v1/settlements/</value>
     </labels>
     <labels>
         <fullName>MS_Update_Expense</fullName>
@@ -1807,6 +1829,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>0</value>
     </labels>
     <labels>
+        <fullName>ShowCobPidFalloutWorkflow</fullName>
+        <categories>Join</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ShowCobPidFalloutWorkflow</shortDescription>
+        <value>true</value>
+    </labels>
+    <labels>
         <fullName>User_LAN_Id_Error</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
@@ -2856,7 +2886,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Account Registration Endpoint</shortDescription>
-        <value>callout:SF_MS_CH2/dcrm/customers/v1/accounts/{accountNumber}/crns</value>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/accounts/crns</value>
     </labels>
     <labels>
         <fullName>CCRM_Auto_Task_MisMatch_Subject</fullName>
@@ -2960,6 +2990,20 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>LoanappPrerequisiteLabel</shortDescription>
         <value>Information missing. To Create Loanapp, please fill in the Amount, Customer Needs (Home Loans options only), Servicing Branch, Expected Settlement Date and ensure all customers have a DOB and gender. Expected Settlement Date must be in the future and must fall on a weekday.</value>
+    </labels>
+    <labels>
+        <fullName>ANZPlusPrerequisiteLabel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LoanappPrerequisiteLabel</shortDescription>
+        <value>Information missing: In order to create an ANZ Plus Loan Application, the customer must be an ANZ Plus customer and customer needs should be ANZ Plus Home Loan - Refinance</value>
+    </labels>
+    <labels>
+        <fullName>ANZPlusTPMISAOLabel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZPlusTPMISAOLabel</shortDescription>
+        <value>TPMI or SAO details are missing, please reach out to mlchangeandenablement@anz.com.</value>
     </labels>
     <labels>
         <fullName>Complaints_Anz_Com_Sender_Address</fullName>

@@ -1061,6 +1061,9 @@
                         <valueListItems>
                             <value>Status</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>RecordType</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>

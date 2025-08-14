@@ -29,14 +29,10 @@ public with sharing class BOHServiceMock extends Service {
   private static final string UMI_LIST_ASSEEEMENTS_RESPONSE = getStaticResource(
     'mock_UMIListAssessments'
   );
-
-  private static final string VERIFY_INSURANCE = getStaticResource(
-    'mock_verifyInsurance'
+  private static final string SETTLEMENT_RESPONSE = getStaticResource(
+    'mock_settlement'
   );
 
-  private static final string CANCEL_LOAN_APP = getStaticResource(
-    'mock_cancelHomeLoanApplication'
-  );
   /**
    * @param ocvId ocv id of the customer account
    * @param sopId sop id to retrieve customer savings and asset
@@ -225,21 +221,6 @@ public with sharing class BOHServiceMock extends Service {
     }
     return response;
   }
-  /**
-   * @param requestBody body of request to send
-   * @param ocvId ocv id
-   * @return `HttpCalloutResponse` the api response
-   * @description delete income from sop
-   */
-  public override HttpCalloutResponse verifyInsurance(
-    String requestBody,
-    String ocvId
-  ) {
-    if (!preset) {
-      response.body = BOHServiceMock.VERIFY_INSURANCE;
-    }
-    return response;
-  }
 
   /**
    * @param ocvId ocv id of the customer account
@@ -285,23 +266,6 @@ public with sharing class BOHServiceMock extends Service {
     if (!preset) {
       response.body = BOHServiceMock.SOP_LIST_ASSETS_RESPONSE;
     }
-    return response;
-  }
-
-  /**
-   * @param loanAppNumber Loan application Number
-   * @param ocvId required to make the callout to Mulesoft
-   * @return `HttpCalloutResponse` the api response
-   * @description cancel home loan application through mule
-   */
-  public override HttpCalloutResponse cancelResidentialLoanApp(
-    String loanAppNumber,
-    String ocvId
-  ) {
-    if (!preset) {
-      response.body = BOHServiceMock.CANCEL_LOAN_APP;
-    }
-
     return response;
   }
 }

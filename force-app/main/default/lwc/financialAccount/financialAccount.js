@@ -20,10 +20,19 @@ export default class FinancialAccount extends NavigationMixin(
   @api titleIcon;
   @api iconColor;
   @api productCode;
+  @api accountType;
   showInfoModal = false;
+  tooltipCode = "";
+  headerTitle = "";
 
   get displayContent() {
     return hasAccountsGoalsPermission;
+  }
+
+  get iconWrapperClass() {
+    return this.accountType === "Card"
+      ? `${this.iconColor} card-icon-color`
+      : this.iconColor;
   }
 
   get processedFinAccounts() {
@@ -72,6 +81,7 @@ export default class FinancialAccount extends NavigationMixin(
           finAccount.showMultipartyBadge = true;
           finAccount.finserv_ownership = "Joint";
         }
+        finAccount.isCard = finAccount.finserv_account_type === "Card";
         return finAccount;
       });
       accountDetails = this.sortFinancialAccounts(accountDetails);
@@ -137,11 +147,25 @@ export default class FinancialAccount extends NavigationMixin(
     });
   }
 
-  handleInfoModal() {
+  handleInfoModal({ currentTarget }) {
+    const field = currentTarget.dataset.field;
+    if (field) {
+      this.tooltipCode = `${this.productCode}${field.toUpperCase()}`;
+      this.headerTitle = this.formatBalanceTitle(field);
+    } else {
+      this.tooltipCode = this.productCode;
+      this.headerTitle = this.balanceTitle;
+    }
     this.showInfoModal = !this.showInfoModal;
   }
 
   closeModal() {
     this.showInfoModal = false;
+  }
+  formatBalanceTitle(balanceTitle) {
+    return balanceTitle
+      .split("_")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
   }
 }

@@ -54,4 +54,23 @@ public with sharing class LoanPreferenceServiceMock extends LoanPreferenceServic
     }
     return response;
   }
+
+  /**
+   * @param ocvId String
+   * @param urlParams List<Object>
+   * @param loanPrefData LexLoanappV1b1_loanapplication_types.LoanPreferences
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches fake response for Loan Preference api
+   */
+
+  public override HttpCalloutResponse updateLoanPreferenceDetails(
+    String ocvId,
+    List<Object> urlParams,
+    LexLoanappV1b1_loanapplication_types.LoanPreferences loanPrefData
+  ) {
+    if (!preset) {
+      response.body = UPDATE_LOAN_PREFERENCE_RESPONSE;
+    }
+    return response;
+  }
 }

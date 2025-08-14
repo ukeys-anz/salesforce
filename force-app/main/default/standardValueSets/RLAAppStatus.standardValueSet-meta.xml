@@ -71,4 +71,14 @@
         <default>false</default>
         <label>Settlement Initiated</label>
     </standardValue>
+    <standardValue>
+        <fullName>STATE_APPROVED_SUBJECT_TO</fullName>
+        <default>false</default>
+        <label>Approved Subject To</label>
+    </standardValue>
+    <standardValue>
+        <fullName>STATE_APPROVED_IN_PRINCIPLE</fullName>
+        <default>false</default>
+        <label>Approved In Principle</label>
+    </standardValue>
 </StandardValueSet>

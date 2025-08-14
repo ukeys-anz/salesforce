@@ -1,0 +1,105 @@
+{
+  "preferences": [
+    {
+      "uid": "ac95ebfa-69dd-474c-82a4-34c6dabc9583",
+      "marketingCode": "HLVAR01",
+      "updateTime": "2025-02-05T04:12:31.783798113Z",
+      "loanAmount": {
+        "currencyCode": "AUD",
+        "units": "270904",
+        "nanos": 0
+      },
+      "offset": false,
+      "interestRateType": "INTEREST_RATE_TYPE_VARIABLE",
+      "termMonths": 360,
+      "repaymentType": "REPAYMENT_TYPE_PRINCIPAL_INTEREST",
+      "margin": -242,
+      "repaymentFrequency": "REPAYMENT_FREQUENCY_FORTNIGHTLY",
+      "collateralAssessmentId": "b046baed-1ba6-4177-829f-ca2c4c5f1876",
+      "etag": "1738728751783",
+      "maxAllowableLoanAmount": {
+        "currencyCode": "AUD",
+        "units": "865600",
+        "nanos": 0
+      },
+      "maxAllowableLvr": 80,
+      "predominantPurpose": "LENDING_PURPOSE_REFINANCE",
+      "funds": [
+        {
+          "uid": "594c0411-f6e1-4096-b197-c8fef8a3b258",
+          "amount": {
+            "currencyCode": "AUD",
+            "units": "300",
+            "nanos": 0
+          },
+          "purpose": "LENDING_PURPOSE_ALTERATIONS_DWELLING_EXISTING",
+          "reason": ""
+        },
+        {
+          "uid": "db41d494-05d1-411c-a594-15ac81546957",
+          "amount": {
+            "currencyCode": "AUD",
+            "units": "5000",
+            "nanos": 0
+          },
+          "purpose": "LENDING_PURPOSE_PERSONAL_HOUSEHOLD_GOODS",
+          "reason": ""
+        },
+        {
+          "uid": "3719beb9-00a6-43bd-a0e6-80daed776e60",
+          "amount": {
+            "currencyCode": "AUD",
+            "units": "6000",
+            "nanos": 0
+          },
+          "purpose": "LENDING_PURPOSE_PERSONAL_MOTOR_VEHICLE_NEW",
+          "reason": ""
+        },
+        {
+          "uid": "a303fec1-1a1f-4b42-949d-33656ef553b5",
+          "amount": {
+            "currencyCode": "AUD",
+            "units": "2800",
+            "nanos": 0
+          },
+          "purpose": "LENDING_PURPOSE_PERSONAL_OTHER",
+          "reason": "Testing the reason"
+        },
+        {
+          "uid": "eb4b35c3-f5be-4f8b-b2f5-45f0e203b06a",
+          "amount": {
+            "currencyCode": "AUD",
+            "units": "6800",
+            "nanos": 0
+          },
+          "purpose": "LENDING_PURPOSE_PERSONAL_OTHER_PROPERTY_MAINTENANCE",
+          "reason": ""
+        },
+        {
+          "uid": "9111a43e-e0a5-402e-888a-f168a00b83f0",
+          "amount": {
+            "currencyCode": "AUD",
+            "units": "250004",
+            "nanos": 0
+          },
+          "purpose": "LENDING_PURPOSE_REFINANCE",
+          "reason": ""
+        }
+      ],
+      "productType": "LOAN_PRODUCT_TYPE_UNSPECIFIED",
+      "propertyIds": [],
+      "expectedSettlementDate": null,
+      "description": "",
+      "initialLoanTermDetails": {
+        "loanTermMonths": 360,
+        "margin": -242,
+        "repaymentType": "REPAYMENT_TYPE_PRINCIPAL_INTEREST",
+        "interestRateType": "INTEREST_RATE_TYPE_VARIABLE",
+        "interestOnlyReason": ""
+      },
+      "subsequentLoanTermDetails": null,
+      "lendersMortgageInsuranceIds": [],
+      "externalStates": []
+    }
+  ]
+}

@@ -126,6 +126,11 @@
                 <default>false</default>
                 <label>Transactional Services (inc. IB4B, Account opening and Merchant services)</label>
             </value>
+            <value>
+                <fullName>ANZ Plus Home Loan - Refinance</fullName>
+                <default>false</default>
+                <label>ANZ Plus Home Loan - Refinance</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

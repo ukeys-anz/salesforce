@@ -1,0 +1,93 @@
+{
+  "dataPath": "automaticRepaymentPreferences",
+  "titleField": "",
+  "cardConfig": {
+    "fieldConfig": {
+      "title": "",
+      "schema": [
+        {
+          "fieldLabel": "Account Number",
+          "fieldColumn": "repaymentAccount.apxrsvdNumber",
+          "fieldtype": "lightning-formatted-text",
+          "isStacked": true
+        },
+        {
+          "fieldLabel": "Repayment Account BSB",
+          "fieldColumn": "repaymentAccount.bsbNumber",
+          "fieldtype": "lightning-formatted-text",
+          "isStacked": true
+        },
+        {
+          "fieldLabel": "Repayment Frequency",
+          "fieldColumn": "repaymentFrequency",
+          "fieldtype": "lightning-formatted-text",
+          "isEnum": true,
+          "enumValues": {
+            "REPAYMENT_FREQUENCY_UNSPECIFIED": "Unspecified",
+            "REPAYMENT_FREQUENCY_WEEKLY": "Weekly",
+            "REPAYMENT_FREQUENCY_FORTNIGHTLY": "Fortnightly",
+            "REPAYMENT_FREQUENCY_MONTHLY": "Monthly",
+            "REPAYMENT_FREQUENCY_QUARTERLY": "Quarterly",
+            "REPAYMENT_FREQUENCY_HALF_YEARLY": "Half Yearly",
+            "REPAYMENT_FREQUENCY_YEARLY": "Yearly",
+            "REPAYMENT_FREQUENCY_SEASONAL": "Seasonal"
+          },
+          "isStacked": true
+        },
+        {
+          "fieldLabel": "State",
+          "fieldColumn": "state",
+          "fieldtype": "lightning-formatted-text",
+          "isEnum": true,
+          "enumValues": {
+            "STATE_UNSPECIFIED": "Unspecified",
+            "STATE_PENDING_CONFIRMATION": "Confirmation",
+            "STATE_COMPLETED": "Completed"
+          },
+          "isStacked": true
+        },
+        {
+          "fieldLabel": "Created Date",
+          "fieldColumn": "createTime",
+          "fieldtype": "lightning-formatted-date-time",
+          "isDate": true,
+          "isTimestamp": true,
+          "attributes": {
+            "year": "numeric",
+            "month": "long",
+            "day": "2-digit",
+            "hour": "2-digit",
+            "minute": "2-digit"
+          },
+          "isStacked": true
+        },
+        {
+          "fieldLabel": "Account Name",
+          "fieldColumn": "nominatedRepaymentAccount.accountName",
+          "fieldtype": "lightning-formatted-text",
+          "isStacked": true
+        }
+      ],
+      "layoutconfig": {
+        "layout": {
+          "horizontalAlign": "spread",
+          "verticalAlign": "end",
+          "pull-to-boundary": "medium"
+        },
+        "layoutitem": {
+          "flexibility": "auto",
+          "padding": "horizontal-small",
+          "size": "4"
+        }
+      }
+    }
+  },
+  "metadata": {
+    "version": "1.0",
+    "description": "Configuration for automatic repayment preferences display",
+    "author": "@fangl6",
+    "updated": "2025-06-27",
+    "controller": "RepaymentPreferencesController",
+    "componentType": "genericCardArray"
+  }
+}

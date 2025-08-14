@@ -4,8 +4,8 @@
  * @since 10/2024
  */
 public with sharing class SOPHelper {
-  private static final ResidentialLoanApplicationRepository RLA_SOQL_REPOSITORY = (ResidentialLoanApplicationRepository) Lib_InstanceProvider.forType(
-    ResidentialLoanApplicationRepository.class
+  private static final LendingAccountRepository ACCOUNT_SOQL_REPOSITORY = (LendingAccountRepository) Lib_InstanceProvider.forType(
+    LendingAccountRepository.class
   );
 
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
@@ -26,7 +26,9 @@ public with sharing class SOPHelper {
       'ocvId',
       String.class
     );
-    List<Account> accList = RLA_SOQL_REPOSITORY.getAccountsFromOcvIds(ocvIds);
+    List<Account> accList = ACCOUNT_SOQL_REPOSITORY.queryAccountsByOcvIds(
+      ocvIds
+    );
     Map<String, Account> accOcvMap = (Map<String, Account>) ListUtil.mapBy(
       accList,
       Account.ocv_id__c

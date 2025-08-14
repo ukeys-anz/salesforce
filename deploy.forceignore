@@ -166,6 +166,7 @@ force-app/main/default/sharingRules/FinServ__FinancialAccount__c.sharingRules-me
 
 #Temporarily adding Case sharing rule to avoid backmerge issue.
 force-app/main/default/sharingRules/Case.sharingRules-meta.xml
+force-app/main/default/sharingRules/ResidentialLoanApplication.sharingRules-meta.xml
 
 #AR-23667 - ignoring Microsoft Defender Pset until all the sandboxes are refreshed
 force-app/main/default/permissionsets/Microsoft_Defender.permissionset-meta.xml
@@ -219,6 +220,9 @@ force-app/main/default/permissionsets/Query_All_Files.permissionset-meta.xml
 force-app/main/default/ActionLauncherItemDef/CaseResolutionPathwaysEnglish_1d1ti7woscmbp1i57jhu21mgn4.actionLauncherItemDef-meta.xml
 force-app/main/default/recordActionDeployments/ResolutionPathway_Launcher_V2.deployment-meta.xml
 
+# only needed for epic deployments of AD-5785. Remove when merging to other envs.
+force-app/main/default/permissionsetgroups/Business_Admin_Retail.permissionsetgroup-meta.xml
+
 #Add Automation Test Profile to Deploy.forceignore - Not required in Production 
 # force-app/main/default/profiles/ANZ Standard Automation User.profile-meta.xml
 # force-app/main/default/profiles/ANZx Standard Automation User.profile-meta.xml
@@ -247,6 +251,9 @@ force-app/main/default/reports/trailheadapp__Trailhead_Reports.reportFolder-meta
 
 # Installed package
 mdapi-source/packages/installedPackages/trailheadapp.installedPackage
+
+#[ANZX-221280] Avoiding deployment failure
+force-app/main/default/actionPlanTemplates
 
 # ignore for onboard core submodule
 force-app/main/default/applications/Logs_Monitor.app-meta.xml
@@ -617,6 +624,9 @@ force-app/main/default/permissionsets/Disable_MFA.permissionset-meta.xml
 force-app/main/default/permissionsets/Key_Manager.permissionset-meta.xml
 force-app/main/default/permissionsets/Logs_Monitoring.permissionset-meta.xml
 force-app/main/default/permissionsets/PAM_Requestor.permissionset-meta.xml
+force-app/main/default/permissionsets/SOP_Add.permissionset-meta.xml
+force-app/main/default/permissionsets/SOP_Delete.permissionset-meta.xml
+force-app/main/default/permissionsets/SOP_Edit.permissionset-meta.xml
 force-app/main/default/profiles/No Access.profile-meta.xml
 force-app/main/default/queues/PAM_Approvers.queue-meta.xml
 force-app/main/default/roles/ANZx.role-meta.xml
@@ -645,3 +655,86 @@ force-app/main/default/staticresources/mock_sop.resource-meta.xml
 force-app/main/default/staticresources/mock_sop.json
 force-app/main/default/classes/RTInteraction.cls
 force-app/main/default/classes/RTInteraction.cls-meta.xml
+# Ignore file deletion via move
+force-app/main/generic-components/staticresources/mock_automaticrepayments.resource-meta.xml
+force-app/main/generic-components/staticresources/mock_drawdowns.resource-meta.xml
+force-app/main/generic-components/staticresources/mock_listDrawdowns.resource-meta.xml
+force-app/main/generic-components/staticresources/mock_drawdowns.json
+force-app/main/generic-components/staticresources/mock_loanfacilityconfigs.resource-meta.xml
+force-app/main/generic-components/staticresources/mock_getDrawdown.json
+force-app/main/generic-components/staticresources/mock_getDrawdown.resource-meta.xml
+force-app/main/generic-components/staticresources/mock_getSettlementAccount.json
+force-app/main/generic-components/staticresources/mock_getSettlementAccount.resource-meta.xml
+force-app/main/generic-components/staticresources/mock_listAutomaticRepaymentPreferences.json
+force-app/main/generic-components/staticresources/mock_listAutomaticRepaymentPreferences.resource-meta.xml
+force-app/main/generic-components/staticresources/mock_listDrawdowns.json
+force-app/main/generic-components/staticresources/mock_listLoanFacilityConfigs.json
+force-app/main/generic-components/staticresources/mock_listLoanFacilityConfigs.resource-meta.xml
+force-app/main/generic-components/staticresources/mock_listMortgageContracts.json
+force-app/main/generic-components/staticresources/mock_listMortgageContracts.resource-meta.xml
+force-app/main/generic-components/staticresources/mock_settlement.resource-meta.xml
+force-app/main/generic-components/staticresources/mock_settlement.json
+
+#Added for latest dev to settlement deployment, to be removed before dev merge
+force-app/main/default/profiles/ANZ ML Standard User.profile-meta.xml
+force-app/main/default/profiles/ANZ CCRM Standard User.profile-meta.xml
+force-app/main/default/objects/Task/recordTypes/Customer_Nudge.recordType-meta.xml
+force-app/main/default/standardValueSets/TaskType.standardValueSet-meta.xml
+force-app/main/default/standardValueSets/TaskStatus.standardValueSet-meta.xml
+
+#[ANZX-235805] Ignore for folder movement
+force-app/main/default/staticresources/mock_sop.resource-meta.xml
+force-app/main/default/staticresources/mock_sop.json
+force-app/main/default/permissionsets/Cancel_Residential_Loan_Application.permissionset-meta.xml
+force-app/main/default/classes/ResidentialLoanAppTriggerHandlerTest.cls
+force-app/main/default/classes/ResidentialLoanAppTriggerHandlerTest.cls-meta.xml
+force-app/main/default/triggers/ResidentialLoanApplicationTrigger.trigger
+force-app/main/default/triggers/ResidentialLoanApplicationTrigger.trigger-meta.xml
+force-app/main/default/classes/BrokerCodeRepository.cls
+force-app/main/default/classes/BrokerCodeRepository.cls-meta.xml
+force-app/main/default/lwc/cancelResidentialLoanApplication/cancelResidentialLoanApplication.css
+force-app/main/default/lwc/cancelResidentialLoanApplication/cancelResidentialLoanApplication.html
+force-app/main/default/lwc/cancelResidentialLoanApplication/cancelResidentialLoanApplication.js
+force-app/main/default/lwc/cancelResidentialLoanApplication/cancelResidentialLoanApplication.js-meta.xml
+force-app/main/generic-components/lwc/utils/utils.js
+
+
+force-app/main/default/layouts/Enum_Value_Mapping__mdt-Enum Value Mapping Layout.layout-meta.xml
+force-app/main/generic-components/customMetadata
+force-app/main/default/classes/SettlementRepository.cls
+force-app/main/default/classes/SettlementRepository.cls-meta.xml
+force-app/main/default/classes/SettlementAccountActionsTest.cls
+force-app/main/default/classes/SettlementAccountActionsTest.cls-meta.xml
+force-app/main/default/classes/ProofOfInsuranceActions.cls
+force-app/main/default/classes/ProofOfInsuranceActions.cls-meta.xml
+force-app/main/default/classes/ProofOfInsuranceController.cls
+force-app/main/default/classes/ProofOfInsuranceController.cls-meta.xml
+force-app/main/default/classes/ProofOfInsuranceControllerTest.cls
+force-app/main/default/classes/ProofOfInsuranceControllerTest.cls-meta.xml
+force-app/main/default/classes/ProofOfInsuranceTriggerHandler.cls
+force-app/main/default/classes/ProofOfInsuranceTriggerHandler.cls-meta.xml
+force-app/main/default/classes/ProofOfInsuranceTriggerHandlerTest.cls
+force-app/main/default/classes/ProofOfInsuranceTriggerHandlerTest.cls-meta.xml
+force-app/main/default/classes/SettlementAccountActions.cls
+force-app/main/default/classes/SettlementAccountActions.cls-meta.xml
+force-app/main/default/classes/SettlementActionsTest.cls
+force-app/main/default/classes/SettlementActionsTest.cls-meta.xml
+force-app/main/default/classes/SettlementAccountTriggerHandler.cls
+force-app/main/default/classes/SettlementAccountTriggerHandler.cls-meta.xml
+force-app/main/default/classes/SettlementAccountTriggerHandlerTest.cls
+force-app/main/default/classes/SettlementAccountTriggerHandlerTest.cls-meta.xml
+force-app/main/default/classes/SettlementActions.cls
+force-app/main/default/classes/SettlementActions.cls-meta.xml
+force-app/main/default/classes/SettlementTaskActions.cls
+force-app/main/default/classes/SettlementTaskActions.cls-meta.xml
+force-app/main/default/classes/SettlementTaskActionsTest.cls
+force-app/main/default/classes/SettlementTaskActionsTest.cls-meta.xml
+force-app/main/default/classes/SettlementTaskTriggerHandler.cls
+force-app/main/default/classes/SettlementTaskTriggerHandler.cls-meta.xml
+force-app/main/default/classes/SettlementTriggerHandler.cls
+force-app/main/default/classes/SettlementTriggerHandler.cls-meta.xml
+force-app/main/default/classes/SettlementTriggerHandlerTest.cls
+force-app/main/default/classes/SettlementTriggerHandlerTest.cls-meta.xml
+
+# AR-224436 Temporary added for renamed transactionSecurityPolicies to be deploy manually due to duplicate security policy error
+force-app/main/default/transactionSecurityPolicies

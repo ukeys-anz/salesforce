@@ -7,7 +7,7 @@
  */
 
 @SuppressWarnings(
-  'PMD.ExcessivePublicCount,PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity'
+  'PMD.ExcessivePublicCount,PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity, PMD.ExcessiveParameterList'
 )
 public with sharing virtual class Service {
   protected HttpCalloutResponse response = new HttpCalloutResponse();
@@ -690,19 +690,6 @@ public with sharing virtual class Service {
   }
 
   /**
-   * @param requestBody body of request to send
-   * @param ocvId ocv id
-   * @return `HttpCalloutResponse` the api response
-   * @description delete income from sop
-   */
-  public virtual HttpCalloutResponse verifyInsurance(
-    String requestBody,
-    String ocvId
-  ) {
-    return null;
-  }
-
-  /**
    * @param ocvId ocv id of the customer account
    * @param debtBody post data of debt information
    * @return `HttpCalloutResponse` the api response
@@ -780,19 +767,6 @@ public with sharing virtual class Service {
   public virtual HttpCalloutResponse updateSigningAutority(
     String financialAccountNumber,
     Integer signMode,
-    String ocvId
-  ) {
-    return null;
-  }
-
-  /**
-   * @param loanAppNumber Loan application Number
-   * @param ocvId required to make the callout to Mulesoft
-   * @return `HttpCalloutResponse` the api response
-   * @description cancel home loan application through mule
-   */
-  public virtual HttpCalloutResponse cancelResidentialLoanApp(
-    String loanAppNumber,
     String ocvId
   ) {
     return null;

@@ -15,9 +15,54 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
+                <fullName>HFC</fullName>
+                <default>false</default>
+                <label>ANZ Fixed Home Loan</label>
+            </value>
+            <value>
+                <fullName>IFC</fullName>
+                <default>false</default>
+                <label>ANZ Fixed Residential Investment Loan</label>
+            </value>
+            <value>
                 <fullName>HLVAR01</fullName>
                 <default>false</default>
                 <label>ANZx Home Loans Variable</label>
+            </value>
+            <value>
+                <fullName>IAC</fullName>
+                <default>false</default>
+                <label>ANZ Interest-in-Advance Residential Investment Loan</label>
+            </value>
+            <value>
+                <fullName>BVC</fullName>
+                <default>false</default>
+                <label>ANZ Simplicity Plus Home Loan</label>
+            </value>
+            <value>
+                <fullName>BIC</fullName>
+                <default>false</default>
+                <label>ANZ Simplicity Plus Residential Investment Loan</label>
+            </value>
+            <value>
+                <fullName>HVC</fullName>
+                <default>false</default>
+                <label>ANZ Standard Variable Home Loan</label>
+            </value>
+            <value>
+                <fullName>IRC</fullName>
+                <default>false</default>
+                <label>ANZ Standard Variable Residential Investment Land Loan</label>
+            </value>
+            <value>
+                <fullName>IVC</fullName>
+                <default>false</default>
+                <label>ANZ Standard Variable Residential Investment Loan</label>
+            </value>
+            <value>
+                <fullName>HRC</fullName>
+                <default>false</default>
+                <label>ANZ Standard Variable Residential Land Loan</label>
             </value>
         </valueSetDefinition>
     </valueSet>

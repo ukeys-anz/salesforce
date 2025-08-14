@@ -86,6 +86,37 @@
         <name>TFMGetPersonDigitalIdentityById</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <filterOperator>=</filterOperator>
+        <filterValue>recordId</filterValue>
+        <globalKey>TFMGetPersonDigitalIdentityById09731885651150085</globalKey>
+        <inputFieldName>Id</inputFieldName>
+        <inputObjectName>PersonDigitalIdentity__x</inputObjectName>
+        <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>DigitalIdentity</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMGetPersonDigitalIdentityById</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMGetPersonDigitalIdentityByIdCustom9262</globalKey>
+        <inputFieldName>DigitalIdentity:OCV_ID__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>ocvIdAUF</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMGetPersonDigitalIdentityById</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>d9e9deaf-c0bd-471a-ac92-15168bec1dbc</globalKey>
         <inputFieldName>DigitalIdentity:IAL_Identity_Assurance_Level__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -99,7 +130,7 @@
     </omniDataTransformItem>
     <outputType>JSON</outputType>
     <previewJsonData>{
-  &quot;recordId&quot; : &quot;x0VBm000004jV2FMAU&quot;
+  &quot;recordId&quot; : &quot;x0VBm000003IDGPMA4&quot;
 }</previewJsonData>
     <processSuperBulk>false</processSuperBulk>
     <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>

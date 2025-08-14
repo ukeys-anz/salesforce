@@ -1,0 +1,19 @@
+/*To add border radius to the accordion header*/
+.accordionBorderRadiusStyle .slds-accordion__summary {
+  border-radius: var(--lwc-borderRadiusMedium);
+}
+/* Add proper padding to the chevron icon in accordion header*/
+.iconSpacing
+  .slds-button__icon.slds-button__icon_left.slds-icon.slds-icon-text-default.slds-icon_x-small {
+  margin-left: 2px;
+  margin-right: 5px;
+}
+/*Add padding to the accordion summary content*/
+.slds-accordion__summary-action {
+  padding-top: 10px;
+}
+/*Remove extra padding added by default through lightning accordion*/
+.accordionPadding .slds-accordion__content {
+  margin-right: -12px;
+  margin-left: -12px;
+}

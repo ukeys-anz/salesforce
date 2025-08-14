@@ -49,7 +49,7 @@ public with sharing class ApplicationEventActions {
       loanApp
     );
     masterNodes.add(masterNodeObj);
-    return new ApplicationDataCloudEventModel(loanApp, masterNodes, eventType);
+    return new BrokerDataCloudEventModel(loanApp, masterNodes, eventType);
   }
 
   /**

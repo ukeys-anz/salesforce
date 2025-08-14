@@ -203,4 +203,75 @@ public with sharing class LoanPreferenceAPIRepository extends RepositoryBase {
         .save();
     }
   }
+
+  /**
+   * @param ocvId String
+   * @param urlParams List<Object>
+   * @param loanPrefData LexLoanappV1b1_loanapplication_types.LoanPreferences
+   * @description Make callout and get the response for update Loan Preference
+   * @return LexLoanappV1b1_loanapplication_types.LoanApplication
+   */
+  public LexLoanappV1b1_loanapplication_types.LoanApplication updateLoanPreference(
+    String ocvId,
+    List<Object> urlParams,
+    LexLoanappV1b1_loanapplication_types.LoanPreferences loanPrefData
+  ) {
+    HttpCalloutResponse response = LP_SERVICE.updateLoanPreferenceDetails(
+      ocvId,
+      urlParams,
+      loanPrefData
+    );
+    return handleUpdateLoanPreferenceDetails(
+      response,
+      String.valueOf(urlParams[0])
+    );
+  }
+
+  /**
+   * @description process the response received from callout
+   * @param response Http Callout Response
+   * @param loanAccNumber loanAccNumber
+   * @return LexLoanappV1b1_loanapplication_types.LoanApplication
+   */
+  private static LexLoanappV1b1_loanapplication_types.LoanApplication handleUpdateLoanPreferenceDetails(
+    HttpCalloutResponse response,
+    String loanAccNumber
+  ) {
+    if (response.statusCode == 500) {
+      throw new ServerErrorLoanPreferenceException(
+        response,
+        'updateLoanPreference'
+      );
+    }
+
+    if (response.statusCode == 400) {
+      Integer errorCode = (Integer) ((Map<String, Object>) JSON.deserializeUntyped(
+          response.error?.getMessage()
+        ))
+        .get('errorCode');
+      throw new UserErrorLoanPreferenceException(
+        response,
+        'updateLoanPreference',
+        errorCode
+      );
+    }
+
+    if (response.successful == false) {
+      throw new UnhandledLoanPreferenceException(
+        response,
+        'updateLoanPreference'
+      );
+    }
+
+    LexLoanappV1b1_loanapplication_types.LoanApplication updateloanloanResponse = (LexLoanappV1b1_loanapplication_types.LoanApplication) CalloutModel.deserialize(
+      response.body,
+      LexLoanappV1b1_loanapplication_types.LoanApplication.class
+    );
+    DataPartitionUtil.storeDataToCache(
+      LoanApplicationAPIRepository.CACHE_DATA_KEY_PREFIX_GETLOANAPI +
+      loanAccNumber,
+      updateloanloanResponse
+    );
+    return updateloanloanResponse;
+  }
 }

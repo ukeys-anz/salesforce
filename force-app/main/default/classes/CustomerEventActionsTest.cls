@@ -12,7 +12,7 @@ public with sharing class CustomerEventActionsTest {
     .getId('PersonAccount');
 
   static Lib_MockProvider brokerRepoMock = Lib_MockProvider.forType(
-    BrokerSettingRepository.class
+    BrokerSettingsRepository.class
   );
 
   /*

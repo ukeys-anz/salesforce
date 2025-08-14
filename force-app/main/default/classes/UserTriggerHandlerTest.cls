@@ -5,7 +5,12 @@
  */
 @isTest
 public class UserTriggerHandlerTest {
-  /* static List<User> testUsers = new List<User>();
+  static List<User> testUsers = new List<User>();
+
+  /**
+   * @description This method is used to test OnBeforeInsert & OnAfterInsert functionalities from user trigger.
+   */
+
   @isTest
   static void testUserInsert() {
     Profile p = CommonUtil.getProfileByName('ANZ Standard User');
@@ -84,6 +89,9 @@ public class UserTriggerHandlerTest {
     }
   }
 
+  /**
+   * @description This method is used to test OnBeforeUpdate & OnAfterUpdate functionalities from user trigger.
+   */
 
   @isTest
   static void testUserUpdate() {
@@ -157,6 +165,9 @@ public class UserTriggerHandlerTest {
     }
   }
 
+  /**
+   * @description This method is used to test whether the change in Business Function and Business Role is revoking the user permissions.
+   */
 
   @isTest
   static void testRevoke() {
@@ -191,5 +202,5 @@ public class UserTriggerHandlerTest {
       testAssignment.size(),
       'Total Assignments size should be as expected.'
     );
-  }*/
+  }
 }

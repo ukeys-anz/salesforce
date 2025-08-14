@@ -6,7 +6,7 @@
  */
 @isTest
 public class TFMSearchCustDataSourceConnectionTest {
-  /* @isTest
+  @isTest
   static void testSync() {
     DataSource.ConnectionParams connectionParams = new DataSource.ConnectionParams();
     connectionParams.principalType = DataSource.IdentityType.ANONYMOUS;
@@ -144,5 +144,5 @@ public class TFMSearchCustDataSourceConnectionTest {
       exceptionMessage = e.getMessage();
     }
     Test.stopTest();
-  }*/
+  }
 }

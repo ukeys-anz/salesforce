@@ -4,9 +4,12 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>CCRM Business Admin Access</label>
     <permissionSets>Access_Application_Form_Related_Functionality</permissionSets>
+    <permissionSets>Author_Reports_and_Dashboards</permissionSets>
     <permissionSets>CCRM_Business_Admin</permissionSets>
     <permissionSets>CCRM_Opportunity_Access</permissionSets>
+    <permissionSets>Commercial_Run_Reports_And_Dashboards</permissionSets>
     <permissionSets>Customer_Authentication_PS</permissionSets>
+    <permissionSets>Export_Reports</permissionSets>
     <permissionSets>Financial_Summary_Calculation_Publish</permissionSets>
     <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
@@ -14,5 +17,6 @@
     <permissionSets>View_C360_Financial_Accounts</permissionSets>
     <permissionSets>View_C360_Financial_Summary</permissionSets>
     <permissionSets>View_Diary_Comment</permissionSets>
+    <permissionSets>View_Setup_And_Users</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
