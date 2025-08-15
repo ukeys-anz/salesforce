@@ -117,6 +117,19 @@ public with sharing class QualityAssessmentGetHelpTrigHandlerTest {
   }
 
   @isTest
+  private static void testOnBeforeInsert() {
+    List<Quality_Assessment__c> qaRecords = getQARecords();
+    qaRecords[0].CX_Criteria_Comments__c = '<img>';
+    Test.startTest();
+    QualityAssessmentGetHelpTriggerHandler handler = new QualityAssessmentGetHelpTriggerHandler();
+    handler.records = qaRecords;
+    handler.onBeforeInsert();
+    Test.stopTest();
+
+    Assert.isTrue(qaRecords[0].hasErrors(), 'QA Record should have error.');
+  }
+
+  @isTest
   private static void testOnAfterUpdate() {
     registerMocks();
     Map<Id, Quality_Assessment__c> oldMap = getOldQARecords();
