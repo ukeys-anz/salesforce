@@ -49,6 +49,15 @@ public with sharing class QualityAssessmentGetHelpTriggerHandler extends Lib_Tri
   }
 
   /**
+   * @description onBeforeInsert to handle before insert trigger actions.
+   */
+  public override void onBeforeInsert() {
+    QualityAssessmentTriggerActions.blockImagesInRichText(
+      (List<Quality_Assessment__c>) records
+    );
+  }
+
+  /**
    * @description onAfterUpdate to handle after update trigger actions.
    * @param oldMap old trigger values
    */
