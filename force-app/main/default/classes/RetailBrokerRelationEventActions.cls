@@ -26,10 +26,9 @@ public with sharing class RetailBrokerRelationEventActions {
   ) {
     List<Contact> brokers = CONTACT_REPOSITORY.getContacts(updatedBrokers);
     Set<Id> oldBrokerSetIds = new Set<Id>();
-    if (oldMap == null) {
-      oldBrokerSetIds = null;
-    }
-    oldBrokerSetIds = ListUtil.getIds(oldMap.values(), Contact.Broker_Set__c);
+    oldBrokerSetIds = (oldMap != null)
+      ? ListUtil.getIds(oldMap.values(), Contact.Broker_Set__c)
+      : null;
     List<Broker_Relation__c> brokerRelationsWithRBMInfo = BROKER_RELATION_REPOSITORY.queryBrokerRelationWithRbmDetails(
       oldBrokerSetIds
     );

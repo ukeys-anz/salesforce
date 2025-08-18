@@ -2,11 +2,12 @@
  * @description       : Queueable Apex class that updates orphaned ResidentialLoanApplication and FinancialAccount records by linking them to the correct
  *                      Contact records using the broker's TPMI Code.
  * @author            : Madhuri Edke | Salesforce
- * @last modified on  : 08-11-2025
+ * @last modified on  : 08-18-2025
  * @last modified by  : Madhuri Edke | Salesforce
  **/
 public class RetailContactMergeActionsQueueable implements Queueable {
   private Set<String> setOfBrokerTPMI;
+  private Set<Id> contactIdsForCCREvent;
   private Map<Id, contact> oldMap;
   private static final RetailContactRepository CONTACT_REPOSITORY = (RetailContactRepository) Lib_InstanceProvider.forType(
     RetailContactRepository.class
@@ -18,14 +19,17 @@ public class RetailContactMergeActionsQueueable implements Queueable {
   /**
    * @description Constructor to initialize the queueable with a set of Broker TPMI codes.
    * @param setOfBrokerTPMI Set of TPMI codes used to process related records.
-   * @param oldMap Map of Contact records before the update.
+   * @param oldMap Map of Contact records before update
+   * @param contactIdsForCCREvent of Contact Ids for CCREvent
    */
   public RetailContactMergeActionsQueueable(
     Set<String> setOfBrokerTPMI,
-    Map<Id, Contact> oldMap
+    Map<Id, Contact> oldMap,
+    Set<Id> contactIdsForCCREvent
   ) {
     this.setOfBrokerTPMI = setOfBrokerTPMI;
     this.oldMap = oldMap;
+    this.contactIdsForCCREvent = contactIdsForCCREvent;
   }
 
   /**
@@ -65,7 +69,7 @@ public class RetailContactMergeActionsQueueable implements Queueable {
       DML_REPOSITORY.doUpdate(loanAppListToUpdate);
       DML_REPOSITORY.doUpdate(accountsToUpdate);
       RetailBrokerRelationEventActions.publishBrokerRelationEventFromContact(
-        oldMap.keySet(),
+        contactIdsForCCREvent,
         null
       );
     } catch (Exception e) {

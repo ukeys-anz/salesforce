@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Grace Anusha | Salesforce
  * @group             :
- * @last modified on  : 02-14-2025
- * @last modified by  : Grace Anusha | Salesforce
+ * @last modified on  : 08-18-2025
+ * @last modified by  : Madhuri Edke | Salesforce
  **/
 public with sharing class BrokerRelationRepository {
   /**
@@ -65,7 +65,7 @@ public with sharing class BrokerRelationRepository {
   public List<Broker_Relation__c> queryBrokerRelationWithRbmDetails(
     Set<Id> brokerSetIds
   ) {
-    if (brokerSetIds.isEmpty()) {
+    if (brokerSetIds == null || brokerSetIds.isEmpty()) {
       return new List<Broker_Relation__c>();
     }
     return [
