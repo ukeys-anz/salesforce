@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Loan_Application_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Loan Application Read Only</label>
+        <sharedTo>
+            <group>RLA_Loan_Application_Read_Only</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Loan Application</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Loan_Application_Read_Write</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Loan Application Read Write</label>
+        <sharedTo>
+            <group>RLA_Loan_Application_Read_Write</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Loan Application</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

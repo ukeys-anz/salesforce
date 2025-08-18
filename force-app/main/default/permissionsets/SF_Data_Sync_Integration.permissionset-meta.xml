@@ -11178,6 +11178,10 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <recordType>ResidentialLoanApplication.Loan_Application</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>Case.Selfie_Recovery</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
