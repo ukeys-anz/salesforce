@@ -78,6 +78,7 @@ function prepopulateCommonFields(
     Origin: "",
     Transaction_Made_By__c: transactionMadeBy
   };
+  //eslint-disable-next-line no-use-before-define
   defaultFieldValuesObj = prepopulateFieldsValues(
     commonFieldsMapping,
     transaction,
@@ -97,12 +98,14 @@ export function prepopulateDisputesFields(
   transactionMadeBy
 ) {
   let defaultFieldValuesObj = prepopulateCommonFields(
+    //eslint-disable-next-line dot-notation
     personAccount["AccountId"],
     financialAccountId,
     transaction,
     transactionMadeBy
   );
   let mappingObj;
+  //eslint-disable-next-line default-case
   switch (disputeType) {
     case "Card":
       mappingObj = cardDisputesFieldsMapping;
@@ -133,7 +136,8 @@ export function prepopulateDisputesFields(
   }
 
   defaultFieldValuesObj = mappingObj
-    ? prepopulateFieldsValues(
+    ? //eslint-disable-next-line no-use-before-define
+      prepopulateFieldsValues(
         mappingObj,
         transaction,
         defaultFieldValuesObj,
@@ -149,22 +153,33 @@ function setBPAYDisputeSpecificFields(
   personAccount,
   defaultFieldValuesObj
 ) {
+  //eslint-disable-next-line dot-notation
   let shortDescription = transaction["short_desc"];
+  //eslint-disable-next-line dot-notation
   defaultFieldValuesObj["Receipt__c"] = shortDescription.substring(
     shortDescription.length - 6
   );
+  //eslint-disable-next-line dot-notation
   defaultFieldValuesObj["Registration_Number__c"] = personAccount["OCV_ID__c"];
+  //eslint-disable-next-line dot-notation, vars-on-top
   var address = addressBuilder("", personAccount["BillingStreet"]);
+  //eslint-disable-next-line dot-notation
   address = addressBuilder(address, personAccount["BillingCity"]);
+  //eslint-disable-next-line dot-notation
   address = addressBuilder(address, personAccount["BillingState"]);
+  //eslint-disable-next-line dot-notation
   address = addressBuilder(address, personAccount["BillingPostalCode"]);
+  //eslint-disable-next-line dot-notation
   address = addressBuilder(address, personAccount["BillingCountry"]);
+  //eslint-disable-next-line dot-notation
   defaultFieldValuesObj["Address__c"] = address;
   return defaultFieldValuesObj;
 }
 
 function addressBuilder(address, addressComponent) {
+  //eslint-disable-next-line eqeqeq
   if (addressComponent != undefined && addressComponent != "") {
+    //eslint-disable-next-line eqeqeq
     if (address == "") {
       address += addressComponent;
     } else {
@@ -181,6 +196,7 @@ const prepopulateFieldsValues = (
   defaultFieldValuesObj,
   tokenizedCardNumberString
 ) => {
+  //eslint-disable-next-line no-unused-vars
   Object.entries(fieldMappings).forEach(([key, value], index) => {
     //Posted date is only available the day after the transaction is made,
     //so we need to have this check here to make sure we don't populate the date field

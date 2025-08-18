@@ -117,11 +117,14 @@ public with sharing class CustomerRelationshipsRepository {
     if (recordId == null) {
       return new List<SObject>();
     }
-    String sobjectTypeName = recordId.getSObjectType().getDescribe().getName();
-    String recordQuery =
-      'Select Id, Territory__c,Territory__r.Primary_Franchise_Owner__c From ' +
-      sobjectTypeName +
-      ' WHERE Id = :recordId AND Territory__r.Primary_Franchise_Owner__c != null WITH SYSTEM_MODE';
-    return database.query(recordQuery);
+    String recordQuery = String.format(
+      'SELECT Id, Territory__c,Territory__r.Primary_Franchise_Owner__c FROM {0} WHERE Id = :recordId AND Territory__r.Primary_Franchise_Owner__c != null',
+      new List<String>{ recordId.getSObjectType().toString() }
+    );
+    return Database.queryWithBinds(
+      recordQuery,
+      new Map<String, Object>{ 'recordId' => recordId },
+      AccessLevel.SYSTEM_MODE
+    );
   }
 }

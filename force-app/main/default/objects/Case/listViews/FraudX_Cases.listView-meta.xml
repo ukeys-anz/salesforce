@@ -24,5 +24,6 @@
     <sharedTo>
         <role>Card_Dispute_Agent</role>
         <role>FraudX_Agent</role>
+        <role>Onboarding_Support_Read_Only</role>
     </sharedTo>
 </ListView>

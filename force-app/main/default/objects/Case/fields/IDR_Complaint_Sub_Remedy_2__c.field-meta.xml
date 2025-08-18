@@ -33,11 +33,6 @@
                 <label>Goodwill payment where no ANZ error</label>
             </value>
             <value>
-                <fullName>Buyback</fullName>
-                <default>false</default>
-                <label>Buyback</label>
-            </value>
-            <value>
                 <fullName>8</fullName>
                 <default>false</default>
                 <label>Credit reporting amendment</label>
@@ -61,11 +56,6 @@
                 <fullName>13</fullName>
                 <default>false</default>
                 <label>Guarantee release</label>
-            </value>
-            <value>
-                <fullName>Internal credit rating upgrade</fullName>
-                <default>false</default>
-                <label>Internal credit rating upgrade</label>
             </value>
             <value>
                 <fullName>14</fullName>
@@ -178,11 +168,6 @@
                 <label>Reward Points</label>
             </value>
             <value>
-                <fullName>Reinstatement</fullName>
-                <default>false</default>
-                <label>Reinstatement</label>
-            </value>
-            <value>
                 <fullName>Repayment arrangement</fullName>
                 <default>false</default>
                 <label>Repayment arrangement</label>
@@ -199,10 +184,6 @@
         <valueSettings>
             <controllingFieldValue>1</controllingFieldValue>
             <valueName>7</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>4</controllingFieldValue>
-            <valueName>Buyback</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>4</controllingFieldValue>
@@ -223,10 +204,6 @@
         <valueSettings>
             <controllingFieldValue>4</controllingFieldValue>
             <valueName>13</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>4</controllingFieldValue>
-            <valueName>Internal credit rating upgrade</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>4</controllingFieldValue>
@@ -265,10 +242,6 @@
         <valueSettings>
             <controllingFieldValue>2</controllingFieldValue>
             <valueName>Reward Points</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>4</controllingFieldValue>
-            <valueName>Reinstatement</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>2</controllingFieldValue>

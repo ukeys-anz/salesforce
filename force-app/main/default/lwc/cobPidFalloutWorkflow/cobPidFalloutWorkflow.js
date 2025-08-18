@@ -231,9 +231,9 @@ export default class CobPidFalloutWorkflow extends LightningElement {
     };
 
     return {
-      idxDocumentId: daonLocationUri[8],
-      idxIdCheckId: daonLocationUri[6],
-      idxUserId: daonLocationUri[4],
+      idxDocumentId: daonLocationUri?.[8],
+      idxIdCheckId: daonLocationUri?.[6],
+      idxUserId: daonLocationUri?.[4],
       idxExtractedFaceId: extractedFaceId,
       workflowId: this.aegisWorkflowId,
       relatedRecordId: this.recordId,

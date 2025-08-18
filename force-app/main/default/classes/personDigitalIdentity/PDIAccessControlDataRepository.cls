@@ -40,7 +40,9 @@ public with sharing class PDIAccessControlDataRepository extends PDIDataConnecti
       accessControl.conditionalAdvice.deleteWhenMet = (Boolean) row.get(
         'DeleteWhenMet'
       );
-      accessControl.conditionalAdvice.minimumAal = (String) row.get('MinimumAAL');
+      accessControl.conditionalAdvice.minimumAal = (String) row.get(
+        'MinimumAAL'
+      );
     }
 
     PDIApiModel.AccessControl createdAccessControl = REPO.createAccessControl(
@@ -76,6 +78,7 @@ public with sharing class PDIAccessControlDataRepository extends PDIDataConnecti
       'CreatedBy' => record.createdBy,
       'CreatedTime' => record.createdAt,
       'DeleteWhenMet' => record.conditionalAdvice?.deleteWhenMet,
+      'DeviceCorrelationId' => record.match?.deviceCorrelationId,
       'ExternalId' => record.name,
       'MinimumAAL' => record.conditionalAdvice?.minimumAal,
       'PersonId' => PDIHelper.parseResourcePath(record.name, 'person'),

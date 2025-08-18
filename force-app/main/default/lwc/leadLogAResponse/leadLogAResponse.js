@@ -404,7 +404,10 @@ export default class LeadLogAResponse extends LightningElement {
   }
 
   handleCommentChange(event) {
-    this.commentValue = event.detail.value;
+    // Remove all '|' and '&' characters from the input
+    const commentVal = (event.target.value || "").replace(/[|&]/g, "");
+    this.template.querySelector(".comment").value = commentVal;
+    this.commentValue = commentVal;
   }
 
   validateRecord() {

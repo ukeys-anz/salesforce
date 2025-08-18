@@ -111,7 +111,7 @@ private class PDIAccessControlDataRepositoryTest {
       apiRecord.name = 'person/4b5c3dcf-c60b-442c-b614-cc8993dd2787/AccessControl/QTAzX0q_OhJqi5BAebp0L3A3Tg';
       apiRecord.match = new PDIApiModel.AccessControlMatchCriteria();
       apiRecord.match.authChannel = 'EDGE_AUTH_CHANNEL_COMPANION';
-      apiRecord.match.deviceId = null;
+      apiRecord.match.deviceCorrelationId = 'device-12345';
       apiRecord.match.personaId = 'b39ea11b-d5f7-43cf-978b-cb0525477aca';
       apiRecord.policy = 'POLICY_CONDITIONAL';
       apiRecord.conditionalAdvice = new PDIApiModel.AccessControlConditionalAdvice();

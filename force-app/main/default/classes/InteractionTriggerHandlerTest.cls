@@ -68,7 +68,7 @@ public with sharing class InteractionTriggerHandlerTest {
     insert testInteraction;
 
     List<Event> currentEvents = [SELECT Id FROM Event];
-    system.assertEquals(
+    Assert.areEqual(
       true,
       currentEvents.isEmpty(),
       'There should not be any events at this stage'
@@ -80,7 +80,7 @@ public with sharing class InteractionTriggerHandlerTest {
     test.stopTest();
 
     currentEvents = [SELECT Id FROM Event];
-    system.assertEquals(
+    Assert.areEqual(
       false,
       currentEvents.isEmpty(),
       'There should be an event at this stage'
@@ -119,13 +119,13 @@ public with sharing class InteractionTriggerHandlerTest {
 
     List<Event> events = [SELECT Id FROM Event];
 
-    System.assertNotEquals(null, testInteraction, 'An Interaction must exist');
-    System.assertNotEquals(
+    Assert.areNotEqual(null, testInteraction, 'An Interaction must exist');
+    Assert.areNotEqual(
       'Cancelled',
       testInteraction.Status__c,
       'Interaction must not start off cancelled.'
     );
-    System.assertEquals(
+    Assert.areEqual(
       true,
       events.isEmpty(),
       'No Event should be created at this stage'
@@ -138,7 +138,7 @@ public with sharing class InteractionTriggerHandlerTest {
 
     events = [SELECT Id FROM Event];
 
-    System.assertEquals(true, events.isEmpty(), 'All events must be deleted');
+    Assert.areEqual(true, events.isEmpty(), 'All events must be deleted');
   }
 
   static void createPurposeMap() {
@@ -209,7 +209,7 @@ public with sharing class InteractionTriggerHandlerTest {
       FROM Interaction
     ];
 
-    System.assertEquals(
+    Assert.areEqual(
       testInteraction.Status__c,
       InteractionConstants.UNASSIGNED_STATUS,
       'The new interaction should have the status as Unassigned'
@@ -221,7 +221,7 @@ public with sharing class InteractionTriggerHandlerTest {
       WHERE Type = 'Queue' AND Name = :'Appointments Queue'
     ];
 
-    System.assertEquals(
+    Assert.areEqual(
       interactionQueue.Id,
       testInteraction.OwnerId,
       'The owner of the new interaction should be Appointment Queue'
@@ -235,14 +235,14 @@ public with sharing class InteractionTriggerHandlerTest {
       FROM Appointment_Commitment__c
     ];
 
-    System.assertEquals(
+    Assert.areEqual(
       apptCommitRec.Confirmed__c,
       3,
       'The confirmed count should be increased by 1'
     );
 
     List<Event> events = [SELECT Id, StartDateTime, EndDateTime FROM Event];
-    System.assertEquals(1, events.size(), 'An event record must be created');
+    Assert.areEqual(1, events.size(), 'An event record must be created');
 
     Test.startTest();
 
@@ -255,7 +255,7 @@ public with sharing class InteractionTriggerHandlerTest {
 
     apptCommitRec = [SELECT Id, Confirmed__c FROM Appointment_Commitment__c];
 
-    System.assertEquals(
+    Assert.areEqual(
       apptCommitRec.Confirmed__c,
       2,
       'The confirmed count should be decreased by 1'
@@ -275,7 +275,7 @@ public with sharing class InteractionTriggerHandlerTest {
       FROM Interaction
     ];
 
-    System.assertEquals(
+    Assert.areEqual(
       testInteraction.StartTime,
       events[0].StartDateTime,
       'The start time on the interaction should match with the event start time'
@@ -284,7 +284,7 @@ public with sharing class InteractionTriggerHandlerTest {
     Integer duration = AutomatedRequestMetadataProvider.getInstance()
       .getPurposeDuration(testInteraction.Interaction_Purpose__c);
 
-    System.assertEquals(
+    Assert.areEqual(
       testInteraction.StartTime.addMinutes(duration),
       events[0].EndDateTime,
       'The start time on the interaction should match with the event start time'
@@ -328,7 +328,7 @@ public with sharing class InteractionTriggerHandlerTest {
       FROM Interaction
     ];
 
-    System.assertEquals(
+    Assert.areEqual(
       testInteraction.Status__c,
       InteractionConstants.UNASSIGNED_STATUS,
       'The new interaction should have the status as Unassigned'
@@ -340,7 +340,7 @@ public with sharing class InteractionTriggerHandlerTest {
       WHERE Type = 'Queue' AND Name = :'Appointments Queue'
     ];
 
-    System.assertEquals(
+    Assert.areEqual(
       interactionQueue.Id,
       testInteraction.OwnerId,
       'The owner of the new interaction should be Appointment Queue'
@@ -350,7 +350,7 @@ public with sharing class InteractionTriggerHandlerTest {
     update testInteraction;
 
     List<Event> currentEvents = [SELECT Id FROM Event];
-    system.assertEquals(
+    Assert.areEqual(
       false,
       currentEvents.isEmpty(),
       'There should be an event at this stage'
@@ -363,7 +363,7 @@ public with sharing class InteractionTriggerHandlerTest {
 
     currentEvents = [SELECT Id FROM Event];
 
-    System.assertEquals(
+    Assert.areEqual(
       true,
       currentEvents.isEmpty(),
       'All events must be deleted'
@@ -440,7 +440,7 @@ public with sharing class InteractionTriggerHandlerTest {
         )
         .addDays(i + 1);
     }
-    System.assertEquals(
+    Assert.areEqual(
       100,
       testInteraction.size(),
       '100 Interaction records should be created'
@@ -453,13 +453,13 @@ public with sharing class InteractionTriggerHandlerTest {
     ];
 
     for (Interaction interact : testInteraction) {
-      System.assertEquals(
+      Assert.areEqual(
         InteractionConstants.UNASSIGNED_STATUS,
         interact.Status__c,
         'The new interaction should have the status as Unassigned'
       );
 
-      System.assertEquals(
+      Assert.areEqual(
         interactionQueue.Id,
         interact.OwnerId,
         'The owner of the new interaction should be Appointment Queue'
@@ -475,7 +475,7 @@ public with sharing class InteractionTriggerHandlerTest {
       FROM Appointment_Commitment__c
     ];
 
-    System.assertEquals(
+    Assert.areEqual(
       100,
       apptCommitRec.Confirmed__c,
       'The confirmed count should be increased by 100'
@@ -501,7 +501,7 @@ public with sharing class InteractionTriggerHandlerTest {
 
     apptCommitRec = [SELECT Id, Confirmed__c FROM Appointment_Commitment__c];
 
-    System.assertEquals(
+    Assert.areEqual(
       0,
       apptCommitRec.Confirmed__c,
       'The confirmed count should be decreased to 0'
@@ -510,13 +510,13 @@ public with sharing class InteractionTriggerHandlerTest {
     events = [SELECT Id, StartDateTime, EndDateTime FROM Event];
 
     for (Event evt : events) {
-      System.assertEquals(
+      Assert.areEqual(
         evt.StartDateTime,
         startTime,
         'The start time on the interaction should match with the event start time'
       );
 
-      System.assertEquals(
+      Assert.areEqual(
         evt.EndDateTime,
         endTime,
         'The end time on the interaction should match with the event end time'
@@ -542,7 +542,7 @@ public with sharing class InteractionTriggerHandlerTest {
 
     Interaction testInteraction = [SELECT EndTime FROM Interaction];
 
-    System.assertEquals(
+    Assert.areEqual(
       testInteraction.Endtime,
       newInteractionWithoutEndtime.StartTime.addMinutes(duration),
       'The end time should be updated based on the metadata configuration'
@@ -581,7 +581,7 @@ public with sharing class InteractionTriggerHandlerTest {
         WHERE interactionid IN :insertInteractionList
       ];
 
-      System.assertEquals(
+      Assert.areEqual(
         false,
         numberattendee < 1,
         'InteractionAttendee should not be added'
@@ -645,7 +645,7 @@ public with sharing class InteractionTriggerHandlerTest {
         WHERE interactionid IN :insertInteractionList
       ];
 
-      System.assertEquals(
+      Assert.areEqual(
         true,
         numberattendee > 2,
         'InteractionAttendee should be added.'
@@ -667,10 +667,33 @@ public with sharing class InteractionTriggerHandlerTest {
       );
     }
     Test.stopTest();
-    System.assertEquals(
+    Assert.areEqual(
       3,
       interactionAttendeelist.size(),
       '3 Interaction Attendee Records should be inserted'
+    );
+  }
+
+  @isTest
+  private static void testcreateCustomerTypeInteractionAttendeeOldNotEmpty() {
+    User coachUser = TestUtil.getUserByFirstName('TestCoachInter894');
+    List<Interaction> interactionList = TestInteractionMock.createMockInteraction();
+    Map<Id, Interaction> oldMapInteraction = new Map<Id, Interaction>(
+      new List<Interaction>{ interactionList[0] }
+    );
+    List<InteractionAttendee> interactionAttendeelist;
+    Test.startTest();
+    System.runAs(coachUser) {
+      interactionAttendeelist = InteractionAttendeeActions.createCustomerTypeInteractionAttendee(
+        interactionList,
+        oldMapInteraction
+      );
+    }
+    Test.stopTest();
+    Assert.areEqual(
+      2,
+      interactionAttendeelist.size(),
+      '2 Interaction Attendee Records should be inserted'
     );
   }
 
@@ -721,23 +744,11 @@ public with sharing class InteractionTriggerHandlerTest {
       ),
       'UniqueKeyForInteractionAttendee__c of the interaction should not be blank'
     );
-  }
 
-  @isTest
-  private static void testupdateUniqueKeyForInteraction() {
-    List<Interaction> interactionList = TestInteractionMock.createMockInteractionWithAttendeeRecord();
-    List<InteractionAttendee> interactionAttendeeList = (List<InteractionAttendee>) interactionList[0]
-      .Attendees;
-    InteractionAttendee interactionAttendeeRecord = interactionAttendeeList[0];
-    Test.startTest();
-    String uniqueKey = InteractionAttendeeActions.updateUniqueKeyForInteraction(
-      interactionAttendeeRecord
-    );
-    Test.stopTest();
-    System.assertEquals(
-      true,
-      String.isNotBlank(uniqueKey),
-      'UniqueKey should get populated'
+    Assert.areEqual(
+      '0kzBm0000001jcbIAA_003Bm00000GFef4IAD_null',
+      interactionAttendeeList[0].UniqueKeyForInteractionAttendee__c,
+      'UniqueKey should get populated as "0kzBm0000001jcbIAA_003Bm00000GFef4IAD_null"'
     );
   }
 
@@ -785,7 +796,7 @@ public with sharing class InteractionTriggerHandlerTest {
       WHERE interactionid IN :insertInteractionList
     ];
 
-    System.assertEquals(
+    Assert.areEqual(
       true,
       numberattendeeinsert < 1,
       'There should be no Interaction Attendee associated with the created call interaction'
@@ -807,7 +818,7 @@ public with sharing class InteractionTriggerHandlerTest {
         WHERE interactionid IN :updateInteractionList
       ];
 
-      System.assertEquals(
+      Assert.areEqual(
         true,
         numberattendeeupdate < 4,
         'Changed Owner should be added as an InteractionAttendee'
@@ -834,7 +845,7 @@ public with sharing class InteractionTriggerHandlerTest {
 
     Interaction testInteraction = [SELECT EndTime FROM Interaction];
 
-    System.assertEquals(
+    Assert.areEqual(
       testInteraction.Endtime,
       newInteractionWithoutEndtime.StartTime.addMinutes(duration),
       'The end time should be updated based on the metadata configuration'
@@ -847,7 +858,7 @@ public with sharing class InteractionTriggerHandlerTest {
 
     testInteraction = [SELECT EndTime FROM Interaction];
 
-    System.assertEquals(
+    Assert.areEqual(
       testInteraction.Endtime,
       newInteractionWithoutEndtime.StartTime.addMinutes(duration),
       'The end time should be updated based on the metadata configuration'
@@ -878,7 +889,7 @@ public with sharing class InteractionTriggerHandlerTest {
       countOfTwilioDetailsInserted = [SELECT COUNT() FROM Twilio_Details__c];
       Test.stopTest();
     }
-    System.assertEquals(
+    Assert.areEqual(
       countOfTwilioDetailsInserted,
       50,
       'Twilio Details Created Successfully'
@@ -913,7 +924,7 @@ public with sharing class InteractionTriggerHandlerTest {
       countOfTwilioDetailsInserted = [SELECT COUNT() FROM Twilio_Details__c];
       Test.stopTest();
     }
-    System.assertEquals(
+    Assert.areEqual(
       countOfTwilioDetailsInserted,
       48,
       'Twilio Details Created Successfully'

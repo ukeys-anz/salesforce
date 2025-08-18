@@ -12,9 +12,9 @@ const TRUSTME_DOCUMENT_VERIFICATION = {
   TrustMe_Primary_Document_ID__c: "TrustMe Primary Document ID"
 };
 const TRUSTME_ADDITIONAL_CUSTOMER_CONTEXT = {
-  Customer_UUID__c: "Customer UUID",
+  Customer_UUID__c: "PersonID",
   Date_Of_Birth__c: "Date Of Birth",
-  QAS__c: "QAS?",
+  QAS__c: "QAS",
   Daon_Selfie_Match_ID__c: "Daon Selfie Match ID",
   Daon_Evaluation_Outcome__c: "Daon Evaluation Outcome",
   Existing_Selfie__c: "Existing Selfie",

@@ -228,7 +228,7 @@ export default class ReKYCDocumentDetail extends LightningElement {
 
       const secondaryDocs =
         this.reKYCDocDetails?.TrustMe_Secondary_Document_ID__c;
-      if (secondaryDocs) {
+      if (secondaryDocs && secondaryDocs !== "Not Submitted") {
         const secondaryDetokenizedValue = await this.service.detokenize(
           secondaryDocs,
           DOCUMENTYPE[this.reKYCDocDetails.Secondary_Documents__c[0].type]
@@ -302,13 +302,21 @@ export default class ReKYCDocumentDetail extends LightningElement {
   }
 
   get secondaryLayout() {
-    if (!this.reKYCDocDetails?.Secondary_Documents__c) {
-      return null;
-    }
     const documents = this.reKYCDocDetails?.Secondary_Documents__c;
 
     if (!documents || !Array.isArray(documents)) {
-      return null;
+      return [
+        {
+          title: "",
+          size: 4,
+          files: [
+            {
+              fileType: "DAON_FILE_TYPE_SELFIE_ENROLLED",
+              title: "Enrolled Selfie on File"
+            }
+          ]
+        }
+      ];
     }
     return [
       {
@@ -321,7 +329,12 @@ export default class ReKYCDocumentDetail extends LightningElement {
 
   get secondarymetadata() {
     if (!this.reKYCDocDetails?.Secondary_Documents__c) {
-      return null;
+      return {
+        idxIdCheckId: this.reKYCDocDetails?.Daon_Check_Id__c,
+        idxUserId: this.reKYCDocDetails?.Daon_User_Id__c,
+        relatedRecordId: this.recordId,
+        ...this.customerToken
+      };
     }
     return {
       idxDocumentId:

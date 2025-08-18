@@ -75,10 +75,7 @@ public with sharing virtual class TFMAUFService extends Service {
       System.Label.MS_AUF_API + staffModel.idValue,
       HTTP_METHOD.HTTP_PATCH,
       headers,
-      setpayload(
-        (TFMConstants.MOBILEPREFIX + value),
-        TFMConstants.SECURITYMOBILE
-      )
+      setpayload(value, TFMConstants.SECURITYMOBILE)
     );
     return response;
   }
