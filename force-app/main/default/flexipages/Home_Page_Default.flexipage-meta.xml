@@ -53,7 +53,7 @@
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Broker_Enablement_Manager</rightValue>
+                        <rightValue>Enablement_Manager</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
