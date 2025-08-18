@@ -660,8 +660,16 @@ public with sharing class RetailBrokerContactActions {
         Contact.Broker_Accreditation_Type__c,
         BrokerConstants.ACCREDITATION_RETAIL
       )
+      .toList();
+
+    List<Contact> contactsForCCREvent = (List<Contact>) ListUtil.filter(
+        updatedContacts,
+        oldMap
+      )
       .isNotNull(Contact.Broker_Set__c)
       .toList();
+
+    Set<Id> ccrContactIds = ListUtil.getIds(contactsForCCREvent, Contact.Id);
 
     Set<String> brokerTPMIIds = ListUtil.getStrings(
       updatedContacts,
@@ -669,7 +677,11 @@ public with sharing class RetailBrokerContactActions {
     );
 
     System.enqueueJob(
-      new RetailContactMergeActionsQueueable(brokerTPMIIds, oldMap)
+      new RetailContactMergeActionsQueueable(
+        brokerTPMIIds,
+        oldMap,
+        ccrContactIds
+      )
     );
   }
 
