@@ -100,6 +100,10 @@
     <picklistValues>
         <picklist>InteractionType</picklist>
         <values>
+            <fullName>Administration</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Annual Review</fullName>
             <default>false</default>
         </values>
@@ -169,10 +173,6 @@
         </values>
         <values>
             <fullName>Virtual Meetings</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Administration</fullName>
             <default>false</default>
         </values>
     </picklistValues>
