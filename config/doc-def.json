@@ -1302,6 +1302,7 @@
         "Disable_MFA",
         "API_Only",
         "AMBIT_Data_Sync",
+        "force__FinancialServicesCloudExtension",
         "Access_Application_Form_Related_Functionality"
       ],
       "type": "system"
