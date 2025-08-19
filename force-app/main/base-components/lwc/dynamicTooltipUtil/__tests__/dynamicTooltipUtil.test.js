@@ -1,124 +1,115 @@
 import { createElement } from "lwc";
 import DynamicTooltipUtil from "c/dynamicTooltipUtil";
-const mockToolTip = require("./data/mockToolTip.json");
+import { loadScript } from "lightning/platformResourceLoader";
 
-jest.mock(
-  "@salesforce/resourceUrl/tooltipData",
-  () => "./data/mockToolTip.json",
-  {
-    virtual: true
-  }
-);
+jest.mock("lightning/platformResourceLoader", () => {
+  return {
+    loadScript: jest.fn()
+  };
+});
 
-global.fetch = jest.fn(() =>
-  Promise.resolve({
-    json: () => mockToolTip
-  })
-);
-
-async function flushPromises() {
-  return Promise.resolve();
-}
-
-describe("c-dynamic-tooltip-util", () => {
-  afterEach(() => {
-    // The jsdom instance is shared across test cases in a single file so reset the DOM
-    while (document.body.firstChild) {
-      document.body.removeChild(document.body.firstChild);
-    }
+describe("c-dynamic-tooltip-util - tooltip rendering", () => {
+  beforeEach(() => {
+    document.body.innerHTML = "";
     jest.clearAllMocks();
   });
 
-  it("1, Test if tooltip content for total financial position visible", async () => {
-    await flushPromises();
+  const mockTooltipData = {
+    totalFinancialPosition:
+      "<span>The amount shown in <strong>{productName}</strong> account.</span>",
+    accountBalance: "<p><em>{productName}</em> balance details.</p>"
+  };
+
+  function setupComponent(resourceName, productName) {
+    loadScript.mockImplementation(() => {
+      window.tooltipData = mockTooltipData;
+      return Promise.resolve();
+    });
+
     const element = createElement("c-dynamic-tooltip-util", {
       is: DynamicTooltipUtil
     });
-    element.headerTitle = "Total Financial Position*";
-    element.resourceName = "totalFinancialPosition";
-    element.productName = "ANZ Plus , ANZ Save and ANZ Plus Flex Saver";
+
+    element.headerTitle = "Header";
+    element.resourceName = resourceName;
+    element.productName = productName;
     document.body.appendChild(element);
-    await flushPromises();
 
-    let tooltipContent = element.shadowRoot.querySelector(
-      "div[data-id='tooltip-content-loaded']"
+    return Promise.resolve()
+      .then(() => Promise.resolve())
+      .then(() => element);
+  }
+
+  it("1. renders correct tooltip text with product name", async () => {
+    const element = await setupComponent("totalFinancialPosition", "ANZ Plus");
+    const contentDiv = element.shadowRoot.querySelector(
+      '[data-id="tooltip-content-loaded"]'
     );
 
-    expect(tooltipContent).toBeTruthy();
-    expect(tooltipContent.textContent).toContain(
-      "ANZ Plus , ANZ Save and ANZ Plus Flex Saver"
-    );
+    expect(contentDiv.textContent).toContain("The amount shown in");
+    expect(contentDiv.textContent).toContain("ANZ Plus");
   });
 
-  it("2, Test if tooltip content for total saved of financial position visible", async () => {
-    await flushPromises();
-    const element = createElement("c-dynamic-tooltip-util", {
-      is: DynamicTooltipUtil
-    });
-    element.headerTitle = "Total Saved";
-    element.resourceName = "totalSavedFinancialPosition";
-    element.productName = "ANZ Save";
-    document.body.appendChild(element);
-    await flushPromises();
-    let tooltipContent = element.shadowRoot.querySelector(
-      "div[data-id='tooltip-content-loaded']"
+  it("2. renders correct text for another tooltip key", async () => {
+    const element = await setupComponent("accountBalance", "Savings");
+    const contentDiv = element.shadowRoot.querySelector(
+      '[data-id="tooltip-content-loaded"]'
     );
 
-    expect(tooltipContent).toBeTruthy();
-    expect(tooltipContent.textContent).toContain("their ANZ Save account");
+    expect(contentDiv.textContent).toContain("Savings balance details.");
   });
 
-  it("3, Test if tooltip content for total saved of S1 Financial Account visible", async () => {
-    await flushPromises();
-    const element = createElement("c-dynamic-tooltip-util", {
-      is: DynamicTooltipUtil
-    });
-    element.headerTitle = "Total Saved";
-    element.resourceName = "SAVING01";
-    element.productName = "ANZ Save";
-    document.body.appendChild(element);
-    await flushPromises();
-    let tooltipContent = element.shadowRoot.querySelector(
-      "div[data-id='tooltip-content-loaded']"
+  it("3. renders empty content if resource name is missing", async () => {
+    const element = await setupComponent("", "AnyProduct");
+    const contentDiv = element.shadowRoot.querySelector(
+      '[data-id="tooltip-content-loaded"]'
     );
 
-    expect(tooltipContent).toBeTruthy();
-    expect(tooltipContent.textContent).toContain("ANZ Save");
+    expect(contentDiv.textContent.trim()).toBe("");
   });
 
-  it("4, Test if tooltip content for total saved of S2 Financial Account visible", async () => {
-    await flushPromises();
+  it("4. renders content without replacing productName if placeholder is missing", async () => {
+    // mock static data without {productName} placeholder
+    loadScript.mockImplementation(() => {
+      window.tooltipData = {
+        missingPlaceholder: ""
+      };
+      return Promise.resolve();
+    });
+
     const element = createElement("c-dynamic-tooltip-util", {
       is: DynamicTooltipUtil
     });
-    element.headerTitle = "Flex Funds";
-    element.resourceName = "SAVING02";
-    element.productName = "ANZ Plus Flex Saver";
-    document.body.appendChild(element);
-    await flushPromises();
-    let tooltipContent = element.shadowRoot.querySelector(
-      "div[data-id='tooltip-content-loaded']"
-    );
 
-    expect(tooltipContent).toBeTruthy();
-    expect(tooltipContent.textContent).toContain("ANZ Plus Flex Saver");
+    element.headerTitle = "Header";
+    element.resourceName = "missingPlaceholder";
+    element.productName = "InvisibleProduct";
+    document.body.appendChild(element);
+
+    await Promise.resolve();
+    await Promise.resolve();
+
+    const contentDiv = element.shadowRoot.querySelector(
+      '[data-id="tooltip-content-loaded"]'
+    );
+    expect(contentDiv.textContent).toContain("");
+    expect(contentDiv.textContent).not.toContain("InvisibleProduct");
   });
 
-  it("5, Test if tooltip content for checking account visible", async () => {
-    await flushPromises();
+  it("5. dispatches closemodal event when close button is clicked", async () => {
     const element = createElement("c-dynamic-tooltip-util", {
       is: DynamicTooltipUtil
     });
-    element.headerTitle = "Everyday Funds";
-    element.resourceName = "TRANSACT01";
-    element.productName = "ANZ Plus";
-    document.body.appendChild(element);
-    await flushPromises();
-    let tooltipContent = element.shadowRoot.querySelector(
-      "div[data-id='tooltip-content-loaded']"
-    );
 
-    expect(tooltipContent).toBeTruthy();
-    expect(tooltipContent.textContent).toContain("ANZ Plus");
+    element.headerTitle = "Header";
+    document.body.appendChild(element);
+
+    const handler = jest.fn();
+    element.addEventListener("closemodal", handler);
+
+    const closeButton = element.shadowRoot.querySelector("button");
+    closeButton.click();
+
+    expect(handler).toHaveBeenCalled();
   });
 });

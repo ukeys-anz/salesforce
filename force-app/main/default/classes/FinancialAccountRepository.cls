@@ -190,7 +190,8 @@ public with sharing class FinancialAccountRepository {
         FinServ__ProductName__c,
         Linked_Product_Code__c,
         Product_Name_Display__c,
-        FinServ__ProductName__r.ANZ_Product_Code__c
+        FinServ__ProductName__r.ANZ_Product_Code__c,
+        FinServ__ProductName__r.SourceSystem__c
       FROM FinServ__FinancialAccount__c
       WHERE
         FinServ__FinancialAccountNumber__c IN :allRelatedAccountNumbers

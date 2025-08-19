@@ -26,4 +26,10 @@ public with sharing class FinancialAccountConstant {
     'Additional Owner',
     'Primary Owner'
   };
+
+  //Hold the Origin value for the products associated to ANZ classic Financial Account
+  public static final String ANZ_CLASSIC_ORIGIN = 'PRODUCT_ORIGIN_ARC';
+
+  //Hold Source System
+  public static final String ZAFIN_SOURCE = 'Zafin';
 }

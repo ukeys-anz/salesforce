@@ -1,16 +1,19 @@
 import { createElement } from "lwc";
 import FinancialGoalsPersonAccount from "c/financialGoalsPersonAccount";
-
 const GOAL_DATA = require("./data/goalData.json");
-const mockToolTip = require("./data/mockToolTip.json");
+import { loadScript } from "lightning/platformResourceLoader";
 
-jest.mock(
-  "@salesforce/resourceUrl/tooltipData",
-  () => "./data/mockToolTip.json",
-  {
-    virtual: true
-  }
-);
+const mockToolTip = {
+  totalFinancialPosition:
+    "<span>The amount shown in <strong>{productName}</strong> account.</span>",
+  accountBalance: "<p><em>{productName}</em> balance details.</p>",
+  SAVING01: "<p><em>{productName}</em> balance details.</p>"
+};
+
+loadScript.mockImplementation(() => {
+  window.tooltipData = mockToolTip;
+  return Promise.resolve();
+});
 
 global.fetch = jest.fn(() =>
   Promise.resolve({

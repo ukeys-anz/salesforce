@@ -4,6 +4,7 @@ import { NavigationMixin } from "lightning/navigation";
 
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
 import FinancialAccountStatusForSorting from "@salesforce/label/c.FinancialAccountStatusForSorting";
+import ANZ_ICON from "@salesforce/resourceUrl/anz_icon";
 
 export default class FinancialAccount extends NavigationMixin(
   LightningElement
@@ -24,6 +25,7 @@ export default class FinancialAccount extends NavigationMixin(
   showInfoModal = false;
   tooltipCode = "";
   headerTitle = "";
+  anzIcon;
 
   get displayContent() {
     return hasAccountsGoalsPermission;
@@ -68,6 +70,16 @@ export default class FinancialAccount extends NavigationMixin(
       });
 
     return lastUpdated;
+  }
+
+  get anzLogo() {
+    if (
+      this.accountDetails.length > 0 &&
+      this.accountDetails[0].product_details.origin === "PRODUCT_ORIGIN_ANZX"
+    ) {
+      this.anzIcon = ANZ_ICON;
+    }
+    return this.anzIcon;
   }
 
   handleAccountDetails(accountDetails) {

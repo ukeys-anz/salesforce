@@ -7,7 +7,14 @@
         class={iconWrapperClass}
       ></lightning-icon>
       {componentTitle}
-      <p class="sub-title">{componentSubTitle}</p>
+      <p class="sub-title">
+        {componentSubTitle}
+        <lightning-icon
+          src={anzLogo}
+          size="small"
+          class="slds-m-left_x-small"
+        ></lightning-icon>
+      </p>
     </h1>
     <template lwc:if={displayContent}>
       <template lwc:if={processedFinAccounts.length}>

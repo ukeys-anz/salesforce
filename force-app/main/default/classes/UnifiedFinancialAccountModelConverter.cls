@@ -53,9 +53,7 @@ public with sharing class UnifiedFinancialAccountModelConverter {
         finAccount.FinServ__Balance__c,
         finAccount.FinServ__CurrentPostedBalance__c
       );
-      finAccountDetail.product_details = convertProductDetails(
-        finAccount.Marketing_Code__c
-      );
+      finAccountDetail.product_details = convertProductDetails(finAccount);
       finAccountDetail.Ownership = convertOwnership(finAccount.Ownership__c);
       finAccountDetail.finserv_sortorder = finAccConfig?.Sort_Order__c ??
         DEFAULT_SORT_ORDER;
@@ -89,11 +87,26 @@ public with sharing class UnifiedFinancialAccountModelConverter {
   }
 
   private static UnifiedFinancialAccountModel.ProductDetails convertProductDetails(
-    String marketingCode
+    FinServ__FinancialAccount__c finAccount
   ) {
     UnifiedFinancialAccountModel.ProductDetails finAccountProductDetails = new UnifiedFinancialAccountModel.ProductDetails();
-    finAccountProductDetails.marketing_code = marketingCode;
+    finAccountProductDetails.marketing_code = finAccount.Marketing_Code__c;
+    finAccountProductDetails.origin = getProductOrigin(finAccount);
     return finAccountProductDetails;
+  }
+
+  private static String getProductOrigin(
+    FinServ__FinancialAccount__c finAccount
+  ) {
+    if (
+      finAccount.FinServ__ProductName__r.ANZ_Product_Code__c != null &&
+      FinancialAccountConstant.ZAFIN_SOURCE.equalsIgnoreCase(
+        finAccount.FinServ__ProductName__r.SourceSystem__c
+      )
+    ) {
+      return FinancialAccountConstant.ANZ_PLUS_ORIGIN;
+    }
+    return FinancialAccountConstant.ANZ_CLASSIC_ORIGIN;
   }
 
   private static UnifiedFinancialAccountModel.Ownership convertOwnership(

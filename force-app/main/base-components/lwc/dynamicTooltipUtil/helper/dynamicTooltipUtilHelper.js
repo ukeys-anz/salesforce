@@ -1,16 +1,14 @@
 ////Moved the hardcoded tooltip data from js to the static resource
-import TOOLTIP_JSON from "@salesforce/resourceUrl/tooltipData";
-
+import TOOLTIP_JSON from "@salesforce/resourceUrl/financialAccountTooltips";
+import { loadScript } from "lightning/platformResourceLoader";
 let TOOLTIP_MAP = {};
 
 export async function loadTooltipMap() {
   if (Object.keys(TOOLTIP_MAP).length > 0) {
     return;
   }
-
-  const response = await fetch(TOOLTIP_JSON);
-  const data = await response.json();
-  TOOLTIP_MAP = data;
+  await loadScript(this, TOOLTIP_JSON)
+  TOOLTIP_MAP = window.tooltipData;
 }
 
 //this method is use to fetch the tooltip content dynamically based on the resourcename
