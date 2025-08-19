@@ -1,0 +1,334 @@
+<!--
+  @description       : 
+  @author            : Anuj Jaib
+  @group             : 
+  @last modified on  : 06-04-2025
+  @last modified by  : Anuj Jain
+-->
+
+<template>
+  <div class="container__for_aura">
+    <template lwc:if={showSpinner}>
+      <div class="spinnerHolder">
+        <lightning-spinner
+          variant="brand"
+          alternative-text="Loading"
+        ></lightning-spinner>
+      </div>
+    </template>
+    <template lwc:else>
+      <!-- for update pin-->
+      <template lwc:if={isUpdatePin}>
+        <lightning-modal-header label="Confirm Action"></lightning-modal-header>
+        <lightning-modal-body>
+          <div class="slds-grid slds-wrap">
+            <div
+              class="slds-col slds-size_1-of-1 slds-align_absolute-center slds-text-title_bold slds-p-around--medium"
+            >
+              <p>Do you wish to update PIN Status to {pinStatus}?</p>
+            </div>
+          </div>
+        </lightning-modal-body>
+        <lightning-modal-footer>
+          <div class="slds-grid slds-grid_align-end">
+            <lightning-button
+              label="Cancel"
+              variant="neutral"
+              onclick={handleCloseModal}
+            ></lightning-button>
+            <lightning-button
+              class="slds-m-left_small"
+              label="Confirm"
+              variant="brand"
+              onclick={handleUpdatePinStatus}
+            ></lightning-button>
+          </div>
+        </lightning-modal-footer>
+      </template>
+
+      <!-- for update status-->
+      <template lwc:if={isUpdateStatus}>
+        <lightning-modal-header label="Confirm Action"></lightning-modal-header>
+        <lightning-modal-body>
+          <div class="slds-grid slds-wrap">
+            <div
+              class="slds-col slds-size_1-of-1 slds-align_absolute-center slds-text-title_bold slds-p-around--medium"
+            >
+              <p>Do you wish to update Status to {status}?</p>
+            </div>
+          </div>
+        </lightning-modal-body>
+        <lightning-modal-footer>
+          <div class="slds-grid slds-grid_align-end">
+            <lightning-button
+              label="Cancel"
+              variant="neutral"
+              onclick={handleCloseModal}
+            ></lightning-button>
+            <lightning-button
+              class="slds-m-left_small"
+              label="Confirm"
+              variant="brand"
+              onclick={handleUpdateStatus}
+            ></lightning-button>
+          </div>
+        </lightning-modal-footer>
+      </template>
+
+      <!-- for archive user-->
+      <template lwc:if={isArchiveUser}>
+        <lightning-modal-header label="Confirm Action"></lightning-modal-header>
+        <lightning-modal-body>
+          <div class="slds-grid slds-wrap">
+            <div
+              class="slds-col slds-size_1-of-1 slds-align_absolute-center slds-text-heading--small slds-text-title_bold"
+            >
+              <h2>Do you wish to permanently archive the user?</h2>
+            </div>
+            <div
+              class="slds-col slds-size_1-of-1 slds-align_absolute-center slds-text-align--center slds-p-around--medium"
+            >
+              <h4 class="slds-text-color--error">
+                Note: This process will automatically revoke all active consents
+                for this user. Do you wish to proceed?
+              </h4>
+            </div>
+          </div>
+        </lightning-modal-body>
+        <lightning-modal-footer>
+          <div class="slds-grid slds-grid_align-end">
+            <lightning-button
+              label="Cancel"
+              variant="neutral"
+              onclick={handleCloseModal}
+            ></lightning-button>
+            <lightning-button
+              class="slds-m-left_small"
+              label="Confirm"
+              variant="destructive"
+              onclick={handleArchiveUser}
+            ></lightning-button>
+          </div>
+        </lightning-modal-footer>
+      </template>
+
+      <!-- for update OCV ID-->
+      <template lwc:if={isUpdateOcvId}>
+        <lightning-modal-header label="Confirm Action"></lightning-modal-header>
+        <lightning-modal-body>
+          <div class="slds-grid slds-wrap">
+            <div
+              class="slds-col slds-size_10-of-12 slds-align_absolute-center slds-p-around--medium"
+            >
+              <lightning-input
+                type="text"
+                label="Enter New OCV ID"
+                value={ocvId}
+                max-length="10"
+                min-length="10"
+                onchange={handleOCVIdInput}
+                required
+                variant="label-inline"
+                message-when-too-short="Enter 10 digits OCV ID"
+                message-when-too-long="Enter 10 digits OCV ID"
+                pattern="[0-9]*"
+                message-when-pattern-mismatch="OCV ID can only contain numbers"
+                class="ocvIdCls"
+              ></lightning-input>
+            </div>
+          </div>
+        </lightning-modal-body>
+        <lightning-modal-footer>
+          <div class="slds-grid slds-grid_align-end">
+            <lightning-button
+              label="Cancel"
+              variant="neutral"
+              onclick={handleCloseModal}
+            ></lightning-button>
+            <lightning-button
+              class="slds-m-left_small"
+              label="Confirm"
+              variant="brand"
+              onclick={handleUpdateOcvid}
+              disabled={ocvButtonDisabled}
+            ></lightning-button>
+          </div>
+        </lightning-modal-footer>
+      </template>
+
+      <!-- for reset pin -->
+      <template lwc:if={isResetPin}>
+        <lightning-modal-header label="Confirm Action"></lightning-modal-header>
+        <lightning-modal-body>
+          <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_8-of-12 slds-align_absolute-center">
+              <lightning-input
+                type="password"
+                label="New PIN"
+                value={newPIN}
+                max-length="6"
+                min-length="6"
+                message-when-too-short="Enter 6 digit PIN"
+                message-when-too-long="Enter 6 digit PIN"
+                onchange={handleNewPin}
+                required
+                variant="label-inline"
+                pattern="^(?!.*(\d)\1{5})(?!123456|234567|345678|456789|987654|876543|765432|654321|543210|012345)\d{6}$"
+                message-when-pattern-mismatch="Invalid PIN"
+                class="newPINCls"
+                field-level-help="Minimum length of 6"
+              ></lightning-input>
+            </div>
+            <div class="slds-col slds-size_8-of-12 slds-align_absolute-center">
+              <lightning-input
+                type="password"
+                label="Confirm PIN"
+                value={confirmPIN}
+                maxlength="6"
+                min-length="6"
+                message-when-too-short="Enter 6 digit PIN"
+                message-when-too-long="Enter 6 digit PIN"
+                onchange={handleConfirmPin}
+                required
+                variant="label-inline"
+                pattern="^(?!.*(\d)\1{5})(?!123456|234567|345678|456789|987654|876543|765432|654321|543210|012345)\d{6}$"
+                message-when-pattern-mismatch="Invalid PIN"
+                class="confirmPINCls"
+                field-level-help="Minimum length of 6"
+              ></lightning-input>
+            </div>
+            <template lwc:if={showPinMisMatchError}>
+              <div
+                class="slds-col slds-size_1-of-1 slds-align_absolute-center slds-text-color--error"
+              >
+                {pinMisMatchError}
+              </div>
+            </template>
+          </div>
+        </lightning-modal-body>
+        <lightning-modal-footer>
+          <div class="slds-grid slds-grid_align-end">
+            <lightning-button
+              label="Cancel"
+              variant="neutral"
+              onclick={handleCloseModal}
+            ></lightning-button>
+            <lightning-button
+              class="slds-m-left_small"
+              label="Confirm"
+              variant="brand"
+              onclick={handleResetPin}
+              disabled={pinButtonDisabled}
+            ></lightning-button>
+          </div>
+        </lightning-modal-footer>
+      </template>
+
+      <!-- for mobile number update-->
+      <template lwc:if={isUpdateMobile}>
+        <lightning-modal-header label="Confirm Action"></lightning-modal-header>
+        <lightning-modal-body>
+          <div class="slds-wrap">
+            <template lwc:if={disputedChecks}>
+              <div class="slds-grid slds-align_absolute-center">
+                <div
+                  class="slds-col slds-size_12-of-12 slds-align--absolute-center slds-p-around_medium"
+                >
+                  <lightning-input
+                    type="checkbox"
+                    label="De-link Mobile Number"
+                    name="input1"
+                    onchange={disputedChecked}
+                  ></lightning-input>
+                </div>
+              </div>
+              <template lwc:if={mobileNumberDisputed}>
+                <div
+                  class="slds-col slds-size_12-of-12 slds-align--absolute-center slds-p-around_medium"
+                >
+                  <p>
+                    By confirming, you agree that the customer has been
+                    contacted and has not responded after 7 days. Do you wish to
+                    De-link Mobile Number?
+                  </p>
+                </div>
+              </template>
+              <template lwc:else>
+                <div class="slds-grid slds-align_absolute-center">
+                  <!-- Static +61 prefix -->
+                  <div class="slds-col slds-size_3-of-12 slds-p-around_medium">
+                    <lightning-input
+                      type="text"
+                      label="Country Code"
+                      value="+61"
+                      disabled
+                      class="greyed-out"
+                    ></lightning-input>
+                  </div>
+                  <div class="slds-col slds-size_7-of-12 slds-p-around_medium">
+                    <lightning-input
+                      type="tel"
+                      label="Enter New Mobile Number"
+                      value={mobileNumber}
+                      maxlength="10"
+                      onchange={handleMobileInput}
+                      required
+                      field-level-help="Expected format - 04XXXXXXXX"
+                      pattern="^(?:\\+?61|0|00610)[4]([0-9]){8}$"
+                      message-when-pattern-mismatch="Invalid mobile number"
+                      class="mobileNumberCls"
+                    ></lightning-input>
+                  </div>
+                </div>
+              </template>
+            </template>
+            <template lwc:else>
+              <div class="slds-grid slds-align_absolute-center">
+                <!-- Static +61 prefix -->
+                <div class="slds-col slds-size_3-of-12 slds-p-around_medium">
+                  <lightning-input
+                    type="text"
+                    label="Country Code"
+                    value="+61"
+                    disabled
+                    class="greyed-out"
+                  ></lightning-input>
+                </div>
+                <div class="slds-col slds-size_7-of-12 slds-p-around_medium">
+                  <lightning-input
+                    type="tel"
+                    label="Enter New Mobile Number"
+                    value={mobileNumber}
+                    maxlength="10"
+                    onchange={handleMobileInput}
+                    required
+                    field-level-help="Expected format - 04XXXXXXXX"
+                    pattern="^(?:\\+?61|0|00610)[4]([0-9]){8}$"
+                    message-when-pattern-mismatch="Invalid mobile number"
+                    class="mobileNumberCls"
+                  ></lightning-input>
+                </div>
+              </div>
+            </template>
+          </div>
+        </lightning-modal-body>
+        <lightning-modal-footer>
+          <div class="slds-grid slds-grid_align-end">
+            <lightning-button
+              label="Cancel"
+              variant="neutral"
+              onclick={handleCloseModal}
+            ></lightning-button>
+            <lightning-button
+              class="slds-m-left_small"
+              label="Confirm"
+              variant="brand"
+              onclick={handleUpdateMobileNumber}
+              disabled={mobileNumberDisabled}
+            ></lightning-button>
+          </div>
+        </lightning-modal-footer>
+      </template>
+    </template>
+  </div>
+</template>

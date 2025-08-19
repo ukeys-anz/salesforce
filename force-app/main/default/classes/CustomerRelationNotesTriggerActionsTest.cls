@@ -30,43 +30,6 @@ public class CustomerRelationNotesTriggerActionsTest {
   }
 
   /**
-   * @description test method for trigger code coverage
-   */
-  @isTest
-  static void testRelationshipNotesCreation() {
-    User mlUser = MLCRMTestDataFactory.createMLCRMBaseUser();
-    Territory__c terrRecord = new Territory__c(Name = 'Melbourne CBD (VIC)');
-    System.runAs(MLCRMTestDataFactory.createMLBusinessAdminUser()) {
-      terrRecord.Primary_Franchise_Owner__c = UserInfo.getUserId();
-      insert terrRecord;
-      Territory__Share objShare = new Territory__Share(
-        ParentId = terrRecord.Id,
-        AccessLevel = 'Edit',
-        UserOrGroupId = mlUser.Id
-      );
-      insert objShare;
-      User_Territory__c userTerrRecord = new User_Territory__c(
-        User__c = mlUser.Id,
-        Territory__c = terrRecord.id,
-        ML_Role__c = 'Loan Writer',
-        Status__c = 'Active'
-      );
-      insert userTerrRecord;
-    }
-    List<Customer_Relationship__c> lstOfCustRelRecord = new List<Customer_Relationship__c>{
-      new Customer_Relationship__c(Territory__c = terrRecord.Id)
-    };
-    System.runAs(mlUser) {
-      insert lstOfCustRelRecord;
-    }
-    // asserting territory gets populated via trigger
-    Assert.isTrue(
-      lstOfCustRelRecord[0].Territory__c != null,
-      'territory is not getting populated properly via trigger'
-    );
-  }
-
-  /**
    * @description test method for updateCustomerName
    */
   @isTest
@@ -162,7 +125,7 @@ public class CustomerRelationNotesTriggerActionsTest {
     Test.StopTest();
 
     Assert.areEqual(
-      Label.MLCRM_Minimum_Primary_Notes_Error,
+      Label.Minimum_Primary_Notes_Error,
       testCustomerRelationship.getErrors()[0].getMessage(),
       'The first record created for a Franchise is not a Primary Contact'
     );
@@ -202,8 +165,7 @@ public class CustomerRelationNotesTriggerActionsTest {
     );
 
     Test.StartTest();
-    CustomerRelationNotesTriggerActions.CustomerRelationshipCreator creatorObj = new CustomerRelationNotesTriggerActions.CustomerRelationshipCreator();
-    Customer_Relationship__c custRelRecord = creatorObj.getExistingCustomerRelationships(
+    Customer_Relationship__c custRelRecord = CustomerRelationNotesTriggerActions.getExistingCustomerRelationships(
       accountId,
       lstOfSobject
     );
@@ -228,8 +190,7 @@ public class CustomerRelationNotesTriggerActionsTest {
     reqRecord.strMiddleName = 'Middle Name';
 
     Test.StartTest();
-    CustomerRelationNotesTriggerActions.CustomerRelationshipCreator creatorObj = new CustomerRelationNotesTriggerActions.CustomerRelationshipCreator();
-    Customer_Relationship__c custRelRecord = creatorObj.autoCustomerRelationshipCreation(
+    Customer_Relationship__c custRelRecord = CustomerRelationNotesTriggerActions.autoCustomerRelationshipCreation(
       accountId,
       reqRecord,
       idTerritory
@@ -280,13 +241,17 @@ public class CustomerRelationNotesTriggerActionsTest {
     customerRelationshipRepoMock.mock('getCRDetails', lstOfLead);
 
     Test.StartTest();
-    CustomerRelationNotesTriggerActions.CustomerRelationshipCreator creatorObj = new CustomerRelationNotesTriggerActions.CustomerRelationshipCreator();
-    creatorObj.createCustomerRelationship(accountId, reqRecord);
+    CustomerRelationNotesTriggerActions.createCustomerRelationship(
+      accountId,
+      reqRecord
+    );
     Test.StopTest();
+
     Customer_Relationship__c relRecord = (Customer_Relationship__c) dmlRepoMock.getHistory(
         'doInsert'
       )
       .getParam('record');
+
     Assert.isNotNull(
       relRecord,
       'Customer Relationship record was not created successfully'

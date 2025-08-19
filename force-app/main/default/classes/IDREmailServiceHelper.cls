@@ -8,6 +8,7 @@
 public with sharing class IDREmailServiceHelper {
   public static Boolean attachmentFailureDetected = false;
   public static Boolean emailIngestionFailure = false;
+  private static final String MSG_TEMPLATE = 'CMOS-{0}: Discarded {1} attachment as the type was unsupported => filename : {2} , mimesubtype : {3}';
   /**
    * @description Creates a new case
    * @param email Inbound email object
@@ -199,45 +200,48 @@ public with sharing class IDREmailServiceHelper {
 
   /**
    * @description Fetches the text attachments from the email
-   * @param tAttachments The messaging inbound email text attachments
+   * @param textAttachments The messaging inbound email text attachments
    * @param caseId The case Id that needs to be related to
    * @param caseNumber explicit caseNumber for Logger
    * @return List<ContentVersion> Wraps through content version
    */
   public static List<ContentVersion> getTextFileAttachments(
-    List<Messaging.InboundEmail.TextAttachment> tAttachments,
+    List<Messaging.InboundEmail.TextAttachment> textAttachments,
     Id caseId,
     String caseNumber
   ) {
+    if (textAttachments == null) {
+      return new List<ContentVersion>();
+    }
     List<ContentVersion> returnConVerList = new List<ContentVersion>();
-    if (tAttachments != null && tAttachments.size() > 0) {
-      for (Messaging.InboundEmail.TextAttachment tAttachment : tAttachments) {
-        if (
-          FileUtil.checkExtension(
-            tAttachment.mimeTypeSubType,
-            tAttachment.fileName
-          )
-        ) {
-          ContentVersion cv = new ContentVersion(
-            Title = tAttachment.fileName,
-            PathOnClient = tAttachment.fileName,
-            VersionData = Blob.valueOf(tAttachment.body),
-            RecordTypeId = IDRConstants.EMAIL_ATTACHMENT_RT_ID
-          );
-          returnConVerList.add(cv);
-        } else {
-          attachmentFailureDetected = true;
-          Logger.error(
-            'CMOS-' +
-              caseNumber +
-              ': Discarded an attachment as the type was unsupported => filename : ' +
-              tAttachment.fileName +
-              ' , mimesubtype : ' +
-              tAttachment.mimeTypeSubType,
-            caseId
-          );
-        }
+    for (
+      Messaging.InboundEmail.TextAttachment textAttachment : textAttachments
+    ) {
+      if (
+        !FileUtil.checkExtension(
+          textAttachment.mimeTypeSubType,
+          textAttachment.fileName
+        )
+      ) {
+        attachmentFailureDetected = true;
+        String logMsg = String.format(
+          MSG_TEMPLATE,
+          new List<String>{
+            caseNumber,
+            'an',
+            textAttachment.fileName,
+            textAttachment.mimeTypeSubType
+          }
+        );
+        Logger.info(logMsg, caseId);
+        continue;
       }
+      returnConVerList.add(
+        createContentVersion(
+          textAttachment.fileName,
+          Blob.valueOf(textAttachment.body)
+        )
+      );
     }
     Logger.saveLog();
     return returnConVerList;
@@ -245,47 +249,47 @@ public with sharing class IDREmailServiceHelper {
 
   /**
    * @description Fetches the text attachments from the email
-   * @param bAttachments The messaging inbound email binary attachments
+   * @param binaryAttachments The messaging inbound email binary attachments
    * @param caseId The case Id that needs to be related to
    * @param caseNumber explicit caseNumber for Logger
    * @return List<ContentVersion> Wraps through content version
    */
   public static List<ContentVersion> getTextBinaryAttachments(
-    List<Messaging.InboundEmail.BinaryAttachment> bAttachments,
+    List<Messaging.InboundEmail.BinaryAttachment> binaryAttachments,
     Id caseId,
     String caseNumber
   ) {
+    if (binaryAttachments == null) {
+      return new List<ContentVersion>();
+    }
     List<ContentVersion> returnConVerList = new List<ContentVersion>();
-    if (bAttachments != null && bAttachments.size() > 0) {
-      for (Messaging.InboundEmail.BinaryAttachment bAttachment : bAttachments) {
-        if (
-          FileUtil.checkExtension(
-            bAttachment.mimeTypeSubType,
-            bAttachment.fileName
-          )
-        ) {
-          ContentVersion cv = new ContentVersion(
-            Title = bAttachment.fileName,
-            PathOnClient = bAttachment.fileName,
-            VersionData = bAttachment.body,
-            RecordTypeId = IDRConstants.EMAIL_ATTACHMENT_RT_ID
-          );
-          returnConVerList.add(cv);
-        } else if (
-          bAttachment.mimeTypeSubType != 'message/delivery-status' &&
-          bAttachment.fileName != 'winmail.dat'
-        ) {
-          attachmentFailureDetected = true;
-          Logger.error(
-            'CMOS-' +
-              caseNumber +
-              ': Discarded a binary attachment as the type was unsupported => filename : ' +
-              bAttachment.fileName +
-              ' , mimesubtype : ' +
-              bAttachment.mimeTypeSubType,
-            caseId
-          );
-        }
+    for (
+      Messaging.InboundEmail.BinaryAttachment binaryAttachment : binaryAttachments
+    ) {
+      if (
+        FileUtil.checkExtension(
+          binaryAttachment.mimeTypeSubType,
+          binaryAttachment.fileName
+        )
+      ) {
+        returnConVerList.add(
+          createContentVersion(binaryAttachment.fileName, binaryAttachment.body)
+        );
+      } else if (
+        binaryAttachment.mimeTypeSubType != 'message/delivery-status' &&
+        binaryAttachment.fileName != 'winmail.dat'
+      ) {
+        attachmentFailureDetected = true;
+        String logMsg = String.format(
+          MSG_TEMPLATE,
+          new List<String>{
+            caseNumber,
+            'a binary',
+            binaryAttachment.fileName,
+            binaryAttachment.mimeTypeSubType
+          }
+        );
+        Logger.info(logMsg, caseId);
       }
     }
     Logger.saveLog();
@@ -329,5 +333,24 @@ public with sharing class IDREmailServiceHelper {
         Logger.saveLog();
       }
     }
+  }
+
+  /**
+   * @description Map ContentVersion field data
+   * @param fileName The name of the file
+   * @param data The data of the file
+   * @return `ContentVersion` with field data
+   */
+  @TestVisible
+  private static ContentVersion createContentVersion(
+    String fileName,
+    Blob data
+  ) {
+    return new ContentVersion(
+      Title = fileName,
+      PathOnClient = fileName,
+      VersionData = data,
+      RecordTypeId = RTContentVersion.idrAttachment
+    );
   }
 }

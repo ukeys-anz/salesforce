@@ -7,6 +7,14 @@ on:
         description: "Release Name"
         required: true
         type: string
+      CHANGE_REQUEST_RECORD:
+        description: "Change Request Name"
+        required: false
+        type: string
+      CHANGE_REQUEST_URL:
+        description: "Change Request URL"
+        required: false
+        type: string
 
 permissions:
   contents: "write"
@@ -15,7 +23,7 @@ permissions:
 jobs:
   Release:
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.5.0"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:2.1.0"
       options: --user root
       volumes:
         - ${{ github.workspace }}/release:/opt/harness-delegate/release
@@ -59,6 +67,18 @@ jobs:
       PROD_URL: "https://anz.my.salesforce.com"
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: "true"
+          token: ${{ secrets.SALESFORCE_PROD_CHECKOUT_TOKEN }}
+
+      - name: Link plugin
+        run: |
+          cd /opt/harness-delegate/sf-plugin
+          sf plugins link .
+
       - name: Environment Varibales Debug
         run: |
           echo "DEBUG: PREPROD_DEPLOYMENT_STEP=${{ env.PREPROD_DEPLOYMENT_STEP }}"
@@ -66,14 +86,6 @@ jobs:
           echo "DEBUG: PROD_DEPLOYMENT_STEP=${{ env.PROD_DEPLOYMENT_STEP }}"
           echo "DEBUG: STAGE_NAME=${{ env.STAGE_NAME }}"
           echo "DEBUG: REPO_NAME=${{ env.REPO_NAME }}"
-
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          submodules: "true"
-          token: ${{ secrets.SALESFORCE_PROD_CHECKOUT_TOKEN }}
-          path: salesforce
 
       - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
         id: "authenticate-harness-delegate"
@@ -91,38 +103,20 @@ jobs:
             prod-cert:projects/anz-x-gh-sf-prod-be3529/secrets/${{ env.PROD_CERT_SECRET_NAME }}/versions/latest
             artifactory:projects/anz-x-gh-sf-prod-be3529/secrets/${{ env.ARTIFACTORY_SECRET_NAME }}/versions/latest
 
-      - name: Add Genral Secrets to ENV
-        working-directory: salesforce
+      - name: Prepare ENV Variables
         run: |
           echo CLEANING_JOB="false" >> $GITHUB_ENV
           echo WORKING_DIR="$(pwd)" >> $GITHUB_ENV
           lastTag="$( git describe --abbrev=0 --tags --match master* )"
           echo BASE_REF_LAST_TAG="$lastTag" >> $GITHUB_ENV
 
-      - name: Checkout salesforce-plugin repo
-        uses: actions/checkout@v4
-        with:
-          repository: anzx/salesforce-plugin
-          token: ${{ secrets.SALESFORCE_PROD_PLUGIN_TOKEN }}
-          path: salesforce-plugin
-
-      - name: Install plugin
-        working-directory: salesforce-plugin
-        shell: bash
-        run: |
-          rm -rf node_modules && yarn install --frozen-lockfile
-          yarn build
-          sf plugins link .
-
       - name: Run ${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}
         id: deployment
-        working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/release.mjs "${{ steps.secrets.outputs.preprod }}" "${{ steps.secrets.outputs.prod-consumer-key }}" "${{ steps.secrets.outputs.prod-cert }}" "${{ steps.secrets.outputs.artifactory }}"
           echo CLEANING_JOB="true" >> $GITHUB_ENV
 
       - name: Cleaning | Create Tag
-        working-directory: salesforce
         run: |
           node --no-warnings ci/workflows/Orchestrations/release.mjs "${{ steps.secrets.outputs.preprod }}" "${{ steps.secrets.outputs.prod-consumer-key }}" "${{ steps.secrets.outputs.prod-cert }}" "${{ steps.secrets.outputs.artifactory }}"
 
@@ -184,3 +178,45 @@ jobs:
           release-tag-or-sha: ${{ steps.info.outputs.last_tag }}
           use-gh-token-vending: true
           app-repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+  prepare-notification:
+    runs-on: anzx-default
+    needs: [Release]
+    environment: "prod-validation"
+    env:
+      CHANGE_REQUEST_URL: "${{ github.event.inputs.CHANGE_REQUEST_URL }}"
+      CHANGE_REQUEST_NUMBER: "${{ github.event.inputs.CHANGE_REQUEST_RECORD }}"
+      RELEASE_NAME: "${{ github.event.inputs.NAME }}"
+      REPO_NAME: "${{ github.event.repository.name }}"
+      RELEASE_PIPELINE: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+    outputs:
+      slack_msg: ${{ steps.set-msg.outputs.slack_msg}}
+
+    steps:
+      - name: Conditional Checkout
+        if: ${{ env.CHANGE_REQUEST_URL == '' || env.CHANGE_REQUEST_NUMBER == '' }}
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Prepare Slack Message
+        id: set-msg
+        run: |
+          CAPITALIZED_REPO_NAME=$(echo "${{ env.REPO_NAME }}" | awk '{print toupper(substr($0,1,1)) substr($0,2)}') 
+          if [[ -z "${{ env.CHANGE_REQUEST_URL }}" ]] || [[ -z "${{ env.CHANGE_REQUEST_NUMBER }}" ]];then
+            lastTag="$( git describe --abbrev=0 --tags --match 'master*' )"
+            RELEASE_VERSION="https://github.com/${{ github.repository }}/tree/$lastTag"
+            msg="☁️ $CAPITALIZED_REPO_NAME Release:\\nRelease: ${{ env.RELEASE_NAME }}\\nRelease Version: $RELEASE_VERSION\\nRelease Pipeline: ${{ env.RELEASE_PIPELINE }}"
+          else
+            msg="☁️ $CAPITALIZED_REPO_NAME Release:\\nRelease: ${{ env.RELEASE_NAME }}\\nChange Request: <${{ env.CHANGE_REQUEST_URL }}|${{ env.CHANGE_REQUEST_NUMBER }}>\\nRelease Pipeline: ${{ env.RELEASE_PIPELINE }}"
+          fi
+          echo "slack_msg=$msg" >> "$GITHUB_OUTPUT"
+
+  send-release-notification:
+    needs: [Release, prepare-notification]
+    uses: anzx/github-reusable-workflows/.github/workflows/notification-hub.yaml@main
+    with:
+      isSlack: true
+      slackChannels: prod-release-notifications
+      slackMessage: "${{ needs.prepare-outputs.outputs.slack_msg }}"
+      slackPrivate: true

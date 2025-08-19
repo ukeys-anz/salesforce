@@ -17,13 +17,16 @@ on:
 permissions:
   contents: "read"
   id-token: "write"
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 env:
   BUCKET_NAME: sfdatasync-v3-bucket-sit
 jobs:
   generate_object_changes:
     outputs:
       CHANGES_DETECTED: ${{ steps.run-diff.outputs.CHANGES_DETECTED }}
-    runs-on: [anzx-default-np]
+    runs-on: [anzx-default]
     steps:
       - uses: actions/setup-node@v2.1.5
         if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
@@ -111,6 +114,87 @@ jobs:
           fi
           ls -la sfdatasync_user_output/xschema-generate
           echo "Complete the process of getting object changes."
+      - id: issue-token
+        uses: anzx/platform-actions/gtv/issue-token@master
+        if: ${{ (steps.get-changed-objects.outcome == 'success' || steps.get-changed-objects.outcome == 'failure') && !cancelled() && (github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop') }}
+        with:
+          repository: github.com/anzx/sf-dataproduct-schema
+          actions-id-token-request-token: ${{ env.ACTIONS_ID_TOKEN_REQUEST_TOKEN }}
+          actions-id-token-request-url: ${{ env.ACTIONS_ID_TOKEN_REQUEST_URL }}
+      - name: Checkout sf-dataproduct-schema repo
+        uses: actions/checkout@v2
+        if: ${{ (steps.get-changed-objects.outcome == 'success' || steps.get-changed-objects.outcome == 'failure') && !cancelled() && (github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop') }}
+        with:
+          repository: anzx/sf-dataproduct-schema
+          token: ${{ steps.issue-token.outputs.token }}
+          path: sf-dataproduct-schema
+          ref: develop
+      - name: Create/ Update branch on sf-dataproduct-schema
+        if: ${{ (steps.get-changed-objects.outcome == 'success' || steps.get-changed-objects.outcome == 'failure') && !cancelled() && (github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop') }}
+        id: create-branch-on-sf-dataproduct-schema
+        env:
+          GH_TOKEN: ${{ steps.issue-token.outputs.token }}
+        shell: bash
+        run: |
+          cd sf-dataproduct-schema
+          SF_DATAPRODUCT_SCHEMA_BRANCH_NAME="sync/salesforce-develop-runid-${{ github.run_id }}"
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            SF_DATAPRODUCT_SCHEMA_BRANCH_NAME="sync/salesforce-pr-no-${{ github.event.pull_request.number }}"
+          fi
+          echo "SF_DATAPRODUCT_SCHEMA_BRANCH_NAME=$SF_DATAPRODUCT_SCHEMA_BRANCH_NAME" >> $GITHUB_OUTPUT 
+          echo "SF_DATAPRODUCT_SCHEMA_BRANCH_NAME=$SF_DATAPRODUCT_SCHEMA_BRANCH_NAME"
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "ghet-token-issuers-pool-1"
+          if gh api repos/anzx/sf-dataproduct-schema/branches/$SF_DATAPRODUCT_SCHEMA_BRANCH_NAME >/dev/null 2>&1; then
+            echo "$SF_DATAPRODUCT_SCHEMA_BRANCH_NAME already exists. Checking out.."
+            git checkout -b "$SF_DATAPRODUCT_SCHEMA_BRANCH_NAME"
+          else
+            echo "$SF_DATAPRODUCT_SCHEMA_BRANCH_NAME does not exist. Creating a branch..."
+            git branch -m "$SF_DATAPRODUCT_SCHEMA_BRANCH_NAME"
+          fi
+          mkdir -p schema && rm -rf schema/* && cp -rf ../sfdatasync_user_output/xschema-generate/* schema/
+          git add .
+          if git commit -m "$SF_DATAPRODUCT_SCHEMA_BRANCH_NAME"; then
+            git push -f origin "$SF_DATAPRODUCT_SCHEMA_BRANCH_NAME"
+          else
+            echo "🟡 Nothing to commit, skipping push"
+          fi
+      - name: "Verify Last Commit"
+        if: ${{ ((steps.get-changed-objects.outcome == 'success' && github.ref == 'refs/heads/develop')) && !cancelled() }}
+        uses: anzx/platform-actions/verify-last-commit@master
+        env:
+          GH_TOKEN: ${{ steps.issue-token.outputs.token }}
+        with:
+          working-directory: "sf-dataproduct-schema"
+          ref: "${{ steps.create-branch-on-sf-dataproduct-schema.outputs.SF_DATAPRODUCT_SCHEMA_BRANCH_NAME }}"
+      - name: Create/ Update PR on sf-dataproduct-schema
+        if: ${{ (steps.get-changed-objects.outcome == 'success' || steps.get-changed-objects.outcome == 'failure') && !cancelled() && (github.ref == 'refs/heads/develop') }}
+        id: create-pr-on-sf-dataproduct-schema
+        env:
+          GH_TOKEN: ${{ steps.issue-token.outputs.token }}
+        shell: bash
+        run: |
+          SF_DATAPRODUCT_SCHEMA_BRANCH_NAME=${{ steps.create-branch-on-sf-dataproduct-schema.outputs.SF_DATAPRODUCT_SCHEMA_BRANCH_NAME }}
+          if gh pr list --repo github.com/anzx/sf-dataproduct-schema --head "$SF_DATAPRODUCT_SCHEMA_BRANCH_NAME" --json number --limit 1 | grep -q '"number":'; then
+            echo "pr for $SF_DATAPRODUCT_SCHEMA_BRANCH_NAME is already open."
+            SF_DATAPRODUCT_SCHEMA_PR_EXISTS=YES
+          else
+            echo "Creating a pr on sf-dataproduct-schema..."
+            if PR_OUTPUT=$(gh pr create \
+                  --repo "anzx/sf-dataproduct-schema" \
+                  --title "$(date "+%Y-%m-%d %H:%M:%S"): New Schema Changes" \
+                  --body "This an Auto Generated PR that adds '/sfdatasync_user_output/xschema-generate/*' from the Salesforce repo." \
+                  --head "$SF_DATAPRODUCT_SCHEMA_BRANCH_NAME" \
+                  --base "develop" 2>/dev/null); then
+              echo "PR created: $PR_OUTPUT"
+              SF_DATAPRODUCT_SCHEMA_PR_EXISTS=YES
+            else
+              echo "PR_OUTPUT=$PR_OUTPUT"
+              echo "No PR Created, most likely there were no changes found between develop and $SF_DATAPRODUCT_SCHEMA_BRANCH_NAME"
+              SF_DATAPRODUCT_SCHEMA_PR_EXISTS=NO
+            fi
+          fi
+          echo "SF_DATAPRODUCT_SCHEMA_PR_EXISTS=$SF_DATAPRODUCT_SCHEMA_PR_EXISTS" >> $GITHUB_OUTPUT
       # Upload failure to artifactory
       - name: Push failure changes to artifactory
         if: ${{ steps.get-changed-objects.outcome == 'failure' && !cancelled() && (github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop') }}
@@ -174,6 +258,33 @@ jobs:
           fi
           echo "CHANGES_DETECTED=$CHANGES_DETECTED" >> $GITHUB_OUTPUT
           cat $GITHUB_OUTPUT
+      - name: Merge PR on sf-dataproduct-schema
+        if: ${{ ((steps.get-changed-objects.outcome == 'success' && github.ref == 'refs/heads/develop')) && !cancelled() }}
+        id: merge-pr-on-sf-dataproduct-schema
+        env:
+          GH_TOKEN: ${{ steps.issue-token.outputs.token }}
+        shell: bash
+        run: |
+          COMMIT_SHA=$(git rev-parse HEAD)
+          if [[ "${{ steps.create-pr-on-sf-dataproduct-schema.outputs.SF_DATAPRODUCT_SCHEMA_PR_EXISTS }}" == "YES" ]]; then
+            echo "Merging ${{ steps.create-branch-on-sf-dataproduct-schema.outputs.SF_DATAPRODUCT_SCHEMA_BRANCH_NAME }} into develop on sf-dataproduct-schema..."
+            gh pr merge "${{ steps.create-branch-on-sf-dataproduct-schema.outputs.SF_DATAPRODUCT_SCHEMA_BRANCH_NAME }}" \
+            --repo "github.com/anzx/sf-dataproduct-schema" \
+            --merge \
+            --auto \
+            --delete-branch
+          else
+            echo "No PR created on sf-dataproduct-schema, so no merge is required."
+          fi
+      - name: Delete branch on sf-dataproduct-schema
+        if: ${{ ((steps.get-changed-objects.outcome == 'success' && github.event.pull_request.base.ref == 'develop')) && !cancelled() }}
+        id: delete-branch-on-sf-dataproduct-schema
+        env:
+          GH_TOKEN: ${{ steps.issue-token.outputs.token }}
+        shell: bash
+        run: |
+          gh api -X DELETE "repos/anzx/sf-dataproduct-schema/git/refs/heads/${{ steps.create-branch-on-sf-dataproduct-schema.outputs.SF_DATAPRODUCT_SCHEMA_BRANCH_NAME }}" || echo "Branch ${{ steps.create-branch-on-sf-dataproduct-schema.outputs.SF_DATAPRODUCT_SCHEMA_BRANCH_NAME }} does not exist or already deleted"
+          echo "Branch ${{ steps.create-branch-on-sf-dataproduct-schema.outputs.SF_DATAPRODUCT_SCHEMA_BRANCH_NAME }} deleted on sf-dataproduct-schema."
       # Upload success to artifactory
       - name: Push success changes to artifactory
         if: ${{ steps.get-changed-objects.outcome == 'success' && steps.run-diff.outcome == 'success' && steps.pull-from-gcs.outcome == 'success' && !cancelled() && github.ref == 'refs/heads/develop' && inputs.diff-only == false }}
@@ -183,6 +294,5 @@ jobs:
           # zip the files
           mkdir output && mv sfdatasync_user_output/xschema-generate/* output/
           ARTIFACT_NAME="sf_objects_success_diff_develop_$(git rev-parse --verify HEAD)"
-
           zip -r $ARTIFACT_NAME output && ls -la
           curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X PUT -T "$ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACT_NAME.zip"

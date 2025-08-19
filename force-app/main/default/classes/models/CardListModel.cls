@@ -46,6 +46,14 @@ public with sharing class CardListModel extends CalloutModel {
   }
 
   /**
+   * @description the Falcon event information wrapper
+   */
+  public class FalconEvent {
+    @AuraEnabled
+    public String requiredCustomerAction;
+  }
+
+  /**
    * @description the card information wrapper
    */
   public class CardCls {
@@ -69,6 +77,8 @@ public with sharing class CardListModel extends CalloutModel {
     public CardListModelV1.DeliveryDate delivery_date;
     @AuraEnabled
     public String cardBlockType;
+    @AuraEnabled
+    public FalconEvent falconEvent;
     @AuraEnabled
     public String newName;
     @AuraEnabled

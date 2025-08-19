@@ -5,6 +5,11 @@
  **/
 @isTest
 private class CommercialA2ZReviewActionsTest {
+  static Lib_MockProvider azRepoMock;
+  static void registerMocks() {
+    azRepoMock = Lib_MockProvider.forType(CommercialA2ZReviewRepository.class);
+  }
+
   @isTest
   static void testPerformRedactionTest() {
     User ccrmBaseUser = CCRMTestDataFactory.getCCRMBaseUser();
@@ -168,6 +173,156 @@ private class CommercialA2ZReviewActionsTest {
     Assert.isFalse(
       azReviewList[0].hasErrors(),
       'Error while inserting A-Z Review record with Image.'
+    );
+  }
+
+  @isTest
+  static void setBusinessContactToBlankTest() {
+    //GIVEN records, oldMap
+    Id azReviewId = Lib_FakeIdGenerator.getMockId(A_Z_Review__c.SObjectType);
+    List<A_Z_Review__c> records = new List<A_Z_Review__c>{
+      new A_Z_Review__c(
+        Id = azReviewId,
+        Existing_Business_Owner__c = 'Yes',
+        Business_Contact__c = 'Sample Contact'
+      )
+    };
+
+    Map<Id, A_Z_Review__c> oldMap = new Map<Id, A_Z_Review__c>{
+      azReviewId => new A_Z_Review__c(
+        Id = azReviewId,
+        Existing_Business_Owner__c = 'No',
+        Business_Contact__c = 'Sample Contact'
+      )
+    };
+
+    //WHEN calling a method
+    Test.startTest();
+    CommercialA2ZReviewActions.setBusinessContactToBlank(records, oldMap);
+    Test.stopTest();
+
+    //THEN it should set the Business contact to null
+    Assert.isNull(
+      records[0].Business_Contact__c,
+      'should set business contact to null'
+    );
+  }
+
+  @isTest
+  static void populateBusinessOwnerPositiveTest() {
+    registerMocks();
+    //GIVEN records, oldMap
+    Id azReviewId = Lib_FakeIdGenerator.getMockId(A_Z_Review__c.SObjectType);
+    Id individualCustomerId = Lib_FakeIdGenerator.getMockId(
+      Account.SObjectType
+    );
+    Id businessCustomerId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    List<A_Z_Review__c> records = new List<A_Z_Review__c>{
+      new A_Z_Review__c(
+        Id = azReviewId,
+        Existing_Business_Owner__c = 'Yes',
+        Customer__c = individualCustomerId,
+        Customer__r = (Account) TestUtil.setFields(
+          new Account(
+            Id = individualCustomerId,
+            Name = 'Test',
+            RecordTypeId = RTAccount.personAccount
+          ),
+          new Map<String, Object>()
+        ),
+        Business_Owner__c = businessCustomerId,
+        Business_Owner__r = (Account) TestUtil.setFields(
+          new Account(
+            Id = businessCustomerId,
+            Name = 'Test2',
+            RecordTypeId = RTAccount.personAccount
+          ),
+          new Map<String, Object>()
+        )
+      )
+    };
+
+    Map<Id, A_Z_Review__c> oldMap = new Map<Id, A_Z_Review__c>{
+      azReviewId => new A_Z_Review__c(
+        Id = azReviewId,
+        Existing_Business_Owner__c = 'Yes',
+        Customer__c = individualCustomerId,
+        Business_Owner__c = individualCustomerId,
+        Customer__r = (Account) TestUtil.setFields(
+          new Account(
+            Id = individualCustomerId,
+            Name = 'Test',
+            RecordTypeId = RTAccount.personAccount
+          ),
+          new Map<String, Object>()
+        ),
+        Business_Owner__r = (Account) TestUtil.setFields(
+          new Account(
+            Id = individualCustomerId,
+            Name = 'Test',
+            RecordTypeId = RTAccount.personAccount
+          ),
+          new Map<String, Object>()
+        )
+      )
+    };
+    azRepoMock.mock('getA2ZRecordsAssociatedWithIndividualCustomers', records);
+    //WHEN calling a method
+    Test.startTest();
+    CommercialA2ZReviewActions.populateBusinessOwner(records, oldMap);
+    Test.stopTest();
+
+    Assert.areEqual(
+      records[0].Business_Owner__c,
+      individualCustomerId,
+      'Value changed to customer'
+    );
+  }
+  @isTest
+  static void populateBusinessOwnerNegativeTest() {
+    registerMocks();
+    Id azReviewId = Lib_FakeIdGenerator.getMockId(A_Z_Review__c.SObjectType);
+    Id individualCustomerId = Lib_FakeIdGenerator.getMockId(
+      Account.SObjectType
+    );
+    Id businessCustomerId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    List<A_Z_Review__c> records = new List<A_Z_Review__c>{
+      new A_Z_Review__c(
+        Id = azReviewId,
+        Existing_Business_Owner__c = 'Yes',
+        Customer__c = businessCustomerId,
+        Customer__r = (Account) TestUtil.setFields(
+          new Account(
+            Id = businessCustomerId,
+            Name = 'Test',
+            RecordTypeId = RTAccount.businessAccount
+          ),
+          new Map<String, Object>()
+        ),
+        Business_Owner__c = individualCustomerId,
+        Business_Owner__r = (Account) TestUtil.setFields(
+          new Account(
+            Id = individualCustomerId,
+            Name = 'Test2',
+            RecordTypeId = RTAccount.personAccount
+          ),
+          new Map<String, Object>()
+        )
+      )
+    };
+    azRepoMock.mock(
+      'getA2ZRecordsAssociatedWithIndividualCustomers',
+      new List<A_Z_Review__c>()
+    );
+    //WHEN calling a method
+    Test.startTest();
+    CommercialA2ZReviewActions.populateBusinessOwner(records, null);
+    Test.stopTest();
+
+    Assert.areEqual(
+      records[0].Business_Owner__c,
+      individualCustomerId,
+      'Value did not change to customer'
     );
   }
 }

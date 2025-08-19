@@ -15,6 +15,7 @@ import REVIEW_DATE from "@salesforce/schema/Account.ExtraCareReviewDate__c";
 import DISCLOSURE from "@salesforce/schema/Account.ExtraCareDisclosure__c";
 import CONSENT from "@salesforce/schema/Account.ExtraCareConsent__c";
 import OCVID from "@salesforce/schema/Account.OCV_ID__c";
+import OCV_EVENT_VERSION from "@salesforce/schema/Account.OCV_Event_Version__c";
 import SOURCE_SYSTEM_ID from "@salesforce/schema/Account.Source_System_ID__c";
 import SOURCE_SYSTEM_NAME from "@salesforce/schema/Account.Source_System_Name__c";
 import ACCOUNT_OBJECT from "@salesforce/schema/Account";
@@ -34,14 +35,15 @@ const FIELDS = [
   OCVID,
   SOURCE_SYSTEM_ID,
   SOURCE_SYSTEM_NAME,
-  RECORD_TYPE_ID_FIELD
+  RECORD_TYPE_ID_FIELD,
+  OCV_EVENT_VERSION
 ];
 const HIGH_RISK_VICTIM_ERROR =
   "You are not authorised to add or remove 'High risk scam victim'";
 const PENDING_STATUS_MESSAGE =
   "The latest request is observed to be in 'Pending' Status. Please try again after some time";
 const ERROR_STATUS_MESSAGE =
-  "The latest request is observed to be in 'Error' Status that was sent to OCV on the Extra Care Updates. Please click 'Retry' to re-submit the request to OCV from the latest Extra Care Updates to Customer record.";
+  "Unable to edit Extra Care information. Click retry to try again.";
 const SENSITIVE_REASONS = [
   "Cognitive capacity concerns",
   "Disability",
@@ -57,7 +59,6 @@ const NOTES_HELP_TEXT =
   "Only record information that is needed to ensure appropriate provision of extra care to the customer, keeping the notes brief. DO NOT leave notes with your opinion, derogatory comments, or emotive language. For support or more information, refer to KnowHow or relevant knowledge article.";
 
 export default class ManageExtraCare extends LightningElement {
-  @api recordId;
   @track oldAccount = {};
   @track newAccount = {};
   isLoading = true;
@@ -77,7 +78,6 @@ export default class ManageExtraCare extends LightningElement {
       this.newAccount.ExtraCareConsent__c = false;
       this.newAccount.ExtraCareDisclosure__c = false;
       this.isLoading = false;
-      this.fetchStagingRecordStatus();
     } else if (error) {
       this.toast.error(
         "Error",
@@ -85,7 +85,15 @@ export default class ManageExtraCare extends LightningElement {
       );
     }
   }
-
+  _recordId;
+  @api
+  get recordId() {
+    return this._recordId;
+  }
+  set recordId(value) {
+    this._recordId = value;
+    this.fetchStagingRecordStatus();
+  }
   @wire(getPicklistValuesByRecordType, {
     objectApiName: ACCOUNT_OBJECT,
     recordTypeId: "$recordTypeId"
@@ -345,6 +353,7 @@ export default class ManageExtraCare extends LightningElement {
     let oneYearFromToday = futureDate.toISOString().split("T")[0];
     // Review Date is not visible
     if (!this.showReviewDate) {
+      this.newAccount.ExtraCareReviewDate__c = null;
       return;
     }
     // Reason is changed with having no prior value (Or)

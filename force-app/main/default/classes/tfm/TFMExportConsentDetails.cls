@@ -20,8 +20,12 @@ global with sharing class TFMExportConsentDetails implements Callable {
     Map<String, Object> output,
     Map<String, Object> options
   ) {
-    Boolean result = false;
-    if (methodName.equals('exportToCSV')) {
+    try {
+      Boolean result = false;
+      if (!methodName.equals('exportToCSV')) {
+        return result;
+      }
+
       if (input.get('accountsValue') == 'null') {
         input.put(
           'accountsValue',
@@ -34,8 +38,13 @@ global with sharing class TFMExportConsentDetails implements Callable {
       );
       output.putAll(exportToCSV(dataExportModelDetails));
       result = true;
+
+      return result;
+    } catch (Exception ex) {
+      logError(ex);
+      output.put('showToast', 'error');
+      return true;
     }
-    return result;
   }
 
   /**

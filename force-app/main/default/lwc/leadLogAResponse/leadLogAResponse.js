@@ -1,8 +1,8 @@
 import { LightningElement, api, wire, track } from "lwc";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
-import responseStatusDependentValues from "@salesforce/apex/CCRMLogAResponseController.responseStatusDependentValues";
-import createResponseRecord from "@salesforce/apex/CCRMLogAResponseController.createResponseRecord";
-import getLeadResponseGuidanceMapping from "@salesforce/apex/CCRMLogAResponseController.getLeadResponseGuidanceMapping";
+import responseStatusDependentValues from "@salesforce/apex/LogAResponseController.responseStatusDependentValues";
+import createResponseRecord from "@salesforce/apex/LogAResponseController.createResponseRecord";
+import getLeadResponseGuidanceMapping from "@salesforce/apex/LogAResponseController.getLeadResponseGuidanceMapping";
 import {
   updateRecord,
   getRecord,
@@ -404,7 +404,10 @@ export default class LeadLogAResponse extends LightningElement {
   }
 
   handleCommentChange(event) {
-    this.commentValue = event.detail.value;
+    // Remove all '|' and '&' characters from the input
+    const commentVal = (event.target.value || "").replace(/[|&]/g, "");
+    this.template.querySelector(".comment").value = commentVal;
+    this.commentValue = commentVal;
   }
 
   validateRecord() {

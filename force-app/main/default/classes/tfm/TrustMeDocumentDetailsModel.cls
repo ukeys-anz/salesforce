@@ -2,9 +2,9 @@
  * @description       :
  * @author            : Anuj Jain
  * @group             :
- * @last modified on  : 04-29-2025
+ * @last modified on  : 08-06-2025
  **/
-@SuppressWarnings('PMD.TooManyFields')
+@SuppressWarnings('PMD.TooManyFields,PMD.ExcessivePublicCount')
 public with sharing class TrustMeDocumentDetailsModel extends CalloutModel {
   @AuraEnabled
   public EvaluationOutcome evaluationOutcome;
@@ -26,6 +26,8 @@ public with sharing class TrustMeDocumentDetailsModel extends CalloutModel {
   public List<QualityReportSecondaryDoc> qualityReportSecondaryDoc;
   @AuraEnabled
   public List<QualityReportSelfieAndPrimaryDocument> qualityReportSelfieAndPrimaryDocument;
+  @AuraEnabled
+  public DocumentQualityEvalOutcome documentQualityEvalOutcome;
 
   /**
    * @description EvaluationOutcome
@@ -58,6 +60,8 @@ public with sharing class TrustMeDocumentDetailsModel extends CalloutModel {
     @AuraEnabled
     public String evOutcome;
     @AuraEnabled
+    public String evEvaluationDateTime;
+    @AuraEnabled
     public List<Providers> providers;
   }
 
@@ -81,6 +85,8 @@ public with sharing class TrustMeDocumentDetailsModel extends CalloutModel {
   public class SelfieEvaluationOutcome {
     @AuraEnabled
     public String selfieOutcome;
+    @AuraEnabled
+    public String selfieMatchDateTime;
   }
 
   /**
@@ -159,6 +165,8 @@ public with sharing class TrustMeDocumentDetailsModel extends CalloutModel {
     public String sequenceNumber;
     @AuraEnabled
     public String colour;
+    @AuraEnabled
+    public String documentOutcome;
   }
 
   /**
@@ -227,6 +235,14 @@ public with sharing class TrustMeDocumentDetailsModel extends CalloutModel {
     public String latitude;
     @AuraEnabled
     public String longitude;
+    @AuraEnabled
+    public String allotment;
+    @AuraEnabled
+    public String allotmentType;
+    @AuraEnabled
+    public String allotmentNumber;
+    @AuraEnabled
+    public string addressSource;
   }
 
   /**
@@ -257,6 +273,18 @@ public with sharing class TrustMeDocumentDetailsModel extends CalloutModel {
     public String label;
     @AuraEnabled
     public String uri;
+  }
+
+  /**
+   * @description DocumentQualityEvalOutcome
+   * @name DocumentQualityEvalOutcome
+   * @author Anuj Jain
+   */
+  public class DocumentQualityEvalOutcome {
+    @AuraEnabled
+    public String primaryDocumentOutcome;
+    @AuraEnabled
+    public String secondaryDocumentOutcome;
   }
 
   /**

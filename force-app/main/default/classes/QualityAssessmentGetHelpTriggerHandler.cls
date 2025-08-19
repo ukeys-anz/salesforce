@@ -35,6 +35,26 @@ public with sharing class QualityAssessmentGetHelpTriggerHandler extends Lib_Tri
       (List<Quality_Assessment__c>) records,
       (Map<Id, Quality_Assessment__c>) oldMap
     );
+    QualityAssessmentTriggerActions.calculateQAGetHelpForInProgress(
+      (List<Quality_Assessment__c>) records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
+    QualityAssessmentTriggerActions.calculateComplianceOutcome(
+      (List<Quality_Assessment__c>) records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
+    QualityAssessmentTriggerActions.blockImagesInRichText(
+      (List<Quality_Assessment__c>) records
+    );
+  }
+
+  /**
+   * @description onBeforeInsert to handle before insert trigger actions.
+   */
+  public override void onBeforeInsert() {
+    QualityAssessmentTriggerActions.blockImagesInRichText(
+      (List<Quality_Assessment__c>) records
+    );
   }
 
   /**

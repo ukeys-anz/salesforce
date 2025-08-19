@@ -9,7 +9,83 @@ public with sharing class RetailBrokerContactActions {
   @TestVisible
   private static final String SYNC_STATUS_BROKER_ORG = 'Broker Org';
   @TestVisible
+  private static final String RETAIL_BROKER_ACCREDITATION_TYPE = 'Retail';
+  @TestVisible
   private static final String SYNC_STATUS_BLOCKED = 'Blocked';
+  private static final BrokerSettingsRepository BROKER_SETTINGS_REPOSITORY = (BrokerSettingsRepository) Lib_InstanceProvider.forType(
+    BrokerSettingsRepository.class
+  );
+  private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
+
+  /**
+   * @description Generate and dispatch Broker Relation related GCP cloud events
+   * @param records map of new contacts from trigger context
+   * @param oldMap map of old contacts from trigger context
+   * @return List of success published events
+   */
+  public static List<SObject> publishBrokerRelationEvents(
+    List<Contact> records,
+    Map<Id, Contact> oldMap
+  ) {
+    List<SObject> publishedEvents = new List<SObject>();
+    try {
+      if (BROKER_SETTINGS_REPOSITORY.get().BypassBrokerRelationEvent__c) {
+        return publishedEvents;
+      }
+      //Get list of contact records, where OCV Version is > 0 and sync status has Broker Org value in it, and broker is moved under a broker set for the first time
+      Set<Id> contactsForAddEvent = ListUtil.getIds(
+        ListUtil.filter(records, oldMap)
+          .oldEquals(Contact.Broker_Set__c, null)
+          .notEquals(Contact.OCV_Event_Version__c, 0)
+          .isNotNull(Contact.OCV_Event_Version__c)
+          .isNotNull(Contact.Broker_Set__c)
+          .contains(Contact.Sync_Status__c, SYNC_STATUS_BROKER_ORG)
+          .contains(
+            Contact.Broker_Accreditation_Type__c,
+            RETAIL_BROKER_ACCREDITATION_TYPE
+          )
+          .toList(),
+        Contact.Id
+      );
+      //Get list of contact records, where OCV Version is > 0 and sync status has Broker Org value in it, and Broker is transferred to a different broker set
+      Set<Id> contactsForDeleteEvent = ListUtil.getIds(
+        ListUtil.filter(records, oldMap)
+          .oldNotEquals(Contact.Broker_Set__c, null)
+          .notEquals(Contact.OCV_Event_Version__c, 0)
+          .isNotNull(Contact.OCV_Event_Version__c)
+          .isNotNull(Contact.Broker_Set__c)
+          .contains(Contact.Sync_Status__c, SYNC_STATUS_BROKER_ORG)
+          .contains(
+            Contact.Broker_Accreditation_Type__c,
+            RETAIL_BROKER_ACCREDITATION_TYPE
+          )
+          .changed(Contact.Broker_Set__c)
+          .toList(),
+        Contact.Id
+      );
+
+      Set<Id> contactsForBrokerRelationEvent = new Set<Id>();
+      contactsForBrokerRelationEvent.addAll(contactsForAddEvent);
+      contactsForBrokerRelationEvent.addAll(contactsForDeleteEvent);
+
+      publishedEvents = RetailBrokerRelationEventActions.publishBrokerRelationEventFromContact(
+        contactsForBrokerRelationEvent,
+        oldMap
+      );
+      return publishedEvents;
+    } catch (Exception e) {
+      Logger.error(
+          'Encountered error when publishing Broker Relation event. RBM info in Broker Org was not updated.',
+          e
+        )
+        .save();
+      return publishedEvents;
+    } finally {
+      return publishedEvents;
+    }
+  }
 
   /**
    * @description Generate and publish Broker contact GCP cloud events
@@ -20,6 +96,9 @@ public with sharing class RetailBrokerContactActions {
     List<Contact> records,
     Map<Id, Contact> contactsOldMap
   ) {
+    if (BROKER_SETTINGS_REPOSITORY.get().BypassBrokerEvent__c) {
+      return;
+    }
     Map<Id, String> brokerIdToEventTypeMap = getBrokerIdToEventTypeMap(
       records,
       contactsOldMap
@@ -37,30 +116,42 @@ public with sharing class RetailBrokerContactActions {
     List<Contact> contactsNew,
     Map<Id, Contact> contactsOldMap
   ) {
+    Boolean bypassBrokerEventPermission = USER_INFO.checkCustomPermission(
+      'BypassBrokerEvent'
+    );
     Map<Id, String> brokerIdToEventTypeMap = new Map<Id, String>();
     for (Contact contactNew : contactsNew) {
       Contact contactOld = contactsOldMap.get(contactNew.Id);
       String action = getAction(contactNew, contactOld);
-      if (String.isBlank(action)) {
+      if (
+        bypassBrokerEventPermission &&
+        isBrokerSetOrOffGroupChanged(contactNew, contactOld)
+      ) {
         continue;
       }
-      Boolean isSyncStatusValidForPublishing = isSyncStatusValidForPublishing(
-        contactNew,
-        contactOld,
-        action
-      );
-      if (isSyncStatusValidForPublishing == false) {
-        continue;
+      if (
+        (String.isNotBlank(action) &&
+        isSyncStatusValidForPublishing(contactNew, contactOld, action) &&
+        isRecordAnEligibleBrokerContact(contactNew))
+      ) {
+        brokerIdToEventTypeMap.put(contactNew.Id, action);
       }
-      Boolean isRecordAnEligibleBrokerContact = isRecordAnEligibleBrokerContact(
-        contactNew
-      );
-      if (isRecordAnEligibleBrokerContact == false) {
-        continue;
-      }
-      brokerIdToEventTypeMap.put(contactNew.Id, action);
     }
     return brokerIdToEventTypeMap;
+  }
+
+  /**
+   * @description check whether broker set or office group was updated
+   * @param contactNew new version of Contact record
+   * @param contactOld old version of Contact record
+   * @return boolean based on the broker set or office group change
+   */
+  public static Boolean isBrokerSetOrOffGroupChanged(
+    Contact contactNew,
+    Contact contactOld
+  ) {
+    return contactNew.Broker_Set__c != contactOld.Broker_Set__c ||
+      contactNew.Office_Group__c != contactOld.Office_Group__c;
   }
 
   /**
@@ -189,5 +280,22 @@ public with sharing class RetailBrokerContactActions {
   private static Boolean doesSyncStatusContain(Contact contact, String value) {
     return contact.Sync_Status__c != null &&
       contact.Sync_Status__c.contains(value);
+  }
+
+  /**
+   * @description blank office group if broker set changing
+   * @author  Utkarsh Singh | Salesforce | 27-02-2025
+   * @param records contains new value
+   * @param oldMap contains old value
+   **/
+  public static void setBlankOfficeGroupOnChangeBrokerSet(
+    List<Contact> records,
+    Map<Id, Contact> oldMap
+  ) {
+    records = ListUtil.filter(records, oldMap)
+      .changed(Contact.Broker_Set__c)
+      .toList();
+
+    ListUtil.setField(records, Contact.Office_Group__c, null);
   }
 }

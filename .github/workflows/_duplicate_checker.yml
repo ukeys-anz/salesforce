@@ -38,7 +38,7 @@ permissions:
 
 jobs:
   run:
-    runs-on: anzx-default-np
+    runs-on: anzx-default
     env:
       SUBMODULE_BRANCH: ${{ inputs.submodule_branch }}
       PARENT_BASE_REF_BRANCH: ${{ inputs.parent_base_ref }}

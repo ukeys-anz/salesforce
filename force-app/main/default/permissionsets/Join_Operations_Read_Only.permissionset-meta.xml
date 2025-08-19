@@ -133,6 +133,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>COBPrimaryIDDocument__c.Latest__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>COBPrimaryIDDocument__c.LicenceCardNumberOCRClient__c</field>
         <readable>true</readable>
     </fieldPermissions>

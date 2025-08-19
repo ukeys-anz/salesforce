@@ -33,10 +33,38 @@ public with sharing class CommercialInteractionActions {
       );
       CloudEventController.publishCloudEvents(cloudEvents);
     } catch (Exception e) {
-      Logger.error(e.getMessage(), e);
-      Logger.saveLog();
+      Logger.error(
+          'Errored out while publishing the cloud event for Interactions',
+          e
+        )
+        .save();
       throw e;
     }
+  }
+
+  /**
+   * @description creates default Attendees for Broker Interactions
+   * @param interactions
+   **/
+  public static void createBrokerInteractionAttendee(
+    List<Interaction> interactions
+  ) {
+    List<Interaction> filteredInteractionsList = ListUtil.filter(interactions)
+      .isNotNull(Interaction.Broker__c)
+      .toList();
+
+    List<InteractionAttendee> newAttendeesToCreate = new List<InteractionAttendee>();
+    for (Interaction interactionRec : filteredInteractionsList) {
+      newAttendeesToCreate.add(
+        new InteractionAttendee(
+          ContactId = interactionRec.Broker__c,
+          InteractionId = interactionRec.Id,
+          AttendeeType = 'Customer'
+        )
+      );
+    }
+
+    DML_REPOSITORY.doInsert(newAttendeesToCreate);
   }
 
   /**
@@ -49,13 +77,19 @@ public with sharing class CommercialInteractionActions {
     Map<Id, Interaction> oldMap
   ) {
     try {
-      Set<Id> oppsIds = getOppsIdsAssociatedWithInteractions(records, oldMap);
+      Set<Id> oppsIds = CommercialInteractionActionsHelper.getOppsIdsAssociatedWithInteractions(
+        records,
+        oldMap
+      );
       List<Opportunity> oppsList = IA_REPOSITORY.getOpportunities(oppsIds);
       Map<Id, Id> oppIdToCustomerIdMap = getCustomerAssociatedWithOpp(oppsList);
       updateCustomerOnInteraction(records, oppIdToCustomerIdMap);
     } catch (Exception e) {
-      Logger.error(e.getMessage(), e);
-      Logger.saveLog();
+      Logger.error(
+          'Error while setting Customer on Interaction from Opportunity',
+          e
+        )
+        .save();
       throw e;
     }
   }
@@ -69,43 +103,6 @@ public with sharing class CommercialInteractionActions {
       oppIdToCustomerIdMap.put(opp.Id, opp.AccountId);
     }
     return oppIdToCustomerIdMap;
-  }
-
-  @TestVisible
-  private static Set<Id> getOppsIdsAssociatedWithInteractions(
-    List<Interaction> records,
-    Map<Id, Interaction> oldMap
-  ) {
-    Set<Id> oppsIds = new Set<Id>();
-    for (Interaction record : records) {
-      Boolean oppFieldChanged;
-      Boolean customerFieldChanged;
-
-      //Checking for insert as well as update case
-      //For update, do processing only if opportunity Id is changed and
-      //not the account Id as account change gets precedence over opportunity
-      if (record.Opportunity__c == null) {
-        continue;
-      }
-
-      if (oldMap != null) {
-        oppFieldChanged = RecordComparisonUtil.fieldWasChanged(
-          record,
-          oldMap.get(record.Id),
-          Interaction.Opportunity__c
-        );
-        customerFieldChanged = RecordComparisonUtil.fieldWasChanged(
-          record,
-          oldMap.get(record.Id),
-          Interaction.AccountId
-        );
-      }
-
-      if ((oldMap == null) || (oppFieldChanged && !(customerFieldChanged))) {
-        oppsIds.add(record.Opportunity__c);
-      }
-    }
-    return oppsIds;
   }
 
   @TestVisible
@@ -133,64 +130,21 @@ public with sharing class CommercialInteractionActions {
     Map<Id, Interaction> oldMap
   ) {
     try {
-      List<Interaction> updatedInteractions = getUpdatedNameOrChannelInteractions(
+      List<Interaction> updatedInteractions = CommercialInteractionActionsHelper.getUpdatedNameOrChannelInteractions(
         records,
         oldMap
       );
-      updateInteractionName(updatedInteractions, oldMap);
+      CommercialInteractionActionsHelper.updateInteractionName(
+        updatedInteractions,
+        oldMap
+      );
     } catch (Exception e) {
-      Logger.error(e.getMessage(), e);
-      Logger.saveLog();
+      Logger.error(
+          'Error while setting Interaction Name on Interaction records',
+          e
+        )
+        .save();
       throw e;
-    }
-  }
-
-  @TestVisible
-  private static List<Interaction> getUpdatedNameOrChannelInteractions(
-    List<Interaction> records,
-    Map<Id, Interaction> oldMap
-  ) {
-    List<Interaction> updatedInteractions = new List<Interaction>();
-    for (Interaction record : records) {
-      Boolean isNewRecord = !oldMap.containsKey(record.Id);
-      Boolean isFieldValueUpdated =
-        oldMap.containsKey(record.Id) &&
-        (RecordComparisonUtil.fieldWasChanged(
-          record,
-          oldMap.get(record.Id),
-          Interaction.Name
-        ) ||
-        RecordComparisonUtil.fieldWasChanged(
-          record,
-          oldMap.get(record.Id),
-          Interaction.InteractionType
-        ));
-
-      if (isNewRecord || isFieldValueUpdated) {
-        updatedInteractions.add(record);
-      }
-    }
-    return updatedInteractions;
-  }
-
-  @testVisible
-  private static void updateInteractionName(
-    List<Interaction> updatedInteractions,
-    Map<Id, Interaction> oldMap
-  ) {
-    for (Interaction record : updatedInteractions) {
-      if (oldMap.containsKey(record.Id)) {
-        String oldChannelName = oldMap.get(record.Id).InteractionType;
-
-        //gets the index of the last occurence of channel
-        Integer index = record.Name.lastIndexOf(oldChannelName);
-
-        //contains all the characters from name field except the old channel name
-        record.Name =
-          record.Name.subString(0, index) +
-          record.Name.subString(index + oldChannelName.length());
-      }
-      record.Name = record.Name + ' ' + record.InteractionType;
     }
   }
 
@@ -204,16 +158,12 @@ public with sharing class CommercialInteractionActions {
     List<Interaction> records,
     Map<Id, Interaction> oldMap
   ) {
-    try {
-      List<SObjectField> fieldList = Schema.SObjectType.Interaction.fields.getMap()
-        .values();
-      Set<SObjectField> richTextFieldSet = CommercialCommonUtil.getRichTextFields(
-        fieldList
-      );
-      CommercialCommonUtil.restrictImages(records, oldMap, richTextFieldSet);
-    } catch (Exception e) {
-      Logger.error('Error while restrict images on Interaction', e).save();
-    }
+    List<SObjectField> fieldList = Schema.SObjectType.Interaction.fields.getMap()
+      .values();
+    Set<SObjectField> richTextFieldSet = CommercialCommonUtil.getRichTextFields(
+      fieldList
+    );
+    CommercialCommonUtil.restrictImages(records, oldMap, richTextFieldSet);
   }
 
   /**
@@ -222,10 +172,100 @@ public with sharing class CommercialInteractionActions {
    * @param records from the trigger
    */
   public static void performRedaction(List<Interaction> records) {
-    try {
-      TextUtils.maskSObjectDataANZExtended(records, 'Comment__c');
-    } catch (Exception e) {
-      Logger.error('Error while redacting data on Interaction', e).save();
+    TextUtils.maskSObjectDataANZExtended(records, 'Comment__c');
+    TextUtils.maskSObjectDataANZExtended(records, 'Optional_Notes__c');
+  }
+
+  /**
+   * @description handle CLG validation and populate CLG value.
+   * @param records The list of List<Interaction>
+   * @param oldMap The map of old Interaction records
+   */
+  public static void populateCLG(
+    List<Interaction> records,
+    Map<Id, Interaction> oldMap
+  ) {
+    Set<Id> accountIds = ListUtil.getIds(records, Interaction.AccountId);
+
+    List<FinServ__AccountAccountRelation__c> relatedCLGAccounts = IA_REPOSITORY.getRelatedCLGAccounts(
+      accountIds
+    );
+
+    Map<Id, Set<Id>> customerToCLGsMap = mapCustomerToCLGAccounts(
+      relatedCLGAccounts
+    );
+
+    Map<Id, Account> accountMap = IA_REPOSITORY.getAccountsWithRecordTypes(
+      accountIds
+    );
+
+    CommercialInteractionActionsHelper.populateCLGForInteraction(
+      records,
+      customerToCLGsMap,
+      accountMap
+    );
+  }
+
+  /**
+   * @description handle CLG validation on Update.
+   * @param records The list of List<Interaction>
+   * @param oldMap The map of old Interaction records
+   */
+  public static void validateAndPopulateCLG(
+    List<Interaction> records,
+    Map<Id, Interaction> oldMap
+  ) {
+    List<Interaction> filteredInteractionsList = ListUtil.filter(
+        records,
+        oldMap
+      )
+      .changed(Interaction.CLGCustomer__c)
+      .toList();
+
+    Set<Id> accountIds = ListUtil.getIds(
+      filteredInteractionsList,
+      Interaction.AccountId
+    );
+
+    List<FinServ__AccountAccountRelation__c> relatedCLGAccounts = IA_REPOSITORY.getRelatedCLGAccounts(
+      accountIds
+    );
+
+    Map<Id, Set<Id>> customerToCLGsMap = mapCustomerToCLGAccounts(
+      relatedCLGAccounts
+    );
+
+    CommercialInteractionActionsHelper.validateCLGAccountsAgainstCustomer(
+      filteredInteractionsList,
+      customerToCLGsMap
+    );
+  }
+
+  /**
+   * @description mapping of customer to their related CLG accounts.
+   * @param relatedCLGAccounts The list of List<FinServ__AccountAccountRelation__c>
+   * @return Map<Id, Set<Id>>
+   */
+  @TestVisible
+  private static Map<Id, Set<Id>> mapCustomerToCLGAccounts(
+    List<FinServ__AccountAccountRelation__c> relatedCLGAccounts
+  ) {
+    Map<Id, Set<Id>> customerToCLGAccountsMap = new Map<Id, Set<Id>>();
+
+    for (FinServ__AccountAccountRelation__c aar : relatedCLGAccounts) {
+      if (
+        aar.FinServ__Account__c == null ||
+        aar.FinServ__RelatedAccount__c == null
+      ) {
+        continue;
+      }
+
+      if (!customerToCLGAccountsMap.containsKey(aar.FinServ__Account__c)) {
+        customerToCLGAccountsMap.put(aar.FinServ__Account__c, new Set<Id>());
+      }
+      customerToCLGAccountsMap.get(aar.FinServ__Account__c)
+        .add(aar.FinServ__RelatedAccount__c);
     }
+    return customerToCLGAccountsMap;
   }
 }

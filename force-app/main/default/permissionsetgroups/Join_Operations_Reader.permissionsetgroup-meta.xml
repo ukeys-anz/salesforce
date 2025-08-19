@@ -8,5 +8,6 @@
     <permissionSets>IDOps_Workbench</permissionSets>
     <permissionSets>Join_Operations_Read_Only</permissionSets>
     <permissionSets>PersonDigitalEntityReadOnly</permissionSets>
+    <permissionSets>View_DaonFiles</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

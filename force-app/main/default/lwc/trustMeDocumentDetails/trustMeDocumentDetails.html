@@ -2,7 +2,7 @@
   @description       : 
   @author            : Anuj Jain
   @group             : 
-  @last modified on  : 04-21-2025
+  @last modified on  : 07-25-2025
 
 -->
 <template>
@@ -78,6 +78,16 @@
           >
             <c-trust-me-document-details-child
               fields={selfieEvaluationOutcome}
+              trust-me-doc-sec-error-message={trustMeDocSecErrorMessage}
+            ></c-trust-me-document-details-child>
+          </lightning-accordion-section>
+
+          <lightning-accordion-section
+            name="documentQualityEvalOutcome"
+            label="Documents Quality Evaluation Outcome	"
+          >
+            <c-trust-me-document-details-child
+              fields={documentQualityEvalOutcome}
               trust-me-doc-sec-error-message={trustMeDocSecErrorMessage}
             ></c-trust-me-document-details-child>
           </lightning-accordion-section>

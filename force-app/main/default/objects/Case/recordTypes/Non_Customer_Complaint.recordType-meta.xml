@@ -9,47 +9,27 @@
     <picklistValues>
         <picklist>AFCA_Stage__c</picklist>
         <values>
-            <fullName>Case Management Level 1</fullName>
+            <fullName>Fast track case management</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Case Management Level 2</fullName>
+            <fullName>Fast track decision</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Confirm Resolution With Complainant</fullName>
+            <fullName>Jurisdiction</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Decision</fullName>
+            <fullName>Referral%2FRegistration</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Fast Track - Case Management Level 1</fullName>
+            <fullName>Standard%2Fcomplex case management</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Fast Track - Decision</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Fast Track - Preliminary View</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Preliminary View</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Registration</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Rules Review</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Workflow</fullName>
+            <fullName>Standard%2Fcomplex decision</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -6703,6 +6683,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>131</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>115</fullName>
             <default>false</default>
         </values>
@@ -7238,6 +7222,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>131</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>115</fullName>
             <default>false</default>
         </values>
@@ -7770,6 +7758,10 @@
         </values>
         <values>
             <fullName>114</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>131</fullName>
             <default>false</default>
         </values>
         <values>

@@ -207,6 +207,7 @@
     </relatedLists>
     <relatedLists>
         <fields>Number__c</fields>
+        <fields>Card_Number__c</fields>
         <fields>Name__c</fields>
         <fields>Type__c</fields>
         <fields>Status__c</fields>

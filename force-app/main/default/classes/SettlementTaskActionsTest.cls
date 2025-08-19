@@ -11,7 +11,6 @@ public with sharing class SettlementTaskActionsTest {
 
   @IsTest
   static void testSettlementTaskRecordTypeAssignment() {
-    Faker faker = new Faker('AU');
     List<Task> settlementTaskList = new List<Task>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       settlementTaskList.add(
@@ -96,7 +95,6 @@ public with sharing class SettlementTaskActionsTest {
       'ATO 123456789',
       'SUPER 123456789',
       'SUPERANNUATION 123456789',
-      'EMPLOYMENT 123456789',
       'PASSPORT 123456789',
       'PP 123456789',
       'DL 123456789',
@@ -106,8 +104,7 @@ public with sharing class SettlementTaskActionsTest {
       'LICENSE 123456789',
       'MEDICARE 123456789',
       'CENTRELINK CRN 123456789',
-      'DVA NUMBER 123456789',
-      'AUS 123456789'
+      'DVA NUMBER 123456789'
     };
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       Id taskMockId = Lib_FakeIdGenerator.getMockId(Task.getSObjectType());

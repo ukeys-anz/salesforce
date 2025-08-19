@@ -1259,6 +1259,50 @@
     <picklistValues>
         <picklist>Type</picklist>
         <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>16</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>19</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>21</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>22</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>10</fullName>
             <default>false</default>
         </values>
@@ -2705,6 +2749,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>131</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>122</fullName>
             <default>false</default>
         </values>
@@ -3148,6 +3196,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>131</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>122</fullName>
             <default>false</default>
         </values>
@@ -3588,6 +3640,10 @@
         </values>
         <values>
             <fullName>114</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>131</fullName>
             <default>false</default>
         </values>
         <values>

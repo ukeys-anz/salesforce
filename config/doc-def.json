@@ -18,6 +18,7 @@
     "Activity",
     "AuthenticationHistory__c",
     "Automatic_Repayment_Preference__c",
+    "Broker_Relation__c",
     "Campaign",
     "CampaignMember",
     "Campaign_Document__c",
@@ -32,6 +33,7 @@
     "COBIDVSearchResult__c",
     "COBPrimaryIDDocument__c",
     "COBTaxResidency__c",
+    "Complaint_Resolution__c",
     "Contact",
     "ContactRequest",
     "ContactPointAddress",
@@ -644,7 +646,8 @@
         "Broker_Details_Integration",
         "Financial_Accounts_Read_and_Edit",
         "Bypass_TSP",
-        "Read_Write_Customer_Details"
+        "Read_Write_Customer_Details",
+        "Case_Read_Write_KYC_QA_Integration"
       ],
       "type": "system"
     },
@@ -1008,7 +1011,13 @@
       "name": "AEM Integration User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": ["AEM_Integration"],
-      "permissionsets": ["API_Only", "Disable_MFA"],
+      "permissionsets": [
+        "API_Only",
+        "Disable_MFA",
+        "Case_Read_Write_AEM_Integration",
+        "Lead_Newsletter_AEM_Integration",
+        "Password_Never_Expires"
+      ],
       "type": "system"
     },
     {

@@ -319,10 +319,21 @@
                 <fieldItem>Record.Score__c</fieldItem>
                 <identifier>RecordScore__cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.Calculated__c}</leftValue>
+                        <leftValue>{!Record.Status__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>true</rightValue>
+                        <rightValue>In Progress</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Referred</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -336,10 +347,21 @@
                 <fieldItem>Record.Compliance_Outcome__c</fieldItem>
                 <identifier>RecordCompliance_Outcome__cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.Calculated__c}</leftValue>
+                        <leftValue>{!Record.Status__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>true</rightValue>
+                        <rightValue>In Progress</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Referred</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -357,10 +379,21 @@
                 <fieldItem>Record.Rating__c</fieldItem>
                 <identifier>RecordRating__cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.Calculated__c}</leftValue>
+                        <leftValue>{!Record.Status__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>true</rightValue>
+                        <rightValue>In Progress</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Referred</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -670,61 +703,17 @@
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CX_Criteria_Comments__c</fieldItem>
+                <identifier>RecordCX_Criteria_Comments_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-50d42b02-46aa-4b0f-8937-ad1c03a3e30e</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Connection_and_Trust_Comments__c</fieldItem>
-                <identifier>RecordConnection_and_Trust_Comments__cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Discover_and_Align_Comments__c</fieldItem>
-                <identifier>RecordDiscover_and_Align_Comments__cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Actions_and_Momentum_Comments__c</fieldItem>
-                <identifier>RecordActions_and_Momentum_Comments__cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Accountability_and_Next_Steps_Comments__c</fieldItem>
-                <identifier>RecordAccountability_and_Next_Steps_Comments__cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Energy_and_Adaptability_Comments__c</fieldItem>
-                <identifier>RecordEnergy_and_Adaptability_Comments__cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet-61dc4ddc-51f4-4a0c-b1f0-9839834a26e4</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -736,16 +725,6 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:column</componentName>
                 <identifier>flexipage_column8</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-61dc4ddc-51f4-4a0c-b1f0-9839834a26e4</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column9</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-c58e5433-46a3-4601-bab6-8bbd935376fd</name>
@@ -957,16 +936,26 @@
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection3</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND (2 OR 3 OR 4)</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.Name}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Get Help - Appointments</rightValue>
                     </criteria>
                     <criteria>
-                        <leftValue>{!Record.Calculated__c}</leftValue>
+                        <leftValue>{!Record.Status__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>true</rightValue>
+                        <rightValue>In Progress</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Referred</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -1166,6 +1155,10 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Tabs</value>
+                </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>tabs</name>
                     <value>maintabs</value>

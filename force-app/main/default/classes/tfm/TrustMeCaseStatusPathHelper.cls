@@ -62,7 +62,7 @@ public with sharing class TrustMeCaseStatusPathHelper {
     );
     caseUpdateDetails.kyc_reverification_id = trustMeCase.KYC_Verification_Id__c;
     caseUpdateDetails.checks = populateChecksForQACase(trustMeCase);
-
+    caseUpdateDetails.case_number = trustMeCase.CaseNumber;
     TRUSTME_REPO.updateCaseStatus(caseUpdateDetails);
   }
   /**

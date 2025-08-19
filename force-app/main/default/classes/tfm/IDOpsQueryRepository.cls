@@ -2,7 +2,7 @@
  * @description       : Repository for PinAndSelfieWorkflow
  * @author            : Hinduja - TFM Squad
  * @group             :
- * @last modified on  : 10-17-2024
+ * @last modified on  : 08-07-2025
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
  **/
 public with sharing class IDOpsQueryRepository {
@@ -38,7 +38,7 @@ public with sharing class IDOpsQueryRepository {
       WHERE ID = :recordId
       WITH USER_MODE
       LIMIT 1
-    ];
+    ] ?? null;
     return caseRecord;
   }
 
@@ -87,7 +87,7 @@ public with sharing class IDOpsQueryRepository {
       WHERE Id = :recordId
       WITH USER_MODE
       LIMIT 1
-    ];
+    ] ?? null;
     return cobPIDRecord;
   }
 
@@ -105,7 +105,7 @@ public with sharing class IDOpsQueryRepository {
       WHERE CustomerOnboardingApplication__c = :customerOnboardingApplicationId
       WITH USER_MODE
       LIMIT 1
-    ];
+    ] ?? null;
     return cobPIDRecord;
   }
 
@@ -131,7 +131,8 @@ public with sharing class IDOpsQueryRepository {
           SELECT ContentDocumentId
           FROM ContentVersion
           WHERE
-            (RecordTypeId = :RTContentVersion.daonFile OR RecordTypeId = :RTContentVersion.daonTrustXFile)
+            (RecordTypeId = :RTContentVersion.daonFile
+            OR RecordTypeId = :RTContentVersion.daonTrustXFile)
             AND CreatedDate < :elapsedDatetime
         )
       WITH USER_MODE
@@ -145,5 +146,30 @@ public with sharing class IDOpsQueryRepository {
    **/
   public Boolean checkCustomPermission(String permissionName) {
     return FeatureManagement.checkPermission(permissionName);
+  }
+
+  /**
+   * @description get cobPID Record
+   * @param recordId case recordId
+   * @return PersonDigitalIdentity__x
+   **/
+  public PersonDigitalIdentity__x getPersonDigitalIdentityRec(String recordId) {
+    PersonDigitalIdentity__x personDigitalIdentityRec = [
+      SELECT
+        Id,
+        pinRefId__c,
+        UUID__c,
+        Persona_ID__c,
+        Status__c,
+        PIN_Status__c,
+        IAL_Identity_Assurance_Level__c,
+        OCV_ID__c,
+        Mobile_Number__c
+      FROM PersonDigitalIdentity__x
+      WHERE Id = :recordId
+      WITH USER_MODE
+      LIMIT 1
+    ] ?? null;
+    return personDigitalIdentityRec;
   }
 }

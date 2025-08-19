@@ -2339,7 +2339,7 @@
                 <level>2.0</level>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 4.0,
+  &quot;controlWidth&quot; : 4,
   &quot;label&quot; : &quot;Street&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -3117,7 +3117,7 @@
             <level>1.0</level>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
+  &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;Customer Details&quot;,
   &quot;collapse&quot; : false,
   &quot;repeat&quot; : false,
@@ -3125,7 +3125,8 @@
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : false
+  &quot;hide&quot; : false,
+  &quot;show&quot; : null
 }</propertySetConfig>
             <sequenceNumber>16.0</sequenceNumber>
             <type>Block</type>
@@ -3477,10 +3478,6 @@
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;Yes&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;Issue2Checkbox&quot;
-      }, {
         &quot;field&quot; : &quot;systemicIssue&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;Yes&quot;
@@ -5911,7 +5908,7 @@
       } ]
     }
   },
-  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;It appears that&lt;/em&gt;&amp;nbsp;&lt;em&gt;A REaL form may be required for this complaint. Please take a moment to review the complaint and record a new REaL form if necessary.&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;\n&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;Please refer to&lt;/em&gt;&amp;nbsp;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;&lt;em&gt;&lt;a href=\&quot;https://anz.sharepoint.com/sites/max-work/SitePages/Report-NFR-Event.aspx\&quot; class=\&quot;external-link\&quot; target=\&quot;_blank\&quot; title=\&quot;Follow link\&quot; style=\&quot;color: #e03e2d; text-decoration: underline;\&quot; rel=\&quot;noopener\&quot;&gt;Non-financial risk max page&lt;/a&gt;&lt;/em&gt;&amp;nbsp;&lt;/span&gt;&lt;em&gt;for further information on when to record a REaL Form.&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;It appears that&lt;/em&gt;&amp;nbsp;&lt;em&gt;A REaL form may be required for this complaint. Please take a moment to review the complaint and record a new REaL form if necessary.&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;\n&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;Please refer to the &lt;/em&gt;&lt;em&gt;&lt;a class=\&quot;external-link\&quot; href=\&quot;https://anz.sharepoint.com/sites/max-banking/Shared Documents/QRG Adding REaL Form details in CMOS.pdf?web=1\&quot; target=\&quot;_blank\&quot; rel=\&quot;nofollow noopener\&quot; style=\&quot;color: #e03e2d;\&quot;&gt;&lt;u&gt;REaL Form Management in CMOS&lt;/u&gt;&lt;/a&gt;&lt;/em&gt;&amp;nbsp;QRG for steps on how to record the REaL Form&lt;/span&gt;&lt;/p&gt;&quot;,
   &quot;label&quot; : &quot;TextBlock2&quot;,
   &quot;controlWidth&quot; : null
 }</propertySetConfig>
@@ -6297,7 +6294,7 @@
                 <propertySetConfig>{
   &quot;controlWidth&quot; : null,
   &quot;label&quot; : &quot;TextBlock2&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;To create a REaL form, please click the &apos;Link a REaL form&apos; button located at the top-right corner of the complaint record after the case has been created. For further information please refer to the &lt;u&gt;CMOS Max page.&lt;/u&gt;&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;To create a REaL form, please click the &apos;Link REaL Form&apos; button located at the top-right corner of the complaint record after the case has been created. For further information please refer to the &lt;em&gt;&lt;a class=\&quot;external-link\&quot; href=\&quot;https://anz.sharepoint.com/sites/max-banking/Shared Documents/QRG Adding REaL Form details in CMOS.pdf?web=1\&quot; target=\&quot;_blank\&quot; rel=\&quot;nofollow noopener\&quot; style=\&quot;color: #e03e2d;\&quot;&gt;&lt;u&gt;REaL Form Management on CMOS&lt;/u&gt;&lt;/a&gt;&lt;/em&gt;&amp;nbsp;QRG &lt;/em&gt;&lt;/span&gt;&lt;/p&gt;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
@@ -6342,60 +6339,52 @@
             </childElements>
             <childElements>
                 <name>systemicIssue</name>
-                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;disOnTplt&quot; : false,
-  &quot;enableCaption&quot; : true,
-  &quot;imageCountInRow&quot; : 3,
-  &quot;optionHeight&quot; : 100,
-  &quot;optionWidth&quot; : 100,
-  &quot;hide&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;controlWidth&quot; : 5,
+  &quot;label&quot; : &quot;Are any of the issues possibly systemic?&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;required&quot; : true,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : true,
+  &quot;helpText&quot; : &quot;A systemic issue arises as a result of a deficiency or error by ANZ that may impact multiple customers and results in customer detriment and/or a regulatory breach&quot;,
+  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;options&quot; : [ ],
+  &quot;optionSource&quot; : {
+    &quot;type&quot; : &quot;SObject&quot;,
+    &quot;source&quot; : &quot;Case.IDR_Is_Common__c&quot;
+  },
+  &quot;controllingField&quot; : {
+    &quot;element&quot; : &quot;&quot;,
+    &quot;type&quot; : &quot;&quot;,
+    &quot;source&quot; : &quot;&quot;
+  },
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
-        &quot;field&quot; : &quot;ComplaintStatus&quot;,
+        &quot;data&quot; : &quot;Closed&quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;Closed&quot;
+        &quot;field&quot; : &quot;ComplaintStatus&quot;
       } ]
     }
   },
-  &quot;controllingField&quot; : {
-    &quot;source&quot; : &quot;&quot;,
-    &quot;type&quot; : &quot;&quot;,
-    &quot;element&quot; : &quot;&quot;
-  },
-  &quot;optionSource&quot; : {
-    &quot;source&quot; : &quot;Case.IDR_Is_Common__c&quot;,
-    &quot;type&quot; : &quot;SObject&quot;
-  },
-  &quot;options&quot; : [ {
-    &quot;name&quot; : &quot;Yes&quot;,
-    &quot;value&quot; : &quot;Yes&quot;
-  }, {
-    &quot;name&quot; : &quot;No&quot;,
-    &quot;value&quot; : &quot;No&quot;
-  } ],
-  &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;helpText&quot; : &quot;A systemic issue arises as a result of a deficiency or error by ANZ that may impact multiple customers and results in customer detriment and/or a regulatory breach&quot;,
-  &quot;help&quot; : true,
-  &quot;horizontalMode&quot; : &quot;displayWide&quot;,
-  &quot;readOnly&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;required&quot; : true,
-  &quot;label&quot; : &quot;Are any of the issues possibly systemic?&quot;,
-  &quot;controlWidth&quot; : 4
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;disOnTplt&quot; : false
 }</propertySetConfig>
                 <sequenceNumber>71.0</sequenceNumber>
-                <type>Radio</type>
+                <type>Select</type>
             </childElements>
             <childElements>
                 <name>systemicIssueCat</name>
@@ -6917,6 +6906,8 @@
     } ],
     &quot;sysIssueMap&quot; : [ {
       &quot;systemicIssueReason&quot; : &quot;Why is this a possible systemic issue?&quot;
+    }, {
+      &quot;additionalissues&quot; : &quot;Which issue is possibly systemic?&quot;
     } ],
     &quot;cacMap&quot; : [ {
       &quot;ParentCase-Block&quot; : &quot;Parent Case&quot;

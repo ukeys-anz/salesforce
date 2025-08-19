@@ -299,7 +299,7 @@ private class LaunchAppOnOppControllerTest {
     //WHEN calling a createApplication method
     Boolean response = LaunchAppOnOppController.getAMBITResponse(
       oppId,
-      oliIdsList
+      oliIdsList[0]
     );
     Test.stopTest();
 
