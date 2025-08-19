@@ -1,5 +1,8 @@
 import { LightningElement, api, wire, track } from "lwc";
 import getCustomerData from "@salesforce/apex/IDRAPIRepository.getCustomerInfoLWC";
+import getFinancialAccounts from "@salesforce/apex/GetCustomerInformation.fetchCustomerFinancialAccounts";
+import logOCVError from "@salesforce/apex/IDRCaseActionsHelper.logOCVError";
+import { getAccoutProductkeys } from "c/utils";
 import { getRecord, getFieldValue } from "lightning/uiRecordApi";
 import { updateRecord } from "lightning/uiRecordApi";
 import { refreshApex } from "@salesforce/apex";
@@ -169,13 +172,23 @@ export default class CustomerInformation extends LightningElement {
       getCustomerData({
         customerId: this.customerInfo.capId.replace(/^0+/, ""),
         customerIdentifier: this.customerInfo.custIdentifier
-      }).then((result) => {
-        if (Array.isArray(result.accounts)) {
-          this.customerInfo.accounts = result.accounts.map((i) => ({
-            accountNumber: i.accountNumber
-          }));
-        }
-      });
+      })
+        .then((result) => {
+          if (Array.isArray(result.accounts)) {
+            this.customerInfo.accounts = result.accounts.map((i) => ({
+              accountNumber: i.accountNumber
+            }));
+          }
+        })
+        .catch((error) => {
+          if (error?.body.message === "OCV Down") {
+            this.populateFinancialAccount();
+            logOCVError({
+              message: error.body.message,
+              customerId: this.customerInfo.capId.replace(/^0+/, "")
+            });
+          }
+        });
       if (this.customerInfo.rmData.name) this.isRMDetails = true;
       this.showMore = true;
       return;
@@ -184,6 +197,22 @@ export default class CustomerInformation extends LightningElement {
       this.record.fields.IDR_Customer_Number__c.value.replace(/^0+/, ""),
       this.record.fields.IDR_Customer_Identifier__c.value
     );
+  }
+
+  populateFinancialAccount() {
+    if (!this.customerInfo.accId) {
+      return;
+    }
+    getFinancialAccounts({
+      accId: this.customerInfo.accId,
+      ocvId: this.customerInfo.ocvId
+    }).then((result) => {
+      this.customerInfo.accounts = result.map((i) => ({
+        accountNumber: getAccoutProductkeys(
+          i.FinServ__FinancialAccount__r.Account_Key__c
+        )
+      }));
+    });
   }
 
   updateCustomerDetailsonCase() {

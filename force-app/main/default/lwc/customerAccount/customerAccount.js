@@ -1,6 +1,9 @@
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { LightningElement, track, api, wire } from "lwc";
 import getCustomerInfoLWC from "@salesforce/apex/IDRAPIRepository.getCustomerInfoLWC";
+import getFinancialAccounts from "@salesforce/apex/GetCustomerInformation.fetchCustomerFinancialAccounts";
+import logOCVError from "@salesforce/apex/IDRCaseActionsHelper.logOCVError";
+import { getAccoutProductkeys } from "c/utils";
 
 const FINANCIAL_DIFFICULTY = "4";
 const COLLECTIONS = "17";
@@ -15,6 +18,10 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
   @track allSelected = false;
   customerCapId;
   customerIdentifier;
+  ocvId;
+  accId;
+  financialAccounts = [];
+  hasError = false;
   capIdAccounts = [];
 
   @api set omniJsonData(data) {
@@ -23,6 +30,8 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
       this.customerCapId =
         data?.data?.fields.Source_System_ID__c.value?.replace(/^0+/, "");
       this.customerIdentifier = data.Case.CustomerDetails.CustomerIdentifier;
+      this.ocvId = data?.data?.fields.OCV_ID__c.value;
+      this.accId = data?.Case?.AccountId;
       this.populateAccountNumbers(this._omniData);
       this.validateNAoption(this._omniData);
       this.clearAccountFields(this._omniData.Case.ComplaintDetails);
@@ -60,16 +69,14 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     customerIdentifier: "$customerIdentifier"
   })
   wiredFetchAccounts({ error, data }) {
-    if (error || !data) {
-      this.capIdAccounts = [];
-      this.omniApplyCallResp({
-        Case: {
-          CustomerDetails: { RestApiError: error?.body?.message }
-        }
+    if (error?.body.message === "OCV Down") {
+      this.getFinancialAccountData();
+      logOCVError({
+        message: error.body.message,
+        customerId: this.customerCapId
       });
-      return;
     }
-    this.capIdAccounts = data.accounts;
+    this.capIdAccounts = data?.accounts;
     this.allValues = [];
     this.populateAccountNumbers(this._omniData);
   }
@@ -85,6 +92,13 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     if (this.capIdAccounts?.length && this.checkCustomerIdentifier(data)) {
       this.createAccountOptions(
         this.capIdAccounts,
+        this.checkIssueTypeChange(data.Case.ComplaintDetails)
+      );
+      this.validateNAoption(data);
+    }
+    if (this.financialAccounts?.length && this.checkCustomerIdentifier(data)) {
+      this.createFinancialAccountOptions(
+        this.financialAccounts,
         this.checkIssueTypeChange(data.Case.ComplaintDetails)
       );
       this.validateNAoption(data);
@@ -122,6 +136,27 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
       }
     }
   }
+  async getFinancialAccountData() {
+    if (!this.accId) {
+      return;
+    }
+    this.hasError = true;
+    let result = await getFinancialAccounts({
+      accId: this.accId,
+      ocvId: this.ocvId
+    });
+    if (!result) {
+      return;
+    }
+    this.financialAccounts = result.map((i) => {
+      let accNum = getAccoutProductkeys(
+        i.FinServ__FinancialAccount__r.Account_Key__c
+      );
+      return accNum;
+    });
+
+    this.populateAccountNumbers(this._omniData);
+  }
 
   createAccountOptions(accounts, issueTypeChange) {
     if (!Array.isArray(accounts)) {
@@ -136,8 +171,30 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
       });
     }
   }
+  createFinancialAccountOptions(finacialAccounts, issueTypeChange) {
+    if (!Array.isArray(finacialAccounts)) {
+      return;
+    }
+    if (issueTypeChange) {
+      this.options = this.getAccountNumbers(finacialAccounts);
+    } else {
+      this.options = finacialAccounts.map((i) => {
+        return { label: i, value: i };
+      });
+    }
+  }
 
   getAccountNumbers(data) {
+    if (this.hasError) {
+      return data
+        .filter((i) => !EXCL_ACC.includes(i))
+        .map((i) => {
+          return {
+            label: i,
+            value: i
+          };
+        });
+    }
     return data
       .filter((i) => !EXCL_ACC.includes(i.productCode))
       .map((i) => {
