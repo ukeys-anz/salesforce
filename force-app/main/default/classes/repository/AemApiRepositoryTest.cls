@@ -162,4 +162,24 @@ public with sharing class AemApiRepositoryTest {
     );
     return testRecordNotificationConfig;
   }
+
+  @isTest
+  static void testRemoveNonAlphanumericCharPositive() {
+    Pattern nonAlphanumeric = Pattern.compile('[^a-zA-Z0-9]');
+    String input = 'AEMREP1234*&^%$#@#$%:-?/';
+    Test.startTest();
+    String alphanumericData = TextUtils.removeNonAlphanumericChar(input);
+    Test.stopTest();
+    Matcher matcher = nonAlphanumeric.matcher(alphanumericData);
+    Assert.isFalse(matcher.find(), 'There are no special charectors');
+  }
+
+  @isTest
+  static void testRemoveNonAlphanumericCharNegative() {
+    String input = 'AEMREP1234';
+    Test.startTest();
+    String alphanumericData = TextUtils.removeNonAlphanumericChar(input);
+    Test.stopTest();
+    Assert.areEqual(input, alphanumericData, 'Input and Output is same');
+  }
 }
