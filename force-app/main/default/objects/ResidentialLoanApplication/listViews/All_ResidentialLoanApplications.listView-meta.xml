@@ -8,6 +8,11 @@
     <columns>Originated_By__c</columns>
     <columns>CreatedDate</columns>
     <columns>Owner_Name__c</columns>
+    <filters>
+        <field>RecordType</field>
+        <operation>equals</operation>
+        <value>ResidentialLoanApplication.Loan_Application</value>
+    </filters>
     <filterScope>Everything</filterScope>
     <label>All Home Loan Applications</label>
 </ListView>

@@ -5,7 +5,6 @@
  * @runTests ResidentialLoanAppActionsTest
  */
 public with sharing class ResidentialLoanApplicationActions {
-
   @TestVisible
   private static final String ACCREDITATION_RETAIL = 'Retail';
   @TestVisible
@@ -21,7 +20,6 @@ public with sharing class ResidentialLoanApplicationActions {
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
-
   /**
    * @description populate Assisted Broker for Retail Residential Loan Applications
    * @param records records to update
@@ -42,9 +40,6 @@ public with sharing class ResidentialLoanApplicationActions {
     );
   }
 
-  
-
- 
   /**
    * @description populate Assisted Broker for Retail Residential Loan Applications
    * @param records records to update
@@ -377,5 +372,37 @@ public with sharing class ResidentialLoanApplicationActions {
       }
     }
     return rlaRecordIds;
+  }
+
+  /**
+   * @description Set Loan Application validity when status of RLA is changed
+   * @param rlas Residential Loan application records from trigger
+   * @return List<ResidentialLoanApplication> list of RLA records with sunset timestamp calculated
+   */
+  public static List<ResidentialLoanApplication> setResidentialLoanApplicationValidity(
+    List<ResidentialLoanApplication> rlas
+  ) {
+    for (ResidentialLoanApplication rla : rlas) {
+      String recordTypeName = QueryRT.of(ResidentialLoanApplication.SObjectType)
+        .get(rla.recordTypeId)
+        .getName();
+      if (recordTypeName != 'RLS') {
+        continue;
+      }
+
+      Loan_Application_Validity__mdt loanApplicationValidityMDT = RLA_REPOSITORY.getLoanApplicationValidityMetadata(
+        recordTypeName,
+        rla.Status
+      );
+      if (loanApplicationValidityMDT == null) {
+        continue;
+      }
+
+      Date sunsetTimeStampDate = ResidentialLoanApplicationHelper.getLoanApplicationValidity(
+        loanApplicationValidityMDT
+      );
+      rla.SunsetTimestamp__c = sunsetTimeStampDate;
+    }
+    return rlas;
   }
 }

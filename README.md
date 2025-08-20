@@ -111,7 +111,6 @@ When you raise a PR against develop or master, the following jobs run:
 
 5. **Sysl Scan**
    This is to check no information is missed on field's metadata. ( Business Status, Integrity, Privacy, Source, description, and security classification)
-
    - Point: If the field is just a field that we use on backend, you can make the Business Status to be Hidden.
 
 ### Merge

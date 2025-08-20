@@ -12,6 +12,11 @@
         <operation>equals</operation>
         <value>STATE_CAPTURE,STATE_APPROVED,STATE_REFERRED,STATE_SUBMITTED,STATE_CONFIRMED,STATE_SETTLEMENT_INITATED</value>
     </filters>
+    <filters>
+        <field>RecordType</field>
+        <operation>equals</operation>
+        <value>ResidentialLoanApplication.Loan_Application</value>
+    </filters>
     <filterScope>Queue</filterScope>
     <label>All Unassigned Home Loan Application</label>
     <queue>Home_Loan_Applications_Queue</queue>
