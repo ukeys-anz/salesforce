@@ -135,9 +135,6 @@ private class CaseTriggerHandlerTest {
       );
 
       insert accnts;
-
-      //test data for Residential Loan Application
-      createResidentialLoanApps(accnts[0].Id);
     }
     insertTestAccountsForDisputeCases();
   }
@@ -430,83 +427,74 @@ private class CaseTriggerHandlerTest {
 
   @IsTest
   static void testCreditReferralEscalationStatus() {
+    String creditId = '000-000-000-000';
     Account acc = [SELECT Id FROM Account WHERE Name = 'CustomerRLA' LIMIT 1];
+    createResidentialLoanApplication(acc.Id, creditId);
 
     // GIVEN cases are created as not escalated
-    Case[] newCases = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = RTCase.creditReferral,
-          Status = GetHelpConstants.OPEN_STATUS,
-          AccountId = acc.Id,
-          Credit_Id__c = '000-000-000-00' + String.valueOf(i)
-        )
-      );
-    }
-    insert newCases;
+    Case referralCase = new Case(
+      RecordTypeId = RTCase.creditReferral,
+      Status = GetHelpConstants.OPEN_STATUS,
+      AccountId = acc.Id,
+      Credit_Id__c = creditId
+    );
+    insert referralCase;
 
     // WHEN they status set to escalated
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases[i].Status = GetHelpConstants.ESCALATED_STATUS;
-    }
-    update newCases;
+    referralCase.Status = GetHelpConstants.ESCALATED_STATUS;
+    update referralCase;
 
     // THEN check status and owner fields
-    Case c = [SELECT Status, OwnerId FROM Case WHERE Id = :newCases[0].Id];
+    referralCase = [
+      SELECT Status, OwnerId
+      FROM Case
+      WHERE Id = :referralCase.Id
+    ];
     System.assertEquals(
       'Escalated',
-      c.Status,
+      referralCase.Status,
       'Status should have been updated to Escalated '
     );
     System.assertEquals(
       GetHelpCaseActions.cadReferralQueue.Id,
-      c.OwnerId,
+      referralCase.OwnerId,
       'Escalated To should have assigned to CAD Referral Queue '
     );
   }
 
   @IsTest
   static void testCreditReferralDefaults() {
-    // WHEN Credit Referral is created
+    String creditId = '000-000-000-000';
     Account acc = [SELECT Id FROM Account WHERE Name = 'CustomerRLA' LIMIT 1];
+    ResidentialLoanApplication rla = createResidentialLoanApplication(
+      acc.Id,
+      creditId
+    );
 
-    ResidentialLoanApplication sampleRLA = [
-      SELECT Id, AccountId
-      FROM ResidentialLoanApplication
-      WHERE AccountId = :acc.Id
-      LIMIT 1
-    ];
-
-    Case[] newCases = new List<Case>();
-
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      Case c = TestDataFactory.createCase('Credit_Referral');
-      c.Credit_Id__c = '000-000-000-00' + String.valueOf(i);
-      c.AccountId = acc.Id;
-      newCases.add(c);
-    }
     Test.startTest();
-    insert newCases;
+    Case referralCase = TestDataFactory.createCase('Credit_Referral');
+    referralCase.Credit_Id__c = creditId;
+    referralCase.AccountId = acc.Id;
+    insert referralCase;
+    Test.stopTest();
 
     // Verify new case record has an account and loan application
-    Case sampleCase = [
+    referralCase = [
       SELECT Loan_Application__c, AccountId
       FROM Case
-      WHERE Id = :newCases[0].Id
+      WHERE Id = :referralCase.Id
       LIMIT 1
     ];
     System.assertEquals(
-      sampleRLA.Id,
-      sampleCase.Loan_Application__c,
+      rla.Id,
+      referralCase.Loan_Application__c,
       'Case application should be retrieved from the queried loan application upon inserting'
     );
     System.assertEquals(
-      sampleRLA.AccountId,
-      sampleCase.AccountId,
+      rla.AccountId,
+      referralCase.AccountId,
       'Case account should be retrieved from the queried loan application customer upon inserting'
     );
-    Test.stopTest();
   }
 
   @isTest
@@ -2300,36 +2288,35 @@ private class CaseTriggerHandlerTest {
   // Test Prevent BOH coach assigning invalid credit referral
   @isTest
   public static void testCreditReferralBOHInvalidAssignment() {
+    String creditId = '000-000-000-000';
     Account acc = [SELECT Id FROM Account WHERE Name = 'CustomerRLA' LIMIT 1];
+    createResidentialLoanApplication(acc.Id, creditId);
 
     User usr = TestUtil.getUserByFirstName('BOHCoachTest');
     User integrationUser = TestUtil.getUserByFirstName(
       'CreditRefIntegrationUser'
     );
-    List<Case> creditRefCases = new List<Case>();
+
     Group coachQueue = CommonUtil.getQueueByName(
       'No_CAD_Credit_Referral_Case_Queue'
     );
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      Case c = TestDataFactory.createCase('Credit_Referral');
-      c.OwnerId = coachQueue.Id;
-      c.Case_Authority_Level__c = 'CAD_0';
-      c.AccountId = acc.Id;
-      c.Credit_Id__c = '000-000-000-00' + String.valueOf(i);
-      creditRefCases.add(c);
-    }
+    Case referralCase = TestDataFactory.createCase('Credit_Referral');
+    referralCase.OwnerId = coachQueue.Id;
+    referralCase.Case_Authority_Level__c = 'CAD_0';
+    referralCase.AccountId = acc.Id;
+    referralCase.Credit_Id__c = creditId;
 
     System.runAs(integrationUser) {
-      insert creditRefCases;
+      insert referralCase;
     }
 
-    Case c = [SELECT Id FROM Case WHERE Id = :creditRefCases[0].Id];
+    referralCase = [SELECT Id FROM Case WHERE Id = :referralCase.Id];
 
     Test.startTest();
     System.runAs(usr) {
       try {
-        c.OwnerId = usr.Id;
-        update c;
+        referralCase.OwnerId = usr.Id;
+        update referralCase;
       } catch (Exception e) {
         System.assert(
           e.getMessage()
@@ -2346,78 +2333,79 @@ private class CaseTriggerHandlerTest {
   // Test BOH coach assigning credit referral
   @isTest
   public static void testCreditReferralBOHAssignment() {
+    String creditId = '000-000-000-000';
     Account acc = [SELECT Id FROM Account WHERE Name = 'CustomerRLA' LIMIT 1];
+    createResidentialLoanApplication(acc.Id, creditId);
 
     User usr = TestUtil.getUserByFirstName('BOHCoachTest');
     User integrationUser = TestUtil.getUserByFirstName(
       'CreditRefIntegrationUser'
     );
-    List<Case> creditRefCases = new List<Case>();
     Group coachQueue = CommonUtil.getQueueByName(
       'No_CAD_Credit_Referral_Case_Queue'
     );
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      Case c = TestDataFactory.createCase('Credit_Referral');
-      c.OwnerId = coachQueue.Id;
-      c.Case_Authority_Level__c = 'NO CAD';
-      c.AccountId = acc.Id;
-      c.Credit_Id__c = '000-000-000-00' + String.valueOf(i);
-      creditRefCases.add(c);
-    }
+
+    Case referralCase = TestDataFactory.createCase('Credit_Referral');
+    referralCase.OwnerId = coachQueue.Id;
+    referralCase.Case_Authority_Level__c = 'NO CAD';
+    referralCase.AccountId = acc.Id;
+    referralCase.Credit_Id__c = creditId;
 
     System.runAs(integrationUser) {
-      insert creditRefCases;
+      insert referralCase;
     }
 
-    Case c = [SELECT Id FROM Case WHERE Id = :creditRefCases[0].Id];
+    referralCase = [SELECT Id FROM Case WHERE Id = :referralCase.Id];
 
     Test.startTest();
     System.runAs(usr) {
-      c.OwnerId = usr.Id;
-      update c;
+      referralCase.OwnerId = usr.Id;
+      update referralCase;
     }
 
-    Assert.areEqual(usr.Id, c.OwnerId, 'Expected case owner to be boh coach');
+    Assert.areEqual(
+      usr.Id,
+      referralCase.OwnerId,
+      'Expected case owner to be boh coach'
+    );
     Test.stopTest();
   }
 
   // Test credit assessment officer assigning credit referral
   @isTest
   public static void testCreditReferralOfficerAssignment() {
+    String creditId = '000-000-000-000';
     Account acc = [SELECT Id FROM Account WHERE Name = 'CustomerRLA' LIMIT 1];
+    createResidentialLoanApplication(acc.Id, creditId);
 
     User usr = TestUtil.getUserByFirstName('CreditAssessmentOfficer');
     User integrationUser = TestUtil.getUserByFirstName(
       'CreditRefIntegrationUser'
     );
-    List<Case> creditRefCases = new List<Case>();
     Group coachQueue = CommonUtil.getQueueByName(
       'No_CAD_Credit_Referral_Case_Queue'
     );
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      Case c = TestDataFactory.createCase('Credit_Referral');
-      c.OwnerId = coachQueue.Id;
-      c.Case_Authority_Level__c = 'NO CAD';
-      c.AccountId = acc.Id;
-      c.Credit_Id__c = '000-000-000-00' + String.valueOf(i);
-      creditRefCases.add(c);
-    }
+    Case referralCase = TestDataFactory.createCase('Credit_Referral');
+    referralCase.OwnerId = coachQueue.Id;
+    referralCase.Case_Authority_Level__c = 'NO CAD';
+    referralCase.AccountId = acc.Id;
+    referralCase.Credit_Id__c = creditId;
 
     System.runAs(integrationUser) {
-      insert creditRefCases;
+      insert referralCase;
     }
 
-    Case c = [SELECT Id FROM Case WHERE Id = :creditRefCases[0].Id];
+    referralCase = [SELECT Id FROM Case WHERE Id = :referralCase.Id];
 
     Test.startTest();
     System.runAs(usr) {
-      c.OwnerId = usr.Id;
-      update c;
+      referralCase.OwnerId = usr.Id;
+      update referralCase;
     }
 
     Assert.areEqual(
       usr.Id,
-      c.OwnerId,
+      referralCase.OwnerId,
       'Expected case owner to be credit assessment officer'
     );
     Test.stopTest();
@@ -2426,36 +2414,35 @@ private class CaseTriggerHandlerTest {
   // Test Credit assessment lead invalid assign to boh
   @isTest
   public static void testCreditReferralLeadToBohInvalid() {
+    String creditId = '000-000-000-000';
     Account acc = [SELECT Id FROM Account WHERE Name = 'CustomerRLA' LIMIT 1];
+    createResidentialLoanApplication(acc.Id, creditId);
+
     User creditLead = TestUtil.getUserByFirstName('CreditLead');
     User bohCoach = TestUtil.getUserByFirstName('BOHCoachTest');
     User integrationUser = TestUtil.getUserByFirstName(
       'CreditRefIntegrationUser'
     );
-    List<Case> creditRefCases = new List<Case>();
     Group coachQueue = CommonUtil.getQueueByName(
       'No_CAD_Credit_Referral_Case_Queue'
     );
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      Case c = TestDataFactory.createCase('Credit_Referral');
-      c.OwnerId = coachQueue.Id;
-      c.Case_Authority_Level__c = 'CAD_0';
-      c.AccountId = acc.Id;
-      c.Credit_Id__c = '000-000-000-00' + String.valueOf(i);
-      creditRefCases.add(c);
-    }
+    Case referralCase = TestDataFactory.createCase('Credit_Referral');
+    referralCase.OwnerId = coachQueue.Id;
+    referralCase.Case_Authority_Level__c = 'CAD_0';
+    referralCase.AccountId = acc.Id;
+    referralCase.Credit_Id__c = creditId;
 
     System.runAs(integrationUser) {
-      insert creditRefCases;
+      insert referralCase;
     }
 
-    Case c = [SELECT Id FROM Case WHERE Id = :creditRefCases[0].Id];
+    referralCase = [SELECT Id FROM Case WHERE Id = :referralCase.Id];
 
     Test.startTest();
     System.runAs(creditLead) {
       try {
-        c.OwnerId = bohCoach.Id;
-        update c;
+        referralCase.OwnerId = bohCoach.Id;
+        update referralCase;
       } catch (Exception e) {
         System.assert(
           e.getMessage()
@@ -2467,5 +2454,18 @@ private class CaseTriggerHandlerTest {
       }
     }
     Test.stopTest();
+  }
+
+  private static ResidentialLoanApplication createResidentialLoanApplication(
+    Id accId,
+    String creditId
+  ) {
+    ResidentialLoanApplication rla = new ResidentialLoanApplication();
+    rla.Name = 'Test RLA 007';
+    rla.Credit_ID__c = creditId;
+    rla.AccountId = accId;
+    rla.RecordTypeId = RTResidentialLoanApplication.anzxHomeLoan;
+    insert rla;
+    return rla;
   }
 }

@@ -26,27 +26,49 @@ public with sharing class TwilioDetailActionTest {
 
   @isTest
   private static void testMaskSummaryWhenSummaryChanged() {
-    String oldSummary = 'Visible123';
-    String newSummary = 'Sensitive 1234-5678-9012-3456';
-
     List<Twilio_Details__c> newRecords = new List<Twilio_Details__c>{
-      createTwilioRecord(newSummary)
+      createTwilioRecord('Sensitive 1234-5678-9012-3456')
     };
-    Map<Id, Twilio_Details__c> oldMap = createOldMap(oldSummary);
+    Map<Id, Twilio_Details__c> oldMap = createOldMap('Visible123');
 
     Test.startTest();
     TwilioDetailAction.maskSummary(newRecords, oldMap);
     Test.stopTest();
 
     Assert.areNotEqual(
-      newSummary,
+      'Sensitive 1234-5678-9012-3456',
       newRecords[0].Summary__c,
       'Summary__c should be masked when changed'
     );
+
+    Assert.areEqual(
+      'Sensitive ************3456',
+      newRecords[0].Summary__c,
+      'Summary is not masked as expected'
+    );
+
     Assert.areNotEqual(
-      oldSummary,
+      'Visible123',
       newRecords[0].Summary__c,
       'Masked Summary__c should differ from old value'
+    );
+  }
+
+  @isTest
+  private static void testMaskSummaryWhenSummaryChangedInvalidKeywords() {
+    List<Twilio_Details__c> newRecords = new List<Twilio_Details__c>{
+      createTwilioRecord('Test 123123123')
+    };
+    Map<Id, Twilio_Details__c> oldMap = createOldMap('Visible123');
+
+    Test.startTest();
+    TwilioDetailAction.maskSummary(newRecords, oldMap);
+    Test.stopTest();
+
+    Assert.areEqual(
+      'Test 123123123',
+      newRecords[0].Summary__c,
+      'Summary should not be masked as it does not contains keywords'
     );
   }
 }

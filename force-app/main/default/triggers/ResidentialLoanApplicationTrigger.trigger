@@ -6,4 +6,5 @@ trigger ResidentialLoanApplicationTrigger on ResidentialLoanApplication(
 ) {
   ResidentialLoanApplicationTriggerHandler handler = new ResidentialLoanApplicationTriggerHandler();
   AnzxLoanApplicationTriggerHandler loanApplicationHandler = new AnzxLoanApplicationTriggerHandler();
+  RLSResidentialLoanAppTriggerHandler rlsHandler = new RLSResidentialLoanAppTriggerHandler();
 }
