@@ -29,8 +29,6 @@ public with sharing class ResidentialLoanAppTriggerHandlerTest {
 
   @isTest
   static void testLoanAppOwnerAssignment() {
-    Faker faker = new Faker('AU');
-
     Group homeLoanAppQueue = [
       SELECT Id
       FROM Group
@@ -105,6 +103,7 @@ public with sharing class ResidentialLoanAppTriggerHandlerTest {
       ResidentialLoanApplication loanApp = TestDataFactory.createTestResidentialLoanApplication(
         String.valueOf(i + 1)
       );
+      loanApp.RecordTypeId = RTResidentialLoanApplication.rlsResidentialLoanApplication;
       loanApp.Id = Lib_FakeIdGenerator.getMockId(
         ResidentialLoanApplication.SObjectType
       );

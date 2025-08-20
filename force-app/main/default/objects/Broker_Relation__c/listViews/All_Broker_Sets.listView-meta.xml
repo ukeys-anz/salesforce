@@ -6,12 +6,12 @@
     <columns>Primary_RBM__c</columns>
     <columns>State__c</columns>
     <columns>IsActive__c</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>RECORDTYPE</field>
         <operation>equals</operation>
         <value>Broker_Relation__c.Broker_Set</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>All Broker Sets</label>
     <sharedTo>
         <role>Enablement_Manager</role>

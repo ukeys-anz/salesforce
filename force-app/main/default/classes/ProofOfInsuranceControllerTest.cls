@@ -22,7 +22,7 @@ public with sharing class ProofOfInsuranceControllerTest {
         String.valueOf(i)
       );
       rla.AccountId = customer.Id;
-
+      rla.RecordTypeId = RTResidentialLoanApplication.anzxHomeLoan;
       newRLA.add(rla);
     }
     insert newRLA;
@@ -95,9 +95,7 @@ public with sharing class ProofOfInsuranceControllerTest {
     ];
     Test.startTest();
     try {
-      VerifyInsuranceModel response = ProofOfInsuranceController.verifyInsurance(
-        poi[0].Id
-      );
+      ProofOfInsuranceController.verifyInsurance(poi[0].Id);
       Assert.fail('Exception should be thrown');
     } catch (Exception e) {
       Assert.isTrue(

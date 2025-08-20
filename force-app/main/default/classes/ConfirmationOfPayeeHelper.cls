@@ -553,6 +553,7 @@ public with sharing class ConfirmationOfPayeeHelper {
    * @param caseDetails An object containing case details including CoP status, status change date, requestor name, and actioned by name.
    * @return String A rich-text formatted string containing the Confirmation of Payee details.
    */
+  @TestVisible
   private String getChatterMessageRichText(
     CaseDetailsContainer.CaseDetailsWithCoPStatus caseDetails
   ) {
