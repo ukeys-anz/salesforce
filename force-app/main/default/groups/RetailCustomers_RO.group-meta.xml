@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Group xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>Retail Customers RO</name>
+    <description>Public group to give read only access to all Retail Customer in ANZ</description>
+    <doesIncludeBosses>true</doesIncludeBosses>
+</Group>

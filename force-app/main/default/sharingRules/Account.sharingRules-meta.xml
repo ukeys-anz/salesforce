@@ -8,7 +8,7 @@
             <contactAccessLevel>Read</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>If ANZx Customer, ANZx and subordinates can view</description>
+        <description>If ANZx Customer, ANZx and subordinates can view </description>
         <label>ANZx Customer</label>
         <sharedTo>
             <roleAndSubordinates>ANZx</roleAndSubordinates>
@@ -299,6 +299,31 @@
             <field>IsPersonAccount</field>
             <operation>equals</operation>
             <value>True</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>ANZ_Retail_Customer_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>None</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>Read only access to all retail customers</description>
+        <label>ANZ Retail Customer RO</label>
+        <sharedTo>
+            <group>RetailCustomers_RO</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>IsPersonAccount</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>OCV_ID__c</field>
+            <operation>notEqual</operation>
+            <value/>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
