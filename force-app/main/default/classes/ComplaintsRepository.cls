@@ -89,6 +89,9 @@ public with sharing class ComplaintsRepository {
    * @return List<Account> the result of accounts
    */
   public List<Account> findAccountsByAccountIds(Set<Id> accountIds) {
+    if (accountIds.isEmpty()) {
+      return new List<Account>();
+    }
     return [
       SELECT
         Id,
@@ -125,5 +128,18 @@ public with sharing class ComplaintsRepository {
       return null;
     }
     return appInfos[0];
+  }
+  /**
+   * @description Get list of RecordTypes
+   * @param recordTypeIds Recordtype Ids
+   * @return List<RecordType>
+   */
+  public List<RecordType> getRecordTypes(Set<Id> recordTypeIds) {
+    return [
+      SELECT Id, Name, Description, DeveloperName
+      FROM RecordType
+      WHERE Id IN :recordTypeIds
+      WITH USER_MODE
+    ];
   }
 }

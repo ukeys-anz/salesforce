@@ -7,19 +7,29 @@ public with sharing class UpdateCustomerInformation {
   private static final ComplaintsRepository COMPLAINTS_REPOSITORY = (ComplaintsRepository) Lib_InstanceProvider.forType(
     ComplaintsRepository.class
   );
+  private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
+  private static final String NO_ACCESS = 'No Access';
+
   /**
    * @description  to handle update Customer Information.
    * @param records from trigger handler
    */
   public static void updateCustomer(List<Case> records) {
+    if (USER_INFO.checkProfile(NO_ACCESS)) {
+      return;
+    }
     Set<Id> accountIds = ListUtil.getIds(records, case.AccountId);
-
-    Map<Id, Account> accountList = new Map<Id, Account>(
+    Map<Id, Account> accountMap = new Map<Id, Account>(
       COMPLAINTS_REPOSITORY.findAccountsByAccountIds(accountIds)
     );
 
     for (Case c : records) {
-      Account acc = accountList.get(c.AccountId);
+      if (!accountMap.containsKey(c.AccountId)) {
+        continue;
+      }
+      Account acc = accountMap.get(c.AccountId);
       c.OCV_Id__c = acc.OCV_ID__c;
       c.IDR_CC_Country__c = getCountry(acc);
       c.IDR_CC_Age__c = DateTimeUtils.getAge(acc.PersonBirthDate);
