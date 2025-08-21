@@ -59,30 +59,52 @@ export default class AccountLookup extends OmniscriptBaseMixin(
       if (this.recId) {
         return this.recId;
       }
+
       const inContextVal = this.getURLParameterByName("inContextOfRef");
-      if (inContextVal) {
-        const context = JSON.parse(window.atob(inContextVal));
-        let recordIdFromURL = context.attributes.recordId;
-        let objectName = context.attributes.objectApiName;
-        if (objectName === "Account") {
-          this.recId = recordIdFromURL;
-          this.isDisabled = true;
-          this.setCaseAccountId();
-        }
-      } else {
-        const wsParam = this.pageReference.state.ws;
-        if (wsParam) {
-          const match = wsParam.match(/\/Account\/([a-zA-Z0-9]{15,18})\//);
-          if (match && match[1]) {
-            this.recId = match[1];
-            this.isDisabled = true;
-            this.setCaseAccountId();
-          }
-        }
+      const wsParam = this.pageReference?.state?.ws;
+
+      if (!wsParam) {
+        return null;
       }
+
+      if (!inContextVal) {
+        return this.extractAccountIdFromWs(wsParam);
+      }
+
+      return this.extractAccountIdFromContext(inContextVal);
     } catch (err) {
       this.recId = "";
+      return null;
     }
+  }
+
+  extractAccountIdFromWs(wsParam) {
+    const match = wsParam.match(/\/Account\/([a-zA-Z0-9]{15,18})\//);
+    if (!match?.[1]) {
+      return null;
+    }
+    this.recId = match?.[1];
+    this.isDisabled = true;
+    this.setCaseAccountId();
+    return this.recId;
+  }
+
+  extractAccountIdFromContext(inContextVal) {
+    const context = JSON.parse(window.atob(inContextVal));
+    let recordIdFromURL = context?.attributes?.recordId;
+    let objectName = context?.attributes?.objectApiName;
+
+    if (objectName !== "Account" && context?.state?.ws) {
+      const parts = context.state.ws.split("/");
+      this.recId = parts.length > 4 ? parts[4] : "";
+      this.isDisabled = true;
+      this.setCaseAccountId();
+      return this.recId;
+    }
+
+    this.recId = recordIdFromURL;
+    this.isDisabled = true;
+    this.setCaseAccountId();
     return this.recId;
   }
 
@@ -92,8 +114,6 @@ export default class AccountLookup extends OmniscriptBaseMixin(
   }
 
   setCaseAccountId() {
-    let Case = JSON.parse(JSON.stringify(this.omniJsonData.Case));
-    Case.AccountId = this.recId;
     this.omniApplyCallResp({ Case: { AccountId: this.recId } });
   }
 
@@ -104,7 +124,7 @@ export default class AccountLookup extends OmniscriptBaseMixin(
     regex = new RegExp("[?&]" + name + "(=1.([^&#]*)|&|#|$)");
     results = regex.exec(url);
     if (!results) return null;
-    if (!results[2]) return "";
+    if (!results?.[2]) return "";
     return decodeURIComponent(results[2].replace(/\+/g, " "));
   }
 
