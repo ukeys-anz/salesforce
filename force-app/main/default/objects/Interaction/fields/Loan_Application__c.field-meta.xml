@@ -5,7 +5,6 @@
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Loan Application record related with Interaction</description>
-    <inlineHelpText>Multiple applications can be linked after the interaction is saved.</inlineHelpText>
     <externalId>false</externalId>
     <label>Loan Application</label>
     <referenceTo>ResidentialLoanApplication</referenceTo>
