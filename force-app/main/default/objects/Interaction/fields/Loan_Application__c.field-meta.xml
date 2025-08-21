@@ -6,7 +6,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Loan Application record related with Interaction</description>
     <externalId>false</externalId>
-    <inlineHelpText>Multiple applications can be linked after the interaction is saved.</inlineHelpText>
     <label>Loan Application</label>
     <referenceTo>ResidentialLoanApplication</referenceTo>
     <relationshipLabel>Interactions</relationshipLabel>
