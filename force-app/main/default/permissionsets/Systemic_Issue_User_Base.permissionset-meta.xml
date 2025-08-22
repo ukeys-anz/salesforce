@@ -23,6 +23,26 @@
     <description>Baseline pset for Systemic Issues team members</description>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.ExtraCareReason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.ExtraCareNotes__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.ExtraCareReviewDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.ExtraCareTimePeriod__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Case_Age_in_Days__c</field>
         <readable>true</readable>
     </fieldPermissions>

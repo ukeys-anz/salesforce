@@ -4605,6 +4605,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Buyback</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>CGU</fullName>
             <default>false</default>
         </values>
@@ -4617,11 +4621,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Internal credit rating upgrade</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Netwealth</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>QBE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reinstatement</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4732,6 +4744,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Buyback</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>CGU</fullName>
             <default>false</default>
         </values>
@@ -4744,11 +4760,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Internal credit rating upgrade</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Netwealth</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>QBE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reinstatement</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4859,6 +4883,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Buyback</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>CGU</fullName>
             <default>false</default>
         </values>
@@ -4871,11 +4899,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Internal credit rating upgrade</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Netwealth</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>QBE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reinstatement</fullName>
             <default>false</default>
         </values>
         <values>
@@ -6577,23 +6613,15 @@
     <picklistValues>
         <picklist>IDR_Reason_for_re_opening__c</picklist>
         <values>
-            <fullName>1</fullName>
+            <fullName>6</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>2</fullName>
+            <fullName>7</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>3</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>4</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>5</fullName>
+            <fullName>8</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -7146,6 +7174,10 @@
             <fullName>130</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>131</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Subsequent_Issue_3__c</picklist>
@@ -7685,6 +7717,10 @@
             <fullName>130</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>131</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Subsequent_Issue__c</picklist>
@@ -8222,6 +8258,10 @@
         </values>
         <values>
             <fullName>130</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>131</fullName>
             <default>false</default>
         </values>
     </picklistValues>
