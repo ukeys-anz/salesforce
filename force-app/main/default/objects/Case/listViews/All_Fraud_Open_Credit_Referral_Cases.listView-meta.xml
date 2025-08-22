@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>All_CAD_Open_Credit_Referral_Cases</fullName>
+    <fullName>All_Fraud_Open_Credit_Referral_Cases</fullName>
     <columns>CASES.CASE_NUMBER</columns>
     <columns>ACCOUNT.NAME</columns>
     <columns>Loan_Application__c</columns>
@@ -9,28 +9,25 @@
     <columns>OWNER_NAME</columns>
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <filters>
-        <field>CASES.RECORDTYPE</field>
-        <operation>equals</operation>
-        <value>Case.Credit_Referral</value>
-    </filters>
-    <filters>
         <field>CASES.CLOSED</field>
         <operation>equals</operation>
         <value>0</value>
     </filters>
     <filters>
         <field>Case_Authority_Level__c</field>
-        <operation>notEqual</operation>
-        <value>NO CAD</value>
-    </filters>
-    <filters>
-        <field>Case_Authority_Level__c</field>
-        <operation>notEqual</operation>
+        <operation>equals</operation>
         <value>FRAUD</value>
     </filters>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Credit_Referral</value>
+    </filters>
     <filterScope>Everything</filterScope>
-    <label>All CAD Open Credit Referral Cases</label>
+    <label>All Fraud Open Credit Referral Cases</label>
     <sharedTo>
+        <role>BOH_Coach</role>
+        <role>BOH_Coach_Lead</role>
         <role>Business_Admin</role>
         <role>Coach</role>
         <role>Coach_Lead</role>
@@ -40,9 +37,8 @@
         <role>Join_Lead</role>
         <role>Quality_Analyst</role>
         <role>Quality_Capability_Lead</role>
-        <role>Support_Coach</role>
         <role>Settlement_Officer</role>
         <role>Settlement_Officer_Lead</role>
-        <role>BOH_Coach_Lead</role>
+        <role>Support_Coach</role>
     </sharedTo>
 </ListView>
