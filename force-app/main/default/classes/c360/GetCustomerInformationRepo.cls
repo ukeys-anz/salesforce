@@ -17,7 +17,7 @@ public with sharing class GetCustomerInformationRepo {
     String ocvId,
     Set<String> roleTypes
   ) {
-    if (String.isBlank(accId)) {
+    if (String.isBlank(accId) || String.isBlank(ocvId)) {
       return new List<FinServ__FinancialAccountRole__c>();
     }
     return [
@@ -28,8 +28,9 @@ public with sharing class GetCustomerInformationRepo {
       FROM FinServ__FinancialAccountRole__c
       WHERE
         (FinServ__RelatedAccount__c = :accId
-        OR FinServ__RelatedAccount__r.OCV_ID__c = :OcvId)
+        OR FinServ__RelatedAccount__r.OCV_ID__c = :ocvId)
         AND Role_Type__c IN :roleTypes
+      WITH USER_MODE
     ];
   }
 }
