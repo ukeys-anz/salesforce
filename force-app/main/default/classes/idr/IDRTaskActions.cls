@@ -226,19 +226,47 @@ public without sharing class IDRTaskActions {
    * @param taskRecs The Task record list.
    */
   private static void closeOldIDRMaximumTimeTasks(List<Task> taskRecs) {
+    Set<Id> currentTask = new Set<Id>();
     Map<Id, Id> caseTaskMap = new Map<Id, Id>();
     for (Task record : taskRecs) {
-      if (record.RecordTypeId == RTTask.idrSystemTask) {
+      if (record.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID) {
+        currentTask.add(record.Id);
         caseTaskMap.put(record.WhatId, record.Id);
       }
     }
 
     List<Task> oldTasks = new List<Task>();
-
-    oldTasks = TASK_REPOSITORY.getIDRNotificationTasks(caseTaskMap);
-
-    ListUtil.setField(oldTasks, Task.Status, IDRConstants.TASK_STATUS_EXPIRED);
-    DML_REPOSITORY.doUpdate(oldTasks, new DmlConfig());
+    if (
+      caseTaskMap.size() > 0 && Task.SObjectType.getDescribe().isQueryable()
+    ) {
+      oldTasks = [
+        SELECT Id, Status, Subject
+        FROM Task
+        WHERE
+          WhatId IN :caseTaskMap.keySet()
+          AND RecordTypeId = :IDRConstants.IDR_SYSTEM_TASK_RT_ID
+          AND Id NOT IN :currentTask
+          AND IsClosed = FALSE
+          AND Subject LIKE :TASK_SUBJECT_DAY1_SEARCH
+      ];
+    }
+    for (Task t : oldTasks) {
+      t.Status = IDRConstants.TASK_STATUS_EXPIRED;
+    }
+    if (oldTasks.size() > 0) {
+      if (
+        Task.SObjectType.getDescribe().isUpdateable() &&
+        Schema.SObjectType.Task.fields.Status.isUpdateable()
+      ) {
+        update oldTasks;
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'IDRTaskActions',
+          'closeOldIDRMaximumTimeTasks',
+          'Not enough permissions to update Task.'
+        );
+      }
+    }
   }
   /**
    * @description checkIDRMaximumTimeTasks will perform the following actions.
@@ -249,31 +277,36 @@ public without sharing class IDRTaskActions {
    */
   private static void checkIDRMaximumTimeTasks(List<Task> taskRecs) {
     List<Task> idrMaximumTimeTasks = new List<Task>();
+    Map<Id, Id> taskCaseMap = new Map<Id, Id>();
     Map<Id, String> caseTaskMap = new Map<Id, String>();
     Set<Id> caseIds = new Set<Id>();
     for (Task record : taskRecs) {
-      if (String.isEmpty(record.Subject)) {
-        continue;
+      if (
+        String.isNotEmpty(record.Subject) &&
+        record.Subject.contains(IDRConstants.TASK_SUBJECT_DAY1)
+      ) {
+        record.RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID;
+        record.Type = IDRConstants.TASK_TYPE_NOTIFICATION;
+        idrMaximumTimeTasks.add(record);
+        taskCaseMap.put(record.Id, record.WhatId);
+        caseIds.add(record.WhatId);
       }
-      if (record.Subject.contains(IDRConstants.TASK_AFCA_SUBJECT_DAY1)) {
-        record.RecordTypeId = RTTask.idrSystemTask;
+      if (
+        String.isNotEmpty(record.Subject) &&
+        record.Subject.contains(IDRConstants.TASK_AFCA_SUBJECT_DAY1)
+      ) {
+        record.RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID;
         record.Type = IDRConstants.TASK_TYPE_NOTIFICATION;
         caseIds.add(record.WhatId);
       }
       if (
-        (!record.Subject.contains(IDRConstants.TASK_SUBJECT_DAY1) &&
-        !record.Subject.contains(IDRConstants.TASK_SUBJECT_MAIL_OUTCOME))
+        record.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID &&
+        String.isNotEmpty(record.Subject) &&
+        (!caseTaskMap.keySet().contains(record.WhatId) ||
+        record.Subject.contains(IDRConstants.TASK_SUBJECT_DAY1))
       ) {
-        continue;
+        caseTaskMap.put(record.WhatId, record.Subject);
       }
-      record.RecordTypeId = RTTask.idrSystemTask;
-      record.Type = IDRConstants.TASK_TYPE_NOTIFICATION;
-      idrMaximumTimeTasks.add(record);
-      caseIds.add(record.WhatId);
-      if (caseTaskMap.keySet().contains(record.WhatId)) {
-        continue;
-      }
-      caseTaskMap.put(record.WhatId, record.Subject);
     }
 
     validateDueDate(idrMaximumTimeTasks, caseTaskMap);
@@ -377,40 +410,34 @@ public without sharing class IDRTaskActions {
    *
    * @param taskRecs List of task records.
    */
-  @TestVisible
   private static void closeMilestonesOfClosedTask(List<Task> taskRecs) {
-    List<Task> completedIDRTasksWithin1Day = ListUtil.filter(taskRecs)
-      .equals(Task.RecordTypeId, RTTask.idrSystemTask)
-      .equals(Task.Status, IDRConstants.TASK_STATUS_COMPLETED)
-      .contains(Task.Subject, IDRConstants.TASK_SUBJECT_DAY1)
-      .toList();
-
-    Set<Id> caseIdofIDRTasks = ListUtil.getIds(
-      completedIDRTasksWithin1Day,
-      Task.WhatId
-    );
-
-    List<Task> completedMailTasksWithin1Day = ListUtil.filter(taskRecs)
-      .equals(Task.RecordTypeId, RTTask.idrSystemTask)
-      .equals(Task.Status, IDRConstants.TASK_STATUS_COMPLETED)
-      .contains(Task.Subject, IDRConstants.TASK_SUBJECT_MAIL_OUTCOME)
-      .toList();
-
-    Set<Id> caseIdofMailTasks = ListUtil.getIds(
-      completedMailTasksWithin1Day,
-      Task.WhatId
-    );
-
-    List<CaseMilestone> cmsToUpdate = TASK_REPOSITORY.getMilestonesTobeCompleted(
-      caseIdofIDRTasks
-    );
-
-    cmsToUpdate.addAll(
-      TASK_REPOSITORY.getMailMilestoneTobeCompleted(caseIdofMailTasks)
-    );
-
-    ListUtil.setField(cmsToUpdate, CaseMilestone.CompletionDate, System.now());
-    DML_REPOSITORY.doUpdate(cmsToUpdate, new DmlConfig().systemMode());
+    Set<Id> caseIDSet = new Set<Id>();
+    for (Task t : taskRecs) {
+      if (
+        t.RecordTypeId != RTTask.idrSystemTask ||
+        t.Status != IDRConstants.TASK_STATUS_COMPLETED ||
+        !t.Subject.contains(IDRConstants.TASK_SUBJECT_DAY1)
+      ) {
+        continue;
+      }
+      caseIDSet.add(t.WhatId);
+    }
+    if (caseIDSet.isEmpty()) {
+      return;
+    }
+    try {
+      List<CaseMilestone> cmsToUpdate = TASK_REPOSITORY.getMilestonesTobeCompleted(
+        caseIDSet
+      );
+      ListUtil.setField(
+        cmsToUpdate,
+        CaseMilestone.CompletionDate,
+        System.now()
+      );
+      DML_REPOSITORY.doUpdate(cmsToUpdate, new DmlConfig().systemMode());
+    } catch (Exception e) {
+      Logger.error('Error occured while updating Milestones', e).save();
+    }
   }
 
   /**
@@ -724,36 +751,54 @@ public without sharing class IDRTaskActions {
    */
 
   public static void updateNotificationSubject(List<Task> records) {
-    Set<Id> caseIds = ListUtil.getIds(records, Task.WhatId);
-    Set<String> taskSubjects = new Set<String>{
-      IDRConstants.TASK_SUBJECT_DAY1,
-      IDRConstants.TASK_AFCA_SUBJECT_DAY1,
-      IDRConstants.TASK_SUBJECT_MAIL_OUTCOME
-    };
-
-    caseMapGlobal = new Map<Id, Case>(TASK_REPOSITORY.queryCases(caseIds));
-
+    Set<Id> caseIds = new Set<Id>();
     for (Task record : records) {
-      Case caseRecord = caseMapGlobal?.get(record.WhatId);
-
-      //Update case lookup
-      record.Case__c = caseRecord?.Id;
+      caseIds.add(record.WhatId);
+    }
+    if (caseMapGlobal == null || caseMapGlobal.size() == 0) {
+      caseMapGlobal = new Map<Id, Case>(
+        [
+          SELECT
+            Id,
+            CaseNumber,
+            IDR_NC_First_Name__c,
+            IDR_NC_Last_Name__c,
+            OwnerId,
+            BusinessHoursId,
+            IDR_Date_Received__c,
+            Priority
+          FROM Case
+          WHERE Id IN :caseIds
+        ]
+      );
+    }
+    for (Task record : records) {
+      Case caseObj = caseMapGlobal.get(record.WhatId);
+      if (caseObj != null) {
+        //Update case lookup
+        record.Case__c = caseObj.Id;
+      }
       if (
-        String.isblank(record.Subject) || !taskSubjects.contains(record.Subject)
+        String.isNotEmpty(record.Subject) &&
+        (record.Subject == IDRConstants.TASK_SUBJECT_DAY1 ||
+        record.Subject == IDRConstants.TASK_AFCA_SUBJECT_DAY1) &&
+        caseObj != null
       ) {
-        continue;
+        String customerName = '';
+        if (caseObj.IDR_NC_First_Name__c != null) {
+          customerName = caseObj.IDR_NC_First_Name__c + ' ';
+        }
+        if (caseObj.IDR_NC_Last_Name__c != null) {
+          customerName = customerName + caseObj.IDR_NC_Last_Name__c;
+        }
+        record.Subject = record.Subject + ' | ' + caseObj.CaseNumber;
+        if (customerName != '') {
+          record.Subject =
+            record.Subject +
+            ' | Customer Name : ' +
+            customerName;
+        }
       }
-
-      String customerName =
-        (caseRecord.IDR_NC_First_Name__c ?? '') +
-        (caseRecord.IDR_NC_Last_Name__c ?? '');
-
-      record.Subject += ' | ' + caseRecord.CaseNumber;
-
-      if (String.isblank(customerName)) {
-        continue;
-      }
-      record.Subject += ' | Customer Name : ' + customerName;
     }
   }
 

@@ -7,18 +7,12 @@ public with sharing class IDRTaskActionsRepository {
   public static final String TASK_TYPE_NOTIFICATION = 'Notification';
   public static final String MILESTONE_STANDARD = '30-day IDR Response Due';
   public static final String MILESTONE_PRIORITY = '21-day IDR Response Due';
-  public static final String MILESTONE_MAIL_OUTCOME = 'Mail Outcome Letter - Due';
   public static final String TASK_STATUS_COMPLETED = 'Completed';
   public static Set<String> allowedCaseStatuses = new Set<String>{
     IDRConstants.CLOSED_STATUS,
     IDRConstants.WITHDRAWN_STATUS,
     IDRConstants.RESOLVED_STATUS
   };
-  public static final String TASK_SUBJECT_DAY1_SEARCH =
-    IDRConstants.TASK_SUBJECT_DAY1 + '%';
-
-  public static final String TASK_SUBJECT_MAIL_SEARCH =
-    IDRConstants.TASK_SUBJECT_MAIL_OUTCOME + '%';
   /**
    * @description Query cases to get the ownerId
    * @param caseIds case Ids in current context
@@ -29,17 +23,10 @@ public with sharing class IDRTaskActionsRepository {
       return new List<Case>();
     }
     return [
-      SELECT
-        Id,
-        CaseNumber,
-        IDR_NC_First_Name__c,
-        IDR_NC_Last_Name__c,
-        OwnerId,
-        BusinessHoursId,
-        IDR_Date_Received__c,
-        Priority
+      SELECT Id, OwnerId, CaseNumber
       FROM Case
       WHERE Id IN :caseIds
+      WITH USER_MODE
     ];
   }
   /**
@@ -158,27 +145,6 @@ public with sharing class IDRTaskActionsRepository {
       LIMIT 1
     ];
   }
-
-  /**
-   * @description Method to get unclosed mail outcome milestone releated to complaint
-   * @param caseIDSet Set of Case Ids
-   * @return list of CaseMilestone
-   */
-  public List<CaseMilestone> getMailMilestoneTobeCompleted(Set<Id> caseIDSet) {
-    if (caseIDSet.isEmpty()) {
-      return new List<CaseMilestone>();
-    }
-    return [
-      SELECT Id, CompletionDate
-      FROM CaseMilestone cm
-      WHERE
-        CaseId IN :caseIDSet
-        AND cm.MilestoneType.Name = :MILESTONE_MAIL_OUTCOME
-        AND CompletionDate = NULL
-      WITH USER_MODE
-      LIMIT 1
-    ];
-  }
   /**
    * @description Method to get Tasks to be completed
    * @param  cases of Case Ids
@@ -232,28 +198,6 @@ public with sharing class IDRTaskActionsRepository {
         WhatId IN :caseIds
         AND RecordTypeId = :RTTask.idrTask
         AND Status != :TASK_STATUS_COMPLETED
-      WITH USER_MODE
-    ];
-  }
-  /**
-   * @description Method to get Existing Tasks
-   * @param caseTaskMap Map of Case Id and Task Id
-   * @return list of Tasks
-   */
-  public List<Task> getIDRNotificationTasks(Map<Id, Id> caseTaskMap) {
-    if (caseTaskMap.isEmpty()) {
-      return new List<Task>();
-    }
-    return [
-      SELECT Id, Status, Subject
-      FROM Task
-      WHERE
-        WhatId IN :caseTaskMap.keySet()
-        AND RecordTypeId = :RTTask.idrSystemTask
-        AND Id NOT IN :caseTaskMap.values()
-        AND IsClosed = FALSE
-        AND (Subject LIKE :TASK_SUBJECT_DAY1_SEARCH
-        OR Subject LIKE :TASK_SUBJECT_MAIL_SEARCH)
       WITH USER_MODE
     ];
   }
