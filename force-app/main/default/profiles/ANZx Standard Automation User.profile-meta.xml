@@ -7947,6 +7947,10 @@
         <recordType>Case.ATM_Dispute</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Account Closure Layout</layout>
+        <recordType>Case.Account_Closure</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Case Group Layout</layout>
         <recordType>Case.Case_Group</recordType>
     </layoutAssignments>
@@ -7955,16 +7959,20 @@
         <recordType>Case.Confirmation_Of_Payee</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Case-Account Closure Layout</layout>
-        <recordType>Case.Account_Closure</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>Case-ANZx Complaint Layout</layout>
         <recordType>Case.ANZx_Complaint</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Broker Enquiry Layout</layout>
+        <recordType>Case.Broker_Enquiry</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Credit Referral</layout>
         <recordType>Case.Credit_Referral</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Lending Layout</layout>
+        <recordType>Case.Lending</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Case-BPAY Dispute Layout</layout>
@@ -8021,6 +8029,10 @@
     <layoutAssignments>
         <layout>Case-Non-Customer Complaint Layout</layout>
         <recordType>Case.Non_Customer_Complaint</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-ReKYC QA Case Layout</layout>
+        <recordType>Case.ReKYC_QA_Case</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Case-NPP Dispute Layout</layout>
@@ -8091,9 +8103,6 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Customer_Action__c-Customer Action Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Customer_Action__c-Customer Action Layout</layout>
         <recordType>Customer_Action__c.Customer_Action</recordType>
     </layoutAssignments>
     <layoutAssignments>
@@ -8128,6 +8137,10 @@
     <layoutAssignments>
         <layout>Interaction-Interaction Layout</layout>
         <recordType>Interaction.General</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Interaction-RBM-Broker Interaction Layout</layout>
+        <recordType>Interaction.RBM_Broker_Interaction</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Interaction-Store Interaction Layout</layout>
@@ -8175,6 +8188,10 @@
         <recordType>Task.Coach_Nudge</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Task-Coach Connect</layout>
+        <recordType>Task.Coach_Connect</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Task-Compliance Task Layout</layout>
         <recordType>Task.Compliance_Task</recordType>
     </layoutAssignments>
@@ -8199,6 +8216,18 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>WorkTypeGroup-ANZ Work type Group Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-TrustMe eIDV QA Case Layout</layout>
+        <recordType>Case.TrustMe_eIDV_QA_Case</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-TrustMe eIDV Case Layout</layout>
+        <recordType>Case.TrustMe_eIDV_Case</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Task-Customer Nudge Layout</layout>
+        <recordType>Task.Customer_Nudge</recordType>
     </layoutAssignments>
     <loginIpRanges>
         <endAddress>255.255.255.255</endAddress>
@@ -9156,6 +9185,16 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>
+        <recordType>Case.Case_Group</recordType>
+        <visible>false</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Case.Confirmation_Of_Payee</recordType>
+        <visible>false</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
         <recordType>Case.Customer_Complaint</recordType>
         <visible>false</visible>
     </recordTypeVisibilities>
@@ -9378,6 +9417,11 @@
     <recordTypeVisibilities>
         <default>true</default>
         <recordType>ContentVersion.File</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>ContentVersion.DAON_TrustX_File</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabVisibilities>
