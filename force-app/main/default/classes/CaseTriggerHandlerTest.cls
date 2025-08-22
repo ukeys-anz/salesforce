@@ -17,6 +17,10 @@ private class CaseTriggerHandlerTest {
 
   private static Faker faker = new Faker('AU');
 
+  private static final Id FAKER_CASE_ID = Lib_FakeIdGenerator.getMockId(
+    Case.getSObjectType()
+  );
+
   //User as current user, to get around MIXED_DML_OPERATION error
   private static User thisUser = new User(Id = UserInfo.getUserId());
 
@@ -153,6 +157,30 @@ private class CaseTriggerHandlerTest {
         'UserRoleId' => role.Id
       }
     );
+  }
+
+  private static Case createMockCaseRecord(
+    Id recordTypeIdForCase,
+    String status
+  ) {
+    Case caseRecord = new Case();
+    caseRecord.Id = FAKER_CASE_ID;
+    caseRecord.OwnerId = QueryQueue.coachRefQueue.Id;
+    caseRecord.Credit_Id__c = '000-000-000-01';
+    caseRecord.Case_Authority_Level__c = 'NO CAD';
+    caseRecord.RecordTypeId = recordTypeIdForCase;
+    caseRecord.Status = status;
+    return caseRecord;
+  }
+
+  private static List<Case> createMockCaseRecordList(
+    Id recordTypeIdForCase,
+    String status
+  ) {
+    List<Case> caseRecordsList = new List<Case>();
+    Case caseRecord = createMockCaseRecord(recordTypeIdForCase, status);
+    caseRecordsList.add(caseRecord);
+    return caseRecordsList;
   }
 
   private static void insertPSAList(List<String> userPSList, String userId) {
@@ -427,38 +455,34 @@ private class CaseTriggerHandlerTest {
 
   @IsTest
   static void testCreditReferralEscalationStatus() {
-    String creditId = '000-000-000-000';
-    Account acc = [SELECT Id FROM Account WHERE Name = 'CustomerRLA' LIMIT 1];
-    createResidentialLoanApplication(acc.Id, creditId);
-
+    // GIVEN cases are created as escalated
+    List<Case> newCases = createMockCaseRecordList(
+      RTCase.creditReferral,
+      GetHelpConstants.ESCALATED_STATUS
+    );
     // GIVEN cases are created as not escalated
-    Case referralCase = new Case(
-      RecordTypeId = RTCase.creditReferral,
-      Status = GetHelpConstants.OPEN_STATUS,
-      AccountId = acc.Id,
-      Credit_Id__c = creditId
+    List<Case> oldCases = createMockCaseRecordList(
+      RTCase.creditReferral,
+      GetHelpConstants.OPEN_STATUS
     );
-    insert referralCase;
 
-    // WHEN they status set to escalated
-    referralCase.Status = GetHelpConstants.ESCALATED_STATUS;
-    update referralCase;
-
-    // THEN check status and owner fields
-    referralCase = [
-      SELECT Status, OwnerId
-      FROM Case
-      WHERE Id = :referralCase.Id
-    ];
-    System.assertEquals(
-      'Escalated',
-      referralCase.Status,
-      'Status should have been updated to Escalated '
+    Map<Id, Case> oldCasesMap = new Map<Id, Case>{
+      oldCases.get(0).Id => oldCases.get(0)
+    };
+    CaseTriggerHandler handler = new CaseTriggerHandler();
+    handler.records = newCases;
+    Test.startTest();
+    handler.onBeforeUpdate(oldCasesMap);
+    Test.stopTest();
+    // Assert that the error message is as expected
+    Assert.isTrue(
+      newCases[0].hasErrors(),
+      'Case should have errors related to status change'
     );
-    System.assertEquals(
-      GetHelpCaseActions.cadReferralQueue.Id,
-      referralCase.OwnerId,
-      'Escalated To should have assigned to CAD Referral Queue '
+    Assert.areEqual(
+      newCases[0].getErrors()[0].getMessage(),
+      'You can\'t change the status field to "Escalated". Please click "Escalate Case" to assign the case to another queue.',
+      'Validate Error message'
     );
   }
 
