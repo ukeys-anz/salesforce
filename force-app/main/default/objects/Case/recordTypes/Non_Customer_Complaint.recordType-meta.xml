@@ -6613,15 +6613,23 @@
     <picklistValues>
         <picklist>IDR_Reason_for_re_opening__c</picklist>
         <values>
-            <fullName>6</fullName>
+            <fullName>1</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>7</fullName>
+            <fullName>2</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>8</fullName>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
             <default>false</default>
         </values>
     </picklistValues>
