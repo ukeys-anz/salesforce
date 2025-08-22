@@ -12,7 +12,7 @@
         <label>Customer Details</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Readonly</behavior>
                 <field>IDR_Customer_Number__c</field>
             </layoutItems>
             <layoutItems>
@@ -20,7 +20,7 @@
                 <field>AccountId</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Readonly</behavior>
                 <field>IDR_Customer_Identifier__c</field>
             </layoutItems>
             <layoutItems>
