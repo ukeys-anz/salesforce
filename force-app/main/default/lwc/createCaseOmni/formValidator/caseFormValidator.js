@@ -86,8 +86,6 @@ function checkCustomerIdentifier(customerDetails) {
 }
 //Validate Account Lookup
 function checkAccountLookup(omniJsonData) {
-  debugger;
-  debugger;
   if (
     (omniJsonData.isEligibleAppForLookUp && !caseDetails.AccountId) ||
     (!omniJsonData.isEligibleAppForLookUp &&
@@ -121,7 +119,7 @@ function validateNonCustMap(Complaintdetails, caseDetails, omniJsonData) {
   if (caseDetails.CustomerDecision === "Agrees") {
     nonCustMap.push({ firstName: "First Name" });
     nonCustMap.push({ LastName: "Last Name" });
- }
+  }
   let temp = caseDetails.ResolutionInformation;
   if (
     temp.custWrittenResponse === CUSTOMER_AGREES ||
