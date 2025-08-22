@@ -27,10 +27,10 @@ export async function validate(omniJsonData) {
 //  Validate Customer Number
 export async function getCustomerNumberValidationMsg(
   omniJsonData,
-  missingFields
+  missingReqFields
 ) {
   let modalMsg =
-    "Please complete all required fields: " + missingFields.join(", ");
+    "Please complete all required fields: " + missingReqFields.join(", ");
   if (
     !omniJsonData.enableAccountLookUp &&
     omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
@@ -114,13 +114,13 @@ async function validateNonCustomerComplaint(omniJsonData) {
   }
 }
 //  Validate Required for Non-Customer Complaint if Customer Agrees
-function validateNonCustMap(Complaintdetails, caseDetails, omniJsonData) {
+function validateNonCustMap(Complaintdetails, caseDetail, omniJsonData) {
   let nonCustMap = JSON.parse(JSON.stringify(omniJsonData.nonCustMap));
-  if (caseDetails.CustomerDecision === "Agrees") {
+  if (caseDetail.CustomerDecision === "Agrees") {
     nonCustMap.push({ firstName: "First Name" });
     nonCustMap.push({ LastName: "Last Name" });
   }
-  let temp = caseDetails.ResolutionInformation;
+  let temp = caseDetail.ResolutionInformation;
   if (
     temp.custWrittenResponse === CUSTOMER_AGREES ||
     temp.complaintRelatedHardship === CUSTOMER_AGREES
@@ -133,22 +133,22 @@ function validateNonCustMap(Complaintdetails, caseDetails, omniJsonData) {
   checkFields(Complaintdetails, nonCustMap);
 }
 // Validate fields Common for Customer/Non-Customer Complaint
-function checkCommonValidations(Complaintdetails, caseDetails, omniJsonData) {
+function checkCommonValidations(Complaintdetails, caseDetail, omniJsonData) {
   itype = Complaintdetails.IssueType;
   subtype = Complaintdetails.SubSequentIssueType;
   let cmpMap = JSON.parse(JSON.stringify(omniJsonData.cmpMap));
   if (
-    caseDetails.CustomerDetails.expressCaseCreationCheckbox ===
+    caseDetail.CustomerDetails.expressCaseCreationCheckbox ===
       CUSTOMER_AGREES &&
-    !caseDetails.CustomerDetails.complaintAbout
+    !caseDetail.CustomerDetails.complaintAbout
   ) {
     missingFields.push("This Complaint Is About");
   }
-  if (caseDetails.CustomerDetails.thirdPartyRepCheckbox === CUSTOMER_AGREES) {
-    checkFields(caseDetails.CustomerDetails, omniJsonData.thirdPartyMap);
+  if (caseDetail.CustomerDetails.thirdPartyRepCheckbox === CUSTOMER_AGREES) {
+    checkFields(caseDetail.CustomerDetails, omniJsonData.thirdPartyMap);
   }
 
-  checkForAccountPolicyNumber(Complaintdetails, cmpMap, "1", caseDetails);
+  checkForAccountPolicyNumber(Complaintdetails, cmpMap, "1", caseDetail);
 
   if (Complaintdetails.Issue2Checkbox === CUSTOMER_AGREES) {
     let secCmpMap = JSON.parse(JSON.stringify(omniJsonData.secCmpMap));
@@ -173,9 +173,9 @@ function checkForAccountPolicyNumber(
   details,
   issueMap,
   issueNumber,
-  caseDetails
+  caseDetail
 ) {
-  if (caseDetails.isThisCustomerComplaint === CUSTOMER_AGREES) {
+  if (caseDetail.isThisCustomerComplaint === CUSTOMER_AGREES) {
     if (issueNumber === "1") {
       issueMap.push({
         AccountPolicyNumber: "Account/Policy Number"
@@ -225,12 +225,12 @@ async function validateResolutionInformation(omniJsonData) {
     checkFields(resolutionDetails, omniJsonData.escMap);
 }
 // Validate Issue Type
-function checkIssueType(caseDetails) {
+function checkIssueType(caseDetail) {
   if (
-    caseDetails.CustomerDecision !== "Disagrees" &&
-    caseDetails.ComplaintDetails.IssueType !== "4" &&
-    caseDetails.ComplaintDetails.IssueType2 !== "4" &&
-    caseDetails.ComplaintDetails.IssueType3 !== "4"
+    caseDetail.CustomerDecision !== "Disagrees" &&
+    caseDetail.ComplaintDetails.IssueType !== "4" &&
+    caseDetail.ComplaintDetails.IssueType2 !== "4" &&
+    caseDetail.ComplaintDetails.IssueType3 !== "4"
   ) {
     return true;
   }
