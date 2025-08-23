@@ -468,6 +468,10 @@
         <name>FinancialAccountUIConfiguration__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
+    <customPermissions>
+        <name>Manage_Referrals_in_CRM</name>
+        <enabled>true</enabled>
+    </customPermissions>
     <description>Baseline pset for using the AR&amp;C Commercial CRM app. </description>
     <fieldPermissions>
         <editable>true</editable>
