@@ -451,6 +451,24 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
+        <content>Commercial_Application_Form_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>ApplicationForm</pageOrSobjectType>
+        <recordType>ApplicationForm.OCP</recordType>
+        <type>Flexipage</type>
+        <profile>ANZ CCRM Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Commercial_Application_Form_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>ApplicationForm</pageOrSobjectType>
+        <recordType>ApplicationForm.OCP</recordType>
+        <type>Flexipage</type>
+        <profile>ANZ CCRM Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
         <content>Commercial_Application_Form_Product_Record_Page</content>
         <formFactor>Small</formFactor>
         <pageOrSobjectType>ApplicationFormProduct</pageOrSobjectType>

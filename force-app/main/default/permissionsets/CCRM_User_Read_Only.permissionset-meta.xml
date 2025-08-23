@@ -473,6 +473,10 @@
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
     <customPermissions>
+        <name>CCRM_Hide_Launch_Application</name>
+        <enabled>true</enabled>
+    </customPermissions>
+    <customPermissions>
         <name>CCRM_Read_Only_User_Access</name>
         <enabled>true</enabled>
     </customPermissions>
@@ -9774,6 +9778,10 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>ApplicationForm.Internal_Application</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>ApplicationForm.OCP</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

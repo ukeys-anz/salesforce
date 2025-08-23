@@ -10,10 +10,12 @@ public with sharing class RTApplicationForm {
   public static Id ambitApplication = base.getId('AMBIT');
   public static Id bbdApplication = base.getId('BBD');
   public static Id acmApplication = base.getId('ACM');
+  public static Id ocpApplication = base.getId('OCP');
   public static Id internalApplication = base.getId('Internal_Application');
   public static String ambitApplicationName = base.get(ambitApplication).Name;
   public static String bbdApplicationName = base.get(bbdApplication).Name;
   public static String acmApplicationName = base.get(acmApplication).Name;
   public static String internalApplicationName = base.get(internalApplication)
     .Name;
+  public static String ocpApplicationName = base.get(ocpApplication).Name;
 }

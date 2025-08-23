@@ -9381,6 +9381,10 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <recordType>ApplicationForm.OCP</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>ApplicationForm.ACM</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>

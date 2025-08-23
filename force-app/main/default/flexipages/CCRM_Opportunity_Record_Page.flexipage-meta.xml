@@ -74,6 +74,13 @@
                         </valueListItems>
                         <valueListItems>
                             <value>Opportunity.Launch_Application</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.CCRM_Hide_Launch_Application}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>false</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>

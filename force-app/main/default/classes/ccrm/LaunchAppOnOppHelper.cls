@@ -153,6 +153,13 @@ public with sharing class LaunchAppOnOppHelper {
       opps
     );
     typesList.add(internalAppRTWrapper);
+    LaunchAppOnOppController.RecordTypeWrapper ocpRTWrapper = new LaunchAppOnOppController.RecordTypeWrapper(
+      RTApplicationForm.ocpApplicationName,
+      RTApplicationForm.ocpApplication,
+      true,
+      opps
+    );
+    typesList.add(ocpRTWrapper);
     return typesList;
   }
 
