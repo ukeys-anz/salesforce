@@ -6,24 +6,65 @@
  * @group Person Digital Entity
  */
 public with sharing class PDIAccessControlDataRepository extends PDIDataConnection.DataRepositoryBase {
+  private static final PDIRepository QUERY = (PDIRepository) Lib_InstanceProvider.forType(
+    PDIRepository.class
+  );
+
   private static final PDIApiRepository REPO = (PDIApiRepository) Lib_InstanceProvider.forType(
     PDIApiRepository.class
+  );
+
+  private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
+
+  static final Map<String, String> MAPPER_CHANNEL_IN = new Map<String, String>{
+    'EDGE_AUTH_CHANNEL_COMPANION' => 'Web Banking',
+    'EDGE_AUTH_CHANNEL_PRIMARY' => 'Primary Device'
+  };
+  static final Map<String, String> MAPPER_CHANNEL_OUT = PDIHelper.flipMap(
+    MAPPER_CHANNEL_IN
+  );
+  static final Map<String, String> MAPPER_POLICY_IN = new Map<String, String>{
+    'POLICY_DENY' => 'Deny',
+    'POLICY_CONDITIONAL' => 'Conditional'
+  };
+  static final Map<String, String> MAPPER_POLICY_OUT = PDIHelper.flipMap(
+    MAPPER_POLICY_IN
   );
 
   @TestVisible
   protected override List<CalloutModel> doQuery(
     DataSource.QueryContext context
   ) {
-    return REPO.getAccessControls(
-      PDIHelper.getCustomerUuid(context.tableSelection.filter),
-      null
-    );
+    String uuid = PDIHelper.getCustomerUuid(context.tableSelection.filter);
+    return REPO.getAccessControls(uuid, null);
   }
 
   @TestVisible
   protected override void doDelete(String externalId) {
+    AccessControl__x record = QUERY.getAccessControlByExternalId(externalId);
+    if (canDelete(record) == false) {
+      return;
+    }
     String customerUuid = PDIHelper.parseResourcePath(externalId, 'person');
     REPO.deleteAccessControl(customerUuid, externalId);
+  }
+
+  @TestVisible
+  private static Boolean canDelete(AccessControl__x record) {
+    if (record == null) {
+      return false;
+    }
+    if (record.DeviceCorrelationId__c == null) {
+      return true;
+    }
+    if (USER_INFO.checkRole('Join_Lead')) {
+      return true;
+    }
+    throw new RepositoryBase.InsufficientAccessException(
+      'You do not have permission to delete this access control.'
+    );
   }
 
   @TestVisible
@@ -31,9 +72,11 @@ public with sharing class PDIAccessControlDataRepository extends PDIDataConnecti
     String customerUuid = (String) row.get('PersonId');
     PDIApiModel.AccessControl accessControl = new PDIApiModel.AccessControl();
     accessControl.name = (String) row.get('ExternalId');
-    accessControl.policy = (String) row.get('Policy');
+    accessControl.policy = MAPPER_POLICY_OUT.get((String) row.get('Policy'));
     accessControl.match = new PDIApiModel.AccessControlMatchCriteria();
-    accessControl.match.authChannel = (String) row.get('Channel');
+    accessControl.match.authChannel = MAPPER_CHANNEL_OUT.get(
+      (String) row.get('Channel')
+    );
     accessControl.match.personaId = (String) row.get('PersonaId');
     if (accessControl.policy == 'POLICY_CONDITIONAL') {
       accessControl.conditionalAdvice = new PDIApiModel.AccessControlConditionalAdvice();
@@ -54,27 +97,62 @@ public with sharing class PDIAccessControlDataRepository extends PDIDataConnecti
   }
 
   @TestVisible
+  protected override virtual List<Map<String, Object>> transform(
+    List<CalloutModel> records
+  ) {
+    List<Map<String, Object>> mappedRecords = super.transform(records);
+    if (isDeviceLinkingRequired(mappedRecords) == false) {
+      return mappedRecords;
+    }
+    String personId = (String) mappedRecords[0].get('PersonId');
+    List<Device__x> devices = QUERY.getDevicesByPersonId(personId);
+    linkDevices(mappedRecords, devices);
+    return mappedRecords;
+  }
+
+  @TestVisible
+  private static void linkDevices(
+    List<Map<String, Object>> records,
+    List<Device__x> devices
+  ) {
+    Map<String, Device__x> deviceByCorrelationId = (Map<String, Device__x>) ListUtil.mapBy(
+      devices,
+      Device__x.DeviceCorrelationId__c
+    );
+    for (Map<String, Object> record : records) {
+      String dci = (String) record.get('DeviceCorrelationId');
+      Device__x device = deviceByCorrelationId.get(dci);
+      if (device == null) {
+        continue;
+      }
+      record.put('Device', device.ExternalId);
+    }
+  }
+
+  @TestVisible
+  private static Boolean isDeviceLinkingRequired(
+    List<Map<String, Object>> records
+  ) {
+    for (Map<String, Object> record : records) {
+      if (record.get('DeviceCorrelationId') != null) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  @TestVisible
   protected override Map<String, Object> transform(CalloutModel apiRecord) {
     if ((apiRecord instanceof PDIApiModel.AccessControl) == false) {
       return null;
     }
     PDIApiModel.AccessControl record = (PDIApiModel.AccessControl) apiRecord;
-    Map<String, String> channelLabels = CommonUtil.getPicklistLabelsByValues(
-      AccessControl__x.Channel__c
-    );
-    Map<String, String> policyLabels = CommonUtil.getPicklistLabelsByValues(
-      AccessControl__x.Policy__c
-    );
     String authChannel = record.match?.authChannel;
+    String channel = MAPPER_CHANNEL_IN.get(authChannel) ?? authChannel;
+    String policy = MAPPER_POLICY_IN.get(record.policy) ?? record.policy;
     return new Map<String, Object>{
-      'Name' => TextUtils.concat(
-        new List<String>{
-          channelLabels.get(authChannel) ?? authChannel,
-          policyLabels.get(record.policy) ?? record.policy
-        },
-        ' - '
-      ),
-      'Channel' => authChannel,
+      'Name' => TextUtils.concat(new List<String>{ channel, policy }, ' - '),
+      'Channel' => channel,
       'CreatedBy' => record.createdBy,
       'CreatedTime' => record.createdAt,
       'DeleteWhenMet' => record.conditionalAdvice?.deleteWhenMet,
@@ -83,7 +161,7 @@ public with sharing class PDIAccessControlDataRepository extends PDIDataConnecti
       'MinimumAAL' => record.conditionalAdvice?.minimumAal,
       'PersonId' => PDIHelper.parseResourcePath(record.name, 'person'),
       'PersonaId' => record.match?.personaId,
-      'Policy' => record.policy
+      'Policy' => policy
     };
   }
 }

@@ -959,7 +959,7 @@
         <sharedTo>
             <role>Onboarding_Support_Read_Only</role>
         </sharedTo>
-        <booleanFilter>1 OR (2 AND 3)</booleanFilter>
+        <booleanFilter>(1 OR 4) OR (2 AND 3)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -974,6 +974,11 @@
             <field>Type</field>
             <operation>equals</operation>
             <value>Account Closure</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>PIN Recovery,Selfie Recovery</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

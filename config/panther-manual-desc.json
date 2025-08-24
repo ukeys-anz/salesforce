@@ -251,6 +251,7 @@
         "CreatedBy__c",
         "CreatedTime__c",
         "DeleteWhenMet__c",
+        "Device__c",
         "DeviceCorrelationId__c",
         "MinimumAAL__c",
         "Name__c",
