@@ -112,9 +112,10 @@ private class RetailBrokerContactTriggerHandlerTest {
     testContacts[0].OCV_Event_Version__c = null;
     testContacts[0].Sync_Status__c = null;
     Contact oldContact = testContacts[0];
+    oldContact.OCV_Event_Version__c = 1;
 
     testContacts[1].Id = oldContact.Id;
-    testContacts[1].OCV_Event_Version__c = 1;
+    testContacts[1].OCV_Event_Version__c = 2;
     testContacts[1].Sync_Status__c = 'Broker Org';
     testContacts[1].CommercialTPMISAO__c = 'CommTMPITest001';
     Contact contactNew = testContacts[1];

@@ -18,6 +18,12 @@ private class RetailBrokerContactActionsTest {
   private static final Lib_MockProvider USER_INFO_REPOSITORY_MOCK = Lib_MockProvider.forType(
     UserInfoRepository.class
   );
+  private static final Lib_MockProvider BROKER_CODE_REPOSITORY = Lib_MockProvider.forType(
+    BrokerCodeRepository.class
+  );
+  static Lib_MockProvider dmlRepoMock = Lib_MockProvider.forType(
+    DMLRepository.class
+  );
   private static final Id RECORD_TYPE_ID_BROKER = RTContact.broker;
 
   static Contact createTestContact() {
@@ -28,7 +34,10 @@ private class RetailBrokerContactActionsTest {
     testContact.RecordTypeId = RECORD_TYPE_ID_BROKER;
     return testContact;
   }
-
+  static Broker_Code__c createBrokerCode() {
+    Broker_Code__c brokCode = new Broker_Code__c();
+    return brokCode;
+  }
   @IsTest
   static void testPublishBrokerEvents() {
     USER_INFO_REPOSITORY_MOCK.mock('checkCustomPermission', true);
@@ -41,7 +50,6 @@ private class RetailBrokerContactActionsTest {
     contactOld.OCV_Event_Version__c = null;
     contactOld.Sync_Status__c = null;
 
-    //Test on add
     Contact contactNew = createTestContact();
     contactNew.Id = contactOld.Id;
     contactNew.OCV_Event_Version__c = 1;
@@ -93,9 +101,9 @@ private class RetailBrokerContactActionsTest {
       CloudEventController.cloudEvents[0].Data_1__c
     );
     Assert.areEqual(
-      'anzx.salesforce.broker.v1alpha1.brokerdata.update',
+      'anzx.salesforce.broker.v1alpha1.brokerdata.add',
       (String) cloudEventmap.get('ce_type'),
-      'Event generated should be of type - update'
+      'Event generated should be of type - add'
     );
   }
 
@@ -123,7 +131,7 @@ private class RetailBrokerContactActionsTest {
       'The size of the result should be the same as the input'
     );
     Assert.areEqual(
-      RetailBrokerContactActions.SYNC_STATUS_BROKER_ORG,
+      BrokerConstants.SYNC_STATUS_BROKER_ORG,
       results[0].Sync_Status__c,
       'The sync status should be set to Broker Org'
     );
@@ -171,30 +179,6 @@ private class RetailBrokerContactActionsTest {
   }
 
   @IsTest
-  static void testIsSyncStatusValidForPublishing() {
-    Contact contactNew = createTestContact();
-    contactNew.Sync_Status__c = null;
-    Assert.isFalse(
-      RetailBrokerContactActions.isSyncStatusValidForPublishing(
-        contactNew,
-        null,
-        ''
-      ),
-      'Contact should not be an eligible broker contact for publishing'
-    );
-
-    contactNew.Sync_Status__c = 'Broker Org';
-    Assert.isFalse(
-      RetailBrokerContactActions.isSyncStatusValidForPublishing(
-        contactNew,
-        null,
-        ''
-      ),
-      'Contact should not be an eligible broker contact for publishing'
-    );
-  }
-
-  @IsTest
   static void testGetAction() {
     Contact contactOld = createTestContact();
     contactOld.OCV_Event_Version__c = 0;
@@ -206,64 +190,11 @@ private class RetailBrokerContactActionsTest {
       'Action type should be blank, neither add nor update'
     );
     contactNew.OCV_Event_Version__c = 1;
+    contactNew.Sync_Status__c = BrokerConstants.SYNC_STATUS_BROKER_ORG;
     Assert.areEqual(
       'add',
       RetailBrokerContactActions.getAction(contactNew, contactOld),
       'Action type should be blank, neither add nor update'
-    );
-  }
-
-  @IsTest
-  static void testIsSyncStatusEligibleForUpdate() {
-    Contact contactOld = createTestContact();
-    contactOld.OCV_Event_Version__c = null;
-    Contact contactNew = createTestContact();
-    contactNew.OCV_Event_Version__c = 0;
-    Assert.isFalse(
-      RetailBrokerContactActions.isSyncStatusEligibleForUpdate(
-        contactNew,
-        contactOld
-      ),
-      'Contact should not be eligible for update Sync Status'
-    );
-
-    contactNew.OCV_Event_Version__c = 1;
-    contactOld.Sync_Status__c = 'Broker Org';
-    Assert.isFalse(
-      RetailBrokerContactActions.isSyncStatusEligibleForUpdate(
-        contactNew,
-        contactOld
-      ),
-      'Contact should not be eligible for update Sync Status'
-    );
-    contactOld.Sync_Status__c = 'Blocked';
-    contactNew.Sync_Status__c = 'Blocked';
-    Assert.isFalse(
-      RetailBrokerContactActions.isSyncStatusEligibleForUpdate(
-        contactNew,
-        contactOld
-      ),
-      'Contact should not be eligible for update Sync Status'
-    );
-
-    contactOld.Sync_Status__c = 'Blocked';
-    contactNew.Sync_Status__c = 'Broker Org';
-    Assert.isFalse(
-      RetailBrokerContactActions.isSyncStatusEligibleForUpdate(
-        contactNew,
-        contactOld
-      ),
-      'Contact should not be eligible for update Sync Status'
-    );
-
-    contactOld.Sync_Status__c = 'Blocked';
-    contactNew.Sync_Status__c = null;
-    Assert.isTrue(
-      RetailBrokerContactActions.isSyncStatusEligibleForUpdate(
-        contactNew,
-        contactOld
-      ),
-      'Contact should be eligible for update Sync Status'
     );
   }
 
@@ -353,19 +284,16 @@ private class RetailBrokerContactActionsTest {
 
   @IsTest
   static void testBlankAggregatorOnBrokerSetChange() {
-    // Prepare test data
-    List<Contact> newContacts = createTestContacts(5); // 5 new contacts
-    List<Contact> oldContacts = newContacts.deepClone(true); // Clone the contacts for oldMap
+    List<Contact> newContacts = createTestContacts(5);
+    List<Contact> oldContacts = newContacts.deepClone(true);
 
-    // Modify some Broker_Set__c values to simulate a change
     oldContacts[0].Broker_Set__c = Lib_FakeIdGenerator.getMockId(
       Broker_Relation__c.SObjectType
-    ); //  change Id
+    );
 
-    // Create the oldMap from the cloned list
     Map<Id, Contact> oldMap = new Map<Id, Contact>(oldContacts);
+    USER_INFO_REPOSITORY_MOCK.mock('checkProfile', false);
 
-    // Call the method under test
     Test.startTest();
     RetailBrokerContactActions.setBlankOfficeGroupOnChangeBrokerSet(
       newContacts,
@@ -381,6 +309,181 @@ private class RetailBrokerContactActionsTest {
     Assert.isNotNull(
       newContacts[3].Office_Group__c,
       'Office_Group__c should not be null for contact 4'
+    );
+  }
+
+  @IsTest
+  static void testContactMergeEvent() {
+    List<Contact> newContacts = createTestContacts(2);
+
+    newContacts[0].Sync_Status__c = BrokerConstants.SYNC_STATUS_BROKER_ORG;
+    newContacts[0].External_Id__c = 'exIdContactTest001';
+    newContacts[1].External_Id__c = 'exIdContactTest002';
+    newContacts[1].Sync_Status__c = BrokerConstants.SYNC_STATUS_BLOCKED;
+    List<Contact> oldContacts = newContacts.deepClone(true);
+    newContacts[0].Survivor_Party_Id__c = newContacts[1].External_Id__c;
+    newContacts[0].Victim_Party_Id__c = newContacts[0].External_Id__c;
+    Broker_Code__c brokerCode = createBrokerCode();
+    brokerCode.Broker_Name__c = newContacts[0].Id;
+    BROKER_CODE_REPOSITORY.mock(
+      'getRelatedBrokerCodes',
+      new List<Broker_Code__c>{ brokerCode }
+    );
+    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
+      'queryContactRecordsByExternalIds',
+      new List<Contact>{ newContacts[1] }
+    );
+
+    Test.startTest();
+    RetailBrokerContactActions.contactMergeEvent(
+      newContacts,
+      new Map<Id, Contact>(oldContacts)
+    );
+    Test.stopTest();
+    List<Broker_Code__c> deletebrokerCode = (List<Broker_Code__c>) dmlRepoMock.getHistory(
+        'doDelete'
+      )
+      .getParam('records');
+    List<Contact> updatedBrokerContacts = (List<Contact>) dmlRepoMock.getHistory(
+        'doUpdate'
+      )
+      .getParam('records');
+    Assert.areEqual(
+      1,
+      deletebrokerCode.size(),
+      'Must have one Broker code to delete'
+    );
+    Assert.areEqual(
+      1,
+      updatedBrokerContacts.size(),
+      'Must have one Contact to Update'
+    );
+  }
+
+  @IsTest
+  static void testcheckDuplicateContacts() {
+    List<Contact> newContacts = createTestContacts(2);
+    newContacts[0].Email = 'testEmail.com';
+    newContacts[0].OCV_ID__c = '123456';
+    newContacts[1].Email = 'testEmail.com';
+    newContacts[1].OCV_ID__c = '123456';
+    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
+      'getDuplicateContacts',
+      new List<Contact>{ newContacts[0] }
+    );
+    Test.startTest();
+    RetailBrokerContactActions.checkDuplicateContacts(
+      new List<Contact>{ newContacts[1] }
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      newContacts[1].Sync_Status__c,
+      BrokerConstants.SYNC_STATUS_DUPLICATE_EMAIL +
+        ';' +
+        BrokerConstants.SYNC_STATUS_DUPLICATE_OCVID,
+      'Sync Status should contain Duplicate status'
+    );
+  }
+
+  @IsTest
+  static void testUpdateAssistedBrokerLookup() {
+    List<Contact> newContacts = createTestContacts(1);
+    ResidentialLoanApplication rla = new ResidentialLoanApplication();
+    rla.Assisted_Broker_TPMI_SAO__c = 'Retail-Active';
+
+    FinServ__FinancialAccount__c finServAcc = new FinServ__FinancialAccount__c();
+    finServAcc.Assisted_Broker_TPMI_SAO__c = 'Retail-Active';
+
+    List<Contact> oldContacts = newContacts.deepClone(true);
+    oldContacts[0].RetailTPMISAO__c = 'Retail-Active-Old';
+    oldContacts[0].Broker_Accreditation_Type__c = 'Commerical';
+    newContacts[0].RetailTPMISAO__c = 'Retail-Active';
+    newContacts[0].Broker_Accreditation_Type__c = 'Retail;Commerical';
+    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
+      'getRelatedOrphanResidentialApplications',
+      new List<ResidentialLoanApplication>{ rla }
+    );
+    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
+      'getContactsByTMPI',
+      new List<contact>{ newContacts[0] }
+    );
+    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
+      'getRelatedOrphanFinancialAccounts',
+      new List<FinServ__FinancialAccount__c>{ finServAcc }
+    );
+
+    Test.startTest();
+    RetailBrokerContactActions.updateAssistedBrokerLookup(
+      new Map<Id, Contact>{ newContacts[0].Id => newContacts[0] },
+      new Map<Id, Contact>(oldContacts)
+    );
+    Test.stopTest();
+
+    Assert.isNotNull(
+      rla.Assisted_Broker__c,
+      'Assisted Broker should be populated'
+    );
+    Assert.areEqual(
+      newContacts[0].Id,
+      rla.Assisted_Broker__c,
+      'Assisted Broker should be updated'
+    );
+  }
+
+  @IsTest
+  static void testProcessDataMerge() {
+    List<Contact> newContacts = createTestContacts(2);
+
+    newContacts[0].Sync_Status__c = BrokerConstants.SYNC_STATUS_BROKER_ORG;
+    newContacts[0].External_Id__c = 'exIdContactTest001';
+    newContacts[1].External_Id__c = 'exIdContactTest002';
+    newContacts[1].Sync_Status__c = BrokerConstants.SYNC_STATUS_DUPLICATE_EMAIL;
+
+    List<Contact> oldContacts = newContacts.deepClone(true);
+    newContacts[0].Survivor_Party_Id__c = newContacts[1].External_Id__c;
+    newContacts[0].Victim_Party_Id__c = newContacts[0].External_Id__c;
+
+    Broker_Code__c brokerCode = createBrokerCode();
+    brokerCode.Broker_Name__c = newContacts[0].Id;
+    BROKER_CODE_REPOSITORY.mock(
+      'getRelatedBrokerCodes',
+      new List<Broker_Code__c>{ brokerCode }
+    );
+    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
+      'queryContactRecordsByExternalIds',
+      new List<Contact>{ newContacts[1], newContacts[0] }
+    );
+
+    Map<String, String> mergesToProcess = new Map<String, String>{
+      newContacts[1].External_Id__c => newContacts[0].Victim_Party_Id__c
+    };
+
+    Test.startTest();
+    RetailBrokerContactActions.processDataMerge(
+      mergesToProcess,
+      new List<contact>{ newContacts[0], newContacts[1] }
+    );
+    Test.stopTest();
+    List<Contact> updatedBrokerContacts = (List<Contact>) dmlRepoMock.getHistory(
+        'doUpdate'
+      )
+      .getParam('records');
+    Assert.areEqual(
+      1,
+      updatedBrokerContacts.size(),
+      'Must have one Contact to Update'
+    );
+
+    Assert.areEqual(
+      newContacts[1].id,
+      updatedBrokerContacts[0].Id,
+      'Survior contact should get updated'
+    );
+
+    Assert.areEqual(
+      newContacts[0].Broker_Set__c,
+      updatedBrokerContacts[0].Broker_Set__c,
+      'Broker Set should get updated'
     );
   }
 

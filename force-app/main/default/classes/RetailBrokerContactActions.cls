@@ -6,17 +6,28 @@
  */
 
 public with sharing class RetailBrokerContactActions {
-  @TestVisible
-  private static final String SYNC_STATUS_BROKER_ORG = 'Broker Org';
-  @TestVisible
-  private static final String RETAIL_BROKER_ACCREDITATION_TYPE = 'Retail';
-  @TestVisible
-  private static final String SYNC_STATUS_BLOCKED = 'Blocked';
+  private static Boolean isMergeInProgress = false;
+
   private static final BrokerSettingsRepository BROKER_SETTINGS_REPOSITORY = (BrokerSettingsRepository) Lib_InstanceProvider.forType(
     BrokerSettingsRepository.class
   );
   private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(
     UserInfoRepository.class
+  );
+  private static final RetailContactRepository CONTACT_REPOSITORY = (RetailContactRepository) Lib_InstanceProvider.forType(
+    RetailContactRepository.class
+  );
+
+  private static final BrokerCodeRepository BROKER_CODE_REPOSITORY = (BrokerCodeRepository) Lib_InstanceProvider.forType(
+    BrokerCodeRepository.class
+  );
+
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
+
+  private static final UserActionsRepository USER_REPOSITORY = (UserActionsRepository) Lib_InstanceProvider.forType(
+    UserActionsRepository.class
   );
 
   /**
@@ -41,10 +52,13 @@ public with sharing class RetailBrokerContactActions {
           .notEquals(Contact.OCV_Event_Version__c, 0)
           .isNotNull(Contact.OCV_Event_Version__c)
           .isNotNull(Contact.Broker_Set__c)
-          .contains(Contact.Sync_Status__c, SYNC_STATUS_BROKER_ORG)
+          .contains(
+            Contact.Sync_Status__c,
+            BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
+          )
           .contains(
             Contact.Broker_Accreditation_Type__c,
-            RETAIL_BROKER_ACCREDITATION_TYPE
+            BrokerConstants.ACCREDITATION_RETAIL
           )
           .toList(),
         Contact.Id
@@ -56,10 +70,13 @@ public with sharing class RetailBrokerContactActions {
           .notEquals(Contact.OCV_Event_Version__c, 0)
           .isNotNull(Contact.OCV_Event_Version__c)
           .isNotNull(Contact.Broker_Set__c)
-          .contains(Contact.Sync_Status__c, SYNC_STATUS_BROKER_ORG)
+          .contains(
+            Contact.Sync_Status__c,
+            BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
+          )
           .contains(
             Contact.Broker_Accreditation_Type__c,
-            RETAIL_BROKER_ACCREDITATION_TYPE
+            BrokerConstants.ACCREDITATION_RETAIL
           )
           .changed(Contact.Broker_Set__c)
           .toList(),
@@ -90,20 +107,26 @@ public with sharing class RetailBrokerContactActions {
   /**
    * @description Generate and publish Broker contact GCP cloud events
    * @param records list of new version of contacts from trigger context
-   * @param contactsOldMap map of old version of contacts from trigger context
+   * @param contactsOldMap  map of old version of contacts
    */
   public static void publishBrokerEvents(
     List<Contact> records,
     Map<Id, Contact> contactsOldMap
   ) {
-    if (BROKER_SETTINGS_REPOSITORY.get().BypassBrokerEvent__c) {
+    if (
+      BROKER_SETTINGS_REPOSITORY.get().BypassBrokerEvent__c ||
+      isMergeInProgress == true
+    ) {
       return;
     }
     Map<Id, String> brokerIdToEventTypeMap = getBrokerIdToEventTypeMap(
       records,
       contactsOldMap
     );
-    RetailBrokerEventActions.publishEventForBrokers(brokerIdToEventTypeMap);
+    RetailBrokerEventActions.publishEventForBrokers(
+      brokerIdToEventTypeMap,
+      contactsOldMap
+    );
   }
 
   /**
@@ -130,9 +153,8 @@ public with sharing class RetailBrokerContactActions {
         continue;
       }
       if (
-        (String.isNotBlank(action) &&
-        isSyncStatusValidForPublishing(contactNew, contactOld, action) &&
-        isRecordAnEligibleBrokerContact(contactNew))
+        String.isNotBlank(action) &&
+        isRecordAnEligibleBrokerContact(contactNew, contactOld)
       ) {
         brokerIdToEventTypeMap.put(contactNew.Id, action);
       }
@@ -164,19 +186,49 @@ public with sharing class RetailBrokerContactActions {
     List<Contact> records,
     Map<Id, Contact> contactsOldMap
   ) {
-    List<Contact> contactList = new List<Contact>();
+    List<Contact> contactList = ListUtil.filter(contactsOldMap.values())
+      .notContains(
+        Contact.Sync_Status__c,
+        BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
+      )
+      .toList();
+    contactList = ListUtil.filter(contactList)
+      .notContains(
+        Contact.Sync_Status__c,
+        BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
+      )
+      .notContains(
+        Contact.Sync_Status__c,
+        BrokerMergeConstants.SYNC_STATUS_BLOCKED
+      )
+      .notContains(
+        Contact.Sync_Status__c,
+        BrokerMergeConstants.SYNC_STATUS_DUPLICATE_EMAIL
+      )
+      .notContains(
+        Contact.Sync_Status__c,
+        BrokerMergeConstants.SYNC_STATUS_DUPLICATE_OCVID
+      )
+      .toList();
+    Set<Id> contactListIds = ListUtil.getIds(contactList, Contact.Id);
+    List<Contact> processedContacts = new List<Contact>();
     for (Contact contactNew : records) {
-      Contact contactOld = contactsOldMap.get(contactNew.Id);
-      if (isSyncStatusEligibleForUpdate(contactNew, contactOld) == false) {
+      if (
+        !contactListIds.contains(contactNew.Id) ||
+        !isContactsOCVEventVersionAdded(
+          contactNew,
+          contactsOldMap.get(contactNew.id)
+        )
+      ) {
         continue;
       }
       contactNew.Sync_Status__c = PicklistUtil.addMultiPicklistValue(
         contactNew.Sync_Status__c,
-        SYNC_STATUS_BROKER_ORG
+        BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
       );
-      contactList.add(contactNew);
+      processedContacts.add(contactNew);
     }
-    return contactList;
+    return processedContacts;
   }
 
   /**
@@ -187,73 +239,36 @@ public with sharing class RetailBrokerContactActions {
    */
   @TestVisible
   private static String getAction(Contact contactNew, Contact contactOld) {
-    if (isContactsOCVEventVersionAdded(contactNew, contactOld)) {
-      return RetailBrokerEventActions.BROKER_EVENT_ADD;
-    } else if (
-      contactNew.OCV_Event_Version__c > 0 &&
-      contactNew.OCV_Event_Version__c >= contactOld.OCV_Event_Version__c
+    if (
+      doesSyncStatusContain(
+        contactNew,
+        BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
+      ) == true &&
+      contactNew.OCV_Event_Version__c > 0
     ) {
-      return RetailBrokerEventActions.BROKER_EVENT_UPDATE;
+      return RetailBrokerEventActions.BROKER_EVENT_ADD;
     }
     return '';
   }
 
   /**
-   * @description validate the record for publishing based on contact's Sync Status
-   * @param contactNew new version of Contact record
-   * @param contactOld old version of Contact record
-   * @param action add/update
-   * @return Boolean to indicate the eligibility of the contact record
-   */
-  @TestVisible
-  private static Boolean isSyncStatusValidForPublishing(
-    Contact contactNew,
-    Contact contactOld,
-    String action
-  ) {
-    if (doesSyncStatusContain(contactNew, SYNC_STATUS_BROKER_ORG) == false) {
-      return false;
-    }
-    if (action == RetailBrokerEventActions.BROKER_EVENT_ADD) {
-      return !doesSyncStatusContain(contactOld, SYNC_STATUS_BROKER_ORG);
-    } else if (action == RetailBrokerEventActions.BROKER_EVENT_UPDATE) {
-      return doesSyncStatusContain(contactOld, SYNC_STATUS_BROKER_ORG);
-    }
-    return false;
-  }
-
-  /**
    * @description Indicate if record is a valid Broker contact to be published
-   * @param record new version of Contact record
-   * @return Boolean to indicate the eligibility of the contact record
-   */
-  @TestVisible
-  private static Boolean isRecordAnEligibleBrokerContact(Contact record) {
-    return String.isNotBlank(record.CommercialTPMISAO__c) ||
-      String.isNotBlank(record.AssetFinanceTPMISAO__c) ||
-      (String.isNotBlank(record.RetailTPMISAO__c) && record.Is_Beta_Broker__c);
-  }
-
-  /**
-   * @description validate the record for changing the Sync Staus to Broker Org based on contact's OCV Version and Sync Status
    * @param contactNew new version of Contact record
    * @param contactOld old version of Contact record
    * @return Boolean to indicate the eligibility of the contact record
    */
   @TestVisible
-  private static Boolean isSyncStatusEligibleForUpdate(
+  private static Boolean isRecordAnEligibleBrokerContact(
     Contact contactNew,
-    Contact contactOld
+    contact contactOld
   ) {
-    if (
-      isContactsOCVEventVersionAdded(contactNew, contactOld) &&
-      doesSyncStatusContain(contactOld, SYNC_STATUS_BROKER_ORG) == false &&
-      doesSyncStatusContain(contactNew, SYNC_STATUS_BROKER_ORG) == false &&
-      doesSyncStatusContain(contactNew, SYNC_STATUS_BLOCKED) == false
-    ) {
-      return true;
-    }
-    return false;
+    return (String.isNotBlank(contactNew.CommercialTPMISAO__c) ||
+      contactNew.CommercialTPMISAO__c != contactOld.CommercialTPMISAO__c) ||
+      (String.isNotBlank(contactNew.AssetFinanceTPMISAO__c) ||
+      contactNew.AssetFinanceTPMISAO__c != contactOld.AssetFinanceTPMISAO__c) ||
+      ((String.isNotBlank(contactNew.RetailTPMISAO__c) ||
+      contactNew.RetailTPMISAO__c != contactOld.RetailTPMISAO__c) &&
+      contactNew.Is_Beta_Broker__c);
   }
 
   /**
@@ -292,10 +307,402 @@ public with sharing class RetailBrokerContactActions {
     List<Contact> records,
     Map<Id, Contact> oldMap
   ) {
+    if (USER_INFO.checkProfile('Integration User')) {
+      return;
+    }
     records = ListUtil.filter(records, oldMap)
       .changed(Contact.Broker_Set__c)
       .toList();
 
     ListUtil.setField(records, Contact.Office_Group__c, null);
+  }
+
+  /**
+   * @description Check for duplicate contacts using Email and OCV_Id__C
+   * @author  Madhuri Edke | Salesforce | 08-07-2025
+   * @param records contains new value
+   **/
+  public static void checkDuplicateContacts(List<Contact> records) {
+    try {
+      List<String> contactEmails = (List<String>) ListUtil.getValues(
+        records,
+        'Email',
+        String.class
+      );
+      List<String> contactOcvIDs = (List<String>) ListUtil.getValues(
+        records,
+        'OCV_ID__c',
+        String.class
+      );
+      List<Contact> duplicateContacts = CONTACT_REPOSITORY.getDuplicateContacts(
+        contactEmails,
+        contactOcvIDs
+      );
+
+      Map<String, Contact> emailDuplicates = (Map<String, Contact>) ListUtil.mapBy(
+        duplicateContacts,
+        contact.Email
+      );
+      Map<String, Contact> ocvDuplicates = (Map<String, Contact>) ListUtil.mapBy(
+        duplicateContacts,
+        contact.OCV_ID__c
+      );
+      updateDuplicateContacts(records, emailDuplicates, ocvDuplicates);
+    } catch (Exception ex) {
+      Logger.error(
+          'Failed to fetch Contacts due to:' + ' ' + ex.getMessage(),
+          ex
+        )
+        .save();
+    }
+  }
+
+  /**
+   * @description Updates Sync Status based on duplicate contacts
+   * @author  Madhuri Edke | Salesforce | 08-07-2025
+   * @param records new contacts from trigger
+   * @param emailDuplicates Map of email to respective duplicate new contacts
+   * @param ocvDuplicates Map of OCV Id to respective duplicate new contacts
+   **/
+  private static void updateDuplicateContacts(
+    List<Contact> records,
+    Map<String, Contact> emailDuplicates,
+    Map<String, Contact> ocvDuplicates
+  ) {
+    for (Contact con : records) {
+      List<String> statusValues = new List<String>();
+
+      if (emailDuplicates.containsKey(con.Email)) {
+        statusValues.add(BrokerMergeConstants.SYNC_STATUS_DUPLICATE_EMAIL);
+      }
+
+      if (ocvDuplicates.containsKey(con.OCV_ID__c)) {
+        statusValues.add(BrokerMergeConstants.SYNC_STATUS_DUPLICATE_OCVID);
+      }
+      if (!statusValues.isEmpty()) {
+        String currentStatus = String.isBlank(con.Sync_Status__c)
+          ? ''
+          : con.Sync_Status__c + ';';
+
+        con.Sync_Status__c = currentStatus + String.join(statusValues, ';');
+      }
+    }
+  }
+
+  /**
+   * @description Generate and publish Broker contact GCP cloud events
+   * @param records list of new version of contacts from trigger context
+   * @param contactsOldMap map of old version of contacts from trigger context
+   */
+  public static void contactMergeEvent(
+    List<Contact> records,
+    Map<Id, Contact> contactsOldMap
+  ) {
+    List<Contact> filteredVictimContactList = filterVictimContacts(
+      records,
+      contactsOldMap
+    );
+    if (filteredVictimContactList.isEmpty()) {
+      return;
+    }
+
+    List<Broker_Code__c> brokerCodesToBeDeleted = BROKER_CODE_REPOSITORY.getRelatedBrokerCodes(
+      new Map<id, contact>(filteredVictimContactList).keySet()
+    );
+
+    DML_REPOSITORY.doDelete(brokerCodesToBeDeleted, new DmlConfig());
+
+    Set<String> survivorExternalIdList = ListUtil.getStrings(
+      filteredVictimContactList,
+      Contact.Survivor_Party_Id__c
+    );
+    List<contact> survivorContactsList = CONTACT_REPOSITORY.queryContactRecordsByExternalIds(
+      survivorExternalIdList
+    );
+
+    Map<String, contact> survivorcontactsWithExternalIds = (Map<String, contact>) ListUtil.mapBy(
+      survivorContactsList,
+      Contact.External_Id__c
+    );
+
+    processDataMerge(filteredVictimContactList, survivorContactsList);
+
+    List<Contact> contactsToUpdate = getContactsTobeUpdated(
+      filteredVictimContactList,
+      survivorcontactsWithExternalIds
+    );
+
+    DML_REPOSITORY.doUpdate(contactsToUpdate, new DMLConfig());
+  }
+
+  /**
+   * @description Get the survivor contacts to be updated
+   * @param filteredRecords list of filtered contacts
+   * @param contactsWithExternalIds Map of contacts based on ExternalId
+   * @return List<contact> list of updated survivor contacts
+   */
+  public static List<contact> getContactsTobeUpdated(
+    List<Contact> filteredRecords,
+    Map<String, contact> contactsWithExternalIds
+  ) {
+    List<Contact> contactTobeUpdated = new List<contact>();
+    for (Contact victimCon : filteredRecords) {
+      String survivorId = victimCon.Survivor_Party_Id__c;
+      Contact survivorCon = new Contact(
+        Id = contactsWithExternalIds.get(survivorId).Id
+      );
+      survivorCon.Survivor_Party_Id__c = victimCon.Survivor_Party_Id__c;
+      survivorCon.Victim_Party_Id__c = victimCon.Victim_Party_Id__c;
+
+      if (
+        !doesSyncStatusContain(
+          contactsWithExternalIds.get(survivorId),
+          BrokerMergeConstants.SYNC_STATUS_BLOCKED
+        )
+      ) {
+        survivorCon.Sync_Status__c = 'Broker Org';
+      }
+
+      contactTobeUpdated.add(survivorCon);
+    }
+    return contactTobeUpdated;
+  }
+
+  /**
+   * @description Process the data merge event
+   * @param victimContactsList List<Contact> List of Victim Contacts
+   * @param survivorContactsList List<Contact> List of survivor Contacts
+   */
+  public static void processDataMerge(
+    List<Contact> victimContactsList,
+    List<Contact> survivorContactsList
+  ) {
+    List<Contact> allContactsList = new List<Contact>(victimContactsList);
+    allContactsList.addAll(survivorContactsList);
+
+    Map<String, contact> contactMap = (Map<String, contact>) ListUtil.mapBy(
+      allContactsList,
+      Contact.External_Id__c
+    );
+    List<Id> successfulSurvivorIds = new List<Id>();
+    Map<Id, String> contactIdByBrokerSet = new Map<Id, String>();
+    Map<Id, String> contactIdByOfficeGroup = new Map<Id, String>();
+    isMergeInProgress = true;
+    try {
+      for (Contact victim : victimContactsList) {
+        String survivorExtId = victim.Survivor_Party_Id__c != null
+          ? victim.Survivor_Party_Id__c
+          : null;
+        Contact survivor = contactMap.get(survivorExtId);
+        if (survivor != null) {
+          if (victim.Broker_Set__c != null) {
+            contactIdByBrokerSet.put(survivor.Id, victim.Broker_Set__c);
+          }
+          if (victim.Office_Group__c != null) {
+            contactIdByOfficeGroup.put(survivor.Id, victim.Office_Group__c);
+          }
+          if (
+            doesSyncStatusContain(
+              survivor,
+              BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
+            ) == false
+          ) {
+            successfulSurvivorIds.add(survivor.Id);
+          }
+
+          Database.MergeResult result = Database.merge(survivor, victim, false);
+
+          if (result.isSuccess()) {
+          } else {
+            for (Database.Error err : result.getErrors()) {
+              Logger.error(
+                'Contact Merge failed for following contacts' +
+                  survivor.Id +
+                  ' and ' +
+                  victim.Id +
+                  'Error_Message: ' +
+                  err.getMessage()
+              );
+            }
+            Logger.saveLog();
+          }
+        }
+      }
+
+      System.enqueueJob(
+        new UpdateBrokerRelationLookupQueueable(
+          successfulSurvivorIds,
+          contactIdByBrokerSet,
+          contactIdByOfficeGroup
+        ),
+        2
+      );
+    } catch (Exception e) {
+      Logger.error(e.getMessage());
+      Logger.saveLog();
+    } finally {
+      isMergeInProgress = false;
+    }
+  }
+
+  /**
+   * @description filter records based on updation of Survivor and Victim party Ids, Sync Status field value
+   * @param records records from trigger context
+   * @param contactsOldMap map of old version of contacts from trigger context
+   * @return List<contact> list of filtered contact records based on updation of Survivor and Victim party Ids, Sync Status field value
+   */
+  public static List<Contact> filterVictimContacts(
+    List<contact> records,
+    Map<Id, contact> contactsOldMap
+  ) {
+    if (records.isEmpty()) {
+      return new List<Contact>();
+    }
+    Set<SObjectField> fieldsToValidateChange = new Set<SObjectField>{
+      Contact.Survivor_Party_Id__c,
+      Contact.Victim_Party_Id__c
+    };
+
+    Set<String> victimIdsSet = ListUtil.getStrings(
+      records,
+      Contact.Victim_Party_Id__c
+    );
+    List<contact> filterDuplicateEmailRecords = ListUtil.filter(
+        records,
+        contactsOldMap
+      )
+      .anyChanged(fieldsToValidateChange)
+      .isNotBlank(contact.Survivor_Party_Id__c)
+      .isNotBlank(contact.Victim_Party_Id__c)
+      .equals(Contact.External_Id__c, victimIdsSet)
+      .contains(
+        Contact.Sync_Status__c,
+        BrokerMergeConstants.SYNC_STATUS_DUPLICATE_EMAIL
+      )
+      .notContains(
+        Contact.Sync_Status__c,
+        BrokerMergeConstants.SYNC_STATUS_DUPLICATE_OCVID
+      )
+      .toList();
+
+    List<contact> filterDuplicateOCVRecords = ListUtil.filter(
+        records,
+        contactsOldMap
+      )
+      .anyChanged(fieldsToValidateChange)
+      .isNotBlank(contact.Survivor_Party_Id__c)
+      .isNotBlank(contact.Victim_Party_Id__c)
+      .equals(Contact.External_Id__c, victimIdsSet)
+      .contains(
+        Contact.Sync_Status__c,
+        BrokerMergeConstants.SYNC_STATUS_DUPLICATE_OCVID
+      )
+      .toList();
+
+    List<contact> filterBrokerOrgRecords = ListUtil.filter(
+        records,
+        contactsOldMap
+      )
+      .anyChanged(fieldsToValidateChange)
+      .isNotBlank(contact.Survivor_Party_Id__c)
+      .isNotBlank(contact.Victim_Party_Id__c)
+      .equals(Contact.External_Id__c, victimIdsSet)
+      .contains(
+        Contact.Sync_Status__c,
+        BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
+      )
+      .toList();
+    List<Contact> allRecordsfiltered = new List<Contact>(
+      filterDuplicateEmailRecords
+    );
+
+    allRecordsfiltered.addAll(filterDuplicateOCVRecords);
+    allRecordsfiltered.addAll(filterBrokerOrgRecords);
+
+    return allRecordsfiltered;
+  }
+
+  /**
+   * @description Enqueues a Queueable job to update related RLA records based on contact TPMISAO
+   * @param newMap Map of new Contact records.
+   * @param oldMap Map of old Contact records.
+   */
+  public static void updateAssistedBrokerLookup(
+    Map<Id, Contact> newMap,
+    Map<Id, Contact> oldMap
+  ) {
+    Set<String> externalIdSet = ListUtil.getStrings(
+      newMap.values(),
+      Contact.External_Id__c
+    );
+
+    List<Contact> updatedContacts = (List<Contact>) ListUtil.filter(
+        newMap.values()
+      )
+      .contains(Contact.Sync_status__c, BrokerConstants.SYNC_STATUS_BROKER_ORG)
+      .isNotBlank(contact.Survivor_Party_Id__c)
+      .equals(Contact.Survivor_Party_Id__c, externalIdSet)
+      .toList();
+
+    Set<Id> ccrContactIds = getCCRContactIds(newMap, oldMap);
+    Set<String> setOfBrokerTPMI = ListUtil.getStrings(
+      updatedContacts,
+      Contact.RetailTPMISAO__c
+    );
+    List<ResidentialLoanApplication> loanAppList = CONTACT_REPOSITORY.getRelatedOrphanResidentialApplications(
+      setOfBrokerTPMI
+    );
+
+    List<FinServ__FinancialAccount__c> finServAccList = CONTACT_REPOSITORY.getRelatedOrphanFinancialAccounts(
+      setOfBrokerTPMI
+    );
+    System.enqueueJob(
+      new RetailContactMergeActionsQueueable(
+        updatedContacts,
+        loanAppList,
+        finServAccList,
+        ccrContactIds
+      ),
+      2
+    );
+  }
+
+  /**
+   * @description Gets Contact IDs that changed to "Retail" accreditation and have a Broker Set.
+   * @param newMap The map of new Contact records
+   * @param oldMap The map of old Contact records
+   * @return Set<Id> Set of Contact IDs that meet the criteria.
+   */
+  private static Set<Id> getCCRContactIds(
+    Map<Id, contact> newMap,
+    Map<Id, contact> oldMap
+  ) {
+    List<Contact> oldValidCCRContacts = (List<Contact>) ListUtil.filter(
+        oldMap.values()
+      )
+      .notContains(
+        Contact.Broker_Accreditation_Type__c,
+        BrokerConstants.ACCREDITATION_RETAIL
+      )
+      .toList();
+
+    List<Contact> validCCRContacts = new List<Contact>();
+
+    for (Contact con : oldValidCCRContacts) {
+      Contact newCon = newMap.get(con.Id);
+      validCCRContacts.add(newCon);
+    }
+
+    List<Contact> updatedCCRContacts = (List<Contact>) ListUtil.filter(
+        validCCRContacts,
+        oldMap
+      )
+      .contains(
+        Contact.Broker_Accreditation_Type__c,
+        BrokerConstants.ACCREDITATION_RETAIL
+      )
+      .isNotNull(Contact.Broker_Set__c)
+      .toList();
+    return ListUtil.getIds(updatedCCRContacts, Contact.Id);
   }
 }

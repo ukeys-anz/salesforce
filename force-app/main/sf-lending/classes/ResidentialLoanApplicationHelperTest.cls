@@ -1,14 +1,27 @@
 @isTest
 private class ResidentialLoanApplicationHelperTest {
-  static Lib_MockProvider rlaRepoMock = Lib_MockProvider.forType(
-    ResidentialLoanApplicationRepository.class
+  private static final String BROKER_CODE = 'TPMI123456789';
+  static Lib_MockProvider rlarRepoMock;
+  static Lib_MockProvider brokerCodeRepoMock;
+  static Lib_MockProvider caseRepoMock;
+  private static final Id COACH_NUDGE_RT_ID = RTTask.coachNudge;
+  private static final Id FAKER_CONTACT_ID = Lib_FakeIdGenerator.getMockId(
+    Contact.getSObjectType()
+  );
+  private static final Id FAKER_RLA_ID = Lib_FakeIdGenerator.getMockId(
+    ResidentialLoanApplication.getSObjectType()
   );
 
   static void registerMocks() {
-    rlaRepoMock.mock(
-      'queryRelatedProperties',
-      new List<LoanApplicationProperty>{ relatedProperty }
-    );
+    rlarRepoMock = Lib_MockProvider.forType(
+        ResidentialLoanApplicationRepository.class
+      )
+      .mock(
+        'queryRelatedProperties',
+        new List<LoanApplicationProperty>{ relatedProperty }
+      );
+    brokerCodeRepoMock = Lib_MockProvider.forType(BrokerCodeRepository.class);
+    caseRepoMock = Lib_MockProvider.forType(LendingCaseRepository.class);
   }
 
   static Id rlaIds = Lib_FakeIdGenerator.getMockId(
@@ -116,4 +129,123 @@ private class ResidentialLoanApplicationHelperTest {
       'Date should be returned after years, months and days have been added to today\'s date'
     );
   }
+
+  @IsTest
+  static void testProcessEmptyAssistedBroker() {
+    Test.startTest();
+    List<ResidentialLoanApplication> results = ResidentialLoanApplicationHelper.processAssistedBrokerPopulation(
+      new List<ResidentialLoanApplication>(),
+      ResidentialLoanApplicationActions.ACCREDITATION_RETAIL
+    );
+    Test.stopTest();
+    Assert.isTrue(results.isEmpty(), 'Results should be empty without input');
+  }
+
+  @IsTest
+  static void testProcessAssistedBroker() {
+    registerMocks();
+    caseRepoMock.mock(
+      'queryRelatedCreditReferralCases',
+      createMockCaseRelatedToRla()
+    );
+    brokerCodeRepoMock.mock('getBrokerIdentifiers', createBrokerCodes(10));
+    List<ResidentialLoanApplication> loanApps = createResidentialLoanApplications(
+      10
+    );
+    Test.startTest();
+    List<ResidentialLoanApplication> results = ResidentialLoanApplicationHelper.processAssistedBrokerPopulation(
+      loanApps,
+      ResidentialLoanApplicationActions.ACCREDITATION_RETAIL
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      results.size(),
+      loanApps.size(),
+      'Results should be the same size as input'
+    );
+    Assert.areEqual(
+      results[0].Assisted_Broker__c,
+      FAKER_CONTACT_ID,
+      'Assisted Broker should be populated with Broker_Name__c value'
+    );
+  }
+
+  /**
+   * @description Test case for createBrokerIdentifierMap method.
+   */
+  @IsTest
+  static void testCreateBrokerIdentifierMap() {
+    List<ResidentialLoanApplication> newRecord = createResidentialLoanApplications(
+      1
+    );
+
+    newRecord[0].Assisted_Broker_TPMI_SAO__c = 'Broker-TPMISAO-1';
+    Test.startTest();
+    Map<String, String> brokerIdentifierMap = ResidentialLoanApplicationHelper.createBrokerIdentifierMap(
+      new List<ResidentialLoanApplication>{ newRecord[0] },
+      'Retail'
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      1,
+      brokerIdentifierMap.size(),
+      'One broker identifier should be mapped'
+    );
+  }
+
+
+  static List<Case> createMockCaseRelatedToRla() {
+    List<Case> strCaselist = new List<Case>();
+
+    Case creditRefCase = TestDataFactory.createCase('Credit_Referral');
+    creditRefCase.Loan_Application__c = FAKER_RLA_ID;
+    strCaselist.add(creditRefCase);
+    return strCaselist;
+  }
+
+  static List<ResidentialLoanApplication> createResidentialLoanApplications(
+    Integer count
+  ) {
+    List<ResidentialLoanApplication> loanApps = new List<ResidentialLoanApplication>();
+    for (Integer i = 0; i < count; i++) {
+      ResidentialLoanApplication loanApp = TestDataFactory.createTestResidentialLoanApplication(
+        String.valueOf(i + 1)
+      );
+      loanApp.Id = Lib_FakeIdGenerator.getMockId(
+        ResidentialLoanApplication.SObjectType
+      );
+      loanApp.Assisted_Broker_TPMI_SAO__c = BROKER_CODE;
+      loanApps.add(loanApp);
+    }
+    return loanApps;
+  }
+
+  static List<Broker_Code__c> createBrokerCodes(Integer count) {
+    Contact testContact = createTestContact();
+    List<Broker_Code__c> brokerCodes = new List<Broker_Code__c>();
+    for (Integer i = 0; i < count; i++) {
+      Broker_Code__c brokerCode = new Broker_Code__c();
+      brokerCode.Id = Lib_FakeIdGenerator.getMockId(Broker_Code__c.SObjectType);
+      brokerCode.Accreditation_Type__c = 'Retail';
+      brokerCode.Broker_Name__c = testContact.Id;
+      brokerCode.External_Id__c =
+        BROKER_CODE +
+        '_' +
+        ResidentialLoanApplicationActions.ACCREDITATION_RETAIL;
+      brokerCodes.add(brokerCode);
+    }
+    return brokerCodes;
+  }
+
+
+  static Contact createTestContact() {
+    Contact testContact = new Contact();
+    testContact.Id = FAKER_CONTACT_ID;
+    testContact.FirstName = 'Broker01';
+    testContact.LastName = 'ANZX-6197';
+    testContact.Email = 'contactbroker@anzx.abc';
+    testContact.MobilePhone = '123456789';
+    testContact.RetailTPMISAO__c = BROKER_CODE;
+    testContact.OCV_ID__c = 'OCV123456789';
+    return testContact;
 }
