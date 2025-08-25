@@ -12,7 +12,6 @@ public with sharing class MLCRMCommonUtils {
   private static String strFranchiseRole;
   private static Map<Id, User> mapOfUsers;
   private static Set<Id> idsOfOwnerId = new Set<Id>();
-  private static final String CCRM_PROFILE = 'ANZ CCRM Standard User';
 
   /**
    * @description Return map of CountryName to CountryCode from DCRM_CountryMapping__mdt metadata
@@ -73,9 +72,8 @@ public with sharing class MLCRMCommonUtils {
         getProfileId(lstOfSobject);
         if (
           (mapOfProfileId != null &&
-          (userInfo.getProfileId() ==
+          userInfo.getProfileId() ==
           mapOfProfileId.get(MLCRMConstants.ADMIN_PROFILE_NAME)) ||
-          (userInfo.getProfileId() == mapOfProfileId.get(CCRM_PROFILE))) ||
           hasSkipPermission
         ) {
           return;
@@ -465,8 +463,7 @@ public with sharing class MLCRMCommonUtils {
       mapOfProfileId = CommonUtil.getProfileByNames(
         new List<String>{
           MLCRMConstants.ML_PROFILE_NAME,
-          MLCRMConstants.ADMIN_PROFILE_NAME,
-          CCRM_PROFILE
+          MLCRMConstants.ADMIN_PROFILE_NAME
         }
       );
       strFranchiseRole = CommonUtil.getUserRoleByDevName(
