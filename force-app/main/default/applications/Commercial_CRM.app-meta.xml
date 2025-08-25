@@ -451,6 +451,24 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
+        <content>Commercial_Application_Form_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>ApplicationForm</pageOrSobjectType>
+        <recordType>ApplicationForm.OCP</recordType>
+        <type>Flexipage</type>
+        <profile>ANZ CCRM Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Commercial_Application_Form_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>ApplicationForm</pageOrSobjectType>
+        <recordType>ApplicationForm.OCP</recordType>
+        <type>Flexipage</type>
+        <profile>ANZ CCRM Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
         <content>Commercial_Application_Form_Product_Record_Page</content>
         <formFactor>Small</formFactor>
         <pageOrSobjectType>ApplicationFormProduct</pageOrSobjectType>
@@ -586,6 +604,38 @@
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Lead</pageOrSobjectType>
         <recordType>Lead.Referral</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Commercial_Customer_Relationship_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Customer_Relationship__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZ CCRM Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Commercial_Customer_Relationship_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Customer_Relationship__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZ CCRM Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Commercial_Customer_Relationship_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Customer_Relationship__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Commercial_Customer_Relationship_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Customer_Relationship__c</pageOrSobjectType>
         <type>Flexipage</type>
         <profile>Admin</profile>
     </profileActionOverrides>

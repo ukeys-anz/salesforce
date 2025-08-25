@@ -36,6 +36,11 @@
                 <default>false</default>
                 <label>Failed - Document Quality Issue</label>
             </value>
+            <value>
+                <fullName>No Change Required</fullName>
+                <default>false</default>
+                <label>No Change Required</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

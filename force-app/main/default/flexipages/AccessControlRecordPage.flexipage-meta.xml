@@ -8,6 +8,22 @@
                     <valueList>
                         <valueListItems>
                             <value>Delete</value>
+                            <visibilityRule>
+                                <booleanFilter>1 OR (2 AND 3)</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.DeviceCorrelationId__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.DeviceCorrelationId__c}</leftValue>
+                                    <operator>NE</operator>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Join_Lead</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>

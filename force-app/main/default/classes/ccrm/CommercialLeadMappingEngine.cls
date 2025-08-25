@@ -9,6 +9,7 @@ public with sharing class CommercialLeadMappingEngine {
   private Map<Id, Account> mapAccountsRecordTypeId = null;
   @TestVisible
   private Map<Id, Account> accountsMap = new Map<Id, Account>();
+  @TestVisible
   private Map<String, Industry__c> mapIndustries = new Map<String, Industry__c>();
   @TestVisible
   private List<Lead> leadList = new List<Lead>();
@@ -119,7 +120,7 @@ public with sharing class CommercialLeadMappingEngine {
       prefillManualLeadWrap.accountToLeadMappingWithAccount.isEmpty() ||
       String.isBlank(prefillManualLeadWrap.query)
     ) {
-      return null;
+      return new List<Account>();
     }
     prefillManualLeadWrap.query = prefillManualLeadWrap.query.removeEnd(',');
     prefillManualLeadWrap.query =

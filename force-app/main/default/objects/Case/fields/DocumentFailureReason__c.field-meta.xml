@@ -82,6 +82,11 @@
                 <default>false</default>
                 <label>Picture of a picture of ID doc detected</label>
             </value>
+            <value>
+                <fullName>Requested Name Downgrades Legal Name</fullName>
+                <default>false</default>
+                <label>Requested Name Downgrades Legal Name</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Failed - Document Provided Invalid</controllingFieldValue>
@@ -134,6 +139,10 @@
         <valueSettings>
             <controllingFieldValue>Failed - Document Quality Issue</controllingFieldValue>
             <valueName>Picture of a picture of ID doc detected</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>No Change Required</controllingFieldValue>
+            <valueName>Requested Name Downgrades Legal Name</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

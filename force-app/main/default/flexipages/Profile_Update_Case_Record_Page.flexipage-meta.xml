@@ -1273,6 +1273,23 @@
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.DocumentFailureReason__c</fieldItem>
+                <identifier>RecordDocumentFailureReason_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Fraud_Review_Outcome__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>No Change Required</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-1355ad7c-2256-48d0-9890-65aaae574b8c</name>
         <type>Facet</type>
     </flexiPageRegions>

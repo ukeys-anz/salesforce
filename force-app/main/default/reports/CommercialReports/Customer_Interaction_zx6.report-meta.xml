@@ -31,7 +31,25 @@
     <columns>
         <field>Interaction.InteractionAttendee$Contact</field>
     </columns>
-    <description>Customer Interactions</description>
+    <columns>
+        <field>Interaction$Attendees__c</field>
+    </columns>
+    <columns>
+        <field>Interaction$Owner.Commercial_Segment__c</field>
+    </columns>
+    <columns>
+        <field>Interaction$Owner.State_Code__c</field>
+    </columns>
+    <columns>
+        <field>Interaction$Owner.Area_Code__c</field>
+    </columns>
+    <columns>
+        <field>Interaction$Owner.Sub_Team_Code__c</field>
+    </columns>
+    <columns>
+        <field>Interaction$Optional_Notes__c</field>
+    </columns>
+    <description>Customer Interactions for Banker</description>
     <filter>
         <criteriaItems>
             <column>Interaction$My_Team_Segment__c</column>
