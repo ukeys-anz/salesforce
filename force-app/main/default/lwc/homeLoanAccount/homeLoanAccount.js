@@ -9,6 +9,7 @@ import { handleErrorShowToast } from "c/utils";
 import homeLoanAccountProductForSorting from "@salesforce/label/c.HomeLoanAccountProductForSorting";
 import templateCard from "./homeLoanAccountCard.html";
 import templateDetail from "./homeLoanAccountDetail.html";
+import ANZ_ICON from "@salesforce/resourceUrl/anz_icon";
 export default class HomeLoanAccountCard extends NavigationMixin(
   LightningElement
 ) {
@@ -57,6 +58,12 @@ export default class HomeLoanAccountCard extends NavigationMixin(
   }
   get isFinAccountTab() {
     return this.objectApiName === "FinServ__FinancialAccount__c";
+  }
+  getAnzPlusIcon(finAccount) {
+    if (finAccount.product_details.origin === "PRODUCT_ORIGIN_ANZX") {
+      return ANZ_ICON;
+    }
+    return "";
   }
 
   async init() {
@@ -127,6 +134,12 @@ export default class HomeLoanAccountCard extends NavigationMixin(
           }
         );
         this.financialAccounts = financialAccountOpenList;
+        this.financialAccounts = this.financialAccounts.map((finAccount) => {
+          return {
+            ...finAccount,
+            anzIcon: this.getAnzPlusIcon(finAccount)
+          };
+        });
       } catch (error) {
         handleErrorShowToast(
           this,

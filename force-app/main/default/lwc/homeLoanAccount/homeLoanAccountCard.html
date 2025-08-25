@@ -23,7 +23,14 @@
             class="slds-m-right_small cicon"
           ></lightning-icon>
           Loan
-          <p class="sub-title">{finAccount.finserv_product_display_name}</p>
+          <p class="sub-title">
+            {finAccount.finserv_product_display_name}
+            <lightning-icon
+              src={finAccount.anzIcon}
+              size="small"
+              class="slds-m-left_x-small"
+            ></lightning-icon>
+          </p>
         </h1>
         <div
           class="slds-card__body slds-card__body_inner"
