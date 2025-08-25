@@ -54,6 +54,7 @@ public with sharing class MobileLendingOpportunityTriggerHandler extends Lib_Tri
     //CC-1252-Make Opportunities visible to Owners & users above them in the ML hierarchy
     MLCRMSharingUtil.shareRecordByTerritory(null, records, 'Opportunity');
     OpportunityActions.createOpportunityContactRole(records);
+    OpportunityActions.createCustomerRelationshipRecords(records);
   }
 
   /**

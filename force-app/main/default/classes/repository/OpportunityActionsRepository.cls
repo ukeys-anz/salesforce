@@ -85,6 +85,25 @@ public class OpportunityActionsRepository {
   }
 
   /**
+   * @description return territories from opportunities
+   * @param territoryIds set of territory ids.
+   * @return Map<Id, Territory__c>
+   */
+  public Map<Id, Territory__c> getTerritories(Set<Id> territoryIds) {
+    if (territoryIds.isEmpty()) {
+      return new Map<Id, Territory__c>();
+    }
+    return new Map<Id, Territory__c>(
+      [
+        SELECT Id, Primary_Franchise_Owner__c
+        FROM Territory__c
+        WHERE Id IN :territoryIds
+        WITH SYSTEM_MODE
+      ]
+    );
+  }
+
+  /**
    * @description getAccountsByIds
    * @param idsOfAcc account id set
    * @return Map<Id, Account>
