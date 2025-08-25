@@ -1237,6 +1237,12 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                <componentName>extraCareNotification</componentName>
+                <identifier>c_extraCareNotification</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>parentFieldApiName</name>
                     <value>Opportunity.Id</value>
