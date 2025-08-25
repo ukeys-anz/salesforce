@@ -4,6 +4,5 @@ trigger CustomerRelationNotesTrigger on Customer_Relationship__c(
   after insert,
   after update
 ) {
-  CommercialCRTriggerHandler customerRelationshipHandler = new CommercialCRTriggerHandler();
   CustomerRelationNotesTriggerHandler objHandler = new CustomerRelationNotesTriggerHandler();
 }
