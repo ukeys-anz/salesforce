@@ -249,3 +249,4 @@ private class ResidentialLoanApplicationHelperTest {
     testContact.OCV_ID__c = 'OCV123456789';
     return testContact;
 }
+}
