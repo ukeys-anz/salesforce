@@ -8,73 +8,6 @@ public with sharing class CommercialInteractionActionsHelper {
   private static final String CLG_REMOVAL_NOT_ALLOWED = 'You cannot remove the CLG record from this Interaction as it is the only valid option.';
 
   /**
-   * @description get opportunity Ids related to Interactions
-   * @param records
-   * @param oldMap
-   * @return Set<Id>
-   **/
-  public static Set<Id> getOppsIdsAssociatedWithInteractions(
-    List<Interaction> records,
-    Map<Id, Interaction> oldMap
-  ) {
-    Set<Id> oppsIds = new Set<Id>();
-    for (Interaction record : records) {
-      Boolean oppFieldChanged;
-      Boolean customerFieldChanged;
-
-      //Checking for insert as well as update case
-      //For update, do processing only if opportunity Id is changed and
-      //not the account Id as account change gets precedence over opportunity
-      if (record.Opportunity__c == null) {
-        continue;
-      }
-
-      if (oldMap != null) {
-        oppFieldChanged = RecordComparisonUtil.fieldWasChanged(
-          record,
-          oldMap.get(record.Id),
-          Interaction.Opportunity__c
-        );
-        customerFieldChanged = RecordComparisonUtil.fieldWasChanged(
-          record,
-          oldMap.get(record.Id),
-          Interaction.AccountId
-        );
-      }
-
-      if ((oldMap == null) || (oppFieldChanged && !(customerFieldChanged))) {
-        oppsIds.add(record.Opportunity__c);
-      }
-    }
-    return oppsIds;
-  }
-
-  /**
-   * @description updates interaction name with the new channel name combination
-   * @param updatedInteractions
-   * @param oldMap
-   **/
-  public static void updateInteractionName(
-    List<Interaction> updatedInteractions,
-    Map<Id, Interaction> oldMap
-  ) {
-    for (Interaction record : updatedInteractions) {
-      if (oldMap.containsKey(record.Id)) {
-        String oldChannelName = oldMap.get(record.Id).InteractionType;
-
-        //gets the index of the last occurence of channel
-        Integer index = record.Name.lastIndexOf(oldChannelName);
-
-        //contains all the characters from name field except the old channel name
-        record.Name =
-          record.Name.subString(0, index) +
-          record.Name.subString(index + oldChannelName.length());
-      }
-      record.Name = record.Name + ' ' + record.InteractionType;
-    }
-  }
-
-  /**
    * @description Auto-populate the CLGCustomer__c field on Interaction records based on relationship type.
    * @param records The list of Interaction records
    * @param customerToCLGsMap The map of customer to CLG accounts
@@ -85,25 +18,25 @@ public with sharing class CommercialInteractionActionsHelper {
     Map<Id, Set<Id>> customerToCLGsMap,
     Map<Id, Account> accountMap
   ) {
+    // Case 1 – Customer is a CLG → assign their own ID
+    // Case 2 – Customer has exactly one related CLG → assign that CLG
+    // Case 3 – Customer has multiple related CLGs → leave CLGCustomer__c blank
+    // Case 4 – Customer has no related CLGs and is not a CLG → leave CLGCustomer__c blank
     for (Interaction record : records) {
-      Set<Id> validCLGs = customerToCLGsMap.get(record.AccountId);
+      Account customer = accountMap.get(record.AccountId);
 
-      // Case 1: One related CLG – assign it
-      if (validCLGs != null && validCLGs.size() == 1) {
-        record.CLGCustomer__c = validCLGs.iterator().next();
+      // Case 1 – Customer is a CLG → assign their own ID
+      if (customer?.RecordTypeId == RTAccount.clgAccount) {
+        record.CLGCustomer__c = record.AccountId;
         continue;
       }
 
-      // Case 2: No related CLGs – check if customer itself is CLG
-      if (
-        (validCLGs == null || validCLGs.isEmpty()) &&
-        accountMap.containsKey(record.AccountId)
-      ) {
-        Account acc = accountMap.get(record.AccountId);
-        if (acc.RecordTypeId == RTAccount.clgAccount) {
-          record.CLGCustomer__c = record.AccountId;
-        }
+      // Case 2 – Customer has exactly one related CLG → assign that CLG
+      Set<Id> relatedCLGs = customerToCLGsMap.get(record.AccountId);
+      if (relatedCLGs?.size() == 1) {
+        record.CLGCustomer__c = new List<Id>(relatedCLGs)[0];
       }
+      // Case 3 & 4 are implicitly handled by skipping assignment
     }
   }
 
@@ -139,35 +72,57 @@ public with sharing class CommercialInteractionActionsHelper {
   }
 
   /**
-   * @description Get a list of interactions that have updated names or channel information.
-   * @param records The list of Interaction records to check.
-   * @param oldMap A map of old Interaction records for comparison.
-   * @return List<Interaction> A list of updated Interaction records.
-   **/
-  public static List<Interaction> getUpdatedNameOrChannelInteractions(
-    List<Interaction> records,
-    Map<Id, Interaction> oldMap
+   * @description mapping of customer to their related CLG accounts.
+   * @param relatedCLGAccounts The list of List<FinServ__AccountAccountRelation__c>
+   * @return Map<Id, Set<Id>>
+   */
+  public static Map<Id, Set<Id>> mapCustomerToCLGAccounts(
+    List<FinServ__AccountAccountRelation__c> relatedCLGAccounts
   ) {
-    List<Interaction> updatedInteractions = new List<Interaction>();
-    for (Interaction record : records) {
-      Boolean isNewRecord = !oldMap.containsKey(record.Id);
-      Boolean isFieldValueUpdated =
-        oldMap.containsKey(record.Id) &&
-        (RecordComparisonUtil.fieldWasChanged(
-          record,
-          oldMap.get(record.Id),
-          Interaction.Name
-        ) ||
-        RecordComparisonUtil.fieldWasChanged(
-          record,
-          oldMap.get(record.Id),
-          Interaction.InteractionType
-        ));
+    Map<Id, Set<Id>> customerToCLGAccountsMap = new Map<Id, Set<Id>>();
 
-      if (isNewRecord || isFieldValueUpdated) {
-        updatedInteractions.add(record);
+    for (FinServ__AccountAccountRelation__c aar : relatedCLGAccounts) {
+      if (!customerToCLGAccountsMap.containsKey(aar.FinServ__Account__c)) {
+        customerToCLGAccountsMap.put(aar.FinServ__Account__c, new Set<Id>());
+      }
+      customerToCLGAccountsMap.get(aar.FinServ__Account__c)
+        .add(aar.FinServ__RelatedAccount__c);
+    }
+    return customerToCLGAccountsMap;
+  }
+
+  /**
+   * @description Get the customer associated with a list of opportunities.
+   * @param opps
+   * @return Map<Id, Id>
+   **/
+  public static Map<Id, Id> getCustomerAssociatedWithOpp(
+    List<Opportunity> opps
+  ) {
+    Map<Id, Id> oppIdToCustomerIdMap = new Map<Id, Id>();
+
+    for (Opportunity opp : opps) {
+      oppIdToCustomerIdMap.put(opp.Id, opp.AccountId);
+    }
+    return oppIdToCustomerIdMap;
+  }
+
+  /**
+   * @description Update the customer on interaction records based on opportunity mapping.
+   * @param records
+   * @param oppIdToCustomerIdMap
+   **/
+  public static void updateCustomerOnInteraction(
+    List<Interaction> records,
+    Map<Id, Id> oppIdToCustomerIdMap
+  ) {
+    if (oppIdToCustomerIdMap.keySet().isEmpty()) {
+      return;
+    }
+    for (Interaction record : records) {
+      if (oppIdToCustomerIdMap.containsKey(record.Opportunity__c)) {
+        record.AccountId = oppIdToCustomerIdMap.get(record.Opportunity__c);
       }
     }
-    return updatedInteractions;
   }
 }
