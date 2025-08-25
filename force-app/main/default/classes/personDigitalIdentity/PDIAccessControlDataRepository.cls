@@ -78,6 +78,7 @@ public with sharing class PDIAccessControlDataRepository extends PDIDataConnecti
       'CreatedBy' => record.createdBy,
       'CreatedTime' => record.createdAt,
       'DeleteWhenMet' => record.conditionalAdvice?.deleteWhenMet,
+      'DeviceCorrelationId' => record.match?.deviceCorrelationId,
       'ExternalId' => record.name,
       'MinimumAAL' => record.conditionalAdvice?.minimumAal,
       'PersonId' => PDIHelper.parseResourcePath(record.name, 'person'),

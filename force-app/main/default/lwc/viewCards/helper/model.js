@@ -100,3 +100,19 @@ export const CARD_CONTROLS_DEFINITION = [
     isCheckbox: true
   }
 ];
+
+export const CUSTOMER_ACTIONS = {
+  OWN_DISOWN: "REQUIRED_CUSTOMER_ACTION_OWN_DISOWN",
+  CALL_ANZ: "REQUIRED_CUSTOMER_ACTION_CALL_ANZ"
+};
+
+export const FRAUD_BLOCK_MESSAGE = {
+  SELF_SERVICE:
+    "Card controls are unavailable due to an automated fraud block. Customer must manage the notification in the app and will be referred to the Fraud team if needed.",
+  NON_SELF_SERVICE:
+    "Card controls are unavailable due to an automated fraud block that is not self-serviceable. Customer will be referred to the Fraud Team. Please refer the customer to the Fraud Detection team in Twilio.",
+  DEFAULT:
+    "Card controls are unavailable due to an automated or manual fraud block. See chatter posts for which team the customer should be referred to. If there's no associated chatter post, please refer the customer to the Fraud Detection team in Twilio.",
+  ERROR:
+    "Card Controls Information could not be retrieved due to an Error. Please Retry."
+};

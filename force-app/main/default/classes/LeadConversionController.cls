@@ -267,8 +267,7 @@ public with sharing class LeadConversionController {
         validateAccount(accInstance, record);
       }
       if (record.RecordTypeId == RTLead.mlcrmLead) {
-        CustomerRelationNotesTriggerActions.CustomerRelationshipCreator custRelationCreator = new CustomerRelationNotesTriggerActions.CustomerRelationshipCreator();
-        custRelationCreator.createCustomerRelationship(
+        CustomerRelationNotesTriggerActions.createCustomerRelationship(
           accInstance.Id,
           requestRecord
         );
@@ -330,8 +329,7 @@ public with sharing class LeadConversionController {
       ) {
         //Added to bypass validation rule preventEditShellProspect on Account Trigger (Error: Label.ML_ShellProspect_Update_ErrorMessage)
         manualLeadConversionInitiated = true;
-        CustomerRelationNotesTriggerActions.CustomerRelationshipCreator custRelationCreator = new CustomerRelationNotesTriggerActions.CustomerRelationshipCreator();
-        custRelationCreator.createCustomerRelationship(
+        CustomerRelationNotesTriggerActions.createCustomerRelationship(
           accId,
           LeadConversionHelper.getRequestRecord(leadRec)
         );
@@ -382,8 +380,7 @@ public with sharing class LeadConversionController {
       );
 
       if (leadRec.RecordTypeId == RTLead.mlcrmLead) {
-        CustomerRelationNotesTriggerActions.CustomerRelationshipCreator custRelationCreator = new CustomerRelationNotesTriggerActions.CustomerRelationshipCreator();
-        custRelationCreator.createCustomerRelationship(
+        CustomerRelationNotesTriggerActions.createCustomerRelationship(
           accId,
           LeadConversionHelper.getRequestRecord(leadRec)
         );

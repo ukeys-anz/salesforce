@@ -7,6 +7,7 @@ private class LoanApplicationPropertyTriggerTest {
     rla.Name = 'Test Loan Application';
     rla.AccountId = acc.Id;
     rla.SOP_ID__c = '1234';
+    rla.RecordTypeId = RTResidentialLoanApplication.anzxHomeLoan;
     insert rla;
     LoanApplicationProperty prop = new LoanApplicationProperty();
     prop.Name = 'Test Property';

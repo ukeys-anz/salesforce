@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Loan app permission to settlement integration</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Loan App Settlement Integration</label>
+    <recordTypeVisibilities>
+        <recordType>ResidentialLoanApplication.Loan_Application</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+</PermissionSet>

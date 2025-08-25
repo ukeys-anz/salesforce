@@ -910,174 +910,9 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Connection_and_Trust_Comments__c</fieldItem>
-                <identifier>RecordConnection_and_Trust_Comments__cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Email</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Chat</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Simple</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Complex</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Discover_and_Align_Comments__c</fieldItem>
-                <identifier>RecordDiscover_and_Align_Comments__cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Chat</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Email</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Simple</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Complex</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.Insights_and_Focus_Comments__c</fieldItem>
                 <identifier>RecordInsights_and_Focus_Comments__cField</identifier>
                 <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Complex</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Actions_and_Momentum_Comments__c</fieldItem>
-                <identifier>RecordActions_and_Momentum_Comments__cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Chat</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Email</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Simple</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Complex</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Accountability_and_Next_Steps_Comments__c</fieldItem>
-                <identifier>RecordAccountability_and_Next_Steps_Comments__cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Chat</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Email</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Simple</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Complex</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Energy_and_Adaptability_Comments__c</fieldItem>
-                <identifier>RecordEnergy_and_Adaptability_Comments__cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Chat</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Email</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Simple</rightValue>
-                    </criteria>
                     <criteria>
                         <leftValue>{!Record.Evaluation_Type__c}</leftValue>
                         <operator>EQUAL</operator>
@@ -1099,6 +934,23 @@
                         <leftValue>{!Record.Evaluation_Type__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Complex</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CX_Criteria_Comments__c</fieldItem>
+                <identifier>RecordCX_Criteria_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Simple</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>

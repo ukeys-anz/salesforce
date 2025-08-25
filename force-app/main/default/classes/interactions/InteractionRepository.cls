@@ -165,6 +165,7 @@ public with sharing class InteractionRepository {
     return [
       SELECT
         Id,
+        RecordTypeId,
         Attendees__c,
         Attendees_and_Roles__c,
         (
@@ -222,6 +223,44 @@ public with sharing class InteractionRepository {
         AccountId
       FROM interaction
       WHERE id IN :interactions
+      WITH SYSTEM_MODE
+    ];
+  }
+
+  /**
+   * @description Query details of Interaction Records with record type as RBM_Broker_Interaction and Related Attendee
+   * @param interactionIds set of InteractionId on which update is happening.
+   * @return Interaction info along with Attendees details.
+   */
+  public List<Interaction> queryRBMBrokerInteractionAndRelatedAttendees(
+    Set<Id> interactionIds
+  ) {
+    if (interactionIds.isEmpty()) {
+      return new List<Interaction>();
+    }
+    return [
+      SELECT
+        Id,
+        RecordTypeId,
+        Attendees__c,
+        Attendees_and_Roles__c,
+        (
+          SELECT
+            Id,
+            InteractionId,
+            AttendeeType,
+            UserId,
+            User.UserRole.Name,
+            User.Name,
+            ContactId,
+            Contact.Name,
+            Attendee_Name__c
+          FROM Attendees
+        )
+      FROM Interaction
+      WHERE
+        Id IN :interactionIds
+        AND RecordTypeId = :RTInteraction.rbmBrokerInteraction
       WITH SYSTEM_MODE
     ];
   }

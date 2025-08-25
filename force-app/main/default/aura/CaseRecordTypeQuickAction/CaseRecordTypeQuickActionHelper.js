@@ -67,5 +67,31 @@
       };
       navService.navigate(pageReference);
     }
+  },
+
+  checkForProductCategoryCustomer: function (
+    parsedResult,
+    selectedRecordTypeName
+  ) {
+    return (
+      !parsedResult.IDR_Product_Category__c &&
+      (selectedRecordTypeName == component.get("v.customerRecordType") ||
+        selectedRecordTypeName == component.get("v.noncustomerRecordType"))
+    );
+  },
+  checkForNonCustomer: function (parsedResult, selectedRecordTypeName) {
+    return (
+      (parsedResult.AccountId ||
+        parsedResult.IDR_Customer_Number__c ||
+        parsedResult.IDR_Customer_Identifier__c) &&
+      selectedRecordTypeName == component.get("v.noncustomerRecordType")
+    );
+  },
+  checkForCustomer: function (parsedResult, selectedRecordTypeName) {
+    return (
+      (!parsedResult.AccountId || !parsedResult.IDR_Customer_Number__c) &&
+      !parsedResult.IDR_Customer_Identifier__c &&
+      selectedRecordTypeName == component.get("v.customerRecordType")
+    );
   }
 });

@@ -303,6 +303,8 @@
         <searchResultsAdditionalFields>ACCOUNT.ADDRESS1_CITY</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>ACCOUNT.ADDRESS1_STATE</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>ACCOUNT.ADDRESS1_ZIP</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ANZx_Customer__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Was_ANZx_Customer__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
 </CustomObject>

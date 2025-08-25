@@ -33,7 +33,7 @@ jobs:
     container:
       image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:2.1.0"
       options: --user root
-    runs-on: anzx-default-np
+    runs-on: anzx-default
     env:
       GITHUB_EVENT: ${{ github.event_name }}
       INPUTS_JOB_ID: ${{ github.event.inputs.JOB_ID }}

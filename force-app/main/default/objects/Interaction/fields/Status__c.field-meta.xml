@@ -32,6 +32,21 @@
                 <label>Closed &amp; Archived</label>
             </value>
             <value>
+                <fullName>Closed - Completed</fullName>
+                <default>false</default>
+                <label>Closed - Completed</label>
+            </value>
+            <value>
+                <fullName>Closed - Follow Up Interaction</fullName>
+                <default>false</default>
+                <label>Closed - Follow Up Interaction</label>
+            </value>
+            <value>
+                <fullName>Closed - Withdrawn</fullName>
+                <default>false</default>
+                <label>Closed - Withdrawn</label>
+            </value>
+            <value>
                 <fullName>Completed</fullName>
                 <default>false</default>
                 <label>Completed</label>

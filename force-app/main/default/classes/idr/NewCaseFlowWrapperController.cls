@@ -8,6 +8,9 @@ public with sharing class NewCaseFlowWrapperController {
   private static final ComplaintsRepository COMPLAINTS_REPOSITORY = (ComplaintsRepository) Lib_InstanceProvider.forType(
     ComplaintsRepository.class
   );
+  private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
 
   private static final String COMPLAINTS_MANAGEMENT_APP = 'Complaint Mgt';
   private static final List<Id> EXCLUDE_RT_CMPLT_MGT = new List<Id>{
@@ -63,7 +66,7 @@ public with sharing class NewCaseFlowWrapperController {
   ) {
     Map<String, String> caseDetails = new Map<String, String>();
 
-    if (newRecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID) {
+    if (newRecordTypeId == RTCase.generalInquiryCmos) {
       caseDetails.put('Type', '');
       caseDetails.put('Priority', '');
       caseDetails.put(
@@ -78,8 +81,8 @@ public with sharing class NewCaseFlowWrapperController {
           CommonUtil.getSinglePicklistLabel(Case.Priority, caseRecord.Priority)
       );
     } else if (
-      (newRecordTypeId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID ||
-      newRecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) &&
+      (newRecordTypeId == RTCase.nonCustomerComplaint ||
+      newRecordTypeId == RTCase.customerComplaint) &&
       caseRecord.Type == CommonUtil.getSinglePicklistValue(Case.Type, 'Other')
     ) {
       caseDetails.put('Type', '');
@@ -89,11 +92,11 @@ public with sharing class NewCaseFlowWrapperController {
       );
     }
 
-    if (newRecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) {
+    if (newRecordTypeId == RTCase.customerComplaint) {
       caseDetails.put('Customer_Notification_Consent__c', 'Yes');
     }
 
-    if (newRecordTypeId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID) {
+    if (newRecordTypeId == RTCase.nonCustomerComplaint) {
       caseDetails.put('IDR_NC_Is_Consent_Obtained__c', 'true');
     }
 
@@ -167,6 +170,15 @@ public with sharing class NewCaseFlowWrapperController {
           ? caseRecord.IDR_Complainant_Type__c
           : ''
       );
+      caseDetails.put('AccountId', caseRecord.AccountId ?? '');
+      caseDetails.put(
+        'IDR_Customer_Number__c',
+        caseRecord.IDR_Customer_Number__c ?? ''
+      );
+      caseDetails.put(
+        'IDR_Customer_Identifier__c',
+        caseRecord.IDR_Customer_Identifier__c ?? ''
+      );
     }
     return JSON.serialize(caseDetails);
   }
@@ -176,6 +188,7 @@ public with sharing class NewCaseFlowWrapperController {
    * @param accountId SF Account ID related to the Customer
    * @return String
    */
+  @testVisible
   private static String getOCVId(Id accountId) {
     Account account = COMPLAINTS_REPOSITORY.getAccountById(accountId);
     if (account != null) {
@@ -209,25 +222,14 @@ public with sharing class NewCaseFlowWrapperController {
    */
 
   public static String getCaseRecordTypesForAEM() {
-    List<Id> acceptedRecordTypeForAEMCases = new List<Id>{
+    Set<Id> acceptedRecordTypeForAEMCases = new Set<Id>{
       RTCase.nonCustomerComplaint,
       RTCase.generalInquiry,
       RTCase.customerComplaint
     };
-
-    try {
-      if (Schema.SObjectType.Case.isAccessible()) {
-        List<RecordType> rtToDisplay = [
-          SELECT Id, Name, Description, DeveloperName
-          FROM RecordType
-          WHERE SobjectType = 'Case' AND Id IN :acceptedRecordTypeForAEMCases
-        ];
-        return JSON.serialize(rtToDisplay);
-      }
-      return null;
-    } catch (Exception e) {
-      throw new AuraHandledException(e.getMessage());
-    }
+    return JSON.serialize(
+      COMPLAINTS_REPOSITORY.getRecordTypes(acceptedRecordTypeForAEMCases)
+    );
   }
 
   /**
@@ -277,8 +279,7 @@ public with sharing class NewCaseFlowWrapperController {
         if (
           !IDRConstants.DISABLE_OMNI_FOR_CMOS &&
           !isShellCaseCRTB &&
-          CommonUtil.userPermissionCheck(
-            (Id) userInfo.getUserId(),
+          USER_INFO.checkAnyPermissions(
             new Set<String>{
               'IDR_Level_1',
               'IDR_Level_2',

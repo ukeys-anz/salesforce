@@ -32,12 +32,21 @@
         <apexClass>omnistudio__ComponentController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customMetadataTypeAccesses>
+        <name>IDR_Omni_Settings_CMOS__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <customSettingAccesses>
         <name>IDR_Notification_Hours__c</name>
         <enabled>true</enabled>
     </customSettingAccesses>
     <description>The IDR user permission which is the base for all the IDR Users across all the
         Levels</description>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Description</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Assessment.Created_Date_Time__c</field>

@@ -72,6 +72,16 @@
                 <label>Moratorium</label>
             </value>
             <value>
+                <fullName>Reinstatement</fullName>
+                <default>false</default>
+                <label>Reinstatement</label>
+            </value>
+            <value>
+                <fullName>Repayment arrangement</fullName>
+                <default>false</default>
+                <label>Repayment arrangement</label>
+            </value>
+            <value>
                 <fullName>17</fullName>
                 <default>false</default>
                 <label>Repayment history information (RHI) amendment</label>
@@ -166,11 +176,6 @@
                 <default>false</default>
                 <label>Reward Points</label>
             </value>
-            <value>
-                <fullName>Repayment arrangement</fullName>
-                <default>false</default>
-                <label>Repayment arrangement</label>
-            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>1</controllingFieldValue>
@@ -218,6 +223,14 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>4</controllingFieldValue>
+            <valueName>Reinstatement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>4</controllingFieldValue>
+            <valueName>Repayment arrangement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>4</controllingFieldValue>
             <valueName>17</valueName>
         </valueSettings>
         <valueSettings>
@@ -237,10 +250,6 @@
             <controllingFieldValue>2</controllingFieldValue>
             <controllingFieldValue>3</controllingFieldValue>
             <valueName>99</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>4</controllingFieldValue>
-            <valueName>Repayment arrangement</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>2</controllingFieldValue>

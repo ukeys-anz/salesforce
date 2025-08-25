@@ -26,7 +26,7 @@ jobs:
   generate_object_changes:
     outputs:
       CHANGES_DETECTED: ${{ steps.run-diff.outputs.CHANGES_DETECTED }}
-    runs-on: [anzx-default-np]
+    runs-on: [anzx-default]
     steps:
       - uses: actions/setup-node@v2.1.5
         if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'

@@ -8,7 +8,7 @@
             <contactAccessLevel>Read</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>If ANZx Customer, ANZx and subordinates can view</description>
+        <description>If ANZx Customer, ANZx and subordinates can view </description>
         <label>ANZx Customer</label>
         <sharedTo>
             <roleAndSubordinates>ANZx</roleAndSubordinates>
@@ -170,6 +170,32 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>CMOS_Internal_Users_Access_to_Customers</fullName>
+        <accessLevel>Read</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>Read</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>This rule provides All internal CMOS Users access to view ANZ customers.</description>
+        <label>CMOS Internal Users Access to Customers</label>
+        <sharedTo>
+            <group>CMOS_Internal_Users</group>
+        </sharedTo>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Organisation,CLG</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IsPersonAccount</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>CMOS_customer_access_RO</fullName>
         <accessLevel>Read</accessLevel>
         <accountSettings>
@@ -299,6 +325,31 @@
             <field>IsPersonAccount</field>
             <operation>equals</operation>
             <value>True</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>ANZ_Retail_Customer_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>None</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>Read only access to all retail customers</description>
+        <label>ANZ Retail Customer RO</label>
+        <sharedTo>
+            <group>RetailCustomers_RO</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>IsPersonAccount</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>OCV_ID__c</field>
+            <operation>notEqual</operation>
+            <value/>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

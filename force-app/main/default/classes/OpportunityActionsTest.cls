@@ -7,12 +7,18 @@
 public class OpportunityActionsTest {
   static Lib_MockProvider oppActoinRepoMock;
   static Lib_MockProvider dmlRepoMock;
+  static Lib_MockProvider oppRepoMock;
+  static Lib_MockProvider accRepoMock;
   public static User ocvUser;
   static void registerMocks() {
     dmlRepoMock = Lib_MockProvider.forType(DMLRepository.class);
     oppActoinRepoMock = Lib_MockProvider.forType(
       OpportunityActionsRepository.class
     );
+    oppRepoMock = Lib_MockProvider.forType(
+      CommercialOpportunityRepository.class
+    );
+    accRepoMock = Lib_MockProvider.forType(AccountActionsRepository.class);
   }
   private static final String STAGE_CLOSED = 'Closed';
   private static final String STATUS_NEW = 'New';
@@ -296,11 +302,13 @@ public class OpportunityActionsTest {
 
   @isTest
   static void testOpportunityOwnership() {
+    registerMocks();
     String opportunityId = Lib_FakeIdGenerator.getMockId(
       Opportunity.SObjectType
     );
     String user1 = Lib_FakeIdGenerator.getMockId(User.SObjectType);
     String user2 = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    oppRepoMock.mock('getUserProfileId', QueryProfile.anzCCRMStandardUser.Id);
     Map<Id, Opportunity> oldOppMap = new Map<Id, Opportunity>{
       opportunityId => (new Opportunity(
         Id = opportunityId,
@@ -332,27 +340,49 @@ public class OpportunityActionsTest {
   }
 
   /**
-   * @description test method for getFilteredOpportunitiesForLoanappReferenceNumber
+   * @description test method for setHasCloseDateChanged
    */
   @isTest
-  static void getFilteredOpportunitiesForLoanappReferenceNumberTest() {
+  static void setHasCloseDateChangedTest() {
     registerMocks();
-    Opportunity oppMl = new Opportunity(
+    Opportunity oppMl1 = new Opportunity(
       Id = Lib_FakeIdGenerator.getMockId(Opportunity.getSobjectType()),
       RecordTypeId = RTOpportunity.mlOpportunity,
-      Loanapp_Reference__c = 'MLCRM-101'
+      CloseDate = System.today(),
+      Has_Close_Date_Changed__c = false
     );
-    Opportunity oppMlChanged = new Opportunity(
+    Opportunity oppMl1Changed = new Opportunity(
+      Id = oppMl1.Id,
+      RecordTypeId = RTOpportunity.mlOpportunity
+    );
+    Opportunity oppMl2 = new Opportunity(
+      Id = Lib_FakeIdGenerator.getMockId(Opportunity.getSobjectType()),
       RecordTypeId = RTOpportunity.mlOpportunity,
-      Loanapp_Reference__c = 'MLCRM-102'
+      CloseDate = System.today()
     );
+    Opportunity oppMl2Changed = new Opportunity(
+      Id = oppMl2.Id,
+      RecordTypeId = RTOpportunity.mlOpportunity,
+      CloseDate = System.today()
+    );
+
     Test.startTest();
-    List<Opportunity> oppList = OpportunityActions.getFilteredOpportunitiesForLoanappReferenceNumber(
-      new List<Opportunity>{ oppMl },
-      new Map<Id, Opportunity>{ oppMl.Id => oppMlChanged }
+    OpportunityActions.setHasCloseDateChanged(
+      new List<Opportunity>{ oppMl1, oppMl2 },
+      new Map<Id, Opportunity>{
+        oppMl1.Id => oppMl1Changed,
+        oppMl2.Id => oppMl2Changed
+      }
     );
     Test.stopTest();
-    Assert.areEqual(1, oppList.size(), '1 opportunity should be returned!');
+    Assert.isTrue(
+      oppMl1.Has_Close_Date_Changed__c,
+      'setHasCloseDateChanged is not making Has_Close_Date_Changed__c to true'
+    );
+    Assert.isFalse(
+      oppMl2.Has_Close_Date_Changed__c,
+      'setHasCloseDateChanged is updating Has_Close_Date_Changed__c to true for wrong record'
+    );
   }
 
   @isTest
@@ -400,5 +430,31 @@ public class OpportunityActionsTest {
       ocrSyncList.size(),
       'there should be 1 ocr sync updated'
     );
+  }
+
+  /**
+   * @description test method for populateName
+   */
+  @isTest
+  static void testpopulateName() {
+    registerMocks();
+    Opportunity opp = new Opportunity();
+    opp.Id = Lib_FakeIdGenerator.getMockId(Opportunity.getSobjectType());
+
+    Id accountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    opp.Lead_Converted__c = true;
+    opp.AccountId = accountId;
+
+    Map<Id, Account> mapOfAcc = new Map<Id, Account>();
+    Account objAcc = new Account();
+    objAcc.Id = accountId;
+    objAcc.Name = 'AccTest';
+    mapOfAcc.put(accountId, objAcc);
+
+    oppActoinRepoMock.mock('getAccountByIds', mapOfAcc);
+    Test.startTest();
+    OpportunityActions.populateName(new List<Opportunity>{ opp });
+    Test.stopTest();
+    Assert.areEqual('AccTest', opp.Name, 'Account name is opportunity name');
   }
 }
