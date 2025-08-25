@@ -1145,7 +1145,9 @@
         "Case_Read_Write_Credit_Referral",
         "API_Only",
         "Enforce_mTLS",
-        "Disable_MFA"
+        "Disable_MFA",
+        "Mortgage",
+        "Loan_app_Integration"
       ],
       "type": "system"
     },
@@ -1197,7 +1199,8 @@
         "Settlements_Read_Write",
         "Disable_MFA",
         "Enforce_mTLS",
-        "ActionPlans"
+        "ActionPlans",
+        "Loan_app_settlement_integration"
       ],
       "type": "system"
     },

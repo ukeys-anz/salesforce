@@ -474,4 +474,44 @@ public with sharing class ConfirmationOfPayeeHelperTest {
 
     return casedetails;
   }
+  @isTest
+  private static void testGetChatterMessageRichText() {
+    Test.startTest();
+    ConfirmationOfPayeeHelper copHelper = new ConfirmationOfPayeeHelper();
+    CaseDetailsContainer caseContainer = mockCaseDetailsContainer(
+      '2025-03-19T05:42:59.000+0000'
+    );
+    CaseDetailsContainer.CaseDetailsWithCoPStatus caseDetailsWithCoPStatus = caseContainer.successList[0];
+    caseDetailsWithCoPStatus.caseCoPStatus = 'Open';
+    caseDetailsWithCoPStatus.accountNumber = '12345678';
+    String masked8CharString = copHelper.getChatterMessageRichText(
+      caseDetailsWithCoPStatus
+    );
+    String masked4CharString = '';
+    String masked16CharString = '';
+    caseDetailsWithCoPStatus.accountNumber = '1234';
+    masked4CharString = copHelper.getChatterMessageRichText(
+      caseDetailsWithCoPStatus
+    );
+    caseDetailsWithCoPStatus.accountNumber = '1234567812345678';
+    masked16CharString = copHelper.getChatterMessageRichText(
+      caseDetailsWithCoPStatus
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      '<p><b>Confirmation of Payee - Open</b> </p><p><b>Account Ending: </b>****5678</p><p><b>Requested by: </b>Sname</p><p><b>Actioned By: </b>Kname</p><p><b>Date of request: </b>19/03/2025</p>',
+      masked8CharString,
+      'Account Number Masked Correctly'
+    );
+    Assert.areEqual(
+      '<p><b>Confirmation of Payee - Open</b> </p><p><b>Account Ending: </b>1234</p><p><b>Requested by: </b>Sname</p><p><b>Actioned By: </b>Kname</p><p><b>Date of request: </b>19/03/2025</p>',
+      masked4CharString,
+      'Account Number Masked Correctly'
+    );
+    Assert.areEqual(
+      '<p><b>Confirmation of Payee - Open</b> </p><p><b>Account Ending: </b>************5678</p><p><b>Requested by: </b>Sname</p><p><b>Actioned By: </b>Kname</p><p><b>Date of request: </b>19/03/2025</p>',
+      masked16CharString,
+      'Account Number Masked Correctly'
+    );
+  }
 }

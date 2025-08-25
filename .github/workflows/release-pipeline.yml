@@ -218,5 +218,5 @@ jobs:
     with:
       isSlack: true
       slackChannels: prod-release-notifications
-      slackMessage: "${{ needs.prepare-outputs.outputs.slack_msg }}"
+      slackMessage: "${{ needs.prepare-notification.outputs.slack_msg }}"
       slackPrivate: true

@@ -5,30 +5,22 @@
  */
 
 @IsTest
-private class ResidentialLoanAppActionsTest {
-  private static final String BROKER_CODE = 'TPMI123456789';
-  static Lib_MockProvider rlarRepoMock = Lib_MockProvider.forType(
+private class ResidentialLoanApplicationActionsTest {
+  static final String BROKER_CODE = 'TPMI123456789';
+  static final String SUNSET_STATUS = 'STATE_UNSPECIFIED';
+  static final String NON_SUNSET_STATUS = 'STATE_CAPTURE';
+  static Lib_MockProvider rlaRepoMock = Lib_MockProvider.forType(
     ResidentialLoanApplicationRepository.class
   );
   static Lib_MockProvider brokerSettingsMock = Lib_MockProvider.forType(
     CustomSettingsRepository.class
   );
-  private static final String SUNSET_STATUS = 'STATE_UNSPECIFIED';
-  private static final String NON_SUNSET_STATUS = 'STATE_CAPTURE';
-  private static final Id FAKER_RLA_ID = Lib_FakeIdGenerator.getMockId(
+  static Lib_MockProvider dmlRepoMock = Lib_MockProvider.forType(
+    DmlRepository.class
+  );
+  static final Id FAKER_RLA_ID = Lib_FakeIdGenerator.getMockId(
     ResidentialLoanApplication.getSObjectType()
   );
-
-  static Lib_MockProvider dmlRepoMock;
-  static Lib_MockProvider rlaRepoMock;
-
-  static void registerMocks() {
-    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
-    rlaRepoMock = Lib_MockProvider.forType(
-        ResidentialLoanApplicationRepository.class
-      )
-      .mock('queryRelatedCreditReferralCases', createMockCaseRelatedToRla());
-  }
 
   @IsTest
   static void testPopulateAssistedBroker() {
@@ -233,7 +225,7 @@ private class ResidentialLoanAppActionsTest {
     for (ResidentialLoanApplication eachLoanApp : loanApps) {
       eachLoanApp.Sync_Status__c = 'Broker Org';
     }
-    rlarRepoMock.mock('queryLoanApplications', loanApps);
+    rlaRepoMock.mock('queryLoanApplications', loanApps);
     Test.startTest();
     BrokerSettings__c mockSettings = new BrokerSettings__c();
     mockSettings.BypassApplicationEvent__c = false;
@@ -249,10 +241,10 @@ private class ResidentialLoanAppActionsTest {
       '10 Cloud Events should be published'
     );
     Assert.isFalse(
-      rlarRepoMock.getHistories('queryLoanApplications').isEmpty(),
+      rlaRepoMock.getHistories('queryLoanApplications').isEmpty(),
       'queryLoanApplications should have been called at least once'
     );
-    List<Id> loanApplicationIds = (List<Id>) rlarRepoMock.getHistory(
+    List<Id> loanApplicationIds = (List<Id>) rlaRepoMock.getHistory(
         'queryLoanApplications'
       )
       .getParam('loanIds');
@@ -285,8 +277,10 @@ private class ResidentialLoanAppActionsTest {
   }
   @isTest
   private static void testProcessCancelledRLARecords() {
-    registerMocks();
-
+    rlaRepoMock.mock(
+      'queryRelatedCreditReferralCases',
+      createMockCaseRelatedToRla()
+    );
     List<ResidentialLoanApplication> newRlaRecordsList = createMockRlaRecord(
       BOHConstants.RLA_CANCELLED_STATUS
     );
@@ -473,7 +467,6 @@ private class ResidentialLoanAppActionsTest {
 
   @isTest
   static void testCancelResidentialLoanApplicationSuccess() {
-    registerMocks();
     dmlRepoMock.mock(
       'doUpdate',
       TestUtil.getMockSaveResult('{"success":true}')
@@ -537,6 +530,67 @@ private class ResidentialLoanAppActionsTest {
     );
     Test.stopTest();
     Assert.areEqual(response.statusCode, 500, 'Status Code should be 500');
+  }
+
+  @IsTest
+  static void testSetResidentialLoanApplicationValidityRLS() {
+    Loan_Application_Validity__mdt loanApplicationValidityMDT = new Loan_Application_Validity__mdt(
+      DeveloperName = 'RLS STATE SUBMITTED',
+      MasterLabel = 'RLS_STATE_SUBMITTED',
+      Years__c = 1,
+      Months__c = 6,
+      Days__c = 60
+    );
+    rlaRepoMock.mock(
+      'getLoanApplicationValidityMetadata',
+      loanApplicationValidityMDT
+    );
+    ResidentialLoanApplication rla = new ResidentialLoanApplication();
+    rla.RecordTypeId = RTResidentialLoanApplication.rlsResidentialLoanApplication;
+    rla.Status = 'STATE_SUBMITTED';
+    Test.startTest();
+    List<ResidentialLoanApplication> rlas = ResidentialLoanApplicationActions.setResidentialLoanApplicationValidity(
+      new List<ResidentialLoanApplication>{ rla }
+    );
+    Test.stopTest();
+    Date expectedDate = Date.today().addYears(1).addMonths(6).addDays(60);
+    Assert.areEqual(
+      expectedDate,
+      rlas[0].SunsetTimestamp__c,
+      'Sunset Timestamp should be populated correctly.'
+    );
+  }
+
+  @IsTest
+  static void testSetResidentialLoanApplicationValidityNotRLS() {
+    ResidentialLoanApplication rla = new ResidentialLoanApplication();
+    rla.RecordTypeId = RTResidentialLoanApplication.anzxHomeLoan;
+    Test.startTest();
+    List<ResidentialLoanApplication> rlas = ResidentialLoanApplicationActions.setResidentialLoanApplicationValidity(
+      new List<ResidentialLoanApplication>{ rla }
+    );
+    Test.stopTest();
+    Assert.isTrue(
+      rlas[0].SunsetTimestamp__c == null,
+      'Sunset Timestamp should not be populated as the record type is not RLS'
+    );
+  }
+
+  @IsTest
+  static void testSetResidentialLoanApplicationValidityInelgibleStatus() {
+    rlaRepoMock.mock('getLoanApplicationValidityMetadata', null);
+    ResidentialLoanApplication rla = new ResidentialLoanApplication();
+    rla.RecordTypeId = RTResidentialLoanApplication.rlsResidentialLoanApplication;
+    rla.Status = 'STATE_NOTVALID_FOR_SUNSET_TIMESTAMP';
+    Test.startTest();
+    List<ResidentialLoanApplication> rlas = ResidentialLoanApplicationActions.setResidentialLoanApplicationValidity(
+      new List<ResidentialLoanApplication>{ rla }
+    );
+    Test.stopTest();
+    Assert.isTrue(
+      rlas[0].SunsetTimestamp__c == null,
+      'Sunset Timestamp should not be populated as no CMDT present for the status'
+    );
   }
 
   /**

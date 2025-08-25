@@ -327,6 +327,11 @@
                 <label>Interest Rate</label>
             </value>
             <value>
+                <fullName>International Payment</fullName>
+                <default>false</default>
+                <label>International Payment</label>
+            </value>
+            <value>
                 <fullName>KYC</fullName>
                 <default>false</default>
                 <label>KYC</label>
