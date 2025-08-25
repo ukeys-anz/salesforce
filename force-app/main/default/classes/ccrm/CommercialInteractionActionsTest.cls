@@ -15,12 +15,35 @@ private class CommercialInteractionActionsTest {
     );
   }
 
+  static Interaction makeGeneralInteraction() {
+    return new Interaction(
+      Name = 'Test Interaction',
+      recordTypeId = RTInteraction.CommercialInteraction,
+      Category__c = CCRMConstants.INTER_CAT_GENERAL,
+      InteractionType = 'Call',
+      StartTime = System.now(),
+      Optional_Notes__c = 'Test Optional Notes'
+    );
+  }
+  static Interaction makeCapInteraction() {
+    return new Interaction(
+      Name = 'Test Interaction',
+      Comment__c = 'Test Comment',
+      Permanent__c = true,
+      Expiry_Date__c = System.Today(),
+      recordTypeId = RTInteraction.CommercialInteraction,
+      Category__c = CCRMConstants.INTER_CAT_CAPDIARYCOMMENTS,
+      InteractionType = 'Call'
+    );
+  }
+
   @isTest
   static void publishCloudEventsOnCreateTest() {
-    User ccrmUser = CCRMTestDataFactory.getCCRMBaseUser();
     registerMocks();
-    ccrmUser.Lan_Id__c = 'TestLanId';
-
+    User ccrmUser = new User(
+      Id = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+      Lan_Id__c = 'TestLanId'
+    );
     //Create Mock Ids
     Id interactionId = Lib_FakeIdGenerator.getMockId(Interaction.SobjectType);
     Id accId = Lib_FakeIdGenerator.getMockId(Account.SobjectType);
@@ -53,11 +76,12 @@ private class CommercialInteractionActionsTest {
     );
 
     //Create Interaction Data to be Inserted
-    List<Interaction> intListGen = CCRMTestDataFactory.createInteractionDataWithOpportunity(
-      1,
-      ccrmUser,
-      oppId
-    );
+
+    List<Interaction> intListGen = new List<Interaction>{
+      makeGeneralInteraction()
+    };
+    intListGen[0].Opportunity__c = oppId;
+    intListGen[0].OwnerId = ccrmUser.Id;
     intListGen[0] = (Interaction) TestUtil.setFields(
       intListGen[0],
       new Map<String, Object>{
@@ -69,12 +93,12 @@ private class CommercialInteractionActionsTest {
       }
     );
 
-    List<Interaction> intListCap = CCRMTestDataFactory.createCapInteractionData(
-      1,
-      ccrmUser,
-      accId,
-      finAccountId
-    );
+    List<Interaction> intListCap = new List<Interaction>{
+      makeCapInteraction()
+    };
+    intListCap[0].OwnerId = ccrmUser.Id;
+    intListCap[0].Financial_Account__c = finAccountId;
+    intListCap[0].AccountId = accId;
     intListCap[0] = (Interaction) TestUtil.setFields(
       intListCap[0],
       new Map<String, Object>{
@@ -147,9 +171,11 @@ private class CommercialInteractionActionsTest {
 
   @isTest
   static void publishCloudEventsOnUpdateTest() {
-    User ccrmUser = CCRMTestDataFactory.getCCRMBaseUser();
     registerMocks();
-    ccrmUser.Lan_Id__c = 'TestLanId';
+    User ccrmUser = new User(
+      Id = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+      Lan_Id__c = 'TestLanId'
+    );
 
     Id interactionId = Lib_FakeIdGenerator.getMockId(Interaction.SobjectType);
     Id accId = Lib_FakeIdGenerator.getMockId(Account.SobjectType);
@@ -180,11 +206,11 @@ private class CommercialInteractionActionsTest {
       new Map<String, Object>{ 'Product_Code_Display__c' => 'DDA' }
     );
 
-    List<Interaction> intListGen = CCRMTestDataFactory.createInteractionDataWithOpportunity(
-      1,
-      ccrmUser,
-      oppId
-    );
+    List<Interaction> intListGen = new List<Interaction>{
+      makeGeneralInteraction()
+    };
+    intListGen[0].Opportunity__c = oppId;
+    intListGen[0].OwnerId = ccrmUser.Id;
     intListGen[0] = (Interaction) TestUtil.setFields(
       intListGen[0],
       new Map<String, Object>{
@@ -196,12 +222,12 @@ private class CommercialInteractionActionsTest {
       }
     );
 
-    List<Interaction> intListCap = CCRMTestDataFactory.createCapInteractionData(
-      1,
-      ccrmUser,
-      accId,
-      finAccountId
-    );
+    List<Interaction> intListCap = new List<Interaction>{
+      makeCapInteraction()
+    };
+    intListCap[0].OwnerId = ccrmUser.Id;
+    intListCap[0].Financial_Account__c = finAccountId;
+    intListCap[0].AccountId = accId;
     intListCap[0] = (Interaction) TestUtil.setFields(
       intListCap[0],
       new Map<String, Object>{
@@ -259,9 +285,11 @@ private class CommercialInteractionActionsTest {
 
   @isTest
   static void publishCloudEventsNegativeTest() {
-    User ccrmUser = CCRMTestDataFactory.getCCRMBaseUser();
     registerMocks();
-    ccrmUser.Lan_Id__c = 'TestLanId';
+    User ccrmUser = new User(
+      Id = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+      Lan_Id__c = 'TestLanId'
+    );
 
     //Create Mock Ids
     Id interactionId = Lib_FakeIdGenerator.getMockId(Interaction.SobjectType);
@@ -295,11 +323,11 @@ private class CommercialInteractionActionsTest {
     );
 
     //Create Interaction Data to be Inserted
-    List<Interaction> intListGen = CCRMTestDataFactory.createInteractionDataWithOpportunity(
-      1,
-      ccrmUser,
-      oppId
-    );
+    List<Interaction> intListGen = new List<Interaction>{
+      makeGeneralInteraction()
+    };
+    intListGen[0].Opportunity__c = oppId;
+    intListGen[0].OwnerId = ccrmUser.Id;
     intListGen[0] = (Interaction) TestUtil.setFields(
       intListGen[0],
       new Map<String, Object>{
@@ -311,12 +339,12 @@ private class CommercialInteractionActionsTest {
       }
     );
 
-    List<Interaction> intListCap = CCRMTestDataFactory.createCapInteractionData(
-      1,
-      ccrmUser,
-      accId,
-      finAccountId
-    );
+    List<Interaction> intListCap = new List<Interaction>{
+      makeCapInteraction()
+    };
+    intListCap[0].OwnerId = ccrmUser.Id;
+    intListCap[0].Financial_Account__c = finAccountId;
+    intListCap[0].AccountId = accId;
     intListCap[0] = (Interaction) TestUtil.setFields(
       intListCap[0],
       new Map<String, Object>{
@@ -381,17 +409,11 @@ private class CommercialInteractionActionsTest {
 
   @isTest
   static void createBrokerInteractionAttendeeTest() {
-    User ccrmUser = CCRMTestDataFactory.getCCRMBaseUser();
     registerMocks();
-
     Id interactionId = Lib_FakeIdGenerator.getMockId(Interaction.SobjectType);
     Id brokerId = Lib_FakeIdGenerator.getMockId(Contact.SobjectType);
 
-    Interaction intRec = CCRMTestDataFactory.createInteractionDataWithOpportunity(
-      1,
-      ccrmUser,
-      null
-    )[0];
+    Interaction intRec = makeGeneralInteraction();
     intRec.Id = interactionId;
     intRec.Broker__c = brokerId;
 
@@ -415,17 +437,11 @@ private class CommercialInteractionActionsTest {
 
   @isTest
   static void createBrokerInteractionAttendeeNegativeTest() {
-    User ccrmUser = CCRMTestDataFactory.getCCRMBaseUser();
     registerMocks();
-
     Id interactionId = Lib_FakeIdGenerator.getMockId(Interaction.SobjectType);
     Id brokerId = Lib_FakeIdGenerator.getMockId(Contact.SobjectType);
 
-    Interaction intRec = CCRMTestDataFactory.createInteractionDataWithOpportunity(
-      1,
-      ccrmUser,
-      null
-    )[0];
+    Interaction intRec = makeGeneralInteraction();
     intRec.Id = interactionId;
     intRec.Broker__c = brokerId;
 
@@ -457,48 +473,14 @@ private class CommercialInteractionActionsTest {
   }
 
   @isTest
-  static void updateCustomerOnInteractionTest() {
-    User ccrmUser = CCRMTestDataFactory.getCCRMBaseUser();
-    Map<Id, Id> oppIdToCustomerIdMap;
-    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
-    Id accId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-    Opportunity opp = CCRMTestDataFactory.createStaticOpportunityData(
-      oppId,
-      'Test Opp',
-      CCRMConstants.CCRM_OPP_RT_ID,
-      'Opportunity Identified'
-    );
-    opp.AccountId = accId;
-    List<Interaction> intRec = CCRMTestDataFactory.createInteractionDataWithOpportunity(
-      1,
-      ccrmUser,
-      oppId
-    );
-    intRec[0].AccountId = null;
-    oppIdToCustomerIdMap = new Map<Id, Id>{ oppId => accId };
-
-    Test.startTest();
-    CommercialInteractionActions.updateCustomerOnInteraction(
-      intRec,
-      oppIdToCustomerIdMap
-    );
-    Test.stopTest();
-
-    System.assertEquals(accId, intRec[0].AccountId, 'No Account Found');
-  }
-
-  @isTest
   static void setCustomerOnInteractionOnInsertTest() {
     registerMocks();
-    User ccrmUser = CCRMTestDataFactory.getCCRMBaseUser();
     Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
     Id accId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-    List<Interaction> intList;
-    intList = CCRMTestDataFactory.createInteractionDataWithOpportunity(
-      1,
-      ccrmUser,
-      oppId
-    );
+    List<Interaction> intList = new List<Interaction>{
+      makeGeneralInteraction()
+    };
+    intList[0].Opportunity__c = oppId;
     Opportunity opp = new Opportunity(Id = oppId, AccountId = accId);
     interactionActionRepoMock.mock(
       'getOpportunities',
@@ -508,7 +490,7 @@ private class CommercialInteractionActionsTest {
     CommercialInteractionActions.setCustomerOnInteraction(intList, null);
     Test.stopTest();
 
-    System.assertEquals(
+    Assert.areEqual(
       accId,
       intList[0].AccountId,
       'Customer is not updated on Interaction'
@@ -518,14 +500,11 @@ private class CommercialInteractionActionsTest {
   @isTest
   static void setCustomerOnInteractionNegativeTest() {
     registerMocks();
-    User ccrmUser = CCRMTestDataFactory.getCCRMBaseUser();
     Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
-    List<Interaction> intList = CCRMTestDataFactory.createInteractionDataWithOpportunity(
-      1,
-      ccrmUser,
-      oppId
-    );
-
+    List<Interaction> intList = new List<Interaction>{
+      makeGeneralInteraction()
+    };
+    intList[0].Opportunity__c = oppId;
     interactionActionRepoMock.mockException(
       'getOpportunities',
       new QueryException('getOpportunities failed')
@@ -546,55 +525,6 @@ private class CommercialInteractionActionsTest {
       errorMessage,
       'Correct error message should be logged'
     );
-  }
-
-  @isTest
-  static void setInteractionNameOnInsertTest() {
-    User ccrmUser = CCRMTestDataFactory.getCCRMBaseUser();
-    List<Interaction> intList;
-    intList = CCRMTestDataFactory.createInteractionDataWithOpportunity(
-      1,
-      ccrmUser,
-      null
-    );
-
-    Test.startTest();
-    CommercialInteractionActions.setInteractionName(
-      intList,
-      new Map<Id, Interaction>()
-    );
-    Test.stopTest();
-
-    System.assertEquals('Test 1 Call', intList[0].Name, 'Name is not updated');
-  }
-
-  @isTest
-  static void setInteractionNameOnUpdateTest() {
-    User ccrmUser = CCRMTestDataFactory.getCCRMBaseUser();
-    List<Interaction> intList;
-    Map<Id, Interaction> oldMap;
-    Id intId = Lib_FakeIdGenerator.getMockId(Interaction.SObjectType);
-    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
-    intList = CCRMTestDataFactory.createInteractionDataWithOpportunity(
-      1,
-      ccrmUser,
-      oppId
-    );
-    intList[0].Id = intId;
-    intList[0].Name = 'Test Other';
-    oldMap = new Map<Id, Interaction>{
-      intId => new Interaction(
-        Id = intId,
-        Name = 'Test Updated Interaction Other',
-        InteractionType = 'Other'
-      )
-    };
-
-    Test.startTest();
-    CommercialInteractionActions.setInteractionName(intList, oldMap);
-    Test.stopTest();
-
-    System.assertEquals('Test  Call', intList[0].Name, 'Name is not updated');
   }
 
   @isTest
@@ -630,7 +560,8 @@ private class CommercialInteractionActionsTest {
         Id = Lib_FakeIdGenerator.getMockId(Interaction.SObjectType),
         Name = 'Sample Interaction',
         RecordTypeId = RTInteraction.CommercialInteraction,
-        comment__c = 'Test 1234123412341234'
+        comment__c = 'Test 1234123412341234',
+        optional_Notes__c = 'Test 1234123412341234'
       )
     };
 
@@ -648,6 +579,11 @@ private class CommercialInteractionActionsTest {
     Assert.areEqual(
       expectedResult,
       actualInteractionInstance.comment__c,
+      'Redaction is Not Completed'
+    );
+    Assert.areEqual(
+      expectedResult,
+      actualInteractionInstance.Optional_Notes__c,
       'Redaction is Not Completed'
     );
   }
@@ -690,7 +626,8 @@ private class CommercialInteractionActionsTest {
         Id = Lib_FakeIdGenerator.getMockId(Interaction.SObjectType),
         Name = 'Sample Interaction - Empty Comment',
         RecordTypeId = RTInteraction.CommercialInteraction,
-        comment__c = 'This is a safe comment'
+        comment__c = 'This is a safe comment',
+        optional_Notes__c = 'This is a safe comment'
       )
     };
 
@@ -707,6 +644,11 @@ private class CommercialInteractionActionsTest {
       actualInteractionInstance.comment__c,
       'Redaction should not occur on safe comment'
     );
+    Assert.areEqual(
+      'This is a safe comment',
+      actualInteractionInstance.optional_Notes__c,
+      'Redaction should not occur on safe comment'
+    );
   }
 
   @IsTest
@@ -715,10 +657,17 @@ private class CommercialInteractionActionsTest {
 
     Id accountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
     Id clgAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-
+    Id interactionId = Lib_FakeIdGenerator.getMockId(Interaction.SObjectType);
     List<Interaction> interactions = new List<Interaction>{
       new Interaction(
-        Id = Lib_FakeIdGenerator.getMockId(Interaction.SObjectType),
+        Id = interactionId,
+        AccountId = accountId,
+        CLGCustomer__c = clgAccountId
+      )
+    };
+    Map<Id, Interaction> interactionsOldMap = new Map<Id, Interaction>{
+      interactionId => new Interaction(
+        Id = interactionId,
         AccountId = accountId,
         CLGCustomer__c = null
       )
@@ -732,116 +681,142 @@ private class CommercialInteractionActionsTest {
         )
       }
     );
-    interactionActionRepoMock.mock('getAccounts', new Map<Id, Account>());
     Test.startTest();
     CommercialInteractionActions.validateAndPopulateCLG(
       interactions,
-      new Map<Id, Interaction>()
+      interactionsOldMap
     );
     Test.stopTest();
 
     Assert.areEqual(
       clgAccountId,
-      clgAccountId,
+      interactions[0].CLGCustomer__c,
       'CLGCustomer__c should be auto-populated with the only related CLG'
     );
   }
 
   @IsTest
-  static void testValidateAndPopulateCLGAllowNoCLGsNoErrors() {
+  static void testValidateAndPopulateCLGSetNullNoValidCLGFFound() {
     registerMocks();
+    //Given List Of Interaction
     Id accountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id clgAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
     Id interactionId = Lib_FakeIdGenerator.getMockId(Interaction.SObjectType);
-
-    Interaction interaction = new Interaction(
-      Id = interactionId,
-      AccountId = accountId,
-      CLGCustomer__c = null
-    );
+    List<Interaction> interactions = new List<Interaction>{
+      new Interaction(
+        Id = interactionId,
+        AccountId = clgAccountId,
+        CLGCustomer__c = null
+      )
+    };
+    Map<Id, Interaction> interactionsOldMap = new Map<Id, Interaction>{
+      interactionId => new Interaction(
+        Id = interactionId,
+        AccountId = clgAccountId,
+        CLGCustomer__c = clgAccountId
+      )
+    };
     interactionActionRepoMock.mock(
       'getRelatedCLGAccounts',
       new List<FinServ__AccountAccountRelation__c>()
     );
-
-    interactionActionRepoMock.mock(
-      'getAccounts',
-      new Map<Id, Account>{
-        accountId => new Account(
-          Id = accountId,
-          RecordTypeId = RTAccount.clgAccount
-        )
-      }
-    );
+    // WHEN Interaction Associated to Clg and CLG field Updated to null
     Test.startTest();
     CommercialInteractionActions.validateAndPopulateCLG(
-      new List<Interaction>{ interaction },
-      new Map<Id, Interaction>{ interaction.Id => interaction }
+      interactions,
+      interactionsOldMap
     );
     Test.stopTest();
+    //THEN no errors should be thrown and It should get updated to null
+    Assert.isFalse(interactions[0].hasErrors());
     Assert.areEqual(
-      accountId,
-      accountId,
-      'Should fallback to AccountId itself if no CLGs exist and account is CLG'
+      null,
+      interactions[0].CLGCustomer__c,
+      'CLGCustomer__c should be null'
     );
   }
 
   @IsTest
-  static void testMapCustomerToCLGAccounts() {
-    Id accountId1 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-    Id accountId2 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-    Id relatedAccountId1 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-    Id relatedAccountId2 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-
-    List<FinServ__AccountAccountRelation__c> relations = new List<FinServ__AccountAccountRelation__c>{
-      new FinServ__AccountAccountRelation__c(
-        FinServ__Account__c = accountId1,
-        FinServ__RelatedAccount__c = relatedAccountId1
-      ),
-      new FinServ__AccountAccountRelation__c(
-        FinServ__Account__c = accountId1,
-        FinServ__RelatedAccount__c = relatedAccountId2
-      ),
-      new FinServ__AccountAccountRelation__c(
-        FinServ__Account__c = accountId2,
-        FinServ__RelatedAccount__c = relatedAccountId1
-      ),
-      new FinServ__AccountAccountRelation__c(
-        FinServ__Account__c = null,
-        FinServ__RelatedAccount__c = relatedAccountId1
-      ),
-      new FinServ__AccountAccountRelation__c(
-        FinServ__Account__c = accountId2,
-        FinServ__RelatedAccount__c = null
+  static void testValidateAndPopulateCLGSetNullValidCLGFFound() {
+    registerMocks();
+    //Given List Of Interaction
+    Id accountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id clgAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id interactionId = Lib_FakeIdGenerator.getMockId(Interaction.SObjectType);
+    List<Interaction> interactions = new List<Interaction>{
+      new Interaction(
+        Id = interactionId,
+        AccountId = accountId,
+        CLGCustomer__c = null
       )
     };
+    Map<Id, Interaction> interactionsOldMap = new Map<Id, Interaction>{
+      interactionId => new Interaction(
+        Id = interactionId,
+        AccountId = accountId,
+        CLGCustomer__c = clgAccountId
+      )
+    };
+    interactionActionRepoMock.mock(
+      'getRelatedCLGAccounts',
+      new List<FinServ__AccountAccountRelation__c>{
+        new FinServ__AccountAccountRelation__c(
+          FinServ__Account__c = accountId,
+          FinServ__RelatedAccount__c = clgAccountId
+        )
+      }
+    );
+    // WHEN Interaction is associated to a normal account and CLG field is updated to null
+    Test.startTest();
+    CommercialInteractionActions.validateAndPopulateCLG(
+      interactions,
+      interactionsOldMap
+    );
+    Test.stopTest();
+    //THEN It should Add an error on record
+    Assert.isTrue(interactions[0].hasErrors());
+  }
 
-    Map<Id, Set<Id>> result = CommercialInteractionActions.mapCustomerToCLGAccounts(
-      relations
+  @IsTest
+  static void testValidateAndPopulateCLGNegative() {
+    registerMocks();
+    //Given List Of Interaction
+    Id accountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id clgAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id clgAccountId2 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id interactionId = Lib_FakeIdGenerator.getMockId(Interaction.SObjectType);
+    List<Interaction> interactions = new List<Interaction>{
+      new Interaction(
+        Id = interactionId,
+        AccountId = accountId,
+        CLGCustomer__c = clgAccountId2
+      )
+    };
+    Map<Id, Interaction> interactionsOldMap = new Map<Id, Interaction>{
+      interactionId => new Interaction(
+        Id = interactionId,
+        AccountId = accountId,
+        CLGCustomer__c = clgAccountId
+      )
+    };
+    interactionActionRepoMock.mock(
+      'getRelatedCLGAccounts',
+      new List<FinServ__AccountAccountRelation__c>{
+        new FinServ__AccountAccountRelation__c(
+          FinServ__Account__c = accountId,
+          FinServ__RelatedAccount__c = clgAccountId
+        )
+      }
     );
-
-    Assert.isTrue(
-      result.containsKey(accountId1),
-      'Map should contain accountId1'
+    // WHEN Interaction is associated to CLG which is not accounts Parent
+    Test.startTest();
+    CommercialInteractionActions.validateAndPopulateCLG(
+      interactions,
+      interactionsOldMap
     );
-    Assert.isTrue(
-      result.containsKey(accountId2),
-      'Map should contain accountId2'
-    );
-
-    Assert.areEqual(
-      2,
-      result.get(accountId1).size(),
-      'accountId1 should have 2 related CLGs'
-    );
-    Assert.areEqual(
-      1,
-      result.get(accountId2).size(),
-      'accountId2 should have 1 related CLG'
-    );
-    Assert.isFalse(
-      result.containsKey(null),
-      'Map should not contain null keys'
-    );
+    Test.stopTest();
+    //THEN It should Add an error on record
+    Assert.isTrue(interactions[0].hasErrors());
   }
 
   @IsTest
@@ -920,6 +895,64 @@ private class CommercialInteractionActionsTest {
       accountId,
       interactions[0].CLGCustomer__c,
       'CLGCustomer__c should be auto-populated with the only related CLG'
+    );
+  }
+
+  @isTest
+  static void testupdateNameWithChannelChange() {
+    Id intId = Lib_FakeIdGenerator.getMockId(Interaction.SObjectType);
+    List<Interaction> interactionList = new List<Interaction>{
+      new Interaction(
+        Id = intId,
+        Name = 'SampleInteraction Appointment',
+        RecordTypeId = RTInteraction.CommercialInteraction,
+        InteractionType = 'Seminar'
+      )
+    };
+
+    Map<Id, Interaction> oldMap = new Map<Id, Interaction>{
+      intId => new Interaction(
+        Id = intId,
+        Name = 'SampleInteraction Appointment',
+        RecordTypeId = RTInteraction.CommercialInteraction,
+        InteractionType = 'Appointment'
+      )
+    };
+
+    Test.startTest();
+    CommercialInteractionActions.updateNameWithChannelChange(
+      interactionList,
+      oldMap
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      'SampleInteraction Seminar',
+      interactionList[0].Name,
+      'Name should be updated with the new channel'
+    );
+  }
+
+  @IsTest
+  static void testsetNameWithChannel() {
+    Id intId = Lib_FakeIdGenerator.getMockId(Interaction.SObjectType);
+    List<Interaction> interactionList = new List<Interaction>{
+      new Interaction(
+        Id = intId,
+        InteractionType = 'Call-Inbound',
+        Name = 'SampleInteraction',
+        RecordTypeId = RTInteraction.CommercialInteraction
+      )
+    };
+
+    Test.startTest();
+    CommercialInteractionActions.setNameWithChannel(interactionList);
+    Test.stopTest();
+
+    Assert.areEqual(
+      'SampleInteraction Call-Inbound',
+      interactionList[0].Name,
+      'Name should be updated with the new channel'
     );
   }
 }

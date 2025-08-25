@@ -77,13 +77,40 @@ public with sharing class CommercialInteractionActions {
     Map<Id, Interaction> oldMap
   ) {
     try {
-      Set<Id> oppsIds = CommercialInteractionActionsHelper.getOppsIdsAssociatedWithInteractions(
-        records,
-        oldMap
+      Set<Id> oppsIds = new Set<Id>();
+      List<Interaction> filteredInteractionsForInsert = ListUtil.filter(records)
+        .isNotNull(Interaction.Opportunity__c)
+        .toList();
+      List<Interaction> filteredInteractionsForUpdate = ListUtil.filter(
+          records,
+          oldMap
+        )
+        .changed(Interaction.Opportunity__c)
+        .allNotChanged(new Set<SObjectField>{ Interaction.AccountId })
+        .isNotNull(Interaction.Opportunity__c)
+        .toList();
+
+      oppsIds.addAll(
+        ListUtil.getIds(
+          filteredInteractionsForInsert,
+          Interaction.Opportunity__c
+        )
       );
+      oppsIds.addAll(
+        ListUtil.getIds(
+          filteredInteractionsForUpdate,
+          Interaction.Opportunity__c
+        )
+      );
+
       List<Opportunity> oppsList = IA_REPOSITORY.getOpportunities(oppsIds);
-      Map<Id, Id> oppIdToCustomerIdMap = getCustomerAssociatedWithOpp(oppsList);
-      updateCustomerOnInteraction(records, oppIdToCustomerIdMap);
+      Map<Id, Id> oppIdToCustomerIdMap = CommercialInteractionActionsHelper.getCustomerAssociatedWithOpp(
+        oppsList
+      );
+      CommercialInteractionActionsHelper.updateCustomerOnInteraction(
+        records,
+        oppIdToCustomerIdMap
+      );
     } catch (Exception e) {
       Logger.error(
           'Error while setting Customer on Interaction from Opportunity',
@@ -94,57 +121,40 @@ public with sharing class CommercialInteractionActions {
     }
   }
 
-  private static Map<Id, Id> getCustomerAssociatedWithOpp(
-    List<Opportunity> opps
-  ) {
-    Map<Id, Id> oppIdToCustomerIdMap = new Map<Id, Id>();
+  /**
+   * @description set interaction name
+   * @param records List of new interaction records
+   **/
+  public static void setNameWithChannel(List<Interaction> records) {
+    List<Interaction> validRecords = ListUtil.filter(records)
+      .isNotNull(Interaction.InteractionType)
+      .toList();
 
-    for (Opportunity opp : opps) {
-      oppIdToCustomerIdMap.put(opp.Id, opp.AccountId);
-    }
-    return oppIdToCustomerIdMap;
-  }
-
-  @TestVisible
-  private static void updateCustomerOnInteraction(
-    List<Interaction> records,
-    Map<Id, Id> oppIdToCustomerIdMap
-  ) {
-    if (oppIdToCustomerIdMap.keySet().isEmpty()) {
-      return;
-    }
-    for (Interaction record : records) {
-      if (oppIdToCustomerIdMap.containsKey(record.Opportunity__c)) {
-        record.AccountId = oppIdToCustomerIdMap.get(record.Opportunity__c);
-      }
+    for (Interaction record : validRecords) {
+      record.Name = record.Name.trim() + ' ' + record.InteractionType;
     }
   }
 
   /**
-   * @description set interaction name
+   * @description set interaction name when channel is changed
    * @param records List of new interaction records
-   * @param oldMap map of interaction records
-   */
-  public static void setInteractionName(
+   * @param oldMap Map of old interaction records
+   **/
+  public static void updateNameWithChannelChange(
     List<Interaction> records,
     Map<Id, Interaction> oldMap
   ) {
-    try {
-      List<Interaction> updatedInteractions = CommercialInteractionActionsHelper.getUpdatedNameOrChannelInteractions(
-        records,
-        oldMap
-      );
-      CommercialInteractionActionsHelper.updateInteractionName(
-        updatedInteractions,
-        oldMap
-      );
-    } catch (Exception e) {
-      Logger.error(
-          'Error while setting Interaction Name on Interaction records',
-          e
-        )
-        .save();
-      throw e;
+    List<Interaction> updates = ListUtil.filter(records, oldMap)
+      .changed(Interaction.InteractionType)
+      .toList();
+
+    for (Interaction record : updates) {
+      String oldChannel = oldMap.get(record.Id).InteractionType;
+      Integer index = record.Name.lastIndexOf(oldChannel);
+      record.Name =
+        record.Name.substring(0, index) +
+        record.Name.substring(index + oldChannel.length());
+      record.Name = record.Name.trim() + ' ' + record.InteractionType;
     }
   }
 
@@ -185,13 +195,19 @@ public with sharing class CommercialInteractionActions {
     List<Interaction> records,
     Map<Id, Interaction> oldMap
   ) {
-    Set<Id> accountIds = ListUtil.getIds(records, Interaction.AccountId);
+    List<Interaction> filteredInteractions = ListUtil.filter(records, oldMap)
+      .changed(Interaction.AccountId)
+      .toList();
+    Set<Id> accountIds = ListUtil.getIds(
+      filteredInteractions,
+      Interaction.AccountId
+    );
 
     List<FinServ__AccountAccountRelation__c> relatedCLGAccounts = IA_REPOSITORY.getRelatedCLGAccounts(
       accountIds
     );
 
-    Map<Id, Set<Id>> customerToCLGsMap = mapCustomerToCLGAccounts(
+    Map<Id, Set<Id>> customerToCLGsMap = CommercialInteractionActionsHelper.mapCustomerToCLGAccounts(
       relatedCLGAccounts
     );
 
@@ -231,7 +247,7 @@ public with sharing class CommercialInteractionActions {
       accountIds
     );
 
-    Map<Id, Set<Id>> customerToCLGsMap = mapCustomerToCLGAccounts(
+    Map<Id, Set<Id>> customerToCLGsMap = CommercialInteractionActionsHelper.mapCustomerToCLGAccounts(
       relatedCLGAccounts
     );
 
@@ -239,33 +255,5 @@ public with sharing class CommercialInteractionActions {
       filteredInteractionsList,
       customerToCLGsMap
     );
-  }
-
-  /**
-   * @description mapping of customer to their related CLG accounts.
-   * @param relatedCLGAccounts The list of List<FinServ__AccountAccountRelation__c>
-   * @return Map<Id, Set<Id>>
-   */
-  @TestVisible
-  private static Map<Id, Set<Id>> mapCustomerToCLGAccounts(
-    List<FinServ__AccountAccountRelation__c> relatedCLGAccounts
-  ) {
-    Map<Id, Set<Id>> customerToCLGAccountsMap = new Map<Id, Set<Id>>();
-
-    for (FinServ__AccountAccountRelation__c aar : relatedCLGAccounts) {
-      if (
-        aar.FinServ__Account__c == null ||
-        aar.FinServ__RelatedAccount__c == null
-      ) {
-        continue;
-      }
-
-      if (!customerToCLGAccountsMap.containsKey(aar.FinServ__Account__c)) {
-        customerToCLGAccountsMap.put(aar.FinServ__Account__c, new Set<Id>());
-      }
-      customerToCLGAccountsMap.get(aar.FinServ__Account__c)
-        .add(aar.FinServ__RelatedAccount__c);
-    }
-    return customerToCLGAccountsMap;
   }
 }
