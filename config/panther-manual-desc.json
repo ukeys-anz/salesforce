@@ -4431,7 +4431,19 @@
         "Secondary_Documents__c",
         "Selfie_Verification_Outcome__c",
         "TrustMe_Selfie_Reference__c",
-        "PersonID__c"
+        "PersonID__c",
+        "International_Address__c",
+        "Trustme_Fraud_Address_Valid__c",
+        "Trustme_Fraud_Customer_Details__c",
+        "Trustme_Fraud_Customer_Photo_Modified__c",
+        "Trustme_Fraud_ID_Legible__c",
+        "Trustme_Fraud_ID_Not_Picture__c",
+        "Trustme_Fraud_MiddleNameCheck__c",
+        "Trustme_Fraud_Security_Features__c",
+        "Trustme_Fraud_Selfie_Comparison_Match__c",
+        "Certificate_Number__c",
+        "Registration_Number__c",
+        "Registration_State__c"
       ]
     },
     "ResidentialLoanApplication": {

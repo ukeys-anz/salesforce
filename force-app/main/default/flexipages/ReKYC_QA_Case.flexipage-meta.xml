@@ -457,142 +457,6 @@
     <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
-                <fieldItem>Record.Parent.Fraud_Customer_Details__c</fieldItem>
-                <identifier>RecordParentFraud_Customer_Details_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Parent.Fraud_Customer_Details__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>No</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldItem>Record.Parent.Fraud_MiddleNameCheck__c</fieldItem>
-                <identifier>RecordParentFraud_MiddleNameCheck_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Parent.Fraud_MiddleNameCheck__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>No</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldItem>Record.Parent.Fraud_Selfie_Comparison_Match__c</fieldItem>
-                <identifier>RecordParentFraud_Selfie_Comparison_Match_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Parent.Fraud_Selfie_Comparison_Match__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>No</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldItem>Record.Parent.Fraud_Address_Valid__c</fieldItem>
-                <identifier>RecordParentFraud_Address_Valid_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Parent.Fraud_Address_Valid__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>No</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet-2fb5b01a-484f-4082-909b-0365c0e7cbd4</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldItem>Record.Parent.Fraud_ID_Legible__c</fieldItem>
-                <identifier>RecordParentFraud_ID_Legible_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Parent.Fraud_ID_Legible__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>No</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldItem>Record.Parent.Fraud_Customer_Photo_Modified__c</fieldItem>
-                <identifier>RecordParentFraud_Customer_Photo_Modified_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Parent.Fraud_Customer_Photo_Modified__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>No</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldItem>Record.Parent.Fraud_ID_Not_Picture__c</fieldItem>
-                <identifier>RecordParentFraud_ID_Not_Picture_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Parent.Fraud_ID_Not_Picture__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>No</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldItem>Record.Parent.Fraud_Security_Features__c</fieldItem>
-                <identifier>RecordParentFraud_Security_Features_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Parent.Fraud_Security_Features__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>No</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet-5fc6b8ae-ec79-4779-9d4f-c7ac4e6243ef</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-2fb5b01a-484f-4082-909b-0365c0e7cbd4</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column6</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-5fc6b8ae-ec79-4779-9d4f-c7ac4e6243ef</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column7</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-a8c86763-0999-481f-8b52-56a79a71301e</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
                     <value>none</value>
@@ -1018,19 +882,11 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>columns</name>
-                    <value>Facet-a8c86763-0999-481f-8b52-56a79a71301e</value>
+                    <name>recordId</name>
+                    <value>{recordId}</value>
                 </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>horizontalAlignment</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>label</name>
-                    <value>TrustMe Manual Document Checks</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:fieldSection</componentName>
-                <identifier>flexipage_fieldSection4</identifier>
+                <componentName>reKYCCAseTrustmeQACheckSection</componentName>
+                <identifier>c_reKYCCAseTrustmeQACheckSection</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>

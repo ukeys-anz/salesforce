@@ -365,8 +365,9 @@ export default class TrustMeDocumentDetails extends LightningElement {
     }
     return [
       response.residence ? response.residence : response.allotment,
-      response.levelNumber,
-      response.buildingName,
+      [response.levelNumber, response.buildingName]
+        .filter((value) => value)
+        .join(" "),
       [
         response.streetNumber,
         response.streetName,

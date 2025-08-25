@@ -5,6 +5,7 @@
  * @last modified on  : 11-2024
  * @last modified by  : Transformers Squad - Shivraj
  **/
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class DataOutExportConsentHelper {
   public static List<String> archivedStatusesList = new List<String>{
     'STOPPED',
@@ -438,10 +439,13 @@ public with sharing class DataOutExportConsentHelper {
       return row;
     }
 
+    String dataSharingRows = '';
+    List<List<String>> dataSharingRowsList = new List<List<String>>();
     for (
       TFMExportConsentModel.AggregatedEvent aggregatedEvent : dataSharingModel.aggregatedEvents
     ) {
-      row.add(String.join(aggregatedEvent.accounts, ' | '));
+      List<String> eachDataSharingRow = new List<String>();
+      eachDataSharingRow.add(String.join(aggregatedEvent.accounts, ' | '));
 
       String sharingHistoryDate =
         aggregatedEvent.transactionDate.day.value +
@@ -449,18 +453,28 @@ public with sharing class DataOutExportConsentHelper {
         aggregatedEvent.transactionDate.month.value +
         '/' +
         aggregatedEvent.transactionDate.year.value;
-      row.add(sharingHistoryDate);
+      eachDataSharingRow.add(sharingHistoryDate);
 
       List<String> scopeTitles = getDataSharingTitles(aggregatedEvent.scopes);
-      row.add('\"' + String.join(scopeTitles, ' | ') + '\"');
+      eachDataSharingRow.add('\"' + String.join(scopeTitles, ' | ') + '\"');
 
       List<String> scopeDetails = getDataSharingDetails(aggregatedEvent.scopes);
-      row.add('\"' + String.join(scopeDetails, ' | ') + '\"');
+      eachDataSharingRow.add('\"' + String.join(scopeDetails, ' | ') + '\"');
 
-      row.add(
+      eachDataSharingRow.add(
         'Transaction details may include data that dates back to 21 July 2021'
       );
+      dataSharingRowsList.add(eachDataSharingRow);
     }
+
+    for (List<String> eachRecord : dataSharingRowsList) {
+      if (eachRecord.isEmpty()) {
+        continue;
+      }
+      dataSharingRows += String.join(eachRecord, ',') + '\n';
+    }
+
+    row.add(dataSharingRows);
     return row;
   }
 
