@@ -23,6 +23,7 @@ public with sharing class SettlementAccountTriggerHandlerTest {
 
     ResidentialLoanApplication rla = TestDataFactory.createTestResidentialLoanApplication();
     rla.AccountId = acc.Id;
+    rla.RecordTypeId = RTResidentialLoanApplication.rlsResidentialLoanApplication;
     insert rla;
 
     LoanApplicationFinancial loanAppFinancial = TestDataFactory.createLoanApplicationFinancial(

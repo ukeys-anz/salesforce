@@ -167,6 +167,14 @@
             <fullName>To Do</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Virtual Meetings</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Administration</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Interaction_Purpose__c</picklist>

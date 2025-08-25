@@ -170,6 +170,60 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
+        <content>RLS_Loan_Application</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>ResidentialLoanApplication</pageOrSobjectType>
+        <recordType>ResidentialLoanApplication.RLS</recordType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard Automation User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>RLS_Loan_Application</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>ResidentialLoanApplication</pageOrSobjectType>
+        <recordType>ResidentialLoanApplication.RLS</recordType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard Automation User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>RLS_Loan_Application</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>ResidentialLoanApplication</pageOrSobjectType>
+        <recordType>ResidentialLoanApplication.RLS</recordType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>RLS_Loan_Application</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>ResidentialLoanApplication</pageOrSobjectType>
+        <recordType>ResidentialLoanApplication.RLS</recordType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>RLS_Loan_Application</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>ResidentialLoanApplication</pageOrSobjectType>
+        <recordType>ResidentialLoanApplication.RLS</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>RLS_Loan_Application</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>ResidentialLoanApplication</pageOrSobjectType>
+        <recordType>ResidentialLoanApplication.RLS</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
         <content>Broker_Details_Page</content>
         <formFactor>Small</formFactor>
         <pageOrSobjectType>Contact</pageOrSobjectType>

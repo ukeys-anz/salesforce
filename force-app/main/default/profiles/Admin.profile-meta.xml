@@ -8377,6 +8377,16 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>LoanApplicationFinancial.Interest_Rate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>LoanApplicant.Primary_Borrower__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Location.Location_External_ID__c</field>
         <readable>true</readable>
@@ -10683,6 +10693,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ResidentialLoanApplication.AIP_AST_Expiry__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ResidentialLoanApplication.Application_Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ResidentialLoanApplication.Assessment_Outcome__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -10703,17 +10723,37 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>ResidentialLoanApplication.SOP_Id__c</field>
+        <field>ResidentialLoanApplication.Credit_Reassess_Required__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>ResidentialLoanApplication.Credit_Reassess_Required__c</field>
+        <field>ResidentialLoanApplication.Last_Updated_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ResidentialLoanApplication.LVR_Excl_LMI__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>ResidentialLoanApplication.Originated_By__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ResidentialLoanApplication.Product__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ResidentialLoanApplication.SOP_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ResidentialLoanApplication.Source__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -11923,6 +11963,10 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Reported_Bug__c-Reported Bug Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ResidentialLoanApplication-Residential Loan Application Layout</layout>
+        <recordType>ResidentialLoanApplication.RLS</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Response_Type__c-Response Type Layout</layout>
@@ -13455,6 +13499,11 @@
     <recordTypeVisibilities>
         <default>true</default>
         <recordType>ResidentialLoanApplication.Loan_Application</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>ResidentialLoanApplication.RLS</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabVisibilities>

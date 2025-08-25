@@ -158,7 +158,7 @@ public with sharing class CustomerEventActions {
       List<BrokerCloudEventModel.MasterNode> masterNodes = masterNodesByAccountIdMap.get(
         record.id
       );
-      BrokerCloudEventModel cloudEventModel = new CustomerDataCloudEventModel(
+      BrokerCloudEventModel cloudEventModel = new BrokerDataCloudEventModel(
         record,
         masterNodes,
         triggerContext

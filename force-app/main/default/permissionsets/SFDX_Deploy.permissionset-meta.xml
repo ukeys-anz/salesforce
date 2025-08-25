@@ -1575,6 +1575,16 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.AIP_AST_Expiry__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.Application_Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>ResidentialLoanApplication.Assisted_Broker__c</field>
         <readable>true</readable>
@@ -1592,6 +1602,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ResidentialLoanApplication.Originated_By__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.Product__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.Source__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3587,6 +3607,10 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>ResidentialLoanApplication.Loan_Application</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>ResidentialLoanApplication.RLS</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <userPermissions>

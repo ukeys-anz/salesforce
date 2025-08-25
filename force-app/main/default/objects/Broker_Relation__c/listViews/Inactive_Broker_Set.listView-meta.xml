@@ -6,7 +6,6 @@
     <columns>Primary_RBM__c</columns>
     <columns>State__c</columns>
     <columns>IsActive__c</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>IsActive__c</field>
         <operation>equals</operation>
@@ -17,6 +16,7 @@
         <operation>equals</operation>
         <value>Broker_Relation__c.Broker_Set</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>Inactive Broker Set</label>
     <sharedTo>
         <role>Enablement_Manager</role>

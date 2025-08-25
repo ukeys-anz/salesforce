@@ -16,6 +16,7 @@ public with sharing class ProofOfInsuranceTriggerHandlerTest {
 
     ResidentialLoanApplication rla = TestDataFactory.createTestResidentialLoanApplication();
     rla.AccountId = customer.Id;
+    rla.RecordTypeId = RTResidentialLoanApplication.anzxHomeLoan;
     insert rla;
 
     LoanApplicationFinancial loanAppFinancial = TestDataFactory.createLoanApplicationFinancial(
@@ -44,7 +45,7 @@ public with sharing class ProofOfInsuranceTriggerHandlerTest {
       FROM Proof_of_Insurance__c
       LIMIT 1
     ];
-    Assert.areEqual(CUSTOMER, poi.Verified_By__c);
+    Assert.areEqual(CUSTOMER, poi.Verified_By__c, 'Values should match.');
 
     Test.stopTest();
   }
