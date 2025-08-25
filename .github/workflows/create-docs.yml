@@ -32,7 +32,7 @@ jobs:
             PLUGIN_COMMAND: "../plugin/bin/run doc:access -f config/doc-def.json -u staging"
             CREATED_FOLDER_PATH: "salesforce/docs/access"
 
-    runs-on: anzx-default-np
+    runs-on: anzx-default
     concurrency:
       group: "${{ matrix.which-doc.NAME }}-${{ github.run_id }}"
       cancel-in-progress: true
@@ -154,7 +154,7 @@ jobs:
             DESTINATION_FOLDER_PATH: "salesforce-docs/docs/governance/"
             ADD_PATH: "docs/governance/access"
 
-    runs-on: anzx-default-np
+    runs-on: anzx-default
     needs: [create_docs]
     steps:
       - name: Checkout salesforce-docs repo

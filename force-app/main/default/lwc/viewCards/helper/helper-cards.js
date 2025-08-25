@@ -1,6 +1,11 @@
 import { createButtonsFromArray } from "./helper-button-class";
 import { mapCardControls, mapTempLockOnACard } from "./helper-cardControls";
-import { STATUS, MAPPED_STATUS } from "./model";
+import {
+  STATUS,
+  MAPPED_STATUS,
+  CUSTOMER_ACTIONS,
+  FRAUD_BLOCK_MESSAGE
+} from "./model";
 
 const FRAUD_STATUSES = [
   STATUS.Block_ATM,
@@ -55,19 +60,26 @@ function mappingStatusOnACard(card) {
   card.isIssued = card.status === STATUS.Issued;
   card.isFraudBlocked = FRAUD_STATUSES.includes(card.status);
   if (card.isFraudBlocked) {
-    card.fraudBlockMessage = getFraudBlockMessage(card.cardBlockType);
+    card.fraudBlockMessage = getFraudBlockMessage(
+      card.cardBlockType,
+      card.falconEvent?.requiredCustomerAction
+    );
   }
   return card;
 }
-function getFraudBlockMessage(cardBlockType) {
-  if (!cardBlockType) {
-    return `Card controls are unavailable due to an existing fraud block. See chatter posts for more details.`;
+
+function getFraudBlockMessage(cardBlockType, customerAction) {
+  if (!cardBlockType || cardBlockType.toLowerCase() === "manual") {
+    return FRAUD_BLOCK_MESSAGE.DEFAULT;
   }
+  const msgMap = {
+    [CUSTOMER_ACTIONS.OWN_DISOWN]: FRAUD_BLOCK_MESSAGE.SELF_SERVICE,
+    [CUSTOMER_ACTIONS.CALL_ANZ]: FRAUD_BLOCK_MESSAGE.NON_SELF_SERVICE
+  };
+
   if (cardBlockType.toLowerCase() === "automated") {
-    return `Card Controls are unavailable due to an automated fraud block. Please refer customer to the app to self-unblock the card.`;
-  } else if (cardBlockType.toLowerCase() === "manual") {
-    return `Card Controls are unavailable due to a manual fraud block. See Chatter post for more detail.`;
+    return msgMap[customerAction] || FRAUD_BLOCK_MESSAGE.DEFAULT;
   }
 
-  return `Card Controls Information could not be retrieved due to an Error. Please Retry.`;
+  return FRAUD_BLOCK_MESSAGE.ERROR;
 }

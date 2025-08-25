@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Validate_User_Owner_For_Closed_ANZx_Lead</fullName>
+    <active>true</active>
+    <description>BOH Lead should be assigned to User if Status is Closed and Sub Status is &apos;Opportunity Identified&apos; or &apos;Refer to Classic&apos;</description>
+    <errorConditionFormula>AND(
+     $Setup.Salesforce_Library_Settings__c.Disable_VRs__c == false,
+     RecordType.DeveloperName = &apos;ANZX_Leads&apos; ,
+     Is_BOH_Lead__c = true ,
+     ISPICKVAL(Status, &quot;Closed&quot;), 
+     OR(
+        ISPICKVAL(SubStatus__c, &quot;Opportunity identified&quot;),
+        ISPICKVAL(SubStatus__c, &quot;Referred to Classic&quot;)
+       ),
+     BEGINS( OwnerId ,&apos;00G&apos;)
+)</errorConditionFormula>
+    <errorMessage>Leads with the status &quot;Closed&quot; and sub-status &quot;Opportunity identified&quot; or &quot;Referred to Classic&quot; must be assigned to a user before closing. Please assign the lead to a user.</errorMessage>
+</ValidationRule>

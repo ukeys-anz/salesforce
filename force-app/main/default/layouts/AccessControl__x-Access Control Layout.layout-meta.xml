@@ -15,6 +15,10 @@
                 <behavior>Required</behavior>
                 <field>Policy__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>DeviceCorrelationId__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

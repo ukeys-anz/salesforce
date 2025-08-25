@@ -25,7 +25,7 @@
           "value": 2017
         }
       },
-      "last4Digits": "0796",
+      "last4Digits": "7878",
       "cardControlsList": [
         {
           "control_type": "GCT_GLOBAL"
@@ -131,7 +131,7 @@
           "value": 2017
         }
       },
-      "last4Digits": "0796",
+      "last4Digits": "5097",
       "expiryDate": {
         "year": {
           "value": 2020
@@ -231,7 +231,7 @@
           "value": 2017
         }
       },
-      "last4Digits": "0796",
+      "last4Digits": "6708",
       "expiryDate": {
         "year": {
           "value": 2020
@@ -329,7 +329,7 @@
           "value": 2017
         }
       },
-      "last4Digits": "0796",
+      "last4Digits": "5127",
       "expiryDate": {
         "year": {
           "value": 2020
@@ -426,7 +426,7 @@
           "value": 2017
         }
       },
-      "last4Digits": "0796",
+      "last4Digits": "9075",
       "expiryDate": {
         "year": {
           "value": 2020
@@ -526,7 +526,7 @@
           "value": 2017
         }
       },
-      "last4Digits": "0796",
+      "last4Digits": "9058",
       "expiryDate": {
         "year": {
           "value": 2020
@@ -626,7 +626,7 @@
           "value": 2017
         }
       },
-      "last4Digits": "0796",
+      "last4Digits": "2090",
       "expiryDate": {
         "year": {
           "value": 2020
@@ -726,7 +726,7 @@
           "value": 2017
         }
       },
-      "last4Digits": "1686",
+      "last4Digits": "8236",
       "expiryDate": {
         "year": {
           "value": 2020
@@ -829,7 +829,7 @@
           "value": 2017
         }
       },
-      "last4Digits": "0654",
+      "last4Digits": "8238",
       "expiryDate": {
         "year": {
           "value": 2020
@@ -937,7 +937,7 @@
           "value": 2017
         }
       },
-      "last4Digits": "7180",
+      "last4Digits": "1532",
       "expiryDate": {
         "year": {
           "value": 2020
@@ -1026,7 +1026,7 @@
           "value": 2017
         }
       },
-      "last4Digits": "5382",
+      "last4Digits": "4117",
       "expiryDate": {
         "year": {
           "value": 2020
@@ -1115,7 +1115,7 @@
           "value": 2017
         }
       },
-      "last4Digits": "3759",
+      "last4Digits": "9875",
       "expiryDate": {
         "year": {
           "value": 2020
@@ -1204,7 +1204,7 @@
           "value": 2017
         }
       },
-      "last4Digits": "2868",
+      "last4Digits": "0402",
       "expiryDate": {
         "year": {
           "value": 2020
@@ -1293,7 +1293,7 @@
           "value": 2017
         }
       },
-      "last4Digits": "1746",
+      "last4Digits": "4713",
       "expiryDate": {
         "year": {
           "value": 2020
@@ -1382,7 +1382,7 @@
           "value": 2017
         }
       },
-      "last4Digits": "1555",
+      "last4Digits": "9807",
       "expiryDate": {
         "year": {
           "value": 2020
@@ -1471,7 +1471,7 @@
           "value": 2017
         }
       },
-      "last4Digits": "1159",
+      "last4Digits": "0292",
       "expiryDate": {
         "year": {
           "value": 2020
@@ -1560,7 +1560,7 @@
           "value": 2017
         }
       },
-      "last4Digits": "9433",
+      "last4Digits": "5490",
       "expiryDate": {
         "year": {
           "value": 2021
@@ -1572,6 +1572,9 @@
       "accounts": ["accounts/391026848"],
       "eligibility": ["ELIGIBILITY_FRAUD_SUSPECTED"],
       "cardBlockType": "automated",
+      "falconEvent": {
+        "requiredCustomerAction": "REQUIRED_CUSTOMER_ACTION_CALL_ANZ"
+      },
       "wallets": {},
       "cardControlsEnabled": null,
       "embossing": {
@@ -1651,7 +1654,7 @@
           "value": 2017
         }
       },
-      "last4Digits": "9433",
+      "last4Digits": "5491",
       "expiryDate": {
         "year": {
           "value": 2021
@@ -1742,7 +1745,7 @@
           "value": 2017
         }
       },
-      "last4Digits": "9433",
+      "last4Digits": "5789",
       "expiryDate": {
         "year": {
           "value": 2021
@@ -1799,6 +1802,100 @@
         },
         "reason": "REASON_JOIN",
         "name": "cards/2989602122045789",
+        "recipient": "a2a2807d-b32d-449b-92b0-f1446c331a69",
+        "stateReportedBy": "PARTY_FABRIC",
+        "stateReportedDate": {
+          "year": 2023,
+          "month": 11,
+          "day": 2
+        }
+      }
+    },
+    {
+      "name": "cards/2989602122045474",
+      "newName": "cards/2989602122045789",
+      "reissueDate": {
+        "day": {
+          "value": null
+        },
+        "month": {
+          "value": null
+        },
+        "year": {
+          "value": null
+        }
+      },
+      "replacementDate": {
+        "day": {
+          "value": 22
+        },
+        "month": {
+          "value": 3
+        },
+        "year": {
+          "value": 2017
+        }
+      },
+      "last4Digits": "5474",
+      "expiryDate": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 2
+        }
+      },
+      "accounts": ["accounts/391026848"],
+      "eligibility": ["ELIGIBILITY_FRAUD_SUSPECTED"],
+      "cardBlockType": "automated",
+      "falconEvent": {
+        "requiredCustomerAction": "REQUIRED_CUSTOMER_ACTION_OWN_DISOWN"
+      },
+      "wallets": {},
+      "cardControlsEnabled": null,
+      "embossing": {
+        "lineOne": "MAGDA LOPEZ",
+        "lineTwo": null
+      },
+      "designCode": "001",
+      "statusCode": "CARD_STATUS_CODE_BLOCKATMPOSCNPBCH",
+      "tokenizedCardNumber": "2989602122045474",
+      "digitalOnly": null,
+      "cardIssueDate": {
+        "year": {
+          "value": 2017
+        },
+        "month": {
+          "value": 2
+        },
+        "day": {
+          "value": 6
+        }
+      },
+      "tracking": {
+        "card": "cards/2989602122045474",
+        "address": {
+          "lineOne": "58 Glover Lights PKT North",
+          "city": "Melbourne",
+          "postalCode": "3000",
+          "state": "VIC",
+          "country": "AUS"
+        },
+        "state": "STATE_ORDERED",
+        "arrivalRange": {
+          "startDate": {
+            "year": 2023,
+            "month": 11,
+            "day": 7
+          },
+          "endDate": {
+            "year": 2023,
+            "month": 11,
+            "day": 12
+          }
+        },
+        "reason": "REASON_JOIN",
+        "name": "cards/2989602122045474",
         "recipient": "a2a2807d-b32d-449b-92b0-f1446c331a69",
         "stateReportedBy": "PARTY_FABRIC",
         "stateReportedDate": {

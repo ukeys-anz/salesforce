@@ -60,6 +60,8 @@ public with sharing class CardListModelV1 extends CalloutModel {
     @AuraEnabled
     public String cardBlockType;
     @AuraEnabled
+    public CardListModel.FalconEvent falconEvent;
+    @AuraEnabled
     public String newName;
     @AuraEnabled
     public CardListModel.FormattedDate replacementDate;

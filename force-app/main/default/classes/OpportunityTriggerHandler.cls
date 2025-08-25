@@ -36,37 +36,6 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
 
     //checks for validations on opportunities
     CommercialOpportunityHelper.validateCCRMOpportunity(oppWrapper, true);
-    //CC-12479 prevent duplicate Loanapp_Reference_Number__c records on Opportunity
-    OpportunityActions.preventDuplicateLoanappReferenceNumber(records, null);
-    //CC-4528 validate Opportunity for MLCRM
-    OpportunityActions.validateClosedOpportunity(records, null);
-    //CC-1159 to set the territory for ML Records based on matching user territory default record.
-    MLCRMCommonUtils.assignTerritoryForMLRecord(records);
-    //CC-1058 This method to validate territory and owner change on Sobject to make sure it happen within user's territory.
-    MLCRMCommonUtils.validateTerritoryAndOwnerChange(null, records);
-    //CC-4053 Redaction
-    TextUtils.RecordListWrapper wrapperData = TextUtils.checkRecordTypeRedactionMethod(
-      records,
-      new List<Id>{
-        MLCRMConstants.MLCRM_OPPORTUNITY_RT_ID,
-        CCRMConstants.CCRM_OPP_RT_ID
-      }
-    );
-
-    TextUtils.maskSObjectData(wrapperData.recordList, 'Description');
-    TextUtils.maskSObjectDataANZExtended(
-      wrapperData.dcrmRecordList,
-      'Description'
-    );
-    TextUtils.RecordListWrapper wrapperDataCCRM = TextUtils.checkRecordTypeRedactionMethod(
-      records,
-      new List<Id>{ CCRMConstants.CCRM_OPP_RT_ID }
-    );
-    TextUtils.maskSObjectDataANZExtended(
-      wrapperDataCCRM.dcrmRecordList,
-      'My_Notes__c'
-    );
-    MLCRMCommonUtils.referrerPrefill(records, null);
   }
 
   /**
@@ -82,9 +51,6 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
     CCRMOpportunityActions.updateOpportunityNameOnInsert(
       oppWrapper.filteredOpps
     );
-    //CC-1252-Make Opportunities visible to Owners & users above them in the ML hierarchy
-    MLCRMSharingUtil.shareRecordByTerritory(null, records, 'Opportunity');
-    OpportunityActions.createOpportunityContactRole(records);
   }
 
   /**
@@ -122,11 +88,6 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Opportunity>) oldMap,
       false
     );
-    //CC-12479 prevent duplicate Loanapp_Reference_Number__c records on Opportunity
-    OpportunityActions.preventDuplicateLoanappReferenceNumber(
-      records,
-      (Map<Id, Opportunity>) oldMap
-    );
 
     //Check if AFP with closed won/lost stage related to opp has mandatory fields filled
     CCRMOpportunityActions.checkClosedStageFieldsOnAFPRelatedToOpp(
@@ -134,60 +95,11 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Opportunity>) oldMap
     );
 
-    //CC-4528 validate Opportunity for MLCRM
-    OpportunityActions.validateClosedOpportunity(
-      records,
-      (Map<Id, Opportunity>) oldMap
-    );
-    //CC-1159 to set the territory for ML Records based on matching user territory default record.
-    MLCRMCommonUtils.assignTerritoryForMLRecord(records);
-    //CC-7788 and CC-8135 This method is used to validate that loan writer and franchise admin cannot change the owner of the record not owner by themself
-    MLCRMCommonUtilsHelper.validateOwnerChange(oldMap, records);
-    //CC-1058-This method to validate territory and owner change on Sobject to make sure it happen within user's territory.
-    MLCRMCommonUtils.validateTerritoryAndOwnerChange(oldMap, records);
-    OpportunityActions.updatePrimaryApplicantOnUpdate(
-      records,
-      (Map<Id, Opportunity>) oldMap
-    );
     if (!CCRMOpportunityActions.insertOpportunityContext) {
       CCRMOpportunityActions.updateOpportunityNameOnUpdate(
         oppWrapper.filteredOpps,
         (Map<Id, Opportunity>) oldMap
       );
     }
-
-    //CC-4053 Redaction
-    TextUtils.RecordListWrapper wrapperData = TextUtils.checkRecordTypeRedactionMethod(
-      records,
-      new List<Id>{
-        MLCRMConstants.MLCRM_OPPORTUNITY_RT_ID,
-        CCRMConstants.CCRM_OPP_RT_ID
-      }
-    );
-
-    TextUtils.maskSObjectData(wrapperData.recordList, 'Description');
-    TextUtils.maskSObjectDataANZExtended(
-      wrapperData.dcrmRecordList,
-      'Description'
-    );
-    TextUtils.RecordListWrapper wrapperDataCCRM = TextUtils.checkRecordTypeRedactionMethod(
-      records,
-      new List<Id>{ CCRMConstants.CCRM_OPP_RT_ID }
-    );
-    TextUtils.maskSObjectDataANZExtended(
-      wrapperDataCCRM.dcrmRecordList,
-      'My_Notes__c'
-    );
-    MLCRMCommonUtils.referrerPrefill(records, oldMap);
-  }
-
-  /**
-   * @description onAfterUpdate to handle after update trigger actions.
-   * @name onAfterUpdate
-   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values of Opportunity.
-   */
-  public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    //CC-1252-Make Opportunities visible to Owners & users above them in the ML hierarchy
-    MLCRMSharingUtil.shareRecordByTerritory(oldMap, records, 'Opportunity');
   }
 }

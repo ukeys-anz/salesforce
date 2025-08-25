@@ -2,7 +2,7 @@
  * @description       : class contains method that is used in IP/OS to invoke Assisted User functionality
  * @author            : Hinduja Upadhyay
  * @group             : TFM
- * @last modified on  : 06-17-2025
+ * @last modified on  : 08-07-2025
  **/
 global with sharing class AUFController {
   private static final IDOpsQueryRepository QUERY = (IDOpsQueryRepository) Lib_InstanceProvider.forType(
@@ -73,14 +73,28 @@ global with sharing class AUFController {
    * @description update mobile number for AUF
    * @param recordId recordId
    * @param mobileNumber mobileNumber
+   * @param mobileNumberDisputed flag for disputed
    */
   @AuraEnabled
-  public static void updateMobileNumber(Id recordId, String mobileNumber) {
+  public static void updateMobileNumber(
+    Id recordId,
+    String mobileNumber,
+    Boolean mobileNumberDisputed
+  ) {
     try {
       PersonDigitalIdentity__x personDigitalRec = QUERY.getPersonDigitalIdentityRec(
         recordId
       );
-      AUFREPO.updateMobileNumber(personDigitalRec.UUID__c, mobileNumber);
+      String mobileNumberWithPreFix = (TFMConstants.MOBILEPREFIX +
+      mobileNumber);
+      if (mobileNumberDisputed) {
+        mobileNumberWithPreFix =
+          'DISPUTED-' + personDigitalRec.Mobile_Number__c;
+      }
+      AUFREPO.updateMobileNumber(
+        personDigitalRec.UUID__c,
+        mobileNumberWithPreFix
+      );
     } catch (AUFAPIRepository.DuplicateMobileNumberException e) {
       throw new AuraHandledException(
         'The number you are trying to update to is already associated to another customer.'
@@ -143,6 +157,7 @@ global with sharing class AUFController {
    * @param financialAccList financialAccList
    * @return Boolean
    */
+  @TestVisible
   private static Boolean isAnyAccountOpen(
     List<UnifiedFinancialAccountModel.AccountList> financialAccList
   ) {
@@ -194,6 +209,31 @@ global with sharing class AUFController {
       throw new AuraHandledException(
         'Error occurred while performing the action.'
       );
+    }
+  }
+  /**
+   * @description check whether the PDI is Suspended, IAL status is 3 or 4 and Customer mobile number is not already disputed.
+   * @param recordId recordId
+   * @return Boolean flag to show checkbox of disputed
+   */
+  @AuraEnabled
+  public static Boolean disputedChecks(Id recordId) {
+    try {
+      PersonDigitalIdentity__x personDigitalRec = QUERY.getPersonDigitalIdentityRec(
+        recordId
+      );
+      if (
+        personDigitalRec.Status__c == 'Suspended' &&
+        (personDigitalRec.IAL_Identity_Assurance_Level__c == 3 ||
+        personDigitalRec.IAL_Identity_Assurance_Level__c == 4) &&
+        !personDigitalRec.Mobile_Number__c.startsWith('DISPUTED')
+      ) {
+        return true;
+      }
+      return false;
+    } catch (Exception e) {
+      handleCommonException(e);
+      return false;
     }
   }
 }

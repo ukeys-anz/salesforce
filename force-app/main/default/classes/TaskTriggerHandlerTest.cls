@@ -7,6 +7,7 @@
 private class TaskTriggerHandlerTest {
   public static final String TEST_CALL_SID = 'CA52ac7c0cf5891c04e1873e1f147f9ed6';
   public static final String ORIGINAL_LOG_SUBJECT_IDENTIFIER = 'THIS WAS IN SUBJECT';
+
   public static Task outboundCallLogTemplate = new Task(
     ActivityDate = Date.Today(),
     CallType = 'Outbound',
@@ -590,5 +591,66 @@ private class TaskTriggerHandlerTest {
     );
     Test.stopTest();
     Assert.isTrue(rlaIds.isEmpty(), 'RLA Ids should not be returned');
+  }
+
+  private static Task getCoachNudgeTaskRecord() {
+    Task tsk = new Task();
+    tsk.recordtypeId = RTTask.coachNudge;
+    tsk.Status = 'Not Started';
+    tsk.Priority = 'Low';
+    tsk.Subject = 'Test Subject';
+    tsk.WhatId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    tsk.WhoId = null;
+    tsk.OwnerId = Lib_FakeIdGenerator.getMockId(Group.SObjectType);
+    tsk.ActivityDate = null;
+    tsk.Description = 'Test';
+    tsk.Id = Lib_FakeIdGenerator.getMockId(Task.SObjectType);
+    return tsk;
+  }
+
+  // Test method to check masking of Description with valid keyword
+  @isTest
+  private static void testApplyRedaction() {
+    Task coachNudgeTask = getCoachNudgeTaskRecord();
+    coachNudgeTask.Description = 'TAX 123213123321';
+
+    Task oldRecord = getCoachNudgeTaskRecord();
+    oldRecord.Description = 'TAX';
+
+    Test.startTest();
+    GetHelpTaskActions.applyRedaction(
+      new List<Task>{ coachNudgeTask },
+      new Map<Id, Task>{ coachNudgeTask.Id => oldRecord }
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      'TAX ********3321',
+      coachNudgeTask.Description,
+      'Description is not masked correctly'
+    );
+  }
+
+  // Test method to check masking of Description with invalid keyword
+  @isTest
+  private static void testApplyRedactionNegative() {
+    Task coachNudgeTask = getCoachNudgeTaskRecord();
+    coachNudgeTask.Description = 'Account Number 123213123321';
+
+    Task oldRecord = getCoachNudgeTaskRecord();
+    oldRecord.Description = 'TAX';
+
+    Test.startTest();
+    GetHelpTaskActions.applyRedaction(
+      new List<Task>{ coachNudgeTask },
+      new Map<Id, Task>{ coachNudgeTask.Id => oldRecord }
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      'Account Number 123213123321',
+      coachNudgeTask.Description,
+      'Description is not masked correctly'
+    );
   }
 }

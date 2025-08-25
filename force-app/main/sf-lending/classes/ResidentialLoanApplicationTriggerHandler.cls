@@ -18,7 +18,6 @@ public with sharing class ResidentialLoanApplicationTriggerHandler extends Lib_T
    * @description onBeforeInsert to handle before insert trigger actions
    */
   public override void onBeforeInsert() {
-    //Assign home loan applications queue as owner
     ResidentialLoanApplicationActions.populateRetailLoanAssistedBroker(
       records,
       new Map<Id, ResidentialLoanApplication>()

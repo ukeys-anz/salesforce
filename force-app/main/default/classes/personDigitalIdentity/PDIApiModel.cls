@@ -31,7 +31,7 @@ public with sharing class PDIApiModel {
    */
   public class AccessControlMatchCriteria {
     public String authChannel;
-    public String deviceId;
+    public String deviceCorrelationId;
     public String personaId;
   }
 

@@ -4,13 +4,12 @@
  * @since 24/06/2024
  */
 public with sharing class ResidentialLoanApplicationHelper {
-  private static final ResidentialLoanApplicationRepository LOAN_APPLICATION_REPOSITORY = (ResidentialLoanApplicationRepository) Lib_InstanceProvider.forType(
+  private static final ResidentialLoanApplicationRepository RLA_REPOSITORY = (ResidentialLoanApplicationRepository) Lib_InstanceProvider.forType(
     ResidentialLoanApplicationRepository.class
   );
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
-
   /**
    * @description overwrite property address and value from sop with SF property record values
    * @param loanId residential loan application id
@@ -22,7 +21,7 @@ public with sharing class ResidentialLoanApplicationHelper {
     List<SOPAsset> assets
   ) {
     Map<String, SOPAsset> propertyIdMap = getPropertyIdMap(assets);
-    List<LoanApplicationProperty> properties = LOAN_APPLICATION_REPOSITORY.queryRelatedProperties(
+    List<LoanApplicationProperty> properties = RLA_REPOSITORY.queryRelatedProperties(
       loanId,
       propertyIdMap.keySet()
     );
@@ -130,5 +129,32 @@ public with sharing class ResidentialLoanApplicationHelper {
       '<p><b>Status: </b>' +
       status +
       ' to Cancelled</p>';
+  }
+
+  /**
+   * @description calculate the date based on the configuration in the cutom metadata type and RLA status
+   * @param loanApplicationValidityMDT custom metadata containng the number of years/months/days to be added to the base field/today's date
+   * @return Date the date calculated after adding number of years/months/days to the base field/today's date
+   */
+  public static Date getLoanApplicationValidity(
+    Loan_Application_Validity__mdt loanApplicationValidityMDT
+  ) {
+    Date returnDate = Date.today();
+    if (loanApplicationValidityMDT.Years__c != null) {
+      returnDate = returnDate.addYears(
+        Integer.valueOf(loanApplicationValidityMDT.Years__c)
+      );
+    }
+    if (loanApplicationValidityMDT.Months__c != null) {
+      returnDate = returnDate.addMonths(
+        Integer.valueOf(loanApplicationValidityMDT.Months__c)
+      );
+    }
+    if (loanApplicationValidityMDT.Days__c != null) {
+      returnDate = returnDate.addDays(
+        Integer.valueOf(loanApplicationValidityMDT.Days__c)
+      );
+    }
+    return returnDate;
   }
 }

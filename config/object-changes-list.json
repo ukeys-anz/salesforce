@@ -32,6 +32,8 @@
     "EmailMessageRelation",
     "Event",
     "External_Case_Status__c",
+    "FeedComment",
+    "FeedItem",
     "FinServ__AccountAccountRelation__c",
     "FinServ__ContactContactRelation__c",
     "FinServ__FinancialAccount__c",
@@ -52,6 +54,7 @@
     "OpportunityTeamMember",
     "PicklistValueInfo",
     "Product2",
+    "Product_Family__c",
     "Quality_Assessment__c",
     "RecordType",
     "ResidentialLoanApplication",
@@ -59,6 +62,7 @@
     "Territory__c",
     "Twilio_Details__c",
     "User",
+    "UserRole",
     "User_Territory__c"
   ],
   "odaseva_object_whitelist": [

@@ -1,15 +1,14 @@
 @isTest
 private class ResidentialLoanApplicationHelperTest {
-  static Lib_MockProvider rlarRepoMock;
+  static Lib_MockProvider rlaRepoMock = Lib_MockProvider.forType(
+    ResidentialLoanApplicationRepository.class
+  );
 
   static void registerMocks() {
-    rlarRepoMock = Lib_MockProvider.forType(
-        ResidentialLoanApplicationRepository.class
-      )
-      .mock(
-        'queryRelatedProperties',
-        new List<LoanApplicationProperty>{ relatedProperty }
-      );
+    rlaRepoMock.mock(
+      'queryRelatedProperties',
+      new List<LoanApplicationProperty>{ relatedProperty }
+    );
   }
 
   static Id rlaIds = Lib_FakeIdGenerator.getMockId(
@@ -96,6 +95,25 @@ private class ResidentialLoanApplicationHelperTest {
       '639 collins st docklands vic 3000',
       assets[1].propertyAddress,
       'address should not be from related property record'
+    );
+  }
+
+  @IsTest
+  static void testGetLoanApplicationValidity() {
+    Loan_Application_Validity__mdt loanApplicationValidityMDT = new Loan_Application_Validity__mdt(
+      DeveloperName = 'RLS STATE SUBMITTED',
+      MasterLabel = 'RLS_STATE_SUBMITTED',
+      Years__c = 1,
+      Months__c = 6,
+      Days__c = 60
+    );
+    Date expectedDate = Date.today().addYears(1).addMonths(6).addDays(60);
+    Assert.areEqual(
+      expectedDate,
+      ResidentialLoanApplicationHelper.getLoanApplicationValidity(
+        loanApplicationValidityMDT
+      ),
+      'Date should be returned after years, months and days have been added to today\'s date'
     );
   }
 }
