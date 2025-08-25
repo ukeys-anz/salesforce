@@ -4640,10 +4640,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Buyback</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>CGU</fullName>
             <default>false</default>
         </values>
@@ -4779,10 +4775,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Buyback</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>CGU</fullName>
             <default>false</default>
         </values>
@@ -4915,10 +4907,6 @@
         </values>
         <values>
             <fullName>Allianz</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Buyback</fullName>
             <default>false</default>
         </values>
         <values>
