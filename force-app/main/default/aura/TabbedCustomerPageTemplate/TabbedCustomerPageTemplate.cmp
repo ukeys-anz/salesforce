@@ -95,20 +95,18 @@
     </aura:if>
 
     <!-- Cases and Interactions -->
-    <aura:if isTrue="{!v.isAnzPlusAccount}">
-      <lightning:tab
-        id="CasesAndInteractions"
-        label="{!$Label.c.ANZx_Customer_Tab_Cases_And_Interactions}"
-      >
-        <div class="slds-grid slds-wrap customCustomerTab">
-          <div class="slds-size_4-of-12">{!v.column10}</div>
-          <div class="slds-size_4-of-12 slds-p-horizontal_small">
-            {!v.column11}
-          </div>
-          <div class="slds-size_4-of-12">{!v.column12}</div>
+    <lightning:tab
+      id="CasesAndInteractions"
+      label="{!$Label.c.ANZx_Customer_Tab_Cases_And_Interactions}"
+    >
+      <div class="slds-grid slds-wrap customCustomerTab">
+        <div class="slds-size_4-of-12">{!v.column10}</div>
+        <div class="slds-size_4-of-12 slds-p-horizontal_small">
+          {!v.column11}
         </div>
-      </lightning:tab>
-    </aura:if>
+        <div class="slds-size_4-of-12">{!v.column12}</div>
+      </div>
+    </lightning:tab>
 
     <!-- Insights -->
     <aura:if isTrue="{!v.isAnzPlusAccount}">
