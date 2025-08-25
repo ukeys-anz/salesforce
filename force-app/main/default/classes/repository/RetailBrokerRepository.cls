@@ -10,18 +10,18 @@ public with sharing class RetailBrokerRepository extends RepositoryBase {
    * @description Data access method to retrieve contacts by Ids
    * @return A list of Contacts
    */
-    public List<Contact> getBrokerContactsByIds(Set<Id> contactIds) {
-       return [
-            SELECT
-            Id,
-            Name,
-            External_Id__c,
-            Broker_Customer_Profile__r.External_Id__c,
-            OCV_Event_Version__c,
-            Sync_Status__c
-            FROM Contact
-            WHERE Id IN :contactIds
-            WITH USER_MODE
-        ];
-    }
+  public List<Contact> getBrokerContactsByIds(Set<Id> contactIds) {
+    return [
+      SELECT
+        Id,
+        Name,
+        External_Id__c,
+        Broker_Customer_Profile__r.External_Id__c,
+        OCV_Event_Version__c,
+        Sync_Status__c
+      FROM Contact
+      WHERE Id IN :contactIds
+      WITH USER_MODE
+    ];
+  }
 }

@@ -5745,10 +5745,15 @@
       "Is_Beta_Broker__c": "ANZx::Salesforce",
       "Is_MyBroker__c": "ANZx::Salesforce",
       "Office_Group__c": "ANZx::Salesforce",
+      "OCV_Profile_ID__c": "ANZx :: Salesforce :: BrokerData :: Contact :: OCV_Profile_ID__c",
       "Primary_RBM__c": "ANZx::Salesforce",
       "Secondary_RBM__c": "ANZx::Salesforce",
       "Segment__c": "ANZx::Salesforce",
-      "SAO_State__c": "ANZx::Salesforce"
+      "SAO_State__c": "ANZx::Salesforce",
+      "Sync_Status__c": "ANZx :: Salesforce :: BrokerData :: Contact :: Sync_Status__c",
+      "Survivor_Party_Id__c": "ANZx :: Salesforce :: BrokerData :: Contact :: Survivor_Party_Id__c",
+      "Victim_Party_Id__c": "ANZx :: Salesforce :: BrokerData :: Contact :: Victim_Party_Id__c"
+   
     },
     "CustomerOnboardingApplication__c": {
       "AustralianTaxResident__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidencyStatus :: australian_tax_resident",
@@ -5947,10 +5952,14 @@
       "Is_Beta_Broker__c": "1:1 Transformation",
       "Is_MyBroker__c": "Formula field through Broker_Relation__c",
       "Office_Group__c": "Lookup to Broker_Relation__c",
+      "OCV_Profile_ID__c": "1:1 transformation",
       "Primary_RBM__c": "Formula field through Broker_Relation__c",
       "Secondary_RBM__c": "Formula field through Broker_Relation__c",
       "Segment__c": "Formula field through Broker_Relation__c",
-      "SAO_State__c": "Formula field through Broker_Relation__c"
+      "SAO_State__c": "Formula field through Broker_Relation__c",
+      "Sync_Status__c": "1:1 transformation",
+      "Survivor_Party_Id__c": "1:1 transformation",
+      "Victim_Party_Id__c" : "1:1 transformation"
     },
     "CustomerOnboardingApplication__c": {
       "AustralianTaxResident__c": "1:1 Transformation",

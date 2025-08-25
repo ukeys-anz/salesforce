@@ -222,5 +222,4 @@ public with sharing class ResidentialLoanApplicationHelper {
     }
     return extIdToBrokerIdMap;
   }
-
 }

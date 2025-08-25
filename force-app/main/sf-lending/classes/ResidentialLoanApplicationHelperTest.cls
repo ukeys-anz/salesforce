@@ -193,7 +193,6 @@ private class ResidentialLoanApplicationHelperTest {
     );
   }
 
-
   static List<Case> createMockCaseRelatedToRla() {
     List<Case> strCaselist = new List<Case>();
 
@@ -237,7 +236,6 @@ private class ResidentialLoanApplicationHelperTest {
     return brokerCodes;
   }
 
-
   static Contact createTestContact() {
     Contact testContact = new Contact();
     testContact.Id = FAKER_CONTACT_ID;
@@ -248,5 +246,5 @@ private class ResidentialLoanApplicationHelperTest {
     testContact.RetailTPMISAO__c = BROKER_CODE;
     testContact.OCV_ID__c = 'OCV123456789';
     return testContact;
-}
+  }
 }
