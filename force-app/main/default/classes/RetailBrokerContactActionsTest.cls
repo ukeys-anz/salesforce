@@ -138,43 +138,136 @@ private class RetailBrokerContactActionsTest {
   }
 
   @IsTest
-  static void testIsRecordAnEligibleBrokerContact() {
+  static void testIsEligibleWhenCommercialAndAssetTpmiNotBlank() {
     Contact contactNew = createTestContact();
+    Contact contactOld = createTestContact();
     contactNew.CommercialTPMISAO__c = 'CommTMPITest001';
-    Assert.isTrue(
-      RetailBrokerContactActions.isRecordAnEligibleBrokerContact(contactNew),
-      'Contact should be an eligible broker contact for publishing'
-    );
-
-    contactNew = createTestContact();
     contactNew.AssetFinanceTPMISAO__c = 'AssetFinanceTPMISAOTest001';
-    Assert.isTrue(
-      RetailBrokerContactActions.isRecordAnEligibleBrokerContact(contactNew),
-      'Contact should be an eligible broker contact for publishing'
-    );
 
-    contactNew = createTestContact();
+    Boolean result;
+    Test.startTest();
+    result = RetailBrokerContactActions.isRecordAnEligibleBrokerContact(
+      contactNew,
+      contactOld
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      true,
+      result,
+      'Contact should be eligible when Commercial or Asset Finance TPMI SAO is populated'
+    );
+  }
+
+  @IsTest
+  static void testIsEligibleWhenRetailTpmiNotBlankAndIsBetaBroker() {
+    Contact contactNew = createTestContact();
+    Contact contactOld = createTestContact();
     contactNew.RetailTPMISAO__c = 'RetailTPMISAOTest001';
     contactNew.Is_Beta_Broker__c = true;
-    Assert.isTrue(
-      RetailBrokerContactActions.isRecordAnEligibleBrokerContact(contactNew),
-      'Contact should be an eligible broker contact for publishing'
-    );
+    Boolean result;
 
-    contactNew = createTestContact();
+    Test.startTest();
+    result = RetailBrokerContactActions.isRecordAnEligibleBrokerContact(
+      contactNew,
+      contactOld
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      true,
+      result,
+      'Contact should be eligible when Retail TPMI SAO is populated and is a beta broker is true'
+    );
+  }
+
+  @IsTest
+  static void testIsEligibleWhenIsBetaBroker() {
+    Contact contactNew = createTestContact();
+    Contact contactOld = createTestContact();
+    contactOld.RetailTPMISAO__c = 'RetailTPMISAOTest001';
     contactNew.RetailTPMISAO__c = 'RetailTPMISAOTest001';
+    contactNew.Is_Beta_Broker__c = true;
+    Boolean result;
+
+    Test.startTest();
+    result = RetailBrokerContactActions.isRecordAnEligibleBrokerContact(
+      contactNew,
+      contactOld
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      true,
+      result,
+      'Contact should be eligible when Retail TPMI SAO is unchanged but contact is a beta broker is true'
+    );
+  }
+
+  @IsTest
+  static void testIsNotEligibleWhenAllFieldsBlankOrUnchanged() {
+    Contact contactNew = createTestContact();
+    Contact contactOld = createTestContact();
+    contactOld.RetailTPMISAO__c = 'RetailTPMISAOTest001';
+    contactNew.RetailTPMISAO__c = 'RetailTPMISAOTest001';
+    contactNew.Is_Beta_Broker__c = true;
+    Boolean result;
+
+    Test.startTest();
+    result = RetailBrokerContactActions.isRecordAnEligibleBrokerContact(
+      contactNew,
+      contactOld
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      false,
+      result,
+      'Contact should not be eligible when all values are blank or unchanged'
+    );
+  }
+
+  @IsTest
+  static void testIsEligibleWhenIsBetaBrokerFalse() {
+    Contact contactNew = createTestContact();
+    Contact contactOld = createTestContact();
+
+    contactOld.RetailTPMISAO__c = 'oldRetail';
+    contactNew.RetailTPMISAO__c = 'newRetail';
     contactNew.Is_Beta_Broker__c = false;
-    Assert.isFalse(
-      RetailBrokerContactActions.isRecordAnEligibleBrokerContact(contactNew),
-      'Contact should not be an eligible broker contact for publishing'
-    );
+    Boolean result;
 
-    contactNew = createTestContact();
+    Test.startTest();
+    result = RetailBrokerContactActions.isRecordAnEligibleBrokerContact(
+      contactNew,
+      contactOld
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      false,
+      result,
+      'Contact should not be eligible if RetailTPMISAO__c changed but beta broker is false'
+    );
+  }
+
+  @IsTest
+  static void testIsNotEligibleWhenRetailTpmiBlankAndIsBetaBroker() {
+    Contact contactNew = createTestContact();
+    Contact contactOld = createTestContact();
+
     contactNew.RetailTPMISAO__c = '';
+    contactOld.RetailTPMISAO__c = '';
     contactNew.Is_Beta_Broker__c = true;
-    Assert.isFalse(
-      RetailBrokerContactActions.isRecordAnEligibleBrokerContact(contactNew),
-      'Contact should not be an eligible broker contact for publishing'
+    Test.startTest();
+    result = RetailBrokerContactActions.isRecordAnEligibleBrokerContact(
+      contactNew,
+      contactOld
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      false,
+      result,
+      'Contact should not be eligible when Retail TPMI SAO is blank even if contact is a beta broker is true'
     );
   }
 
@@ -228,7 +321,8 @@ private class RetailBrokerContactActionsTest {
       new List<Contact>{ RetailBrokerRelationEventActionsTest.mockContact() },
       new Map<Id, Contact>{ oldContact.Id => oldContact }
     );
-    Assert.isFalse(
+    Assert.areEqual(
+      false,
       publishedEvents.isEmpty(),
       'No published events were returned'
     );
@@ -248,7 +342,8 @@ private class RetailBrokerContactActionsTest {
       oldContact
     );
 
-    Assert.isTrue(
+    Assert.areEqual(
+      true,
       brokerSetChanged,
       'Broker set of the contact should have changed'
     );
@@ -316,10 +411,10 @@ private class RetailBrokerContactActionsTest {
   static void testContactMergeEvent() {
     List<Contact> newContacts = createTestContacts(2);
 
-    newContacts[0].Sync_Status__c = BrokerConstants.SYNC_STATUS_BROKER_ORG;
+    newContacts[0].Sync_Status__c = BrokerMergeConstants.SYNC_STATUS_BROKER_ORG;
     newContacts[0].External_Id__c = 'exIdContactTest001';
     newContacts[1].External_Id__c = 'exIdContactTest002';
-    newContacts[1].Sync_Status__c = BrokerConstants.SYNC_STATUS_BLOCKED;
+    newContacts[1].Sync_Status__c = BrokerMergeConstants.SYNC_STATUS_BLOCKED;
     List<Contact> oldContacts = newContacts.deepClone(true);
     newContacts[0].Survivor_Party_Id__c = newContacts[1].External_Id__c;
     newContacts[0].Victim_Party_Id__c = newContacts[0].External_Id__c;
@@ -378,9 +473,9 @@ private class RetailBrokerContactActionsTest {
     Test.stopTest();
     Assert.areEqual(
       newContacts[1].Sync_Status__c,
-      BrokerConstants.SYNC_STATUS_DUPLICATE_EMAIL +
+      BrokerMergeConstants.SYNC_STATUS_DUPLICATE_EMAIL +
         ';' +
-        BrokerConstants.SYNC_STATUS_DUPLICATE_OCVID,
+        BrokerMergeConstants.SYNC_STATUS_DUPLICATE_OCVID,
       'Sync Status should contain Duplicate status'
     );
   }
@@ -397,8 +492,14 @@ private class RetailBrokerContactActionsTest {
     List<Contact> oldContacts = newContacts.deepClone(true);
     oldContacts[0].RetailTPMISAO__c = 'Retail-Active-Old';
     oldContacts[0].Broker_Accreditation_Type__c = 'Commerical';
+    oldContacts[0].External_Id__c = 'Ex-sur1234';
+
+    newContacts[0].Sync_status__c = 'Broker Org';
     newContacts[0].RetailTPMISAO__c = 'Retail-Active';
     newContacts[0].Broker_Accreditation_Type__c = 'Retail;Commerical';
+    newContacts[0].Survivor_Party_Id__c = 'Ex-sur1234';
+    newContacts[0].External_Id__c = 'Ex-sur1234';
+
     RETAIL_CONTACT_REPOSITORY_MOCK.mock(
       'getRelatedOrphanResidentialApplications',
       new List<ResidentialLoanApplication>{ rla }
@@ -419,13 +520,19 @@ private class RetailBrokerContactActionsTest {
     );
     Test.stopTest();
 
-    Assert.isNotNull(
-      rla.Assisted_Broker__c,
-      'Assisted Broker should be populated'
+    List<ResidentialLoanApplication> updatedRLAs = (List<ResidentialLoanApplication>) dmlRepoMock.getHistory(
+        'doUpdate'
+      )
+      .getParam('records');
+
+    Assert.areEqual(
+      1,
+      updatedRLAs.size(),
+      'Must have one ResidentialLoanApplication to Update'
     );
     Assert.areEqual(
       newContacts[0].Id,
-      rla.Assisted_Broker__c,
+      updatedRLAs[0].Assisted_Broker__c,
       'Assisted Broker should be updated'
     );
   }
@@ -437,9 +544,9 @@ private class RetailBrokerContactActionsTest {
     newContacts[0].Sync_Status__c = BrokerConstants.SYNC_STATUS_BROKER_ORG;
     newContacts[0].External_Id__c = 'exIdContactTest001';
     newContacts[1].External_Id__c = 'exIdContactTest002';
-    newContacts[1].Sync_Status__c = BrokerConstants.SYNC_STATUS_DUPLICATE_EMAIL;
+    newContacts[1]
+      .Sync_Status__c = BrokerMergeConstants.SYNC_STATUS_DUPLICATE_EMAIL;
 
-    List<Contact> oldContacts = newContacts.deepClone(true);
     newContacts[0].Survivor_Party_Id__c = newContacts[1].External_Id__c;
     newContacts[0].Victim_Party_Id__c = newContacts[0].External_Id__c;
 
@@ -451,17 +558,13 @@ private class RetailBrokerContactActionsTest {
     );
     RETAIL_CONTACT_REPOSITORY_MOCK.mock(
       'queryContactRecordsByExternalIds',
-      new List<Contact>{ newContacts[1], newContacts[0] }
+      new List<Contact>{ newContacts[1] }
     );
-
-    Map<String, String> mergesToProcess = new Map<String, String>{
-      newContacts[1].External_Id__c => newContacts[0].Victim_Party_Id__c
-    };
 
     Test.startTest();
     RetailBrokerContactActions.processDataMerge(
-      mergesToProcess,
-      new List<contact>{ newContacts[0], newContacts[1] }
+      new List<contact>{ newContacts[0] },
+      new List<contact>{ newContacts[1] }
     );
     Test.stopTest();
     List<Contact> updatedBrokerContacts = (List<Contact>) dmlRepoMock.getHistory(

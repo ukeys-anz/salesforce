@@ -7,7 +7,12 @@
 
 public with sharing class RetailBrokerContactActions {
   private static Boolean isMergeInProgress = false;
-
+  @TestVisible
+  private static final String SYNC_STATUS_BROKER_ORG = 'Broker Org';
+  @TestVisible
+  private static final String RETAIL_BROKER_ACCREDITATION_TYPE = 'Retail';
+  @TestVisible
+  private static final String SYNC_STATUS_BLOCKED = 'Blocked';
   private static final BrokerSettingsRepository BROKER_SETTINGS_REPOSITORY = (BrokerSettingsRepository) Lib_InstanceProvider.forType(
     BrokerSettingsRepository.class
   );
@@ -52,13 +57,10 @@ public with sharing class RetailBrokerContactActions {
           .notEquals(Contact.OCV_Event_Version__c, 0)
           .isNotNull(Contact.OCV_Event_Version__c)
           .isNotNull(Contact.Broker_Set__c)
-          .contains(
-            Contact.Sync_Status__c,
-            BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
-          )
+          .contains(Contact.Sync_Status__c, SYNC_STATUS_BROKER_ORG)
           .contains(
             Contact.Broker_Accreditation_Type__c,
-            BrokerConstants.ACCREDITATION_RETAIL
+            RETAIL_BROKER_ACCREDITATION_TYPE
           )
           .toList(),
         Contact.Id
@@ -70,13 +72,10 @@ public with sharing class RetailBrokerContactActions {
           .notEquals(Contact.OCV_Event_Version__c, 0)
           .isNotNull(Contact.OCV_Event_Version__c)
           .isNotNull(Contact.Broker_Set__c)
-          .contains(
-            Contact.Sync_Status__c,
-            BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
-          )
+          .contains(Contact.Sync_Status__c, SYNC_STATUS_BROKER_ORG)
           .contains(
             Contact.Broker_Accreditation_Type__c,
-            BrokerConstants.ACCREDITATION_RETAIL
+            RETAIL_BROKER_ACCREDITATION_TYPE
           )
           .changed(Contact.Broker_Set__c)
           .toList(),
@@ -262,13 +261,20 @@ public with sharing class RetailBrokerContactActions {
     Contact contactNew,
     contact contactOld
   ) {
-    return (String.isNotBlank(contactNew.CommercialTPMISAO__c) ||
-      contactNew.CommercialTPMISAO__c != contactOld.CommercialTPMISAO__c) ||
-      (String.isNotBlank(contactNew.AssetFinanceTPMISAO__c) ||
-      contactNew.AssetFinanceTPMISAO__c != contactOld.AssetFinanceTPMISAO__c) ||
-      ((String.isNotBlank(contactNew.RetailTPMISAO__c) ||
+    Boolean isCommercialTPMIChange =
+      String.isNotBlank(contactNew.CommercialTPMISAO__c) ||
+      contactNew.CommercialTPMISAO__c != contactOld.CommercialTPMISAO__c;
+
+    Boolean isAssetFinTPMIChange =
+      String.isNotBlank(contactNew.AssetFinanceTPMISAO__c) ||
+      contactNew.AssetFinanceTPMISAO__c != contactOld.AssetFinanceTPMISAO__c;
+
+    Boolean isRetailTPMIChange =
+      (String.isNotBlank(contactNew.RetailTPMISAO__c) ||
       contactNew.RetailTPMISAO__c != contactOld.RetailTPMISAO__c) &&
-      contactNew.Is_Beta_Broker__c);
+      contactNew.Is_Beta_Broker__c;
+
+    return isCommercialTPMIChange || isAssetFinTPMIChange || isRetailTPMIChange;
   }
 
   /**
@@ -402,9 +408,6 @@ public with sharing class RetailBrokerContactActions {
       records,
       contactsOldMap
     );
-    if (filteredVictimContactList.isEmpty()) {
-      return;
-    }
 
     List<Broker_Code__c> brokerCodesToBeDeleted = BROKER_CODE_REPOSITORY.getRelatedBrokerCodes(
       new Map<id, contact>(filteredVictimContactList).keySet()
@@ -427,7 +430,7 @@ public with sharing class RetailBrokerContactActions {
 
     processDataMerge(filteredVictimContactList, survivorContactsList);
 
-    List<Contact> contactsToUpdate = getContactsTobeUpdated(
+    List<Contact> contactsToUpdate = populateSurvivorDetails(
       filteredVictimContactList,
       survivorcontactsWithExternalIds
     );
@@ -441,7 +444,7 @@ public with sharing class RetailBrokerContactActions {
    * @param contactsWithExternalIds Map of contacts based on ExternalId
    * @return List<contact> list of updated survivor contacts
    */
-  public static List<contact> getContactsTobeUpdated(
+  public static List<contact> populateSurvivorDetails(
     List<Contact> filteredRecords,
     Map<String, contact> contactsWithExternalIds
   ) {
@@ -460,7 +463,7 @@ public with sharing class RetailBrokerContactActions {
           BrokerMergeConstants.SYNC_STATUS_BLOCKED
         )
       ) {
-        survivorCon.Sync_Status__c = 'Broker Org';
+        survivorCon.Sync_Status__c = BrokerConstants.SYNC_STATUS_BROKER_ORG;
       }
 
       contactTobeUpdated.add(survivorCon);
@@ -484,16 +487,13 @@ public with sharing class RetailBrokerContactActions {
       allContactsList,
       Contact.External_Id__c
     );
-    List<Id> successfulSurvivorIds = new List<Id>();
+    List<Id> survivorDuplicatesList = new List<Id>();
     Map<Id, String> contactIdByBrokerSet = new Map<Id, String>();
     Map<Id, String> contactIdByOfficeGroup = new Map<Id, String>();
     isMergeInProgress = true;
     try {
       for (Contact victim : victimContactsList) {
-        String survivorExtId = victim.Survivor_Party_Id__c != null
-          ? victim.Survivor_Party_Id__c
-          : null;
-        Contact survivor = contactMap.get(survivorExtId);
+        Contact survivor = contactMap.get(victim.Survivor_Party_Id__c);
         if (survivor != null) {
           if (victim.Broker_Set__c != null) {
             contactIdByBrokerSet.put(survivor.Id, victim.Broker_Set__c);
@@ -507,13 +507,12 @@ public with sharing class RetailBrokerContactActions {
               BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
             ) == false
           ) {
-            successfulSurvivorIds.add(survivor.Id);
+            survivorDuplicatesList.add(survivor.Id);
           }
 
           Database.MergeResult result = Database.merge(survivor, victim, false);
 
-          if (result.isSuccess()) {
-          } else {
+          if (!result.isSuccess()) {
             for (Database.Error err : result.getErrors()) {
               Logger.error(
                 'Contact Merge failed for following contacts' +
@@ -531,7 +530,7 @@ public with sharing class RetailBrokerContactActions {
 
       System.enqueueJob(
         new UpdateBrokerRelationLookupQueueable(
-          successfulSurvivorIds,
+          survivorDuplicatesList,
           contactIdByBrokerSet,
           contactIdByOfficeGroup
         ),
@@ -555,9 +554,6 @@ public with sharing class RetailBrokerContactActions {
     List<contact> records,
     Map<Id, contact> contactsOldMap
   ) {
-    if (records.isEmpty()) {
-      return new List<Contact>();
-    }
     Set<SObjectField> fieldsToValidateChange = new Set<SObjectField>{
       Contact.Survivor_Party_Id__c,
       Contact.Victim_Party_Id__c
@@ -567,7 +563,7 @@ public with sharing class RetailBrokerContactActions {
       records,
       Contact.Victim_Party_Id__c
     );
-    List<contact> filterDuplicateEmailRecords = ListUtil.filter(
+    List<contact> filteredVictimRecords = ListUtil.filter(
         records,
         contactsOldMap
       )
@@ -575,51 +571,13 @@ public with sharing class RetailBrokerContactActions {
       .isNotBlank(contact.Survivor_Party_Id__c)
       .isNotBlank(contact.Victim_Party_Id__c)
       .equals(Contact.External_Id__c, victimIdsSet)
-      .contains(
+      .notcontains(
         Contact.Sync_Status__c,
-        BrokerMergeConstants.SYNC_STATUS_DUPLICATE_EMAIL
-      )
-      .notContains(
-        Contact.Sync_Status__c,
-        BrokerMergeConstants.SYNC_STATUS_DUPLICATE_OCVID
+        BrokerMergeConstants.SYNC_STATUS_BLOCKED
       )
       .toList();
 
-    List<contact> filterDuplicateOCVRecords = ListUtil.filter(
-        records,
-        contactsOldMap
-      )
-      .anyChanged(fieldsToValidateChange)
-      .isNotBlank(contact.Survivor_Party_Id__c)
-      .isNotBlank(contact.Victim_Party_Id__c)
-      .equals(Contact.External_Id__c, victimIdsSet)
-      .contains(
-        Contact.Sync_Status__c,
-        BrokerMergeConstants.SYNC_STATUS_DUPLICATE_OCVID
-      )
-      .toList();
-
-    List<contact> filterBrokerOrgRecords = ListUtil.filter(
-        records,
-        contactsOldMap
-      )
-      .anyChanged(fieldsToValidateChange)
-      .isNotBlank(contact.Survivor_Party_Id__c)
-      .isNotBlank(contact.Victim_Party_Id__c)
-      .equals(Contact.External_Id__c, victimIdsSet)
-      .contains(
-        Contact.Sync_Status__c,
-        BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
-      )
-      .toList();
-    List<Contact> allRecordsfiltered = new List<Contact>(
-      filterDuplicateEmailRecords
-    );
-
-    allRecordsfiltered.addAll(filterDuplicateOCVRecords);
-    allRecordsfiltered.addAll(filterBrokerOrgRecords);
-
-    return allRecordsfiltered;
+    return filteredVictimRecords;
   }
 
   /**
