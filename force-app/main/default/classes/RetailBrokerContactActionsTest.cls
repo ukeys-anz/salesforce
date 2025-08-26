@@ -53,7 +53,7 @@ private class RetailBrokerContactActionsTest {
     Contact contactNew = createTestContact();
     contactNew.Id = contactOld.Id;
     contactNew.OCV_Event_Version__c = 1;
-    contactNew.Sync_Status__c = 'Broker Org';
+    contactNew.Sync_Status__c = BrokerMergeConstants.SYNC_STATUS_BROKER_ORG;
     contactNew.CommercialTPMISAO__c = 'CommTMPITest001';
 
     Lib_MockProvider.forType(RetailBrokerRepository.class)
@@ -131,7 +131,7 @@ private class RetailBrokerContactActionsTest {
       'The size of the result should be the same as the input'
     );
     Assert.areEqual(
-      BrokerConstants.SYNC_STATUS_BROKER_ORG,
+      'Broker Org',
       results[0].Sync_Status__c,
       'The sync status should be set to Broker Org'
     );
@@ -283,7 +283,7 @@ private class RetailBrokerContactActionsTest {
       'Action type should be blank, neither add nor update'
     );
     contactNew.OCV_Event_Version__c = 1;
-    contactNew.Sync_Status__c = BrokerConstants.SYNC_STATUS_BROKER_ORG;
+    contactNew.Sync_Status__c = BrokerMergeConstants.SYNC_STATUS_BROKER_ORG;
     Assert.areEqual(
       'add',
       RetailBrokerContactActions.getAction(contactNew, contactOld),
@@ -494,7 +494,7 @@ private class RetailBrokerContactActionsTest {
     oldContacts[0].Broker_Accreditation_Type__c = 'Commerical';
     oldContacts[0].External_Id__c = 'Ex-sur1234';
 
-    newContacts[0].Sync_status__c = 'Broker Org';
+    newContacts[0].Sync_status__c = BrokerMergeConstants.SYNC_STATUS_BROKER_ORG;
     newContacts[0].RetailTPMISAO__c = 'Retail-Active';
     newContacts[0].Broker_Accreditation_Type__c = 'Retail;Commerical';
     newContacts[0].Survivor_Party_Id__c = 'Ex-sur1234';
@@ -541,7 +541,7 @@ private class RetailBrokerContactActionsTest {
   static void testProcessDataMerge() {
     List<Contact> newContacts = createTestContacts(2);
 
-    newContacts[0].Sync_Status__c = BrokerConstants.SYNC_STATUS_BROKER_ORG;
+    newContacts[0].Sync_Status__c = BrokerMergeConstants.SYNC_STATUS_BROKER_ORG;
     newContacts[0].External_Id__c = 'exIdContactTest001';
     newContacts[1].External_Id__c = 'exIdContactTest002';
     newContacts[1]

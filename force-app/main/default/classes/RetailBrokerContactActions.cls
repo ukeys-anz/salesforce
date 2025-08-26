@@ -239,11 +239,11 @@ public with sharing class RetailBrokerContactActions {
   @TestVisible
   private static String getAction(Contact contactNew, Contact contactOld) {
     if (
+      contactNew.OCV_Event_Version__c > 0 &&
       doesSyncStatusContain(
         contactNew,
         BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
-      ) == true &&
-      contactNew.OCV_Event_Version__c > 0
+      ) == true 
     ) {
       return RetailBrokerEventActions.BROKER_EVENT_ADD;
     }
