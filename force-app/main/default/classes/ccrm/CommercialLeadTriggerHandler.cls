@@ -101,6 +101,10 @@ public with sharing class CommercialLeadTriggerHandler extends Lib_TriggerHandle
       (Map<Id, Lead>) oldMap
     );
     CommercialLeadActions.populateRegisteredCompanyForIndividual(records);
+    CommercialLeadActions.setCompanyToBlankForIndividual(
+      (List<Lead>) records,
+      (Map<Id, Lead>) oldMap
+    );
     CommercialLeadActions.validateAndPopulateInfo(
       (List<Lead>) records,
       (Map<Id, Lead>) oldMap

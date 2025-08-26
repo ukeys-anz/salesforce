@@ -1,32 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>Average Opportunity Size</name>
-    <columns>
-        <field>OPPORTUNITY_NAME</field>
-    </columns>
+    <name>My Region’s Opp Search by Name</name>
     <columns>
         <field>ACCOUNT_NAME</field>
     </columns>
     <columns>
-        <field>FISCAL_QUARTER</field>
+        <field>Opportunity.Customer_Needs__c</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
     </columns>
     <columns>
         <field>CLOSE_DATE</field>
     </columns>
     <columns>
-        <field>CREATED_DATE</field>
-    </columns>
-    <columns>
-        <field>Account.FinServ__Status__c</field>
-    </columns>
-    <columns>
-        <aggregateTypes>Average</aggregateTypes>
+        <aggregateTypes>Sum</aggregateTypes>
         <field>AMOUNT</field>
     </columns>
     <columns>
         <field>FULL_NAME</field>
     </columns>
+    <description>My Region’s Opportunity Search by Name</description>
     <filter>
+        <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
+        <criteriaItems>
+            <column>STAGE_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Opportunity Won,Opportunity Lost</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.My_Region_Flag__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
         <criteriaItems>
             <column>RECORDTYPE</column>
             <columnToColumn>false</columnToColumn>
@@ -35,25 +45,18 @@
             <value>Opportunity.Commercial_Opportunity</value>
         </criteriaItems>
         <criteriaItems>
-            <column>STAGE_NAME</column>
+            <column>FULL_NAME</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
-            <operator>equals</operator>
-            <value>Opportunity Won</value>
-        </criteriaItems>
-        <criteriaItems>
-            <column>Opportunity.My_Team_Segment__c</column>
-            <columnToColumn>false</columnToColumn>
-            <isUnlocked>true</isUnlocked>
-            <operator>equals</operator>
-            <value>1</value>
+            <operator>contains</operator>
+            <value>$USER</value>
         </criteriaItems>
         <language>en_US</language>
     </filter>
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>STAGE_NAME</field>
+        <field>OPPORTUNITY_NAME</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <params>
@@ -69,10 +72,10 @@
         <value>1</value>
     </params>
     <reportType>Opportunity</reportType>
-    <scope>team</scope>
+    <scope>organization</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
-    <showSubTotals>false</showSubTotals>
+    <showSubTotals>true</showSubTotals>
     <timeFrameFilter>
         <dateColumn>CLOSE_DATE</dateColumn>
         <interval>INTERVAL_CUSTOM</interval>

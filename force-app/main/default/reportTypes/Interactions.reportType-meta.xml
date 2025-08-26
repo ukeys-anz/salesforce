@@ -26,6 +26,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Opportunity__c</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Support_Topics__c</field>
             <table>Interaction</table>
         </columns>

@@ -602,7 +602,8 @@
         "LastModifiedById",
         "LastModifiedDate",
         "RecordTypeId"
-      ]
+      ],
+      "IA-2618802": ["Opportunity_Product__c"]
     },
     "Appointment_Commitment__c": {
       "IA-2453595": [
@@ -778,7 +779,6 @@
         "CLG_Number__c",
         "CPID__c",
         "Customer_Number__c",
-        "Business_Owner_Number__c",
         "Business_Owner__c",
         "Business_Contact__c"
       ],
