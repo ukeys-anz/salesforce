@@ -128,8 +128,7 @@ public with sharing class RetailBrokerRelationEventActions {
     for (Contact broker : brokerList) {
       LanIdWrapper oldRbmLanIds = new LanIdWrapper();
       Id olderBrokerSetId = null;
-      olderBrokerSetId =oldMap?.oldMap.get(broker.Id)?.Broker_Set__c;
-
+      olderBrokerSetId = oldMap?.get(broker.Id)?.Broker_Set__c;
       oldRbmLanIds.prbmLanId = brokerSetMapForOldContacts.get(olderBrokerSetId)
         ?.Primary_RBM__r
         ?.Lan_Id__c;
