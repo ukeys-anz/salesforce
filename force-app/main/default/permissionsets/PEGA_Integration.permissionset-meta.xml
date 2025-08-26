@@ -4,6 +4,10 @@
         <name>FinancialAccountUIConfiguration__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <name>FinancialAccountConfiguration__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <description>This permission set grants PEGA Integration User read access to ATM/Card fields and record types and write access to External System fields.</description>
     <fieldPermissions>
         <editable>false</editable>

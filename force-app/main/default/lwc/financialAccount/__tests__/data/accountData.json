@@ -108,7 +108,8 @@
         "DIRECT_DEBIT",
         "ROUNDUP_TO",
         "PAYTO"
-      ]
+      ],
+      "origin": "PRODUCT_ORIGIN_ANZX"
     },
     "state": "ACCOUNT_STATE_ACTIVE"
   }

@@ -13,6 +13,12 @@ public with sharing class FinancialAccountConstant {
   //Hold the single account's ownership value
   public static final String SOLE = 'Sole';
 
+  //Hold the Closed status
+  public static final String CLOSED = 'Closed';
+
+  //Hold the Origin value for the products associated to ANZ Plus Financial Account
+  public static final String ANZ_PLUS_ORIGIN = 'PRODUCT_ORIGIN_ANZX';
+
   /**
    * @description Set<String> finserv roles to be included for balance calculation
    */
@@ -20,4 +26,10 @@ public with sharing class FinancialAccountConstant {
     'Additional Owner',
     'Primary Owner'
   };
+
+  //Hold the Origin value for the products associated to ANZ classic Financial Account
+  public static final String ANZ_CLASSIC_ORIGIN = 'PRODUCT_ORIGIN_ARC';
+
+  //Hold Source System
+  public static final String ZAFIN_SOURCE = 'Zafin';
 }

@@ -4,6 +4,7 @@ import { NavigationMixin } from "lightning/navigation";
 
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
 import FinancialAccountStatusForSorting from "@salesforce/label/c.FinancialAccountStatusForSorting";
+import ANZ_ICON from "@salesforce/resourceUrl/anz_icon";
 
 export default class FinancialAccount extends NavigationMixin(
   LightningElement
@@ -20,10 +21,20 @@ export default class FinancialAccount extends NavigationMixin(
   @api titleIcon;
   @api iconColor;
   @api productCode;
+  @api accountType;
   showInfoModal = false;
+  tooltipCode = "";
+  headerTitle = "";
+  anzIcon;
 
   get displayContent() {
     return hasAccountsGoalsPermission;
+  }
+
+  get iconWrapperClass() {
+    return this.accountType === "Card"
+      ? `${this.iconColor} card-icon-color`
+      : this.iconColor;
   }
 
   get processedFinAccounts() {
@@ -61,6 +72,16 @@ export default class FinancialAccount extends NavigationMixin(
     return lastUpdated;
   }
 
+  get anzLogo() {
+    if (
+      this.accountDetails.length > 0 &&
+      this.accountDetails[0].product_details.origin === "PRODUCT_ORIGIN_ANZX"
+    ) {
+      this.anzIcon = ANZ_ICON;
+    }
+    return this.anzIcon;
+  }
+
   handleAccountDetails(accountDetails) {
     if (accountDetails) {
       accountDetails = accountDetails.map((account) => {
@@ -72,6 +93,7 @@ export default class FinancialAccount extends NavigationMixin(
           finAccount.showMultipartyBadge = true;
           finAccount.finserv_ownership = "Joint";
         }
+        finAccount.isCard = finAccount.finserv_account_type === "Card";
         return finAccount;
       });
       accountDetails = this.sortFinancialAccounts(accountDetails);
@@ -137,11 +159,25 @@ export default class FinancialAccount extends NavigationMixin(
     });
   }
 
-  handleInfoModal() {
+  handleInfoModal({ currentTarget }) {
+    const field = currentTarget.dataset.field;
+    if (field) {
+      this.tooltipCode = `${this.productCode}${field.toUpperCase()}`;
+      this.headerTitle = this.formatBalanceTitle(field);
+    } else {
+      this.tooltipCode = this.productCode;
+      this.headerTitle = this.balanceTitle;
+    }
     this.showInfoModal = !this.showInfoModal;
   }
 
   closeModal() {
     this.showInfoModal = false;
+  }
+  formatBalanceTitle(balanceTitle) {
+    return balanceTitle
+      .split("_")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
   }
 }

@@ -11,6 +11,10 @@
         <value xsi:type="xsd:string">Loan Amount</value>
     </values>
     <values>
+        <field>FinancialAccountConfiguration__c</field>
+        <value xsi:type="xsd:string">Loan_Account_Configuration</value>
+    </values>
+    <values>
         <field>Include_In_Total_Financial_Position__c</field>
         <value xsi:type="xsd:boolean">false</value>
     </values>

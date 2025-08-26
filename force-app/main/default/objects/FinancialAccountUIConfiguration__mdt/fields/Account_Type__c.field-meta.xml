@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Type of the financial account</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Account Type</label>
     <required>true</required>
@@ -28,6 +27,11 @@
                 <fullName>Loan</fullName>
                 <default>false</default>
                 <label>Loan</label>
+            </value>
+            <value>
+                <fullName>Card</fullName>
+                <default>false</default>
+                <label>Card</label>
             </value>
         </valueSetDefinition>
     </valueSet>
