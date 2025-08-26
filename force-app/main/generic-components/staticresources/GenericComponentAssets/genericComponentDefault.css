@@ -1,0 +1,61 @@
+/* Generic Component Default - CSS Override */
+c-generic-record-detail .slds-accordion__summary-heading {
+  background-color: var(--slds-g-color-neutral-base-95, #f3f2f2);
+  font-size: var(--slds-g-sizing-5, 1rem);
+  border-radius: var(--slds-g-sizing-2, 0.25rem);
+  height: var(--slds-g-sizing-9, 2rem);
+}
+
+c-generic-record-detail
+  .slds-accordion__summary-heading
+  lightning-primitive-icon {
+  padding-left: var(--slds-g-spacing-4, 1rem);
+}
+
+c-generic-record-detail .slds-accordion .fieldRow {
+  border-bottom: var(--slds-g-sizing-border-1, 1px) solid
+    var(--slds-g-color-border-base-1, #e5e5e5);
+}
+
+c-generic-record-detail c-generic-field .fieldRow {
+  padding: var(--slds-g-spacing-1);
+}
+
+c-generic-record-detail c-generic-field .fieldLabel {
+  font-size: var(--slds-g-sizing-4, 0.75rem);
+}
+
+c-generic-record-detail .spinnerHolder {
+  position: relative;
+  padding-top: var(--slds-g-sizing-13);
+}
+c-generic-card .slds-accordion__summary-heading {
+  background-color: var(--slds-g-color-neutral-base-95, #f3f2f2);
+  font-size: var(--slds-g-sizing-5, 1rem);
+  border-radius: var(--slds-g-sizing-2, 0.25rem);
+  height: var(--slds-g-sizing-9, 2rem);
+}
+
+c-generic-card .slds-accordion__summary-heading lightning-primitive-icon {
+  padding-left: var(--slds-g-spacing-4, 1rem);
+}
+
+c-generic-card .fieldRow {
+  border-bottom: var(--slds-g-sizing-border-1, 1px) solid
+    var(--slds-g-color-border-base-1, #e5e5e5);
+  padding-bottom: var(--slds-g-spacing-1, 0.25rem);
+}
+
+c-generic-card .slds-card__header-title {
+  padding: var(--slds-g-spacing-4, 1rem) 0 var(--slds-g-spacing-1, 0.25rem)
+    var(--slds-g-spacing-4, 1rem);
+}
+
+c-generic-card .fieldLabel {
+  font-size: var(--slds-g-sizing-4, 0.75rem);
+}
+
+c-generic-card .spinnerHolder {
+  position: relative;
+  padding-top: var(--slds-g-sizing-15);
+}

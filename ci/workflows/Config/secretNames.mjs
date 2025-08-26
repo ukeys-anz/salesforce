@@ -70,6 +70,8 @@ const salesforceSecretNames = {
   "epic/cmos-main": "sf-platform-np-cmos",
   "epic/editloan": "sf-platform-np-editloan",
   "epic/extracare": "sf-platform-np-extracare",
+  "epic/settlement": "sf-platform-np-settlement",
+  "epic/settlement-v2": "sf-platform-np-settlev2",
   "epic/rlaSharing": "sf-platform-np-rlasharing",
   "epic/imtv1": "sf-platform-np-imtv1"
 };
