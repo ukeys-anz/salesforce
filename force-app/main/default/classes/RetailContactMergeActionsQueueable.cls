@@ -7,8 +7,7 @@
  **/
 public class RetailContactMergeActionsQueueable implements Queueable {
   private List<Contact> contactList;
-  private List<ResidentialLoanApplication> rlaList;
-  private List<FinServ__FinancialAccount__c> faList;
+  private Set<String> setOfBrokerTPMI;
   private Set<Id> contactIdsForCCREvent;
   private static final RetailContactRepository CONTACT_REPOSITORY = (RetailContactRepository) Lib_InstanceProvider.forType(
     RetailContactRepository.class
@@ -20,19 +19,15 @@ public class RetailContactMergeActionsQueueable implements Queueable {
   /**
    * @description Constructor to initialize the queueable with a set of Broker TPMI codes.
    * @param contactList list of Contact
-   * @param rlaList list of ResidentialLoanApplication to update
-   * @param faList list of FinancialAccount to update
    * @param contactIdsForCCREvent of Contact Ids for CCREvent
    */
   public RetailContactMergeActionsQueueable(
     List<Contact> contactList,
-    List<ResidentialLoanApplication> rlaList,
-    List<FinServ__FinancialAccount__c> faList,
+    Set<String> setOfBrokerTPMI,
     Set<Id> contactIdsForCCREvent
   ) {
     this.contactList = contactList;
-    this.rlaList = rlaList;
-    this.faList = faList;
+    this.setOfBrokerTPMI = setOfBrokerTPMI;
     this.contactIdsForCCREvent = contactIdsForCCREvent;
   }
 
@@ -48,16 +43,23 @@ public class RetailContactMergeActionsQueueable implements Queueable {
     }
 
     try {
+      List<ResidentialLoanApplication> loanAppList = CONTACT_REPOSITORY.getRelatedOrphanResidentialApplications(
+        setOfBrokerTPMI
+      );
+      List<FinServ__FinancialAccount__c> finServAccList = CONTACT_REPOSITORY.getRelatedOrphanFinancialAccounts(
+        setOfBrokerTPMI
+      );
+
       Map<String, Contact> contactByTMPI = (Map<String, Contact>) ListUtil.mapBy(
         contactList,
         contact.RetailTPMISAO__c
       );
       List<ResidentialLoanApplication> loanAppListToUpdate = updateResidentialLoanApplication(
-        rlaList,
+        loanAppList,
         contactByTMPI
       );
       List<FinServ__FinancialAccount__c> accountsToUpdate = updateFinancialAccounts(
-        faList,
+        finServAccList,
         contactByTMPI
       );
       DML_REPOSITORY.doUpdate(loanAppListToUpdate);
@@ -68,13 +70,8 @@ public class RetailContactMergeActionsQueueable implements Queueable {
       );
     } catch (Exception e) {
       String errorMsg =
-        'Error during MergeResidentialLoanAppQueueable execution.\n' +
-        e.getMessage() +
-        '\n';
-      if (e instanceof DmlException) {
-        DmlException de = (DmlException) e;
-        errorMsg += 'DML Exception Full Message:\n' + de.getMessage() + '\n';
-      }
+        'Error during MergeResidentialLoanAppQueueable execution ' +
+        e.getMessage();
       Logger.error(errorMsg).save();
     }
   }

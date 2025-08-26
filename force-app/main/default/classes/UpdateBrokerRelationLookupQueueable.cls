@@ -47,6 +47,6 @@ public class UpdateBrokerRelationLookupQueueable implements Queueable {
       }
     }
 
-    DML_REPOSITORY.doUpdate(contactsToUpdate, new DMLConfig());
+    DML_REPOSITORY.doUpdate(contactsToUpdate);
   }
 }

@@ -191,8 +191,9 @@ public with sharing class RetailBrokerContactActions {
         BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
       )
       .toList();
-      
+    Set<Id> contactListIds = ListUtil.getIds(filteredOldRecords, Contact.Id);
     List<Contact> filteredNewRecords = ListUtil.filter(records)
+      .equals(Contact.Id, contactListIds)
       .notContains(
         Contact.Sync_Status__c,
         BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
@@ -210,22 +211,22 @@ public with sharing class RetailBrokerContactActions {
         BrokerMergeConstants.SYNC_STATUS_DUPLICATE_OCVID
       )
       .toList();
-    Set<Id> contactListIds = ListUtil.getIds(filteredOldRecords, Contact.Id);
+
     List<Contact> processedContacts = new List<Contact>();
+
     for (Contact contactNew : filteredNewRecords) {
       if (
-        contactListIds.contains(contactNew.Id) &&
         isContactsOCVEventVersionAdded(
           contactNew,
           contactsOldMap.get(contactNew.id)
         )
       ) {
-      contactNew.Sync_Status__c = PicklistUtil.addMultiPicklistValue(
-        contactNew.Sync_Status__c,
-        BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
-      );
-      processedContacts.add(contactNew);
-    }
+        contactNew.Sync_Status__c = PicklistUtil.addMultiPicklistValue(
+          contactNew.Sync_Status__c,
+          BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
+        );
+        processedContacts.add(contactNew);
+      }
     }
     return processedContacts;
   }
@@ -240,10 +241,10 @@ public with sharing class RetailBrokerContactActions {
   private static String getAction(Contact contactNew, Contact contactOld) {
     if (
       contactNew.OCV_Event_Version__c > 0 &&
-      doesSyncStatusContain(
-        contactNew,
+      contactNew.Sync_Status__c != null &&
+      contactNew.Sync_Status__c.contains(
         BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
-      ) 
+      )
     ) {
       return RetailBrokerEventActions.BROKER_EVENT_ADD;
     }
@@ -385,13 +386,12 @@ public with sharing class RetailBrokerContactActions {
       if (ocvDuplicates.containsKey(con.OCV_ID__c)) {
         statusValues.add(BrokerMergeConstants.SYNC_STATUS_DUPLICATE_OCVID);
       }
-      if (!statusValues.isEmpty()) {
-        String currentStatus = String.isBlank(con.Sync_Status__c)
-          ? ''
-          : con.Sync_Status__c + ';';
 
-        con.Sync_Status__c = currentStatus + String.join(statusValues, ';');
-      }
+      String currentStatus = String.isBlank(con.Sync_Status__c)
+        ? ''
+        : con.Sync_Status__c + ';';
+
+      con.Sync_Status__c = currentStatus + String.join(statusValues, ';');
     }
   }
 
@@ -494,32 +494,33 @@ public with sharing class RetailBrokerContactActions {
     try {
       for (Contact victim : victimContactsList) {
         Contact survivor = contactMap.get(victim.Survivor_Party_Id__c);
-        if (survivor != null) {
-          if (victim.Broker_Set__c != null) {
-            contactIdByBrokerSet.put(survivor.Id, victim.Broker_Set__c);
-          }
-          if (victim.Office_Group__c != null) {
-            contactIdByOfficeGroup.put(survivor.Id, victim.Office_Group__c);
-          }
-          if (!survivor.Sync_Status__c.contains(BrokerMergeConstants.SYNC_STATUS_BROKER_ORG)        
-          ) {
-            survivorDuplicatesList.add(survivor.Id);
-          }
+        if (survivor == null) {
+          continue;
+        }
 
-          Database.MergeResult result = Database.merge(survivor, victim, false);
+        if (
+          !survivor.Sync_Status__c.contains(
+            BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
+          )
+        ) {
+          survivorDuplicatesList.add(survivor.Id);
+          contactIdByBrokerSet.put(survivor.Id, victim.Broker_Set__c);
+          contactIdByOfficeGroup.put(survivor.Id, victim.Office_Group__c);
+        }
 
-          if (!result.isSuccess()) {
-            for (Database.Error err : result.getErrors()) {
-              Logger.error(
+        Database.MergeResult result = Database.merge(survivor, victim, false);
+
+        if (!result.isSuccess()) {
+          for (Database.Error err : result.getErrors()) {
+            Logger.error(
                 'Contact Merge failed for following contacts' +
                   survivor.Id +
                   ' and ' +
                   victim.Id +
                   'Error_Message: ' +
                   err.getMessage()
-              );
-            }
-            Logger.saveLog();
+              )
+              .save();
           }
         }
       }
@@ -532,9 +533,8 @@ public with sharing class RetailBrokerContactActions {
         ),
         2
       );
-    } catch (Exception e) {
-      Logger.error(e.getMessage());
-      Logger.saveLog();
+    } catch (Exception ex) {
+      Logger.error(' Contact Merge Failed due to : ', ex).save();
     } finally {
       isMergeInProgress = false;
     }
@@ -603,18 +603,11 @@ public with sharing class RetailBrokerContactActions {
       updatedContacts,
       Contact.RetailTPMISAO__c
     );
-    List<ResidentialLoanApplication> loanAppList = CONTACT_REPOSITORY.getRelatedOrphanResidentialApplications(
-      setOfBrokerTPMI
-    );
 
-    List<FinServ__FinancialAccount__c> finServAccList = CONTACT_REPOSITORY.getRelatedOrphanFinancialAccounts(
-      setOfBrokerTPMI
-    );
     System.enqueueJob(
       new RetailContactMergeActionsQueueable(
         updatedContacts,
-        loanAppList,
-        finServAccList,
+        setOfBrokerTPMI,
         ccrContactIds
       ),
       2

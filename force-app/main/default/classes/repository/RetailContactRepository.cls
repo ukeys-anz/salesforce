@@ -67,7 +67,7 @@ public with sharing class RetailContactRepository {
     List<String> contactEmails,
     List<String> ocvIds
   ) {
-    if (contactEmails.isEmpty() || ocvIds.isEmpty()) {
+    if (contactEmails.isEmpty() && ocvIds.isEmpty()) {
       return new List<Contact>();
     }
     return [
