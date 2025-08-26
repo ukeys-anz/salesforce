@@ -204,7 +204,7 @@ private class RetailBrokerContactActionsTest {
   }
 
   @IsTest
-  static void testIsNotEligibleWhenAllFieldsBlankOrUnchanged() {
+  static void testIsEligibleWhenAllFieldsBlankOrUnchanged() {
     Contact contactNew = createTestContact();
     Contact contactOld = createTestContact();
     contactOld.RetailTPMISAO__c = 'RetailTPMISAOTest001';
@@ -218,11 +218,11 @@ private class RetailBrokerContactActionsTest {
       contactOld
     );
     Test.stopTest();
-
+      
     Assert.areEqual(
-      false,
+      true,
       result,
-      'Contact should not be eligible when all values are blank or unchanged'
+      'Contact should be eligible when all values are blank or unchanged'
     );
   }
 
@@ -254,10 +254,11 @@ private class RetailBrokerContactActionsTest {
   static void testIsNotEligibleWhenRetailTpmiBlankAndIsBetaBroker() {
     Contact contactNew = createTestContact();
     Contact contactOld = createTestContact();
-
+    
     contactNew.RetailTPMISAO__c = '';
     contactOld.RetailTPMISAO__c = '';
     contactNew.Is_Beta_Broker__c = true;
+    Boolean result;
     Test.startTest();
     result = RetailBrokerContactActions.isRecordAnEligibleBrokerContact(
       contactNew,

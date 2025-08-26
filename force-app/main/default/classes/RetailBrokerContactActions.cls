@@ -185,13 +185,14 @@ public with sharing class RetailBrokerContactActions {
     List<Contact> records,
     Map<Id, Contact> contactsOldMap
   ) {
-    List<Contact> contactList = ListUtil.filter(contactsOldMap.values())
+    List<Contact> filteredOldRecords = ListUtil.filter(contactsOldMap.values())
       .notContains(
         Contact.Sync_Status__c,
         BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
       )
       .toList();
-    contactList = ListUtil.filter(contactList)
+      
+    List<Contact> filteredNewRecords = ListUtil.filter(records)
       .notContains(
         Contact.Sync_Status__c,
         BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
@@ -209,23 +210,22 @@ public with sharing class RetailBrokerContactActions {
         BrokerMergeConstants.SYNC_STATUS_DUPLICATE_OCVID
       )
       .toList();
-    Set<Id> contactListIds = ListUtil.getIds(contactList, Contact.Id);
+    Set<Id> contactListIds = ListUtil.getIds(filteredOldRecords, Contact.Id);
     List<Contact> processedContacts = new List<Contact>();
-    for (Contact contactNew : records) {
+    for (Contact contactNew : filteredNewRecords) {
       if (
-        !contactListIds.contains(contactNew.Id) ||
-        !isContactsOCVEventVersionAdded(
+        contactListIds.contains(contactNew.Id) &&
+        isContactsOCVEventVersionAdded(
           contactNew,
           contactsOldMap.get(contactNew.id)
         )
       ) {
-        continue;
-      }
       contactNew.Sync_Status__c = PicklistUtil.addMultiPicklistValue(
         contactNew.Sync_Status__c,
         BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
       );
       processedContacts.add(contactNew);
+    }
     }
     return processedContacts;
   }
@@ -243,7 +243,7 @@ public with sharing class RetailBrokerContactActions {
       doesSyncStatusContain(
         contactNew,
         BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
-      ) == true 
+      ) 
     ) {
       return RetailBrokerEventActions.BROKER_EVENT_ADD;
     }
@@ -501,11 +501,7 @@ public with sharing class RetailBrokerContactActions {
           if (victim.Office_Group__c != null) {
             contactIdByOfficeGroup.put(survivor.Id, victim.Office_Group__c);
           }
-          if (
-            doesSyncStatusContain(
-              survivor,
-              BrokerMergeConstants.SYNC_STATUS_BROKER_ORG
-            ) == false
+          if (!survivor.Sync_Status__c.contains(BrokerMergeConstants.SYNC_STATUS_BROKER_ORG)        
           ) {
             survivorDuplicatesList.add(survivor.Id);
           }
