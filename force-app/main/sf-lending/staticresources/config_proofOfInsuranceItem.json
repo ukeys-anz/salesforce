@@ -1,0 +1,70 @@
+{
+  "button": {
+    "component": "verifyProofOfInsurance",
+    "roles": ["Settlement Officer Lead", "Settlement Officer"]
+  },
+  "cardTitle": "Proof of Insurance",
+  "fieldConfig": {
+    "title": "",
+    "schema": [
+      {
+        "fieldLabel": "Document Id",
+        "fieldColumn": "document.id",
+        "fieldtype": "lightning-formatted-text"
+      },
+      {
+        "fieldLabel": "Verified By",
+        "fieldColumn": "proofOfInsuranceVerification.updateBy.id",
+        "fieldtype": "lightning-formatted-text"
+      },
+      {
+        "fieldLabel": "Verified On",
+        "fieldColumn": "proofOfInsuranceVerification.updateTime",
+        "fieldtype": "lightning-formatted-text",
+        "isDate": true
+      },
+      {
+        "fieldLabel": "Verification Status",
+        "fieldColumn": "proofOfInsuranceVerification.state",
+        "fieldtype": "lightning-formatted-text",
+        "isEnum": true,
+        "enumValues": {
+          "STATE_UNSPECIFIED": "Unspecified",
+          "STATE_VERIFIED": "Verified",
+          "STATE_REJECTED": "Rejected"
+        }
+      },
+      {
+        "fieldLabel": "Settlement Id",
+        "fieldColumn": "settlementId",
+        "fieldtype": "lightning-formatted-text"
+      },
+      {
+        "fieldLabel": "Property Id",
+        "fieldColumn": "propertyId",
+        "fieldtype": "lightning-formatted-text"
+      },
+
+      {
+        "fieldLabel": "Document File Version",
+        "fieldColumn": "proofOfInsuranceVerification.documentFileVersion",
+        "fieldtype": "lightning-formatted-number"
+      }
+    ],
+    "layoutconfig": {
+      "layout": {
+        "horizontalAlign": "spread",
+        "verticalAlign": "end",
+        "pull-to-boundary": "medium"
+      },
+      "layoutitem": {
+        "flexibility": "auto",
+        "padding": "around-small",
+        "size": "6"
+      }
+    }
+  },
+  "tableConfig": {
+    "columns": []
+  }
+}

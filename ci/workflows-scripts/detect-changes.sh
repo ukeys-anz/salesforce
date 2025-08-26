@@ -22,7 +22,7 @@ CHANGED_JSON=$(gh api \
     [ .[] 
       | select(.status != "removed") 
       | .filename 
-      | select(test("^(force-app|knowledge-mgm)/main/(default|sf-lending)/"))
+      | select(test("^(force-app|knowledge-mgm)/main/(default|sf-lending|apis-apex|generic-components)/"))
     ]
   ')
 

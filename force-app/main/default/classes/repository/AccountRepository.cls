@@ -19,4 +19,19 @@ public with sharing class AccountRepository {
       ]
     );
   }
+
+  /**
+   * @description Get a single Account by OCV_ID__c
+   * @param ocvId the OCV_ID__c value to search for
+   * @return Account record or null
+   */
+  public Account getAccountByOcvId(String ocvId) {
+    return [
+      SELECT Id, Name, OCV_ID__c
+      FROM Account
+      WHERE OCV_ID__c = :ocvId AND ANZx_Customer__c = TRUE
+      WITH USER_MODE
+      LIMIT 1
+    ] ?? null;
+  }
 }

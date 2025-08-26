@@ -1,0 +1,57 @@
+{
+  "sections": [
+    {
+      "title": "",
+      "schema": [
+        {
+          "fieldLabel": "Verification Status",
+          "fieldColumn": "proofOfInsuranceVerification.state",
+          "fieldtype": "lightning-formatted-text",
+          "isEnum": true,
+          "isRecordUrl": true,
+          "attributes": {
+            "useControllerData": "true",
+            "apexController": "ProofOfInsuranceController",
+            "configName": "config_proofOfInsuranceItem",
+            "dataPath": "",
+            "controllerParams": ["document.id"],
+            "filterField": "document.id"
+          },
+          "enumValues": {
+            "STATE_UNSPECIFIED": "Unspecified",
+            "STATE_VERIFIED": "Verified",
+            "STATE_REJECTED": "Rejected"
+          }
+        },
+        {
+          "fieldLabel": "Verified By",
+          "fieldColumn": "proofOfInsuranceVerification.updateBy.id",
+          "fieldtype": "lightning-formatted-text"
+        },
+        {
+          "fieldLabel": "Verified On",
+          "fieldColumn": "proofOfInsuranceVerification.updateTime",
+          "fieldtype": "lightning-formatted-text",
+          "isDate": true
+        },
+        {
+          "fieldLabel": "Document File Version",
+          "fieldColumn": "proofOfInsuranceVerification.documentFileVersion",
+          "fieldtype": "lightning-formatted-number"
+        }
+      ],
+      "layoutconfig": {
+        "layout": {
+          "horizontalAlign": "spread",
+          "verticalAlign": "end",
+          "pull-to-boundary": "medium"
+        },
+        "layoutitem": {
+          "flexibility": "auto",
+          "padding": "",
+          "size": "12"
+        }
+      }
+    }
+  ]
+}

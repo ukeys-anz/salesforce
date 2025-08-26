@@ -723,4 +723,52 @@ public class CommercialLeadActionsTest {
       'sendLeadOwnerUpdateToUnica did not publish Event successfully'
     );
   }
+
+  @isTest
+  static void setCompanyToBlankForIndividualTest() {
+    //GIVEN records, oldMap
+    Id leadId = Lib_FakeIdGenerator.getMockId(Lead.getSObjectType());
+    List<Lead> records = new List<Lead>{
+      new Lead(Id = leadId, Entity_Type__c = 'Individual', Company = 'ANZ Corp')
+    };
+    Map<Id, Lead> oldMap = new Map<Id, Lead>{
+      leadId => new Lead(
+        Id = leadId,
+        Entity_Type__c = 'Sole Trader',
+        Company = 'ANZ Corp'
+      )
+    };
+
+    //WHEN calling a method
+    Test.startTest();
+    CommercialLeadActions.setCompanyToBlankForIndividual(records, oldMap);
+    Test.stopTest();
+
+    //THEN it should set the company to blank
+    Assert.isNull(records[0].Company, 'Company should set to blank');
+  }
+
+  @isTest
+  static void setCompanyToBlankForIndividualNegativeTest() {
+    //GIVEN records, oldMap
+    Id leadId = Lib_FakeIdGenerator.getMockId(Lead.getSObjectType());
+    List<Lead> records = new List<Lead>{
+      new Lead(Id = leadId, Entity_Type__c = 'Trust', Company = 'ANZ Corp')
+    };
+    Map<Id, Lead> oldMap = new Map<Id, Lead>{
+      leadId => new Lead(
+        Id = leadId,
+        Entity_Type__c = 'Sole Trader',
+        Company = 'ANZ Corp'
+      )
+    };
+
+    //WHEN calling a method
+    Test.startTest();
+    CommercialLeadActions.setCompanyToBlankForIndividual(records, oldMap);
+    Test.stopTest();
+
+    //THEN it should not set the company to blank
+    Assert.isNotNull(records[0].Company, 'Company should not set to blank');
+  }
 }

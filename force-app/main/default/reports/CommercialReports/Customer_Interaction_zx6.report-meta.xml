@@ -17,6 +17,9 @@
         <field>Interaction$Owner</field>
     </columns>
     <columns>
+        <field>Interaction$Opportunity__c</field>
+    </columns>
+    <columns>
         <field>Interaction$COI_Member__c</field>
     </columns>
     <columns>

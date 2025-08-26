@@ -36,4 +36,19 @@ public with sharing class LoanApplicantRepository {
     ];
     return loanApplicants;
   }
+
+  /**
+   * @description Get a single Loan Applicant by persona id
+   * @param personaId the persona id value to search for
+   * @return LoanApplicant record or null
+   */
+  public LoanApplicant getLoanApplicantByPersonaId(String personaId) {
+    return [
+      SELECT Id, Name
+      FROM LoanApplicant
+      WHERE Persona_Id__c = :personaId
+      WITH USER_MODE
+      LIMIT 1
+    ] ?? null;
+  }
 }

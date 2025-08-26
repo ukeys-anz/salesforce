@@ -232,8 +232,8 @@ public with sharing class CommercialOpportunityHelper {
     List<ApplicationFormProduct> openAFPList = ListUtil.filter(
         appFormProductList
       )
-      .notEquals(ApplicationFormProduct.Stage,OPP_LOST)
-      .notEquals(ApplicationFormProduct.Stage,OPP_WON)
+      .notEquals(ApplicationFormProduct.Stage, OPP_LOST)
+      .notEquals(ApplicationFormProduct.Stage, OPP_WON)
       .toList();
 
     for (ApplicationFormProduct afpRecord : openAFPList) {
@@ -261,7 +261,7 @@ public with sharing class CommercialOpportunityHelper {
       if (!oppIdToAllAFPIdMap.containsKey(oppId)) {
         oppIdToAllAFPIdMap.put(oppId, new Set<Id>());
       }
-      oppIdToAllAFPIdMap.get(oppId).add(afpRecord.ProductId);
+      oppIdToAllAFPIdMap.get(oppId).add(afpRecord.Opportunity_Product__c);
     }
     return oppIdToAllAFPIdMap;
   }

@@ -127,7 +127,16 @@ public with sharing class CommercialOpportunityRepository {
 
     return new Map<Id, Account>(
       [
-        SELECT Id, Name, RecordTypeId
+        SELECT
+          Id,
+          Name,
+          RecordTypeId,
+          FinServ__Status__c,
+          CLG__c,
+          CPID__c,
+          Controlling_Post__c,
+          Controlling_Post__r.OwnerId,
+          RecordType.Name
         FROM Account
         WHERE Id IN :accountIdsSet
         WITH USER_MODE
@@ -156,7 +165,8 @@ public with sharing class CommercialOpportunityRepository {
         Stage,
         Lost_reason__c,
         Lost_Reason_Detail__c,
-        Won_from_Lost_to__c
+        Won_from_Lost_to__c,
+        Opportunity_Product__c
       FROM ApplicationFormProduct
       WHERE ApplicationForm.OpportunityId IN :oppIds
       WITH USER_MODE
