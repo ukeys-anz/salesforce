@@ -111,11 +111,42 @@ const deployRequiredFiles = (orgAlias) => {
   deployFiles(
     [
       "ci/sandbox-service/Config/TEST_ONLY_Refresh_Token.permissionset-meta.xml",
+      "force-app/main/default/permissionsets/View_All_Fields.permissionset-meta.xml",
       "force-app/main/default/labels/CustomLabels.labels-meta.xml",
       "force-app/main/default/AssessmentQuestions"
     ],
     orgAlias
   );
+};
+
+const assignDeployUserViewAllFields = (orgAlias) => {
+  console.log("--- running assignDeployUserViewAllFields ---");
+  nonProdChangeValidation(orgAlias);
+
+  // Validate sandbox name, as this script is only required for test sandboxes
+  if (!orgAlias.startsWith("test")) {
+    console.log("No action needed for other sandbox, besides Test Sandbox");
+    return;
+  }
+
+  //Querying Deploy User's username
+  const deployUsernameCommand = `
+    sf data query --query "SELECT Username FROM User WHERE Name = 'Deploy User' AND IsActive = true LIMIT 1" --target-org ${orgAlias} --result-format csv | tail -n +2
+  `;
+
+  const deployUsername = runCommand(deployUsernameCommand).trim();
+
+  // Assigning View_All_Fields permset to Deploy User
+  if (deployUsername) {
+    const assignPermsetCommand = `
+      sf org assign permset --name View_All_Fields --on-behalf-of "${deployUsername}" --target-org ${orgAlias}
+    `;
+    const result = runCommand(assignPermsetCommand);
+    console.log(`Assigned permset to ${deployUsername}:`, result);
+    return result;
+  } else {
+    console.log("No active Deploy User found.");
+  }
 };
 
 const runLoggingRecordsPurgeScheduler = (orgAlias) => {
@@ -145,5 +176,6 @@ export {
   updateUserFedId,
   deployRequiredFiles,
   runLoggingRecordsPurgeScheduler,
-  updatePamApproversCustomSetting
+  updatePamApproversCustomSetting,
+  assignDeployUserViewAllFields
 };

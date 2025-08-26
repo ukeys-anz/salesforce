@@ -632,3 +632,8 @@ force-app/main/default/workflows/Access_Request__c.workflow-meta.xml
 
 # AR-224436 Temporary added for renamed transactionSecurityPolicies to be deploy manually due to duplicate security policy error
 force-app/main/default/transactionSecurityPolicies
+
+
+# AR-218280 Highly previleged permission set, forceignore to ensure it is not
+# deploy automatically to high environments
+force-app/main/default/permissionsets/View_All_Fields.permissionset-meta.xml
