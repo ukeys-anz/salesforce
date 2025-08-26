@@ -19,6 +19,7 @@ public class RetailContactMergeActionsQueueable implements Queueable {
   /**
    * @description Constructor to initialize the queueable with a set of Broker TPMI codes.
    * @param contactList list of Contact
+   * @param setOfBrokerTPMI Set of TPMI codes used to process related records.
    * @param contactIdsForCCREvent of Contact Ids for CCREvent
    */
   public RetailContactMergeActionsQueueable(

@@ -53,7 +53,7 @@ private class RetailBrokerContactActionsTest {
     Contact contactNew = createTestContact();
     contactNew.Id = contactOld.Id;
     contactNew.OCV_Event_Version__c = 1;
-    contactNew.Sync_Status__c = BrokerMergeConstants.SYNC_STATUS_BROKER_ORG;
+    contactNew.Sync_Status__c = RetailBrokerContactActions.SYNC_STATUS_BROKER_ORG;
     contactNew.CommercialTPMISAO__c = 'CommTMPITest001';
 
     Lib_MockProvider.forType(RetailBrokerRepository.class)
@@ -218,7 +218,7 @@ private class RetailBrokerContactActionsTest {
       contactOld
     );
     Test.stopTest();
-      
+
     Assert.areEqual(
       true,
       result,
@@ -254,7 +254,6 @@ private class RetailBrokerContactActionsTest {
   static void testIsNotEligibleWhenRetailTpmiBlankAndIsBetaBroker() {
     Contact contactNew = createTestContact();
     Contact contactOld = createTestContact();
-    
     contactNew.RetailTPMISAO__c = '';
     contactOld.RetailTPMISAO__c = '';
     contactNew.Is_Beta_Broker__c = true;
@@ -284,7 +283,7 @@ private class RetailBrokerContactActionsTest {
       'Action type should be blank, neither add nor update'
     );
     contactNew.OCV_Event_Version__c = 1;
-    contactNew.Sync_Status__c = BrokerMergeConstants.SYNC_STATUS_BROKER_ORG;
+    contactNew.Sync_Status__c = RetailBrokerContactActions.SYNC_STATUS_BROKER_ORG;
     Assert.areEqual(
       'add',
       RetailBrokerContactActions.getAction(contactNew, contactOld),
@@ -412,10 +411,12 @@ private class RetailBrokerContactActionsTest {
   static void testContactMergeEvent() {
     List<Contact> newContacts = createTestContacts(2);
 
-    newContacts[0].Sync_Status__c = BrokerMergeConstants.SYNC_STATUS_BROKER_ORG;
+    newContacts[0]
+      .Sync_Status__c = RetailBrokerContactActions.SYNC_STATUS_BROKER_ORG;
     newContacts[0].External_Id__c = 'exIdContactTest001';
     newContacts[1].External_Id__c = 'exIdContactTest002';
-    newContacts[1].Sync_Status__c = BrokerMergeConstants.SYNC_STATUS_BLOCKED;
+    newContacts[1]
+      .Sync_Status__c = RetailBrokerContactActions.SYNC_STATUS_BLOCKED;
     List<Contact> oldContacts = newContacts.deepClone(true);
     newContacts[0].Survivor_Party_Id__c = newContacts[1].External_Id__c;
     newContacts[0].Victim_Party_Id__c = newContacts[0].External_Id__c;
@@ -474,9 +475,9 @@ private class RetailBrokerContactActionsTest {
     Test.stopTest();
     Assert.areEqual(
       newContacts[1].Sync_Status__c,
-      BrokerMergeConstants.SYNC_STATUS_DUPLICATE_EMAIL +
+      RetailBrokerContactActions.SYNC_STATUS_DUPLICATE_EMAIL +
         ';' +
-        BrokerMergeConstants.SYNC_STATUS_DUPLICATE_OCVID,
+        RetailBrokerContactActions.SYNC_STATUS_DUPLICATE_OCVID,
       'Sync Status should contain Duplicate status'
     );
   }
@@ -495,7 +496,8 @@ private class RetailBrokerContactActionsTest {
     oldContacts[0].Broker_Accreditation_Type__c = 'Commerical';
     oldContacts[0].External_Id__c = 'Ex-sur1234';
 
-    newContacts[0].Sync_status__c = BrokerMergeConstants.SYNC_STATUS_BROKER_ORG;
+    newContacts[0]
+      .Sync_status__c = RetailBrokerContactActions.SYNC_STATUS_BROKER_ORG;
     newContacts[0].RetailTPMISAO__c = 'Retail-Active';
     newContacts[0].Broker_Accreditation_Type__c = 'Retail;Commerical';
     newContacts[0].Survivor_Party_Id__c = 'Ex-sur1234';
@@ -542,11 +544,12 @@ private class RetailBrokerContactActionsTest {
   static void testProcessDataMerge() {
     List<Contact> newContacts = createTestContacts(2);
 
-    newContacts[0].Sync_Status__c = BrokerMergeConstants.SYNC_STATUS_BROKER_ORG;
+    newContacts[0]
+      .Sync_Status__c = RetailBrokerContactActions.SYNC_STATUS_BROKER_ORG;
     newContacts[0].External_Id__c = 'exIdContactTest001';
     newContacts[1].External_Id__c = 'exIdContactTest002';
     newContacts[1]
-      .Sync_Status__c = BrokerMergeConstants.SYNC_STATUS_DUPLICATE_EMAIL;
+      .Sync_Status__c = RetailBrokerContactActions.SYNC_STATUS_DUPLICATE_EMAIL;
 
     newContacts[0].Survivor_Party_Id__c = newContacts[1].External_Id__c;
     newContacts[0].Victim_Party_Id__c = newContacts[0].External_Id__c;
