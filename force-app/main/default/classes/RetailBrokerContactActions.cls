@@ -191,42 +191,30 @@ public with sharing class RetailBrokerContactActions {
     Map<Id, Contact> contactsOldMap
   ) {
     List<Contact> filteredOldRecords = ListUtil.filter(contactsOldMap.values())
-      .notContains(
-        Contact.Sync_Status__c,
-        SYNC_STATUS_BROKER_ORG
-      )
+      .notContains(Contact.Sync_Status__c, SYNC_STATUS_BROKER_ORG)
       .toList();
     Set<Id> contactListIds = ListUtil.getIds(filteredOldRecords, Contact.Id);
     List<Contact> filteredNewRecords = ListUtil.filter(records)
       .equals(Contact.Id, contactListIds)
-      .notContains(
-        Contact.Sync_Status__c,
-        SYNC_STATUS_BROKER_ORG
-      )
-      .notContains(
-        Contact.Sync_Status__c,
-        SYNC_STATUS_BLOCKED
-      )
-      .notContains(
-        Contact.Sync_Status__c,
-        SYNC_STATUS_DUPLICATE_EMAIL
-      )
-      .notContains(
-        Contact.Sync_Status__c,
-        SYNC_STATUS_DUPLICATE_OCVID
-      )
+      .notContains(Contact.Sync_Status__c, SYNC_STATUS_BROKER_ORG)
+      .notContains(Contact.Sync_Status__c, SYNC_STATUS_BLOCKED)
+      .notContains(Contact.Sync_Status__c, SYNC_STATUS_DUPLICATE_EMAIL)
+      .notContains(Contact.Sync_Status__c, SYNC_STATUS_DUPLICATE_OCVID)
       .toList();
-    List<Contact> filterContactsWithOCVVersion = filterContactsWithOCVVersion(filteredNewRecords,contactsOldMap);
+    List<Contact> filterContactsWithOCVVersion = filterContactsWithOCVVersion(
+      filteredNewRecords,
+      contactsOldMap
+    );
     List<Contact> processedContacts = new List<Contact>();
 
     for (Contact contactNew : filterContactsWithOCVVersion) {
-        contactNew.Sync_Status__c = PicklistUtil.addMultiPicklistValue(
-          contactNew.Sync_Status__c,
-          SYNC_STATUS_BROKER_ORG
-        );
-        processedContacts.add(contactNew);
-      }
-    
+      contactNew.Sync_Status__c = PicklistUtil.addMultiPicklistValue(
+        contactNew.Sync_Status__c,
+        SYNC_STATUS_BROKER_ORG
+      );
+      processedContacts.add(contactNew);
+    }
+
     return processedContacts;
   }
 
@@ -241,9 +229,7 @@ public with sharing class RetailBrokerContactActions {
     if (
       contactNew.OCV_Event_Version__c > 0 &&
       contactNew.Sync_Status__c != null &&
-      contactNew.Sync_Status__c.contains(
-        SYNC_STATUS_BROKER_ORG
-      )
+      contactNew.Sync_Status__c.contains(SYNC_STATUS_BROKER_ORG)
     ) {
       return RetailBrokerEventActions.BROKER_EVENT_ADD;
     }
@@ -270,7 +256,6 @@ public with sharing class RetailBrokerContactActions {
       contactNew.Is_Beta_Broker__c);
   }
 
-
   /**
    * @description Indicate if contact's OCV Event Version is added for the first time
    * @param records list of new version of contacts from trigger context
@@ -279,14 +264,16 @@ public with sharing class RetailBrokerContactActions {
    */
   private static List<Contact> filterContactsWithOCVVersion(
     List<Contact> records,
-    Map<Id,Contact> contactOldMap
+    Map<Id, Contact> contactsOldMap
   ) {
     List<Contact> contactList = new List<Contact>();
-    for( Contact contactNew : records){
-     Contact contactOld = contactOldMap.get(contactNew.Id);
-     if(contactNew.OCV_Event_Version__c > 0 &&
-      (contactOld.OCV_Event_Version__c == null ||
-      contactOld.OCV_Event_Version__c <= 0)){
+    for (Contact contactNew : records) {
+      Contact contactOld = contactsOldMap.get(contactNew.Id);
+      if (
+        contactNew.OCV_Event_Version__c > 0 &&
+        (contactOld.OCV_Event_Version__c == null ||
+        contactOld.OCV_Event_Version__c <= 0)
+      ) {
         contactList.add(contactNew);
       }
     }
@@ -446,8 +433,10 @@ public with sharing class RetailBrokerContactActions {
       survivorCon.Survivor_Party_Id__c = victimCon.Survivor_Party_Id__c;
       survivorCon.Victim_Party_Id__c = victimCon.Victim_Party_Id__c;
 
-      if (survivorCon.Sync_Status__c!= null && !survivorCon.Sync_Status__c.contains(SYNC_STATUS_BLOCKED))
-       {
+      if (
+        survivorCon.Sync_Status__c != null &&
+        !survivorCon.Sync_Status__c.contains(SYNC_STATUS_BLOCKED)
+      ) {
         survivorCon.Sync_Status__c = BrokerConstants.SYNC_STATUS_BROKER_ORG;
       }
 
@@ -483,10 +472,9 @@ public with sharing class RetailBrokerContactActions {
           continue;
         }
 
-        if (survivor.Sync_Status__c != null &&
-          !survivor.Sync_Status__c.contains(
-            SYNC_STATUS_BROKER_ORG
-          )
+        if (
+          survivor.Sync_Status__c != null &&
+          !survivor.Sync_Status__c.contains(SYNC_STATUS_BROKER_ORG)
         ) {
           survivorDuplicatesList.add(survivor.Id);
           contactIdByBrokerSet.put(survivor.Id, victim.Broker_Set__c);
@@ -552,10 +540,7 @@ public with sharing class RetailBrokerContactActions {
       .isNotBlank(contact.Survivor_Party_Id__c)
       .isNotBlank(contact.Victim_Party_Id__c)
       .equals(Contact.External_Id__c, victimIdsSet)
-      .notcontains(
-        Contact.Sync_Status__c,
-        SYNC_STATUS_BLOCKED
-      )
+      .notcontains(Contact.Sync_Status__c, SYNC_STATUS_BLOCKED)
       .toList();
 
     return filteredVictimRecords;
