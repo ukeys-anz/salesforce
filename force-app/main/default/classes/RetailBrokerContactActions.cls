@@ -652,8 +652,7 @@ public with sharing class RetailBrokerContactActions {
     }
 
     List<Contact> updatedCCRContacts = (List<Contact>) ListUtil.filter(
-        validCCRContacts,
-        oldMap
+        validCCRContacts
       )
       .contains(
         Contact.Broker_Accreditation_Type__c,
