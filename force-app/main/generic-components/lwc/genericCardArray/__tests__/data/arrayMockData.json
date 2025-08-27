@@ -1,0 +1,145 @@
+{
+  "mortgageContractsData": {
+    "contracts": [
+      {
+        "id": "2ede02f4-8e35-4396-8f84-1f62631426fe",
+        "customerName": "Tony Stark",
+        "propertyAddress": "463 Tooronga Road, HAWTHORN EAST VIC 3123",
+        "loanAmount": 680000,
+        "status": "Active",
+        "settlementDate": "2023-07-22"
+      },
+      {
+        "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+        "customerName": "John Cena",
+        "propertyAddress": "123 Main Street, MELBOURNE VIC 3000",
+        "loanAmount": 750000,
+        "status": "Under Review",
+        "settlementDate": "2023-08-15"
+      },
+      {
+        "id": "z9y8x7w6-v5u4-t3s2-r1q0-p9o8n7m6l5k4",
+        "customerName": "Jane Smith",
+        "propertyAddress": "456 Collins Street, MELBOURNE VIC 3000",
+        "loanAmount": 820000,
+        "status": "Pending",
+        "settlementDate": "2023-09-01"
+      },
+      {
+        "id": "p1q2r3s4-t5u6-v7w8-x9y0-z1a2b3c4d5e6",
+        "customerName": "Bruce Wayne",
+        "propertyAddress": "789 Wayne Manor Drive, GOTHAM VIC 3001",
+        "loanAmount": 1200000,
+        "status": "Approved",
+        "settlementDate": "2023-09-15"
+      }
+    ]
+  },
+  "loanApplicationsData": {
+    "applications": [
+      {
+        "id": "app-789-xyz",
+        "applicantName": "Tony Stark",
+        "requestedAmount": 680000,
+        "creditScore": 785,
+        "status": "Under Assessment",
+        "submissionDate": "2023-06-15"
+      },
+      {
+        "id": "app-456-abc",
+        "applicantName": "Pepper Potts",
+        "requestedAmount": 550000,
+        "creditScore": 720,
+        "status": "Approved",
+        "submissionDate": "2023-06-10"
+      },
+      {
+        "id": "app-123-def",
+        "applicantName": "Happy Hogan",
+        "requestedAmount": 420000,
+        "creditScore": 695,
+        "status": "Declined",
+        "submissionDate": "2023-06-05"
+      }
+    ]
+  },
+  "propertyValuationsData": {
+    "valuations": [
+      {
+        "id": "val-001-2023",
+        "propertyAddress": "463 Tooronga Road, HAWTHORN EAST VIC 3123",
+        "currentValue": 850000,
+        "valuationDate": "2023-06-01",
+        "marketTrend": "Stable",
+        "valuer": "Smith Valuations"
+      },
+      {
+        "id": "val-002-2023",
+        "propertyAddress": "123 Main Street, MELBOURNE VIC 3000",
+        "currentValue": 920000,
+        "valuationDate": "2023-06-05",
+        "marketTrend": "Rising",
+        "valuer": "Melbourne Property Assessors"
+      },
+      {
+        "id": "val-003-2023",
+        "propertyAddress": "456 Collins Street, MELBOURNE VIC 3000",
+        "currentValue": 1050000,
+        "valuationDate": "2023-06-10",
+        "marketTrend": "Rising",
+        "valuer": "City Valuers Pty Ltd"
+      }
+    ]
+  },
+  "settlementTasksData": {
+    "tasks": [
+      {
+        "id": "task-001",
+        "taskName": "Contract Review",
+        "assignedTo": "Legal Team",
+        "dueDate": "2023-07-15",
+        "status": "Completed",
+        "priority": "High"
+      },
+      {
+        "id": "task-002",
+        "taskName": "Insurance Verification",
+        "assignedTo": "Insurance Specialist",
+        "dueDate": "2023-07-18",
+        "status": "In Progress",
+        "priority": "Medium"
+      },
+      {
+        "id": "task-003",
+        "taskName": "Final Property Inspection",
+        "assignedTo": "Property Inspector",
+        "dueDate": "2023-07-20",
+        "status": "Pending",
+        "priority": "High"
+      },
+      {
+        "id": "task-004",
+        "taskName": "Settlement Statement Preparation",
+        "assignedTo": "Finance Team",
+        "dueDate": "2023-07-21",
+        "status": "Pending",
+        "priority": "Critical"
+      }
+    ]
+  },
+  "emptyArray": {
+    "contracts": []
+  },
+  "singleItemArray": {
+    "contracts": [
+      {
+        "id": "single-001",
+        "customerName": "Single Customer",
+        "propertyAddress": "Single Property Address",
+        "loanAmount": 500000,
+        "status": "Active",
+        "settlementDate": "2023-08-01"
+      }
+    ]
+  }
+}

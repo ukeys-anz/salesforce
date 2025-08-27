@@ -10,7 +10,7 @@ public class PDIHelperTest {
   static void testGetCustomerUuidWithExternalId() {
     DataSource.Filter filter = new DataSource.Filter();
     filter.columnName = 'ExternalId';
-    filter.columnValue = 'resources/person/12345-abcde-67890/details';
+    filter.columnValue = 'person/12345-abcde-67890/details';
 
     Test.startTest();
     String result = PDIHelper.getCustomerUuid(filter);
@@ -65,7 +65,7 @@ public class PDIHelperTest {
 
   @isTest
   static void testParseResourcePathSuccess() {
-    String path = 'api/v1/resources/person/abc-123-def/details';
+    String path = 'person/abc-123-def/details';
 
     Test.startTest();
     String result = PDIHelper.parseResourcePath(path, 'person');
@@ -112,5 +112,23 @@ public class PDIHelperTest {
         'Exception message should match'
       );
     }
+  }
+
+  @isTest
+  static void testFlipMap() {
+    Map<String, String> input = new Map<String, String>{
+      'key1' => 'value1',
+      'key2' => 'value2',
+      'key3' => 'value3'
+    };
+
+    Test.startTest();
+    Map<String, String> result = PDIHelper.flipMap(input);
+    Test.stopTest();
+
+    Assert.areEqual(3, result.size(), 'Flipped map should have same size');
+    Assert.areEqual('key1', result.get('value1'), 'value1 should map to key1');
+    Assert.areEqual('key2', result.get('value2'), 'value2 should map to key2');
+    Assert.areEqual('key3', result.get('value3'), 'value3 should map to key3');
   }
 }

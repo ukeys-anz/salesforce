@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Message Channel for data provider operations and responses</description>
+    <isExposed>true</isExposed>
+    <lightningMessageFields>
+        <description>The Apex controller class name to call or response source</description>
+        <fieldName>controllerClassName</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Parameters to pass to the Apex method in the format of Stringified JSON object</description>
+        <fieldName>parameters</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Flag indicating if this is a response message</description>
+        <fieldName>isResponse</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Response data from API call</description>
+        <fieldName>message</fieldName>
+    </lightningMessageFields>
+    <masterLabel>Lightning Message Service Data Provider Channel</masterLabel>
+</LightningMessageChannel>

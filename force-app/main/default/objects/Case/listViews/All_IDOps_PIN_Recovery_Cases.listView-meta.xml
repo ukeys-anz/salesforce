@@ -16,5 +16,6 @@
     <label>All IDOps PIN Recovery Cases</label>
     <sharedTo>
         <role>Join_Operations_Reader</role>
+        <role>Onboarding_Support_Read_Only</role>
     </sharedTo>
 </ListView>

@@ -19,7 +19,7 @@ fi
 CHANGED_FILES=$(cat "$QUALITY_CHECK_FILE_NAME" | jq -R -s -r '
   split("\n")[] |
   select(
-    test("^(force-app|knowledge-mgm)/main/(default|sf-lending)/objects/")
+    test("^(force-app|knowledge-mgm)/main/(default|sf-lending|apis-apex|generic-components)/objects/")
   )
 ')
 

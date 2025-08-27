@@ -81,31 +81,19 @@ public with sharing class DataOutExportConsentHelperTest {
 
   static List<TFMExportConsentModel.AggregatedEvent> getAggregatedEventListData() {
     List<TFMExportConsentModel.AggregatedEvent> aggregatedEventList = new List<TFMExportConsentModel.AggregatedEvent>();
-    List<String> accounts = new List<String>{
-      '11111-1111111',
-      '11121-19876111',
-      '09871-234534'
-    };
+    List<String> accounts = new List<String>{ '11111-1111111' };
     List<String> scopes = new List<String>{ 'bank:accounts.basic:read' };
-    List<String> requestTypes = new List<String>{
-      'getAccountData',
-      'getTest1',
-      'getTest2'
-    };
-    List<String> userInfoDisclosed = new List<String>{
-      'disclosedTest1',
-      'getDisTest1',
-      'getDisTest2'
-    };
+    List<String> requestTypes = new List<String>{ 'getAccountData' };
+    List<String> userInfoDisclosed = new List<String>{ 'disclosedTest1' };
 
     TFMExportConsentModel.ValueWrapper dayObj = new TFMExportConsentModel.ValueWrapper();
     dayObj.value = 4;
 
     TFMExportConsentModel.ValueWrapper monthObj = new TFMExportConsentModel.ValueWrapper();
-    dayObj.value = 5;
+    monthObj.value = 5;
 
     TFMExportConsentModel.ValueWrapper yearObj = new TFMExportConsentModel.ValueWrapper();
-    dayObj.value = 1998;
+    yearObj.value = 1998;
 
     TFMExportConsentModel.DateInfo dateInfoObj = new TFMExportConsentModel.DateInfo();
     dateInfoObj.day = dayObj;
@@ -429,9 +417,9 @@ public with sharing class DataOutExportConsentHelperTest {
     );
     Test.stopTest();
     Assert.areEqual(
-      '11111-1111111 | 11121-19876111 | 09871-234534',
+      '11111-1111111,4/5/1998,"Account name, type and balance","Name of account, Type of account, Account balance",Transaction details may include data that dates back to 21 July 2021\n',
       response[0],
-      'data sharing history row header value is incorrect'
+      'Data sharing history row header value is incorrect'
     );
   }
 

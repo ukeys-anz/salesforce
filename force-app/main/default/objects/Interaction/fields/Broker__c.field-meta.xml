@@ -5,7 +5,7 @@
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Captures the Primary Broker Associated with the Interaction</description>
-    <inlineHelpText>If required, you can add additional attendees such as other RBMs/Brokers/Aggregators/Assistants after you save this interaction.</inlineHelpText>
+    <inlineHelpText>If required, you can add additional attendees such as other RBMs/Brokers after you save this interaction.</inlineHelpText>
     <label>Broker</label>
     <lookupFilter>
         <active>true</active>

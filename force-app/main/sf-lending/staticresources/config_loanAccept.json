@@ -1,0 +1,63 @@
+{
+  "sections": [
+    {
+      "title": "",
+      "schema": [
+        {
+          "fieldtype": "lightning-formatted-text",
+          "fieldLabel": "Contract Status",
+          "fieldColumn": "state",
+          "isEnum": true,
+          "enumValues": {
+            "STATE_UNSPECIFIED": "Unspecified",
+            "STATE_ACTIVE": "Active",
+            "STATE_EXPIRED": "Expired"
+          },
+          "isRecordUrl": true,
+          "attributes": {
+            "apexController": "SettlementController",
+            "configName": "config_loanAcceptItem",
+            "dataPath": "loan.loanContractAcceptances",
+            "filterField": "id"
+          }
+        },
+        {
+          "fieldLabel": "Loan Applicant",
+          "fieldColumn": "personaId",
+          "isRecordLink": true,
+          "attributes": {
+            "apexController": "GenericQueryController",
+            "params": {
+              "controller": "LoanApplicantQueryController",
+              "method": "getLoanApplicantByPersonaId",
+              "args": {
+                "personaId": "{personaId}"
+              }
+            },
+            "objectName": "LoanApplicant",
+            "recordName": "Name",
+            "fields": ["Name", "LoanApplicationId"]
+          }
+        },
+        {
+          "fieldtype": "lightning-formatted-text",
+          "fieldLabel": "Accepted Date",
+          "fieldColumn": "createTime",
+          "isDate": true
+        }
+      ],
+      "layoutconfig": {
+        "layout": {
+          "horizontalAlign": "spread",
+          "verticalAlign": "end",
+          "pull-to-boundary": "medium"
+        },
+        "layoutitem": {
+          "flexibility": "auto",
+          "padding": "around-small",
+          "size": "12"
+        }
+      }
+    }
+  ]
+}

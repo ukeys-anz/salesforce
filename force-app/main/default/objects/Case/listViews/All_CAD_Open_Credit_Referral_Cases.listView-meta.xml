@@ -23,6 +23,11 @@
         <operation>notEqual</operation>
         <value>NO CAD</value>
     </filters>
+    <filters>
+        <field>Case_Authority_Level__c</field>
+        <operation>notEqual</operation>
+        <value>FRAUD</value>
+    </filters>
     <filterScope>Everything</filterScope>
     <label>All CAD Open Credit Referral Cases</label>
     <sharedTo>

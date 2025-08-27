@@ -67,8 +67,15 @@
                 ></c-daon-file-download>
               </div>
             </template>
+            <template lwc:if={enrolledmetadata}>
+              <div class="slds-p-top_medium">
+                <c-daon-file-download
+                  layout={enrolledLayout}
+                  metadata={enrolledmetadata}
+                ></c-daon-file-download>
+              </div>
+            </template>
           </lightning-accordion-section>
-
           <lightning-accordion-section
             name="addressDetails"
             label="Address Details"

@@ -1,0 +1,178 @@
+{
+  "dataPath": "mortgageContracts",
+  "columns": [
+    {
+      "type": "button",
+      "label": "Overall Acceptance Status",
+      "fieldName": "settlementTimeState",
+      "originalField": "settlementTimeState",
+      "hideDefaultActions": true,
+      "cellAttributes": {
+        "alignment": "left"
+      },
+      "typeAttributes": {
+        "label": { "fieldName": "settlementTimeState" },
+        "name": "viewContract",
+        "variant": "base"
+      },
+      "sortable": true,
+      "isEnum": true,
+      "enumValues": {
+        "SETTLEMENT_TIME_STATE_UNSPECIFIED": "Time State Unspecified",
+        "SETTLEMENT_TIME_STATE_ACCEPTED": "Time State Accepted",
+        "SETTLEMENT_TIME_STATE_PENDING": "Time State Pending",
+        "SETTLEMENT_TIME_STATE_NOT_ACCEPTED": "Time State Not Accepted"
+      }
+    },
+    {
+      "type": "text",
+      "label": "Jurisdiction",
+      "fieldName": "jurisdiction",
+      "originalField": "jurisdiction",
+      "hideDefaultActions": true,
+      "cellAttributes": {
+        "alignment": "left"
+      },
+      "sortable": true,
+      "isEnum": true,
+      "enumValues": {
+        "JURISDICTION_UNSPECIFIED": "Unspecified",
+        "JURISDICTION_NSW": "NSW",
+        "JURISDICTION_QLD": "QLD",
+        "JURISDICTION_SA": "SA",
+        "JURISDICTION_ACT": "ACT",
+        "JURISDICTION_VIC": "VIC",
+        "JURISDICTION_WA": "WA"
+      }
+    },
+    {
+      "type": "date",
+      "label": "Settlement Date Time",
+      "fieldName": "settlementTime",
+      "originalField": "settlementTime",
+      "hideDefaultActions": true,
+      "sortable": true,
+      "cellAttributes": {
+        "alignment": "left"
+      },
+      "typeAttributes": {
+        "year": "numeric",
+        "month": "2-digit",
+        "day": "2-digit",
+        "hour": "2-digit",
+        "minute": "2-digit"
+      }
+    },
+    {
+      "type": "text",
+      "label": "Incoming Mortgagee State",
+      "fieldName": "settlementTimeAcceptance",
+      "originalField": "settlementTimeAcceptance[0].state",
+      "hideDefaultActions": true,
+      "cellAttributes": {
+        "alignment": "left"
+      },
+      "sortable": true,
+      "isEnum": true,
+      "enumValues": {
+        "STATE_UNSPECIFIED": "Unspecified",
+        "STATE_PENDING": "Pending",
+        "STATE_ACCEPTED": "Accepted"
+      }
+    },
+    {
+      "type": "text",
+      "label": "Mortgagee on Title Status",
+      "fieldName": "settlementTimeAcceptance",
+      "originalField": "settlementTimeAcceptance[0].state",
+      "hideDefaultActions": true,
+      "cellAttributes": {
+        "alignment": "left"
+      },
+      "sortable": true,
+      "isEnum": true,
+      "enumValues": {
+        "STATE_UNSPECIFIED": "Unspecified",
+        "STATE_PENDING": "Pending",
+        "STATE_ACCEPTED": "Accepted"
+      }
+    },
+    {
+      "type": "text",
+      "label": "Lodgement Status",
+      "fieldName": "state",
+      "originalField": "state",
+      "hideDefaultActions": true,
+      "cellAttributes": {
+        "alignment": "left"
+      },
+      "sortable": true,
+      "isEnum": true,
+      "enumValues": {
+        "STATE_UNSPECIFIED": "Unspecified",
+        "STATE_ACCEPTED": "Accepted",
+        "STATE_LODGING": "Lodging",
+        "STATE_LODGED": "Lodged",
+        "STATE_NEW": "New",
+        "STATE_READY": "Ready",
+        "STATE_COMPLETED": "Completed"
+      }
+    },
+    {
+      "type": "text",
+      "label": "Lodgement Dealing Number",
+      "fieldName": "mortgageLodgementId",
+      "hideDefaultActions": true,
+      "cellAttributes": {
+        "alignment": "left"
+      },
+      "sortable": true
+    },
+    {
+      "label": "Actions",
+      "type": "action",
+      "fixedWidth": 80,
+      "cellAttributes": {
+        "alignment": "center"
+      },
+      "typeAttributes": {
+        "rowActions": [
+          {
+            "label": "View Details",
+            "name": "viewContract",
+            "navigationConfig": {
+              "componentName": "c__genericCard",
+              "title": "Mortgage Contract Details",
+              "useControllerData": "true",
+              "apexController": "MortgageContractsController",
+              "controllerParams": ["id"],
+              "dataPath": "mortgageContracts",
+              "filterField": "id",
+              "tabName": "Contract Details",
+              "configName": "config_mortgageContracts"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "navigationConfig": {
+    "componentName": "c__genericCard",
+    "title": "Mortgage Contract Details",
+    "useControllerData": "true",
+    "apexController": "MortgageContractsController",
+    "controllerParams": ["id"],
+    "dataPath": "mortgageContracts",
+    "filterField": "id",
+    "tabName": "Contract Details",
+    "configName": "config_mortgageContracts"
+  },
+  "metadata": {
+    "version": "1.0",
+    "description": "Configuration for mortgage contracts data table with navigation to detailed card view",
+    "author": "@fangl6",
+    "updated": "2025-01-07",
+    "controller": "MortgageContractsController",
+    "componentType": "genericDataTable"
+  }
+}

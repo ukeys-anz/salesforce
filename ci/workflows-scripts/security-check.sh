@@ -64,7 +64,7 @@ function checkSpecificMetadata() {
 function checkRoleAndSubordinatesInternal() {
   local BASE_DIRS=("force-app" "knowledge-mgm")
   for BASE_DIR in "${BASE_DIRS[@]}"; do
-    for SCOPE in "default" "sf-lending"; do
+    for SCOPE in "default" "sf-lending" "apis-apex" "generic-components"; do
       SEARCH_DIR="$DEPLOY_DIR/$BASE_DIR/main/$SCOPE"
       if [[ -d "$SEARCH_DIR" ]]; then
         while IFS= read -r -d '' file; do

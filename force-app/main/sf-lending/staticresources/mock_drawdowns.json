@@ -1,0 +1,36 @@
+{
+  "drawdowns": [
+    {
+      "id": "a963c09e-6a9a-4c31-9a29-2f472fec6505",
+      "settlementId": "1c792b92-626f-47ab-a7ae-9b576cd66039",
+      "state": "STATE_COMPLETED",
+      "loanFacilityConfigId": "824bb87a-0d14-4b14-9920-e64b2054de97",
+      "drawdownDateTime": "2025-05-16T05:27:25.678001883Z",
+      "drawdownType": "TYPE_SHORTFALL",
+      "drawdownPayoutFigure": {
+        "currencyCode": "AUD",
+        "units": "200000",
+        "nanos": 0
+      },
+      "drawdownSurplusShortfall": {
+        "currencyCode": "AUD",
+        "units": "-50000",
+        "nanos": 0
+      },
+      "loanFacility": [
+        {
+          "id": "",
+          "loanAccount": {
+            "number": "682924998",
+            "bsbNumber": "014111"
+          },
+          "loanAccountStatus": ""
+        }
+      ],
+      "estimatedProcessingStartTime": null,
+      "scheduledReason": "SCHEDULED_REASON_UNSPECIFIED",
+      "error": null,
+      "fulfilmentDrawdownId": "a963c09e-6a9a-4c31-9a29-2f472fec6505"
+    }
+  ]
+}

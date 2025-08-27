@@ -41,6 +41,9 @@ public with sharing class MLOpportunityContactRoleTriggerHandler extends Lib_Tri
     OpportunityContactRoleActions.insertOpportunityContactRoleSyncRecords(
       filteredOCRRecords
     );
+    OpportunityContactRoleActions.createCustomerRelationshipRecords(
+      filteredOCRRecords
+    );
   }
 
   /**

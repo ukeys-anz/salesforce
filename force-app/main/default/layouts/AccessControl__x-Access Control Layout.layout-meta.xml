@@ -16,8 +16,8 @@
                 <field>Policy__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>DeviceCorrelationId__c</field>
+                <behavior>Readonly</behavior>
+                <field>Device__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -28,6 +28,10 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>PersonId__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>DeviceCorrelationId__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Permission Set Group consolidating all Permissions related to Card Dispute Agent
-        functions.</description>
+    <description>Permission Set Group consolidating all Permissions related to Card Dispute Agent functions.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Card Dispute Agent</label>
     <permissionSets>AccessAegisFeatures</permissionSets>

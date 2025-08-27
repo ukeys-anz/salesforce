@@ -1,0 +1,84 @@
+{
+  "sections": [
+    {
+      "title": "Summary",
+      "schema": [
+        {
+          "fieldtype": "lightning-formatted-text",
+          "fieldLabel": "Settlement Id",
+          "fieldColumn": "id",
+          "isText": true
+        },
+        {
+          "fieldtype": "lightning-formatted-text",
+          "fieldLabel": "Loan Application Number",
+          "fieldColumn": "loan.loanApplicationId",
+          "isText": true
+        },
+        {
+          "fieldtype": "lightning-formatted-text",
+          "fieldLabel": "Type",
+          "fieldColumn": "type",
+          "isEnum": true,
+          "enumValues": {
+            "TYPE_UNSPECIFIED": "Unspecified",
+            "TYPE_REFINANCE_OFI": "Refinance OFI",
+            "TYPE_REFINANCE_INTERNAL": "Refinance Internal",
+            "TYPE_RESTRUCTURE": "Restructure"
+          }
+        },
+        {
+          "fieldtype": "lightning-formatted-text",
+          "fieldLabel": "Status",
+          "fieldColumn": "state.state",
+          "isEnum": true,
+          "enumValues": {
+            "STATE_UNSPECIFIED": "Unspecified",
+            "STATE_NEW": "New",
+            "STATE_INITIATED": "Initiated",
+            "STATE_DOCUMENTS_GENERATED": "Documents Generated",
+            "STATE_OFFER_COMMITTED": "Offer Committed",
+            "STATE_SETTLING": "Settling",
+            "STATE_COMPLETED": "Completed",
+            "STATE_CANCELLED": "Cancelled"
+          }
+        },
+        {
+          "fieldtype": "lightning-formatted-text",
+          "fieldLabel": "Status Last Modified Date",
+          "fieldColumn": "state.updateTime",
+          "isDate": true
+        },
+        {
+          "fieldtype": "lightning-formatted-text",
+          "fieldLabel": "Credit Assessment Expiry Date",
+          "fieldColumn": "loan.offerExpireTime",
+          "isDate": true
+        },
+        {
+          "fieldtype": "lightning-formatted-text",
+          "fieldLabel": "Created",
+          "fieldColumn": "createTime",
+          "isDate": true
+        }
+      ],
+      "layoutconfig": {
+        "layout": {
+          "horizontalAlign": "spread",
+          "verticalAlign": "end",
+          "pull-to-boundary": "medium"
+        },
+        "layoutitem": {
+          "flexibility": "auto",
+          "padding": "around-small",
+          "size": "6"
+        },
+        "paddingSizeOverride": {
+          "fieldLabel": "4",
+          "fieldValue": "8"
+        }
+      }
+    }
+  ],
+  "hasSectionHeader": true
+}
