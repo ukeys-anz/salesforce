@@ -1,0 +1,97 @@
+{
+  "dataPath": "tasks",
+  "columns": [
+    {
+      "type": "button",
+      "label": "Task Name",
+      "fieldName": "type",
+      "originalField": "type",
+      "hideDefaultActions": true,
+      "cellAttributes": {
+        "alignment": "left"
+      },
+      "typeAttributes": {
+        "label": { "fieldName": "type" },
+        "name": "viewContract",
+        "variant": "base"
+      },
+      "sortable": false,
+      "isEnum": true,
+      "enumValues": {
+        "TYPE_UNSPECIFIED": "Unspecified",
+        "TYPE_UPLOAD_LOO_DOCUMENT": "Upload Loo Document",
+        "TYPE_UPLOAD_MORTGAGE_DOCUMENT": "Upload Mortgage Document",
+        "TYPE_GENERATE_LOO_DOCUMENT": "Generate Loo Document",
+        "TYPE_GENERATE_MORTGAGE_DOCUMENT": "Generate Mortgage Document",
+        "TYPE_ACCEPT_LOAN_OFFER": "Accept Loan Offer",
+        "TYPE_ACCEPT_MORTGAGE_CONTRACT": "Accept Mortgage Contract",
+        "TYPE_UPLOAD_BUILDING_INSURANCE_DOCUMENT": "Upload Building Insurance Document",
+        "TYPE_SET_DRAWDOWN_ACCOUNT": "Set Drawdown Account",
+        "TYPE_CREATE_REPAYMENT_PREFERENCE": "Create Repayment Preference",
+        "TYPE_CREATE_RELEASE_AUTHORITY": "Create Relese Authority",
+        "TYPE_VERIFY_BUILDING_INSURANCE_DOCUMENT": "Verify Building Insurance Document",
+        "TYPE_CONFIRM_DRAWDOWN_ACCOUNT": "Confirm Drawdown Account",
+        "TYPE_CONFIRM_REPAYMENT_PREFERENCE": "Confirm Repayment Preference",
+        "TYPE_GENERATE_SIGNED_LOO_DOCUMENT": "Generate Signed Loo Document",
+        "TYPE_GENERATE_SIGNED_MORTGAGE_DOCUMENT": "Generate Signed Mortgage Document",
+        "TYPE_SET_LOAN_OFFSET_ACCOUNT": "Set Loan Offset Account",
+        "TYPE_CONFIRM_LOAN_OFFSET_ACCOUNT": "Confirm Loan Offset Account",
+        "TYPE_REVERIFY_KYC": "Reverify KYC"
+      }
+    },
+    {
+      "type": "text",
+      "label": "Status",
+      "fieldName": "state",
+      "originalField": "state",
+      "hideDefaultActions": true,
+      "cellAttributes": {
+        "alignment": "left"
+      },
+      "sortable": false,
+      "isEnum": true,
+      "enumValues": {
+        "STATE_UNSPECIFIED": "Unspecified",
+        "STATE_PENDING": "Pending",
+        "STATE_COMPLETED": "Completed"
+      }
+    },
+    {
+      "type": "text",
+      "label": "Category",
+      "fieldName": "category",
+      "originalField": "category",
+      "hideDefaultActions": true,
+      "cellAttributes": {
+        "alignment": "left"
+      },
+      "sortable": false,
+      "isEnum": true,
+      "enumValues": {
+        "CATEGORY_UNSPECIFIED": "Unspecified",
+        "CATEGORY_DOCUMENT": "Document",
+        "CATEGORY_ACCOUNT": "Account",
+        "CATEGORY_CUSTOMER_ACKNOWLEDGEMENT": "Customer Acknowledgement"
+      }
+    }
+  ],
+  "navigationConfig": {
+    "componentName": "c__genericCard",
+    "title": "Task Details",
+    "useControllerData": "true",
+    "apexController": "SettlementController",
+    "controllerParams": ["id"],
+    "dataPath": "tasks",
+    "filterField": "id",
+    "tabName": "Task Details",
+    "configName": "config_tasksItem"
+  },
+  "metadata": {
+    "version": "1.0",
+    "description": "Configuration for tasks data table with navigation to detailed card view",
+    "author": "@shiy2",
+    "updated": "2025-08-13",
+    "controller": "SettlementController",
+    "componentType": "genericDataTable"
+  }
+}

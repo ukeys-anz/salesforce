@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OCP</fullName>
+    <active>true</active>
+    <label>OCP</label>
+    <picklistValues>
+        <picklist>Stage</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Book to Core</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Decision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Initiated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Intake</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>On Hold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Submitted</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

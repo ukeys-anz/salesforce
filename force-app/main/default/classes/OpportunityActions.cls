@@ -17,6 +17,9 @@ public with sharing class OpportunityActions {
   private static final AccountActionsRepository ACCOUNT_REPOSITORY = (AccountActionsRepository) Lib_InstanceProvider.forType(
     AccountActionsRepository.class
   );
+  private static final CustomerRelationshipsRepository CR_REPOSITORY = (CustomerRelationshipsRepository) Lib_InstanceProvider.forType(
+    CustomerRelationshipsRepository.class
+  );
 
   private static final String STR_GUARANTOR = 'Guarantor';
   private static final String STR_APPLICANT = 'Applicant';
@@ -547,5 +550,56 @@ public with sharing class OpportunityActions {
       //CC-5603 Opportunity name should be account name for Mobile Lending Opportunity
       record.Name = accountMap.get(record.AccountId)?.Name;
     }
+  }
+
+  /**
+   * @description This method will auto create customer relationship records.
+   * @name createCustomerRelationshipRecords
+   * @param opportunities from the trigger
+   */
+  public static void createCustomerRelationshipRecords(
+    List<Opportunity> opportunities
+  ) {
+    //get non-lead converted opportunities
+    List<Opportunity> nonLeadConvertedOpportunities = ListUtil.filter(
+        opportunities
+      )
+      .equals(Opportunity.Lead_Converted__c, false)
+      .toList();
+    dedupeAndInsertCustomerRelationships(nonLeadConvertedOpportunities);
+  }
+
+  /**
+   * @description This method will deduplicate and insert customer relationships.
+   * @name dedupeAndInsertCustomerRelationships
+   * @param nonLeadConvertedOpportunities opportunities that have been created manually
+   */
+  @testVisible
+  private static void dedupeAndInsertCustomerRelationships(
+    List<Opportunity> nonLeadConvertedOpportunities
+  ) {
+    //get set of account ids on opportunities
+    Set<Id> oppCustomerIds = ListUtil.getIds(
+      nonLeadConvertedOpportunities,
+      Opportunity.AccountId
+    );
+
+    //query existing customer relationship records.
+    List<Customer_Relationship__c> existingCustomerRelationships = CR_REPOSITORY.getCustomerRelationshipByCustomerIds(
+      oppCustomerIds
+    );
+
+    Map<String, Customer_Relationship__c> existingCRRMap = OpportunityActionsHelper.getExistingCRRMap(
+      existingCustomerRelationships
+    );
+
+    List<Customer_Relationship__c> crrsToInsert = OpportunityActionsHelper.insertCustomerRelationships(
+      existingCRRMap,
+      nonLeadConvertedOpportunities
+    );
+    DML_REPOSITORY.doInsert(
+      crrsToInsert,
+      new DmlConfig().allowPartial().withoutSharing().systemMode()
+    );
   }
 }

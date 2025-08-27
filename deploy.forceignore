@@ -630,5 +630,67 @@ force-app/main/default/triggers/LogEventTrigger.trigger
 force-app/main/default/triggers/LogEventTrigger.trigger-meta.xml
 force-app/main/default/workflows/Access_Request__c.workflow-meta.xml
 
+# Ignore file deletion via move for settlements
+force-app/main/generic-components/staticresources/mock_automaticrepayments.resource-meta.xml
+force-app/main/generic-components/staticresources/mock_drawdowns.resource-meta.xml
+force-app/main/generic-components/staticresources/mock_listDrawdowns.resource-meta.xml
+force-app/main/generic-components/staticresources/mock_drawdowns.json
+force-app/main/generic-components/staticresources/mock_loanfacilityconfigs.resource-meta.xml
+force-app/main/generic-components/staticresources/mock_getDrawdown.json
+force-app/main/generic-components/staticresources/mock_getDrawdown.resource-meta.xml
+force-app/main/generic-components/staticresources/mock_getSettlementAccount.json
+force-app/main/generic-components/staticresources/mock_getSettlementAccount.resource-meta.xml
+force-app/main/generic-components/staticresources/mock_listAutomaticRepaymentPreferences.json
+force-app/main/generic-components/staticresources/mock_listAutomaticRepaymentPreferences.resource-meta.xml
+force-app/main/generic-components/staticresources/mock_listDrawdowns.json
+force-app/main/generic-components/staticresources/mock_listLoanFacilityConfigs.json
+force-app/main/generic-components/staticresources/mock_listLoanFacilityConfigs.resource-meta.xml
+force-app/main/generic-components/staticresources/mock_listMortgageContracts.json
+force-app/main/generic-components/staticresources/mock_listMortgageContracts.resource-meta.xml
+force-app/main/generic-components/staticresources/mock_settlement.resource-meta.xml
+force-app/main/generic-components/staticresources/mock_settlement.json
+force-app/main/default/layouts/Enum_Value_Mapping__mdt-Enum Value Mapping Layout.layout-meta.xml
+force-app/main/generic-components/customMetadata
+force-app/main/generic-components/lwc/utils
+force-app/main/default/classes/SettlementRepository.cls
+force-app/main/default/classes/SettlementRepository.cls-meta.xml
+force-app/main/default/classes/SettlementAccountActionsTest.cls
+force-app/main/default/classes/SettlementAccountActionsTest.cls-meta.xml
+force-app/main/default/classes/ProofOfInsuranceActions.cls
+force-app/main/default/classes/ProofOfInsuranceActions.cls-meta.xml
+force-app/main/default/classes/ProofOfInsuranceController.cls
+force-app/main/default/classes/ProofOfInsuranceController.cls-meta.xml
+force-app/main/default/classes/ProofOfInsuranceControllerTest.cls
+force-app/main/default/classes/ProofOfInsuranceControllerTest.cls-meta.xml
+force-app/main/default/classes/ProofOfInsuranceTriggerHandler.cls
+force-app/main/default/classes/ProofOfInsuranceTriggerHandler.cls-meta.xml
+force-app/main/default/classes/ProofOfInsuranceTriggerHandlerTest.cls
+force-app/main/default/classes/ProofOfInsuranceTriggerHandlerTest.cls-meta.xml
+force-app/main/default/classes/SettlementAccountActions.cls
+force-app/main/default/classes/SettlementAccountActions.cls-meta.xml
+force-app/main/default/classes/SettlementActionsTest.cls
+force-app/main/default/classes/SettlementActionsTest.cls-meta.xml
+force-app/main/default/classes/SettlementAccountTriggerHandler.cls
+force-app/main/default/classes/SettlementAccountTriggerHandler.cls-meta.xml
+force-app/main/default/classes/SettlementAccountTriggerHandlerTest.cls
+force-app/main/default/classes/SettlementAccountTriggerHandlerTest.cls-meta.xml
+force-app/main/default/classes/SettlementActions.cls
+force-app/main/default/classes/SettlementActions.cls-meta.xml
+force-app/main/default/classes/SettlementTaskActions.cls
+force-app/main/default/classes/SettlementTaskActions.cls-meta.xml
+force-app/main/default/classes/SettlementTaskActionsTest.cls
+force-app/main/default/classes/SettlementTaskActionsTest.cls-meta.xml
+force-app/main/default/classes/SettlementTaskTriggerHandler.cls
+force-app/main/default/classes/SettlementTaskTriggerHandler.cls-meta.xml
+force-app/main/default/classes/SettlementTriggerHandler.cls
+force-app/main/default/classes/SettlementTriggerHandler.cls-meta.xml
+force-app/main/default/classes/SettlementTriggerHandlerTest.cls
+force-app/main/default/classes/SettlementTriggerHandlerTest.cls-meta.xml
+
 # AR-224436 Temporary added for renamed transactionSecurityPolicies to be deploy manually due to duplicate security policy error
 force-app/main/default/transactionSecurityPolicies
+
+
+# AR-218280 Highly previleged permission set, forceignore to ensure it is not
+# deploy automatically to high environments
+force-app/main/default/permissionsets/View_All_Fields.permissionset-meta.xml

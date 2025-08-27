@@ -1,0 +1,30 @@
+<template>
+  <template lwc:if={loading}> </template>
+  <template lwc:else>
+    <div lwc:if={showPopover}>
+      <div class="popoverContainer">
+        <div class="slds-popover slds-nubbin_bottom-left popover">
+          <div class="slds-popover__body">
+            <lightning-record-view-form
+              record-id={recordDetailsId}
+              object-api-name={objectName}
+              density="comfy"
+            >
+              <template for:each={fields} for:item="field">
+                <lightning-output-field key={field} field-name={field}>
+                </lightning-output-field>
+              </template>
+            </lightning-record-view-form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a
+      onclick={navigateToRecord}
+      onmouseover={handlePopover}
+      onmouseout={handlePopover}
+      class={_fieldCompCss}
+      >{recordNameValue}</a
+    >
+  </template>
+</template>

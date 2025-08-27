@@ -1,0 +1,46 @@
+{
+  "sections": [
+    {
+      "title": "",
+      "schema": [
+        {
+          "fieldtype": "lightning-formatted-text",
+          "fieldColumn": "document.id",
+          "isRecordUrl": true,
+          "isStacked": true,
+          "attributes": {
+            "apexController": "SettlementController",
+            "configName": "config_documentsItem",
+            "dataPath": "loan.documents",
+            "id": "document.id"
+          }
+        },
+        {
+          "fieldtype": "lightning-formatted-text",
+          "fieldLabel": "Document Id",
+          "fieldColumn": "document.createTime",
+          "isDate": true,
+          "isStacked": true
+        },
+        {
+          "fieldtype": "lightning-formatted-text",
+          "fieldLabel": "Document Storage Id",
+          "fieldColumn": "document.documentStorageId",
+          "isStacked": true
+        }
+      ],
+      "layoutconfig": {
+        "layout": {
+          "horizontalAlign": "spread",
+          "verticalAlign": "end",
+          "pull-to-boundary": "medium"
+        },
+        "layoutitem": {
+          "flexibility": "auto",
+          "padding": "around-small",
+          "size": "12"
+        }
+      }
+    }
+  ]
+}

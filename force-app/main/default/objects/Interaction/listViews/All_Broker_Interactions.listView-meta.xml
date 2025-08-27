@@ -10,9 +10,9 @@
     <columns>Broker__c</columns>
     <columns>Office_Group__c</columns>
     <filters>
-        <field>Record_Type__c</field>
+        <field>RecordType</field>
         <operation>equals</operation>
-        <value>RBM Broker Interaction</value>
+        <value>Interaction.RBM_Broker_Interaction</value>
     </filters>
     <filterScope>Everything</filterScope>
     <label>All Broker Interactions</label>

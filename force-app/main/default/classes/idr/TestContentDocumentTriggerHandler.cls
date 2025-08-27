@@ -70,7 +70,7 @@ public class TestContentDocumentTriggerHandler {
       LIMIT 1
     ];
 
-    ContentDocumentTriggerHandler.restrictFileDeleteAction(cdList);
+    ContentDocumentTriggerActions.restrictFileDeleteAction(cdList);
 
     List<Database.Error> errors = cdList[0].getErrors();
 
@@ -97,7 +97,7 @@ public class TestContentDocumentTriggerHandler {
       LIMIT 1
     ];
 
-    ContentDocumentTriggerHandler.restrictFileDeleteAction(cdList);
+    ContentDocumentTriggerActions.restrictFileDeleteAction(cdList);
 
     System.assert(!cdList[0].hasErrors(), 'No exception error should occur.');
   }

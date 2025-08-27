@@ -460,6 +460,10 @@
         <name>FinancialAccountUIConfiguration__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
+    <customPermissions>
+        <name>Manage_Referrals_in_CRM</name>
+        <enabled>true</enabled>
+    </customPermissions>
     <description>Baseline pset for using the AR&amp;C Commercial CRM app. </description>
     <fieldPermissions>
         <editable>true</editable>
@@ -469,11 +473,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>A_Z_Review__c.Business_Owner__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>A_Z_Review__c.Business_Owner_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1009,6 +1008,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>ApplicationFormProduct.Lost_Reason_Detail__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApplicationFormProduct.Opportunity_Product__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -9534,6 +9538,10 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>ApplicationForm.Internal_Application</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>ApplicationForm.OCP</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

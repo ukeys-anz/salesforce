@@ -695,6 +695,14 @@
         <value>callout:SF_MS_CH2/credit-assessment/v1/sop/</value>
     </labels>
     <labels>
+        <fullName>MS_Get_Settlement</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Settlement</shortDescription>
+        <value>callout:SF_MS_CH2/credit-assessment/v1/settlements/</value>
+    </labels>
+    <labels>
         <fullName>MS_Update_Expense</fullName>
         <categories>MS</categories>
         <language>en_US</language>
@@ -2068,6 +2076,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>This is a shell prospect record.</value>
     </labels>
     <labels>
+        <fullName>OCP_Link</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>OCP Link</shortDescription>
+        <value>https://ocp.service.anz/</value>
+    </labels>
+    <labels>
         <fullName>OCV_ID_Update_ErrorMessage</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
@@ -2601,10 +2616,17 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>The Suburb, State and Postcode information provided is invalid. Please check the address entered and try again.</value>
     </labels>
     <labels>
-        <fullName>ML_LeadResponseToShowFollowUpDate</fullName>
+        <fullName>ML_LeadResponseFollowUpDateEnabled</fullName>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>ML_LeadResponseToShowFollowUpDate</shortDescription>
+        <shortDescription>ML_LeadResponseFollowUpDateEnabled</shortDescription>
+        <value>[&quot;Contact Attempted&quot;, &quot;Call Back&quot;, &quot;Accepted&quot;, &quot;Appointment Booked&quot;]</value>
+    </labels>
+    <labels>
+        <fullName>ML_LeadResponseFollowUpDateRequired</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ML_LeadResponseFollowUpDateRequired</shortDescription>
         <value>[&quot;Contact Attempted&quot;, &quot;Call Back&quot;]</value>
     </labels>
     <labels>

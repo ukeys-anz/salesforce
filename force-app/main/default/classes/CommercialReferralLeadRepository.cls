@@ -118,4 +118,21 @@ public with sharing class CommercialReferralLeadRepository {
       WITH USER_MODE
     ];
   }
+
+  /**
+   * @description It will fetch all the ccrm users
+   * @param userIds set of user ids
+   * @return List<User>
+   */
+  public List<User> getCCRMUsers(Set<Id> userIds) {
+    if (userIds.isEmpty()) {
+      return new List<User>();
+    }
+    return [
+      SELECT Id, Profile.Name
+      FROM User
+      WHERE Id IN :userIds AND Profile.Name = 'ANZ CCRM Standard User'
+      WITH SYSTEM_MODE
+    ];
+  }
 }

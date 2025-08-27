@@ -72,10 +72,12 @@ private class CommercialInteractionActionsHelperTest {
     Map<Id, Set<Id>> customerToCLGsMap = new Map<Id, Set<Id>>{
       accId => new Set<Id>{ clgId }
     };
+    Test.startTest();
     CommercialInteractionActionsHelper.validateCLGAccountsAgainstCustomer(
       records,
       customerToCLGsMap
     );
+    Test.stopTest();
     Assert.isTrue(
       records[0].hasErrors(),
       'Should add error for invalid CLG selection'
@@ -93,127 +95,99 @@ private class CommercialInteractionActionsHelperTest {
     Map<Id, Set<Id>> customerToCLGsMap = new Map<Id, Set<Id>>{
       accId => new Set<Id>{ clgId }
     };
+    Test.startTest();
     CommercialInteractionActionsHelper.validateCLGAccountsAgainstCustomer(
       records,
       customerToCLGsMap
     );
+    Test.stopTest();
     Assert.isTrue(
       !records[0].hasErrors(),
       'Should not add error for valid CLG selection'
     );
   }
 
-  @isTest
-  static void getOppsIdsAssociatedWithInteractionsTest() {
-    User ccrmUser = CCRMTestDataFactory.getCCRMBaseUser();
-    Set<Id> oppsIds = new Set<Id>();
-    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
-    List<Interaction> intRec = CCRMTestDataFactory.createInteractionDataWithOpportunity(
-      1,
-      ccrmUser,
-      oppId
-    );
+  @IsTest
+  static void testMapCustomerToCLGAccounts() {
+    Id accountId1 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id accountId2 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id relatedAccountId1 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id relatedAccountId2 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
 
-    Test.startTest();
-    oppsIds = CommercialInteractionActionsHelper.getOppsIdsAssociatedWithInteractions(
-      intRec,
-      null
-    );
-    Test.stopTest();
-
-    Assert.areEqual(1, oppsIds.size(), 'Size is not 1');
-  }
-
-  @isTest
-  static void getOppsIdsAssociatedWithInteractionsWithOldMapTest() {
-    User ccrmUser = CCRMTestDataFactory.getCCRMBaseUser();
-    Set<Id> oppsIds = new Set<Id>();
-    List<Interaction> intRec;
-    Map<Id, Interaction> oldMap;
-    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
-    Id updatedOppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
-    Id accId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-    Id intId = Lib_FakeIdGenerator.getMockId(Interaction.SObjectType);
-    intRec = CCRMTestDataFactory.createInteractionDataWithOpportunity(
-      1,
-      ccrmUser,
-      updatedOppId
-    );
-    intRec[0].AccountId = accId;
-    intRec[0].Id = intId;
-    oldMap = new Map<Id, Interaction>{
-      intId => new Interaction(
-        Id = intId,
-        Opportunity__c = oppId,
-        AccountId = accId
+    List<FinServ__AccountAccountRelation__c> relations = new List<FinServ__AccountAccountRelation__c>{
+      new FinServ__AccountAccountRelation__c(
+        FinServ__Account__c = accountId1,
+        FinServ__RelatedAccount__c = relatedAccountId1
+      ),
+      new FinServ__AccountAccountRelation__c(
+        FinServ__Account__c = accountId1,
+        FinServ__RelatedAccount__c = relatedAccountId2
+      ),
+      new FinServ__AccountAccountRelation__c(
+        FinServ__Account__c = accountId2,
+        FinServ__RelatedAccount__c = relatedAccountId1
       )
     };
+    Test.startTest();
+    Map<Id, Set<Id>> result = CommercialInteractionActionsHelper.mapCustomerToCLGAccounts(
+      relations
+    );
+    Test.stopTest();
+
+    Assert.isTrue(
+      result.containsKey(accountId1),
+      'Map should contain accountId1'
+    );
+    Assert.isTrue(
+      result.containsKey(accountId2),
+      'Map should contain accountId2'
+    );
+
+    Assert.areEqual(
+      2,
+      result.get(accountId1).size(),
+      'accountId1 should have 2 related CLGs'
+    );
+    Assert.areEqual(
+      1,
+      result.get(accountId2).size(),
+      'accountId2 should have 1 related CLG'
+    );
+  }
+
+  @isTest
+  static void updateCustomerOnInteractionTest() {
+    Map<Id, Id> oppIdToCustomerIdMap;
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Opportunity opp = new Opportunity(
+      Id = oppId,
+      Name = 'Test Opp',
+      StageName = 'Opportunity Identified',
+      RecordTypeId = CCRMConstants.CCRM_OPP_RT_ID,
+      AccountId = accId
+    );
+    List<Interaction> intRec = new List<Interaction>{
+      new Interaction(
+        Name = 'Test Interaction',
+        recordTypeId = CCRMConstants.INTERACTION_CCRM_RT_ID,
+        Category__c = CCRMConstants.INTER_CAT_GENERAL,
+        InteractionType = 'Call',
+        StartTime = System.now(),
+        Optional_Notes__c = 'Test Optional Notes'
+      )
+    };
+    intRec[0].AccountId = null;
+    intRec[0].Opportunity__c = oppId;
+    oppIdToCustomerIdMap = new Map<Id, Id>{ oppId => accId };
 
     Test.startTest();
-    oppsIds = CommercialInteractionActionsHelper.getOppsIdsAssociatedWithInteractions(
+    CommercialInteractionActionsHelper.updateCustomerOnInteraction(
       intRec,
-      oldMap
+      oppIdToCustomerIdMap
     );
     Test.stopTest();
 
-    Assert.areEqual(1, oppsIds.size(), 'Size is not 1');
-  }
-
-  @isTest
-  static void updateInteractionNameTest() {
-    User ccrmUser = CCRMTestDataFactory.getCCRMBaseUser();
-    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
-
-    List<Interaction> intRec = CCRMTestDataFactory.createInteractionDataWithOpportunity(
-      1,
-      ccrmUser,
-      oppId
-    );
-    intRec[0].Id = Lib_FakeIdGenerator.getMockId(Interaction.SObjectType);
-
-    Interaction updatedInt = new Interaction(
-      Id = intRec[0].Id,
-      Name = 'Test Call',
-      InteractionType = 'Email'
-    );
-
-    Test.startTest();
-    CommercialInteractionActionsHelper.updateInteractionName(
-      new List<Interaction>{ updatedInt },
-      new Map<Id, Interaction>{ intRec[0].Id => intRec[0] }
-    );
-    Test.stopTest();
-
-    Assert.isTrue(updatedInt.Name.contains('Email'), 'Name not updated');
-  }
-
-  @isTest
-  static void getUpdatedNameOrChannelInteractionsTest() {
-    User ccrmUser = CCRMTestDataFactory.getCCRMBaseUser();
-    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
-    List<Interaction> updatedInteractions;
-
-    List<Interaction> intRec = CCRMTestDataFactory.createInteractionDataWithOpportunity(
-      1,
-      ccrmUser,
-      oppId
-    );
-    intRec[0].Id = (String) Lib_FakeIdGenerator.getMockId(
-      Interaction.SObjectType
-    );
-    Interaction updatedInt = new Interaction(
-      Id = intRec[0].Id,
-      InteractionType = 'Email',
-      Name = 'Test Interaction'
-    );
-
-    Test.startTest();
-    updatedInteractions = CommercialInteractionActionsHelper.getUpdatedNameOrChannelInteractions(
-      new List<Interaction>{ updatedInt },
-      new Map<Id, Interaction>{ intRec[0].Id => intRec[0] }
-    );
-    Test.stopTest();
-
-    Assert.areEqual(1, updatedInteractions.size(), 'No Interactions found');
+    System.assertEquals(accId, intRec[0].AccountId, 'No Account Found');
   }
 }

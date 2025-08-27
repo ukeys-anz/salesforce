@@ -1,0 +1,33 @@
+<template>
+  <lightning-card>
+    <!-- SPINNER -->
+    <template lwc:if={_isLoading}>
+      <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-1 spinnerHolder">
+          <lightning-spinner
+            alternative-text="Loading"
+            size="medium"
+            variant="brand"
+          ></lightning-spinner>
+        </div>
+      </div>
+    </template>
+    <template lwc:elseif={_hasError}>
+      <c-error message={_errorMessage}></c-error>
+    </template>
+    <template lwc:elseif={_parsedData}>
+      <div class="mainContainer">
+        <template for:each={_schemaConfig.sections} for:item="section">
+          <c-generic-field-container
+            key={section.title}
+            object-config={section}
+            value={_parsedData}
+            record-id={recordId}
+            enum-data={_enumData}
+            has-section-header={_schemaConfig.hasSectionHeader}
+          ></c-generic-field-container>
+        </template>
+      </div>
+    </template>
+  </lightning-card>
+</template>

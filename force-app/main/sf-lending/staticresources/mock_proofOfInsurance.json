@@ -1,0 +1,43 @@
+{
+  "proofOfInsurances": [
+    {
+      "settlementId": "1c792b92-626f-47ab-a7ae-9b576cd66039",
+      "mortgageContractId": "2ede02f4-8e35-4396-8f84-1f62631426fe",
+      "propertyId": "5fe9e499-dd41-4ca1-ad35-fde5c3a0d4c9",
+      "document": {
+        "id": "735b789f-60f2-49df-abc5-b200cb527c9a",
+        "createTime": "2025-05-16T05:13:16Z",
+        "updateTime": null,
+        "state": "STATE_UPLOADED",
+        "documentStorageId": "2942fa20-2969-419c-894b-b91934bdbaba",
+        "documentStorageStatus": "DOCUMENT_STORAGE_STATUS_ACTIVE",
+        "documentFileDetails": [
+          {
+            "documentFileId": "2942fa20-2969-419c-894b-b91934bdbaba",
+            "documentFileVersion": "1",
+            "documentFileStatus": "DOCUMENT_FILE_STATUS_ACTIVE",
+            "fileChecksum": "",
+            "documentFileReference": null
+          }
+        ],
+        "source": "DOCUMENT_SOURCE_CUSTOMER_UPLOADED"
+      },
+      "proofOfInsuranceVerification": {
+        "state": "STATE_VERIFIED",
+        "documentId": "735b789f-60f2-49df-abc5-b200cb527c9a",
+        "documentFileVersion": "1",
+        "createBy": {
+          "type": "TYPE_UNSPECIFIED",
+          "id": ""
+        },
+        "createTime": "2025-05-16T04:53:01.989486969Z",
+        "updateBy": {
+          "type": "TYPE_UNSPECIFIED",
+          "id": "3531be31-1439-444f-8df3-d84258d4a413"
+        },
+        "updateTime": "2025-05-16T05:27:21.423616556Z",
+        "rejectionReason": "REJECTION_REASON_UNSPECIFIED"
+      }
+    }
+  ]
+}

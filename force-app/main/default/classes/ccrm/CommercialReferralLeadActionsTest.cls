@@ -125,6 +125,41 @@ public with sharing class CommercialReferralLeadActionsTest {
   }
 
   @isTest
+  static void shareReferralRecordWithExceptionTest() {
+    registerMocks();
+    //GIVEN list of old records and new records
+    Id leadId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    Id userId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    List<Lead> records = new List<Lead>{
+      new Lead(
+        Id = leadId,
+        FinServ__ReferredByUser__c = userId,
+        Referral_Status__c = CommercialReferralLeadActions.REFERRAL_STATUS_IN_PROGRESS,
+        OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType)
+      )
+    };
+    Map<Id, Lead> oldMap = new Map<Id, Lead>{
+      leadId => new Lead(
+        Id = leadId,
+        FinServ__ReferredByUser__c = userId,
+        Referral_Status__c = CommercialReferralLeadActions.REFERRAL_STATUS_IN_PROGRESS,
+        OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType)
+      )
+    };
+    dmlRepoMock.mockException('doInsert', new DMLException('Insert failed!'));
+    try {
+      Test.startTest();
+      CommercialReferralLeadActions.shareReferralRecord(records, oldMap);
+      Test.stopTest();
+    } catch (Exception ex) {
+      Assert.isTrue(
+        ex instanceof DMLException,
+        'DMLException should have been thrown'
+      );
+    }
+  }
+
+  @isTest
   static void generateReferralLeadShareListTest() {
     //GIVEN list of old records and new records
     List<Lead> filteredReferralLeadsList = new List<Lead>{
@@ -249,6 +284,41 @@ public with sharing class CommercialReferralLeadActionsTest {
     Test.stopTest();
 
     //THEN it should successfully send the bell notification
+    Assert.areEqual(
+      false,
+      exceptionThrown,
+      'Referral lead owner should be notified.'
+    );
+  }
+
+  @isTest
+  static void sendNotificationForCCRMUsersTest() {
+    registerMocks();
+    Id userId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    List<Lead> filteredReferralLeadsList = new List<Lead>{
+      new Lead(
+        Id = Lib_FakeIdGenerator.getMockId(Lead.SObjectType),
+        OwnerId = userId,
+        FinServ__ReferredByUser__c = Lib_FakeIdGenerator.getMockId(
+          User.SObjectType
+        )
+      )
+    };
+    commercialReferralLeadRepositoryMock.mock(
+      'getCCRMUsers',
+      new List<User>{ new user(Id = userId) }
+    );
+    Boolean exceptionThrown = false;
+    String errorMessage = '';
+
+    Test.startTest();
+    try {
+      CommercialReferralLeadActions.sendNotification(filteredReferralLeadsList);
+    } catch (Exception e) {
+      exceptionThrown = true;
+      errorMessage = e.getMessage();
+    }
+    Test.stopTest();
     Assert.areEqual(
       false,
       exceptionThrown,
@@ -470,6 +540,32 @@ public with sharing class CommercialReferralLeadActionsTest {
   }
 
   @isTest
+  static void updateParentLeadTestWithException() {
+    registerMocks();
+    Id parentLeadId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    List<Lead> records = new List<Lead>{
+      new Lead(
+        Id = Lib_FakeIdGenerator.getMockId(Lead.SObjectType),
+        Referrer_Lead__c = parentLeadId
+      )
+    };
+    commercialReferralLeadRepositoryMock.mockException(
+      'fetchParentLeads',
+      new QueryException('invalid parameters')
+    );
+    try {
+      Test.startTest();
+      CommercialReferralLeadActions.updateParentLead(records);
+      Test.stopTest();
+    } catch (Exception ex) {
+      Assert.isTrue(
+        ex instanceof QueryException,
+        'QueryException should have been thrown'
+      );
+    }
+  }
+
+  @isTest
   static void mapReferralCustomerNeedTest() {
     //GIVEN list of lead
     List<Lead> leadsList = new List<Lead>{
@@ -573,6 +669,39 @@ public with sharing class CommercialReferralLeadActionsTest {
   }
 
   @isTest
+  static void populateNewToBankWithExceptionTest() {
+    registerMocks();
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id refId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    List<Lead> records = new List<Lead>{
+      new Lead(Id = refId, FinServ__RelatedAccount__c = accId)
+    };
+
+    Map<Id, Lead> oldMap = new Map<Id, Lead>{
+      refId => new Lead(
+        Id = refId,
+        FinServ__RelatedAccount__c = Lib_FakeIdGenerator.getMockId(
+          Lead.SObjectType
+        )
+      )
+    };
+    commercialReferralLeadRepositoryMock.mockException(
+      'getAccountRecords',
+      new QueryException('invalid parameters')
+    );
+    try {
+      Test.startTest();
+      CommercialReferralLeadActions.populateNewToBank(records, oldMap);
+      Test.stopTest();
+    } catch (Exception ex) {
+      Assert.isTrue(
+        ex instanceof QueryException,
+        'QueryException should have been thrown'
+      );
+    }
+  }
+
+  @isTest
   static void setNewToBankTest() {
     List<Lead> filteredRefList = new List<Lead>{
       new Lead(
@@ -647,5 +776,67 @@ public with sharing class CommercialReferralLeadActionsTest {
     Test.stopTest();
 
     Assert.areEqual('+61424234', sanitizeValue, 'should sanitize the value');
+  }
+
+  @isTest
+  static void sanitizeContactValueTestWithNoValue() {
+    Test.startTest();
+    String sanitizeValue = CommercialReferralLeadActions.sanitizeContactValue(
+      null
+    );
+    Test.stopTest();
+
+    Assert.isNull(sanitizeValue, 'It will not sanitize the value');
+  }
+
+  @istest
+  static void updateIknowReferralStatusPositiveTest() {
+    List<Lead> records = new List<Lead>{
+      new Lead(
+        Id = Lib_FakeIdGenerator.getMockId(Lead.SObjectType),
+        Referral_Status__c = 'New',
+        External_Id__c = '2-2YDFHGF',
+        MobilePhone = '01332424',
+        Home_Phone__c = '+610131313',
+        Work_Phone__c = '313218300',
+        OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+        FinServ__ReferredByUser__c = Lib_FakeIdGenerator.getMockId(
+          User.SObjectType
+        )
+      )
+    };
+    Test.startTest();
+    CommercialReferralLeadActions.updateIknowReferralStatus(records);
+    Test.stopTest();
+    Assert.areEqual(
+      'In Progress',
+      records[0].Referral_Status__c,
+      'Referral status is not changed to In Progress'
+    );
+  }
+  @istest
+  static void updateIknowReferralStatusNegativeTest() {
+    List<Lead> records = new List<Lead>{
+      new Lead(
+        Id = Lib_FakeIdGenerator.getMockId(Lead.SObjectType),
+        Referral_Status__c = 'New',
+        External_Id__c = null,
+        MobilePhone = '01332424',
+        Home_Phone__c = '+610131313',
+        Work_Phone__c = '313218300',
+        OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+        FinServ__ReferredByUser__c = Lib_FakeIdGenerator.getMockId(
+          User.SObjectType
+        )
+      )
+    };
+    Test.startTest();
+    CommercialReferralLeadActions.updateIknowReferralStatus(records);
+    Test.stopTest();
+    Assert.areEqual(
+      'New',
+      records[0].Referral_Status__c,
+      'Referral status is changed to In Progress'
+    );
   }
 }

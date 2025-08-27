@@ -188,7 +188,14 @@ public with sharing class CommercialReferralLeadActions {
       )
       .Id;
 
+    Set<Id> userIds = ListUtil.getIds(filteredReferralLeadsList, Lead.OwnerId);
+    List<User> users = REFERRAL_LEAD_REPO.getCCRMUsers(userIds);
+    Set<Id> ccrmUserIds = ListUtil.getIds(users, User.Id);
+
     for (Lead referralRec : filteredReferralLeadsList) {
+      if (!ccrmUserIds.contains(referralRec.OwnerId)) {
+        continue;
+      }
       InAppNotificationWrapper notificationWrapper = new InAppNotificationWrapper(
         referralNotificationId,
         referralRec.Id,

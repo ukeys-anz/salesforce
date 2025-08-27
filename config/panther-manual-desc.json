@@ -251,6 +251,7 @@
         "CreatedBy__c",
         "CreatedTime__c",
         "DeleteWhenMet__c",
+        "Device__c",
         "DeviceCorrelationId__c",
         "MinimumAAL__c",
         "Name__c",
@@ -601,7 +602,8 @@
         "LastModifiedById",
         "LastModifiedDate",
         "RecordTypeId"
-      ]
+      ],
+      "IA-2618802": ["Opportunity_Product__c"]
     },
     "Appointment_Commitment__c": {
       "IA-2453595": [
@@ -777,7 +779,6 @@
         "CLG_Number__c",
         "CPID__c",
         "Customer_Number__c",
-        "Business_Owner_Number__c",
         "Business_Owner__c",
         "Business_Contact__c"
       ],
@@ -4425,7 +4426,19 @@
         "Secondary_Documents__c",
         "Selfie_Verification_Outcome__c",
         "TrustMe_Selfie_Reference__c",
-        "PersonID__c"
+        "PersonID__c",
+        "International_Address__c",
+        "Trustme_Fraud_Address_Valid__c",
+        "Trustme_Fraud_Customer_Details__c",
+        "Trustme_Fraud_Customer_Photo_Modified__c",
+        "Trustme_Fraud_ID_Legible__c",
+        "Trustme_Fraud_ID_Not_Picture__c",
+        "Trustme_Fraud_MiddleNameCheck__c",
+        "Trustme_Fraud_Security_Features__c",
+        "Trustme_Fraud_Selfie_Comparison_Match__c",
+        "Certificate_Number__c",
+        "Registration_Number__c",
+        "Registration_State__c"
       ]
     },
     "ResidentialLoanApplication": {

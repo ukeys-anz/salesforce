@@ -1,0 +1,277 @@
+{
+  "fieldConfig": {
+    "title": "",
+    "schema": [
+      {
+        "fieldLabel": "Overall Acceptance Status",
+        "fieldColumn": "settlementTimeState",
+        "isEnum": true,
+        "fieldtype": "lightning-formatted-text",
+        "enumValues": {
+          "SETTLEMENT_TIME_STATE_UNSPECIFIED": "Time State Unspecified",
+          "SETTLEMENT_TIME_STATE_ACCEPTED": "Time State Accepted",
+          "SETTLEMENT_TIME_STATE_PENDING": "Time State Pending",
+          "SETTLEMENT_TIME_STATE_NOT_ACCEPTED": "Time State Not Accepted"
+        }
+      },
+      {
+        "fieldLabel": "Settlement Date Time",
+        "fieldColumn": "settlementTime",
+        "fieldtype": "lightning-formatted-text",
+        "isDate": true,
+        "isTimestamp": true,
+        "attributes": {
+          "year": "numeric",
+          "month": "2-digit",
+          "day": "2-digit",
+          "hour": "2-digit",
+          "minute": "2-digit"
+        }
+      },
+      {
+        "fieldLabel": "Jurisdiction",
+        "fieldColumn": "jurisdiction",
+        "isEnum": true,
+        "fieldtype": "lightning-formatted-text",
+        "enumValues": {
+          "JURISDICTION_UNSPECIFIED": "Unspecified",
+          "JURISDICTION_NSW": "NSW",
+          "JURISDICTION_QLD": "QLD",
+          "JURISDICTION_SA": "SA",
+          "JURISDICTION_ACT": "ACT",
+          "JURISDICTION_VIC": "VIC",
+          "JURISDICTION_WA": "WA"
+        }
+      },
+      {
+        "fieldLabel": "Lodgement Status",
+        "isEnum": true,
+        "fieldColumn": "state",
+        "fieldtype": "lightning-formatted-text",
+        "enumValues": {
+          "STATE_UNSPECIFIED": "Unspecified",
+          "STATE_ACCEPTED": "Accepted",
+          "STATE_LODGING": "Lodging",
+          "STATE_LODGED": "Lodged",
+          "STATE_NEW": "New",
+          "STATE_READY": "Ready",
+          "STATE_COMPLETED": "Completed"
+        }
+      },
+      {
+        "fieldLabel": "Lodgement Dealing Number",
+        "fieldColumn": "mortgageLodgementId",
+        "isText": true,
+        "fieldtype": "lightning-formatted-text"
+      }
+    ],
+    "layoutconfig": {
+      "layout": {
+        "horizontalAlign": "spread",
+        "verticalAlign": "start",
+        "pull-to-boundary": "medium"
+      },
+      "layoutitem": {
+        "flexibility": "auto",
+        "padding": "horizontal-small",
+        "size": "6"
+      }
+    }
+  },
+  "tableConfig": [
+    {
+      "title": "Mortgage Contract Acceptances",
+      "dataPath": "mortgageContractAcceptances",
+      "columns": [
+        {
+          "type": "date",
+          "label": "Accepted Date",
+          "fieldName": "createTime",
+          "hideDefaultActions": true,
+          "sortable": true,
+          "cellAttributes": {
+            "alignment": "left"
+          },
+          "typeAttributes": {
+            "year": "numeric",
+            "month": "2-digit",
+            "day": "2-digit",
+            "hour": "2-digit",
+            "minute": "2-digit"
+          }
+        },
+        {
+          "type": "text",
+          "label": "Accepted By",
+          "fieldName": "partyId",
+          "hideDefaultActions": true,
+          "cellAttributes": {
+            "alignment": "left"
+          },
+          "sortable": true
+        },
+        {
+          "type": "text",
+          "label": "Document Id",
+          "fieldName": "documentId",
+          "originalField": "documentReferences[0].documentId",
+          "hideDefaultActions": true,
+          "cellAttributes": {
+            "alignment": "left"
+          },
+          "sortable": true
+        },
+        {
+          "type": "text",
+          "label": "Memorandum of Common Provisions Version",
+          "fieldName": "mocpVersion",
+          "hideDefaultActions": true,
+          "cellAttributes": {
+            "alignment": "left"
+          },
+          "sortable": true
+        }
+      ]
+    },
+    {
+      "title": "Fees",
+      "dataPath": "fees",
+      "columns": [
+        {
+          "type": "text",
+          "label": "Source",
+          "fieldName": "feeSource",
+          "hideDefaultActions": true,
+          "cellAttributes": {
+            "alignment": "left"
+          },
+          "sortable": true,
+          "isEnum": true,
+          "enumValues": {
+            "SOURCE_UNSPECIFIED": "Unspecified",
+            "SOURCE_ANZ": "ANZ",
+            "SOURCE_ECONVEYANCER": "Econveyancer",
+            "SOURCE_GOVERNMENT": "Government"
+          }
+        },
+        {
+          "type": "text",
+          "label": "Fee Type",
+          "fieldName": "code",
+          "hideDefaultActions": true,
+          "cellAttributes": {
+            "alignment": "left"
+          },
+          "sortable": true,
+          "isEnum": true,
+          "enumValues": {
+            "CODE_UNSPECIFIED": "Unspecified",
+            "CODE_REGISTRATION_OF_MORTGAGE": "Registration of Mortgage",
+            "CODE_REGISTRATION_OF_DISCHARGE_MORTGAGE": "Registration of Discharge Mortgage",
+            "CODE_DISCHARGE_OF_LOAN": "Discharge of Loan",
+            "CODE_REGISTRATION_OF_CAVEAT": "Registration of Caveat",
+            "CODE_REGISTRATION_OF_CAVEAT_WITHDRAWAL": "Registration of Caveat withdrawal",
+            "CODE_REGISTRATION_OF_NAME_CHANGE": "Registration of Name Change",
+            "CODE_PRODUCTION_FEE": "Production Fee",
+            "CODE_POST_SETTLEMENT_DISCHARGE_MORTGAGE": "Post Settlement Discharge Mortgage"
+          }
+        },
+        {
+          "type": "currency",
+          "label": "Fee Amount",
+          "fieldName": "feeAmounts",
+          "originalField": "feeAmount",
+          "hideDefaultActions": true,
+          "cellAttributes": {
+            "alignment": "left"
+          },
+          "typeAttributes": {
+            "currencyCode": "AUD",
+            "minimumFractionDigits": 2,
+            "maximumFractionDigits": 2
+          },
+          "sortable": true
+        }
+      ]
+    },
+    {
+      "title": "Settlement Time Acceptance",
+      "dataPath": "settlementTimeAcceptance",
+      "columns": [
+        {
+          "type": "text",
+          "label": "Role",
+          "fieldName": "role",
+          "hideDefaultActions": true,
+          "cellAttributes": {
+            "alignment": "left"
+          },
+          "sortable": true,
+          "isEnum": true,
+          "enumValues": {
+            "ECONVEYANCING_WORKSPACE_ROLE_MORTGAGEE_ON_TITLE": "Mortgagee on Title Status",
+            "ECONVEYANCING_WORKSPACE_ROLE_INCOMING_MORTGAGEE": "Incoming Mortgagee Status"
+          }
+        },
+        {
+          "type": "text",
+          "label": "State",
+          "fieldName": "state",
+          "hideDefaultActions": true,
+          "cellAttributes": {
+            "alignment": "left"
+          },
+          "sortable": true,
+          "isEnum": true,
+          "enumValues": {
+            "STATE_UNSPECIFIED": "Unspecified",
+            "STATE_PENDING": "Pending",
+            "STATE_ACCEPTED": "Accepted"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Title Activity",
+      "dataPath": "titleActivity",
+      "columns": [
+        {
+          "type": "text",
+          "label": "Detail",
+          "fieldName": "detail",
+          "hideDefaultActions": true,
+          "cellAttributes": {
+            "alignment": "left"
+          },
+          "sortable": true,
+          "wrapText": true
+        },
+        {
+          "type": "date",
+          "label": "Activity Date",
+          "fieldName": "apxrsvdDateTime",
+          "hideDefaultActions": true,
+          "sortable": true,
+          "cellAttributes": {
+            "alignment": "left"
+          },
+          "typeAttributes": {
+            "year": "numeric",
+            "month": "2-digit",
+            "day": "2-digit",
+            "hour": "2-digit",
+            "minute": "2-digit"
+          }
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "description": "Configuration for mortgage contracts display with fee details and title activity",
+    "author": "@fangl6",
+    "updated": "2025-07-31",
+    "controller": "MortgageContractsController",
+    "componentType": "genericCard"
+  }
+}

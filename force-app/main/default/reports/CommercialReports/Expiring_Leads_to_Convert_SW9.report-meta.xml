@@ -5,22 +5,22 @@
         <field>FIRST_NAME</field>
     </columns>
     <columns>
-        <field>MIDDLE_NAME</field>
-    </columns>
-    <columns>
         <field>LAST_NAME</field>
     </columns>
     <columns>
         <field>COMPANY</field>
     </columns>
     <columns>
-        <field>Lead.Priority__c</field>
+        <field>Lead.CLG_Name__c</field>
+    </columns>
+    <columns>
+        <field>Lead.Campaign_Code__c</field>
     </columns>
     <columns>
         <field>LEAD_SOURCE</field>
     </columns>
     <columns>
-        <field>Lead.Lead_Outcome__c</field>
+        <field>OWNER</field>
     </columns>
     <columns>
         <field>Lead.Expiry_Date__c</field>

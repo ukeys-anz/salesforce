@@ -29,9 +29,8 @@ public with sharing class BOHServiceMock extends Service {
   private static final string UMI_LIST_ASSEEEMENTS_RESPONSE = getStaticResource(
     'mock_UMIListAssessments'
   );
-
-  private static final string VERIFY_INSURANCE = getStaticResource(
-    'mock_verifyInsurance'
+  private static final string SETTLEMENT_RESPONSE = getStaticResource(
+    'mock_settlement'
   );
 
   private static final string CANCEL_LOAN_APP = getStaticResource(
@@ -222,21 +221,6 @@ public with sharing class BOHServiceMock extends Service {
   ) {
     if (!preset) {
       response.body = BOHServiceMock.CREDIT_ASSESSMENT_DELETE_RESPONSE;
-    }
-    return response;
-  }
-  /**
-   * @param requestBody body of request to send
-   * @param ocvId ocv id
-   * @return `HttpCalloutResponse` the api response
-   * @description delete income from sop
-   */
-  public override HttpCalloutResponse verifyInsurance(
-    String requestBody,
-    String ocvId
-  ) {
-    if (!preset) {
-      response.body = BOHServiceMock.VERIFY_INSURANCE;
     }
     return response;
   }
