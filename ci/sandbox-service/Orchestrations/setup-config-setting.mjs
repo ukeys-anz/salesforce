@@ -35,7 +35,7 @@ const runSetupConfigAndSettings = (orgAlias) => {
   updateUserFedId(orgAlias);
   runLoggingRecordsPurgeScheduler(orgAlias);
   deployAllOmnistudioComponents(orgAlias);
-  // assignDeployUserViewAllFields(orgAlias); //Only Required for Test Sandbox (BigQuery Integrated Sandbox)
+  assignDeployUserViewAllFields(orgAlias); //Only Required for Test Sandbox (BigQuery Integrated Sandbox)
 };
 
 /// Run
