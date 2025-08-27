@@ -26,6 +26,8 @@ public with sharing class CommercialReferralLeadActions {
     Lead.MobilePhone
   };
 
+  private static final String CUSTOM_PERMISSION_DEVELOPERNAME = 'Manage_Referrals_in_CRM';
+
   private static final DmlRepository DML_REPO = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
@@ -218,8 +220,6 @@ public with sharing class CommercialReferralLeadActions {
   ) {
     try {
       List<Lead> filteredReferralLeadList = ListUtil.filter(leads, oldMap)
-        .notEquals(Lead.channel__c, CHANNEL_COMMERCIAL)
-        .notEquals(Lead.channel__c, CHANNEL_PRIVATE_BANK)
         .changed(Lead.OwnerId)
         .notEqualsToField(Lead.OwnerId, Lead.FinServ__ReferredByUser__c)
         .equals(Lead.RecordTypeId, RTLead.referralLead)
@@ -229,8 +229,24 @@ public with sharing class CommercialReferralLeadActions {
         )
         .toList();
 
+      Set<Id> leadOwnerIds = ListUtil.getIds(
+        filteredReferralLeadList,
+        Lead.OwnerId
+      );
+
+      Set<Id> listOfOwnerIdsHavingCustomPermission = getListOfOwnerIdsHavingCustomPermission(
+        leadOwnerIds,
+        CUSTOM_PERMISSION_DEVELOPERNAME
+      );
+
+      List<Lead> filteredReferralLeadToPublishEvent = ListUtil.filter(
+          filteredReferralLeadList
+        )
+        .notEquals(Lead.OwnerId, listOfOwnerIdsHavingCustomPermission)
+        .toList();
+
       List<CloudEventModel> cloudEvents = ReferralCloudEventModelController.createCloudEvents(
-        filteredReferralLeadList
+        filteredReferralLeadToPublishEvent
       );
       CloudEventController.publishCloudEvents(cloudEvents);
     } catch (Exception e) {
@@ -241,6 +257,47 @@ public with sharing class CommercialReferralLeadActions {
         .save();
       throw e;
     }
+  }
+
+  /**
+   * @description This is used to get set of users having custom permission
+   * @name getListOfOwnerIdsHavingCustomPermission
+   * @param userIdSet Set of owner id of leads
+   * @param customPermission String custom permission name
+   * @return Set<Id> List of user Ids having custom permission assigned
+   */
+  public static Set<Id> getListOfOwnerIdsHavingCustomPermission(
+    Set<Id> userIdSet,
+    String customPermission
+  ) {
+    List<SetupEntityAccess> listSetupEntityAccess = REFERRAL_LEAD_REPO.getPermissionSetWithCustomPermission(
+      customPermission
+    );
+
+    Set<Id> permissionSetWithCustomPermission = ListUtil.getIds(
+      listSetupEntityAccess,
+      SetupEntityAccess.ParentId
+    );
+    List<PermissionSetGroupComponent> listPermissionSetGroupComponent = REFERRAL_LEAD_REPO.getPermissionSetGroupFromPS(
+      permissionSetWithCustomPermission
+    );
+
+    Set<Id> permissionSetGroupFromPS = ListUtil.getIds(
+      listPermissionSetGroupComponent,
+      PermissionSetGroupComponent.PermissionSetGroupId
+    );
+    List<PermissionSetAssignment> listPermissionSetAssignment = REFERRAL_LEAD_REPO.listOfUsersHavingCustomPermission(
+      userIdSet,
+      permissionSetWithCustomPermission,
+      permissionSetGroupFromPS
+    );
+
+    Set<Id> setOfOwnerIdsHavingCustomPermission = ListUtil.getIds(
+      listPermissionSetAssignment,
+      PermissionSetAssignment.AssigneeId
+    );
+
+    return setOfOwnerIdsHavingCustomPermission;
   }
 
   /**
