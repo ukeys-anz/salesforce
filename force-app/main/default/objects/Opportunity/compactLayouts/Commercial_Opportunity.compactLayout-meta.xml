@@ -4,6 +4,8 @@
     <fields>Name</fields>
     <fields>AccountId</fields>
     <fields>Amount</fields>
+    <fields>Approved_Amount__c</fields>
+    <fields>Estimated_Revenue__c</fields>
     <fields>CloseDate</fields>
     <label>Commercial Opportunity</label>
 </CompactLayout>

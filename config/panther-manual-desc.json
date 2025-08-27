@@ -573,6 +573,7 @@
       ]
     },
     "ApplicationFormProduct": {
+      "IA-2415983": ["Revenue__c"],
       "IA-2434298": [
         "Name",
         "ProductId",
@@ -3666,7 +3667,8 @@
         "AIP_Requested__c",
         "Approved_Amount__c",
         "New_Lending_Amount__c",
-        "Settlement_Booked__c"
+        "Settlement_Booked__c",
+        "Estimated_Revenue__c"
       ],
       "IA-2423227": ["StageName"],
       "IA-2460507": [

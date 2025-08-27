@@ -19,6 +19,16 @@
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
+                        <valueListItems>
+                            <value>ApplicationFormProduct.Modify_Product</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.ApplicationForm.RecordType.DeveloperName}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>AMBIT</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -313,6 +323,16 @@
                         <rightValue>Opportunity Lost</rightValue>
                     </criteria>
                 </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Revenue__c</fieldItem>
+                <identifier>RecordRevenue_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-2a17c145-baf4-40de-865c-6b0a4c3882bc</name>

@@ -65,5 +65,13 @@ public with sharing class CommercialAppFormProductTriggerHandler extends Lib_Tri
       records,
       (Map<Id, ApplicationFormProduct>) oldMap
     );
+    CommercialAppFormProductActions.updateApprovedAmountOnOpp(
+      records,
+      (Map<Id, ApplicationFormProduct>) oldMap
+    );
+    CommercialAppFormProductActions.calculateEstimatedRevenueOnOpp(
+      records,
+      (Map<Id, ApplicationFormProduct>) oldMap
+    );
   }
 }

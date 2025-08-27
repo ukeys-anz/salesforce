@@ -305,6 +305,7 @@ public with sharing class CommercialAppFormProductActions {
    * @param filteredAppForms filtered app forms
    * @return List<ApplicationForm>
    */
+  @testVisible
   private static List<ApplicationForm> getAppFormsForOppOwner(
     List<ApplicationForm> filteredAppForms
   ) {
@@ -378,6 +379,7 @@ public with sharing class CommercialAppFormProductActions {
    * @param filteredAppForms filtered app forms
    * @return List<ApplicationFormShare>
    */
+  @testVisible
   private static List<ApplicationFormShare> createAppFormSharesForOppOwner(
     List<ApplicationForm> filteredAppForms
   ) {
@@ -391,5 +393,180 @@ public with sharing class CommercialAppFormProductActions {
       appFormsShareList.add(appFormShare);
     }
     return appFormsShareList;
+  }
+
+  /**
+   * @description This is used to update Application Amount on Opp
+   * @name updateTotalAppAmountOnOpp
+   * @param records Application Form Products records
+   * @param oldMap Map of Id and Application Form Products records
+   */
+  public static void updateApprovedAmountOnOpp(
+    List<ApplicationFormProduct> records,
+    Map<Id, ApplicationFormProduct> oldMap
+  ) {
+    try {
+      List<ApplicationFormProduct> filteredAfpList = ListUtil.filter(
+          records,
+          oldMap
+        )
+        .changedTo(ApplicationFormProduct.Stage, 'Opportunity Won')
+        .toList();
+
+      if (filteredAfpList.isEmpty()) {
+        return;
+      }
+
+      //Get the Application Form Id from the changed AFPs
+      Set<Id> appFormIds = ListUtil.getIds(
+        filteredAfpList,
+        ApplicationFormProduct.ApplicationFormId
+      );
+
+      //Fetch the Application form records linked to those AFPs
+      List<ApplicationForm> afList = AFP_REPOSITORY.getApplicationForms(
+        appFormIds
+      );
+
+      //Fetch the Opportunity Id linked to AF
+      Set<Id> oppIdsSet = ListUtil.getIds(
+        afList,
+        ApplicationForm.OpportunityId
+      );
+
+      //Fetch the AFPs linked to the Opportunity
+      List<ApplicationFormProduct> afpAssociatedToOppList = AFP_REPOSITORY.getAfpRelatedToOpp(
+        oppIdsSet
+      );
+
+      //Filtered out AFPs having stage as 'Opportunity Won'
+      List<ApplicationFormProduct> wonAfpList = ListUtil.filter(
+          afpAssociatedToOppList
+        )
+        .equals(ApplicationFormProduct.Stage, 'Opportunity Won')
+        .toList();
+
+      //Form map of Opportunity Line Item to Application Form Product
+      Map<Id, List<ApplicationFormProduct>> oliToAfpMap = (Map<Id, List<ApplicationFormProduct>>) ListUtil.groupBy(
+        wonAfpList,
+        ApplicationFormProduct.Opportunity_Product__c
+      );
+
+      //Get the Opportunity Line items Ids from AFPs
+      Set<Id> oliIdsSet = ListUtil.getIds(
+        wonAfpList,
+        ApplicationFormProduct.Opportunity_Product__c
+      );
+
+      //Fetch the Opportunity Line Items
+      List<OpportunityLineItem> oliList = AFP_REPOSITORY.getOppLineItems(
+        oliIdsSet
+      );
+
+      //Create map of line item to opp Id
+      Map<Id, Id> itemIdToOppIdMap = CommercialAppFormProductActionsHelper.createLineItemIdToOppIdMap(
+        oliList
+      );
+
+      Map<Id, Decimal> oppToAppAmountMap = CommercialAppFormProductActionsHelper.formOppToAmountMap(
+        itemIdToOppIdMap,
+        oliToAfpMap,
+        ApplicationFormProduct.Amount__c
+      );
+
+      List<Opportunity> oppToUpdateList = CommercialAppFormProductActionsHelper.updateAmountOnOpportunity(
+        oppToAppAmountMap,
+        Opportunity.Approved_Amount__c
+      );
+
+      DML.doUpdate(oppToUpdateList);
+    } catch (Exception e) {
+      Logger.error('Error while updating the approved amount on Opportunity', e)
+        .save();
+    }
+  }
+
+  /**
+   * @description This is used to update estimated revenue on Opp
+   * @name calculateEstimatedRevenueOnOpp
+   * @param records Application Form Products records
+   * @param oldMap Map of Id and Application Form Products records
+   */
+  public static void calculateEstimatedRevenueOnOpp(
+    List<ApplicationFormProduct> records,
+    Map<Id, ApplicationFormProduct> oldMap
+  ) {
+    try {
+      List<ApplicationFormProduct> filteredAfpList = ListUtil.filter(
+          records,
+          oldMap
+        )
+        .changed(ApplicationFormProduct.Revenue__c)
+        .toList();
+
+      if (filteredAfpList.isEmpty()) {
+        return;
+      }
+
+      //Get the Application Form Id from the changed AFPs
+      Set<Id> appFormIds = ListUtil.getIds(
+        filteredAfpList,
+        ApplicationFormProduct.ApplicationFormId
+      );
+
+      //Fetch the Application form records linked to those AFPs
+      List<ApplicationForm> afList = AFP_REPOSITORY.getApplicationForms(
+        appFormIds
+      );
+
+      //Fetch the Opportunity Id linked to AF
+      Set<Id> oppIdsSet = ListUtil.getIds(
+        afList,
+        ApplicationForm.OpportunityId
+      );
+
+      //Fetch the AFPs linked to the Opportunity
+      List<ApplicationFormProduct> afpAssociatedToOppList = AFP_REPOSITORY.getAfpRelatedToOpp(
+        oppIdsSet
+      );
+
+      //Form map of Opportunity Line Item to Application Form Product
+      Map<Id, List<ApplicationFormProduct>> oliToAfpMap = (Map<Id, List<ApplicationFormProduct>>) ListUtil.groupBy(
+        afpAssociatedToOppList,
+        ApplicationFormProduct.Opportunity_Product__c
+      );
+
+      //Get the Opportunity Line items Ids from AFPs
+      Set<Id> oliIdsSet = ListUtil.getIds(
+        afpAssociatedToOppList,
+        ApplicationFormProduct.Opportunity_Product__c
+      );
+
+      //Fetch the Opportunity Line Items
+      List<OpportunityLineItem> oliList = AFP_REPOSITORY.getOppLineItems(
+        oliIdsSet
+      );
+
+      //Create map of line item to opp Id
+      Map<Id, Id> itemIdToOppIdMap = CommercialAppFormProductActionsHelper.createLineItemIdToOppIdMap(
+        oliList
+      );
+
+      Map<Id, Decimal> oppToEstimatedRevenueMap = CommercialAppFormProductActionsHelper.formOppToAmountMap(
+        itemIdToOppIdMap,
+        oliToAfpMap,
+        ApplicationFormProduct.Revenue__c
+      );
+
+      List<Opportunity> oppToUpdateList = CommercialAppFormProductActionsHelper.updateAmountOnOpportunity(
+        oppToEstimatedRevenueMap,
+        Opportunity.Estimated_Revenue__c
+      );
+
+      DML.doUpdate(oppToUpdateList);
+    } catch (Exception e) {
+      Logger.error('Error while updating estimated revenue on Opportunity', e)
+        .save();
+    }
   }
 }
