@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Early_Resolution_Spare_Task</fullName>
+    <fullName>IDR_Flex_Commission_Task</fullName>
     <filterScope>Queue</filterScope>
-    <label>IDR Early Resolution Spare</label>
-    <queue>Early_Resolution_Spare</queue>
+    <label>IDR Flex Commission</label>
+    <queue>IDR_Flex_Commission</queue>
     <sharedTo>
         <roleAndSubordinates>Banker_Line_Manager</roleAndSubordinates>
         <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
