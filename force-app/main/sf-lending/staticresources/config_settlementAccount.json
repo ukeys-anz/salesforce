@@ -1,0 +1,88 @@
+{
+  "dataPath": "settlementAccounts",
+  "titleField": "",
+  "cardConfig": {
+    "fieldConfig": {
+      "title": "",
+      "schema": [
+        {
+          "fieldLabel": "Account Name",
+          "fieldColumn": "nominatedSettlementAccount.accountName",
+          "fieldtype": "lightning-formatted-text",
+          "isStacked": true
+        },
+        {
+          "fieldLabel": "Account Number",
+          "fieldColumn": "accountId.apxrsvdNumber",
+          "fieldtype": "lightning-formatted-text",
+          "isStacked": true
+        },
+        {
+          "fieldLabel": "Nominated Account State",
+          "fieldColumn": "state",
+          "fieldtype": "lightning-formatted-text",
+          "isEnum": true,
+          "enumValues": {
+            "STATE_UNSPECIFIED": "Unspecified",
+            "STATE_PENDING_CONFIRMATION": "Pending Confirmation",
+            "STATE_COMPLETED": "Completed"
+          },
+          "isStacked": true
+        },
+        {
+          "fieldtype": "lightning-formatted-text",
+          "fieldLabel": "Nominated Date",
+          "fieldColumn": "createTime",
+          "isDate": true,
+          "isStacked": true
+        },
+        {
+          "fieldLabel": "Nominated By",
+          "fieldColumn": "createBy.id",
+          "isRecordLink": true,
+          "isStacked": true,
+          "attributes": {
+            "apexController": "GenericQueryController",
+            "params": {
+              "controller": "AccountQueryController",
+              "method": "getAccountByOcvId",
+              "args": {
+                "ocvId": "{createBy.id}"
+              }
+            },
+            "objectName": "Account",
+            "recordName": "Name",
+            "fields": ["Name", "OCV_ID__c"],
+            "isStacked": true
+          }
+        },
+        {
+          "fieldLabel": "Nominated BSB",
+          "fieldColumn": "accountId.bsbNumber",
+          "fieldtype": "lightning-formatted-text",
+          "isStacked": true
+        }
+      ],
+      "layoutconfig": {
+        "layout": {
+          "horizontalAlign": "spread",
+          "verticalAlign": "end",
+          "pull-to-boundary": "medium"
+        },
+        "layoutitem": {
+          "flexibility": "auto",
+          "padding": "horizontal-small",
+          "size": "4"
+        }
+      }
+    }
+  },
+  "metadata": {
+    "version": "1.0",
+    "description": "Configuration for settlement account details display",
+    "author": "@fangl6",
+    "updated": "2025-06-27",
+    "controller": "SettlementController",
+    "componentType": "genericCardArray"
+  }
+}

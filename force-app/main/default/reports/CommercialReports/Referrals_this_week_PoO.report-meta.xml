@@ -11,13 +11,25 @@
         <field>LEAD_SOURCE</field>
     </columns>
     <columns>
+        <field>Lead.Customer_ID__c</field>
+    </columns>
+    <columns>
+        <field>Lead.CLG_Name__c</field>
+    </columns>
+    <columns>
+        <field>Lead.Channel__c</field>
+    </columns>
+    <columns>
+        <field>Lead.Referral_Customer_Needs__c</field>
+    </columns>
+    <columns>
+        <field>Lead.FinServ__ReferredByUser__c</field>
+    </columns>
+    <columns>
         <field>OWNER</field>
     </columns>
     <columns>
         <field>Lead.Referral_Status__c</field>
-    </columns>
-    <columns>
-        <field>Lead.FinServ__ReferredByUser__c</field>
     </columns>
     <description>Referrals sent this week</description>
     <filter>
@@ -40,7 +52,7 @@
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>LEAD_ID</field>
+        <field>Lead.Referral_Category__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <params>

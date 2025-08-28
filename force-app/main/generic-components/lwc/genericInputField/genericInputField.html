@@ -1,0 +1,32 @@
+<template>
+  <div class="fieldRow">
+    <lightning-layout>
+      <lightning-layout-item flexibility="auto" size="6">
+        <!-- Checks if there is label-->
+        <template lwc:if={_fieldLabel}>
+          <label class="fieldLabel">{_fieldLabel}</label>
+          <!-- Checks if there is label-->
+          <template lwc:if={_helpText}>
+            <lightning-helptext
+              class="helptextCss"
+              content={_helpText}
+            ></lightning-helptext>
+          </template>
+        </template>
+      </lightning-layout-item>
+
+      <lightning-layout-item flexibility="auto" size="6">
+        <template lwc:if={isText}>
+          <lightning-input
+            type="text"
+            class="fieldContent"
+            lwc:spread={_attributes}
+            value={_dataValue}
+            onchange={handleOnChange}
+          >
+          </lightning-input>
+        </template>
+      </lightning-layout-item>
+    </lightning-layout>
+  </div>
+</template>

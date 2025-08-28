@@ -17,11 +17,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>A_Z_Review__c.Business_Owner_Number__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>A_Z_Review__c.Business_Contact__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -447,12 +442,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ApplicationFormProduct.Opportunity_Product__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ApplicationFormProduct.ProductId</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>ApplicationFormProduct.Reference_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ApplicationFormProduct.Revenue__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1523,6 +1528,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.EntitlementId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.EventTimestamp__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -6103,6 +6113,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.Eligible_for_FHOG__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Estimated_Revenue__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

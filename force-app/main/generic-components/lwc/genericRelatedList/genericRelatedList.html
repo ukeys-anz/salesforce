@@ -1,0 +1,54 @@
+<template>
+  <lightning-card>
+    <h3 slot="title">
+      <template lwc:if={titleIcon}>
+        <lightning-icon
+          icon-name={titleIcon}
+          size="small"
+          class="slds-m-right_small titleIcon"
+        ></lightning-icon>
+      </template>
+      {completeTitle}
+    </h3>
+    <!-- SPINNER -->
+    <template lwc:if={_isLoading}>
+      <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-1 spinnerHolder">
+          <lightning-spinner
+            alternative-text="Loading"
+            size="medium"
+            variant="brand"
+          ></lightning-spinner>
+        </div>
+      </div>
+    </template>
+    <template lwc:elseif={_hasError}>
+      <c-error message={_errorMessage}></c-error>
+    </template>
+    <template lwc:elseif={_schemaConfig.sections}>
+      <template for:each={_schemaConfig.sections} for:item="section">
+        <c-generic-field-container
+          key={section.title}
+          object-config={section}
+          value={_parsedData}
+          record-id={recordId}
+        ></c-generic-field-container>
+      </template>
+    </template>
+    <p slot="footer">
+      <template lwc:if={_showViewAll}>
+        <div class="fieldRow">
+          <lightning-layout>
+            <lightning-layout-item flexibility="auto" size="12">
+              <lightning-button
+                label="View All"
+                onclick={handleViewAll}
+                variant="base"
+              ></lightning-button>
+            </lightning-layout-item>
+          </lightning-layout>
+        </div>
+      </template>
+    </p>
+  </lightning-card>
+</template>

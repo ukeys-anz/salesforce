@@ -7,7 +7,7 @@
  */
 
 @SuppressWarnings(
-  'PMD.ExcessivePublicCount,PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity'
+  'PMD.ExcessivePublicCount,PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity, PMD.ExcessiveParameterList'
 )
 public with sharing virtual class Service {
   protected HttpCalloutResponse response = new HttpCalloutResponse();
@@ -685,19 +685,6 @@ public with sharing virtual class Service {
     String assessmentId,
     String ocvId,
     String referralOutcomeCode
-  ) {
-    return null;
-  }
-
-  /**
-   * @param requestBody body of request to send
-   * @param ocvId ocv id
-   * @return `HttpCalloutResponse` the api response
-   * @description delete income from sop
-   */
-  public virtual HttpCalloutResponse verifyInsurance(
-    String requestBody,
-    String ocvId
   ) {
     return null;
   }

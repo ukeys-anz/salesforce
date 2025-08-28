@@ -76,6 +76,7 @@ public with sharing class LaunchAppOnOppHelper {
       ApplicationFormProduct appFormProduct = new ApplicationFormProduct(
         ApplicationFormId = appFormId,
         ProductId = item.Product2Id,
+        Opportunity_Product__c = item.Id,
         Stage = CCRMConstants.OPP_IDENTIFIED,
         Amount__c = item.UnitPrice,
         Source_System_Id__c = recordTypeId == RTApplicationForm.ambitApplication

@@ -1,0 +1,146 @@
+{
+  "dataPath": "loanFacilityConfigs",
+  "cardConfig": {
+    "fieldConfig": {
+      "title": "",
+      "schema": [
+        {
+          "fieldLabel": "Product Marketing Code",
+          "fieldColumn": "productMarketingCode",
+          "fieldtype": "lightning-formatted-text",
+          "isStacked": true
+        },
+        {
+          "fieldLabel": "Loan Term (Months)",
+          "fieldColumn": "loanTermMonths",
+          "fieldtype": "lightning-formatted-number",
+          "isStacked": true
+        },
+        {
+          "fieldLabel": "Loan Amount Requested",
+          "fieldColumn": "loanAmountRequested",
+          "fieldtype": "lightning-formatted-number",
+          "attributes": {
+            "format-style": "currency",
+            "currency-code": "AUD"
+          },
+          "isStacked": true
+        },
+        {
+          "fieldLabel": "Initial Margin",
+          "fieldColumn": "initialMargin",
+          "fieldtype": "lightning-formatted-number",
+          "isStacked": true
+        },
+        {
+          "fieldLabel": "Initial Interest Rate",
+          "fieldColumn": "initialInterestRate",
+          "fieldtype": "lightning-formatted-number",
+          "isRate": true,
+          "isStacked": true
+        },
+        {
+          "fieldLabel": "Property Usage Type",
+          "fieldColumn": "propertyUsageType",
+          "fieldtype": "lightning-formatted-text",
+          "isEnum": true,
+          "enumValues": {
+            "PROPERTY_USAGE_TYPE_UNSPECIFIED": "Unspecified",
+            "PROPERTY_USAGE_TYPE_OWNER_OCCUPIED": "Owner Occupied",
+            "PROPERTY_USAGE_TYPE_INVESTOR": "Investor"
+          },
+          "isStacked": true
+        },
+        {
+          "fieldLabel": "Offset",
+          "fieldColumn": "offset",
+          "fieldtype": "checkbox",
+          "isCheckBox": true,
+          "isStacked": true
+        },
+        {
+          "fieldLabel": "Repayment - Calculated Date",
+          "fieldColumn": "repayments.calculatedDateTime",
+          "fieldtype": "lightning-formatted-date-time",
+          "isDate": true,
+          "attributes": {
+            "year": "numeric",
+            "month": "numeric",
+            "day": "2-digit",
+            "hour": "2-digit",
+            "minute": "2-digit"
+          },
+          "isStacked": true
+        },
+        {
+          "fieldLabel": "Repayment - Initial Amount",
+          "fieldColumn": "repayments.initialRepaymentAmount",
+          "fieldtype": "lightning-formatted-number",
+          "attributes": {
+            "format-style": "currency",
+            "currency-code": "AUD",
+            "currency-display-as": "symbol"
+          },
+          "isStacked": true
+        },
+        {
+          "fieldLabel": "Repayment - Regular Payments Count",
+          "fieldColumn": "repayments.noRegularRepayments",
+          "fieldtype": "lightning-formatted-number",
+          "isStacked": true
+        },
+        {
+          "fieldLabel": "Repayment - Final Payment",
+          "fieldColumn": "repayments.finalPayment",
+          "fieldtype": "lightning-formatted-number",
+          "attributes": {
+            "format-style": "currency",
+            "currency-code": "AUD"
+          },
+          "isStacked": true
+        },
+        {
+          "fieldLabel": "Repayment - Total Repayments",
+          "fieldColumn": "repayments.totalRepayments",
+          "fieldtype": "lightning-formatted-number",
+          "attributes": {
+            "format-style": "currency",
+            "currency-code": "AUD"
+          },
+          "isStacked": true
+        },
+        {
+          "fieldLabel": "Repayment - Total Interest Paid",
+          "fieldColumn": "repayments.totalInterestPaid",
+          "fieldtype": "lightning-formatted-number",
+          "attributes": {
+            "format-style": "currency",
+            "currency-code": "AUD"
+          },
+          "isStacked": true
+        }
+      ],
+      "layoutconfig": {
+        "layout": {
+          "horizontalAlign": "spread",
+          "verticalAlign": "end",
+          "pull-to-boundary": "medium"
+        },
+        "layoutitem": {
+          "flexibility": "auto",
+          "padding": "horizontal-small",
+          "size": "4"
+        }
+      }
+    }
+  },
+  "metadata": {
+    "version": "1.0",
+    "description": "Configuration for loan facility display with financial details",
+    "author": "@fangl6",
+    "updated": "2025-06-27",
+    "controller": "LoanFacilityController",
+    "componentType": "genericCardArray",
+    "apiEndpoint": "/loan-facilities"
+  }
+}
