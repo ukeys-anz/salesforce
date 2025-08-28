@@ -213,7 +213,6 @@ public with sharing class RetailBrokerContactActions {
   /**
    * @description get the action type based on contact's OCV Event Version
    * @param contactNew new version of Contact record
-   * @param contactOld old version of Contact record
    * @return String action type, if it's an add or an update
    */
   @TestVisible
