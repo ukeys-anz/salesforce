@@ -141,7 +141,7 @@ public with sharing class RetailBrokerContactActions {
     Map<Id, String> brokerIdToEventTypeMap = new Map<Id, String>();
     for (Contact contactNew : contactsNew) {
       Contact contactOld = contactsOldMap.get(contactNew.Id);
-      String action = getAction(contactNew, contactOld);
+      String action = getAction(contactNew);
       if (
         bypassBrokerEventPermission &&
         isBrokerSetOrOffGroupChanged(contactNew, contactOld)
@@ -217,11 +217,13 @@ public with sharing class RetailBrokerContactActions {
    * @return String action type, if it's an add or an update
    */
   @TestVisible
-  private static String getAction(Contact contactNew, Contact contactOld) {
+  private static String getAction(Contact contactNew) {
     if (
       contactNew.OCV_Event_Version__c > 0 &&
       contactNew.Sync_Status__c != null &&
-      contactNew.Sync_Status__c.contains(SYNC_STATUS_BROKER_ORG)
+      contactNew.Sync_Status__c.contains(SYNC_STATUS_BROKER_ORG) &&
+      (contactNew.Survivor_Party_Id__c == null ||
+      contactNew.Survivor_Party_Id__c == contactNew.External_Id__c)
     ) {
       return RetailBrokerEventActions.BROKER_EVENT_ADD;
     }
@@ -403,7 +405,7 @@ public with sharing class RetailBrokerContactActions {
       survivorcontactsWithExternalIds
     );
 
-    DML_REPOSITORY.doUpdate(contactsToUpdate, new DMLConfig());
+    DML_REPOSITORY.doUpdate(contactsToUpdate);
   }
 
   /**
@@ -420,7 +422,8 @@ public with sharing class RetailBrokerContactActions {
     for (Contact victimCon : filteredRecords) {
       String survivorId = victimCon.Survivor_Party_Id__c;
       Contact survivorCon = new Contact(
-        Id = contactsWithExternalIds.get(survivorId).Id
+        Id = contactsWithExternalIds.get(survivorId).Id,
+        Sync_Status__c = contactsWithExternalIds.get(survivorId).Sync_Status__c
       );
       survivorCon.Survivor_Party_Id__c = victimCon.Survivor_Party_Id__c;
       survivorCon.Victim_Party_Id__c = victimCon.Victim_Party_Id__c;
@@ -496,7 +499,7 @@ public with sharing class RetailBrokerContactActions {
           contactIdByBrokerSet,
           contactIdByOfficeGroup
         ),
-        2
+        1
       );
     } catch (Exception ex) {
       Logger.error(' Contact Merge Failed due to : ', ex).save();
@@ -565,14 +568,30 @@ public with sharing class RetailBrokerContactActions {
       updatedContacts,
       Contact.RetailTPMISAO__c
     );
+    List<ResidentialLoanApplication> loanAppList = CONTACT_REPOSITORY.getRelatedOrphanResidentialApplications(
+      setOfBrokerTPMI
+    );
+
+    List<FinServ__FinancialAccount__c> finServAccList = CONTACT_REPOSITORY.getRelatedOrphanFinancialAccounts(
+      setOfBrokerTPMI
+    );
+
+    if (
+      loanAppList.isEmpty() &&
+      finServAccList.isEmpty() &&
+      ccrContactIds.isEmpty()
+    ) {
+      return;
+    }
 
     System.enqueueJob(
       new RetailContactMergeActionsQueueable(
         updatedContacts,
-        setOfBrokerTPMI,
+        loanAppList,
+        finServAccList,
         ccrContactIds
       ),
-      2
+      1
     );
   }
 

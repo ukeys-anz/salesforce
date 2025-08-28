@@ -7,7 +7,8 @@
  **/
 public class RetailContactMergeActionsQueueable implements Queueable {
   private List<Contact> contactList;
-  private Set<String> setOfBrokerTPMI;
+  private List<ResidentialLoanApplication> rlaList;
+  private List<FinServ__FinancialAccount__c> faList;
   private Set<Id> contactIdsForCCREvent;
   private static final RetailContactRepository CONTACT_REPOSITORY = (RetailContactRepository) Lib_InstanceProvider.forType(
     RetailContactRepository.class
@@ -19,16 +20,19 @@ public class RetailContactMergeActionsQueueable implements Queueable {
   /**
    * @description Constructor to initialize the queueable with a set of Broker TPMI codes.
    * @param contactList list of Contact
-   * @param setOfBrokerTPMI Set of TPMI codes used to process related records.
+   * @param rlaList list of ResidentialLoanApplication to update
+   * @param faList list of FinancialAccount to update
    * @param contactIdsForCCREvent of Contact Ids for CCREvent
    */
   public RetailContactMergeActionsQueueable(
     List<Contact> contactList,
-    Set<String> setOfBrokerTPMI,
+    List<ResidentialLoanApplication> rlaList,
+    List<FinServ__FinancialAccount__c> faList,
     Set<Id> contactIdsForCCREvent
   ) {
     this.contactList = contactList;
-    this.setOfBrokerTPMI = setOfBrokerTPMI;
+    this.rlaList = rlaList;
+    this.faList = faList;
     this.contactIdsForCCREvent = contactIdsForCCREvent;
   }
 
@@ -44,23 +48,16 @@ public class RetailContactMergeActionsQueueable implements Queueable {
     }
 
     try {
-      List<ResidentialLoanApplication> loanAppList = CONTACT_REPOSITORY.getRelatedOrphanResidentialApplications(
-        setOfBrokerTPMI
-      );
-      List<FinServ__FinancialAccount__c> finServAccList = CONTACT_REPOSITORY.getRelatedOrphanFinancialAccounts(
-        setOfBrokerTPMI
-      );
-
       Map<String, Contact> contactByTMPI = (Map<String, Contact>) ListUtil.mapBy(
         contactList,
         contact.RetailTPMISAO__c
       );
       List<ResidentialLoanApplication> loanAppListToUpdate = updateResidentialLoanApplication(
-        loanAppList,
+        rlaList,
         contactByTMPI
       );
       List<FinServ__FinancialAccount__c> accountsToUpdate = updateFinancialAccounts(
-        finServAccList,
+        faList,
         contactByTMPI
       );
       DML_REPOSITORY.doUpdate(loanAppListToUpdate);

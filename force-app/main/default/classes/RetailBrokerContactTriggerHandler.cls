@@ -54,15 +54,17 @@ public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerH
    */
   @TestVisible
   protected override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    RetailBrokerContactActions.contactMergeEvent(
-      records,
-      (Map<Id, Contact>) oldMap
-    );
     RetailBrokerContactActions.publishBrokerRelationEvents(
       records,
       (Map<Id, Contact>) oldMap
     );
+
     RetailBrokerContactActions.publishBrokerEvents(
+      records,
+      (Map<Id, Contact>) oldMap
+    );
+
+    RetailBrokerContactActions.contactMergeEvent(
       records,
       (Map<Id, Contact>) oldMap
     );

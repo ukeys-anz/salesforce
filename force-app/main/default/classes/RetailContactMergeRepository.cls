@@ -99,4 +99,47 @@ public with sharing class RetailContactMergeRepository {
       WITH USER_MODE
     ];
   }
+
+  /**
+   * @description Gets list of orphan ResidentialLoanApplications where the Assisted Broker is null
+   *              and Assisted Broker TPMI matches one of the provided broker TPMI.
+   * @param brokerTPMIIds Set of broker TPMIs to filter applications
+   * @return List<ResidentialLoanApplication> List of matching orphan ResidentialLoanApplications
+   */
+  public List<ResidentialLoanApplication> getRelatedOrphanResidentialApplications(
+    Set<String> brokerTPMIIds
+  ) {
+    if (brokerTPMIIds.isEmpty()) {
+      return new List<ResidentialLoanApplication>();
+    }
+    return [
+      SELECT Id, Assisted_Broker__c, Assisted_Broker_TPMI_SAO__c
+      FROM ResidentialLoanApplication
+      WHERE
+        Assisted_Broker_TPMI_SAO__c IN :brokerTPMIIds
+        AND Assisted_Broker__c = NULL
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description Gets list of orphan Financial Accounts where the Assisted Broker is null
+   *              and Assisted Broker TPMI matches one of the provided broker TPMI.
+   * @param brokerTPMIIds Set of broker TPMIs to filter financial accounts
+   * @return List<FinServ__FinancialAccount__c> List of matching orphan Financial Accounts
+   */
+  public List<FinServ__FinancialAccount__c> getRelatedOrphanFinancialAccounts(
+    Set<String> brokerTPMIIds
+  ) {
+    if (brokerTPMIIds.isEmpty()) {
+      return new List<FinServ__FinancialAccount__c>();
+    }
+    return [
+      SELECT id, Assisted_Broker__c, Assisted_Broker_TPMI_SAO__c
+      FROM FinServ__FinancialAccount__c
+      WHERE
+        Assisted_Broker_TPMI_SAO__c IN :brokerTPMIIds
+        AND Assisted_Broker__c = NULL
+    ];
+  }
 }
