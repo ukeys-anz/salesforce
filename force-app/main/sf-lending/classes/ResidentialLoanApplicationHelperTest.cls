@@ -20,7 +20,9 @@ private class ResidentialLoanApplicationHelperTest {
         'queryRelatedProperties',
         new List<LoanApplicationProperty>{ relatedProperty }
       );
-    brokerCodeMergeRepoMock = Lib_MockProvider.forType(RetailContactMergeRepository.class);
+    brokerCodeMergeRepoMock = Lib_MockProvider.forType(
+      RetailContactMergeRepository.class
+    );
     caseRepoMock = Lib_MockProvider.forType(LendingCaseRepository.class);
   }
 

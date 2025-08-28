@@ -32,7 +32,6 @@ public with sharing class RetailBrokerContactActions {
     DmlRepository.class
   );
 
-
   /**
    * @description Generate and dispatch Broker Relation related GCP cloud events
    * @param records map of new contacts from trigger context

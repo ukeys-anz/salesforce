@@ -4,8 +4,7 @@
  * @description This class provide SOQL helper for class related to RetailBrokerContactActions.
  */
 public with sharing class RetailContactMergeRepository {
- 
-/**
+  /**
    * @description To be used fetch Contact records
    * @param contactEmails List of Contact Emails
    * @param ocvIds List of Contact OCV Ids
@@ -32,7 +31,7 @@ public with sharing class RetailContactMergeRepository {
       WITH USER_MODE
     ];
   }
-    
+
   /**
    * @description Gets list of contacts by contact Ids
    * @param survivorExternalIdList contact Ids
@@ -60,7 +59,7 @@ public with sharing class RetailContactMergeRepository {
     ];
   }
 
-   /**
+  /**
    * @description get the list of the Broker code records
    * @param brokerIds Set of broker Ids
    * @return List<Broker_Code__c> list of filtered broker codes
@@ -77,7 +76,7 @@ public with sharing class RetailContactMergeRepository {
     ];
   }
 
-   /**
+  /**
    * @description get the list of the Broker code records
    * @param brokerIdentifiers List of broker identifiers
    * @return List<Broker_Code__c> list of filtered broker codes
@@ -100,5 +99,4 @@ public with sharing class RetailContactMergeRepository {
       WITH USER_MODE
     ];
   }
-
 }
