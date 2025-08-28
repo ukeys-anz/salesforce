@@ -106,10 +106,6 @@ export const FILES_BY_DOCUMENTTYPE = {
       title: "Processed Medicare Card Front"
     },
     {
-      fileType: "DAON_FILE_TYPE_SELFIE_ENROLLED",
-      title: "Enrolled Selfie on File"
-    },
-    {
       fileType: "DAON_FILE_TYPE_FRONT_UNPROCESSED",
       title: "Unprocessed Medicare Card Front"
     }
@@ -152,11 +148,7 @@ export function transformResponseForAddress(recordDetails) {
     return null;
   }
   const results = [];
-  if (
-    recordDetails.Residential_Address__c &&
-    recordDetails.Residential_Address_Geolocation__Latitude__s &&
-    recordDetails.Residential_Address_Geolocation__Longitude__s
-  ) {
+  if (recordDetails.Residential_Address__c) {
     results.push({
       type: "Residential",
       addressValue: recordDetails.Residential_Address__c,
@@ -164,11 +156,7 @@ export function transformResponseForAddress(recordDetails) {
       longitude: recordDetails.Residential_Address_Geolocation__Longitude__s
     });
   }
-  if (
-    recordDetails.TrustMe_Residential_Address__c &&
-    recordDetails.TrustMe_Residential_Address_Geolocation__Latitude__s &&
-    recordDetails.TrustMe_Residential_Address_Geolocation__Longitude__s
-  ) {
+  if (recordDetails.TrustMe_Residential_Address__c) {
     results.push({
       type: "TrustMe Residential",
       addressValue: recordDetails.TrustMe_Residential_Address__c,
@@ -176,12 +164,6 @@ export function transformResponseForAddress(recordDetails) {
         recordDetails.TrustMe_Residential_Address_Geolocation__Latitude__s,
       longitude:
         recordDetails.TrustMe_Residential_Address_Geolocation__Longitude__s
-    });
-  }
-  if (recordDetails.International_Address__c) {
-    results.push({
-      type: "International Address",
-      addressValue: recordDetails.International_Address__c
     });
   }
   return results;
