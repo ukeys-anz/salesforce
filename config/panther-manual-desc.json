@@ -573,6 +573,7 @@
       ]
     },
     "ApplicationFormProduct": {
+      "IA-2415983": ["Revenue__c"],
       "IA-2434298": [
         "Name",
         "ProductId",
@@ -1406,7 +1407,8 @@
         "OnboardingVerificationFailedReason__c",
         "PassportNumber__c",
         "ReimbursementReason__c",
-        "RemoteAccessUsed__c"
+        "RemoteAccessUsed__c",
+        "EventTimestamp__c"
       ],
       "IA-2415840": [
         "Advocacy_Score__c",
@@ -3671,7 +3673,8 @@
         "AIP_Requested__c",
         "Approved_Amount__c",
         "New_Lending_Amount__c",
-        "Settlement_Booked__c"
+        "Settlement_Booked__c",
+        "Estimated_Revenue__c"
       ],
       "IA-2423227": ["StageName"],
       "IA-2460507": [

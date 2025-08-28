@@ -79,7 +79,7 @@
           "attributes": {
             "format-style": "currency",
             "currency-code": "AUD",
-            "currency-display-as":"symbol"
+            "currency-display-as": "symbol"
           },
           "isStacked": true
         },
