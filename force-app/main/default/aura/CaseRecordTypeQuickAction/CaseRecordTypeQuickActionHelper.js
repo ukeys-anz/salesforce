@@ -70,6 +70,7 @@
   },
 
   checkForProductCategoryCustomer: function (
+    component,
     parsedResult,
     selectedRecordTypeName
   ) {
@@ -79,18 +80,24 @@
         selectedRecordTypeName == component.get("v.noncustomerRecordType"))
     );
   },
-  checkForNonCustomer: function (parsedResult, selectedRecordTypeName) {
+  checkForNonCustomer: function (
+    component,
+    parsedResult,
+    selectedRecordTypeName
+  ) {
     return (
+      component.get("v.caseRecord.ANZx_Customer__c") === false &&
       (parsedResult.AccountId ||
         parsedResult.IDR_Customer_Number__c ||
         parsedResult.IDR_Customer_Identifier__c) &&
       selectedRecordTypeName == component.get("v.noncustomerRecordType")
     );
   },
-  checkForCustomer: function (parsedResult, selectedRecordTypeName) {
+  checkForCustomer: function (component, parsedResult, selectedRecordTypeName) {
     return (
-      (!parsedResult.AccountId || !parsedResult.IDR_Customer_Number__c) &&
-      !parsedResult.IDR_Customer_Identifier__c &&
+      component.get("v.caseRecord.ANZx_Customer__c") === false &&
+      (!parsedResult.IDR_Customer_Number__c ||
+        !parsedResult.IDR_Customer_Identifier__c) &&
       selectedRecordTypeName == component.get("v.customerRecordType")
     );
   }
