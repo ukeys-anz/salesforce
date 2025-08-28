@@ -170,7 +170,11 @@ public with sharing class NewCaseFlowWrapperController {
           ? caseRecord.IDR_Complainant_Type__c
           : ''
       );
-      caseDetails.put('AccountId', caseRecord.AccountId ?? '');
+      // with Null Coalescing Operator getting system.String exception invalid id
+      caseDetails.put(
+        'AccountId',
+        String.isBlank(caseRecord.AccountId) ? '' : caseRecord.AccountId
+      );
       caseDetails.put(
         'IDR_Customer_Number__c',
         caseRecord.IDR_Customer_Number__c ?? ''
