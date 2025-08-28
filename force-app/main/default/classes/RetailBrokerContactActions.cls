@@ -24,21 +24,14 @@ public with sharing class RetailBrokerContactActions {
   private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(
     UserInfoRepository.class
   );
-  private static final RetailContactRepository CONTACT_REPOSITORY = (RetailContactRepository) Lib_InstanceProvider.forType(
-    RetailContactRepository.class
-  );
-
-  private static final BrokerCodeRepository BROKER_CODE_REPOSITORY = (BrokerCodeRepository) Lib_InstanceProvider.forType(
-    BrokerCodeRepository.class
+  private static final RetailContactMergeRepository CONTACT_REPOSITORY = (RetailContactMergeRepository) Lib_InstanceProvider.forType(
+    RetailContactMergeRepository.class
   );
 
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
 
-  private static final UserActionsRepository USER_REPOSITORY = (UserActionsRepository) Lib_InstanceProvider.forType(
-    UserActionsRepository.class
-  );
 
   /**
    * @description Generate and dispatch Broker Relation related GCP cloud events
@@ -385,7 +378,7 @@ public with sharing class RetailBrokerContactActions {
       contactsOldMap
     );
 
-    List<Broker_Code__c> brokerCodesToBeDeleted = BROKER_CODE_REPOSITORY.getRelatedBrokerCodes(
+    List<Broker_Code__c> brokerCodesToBeDeleted = CONTACT_REPOSITORY.getRelatedBrokerCodes(
       new Map<id, contact>(filteredVictimContactList).keySet()
     );
 

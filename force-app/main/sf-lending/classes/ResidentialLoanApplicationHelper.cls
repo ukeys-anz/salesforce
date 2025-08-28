@@ -10,8 +10,8 @@ public with sharing class ResidentialLoanApplicationHelper {
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
-  private static final BrokerCodeRepository BROKER_CODE_REPOSITORY = (BrokerCodeRepository) Lib_InstanceProvider.forType(
-    BrokerCodeRepository.class
+  private static final RetailContactMergeRepository BROKER_CODE_MERGE_REPOSITORY = (RetailContactMergeRepository) Lib_InstanceProvider.forType(
+    RetailContactMergeRepository.class
   );
 
   /**
@@ -182,7 +182,7 @@ public with sharing class ResidentialLoanApplicationHelper {
       extIdToBrokerIdMap.values()
     );
 
-    List<Broker_Code__c> brokerCodes = BROKER_CODE_REPOSITORY.getBrokerIdentifiers(
+    List<Broker_Code__c> brokerCodes = BROKER_CODE_MERGE_REPOSITORY.getBrokerIdentifiers(
       brokerIdentifiers
     );
 

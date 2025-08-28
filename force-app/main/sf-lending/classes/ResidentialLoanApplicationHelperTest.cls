@@ -2,7 +2,7 @@
 private class ResidentialLoanApplicationHelperTest {
   private static final String BROKER_CODE = 'TPMI123456789';
   static Lib_MockProvider rlarRepoMock;
-  static Lib_MockProvider brokerCodeRepoMock;
+  static Lib_MockProvider brokerCodeMergeRepoMock;
   static Lib_MockProvider caseRepoMock;
   private static final Id COACH_NUDGE_RT_ID = RTTask.coachNudge;
   private static final Id FAKER_CONTACT_ID = Lib_FakeIdGenerator.getMockId(
@@ -20,7 +20,7 @@ private class ResidentialLoanApplicationHelperTest {
         'queryRelatedProperties',
         new List<LoanApplicationProperty>{ relatedProperty }
       );
-    brokerCodeRepoMock = Lib_MockProvider.forType(BrokerCodeRepository.class);
+    brokerCodeMergeRepoMock = Lib_MockProvider.forType(RetailContactMergeRepository.class);
     caseRepoMock = Lib_MockProvider.forType(LendingCaseRepository.class);
   }
 
@@ -148,7 +148,7 @@ private class ResidentialLoanApplicationHelperTest {
       'queryRelatedCreditReferralCases',
       createMockCaseRelatedToRla()
     );
-    brokerCodeRepoMock.mock('getBrokerIdentifiers', createBrokerCodes(10));
+    brokerCodeMergeRepoMock.mock('getBrokerIdentifiers', createBrokerCodes(10));
     List<ResidentialLoanApplication> loanApps = createResidentialLoanApplications(
       10
     );

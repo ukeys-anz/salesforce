@@ -10,16 +10,13 @@ private class RetailBrokerContactActionsTest {
     BrokerRelationRepository.class
   );
   private static final Lib_MockProvider RETAIL_CONTACT_REPOSITORY_MOCK = Lib_MockProvider.forType(
-    RetailContactRepository.class
+    RetailContactMergeRepository.class
   );
   private static final Lib_MockProvider BROKER_SETTINGS_REPOSITORY_MOCK = Lib_MockProvider.forType(
     BrokerSettingsRepository.class
   );
   private static final Lib_MockProvider USER_INFO_REPOSITORY_MOCK = Lib_MockProvider.forType(
     UserInfoRepository.class
-  );
-  private static final Lib_MockProvider BROKER_CODE_REPOSITORY = Lib_MockProvider.forType(
-    BrokerCodeRepository.class
   );
   static Lib_MockProvider dmlRepoMock = Lib_MockProvider.forType(
     DMLRepository.class
@@ -422,7 +419,7 @@ private class RetailBrokerContactActionsTest {
     newContacts[0].Victim_Party_Id__c = newContacts[0].External_Id__c;
     Broker_Code__c brokerCode = createBrokerCode();
     brokerCode.Broker_Name__c = newContacts[0].Id;
-    BROKER_CODE_REPOSITORY.mock(
+    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
       'getRelatedBrokerCodes',
       new List<Broker_Code__c>{ brokerCode }
     );
@@ -556,7 +553,7 @@ private class RetailBrokerContactActionsTest {
 
     Broker_Code__c brokerCode = createBrokerCode();
     brokerCode.Broker_Name__c = newContacts[0].Id;
-    BROKER_CODE_REPOSITORY.mock(
+    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
       'getRelatedBrokerCodes',
       new List<Broker_Code__c>{ brokerCode }
     );
