@@ -12,6 +12,13 @@ public with sharing class AccountClosureCaseActions {
     DmlRepository.class
   );
 
+  public static final String ANZ_PLUS_APP_ORIGIN = 'ANZ Plus App';
+
+  private static final Set<SObjectField> CASE_FIELDS = new Set<SObjectField>{
+    Case.Status,
+    Case.Sub_Status__c
+  };
+
   /**
    * @description Populate the case Subject
    * @param cases List of Cases.
@@ -99,9 +106,11 @@ public with sharing class AccountClosureCaseActions {
     for (Case caseRecord : childCases) {
       Case parentCase = accountIdToAllParentCasesMap.get(caseRecord.AccountId);
       caseRecord.ParentId = parentCase.Id;
-      caseRecord.Status = parentCase.Status;
       caseRecord.Circumstance__c = parentCase.Circumstance__c;
       caseRecord.OwnerId = parentCase.OwnerId ?? UserInfo.getUserId();
+      if (caseRecord.Origin != ANZ_PLUS_APP_ORIGIN) {
+        caseRecord.Status = parentCase.Status;
+      }
     }
   }
 
@@ -158,15 +167,80 @@ public with sharing class AccountClosureCaseActions {
    */
   public static void cascadeParentFieldsToChildCases(List<Case> childCases) {
     Set<Id> parentIds = ListUtil.getIds(childCases, Case.ParentId);
+
     Map<Id, Case> parentIdAndCaseDetailsMap = new Map<Id, Case>(
       ACCOUNT_CLOSURE_REPOSITORY.queryParentCaseDetails(parentIds)
     );
+
     for (Case childCase : childCases) {
       Case parentCase = parentIdAndCaseDetailsMap.get(childCase.ParentId);
       childCase.OwnerId = parentCase.OwnerId;
-      childCase.Status = parentCase.Status;
       childCase.Circumstance__c = parentCase.Circumstance__c;
       childCase.Type = parentCase.Type;
+      if (childCase.Origin != ANZ_PLUS_APP_ORIGIN) {
+        childCase.Status = parentCase.Status;
+      }
     }
+  }
+  /**
+   * @description This method set the parent field status as escalated when any one of the child case has failed status
+   * @param childCases holds all the child case records that are inserted/updated
+   */
+  public static void setParentCaseStatusAsEscalated(List<Case> childCases) {
+    List<Case> validEscalatedCases = ListUtil.filter(childCases)
+      .equals(Case.Status, CaseGroupCaseConstants.ESCALATED_STATUS)
+      .equals(
+        Case.Sub_Status__c,
+        new Set<String>{
+          CaseGroupCaseConstants.FAILED,
+          CaseGroupCaseConstants.SUCCESS
+        }
+      )
+      .equals(Case.Origin, ANZ_PLUS_APP_ORIGIN)
+      .isNotNull(Case.FinServ__FinancialAccount__c)
+      .isNotNull(Case.ParentId)
+      .toList();
+
+    List<Case> parentCasesToUpdate = new List<Case>();
+
+    Set<Id> parentIds = ListUtil.getIds(validEscalatedCases, Case.ParentId);
+
+    Map<Id, Case> parentIdAndCaseDetailsMap = new Map<Id, Case>(
+      ACCOUNT_CLOSURE_REPOSITORY.queryNotEscalatedParentCaseDetails(parentIds)
+    );
+
+    for (Case childCase : validEscalatedCases) {
+      Case parentCase = parentIdAndCaseDetailsMap.get(childCase.ParentId);
+      parentCase.Status = CaseGroupCaseConstants.ESCALATED_STATUS;
+      parentCasesToUpdate.add(parentCase);
+    }
+
+    DML_REPOSITORY.doUpdate(parentCasesToUpdate);
+  }
+
+  /**
+   * @description This method filters the cases which are updated to withdrawn status and has a valid Financial Account and parent case
+   * @param records List of Cases that are updated
+   * @param oldMap Map of old cases
+   */
+  public static void setAccountDetailsAsEmpty(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    List<Case> validWithdrawnCases = ListUtil.filter(records, oldMap)
+      .anyChanged(CASE_FIELDS)
+      .equals(Case.Status, CaseGroupCaseConstants.WITHDRAWN_STATUS)
+      .isNotNull(Case.FinServ__FinancialAccount__c)
+      .isNotNull(Case.ParentId)
+      .toList();
+
+    ListUtil.setField(
+      validWithdrawnCases,
+      new Map<SObjectField, Object>{
+        Case.FinServ__FinancialAccount__c => null,
+        Case.ProductId => null,
+        Case.Process_Id__c => null
+      }
+    );
   }
 }
