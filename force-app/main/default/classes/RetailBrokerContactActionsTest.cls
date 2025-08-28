@@ -276,14 +276,14 @@ private class RetailBrokerContactActionsTest {
     contactNew.OCV_Event_Version__c = 0;
     Assert.areEqual(
       '',
-      RetailBrokerContactActions.getAction(contactNew, contactOld),
+      RetailBrokerContactActions.getAction(contactNew),
       'Action type should be blank, neither add nor update'
     );
     contactNew.OCV_Event_Version__c = 1;
     contactNew.Sync_Status__c = RetailBrokerContactActions.SYNC_STATUS_BROKER_ORG;
     Assert.areEqual(
       'add',
-      RetailBrokerContactActions.getAction(contactNew, contactOld),
+      RetailBrokerContactActions.getAction(contactNew),
       'Action type should be blank, neither add nor update'
     );
   }
