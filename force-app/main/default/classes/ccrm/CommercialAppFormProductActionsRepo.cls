@@ -53,4 +53,50 @@ public class CommercialAppFormProductActionsRepo {
       ]
     );
   }
+
+  /**
+   * @description getOppLineItems - To fetch the OLI
+   * @param oliIdsSet set of opportunity line items Ids
+   * @return  List<OpportunityLineItem> opportunity line item list
+   */
+  public List<OpportunityLineItem> getOppLineItems(Set<Id> oliIdsSet) {
+    if (oliIdsSet.isEmpty()) {
+      return new List<OpportunityLineItem>();
+    }
+    return new List<OpportunityLineItem>(
+      [
+        SELECT Id, OpportunityId
+        FROM OpportunityLineItem
+        WHERE Id IN :oliIdsSet
+        WITH USER_MODE
+      ]
+    );
+  }
+
+  /**
+   * @description getAfpRelatedToOpp - To fetch the AFP related to OLI
+   * @param oppIdsSet set of opportunity ids
+   * @return  List<ApplicationFormProduct> afp list
+   */
+  public List<ApplicationFormProduct> getAfpRelatedToOpp(Set<Id> oppIdsSet) {
+    if (oppIdsSet.isEmpty()) {
+      return new List<ApplicationFormProduct>();
+    }
+    return new List<ApplicationFormProduct>(
+      [
+        SELECT
+          Id,
+          Opportunity_Product__c,
+          ApplicationFormId,
+          Amount__c,
+          Stage,
+          Revenue__c,
+          ApplicationForm.RecordTypeId,
+          ApplicationForm.OpportunityId
+        FROM ApplicationFormProduct
+        WHERE ApplicationForm.OpportunityId IN :oppIdsSet
+        WITH USER_MODE
+      ]
+    );
+  }
 }

@@ -331,8 +331,10 @@ public with sharing class CommercialReferralLeadActionsTest {
     registerMocks();
 
     // Mocking
-    User ccrmUser = CCRMTestDataFactory.getCCRMBaseUser();
-    ccrmUser.Lan_Id__c = 'TestLanId';
+    User ccrmUser = new User(
+      Id = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+      Lan_Id__c = 'TestLanId'
+    );
     commercialReferralLeadRepositoryMock.mock(
       'getUsers',
       new List<User>{ ccrmUser }
@@ -366,19 +368,20 @@ public with sharing class CommercialReferralLeadActionsTest {
         FinServ__RelatedAccount__c = account.id,
         RecordTypeId = RTLead.referralLead,
         Referral_Status__c = 'In Progress',
+        Email = 'test@test.com',
         Primary_Contact_Method__c = 'Work Phone',
         Work_Phone__c = '+61234567890'
       ),
       new Lead(
         Id = Lib_FakeIdGenerator.getMockId(Lead.SObjectType),
         FinServ__ReferredByUser__c = userId,
-        OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+        OwnerId = ccrmUser.Id,
         channel__c = 'Commercial'
       ),
       new Lead(
         Id = Lib_FakeIdGenerator.getMockId(Lead.SObjectType),
         FinServ__ReferredByUser__c = userId,
-        OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+        OwnerId = ccrmUser.Id,
         channel__c = 'Private Bank'
       )
     };
@@ -397,6 +400,47 @@ public with sharing class CommercialReferralLeadActionsTest {
         OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType)
       )
     };
+
+    PermissionSetGroup psgRecord = new PermissionSetGroup(
+      Id = Lib_FakeIdGenerator.getMockId(PermissionSetGroup.SObjectType)
+    );
+    List<PermissionSetGroupComponent> psgComponentRecord = new List<PermissionSetGroupComponent>{
+      new PermissionSetGroupComponent(
+        Id = Lib_FakeIdGenerator.getMockId(
+          PermissionSetGroupComponent.SObjectType
+        ),
+        PermissionSetId = Lib_FakeIdGenerator.getMockId(
+          PermissionSet.SObjectType
+        ),
+        PermissionSetGroupId = psgRecord.Id
+      )
+    };
+    List<SetupEntityAccess> setupEntityAccessRecord = new List<SetupEntityAccess>{
+      new SetupEntityAccess(
+        Id = Lib_FakeIdGenerator.getMockId(SetupEntityAccess.SObjectType),
+        ParentId = psgComponentRecord[0].Id
+      )
+    };
+    List<PermissionSetAssignment> psaRecord = new List<PermissionSetAssignment>{
+      new PermissionSetAssignment(
+        Id = Lib_FakeIdGenerator.getMockId(PermissionSetAssignment.SObjectType),
+        AssigneeId = ccrmUser.Id,
+        PermissionSetGroupId = psgRecord.Id
+      )
+    };
+
+    commercialReferralLeadRepositoryMock.mock(
+      'getPermissionSetWithCustomPermission',
+      setupEntityAccessRecord
+    );
+    commercialReferralLeadRepositoryMock.mock(
+      'getPermissionSetGroupFromPS',
+      psgComponentRecord
+    );
+    commercialReferralLeadRepositoryMock.mock(
+      'listOfUsersHavingCustomPermission',
+      psaRecord
+    );
 
     // WHEN calling publishCloudEvents method
     Test.startTest();
@@ -429,8 +473,10 @@ public with sharing class CommercialReferralLeadActionsTest {
   public static void publishCloudEventsExceptionTest() {
     registerMocks();
     // Mocking
-    User ccrmUser = CCRMTestDataFactory.getCCRMBaseUser();
-    ccrmUser.Lan_Id__c = 'TestLanId';
+    User ccrmUser = new User(
+      Id = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+      Lan_Id__c = 'TestLanId'
+    );
     commercialReferralLeadRepositoryMock.mock(
       'getUsers',
       new List<User>{ ccrmUser }
@@ -468,7 +514,7 @@ public with sharing class CommercialReferralLeadActionsTest {
     };
 
     commercialReferralLeadRepositoryMock.mockException(
-      'getUsers',
+      'getPermissionSetWithCustomPermission',
       new QueryException('invalid parameters')
     );
 
@@ -776,6 +822,130 @@ public with sharing class CommercialReferralLeadActionsTest {
     Test.stopTest();
 
     Assert.areEqual('+61424234', sanitizeValue, 'should sanitize the value');
+  }
+
+  @isTest
+  public static void getListOfOwnerIdsHavingCustomPermissionTest() {
+    registerMocks();
+
+    // Mocking
+    Id ccrmUser = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+
+    PermissionSetGroup psgRecord = new PermissionSetGroup(
+      Id = Lib_FakeIdGenerator.getMockId(PermissionSetGroup.SObjectType)
+    );
+    List<PermissionSetGroupComponent> psgComponentRecord = new List<PermissionSetGroupComponent>{
+      new PermissionSetGroupComponent(
+        Id = Lib_FakeIdGenerator.getMockId(
+          PermissionSetGroupComponent.SObjectType
+        ),
+        PermissionSetId = Lib_FakeIdGenerator.getMockId(
+          PermissionSet.SObjectType
+        ),
+        PermissionSetGroupId = psgRecord.Id
+      )
+    };
+    List<SetupEntityAccess> setupEntityAccessRecord = new List<SetupEntityAccess>{
+      new SetupEntityAccess(
+        Id = Lib_FakeIdGenerator.getMockId(SetupEntityAccess.SObjectType),
+        ParentId = psgComponentRecord[0].Id
+      )
+    };
+    List<PermissionSetAssignment> psaRecord = new List<PermissionSetAssignment>{
+      new PermissionSetAssignment(
+        Id = Lib_FakeIdGenerator.getMockId(PermissionSetAssignment.SObjectType),
+        AssigneeId = ccrmUser,
+        PermissionSetGroupId = psgRecord.Id
+      )
+    };
+
+    commercialReferralLeadRepositoryMock.mock(
+      'getPermissionSetWithCustomPermission',
+      setupEntityAccessRecord
+    );
+
+    commercialReferralLeadRepositoryMock.mock(
+      'getPermissionSetGroupFromPS',
+      psgComponentRecord
+    );
+
+    commercialReferralLeadRepositoryMock.mock(
+      'listOfUsersHavingCustomPermission',
+      psaRecord
+    );
+
+    // GIVEN list of new lead referal records
+    Id nonCcrmUserOne = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    Id nonCcrmUserTwo = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    Id nonCcrmUserThree = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    Set<Id> setOfUserIds = new Set<Id>{
+      nonCcrmUserOne,
+      nonCcrmUserTwo,
+      nonCcrmUserThree,
+      ccrmUser
+    };
+    Set<Id> requiredUserIds = new Set<Id>{ ccrmUser };
+
+    // WHEN calling getListOfLeadsToPublishToIknow method
+    Test.startTest();
+    Set<Id> filteredRecords = CommercialReferralLeadActions.getListOfOwnerIdsHavingCustomPermission(
+      setOfUserIds,
+      'Manage_Referrals_in_CRM'
+    );
+    Test.stopTest();
+
+    // THEN it should return only the leads with non-crm owner not having custom permission
+    Assert.areEqual(
+      requiredUserIds,
+      filteredRecords,
+      'should only filter and keep user Id having custom permission assigned'
+    );
+  }
+
+  @isTest
+  public static void getListOfOwnerIdsHavingCustomPermissionNegativeTest() {
+    registerMocks();
+
+    // Mocking
+    commercialReferralLeadRepositoryMock.mock(
+      'getPermissionSetWithCustomPermission',
+      new List<SetupEntityAccess>()
+    );
+    commercialReferralLeadRepositoryMock.mock(
+      'getPermissionSetGroupFromPS',
+      new List<PermissionSetGroupComponent>()
+    );
+    commercialReferralLeadRepositoryMock.mock(
+      'listOfUsersHavingCustomPermission',
+      new List<PermissionSetAssignment>()
+    );
+
+    // GIVEN list of new lead referal records
+    Id ccrmUser = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    Id nonCcrmUserOne = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    Id nonCcrmUserTwo = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    Id nonCcrmUserThree = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    Set<Id> setOfUserIds = new Set<Id>{
+      nonCcrmUserOne,
+      nonCcrmUserTwo,
+      nonCcrmUserThree,
+      ccrmUser
+    };
+
+    // WHEN calling getListOfLeadsToPublishToIknow method
+    Test.startTest();
+    Set<Id> filteredRecords = CommercialReferralLeadActions.getListOfOwnerIdsHavingCustomPermission(
+      setOfUserIds,
+      'Manage_Referrals_in_CRM'
+    );
+    Test.stopTest();
+
+    // THEN it should return only the leads with non-crm owner not having custom permission
+    Assert.areEqual(
+      new Set<Id>(),
+      filteredRecords,
+      'should only return empty set since there are no users assigned customPermission'
+    );
   }
 
   @isTest

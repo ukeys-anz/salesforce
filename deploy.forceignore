@@ -694,3 +694,7 @@ force-app/main/default/transactionSecurityPolicies
 # AR-218280 Highly previleged permission set, forceignore to ensure it is not
 # deploy automatically to high environments
 force-app/main/default/permissionsets/View_All_Fields.permissionset-meta.xml
+
+# moving files between directory
+force-app/main/default/classes/CommercialReferralLeadRepository.cls
+force-app/main/default/classes/CommercialReferralLeadRepository.cls-meta.xml
