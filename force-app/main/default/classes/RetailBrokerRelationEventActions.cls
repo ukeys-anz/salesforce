@@ -25,8 +25,7 @@ public with sharing class RetailBrokerRelationEventActions {
     Map<Id, Contact> oldMap
   ) {
     List<Contact> brokers = CONTACT_REPOSITORY.getContacts(updatedBrokers);
-    Set<Id> oldBrokerSetIds = null;
-
+    Set<Id> oldBrokerSetIds = new Set<Id>();
     if (oldMap != null) {
       List<Contact> oldContacts = new List<Contact>(oldMap.values());
       oldBrokerSetIds = ListUtil.getIds(oldContacts, Contact.Broker_Set__c);
@@ -127,8 +126,7 @@ public with sharing class RetailBrokerRelationEventActions {
     List<PayloadInputWrapper> inputWrapperList = new List<PayloadInputWrapper>();
     for (Contact broker : brokerList) {
       LanIdWrapper oldRbmLanIds = new LanIdWrapper();
-      Id olderBrokerSetId = null;
-      olderBrokerSetId = oldMap?.get(broker.Id)?.Broker_Set__c;
+      Id olderBrokerSetId = oldMap?.get(broker.Id)?.Broker_Set__c;
       oldRbmLanIds.prbmLanId = brokerSetMapForOldContacts.get(olderBrokerSetId)
         ?.Primary_RBM__r
         ?.Lan_Id__c;

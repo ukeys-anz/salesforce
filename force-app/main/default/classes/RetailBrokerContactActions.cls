@@ -240,13 +240,28 @@ public with sharing class RetailBrokerContactActions {
     Contact contactNew,
     contact contactOld
   ) {
-    return (String.isNotBlank(contactNew.CommercialTPMISAO__c) ||
-      contactNew.CommercialTPMISAO__c != contactOld.CommercialTPMISAO__c) ||
-      (String.isNotBlank(contactNew.AssetFinanceTPMISAO__c) ||
-      contactNew.AssetFinanceTPMISAO__c != contactOld.AssetFinanceTPMISAO__c) ||
-      ((String.isNotBlank(contactNew.RetailTPMISAO__c) ||
+    if (String.isNotBlank(contactNew.CommercialTPMISAO__c)) {
+      return true;
+    }
+    if (contactNew.CommercialTPMISAO__c != contactOld.CommercialTPMISAO__c) {
+      return true;
+    }
+    if (String.isNotBlank(contactNew.AssetFinanceTPMISAO__c)) {
+      return true;
+    }
+    if (
+      contactNew.AssetFinanceTPMISAO__c != contactOld.AssetFinanceTPMISAO__c
+    ) {
+      return true;
+    }
+    if (
+      (String.isNotBlank(contactNew.RetailTPMISAO__c) ||
       contactNew.RetailTPMISAO__c != contactOld.RetailTPMISAO__c) &&
-      contactNew.Is_Beta_Broker__c);
+      contactNew.Is_Beta_Broker__c
+    ) {
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -262,13 +277,16 @@ public with sharing class RetailBrokerContactActions {
     List<Contact> contactList = new List<Contact>();
     for (Contact contactNew : records) {
       Contact contactOld = contactsOldMap.get(contactNew.Id);
-      if (
-        contactNew.OCV_Event_Version__c > 0 &&
-        (contactOld.OCV_Event_Version__c == null ||
-        contactOld.OCV_Event_Version__c <= 0)
-      ) {
-        contactList.add(contactNew);
+      if (contactNew.OCV_Event_Version__c <= 0) {
+        continue;
       }
+      if (
+        contactOld.OCV_Event_Version__c != null &&
+        contactOld.OCV_Event_Version__c > 0
+      ) {
+        continue;
+      }
+      contactList.add(contactNew);
     }
     return contactList;
   }
@@ -477,19 +495,22 @@ public with sharing class RetailBrokerContactActions {
 
         Database.MergeResult result = Database.merge(survivor, victim, false);
 
-        if (!result.isSuccess()) {
-          for (Database.Error err : result.getErrors()) {
-            Logger.error(
-                'Contact Merge failed for following contacts' +
-                  survivor.Id +
-                  ' and ' +
-                  victim.Id +
-                  'Error_Message: ' +
-                  err.getMessage()
-              )
-              .save();
-          }
+        if (result.isSuccess()) {
+          continue;
         }
+        String errorMessage = '';
+        for (Database.Error err : result.getErrors()) {
+          errorMessage += err;
+        }
+        Logger.error(
+            'Contact Merge failed for following contacts' +
+              survivor.Id +
+              ' and ' +
+              victim.Id +
+              'Error_Message: ',
+            errorMessage
+          )
+          .save();
       }
 
       System.enqueueJob(
@@ -578,7 +599,8 @@ public with sharing class RetailBrokerContactActions {
     if (
       loanAppList.isEmpty() &&
       finServAccList.isEmpty() &&
-      ccrContactIds.isEmpty()
+      ccrContactIds.isEmpty() &&
+      updatedContacts.isEmpty()
     ) {
       return;
     }

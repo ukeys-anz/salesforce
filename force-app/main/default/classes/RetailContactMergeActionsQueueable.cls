@@ -43,10 +43,6 @@ public class RetailContactMergeActionsQueueable implements Queueable {
    * @param context Queueable job context
    */
   public void execute(QueueableContext context) {
-    if (contactList.isEmpty()) {
-      return;
-    }
-
     try {
       Map<String, Contact> contactByTMPI = (Map<String, Contact>) ListUtil.mapBy(
         contactList,
@@ -67,10 +63,11 @@ public class RetailContactMergeActionsQueueable implements Queueable {
         null
       );
     } catch (Exception e) {
-      String errorMsg =
-        'Error during MergeResidentialLoanAppQueueable execution ' +
-        e.getMessage();
-      Logger.error(errorMsg).save();
+      Logger.error(
+          'Error during MergeResidentialLoanAppQueueable execution ',
+          e
+        )
+        .save();
     }
   }
 
