@@ -6,6 +6,11 @@
     <columns>OCV_ID__c</columns>
     <columns>Broker_Accreditation_Type__c</columns>
     <filters>
+        <field>CONTACT.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Contact.Broker</value>
+    </filters>
+    <filters>
         <field>Sync_Status__c</field>
         <operation>includes</operation>
         <value>Duplicate - Email,Duplicate - OCV Id</value>

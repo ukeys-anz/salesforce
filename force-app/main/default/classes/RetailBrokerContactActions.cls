@@ -6,7 +6,6 @@
  */
 
 public with sharing class RetailBrokerContactActions {
-  private static Boolean isMergeInProgress = false;
   @TestVisible
   private static final String SYNC_STATUS_BROKER_ORG = 'Broker Org';
   @TestVisible
@@ -109,10 +108,7 @@ public with sharing class RetailBrokerContactActions {
     List<Contact> records,
     Map<Id, Contact> contactsOldMap
   ) {
-    if (
-      BROKER_SETTINGS_REPOSITORY.get().BypassBrokerEvent__c ||
-      isMergeInProgress == true
-    ) {
+    if (BROKER_SETTINGS_REPOSITORY.get().BypassBrokerEvent__c) {
       return;
     }
     Map<Id, String> brokerIdToEventTypeMap = getBrokerIdToEventTypeMap(
@@ -417,12 +413,10 @@ public with sharing class RetailBrokerContactActions {
 
     processDataMerge(filteredVictimContactList, survivorContactsList);
 
-    List<Contact> contactsToUpdate = populateSurvivorDetails(
+    enqueueBrokerRelationUpdate(
       filteredVictimContactList,
-      survivorcontactsWithExternalIds
+      survivorContactsList
     );
-
-    DML_REPOSITORY.doUpdate(contactsToUpdate);
   }
 
   /**
@@ -462,7 +456,7 @@ public with sharing class RetailBrokerContactActions {
    * @param victimContactsList List<Contact> List of Victim Contacts
    * @param survivorContactsList List<Contact> List of survivor Contacts
    */
-  public static void processDataMerge(
+  public static void enqueueBrokerRelationUpdate(
     List<Contact> victimContactsList,
     List<Contact> survivorContactsList
   ) {
@@ -476,23 +470,62 @@ public with sharing class RetailBrokerContactActions {
     List<Id> survivorDuplicatesList = new List<Id>();
     Map<Id, String> contactIdByBrokerSet = new Map<Id, String>();
     Map<Id, String> contactIdByOfficeGroup = new Map<Id, String>();
-    isMergeInProgress = true;
+    for (Contact victim : victimContactsList) {
+      Contact survivor = contactMap.get(victim.Survivor_Party_Id__c);
+      if (survivor == null) {
+        continue;
+      }
+      if (survivor.Broker_Set__c != null || victim.Broker_Set__c == null) {
+        continue;
+      }
+
+      survivorDuplicatesList.add(survivor.Id);
+      contactIdByBrokerSet.put(survivor.Id, victim.Broker_Set__c);
+      contactIdByOfficeGroup.put(survivor.Id, victim.Office_Group__c);
+    }
+    if (!survivorDuplicatesList.isEmpty()) {
+      System.enqueueJob(
+        new UpdateBrokerRelationLookupQueueable(
+          survivorDuplicatesList,
+          contactIdByBrokerSet,
+          contactIdByOfficeGroup
+        ),
+        1
+      );
+    }
+  }
+  /**
+   * @description Process the data merge event
+   * @param victimContactsList List<Contact> List of Victim Contacts
+   * @param survivorContactsList List<Contact> List of survivor Contacts
+   */
+  public static void processDataMerge(
+    List<Contact> victimContactsList,
+    List<Contact> survivorContactsList
+  ) {
+    List<Contact> allContactsList = new List<Contact>(victimContactsList);
+    allContactsList.addAll(survivorContactsList);
+
+    Map<String, contact> contactMap = (Map<String, contact>) ListUtil.mapBy(
+      allContactsList,
+      Contact.External_Id__c
+    );
+
     try {
       for (Contact victim : victimContactsList) {
         Contact survivor = contactMap.get(victim.Survivor_Party_Id__c);
         if (survivor == null) {
           continue;
         }
+        survivor.Survivor_Party_Id__c = victim.Survivor_Party_Id__c;
+        survivor.Victim_Party_Id__c = victim.Victim_Party_Id__c;
 
         if (
           survivor.Sync_Status__c != null &&
-          !survivor.Sync_Status__c.contains(SYNC_STATUS_BROKER_ORG)
+          !survivor.Sync_Status__c.contains(SYNC_STATUS_BLOCKED)
         ) {
-          survivorDuplicatesList.add(survivor.Id);
-          contactIdByBrokerSet.put(survivor.Id, victim.Broker_Set__c);
-          contactIdByOfficeGroup.put(survivor.Id, victim.Office_Group__c);
+          survivor.Sync_Status__c = SYNC_STATUS_BROKER_ORG;
         }
-
         Database.MergeResult result = Database.merge(survivor, victim, false);
 
         if (result.isSuccess()) {
@@ -512,19 +545,8 @@ public with sharing class RetailBrokerContactActions {
           )
           .save();
       }
-
-      System.enqueueJob(
-        new UpdateBrokerRelationLookupQueueable(
-          survivorDuplicatesList,
-          contactIdByBrokerSet,
-          contactIdByOfficeGroup
-        ),
-        1
-      );
     } catch (Exception ex) {
       Logger.error(' Contact Merge Failed due to : ', ex).save();
-    } finally {
-      isMergeInProgress = false;
     }
   }
 
@@ -595,7 +617,6 @@ public with sharing class RetailBrokerContactActions {
     List<FinServ__FinancialAccount__c> finServAccList = CONTACT_REPOSITORY.getRelatedOrphanFinancialAccounts(
       setOfBrokerTPMI
     );
-
     if (
       loanAppList.isEmpty() &&
       finServAccList.isEmpty() &&
