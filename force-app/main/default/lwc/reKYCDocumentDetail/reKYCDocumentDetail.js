@@ -28,7 +28,6 @@ import TRUSTME_SECONDARY_DOC_ID from "@salesforce/schema/ReKYC_Document_Detail__
 import TRUSTME_SECONDARY_DOC from "@salesforce/schema/ReKYC_Document_Detail__c.Secondary_Documents__c";
 import TRUSTME_PRIMARY_DOC from "@salesforce/schema/ReKYC_Document_Detail__c.Primary_Documents__c";
 import DAON_SELFIE_MATCH_ID from "@salesforce/schema/ReKYC_Document_Detail__c.Daon_Selfie_Match_ID__c";
-import INTERNATIONAL_ADDRESS from "@salesforce/schema/ReKYC_Document_Detail__c.International_Address__c";
 import CERTIFICATE_NUMBER from "@salesforce/schema/ReKYC_Document_Detail__c.Certificate_Number__c";
 import REGISTRATION_STATE from "@salesforce/schema/ReKYC_Document_Detail__c.Registration_State__c";
 import REGISTRATION_NUMBER from "@salesforce/schema/ReKYC_Document_Detail__c.Registration_Number__c";
@@ -75,7 +74,6 @@ const FIELDS = [
   "ReKYC_Document_Detail__c.TrustMe_Secondary_Document_ID__c",
   "ReKYC_Document_Detail__c.Secondary_Documents__c",
   "ReKYC_Document_Detail__c.Primary_Documents__c",
-  "ReKYC_Document_Detail__c.International_Address__c",
   "ReKYC_Document_Detail__c.Certificate_Number__c",
   "ReKYC_Document_Detail__c.Registration_State__c",
   "ReKYC_Document_Detail__c.Registration_Number__c"
@@ -226,10 +224,6 @@ export default class ReKYCDocumentDetail extends LightningElement {
           this.reKYCDetails,
           TRUSTME_SECONDARY_DOC_ID
         ),
-        International_Address__c: getFieldValue(
-          this.reKYCDetails,
-          INTERNATIONAL_ADDRESS
-        ),
         Certificate_Number__c: getFieldValue(
           this.reKYCDetails,
           CERTIFICATE_NUMBER
@@ -349,7 +343,11 @@ export default class ReKYCDocumentDetail extends LightningElement {
   get secondaryLayout() {
     const documents = this.reKYCDocDetails?.Secondary_Documents__c;
 
-    if (!documents || !Array.isArray(documents)) {
+    if (
+      !documents ||
+      (!Array.isArray(documents) || documents[0].type) ===
+        "DOCUMENT_TYPE_BIRTH_CERTIFICATE"
+    ) {
       return null;
     }
     return [
@@ -362,7 +360,9 @@ export default class ReKYCDocumentDetail extends LightningElement {
   }
 
   get secondarymetadata() {
-    if (!this.reKYCDocDetails?.Secondary_Documents__c) {
+    const documents = this.reKYCDocDetails?.Secondary_Documents__c;
+
+    if (!documents || documents[0].type === "DOCUMENT_TYPE_BIRTH_CERTIFICATE") {
       return null;
     }
     return {
