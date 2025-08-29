@@ -1497,7 +1497,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ML_MinDaysExpiryDateExtends</shortDescription>
-        <value>14</value>
+        <value>10</value>
     </labels>
     <labels>
         <fullName>ML_MaxExpiryDateErrorMessage</fullName>
