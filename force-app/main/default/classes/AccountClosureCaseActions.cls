@@ -209,7 +209,11 @@ public with sharing class AccountClosureCaseActions {
       ACCOUNT_CLOSURE_REPOSITORY.queryNotEscalatedParentCaseDetails(parentIds)
     );
 
-    for (Case childCase : validEscalatedCases) {
+    List<Case> filteredCases = ListUtil.filter(validEscalatedCases)
+      .equals(Case.ParentId, parentIdAndCaseDetailsMap.keySet())
+      .toList();
+
+    for (Case childCase : filteredCases) {
       Case parentCase = parentIdAndCaseDetailsMap.get(childCase.ParentId);
       parentCase.Status = CaseGroupCaseConstants.ESCALATED_STATUS;
       parentCasesToUpdate.add(parentCase);
