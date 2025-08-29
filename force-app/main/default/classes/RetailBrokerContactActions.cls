@@ -406,11 +406,6 @@ public with sharing class RetailBrokerContactActions {
       survivorExternalIdList
     );
 
-    Map<String, contact> survivorcontactsWithExternalIds = (Map<String, contact>) ListUtil.mapBy(
-      survivorContactsList,
-      Contact.External_Id__c
-    );
-
     processDataMerge(filteredVictimContactList, survivorContactsList);
 
     enqueueBrokerRelationUpdate(
