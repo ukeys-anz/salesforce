@@ -368,7 +368,7 @@ export default class CustomerInformation extends LightningElement {
         country: accountData.PersonOtherCountry?.value,
         postCode: accountData.PersonOtherPostalCode?.value,
         state: accountData.PersonOtherState?.value,
-        suburb: accountData.PersonOtherStreet?.value
+        suburb: accountData.PersonOtherCity?.value
       };
     }
     if (accountData.RecordType.value.fields.Name?.value === "Organisation") {
