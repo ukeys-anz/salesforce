@@ -33,6 +33,11 @@
                 <label>Goodwill payment where no ANZ error</label>
             </value>
             <value>
+                <fullName>Buyback</fullName>
+                <default>false</default>
+                <label>Buyback</label>
+            </value>
+            <value>
                 <fullName>8</fullName>
                 <default>false</default>
                 <label>Credit reporting amendment</label>
@@ -56,6 +61,11 @@
                 <fullName>13</fullName>
                 <default>false</default>
                 <label>Guarantee release</label>
+            </value>
+            <value>
+                <fullName>Internal credit rating upgrade</fullName>
+                <default>false</default>
+                <label>Internal credit rating upgrade</label>
             </value>
             <value>
                 <fullName>14</fullName>
@@ -254,6 +264,10 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>4</controllingFieldValue>
+            <valueName>Buyback</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>4</controllingFieldValue>
             <valueName>8</valueName>
         </valueSettings>
         <valueSettings>
@@ -271,6 +285,10 @@
         <valueSettings>
             <controllingFieldValue>4</controllingFieldValue>
             <valueName>13</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>4</controllingFieldValue>
+            <valueName>Internal credit rating upgrade</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>4</controllingFieldValue>
