@@ -5,7 +5,6 @@
  * @group Services
  */
 public with sharing class FabricService extends Service {
-  private static final String FILTER_DIGITAL_LINKED_ACCOUNT = 'ACCOUNT_VIEW_TYPE_ALL_DIGITAL_ACTIVE';
   /**
    * @param ocvId customer id to retrieve accounts and goals for
    * @param accountNumbers contains account numbers to provide as parameters for account filtering
@@ -16,7 +15,7 @@ public with sharing class FabricService extends Service {
     String ocvId,
     List<String> accountNumbers
   ) {
-    String urlParam = 'filter.view_type=' + FILTER_DIGITAL_LINKED_ACCOUNT + '&';
+    String urlParam = 'filter.view_type=ACCOUNT_VIEW_TYPE_ALL_DIGITAL_ACTIVE&';
     for (String accountNumber : accountNumbers) {
       String accountFilter = 'accounts/' + accountNumber;
       urlParam +=

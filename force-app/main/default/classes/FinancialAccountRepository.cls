@@ -195,7 +195,7 @@ public with sharing class FinancialAccountRepository {
       FROM FinServ__FinancialAccount__c
       WHERE
         FinServ__FinancialAccountNumber__c IN :allRelatedAccountNumbers
-        AND FinServ__Status__c != :FinancialAccountConstant.CLOSED
+        AND FinServ__Status__c != 'Closed'
       WITH USER_MODE
       ORDER BY FinServ__Status__c DESC, FinServ__OpenDate__c DESC
     ];

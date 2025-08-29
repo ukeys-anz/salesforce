@@ -100,13 +100,12 @@ public with sharing class UnifiedFinancialAccountModelConverter {
   ) {
     if (
       finAccount.FinServ__ProductName__r.ANZ_Product_Code__c != null &&
-      FinancialAccountConstant.ZAFIN_SOURCE.equalsIgnoreCase(
-        finAccount.FinServ__ProductName__r.SourceSystem__c
-      )
+      'Zafin'
+        .equalsIgnoreCase(finAccount.FinServ__ProductName__r.SourceSystem__c)
     ) {
       return FinancialAccountConstant.ANZ_PLUS_ORIGIN;
     }
-    return FinancialAccountConstant.ANZ_CLASSIC_ORIGIN;
+    return 'PRODUCT_ORIGIN_ARC'; //ANZ CLASSIC ORIGIN
   }
 
   private static UnifiedFinancialAccountModel.Ownership convertOwnership(

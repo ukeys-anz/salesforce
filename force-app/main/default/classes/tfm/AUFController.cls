@@ -130,7 +130,7 @@ global with sharing class AUFController {
       List<UnifiedFinancialAccountModel.AccountList> filteredPlusAccounts = (List<UnifiedFinancialAccountModel.AccountList>) ListUtil.filter(
           financialAccList
         )
-        .equals('origin', FinancialAccountConstant.ANZ_PLUS_ORIGIN)
+        .equals('origin', 'PRODUCT_ORIGIN_ANZX')
         .toList();
 
       return isAnyAccountOpen(filteredPlusAccounts);

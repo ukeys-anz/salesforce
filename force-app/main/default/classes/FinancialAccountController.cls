@@ -214,7 +214,7 @@ public with sharing class FinancialAccountController {
     finAccount.finserv_showgoal = finAccConfig?.Show_Goals__c ?? false;
     finAccount.linkedProductCode = finAccountFromDatabase
       ?.Linked_Product_Code__c ?? finAccount.product_details?.marketing_code ??
-      finAccount.product_details?.sub_product_code;
+      finAccount.product_details.sub_product_code;
 
     return finAccount;
   }
@@ -236,7 +236,11 @@ public with sharing class FinancialAccountController {
     if (
       String.isNotBlank(
         finAccountFromDatabase.FinServ__ProductName__r?.ANZ_Product_Code__c
-      )
+      ) &&
+      'Zafin'
+        .equalsIgnoreCase(
+          finAccountFromDatabase.FinServ__ProductName__r.SourceSystem__c
+        )
     ) {
       record.Name = finAccount.account_name;
     }

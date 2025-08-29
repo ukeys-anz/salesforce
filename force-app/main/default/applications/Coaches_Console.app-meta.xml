@@ -165,6 +165,22 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
+        <content>CCRM_Controlling_Post_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Controlling_Post__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard Automation User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CCRM_Controlling_Post_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Controlling_Post__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard Automation User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
         <content>Lending_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Case</pageOrSobjectType>
