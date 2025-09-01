@@ -115,6 +115,7 @@ public with sharing class RetailBrokerContactActions {
       records,
       contactsOldMap
     );
+
     RetailBrokerEventActions.publishEventForBrokers(
       brokerIdToEventTypeMap,
       contactsOldMap
@@ -459,13 +460,13 @@ public with sharing class RetailBrokerContactActions {
       survivorDuplicatesList.add(survivor);
       contactIdByBrokerSet.put(survivor.Id, victim.Broker_Set__c);
       contactIdByOfficeGroup.put(survivor.Id, victim.Office_Group__c);
-      contactMapForQueueable = new Map<String, List<Contact>>();
-      contactMapForQueueable.put(
-        'survivorDuplicatesList',
-        survivorDuplicatesList
-      );
-      contactMapForQueueable.put('updatedContacts', updatedContacts);
     }
+    contactMapForQueueable = new Map<String, List<Contact>>();
+    contactMapForQueueable.put(
+      'survivorDuplicatesList',
+      survivorDuplicatesList
+    );
+    contactMapForQueueable.put('updatedContacts', updatedContacts);
 
     System.enqueueJob(
       new UpdateBrokerRelationLookupQueueable(

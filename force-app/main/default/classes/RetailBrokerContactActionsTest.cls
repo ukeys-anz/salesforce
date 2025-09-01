@@ -436,6 +436,7 @@ private class RetailBrokerContactActionsTest {
     Test.startTest();
     RetailBrokerContactActions.contactMergeEvent(
       newContacts,
+      new Map<Id, Contact>(newContacts),
       new Map<Id, Contact>(oldContacts)
     );
     Test.stopTest();
@@ -533,60 +534,6 @@ private class RetailBrokerContactActionsTest {
       'Assisted Broker should be updated'
     );
   }
-
-  /*  @IsTest
-  static void testProcessDataMerge() {
-    List<Contact> newContacts = createTestContacts(2);
-
-    newContacts[0]
-      .Sync_Status__c = RetailBrokerContactActions.SYNC_STATUS_BROKER_ORG;
-    newContacts[0].External_Id__c = 'exIdContactTest001';
-    newContacts[1].External_Id__c = 'exIdContactTest002';
-    newContacts[1]
-      .Sync_Status__c = RetailBrokerContactActions.SYNC_STATUS_DUPLICATE_EMAIL;
-
-    newContacts[0].Survivor_Party_Id__c = newContacts[1].External_Id__c;
-    newContacts[0].Victim_Party_Id__c = newContacts[0].External_Id__c;
-
-    Broker_Code__c brokerCode = createBrokerCode();
-    brokerCode.Broker_Name__c = newContacts[0].Id;
-    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
-      'getRelatedBrokerCodes',
-      new List<Broker_Code__c>{ brokerCode }
-    );
-    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
-      'queryContactRecordsByExternalIds',
-      new List<Contact>{ newContacts[1] }
-    );
-
-    Test.startTest();
-    RetailBrokerContactActions.processDataMerge(
-      new List<contact>{ newContacts[0] },
-      new List<contact>{ newContacts[1] }
-    );
-    Test.stopTest();
-    List<Contact> updatedBrokerContacts = (List<Contact>) dmlRepoMock.getHistory(
-        'doUpdate'
-      )
-      .getParam('records');
-    Assert.areEqual(
-      1,
-      updatedBrokerContacts.size(),
-      'Must have one Contact to Update'
-    );
-
-    Assert.areEqual(
-      newContacts[1].id,
-      updatedBrokerContacts[0].Id,
-      'Survior contact should get updated'
-    );
-
-    Assert.areEqual(
-      newContacts[0].Broker_Set__c,
-      updatedBrokerContacts[0].Broker_Set__c,
-      'Broker Set should get updated'
-    );
-  }*/
 
   /**
    * @description to create mock Broker Relation List
