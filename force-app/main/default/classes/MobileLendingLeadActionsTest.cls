@@ -18,68 +18,55 @@ private class MobileLendingLeadActionsTest {
 
   @isTest
   static void updateExpiryDateWhenFollowUpChangedTest() {
-    Integer maxdays = integer.valueOf(Label.ML_MaxDaysExpiryDateExtends);
     List<Task> taskRecords = new List<Task>();
-    Date followUpDate = System.Today().addDays(5);
     taskRecords.add(
       new Task(
         Id = Lib_FakeIdGenerator.getMockId(Schema.Task.getSObjectType()),
-        Response_Status__c = 'Appointment Booked',
-        ActivityDate = followUpDate
+        Response_Status__c = 'Call Back'
       )
     );
+    taskRecords.add(
+      new Task(
+        Id = Lib_FakeIdGenerator.getMockId(Schema.Task.getSObjectType()),
+        Response_Status__c = 'Accepted'
+      )
+    );
+
     List<Lead> leadRecords = new List<Lead>();
     leadRecords.add(
       new Lead(
         Id = Lib_FakeIdGenerator.getMockId(Schema.Lead.getSObjectType()),
-        Expiry_Date__c = System.Today().addDays(1),
-        RecordTypeId = RTLead.mlcrmLead,
-        Followup_Date__c = followUpDate
+        Followup_Date__c = System.Today().addDays(1)
       )
     );
-    // No task record exists
+    leadRecords.add(
+      new Lead(
+        Id = Lib_FakeIdGenerator.getMockId(Schema.Lead.getSObjectType()),
+        Followup_Date__c = null,
+        Expiry_Date__c = system.today()
+      )
+    );
+
+    Test.startTest();
     List<Lead> updatedLeadRecords = MobileLendingLeadActions.updateExpiryDateWhenFollowUpChanged(
       leadRecords,
-      new Map<Id, Task>{ leadRecords[0].Id => null }
+      new Map<Id, Task>{
+        leadRecords[0].Id => taskRecords[0],
+        leadRecords[1].Id => taskRecords[1]
+      }
     );
-    Assert.isTrue(
-      updatedLeadRecords.isEmpty(),
-      'Expiry Date updated when Task is null'
-    );
-    // Follow up date is populated on lead
-    updatedLeadRecords = MobileLendingLeadActions.updateExpiryDateWhenFollowUpChanged(
-      leadRecords,
-      new Map<Id, Task>{ leadRecords[0].Id => taskRecords[0] }
-    );
-    Integer minDays = integer.valueOf(Label.ML_MinDaysExpiryDateExtends);
+    Test.stopTest();
+
+    Integer minDays = integer.valueOf(System.Label.DefaultLeadExpiryDate);
     Assert.areEqual(
-      followUpDate.addDays(minDays),
+      system.today().addDays(minDays + 1),
       updatedLeadRecords[0].Expiry_Date__c,
-      'Expiry Date not updated properly for Accepted Booked Response'
-    );
-    // Follow up date is set to null on lead
-    leadRecords[0].Followup_Date__c = null;
-    leadRecords[0].Expiry_Date__c = System.Today();
-    updatedLeadRecords = MobileLendingLeadActions.updateExpiryDateWhenFollowUpChanged(
-      leadRecords,
-      new Map<Id, Task>{ leadRecords[0].Id => taskRecords[0] }
+      'Expiry Date not updated properly for Call Back Response'
     );
     Assert.areEqual(
-      System.Today().addDays(minDays),
-      updatedLeadRecords[0].Expiry_Date__c,
-      'Expiry Date not updated properly for follow up date is null'
-    );
-    // Follow up date is set to too far from expiry
-    leadRecords[0].Followup_Date__c = System.Today().addDays(60);
-    leadRecords[0].Expiry_Date__c = System.Today();
-    updatedLeadRecords = MobileLendingLeadActions.updateExpiryDateWhenFollowUpChanged(
-      leadRecords,
-      new Map<Id, Task>{ leadRecords[0].Id => taskRecords[0] }
-    );
-    Assert.areEqual(
-      System.Today().addDays(maxdays),
-      updatedLeadRecords[0].Expiry_Date__c,
-      'Expiry Date not updated properly for new followup date is too far'
+      system.today().addDays(minDays),
+      updatedLeadRecords[1].Expiry_Date__c,
+      'Expiry Date not updated properly for Accepted'
     );
   }
 
