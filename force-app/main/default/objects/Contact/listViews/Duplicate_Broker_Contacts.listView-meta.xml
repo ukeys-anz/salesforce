@@ -18,7 +18,7 @@
     <filterScope>Everything</filterScope>
     <label>Duplicate Broker Contacts</label>
     <sharedTo>
-        <role>Banker</role>
+        <role>Residential_Broker_Manager</role>
         <role>Retail_Broker</role>
     </sharedTo>
 </ListView>

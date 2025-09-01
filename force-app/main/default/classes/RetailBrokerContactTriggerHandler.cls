@@ -66,10 +66,6 @@ public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerH
 
     RetailBrokerContactActions.contactMergeEvent(
       records,
-      (Map<Id, Contact>) oldMap
-    );
-
-    RetailBrokerContactActions.updateAssistedBrokerLookup(
       (Map<Id, Contact>) Trigger.newMap,
       (Map<Id, Contact>) oldMap
     );

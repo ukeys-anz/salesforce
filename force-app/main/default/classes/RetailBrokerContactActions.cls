@@ -370,21 +370,22 @@ public with sharing class RetailBrokerContactActions {
         statusValues.add(SYNC_STATUS_DUPLICATE_OCVID);
       }
 
-      String currentStatus = String.isBlank(con.Sync_Status__c)
-        ? ''
-        : con.Sync_Status__c + ';';
-
-      con.Sync_Status__c = currentStatus + String.join(statusValues, ';');
+      con.Sync_Status__c = PicklistUtil.addMultiPicklistValues(
+        con.Sync_Status__c,
+        statusValues
+      );
     }
   }
 
   /**
    * @description Generate and publish Broker contact GCP cloud events
    * @param records list of new version of contacts from trigger context
+   * @param contactsNewMap map of New version of contacts from trigger context
    * @param contactsOldMap map of old version of contacts from trigger context
    */
   public static void contactMergeEvent(
     List<Contact> records,
+    Map<Id, Contact> contactsNewMap,
     Map<Id, Contact> contactsOldMap
   ) {
     List<Contact> filteredVictimContactList = filterVictimContacts(
@@ -407,53 +408,33 @@ public with sharing class RetailBrokerContactActions {
     );
 
     processDataMerge(filteredVictimContactList, survivorContactsList);
+    List<Contact> updatedContacts = updateAssistedBrokerLookup(
+      contactsNewMap,
+      contactsOldMap
+    );
+
+    Set<Id> ccrContactIds = getCCRContactIds(contactsNewMap, contactsOldMap);
 
     enqueueBrokerRelationUpdate(
       filteredVictimContactList,
-      survivorContactsList
+      survivorContactsList,
+      ccrContactIds,
+      updatedContacts
     );
-  }
-
-  /**
-   * @description Get the survivor contacts to be updated
-   * @param filteredRecords list of filtered contacts
-   * @param contactsWithExternalIds Map of contacts based on ExternalId
-   * @return List<contact> list of updated survivor contacts
-   */
-  public static List<contact> populateSurvivorDetails(
-    List<Contact> filteredRecords,
-    Map<String, contact> contactsWithExternalIds
-  ) {
-    List<Contact> contactTobeUpdated = new List<contact>();
-    for (Contact victimCon : filteredRecords) {
-      String survivorId = victimCon.Survivor_Party_Id__c;
-      Contact survivorCon = new Contact(
-        Id = contactsWithExternalIds.get(survivorId).Id,
-        Sync_Status__c = contactsWithExternalIds.get(survivorId).Sync_Status__c
-      );
-      survivorCon.Survivor_Party_Id__c = victimCon.Survivor_Party_Id__c;
-      survivorCon.Victim_Party_Id__c = victimCon.Victim_Party_Id__c;
-
-      if (
-        survivorCon.Sync_Status__c != null &&
-        !survivorCon.Sync_Status__c.contains(SYNC_STATUS_BLOCKED)
-      ) {
-        survivorCon.Sync_Status__c = BrokerConstants.SYNC_STATUS_BROKER_ORG;
-      }
-
-      contactTobeUpdated.add(survivorCon);
-    }
-    return contactTobeUpdated;
   }
 
   /**
    * @description Process the data merge event
    * @param victimContactsList List<Contact> List of Victim Contacts
    * @param survivorContactsList List<Contact> List of survivor Contacts
+   * @param ccrContactIds of Contact Ids for CCREvent
+   * @param updatedContacts List of updated contacts
    */
   public static void enqueueBrokerRelationUpdate(
     List<Contact> victimContactsList,
-    List<Contact> survivorContactsList
+    List<Contact> survivorContactsList,
+    Set<Id> ccrContactIds,
+    List<Contact> updatedContacts
   ) {
     List<Contact> allContactsList = new List<Contact>(victimContactsList);
     allContactsList.addAll(survivorContactsList);
@@ -462,9 +443,10 @@ public with sharing class RetailBrokerContactActions {
       allContactsList,
       Contact.External_Id__c
     );
-    List<Id> survivorDuplicatesList = new List<Id>();
+    List<Contact> survivorDuplicatesList = new List<Contact>();
     Map<Id, String> contactIdByBrokerSet = new Map<Id, String>();
     Map<Id, String> contactIdByOfficeGroup = new Map<Id, String>();
+    Map<String, List<Contact>> contactMapForQueueable = new Map<String, List<Contact>>();
     for (Contact victim : victimContactsList) {
       Contact survivor = contactMap.get(victim.Survivor_Party_Id__c);
       if (survivor == null) {
@@ -474,20 +456,26 @@ public with sharing class RetailBrokerContactActions {
         continue;
       }
 
-      survivorDuplicatesList.add(survivor.Id);
+      survivorDuplicatesList.add(survivor);
       contactIdByBrokerSet.put(survivor.Id, victim.Broker_Set__c);
       contactIdByOfficeGroup.put(survivor.Id, victim.Office_Group__c);
-    }
-    if (!survivorDuplicatesList.isEmpty()) {
-      System.enqueueJob(
-        new UpdateBrokerRelationLookupQueueable(
-          survivorDuplicatesList,
-          contactIdByBrokerSet,
-          contactIdByOfficeGroup
-        ),
-        1
+      contactMapForQueueable = new Map<String, List<Contact>>();
+      contactMapForQueueable.put(
+        'survivorDuplicatesList',
+        survivorDuplicatesList
       );
+      contactMapForQueueable.put('updatedContacts', updatedContacts);
     }
+
+    System.enqueueJob(
+      new UpdateBrokerRelationLookupQueueable(
+        contactMapForQueueable,
+        contactIdByBrokerSet,
+        contactIdByOfficeGroup,
+        ccrContactIds
+      ),
+      1
+    );
   }
   /**
    * @description Process the data merge event
@@ -514,7 +502,9 @@ public with sharing class RetailBrokerContactActions {
         }
         survivor.Survivor_Party_Id__c = victim.Survivor_Party_Id__c;
         survivor.Victim_Party_Id__c = victim.Victim_Party_Id__c;
-
+        if (survivor.Is_Beta_Broker__c != true) {
+          survivor.Is_Beta_Broker__c = victim.Is_Beta_Broker__c;
+        }
         if (
           survivor.Sync_Status__c != null &&
           !survivor.Sync_Status__c.contains(SYNC_STATUS_BLOCKED)
@@ -526,17 +516,13 @@ public with sharing class RetailBrokerContactActions {
         if (result.isSuccess()) {
           continue;
         }
-        String errorMessage = '';
-        for (Database.Error err : result.getErrors()) {
-          errorMessage += err;
-        }
         Logger.error(
             'Contact Merge failed for following contacts' +
               survivor.Id +
               ' and ' +
               victim.Id +
               'Error_Message: ',
-            errorMessage
+            result
           )
           .save();
       }
@@ -582,8 +568,9 @@ public with sharing class RetailBrokerContactActions {
    * @description Enqueues a Queueable job to update related RLA records based on contact TPMISAO
    * @param newMap Map of new Contact records.
    * @param oldMap Map of old Contact records.
+   * @return List<Contact> List of updated contacts.
    */
-  public static void updateAssistedBrokerLookup(
+  public static List<Contact> updateAssistedBrokerLookup(
     Map<Id, Contact> newMap,
     Map<Id, Contact> oldMap
   ) {
@@ -600,36 +587,7 @@ public with sharing class RetailBrokerContactActions {
       .equals(Contact.Survivor_Party_Id__c, externalIdSet)
       .toList();
 
-    Set<Id> ccrContactIds = getCCRContactIds(newMap, oldMap);
-    Set<String> setOfBrokerTPMI = ListUtil.getStrings(
-      updatedContacts,
-      Contact.RetailTPMISAO__c
-    );
-    List<ResidentialLoanApplication> loanAppList = CONTACT_REPOSITORY.getRelatedOrphanResidentialApplications(
-      setOfBrokerTPMI
-    );
-
-    List<FinServ__FinancialAccount__c> finServAccList = CONTACT_REPOSITORY.getRelatedOrphanFinancialAccounts(
-      setOfBrokerTPMI
-    );
-    if (
-      loanAppList.isEmpty() &&
-      finServAccList.isEmpty() &&
-      ccrContactIds.isEmpty() &&
-      updatedContacts.isEmpty()
-    ) {
-      return;
-    }
-
-    System.enqueueJob(
-      new RetailContactMergeActionsQueueable(
-        updatedContacts,
-        loanAppList,
-        finServAccList,
-        ccrContactIds
-      ),
-      1
-    );
+    return updatedContacts;
   }
 
   /**
@@ -651,16 +609,12 @@ public with sharing class RetailBrokerContactActions {
       )
       .toList();
 
-    List<Contact> validCCRContacts = new List<Contact>();
-
-    for (Contact con : oldValidCCRContacts) {
-      Contact newCon = newMap.get(con.Id);
-      validCCRContacts.add(newCon);
-    }
+    Set<Id> oldIds = ListUtil.getIds(oldValidCCRContacts, Contact.Id);
 
     List<Contact> updatedCCRContacts = (List<Contact>) ListUtil.filter(
-        validCCRContacts
+        newMap.values()
       )
+      .equals(Contact.Id, oldIds)
       .contains(
         Contact.Broker_Accreditation_Type__c,
         BrokerConstants.ACCREDITATION_RETAIL

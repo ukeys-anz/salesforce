@@ -5,27 +5,33 @@
  * @last modified by  : Madhuri Edke | Salesforce
  **/
 public class UpdateBrokerRelationLookupQueueable implements Queueable {
-  private List<Id> survivorIds;
+  private Map<String, List<Contact>> contactMap;
   private Map<Id, String> contactIdByBrokerSet;
   private Map<Id, String> contactIdByOfficeGroup;
+  private Set<Id> contactIdsForCCREvent;
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
-
+  private static final RetailContactRepository CONTACT_REPOSITORY = (RetailContactRepository) Lib_InstanceProvider.forType(
+    RetailContactRepository.class
+  );
   /**
    * @description Constructor to initialize the queueable job.
-   * @param survivorIds List of Contact IDs representing survivors after merge
+   * @param contactMap with List of Contacts representing survivors after merge and Updated Contacts For CCR
    * @param contactIdByBrokerSet Map of Contact IDs to their Broker_Set__c values from victim contacts.
    * @param contactIdByOfficeGroup Map of Contact IDs to their Office_Group__c values from victim contacts.
+   * @param contactIdsForCCREvent Set of Contact IDs for CCREvent
    */
   public UpdateBrokerRelationLookupQueueable(
-    List<Id> survivorIds,
+    Map<String, List<Contact>> contactMap,
     Map<Id, String> contactIdByBrokerSet,
-    Map<Id, String> contactIdByOfficeGroup
+    Map<Id, String> contactIdByOfficeGroup,
+    Set<Id> contactIdsForCCREvent
   ) {
-    this.survivorIds = survivorIds;
+    this.contactMap = contactMap;
     this.contactIdByBrokerSet = contactIdByBrokerSet;
     this.contactIdByOfficeGroup = contactIdByOfficeGroup;
+    this.contactIdsForCCREvent = contactIdsForCCREvent;
   }
 
   /**
@@ -34,7 +40,15 @@ public class UpdateBrokerRelationLookupQueueable implements Queueable {
    */
   public void execute(QueueableContext context) {
     List<Contact> contactsToUpdate = new List<Contact>();
-
+    Set<Id> survivorIds = new Set<Id>();
+    if (
+      contactMap != null && contactMap.containsKey('survivorDuplicatesList')
+    ) {
+      survivorIds = ListUtil.getIds(
+        contactMap.get('survivorDuplicatesList'),
+        Contact.Id
+      );
+    }
     for (Id contactId : survivorIds) {
       if (
         contactIdByBrokerSet.containsKey(contactId) ||
@@ -48,5 +62,94 @@ public class UpdateBrokerRelationLookupQueueable implements Queueable {
     }
 
     DML_REPOSITORY.doUpdate(contactsToUpdate);
+
+    List<Contact> contactList = (contactMap != null &&
+      contactMap.containsKey('updatedContacts'))
+      ? contactMap.get('updatedContacts')
+      : new List<Contact>();
+
+    Set<String> setOfBrokerTPMI = ListUtil.getStrings(
+      contactMap.get('updatedContacts'),
+      Contact.RetailTPMISAO__c
+    );
+
+    List<ResidentialLoanApplication> loanAppList = CONTACT_REPOSITORY.getRelatedOrphanResidentialApplications(
+      setOfBrokerTPMI
+    );
+
+    List<FinServ__FinancialAccount__c> finServAccList = CONTACT_REPOSITORY.getRelatedOrphanFinancialAccounts(
+      setOfBrokerTPMI
+    );
+
+    try {
+      Map<String, Contact> contactByTMPI = (Map<String, Contact>) ListUtil.mapBy(
+        contactList,
+        contact.RetailTPMISAO__c
+      );
+      List<ResidentialLoanApplication> loanAppListToUpdate = updateResidentialLoanApplication(
+        loanAppList,
+        contactByTMPI
+      );
+      List<FinServ__FinancialAccount__c> accountsToUpdate = updateFinancialAccounts(
+        finServAccList,
+        contactByTMPI
+      );
+      DML_REPOSITORY.doUpdate(loanAppListToUpdate);
+      DML_REPOSITORY.doUpdate(accountsToUpdate);
+      RetailBrokerRelationEventActions.publishBrokerRelationEventFromContact(
+        contactIdsForCCREvent,
+        null
+      );
+    } catch (Exception e) {
+      Logger.error(
+          'Error during MergeResidentialLoanAppQueueable execution ',
+          e
+        )
+        .save();
+    }
+  }
+
+  /**
+   * @description Updates the Assisted_Broker__c field in ResidentialLoanApplication
+   * records by matching TPMI code with Contact records.
+   * @param loanAppList List of orphan ResidentialLoanApplication records
+   * @param contactByTMPI Map of Contacts keyed by RetailTPMISAO__c
+   * @return List<ResidentialLoanApplication> with updated Assisted_Broker__c field
+   */
+  public static List<ResidentialLoanApplication> updateResidentialLoanApplication(
+    List<ResidentialLoanApplication> loanAppList,
+    Map<String, Contact> contactByTMPI
+  ) {
+    List<ResidentialLoanApplication> loanAppListToUpdate = new List<ResidentialLoanApplication>();
+    for (ResidentialLoanApplication rla : loanAppList) {
+      rla.Assisted_Broker__c = contactByTMPI.get(
+          rla.Assisted_Broker_TPMI_SAO__c
+        )
+        ?.Id;
+      loanAppListToUpdate.add(rla);
+    }
+    return loanAppListToUpdate;
+  }
+
+  /**
+   * @description Updates the Assisted_Broker__c field in FinancialAccount
+   * records by matching TPMI code with Contact records.
+   * @param finServAccList List of orphan FinancialAccount records
+   * @param contactByTMPI Map of Contacts keyed by RetailTPMISAO__c
+   * @return List<FinServ__FinancialAccount__c> with updated Assisted_Broker__c field
+   */
+  public static List<FinServ__FinancialAccount__c> updateFinancialAccounts(
+    List<FinServ__FinancialAccount__c> finServAccList,
+    Map<String, Contact> contactByTMPI
+  ) {
+    List<FinServ__FinancialAccount__c> accountsToUpdate = new List<FinServ__FinancialAccount__c>();
+    for (FinServ__FinancialAccount__c acc : finServAccList) {
+      acc.Assisted_Broker__c = contactByTMPI.get(
+          acc.Assisted_Broker_TPMI_SAO__c
+        )
+        ?.Id;
+      accountsToUpdate.add(acc);
+    }
+    return accountsToUpdate;
   }
 }

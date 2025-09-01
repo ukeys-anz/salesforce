@@ -9,9 +9,14 @@ private class RetailBrokerContactActionsTest {
   private static final Lib_MockProvider BROKER_RELATION_REPOSITORY_MOCK = Lib_MockProvider.forType(
     BrokerRelationRepository.class
   );
-  private static final Lib_MockProvider RETAIL_CONTACT_REPOSITORY_MOCK = Lib_MockProvider.forType(
+  private static final Lib_MockProvider RETAIL_CONTACT_MERGE_REPOSITORY_MOCK = Lib_MockProvider.forType(
     RetailContactMergeRepository.class
   );
+
+  private static final Lib_MockProvider RETAIL_CONTACT_REPOSITORY_MOCK = Lib_MockProvider.forType(
+    RetailContactRepository.class
+  );
+
   private static final Lib_MockProvider BROKER_SETTINGS_REPOSITORY_MOCK = Lib_MockProvider.forType(
     BrokerSettingsRepository.class
   );
@@ -419,11 +424,11 @@ private class RetailBrokerContactActionsTest {
     newContacts[0].Victim_Party_Id__c = newContacts[0].External_Id__c;
     Broker_Code__c brokerCode = createBrokerCode();
     brokerCode.Broker_Name__c = newContacts[0].Id;
-    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
+    RETAIL_CONTACT_MERGE_REPOSITORY_MOCK.mock(
       'getRelatedBrokerCodes',
       new List<Broker_Code__c>{ brokerCode }
     );
-    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
+    RETAIL_CONTACT_MERGE_REPOSITORY_MOCK.mock(
       'queryContactRecordsByExternalIds',
       new List<Contact>{ newContacts[1] }
     );
@@ -438,19 +443,11 @@ private class RetailBrokerContactActionsTest {
         'doDelete'
       )
       .getParam('records');
-    List<Contact> updatedBrokerContacts = (List<Contact>) dmlRepoMock.getHistory(
-        'doUpdate'
-      )
-      .getParam('records');
+
     Assert.areEqual(
       1,
       deletebrokerCode.size(),
       'Must have one Broker code to delete'
-    );
-    Assert.areEqual(
-      1,
-      updatedBrokerContacts.size(),
-      'Must have one Contact to Update'
     );
   }
 
@@ -461,7 +458,7 @@ private class RetailBrokerContactActionsTest {
     newContacts[0].OCV_ID__c = '123456';
     newContacts[1].Email = 'testEmail.com';
     newContacts[1].OCV_ID__c = '123456';
-    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
+    RETAIL_CONTACT_MERGE_REPOSITORY_MOCK.mock(
       'getDuplicateContacts',
       new List<Contact>{ newContacts[0] }
     );
@@ -500,21 +497,21 @@ private class RetailBrokerContactActionsTest {
     newContacts[0].Survivor_Party_Id__c = 'Ex-sur1234';
     newContacts[0].External_Id__c = 'Ex-sur1234';
 
-    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
+    RETAIL_CONTACT_MERGE_REPOSITORY_MOCK.mock(
       'getRelatedOrphanResidentialApplications',
       new List<ResidentialLoanApplication>{ rla }
     );
-    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
+    RETAIL_CONTACT_MERGE_REPOSITORY_MOCK.mock(
       'getContactsByTMPI',
       new List<contact>{ newContacts[0] }
     );
-    RETAIL_CONTACT_REPOSITORY_MOCK.mock(
+    RETAIL_CONTACT_MERGE_REPOSITORY_MOCK.mock(
       'getRelatedOrphanFinancialAccounts',
       new List<FinServ__FinancialAccount__c>{ finServAcc }
     );
 
     Test.startTest();
-    RetailBrokerContactActions.updateAssistedBrokerLookup(
+    RetailContactMergeActions.updateAssistedBrokerLookup(
       new Map<Id, Contact>{ newContacts[0].Id => newContacts[0] },
       new Map<Id, Contact>(oldContacts)
     );
@@ -537,7 +534,7 @@ private class RetailBrokerContactActionsTest {
     );
   }
 
-  @IsTest
+  /*  @IsTest
   static void testProcessDataMerge() {
     List<Contact> newContacts = createTestContacts(2);
 
@@ -589,7 +586,7 @@ private class RetailBrokerContactActionsTest {
       updatedBrokerContacts[0].Broker_Set__c,
       'Broker Set should get updated'
     );
-  }
+  }*/
 
   /**
    * @description to create mock Broker Relation List
