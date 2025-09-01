@@ -8,7 +8,7 @@ public with sharing class CaseGroupCaseAutoCloseScheduler implements Schedulable
     DmlRepository.class
   );
 
-  private static final AccountClosureRepository ACCOUN_CLOSURE_REPOSITORY = (AccountClosureRepository) Lib_InstanceProvider.forType(
+  private static final AccountClosureRepository ACCOUNT_CLOSURE_REPOSITORY = (AccountClosureRepository) Lib_InstanceProvider.forType(
     AccountClosureRepository.class
   );
 
@@ -17,26 +17,21 @@ public with sharing class CaseGroupCaseAutoCloseScheduler implements Schedulable
    * @param sc SchedulableContext
    */
   public void execute(SchedulableContext sc) {
-    Map<Id, List<Case>> caseGroupCasesToCloseMap = (Map<Id, List<Case>>) ListUtil.groupBy(
-      ACCOUN_CLOSURE_REPOSITORY.queryCaseGroupCasesToClose(),
-      Case.ParentId
-    );
-    Map<Id, List<Case>> notClosedAcountClosureCases = (Map<Id, List<Case>>) ListUtil.groupBy(
-      ACCOUN_CLOSURE_REPOSITORY.queryNotClosedAccountClosureCases(
-        caseGroupCasesToCloseMap.keySet()
-      ),
+    Set<Id> caseGroupCasesToCloseIds = ListUtil.getIds(
+      ACCOUNT_CLOSURE_REPOSITORY.queryCaseGroupCasesToClose(),
       Case.ParentId
     );
 
+    List<Case> caseGroupCasesWithChild = ACCOUNT_CLOSURE_REPOSITORY.queryCaseGroupCasesWithChild(
+      caseGroupCasesToCloseIds
+    );
+
     List<Case> caseGroupCasesToUpdate = new List<Case>();
-    for (Id parentCaseId : caseGroupCasesToCloseMap.keyset()) {
-      if (notClosedAcountClosureCases.keySet().contains(parentCaseId)) {
+    for (Case parentCase : caseGroupCasesWithChild) {
+      if (!parentCase.Cases.isEmpty()) {
         continue;
       }
-      Case parentCase = new Case(
-        Id = parentCaseId,
-        Status = CaseGroupCaseConstants.CLOSED_STATUS
-      );
+      parentCase.Status = CaseGroupCaseConstants.CLOSED_STATUS;
       caseGroupCasesToUpdate.add(parentCase);
     }
 

@@ -471,6 +471,7 @@ public with sharing class AccountClosureRepository {
       WHERE
         FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c = :finAccountValue
         AND FinServ__Active__c = TRUE
+        AND FinServ__Role__c IN :FinancialAccountConstant.FINSERV_ROLE_TYPES
       WITH USER_MODE
     ];
   }
@@ -521,20 +522,23 @@ public with sharing class AccountClosureRepository {
    * @param caseGroupIdsToClose set of Parent Case Group Ids which need to be closed
    * @return List<Case> list of cases
    */
-  public List<Case> queryNotClosedAccountClosureCases(
-    Set<Id> caseGroupIdsToClose
-  ) {
+  public List<Case> queryCaseGroupCasesWithChild(Set<Id> caseGroupIdsToClose) {
     if (caseGroupIdsToClose.isEmpty()) {
       return new List<Case>();
     }
 
     return [
-      SELECT ParentId
+      SELECT
+        Id,
+        Status,
+        (
+          SELECT Id
+          FROM Cases
+          WHERE RecordTypeId = :RTCase.accountClosure AND IsClosed = FALSE
+          LIMIT 1
+        )
       FROM Case
-      WHERE
-        IsClosed = FALSE
-        AND ParentId IN :caseGroupIdsToClose
-        AND RecordTypeId = :RTCase.accountClosure
+      WHERE IsClosed = FALSE AND Id IN :caseGroupIdsToClose
       WITH USER_MODE
     ];
   }

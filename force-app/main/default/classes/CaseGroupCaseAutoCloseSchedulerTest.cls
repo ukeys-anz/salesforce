@@ -5,16 +5,6 @@
  */
 @isTest
 public with sharing class CaseGroupCaseAutoCloseSchedulerTest {
-  private static final String FAKER_PARENT_CASE_ID = (String) Lib_FakeIdGenerator.getMockId(
-    Case.SObjectType
-  );
-  private static final String FAKER_CHILD_CASE_ID = (String) Lib_FakeIdGenerator.getMockId(
-    Case.SObjectType
-  );
-  private static final Id FAKER_ACCOUNT_ID = Lib_FakeIdGenerator.getMockId(
-    Account.getSObjectType()
-  );
-
   static Lib_MockProvider dmlRepoMock;
   static Lib_MockProvider accRepoMock;
 
@@ -25,14 +15,17 @@ public with sharing class CaseGroupCaseAutoCloseSchedulerTest {
   @isTest
   public static void testCaseGroupCaseAutoClosePositive() {
     registerMocks();
+    Id parentCaseRecordId = Lib_FakeIdGenerator.getMockId(
+      Case.getSObjectType()
+    );
     Id parentCaseId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType());
     accRepoMock.mock(
       'queryCaseGroupCasesToClose',
-      createMockAccountClosureCaseRecord(FAKER_PARENT_CASE_ID, 'Closed')
+      createMockAccountClosureCaseRecord(parentCaseRecordId, 'Closed')
     );
     accRepoMock.mock(
-      'queryNotClosedAccountClosureCases',
-      createMockAccountClosureCaseRecord(parentCaseId, 'Escalated')
+      'queryCaseGroupCasesWithChild',
+      createMockCaseGroupRecord(parentCaseId, 'Escalated', new List<Case>())
     );
 
     Test.startTest();
@@ -50,13 +43,20 @@ public with sharing class CaseGroupCaseAutoCloseSchedulerTest {
   @isTest
   public static void testCaseGroupCaseAutoCloseNegative() {
     registerMocks();
-    accRepoMock.mock(
-      'queryCaseGroupCasesToClose',
-      createMockAccountClosureCaseRecord(FAKER_PARENT_CASE_ID, 'Escalated')
+    Id parentCaseRecordId = Lib_FakeIdGenerator.getMockId(
+      Case.getSObjectType()
     );
     accRepoMock.mock(
-      'queryNotClosedAccountClosureCases',
-      createMockAccountClosureCaseRecord(FAKER_PARENT_CASE_ID, 'Escalated')
+      'queryCaseGroupCasesToClose',
+      createMockAccountClosureCaseRecord(parentCaseRecordId, 'Closed')
+    );
+    accRepoMock.mock(
+      'queryCaseGroupCasesWithChild',
+      createMockCaseGroupRecord(
+        parentCaseRecordId,
+        'Escalated',
+        createMockAccountClosureCaseRecord(parentCaseRecordId, 'Escalated')
+      )
     );
     Test.startTest();
     CaseGroupCaseAutoCloseScheduler caseGroupSch = new CaseGroupCaseAutoCloseScheduler();
@@ -77,8 +77,10 @@ public with sharing class CaseGroupCaseAutoCloseSchedulerTest {
     List<Case> childcases = new List<Case>();
 
     Case caseRecord = new Case();
-    caseRecord.Id = FAKER_CHILD_CASE_ID;
-    caseRecord.AccountId = FAKER_ACCOUNT_ID;
+    caseRecord.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    caseRecord.AccountId = Lib_FakeIdGenerator.getMockId(
+      Account.getSObjectType()
+    );
     caseRecord.Status = caseStatus;
     caseRecord.OwnerId = UserInfo.getUserId();
     caseRecord.ParentId = parentId;
@@ -88,5 +90,28 @@ public with sharing class CaseGroupCaseAutoCloseSchedulerTest {
     );
     childcases.add(caseRecord);
     return childcases;
+  }
+
+  private static List<Case> createMockCaseGroupRecord(
+    Id parentId,
+    String caseStatus,
+    List<Case> childCases
+  ) {
+    List<Case> parentCases = new List<Case>();
+    Case caseRecord = (Case) TestUtil.setFields(
+      new Case(
+        Id = parentId,
+        AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+        Status = caseStatus,
+        OwnerId = UserInfo.getUserId(),
+        RecordTypeId = RTCase.caseGroup,
+        FinServ__FinancialAccount__c = Lib_FakeIdGenerator.getMockId(
+          FinServ__FinancialAccount__c.getSObjectType()
+        )
+      ),
+      new Map<String, Object>{ 'Cases' => childCases }
+    );
+    parentCases.add(caseRecord);
+    return parentCases;
   }
 }
