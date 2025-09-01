@@ -474,8 +474,7 @@ public with sharing class RetailBrokerContactActions {
         contactIdByBrokerSet,
         contactIdByOfficeGroup,
         ccrContactIds
-      ),
-      1
+      )
     );
   }
   /**
