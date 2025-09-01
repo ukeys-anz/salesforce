@@ -15,8 +15,8 @@
         </duplicateRuleFilterItems>
     </duplicateRuleFilter>
     <duplicateRuleMatchRules>
-        <matchRuleSObjectType>Contact</matchRuleSObjectType>
         <matchingRule>Broker_Contact_Duplicate_OCV_or_Email_matching_rule</matchingRule>
+        <matchRuleSObjectType>Contact</matchRuleSObjectType>
         <objectMapping xsi:nil="true"/>
     </duplicateRuleMatchRules>
     <isActive>true</isActive>
