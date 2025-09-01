@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<DuplicateRule xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<DuplicateRule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOnInsert>Allow</actionOnInsert>
     <actionOnUpdate>Allow</actionOnUpdate>
     <alertText xsi:nil="true"/>
@@ -9,9 +9,9 @@
         <duplicateRuleFilterItems>
             <field>RecordType</field>
             <operation>equals</operation>
-            <value>Broker</value>
             <sortOrder>1</sortOrder>
             <table>Contact</table>
+            <value>Broker</value>
         </duplicateRuleFilterItems>
     </duplicateRuleFilter>
     <duplicateRuleMatchRules>
