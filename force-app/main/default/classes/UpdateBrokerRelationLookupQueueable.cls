@@ -12,8 +12,8 @@ public class UpdateBrokerRelationLookupQueueable implements Queueable {
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
-  private static final RetailContactRepository CONTACT_REPOSITORY = (RetailContactRepository) Lib_InstanceProvider.forType(
-    RetailContactRepository.class
+  private static final RetailContactMergeRepository CONTACT_REPOSITORY = (RetailContactMergeRepository) Lib_InstanceProvider.forType(
+    RetailContactMergeRepository.class
   );
   /**
    * @description Constructor to initialize the queueable job.

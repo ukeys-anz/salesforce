@@ -52,7 +52,8 @@ public with sharing class RetailContactMergeRepository {
         Victim_Party_Id__c,
         Sync_Status__c,
         Broker_Set__c,
-        Office_Group__c
+        Office_Group__c,
+        Is_Beta_Broker__c
       FROM Contact
       WHERE External_Id__c IN :survivorExternalIdList
       WITH USER_MODE
