@@ -1,7 +1,8 @@
 import { LightningElement, wire } from "lwc";
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
-import { getRecord } from "lightning/uiRecordApi";
+import { getRecord, getFieldValue } from "lightning/uiRecordApi";
 import { CurrentPageReference } from "lightning/navigation";
+import CASE_ACCOUNT_FIELD from "@salesforce/schema/Case.AccountId";
 
 const FIELDS = [
   "Account.Source_System_ID__c",
@@ -39,12 +40,15 @@ const FIELDS = [
   "Account.Controlling_Post__c",
   "Account.Controlling_Post__r.Responsible_Employee_Name__c",
   "Account.Controlling_Post__r.CPID_Phone__c",
-  "Account.Controlling_Post__r.CPID_Address__c"
+  "Account.Controlling_Post__r.CPID_Address__c",
+  "Account.ExtraCareReason__c",
+  "Account.ExtraCareTimePeriod__c"
 ];
 export default class AccountLookup extends OmniscriptBaseMixin(
   LightningElement
 ) {
   recId;
+  caseId;
   account;
   custNo;
   isDisabled = false;
@@ -96,13 +100,15 @@ export default class AccountLookup extends OmniscriptBaseMixin(
 
     if (objectName !== "Account" && context?.state?.ws) {
       const parts = context.state.ws.split("/");
-      this.recId = parts.length > 4 ? parts[4] : "";
+      this.recId = this.checkTypeOfRecordId(parts?.[4]);
       this.isDisabled = true;
       this.setCaseAccountId();
       return this.recId;
     }
 
-    this.recId = recordIdFromURL;
+    if (!this.recId) {
+      this.recId = recordIdFromURL;
+    }
     this.isDisabled = true;
     this.setCaseAccountId();
     return this.recId;
@@ -114,9 +120,17 @@ export default class AccountLookup extends OmniscriptBaseMixin(
   }
 
   setCaseAccountId() {
-    this.omniApplyCallResp({ Case: { AccountId: this.recId } });
+    let isEcf = this.recId ? true : false;
+    this.omniApplyCallResp({ Case: { AccountId: this.recId }, isEcf });
   }
 
+  checkTypeOfRecordId(recdId) {
+    if (!recdId?.startsWith("500")) {
+      return recdId;
+    }
+    this.caseId = recdId;
+    return this.caseId;
+  }
   getURLParameterByName(name) {
     var regex, results, url;
     url = window.location.href;
@@ -130,13 +144,29 @@ export default class AccountLookup extends OmniscriptBaseMixin(
 
   @wire(getRecord, { recordId: "$recId", fields: FIELDS })
   wiredAccount({ error, data }) {
+    let isEcf = false;
     if (data) {
       this.account = data.fields;
       this.error = null;
+      isEcf = !["Not required", null].includes(
+        data.fields.ExtraCareTimePeriod__c.value
+      );
     } else if (error) {
       this.account = null;
       this.error = error.body.message;
     }
-    this.omniApplyCallResp({ data });
+    this.omniApplyCallResp({ data, isEcf });
+  }
+  @wire(getRecord, { recordId: "$caseId", fields: [CASE_ACCOUNT_FIELD] })
+  wiredCase({ data }) {
+    if (!data) {
+      return;
+    }
+    let accId = getFieldValue(data, CASE_ACCOUNT_FIELD);
+    if (!accId || accId === this.recId) {
+      return;
+    }
+    this.recId = accId;
+    this.setCaseAccountId();
   }
 }
