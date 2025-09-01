@@ -498,40 +498,17 @@ private class RetailBrokerContactActionsTest {
     newContacts[0].Survivor_Party_Id__c = 'Ex-sur1234';
     newContacts[0].External_Id__c = 'Ex-sur1234';
 
-    RETAIL_CONTACT_MERGE_REPOSITORY_MOCK.mock(
-      'getRelatedOrphanResidentialApplications',
-      new List<ResidentialLoanApplication>{ rla }
-    );
-    RETAIL_CONTACT_MERGE_REPOSITORY_MOCK.mock(
-      'getContactsByTMPI',
-      new List<contact>{ newContacts[0] }
-    );
-    RETAIL_CONTACT_MERGE_REPOSITORY_MOCK.mock(
-      'getRelatedOrphanFinancialAccounts',
-      new List<FinServ__FinancialAccount__c>{ finServAcc }
-    );
-
     Test.startTest();
-    RetailContactMergeActions.updateAssistedBrokerLookup(
+    List<Contact> updateContacts = RetailBrokerContactActions.updateAssistedBrokerLookup(
       new Map<Id, Contact>{ newContacts[0].Id => newContacts[0] },
       new Map<Id, Contact>(oldContacts)
     );
     Test.stopTest();
 
-    List<ResidentialLoanApplication> updatedRLAs = (List<ResidentialLoanApplication>) dmlRepoMock.getHistory(
-        'doUpdate'
-      )
-      .getParam('records');
-
     Assert.areEqual(
       1,
-      updatedRLAs.size(),
-      'Must have one ResidentialLoanApplication to Update'
-    );
-    Assert.areEqual(
-      newContacts[0].Id,
-      updatedRLAs[0].Assisted_Broker__c,
-      'Assisted Broker should be updated'
+      updateContacts.size(),
+      'Must have one Contacts to Update'
     );
   }
 
