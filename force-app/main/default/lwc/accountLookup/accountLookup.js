@@ -148,7 +148,7 @@ export default class AccountLookup extends OmniscriptBaseMixin(
       this.account = null;
       this.error = error.body.message;
     }
-    this.omniApplyCallResp({ data, isEcf });
+    this.omniApplyCallResp({ data });
   }
   @wire(getRecord, { recordId: "$caseId", fields: [CASE_ACCOUNT_FIELD] })
   wiredCase({ data }) {
