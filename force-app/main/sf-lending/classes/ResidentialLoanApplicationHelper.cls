@@ -10,6 +10,10 @@ public with sharing class ResidentialLoanApplicationHelper {
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
+  private static final RetailContactMergeRepository BROKER_CODE_MERGE_REPOSITORY = (RetailContactMergeRepository) Lib_InstanceProvider.forType(
+    RetailContactMergeRepository.class
+  );
+
   /**
    * @description overwrite property address and value from sop with SF property record values
    * @param loanId residential loan application id
@@ -156,5 +160,66 @@ public with sharing class ResidentialLoanApplicationHelper {
       );
     }
     return returnDate;
+  }
+
+  /**
+   * @description populate Assisted Broker based on Loan Type
+   * @param records records to update
+   * @param accreditationType type of loan
+   * @return List<ResidentialLoanApplication> updated records
+   */
+  public static List<ResidentialLoanApplication> processAssistedBrokerPopulation(
+    List<ResidentialLoanApplication> records,
+    String accreditationType
+  ) {
+    // Create a map of account keys to broker identifiers
+    Map<String, String> extIdToBrokerIdMap = createBrokerIdentifierMap(
+      records,
+      accreditationType
+    );
+
+    Set<String> brokerIdentifiers = new Set<String>(
+      extIdToBrokerIdMap.values()
+    );
+
+    List<Broker_Code__c> brokerCodes = BROKER_CODE_MERGE_REPOSITORY.getBrokerIdentifiers(
+      brokerIdentifiers
+    );
+
+    Map<String, Broker_Code__c> brokerCodeToContactMap = (Map<String, Broker_Code__c>) ListUtil.mapBy(
+      brokerCodes,
+      Broker_Code__c.External_Id__c
+    );
+
+    for (ResidentialLoanApplication record : records) {
+      String brokerIdentifier = extIdToBrokerIdMap.get(
+        record.ApplicationExtIdentifier
+      );
+      record.Assisted_Broker__c = brokerCodeToContactMap.get(brokerIdentifier)
+        ?.Broker_Name__c;
+    }
+    return records;
+  }
+
+  /**
+   * @description Create a map of account keys to broker identifiers.
+   * @param records List of records.
+   * @param accreditationType Type of accreditation.
+   * @return Map of ResidentialLoanApplication key  to Broker identifier
+   */
+  @TestVisible
+  private static Map<String, String> createBrokerIdentifierMap(
+    List<ResidentialLoanApplication> records,
+    String accreditationType
+  ) {
+    Map<String, String> extIdToBrokerIdMap = new Map<String, String>();
+    for (ResidentialLoanApplication record : records) {
+      String brokerIdentifier =
+        record.Assisted_Broker_TPMI_SAO__c +
+        '_' +
+        accreditationType;
+      extIdToBrokerIdMap.put(record.ApplicationExtIdentifier, brokerIdentifier);
+    }
+    return extIdToBrokerIdMap;
   }
 }

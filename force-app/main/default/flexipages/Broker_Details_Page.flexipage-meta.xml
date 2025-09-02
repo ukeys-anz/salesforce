@@ -295,6 +295,88 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Survivor_Party_Id__c</fieldItem>
+                <identifier>RecordSurvivor_Party_Id_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.OCV_ID__c</fieldItem>
+                <identifier>RecordOCV_ID_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-5568db63-f757-43ce-9d61-15f45addb235</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Victim_Party_Id__c</fieldItem>
+                <identifier>RecordVictim_Party_Id_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.OCV_Profile_ID__c</fieldItem>
+                <identifier>RecordOCV_Profile_ID_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-00e79830-ecaf-4cbc-8dbd-6a8784db7b4e</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-5568db63-f757-43ce-9d61-15f45addb235</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column15</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-00e79830-ecaf-4cbc-8dbd-6a8784db7b4e</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column16</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-caa24954-f59f-40b1-a9e5-5da3614a7499</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>displayOption</name>
+                    <value>CARD</value>
+                </componentInstanceProperties>
+                <componentName>runtime_sales_merge:mergeCandidatesPreviewCard</componentName>
+                <identifier>runtime_sales_merge_mergeCandidatesPreviewCard</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
                     <name>columns</name>
@@ -346,6 +428,37 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection7</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-caa24954-f59f-40b1-a9e5-5da3614a7499</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Other Details</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection8</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>Retail_Broker</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>Business_Admin</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>Facet-ced5a179-e21b-4094-be82-7d9dc101906c</name>
