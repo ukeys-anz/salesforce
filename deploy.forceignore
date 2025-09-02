@@ -677,3 +677,7 @@ force-app/main/sf-lending/classes/SettlementTriggerHandler.cls
 force-app/main/sf-lending/classes/SettlementTriggerHandler.cls-meta.xml
 force-app/main/sf-lending/classes/SettlementTriggerHandlerTest.cls
 force-app/main/sf-lending/classes/SettlementTriggerHandlerTest.cls-meta.xml
+
+# Tempoary Ignore ANZX-232361 Self Service Account Closure 
+# Only removing the changes from github, not test25 sandbox
+force-app/

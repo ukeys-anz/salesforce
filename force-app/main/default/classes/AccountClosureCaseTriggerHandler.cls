@@ -11,11 +11,6 @@ public with sharing class AccountClosureCaseTriggerHandler extends Lib_TriggerHa
     super();
   }
 
-  private static final Set<SObjectField> CASE_FIELDS = new Set<SObjectField>{
-    Case.Status,
-    Case.Sub_Status__c
-  };
-
   //Validate the record relevance to this handler based on record type
   public override Boolean isValidRecord(SObject record) {
     return ((Case) record).RecordTypeId == RTCase.accountClosure;
@@ -43,25 +38,25 @@ public with sharing class AccountClosureCaseTriggerHandler extends Lib_TriggerHa
     AccountClosureCaseActions.populateCaseSubject(
       parentCasesWhereCustomerChanged
     );
-    AccountClosureCaseActions.setAccountDetailsAsEmpty(
-      records,
-      (Map<Id, Case>) oldMap
-    );
   }
 
   public override void onAfterInsert() {
     AccountClosureCaseActions.initiatePrecheckButtonVisibility(records);
-    AccountClosureCaseActions.setParentCaseStatusAsEscalated(records);
   }
 
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    List<Case> casesWithChangedFields = ListUtil.filter(records, oldMap)
-      .anyChanged(CASE_FIELDS)
-      .toList();
-    AccountClosureCaseActions.handleButtonVisibiltyFlags(
-      casesWithChangedFields
+    List<Case> casesWithChangedFields = new List<Case>();
+    casesWithChangedFields.addAll(
+      (List<Case>) ListUtil.filter(records, oldMap)
+        .changed(case.Status)
+        .toList()
     );
-    AccountClosureCaseActions.setParentCaseStatusAsEscalated(
+    casesWithChangedFields.addAll(
+      (List<Case>) ListUtil.filter(records, oldMap)
+        .changed(case.Sub_Status__c)
+        .toList()
+    );
+    AccountClosureCaseActions.handleButtonVisibiltyFlags(
       casesWithChangedFields
     );
   }
