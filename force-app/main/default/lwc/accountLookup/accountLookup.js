@@ -40,9 +40,7 @@ const FIELDS = [
   "Account.Controlling_Post__c",
   "Account.Controlling_Post__r.Responsible_Employee_Name__c",
   "Account.Controlling_Post__r.CPID_Phone__c",
-  "Account.Controlling_Post__r.CPID_Address__c",
-  "Account.ExtraCareReason__c",
-  "Account.ExtraCareTimePeriod__c"
+  "Account.Controlling_Post__r.CPID_Address__c"
 ];
 export default class AccountLookup extends OmniscriptBaseMixin(
   LightningElement
@@ -120,8 +118,7 @@ export default class AccountLookup extends OmniscriptBaseMixin(
   }
 
   setCaseAccountId() {
-    let isEcf = this.recId ? true : false;
-    this.omniApplyCallResp({ Case: { AccountId: this.recId }, isEcf });
+    this.omniApplyCallResp({ Case: { AccountId: this.recId } });
   }
 
   checkTypeOfRecordId(recdId) {
@@ -144,13 +141,9 @@ export default class AccountLookup extends OmniscriptBaseMixin(
 
   @wire(getRecord, { recordId: "$recId", fields: FIELDS })
   wiredAccount({ error, data }) {
-    let isEcf = false;
     if (data) {
       this.account = data.fields;
       this.error = null;
-      isEcf = !["Not required", null].includes(
-        data.fields.ExtraCareTimePeriod__c.value
-      );
     } else if (error) {
       this.account = null;
       this.error = error.body.message;
