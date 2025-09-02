@@ -1,25 +1,17 @@
-import { LightningElement, api, track } from "lwc";
+import { LightningElement, api } from "lwc";
 import { handleErrorShowToast, showToast } from "c/utils";
 import verifyInsurance from "@salesforce/apex/ProofOfInsuranceController.verifyInsurance";
+import { CloseActionScreenEvent } from "lightning/actions";
 
 export default class VerifyProofOfInsurance extends LightningElement {
-  @api recordId;
-  @track isShowModal = false;
-
-  showModalBox() {
-    this.isShowModal = true;
+  _recordId;
+  @api set recordId(recordId) {
+    if (recordId !== this._recordId) {
+      this._recordId = recordId;
+    }
   }
-
-  hideModalBox() {
-    this.isShowModal = false;
-  }
-
-  _requestObj;
-  @api set requestObj(requestObj) {
-    this._requestObj = requestObj;
-  }
-  get requestObj() {
-    return this._requestObj;
+  get recordId() {
+    return this._recordId;
   }
 
   isExecuting = false;
@@ -30,18 +22,11 @@ export default class VerifyProofOfInsurance extends LightningElement {
     }
     this.isExecuting = true;
     try {
-      let response = await verifyInsurance({
-        settlementId: this.requestObj.settlementId,
-        mortgageContractId: this.requestObj.mortgageContractId,
-        propertyId: this.requestObj.propertyId,
-        documentId: this.requestObj.document.id,
-        documentFileVersion:
-          this.requestObj.document.documentFileDetails[0].documentFileVersion
-      });
+      let response = await verifyInsurance({ recordId: this._recordId });
       //The API should always set to State verified, but the response has multiple states,
       //so handling here just in case something on API ever changes to avoid errors
       if (response?.proofOfInsuranceVerification?.state === "STATE_VERIFIED") {
-        this.hideModalBox();
+        this.dispatchEvent(new CloseActionScreenEvent());
         showToast(
           this,
           "Verify Insurance",
@@ -77,9 +62,6 @@ export default class VerifyProofOfInsurance extends LightningElement {
   }
 
   handleCancel() {
-    const selectEvent = new CustomEvent("closeevent", {
-      detail: "closeModal"
-    });
-    this.dispatchEvent(selectEvent);
+    this.dispatchEvent(new CloseActionScreenEvent());
   }
 }
