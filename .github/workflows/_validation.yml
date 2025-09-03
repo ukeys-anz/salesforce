@@ -20,7 +20,7 @@ jobs:
   validation:
     name: Validation ${{inputs.sfdx_name}}
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:2.1.0"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:2.1.1"
       options: --user root
     runs-on: anzx-default
     steps:
