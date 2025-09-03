@@ -41,10 +41,12 @@ public with sharing class BrokerCloudEventBuilder {
   /**
    * @description Build the contact node for the cloud event
    * @param record the new contact record in trigger context
+   * @param oldRecord the old contact record in trigger context
    * @return master object
    */
   public static BrokerCloudEventModel.MasterNode buildContactNode(
-    Contact record
+    Contact record,
+    Contact oldRecord
   ) {
     Map<String, String> dataContractMap = new Map<String, String>{
       'sourceObjectName' => OBJECT_CONTACT,
@@ -56,6 +58,15 @@ public with sharing class BrokerCloudEventBuilder {
       'targetObjects_parent_referenceField' => FIELD_ACCOUNT_ID,
       'targetObjects_parent_extId' => record.External_Id__c
     };
+
+    // Only add serialized merge node if it's not null
+    BrokerCloudEventModel.ContactMergeTargetNode mergeNode = buildMergeContactNode(
+      record,
+      oldRecord
+    );
+    if (mergeNode != null) {
+      dataContractMap.put('merge_contact', JSON.serialize(mergeNode));
+    }
     return BrokerCloudEventModel.buildMasterNode(dataContractMap);
   }
 
@@ -66,7 +77,8 @@ public with sharing class BrokerCloudEventBuilder {
    * @return BrokerCloudEventModel.MasterNode MasterNode for cloud event
    */
   public static BrokerCloudEventModel.MasterNode buildFinancialAccountNode(
-    FinServ__FinancialAccount__c record, Account acc
+    FinServ__FinancialAccount__c record,
+    Account acc
   ) {
     Map<String, String> dataContractMap = new Map<String, String>{
       'sourceObjectParentExtIdName' => FIELD_FINANCIAL_ACCOUNT_PRIMARY_OWNER,
@@ -153,5 +165,33 @@ public with sharing class BrokerCloudEventBuilder {
       'sourceObjectParentExtId' => record.Account.External_Id__c
     };
     return BrokerCloudEventModel.buildMasterNode(dataLoanAppMap);
+  }
+
+  /**
+   * @description Builds a ContactMergeTargetNode used in broker cloud event payloads.
+   *              Returns null if required fields are missing.
+   * @author      Madhuri Edke
+   * @param       record The Contact record used to populate the node.
+   * @param       oldRecord The old Contact record used to populate the node.
+   * @return      BrokerCloudEventModel.ContactMergeTargetNode or null if input is incomplete.
+   *
+   */
+  @testVisible
+  private static BrokerCloudEventModel.ContactMergeTargetNode buildMergeContactNode(
+    Contact record,
+    Contact oldRecord
+  ) {
+    Boolean nonEligibleRec =
+      record.Survivor_Party_Id__c == null ||
+      record.Victim_Party_Id__c == null ||
+      record.Victim_Party_Id__c == oldRecord.Victim_Party_Id__c;
+    if (nonEligibleRec == true) {
+      return null;
+    }
+
+    BrokerCloudEventModel.ContactMergeTargetNode mergeContactNode = new BrokerCloudEventModel.ContactMergeTargetNode();
+    mergeContactNode.survivorPartyId = record.Survivor_Party_Id__c;
+    mergeContactNode.victimPartyId = record.Victim_Party_Id__c;
+    return mergeContactNode;
   }
 }

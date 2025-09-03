@@ -5,8 +5,8 @@
  */
 @IsTest
 public with sharing class RetailBrokerFinancialAccountActionTest {
-  static Lib_MockProvider brokerCodeRepoMock = Lib_MockProvider.forType(
-    BrokerCodeRepository.class
+  static Lib_MockProvider brokerCodeMergeRepoMock = Lib_MockProvider.forType(
+    RetailContactMergeRepository.class
   );
   /**
    * @description creating Financial Account records for testing
@@ -109,7 +109,7 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
       'Broker-TPMISAO-1_Retail',
       newRecord.Id
     );
-    brokerCodeRepoMock.mock(
+    brokerCodeMergeRepoMock.mock(
       'getBrokerIdentifiers',
       new List<Broker_Code__c>{ mockBrokerCode }
     );
@@ -137,7 +137,7 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
       'Broker-TPMISAO-1_Retail',
       newRecord.Id
     );
-    brokerCodeRepoMock.mock(
+    brokerCodeMergeRepoMock.mock(
       'getBrokerIdentifiers',
       new List<Broker_Code__c>{ mockBrokerCode }
     );
@@ -189,7 +189,7 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
       'Broker-TPMISAO-1_Retail',
       newRecord.Id
     );
-    brokerCodeRepoMock.mock(
+    brokerCodeMergeRepoMock.mock(
       'getBrokerIdentifiers',
       new List<Broker_Code__c>{ mockBrokerCode }
     );

@@ -17,10 +17,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GenericController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>HomeLoanAPIRepository</apexClass>
         <enabled>true</enabled>
     </classAccesses>

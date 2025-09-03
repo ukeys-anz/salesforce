@@ -34,7 +34,7 @@ public with sharing class ResidentialLoanApplicationActions {
       records,
       oldMap
     );
-    return processAssistedBrokerPopulation(
+    return ResidentialLoanApplicationHelper.processAssistedBrokerPopulation(
       recordsToUpdate,
       ACCREDITATION_RETAIL
     );

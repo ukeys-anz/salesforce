@@ -21,6 +21,11 @@
         <operation>equals</operation>
         <value>1</value>
     </filters>
+    <filters>
+        <field>Sync_Status__c</field>
+        <operation>excludes</operation>
+        <value>Duplicate - Email,Duplicate - OCV Id</value>
+    </filters>
     <filterScope>Everything</filterScope>
     <label>My Brokers</label>
     <sharedTo>
