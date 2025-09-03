@@ -74,11 +74,9 @@ const filterDiff = (changedFiles) => {
       console.warn(`⚠️ File not found locally (probably deleted): ${filePath}`);
       return;
     }
-    // Step 2: Match (force-app|knowledge-mgm)/main/(default|sf-lending|apis-apex|generic-components)
+    // Step 2: Match (force-app|knowledge-mgm)/main/(default|sf-lending)
     if (
-      /^(force-app|knowledge-mgm)\/main\/(default|sf-lending|apis-apex|generic-components)/.test(
-        filePath
-      )
+      /^(force-app|knowledge-mgm)\/main\/(default|sf-lending)/.test(filePath)
     ) {
       console.log(`✅ PMD/Jest/Security File: ${filePath}`);
       output.allFiles.push(filePath);

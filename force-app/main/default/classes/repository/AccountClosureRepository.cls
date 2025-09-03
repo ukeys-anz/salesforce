@@ -4,11 +4,6 @@
  * @description  AccountClosureRepository is the repository class for Account Closure Case Actions.
  */
 public with sharing class AccountClosureRepository {
-  public final List<String> excludedStatuses = new List<String>{
-    CaseGroupCaseConstants.CLOSED_STATUS,
-    CaseGroupCaseConstants.WITHDRAWN_STATUS
-  };
-
   /**
    * @description Get list of Case Group cases associated with the account Ids and status as not closed.
    * @param accountIds set of Account Ids associated to the case
@@ -63,7 +58,7 @@ public with sharing class AccountClosureRepository {
       return new List<Case>();
     }
     return [
-      SELECT Id, ParentId, Status, Origin
+      SELECT Id, ParentId, Status
       FROM Case
       WHERE
         ParentId IN :parentIds
@@ -169,7 +164,6 @@ public with sharing class AccountClosureRepository {
       WHERE
         ParentId = :parentCaseId
         AND RecordTypeId = :RTCase.accountClosure
-        AND Status != :CaseGroupCaseConstants.WITHDRAWN_STATUS
         AND Sub_Status__c = :CaseGroupCaseConstants.SUCCESS
         AND FinServ__FinancialAccount__c != NULL
       WITH USER_MODE
@@ -260,6 +254,9 @@ public with sharing class AccountClosureRepository {
    * @return Case record with the details
    */
   public Case queryCaseDetails(Id recordId) {
+    if (recordId == null) {
+      return null;
+    }
     return [
       SELECT
         Id,
@@ -284,6 +281,9 @@ public with sharing class AccountClosureRepository {
    * @return Case records with the details
    */
   public List<Case> queryCaseToUpdateStatusAsClosed(Set<Id> recordIds) {
+    if (recordIds.isEmpty()) {
+      return new List<Case>();
+    }
     return [
       SELECT Id, Status
       FROM Case
@@ -299,6 +299,9 @@ public with sharing class AccountClosureRepository {
    * @return List<Case> list of child cases
    */
   public List<Case> getUnusedChildCasesByParentId(Id parentCaseId) {
+    if (parentCaseId == null) {
+      return null;
+    }
     return [
       SELECT
         Id,
@@ -313,7 +316,7 @@ public with sharing class AccountClosureRepository {
       FROM Case
       WHERE
         ParentId = :parentCaseId
-        AND Status NOT IN :excludedStatuses
+        AND Status != :CaseGroupCaseConstants.CLOSED_STATUS
         AND FinServ__FinancialAccount__c = NULL
         AND RecordTypeId = :RTCase.accountClosure
       WITH USER_MODE
@@ -359,7 +362,6 @@ public with sharing class AccountClosureRepository {
       FROM Case
       WHERE
         FinServ__FinancialAccount__c IN :accountIds
-        AND Status != :CaseGroupCaseConstants.WITHDRAWN_STATUS
         AND RecordTypeId = :RTCase.accountClosure
       WITH USER_MODE
     ];
@@ -432,7 +434,7 @@ public with sharing class AccountClosureRepository {
   }
 
   /**
-   * @description Get list of account closure child cases without status as Closed or Withdrawn
+   * @description Get list of account closure child cases without status as Closed
    * @param caseIds set of parent case Ids whose status is changed to Closed
    * @return List<Case> list of child case records
    */
@@ -445,7 +447,8 @@ public with sharing class AccountClosureRepository {
       SELECT Id, Status, ParentId
       FROM Case
       WHERE
-        Status NOT IN :excludedStatuses
+        Status != :CaseGroupCaseConstants.CLOSED_STATUS
+        AND Status != :CaseGroupCaseConstants.WITHDRAWN_STATUS
         AND ParentId IN :caseIds
         AND (RecordTypeId = :RTCase.accountClosure
         OR RecordTypeId = :RTCase.confirmationOfPayee)
@@ -491,71 +494,6 @@ public with sharing class AccountClosureRepository {
       WHERE
         Type IN :CaseGroupCaseConstants.CASE_ISSUE_TYPES
         AND Id IN :parentIds
-      WITH USER_MODE
-    ];
-  }
-
-  /**
-   * @description Get details of Parent / Case Group cases linked to the inserted child cases which does not have status as escalated
-   * @param parentIds set of Parent Ids associated to the child case
-   * @return List<Case> list of parent/Case Group cases
-   */
-  public List<Case> queryNotEscalatedParentCaseDetails(Set<Id> parentIds) {
-    if (parentIds.isEmpty()) {
-      return new List<Case>();
-    }
-
-    return [
-      SELECT Id, OwnerId, Status, Type
-      FROM Case
-      WHERE
-        Type = :CaseGroupCaseConstants.ACCOUNT_CLOSURE
-        AND Status != :CaseGroupCaseConstants.ESCALATED_STATUS
-        AND Id IN :parentIds
-      WITH USER_MODE
-    ];
-  }
-
-  /**
-   * @description Get details of Parent Case Group Cases which have any open account closure child cases
-   * @param caseGroupIdsToClose set of Parent Case Group Ids which need to be closed
-   * @return List<Case> list of cases
-   */
-  public List<Case> queryCaseGroupCasesWithChild(Set<Id> caseGroupIdsToClose) {
-    if (caseGroupIdsToClose.isEmpty()) {
-      return new List<Case>();
-    }
-
-    return [
-      SELECT
-        Id,
-        Status,
-        (
-          SELECT Id
-          FROM Cases
-          WHERE RecordTypeId = :RTCase.accountClosure AND IsClosed = FALSE
-          LIMIT 1
-        )
-      FROM Case
-      WHERE IsClosed = FALSE AND Id IN :caseGroupIdsToClose
-      WITH USER_MODE
-    ];
-  }
-
-  /**
-   * @description Get details of Parent Case Group Cases which is not closed and type is Account Closure
-   * @return List<Case> list of case group cases having atleast one account closure child cases
-   */
-  public List<Case> queryCaseGroupCasesToClose() {
-    return [
-      SELECT Id, ParentId, Status
-      FROM Case
-      WHERE
-        RecordTypeId = :RTCase.accountClosure
-        AND IsClosed = TRUE
-        AND Parent.IsClosed = FALSE
-        AND Parent.RecordTypeId = :RTCase.caseGroup
-        AND Parent.Type = :CaseGroupCaseConstants.ACCOUNT_CLOSURE
       WITH USER_MODE
     ];
   }

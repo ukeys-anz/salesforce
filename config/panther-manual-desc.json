@@ -1407,8 +1407,7 @@
         "OnboardingVerificationFailedReason__c",
         "PassportNumber__c",
         "ReimbursementReason__c",
-        "RemoteAccessUsed__c",
-        "EventTimestamp__c"
+        "RemoteAccessUsed__c"
       ],
       "IA-2415840": [
         "Advocacy_Score__c",
@@ -4435,7 +4434,6 @@
         "Selfie_Verification_Outcome__c",
         "TrustMe_Selfie_Reference__c",
         "PersonID__c",
-        "International_Address__c",
         "Trustme_Fraud_Address_Valid__c",
         "Trustme_Fraud_Customer_Details__c",
         "Trustme_Fraud_Customer_Photo_Modified__c",

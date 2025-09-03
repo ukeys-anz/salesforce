@@ -23,8 +23,7 @@ import CCRM_ConversationGuideBody from "@salesforce/label/c.CCRM_ConversationGui
 import ML_ConversationGuideBody from "@salesforce/label/c.ML_ConversationGuideBody";
 import ML_MaxExpiryDateErrorMessage from "@salesforce/label/c.ML_MaxExpiryDateErrorMessage";
 import ML_LeadQualityRequiredValues from "@salesforce/label/c.ML_LeadQualityRequiredValues";
-import ML_LeadResponseFollowUpDateEnabled from "@salesforce/label/c.ML_LeadResponseFollowUpDateEnabled";
-import ML_LeadResponseFollowUpDateRequired from "@salesforce/label/c.ML_LeadResponseFollowUpDateRequired";
+import ML_LeadResponsesToShowFollowUpDate from "@salesforce/label/c.ML_LeadResponseToShowFollowUpDate";
 import CCRM_LeadQualityRequiredValues from "@salesforce/label/c.CCRM_LeadQualityRequiredValues";
 import MLCRM_NoOpportunityModalMessage from "@salesforce/label/c.MLCRM_NoOpportunityModalMessage";
 import MLCRM_NoOpportunityModalHeader from "@salesforce/label/c.MLCRM_NoOpportunityModalHeader";
@@ -52,8 +51,7 @@ export default class LeadLogAResponse extends LightningElement {
   @track noOpportunitySelected = false;
   recordTypeName;
   showLeadQuality = true;
-  ML_LeadResponseFollowUpDateEnabled = ML_LeadResponseFollowUpDateEnabled;
-  ML_LeadResponseFollowUpDateRequired = ML_LeadResponseFollowUpDateRequired;
+  ML_LeadResponseToShowFollowUpDate = ML_LeadResponsesToShowFollowUpDate; //["Contact Attempted", "Call Back"];
   isMLRecordType = false;
   selectedResponseStatusValue;
   selectedOutcomeResponseValue;
@@ -221,15 +219,11 @@ export default class LeadLogAResponse extends LightningElement {
     return isRequired;
   }
 
-  // CC-7618, CC-8806 If ML RT and FollowUpDate is visible and selected Response in ML_LeadResponseFollowUpDateRequired then make it required
   get isFollowUpDateRequired() {
     return (
       !this.followUpDateDisable &&
       ((this.followUpDateState === "M" && !this.displayDueDate) ||
-        (this.isMLRecordType &&
-          this.ML_LeadResponseFollowUpDateRequired.includes(
-            this.selectedResponseStatusValue
-          )))
+        this.isMLRecordType) // CC-7618 If FollowUpDate is disabled and RT is ML then make return false
     );
   }
 
@@ -377,12 +371,9 @@ export default class LeadLogAResponse extends LightningElement {
       if (this.isMLRecordType) {
         // IF ML RT -> Update followUpDateDisable based on value of Response Status, irrespective of value of Outcome Reason
         this.followUpDateDisable =
-          !this.ML_LeadResponseFollowUpDateEnabled.includes(
+          !this.ML_LeadResponseToShowFollowUpDate.includes(
             this.selectedResponseStatusValue
           );
-        if (this.displayDueDate) {
-          this.displayDueDate = false;
-        }
         // if followUpDate is enabled then restore selected Follow up date
         if (!this.followUpDateDisable) {
           this.selectedFollowUpDateValue = currentFollowupDate;
@@ -429,9 +420,7 @@ export default class LeadLogAResponse extends LightningElement {
       this.template.querySelector(".comment").reportValidity() &&
       this.autoCreateActivities &&
       this.selectedResponseStatusValue === "Accepted"
-      ? this.template.querySelector(".dueDate") != null
-        ? this.template.querySelector(".dueDate").reportValidity()
-        : true
+      ? this.template.querySelector(".dueDate").reportValidity()
       : this.template.querySelector(".followUpDate") != null
         ? this.template.querySelector(".followUpDate").reportValidity()
         : true;
@@ -589,9 +578,9 @@ export default class LeadLogAResponse extends LightningElement {
     } else {
       this.showLeadQuality = false;
     }
-    // If select Response Status is in ML_LeadResponseFollowUpDateEnabled then show Followup date
+    // If select Response Status is in ML_LeadResponseToShowFollowUpDate then show FollowUp date
     if (
-      this.ML_LeadResponseFollowUpDateEnabled.includes(
+      this.ML_LeadResponseToShowFollowUpDate.includes(
         selectedResponseStatusValue
       )
     ) {
