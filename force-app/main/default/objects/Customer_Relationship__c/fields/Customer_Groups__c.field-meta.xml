@@ -12,6 +12,7 @@
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>
+        <controllingField>Status__c</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
@@ -70,7 +71,71 @@
                 <default>false</default>
                 <label>Restructure</label>
             </value>
+            <value>
+                <fullName>New Customer</fullName>
+                <default>false</default>
+                <label>New Customer</label>
+            </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Active</controllingFieldValue>
+            <controllingFieldValue>Inactive</controllingFieldValue>
+            <valueName>Accountant</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Active</controllingFieldValue>
+            <controllingFieldValue>Inactive</controllingFieldValue>
+            <valueName>ANZ Staff</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Active</controllingFieldValue>
+            <controllingFieldValue>Inactive</controllingFieldValue>
+            <valueName>Ex-Customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Active</controllingFieldValue>
+            <controllingFieldValue>Inactive</controllingFieldValue>
+            <valueName>Emergency Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Active</controllingFieldValue>
+            <controllingFieldValue>Inactive</controllingFieldValue>
+            <valueName>First Home Buyer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Active</controllingFieldValue>
+            <controllingFieldValue>Inactive</controllingFieldValue>
+            <valueName>Investor</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Active</controllingFieldValue>
+            <controllingFieldValue>Inactive</controllingFieldValue>
+            <valueName>Legal Professional</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Active</controllingFieldValue>
+            <controllingFieldValue>Inactive</controllingFieldValue>
+            <valueName>Medical Professional</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Active</controllingFieldValue>
+            <controllingFieldValue>Inactive</controllingFieldValue>
+            <valueName>Next Home Buyer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Active</controllingFieldValue>
+            <controllingFieldValue>Inactive</controllingFieldValue>
+            <valueName>Refinance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Active</controllingFieldValue>
+            <controllingFieldValue>Inactive</controllingFieldValue>
+            <valueName>Restructure</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Active</controllingFieldValue>
+            <valueName>New Customer</valueName>
+        </valueSettings>
     </valueSet>
     <visibleLines>4</visibleLines>
 </CustomField>

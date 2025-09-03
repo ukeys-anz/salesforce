@@ -97,4 +97,3 @@ public with sharing class TrustMeCaseUpdateModel extends CalloutModel {
     );
   }
 }
-

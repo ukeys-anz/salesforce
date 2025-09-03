@@ -65,6 +65,41 @@
             <field>CreatedDate</field>
             <table>Interaction</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Owner.Commercial_Segment__c</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Owner.State_Code__c</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Owner.Team_Code__c</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Owner.Area_Code__c</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Owner.Sub_Team_Code__c</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Opportunity__c</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Optional_Notes__c</field>
+            <table>Interaction</table>
+        </columns>
         <masterLabel>Interactions</masterLabel>
     </sections>
     <sections>
@@ -87,6 +122,11 @@
             <checkedByDefault>false</checkedByDefault>
             <field>Attendee_Name__c</field>
             <table>Interaction.InteractionAttendee</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Attendees__c</field>
+            <table>Interaction</table>
         </columns>
         <masterLabel>Interaction Attendee</masterLabel>
     </sections>

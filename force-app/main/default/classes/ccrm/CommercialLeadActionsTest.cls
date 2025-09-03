@@ -9,6 +9,8 @@ public class CommercialLeadActionsTest {
   static Lib_MockProvider campMembActionRepoMock;
   static Lib_MockProvider taskMockProvider;
   static Lib_MockProvider userRepoMock;
+  static Lib_MockProvider userActionsRepositoryMock;
+  static Lib_MockProvider dmlRepoMock;
   static void registerMocks() {
     leadActionRepoMock = Lib_MockProvider.forType(LeadActionsRepository.class);
     campMembActionRepoMock = Lib_MockProvider.forType(
@@ -16,6 +18,10 @@ public class CommercialLeadActionsTest {
     );
     taskMockProvider = Lib_MockProvider.forType(TaskActionRepository.class);
     userRepoMock = Lib_MockProvider.forType(UserInfoRepository.class);
+    userActionsRepositoryMock = Lib_MockProvider.forType(
+      UserActionsRepository.class
+    );
+    dmlRepoMock = Lib_MockProvider.forType(DMLRepository.class);
   }
   @isTest
   static void testRestrictImagesInRichTextFields() {
@@ -665,5 +671,104 @@ public class CommercialLeadActionsTest {
       error.getMessage(),
       'Lead updated successfully'
     );
+  }
+
+  @isTest
+  static void sendLeadOwnerUpdateToUnicaTest() {
+    registerMocks();
+    userActionsRepositoryMock.mock('isIntegrationUser', false);
+    Id leadId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    Id userId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    Id updatedOwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Map<Id, Account> mapOfAccount = new Map<Id, Account>{
+      accId => new Account(
+        Id = accId,
+        Source_System_Name__c = 'CAP-CIS',
+        Source_System_ID__c = '1245'
+      )
+    };
+    userActionsRepositoryMock.mock(
+      'getUserMapFromUserIds',
+      new Map<Id, User>{
+        userId => new User(id = updatedOwnerId, Lan_Id__c = 'test123')
+      }
+    );
+    leadActionRepoMock.mock('getAccountRecords', mapOfAccount);
+    Lead newLead = new Lead(
+      Id = leadId,
+      RecordTypeId = RTLead.commercialLead,
+      Status = 'Complete',
+      Lead_Originator__c = 'UNICA',
+      ownerId = updatedOwnerId,
+      FinServ__ReferredByUser__c = null
+    );
+    Lead oldLead = new Lead(
+      Id = leadId,
+      RecordTypeId = RTLead.commercialLead,
+      Status = 'Complete',
+      Lead_Originator__c = 'UNICA',
+      ownerId = userId,
+      FinServ__ReferredByUser__c = null
+    );
+    Map<Id, Lead> oldMap = new Map<Id, Lead>{ oldLead.Id => oldLead };
+    Test.startTest();
+    CommercialLeadActions.sendLeadOwnerUpdateToUnica(
+      new List<Lead>{ newLead },
+      oldMap
+    );
+    Test.stopTest();
+    Assert.isNotNull(
+      dmlRepoMock.getHistory('doPublish'),
+      'sendLeadOwnerUpdateToUnica did not publish Event successfully'
+    );
+  }
+
+  @isTest
+  static void setCompanyToBlankForIndividualTest() {
+    //GIVEN records, oldMap
+    Id leadId = Lib_FakeIdGenerator.getMockId(Lead.getSObjectType());
+    List<Lead> records = new List<Lead>{
+      new Lead(Id = leadId, Entity_Type__c = 'Individual', Company = 'ANZ Corp')
+    };
+    Map<Id, Lead> oldMap = new Map<Id, Lead>{
+      leadId => new Lead(
+        Id = leadId,
+        Entity_Type__c = 'Sole Trader',
+        Company = 'ANZ Corp'
+      )
+    };
+
+    //WHEN calling a method
+    Test.startTest();
+    CommercialLeadActions.setCompanyToBlankForIndividual(records, oldMap);
+    Test.stopTest();
+
+    //THEN it should set the company to blank
+    Assert.isNull(records[0].Company, 'Company should set to blank');
+  }
+
+  @isTest
+  static void setCompanyToBlankForIndividualNegativeTest() {
+    //GIVEN records, oldMap
+    Id leadId = Lib_FakeIdGenerator.getMockId(Lead.getSObjectType());
+    List<Lead> records = new List<Lead>{
+      new Lead(Id = leadId, Entity_Type__c = 'Trust', Company = 'ANZ Corp')
+    };
+    Map<Id, Lead> oldMap = new Map<Id, Lead>{
+      leadId => new Lead(
+        Id = leadId,
+        Entity_Type__c = 'Sole Trader',
+        Company = 'ANZ Corp'
+      )
+    };
+
+    //WHEN calling a method
+    Test.startTest();
+    CommercialLeadActions.setCompanyToBlankForIndividual(records, oldMap);
+    Test.stopTest();
+
+    //THEN it should not set the company to blank
+    Assert.isNotNull(records[0].Company, 'Company should not set to blank');
   }
 }

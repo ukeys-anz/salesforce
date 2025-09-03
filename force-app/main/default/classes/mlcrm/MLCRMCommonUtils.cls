@@ -913,7 +913,7 @@ public with sharing class MLCRMCommonUtils {
         if (strField == 'FinServ__ReferredByContact__c') {
           objSobject.put(
             'Referrer_Phone__c',
-            userEmailMap.get((String) objSobject.get(strField))
+            userEmailMap.get((String) objSobject.get('Referrer_Email__c'))
               .get('MobilePhone')
           );
         }

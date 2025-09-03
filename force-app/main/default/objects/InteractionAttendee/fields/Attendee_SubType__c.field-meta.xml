@@ -57,18 +57,5 @@
             <controllingFieldValue>External</controllingFieldValue>
             <valueName>Broker</valueName>
         </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>External</controllingFieldValue>
-            <valueName>Aggregator</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>External</controllingFieldValue>
-            <valueName>Assistant</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>External</controllingFieldValue>
-            <controllingFieldValue>Customer</controllingFieldValue>
-            <valueName>Other</valueName>
-        </valueSettings>
     </valueSet>
 </CustomField>

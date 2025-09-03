@@ -55,7 +55,7 @@ export default class PdiCreateAccessControl extends NavigationMixin(
     return this.layoutInfo.filter((section) => {
       let visible = true;
       if (section.heading === "Conditional Advice") {
-        visible = this.record.Policy__c === "POLICY_CONDITIONAL";
+        visible = this.record.Policy__c === "Conditional";
       }
       section.fields.forEach((field) => {
         if (!visible) {

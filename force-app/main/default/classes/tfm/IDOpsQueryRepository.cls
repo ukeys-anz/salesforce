@@ -172,4 +172,22 @@ public with sharing class IDOpsQueryRepository {
     ] ?? null;
     return personDigitalIdentityRec;
   }
+
+  /**
+   * @description documentId from COB-PID record
+   * @param  personaId PersonaId
+   * @return COBPrimaryIDDocument__c
+   **/
+  @AuraEnabled
+  public static COBPrimaryIDDocument__c getDocumentIdFromCOB(String personaId) {
+    COBPrimaryIDDocument__c pID = [
+      SELECT DaonLocationUri__c
+      FROM COBPrimaryIDDocument__c
+      WHERE
+        CustomerOnboardingApplication__r.PersonaId__c = :personaId
+        AND Latest__c = TRUE
+      LIMIT 1
+    ] ?? null;
+    return pID;
+  }
 }

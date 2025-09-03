@@ -5,27 +5,87 @@
  */
 @isTest
 public class OpportunityContactRoleActionsTest {
-  /**
-   * @description test method for filterPrimaryApplicant
-   */
-  private static final Id MLCRM_OPP_RTID = QueryRT.of(Opportunity.SObjectType)
-    .getId('MLCRM_Opportunity');
-
   static Lib_MockProvider ocrRepoMock;
   static Lib_MockProvider oppRepoMock;
   static Lib_MockProvider dmlMockProvider;
+  static Lib_MockProvider userMock;
   static void registerMocks() {
     ocrRepoMock = Lib_MockProvider.forType(
       OpportunityContactRoleActionsRepository.class
     );
     oppRepoMock = Lib_MockProvider.forType(OpportunityActionsRepository.class);
     dmlMockProvider = Lib_MockProvider.forType(DmlRepository.class);
+    userMock = Lib_MockProvider.forType(UserInfoRepository.class);
+  }
+  static User testUser = new User(
+    Id = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+    FirstName = 'DummyMLUser'
+  );
+
+  /**
+   * @description test method for restrictApplicantDeletion
+   */
+  @isTest
+  static void restrictApplicantDeletionTest() {
+    registerMocks();
+    Id newConId = Lib_FakeIdGenerator.getMockId(
+      Schema.Contact.getSObjectType()
+    );
+    Id newAccId = Lib_FakeIdGenerator.getMockId(
+      Schema.Account.getSObjectType()
+    );
+    Id newOppId = Lib_FakeIdGenerator.getMockId(
+      Schema.Opportunity.getSObjectType()
+    );
+    Account cust = (Account) TestUtil.setFields(
+      new Account(
+        Id = newAccId,
+        FirstName = 'Test',
+        LastName = 'Test',
+        Salutation = 'Mrs',
+        External_Id__c = 'CAP-CIS_4011643101',
+        Name = 'Test Test',
+        RecordTypeId = RTAccount.personAccount
+      ),
+      new Map<String, Object>{ 'PersonContactId' => newConId }
+    );
+    Opportunity opp = (Opportunity) TestUtil.setFields(
+      new Opportunity(
+        Id = newOppId,
+        ContactId = newConId,
+        AccountId = cust.Id,
+        RecordTypeId = RTOpportunity.mlOpportunity
+      ),
+      new Map<String, Object>{ 'Account' => cust }
+    );
+    OpportunityContactRole ocr = (OpportunityContactRole) TestUtil.setFields(
+      new OpportunityContactRole(
+        OpportunityId = newOppId,
+        ContactId = newConId,
+        Role = 'Applicant'
+      ),
+      new Map<String, Object>{ 'Opportunity' => opp }
+    );
+    List<OpportunityContactRole> lstOfOldOppRole = new List<OpportunityContactRole>{
+      ocr
+    };
+    oppRepoMock.mock('getOpportunity', new List<Opportunity>{ opp });
+    userMock.mock('checkProfile', false).mock('getUser', testUser);
+    Test.startTest();
+    OpportunityContactRoleActions.restrictApplicantDeletion(lstOfOldOppRole);
+    Test.stopTest();
+    Assert.areEqual(
+      OpportunityContactRoleActions.INSUFFICIENT_ERROR_MESSAGE,
+      lstOfOldOppRole[0].getErrors()[0].getMessage(),
+      'Error message is not received while deleting the OCR'
+    );
   }
 
+  /**
+   * @description test method for filterPrimaryApplicant
+   */
   @isTest
   static void testFilterPrimaryApplicant() {
-    Id mlOpportunityRTId = QueryRT.of(Opportunity.SObjectType)
-      .getId('MLCRM_Opportunity');
     Map<Id, Opportunity> mapOfOpp = new Map<Id, Opportunity>();
     Id newConId = Lib_FakeIdGenerator.getMockId(
       Schema.Contact.getSObjectType()
@@ -44,7 +104,7 @@ public class OpportunityContactRoleActionsTest {
         Salutation = 'Mrs',
         External_Id__c = 'CAP-CIS_4011643101',
         Name = 'Test Test',
-        RecordTypeId = QueryRT.of(Account.SObjectType).getId('PersonAccount')
+        RecordTypeId = RTAccount.personAccount
       ),
       new Map<String, Object>{ 'PersonContactId' => newConId }
     );
@@ -54,7 +114,7 @@ public class OpportunityContactRoleActionsTest {
         Id = newOppId,
         ContactId = newConId,
         AccountId = cust.Id,
-        recordTypeId = mlOpportunityRTId,
+        recordTypeId = RTOpportunity.mlOpportunity,
         Name = 'Test',
         StageName = 'Needs Analysis',
         Amount = 5000,
@@ -78,69 +138,23 @@ public class OpportunityContactRoleActionsTest {
       mapOfOpp
     );
     Test.stopTest();
-    System.assertEquals(
+    Assert.areEqual(
       1,
       lstOfOppRole.size(),
       'Primary Applicant not filtered correctly'
     );
-  }
-  /**
-   * @description test method for create OCR.
-   * @Note : DML is needed in this method since we are writing trigger on OCR for first time and for trigger we need atleast 1% coverage.
-   */
-  @isTest
-  static void testCreateOpportunityContactRole() {
-    User mlUser = MLCRMTestDataFactory.createMLCRMBaseUser();
-    System.runAs(mlUser) {
-      List<Territory__c> lstOfTerritory = MLCRMTestDataFactory.createTerritoryRecords(
-        1,
-        mlUser,
-        true
-      );
-      MLCRMTestDataFactory.createUserTerritoryRecords(
-        1,
-        mlUser.Id,
-        lstOfTerritory[0].id
-      );
-      Id mlOpportunityRTId = QueryRT.of(Opportunity.SObjectType)
-        .getId('MLCRM_Opportunity');
-      Account objAcc = new Account(
-        FirstName = 'Test',
-        LastName = 'Test',
-        Salutation = 'Mrs',
-        External_Id__c = 'CAP-CIS_4011643101',
-        OCV_Id__c = '1234',
-        RecordTypeId = QueryRT.of(Account.SObjectType).getId('PersonAccount')
-      );
-      insert objAcc;
-      opportunity opp = new opportunity(
-        AccountId = objAcc.Id,
-        recordTypeId = mlOpportunityRTId,
-        Name = 'Test',
-        StageName = 'Needs Analysis',
-        Amount = 5000,
-        Customer_Needs__c = 'Asset Finance',
-        CloseDate = Date.today() + 5
-      );
-      insert opp;
-      OpportunityContactRole ocr = [
-        SELECT Id
-        FROM OpportunityContactRole
-        LIMIT 1
-      ];
-      System.assertNotEquals(
-        null,
-        ocr.Id,
-        'There is some issue while creating OCR record'
-      );
-    }
+    Assert.areEqual(
+      'Applicant',
+      lstOfOppRole[0].Role,
+      'Role is not Primary Applicant'
+    );
   }
 
   /**
    * @description test method for preventing duplicate OCR.
    */
   @isTest
-  static void preventDuplicateOpportunityContactRoleTest() {
+  static void preventDuplicateOpportunityContactRoleNegativeTest() {
     registerMocks();
     Id newConId = Lib_FakeIdGenerator.getMockId(
       Schema.Contact.getSObjectType()
@@ -150,7 +164,7 @@ public class OpportunityContactRoleActionsTest {
     );
     Opportunity opp = new Opportunity(
       Id = newOppId,
-      RecordTypeId = MLCRM_OPP_RTID
+      RecordTypeId = RTOpportunity.mlOpportunity
     );
     OpportunityContactRole ocr = new OpportunityContactRole(
       OpportunityId = newOppId,
@@ -175,6 +189,59 @@ public class OpportunityContactRoleActionsTest {
   }
 
   /**
+   * @description test method for preventing duplicate OCR.
+   */
+  @isTest
+  static void preventDuplicateOpportunityContactRoleTest() {
+    registerMocks();
+    Id newConId = Lib_FakeIdGenerator.getMockId(
+      Schema.Contact.getSObjectType()
+    );
+    Id newOppId = Lib_FakeIdGenerator.getMockId(
+      Schema.Opportunity.getSObjectType()
+    );
+    Opportunity opp = new Opportunity(
+      Id = newOppId,
+      RecordTypeId = RTOpportunity.mlOpportunity
+    );
+    OpportunityContactRole ocr = new OpportunityContactRole(
+      OpportunityId = newOppId,
+      ContactId = newConId,
+      Role = 'Applicant'
+    );
+    //duplicate OCR record
+    OpportunityContactRole ocr2 = ocr;
+    ocrRepoMock.mock(
+      'getOppContactRoleByContacts',
+      new List<OpportunityContactRole>{ ocr }
+    );
+    oppRepoMock.mock('getOpportunity', new List<Opportunity>{ opp });
+    List<OpportunityContactRole> ocrRecords = new List<OpportunityContactRole>{
+      ocr,
+      ocr2
+    };
+    Test.startTest();
+    OpportunityContactRoleActions.preventDuplicateOpportunityContactRole(
+      ocrRecords,
+      null
+    );
+    Test.stopTest();
+    //Asserts
+    List<Database.Error> errors = ocrRecords[0].getErrors();
+    Assert.areEqual(1, errors.size(), 'record should not be valid!');
+    Assert.areEqual(
+      OpportunityContactRoleActions.DUPLICATE_OCR_ERROR,
+      errors[0].getMessage(),
+      'should throw duplicate Loanapp Reference Error!'
+    );
+    Assert.areEqual(
+      StatusCode.FIELD_CUSTOM_VALIDATION_EXCEPTION,
+      errors[0].getStatusCode(),
+      'No Error found'
+    );
+  }
+
+  /**
    * @description test method to get parent opportunities.
    */
   @isTest
@@ -188,7 +255,7 @@ public class OpportunityContactRoleActionsTest {
     );
     Opportunity opp = new Opportunity(
       Id = newOppId,
-      RecordTypeId = MLCRM_OPP_RTID
+      RecordTypeId = RTOpportunity.mlOpportunity
     );
     OpportunityContactRole ocr = new OpportunityContactRole(
       OpportunityId = newOppId,
@@ -205,6 +272,11 @@ public class OpportunityContactRoleActionsTest {
       1,
       result.size(),
       'one parent opportunity should be returned!'
+    );
+    Assert.areEqual(
+      opp.Id,
+      result[0].Id,
+      'parent opportunity is not ML Opportunity'
     );
   }
 
@@ -239,6 +311,10 @@ public class OpportunityContactRoleActionsTest {
       duplicateSet.size(),
       'one duplicate OCR should be returned!'
     );
+    Assert.isTrue(
+      duplicateSet.contains(ocr.OpportunityId + '-' + ocr.ContactId),
+      'OCR list doesnt have any duplicate contact'
+    );
   }
 
   /**
@@ -255,7 +331,7 @@ public class OpportunityContactRoleActionsTest {
     );
     Opportunity opp = new Opportunity(
       Id = newOppId,
-      RecordTypeId = MLCRM_OPP_RTID
+      RecordTypeId = RTOpportunity.mlOpportunity
     );
     OpportunityContactRole ocr = new OpportunityContactRole(
       OpportunityId = newOppId,
@@ -322,6 +398,11 @@ public class OpportunityContactRoleActionsTest {
       ocrSyncList.size(),
       'There should be one Opportunity Role Sync inserted!'
     );
+    Assert.areEqual(
+      ocrNew.Id,
+      ocrSyncList[0].OpportunityContactRoleId__c,
+      'OCR Sync Record OpportunityContactRoleId__c should match with OCR Id'
+    );
   }
 
   /**
@@ -381,6 +462,11 @@ public class OpportunityContactRoleActionsTest {
       ocrSyncList.size(),
       'There should be one Opportunity Role Sync updated!'
     );
+    Assert.areEqual(
+      'Guarantor',
+      ocrSyncList[0].Role__c,
+      'OCR Sync Record should be updated to Guarantor'
+    );
   }
 
   @isTest
@@ -431,6 +517,73 @@ public class OpportunityContactRoleActionsTest {
       1,
       ocrSyncDelList.size(),
       'there should be 1 OCR Sync record deleted!'
+    );
+    Assert.areEqual(
+      ocrSync.Id,
+      ocrSyncDelList[0].Id,
+      'OCR Sync Record not deleted when OCR is deleted'
+    );
+  }
+
+  @isTest
+  static void testCreateCustomerRelationshipRecords() {
+    registerMocks();
+    Id newConId = Lib_FakeIdGenerator.getMockId(
+      Schema.Contact.getSObjectType()
+    );
+    Id newOppId = Lib_FakeIdGenerator.getMockId(
+      Schema.Opportunity.getSObjectType()
+    );
+    Id newOCRId = Lib_FakeIdGenerator.getMockId(
+      Schema.OpportunityContactRole.getSObjectType()
+    );
+    Id territoryId = Lib_FakeIdGenerator.getMockId(
+      Schema.Territory__c.getSObjectType()
+    );
+    Territory__c ter = new Territory__c(
+      Id = territoryId,
+      Primary_Franchise_Owner__c = UserInfo.getUserId()
+    );
+    Opportunity opp = (Opportunity) TestUtil.setFields(
+      new Opportunity(
+        AccountId = Lib_FakeIdGenerator.getMockId(
+          Schema.Account.getSObjectType()
+        ),
+        Id = newOppId,
+        RecordTypeId = RTOpportunity.mlOpportunity,
+        Lead_Converted__c = false,
+        Territory__c = ter.Id
+      ),
+      new Map<String, Object>{ 'Territory__r' => ter }
+    );
+    OpportunityContactRole ocrNew = (OpportunityContactRole) TestUtil.setFields(
+      new OpportunityContactRole(
+        Id = newOCRId,
+        OpportunityId = opp.Id,
+        ContactId = newConId,
+        Role = 'Guarantor'
+      ),
+      new Map<String, Object>{ 'Opportunity' => opp }
+    );
+
+    ocrRepoMock.mock(
+      'getInsertedOCRs',
+      new List<OpportunityContactRole>{ ocrNew }
+    );
+    Test.startTest();
+    OpportunityContactRoleActions.createCustomerRelationshipRecords(
+      new List<OpportunityContactRole>{ ocrNew }
+    );
+    Test.stopTest();
+    List<Customer_Relationship__c> crrList = (List<Customer_Relationship__c>) dmlMockProvider.getHistory(
+        'doInsert'
+      )
+      .getParam('records');
+    Assert.areEqual(1, crrList.size(), '1 CRR record should be inserted!');
+    Assert.areEqual(
+      territoryId,
+      crrList[0].Territory__c,
+      'territory should match with Opportunity territory'
     );
   }
 }

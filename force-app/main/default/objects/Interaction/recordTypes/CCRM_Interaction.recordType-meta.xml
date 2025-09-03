@@ -355,7 +355,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-     <picklistValues>
+    <picklistValues>
         <picklist>Interaction_Type__c</picklist>
         <values>
             <fullName>COI Proactive</fullName>
