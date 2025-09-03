@@ -30,6 +30,7 @@ private class RetailBrokerEventActionsTest {
   @IsTest
   static void testPublishEvent() {
     List<Contact> newContacts = createTestContactList(RECORD_TYPE_ID_BROKER);
+    Map<Id, Contact> oldContacts = new Map<Id, Contact>(newContacts);
     Map<Id, String> brokerIdToEventTypeMap = new Map<Id, String>();
     for (Contact broker : newContacts) {
       brokerIdToEventTypeMap.put(
@@ -40,7 +41,8 @@ private class RetailBrokerEventActionsTest {
     retailBrokerRepo.mock('getBrokerContactsByIds', newContacts);
     Test.startTest();
     List<SObject> successEvents = RetailBrokerEventActions.publishEventForBrokers(
-      brokerIdToEventTypeMap
+      brokerIdToEventTypeMap,
+      oldContacts
     );
     Test.stopTest();
     Assert.areEqual(
@@ -70,12 +72,14 @@ private class RetailBrokerEventActionsTest {
   @IsTest
   static void testPublishEventEventNegative() {
     createTestContactList(RECORD_TYPE_ID_BROKER);
+
     retailBrokerRepo.mock(
       'getBrokerContactsByIds',
       new List<FinServ__FinancialAccount__c>{}
     );
     Test.startTest();
     List<SObject> successEvents = RetailBrokerEventActions.publishEventForBrokers(
+      null,
       null
     );
     Test.stopTest();
@@ -88,14 +92,18 @@ private class RetailBrokerEventActionsTest {
   @IsTest
   static void testGenerateBrokerCEModel() {
     Contact newContact = createTestContactList(RECORD_TYPE_ID_BROKER)[0];
+    List<Contact> oldContacts = new List<Contact>{ newContact }.deepClone(true);
+    Map<Id, Contact> oldMap = new Map<Id, Contact>(oldContacts);
     Test.startTest();
     BrokerCloudEventModel addModel = RetailBrokerEventActions.generateBrokerCEModel(
       newContact,
-      RetailBrokerEventActions.BROKER_EVENT_ADD
+      RetailBrokerEventActions.BROKER_EVENT_ADD,
+      oldMap.get(newContact.Id)
     );
     BrokerCloudEventModel updateModel = RetailBrokerEventActions.generateBrokerCEModel(
       newContact,
-      RetailBrokerEventActions.BROKER_EVENT_UPDATE
+      RetailBrokerEventActions.BROKER_EVENT_UPDATE,
+      oldMap.get(newContact.Id)
     );
     Test.stopTest();
     Assert.areEqual(
@@ -133,9 +141,11 @@ private class RetailBrokerEventActionsTest {
   @IsTest
   static void testBuildAddContract() {
     Contact newContact = createTestContactList(RECORD_TYPE_ID_BROKER)[0];
+    Contact oldContact = newContact;
     Test.startTest();
     List<BrokerCloudEventModel.MasterNode> results = RetailBrokerEventActions.buildAddContact(
-      newContact
+      newContact,
+      oldContact
     );
     Test.stopTest();
     BrokerCloudEventModel.MasterNode contactNode = results[1];
@@ -154,9 +164,11 @@ private class RetailBrokerEventActionsTest {
   @IsTest
   static void testBuildUpdateContract() {
     Contact newContact = createTestContactList(RECORD_TYPE_ID_BROKER)[0];
+    Contact oldContact = newContact;
     Test.startTest();
     List<BrokerCloudEventModel.MasterNode> results = RetailBrokerEventActions.buildUpdateContact(
-      newContact
+      newContact,
+      oldContact
     );
     Test.stopTest();
     BrokerCloudEventModel.MasterNode contactNode = results[4];
