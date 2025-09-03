@@ -198,7 +198,7 @@ public class OpportunityActionsTest {
     Assert.areEqual(
       'Applicant',
       lstOfOppRole[0].Role,
-      'Role should be Guarantor'
+      'Role should be Applicant'
     );
     Assert.areEqual(
       contactId,

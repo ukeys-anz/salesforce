@@ -8,8 +8,8 @@ public with sharing class RetailBrokerFinancialAccountAction {
   private static final AccountRepository ACCOUNT_REPOSITORY = (AccountRepository) Lib_InstanceProvider.forType(
     AccountRepository.class
   );
-  private static final BrokerCodeRepository BROKER_CODE_REPOSITORY = (BrokerCodeRepository) Lib_InstanceProvider.forType(
-    BrokerCodeRepository.class
+  private static final RetailContactMergeRepository BROKER_CODE_MERGE_REPOSITORY = (RetailContactMergeRepository) Lib_InstanceProvider.forType(
+    RetailContactMergeRepository.class
   );
 
   /**
@@ -167,7 +167,7 @@ public with sharing class RetailBrokerFinancialAccountAction {
     );
 
     Map<String, Broker_Code__c> externalIdVsBrokerCodeMap = (Map<String, Broker_Code__c>) Listutil.mapBy(
-      BROKER_CODE_REPOSITORY.getBrokerIdentifiers(brokerIdentifiers),
+      BROKER_CODE_MERGE_REPOSITORY.getBrokerIdentifiers(brokerIdentifiers),
       Broker_Code__c.External_Id__c
     );
 

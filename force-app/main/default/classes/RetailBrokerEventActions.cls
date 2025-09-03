@@ -15,10 +15,12 @@ public with sharing class RetailBrokerEventActions {
   /**
    * @description Publish event for brokers
    * @param brokerIdToEventTypeMap Map of broker Id to event type
+   * @param oldMap map of old contacts from trigger context
    * @return List of success published events
    */
   public static List<SObject> publishEventForBrokers(
-    Map<Id, String> brokerIdToEventTypeMap
+    Map<Id, String> brokerIdToEventTypeMap,
+    Map<Id, Contact> oldMap
   ) {
     if (brokerIdToEventTypeMap == null || brokerIdToEventTypeMap.isEmpty()) {
       return new List<SObject>();
@@ -31,7 +33,8 @@ public with sharing class RetailBrokerEventActions {
       String eventType = brokerIdToEventTypeMap.get(broker.Id);
       BrokerCloudEventModel eventModel = generateBrokerCEModel(
         broker,
-        eventType
+        eventType,
+        oldMap.get(broker.Id)
       );
       cloudEventModels.add(eventModel);
     }
@@ -46,32 +49,38 @@ public with sharing class RetailBrokerEventActions {
    * @description Generate Broker related Cloud Event Model
    * @param broker Contact record
    * @param eventType event type
+   * @param oldBroker old broker record
    * @return BrokerCloudEventModel
    */
   @TestVisible
   private static BrokerCloudEventModel generateBrokerCEModel(
     Contact broker,
-    String eventType
+    String eventType,
+    Contact oldBroker
   ) {
     List<BrokerCloudEventModel.MasterNode> masterNodes = eventType ==
       BROKER_EVENT_ADD
-      ? buildAddContact(broker)
-      : buildUpdateContact(broker);
+      ? buildAddContact(broker, oldBroker)
+      : buildUpdateContact(broker, oldBroker);
     return new BrokerDataCloudEventModel(broker, masterNodes, eventType);
   }
 
   /**
    * @description Build the contract for add event
    * @param record the new contact record in trigger context
+   * @param oldRecord the old contact record in trigger context
    * @return list of master objects
    */
   @TestVisible
   private static List<BrokerCloudEventModel.MasterNode> buildAddContact(
-    Contact record
+    Contact record,
+    Contact oldRecord
   ) {
     List<BrokerCloudEventModel.MasterNode> masterNodes = new List<BrokerCloudEventModel.MasterNode>();
     masterNodes.add(BrokerCloudEventBuilder.buildAccountNode(record));
-    masterNodes.add(BrokerCloudEventBuilder.buildContactNode(record));
+    masterNodes.add(
+      BrokerCloudEventBuilder.buildContactNode(record, oldRecord)
+    );
     masterNodes.add(
       BrokerCloudEventBuilder.buildContactInfoNode(record, 'ContactPointPhone')
     );
@@ -91,11 +100,13 @@ public with sharing class RetailBrokerEventActions {
   /**
    * @description Build the contract for update event
    * @param record the new contact record in trigger context
+   * @param oldRecord the old contact record in trigger context
    * @return list of master objects
    */
   @TestVisible
   private static List<BrokerCloudEventModel.MasterNode> buildUpdateContact(
-    Contact record
+    Contact record,
+    Contact oldRecord
   ) {
     List<BrokerCloudEventModel.MasterNode> masterNodes = new List<BrokerCloudEventModel.MasterNode>();
     masterNodes.add(
@@ -111,7 +122,9 @@ public with sharing class RetailBrokerEventActions {
       )
     );
     masterNodes.add(BrokerCloudEventBuilder.buildBrokerCodeNode(record));
-    masterNodes.add(BrokerCloudEventBuilder.buildContactNode(record));
+    masterNodes.add(
+      BrokerCloudEventBuilder.buildContactNode(record, oldRecord)
+    );
     masterNodes.add(BrokerCloudEventBuilder.buildAccountNode(record));
     return masterNodes;
   }
