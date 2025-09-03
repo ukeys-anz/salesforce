@@ -32,7 +32,8 @@
            OR( OR( AND(ISCHANGED(AccountId), NOT(ISBLANK(AccountId))),
                 AND(NOT (ISCHANGED(AccountId)), NOT(ISBLANK(AccountId)))),
               AND( ISCHANGED(IDR_Customer_Number__c), 
-               ISBLANK(IDR_Customer_Number__c))
+               ISBLANK(IDR_Customer_Number__c)),
+                ISBLANK(IDR_Customer_Number__c)
             )
              
 
