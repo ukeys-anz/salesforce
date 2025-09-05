@@ -8,6 +8,10 @@
         <name>FinancialAccountUIConfiguration__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <name>FinancialAccountConfiguration__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <description>Permissions to deploy. Assign to Cloud Build service account, in sandboxes.</description>
     <fieldPermissions>
         <editable>false</editable>

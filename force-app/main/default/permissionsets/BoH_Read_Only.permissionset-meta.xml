@@ -94,6 +94,9 @@
     </customMetadataTypeAccesses>
     <customMetadataTypeAccesses>
         <name>FinancialAccountUIConfiguration__mdt</name>
+    </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <name>FinancialAccountConfiguration__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
     <customPermissions>

@@ -14,6 +14,7 @@ import FIN_ACCOUNT_OCV_ID from "@salesforce/schema/FinServ__FinancialAccount__c.
 import FIN_ACCOUNT_RT_APINAME from "@salesforce/schema/FinServ__FinancialAccount__c.RecordType.DeveloperName";
 import FIN_ACCOUNT_PRIMARY_OWNER from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__PrimaryOwner__c";
 import FIN_ACCOUNT_OWNERSHIP_TYPE from "@salesforce/schema/FinServ__FinancialAccount__c.Ownership__c";
+import FIN_MARKETING_CODE from "@salesforce/schema/FinServ__FinancialAccount__c.Marketing_Code__c";
 
 import FIN_ACCOUNT_INTEREST from "@salesforce/schema/FinServ__FinancialAccount__c.Interest_Accrued__c";
 import { TRANSACTION_HISTORY_RETRIEVE_ERROR } from "c/transactionHistoryService";
@@ -55,19 +56,14 @@ export default class FinancialAccountParent extends LightningElement {
   @api objectApiName;
   accountError;
   accountNumber;
-  accountType;
-  accRecordType;
   componentTitle;
-  fullGoalData;
   goalData = { goalList: [], nextToken: null };
   goalError;
-  goalLookup;
   goalMap;
   hasTransactionError = false;
   emojiMap;
   imageMap;
   isSavings;
-  isHomeLoan;
   offsetData = {};
   loading;
   ocvId;
@@ -77,7 +73,6 @@ export default class FinancialAccountParent extends LightningElement {
   transactionError;
   savingsJar;
   preselectedGoal;
-  primaryOwner;
   transactionStartDate;
   transactionEndDate;
   transactionBucketIds = [];
@@ -119,7 +114,8 @@ export default class FinancialAccountParent extends LightningElement {
       FIN_ACCOUNT_RT_APINAME,
       FIN_ACCOUNT_PRIMARY_OWNER,
       FIN_ACCOUNT_INTEREST,
-      FIN_ACCOUNT_OWNERSHIP_TYPE
+      FIN_ACCOUNT_OWNERSHIP_TYPE,
+      FIN_MARKETING_CODE
     ]
   })
   async wiredRecord({ data }) {
@@ -138,28 +134,22 @@ export default class FinancialAccountParent extends LightningElement {
         return;
       }
       this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
-      this.primaryOwner = data.fields.FinServ__PrimaryOwner__c.value;
       this.accRecordTypeApiName = getFieldValue(data, FIN_ACCOUNT_RT_APINAME);
       this.accountOwners = await this.fetchAccountOwners();
 
       if (
         this.ocvId &&
         this.accRecordTypeApiName === BANK_ACCOUNT_RT_APINAME &&
-        hasHomeLoanPermission
+        hasHomeLoanPermission &&
+        data.fields.Marketing_Code__c?.value
       ) {
-        this.isHomeLoan = true;
         this.showRaiseDispute = false;
         await this.getFinancialData();
         this.offsetData = await this.getOffsetHomeLoanResponse();
       } else {
-        this.showRaiseDispute = true;
-        if (this.accRecordTypeApiName === SAVINGS_ACCOUNT_RT_APINAME) {
-          this.isSavings = true;
-          this.accountType = "savings";
-        } else if (this.accRecordTypeApiName === CHECKING_ACCOUNT_RT_APINAME) {
-          this.isSavings = false;
-          this.accountType = "checking";
-        }
+        this.showRaiseDispute = data.fields.Marketing_Code__c?.value;
+        this.isSavings =
+          this.accRecordTypeApiName === SAVINGS_ACCOUNT_RT_APINAME;
         if (this.disputeRecordTypes.length === 0) {
           await this.handleGetDisputeRecordTypeDetails();
         }
@@ -255,6 +245,7 @@ export default class FinancialAccountParent extends LightningElement {
       this.financialAccount = this.fetchedAccounts[0];
       this.componentSubTitle =
         this.financialAccount.accounts[0].finserv_product_display_name;
+      this.componentTitle = this.financialAccount.transactionTitle;
       this.showGoals = this.financialAccount.accounts[0].finserv_showgoal;
     } catch (error) {
       this.financialAccount = [{ no_account: true }];
@@ -330,15 +321,6 @@ export default class FinancialAccountParent extends LightningElement {
       this.clearTransactions = true;
     } else {
       this.clearTransactions = false;
-    }
-    //Set default component title here to ensure theres always a title
-    //even if the try catch fails
-    if (this.isHomeLoan) {
-      this.componentTitle = "Transaction History";
-    } else {
-      this.componentTitle = this.isSavings
-        ? "All Savings Transaction History"
-        : "All Everyday Transaction History";
     }
     try {
       this.transactionData = await getTransactionHistoryAura({
