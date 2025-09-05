@@ -94,15 +94,14 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
         this.capIdAccounts,
         this.checkIssueTypeChange(data.Case.ComplaintDetails)
       );
-      this.validateNAoption(data);
     }
     if (this.financialAccounts?.length && this.checkCustomerIdentifier(data)) {
       this.createFinancialAccountOptions(
         this.financialAccounts,
         this.checkIssueTypeChange(data.Case.ComplaintDetails)
       );
-      this.validateNAoption(data);
     }
+    this.validateNAoption(data);
 
     // To select all Account/Policy Number values by default when Issue typen is 'Financial Difficulty & Hardship'
     if (
@@ -264,16 +263,19 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     accString = accString.substring(0, accString.length - 1);
     this.omniUpdateDataJson(accString);
   }
+  checkforNAoption(data) {
+    return (
+      (data?.Case.displayNAOption &&
+        this.omniJsonDef.name === "AccountPolicyNumber") ||
+      (data?.Case.displayNAOption2 &&
+        this.omniJsonDef.name === "AccountPolicyNumber2") ||
+      (data?.Case.displayNAOption3 &&
+        this.omniJsonDef.name === "AccountPolicyNumber3")
+    );
+  }
 
   validateNAoption(data) {
-    if (
-      (data.Case.displayNAOption &&
-        this.omniJsonDef.name === "AccountPolicyNumber") ||
-      (data.Case.displayNAOption2 &&
-        this.omniJsonDef.name === "AccountPolicyNumber2") ||
-      (data.Case.displayNAOption3 &&
-        this.omniJsonDef.name === "AccountPolicyNumber3")
-    ) {
+    if (this.checkforNAoption(data)) {
       if (!this.options.some((opt) => opt.value === "N/A")) {
         this.options.push({ label: "N/A", value: "N/A" });
       }
