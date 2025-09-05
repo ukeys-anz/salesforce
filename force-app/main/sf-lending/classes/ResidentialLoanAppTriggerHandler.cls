@@ -1,23 +1,36 @@
 /**
- * @author cruzb
- * @since July 2023
- * @description creates `ResidentialLoanApplication`
+ * @author @ramvilas
+ * @since April 2025
+ * @description creates `ResidentialLoanApplication` of loan application record type
  * @group handler
- * @runTests ResidentialLoanAppTriggerHandlerTest, ResidentialLoanApplicationControllerTest
+ * @runTests ResidentialLoanAppTriggerHandlerTest
  */
-public with sharing class ResidentialLoanApplicationTriggerHandler extends Lib_TriggerHandler {
+public with sharing class ResidentialLoanAppTriggerHandler extends Lib_TriggerHandler {
   /**
    * @description Constructor to call the trigger framework
    * which will call the appropriate methods such as onAfterInsert etc.
    */
-  public ResidentialLoanApplicationTriggerHandler() {
+  public ResidentialLoanAppTriggerHandler() {
     super();
+  }
+
+  /**
+   * @description Implementation of isValidRecord on Lib_TriggerHandler, returns a list of RLA records
+   * @param record record to check if relevant to the execution context
+   * @return `Boolean` returns true if record is relevant, false if record is not relevant
+   */
+  public override Boolean isValidRecord(SObject record) {
+    ResidentialLoanApplication loanRecord = (ResidentialLoanApplication) record;
+    return loanRecord.RecordTypeId == RTResidentialLoanApplication.anzxHomeLoan;
   }
 
   /**
    * @description onBeforeInsert to handle before insert trigger actions
    */
   public override void onBeforeInsert() {
+    //Assign home loan applications queue as owner
+    ResidentialLoanApplicationActions.assignHomeLoanAppQueue(records);
+    ResidentialLoanApplicationActions.setSunsetTimestamp(records);
     ResidentialLoanApplicationActions.populateRetailLoanAssistedBroker(
       records,
       new Map<Id, ResidentialLoanApplication>()
@@ -30,6 +43,18 @@ public with sharing class ResidentialLoanApplicationTriggerHandler extends Lib_T
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    ResidentialLoanApplicationActions.setEnteredSunsetTimestamp(
+      records,
+      (Map<Id, ResidentialLoanApplication>) oldMap
+    );
+    ResidentialLoanApplicationActions.setExitedSunsetTimestamp(
+      records,
+      (Map<Id, ResidentialLoanApplication>) oldMap
+    );
+    ResidentialLoanApplicationActions.updateApplicationProgressToBlank(
+      records,
+      (Map<Id, ResidentialLoanApplication>) oldMap
+    );
     ResidentialLoanApplicationActions.populateRetailLoanAssistedBroker(
       records,
       (Map<Id, ResidentialLoanApplication>) oldMap
@@ -59,7 +84,7 @@ public with sharing class ResidentialLoanApplicationTriggerHandler extends Lib_T
         (Map<Id, ResidentialLoanApplication>) oldMap
       )
     );
-    CoachNudgeTaskAction.processCancelledRLARecords(
+    ResidentialLoanApplicationActions.processCancelledRLARecords(
       records,
       (Map<Id, ResidentialLoanApplication>) oldMap
     );

@@ -7,7 +7,7 @@
 @isTest
 public with sharing class BrokerEnquiryCaseEventActionsTest {
   static Lib_MockProvider brokerRepoMock = Lib_MockProvider.forType(
-    BrokerSettingRepository.class
+    BrokerSettingsRepository.class
   );
   /*
    * @description unit test for publishCaseEvent

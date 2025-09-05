@@ -5,8 +5,7 @@ import { getRecord, getFieldValue } from "lightning/uiRecordApi";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { getFocusedTabInfo, refreshTab } from "lightning/platformWorkspaceApi";
 import ConfirmationMessage from "@salesforce/label/c.RLA_Cancellation_Confirmation_Message";
-import cancelResidentialLoanApplication from "@salesforce/apex/ResidentialLoanApplicationActions.cancelResidentialLoanApplication";
-
+import cancelResidentialLoanApplication from "@salesforce/apex/LoanApplicationController.cancelResidentialLoanApplication";
 import CANCELLATION_REASON from "@salesforce/schema/ResidentialLoanApplication.Cancellation_Reason__c";
 import OCV_ID from "@salesforce/schema/ResidentialLoanApplication.Account.OCV_ID__c";
 import RESIDENTIAL_LOAN_APPLICATION_NUMBER from "@salesforce/schema/ResidentialLoanApplication.ApplicationExtIdentifier";
@@ -94,7 +93,7 @@ export default class CancelResidentialLoanApplication extends LightningElement {
     this.spinnerDisabled = false;
     cancelResidentialLoanApplication({ rlaObject: this.rlaObject })
       .then((result) => {
-        if (result === "success") {
+        if (result) {
           title = "Success";
           message =
             "Application for withdrawal has been submitted successfully";

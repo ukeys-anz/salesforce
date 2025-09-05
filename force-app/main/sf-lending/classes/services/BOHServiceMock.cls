@@ -34,9 +34,6 @@ public with sharing class BOHServiceMock extends Service {
     'mock_verifyInsurance'
   );
 
-  private static final string CANCEL_LOAN_APP = getStaticResource(
-    'mock_cancelHomeLoanApplication'
-  );
   /**
    * @param ocvId ocv id of the customer account
    * @param sopId sop id to retrieve customer savings and asset
@@ -285,23 +282,6 @@ public with sharing class BOHServiceMock extends Service {
     if (!preset) {
       response.body = BOHServiceMock.SOP_LIST_ASSETS_RESPONSE;
     }
-    return response;
-  }
-
-  /**
-   * @param loanAppNumber Loan application Number
-   * @param ocvId required to make the callout to Mulesoft
-   * @return `HttpCalloutResponse` the api response
-   * @description cancel home loan application through mule
-   */
-  public override HttpCalloutResponse cancelResidentialLoanApp(
-    String loanAppNumber,
-    String ocvId
-  ) {
-    if (!preset) {
-      response.body = BOHServiceMock.CANCEL_LOAN_APP;
-    }
-
     return response;
   }
 }

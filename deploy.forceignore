@@ -173,6 +173,19 @@ force-app/main/default/classes/utils/SingleSignOnCacheUtilTest.cls
 force-app/main/default/classes/utils/SingleSignOnCacheUtil.cls-meta.xml
 force-app/main/default/classes/utils/SingleSignOnCacheUtilTest.cls-meta.xml
 
+#AR-197099 - ignore for moving changes to sf-lending
+force-app/main/default/classes/BrokerCodeRepository.cls
+force-app/main/default/classes/BrokerCodeRepository.cls-meta.xml
+force-app/main/default/classes/ResidentialLoanAppTriggerHandlerTest.cls
+force-app/main/default/classes/ResidentialLoanAppTriggerHandlerTest.cls-meta.xml
+force-app/main/default/classes/ResidentialLoanApplicationTrigger.cls
+force-app/main/default/classes/ResidentialLoanApplicationTrigger.cls-meta.xml
+force-app/main/default/lwc/cancelResidentialLoanApplication/cancelResidentialLoanApplication.css
+force-app/main/default/lwc/cancelResidentialLoanApplication/cancelResidentialLoanApplication.html
+force-app/main/default/lwc/cancelResidentialLoanApplication/cancelResidentialLoanApplication.js
+force-app/main/default/lwc/cancelResidentialLoanApplication/cancelResidentialLoanApplication.js-meta.xml
+force-app/main/default/permissionsets/Cancel_Residential_Loan_Application.permissionset-meta.xml
+
 # AR-167633 Setup Settings & Config on new refreshed/created sandbox
 ci/sandbox-service/Config/TEST_ONLY_Refresh_Token.permissionset-meta.xml
 
