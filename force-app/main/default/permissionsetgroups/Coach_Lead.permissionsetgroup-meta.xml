@@ -72,6 +72,7 @@
     <permissionSets>View_Card_Details</permissionSets>
     <permissionSets>View_CoP_Financial_Account</permissionSets>
     <permissionSets>View_Draft_Articles</permissionSets>
+    <permissionSets>View_Push_To_App</permissionSets>
     <permissionSets>View_Refer_to_ANZ_button</permissionSets>
     <permissionSets>View_Statements</permissionSets>
     <permissionSets>View_Transaction_History</permissionSets>

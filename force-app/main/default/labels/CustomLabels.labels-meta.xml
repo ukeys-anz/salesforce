@@ -921,13 +921,6 @@
         <value>The customer already has an appointment at this date and time. Please select another date and time.</value>
     </labels>
     <labels>
-        <fullName>IsPushToAppEnabled</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>IsPushToAppEnabled</shortDescription>
-        <value>true</value>
-    </labels>
-    <labels>
         <fullName>Coach_Existing_Interaction_Error_Message</fullName>
         <language>en_US</language>
         <protected>false</protected>
