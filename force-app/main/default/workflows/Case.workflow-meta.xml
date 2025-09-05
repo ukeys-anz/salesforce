@@ -176,7 +176,7 @@
         <criteriaItems>
             <field>Case.RecordTypeId</field>
             <operation>notEqual</operation>
-            <value>Credit Referral</value>
+            <value>Credit Referral,Profile Update</value>
         </criteriaItems>
         <description>Copy CaseNumber to CaseNumber__c custom field. This is moved out of trigger because of owner change issues.</description>
         <triggerType>onCreateOnly</triggerType>

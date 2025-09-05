@@ -192,6 +192,8 @@ export default class CobPidFalloutWorkflow extends LightningElement {
     return [
       {
         size: 6,
+        hideHeader: true,
+        title: "Documents",
         files
       }
     ];
@@ -211,6 +213,8 @@ export default class CobPidFalloutWorkflow extends LightningElement {
     return [
       {
         size: 6,
+        hideHeader: true,
+        title: "Selfie",
         files
       }
     ];
