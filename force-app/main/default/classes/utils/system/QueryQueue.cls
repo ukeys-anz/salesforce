@@ -33,6 +33,7 @@ public with sharing class QueryQueue {
   public static Group fraudRefQueue = get('Fraud_Credit_Referral_Case_Queue');
   public static Group coachRefQueue = get('No_CAD_Credit_Referral_Case_Queue');
   public static Group cadReferralQueue = get('CAD_Credit_Referral_Case_Queue');
+  public static Group mlExpiredLeadsQueue = get('ML_Expired_Leads');
 
   /**
    * @description Returns a queue based on the provided name.
