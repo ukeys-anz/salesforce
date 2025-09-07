@@ -165,4 +165,38 @@ public with sharing class IndividualAccountActions {
       setOfAccountIds
     );
   }
+
+  /**
+   * @description onAfterUpdate to handle after update trigger actions.
+   * @name createCasesForDeceasedCustomer
+   * @param records account records
+   * @param oldMap A Map of AccountId and Account.
+   */
+  public static void createCasesForDeceasedCustomer(
+    List<Account> records,
+    Map<Id, SObject> oldMap
+  ) {
+    Map<Id, String> accountIdToCapCisIdMap = new Map<Id, String>();
+    List<Account> displayNameToExecutorAccounts = ListUtil.filter(
+        records,
+        oldMap
+      )
+      .changedTo(Account.Display_Name__c, 'EXECUTOR')
+      .toList();
+
+    if (displayNameToExecutorAccounts.isEmpty()) {
+      return;
+    }
+
+    for (Account accountRecord : displayNameToExecutorAccounts) {
+      accountIdToCapCisIdMap.put(
+        accountRecord.Id,
+        accountRecord.External_Id__c
+      );
+    }
+
+    System.enqueueJob(
+      new DeceasedCustomerCaseCreationQueueable(accountIdToCapCisIdMap)
+    );
+  }
 }

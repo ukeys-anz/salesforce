@@ -385,7 +385,7 @@
         "CLG_Credit_Rating__c"
       ],
       "IA-2415998": ["VOI_Expiry_Date_Classic__c", "VOI_Status_Classic__c"],
-      "IA-2453595": ["Migration_Status__c"]
+      "IA-2453595": ["Migration_Status__c", "DeceasedEstateStatus__c"]
     },
     "AccountClosureErrorMetadata__mdt": {
       "IA-2468715": ["Chatter_Post__c", "Failure_Reason__c", "Type__c"]
@@ -5761,7 +5761,6 @@
       "Sync_Status__c": "ANZx :: Salesforce :: BrokerData :: Contact :: Sync_Status__c",
       "Survivor_Party_Id__c": "ANZx :: Salesforce :: BrokerData :: Contact :: Survivor_Party_Id__c",
       "Victim_Party_Id__c": "ANZx :: Salesforce :: BrokerData :: Contact :: Victim_Party_Id__c"
-   
     },
     "CustomerOnboardingApplication__c": {
       "AustralianTaxResident__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidencyStatus :: australian_tax_resident",
@@ -5967,7 +5966,7 @@
       "SAO_State__c": "Formula field through Broker_Relation__c",
       "Sync_Status__c": "1:1 transformation",
       "Survivor_Party_Id__c": "1:1 transformation",
-      "Victim_Party_Id__c" : "1:1 transformation"
+      "Victim_Party_Id__c": "1:1 transformation"
     },
     "CustomerOnboardingApplication__c": {
       "AustralianTaxResident__c": "1:1 Transformation",

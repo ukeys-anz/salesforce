@@ -9,6 +9,7 @@ public with sharing class TFMSearchCustomerDataSourceService {
   private static final String NUMBERFOUR = '4';
   private static final String NUMBERZERO = '0';
   private static final String NUMBERSIXONE = '61';
+  private static final String PLUSSIXONE = '+61';
   public DataSource.QueryContext queryContext;
   public DataSource.TableSelection tableSelection;
 
@@ -124,7 +125,8 @@ public with sharing class TFMSearchCustomerDataSourceService {
       searchText.contains(NUMBERFOUR) &&
       (searchText.startsWith(NUMBERFOUR) ||
       searchText.startsWith(NUMBERZERO) ||
-      searchText.startsWith(NUMBERSIXONE))
+      searchText.startsWith(NUMBERSIXONE) ||
+      searchText.startsWith(PLUSSIXONE))
     ) {
       // required format is 006104XXXXXXXX
       return MOBILEPREFIX +
