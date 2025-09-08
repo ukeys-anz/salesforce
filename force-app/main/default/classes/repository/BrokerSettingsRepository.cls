@@ -12,4 +12,12 @@ public with sharing class BrokerSettingsRepository {
   public BrokerSettings__c get() {
     return BrokerSettings__c.getInstance();
   }
+
+  /**
+   * @description
+   * @return  `BrokerSettings__c` Broker Setting defaults
+   */
+  public BrokerSettings__c getBrokerSettings() {
+    return BrokerSettings__c.getOrgDefaults();
+  }
 }

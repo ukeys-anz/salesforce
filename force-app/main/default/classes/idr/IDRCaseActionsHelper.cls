@@ -192,4 +192,20 @@ public with sharing class IDRCaseActionsHelper {
     );
     Logger.saveLog();
   }
+  /**
+   * @description Create a log entry record if OCV is Down
+   * @param message Message to log in error log
+   * @param customerId CapId of the customer
+   */
+  @AuraEnabled
+  public static void logOCVError(String message, String customerId) {
+    Logger.error(
+      'Unable to retrieve Account Policy Numbers for ' +
+        customerId +
+        ' as:' +
+        ' ' +
+        message
+    );
+    Logger.saveLog();
+  }
 }

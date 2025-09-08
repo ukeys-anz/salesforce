@@ -34,6 +34,126 @@
                 <default>false</default>
                 <label>BOH Coach</label>
             </value>
+            <value>
+                <fullName>ANZ</fullName>
+                <default>false</default>
+                <label>ANZ</label>
+            </value>
+            <value>
+                <fullName>ANZx</fullName>
+                <default>false</default>
+                <label>ANZx</label>
+            </value>
+            <value>
+                <fullName>ANZ_Plus_Operations_Read_Only</fullName>
+                <default>false</default>
+                <label>ANZ Plus Operations - Read Only</label>
+            </value>
+            <value>
+                <fullName>Banker</fullName>
+                <default>false</default>
+                <label>Banker</label>
+            </value>
+            <value>
+                <fullName>Banker_Line_Manager</fullName>
+                <default>false</default>
+                <label>Banker Line Manager</label>
+            </value>
+            <value>
+                <fullName>BOH_Coach_Lead</fullName>
+                <default>false</default>
+                <label>BOH Coach Lead</label>
+            </value>
+            <value>
+                <fullName>Broker_Profile_Admin</fullName>
+                <default>false</default>
+                <label>Broker Profile Admin</label>
+            </value>
+            <value>
+                <fullName>Business_Admin</fullName>
+                <default>false</default>
+                <label>Business Admin</label>
+            </value>
+            <value>
+                <fullName>Capability_Quality_C_Q_Team</fullName>
+                <default>false</default>
+                <label>Capability &amp; Quality (C&amp;Q) Team</label>
+            </value>
+            <value>
+                <fullName>Card_Dispute_Agent</fullName>
+                <default>false</default>
+                <label>Card Dispute Agent</label>
+            </value>
+            <value>
+                <fullName>Credit_Assessment_Officer</fullName>
+                <default>false</default>
+                <label>Credit Assessment Officer</label>
+            </value>
+            <value>
+                <fullName>Credit_Assessor_Lead</fullName>
+                <default>false</default>
+                <label>Credit Assessor Lead</label>
+            </value>
+            <value>
+                <fullName>FinCrime_Agent</fullName>
+                <default>false</default>
+                <label>FinCrime Agent</label>
+            </value>
+            <value>
+                <fullName>FraudX_Agent</fullName>
+                <default>false</default>
+                <label>FraudX Agent</label>
+            </value>
+            <value>
+                <fullName>Join_Lead</fullName>
+                <default>false</default>
+                <label>Join Lead</label>
+            </value>
+            <value>
+                <fullName>Join_Operations_Reader</fullName>
+                <default>false</default>
+                <label>Join Operations Reader</label>
+            </value>
+            <value>
+                <fullName>Quality_Analyst</fullName>
+                <default>false</default>
+                <label>Quality Analyst</label>
+            </value>
+            <value>
+                <fullName>Quality_Capability_Lead</fullName>
+                <default>false</default>
+                <label>Quality &amp; Capability Lead</label>
+            </value>
+            <value>
+                <fullName>Residential_Broker_Manager</fullName>
+                <default>false</default>
+                <label>Residential Broker Manager</label>
+            </value>
+            <value>
+                <fullName>Retail_Broker</fullName>
+                <default>false</default>
+                <label>Retail Broker Business Admin</label>
+            </value>
+            <value>
+                <fullName>Settlement_Officer</fullName>
+                <default>false</default>
+                <label>Settlement Officer</label>
+            </value>
+            <value>
+                <fullName>Settlement_Officer_Lead</fullName>
+                <default>false</default>
+                <label>Settlement Officer Lead</label>
+            </value>
+            <value>
+                <fullName>Statutory_Compliance_Agent</fullName>
+                <default>false</default>
+                <label>Statutory Compliance Agent</label>
+            </value>
+            <value>
+                <fullName>Onboarding_Support_Read_Only</fullName>
+                <default>false</default>
+                <label>Onboarding Support - Read Only</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
     <visibleLines>4</visibleLines>

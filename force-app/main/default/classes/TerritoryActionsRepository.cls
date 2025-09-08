@@ -8,6 +8,7 @@ public with sharing class TerritoryActionsRepository {
    * @description getTerrritories method return Territories associated to teh given ids of the Territory
    * @param idsOfTerritory Id of the Territories
    * @return List<Territory__c> Territory__c List
+   * Used SYSTEM_MODE for Territories context
    */
   public List<Territory__c> getTerrritories(Set<ID> idsOfTerritory) {
     if (!Schema.sObjectType.Territory__c.isQueryable()) {
@@ -20,7 +21,7 @@ public with sharing class TerritoryActionsRepository {
       SELECT Id, Primary_Franchise_Owner__c
       FROM Territory__c
       WHERE Id IN :idsOfTerritory
-      WITH SECURITY_ENFORCED
+      WITH SYSTEM_MODE
     ];
   }
 }

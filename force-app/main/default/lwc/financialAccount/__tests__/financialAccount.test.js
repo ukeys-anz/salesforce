@@ -37,8 +37,6 @@ describe("c-financialAccount", () => {
     let finAccount = element.shadowRoot.querySelector(
       "div[data-id='fin-account']"
     );
-    expect(finAccount.textContent).toMatch(
-      "All accounts closed - no longer a customer"
-    );
+    expect(finAccount.textContent).toMatch("No active customer accounts");
   });
 });

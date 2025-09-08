@@ -4,6 +4,7 @@
     <label>IDR SI User</label>
     <permissionSets>Chatter_User_with_License</permissionSets>
     <permissionSets>Complaint_Read_Only</permissionSets>
+    <permissionSets>IDR_C360_Base</permissionSets>
     <permissionSets>Product_Read_Only</permissionSets>
     <permissionSets>Systemic_Issue_User_Base</permissionSets>
     <status>Updated</status>

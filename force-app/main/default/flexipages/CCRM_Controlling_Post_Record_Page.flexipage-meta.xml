@@ -228,6 +228,24 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>decorate</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>richTextValue</name>
+                    <value>&lt;p&gt;&lt;strong&gt;What is a Controlling Post?&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;A controlling post number identifies an account or customer record and is used for distribution of reports and online information within the Retail network.&lt;/p&gt;&lt;p&gt;A controlling post is a five character code. The first character is a letter indicating the post category; the other four characters are numeric.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;A - Collections / Hardship / Lending Services&lt;/p&gt;&lt;p&gt;F - Retail and Internal ANZ&lt;/p&gt;&lt;p&gt;L - Small to Medium Enterprise (Retail) - Portfolio Managed OR Commercial Broker and Origination (Retail) - Acquisition / Origination&lt;/p&gt;&lt;p&gt;M - Branch Manager and Non-Branch Office Accounts&lt;/p&gt;&lt;p&gt;P - Private Bank&lt;/p&gt;&lt;p&gt;R - Small to Medium Enterprise (Wholesale) / Diversified and Specialist Industries (DSI) - Relationship Managed&lt;/p&gt;&lt;p&gt;S - Commercial Broker and Origination (Retail) - Acquisition / Origination&lt;/p&gt;&lt;p&gt;W - Small to Medium Enterprise (Retail) - Remote Managed&lt;/p&gt;</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:richText</componentName>
+                <identifier>flexipage_richText</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Tabs</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>tabs</name>
                     <value>sidebartabs</value>
                 </componentInstanceProperties>

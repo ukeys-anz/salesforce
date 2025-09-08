@@ -23,9 +23,9 @@ fi
 CHANGED_FILES=$(cat "$QUALITY_CHECK_FILE_NAME" | jq -R -s -r '
   split("\n")[] |
   select(
-    test("^(force-app|knowledge-mgm)/main/(default|sf-lending)/.*\\.(trigger|cls)$") or
-    test("^(force-app|knowledge-mgm)/main/(default|sf-lending)/lwc/.*\\.(js|html|css)$") or
-    test("^(force-app|knowledge-mgm)/main/(default|sf-lending)/aura/.*\\.(js|css|cmp)$")
+    test("^(force-app|knowledge-mgm)/main/(default|sf-lending|generic-components)/.*\\.(trigger|cls)$") or
+    test("^(force-app|knowledge-mgm)/main/(default|sf-lending|generic-components)/lwc/.*\\.(js|html|css)$") or
+    test("^(force-app|knowledge-mgm)/main/(default|sf-lending|generic-components)/aura/.*\\.(js|css|cmp)$")
   )
 ')
 
@@ -34,15 +34,15 @@ lwcFilePaths=""
 auraFilePaths=""
 
 while IFS= read -r file_path; do
-  if [[ "$file_path" =~ ^(force-app|knowledge-mgm)/main/(default|sf-lending)/.*\.(trigger|cls)$ ]]; then
+  if [[ "$file_path" =~ ^(force-app|knowledge-mgm)/main/(default|sf-lending|generic-components)/.*\.(trigger|cls)$ ]]; then
       echo "✅ Adding to apex/trigger check: $file_path"
       CHECK_APEX_TRIGGER_FLAG=true
     apexTriggerFilePaths+="$file_path "
-  elif [[ "$file_path" =~ ^(force-app|knowledge-mgm)/main/(default|sf-lending)/lwc/.*\.(js|html|css)$ ]]; then
+  elif [[ "$file_path" =~ ^(force-app|knowledge-mgm)/main/(default|sf-lending|generic-components)/lwc/.*\.(js|html|css)$ ]]; then
       echo "✅ Adding to lwc check: $file_path"
       CHECK_LWC_FLAG=true
     lwcFilePaths+="$file_path "
-  elif [[ "$file_path" =~ ^(force-app|knowledge-mgm)/main/(default|sf-lending)/aura/.*\.(js|css|cmp)$ ]]; then
+  elif [[ "$file_path" =~ ^(force-app|knowledge-mgm)/main/(default|sf-lending|generic-components)/aura/.*\.(js|css|cmp)$ ]]; then
       echo "✅ Adding to aura check: $file_path"
       CHECK_AURA_FLAG=true
     auraFilePaths+="$file_path "

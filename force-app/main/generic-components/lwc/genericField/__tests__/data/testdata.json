@@ -1,0 +1,81 @@
+{
+  "isRecordUrlTestScenarios": [
+    {
+      "name": "Settlement Details",
+      "field": {
+        "fieldLabel": "Settlement Details Field",
+        "fieldtype": "button",
+        "isRecordUrl": true,
+        "attributes": {
+          "apexController": "SettlementController",
+          "configName": "settlementDetails",
+          "componentName": "c__settlementView",
+          "dataPath": "settlement.details",
+          "filterField": "settlementId"
+        }
+      },
+      "value": "Settlement #SET-2024-001",
+      "recordId": "001XX000003SETTLEMENT"
+    },
+    {
+      "name": "Loan Application",
+      "field": {
+        "fieldLabel": "Loan Application Field",
+        "fieldtype": "button",
+        "isRecordUrl": true,
+        "attributes": {
+          "apexController": "LoanApplicationController",
+          "configName": "loanApp",
+          "componentName": "c__loanApplicationView"
+        }
+      },
+      "value": "Loan App #LA-2024-456",
+      "recordId": "001XX000003LOAN"
+    },
+    {
+      "name": "Account Summary",
+      "field": {
+        "fieldLabel": "Account Summary Field",
+        "fieldtype": "button",
+        "isRecordUrl": true,
+        "attributes": {
+          "componentName": "c__accountSummary"
+        }
+      },
+      "value": "View Account",
+      "recordId": "001XX000003ACCOUNT"
+    }
+  ],
+  "basicFieldData": {
+    "minimal": {
+      "fieldLabel": "Simple Field",
+      "fieldtype": "button",
+      "isRecordUrl": true,
+      "attributes": {
+        "componentName": "c__simpleView"
+      }
+    },
+    "complete": {
+      "fieldLabel": "Loan Details",
+      "fieldtype": "button",
+      "isRecordUrl": true,
+      "attributes": {
+        "apexController": "LoanController",
+        "configName": "loanDetails",
+        "componentName": "c__loanDetailView",
+        "dataPath": "loan.details",
+        "filterField": "loanId"
+      }
+    },
+    "basic": {
+      "fieldLabel": "Test Field",
+      "fieldtype": "button",
+      "isRecordUrl": true,
+      "attributes": {
+        "apexController": "TestController",
+        "configName": "TestConfig",
+        "componentName": "c__testComponent"
+      }
+    }
+  }
+}

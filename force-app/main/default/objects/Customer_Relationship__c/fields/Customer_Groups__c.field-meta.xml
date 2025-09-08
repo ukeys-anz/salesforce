@@ -15,7 +15,7 @@
         <controllingField>Status__c</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
             <value>
                 <fullName>Accountant</fullName>
                 <default>false</default>
@@ -27,14 +27,14 @@
                 <label>ANZ Staff</label>
             </value>
             <value>
-                <fullName>Ex-Customer</fullName>
-                <default>false</default>
-                <label>Ex-Customer</label>
-            </value>
-            <value>
                 <fullName>Emergency Services</fullName>
                 <default>false</default>
                 <label>Emergency Services</label>
+            </value>
+            <value>
+                <fullName>Ex-Customer</fullName>
+                <default>false</default>
+                <label>Ex-Customer</label>
             </value>
             <value>
                 <fullName>First Home Buyer</fullName>
@@ -57,9 +57,19 @@
                 <label>Medical Professional</label>
             </value>
             <value>
+                <fullName>New Customer</fullName>
+                <default>false</default>
+                <label>New Customer</label>
+            </value>
+            <value>
                 <fullName>Next Home Buyer</fullName>
                 <default>false</default>
                 <label>Next Home Buyer</label>
+            </value>
+            <value>
+                <fullName>Nurturing</fullName>
+                <default>false</default>
+                <label>Nurturing</label>
             </value>
             <value>
                 <fullName>Refinance</fullName>
@@ -70,11 +80,6 @@
                 <fullName>Restructure</fullName>
                 <default>false</default>
                 <label>Restructure</label>
-            </value>
-            <value>
-                <fullName>New Customer</fullName>
-                <default>false</default>
-                <label>New Customer</label>
             </value>
         </valueSetDefinition>
         <valueSettings>
@@ -90,12 +95,12 @@
         <valueSettings>
             <controllingFieldValue>Active</controllingFieldValue>
             <controllingFieldValue>Inactive</controllingFieldValue>
-            <valueName>Ex-Customer</valueName>
+            <valueName>Emergency Services</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Active</controllingFieldValue>
             <controllingFieldValue>Inactive</controllingFieldValue>
-            <valueName>Emergency Services</valueName>
+            <valueName>Ex-Customer</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Active</controllingFieldValue>
@@ -119,8 +124,16 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Active</controllingFieldValue>
+            <valueName>New Customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Active</controllingFieldValue>
             <controllingFieldValue>Inactive</controllingFieldValue>
             <valueName>Next Home Buyer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Active</controllingFieldValue>
+            <valueName>Nurturing</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Active</controllingFieldValue>
@@ -131,10 +144,6 @@
             <controllingFieldValue>Active</controllingFieldValue>
             <controllingFieldValue>Inactive</controllingFieldValue>
             <valueName>Restructure</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Active</controllingFieldValue>
-            <valueName>New Customer</valueName>
         </valueSettings>
     </valueSet>
     <visibleLines>4</visibleLines>

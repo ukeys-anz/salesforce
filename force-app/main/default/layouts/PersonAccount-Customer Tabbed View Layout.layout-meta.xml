@@ -97,6 +97,10 @@
                 <behavior>Edit</behavior>
                 <field>CustomerExitFlag__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>DeceasedEstateStatus__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

@@ -296,4 +296,60 @@ private with sharing class IDRCaseActionsHelperTest {
       'Task Status should be updated to Completed'
     );
   }
+  /**
+   * @description Test logging when case is created.
+   */
+  @isTest
+  static void testLogCaseCreation() {
+    Boolean exceptionThrown = false;
+    Test.startTest();
+    try {
+      IDRCaseActionsHelper.logCaseCreation(
+        Lib_FakeIdGenerator.getMockId(Case.getSObjectType())
+      );
+      Test.stopTest();
+    } catch (Exception e) {
+      exceptionThrown = true;
+    }
+
+    Assert.isfalse(exceptionThrown, 'No Exceptions thrown while logging info');
+  }
+  /**
+   * @description Test logging error when  case creation failed.
+   */
+  @isTest
+  static void testLogCaseError() {
+    try {
+      Test.startTest();
+      IDRCaseActionsHelper.logCaseError('Status');
+      Test.stopTest();
+    } catch (Exception e) {
+      Assert.areEqual(
+        'Required field is missing or invalid:' + ' ' + 'Status',
+        e.getMessage(),
+        'Exception message should match'
+      );
+    }
+  }
+  /**
+   * @description Test logging error when ocv failed.
+   */
+  @isTest
+  static void testLogOCVError() {
+    try {
+      Test.startTest();
+      IDRCaseActionsHelper.logOCVError('OCV Down', '4349876584');
+      Test.stopTest();
+    } catch (Exception e) {
+      Assert.areEqual(
+        'Unable to retrieve Account Policy Numbers for ' +
+          ' ' +
+          '4349876584' +
+          ' ' +
+          'OCV Down',
+        e.getMessage(),
+        'Exception message should match'
+      );
+    }
+  }
 }

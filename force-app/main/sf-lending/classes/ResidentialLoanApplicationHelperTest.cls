@@ -1,10 +1,12 @@
 @isTest
 private class ResidentialLoanApplicationHelperTest {
-  private static final String BROKER_CODE = 'TPMI123456789';
-  static Lib_MockProvider rlarRepoMock;
-  static Lib_MockProvider brokerCodeMergeRepoMock;
+  static Lib_MockProvider rlaRepoMock;
+  static Lib_MockProvider brokerCodeRepoMock;
   static Lib_MockProvider caseRepoMock;
+  private static final String BROKER_CODE = 'TPMI123456789';
+  static Lib_MockProvider brokerCodeMergeRepoMock;
   private static final Id COACH_NUDGE_RT_ID = RTTask.coachNudge;
+
   private static final Id FAKER_CONTACT_ID = Lib_FakeIdGenerator.getMockId(
     Contact.getSObjectType()
   );
@@ -13,13 +15,14 @@ private class ResidentialLoanApplicationHelperTest {
   );
 
   static void registerMocks() {
-    rlarRepoMock = Lib_MockProvider.forType(
+    rlaRepoMock = Lib_MockProvider.forType(
         ResidentialLoanApplicationRepository.class
       )
       .mock(
         'queryRelatedProperties',
         new List<LoanApplicationProperty>{ relatedProperty }
       );
+    brokerCodeRepoMock = Lib_MockProvider.forType(BrokerCodeRepository.class);
     brokerCodeMergeRepoMock = Lib_MockProvider.forType(
       RetailContactMergeRepository.class
     );
@@ -112,26 +115,6 @@ private class ResidentialLoanApplicationHelperTest {
       'address should not be from related property record'
     );
   }
-
-  @IsTest
-  static void testGetLoanApplicationValidity() {
-    Loan_Application_Validity__mdt loanApplicationValidityMDT = new Loan_Application_Validity__mdt(
-      DeveloperName = 'RLS STATE SUBMITTED',
-      MasterLabel = 'RLS_STATE_SUBMITTED',
-      Years__c = 1,
-      Months__c = 6,
-      Days__c = 60
-    );
-    Date expectedDate = Date.today().addYears(1).addMonths(6).addDays(60);
-    Assert.areEqual(
-      expectedDate,
-      ResidentialLoanApplicationHelper.getLoanApplicationValidity(
-        loanApplicationValidityMDT
-      ),
-      'Date should be returned after years, months and days have been added to today\'s date'
-    );
-  }
-
   @IsTest
   static void testProcessEmptyAssistedBroker() {
     Test.startTest();
@@ -195,6 +178,226 @@ private class ResidentialLoanApplicationHelperTest {
     );
   }
 
+  /**
+   * @description Method for testing getUnblockedApplication
+   * @author Deepro De | 16-07-2024
+   **/
+  @isTest
+  static void testGetUnblockedApplication() {
+    List<ResidentialLoanApplication> loanApps = createResidentialLoanApplications(
+      10
+    );
+    loanApps[0].Sync_Status__c = 'Blocked';
+    Test.startTest();
+    List<ResidentialLoanApplication> loanApplications = ResidentialLoanApplicationHelper.getUnblockedApplication(
+      loanApps
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      9,
+      loanApplications.size(),
+      'Expected size of loanAppList should be 9'
+    );
+  }
+
+  @isTest
+  static void testPrepareTaskWithFieldsUpdatePositive() {
+    List<Task> masterTaskList = createMockTaskRelatedToRla();
+    String oldStatus = masterTaskList[0].Status;
+
+    Test.startTest();
+    List<Task> taskRecordsToBeUpdated = ResidentialLoanApplicationHelper.prepareTaskWithFieldsUpdate(
+      masterTaskList
+    );
+
+    Test.stopTest();
+
+    Assert.areEqual(
+      'Not Started',
+      oldStatus,
+      'The task record status should be Not Started'
+    );
+    Assert.areEqual(
+      'Expired',
+      taskRecordsToBeUpdated[0].Status,
+      'The task record status should have status as Expired'
+    );
+  }
+
+  @isTest
+  static void testPrepareTaskWithFieldsUpdateNegative() {
+    List<Task> masterTaskList = new List<Task>();
+    Test.startTest();
+    List<Task> taskRecordsToBeUpdated = ResidentialLoanApplicationHelper.prepareTaskWithFieldsUpdate(
+      masterTaskList
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      true,
+      taskRecordsToBeUpdated.isEmpty(),
+      'Task records should not be returned'
+    );
+  }
+
+  @isTest
+  static void testGetCancelledRlaRecordsPostChatterPositive() {
+    List<Id> rlaRecordIdList = new List<Id>();
+    List<ResidentialLoanApplication> newRlaRecords = createMockRlaRecord(
+      'STATE_CANCELLED',
+      2
+    );
+    newRlaRecords[1].Status = 'STATE_REFERRED';
+    List<ResidentialLoanApplication> oldRlaRecordsList = createMockRlaRecord(
+      'STATE_CAPTURE',
+      2
+    );
+    Map<Id, ResidentialLoanApplication> oldRlaRecords = new Map<Id, ResidentialLoanApplication>{
+      oldRlaRecordsList.get(0).Id => oldRlaRecordsList.get(0),
+      oldRlaRecordsList.get(1).Id => oldRlaRecordsList.get(1)
+    };
+
+    Test.startTest();
+    Set<Id> rlaRecordIds = ResidentialLoanApplicationHelper.getCancelledRlaRecordsPostChatter(
+      newRlaRecords,
+      oldRlaRecords
+    );
+    rlaRecordIdList.addAll(rlaRecordIds);
+
+    Test.stopTest();
+
+    Assert.areEqual(1, rlaRecordIds.size(), 'List has one record');
+    Assert.areEqual(
+      newRlaRecords[0].Id,
+      rlaRecordIdList[0],
+      'List of cancelled records'
+    );
+  }
+
+  @isTest
+  static void testGetCancelledRlaRecordsPostChatterNegative() {
+    List<ResidentialLoanApplication> newRlaRecords = createMockRlaRecord(
+      'STATE_UNSPECIFIED',
+      1
+    );
+    List<ResidentialLoanApplication> oldRlaRecordsList = createMockRlaRecord(
+      'STATE_CAPTURE',
+      1
+    );
+    Map<Id, ResidentialLoanApplication> oldRlaRecords = new Map<Id, ResidentialLoanApplication>{
+      oldRlaRecordsList.get(0).Id => oldRlaRecordsList.get(0)
+    };
+
+    Test.startTest();
+    Set<Id> rlaRecordIds = ResidentialLoanApplicationHelper.getCancelledRlaRecordsPostChatter(
+      newRlaRecords,
+      oldRlaRecords
+    );
+
+    Test.stopTest();
+
+    Assert.areEqual(
+      true,
+      rlaRecordIds.isEmpty(),
+      'Residential Loan Application records should not be returned'
+    );
+  }
+
+  @isTest
+  static void testPrepareCaseWithFieldsUpdatePositive() {
+    List<ResidentialLoanApplication> newRlaRecordsList = createMockRlaRecord(
+      'STATE_CANCELLED',
+      1
+    );
+    Map<Id, ResidentialLoanApplication> newRlaRecords = new Map<Id, ResidentialLoanApplication>{
+      newRlaRecordsList.get(0).Id => newRlaRecordsList.get(0)
+    };
+    List<Case> masterCaseList = createMockCaseRelatedToRla();
+
+    Test.startTest();
+    List<Case> caseRecordsToBeUpdated = ResidentialLoanApplicationHelper.prepareCaseWithFieldsUpdate(
+      masterCaseList,
+      newRlaRecords
+    );
+
+    Test.stopTest();
+
+    Assert.areEqual(
+      'Closed - Cancelled',
+      caseRecordsToBeUpdated[0].Status,
+      'The Case record status should have status as Expired'
+    );
+  }
+
+  @isTest
+  static void testPrepareCaseWithFieldsUpdatePositiveExpired() {
+    List<ResidentialLoanApplication> newRlaRecordsList = createMockRlaRecord(
+      'STATE_CANCELLED',
+      1
+    );
+    newRlaRecordsList.get(0)
+      .Cancellation_Reason__c = 'Credit Assessment Expired';
+    Map<Id, ResidentialLoanApplication> newRlaRecords = new Map<Id, ResidentialLoanApplication>{
+      newRlaRecordsList.get(0).Id => newRlaRecordsList.get(0)
+    };
+    List<Case> masterCaseList = createMockCaseRelatedToRla();
+
+    Test.startTest();
+    List<Case> caseRecordsToBeUpdated = ResidentialLoanApplicationHelper.prepareCaseWithFieldsUpdate(
+      masterCaseList,
+      newRlaRecords
+    );
+
+    Test.stopTest();
+
+    Assert.areEqual(
+      'Closed - Expired',
+      caseRecordsToBeUpdated[0].Status,
+      'The Case record status should have status as Expired'
+    );
+  }
+
+  @isTest
+  static void testPrepareCaseWithFieldsUpdateNegative() {
+    List<ResidentialLoanApplication> newRlaRecordsList = createMockRlaRecord(
+      'STATE_CANCELLED',
+      1
+    );
+    Map<Id, ResidentialLoanApplication> newRlaRecords = new Map<Id, ResidentialLoanApplication>{
+      newRlaRecordsList.get(0).Id => newRlaRecordsList.get(0)
+    };
+    List<Case> masterCaseList = new List<Case>();
+    Test.startTest();
+    List<Case> caseRecordsToBeUpdated = ResidentialLoanApplicationHelper.prepareCaseWithFieldsUpdate(
+      masterCaseList,
+      newRlaRecords
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      true,
+      caseRecordsToBeUpdated.isEmpty(),
+      'Case records should not be returned'
+    );
+  }
+
+  @IsTest
+  static void testGetLoanApplicationValidity() {
+    Loan_Application_Validity__mdt loanApplicationValidityMDT = new Loan_Application_Validity__mdt(
+      DeveloperName = 'RLS STATE SUBMITTED',
+      MasterLabel = 'RLS_STATE_SUBMITTED',
+      Years__c = 1,
+      Months__c = 6,
+      Days__c = 60
+    );
+    Date expectedDate = Date.today().addYears(1).addMonths(6).addDays(60);
+    Assert.areEqual(
+      expectedDate,
+      ResidentialLoanApplicationHelper.getLoanApplicationValidity(
+        loanApplicationValidityMDT
+      ),
+      'Date should be returned after years, months and days have been added to today\'s date'
+    );
+  }
+
   static List<Case> createMockCaseRelatedToRla() {
     List<Case> strCaselist = new List<Case>();
 
@@ -236,6 +439,34 @@ private class ResidentialLoanApplicationHelperTest {
       brokerCodes.add(brokerCode);
     }
     return brokerCodes;
+  }
+
+  static List<ResidentialLoanApplication> createMockRlaRecord(
+    String status,
+    Integer noOfRecords
+  ) {
+    List<ResidentialLoanApplication> rlaRecordsList = new List<ResidentialLoanApplication>();
+    for (Integer i = 0; i < noOfRecords; i++) {
+      ResidentialLoanApplication rlaRecord = new ResidentialLoanApplication();
+      rlaRecord.Id = FAKER_RLA_ID;
+      rlaRecord.Status = status;
+      rlaRecordsList.add(rlaRecord);
+    }
+    return rlaRecordsList;
+  }
+
+  static List<Task> createMockTaskRelatedToRla() {
+    List<Task> strTasklist = new List<Task>();
+
+    Task coachNudgeTask = TestDataFactory.createTaskRecord(
+      RTTask.coachNudge,
+      null,
+      FAKER_RLA_ID,
+      Lib_FakeIdGenerator.getMockId(Group.SObjectType),
+      false
+    );
+    strTasklist.add(coachNudgeTask);
+    return strTasklist;
   }
 
   static Contact createTestContact() {

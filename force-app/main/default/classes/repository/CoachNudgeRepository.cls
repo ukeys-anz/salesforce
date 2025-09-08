@@ -1,29 +1,10 @@
 /**
  * @author Kopal Goswami, Shivam Swaraj
  * @since 07/2024
- * @description Provides SOQL and DML helpers for CoachNudgeTaskAction,CoachNudgeTaskAutoExpireScheduler
+ * @description Provides SOQL and DML helpers for CoachNudgeTaskAutoExpireScheduler
  */
 
 public with sharing class CoachNudgeRepository {
-  /**
-     * @description To query all the tasks associated with rla records Ids
-     * @param rlaRecordIds set of RLA Ids
-    
-     * @return List<Task> list of RLA 
-     */
-  public List<Task> queryTaskWithRLA(Set<Id> rlaRecordIds) {
-    if (rlaRecordIds.isEmpty() || SObjectType.Task.isQueryable() == false) {
-      return new List<Task>();
-    }
-    // Query Task associated to Residential loan application records
-    return [
-      SELECT Id, Status, Sub_Status__c
-      FROM Task
-      WHERE
-        WhatId IN :rlaRecordIds
-        AND Status != :GetHelpTaskActions.TASK_STATUS_EXPIRED
-    ];
-  }
   /**
    * @description To query all the tasks records which needs to be updated expired
    * @return List<Task> list of Tasks in system to expire

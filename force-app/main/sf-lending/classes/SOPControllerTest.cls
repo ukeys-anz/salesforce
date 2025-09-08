@@ -7,17 +7,14 @@
 public class SOPControllerTest {
   static Lib_MockProvider rlarRepoMock;
   static Lib_MockProvider rlaApiMock;
+  static Lib_MockProvider accRepoMock;
+  static Lib_MockProvider expControlRepoMock;
 
   static void registerMocks() {
     rlarRepoMock = Lib_MockProvider.forType(
         ResidentialLoanApplicationRepository.class
       )
-      .mock('getAccountsFromOcvIds', relatedCustomers)
       .mock('queryRLAById', relatedRla)
-      .mock(
-        'getExpenseControl',
-        new List<Expense_Control__c>{ relatedExpenseControl }
-      )
       .mock(
         'queryRelatedProperties',
         new List<LoanApplicationProperty>{ relatedProperty }
@@ -29,6 +26,15 @@ public class SOPControllerTest {
       .mock(
         'getLoanApplicants',
         new List<LoanApplicant>{ applicants, applicantB }
+      );
+    accRepoMock = Lib_MockProvider.forType(LendingAccountRepository.class)
+      .mock('queryAccountsByOcvIds', relatedCustomers);
+    expControlRepoMock = Lib_MockProvider.forType(
+        ExpenseControlRepository.class
+      )
+      .mock(
+        'getExpenseControlByExpenseCode',
+        new List<Expense_Control__c>{ relatedExpenseControl }
       );
   }
   static Id lapIds = Lib_FakeIdGenerator.getMockId(
