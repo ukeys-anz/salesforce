@@ -335,78 +335,6 @@
                     <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.ExtraCareTimePeriod__c</fieldItem>
-                <identifier>RecordExtraCareTimePeriod_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.ExtraCareReason__c</fieldItem>
-                <identifier>RecordExtraCareReason_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet-1fa8f3ae-aee6-432d-a4d4-c03162439a26</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.ExtraCareNotes__c</fieldItem>
-                <identifier>RecordExtraCareNotes_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.ExtraCareReviewDate__c</fieldItem>
-                <identifier>RecordExtraCareReviewDate_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet-0ead04fd-e156-46d5-bcb5-be3884017a5f</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-1fa8f3ae-aee6-432d-a4d4-c03162439a26</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-0ead04fd-e156-46d5-bcb5-be3884017a5f</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column2</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-259b4dde-287d-43cf-ad41-b68821cd109d</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.Anniversary_Date__c</fieldItem>
                 <identifier>RecordAnniversary_Date_cField</identifier>
             </fieldInstance>
@@ -655,10 +583,6 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
-                <componentInstanceProperties>
-                    <name>columns</name>
-                    <value>Facet-259b4dde-287d-43cf-ad41-b68821cd109d</value>
-                </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>horizontalAlignment</name>
                     <value>false</value>
