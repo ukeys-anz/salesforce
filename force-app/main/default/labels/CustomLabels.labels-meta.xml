@@ -1482,7 +1482,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ML_MinDaysExpiryDateExtends</shortDescription>
-        <value>14</value>
+        <value>10</value>
     </labels>
     <labels>
         <fullName>ML_MaxExpiryDateErrorMessage</fullName>
@@ -2601,11 +2601,18 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>The Suburb, State and Postcode information provided is invalid. Please check the address entered and try again.</value>
     </labels>
     <labels>
-        <fullName>ML_LeadResponseToShowFollowUpDate</fullName>
+        <fullName>ML_LeadResponseFollowUpDateEnabled</fullName>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>ML_LeadResponseToShowFollowUpDate</shortDescription>
-        <value>[&quot;Contact Attempted&quot;, &quot;Call Back&quot;]</value>
+        <shortDescription>ML_LeadResponseFollowUpDateEnabled</shortDescription>
+        <value>[&quot;Call Back&quot;, &quot;Accepted&quot;, &quot;Appointment Booked&quot;]</value>
+    </labels>
+    <labels>
+        <fullName>ML_LeadResponseFollowUpDateRequired</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ML_LeadResponseFollowUpDateRequired</shortDescription>
+        <value>[&quot;Call Back&quot;]</value>
     </labels>
     <labels>
         <fullName>CCRM_INTERACTION_EVENT_CE_TYPE</fullName>
