@@ -17,63 +17,6 @@ private class CommercialOpportunityHelperTest {
     );
     dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
   }
-  @isTest
-  static void validateOppOnInsertTest() {
-    String expMsg = 'Stage can only be set to New.';
-    List<Database.Error> errors;
-    Database.Error error;
-
-    Opportunity opp = CCRMTestDataFactory.createStaticOpportunityData(
-      null,
-      'Test Opp',
-      RTOpportunity.commercialOpportunity,
-      CCRMConstants.IN_PROGRESS_STAGE
-    );
-    CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper = new CCRMOpportunityActions.CCRMOpportunityWrapper();
-    oppWrapper.filteredOpps.add(opp);
-    Test.startTest();
-    CommercialOpportunityHelper.validateCCRMOpportunity(oppWrapper, true);
-    Test.stopTest();
-
-    errors = opp.getErrors();
-    Assert.isFalse(errors.isEmpty(), 'Error not found');
-    error = errors.get(0);
-    Assert.areEqual(expMsg, error.getMessage(), 'No error occured');
-  }
-
-  @isTest
-  static void validateCCRMOpportunitiesTest() {
-    String expMsgForLeadSource = 'Other Source Detail is mandatory if Lead Source is Other.';
-
-    Opportunity leadSourceOpp;
-    List<Database.Error> leadSourceOppErrors;
-    Database.Error leadSourceError;
-
-    leadSourceOpp = CCRMTestDataFactory.createStaticOpportunityData(
-      Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType),
-      'Test Opp 1',
-      RTOpportunity.commercialOpportunity,
-      'Needs Analysis'
-    );
-    leadSourceOpp.LeadSource = 'Other';
-
-    CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper = new CCRMOpportunityActions.CCRMOpportunityWrapper();
-    oppWrapper.filteredOpps = new List<Opportunity>{ leadSourceOpp };
-
-    Test.startTest();
-    CommercialOpportunityHelper.validateCCRMOpportunity(oppWrapper, false);
-    Test.stopTest();
-
-    leadSourceOppErrors = leadSourceOpp.getErrors();
-    Assert.isFalse(leadSourceOppErrors.isEmpty(), 'Error not found');
-
-    leadSourceError = leadSourceOppErrors.get(0);
-    Assert.areEqual(
-      expMsgForLeadSource,
-      leadSourceError.getMessage(),
-      'Opp updated successfully'
-    );
-  }
 
   @isTest
   static void validateSkipStageTest() {

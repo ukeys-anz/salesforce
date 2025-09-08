@@ -21,7 +21,7 @@ public with sharing class CommercialOppLineItemActions {
     Map<Id, OpportunityLineItem> oldMap
   ) {
     List<OpportunityLineItem> filteredOliList = OLI_REPOSITORY.getOliRecords(
-      oldMap.keySet()
+      oldMap?.keySet()
     );
 
     Set<Id> oppIdsSet = ListUtil.getIds(

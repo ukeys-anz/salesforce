@@ -3139,7 +3139,12 @@
         "Lead_Owner_Teamcode__c",
         "My_Team_Segment__c",
         "My_Reportees_Lead__c",
-        "My_Managers_Lead__c"
+        "My_Managers_Lead__c",
+        "Owner_Region__c",
+        "Owner_Segment__c",
+        "Owner_State__c",
+        "Owner_Role__c",
+        "Owner_Team_POD__c"
       ],
       "IA-2530753": ["IsNewLead__c"],
       "IA-2618706": [
@@ -3629,9 +3634,9 @@
         "Has_Close_Date_Changed__c",
         "CLG__c",
         "Secondary_Customer_Needs__c",
-        "My_Notes__c",
-        "Industry__c"
+        "My_Notes__c"
       ],
+      "IA-4614597": ["CLG_ID__c"],
       "IA-2468715": [
         "CreatedById",
         "CreatedDate",
@@ -3694,8 +3699,13 @@
         "FinServ__ReferredByContact__c",
         "FinServ__ReferredByUser__c",
         "My_Team_Segment__c",
+        "My_Manager_Opps__c",
         "My_Reportees_Opps__c",
-        "My_Manager_Opps__c"
+        "Owner_Region__c",
+        "Owner_Segment__c",
+        "Owner_State__c",
+        "Owner_Role__c",
+        "Owner_Team_POD__c"
       ],
       "IA-2530753": ["Opportunity_Owner__c"],
       "IA-2428130": ["Specialisation__c", "New_to_Bank__c"],
