@@ -43,5 +43,8 @@ public class IDRTaskTriggerHandler extends Lib_TriggerHandler {
     );
 
     IDRTaskSendNotification.sendNotifications(filteredTasksToProcess);
+
+    //logic to log pcc collection tasks success/failure
+    IDRCollectionActions.logPCCCollectionTasks(records);
   }
 }

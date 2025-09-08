@@ -2904,6 +2904,9 @@
         "Role__c"
       ]
     },
+    "IDR_Omni_Settings_CMOS__mdt": {
+      "IA-2453595": ["EnableAccountLookUpforCMOS__c"]
+    },
     "JSONWebTokenAttributes__mdt": {
       "IA-2415860": [
         "Algorithm__c",

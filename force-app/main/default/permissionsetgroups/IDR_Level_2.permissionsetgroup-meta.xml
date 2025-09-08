@@ -7,6 +7,7 @@
     <permissionSets>dupcheck_CMOS</permissionSets>
     <permissionSets>Email_Based_Identity_Verification_Option</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
+    <permissionSets>IDR_C360_Base</permissionSets>
     <permissionSets>IDR_User</permissionSets>
     <permissionSets>IDR_User_Level_2</permissionSets>
     <permissionSets>OmniStudioManagedClasses</permissionSets>
