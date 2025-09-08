@@ -6,6 +6,15 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Broker</description>
     <label>Broker</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Contact.RecordType.DeveloperName</field>
+            <operation>equals</operation>
+            <value>Broker</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
     <referenceTo>Contact</referenceTo>
     <relationshipLabel>Customer Relationships (Broker)</relationshipLabel>
     <relationshipName>Customer_Relationships1</relationshipName>

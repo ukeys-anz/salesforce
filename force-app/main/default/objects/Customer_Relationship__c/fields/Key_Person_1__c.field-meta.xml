@@ -6,6 +6,15 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Key Person 1</description>
     <label>Key Person 1</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Account.IsPersonAccount</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>Customer Relationships (Key Person 1)</relationshipLabel>
     <relationshipName>Customer_Relationships1</relationshipName>

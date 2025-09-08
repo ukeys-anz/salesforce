@@ -1080,6 +1080,9 @@
                             <value>NAME</value>
                         </valueListItems>
                         <valueListItems>
+                            <value>Status__c</value>
+                        </valueListItems>
+                        <valueListItems>
                             <value>UPDATEDBY_USER</value>
                         </valueListItems>
                         <valueListItems>

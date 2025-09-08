@@ -9,9 +9,9 @@
     <lookupFilter>
         <active>true</active>
         <filterItems>
-            <field>Account.RecordType.DeveloperName</field>
+            <field>Account.IsPersonAccount</field>
             <operation>equals</operation>
-            <value>Individual</value>
+            <value>True</value>
         </filterItems>
         <isOptional>false</isOptional>
     </lookupFilter>
