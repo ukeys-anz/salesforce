@@ -5,4 +5,5 @@ trigger ResidentialLoanApplicationTrigger on ResidentialLoanApplication(
   after update
 ) {
   ResidentialLoanAppTriggerHandler loanApplicationHandler = new ResidentialLoanAppTriggerHandler();
+  RLSResidentialLoanAppTriggerHandler rlsHandler = new RLSResidentialLoanAppTriggerHandler();
 }

@@ -178,8 +178,8 @@ force-app/main/default/classes/BrokerCodeRepository.cls
 force-app/main/default/classes/BrokerCodeRepository.cls-meta.xml
 force-app/main/default/classes/ResidentialLoanAppTriggerHandlerTest.cls
 force-app/main/default/classes/ResidentialLoanAppTriggerHandlerTest.cls-meta.xml
-force-app/main/default/classes/ResidentialLoanApplicationTrigger.cls
-force-app/main/default/classes/ResidentialLoanApplicationTrigger.cls-meta.xml
+force-app/main/default/triggers/ResidentialLoanApplicationTrigger.trigger
+force-app/main/default/triggers/ResidentialLoanApplicationTrigger.trigger-meta.xml
 force-app/main/default/lwc/cancelResidentialLoanApplication/cancelResidentialLoanApplication.css
 force-app/main/default/lwc/cancelResidentialLoanApplication/cancelResidentialLoanApplication.html
 force-app/main/default/lwc/cancelResidentialLoanApplication/cancelResidentialLoanApplication.js
