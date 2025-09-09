@@ -153,31 +153,6 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>actionNames</name>
-                    <valueList>
-                        <valueListItems>
-                            <value>Edit</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Account.ProspectAddAddress_Aura</value>
-                            <visibilityRule>
-                                <criteria>
-                                    <leftValue>{!Record.OCV_Event_Version__c}</leftValue>
-                                    <operator>NE</operator>
-                                    <rightValue>0</rightValue>
-                                </criteria>
-                            </visibilityRule>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Global.Create_Task_ML</value>
-                            <visibilityRule>
-                                <criteria>
-                                    <leftValue>{!Record.OCV_Event_Version__c}</leftValue>
-                                    <operator>NE</operator>
-                                    <rightValue>0</rightValue>
-                                </criteria>
-                            </visibilityRule>
-                        </valueListItems>
-                    </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>numVisibleActions</name>
