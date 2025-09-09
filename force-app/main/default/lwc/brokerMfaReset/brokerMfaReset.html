@@ -1,0 +1,29 @@
+<template>
+  <lightning-quick-action-panel
+    header="Reset Authenticator App"
+    class="slds-is-relative"
+  >
+    <lightning-spinner
+      if:true={isLoading}
+      alternative-text="Loading..."
+    ></lightning-spinner>
+    <h3 class="slds-text-heading_small slds-m-bottom_small">
+      Do you want to reset the token ?
+    </h3>
+    <div slot="footer">
+      <lightning-button
+        label="Cancel"
+        variant="neutral"
+        onclick={handleCancel}
+        disabled={isLoading}
+      ></lightning-button>
+      <lightning-button
+        label="Confirm"
+        variant="brand"
+        onclick={doMfaReset}
+        disabled={isLoading}
+        class="slds-var-m-left_x-small"
+      ></lightning-button>
+    </div>
+  </lightning-quick-action-panel>
+</template>

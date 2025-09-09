@@ -102,6 +102,7 @@ public with sharing class Lib_HttpCallout {
     Map<String, String> autheader = new Map<String, String>();
     autheader.put('Authorization', request.getHeader('Authorization'));
     autheader.put('x-correlation-id', request.getHeader('x-correlation-id'));
+    autheader.put('traceparent', request.getHeader('traceparent'));
     return autheader;
   }
 
