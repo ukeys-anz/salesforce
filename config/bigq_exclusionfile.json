@@ -187,7 +187,8 @@
     "dupcheck__dc3DisableDuplicateCheck__pc",
     "Is_Preferred_Contact__pc",
     "qualtrics__Informed_Consent__pc",
-    "SourceSystemIdentifier"
+    "SourceSystemIdentifier",
+    "PersonGender"
   ],
   "ApplicationForm": ["BranchUnitId"],
   "ApplicationFormProduct": ["ApplicantVisibleStatus"],
@@ -317,7 +318,8 @@
     "qualtrics__Last_Survey_Invitation__c",
     "qualtrics__Last_Survey_Response__c",
     "qualtrics__Net_Promoter_Score__c",
-    "Retail_Accreditation_Status__c"
+    "Retail_Accreditation_Status__c",
+    "Gender"
   ],
   "ContactRequest": ["Focus_Area__c"],
   "Customer_Action__c": [
@@ -697,6 +699,7 @@
     "PasswordExpirationDate",
     "HasUserVerifiedPhone",
     "UserPreferencesHideManagedEcaMobilePubModal",
-    "UserPreferencesDismissPersonalSpaceLegalMessage"
+    "UserPreferencesDismissPersonalSpaceLegalMessage",
+    "UserPreferencesEnableLwrLexPilot"
   ]
 }
