@@ -47,9 +47,8 @@ export default class PushToApp extends LightningElement {
     return this._showPushTaskButton;
   }
   @api showPushTaskButtonFromParent(value) {
-    this._showPushTaskButton = !value;
-    this._showPushTaskScreen = value;
     this._showSuccessScreen = value;
+    this.handleCancel();
   }
 
   get showPushTaskScreen() {
