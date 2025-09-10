@@ -55,6 +55,9 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     ) {
       this.modalMsg +=
         "Please complete all required fields: Customer number is not valid or has not been validated, check the number and try again.";
+    } else if (this.checkOCVDown()) {
+      this.modalMsg +=
+        "Customer details cannot be retrieved as One Customer View (OCV) is currently unavailable.";
     } else if (this.validateRealFormID()) {
       handleErrorShowToast(
         this,
@@ -206,5 +209,15 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       return false;
     }
     return true;
+  }
+  checkOCVDown() {
+    if (
+      this.omniJsonData.IsOCVDown === true &&
+      this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
+      !this.omniJsonData.isEligibleAppForLookUp
+    ) {
+      return true;
+    }
+    return false;
   }
 }
