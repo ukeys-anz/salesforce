@@ -108,6 +108,26 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Owner_Role__c</field>
+            <table>Lead</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Owner_Segment__c</field>
+            <table>Lead</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Owner_State__c</field>
+            <table>Lead</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Owner_Team_POD__c</field>
+            <table>Lead</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>MobilePhone</field>
             <table>Lead</table>
         </columns>
@@ -149,6 +169,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>NumberOfEmployees</field>
+            <table>Lead</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Owner_Region__c</field>
             <table>Lead</table>
         </columns>
         <columns>

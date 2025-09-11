@@ -470,10 +470,16 @@
                 <fieldItem>Record.Associated_Source_Detail__c</fieldItem>
                 <identifier>RecordAssociated_Source_Detail_cField2</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Lead_Originator__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>MLCRM</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Originator__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Lender Engage</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>

@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingOwnerRules>
+        <fullName>CCRM_Private_Bank_Customer_Relationships</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Read Write access to Customer Relationship to PB</description>
+        <label>CCRM Private Bank Customer Relationships</label>
+        <sharedTo>
+            <group>Private_Bank_and_Advise</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>PB_General_Manager</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>MLCRM_Support_Team_CR_Sharing</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Sharing rule to open up access from ML Support Team to ML Team.</description>

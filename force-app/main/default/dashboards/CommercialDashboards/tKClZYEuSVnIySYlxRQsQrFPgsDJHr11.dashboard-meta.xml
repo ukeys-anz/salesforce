@@ -245,6 +245,31 @@
             <rowIndex>12</rowIndex>
             <rowSpan>6</rowSpan>
         </dashboardGridComponents>
+        <dashboardGridComponents>
+            <colSpan>4</colSpan>
+            <columnIndex>0</columnIndex>
+            <dashboardComponent>
+                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
+                <chartSummary>
+                    <column>RowCount</column>
+                </chartSummary>
+                <componentType>Metric</componentType>
+                <decimalPrecision>-1</decimalPrecision>
+                <displayUnits>Auto</displayUnits>
+                <groupingSortProperties/>
+                <header>Opportunities Closing this Week</header>
+                <indicatorBreakpoint1>33.0</indicatorBreakpoint1>
+                <indicatorBreakpoint2>67.0</indicatorBreakpoint2>
+                <indicatorHighColor>#00716B</indicatorHighColor>
+                <indicatorLowColor>#C23934</indicatorLowColor>
+                <indicatorMiddleColor>#CA8501</indicatorMiddleColor>
+                <metricLabel>Prepare for your Weekly Sales Call</metricLabel>
+                <report>CommercialReports/Opportunities_Closing_this_Week_nWx</report>
+                <showRange>false</showRange>
+            </dashboardComponent>
+            <rowIndex>18</rowIndex>
+            <rowSpan>5</rowSpan>
+        </dashboardGridComponents>
         <numberOfColumns>12</numberOfColumns>
         <rowHeight>36</rowHeight>
     </dashboardGridLayout>

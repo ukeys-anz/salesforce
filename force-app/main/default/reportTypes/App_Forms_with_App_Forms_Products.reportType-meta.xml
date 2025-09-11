@@ -224,6 +224,31 @@
             <field>Opportunity.Owner</field>
             <table>ApplicationForm</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Opportunity.Owner_Region__c</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Opportunity.Owner_Role__c</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Opportunity.Owner_Segment__c</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Opportunity.Owner_State__c</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Opportunity.Owner_Team_POD__c</field>
+            <table>ApplicationForm</table>
+        </columns>
         <masterLabel>Application Form Products</masterLabel>
     </sections>
 </ReportType>

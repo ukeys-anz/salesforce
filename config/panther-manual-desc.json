@@ -385,7 +385,7 @@
         "CLG_Credit_Rating__c"
       ],
       "IA-2415998": ["VOI_Expiry_Date_Classic__c", "VOI_Status_Classic__c"],
-      "IA-2453595": ["Migration_Status__c"]
+      "IA-2453595": ["Migration_Status__c", "DeceasedEstateStatus__c"]
     },
     "AccountClosureErrorMetadata__mdt": {
       "IA-2468715": ["Chatter_Post__c", "Failure_Reason__c", "Type__c"]
@@ -395,6 +395,7 @@
         "Access_Type__c",
         "Approver__c",
         "Automations_to_Bypass__c",
+        "Bypass__c",
         "CreatedById",
         "CreatedDate",
         "Duration_hrs__c",
@@ -2610,6 +2611,8 @@
       ],
       "IA-2415987": [
         "FinServ__ProductName__c",
+        "Linked_Product_Code__c",
+        "Is_Digitally_Active__c",
         "Interest_Rate_URL__c",
         "Is_Interest_Tab_Visible__c"
       ],
@@ -2710,8 +2713,12 @@
         "Show_Goals__c",
         "Sort_Order__c",
         "Include_In_Total_Financial_Position__c",
+        "FinancialAccountConfiguration__c",
         "Is_Active__c"
       ]
+    },
+    "FinancialAccountConfiguration__mdt": {
+      "IA-2468715": ["Icon__c", "Transaction_Title__c"]
     },
     "Group": {
       "IA-2468715": [
@@ -2896,6 +2903,9 @@
         "Formula_Attendee_Name__c",
         "Role__c"
       ]
+    },
+    "IDR_Omni_Settings_CMOS__mdt": {
+      "IA-2453595": ["EnableAccountLookUpforCMOS__c"]
     },
     "JSONWebTokenAttributes__mdt": {
       "IA-2415860": [
@@ -3129,7 +3139,12 @@
         "Lead_Owner_Teamcode__c",
         "My_Team_Segment__c",
         "My_Reportees_Lead__c",
-        "My_Managers_Lead__c"
+        "My_Managers_Lead__c",
+        "Owner_Region__c",
+        "Owner_Segment__c",
+        "Owner_State__c",
+        "Owner_Role__c",
+        "Owner_Team_POD__c"
       ],
       "IA-2530753": ["IsNewLead__c"],
       "IA-2618706": [
@@ -3619,9 +3634,9 @@
         "Has_Close_Date_Changed__c",
         "CLG__c",
         "Secondary_Customer_Needs__c",
-        "My_Notes__c",
-        "Industry__c"
+        "My_Notes__c"
       ],
+      "IA-4614597": ["CLG_ID__c"],
       "IA-2468715": [
         "CreatedById",
         "CreatedDate",
@@ -3684,8 +3699,13 @@
         "FinServ__ReferredByContact__c",
         "FinServ__ReferredByUser__c",
         "My_Team_Segment__c",
+        "My_Manager_Opps__c",
         "My_Reportees_Opps__c",
-        "My_Manager_Opps__c"
+        "Owner_Region__c",
+        "Owner_Segment__c",
+        "Owner_State__c",
+        "Owner_Role__c",
+        "Owner_Team_POD__c"
       ],
       "IA-2530753": ["Opportunity_Owner__c"],
       "IA-2428130": ["Specialisation__c", "New_to_Bank__c"],
@@ -3819,10 +3839,9 @@
     "Privileged_Access_Request__c": {
       "IA-2468715": [
         "Access_Request__c",
-        "Access_Request_Record_Type_Name__c",
-        "Access_Request_Record_Type_Id__c",
         "Actual_Access_Granted_Time__c",
         "Actual_Access_Revoked_Time__c",
+        "Bypass__c",
         "Previous_Profile_Id__c",
         "Revoke_Time__c",
         "Start_Date_Time__c",
@@ -4916,10 +4935,33 @@
         "LastModifiedDate"
       ],
       "IA-2415984": [
+        "ANZ_Opportunities__c",
+        "Additional_Details__c",
+        "Additional_Professional_Support__c",
+        "Broker__c",
+        "Business_Investment_Background__c",
+        "COI__c",
+        "Competitive_Landscape_and_ANZ_Relative__c",
+        "Customer_Areas_of_Interest__c",
+        "Customer_Contact_Preferences__c",
         "DOB__c",
         "Email__c",
+        "Engagement_Topics__c",
+        "Financial_Wealth_Background__c",
+        "Key_Person_1__c",
+        "Key_Person_2__c",
+        "Last_Event_Attended__c",
         "Mobile__c",
+        "Other_ANZ_Relationship__c",
+        "Other_ANZ_Relationships__c",
+        "Other_Account_Plan_Information__c",
+        "Other_Information__c",
+        "Other_Key_People__c",
+        "Personal_Background__c",
         "Postal_Code__c",
+        "Priorities_and_Objectives__c",
+        "Private_Banker_Advisor__c",
+        "Professional_Support__c",
         "Suburb__c",
         "Customer_Groups__c",
         "Indicative_FUM__c",
@@ -5755,7 +5797,6 @@
       "Sync_Status__c": "ANZx :: Salesforce :: BrokerData :: Contact :: Sync_Status__c",
       "Survivor_Party_Id__c": "ANZx :: Salesforce :: BrokerData :: Contact :: Survivor_Party_Id__c",
       "Victim_Party_Id__c": "ANZx :: Salesforce :: BrokerData :: Contact :: Victim_Party_Id__c"
-   
     },
     "CustomerOnboardingApplication__c": {
       "AustralianTaxResident__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidencyStatus :: australian_tax_resident",
@@ -5961,7 +6002,7 @@
       "SAO_State__c": "Formula field through Broker_Relation__c",
       "Sync_Status__c": "1:1 transformation",
       "Survivor_Party_Id__c": "1:1 transformation",
-      "Victim_Party_Id__c" : "1:1 transformation"
+      "Victim_Party_Id__c": "1:1 transformation"
     },
     "CustomerOnboardingApplication__c": {
       "AustralianTaxResident__c": "1:1 Transformation",

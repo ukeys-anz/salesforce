@@ -5,7 +5,7 @@
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source_Salesforce</complianceGroup>
     <description>Name of the owner</description>
     <securityClassification>Internal</securityClassification>
-    <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>false</trackHistory>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>true</trackHistory>
     <type>Lookup</type>
 </CustomField>

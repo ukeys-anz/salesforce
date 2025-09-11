@@ -42,41 +42,67 @@
     });
     action.setCallback(this, function (response) {
       var state = response.getState();
-      if (state === "SUCCESS") {
-        var parsedResult = JSON.parse(response.getReturnValue());
-        var result = response.getReturnValue();
-        if (
-          !parsedResult.IDR_Product_Category__c &&
-          (selectedRecordTypeName == "Customer_Complaint" ||
-            selectedRecordTypeName == "Non_Customer_Complaint")
-        ) {
-          helper.showToast(
-            "error",
-            "Product category is mandatory before converting it to a complaint.",
-            "Error!"
-          );
-        } else {
-          var autoFillFieldsString = "";
-          for (var i in parsedResult) {
-            autoFillFieldsString =
-              autoFillFieldsString + "," + i + "=" + parsedResult[i];
-          }
-          if (autoFillFieldsString.startsWith(",")) {
-            // drop the leading ','
-            autoFillFieldsString = autoFillFieldsString.substring(1);
-          }
-          component.set("v.autoFillFieldsString", autoFillFieldsString);
-          component.set("v.defaultFieldsValueString", result);
-          var aemCaseFlag = component.get("v.caseRecord.ANZx_Customer__c");
-          helper.handleNavig(component, aemCaseFlag);
-        }
-      } else {
+      if (state !== "SUCCESS") {
         helper.showToast(
           "error",
           "Failed to retrieve case details, please contact system administrator for assistance.",
           "Error!"
         );
+        return;
       }
+      let parsedResult = JSON.parse(response.getReturnValue());
+      let result = response.getReturnValue();
+      if (
+        helper.checkForProductCategoryCustomer(
+          component,
+          parsedResult,
+          selectedRecordTypeName
+        )
+      ) {
+        helper.showToast(
+          "error",
+          "Product category is mandatory before converting it to a complaint.",
+          "Error!"
+        );
+        return;
+      }
+      if (
+        helper.checkForNonCustomer(
+          component,
+          parsedResult,
+          selectedRecordTypeName
+        )
+      ) {
+        helper.showToast(
+          "error",
+          "Non Customer complaint cannot be recorded if a Customers profile has been retrieved.",
+          "Error!"
+        );
+        return;
+      }
+      if (
+        helper.checkForCustomer(component, parsedResult, selectedRecordTypeName)
+      ) {
+        helper.showToast(
+          "error",
+          "Customer complaint cannot be recorded if a Customers details are not populated.",
+          "Error!"
+        );
+        return;
+      }
+      let autoFillFieldsString = "";
+      for (var i in parsedResult) {
+        autoFillFieldsString =
+          autoFillFieldsString + "," + i + "=" + parsedResult[i];
+      }
+      if (autoFillFieldsString.startsWith(",")) {
+        // drop the leading ','
+        autoFillFieldsString = autoFillFieldsString.substring(1);
+      }
+      component.set("v.autoFillFieldsString", autoFillFieldsString);
+      component.set("v.defaultFieldsValueString", result);
+      let aemCaseFlag = component.get("v.caseRecord.ANZx_Customer__c");
+      helper.handleNavig(component, aemCaseFlag);
     });
     $A.enqueueAction(action);
   }

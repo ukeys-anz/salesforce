@@ -9,13 +9,13 @@ public with sharing class SettlementAccountTriggerHandlerTest {
   private static final String OCVID = '11223344';
   private static final String CUSTOMER = 'Test Customer';
   static Lib_MockProvider brokerSettingsMock = Lib_MockProvider.forType(
-    CustomSettingsRepository.class
+    BrokerSettingsRepository.class
   );
   @TestSetup
   static void setup() {
     BrokerSettings__c mockSettings = new BrokerSettings__c();
     mockSettings.BypassSettlementAccountEvent__c = false;
-    brokerSettingsMock.mock('brokerSettings', mockSettings);
+    brokerSettingsMock.mock('getBrokerSettings', mockSettings);
     //Not using faker as we need to assert the names
     Account acc = TestDataFactory.createAccount(CUSTOMER, false);
     acc.OCV_ID__c = OCVID;
@@ -82,7 +82,7 @@ public with sharing class SettlementAccountTriggerHandlerTest {
 
     BrokerSettings__c mockSettings = new BrokerSettings__c();
     mockSettings.BypassSettlementAccountEvent__c = false;
-    brokerSettingsMock.mock('brokerSettings', mockSettings);
+    brokerSettingsMock.mock('getBrokerSettings', mockSettings);
 
     SettlementAccountTriggerHandler handler = new SettlementAccountTriggerHandler();
     handler.records = mockRecords;
@@ -108,7 +108,7 @@ public with sharing class SettlementAccountTriggerHandlerTest {
 
     BrokerSettings__c mockSettings = new BrokerSettings__c();
     mockSettings.BypassSettlementAccountEvent__c = true;
-    brokerSettingsMock.mock('brokerSettings', mockSettings);
+    brokerSettingsMock.mock('getBrokerSettings', mockSettings);
 
     SettlementAccountTriggerHandler handler = new SettlementAccountTriggerHandler();
     Map<Id, Settlement_Account__c> mockRecordsMap = new Map<Id, Settlement_Account__c>(

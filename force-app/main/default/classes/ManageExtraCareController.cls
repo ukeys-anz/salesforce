@@ -53,6 +53,19 @@ public with sharing class ManageExtraCareController {
     Customer_Profile_Updates__c stagingRecord = MANAGE_EXTRACARE_REPOSITORY.queryCustomerProfileUpdateRecordByCustomerId(
       accountId
     );
-    return stagingRecord?.Status__c ?? null;
+    if (stagingRecord == null) {
+      return null;
+    }
+    if (stagingRecord.Status__c != 'Completed') {
+      return stagingRecord.Status__c;
+    }
+    Account objAccount = (Account) JSON.deserialize(
+      stagingRecord.ToBeValue__c,
+      Account.class
+    );
+    return stagingRecord.Customer_Name__r.OCV_Event_Version__c >
+      objAccount.OCV_Event_Version__c
+      ? stagingRecord.Status__c
+      : 'WaitingForOCVUpdate';
   }
 }

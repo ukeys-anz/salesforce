@@ -13,7 +13,7 @@ public with sharing class ManageExtraCareControllerRepository {
     Id accountId
   ) {
     return [
-      SELECT Status__c
+      SELECT Status__c, ToBeValue__c, Customer_Name__r.OCV_Event_Version__c
       FROM Customer_Profile_Updates__c
       WHERE
         Customer_Name__c = :accountId

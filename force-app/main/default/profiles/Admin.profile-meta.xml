@@ -8662,6 +8662,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.CLG_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.Multiple_Products__c</field>
         <readable>true</readable>
@@ -8973,17 +8978,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Privileged_Access_Request__c.Access_Request_Record_Type_Name__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Privileged_Access_Request__c.Access_Request_Record_Type_Id__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Privileged_Access_Request__c.Actual_Access_Revoked_Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Privileged_Access_Request__c.Bypass__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -11258,6 +11258,121 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Customer_Relationship__c.Key_Person_1__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Relationship__c.Key_Person_2__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Relationship__c.Other_Key_People__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Relationship__c.Other_ANZ_Relationship__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Relationship__c.Other_ANZ_Relationships__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Relationship__c.Last_Event_Attended__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Relationship__c.Professional_Support__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Relationship__c.Additional_Professional_Support__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Relationship__c.Additional_Details__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Relationship__c.Engagement_Topics__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Relationship__c.Broker__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Relationship__c.COI__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Relationship__c.Customer_Contact_Preferences__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Relationship__c.Personal_Background__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Relationship__c.Financial_Wealth_Background__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Relationship__c.Business_Investment_Background__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Relationship__c.Private_Banker_Advisor__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Relationship__c.Customer_Areas_of_Interest__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Relationship__c.Priorities_and_Objectives__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Relationship__c.Other_Account_Plan_Information__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Relationship__c.ANZ_Opportunities__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Relationship__c.Competitive_Landscape_and_ANZ_Relative__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Relationship__c.Other_Information__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Customer_Relationship__c.Customer_Interests__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -11548,10 +11663,6 @@
     <layoutAssignments>
         <layout>Access_Request__c-Access Request Layout</layout>
         <recordType>Access_Request__c.Privileged_Access_requests</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Access_Request__c-Bypass Request Layout</layout>
-        <recordType>Access_Request__c.Bypass_Automation_Request</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Account-Account %28Business%29 Legal Entity Layout</layout>

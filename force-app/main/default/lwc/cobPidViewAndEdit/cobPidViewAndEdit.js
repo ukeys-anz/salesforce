@@ -2,14 +2,11 @@ import { LightningElement, api, wire, track } from "lwc";
 import { handleErrors, showToast } from "c/utils";
 import { getRecord, getRecordNotifyChange } from "lightning/uiRecordApi";
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
-import { CloseActionScreenEvent } from "lightning/actions";
+import { EnclosingTabId, refreshTab } from "lightning/platformWorkspaceApi";
 import hasEditPermission from "@salesforce/customPermission/ANZx_Edit_COB_Primary_ID_Document";
 import detokenizeCOBPIDData from "@salesforce/apex/COBPIDViewAndEditController.detokenizeCOBPIDData";
 import updateCOBPIDData from "@salesforce/apex/COBPIDViewAndEditController.updateCOBPIDData";
 import COUNTRY_OF_ISSUE_FIELD from "@salesforce/schema/COBPrimaryIDDocument__c.CountryOfIssue__c";
-import modal from "@salesforce/resourceUrl/OnboardingCSS";
-import { loadStyle } from "lightning/platformResourceLoader";
-import showCobPidFalloutWorkflow from "@salesforce/label/c.ShowCobPidFalloutWorkflow";
 
 const RECORD_FIELDS = [
   "COBPrimaryIDDocument__c.IdDocumentType__c",
@@ -29,8 +26,8 @@ export default class CobPidViewAndEdit extends LightningElement {
 
   isLoading = false;
   error;
-  showCobPidFalloutWorkflow =
-    showCobPidFalloutWorkflow.toLowerCase() === "true";
+
+  @wire(EnclosingTabId) tabId;
 
   async connectedCallback() {
     // give ReadOnly lightning-input lwc component a default indentation to align the text in default lightning-input
@@ -39,7 +36,6 @@ export default class CobPidViewAndEdit extends LightningElement {
     document.body.appendChild(inputAlignLeft);
 
     this.isLoading = true;
-    loadStyle(this, modal);
   }
 
   get allowEdit() {
@@ -205,7 +201,7 @@ export default class CobPidViewAndEdit extends LightningElement {
   }
 
   handleClose() {
-    this.dispatchEvent(new CloseActionScreenEvent());
+    refreshTab(this.tabId);
   }
 
   validateFirstNameLastName() {

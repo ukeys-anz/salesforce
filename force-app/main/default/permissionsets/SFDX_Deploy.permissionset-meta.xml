@@ -8,6 +8,10 @@
         <name>FinancialAccountUIConfiguration__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <name>FinancialAccountConfiguration__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <description>Permissions to deploy. Assign to Cloud Build service account, in sandboxes.</description>
     <fieldPermissions>
         <editable>false</editable>
@@ -1447,6 +1451,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Interaction.Interaction_External_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_Total_Financial_Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Complaint_Resolution__c.IDR_Complaint_Remedy__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

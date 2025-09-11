@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Private_Banker_Advisor__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Personal Information;Source - Salesforce</complianceGroup>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Select the Advisor associated with this customer relationship.</description>
+    <label>Private Banker Advisor</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Customer_Relationships1</relationshipName>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

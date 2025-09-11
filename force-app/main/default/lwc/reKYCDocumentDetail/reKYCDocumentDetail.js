@@ -318,7 +318,7 @@ export default class ReKYCDocumentDetail extends LightningElement {
     }
     return [
       {
-        title: "Primary Document",
+        title: "Trustme Primary Document",
         size: 4,
         files: FILES_BY_DOCUMENTTYPE[documents[0].type]
       }
@@ -352,7 +352,7 @@ export default class ReKYCDocumentDetail extends LightningElement {
     }
     return [
       {
-        title: "Secondary Document",
+        title: "Trustme Secondary Document",
         size: 4,
         files: FILES_BY_DOCUMENTTYPE[documents[0].type]
       }

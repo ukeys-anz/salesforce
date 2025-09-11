@@ -4,7 +4,7 @@
  * @description extended service class for mocking  OCV Retrieve party API
  * @group Service
  */
-public with sharing class RetrievePartyServiceMock extends Service {
+public with sharing class RetrievePartyServiceMock extends RetrievePartyService {
   /**
    * @description constructor which sets default status code and successful
    */
@@ -18,7 +18,7 @@ public with sharing class RetrievePartyServiceMock extends Service {
    * @return HttpCalloutResponse
    * @description fetches party information for lead conversion
    */
-  public virtual HttpCalloutResponse retrieveParty(
+  public virtual override HttpCalloutResponse retrieveParty(
     OCVRetrievePartyPayloadWrapper record
   ) {
     response.body = 'Success';

@@ -7,10 +7,6 @@
         <layout>Access_Request__c-Access Request Layout</layout>
         <recordType>Access_Request__c.Privileged_Access_requests</recordType>
     </layoutAssignments>
-    <layoutAssignments>
-        <layout>Access_Request__c-Bypass Request Layout</layout>
-        <recordType>Access_Request__c.Bypass_Automation_Request</recordType>
-    </layoutAssignments>
     <tabVisibilities>
         <tab>LogEntry__c</tab>
         <visibility>DefaultOn</visibility>
