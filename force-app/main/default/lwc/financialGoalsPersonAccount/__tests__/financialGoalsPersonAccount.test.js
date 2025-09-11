@@ -1,7 +1,25 @@
 import { createElement } from "lwc";
 import FinancialGoalsPersonAccount from "c/financialGoalsPersonAccount";
-
 const GOAL_DATA = require("./data/goalData.json");
+import { loadScript } from "lightning/platformResourceLoader";
+
+const mockToolTip = {
+  totalFinancialPosition:
+    "<span>The amount shown in <strong>{productName}</strong> account.</span>",
+  accountBalance: "<p><em>{productName}</em> balance details.</p>",
+  SAVING01: "<p><em>{productName}</em> balance details.</p>"
+};
+
+loadScript.mockImplementation(() => {
+  window.tooltipData = mockToolTip;
+  return Promise.resolve();
+});
+
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    json: () => mockToolTip
+  })
+);
 
 global.structuredClone = jest.fn((obj) => JSON.parse(JSON.stringify(obj)));
 

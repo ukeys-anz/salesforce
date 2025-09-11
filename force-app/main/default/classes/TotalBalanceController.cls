@@ -34,14 +34,14 @@ public with sharing class TotalBalanceController {
       )
       .toList();
 
-    Set<String> marketingCodes = ListUtil.getStrings(
+    Set<String> productCodes = ListUtil.getStrings(
       finAccUIConfig,
       FinancialAccountUIConfiguration__mdt.Product_Code__c
     );
 
     List<FinServ__FinancialAccountRole__c> financialAccountAllRoles = FINANCIAL_ACCOUNT_REPOSITORY.getAllAccountNumberPerOwner(
       ownerId,
-      marketingCodes
+      productCodes
     );
 
     Set<String> allAccountNumbers = ListUtil.getStrings(
@@ -56,7 +56,7 @@ public with sharing class TotalBalanceController {
 
     AggregateResult totalBalance = FINANCIAL_ACCOUNT_REPOSITORY.getTotalBalance(
       allAccountNumbers,
-      marketingCodes
+      productCodes
     );
 
     return new FinancialSummaryWrapper(
@@ -86,14 +86,14 @@ public with sharing class TotalBalanceController {
       )
       .toList();
 
-    Set<String> marketingCodes = ListUtil.getStrings(
+    Set<String> productCodes = ListUtil.getStrings(
       finAccUIConfig,
       FinancialAccountUIConfiguration__mdt.Product_Code__c
     );
 
     List<FinServ__FinancialAccountRole__c> financialAccountSavingsRoles = FINANCIAL_ACCOUNT_REPOSITORY.getAllSavingsAccountNumberPerOwner(
       ownerId,
-      marketingCodes
+      productCodes
     );
 
     Set<String> savingAccountNumbers = ListUtil.getStrings(
@@ -108,7 +108,7 @@ public with sharing class TotalBalanceController {
 
     AggregateResult totalSavedBalance = FINANCIAL_ACCOUNT_REPOSITORY.getTotalBalance(
       savingAccountNumbers,
-      marketingCodes
+      productCodes
     );
 
     return new FinancialSummaryWrapper(

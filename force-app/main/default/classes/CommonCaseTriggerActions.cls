@@ -4,6 +4,9 @@
  * @description Common actions for ANZPlus cases
  */
 public with sharing class CommonCaseTriggerActions {
+  private static final DmlRepository DML = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
   private static final CommonCaseTriggerRepository REPOSITORY = (CommonCaseTriggerRepository) Lib_InstanceProvider.forType(
     CommonCaseTriggerRepository.class
   );
@@ -142,6 +145,28 @@ public with sharing class CommonCaseTriggerActions {
       if (durationHour != null) {
         record.Case_Hour_Duration__c = durationHour;
       }
+    }
+  }
+
+  /**
+   * @description Populates missing Case Number values for the specified Case records.
+   * @param caseIds Set of Case record Ids to evaluate and update.
+   */
+  @future
+  public static void copyCaseNumberAsync(Set<Id> caseIds) {
+    List<Case> records = REPOSITORY.queryCasesWithoutCaseNumber(caseIds);
+    setCaseNumber(records);
+    DML.doUpdate(records, new DmlConfig().systemMode());
+  }
+
+  /**
+   * @description Copies the standard CaseNumber value into the custom CaseNumber__c field for each Case in the given list.
+   * @param records The list of Case records to update; must not be null.
+   */
+  @TestVisible
+  private static void setCaseNumber(List<Case> records) {
+    for (Case record : records) {
+      record.CaseNumber__c = record.CaseNumber;
     }
   }
 }

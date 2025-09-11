@@ -7,10 +7,14 @@
 @isTest
 public class CommercialOpportunityActionsTest {
   static Lib_MockProvider oppRepoMock;
+  static Lib_MockProvider dmlRepoMock;
+  static Lib_MockProvider userRepoMock;
   static void registerMocks() {
+    dmlRepoMock = Lib_MockProvider.forType(DMLRepository.class);
     oppRepoMock = Lib_MockProvider.forType(
       CommercialOpportunityRepository.class
     );
+    userRepoMock = Lib_MockProvider.forType(UserInfoRepository.class);
   }
 
   @isTest
@@ -35,152 +39,6 @@ public class CommercialOpportunityActionsTest {
     Assert.isFalse(
       opportunityList[0].hasErrors(),
       'Error while inserting Opportunity record with Image.'
-    );
-  }
-
-  @isTest
-  static void extractAccountIdsInsertTest() {
-    //GIVEN list of Opportunity records
-    List<Opportunity> records = new List<Opportunity>{
-      new Opportunity(
-        Id = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType),
-        AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType)
-      )
-    };
-
-    //WHEN calling a method
-    Test.startTest();
-    Set<Id> accountIdsSet = CommercialOpportunityActions.extractAccountIds(
-      records,
-      null
-    );
-    Test.stopTest();
-
-    //THEN it should fetch 1 accountId
-    Assert.areEqual(1, accountIdsSet.size(), 'Should fetch 1 accountId');
-  }
-
-  @isTest
-  static void extractAccountIdsUpdateTest() {
-    //GIVEN list of Opportunity records, old Map of Opportunity records
-    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
-    List<Opportunity> records = new List<Opportunity>{
-      new Opportunity(
-        Id = oppId,
-        AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType)
-      )
-    };
-    Map<Id, Opportunity> oldMap = new Map<Id, Opportunity>{
-      oppId => new Opportunity(
-        Id = oppId,
-        AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType)
-      )
-    };
-
-    //WHEN calling a method
-    Test.startTest();
-    Set<Id> accountIdsSet = CommercialOpportunityActions.extractAccountIds(
-      records,
-      oldMap
-    );
-    Test.stopTest();
-
-    //THEN it should fetch 1 accountId
-    Assert.areEqual(
-      1,
-      accountIdsSet.size(),
-      'Should fetch 1 accountId on update'
-    );
-  }
-
-  @isTest
-  static void populateCLGAccountTest() {
-    //GIVEN list of Opportunity records and map of Account-Account relations
-    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
-    Id relatedAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-    Id clgAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-    List<Opportunity> records = new List<Opportunity>{
-      new Opportunity(Id = oppId, AccountId = relatedAccountId)
-    };
-    Map<Id, Account> accMap = new Map<Id, Account>{
-      relatedAccountId => new Account(
-        Id = relatedAccountId,
-        RecordTypeId = RTAccount.businessAccount
-      )
-    };
-    Map<Id, FinServ__AccountAccountRelation__c> accountToAARMap = new Map<Id, FinServ__AccountAccountRelation__c>{
-      relatedAccountId => new FinServ__AccountAccountRelation__c(
-        Id = Lib_FakeIdGenerator.getMockId(
-          FinServ__AccountAccountRelation__c.SObjectType
-        ),
-        FinServ__Account__c = relatedAccountId,
-        FinServ__RelatedAccount__c = clgAccountId,
-        FinServ__RelatedAccount__r = new Account(CLG__c = '1234')
-      )
-    };
-
-    //WHEN calling a method
-    Test.startTest();
-    CommercialOpportunityActions.populateCLGAccount(
-      records,
-      accMap,
-      accountToAARMap
-    );
-    Test.stopTest();
-
-    //THEN it should update CLG on Opp
-    Assert.areEqual(
-      clgAccountId,
-      records[0].CLG__c,
-      'Should update CLG Name on Opportunity'
-    );
-  }
-
-  @isTest
-  static void populateCLGTest() {
-    registerMocks();
-    //GIVEN list of Opportunity records and map of Account-Account relations
-    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
-    Id relatedAccountIdOld = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-    Id relatedAccountIdNew = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-    Id clgAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-
-    List<Opportunity> records = new List<Opportunity>{
-      new Opportunity(Id = oppId, AccountId = relatedAccountIdNew)
-    };
-    Map<Id, Opportunity> oldMap = new Map<Id, Opportunity>{
-      oppId => new Opportunity(Id = oppId, AccountId = relatedAccountIdOld)
-    };
-
-    Map<Id, Account> accMap = new Map<Id, Account>{
-      relatedAccountIdNew => new Account(
-        Id = relatedAccountIdNew,
-        RecordTypeId = RTAccount.businessAccount
-      )
-    };
-    List<FinServ__AccountAccountRelation__c> accountAccountRelationList = new List<FinServ__AccountAccountRelation__c>{
-      new FinServ__AccountAccountRelation__c(
-        Id = Lib_FakeIdGenerator.getMockId(
-          FinServ__AccountAccountRelation__c.SObjectType
-        ),
-        FinServ__Account__c = relatedAccountIdNew,
-        FinServ__RelatedAccount__c = clgAccountId,
-        FinServ__RelatedAccount__r = new Account(CLG__c = '1234')
-      )
-    };
-    oppRepoMock.mock('getAccountMap', accMap);
-    oppRepoMock.mock('getAccountAccountRelations', accountAccountRelationList);
-
-    //WHEN calling a method
-    Test.startTest();
-    CommercialOpportunityActions.populateCLG(records, oldMap);
-    Test.stopTest();
-
-    //THEN it should update CLG Name & CLG Id on Lead
-    Assert.areEqual(
-      clgAccountId,
-      records[0].CLG__c,
-      'Should update CLG Name on opportunity on updation'
     );
   }
 
@@ -304,6 +162,898 @@ public class CommercialOpportunityActionsTest {
     Assert.isTrue(
       error.getMessage().contains(CommercialOpportunityHelper.LAUNCH_APP_ERROR),
       'Validation error when opportunity is closed without app launch'
+    );
+  }
+
+  @isTest
+  static void populateFieldsTest() {
+    registerMocks();
+    List<Database.Error> errors;
+    Database.Error error;
+    //GIVEN list of Opportunity records, old Map of Opportunity records
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Account accRecord = new Account(
+      Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+      RecordTypeId = RTAccount.businessAccount
+    );
+    Map<Id, Account> accMap = new Map<Id, Account>{ accRecord.Id => accRecord };
+    List<Opportunity> records = new List<Opportunity>{
+      new Opportunity(
+        Id = oppId,
+        AccountId = accRecord.Id,
+        Lead_Converted__c = false
+      )
+    };
+    Map<Id, Opportunity> oldMap = new Map<Id, Opportunity>{
+      oppId => new Opportunity(
+        Id = oppId,
+        AccountId = accRecord.Id,
+        Lead_Converted__c = false
+      )
+    };
+    oppRepoMock.mock('getActiveAccountMap', accMap);
+    //WHEN calling a method
+    Test.startTest();
+    CommercialOpportunityActions.populateFields(records, oldMap);
+    Test.stopTest();
+
+    //THEN it should fetch 1 accountId
+    errors = records[0].getErrors();
+    error = errors.get(0);
+    Assert.areEqual(1, errors.size(), 'Error on update');
+    Assert.isTrue(
+      error.getMessage()
+        .contains(CommercialOpportunityHelper.LEAD_PROCESS_FOR_PROSPECT_ERROR),
+      'Validation error when opportunity is closed without app launch'
+    );
+  }
+
+  @isTest
+  static void validateCloseDateTest() {
+    registerMocks();
+    //GIVEN list of Opportunity records, old Map of Opportunity records
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Account accRecord = new Account(
+      Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+      RecordTypeId = RTAccount.businessAccount
+    );
+    //List<Opportunity> oppList = new List<Opportunity>(){};
+    List<Opportunity> records = new List<Opportunity>{
+      new Opportunity(
+        Id = oppId,
+        AccountId = accRecord.Id,
+        Name = 'Test',
+        Lead_Converted__c = true,
+        Has_Close_Date_Changed__c = false,
+        CloseDate = Date.newInstance(2025, 6, 16)
+      )
+    };
+    Map<Id, Opportunity> oldMap = new Map<Id, Opportunity>{
+      oppId => new Opportunity(
+        Id = oppId,
+        Name = 'Test',
+        AccountId = accRecord.Id,
+        Lead_Converted__c = true,
+        CloseDate = Date.newInstance(2025, 6, 14)
+      )
+    };
+
+    //WHEN calling a method
+    Test.startTest();
+    CommercialOpportunityActions.validateCloseDate(records, oldmap);
+    Test.stopTest();
+
+    Assert.areEqual(
+      records[0].Has_Close_Date_Changed__c,
+      true,
+      'Close date is changed'
+    );
+  }
+
+  @isTest
+  static void validateCCRMOpportunityTest() {
+    registerMocks();
+    List<Database.Error> errors;
+    Database.Error error;
+    //GIVEN list of Opportunity records, old Map of Opportunity records
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Account accRecord = new Account(
+      Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+      RecordTypeId = RTAccount.businessAccount
+    );
+    //List<Opportunity> oppList = new List<Opportunity>(){};
+    List<Opportunity> records = new List<Opportunity>{
+      new Opportunity(
+        Id = oppId,
+        AccountId = accRecord.Id,
+        Name = 'Test',
+        StageName = 'In Progress',
+        LeadSource = 'Other'
+      )
+    };
+    CommercialOpportunityActions.CCRMOpportunityWrapper oppWrapper = new CommercialOpportunityActions.CCRMOpportunityWrapper();
+    oppWrapper.filteredOpps = records;
+    //WHEN calling a method
+    Test.startTest();
+    CommercialOpportunityActions.validateCCRMOpportunity(oppWrapper, true);
+    Test.stopTest();
+
+    errors = records[0].getErrors();
+    error = errors.get(0);
+    Assert.isTrue(
+      error.getMessage()
+        .contains(CommercialOpportunityActions.OTHER_SOURCE_DETAIL_MANDATORY),
+      'Validation error when opportunity is closed without app launch'
+    );
+  }
+
+  @isTest
+  static void getFilteredCCRMOppsInsertTest() {
+    CommercialOpportunityActions.CCRMOpportunityWrapper oppWrapper;
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+
+    List<Opportunity> oppList = new List<Opportunity>{
+      new Opportunity(
+        Id = oppId,
+        AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+        Name = 'Test',
+        StageName = 'In Progress',
+        RecordTypeid = RTOpportunity.commercialOpportunity
+      )
+    };
+    Test.startTest();
+    oppWrapper = CommercialOpportunityActions.setOpportunityWrapper(
+      oppList,
+      new Map<Id, Opportunity>()
+    );
+    Test.stopTest();
+    Assert.areEqual(1, oppWrapper.filteredOpps.size(), 'Size is not 1');
+  }
+
+  @isTest
+  static void getFilteredCCRMOppsUpdateTest() {
+    CommercialOpportunityActions.CCRMOpportunityWrapper oppWrapper;
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+
+    List<Opportunity> oppList = new List<Opportunity>{
+      new Opportunity(
+        Id = oppId,
+        AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+        Name = 'Test',
+        StageName = 'New',
+        RecordTypeid = RTOpportunity.commercialOpportunity
+      )
+    };
+
+    Map<Id, Opportunity> oppMap = new Map<Id, Opportunity>{
+      oppId => (new Opportunity(Id = oppId, StageName = 'In Progress'))
+    };
+
+    Test.startTest();
+    oppWrapper = CommercialOpportunityActions.setOpportunityWrapper(
+      oppList,
+      oppMap
+    );
+    Test.stopTest();
+    Assert.areEqual(1, oppWrapper.filteredOpps.size(), 'Size is not 1');
+  }
+
+  @isTest
+  static void updateOpportunityNameOnUpdateTest() {
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+
+    Opportunity mockOpp = (Opportunity) TestUtil.setFields(
+      new Opportunity(
+        Id = oppId,
+        AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+        Customer_Needs__c = 'Other',
+        StageName = 'In Progress',
+        RecordTypeid = RTOpportunity.commercialOpportunity,
+        Name = 'NewTest123456789012345678901234567890'
+      ),
+      new Map<String, Object>{ 'Opp_Id__c' => '12345678' }
+    );
+    List<Opportunity> oppList = new List<Opportunity>{ mockOpp };
+
+    Map<Id, Opportunity> oppMap = new Map<Id, Opportunity>{
+      oppId => (new Opportunity(
+        Id = oppId,
+        Name = 'Purchasing Property Test',
+        Customer_Needs__c = 'Other'
+      ))
+    };
+    Test.startTest();
+    CommercialOpportunityActions.updateOpportunityNameOnUpdate(oppList, oppMap);
+    Test.stopTest();
+    Assert.areEqual(
+      oppList[0].Name,
+      '12345678 Other NewTest12345678901234567890123',
+      'Name should contain new customer need'
+    );
+  }
+
+  @isTest
+  static void updateOpportunityNameOnInsertTest() {
+    registerMocks();
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+
+    List<Opportunity> oppList = new List<Opportunity>{
+      new Opportunity(
+        Id = oppId,
+        AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+        Customer_Needs__c = 'Other',
+        StageName = 'In Progress',
+        RecordTypeid = RTOpportunity.commercialOpportunity,
+        Lead_Converted__c = true,
+        Name = 'test'
+      )
+    };
+
+    Test.startTest();
+    CommercialOpportunityActions.updateOpportunityNameOnInsert(oppList);
+    Test.stopTest();
+    List<Database.SaveResult> saveResults = new List<Database.SaveResult>{
+      TestUtil.getMockSaveResult(
+        '{"id":"5008r00000EhhODAAZ","success":true,"errors":[]}'
+      )
+    };
+
+    dmlRepoMock.mock('doUpdate', saveResults);
+    Assert.istrue(oppList[0].Name.contains('test'), 'Name should be present');
+  }
+
+  @isTest
+  static void checkClosedStageFieldsOnAFPRelatedToOppTest() {
+    List<Database.Error> errors;
+    Database.Error error;
+    registerMocks();
+
+    String opportunityId = Lib_FakeIdGenerator.getMockId(
+      Opportunity.SObjectType
+    );
+    oppRepoMock.mock('getUserProfileId', QueryProfile.anzCCRMStandardUser.Id);
+
+    Map<Id, Opportunity> oldOppMap = new Map<Id, Opportunity>{
+      opportunityId => (new Opportunity(
+        Id = opportunityId,
+        RecordTypeId = RTOpportunity.commercialOpportunity,
+        StageName = CommercialOpportunityActions.NEW_STAGE
+      ))
+    };
+
+    List<Opportunity> oppList = new List<Opportunity>{
+      new Opportunity(
+        Id = opportunityId,
+        RecordTypeId = RTOpportunity.commercialOpportunity,
+        StageName = CommercialOpportunityActions.OPP_LOST
+      )
+    };
+
+    oppRepoMock.mock(
+      'getLostAFPRelatedToOpportunity',
+      new List<ApplicationFormProduct>{
+        new ApplicationFormProduct(
+          Id = Lib_FakeIdGenerator.getMockId(
+            ApplicationFormProduct.SObjectType
+          ),
+          Stage = CommercialOpportunityActions.OPP_LOST,
+          Lost_reason__c = '',
+          Lost_Reason_Detail__c = '',
+          ApplicationForm = new ApplicationForm(
+            Id = Lib_FakeIdGenerator.getMockId(ApplicationForm.SObjectType),
+            OpportunityId = opportunityId
+          )
+        )
+      }
+    );
+
+    Test.startTest();
+    CommercialOpportunityActions.checkClosedStageFieldsOnAFPRelatedToOpp(
+      oppList,
+      oldOppMap
+    );
+    Test.stopTest();
+
+    errors = oppList[0].getErrors();
+    error = errors.get(0);
+    Assert.areEqual(1, errors.size(), 'Error on update');
+    Assert.isTrue(
+      error.getMessage()
+        .contains(CommercialOpportunityHelper.LOST_REASON_DETAIL_MISSING_AFP),
+      'Opportunity updated successfully'
+    );
+  }
+
+  @isTest
+  static void testCheckIfSecondaryCustomerNeedsContainsCustomerNeeds() {
+    Opportunity opp;
+    Map<Id, Opportunity> oldMap;
+    List<Database.Error> errors;
+    Database.Error error;
+
+    opp = new Opportunity(
+      Id = Lib_FakeIdGenerator.getMockId(Schema.Opportunity.getSObjectType()),
+      Customer_Needs__c = 'Purchasing Property',
+      Secondary_Customer_Needs__c = 'Purchasing Property',
+      RecordTypeId = RTOpportunity.commercialOpportunity
+    );
+
+    oldMap = new Map<Id, Opportunity>{
+      opp.Id => new Opportunity(
+        Id = opp.Id,
+        Customer_Needs__c = 'Purchasing Vacant Land',
+        RecordTypeId = RTOpportunity.commercialOpportunity
+      )
+    };
+
+    Test.startTest();
+    CommercialOpportunityActions.checkIfSecondaryCustomerNeedsContainsCustomerNeeds(
+      new List<Opportunity>{ opp },
+      oldMap
+    );
+    Test.stopTest();
+
+    errors = opp.getErrors();
+    error = errors.get(0);
+    Assert.areEqual(1, errors.size(), 'Error on update');
+    Assert.areEqual(
+      CommercialOpportunityActions.CUSTOMER_NEEDS_ERROR,
+      error.getMessage(),
+      'Opportunity validation executed'
+    );
+  }
+
+  @isTest
+  static void populateCLGOppTest() {
+    registerMocks();
+    //GIVEN list of lead records and map of Account-Account relations
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id relatedAccountIdOld = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id relatedAccountIdNew = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id clgAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+
+    List<Opportunity> records = new List<Opportunity>{
+      new Opportunity(Id = oppId, AccountId = relatedAccountIdNew)
+    };
+    Map<Id, Opportunity> oldMap = new Map<Id, Opportunity>{
+      oppId => new Opportunity(Id = oppId, AccountId = relatedAccountIdOld)
+    };
+
+    List<FinServ__AccountAccountRelation__c> accountAccountRelationList = new List<FinServ__AccountAccountRelation__c>{
+      new FinServ__AccountAccountRelation__c(
+        Id = Lib_FakeIdGenerator.getMockId(
+          FinServ__AccountAccountRelation__c.SObjectType
+        ),
+        FinServ__Account__c = relatedAccountIdNew,
+        FinServ__RelatedAccount__c = clgAccountId,
+        FinServ__RelatedAccount__r = new Account(CLG__c = '1234')
+      )
+    };
+    oppRepoMock.mock('getAccountAccountRelations', accountAccountRelationList);
+
+    Map<Id, Account> accountMap = new Map<Id, Account>{
+      relatedAccountIdNew => new Account(
+        Id = relatedAccountIdNew,
+        Name = 'testAccount',
+        RecordTypeId = RTAccount.clgAccount,
+        CLG__c = '1567'
+      )
+    };
+    oppRepoMock.mock('getAccountMap', accountMap);
+
+    //userRepoMock.mock('checkProfile', true);
+    //WHEN calling a method
+    Test.startTest();
+    CommercialOpportunityActions.populateInfo(records, oldMap);
+    Test.stopTest();
+
+    //THEN it should update CLG Name & CLG Id on Lead
+    Assert.areEqual(
+      null,
+      records[0].CLG_Name__c,
+      'Should update a null CLG Name on lead on updation'
+    );
+  }
+
+  @isTest
+  static void populateCLGforCLGAccountTest() {
+    registerMocks();
+    //GIVEN list of lead records and map of Account-Account relations
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id relatedAccountIdOld = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id relatedAccountIdNew = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+
+    List<Opportunity> records = new List<Opportunity>{
+      new Opportunity(Id = oppId, AccountId = relatedAccountIdNew)
+    };
+    Map<Id, Opportunity> oldMap = new Map<Id, Opportunity>{
+      oppId => new Opportunity(Id = oppId, AccountId = relatedAccountIdOld)
+    };
+
+    oppRepoMock.mock(
+      'getAccountAccountRelations',
+      new List<FinServ__AccountAccountRelation__c>()
+    );
+
+    Map<Id, Account> accountMap = new Map<Id, Account>{
+      relatedAccountIdNew => new Account(
+        Id = relatedAccountIdNew,
+        Name = 'testAccount',
+        RecordTypeId = RTAccount.clgAccount,
+        CLG__c = '1567'
+      )
+    };
+    oppRepoMock.mock('getAccountMap', accountMap);
+    userRepoMock.mock('checkProfile', true);
+    //WHEN calling a method
+    Test.startTest();
+    CommercialOpportunityActions.populateInfo(records, oldMap);
+    Test.stopTest();
+
+    //THEN it should update CLG Name & CLG Id on Lead
+    Assert.areEqual(
+      '1567',
+      records[0].CLG_Id__c,
+      'Should update a null CLG Name on lead on updation'
+    );
+  }
+
+  @isTest
+  static void validateCLGGetErrorTest() {
+    String errorMessage = '';
+    registerMocks();
+    //GIVEN list of lead records and map of Account-Account relations
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id relatedAccountIdOld = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id relatedAccountIdNew = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id clgAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id noclgAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+
+    List<Opportunity> records = new List<Opportunity>{
+      new Opportunity(
+        Id = oppId,
+        AccountId = relatedAccountIdNew,
+        CLG__c = noclgAccountId
+      )
+    };
+    Map<Id, Opportunity> oldMap = new Map<Id, Opportunity>{
+      oppId => new Opportunity(
+        Id = oppId,
+        AccountId = relatedAccountIdNew,
+        CLG__c = clgAccountId
+      )
+    };
+
+    List<FinServ__AccountAccountRelation__c> accountAccountRelationList = new List<FinServ__AccountAccountRelation__c>{
+      new FinServ__AccountAccountRelation__c(
+        Id = Lib_FakeIdGenerator.getMockId(
+          FinServ__AccountAccountRelation__c.SObjectType
+        ),
+        FinServ__Account__c = relatedAccountIdOld,
+        FinServ__RelatedAccount__c = clgAccountId,
+        FinServ__RelatedAccount__r = new Account(CLG__c = '1234')
+      )
+    };
+    oppRepoMock.mock('getAccountAccountRelations', accountAccountRelationList);
+
+    Map<Id, Account> accountMap = new Map<Id, Account>{
+      relatedAccountIdNew => new Account(
+        Id = relatedAccountIdNew,
+        Name = 'testAccount',
+        RecordTypeId = RTAccount.clgAccount,
+        CLG__c = '1567'
+      )
+    };
+    oppRepoMock.mock('getAccountMap', accountMap);
+    userRepoMock.mock('checkProfile', true);
+
+    //WHEN calling a method
+    Test.startTest();
+    CommercialOpportunityActions.validateAndPopulateInfo(records, oldMap);
+
+    Test.stopTest();
+    if (records[0].hasErrors()) {
+      List<Database.Error> errors = records[0].getErrors();
+      errorMessage = errors[0].getMessage();
+    }
+    //THEN it should update CLG Name & CLG Id on Lead
+    Assert.areEqual(
+      CommercialOpportunityHelper.SELECT_RELATED_CLG_ERROR,
+      errorMessage,
+      'Should give validation error to select a related CLG only'
+    );
+  }
+
+  @isTest
+  static void populateCLGforNonCLGAccountTest() {
+    registerMocks();
+    //GIVEN list of lead records and map of Account-Account relations
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id relatedAccountIdOld = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id relatedAccountIdNew = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id clgAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+
+    List<Opportunity> records = new List<Opportunity>{
+      new Opportunity(Id = oppId, AccountId = relatedAccountIdNew)
+    };
+    Map<Id, Opportunity> oldMap = new Map<Id, Opportunity>{
+      oppId => new Opportunity(Id = oppId, AccountId = relatedAccountIdOld)
+    };
+
+    List<FinServ__AccountAccountRelation__c> accountAccountRelationList = new List<FinServ__AccountAccountRelation__c>{
+      new FinServ__AccountAccountRelation__c(
+        Id = Lib_FakeIdGenerator.getMockId(
+          FinServ__AccountAccountRelation__c.SObjectType
+        ),
+        FinServ__Account__c = relatedAccountIdNew,
+        FinServ__RelatedAccount__c = clgAccountId,
+        FinServ__RelatedAccount__r = new Account(
+          CLG__c = '1234',
+          RecordTypeId = RTAccount.clgAccount
+        )
+      )
+    };
+    oppRepoMock.mock('getAccountAccountRelations', accountAccountRelationList);
+
+    Map<Id, Account> accountMap = new Map<Id, Account>{
+      relatedAccountIdNew => new Account(
+        Id = relatedAccountIdNew,
+        Name = 'testAccount',
+        CLG__c = '1567'
+      )
+    };
+    oppRepoMock.mock('getAccountMap', accountMap);
+    userRepoMock.mock('checkProfile', true);
+    //WHEN calling a method
+    Test.startTest();
+    CommercialOpportunityActions.populateInfo(records, oldMap);
+    Test.stopTest();
+    //THEN it should update CLG Name & CLG Id on Lead
+    Assert.areEqual(
+      '1234',
+      records[0].CLG_Id__c,
+      'Should update a null CLG Name on lead on updation'
+    );
+  }
+
+  @isTest
+  static void populateNullCLGforOrgAccountTest() {
+    registerMocks();
+    //GIVEN list of lead records and map of Account-Account relations
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id relatedAccountIdOld = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id relatedAccountIdNew = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+
+    List<Opportunity> records = new List<Opportunity>{
+      new Opportunity(Id = oppId, AccountId = relatedAccountIdNew)
+    };
+    Map<Id, Opportunity> oldMap = new Map<Id, Opportunity>{
+      oppId => new Opportunity(Id = oppId, AccountId = relatedAccountIdOld)
+    };
+
+    oppRepoMock.mock(
+      'getAccountAccountRelations',
+      new List<FinServ__AccountAccountRelation__c>()
+    );
+
+    Map<Id, Account> accountMap = new Map<Id, Account>{
+      relatedAccountIdNew => new Account(
+        Id = relatedAccountIdNew,
+        Name = 'testAccount',
+        CLG__c = '1567'
+      )
+    };
+    oppRepoMock.mock('getAccountMap', accountMap);
+    userRepoMock.mock('checkProfile', true);
+    //WHEN calling a method
+    Test.startTest();
+    CommercialOpportunityActions.populateInfo(records, oldMap);
+    Test.stopTest();
+
+    //THEN it should update CLG Name & CLG Id on Lead
+    Assert.isNull(
+      records[0].CLG_Id__c,
+      'Should update a null CLG Name on lead on updation'
+    );
+  }
+
+  @isTest
+  static void populateNullCLGforMultiCLGAccountTest() {
+    registerMocks();
+    //GIVEN list of lead records and map of Account-Account relations
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id relatedAccountIdOld = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id relatedAccountIdNew = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id clgAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id clgAccountId2 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+
+    List<Opportunity> records = new List<Opportunity>{
+      new Opportunity(Id = oppId, AccountId = relatedAccountIdNew)
+    };
+    Map<Id, Opportunity> oldMap = new Map<Id, Opportunity>{
+      oppId => new Opportunity(Id = oppId, AccountId = relatedAccountIdOld)
+    };
+    FinServ__AccountAccountRelation__c aarFirst = new FinServ__AccountAccountRelation__c(
+      Id = Lib_FakeIdGenerator.getMockId(
+        FinServ__AccountAccountRelation__c.SObjectType
+      ),
+      FinServ__Account__c = relatedAccountIdNew,
+      FinServ__RelatedAccount__c = clgAccountId,
+      FinServ__RelatedAccount__r = new Account(
+        CLG__c = '1234',
+        RecordTypeId = RTAccount.clgAccount
+      )
+    );
+    FinServ__AccountAccountRelation__c aarSecond = new FinServ__AccountAccountRelation__c(
+      Id = Lib_FakeIdGenerator.getMockId(
+        FinServ__AccountAccountRelation__c.SObjectType
+      ),
+      FinServ__Account__c = relatedAccountIdNew,
+      FinServ__RelatedAccount__c = clgAccountId2,
+      FinServ__RelatedAccount__r = new Account(
+        CLG__c = '7890',
+        RecordTypeId = RTAccount.clgAccount
+      )
+    );
+    List<FinServ__AccountAccountRelation__c> accountAccountRelationList = new List<FinServ__AccountAccountRelation__c>();
+    accountAccountRelationList.add(aarFirst);
+    accountAccountRelationList.add(aarSecond);
+    oppRepoMock.mock('getAccountAccountRelations', accountAccountRelationList);
+
+    Map<Id, Account> accountMap = new Map<Id, Account>{
+      relatedAccountIdNew => new Account(
+        Id = relatedAccountIdNew,
+        Name = 'testAccount',
+        CLG__c = '1567'
+      )
+    };
+    oppRepoMock.mock('getAccountMap', accountMap);
+    userRepoMock.mock('checkProfile', true);
+    //WHEN calling a method
+    Test.startTest();
+    CommercialOpportunityActions.populateInfo(records, oldMap);
+    Test.stopTest();
+
+    //THEN it should update CLG Name & CLG Id on Lead
+    Assert.isNull(
+      records[0].CLG_Id__c,
+      'Should update a null CLG Name on lead on updation'
+    );
+  }
+
+  @isTest
+  static void validateCLGTest() {
+    registerMocks();
+    //GIVEN list of lead records and map of Account-Account relations
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id relatedAccountIdOld = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id relatedAccountIdNew = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id clgAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id noclgAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+
+    List<Opportunity> records = new List<Opportunity>{
+      new Opportunity(
+        Id = oppId,
+        AccountId = relatedAccountIdNew,
+        CLG__c = noclgAccountId
+      )
+    };
+    Map<Id, Opportunity> oldMap = new Map<Id, Opportunity>{
+      oppId => new Opportunity(
+        Id = oppId,
+        AccountId = relatedAccountIdOld,
+        CLG__c = clgAccountId
+      )
+    };
+
+    List<FinServ__AccountAccountRelation__c> accountAccountRelationList = new List<FinServ__AccountAccountRelation__c>{
+      new FinServ__AccountAccountRelation__c(
+        Id = Lib_FakeIdGenerator.getMockId(
+          FinServ__AccountAccountRelation__c.SObjectType
+        ),
+        FinServ__Account__c = relatedAccountIdNew,
+        FinServ__RelatedAccount__c = clgAccountId,
+        FinServ__RelatedAccount__r = new Account(CLG__c = '1234')
+      )
+    };
+    oppRepoMock.mock('getAccountAccountRelations', accountAccountRelationList);
+
+    Map<Id, Account> accountMap = new Map<Id, Account>{
+      noclgAccountId => new Account(
+        Id = noclgAccountId,
+        Name = 'testAccount',
+        RecordTypeId = RTAccount.clgAccount,
+        CLG__c = '1567'
+      )
+    };
+    oppRepoMock.mock('getAccountMap', accountMap);
+    userRepoMock.mock('checkProfile', true);
+
+    //WHEN calling a method
+    Test.startTest();
+    CommercialOpportunityActions.validateAndPopulateInfo(records, oldMap);
+    Test.stopTest();
+    //THEN it should update CLG Name & CLG Id on Lead
+    Assert.isNotNull(
+      records[0].CLG__c,
+      'Should update CLG Name on opportunity on updation with no validation error'
+    );
+  }
+
+  @isTest
+  static void validateCLGGetErrorTestNullCLG() {
+    String errorMessage = '';
+    registerMocks();
+    //GIVEN list of lead records and map of Account-Account relations
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id relatedAccountIdOld = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id relatedAccountIdNew = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id clgAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id noclgAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+
+    List<Opportunity> records = new List<Opportunity>{
+      new Opportunity(Id = oppId, AccountId = relatedAccountIdNew)
+    };
+    Map<Id, Opportunity> oldMap = new Map<Id, Opportunity>{
+      oppId => new Opportunity(
+        Id = oppId,
+        AccountId = relatedAccountIdNew,
+        CLG__c = clgAccountId
+      )
+    };
+
+    List<FinServ__AccountAccountRelation__c> accountAccountRelationList = new List<FinServ__AccountAccountRelation__c>{
+      new FinServ__AccountAccountRelation__c(
+        Id = Lib_FakeIdGenerator.getMockId(
+          FinServ__AccountAccountRelation__c.SObjectType
+        ),
+        FinServ__Account__c = relatedAccountIdNew,
+        FinServ__RelatedAccount__c = clgAccountId,
+        FinServ__RelatedAccount__r = new Account(CLG__c = '1234')
+      )
+    };
+    oppRepoMock.mock('getAccountAccountRelations', accountAccountRelationList);
+
+    Map<Id, Account> accountMap = new Map<Id, Account>{
+      relatedAccountIdNew => new Account(
+        Id = relatedAccountIdNew,
+        Name = 'testAccount',
+        RecordTypeId = RTAccount.clgAccount,
+        CLG__c = '1567'
+      )
+    };
+    oppRepoMock.mock('getAccountMap', accountMap);
+    userRepoMock.mock('checkProfile', true);
+
+    //WHEN calling a method
+    Test.startTest();
+    CommercialOpportunityActions.validateAndPopulateInfo(records, oldMap);
+
+    Test.stopTest();
+    if (records[0].hasErrors()) {
+      List<Database.Error> errors = records[0].getErrors();
+      errorMessage = errors[0].getMessage();
+    }
+    //THEN it should update CLG Name & CLG Id on Lead
+    Assert.areEqual(
+      CommercialOpportunityHelper.SELECT_ANY_CLG_ERROR,
+      errorMessage,
+      'Should give validation error to select any CLG'
+    );
+  }
+
+  @isTest
+  static void populateClgAccountTest() {
+    registerMocks();
+    //GIVEN list of lead records and map of Account-Account relations
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id relatedAccountIdOld = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id relatedAccountIdNew = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id clgAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id noclgAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+
+    List<Opportunity> records = new List<Opportunity>{
+      new Opportunity(Id = oppId, AccountId = relatedAccountIdNew)
+    };
+    Map<Id, Opportunity> oldMap = new Map<Id, Opportunity>{
+      oppId => new Opportunity(Id = oppId, AccountId = relatedAccountIdOld)
+    };
+
+    List<FinServ__AccountAccountRelation__c> accountAccountRelationList = new List<FinServ__AccountAccountRelation__c>{
+      new FinServ__AccountAccountRelation__c(
+        Id = Lib_FakeIdGenerator.getMockId(
+          FinServ__AccountAccountRelation__c.SObjectType
+        ),
+        FinServ__Account__c = relatedAccountIdNew,
+        FinServ__RelatedAccount__c = clgAccountId,
+        FinServ__RelatedAccount__r = new Account(CLG__c = '1234')
+      )
+    };
+    oppRepoMock.mock(
+      'getAccountAccountRelationsForCLG',
+      accountAccountRelationList
+    );
+
+    Map<Id, Account> accountMap = new Map<Id, Account>{
+      noclgAccountId => new Account(
+        Id = noclgAccountId,
+        Name = 'testAccount',
+        RecordTypeId = RTAccount.clgAccount,
+        CLG__c = '1567'
+      )
+    };
+    //WHEN calling a method
+    Test.startTest();
+    CommercialOpportunityActions.populateClgAccount(records, oldMap);
+    Test.stopTest();
+    //THEN it should update CLG Name & CLG Id on Lead
+    Assert.isNotNull(
+      records[0].CLG__c,
+      'Should update CLG Name on opportunity on updation with no validation error'
+    );
+  }
+
+  @isTest
+  static void mandatoryFieldAndSkipStageCheckTest() {
+    registerMocks();
+    CommercialOpportunityActions.CCRMOpportunityWrapper oppWrapper;
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id accountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id userId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    String errorMessage;
+    List<Opportunity> oppList = new List<Opportunity>{
+      new Opportunity(
+        Id = oppId,
+        AccountId = accountId,
+        Name = 'Test',
+        StageName = 'Opportunity Won',
+        RecordTypeid = RTOpportunity.commercialOpportunity,
+        OwnerId = userId
+      )
+    };
+    Map<Id, Opportunity> oldMap = new Map<Id, Opportunity>{
+      oppId => new Opportunity(
+        Id = oppId,
+        AccountId = accountId,
+        Name = 'Test',
+        StageName = 'In Progress',
+        RecordTypeid = RTOpportunity.commercialOpportunity,
+        OwnerId = userId
+      )
+    };
+    List<User> userList = new List<User>{
+      new User(Id = userId, Commercial_Segment__c = 'SME')
+    };
+
+    List<Map<String, Object>> result = new List<Map<String, Object>>();
+
+    Map<String, Object> taskmap = new Map<String, Object>{ 'WhatId' => oppId };
+    List<Map<String, Object>> taskList = new List<Map<String, Object>>();
+    taskList.add(taskmap);
+    oppRepoMock.mock('getUsers', userList);
+    oppRepoMock.mock('getOpenTasksOnClosedOpportunity', taskList);
+    Test.startTest();
+    oppWrapper = CommercialOpportunityActions.setOpportunityWrapper(
+      oppList,
+      oldMap
+    );
+    CommercialOpportunityActions.mandatoryFieldAndSkipStageCheck(
+      oppWrapper,
+      oldMap,
+      false
+    );
+
+    Test.stopTest();
+    if (oppWrapper.closingOppoIdMap.get(oppId).hasErrors()) {
+      List<Database.Error> errors = oppWrapper.closingOppoIdMap.get(oppId)
+        .getErrors();
+      errorMessage = errors[0].getMessage();
+    }
+    //THEN it should update CLG Name & CLG Id on Lead
+    Assert.areEqual(
+      System.Label.CCRM_OpenTasksOnOpportunityCloseError,
+      errorMessage,
+      'Should give validation error for open task'
     );
   }
 }

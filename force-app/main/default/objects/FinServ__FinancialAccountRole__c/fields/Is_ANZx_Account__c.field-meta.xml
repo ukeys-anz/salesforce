@@ -4,20 +4,16 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>To identify Financial Account is of ANZx or not based on Marketing Code</description>
-    <externalId>false</externalId>
     <formula>IF(
     OR
     (
-     FinServ__FinancialAccount__r.Marketing_Code__c == &apos;TRANSACT01&apos;, 
-     FinServ__FinancialAccount__r.Marketing_Code__c == &apos;SAVING01&apos;,
-     FinServ__FinancialAccount__r.Marketing_Code__c == &apos;SAVING02&apos;,
-     FinServ__FinancialAccount__r.Marketing_Code__c == &apos;HLVAR01&apos;,
-     FinServ__FinancialAccount__r.Marketing_Code__c == &apos;HLFXD01&apos;
+      FinServ__FinancialAccount__r.Marketing_Code__c != NULL, 
+      FinServ__FinancialAccount__r.Is_Digitally_Active__c == true
     ),
     true,
     false
 )</formula>
-    <label>Is ANZx Account</label>
+    <label>Is Digitally Active</label>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

@@ -1006,7 +1006,6 @@
             </childElements>
             <childElements>
                 <name>SubSequentIssueType</name>
-                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
@@ -1261,8 +1260,32 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>20.0</sequenceNumber>
+                <sequenceNumber>35.0</sequenceNumber>
                 <type>Select</type>
+            </childElements>
+            <childElements>
+                <name>AgeFormula</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12.0,
+  &quot;label&quot; : &quot;AgeFormula&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12.0,
+  &quot;expression&quot; : &quot;IF(%data:fields:FinServ__Age__pc:value% &gt;0 ,INTEGER(%data:fields:FinServ__Age__pc:value%),\&quot; \&quot;)&quot;,
+  &quot;hide&quot; : true,
+  &quot;show&quot; : null,
+  &quot;mask&quot; : null,
+  &quot;dataType&quot; : null,
+  &quot;hideGroupSep&quot; : false,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>10.0</sequenceNumber>
+                <type>Formula</type>
             </childElements>
             <childElements>
                 <name>BusinessName</name>
@@ -1306,7 +1329,7 @@
   &quot;label&quot; : &quot;Business Name (if Bus account)&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>16.0</sequenceNumber>
+                <sequenceNumber>31.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -1335,7 +1358,7 @@
   &quot;bStandalone&quot; : false,
   &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
-                <sequenceNumber>33.0</sequenceNumber>
+                <sequenceNumber>50.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -1363,8 +1386,192 @@
   &quot;label&quot; : &quot;Country&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>29.0</sequenceNumber>
+                <sequenceNumber>46.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
+            </childElements>
+            <childElements>
+                <name>CountryFormula</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;CountryFormula&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;expression&quot; : &quot;IF(%data:fields:RecordType:displayValue% = &apos;Individual&apos;,%data:fields:PersonOtherCountry:value%,IF(%data:fields:RecordType:displayValue% = &apos;Organisation&apos;,IF(%data:fields:ShippingCountry:value%!=null,%data:fields:ShippingCountry:value%,%data:fields:BillingCountry:value%),&apos;&apos;))&quot;,
+  &quot;hide&quot; : true,
+  &quot;show&quot; : null,
+  &quot;mask&quot; : null,
+  &quot;dataType&quot; : null,
+  &quot;hideGroupSep&quot; : false,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>17.0</sequenceNumber>
+                <type>Formula</type>
+            </childElements>
+            <childElements>
+                <name>custInfo1</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12.0,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Middle Names: %data:fields:MiddleName:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Gender: %data:fields:Gender__pc:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Age: %AgeFormula%&lt;/div&gt;\n&lt;/div&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;isThisCustomerComplaint&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Yes&quot;
+      }, {
+        &quot;data&quot; : &quot;false&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;
+      }, {
+        &quot;field&quot; : &quot;enableAccountLookUp&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;
+      }, {
+        &quot;field&quot; : &quot;CustomerIdentifier&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Customer/Business CAP ID&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>9.0</sequenceNumber>
+                <type>Text Block</type>
+            </childElements>
+            <childElements>
+                <name>custInfo2</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : false,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Yes&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;isThisCustomerComplaint&quot;
+      }, {
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;false&quot;
+      }, {
+        &quot;data&quot; : &quot;true&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;enableAccountLookUp&quot;
+      }, {
+        &quot;data&quot; : &quot;Customer/Business CAP ID&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;CustomerIdentifier&quot;
+      } ],
+      &quot;operator&quot; : &quot;AND&quot;
+    }
+  },
+  &quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;CPID: %data:fields:CPID__c:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;OCV ID: %data:fields:OCV_ID__c:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;DOB: %data:fields:PersonBirthdate:value%&lt;/div&gt;\n&lt;/div&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;controlWidth&quot; : 12.0
+}</propertySetConfig>
+                <sequenceNumber>11.0</sequenceNumber>
+                <type>Text Block</type>
+            </childElements>
+            <childElements>
+                <name>custInfo4</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : false,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Yes&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;isThisCustomerComplaint&quot;
+      }, {
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;false&quot;
+      }, {
+        &quot;data&quot; : &quot;true&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;enableAccountLookUp&quot;
+      }, {
+        &quot;data&quot; : &quot;Customer/Business CAP ID&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;CustomerIdentifier&quot;
+      } ],
+      &quot;operator&quot; : &quot;AND&quot;
+    }
+  },
+  &quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Mobile(ANZ Plus): %data:fields:PersonMobilePhone:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Street: %StreetFormula%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Suburb: %SuburbFormula%&lt;/div&gt;\n&lt;/div&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;controlWidth&quot; : 12.0
+}</propertySetConfig>
+                <sequenceNumber>18.0</sequenceNumber>
+                <type>Text Block</type>
+            </childElements>
+            <childElements>
+                <name>custInfo5</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12.0,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;State: %StateFormula%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Postcode: %PostalCodeFormula%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Country: %CountryFormula%&lt;/div&gt;\n&lt;/div&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;isThisCustomerComplaint&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Yes&quot;
+      }, {
+        &quot;data&quot; : &quot;false&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;
+      }, {
+        &quot;field&quot; : &quot;enableAccountLookUp&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;
+      }, {
+        &quot;field&quot; : &quot;CustomerIdentifier&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Customer/Business CAP ID&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>19.0</sequenceNumber>
+                <type>Text Block</type>
             </childElements>
             <childElements>
                 <name>custInfoCPID</name>
@@ -1388,6 +1595,28 @@
         &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;false&quot;
+      }, {
+        &quot;group&quot; : {
+          &quot;operator&quot; : &quot;OR&quot;,
+          &quot;rules&quot; : [ {
+            &quot;field&quot; : &quot;CustomerIdentifier&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;CACHE ID&quot;
+          }, {
+            &quot;group&quot; : {
+              &quot;operator&quot; : &quot;AND&quot;,
+              &quot;rules&quot; : [ {
+                &quot;field&quot; : &quot;enableAccountLookUp&quot;,
+                &quot;condition&quot; : &quot;=&quot;,
+                &quot;data&quot; : &quot;false&quot;
+              }, {
+                &quot;field&quot; : &quot;CustomerIdentifier&quot;,
+                &quot;condition&quot; : &quot;=&quot;,
+                &quot;data&quot; : &quot;Customer/Business CAP ID&quot;
+              } ]
+            }
+          } ]
+        }
       } ]
     }
   },
@@ -1396,7 +1625,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>9.0</sequenceNumber>
+                <sequenceNumber>23.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -1422,6 +1651,28 @@
         &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;false&quot;
+      }, {
+        &quot;group&quot; : {
+          &quot;operator&quot; : &quot;OR&quot;,
+          &quot;rules&quot; : [ {
+            &quot;field&quot; : &quot;CustomerIdentifier&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;CACHE ID&quot;
+          }, {
+            &quot;group&quot; : {
+              &quot;operator&quot; : &quot;AND&quot;,
+              &quot;rules&quot; : [ {
+                &quot;field&quot; : &quot;enableAccountLookUp&quot;,
+                &quot;condition&quot; : &quot;=&quot;,
+                &quot;data&quot; : &quot;false&quot;
+              }, {
+                &quot;field&quot; : &quot;CustomerIdentifier&quot;,
+                &quot;condition&quot; : &quot;=&quot;,
+                &quot;data&quot; : &quot;Customer/Business CAP ID&quot;
+              } ]
+            }
+          } ]
+        }
       } ]
     }
   },
@@ -1429,7 +1680,7 @@
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;controlWidth&quot; : 12.0
 }</propertySetConfig>
-                <sequenceNumber>8.0</sequenceNumber>
+                <sequenceNumber>22.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -1454,6 +1705,28 @@
         &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;false&quot;
+      }, {
+        &quot;group&quot; : {
+          &quot;operator&quot; : &quot;OR&quot;,
+          &quot;rules&quot; : [ {
+            &quot;field&quot; : &quot;CustomerIdentifier&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;CACHE ID&quot;
+          }, {
+            &quot;group&quot; : {
+              &quot;operator&quot; : &quot;AND&quot;,
+              &quot;rules&quot; : [ {
+                &quot;field&quot; : &quot;enableAccountLookUp&quot;,
+                &quot;condition&quot; : &quot;=&quot;,
+                &quot;data&quot; : &quot;false&quot;
+              }, {
+                &quot;field&quot; : &quot;CustomerIdentifier&quot;,
+                &quot;condition&quot; : &quot;=&quot;,
+                &quot;data&quot; : &quot;Customer/Business CAP ID&quot;
+              } ]
+            }
+          } ]
+        }
       } ]
     }
   },
@@ -1462,8 +1735,89 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>7.0</sequenceNumber>
+                <sequenceNumber>21.0</sequenceNumber>
                 <type>Text Block</type>
+            </childElements>
+            <childElements>
+                <name>CustInformation1</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : false,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;isThisCustomerComplaint&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Yes&quot;
+      }, {
+        &quot;data&quot; : &quot;false&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;
+      }, {
+        &quot;field&quot; : &quot;enableAccountLookUp&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;
+      }, {
+        &quot;field&quot; : &quot;CustomerIdentifier&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Customer/Business CAP ID&quot;
+      } ]
+    }
+  },
+  &quot;text&quot; : &quot;&lt;p class=\&quot;slds-border_bottom\&quot;&gt;&lt;strong&gt;Customer Information&lt;/strong&gt;&lt;/p&gt;\n&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium slds-p-top_small\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Customer Type: %data:fields:RecordType:displayValue%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;First Name: %data:fields:FirstName:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Last Name: %data:fields:LastName:value%&lt;/div&gt;\n&lt;/div&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;controlWidth&quot; : 12.0
+}</propertySetConfig>
+                <sequenceNumber>8.0</sequenceNumber>
+                <type>Text Block</type>
+            </childElements>
+            <childElements>
+                <name>CustomAccountLookUp</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;customAttributes&quot; : [ ],
+  &quot;bStandalone&quot; : false,
+  &quot;lwcName&quot; : &quot;accountLookup&quot;,
+  &quot;hide&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;true&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;enableAccountLookUp&quot;
+      }, {
+        &quot;field&quot; : &quot;isThisCustomerComplaint&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Yes&quot;
+      }, {
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;false&quot;
+      }, {
+        &quot;field&quot; : &quot;CustomerIdentifier&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Customer/Business CAP ID&quot;
+      } ]
+    }
+  },
+  &quot;label&quot; : &quot;accountLookup&quot;,
+  &quot;controlWidth&quot; : 3.0,
+  &quot;selectedAccountId&quot; : &quot;&quot;
+}</propertySetConfig>
+                <sequenceNumber>1.0</sequenceNumber>
+                <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
                 <name>Customer</name>
@@ -1505,6 +1859,10 @@
         &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;false&quot;
+      }, {
+        &quot;field&quot; : &quot;enableAccountLookUp&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;false&quot;
       } ]
     }
   },
@@ -1515,7 +1873,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>1.0</sequenceNumber>
+                <sequenceNumber>2.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -1567,45 +1925,18 @@
   &quot;label&quot; : &quot;Customer Number&quot;,
   &quot;controlWidth&quot; : 3.0
 }</propertySetConfig>
-                <sequenceNumber>2.0</sequenceNumber>
+                <sequenceNumber>3.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
                 <name>CustomerIdentifier</name>
-                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 3.0,
-  &quot;label&quot; : &quot;Customer Identifier&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
-  &quot;required&quot; : true,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : &quot;Customer/Business CAP ID&quot;,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;options&quot; : [ {
-    &quot;name&quot; : &quot;Customer/Business CAP ID&quot;,
-    &quot;value&quot; : &quot;Customer/Business CAP ID&quot;
-  }, {
-    &quot;name&quot; : &quot;CACHE ID&quot;,
-    &quot;value&quot; : &quot;CACHE ID&quot;
-  } ],
-  &quot;optionSource&quot; : {
-    &quot;type&quot; : &quot;&quot;,
-    &quot;source&quot; : &quot;&quot;
-  },
-  &quot;controllingField&quot; : {
-    &quot;element&quot; : &quot;&quot;,
-    &quot;type&quot; : &quot;&quot;,
-    &quot;source&quot; : &quot;&quot;
-  },
+  &quot;label&quot; : &quot;CustomerIdentifier&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
@@ -1621,13 +1952,13 @@
     }
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false
+  &quot;lwcName&quot; : &quot;customerIdentifier&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
                 <sequenceNumber>0.0</sequenceNumber>
-                <type>Select</type>
+                <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
                 <name>CustomerType</name>
@@ -1667,7 +1998,7 @@
   &quot;label&quot; : &quot;Customer Type&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>15.0</sequenceNumber>
+                <sequenceNumber>30.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -1690,6 +2021,28 @@
         &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;false&quot;
+      }, {
+        &quot;group&quot; : {
+          &quot;operator&quot; : &quot;OR&quot;,
+          &quot;rules&quot; : [ {
+            &quot;field&quot; : &quot;CustomerIdentifier&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;CACHE ID&quot;
+          }, {
+            &quot;group&quot; : {
+              &quot;operator&quot; : &quot;AND&quot;,
+              &quot;rules&quot; : [ {
+                &quot;field&quot; : &quot;CustomerIdentifier&quot;,
+                &quot;condition&quot; : &quot;=&quot;,
+                &quot;data&quot; : &quot;Customer/Business CAP ID&quot;
+              }, {
+                &quot;field&quot; : &quot;enableAccountLookUp&quot;,
+                &quot;condition&quot; : &quot;=&quot;,
+                &quot;data&quot; : &quot;false&quot;
+              } ]
+            }
+          } ]
+        }
       } ]
     }
   },
@@ -1699,7 +2052,7 @@
   &quot;bStandalone&quot; : false,
   &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
-                <sequenceNumber>4.0</sequenceNumber>
+                <sequenceNumber>5.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -1741,7 +2094,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>22.0</sequenceNumber>
+                <sequenceNumber>37.0</sequenceNumber>
                 <type>Email</type>
             </childElements>
             <childElements>
@@ -1770,7 +2123,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>44.0</sequenceNumber>
+                <sequenceNumber>61.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -1818,7 +2171,7 @@
   &quot;label&quot; : &quot;Express Case Creation&quot;,
   &quot;controlWidth&quot; : 5.0
 }</propertySetConfig>
-                <sequenceNumber>32.0</sequenceNumber>
+                <sequenceNumber>49.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
@@ -1847,7 +2200,7 @@
   &quot;bStandalone&quot; : false,
   &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
-                <sequenceNumber>17.0</sequenceNumber>
+                <sequenceNumber>32.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -1895,7 +2248,7 @@
   &quot;label&quot; : &quot;Gender&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>21.0</sequenceNumber>
+                <sequenceNumber>36.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -1924,7 +2277,7 @@
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;controlWidth&quot; : 12.0
 }</propertySetConfig>
-                <sequenceNumber>3.0</sequenceNumber>
+                <sequenceNumber>4.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -1961,7 +2314,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>5.0</sequenceNumber>
+                <sequenceNumber>6.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -1990,7 +2343,7 @@
   &quot;label&quot; : &quot;Last Name&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>19.0</sequenceNumber>
+                <sequenceNumber>34.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -2005,7 +2358,7 @@
   &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>30.0</sequenceNumber>
+                <sequenceNumber>47.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -2020,7 +2373,7 @@
   &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>40.0</sequenceNumber>
+                <sequenceNumber>57.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -2065,7 +2418,7 @@
   &quot;label&quot; : &quot;Middle Names&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>18.0</sequenceNumber>
+                <sequenceNumber>33.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -2108,7 +2461,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>23.0</sequenceNumber>
+                <sequenceNumber>38.0</sequenceNumber>
                 <type>Telephone</type>
             </childElements>
             <childElements>
@@ -2144,7 +2497,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>6.0</sequenceNumber>
+                <sequenceNumber>7.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -2187,8 +2540,32 @@
   &quot;label&quot; : &quot;Phone&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>24.0</sequenceNumber>
+                <sequenceNumber>39.0</sequenceNumber>
                 <type>Telephone</type>
+            </childElements>
+            <childElements>
+                <name>PostalCodeFormula</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;PostalCodeFormula&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;expression&quot; : &quot;IF(%data:fields:RecordType:displayValue% = &apos;Individual&apos;,%data:fields:PersonOtherPostalCode:value%,IF(%data:fields:RecordType:displayValue% = &apos;Organisation&apos;,IF(%data:fields:ShippingPostalCode:value%!=null,%data:fields:ShippingPostalCode:value%,%data:fields:BillingPostalCode:value%),&apos;&apos;))&quot;,
+  &quot;hide&quot; : true,
+  &quot;show&quot; : null,
+  &quot;mask&quot; : null,
+  &quot;dataType&quot; : null,
+  &quot;hideGroupSep&quot; : false,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>16.0</sequenceNumber>
+                <type>Formula</type>
             </childElements>
             <childElements>
                 <name>Postcode</name>
@@ -2201,22 +2578,22 @@
   &quot;disOnTplt&quot; : false,
   &quot;hide&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;debounceValue&quot; : 0.0,
+  &quot;debounceValue&quot; : 0,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
         &quot;field&quot; : &quot;isThisCustomerComplaint&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;No&quot;
-      } ],
-      &quot;operator&quot; : &quot;AND&quot;
+      } ]
     }
   },
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;maxLength&quot; : 255.0,
-  &quot;minLength&quot; : 0.0,
+  &quot;maxLength&quot; : 255,
+  &quot;minLength&quot; : 0,
   &quot;ptrnErrText&quot; : &quot;Postcode must be a 4-digit Australian postcode. If the customer is overseas, enter &apos;Overseas&apos;, if the postcode is unknown, enter &apos;Not Applicable&apos;.&quot;,
   &quot;pattern&quot; : &quot;Overseas|Not Applicable|overseas|not applicable|Not applicable|not Applicable|^[0-9]{4}&quot;,
   &quot;mask&quot; : &quot;&quot;,
@@ -2227,12 +2604,12 @@
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : true,
-  &quot;inputWidth&quot; : 12.0,
+  &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Postcode&quot;,
-  &quot;controlWidth&quot; : 4.0
+  &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-                <sequenceNumber>27.0</sequenceNumber>
+                <sequenceNumber>43.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -2265,7 +2642,51 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>14.0</sequenceNumber>
+                <sequenceNumber>28.0</sequenceNumber>
+                <type>Text Block</type>
+            </childElements>
+            <childElements>
+                <name>RMDetails</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : false,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Yes&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;isThisCustomerComplaint&quot;
+      }, {
+        &quot;data&quot; : &quot;false&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;
+      }, {
+        &quot;field&quot; : &quot;enableAccountLookUp&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;
+      }, {
+        &quot;field&quot; : &quot;CustomerIdentifier&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Customer/Business CAP ID&quot;
+      }, {
+        &quot;field&quot; : &quot;data:fields:Controlling_Post__c:value&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;data&quot; : null
+      } ]
+    }
+  },
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;strong&gt;Relationship Manager Details&lt;/strong&gt;&lt;/p&gt;\n&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium slds-p-top_small\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Name : %data:fields:Controlling_Post__r:value:fields:Responsible_Employee_Name__c:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Phone : %data:fields:Controlling_Post__r:value:fields:CPID_Phone__c:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Office Address : %data:fields:Controlling_Post__r:value:fields:CPID_Address__c:value%&lt;/div&gt;\n&lt;/div&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;controlWidth&quot; : 12.0
+}</propertySetConfig>
+                <sequenceNumber>29.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -2275,24 +2696,46 @@
                 <level>2.0</level>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
+  &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;TextBlock2&quot;,
   &quot;text&quot; : &quot;&lt;p&gt;&lt;strong&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;span style=\&quot;color: #000000;\&quot;&gt;Relationship Manager Details:&lt;br /&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;br /&gt;Error : &lt;em&gt;Relationship Manager details are not available for the customer&apos;s CPID.&lt;/em&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;operator&quot; : &quot;OR&quot;,
       &quot;rules&quot; : [ {
-        &quot;data&quot; : null,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;Response:relationshipManager:details&quot;
+        &quot;group&quot; : {
+          &quot;operator&quot; : &quot;AND&quot;,
+          &quot;rules&quot; : [ {
+            &quot;field&quot; : &quot;enableAccountLookUp&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;true&quot;
+          }, {
+            &quot;field&quot; : &quot;data:fields:Controlling_Post__c:value&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : null
+          }, {
+            &quot;field&quot; : &quot;Case:AccountId&quot;,
+            &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+            &quot;data&quot; : null
+          } ]
+        }
       }, {
-        &quot;field&quot; : &quot;Response:relationshipManager:error&quot;,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;data&quot; : null
-      }, {
-        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;false&quot;
+        &quot;group&quot; : {
+          &quot;operator&quot; : &quot;AND&quot;,
+          &quot;rules&quot; : [ {
+            &quot;field&quot; : &quot;Response:relationshipManager:details&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : null
+          }, {
+            &quot;field&quot; : &quot;Response:relationshipManager:error&quot;,
+            &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+            &quot;data&quot; : null
+          }, {
+            &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;false&quot;
+          } ]
+        }
       } ]
     }
   },
@@ -2301,7 +2744,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>13.0</sequenceNumber>
+                <sequenceNumber>27.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -2329,8 +2772,32 @@
   &quot;bStandalone&quot; : false,
   &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
-                <sequenceNumber>28.0</sequenceNumber>
+                <sequenceNumber>45.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
+            </childElements>
+            <childElements>
+                <name>StateFormula</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;StateFormula&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;expression&quot; : &quot;IF(%data:fields:RecordType:displayValue% = &apos;Individual&apos;,%data:fields:PersonOtherState:value%,IF(%data:fields:RecordType:displayValue% = &apos;Organisation&apos;,IF(%data:fields:ShippingState:value%!=null,%data:fields:ShippingState:value%,%data:fields:BillingState:value%),&apos;&apos;))&quot;,
+  &quot;hide&quot; : true,
+  &quot;show&quot; : null,
+  &quot;mask&quot; : null,
+  &quot;dataType&quot; : null,
+  &quot;hideGroupSep&quot; : false,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>15.0</sequenceNumber>
+                <type>Formula</type>
             </childElements>
             <childElements>
                 <name>Street</name>
@@ -2357,8 +2824,32 @@
   &quot;bStandalone&quot; : false,
   &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
-                <sequenceNumber>25.0</sequenceNumber>
+                <sequenceNumber>41.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
+            </childElements>
+            <childElements>
+                <name>StreetFormula</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;StreetFormula&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;expression&quot; : &quot;IF(%data:fields:RecordType:displayValue% = &apos;Individual&apos;,%data:fields:PersonOtherStreet:value%,IF(%data:fields:RecordType:displayValue% = &apos;Organisation&apos;,IF(%data:fields:ShippingStreet:value%!=null,%data:fields:ShippingStreet:value%,%data:fields:BillingStreet:value%),&apos;&apos;))&quot;,
+  &quot;hide&quot; : true,
+  &quot;show&quot; : null,
+  &quot;mask&quot; : null,
+  &quot;dataType&quot; : null,
+  &quot;hideGroupSep&quot; : false,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>13.0</sequenceNumber>
+                <type>Formula</type>
             </childElements>
             <childElements>
                 <name>Suburb</name>
@@ -2385,8 +2876,32 @@
   &quot;label&quot; : &quot;Suburb&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>26.0</sequenceNumber>
+                <sequenceNumber>42.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
+            </childElements>
+            <childElements>
+                <name>SuburbFormula</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;SuburbFormula&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;expression&quot; : &quot;IF(%data:fields:RecordType:displayValue% = &apos;Individual&apos;,%data:fields:PersonOtherCity:value%,IF(%data:fields:RecordType:displayValue% = &apos;Organisation&apos;,IF(%data:fields:ShippingCity:value%!=null,%data:fields:ShippingCity:value%,%data:fields:BillingCity:value%),&apos;&apos;))&quot;,
+  &quot;hide&quot; : true,
+  &quot;show&quot; : null,
+  &quot;mask&quot; : null,
+  &quot;dataType&quot; : null,
+  &quot;hideGroupSep&quot; : false,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>14.0</sequenceNumber>
+                <type>Formula</type>
             </childElements>
             <childElements>
                 <name>switchOff3rdPartyNotCheckbox</name>
@@ -2446,7 +2961,7 @@
   &quot;lwcComponentOverride&quot; : &quot;&quot;,
   &quot;defaultValue&quot; : &quot;false&quot;
 }</propertySetConfig>
-                <sequenceNumber>35.0</sequenceNumber>
+                <sequenceNumber>52.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
@@ -2494,8 +3009,48 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>31.0</sequenceNumber>
+                <sequenceNumber>48.0</sequenceNumber>
                 <type>Radio</type>
+            </childElements>
+            <childElements>
+                <name>TextBlock2</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12.0,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Email(Classic): %data:fields:Other_Email__c:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Email(ANZ Plus): %data:fields:PersonEmail:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Mobile(Classic): %data:fields:PersonOtherPhone:value%&lt;/div&gt;\n&lt;/div&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;isThisCustomerComplaint&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Yes&quot;
+      }, {
+        &quot;data&quot; : &quot;false&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;
+      }, {
+        &quot;field&quot; : &quot;enableAccountLookUp&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;
+      }, {
+        &quot;field&quot; : &quot;CustomerIdentifier&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Customer/Business CAP ID&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>12.0</sequenceNumber>
+                <type>Text Block</type>
             </childElements>
             <childElements>
                 <name>TextBlock3</name>
@@ -2520,6 +3075,28 @@
         &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;false&quot;
+      }, {
+        &quot;group&quot; : {
+          &quot;operator&quot; : &quot;OR&quot;,
+          &quot;rules&quot; : [ {
+            &quot;field&quot; : &quot;CustomerIdentifier&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;CACHE ID&quot;
+          }, {
+            &quot;group&quot; : {
+              &quot;operator&quot; : &quot;AND&quot;,
+              &quot;rules&quot; : [ {
+                &quot;field&quot; : &quot;enableAccountLookUp&quot;,
+                &quot;condition&quot; : &quot;=&quot;,
+                &quot;data&quot; : &quot;false&quot;
+              }, {
+                &quot;field&quot; : &quot;CustomerIdentifier&quot;,
+                &quot;condition&quot; : &quot;=&quot;,
+                &quot;data&quot; : &quot;Customer/Business CAP ID&quot;
+              } ]
+            }
+          } ]
+        }
       } ]
     }
   },
@@ -2527,7 +3104,7 @@
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;controlWidth&quot; : 12.0
 }</propertySetConfig>
-                <sequenceNumber>10.0</sequenceNumber>
+                <sequenceNumber>25.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -2552,6 +3129,28 @@
         &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;false&quot;
+      }, {
+        &quot;group&quot; : {
+          &quot;operator&quot; : &quot;OR&quot;,
+          &quot;rules&quot; : [ {
+            &quot;field&quot; : &quot;CustomerIdentifier&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;CACHE ID&quot;
+          }, {
+            &quot;group&quot; : {
+              &quot;operator&quot; : &quot;AND&quot;,
+              &quot;rules&quot; : [ {
+                &quot;field&quot; : &quot;enableAccountLookUp&quot;,
+                &quot;condition&quot; : &quot;=&quot;,
+                &quot;data&quot; : &quot;false&quot;
+              }, {
+                &quot;field&quot; : &quot;CustomerIdentifier&quot;,
+                &quot;condition&quot; : &quot;=&quot;,
+                &quot;data&quot; : &quot;Customer/Business CAP ID&quot;
+              } ]
+            }
+          } ]
+        }
       } ]
     }
   },
@@ -2560,7 +3159,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>11.0</sequenceNumber>
+                <sequenceNumber>24.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -2586,14 +3185,76 @@
         &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;false&quot;
+      }, {
+        &quot;group&quot; : {
+          &quot;operator&quot; : &quot;OR&quot;,
+          &quot;rules&quot; : [ {
+            &quot;field&quot; : &quot;CustomerIdentifier&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;CACHE ID&quot;
+          }, {
+            &quot;group&quot; : {
+              &quot;operator&quot; : &quot;AND&quot;,
+              &quot;rules&quot; : [ {
+                &quot;field&quot; : &quot;enableAccountLookUp&quot;,
+                &quot;condition&quot; : &quot;=&quot;,
+                &quot;data&quot; : &quot;false&quot;
+              }, {
+                &quot;field&quot; : &quot;CustomerIdentifier&quot;,
+                &quot;condition&quot; : &quot;=&quot;,
+                &quot;data&quot; : &quot;Customer/Business CAP ID&quot;
+              } ]
+            }
+          } ]
+        }
       } ]
     }
   },
   &quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_3-of-3 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_1-of-3\&quot;&gt;Country: %Response:profile:country%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_1-of-3\&quot;&gt;Move Status: %Response:profile:migrationStatusType%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_1-of-3\&quot;&gt;Move Date: %Response:profile:migrationStatusDate%&lt;/div&gt;\n&lt;/div&gt;&quot;,
   &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;controlWidth&quot; : 9
+  &quot;controlWidth&quot; : 9.0
 }</propertySetConfig>
-                <sequenceNumber>12.0</sequenceNumber>
+                <sequenceNumber>26.0</sequenceNumber>
+                <type>Text Block</type>
+            </childElements>
+            <childElements>
+                <name>TextBlock6</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12.0,
+  &quot;label&quot; : &quot;TextBlock6&quot;,
+  &quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Move Status: %data:fields:Migration_Status__c:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Move Date: %data:fields:Migration_Status_Date__c:value%&lt;/div&gt;\n&lt;/div&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Yes&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;isThisCustomerComplaint&quot;
+      }, {
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;false&quot;
+      }, {
+        &quot;field&quot; : &quot;enableAccountLookUp&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;
+      }, {
+        &quot;field&quot; : &quot;CustomerIdentifier&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Customer/Business CAP ID&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>20.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -2637,7 +3298,7 @@
   &quot;label&quot; : &quot;Nominated 3rd party company name&quot;,
   &quot;controlWidth&quot; : 3.0
 }</propertySetConfig>
-                <sequenceNumber>37.0</sequenceNumber>
+                <sequenceNumber>54.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -2685,7 +3346,7 @@
   &quot;label&quot; : &quot;Nominated 3rd party country&quot;,
   &quot;controlWidth&quot; : 3.0
 }</propertySetConfig>
-                <sequenceNumber>46.0</sequenceNumber>
+                <sequenceNumber>63.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -2727,7 +3388,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>39.0</sequenceNumber>
+                <sequenceNumber>56.0</sequenceNumber>
                 <type>Email</type>
             </childElements>
             <childElements>
@@ -2771,7 +3432,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>41.0</sequenceNumber>
+                <sequenceNumber>58.0</sequenceNumber>
                 <type>Telephone</type>
             </childElements>
             <childElements>
@@ -2816,7 +3477,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>36.0</sequenceNumber>
+                <sequenceNumber>53.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -2860,7 +3521,7 @@
   &quot;label&quot; : &quot;Nominated 3rd party phone&quot;,
   &quot;controlWidth&quot; : 3.0
 }</propertySetConfig>
-                <sequenceNumber>42.0</sequenceNumber>
+                <sequenceNumber>59.0</sequenceNumber>
                 <type>Telephone</type>
             </childElements>
             <childElements>
@@ -2905,7 +3566,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>45.0</sequenceNumber>
+                <sequenceNumber>62.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -2953,7 +3614,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>38.0</sequenceNumber>
+                <sequenceNumber>55.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -3015,7 +3676,7 @@
   &quot;label&quot; : &quot;Does Customer wish to be represented by third party?&quot;,
   &quot;controlWidth&quot; : 12.0
 }</propertySetConfig>
-                <sequenceNumber>34.0</sequenceNumber>
+                <sequenceNumber>51.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
@@ -3063,7 +3724,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>47.0</sequenceNumber>
+                <sequenceNumber>64.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -3108,7 +3769,7 @@
   &quot;label&quot; : &quot;Nominated 3rd party street&quot;,
   &quot;controlWidth&quot; : 3.0
 }</propertySetConfig>
-                <sequenceNumber>43.0</sequenceNumber>
+                <sequenceNumber>60.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
@@ -3307,7 +3968,7 @@
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;readOnly&quot; : false,
+  &quot;readOnly&quot; : true,
   &quot;horizontalMode&quot; : &quot;displayWide&quot;,
   &quot;defaultValue&quot; : &quot;Yes&quot;,
   &quot;help&quot; : true,
@@ -3329,7 +3990,7 @@
     &quot;type&quot; : &quot;&quot;,
     &quot;source&quot; : &quot;&quot;
   },
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;conditionType&quot; : &quot;Readonly if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
@@ -3337,7 +3998,21 @@
   &quot;optionHeight&quot; : 100.0,
   &quot;imageCountInRow&quot; : 3.0,
   &quot;enableCaption&quot; : true,
-  &quot;disOnTplt&quot; : false
+  &quot;disOnTplt&quot; : false,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : null,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;Case:AccountId&quot;
+      }, {
+        &quot;field&quot; : &quot;enableAccountLookUp&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;false&quot;
+      } ]
+    }
+  }
 }</propertySetConfig>
             <sequenceNumber>6.0</sequenceNumber>
             <type>Radio</type>
@@ -4152,7 +4827,8 @@
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;options&quot; : [ {
     &quot;name&quot; : &quot;Open&quot;,
-    &quot;value&quot; : &quot;Open&quot;
+    &quot;value&quot; : &quot;Open&quot;,
+    &quot;autoAdv&quot; : null
   }, {
     &quot;name&quot; : &quot;Under Investigation&quot;,
     &quot;value&quot; : &quot;Under Investigation&quot;
@@ -5922,10 +6598,10 @@
                 <level>2.0</level>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 5,
+  &quot;controlWidth&quot; : 5.0,
   &quot;label&quot; : &quot;Is a REaL form required?&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -6702,7 +7378,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>3.0</sequenceNumber>
+        <sequenceNumber>4.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -6761,6 +7437,53 @@
 }</propertySetConfig>
         <sequenceNumber>0.0</sequenceNumber>
         <type>Remote Action</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <name>getAccountLookUpforCMOS</name>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;controlWidth&quot; : 12.0,
+  &quot;label&quot; : &quot;getAccountLookUpforCMOS&quot;,
+  &quot;bundle&quot; : &quot;GetAccountLookUpforCMOS&quot;,
+  &quot;ignoreCache&quot; : false,
+  &quot;dataRaptor Input Parameters&quot; : [ ],
+  &quot;remoteTimeout&quot; : 30000.0,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
+  &quot;postMessage&quot; : &quot;Done&quot;,
+  &quot;failureNextLabel&quot; : &quot;Continue&quot;,
+  &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
+  &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
+  &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
+  &quot;validationRequired&quot; : &quot;Step&quot;,
+  &quot;redirectPageName&quot; : &quot;&quot;,
+  &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
+  &quot;redirectNextLabel&quot; : &quot;Next&quot;,
+  &quot;redirectNextWidth&quot; : 3.0,
+  &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
+  &quot;redirectPreviousWidth&quot; : 3.0,
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;message&quot; : { },
+  &quot;pubsub&quot; : false,
+  &quot;errorMessage&quot; : {
+    &quot;custom&quot; : [ ],
+    &quot;default&quot; : null
+  },
+  &quot;enableDefaultAbort&quot; : false,
+  &quot;enableActionMessage&quot; : false,
+  &quot;businessCategory&quot; : &quot;&quot;,
+  &quot;businessEvent&quot; : &quot;&quot;
+}</propertySetConfig>
+        <sequenceNumber>2.0</sequenceNumber>
+        <type>DataRaptor Extract Action</type>
     </omniProcessElements>
     <omniProcessElements>
         <name>getCurrentAppName</name>
@@ -6838,7 +7561,7 @@
       &quot;Age&quot; : &quot;Age&quot;
     }, {
       &quot;Gender&quot; : &quot;Gender&quot;
-    }, {
+    },{
       &quot;Postcode&quot; : &quot;Postcode&quot;
     } ],
     &quot;thirdPartyMap&quot; : [ {
@@ -6944,14 +7667,14 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>2.0</sequenceNumber>
+        <sequenceNumber>3.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessType>OmniScript</omniProcessType>
-    <propertySetConfig>{&quot;persistentComponent&quot;:[{&quot;render&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;sendJSONPath&quot;:&quot;&quot;,&quot;sendJSONNode&quot;:&quot;&quot;,&quot;responseJSONPath&quot;:&quot;&quot;,&quot;responseJSONNode&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcCart&quot;,&quot;itemsKey&quot;:&quot;cartItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;vlcProductConfig.html&quot;,&quot;modalController&quot;:&quot;ModalProductCtrl&quot;,&quot;modalSize&quot;:&quot;lg&quot;}},{&quot;render&quot;:false,&quot;dispOutsideOmni&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcKnowledge&quot;,&quot;itemsKey&quot;:&quot;knowledgeItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;&quot;,&quot;modalController&quot;:&quot;&quot;,&quot;modalSize&quot;:&quot;lg&quot;}}],&quot;allowSaveForLater&quot;:false,&quot;saveNameTemplate&quot;:null,&quot;saveExpireInDays&quot;:null,&quot;saveForLaterRedirectPageName&quot;:&quot;sflRedirect&quot;,&quot;saveForLaterRedirectTemplateUrl&quot;:&quot;vlcSaveForLaterAcknowledge.html&quot;,&quot;saveContentEncoded&quot;:false,&quot;saveObjectId&quot;:&quot;%ContextId%&quot;,&quot;saveURLPatterns&quot;:{},&quot;autoSaveOnStepNext&quot;:false,&quot;elementTypeToHTMLTemplateMapping&quot;:{},&quot;seedDataJSON&quot;:{},&quot;trackingCustomData&quot;:{},&quot;enableKnowledge&quot;:false,&quot;bLK&quot;:false,&quot;lkObjName&quot;:null,&quot;knowledgeArticleTypeQueryFieldsMap&quot;:{},&quot;timeTracking&quot;:false,&quot;hideStepChart&quot;:true,&quot;mergeSavedData&quot;:false,&quot;visualforcePagesAvailableInPreview&quot;:{},&quot;cancelType&quot;:&quot;SObject&quot;,&quot;allowCancel&quot;:true,&quot;cancelSource&quot;:&quot;%ContextId%&quot;,&quot;cancelRedirectPageName&quot;:&quot;OmniScriptCancelled&quot;,&quot;cancelRedirectTemplateUrl&quot;:&quot;vlcCancelled.html&quot;,&quot;consoleTabLabel&quot;:&quot;New&quot;,&quot;wpm&quot;:false,&quot;ssm&quot;:false,&quot;message&quot;:{},&quot;pubsub&quot;:false,&quot;autoFocus&quot;:false,&quot;currencyCode&quot;:&quot;&quot;,&quot;showInputWidth&quot;:false,&quot;rtpSeed&quot;:true,&quot;consoleTabTitle&quot;:null,&quot;consoleTabIcon&quot;:&quot;custom:custom18&quot;,&quot;errorMessage&quot;:{&quot;custom&quot;:[]},&quot;stylesheet&quot;:{&quot;newport&quot;:&quot;&quot;,&quot;lightning&quot;:&quot;omniCustomCSS&quot;,&quot;newportRtl&quot;:&quot;&quot;,&quot;lightningRtl&quot;:&quot;&quot;},&quot;stepChartPlacement&quot;:&quot;right&quot;,&quot;disableUnloadWarn&quot;:true,&quot;scrollBehavior&quot;:&quot;auto&quot;,&quot;currentLanguage&quot;:&quot;en_US&quot;}</propertySetConfig>
+    <propertySetConfig>{&quot;persistentComponent&quot;:[{&quot;render&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;sendJSONPath&quot;:&quot;&quot;,&quot;sendJSONNode&quot;:&quot;&quot;,&quot;responseJSONPath&quot;:&quot;&quot;,&quot;responseJSONNode&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcCart&quot;,&quot;itemsKey&quot;:&quot;cartItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;vlcProductConfig.html&quot;,&quot;modalController&quot;:&quot;ModalProductCtrl&quot;,&quot;modalSize&quot;:&quot;lg&quot;}},{&quot;render&quot;:false,&quot;dispOutsideOmni&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcKnowledge&quot;,&quot;itemsKey&quot;:&quot;knowledgeItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;&quot;,&quot;modalController&quot;:&quot;&quot;,&quot;modalSize&quot;:&quot;lg&quot;}}],&quot;allowSaveForLater&quot;:false,&quot;saveNameTemplate&quot;:null,&quot;saveExpireInDays&quot;:null,&quot;saveForLaterRedirectPageName&quot;:&quot;sflRedirect&quot;,&quot;saveForLaterRedirectTemplateUrl&quot;:&quot;vlcSaveForLaterAcknowledge.html&quot;,&quot;saveContentEncoded&quot;:false,&quot;saveObjectId&quot;:&quot;%ContextId%&quot;,&quot;saveURLPatterns&quot;:{},&quot;autoSaveOnStepNext&quot;:false,&quot;elementTypeToHTMLTemplateMapping&quot;:{},&quot;seedDataJSON&quot;:{},&quot;trackingCustomData&quot;:{},&quot;enableKnowledge&quot;:false,&quot;bLK&quot;:false,&quot;lkObjName&quot;:null,&quot;knowledgeArticleTypeQueryFieldsMap&quot;:{},&quot;timeTracking&quot;:false,&quot;hideStepChart&quot;:true,&quot;mergeSavedData&quot;:false,&quot;visualforcePagesAvailableInPreview&quot;:{},&quot;cancelType&quot;:&quot;SObject&quot;,&quot;allowCancel&quot;:true,&quot;cancelSource&quot;:&quot;%ContextId%&quot;,&quot;cancelRedirectPageName&quot;:&quot;OmniScriptCancelled&quot;,&quot;cancelRedirectTemplateUrl&quot;:&quot;vlcCancelled.html&quot;,&quot;consoleTabLabel&quot;:&quot;New&quot;,&quot;wpm&quot;:false,&quot;ssm&quot;:false,&quot;message&quot;:{},&quot;pubsub&quot;:true,&quot;autoFocus&quot;:false,&quot;currencyCode&quot;:&quot;&quot;,&quot;showInputWidth&quot;:false,&quot;rtpSeed&quot;:true,&quot;consoleTabTitle&quot;:null,&quot;consoleTabIcon&quot;:&quot;custom:custom18&quot;,&quot;errorMessage&quot;:{&quot;custom&quot;:[]},&quot;stylesheet&quot;:{&quot;newport&quot;:&quot;&quot;,&quot;lightning&quot;:&quot;omniCustomCSS&quot;,&quot;newportRtl&quot;:&quot;&quot;,&quot;lightningRtl&quot;:&quot;&quot;},&quot;stepChartPlacement&quot;:&quot;right&quot;,&quot;disableUnloadWarn&quot;:true,&quot;scrollBehavior&quot;:&quot;auto&quot;,&quot;currentLanguage&quot;:&quot;en_US&quot;}</propertySetConfig>
     <subType>Creation</subType>
     <type>Case</type>
     <uniqueName>Case_Creation_English_26</uniqueName>
     <versionNumber>26.0</versionNumber>
-    <webComponentKey>eda7b3e1-4bbe-bd0d-392d-21a3334d7564</webComponentKey>
+    <webComponentKey>41f24e35-6080-eb2a-ae9e-d8e4039dd561</webComponentKey>
 </OmniScript>

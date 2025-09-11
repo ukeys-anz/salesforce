@@ -19,7 +19,7 @@ public with sharing class TFMSearchCustomerAPIRepository extends RepositoryBase 
     );
     HttpCalloutResponse response = s.searchCustAPI(staffModel);
     if (!response.successful) {
-      handleErrors(response, null, TFMSearchCustomerAPIRepository.class);
+      handleErrorAsInfo(response, null, TFMSearchCustomerAPIRepository.class);
       return null;
     }
     model = TFMPersonDigitalIdentityModel.parse(response.body);

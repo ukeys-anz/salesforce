@@ -7,7 +7,7 @@
     <externalDeveloperName>Month</externalDeveloperName>
     <externalId>false</externalId>
     <isFilteringDisabled>true</isFilteringDisabled>
-    <isNameField>true</isNameField>
+    <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Month</label>
     <length>255</length>

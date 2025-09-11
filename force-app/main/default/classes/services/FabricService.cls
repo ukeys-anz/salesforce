@@ -15,33 +15,19 @@ public with sharing class FabricService extends Service {
     String ocvId,
     List<String> accountNumbers
   ) {
-    String financialAccountApiEndpoint;
-    String urlParam = 'filter.exclude_legacy=true&';
-    if (!accountNumbers.isEmpty()) {
-      for (String accountNumber : accountNumbers) {
-        if (GetHelpConstants.isAccountV1()) {
-          String accountFilter = 'accounts/' + accountNumber;
-          urlParam +=
-            'filter.accounts=' +
-            EncodingUtil.urlEncode(accountFilter, 'UTF-8') +
-            '&';
-        } else {
-          urlParam += 'account_numbers=' + accountNumber + '&';
-        }
-      }
+    String urlParam = 'filter.view_type=ACCOUNT_VIEW_TYPE_ALL_DIGITAL_ACTIVE&';
+    for (String accountNumber : accountNumbers) {
+      String accountFilter = 'accounts/' + accountNumber;
+      urlParam +=
+        'filter.accounts=' +
+        EncodingUtil.urlEncode(accountFilter, 'UTF-8') +
+        '&';
     }
-
-    if (GetHelpConstants.isAccountV1()) {
-      financialAccountApiEndpoint = Label.MS_Get_Financial_AccountsV1;
-    } else {
-      financialAccountApiEndpoint = Label.MS_Get_Financial_Accounts;
-    }
-
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      financialAccountApiEndpoint + '?' + urlParam,
+      Label.MS_Get_Financial_AccountsV1 + '?' + urlParam,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -59,19 +45,11 @@ public with sharing class FabricService extends Service {
     String ocvId,
     String paramUrl
   ) {
-    String transactionApiEndpoint;
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
-
-    if (GetHelpConstants.isTransactionsV1()) {
-      transactionApiEndpoint = Label.MS_Get_TransactionsV1;
-    } else {
-      transactionApiEndpoint = Label.MS_Get_Transactions;
-    }
-
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      transactionApiEndpoint + paramUrl,
+      Label.MS_Get_TransactionsV1 + paramUrl,
       HTTP_METHOD.HTTP_GET,
       headers,
       null

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Generic Card</masterLabel>
+    <description>Card component that displays field data in columns and a data table</description>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightning__UrlAddressable</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage,lightning__AppPage,lightning__HomePage">
+            <property name="title" type="String" label="Card Title" default="Card Title" />
+            <property name="useControllerData" type="Boolean" label="Use Controller Data" default="false" description="fetch data from controller" />
+            <property name="apexController" type="String" label="Apex Controller" description="Name of the Apex controller method" />
+            <property name="controllerParams" type="String" label="Controller Parameters" description="the parameters for the Apex controller method"/>
+            <property name="configName" type="String" label="Config file name" description="Name of the config file in static resource" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

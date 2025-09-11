@@ -30,7 +30,7 @@ public class TFMSearchCustomerDataSourceConnection extends DataSource.Connection
       return TFMSearchCustomerDataSourceService.searchExtServer(context) ??
         empty;
     } catch (Exception e) {
-      Logger.error(e.getMessage(), e);
+      Logger.info(e.getMessage(), e);
       Logger.saveLog();
       return empty;
     }
@@ -44,7 +44,7 @@ public class TFMSearchCustomerDataSourceConnection extends DataSource.Connection
     try {
       return TFMSearchCustomerDataSourceService.syncData();
     } catch (Exception e) {
-      Logger.error(e.getMessage(), e);
+      Logger.info(e.getMessage(), e);
       Logger.saveLog();
       return null;
     }
@@ -67,7 +67,7 @@ public class TFMSearchCustomerDataSourceConnection extends DataSource.Connection
       return TFMSearchCustomerDataSourceService.queryExtServer(context) ??
         empty;
     } catch (Exception e) {
-      Logger.error(e.getMessage(), e);
+      Logger.info(e.getMessage(), e);
       Logger.saveLog();
       return empty;
     }

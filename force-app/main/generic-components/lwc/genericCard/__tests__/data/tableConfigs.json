@@ -1,0 +1,22 @@
+{
+  "contractsTableConfig": {
+    "columns": [
+      { "label": "Contract ID", "fieldName": "id", "type": "text" },
+      { "label": "Customer Name", "fieldName": "customerName", "type": "text" },
+      { "label": "Loan Amount", "fieldName": "loanAmount", "type": "currency" },
+      { "label": "Status", "fieldName": "status", "type": "text" }
+    ],
+    "data": "{contracts}",
+    "keyField": "id"
+  },
+  "summaryTableConfig": {
+    "columns": [
+      { "label": "Contract ID", "fieldName": "id", "type": "text" },
+      { "label": "Customer Name", "fieldName": "customerName", "type": "text" },
+      { "label": "Loan Amount", "fieldName": "loanAmount", "type": "currency" },
+      { "label": "Status", "fieldName": "status", "type": "text" }
+    ],
+    "data": "{contracts}",
+    "keyField": "id"
+  }
+}

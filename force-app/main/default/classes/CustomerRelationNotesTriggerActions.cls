@@ -183,6 +183,10 @@ public with sharing class CustomerRelationNotesTriggerActions {
     }
     lstOfPreferredName.add(reqRecord.strLastName);
     objRelation.Preferred_Name__c = String.join(lstOfPreferredName, ' ');
+    objRelation.Customer_Name__c = getCustomerName(
+      reqRecord.strSalutation,
+      objRelation.Preferred_Name__c
+    );
     objRelation.Customer__c = shellProspectAccountId;
     objRelation.Territory__c = strTerritoryId;
     objRelation.OwnerId = reqRecord.strOwnerId;
@@ -215,14 +219,18 @@ public with sharing class CustomerRelationNotesTriggerActions {
       accIdsSet
     );
     for (Customer_Relationship__c obj : filteredRecords) {
-      if (mapOfAccount.get(obj.Customer__c) == null) {
+      Account customer = mapOfAccount.get(obj.Customer__c);
+      if (customer == null) {
         obj.Customer_Name__c = '';
         continue;
       }
-      obj.Customer_Name__c =
-        mapOfAccount.get(obj.Customer__c).Salutation +
-        ' ' +
-        mapOfAccount.get(obj.Customer__c).Name;
+      if (oldMap == null && String.isNotBlank(obj.Customer_Name__c)) {
+        continue;
+      }
+      obj.Customer_Name__c = getCustomerName(
+        customer.Salutation,
+        customer.Name
+      );
     }
   }
   /**
@@ -240,14 +248,31 @@ public with sharing class CustomerRelationNotesTriggerActions {
     for (
       Customer_Relationship__c customerRelationship : listOfCustomerRelationship
     ) {
-      customerRelationship.Customer_Name__c =
-        customerRelationship.Customer__r.Salutation +
-        ' ' +
-        customerRelationship.Customer__r.Name;
+      customerRelationship.Customer_Name__c = getCustomerName(
+        customerRelationship.Customer__r.Salutation,
+        customerRelationship.Customer__r.Name
+      );
     }
     DML_REPOSITORY.doUpdate(
       listOfCustomerRelationship,
       new DmlConfig().allowPartial().withoutSharing().systemMode()
     );
+  }
+
+  /**
+   * @description concatenates salutation and preferred name to return customer name
+   * @name getCustomerName
+   * @param salutation String
+   * @param preferredName String
+   * @return String
+   */
+  public static String getCustomerName(
+    String salutation,
+    String preferredName
+  ) {
+    if (String.isBlank(salutation)) {
+      return preferredName;
+    }
+    return salutation + ' ' + preferredName;
   }
 }

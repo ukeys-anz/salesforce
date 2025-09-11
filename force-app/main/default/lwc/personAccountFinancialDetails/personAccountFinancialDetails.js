@@ -2,18 +2,12 @@
 import { LightningElement, api, wire } from "lwc";
 import { getRecord } from "lightning/uiRecordApi";
 import { handleErrorShowToast } from "c/utils";
-import { handleGoalThemes } from "c/accountsGoalsUtils";
-import {
-  groupGoalsByAccountNumber,
-  addFinAccountAndMetaDataToGoals
-} from "./helper/helper-goalsDetails";
 import { updateProductName } from "./helper/helper-accountDetails";
 
 /* IMPORT APEX METHODS */
 import getFinancialAccountFabric from "@salesforce/apex/FinancialAccountController.getFinancialAccountFabric";
 import getFinancialAccountDB from "@salesforce/apex/FinancialAccountController.getFinancialAccountDB";
 import getOffsetHomeLoanAccount from "@salesforce/apex/HomeLoanController.getListOffset";
-import getAccountBuckets from "@salesforce/apex/AccountBucketsController.getAccountBuckets";
 
 /* IMPORT PERMISSIONS */
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
@@ -25,18 +19,14 @@ import ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/Account.OCV_ID__c";
 export default class PersonAccountFinancialDetails extends LightningElement {
   @api recordId;
   @api objectApiName;
-  goalDetails = [];
   ocvId;
   loading;
-  goalError;
   totalBalanceError;
   loanData;
   offsetData = {};
   accountToOwnership = new Map();
-  isS2AccountExist = false;
   fetchedAccounts;
   processedAccounts = [];
-  savingAccountExist = false;
   hasOffsetError = false;
 
   connectedCallback() {
@@ -45,15 +35,20 @@ export default class PersonAccountFinancialDetails extends LightningElement {
       this.handleRefreshFinances.bind(this)
     );
   }
-  get isSavingAccountExist() {
-    return this.savingAccountExist;
-  }
 
   get hasHomeLoan() {
     return (
       Array.isArray(this.processedAccounts) &&
       this.processedAccounts.some((group) => group.isHomeLoan)
     );
+  }
+
+  get savingsAccounts() {
+    return this.processedAccounts?.filter((group) => group.isSaving);
+  }
+
+  get othersAccounts() {
+    return this.processedAccounts?.filter((group) => group.isOthers);
   }
 
   get homeLoanAccounts() {
@@ -75,10 +70,6 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     }
     if (this.ocvId && hasAccountsGoalsPermission) {
       await this.getFinancialAccount();
-      if (this.handleGoalApiCallout()) {
-        this.savingAccountExist = true;
-        await this.getGoals();
-      }
     }
     if (this.ocvId && hasHomeLoanPermission) {
       const offsetResponse = await this.getOffsetHomeLoanResponse();
@@ -113,7 +104,9 @@ export default class PersonAccountFinancialDetails extends LightningElement {
         ocvId: this.ocvId,
         ownerId: this.recordId
       });
-      this.processedAccounts = this.fetchedAccounts;
+      this.processedAccounts = this.fetchedAccounts.filter(
+        (group) => !group.isHomeLoan
+      );
       this.processedAccounts.sort(
         (firstGroup, secondGroup) =>
           firstGroup.sortOrder - secondGroup.sortOrder
@@ -148,43 +141,6 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     return hasAccountsGoalsPermission;
   }
 
-  async getGoals() {
-    this.goalDetails = [];
-    try {
-      let goalData = await getAccountBuckets({
-        ocvId: this.ocvId,
-        pageSize: 100,
-        nextPageToken: "",
-        accountNumber: ""
-      });
-
-      //Add additional financial account and meta data details to goals
-      const goalCopy = addFinAccountAndMetaDataToGoals(
-        this.processedAccounts,
-        goalData
-      );
-
-      goalData = handleGoalThemes(goalCopy);
-
-      //Remove savings jar as its not displayed on goals component
-      const goalDetailsToShow = goalCopy.account_buckets.filter((obj) => {
-        return !obj.is_default;
-      });
-
-      this.goalDetails = groupGoalsByAccountNumber(goalDetailsToShow);
-    } catch (error) {
-      this.goalError =
-        "Failed to retrieve latest goal details. Please refresh and try again. If issue persists please contact your System Administrator";
-      handleErrorShowToast(
-        this,
-        "Failed To Retrieve Goal Details",
-        error,
-        this.goalError,
-        "pester"
-      );
-    }
-  }
-
   handleRefreshFinances(event) {
     if (event?.detail === "Refresh") {
       this.refreshData();
@@ -194,7 +150,6 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   async refreshData() {
     this.loading = true;
     await this.getFinancialAccount();
-    await this.getGoals();
     this.loading = false;
   }
 
@@ -202,13 +157,6 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     window.removeEventListener(
       "refreshFinances_" + this.recordId,
       this.handleRefreshFinances.bind(this)
-    );
-  }
-
-  handleGoalApiCallout() {
-    return (
-      Array.isArray(this.processedAccounts) &&
-      this.processedAccounts.some((group) => group.isSaving)
     );
   }
 }

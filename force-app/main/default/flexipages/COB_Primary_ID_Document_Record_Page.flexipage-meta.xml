@@ -5,55 +5,6 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>actionNames</name>
-                    <valueList>
-                        <valueListItems>
-                            <value>COBPrimaryIDDocument__c.View</value>
-                            <visibilityRule>
-                                <booleanFilter>(1 AND 2) OR (3 AND 4)</booleanFilter>
-                                <criteria>
-                                    <leftValue>{!$Permission.CustomPermission.ANZx_Edit_COB_Primary_ID_Document}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>false</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
-                                    <operator>NE</operator>
-                                    <rightValue>Onboarding_Support_Read_Only</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!$Permission.CustomPermission.ANZx_Edit_COB_Primary_ID_Document}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>true</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.CustomerOnboardingApplication__r.CXOnboardingStage__c}</leftValue>
-                                    <operator>NE</operator>
-                                    <rightValue>Assisted Electronic Verification</rightValue>
-                                </criteria>
-                            </visibilityRule>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>COBPrimaryIDDocument__c.Edit</value>
-                            <visibilityRule>
-                                <booleanFilter>1 AND 2 AND 3</booleanFilter>
-                                <criteria>
-                                    <leftValue>{!$Permission.CustomPermission.ANZx_Edit_COB_Primary_ID_Document}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>true</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
-                                    <operator>NE</operator>
-                                    <rightValue>Onboarding_Support_Read_Only</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.CustomerOnboardingApplication__r.CXOnboardingStage__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>Assisted Electronic Verification</rightValue>
-                                </criteria>
-                            </visibilityRule>
-                        </valueListItems>
-                    </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>collapsed</name>
@@ -1102,42 +1053,6 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>active</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-a52b03bb-0cb5-4be0-88ce-ca3161b99eb4</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Details</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-                <identifier>flexipage_tab2</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-121187b0-49e8-46ba-aa96-ac32d3920cc3</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>tabs</name>
-                    <value>Facet-121187b0-49e8-46ba-aa96-ac32d3920cc3</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>main</name>
-        <type>Region</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
                     <name>relatedListComponentOverride</name>
                     <value>NONE</value>
                 </componentInstanceProperties>
@@ -1153,13 +1068,156 @@
                 <identifier>force_relatedListContainer</identifier>
             </componentInstance>
         </itemInstances>
-        <name>sidebar</name>
+        <name>Facet-e73590b2-acfa-497a-9b19-55277eca5aee</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentName>cobPidViewAndEdit</componentName>
+                <identifier>c_cobPidViewAndEdit</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-smj08b3vikg</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentName>cobPidViewAndEdit</componentName>
+                <identifier>c_cobPidViewAndEdit2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-16e07276-4d57-4d69-8936-607aac3873a9</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>active</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-a52b03bb-0cb5-4be0-88ce-ca3161b99eb4</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Details</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-e73590b2-acfa-497a-9b19-55277eca5aee</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Related</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-smj08b3vikg</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>View Document</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR (3 AND 4)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.ANZx_Edit_COB_Primary_ID_Document}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>false</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Onboarding_Support_Read_Only</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.ANZx_Edit_COB_Primary_ID_Document}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.CustomerOnboardingApplication__r.CXOnboardingStage__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Assisted Electronic Verification</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-16e07276-4d57-4d69-8936-607aac3873a9</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Edit Document</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab4</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.ANZx_Edit_COB_Primary_ID_Document}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Onboarding_Support_Read_Only</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.CustomerOnboardingApplication__r.CXOnboardingStage__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Assisted Electronic Verification</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-121187b0-49e8-46ba-aa96-ac32d3920cc3</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Tabs</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>tabs</name>
+                    <value>Facet-121187b0-49e8-46ba-aa96-ac32d3920cc3</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tabset</componentName>
+                <identifier>flexipage_tabset</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>COB Primary ID Document Record Page</masterLabel>
     <sobjectType>COBPrimaryIDDocument__c</sobjectType>
     <template>
-        <name>flexipage:recordHomeTemplateDesktop</name>
+        <name>flexipage:recordHomeSingleColTemplateDesktop</name>
         <properties>
             <name>enablePageActionConfig</name>
             <value>false</value>

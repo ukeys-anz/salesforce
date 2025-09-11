@@ -10,6 +10,8 @@ public with sharing class CommercialA2ZReviewActions {
   public class CustomException extends Exception {
   }
 
+  public static final String STATUS_COMPLETED = 'Completed';
+
   private static final CommercialA2ZReviewRepository A2ZREVIEW_REPO = (CommercialA2ZReviewRepository) Lib_InstanceProvider.forType(
     CommercialA2ZReviewRepository.class
   );
@@ -45,36 +47,14 @@ public with sharing class CommercialA2ZReviewActions {
    * @param records from the trigger
    */
   public static void performRedaction(List<A_Z_Review__c> records) {
-    try {
-      TextUtils.RecordListWrapper wrapperDataCCRM = TextUtils.checkRecordTypeRedactionMethod(
-        records,
-        new List<Id>{ CCRMConstants.AZ_REVIEW_RT_ID }
-      );
-      TextUtils.maskSObjectDataANZExtended(
-        wrapperDataCCRM.dcrmRecordList,
-        'Name'
-      );
-      TextUtils.maskSObjectDataANZExtended(
-        wrapperDataCCRM.dcrmRecordList,
-        'Business_Details__c'
-      );
-      TextUtils.maskSObjectDataANZExtended(
-        wrapperDataCCRM.dcrmRecordList,
-        'Personal_Banking__c'
-      );
-      TextUtils.maskSObjectDataANZExtended(
-        wrapperDataCCRM.dcrmRecordList,
-        'Transaction_Banking__c'
-      );
-      TextUtils.maskSObjectDataANZExtended(
-        wrapperDataCCRM.dcrmRecordList,
-        'Borrowing_OFI_Relationship__c'
-      );
-    } catch (Exception e) {
-      Logger.error(e.getMessage(), e);
-      Logger.saveLog();
-      throw new CustomException(e.getMessage());
-    }
+    TextUtils.maskSObjectDataANZExtended(records, 'Name');
+    TextUtils.maskSObjectDataANZExtended(records, 'Business_Details__c');
+    TextUtils.maskSObjectDataANZExtended(records, 'Personal_Banking__c');
+    TextUtils.maskSObjectDataANZExtended(records, 'Transaction_Banking__c');
+    TextUtils.maskSObjectDataANZExtended(
+      records,
+      'Borrowing_OFI_Relationship__c'
+    );
   }
 
   /**
@@ -89,16 +69,15 @@ public with sharing class CommercialA2ZReviewActions {
     Map<Id, A_Z_Review__c> oldMap
   ) {
     try {
-      for (A_Z_Review__c azRecord : records) {
-        A_Z_Review__c oldRecord = oldMap?.get(azRecord.Id);
-        if (azRecord.Status__c == oldRecord?.Status__c) {
-          continue;
-        }
-        if (azRecord.Status__c != CCRMConstants.STATUS_COMPLETED) {
-          continue;
-        }
-        azRecord.Completed_Date__c = Date.today();
-      }
+      List<A_Z_Review__c> azRecordList = ListUtil.filter(records, oldMap)
+        .changedTo(A_Z_Review__c.Status__c, STATUS_COMPLETED)
+        .toList();
+
+      ListUtil.setField(
+        azRecordList,
+        A_Z_Review__c.Completed_Date__c,
+        Date.today()
+      );
     } catch (Exception e) {
       Logger.error(e.getMessage(), e);
       Logger.saveLog();

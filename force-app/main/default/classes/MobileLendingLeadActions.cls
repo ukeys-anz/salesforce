@@ -17,7 +17,6 @@ public with sharing class MobileLendingLeadActions {
 
   private static set<String> setOfFollowUpForContactAttempted = new Set<String>{
     'Call Back',
-    'Contact Attempted',
     'Accepted',
     'Appointment Booked'
   };
@@ -212,7 +211,8 @@ public with sharing class MobileLendingLeadActions {
     List<Lead> records,
     Map<Id, Task> mapTask
   ) {
-    Integer minDays = integer.valueOf(Label.DefaultLeadExpiryDate);
+    Integer minDays = integer.valueOf(Label.ML_MinDaysExpiryDateExtends);
+    Integer maxdays = integer.valueOf(Label.ML_MaxDaysExpiryDateExtends);
     List<Lead> updatedLeads = new List<Lead>();
     for (Lead record : records) {
       Task task = mapTask.get(record.Id);
@@ -221,12 +221,16 @@ public with sharing class MobileLendingLeadActions {
       }
       if (
         setOfFollowUpForContactAttempted.contains(task.Response_Status__c) &&
-        record.Followup_Date__c != null
+        task.ActivityDate != null
       ) {
-        record.Expiry_Date__c = record.Followup_Date__c.addDays(minDays);
+        Date minActivityDate = task.ActivityDate.addDays(minDays);
+        Date maxExpiryDate = record.Expiry_Date__c.addDays(maxdays);
+        record.Expiry_Date__c = minActivityDate > maxExpiryDate
+          ? maxExpiryDate
+          : minActivityDate;
       } else if (
         setOfFollowUpForAppointment.contains(task.Response_Status__c) &&
-        record.Followup_Date__c == null
+        task.ActivityDate == null
       ) {
         record.Expiry_Date__c = record.Expiry_Date__c.addDays(minDays);
       } else {

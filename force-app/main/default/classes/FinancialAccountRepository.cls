@@ -71,10 +71,45 @@ public with sharing class FinancialAccountRepository {
         Id,
         FinServ__FinancialAccountNumber__c,
         Ownership__c,
+        Linked_Product_Code__c,
+        Marketing_Code__c,
+        Is_Digitally_Active__c,
         FinServ__ProductName__c,
-        Product_Name_Display__c
+        Product_Name_Display__c,
+        FinServ__ProductName__r.ANZ_Product_Code__c,
+        FinServ__ProductName__r.SourceSystem__c
       FROM FinServ__FinancialAccount__c
       WHERE FinServ__FinancialAccountNumber__c IN :finAccountNumbers
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description Fetch fin account records based on the fin account numbers and return the List
+   * this method is used to get the list of fin account records which are not present in the financialAccountNumbers
+   * @param ocvId of the customer record
+   * @param financialAccountNumbers the fin account numbers to be excluded from query
+   * @return `List<FinServ__FinancialAccount__c>` List of financial accounts records
+   */
+  public List<FinServ__FinancialAccount__c> getDigitallyConnectedFinAccounts(
+    String ocvId,
+    List<String> financialAccountNumbers
+  ) {
+    if (financialAccountNumbers.isEmpty()) {
+      return new List<FinServ__FinancialAccount__c>();
+    }
+    return [
+      SELECT Id, FinServ__FinancialAccountNumber__c
+      FROM FinServ__FinancialAccount__c
+      WHERE
+        Id IN (
+          SELECT FinServ__FinancialAccount__c
+          FROM FinServ__FinancialAccountRole__c
+          WHERE
+            FinServ__RelatedAccount__r.OCV_ID__c = :ocvId
+            AND FinServ__FinancialAccount__r.Is_Digitally_Active__c = TRUE
+            AND FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c NOT IN :financialAccountNumbers
+        )
       WITH USER_MODE
     ];
   }
@@ -129,15 +164,13 @@ public with sharing class FinancialAccountRepository {
 
   /**
    * @description gets all the finanacial account which needds to be displayed on UI
-   * @param ownerId owner of fin account
    * @param allRelatedAccountNumbers all the rekated financial account numbers
    * @return list of FinServ__FinancialAccount__c
    */
   public List<FinServ__FinancialAccount__c> getFinancialAccounts(
-    Id ownerId,
     List<String> allRelatedAccountNumbers
   ) {
-    if (String.isBlank(ownerId) || allRelatedAccountNumbers.isEmpty()) {
+    if (allRelatedAccountNumbers.isEmpty()) {
       return new List<FinServ__FinancialAccount__c>();
     }
     return [
@@ -155,12 +188,14 @@ public with sharing class FinancialAccountRepository {
         LastModifiedDate,
         Ownership__c,
         OCV_ID__c,
-        FinServ__ProductName__c
+        FinServ__ProductName__c,
+        Linked_Product_Code__c,
+        Product_Name_Display__c,
+        FinServ__ProductName__r.ANZ_Product_Code__c,
+        FinServ__ProductName__r.SourceSystem__c
       FROM FinServ__FinancialAccount__c
       WHERE
-        (FinServ__PrimaryOwner__c = :ownerId
-        OR FinServ__FinancialAccountNumber__c IN :allRelatedAccountNumbers)
-        AND RecordTypeId != :RTFinancialAccount.bankAccount
+        FinServ__FinancialAccountNumber__c IN :allRelatedAccountNumbers
         AND FinServ__Status__c != 'Closed'
       WITH USER_MODE
       ORDER BY FinServ__Status__c DESC, FinServ__OpenDate__c DESC
@@ -170,14 +205,14 @@ public with sharing class FinancialAccountRepository {
   /**
    * @description Aggregates the total balance for all checking and saving account for eligible marketing codes
    * @param accountNumbers list of account numbers received from FAR query for the given OCVId
-   * @param marketingCodes eligible marketing codes to be included in balance total
+   * @param productCodes eligible marketing codes to be included in balance total
    * @return SUM of the balance for the eligible marketing codes
    */
   public AggregateResult getTotalBalance(
     Set<String> accountNumbers,
-    Set<String> marketingCodes
+    Set<String> productCodes
   ) {
-    if (accountNumbers.isEmpty() || marketingCodes.isEmpty()) {
+    if (accountNumbers.isEmpty() || productCodes.isEmpty()) {
       return null;
     }
 
@@ -187,7 +222,7 @@ public with sharing class FinancialAccountRepository {
       WHERE
         FinServ__Balance__c != NULL
         AND FinServ__FinancialAccountNumber__c = :accountNumbers
-        AND Marketing_Code__c IN :marketingCodes
+        AND Linked_Product_Code__c IN :productCodes
         AND FinServ__Status__c IN ('Active', 'Open')
       WITH USER_MODE
     ];
@@ -197,14 +232,14 @@ public with sharing class FinancialAccountRepository {
    * @description builds a list of financial account roles for the customer sent from the UI
    * Account_Number__c (formula field) = FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
    * @param customerRecordPrimaryOwnerId customer id receive from the UI
-   * @param marketingCodes ANZX marketing codes
+   * @param productCodes product codes
    * @return List<String> list of the financial account roles
    */
   public List<FinServ__FinancialAccountRole__c> getAllAccountNumberPerOwner(
     Id customerRecordPrimaryOwnerId,
-    Set<String> marketingCodes
+    Set<String> productCodes
   ) {
-    if (customerRecordPrimaryOwnerId == null || marketingCodes.isEmpty()) {
+    if (customerRecordPrimaryOwnerId == null || productCodes.isEmpty()) {
       return new List<FinServ__FinancialAccountRole__c>();
     }
 
@@ -214,7 +249,8 @@ public with sharing class FinancialAccountRepository {
       WHERE
         FinServ__RelatedAccount__c = :customerRecordPrimaryOwnerId
         AND FinServ__Active__c = TRUE
-        AND FinServ__FinancialAccount__r.Marketing_Code__c IN :marketingCodes
+        AND FinServ__FinancialAccount__r.Is_Digitally_Active__c = TRUE
+        AND FinServ__FinancialAccount__r.Linked_Product_Code__c IN :productCodes
         AND FinServ__Role__c IN :FinancialAccountConstant.FINSERV_ROLE_TYPES
       WITH USER_MODE
     ];
@@ -224,14 +260,14 @@ public with sharing class FinancialAccountRepository {
    * @description builds a list of financial account roles for the customer sent from the UI
    * Account_Number__c (formula field) = FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
    * @param customerRecordPrimaryOwnerId customer id receive from the UI
-   * @param marketingCodes ANZX marketing codes
+   * @param productCodes ANZX marketing codes
    * @return List<FinServ__FinancialAccountRole__c> list of the financial account roles
    */
   public List<FinServ__FinancialAccountRole__c> getAllSavingsAccountNumberPerOwner(
     Id customerRecordPrimaryOwnerId,
-    Set<String> marketingCodes
+    Set<String> productCodes
   ) {
-    if (customerRecordPrimaryOwnerId == null || marketingCodes.isEmpty()) {
+    if (customerRecordPrimaryOwnerId == null || productCodes.isEmpty()) {
       return new List<FinServ__FinancialAccountRole__c>();
     }
 
@@ -241,7 +277,8 @@ public with sharing class FinancialAccountRepository {
       WHERE
         FinServ__RelatedAccount__c = :customerRecordPrimaryOwnerId
         AND FinServ__Active__c = TRUE
-        AND FinServ__FinancialAccount__r.Marketing_Code__c IN :marketingCodes
+        AND FinServ__FinancialAccount__r.Linked_Product_Code__c IN :productCodes
+        AND FinServ__FinancialAccount__r.Is_Digitally_Active__c = TRUE
         AND FinServ__FinancialAccount__r.RecordTypeId = :RTFinancialAccount.savingAccount
         AND FinServ__Role__c IN :FinancialAccountConstant.FINSERV_ROLE_TYPES
       WITH USER_MODE

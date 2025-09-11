@@ -159,7 +159,7 @@ describe("c-push-to-app", () => {
     );
     expect(notificationPreview).not.toBeNull();
     expect(notificationPreview.value).toBe(
-      "Hey {!Account.FirstName}, We called about your Case Reference {!CaseNumber} and couldn't reach you. Please call us back or send us a message"
+      "Hey {!Account.FirstName} We called about your Case Reference {!CaseNumber} and couldn't reach you. Please call us back or send us a message"
     );
   });
 
