@@ -41,7 +41,8 @@ export default class CobPidViewAndEdit extends LightningElement {
   get allowEdit() {
     return (
       hasEditPermission &&
-      this.data?.CXOnboardingStage__c === "Assisted Electronic Verification"
+      this.data?.CXOnboardingStage__c === "Assisted Electronic Verification" &&
+      !this.reachedEditLimit
     );
   }
 
@@ -194,14 +195,18 @@ export default class CobPidViewAndEdit extends LightningElement {
         this.data = this._initDetokenizedData;
         let errorMessage = handleErrors(error);
         showToast(this, "Error!", errorMessage, "", "error", "");
+        this.isLoading = false;
       }
     }
-
-    this.isLoading = false;
   }
 
   handleClose() {
-    refreshTab(this.tabId);
+    this.isLoading = true;
+    // eslint-disable-next-line @lwc/lwc/no-async-operation
+    setTimeout(() => {
+      refreshTab(this.tabId);
+      this.isLoading = false;
+    }, 2000);
   }
 
   validateFirstNameLastName() {

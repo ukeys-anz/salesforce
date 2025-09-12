@@ -246,7 +246,9 @@ export default class CobPidFalloutWorkflow extends LightningElement {
   }
 
   get isApproveButtonDisable() {
-    return !this.isSelfieMatched || !this.isValidDocument;
+    return (
+      !this.showCheckboxes || !this.isSelfieMatched || !this.isValidDocument
+    );
   }
 
   get isRejectButtonDisable() {
@@ -319,6 +321,8 @@ export default class CobPidFalloutWorkflow extends LightningElement {
   }
 
   closeModal() {
+    this.isSelfieMatched = false;
+    this.isValidDocument = false;
     this.dispatchEvent(
       new CustomEvent("closeparentmodel", {
         detail: {
