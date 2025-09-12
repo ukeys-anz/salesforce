@@ -145,17 +145,25 @@ export default class AccountLookup extends OmniscriptBaseMixin(
   @wire(getRecord, { recordId: "$recId", fields: FIELDS })
   wiredAccount({ error, data }) {
     let isEcf = false;
+    let readOnlyPriority = null;
     if (data) {
       this.account = data.fields;
       this.error = null;
       isEcf = !["Not required", null].includes(
         data.fields.ExtraCareTimePeriod__c.value
       );
+      if (isEcf) {
+        readOnlyPriority = "Vulnerable Customer";
+      }
     } else if (error) {
       this.account = null;
       this.error = error.body.message;
     }
-    this.omniApplyCallResp({ data, isEcf });
+    this.omniApplyCallResp({
+      data,
+      isEcf,
+      Case: { ComplaintDetails: { ReadOnlyPriority: readOnlyPriority } }
+    });
   }
   @wire(getRecord, { recordId: "$caseId", fields: [CASE_ACCOUNT_FIELD] })
   wiredCase({ data }) {
