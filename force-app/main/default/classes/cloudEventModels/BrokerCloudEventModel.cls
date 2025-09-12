@@ -1,8 +1,8 @@
 /**
  * @description       : Wrapper class for creating the cloud event publish structure
  * @author            : Deepro De
- * @last modified on  : 12-18-2024
- * @last modified by  : Smruti Khobragade |  Salesforce
+ * @last modified on  : 07-30-2025
+ * @last modified by  : Madhuri Edke | Salesforce
  **/
 @SuppressWarnings('PMD.ExcessivePublicCount')
 public virtual with sharing class BrokerCloudEventModel extends CloudEventModel {
@@ -70,6 +70,10 @@ public virtual with sharing class BrokerCloudEventModel extends CloudEventModel 
      * @description to capture parent object name
      **/
     public List<ParentNode> parent { get; set; }
+    /**
+     * @description Captures the fields related to a merge event.
+     */
+    public ContactMergeTargetNode mergeDetails { get; set; }
   }
   /**
    * @description the model for building Parent object data where we define the parent data
@@ -91,6 +95,25 @@ public virtual with sharing class BrokerCloudEventModel extends CloudEventModel 
      * @description to capture object name
      **/
     public String objectName { get; set; }
+  }
+
+  /**
+   * @description Data model representing metadata specific to Contact merge events.
+   *              This node encapsulates additional fields that are only relevant
+   *              during a Contact merge operation
+   */
+  public class ContactMergeTargetNode {
+    /**
+     * @description to capture contact Survior Id
+     **/
+    public String survivorPartyId { get; set; }
+    /**
+     * @description to capture contact Victim Id
+     **/
+    public String victimPartyId { get; set; }
+    /**
+     * @description to capture contact retail TPMISAO
+     **/
   }
 
   /**
@@ -123,6 +146,13 @@ public virtual with sharing class BrokerCloudEventModel extends CloudEventModel 
       brokerTargetNode.parent = (List<ParentNode>) JSON.deserialize(
         brokerDataMap.get('targetObjects_parent_nodes'),
         List<ParentNode>.class
+      );
+    }
+
+    if (brokerDataMap.containsKey('merge_contact')) {
+      brokerTargetNode.mergeDetails = (ContactMergeTargetNode) JSON.deserialize(
+        brokerDataMap.get('merge_contact'),
+        ContactMergeTargetNode.class
       );
     }
 

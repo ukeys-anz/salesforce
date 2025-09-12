@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Retail_Brokers</fullName>
+    <fullName>Duplicate_Broker_Contacts</fullName>
     <columns>FULL_NAME</columns>
     <columns>CONTACT.EMAIL</columns>
-    <columns>CONTACT.PHONE3</columns>
-    <columns>RetailTPMISAO__c</columns>
-    <columns>ACCOUNT.NAME</columns>
-    <columns>Broker_Set__c</columns>
-    <columns>Office_Group__c</columns>
-    <columns>Segment__c</columns>
-    <filters>
-        <field>Broker_Accreditation_Type__c</field>
-        <operation>includes</operation>
-        <value>Retail</value>
-    </filters>
+    <columns>OCV_ID__c</columns>
+    <columns>Broker_Accreditation_Type__c</columns>
     <filters>
         <field>CONTACT.RECORDTYPE</field>
         <operation>equals</operation>
@@ -21,13 +12,13 @@
     </filters>
     <filters>
         <field>Sync_Status__c</field>
-        <operation>excludes</operation>
+        <operation>includes</operation>
         <value>Duplicate - Email,Duplicate - OCV Id</value>
     </filters>
     <filterScope>Everything</filterScope>
-    <label>Retail Brokers</label>
+    <label>Duplicate Broker Contacts</label>
     <sharedTo>
-        <role>Enablement_Manager</role>
         <role>Residential_Broker_Manager</role>
+        <role>Retail_Broker</role>
     </sharedTo>
 </ListView>

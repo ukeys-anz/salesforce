@@ -113,4 +113,16 @@
             <roleAndSubordinates>ANZ_Mobile_Lending</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Grant_RBM_users_access_to_Broker_Integration_Users</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule grants Broker Integration Users read access to RBM users&apos;s</description>
+        <label>Grant RBM users access to Broker Integration Users</label>
+        <sharedTo>
+            <group>Broker_Integration_Users</group>
+        </sharedTo>
+        <sharedFrom>
+            <role>Residential_Broker_Manager</role>
+        </sharedFrom>
+    </sharingOwnerRules>
 </SharingRules>

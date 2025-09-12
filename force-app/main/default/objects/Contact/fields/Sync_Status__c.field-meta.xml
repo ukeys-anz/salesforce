@@ -25,6 +25,16 @@
                 <default>false</default>
                 <label>Blocked</label>
             </value>
+            <value>
+                <fullName>Duplicate - Email</fullName>
+                <default>false</default>
+                <label>Duplicate - Email</label>
+            </value>
+            <value>
+                <fullName>Duplicate - OCV Id</fullName>
+                <default>false</default>
+                <label>Duplicate - OCV Id</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
     <visibleLines>4</visibleLines>
