@@ -30,5 +30,9 @@ public with sharing class IDRCaseTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     IDRCaseAccessActions.restrictL2L3Users(records, (Map<Id, Case>) oldMap);
+    IDRCaseActionsHelper.updateCasePriorityforECFAccount(
+      records,
+      (Map<Id, Case>) oldMap
+    );
   }
 }

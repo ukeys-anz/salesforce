@@ -208,4 +208,34 @@ public with sharing class IDRCaseActionsHelper {
     );
     Logger.saveLog();
   }
+  /**
+   * @description Update Priority field on Case based on Extra Care Time Period on Account
+   * @param listOfnewCases List of New cases
+   * @param oldMap OldMap of Cases
+   */
+  public static void updateCasePriorityforECFAccount(
+    List<Case> listOfnewCases,
+    Map<Id, SObject> oldMap
+  ) {
+    List<Case> cases = ListUtil.filter(listOfnewCases, oldMap)
+      .isNotNull(Case.AccountId)
+      .equals(Case.RecordTypeId, RTCase.customerComplaint)
+      .oldEquals(Case.RecordTypeId, RTCase.generalInquiryCmos)
+      .toList();
+
+    Set<Id> accountIds = ListUtil.getIds(cases, Case.AccountId);
+
+    Map<Id, Account> accountMap = new Map<Id, Account>(
+      CASE_REPOSITORY.getAccountsWithExtraCareFlag(accountIds)
+    );
+
+    for (Case c : cases) {
+      String extraCareTimePeriod = accountMap.get(c.AccountId)
+        .ExtraCareTimePeriod__c;
+      if (!IDRConstants.ECF_FLAG_TRUE.contains(extraCareTimePeriod)) {
+        continue;
+      }
+      c.Priority = IDRConstants.CASE_PRIORITY_VULNERABLE;
+    }
+  }
 }

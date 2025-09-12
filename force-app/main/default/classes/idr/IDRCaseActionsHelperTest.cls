@@ -46,6 +46,28 @@ private with sharing class IDRCaseActionsHelperTest {
     Status = IDRConstants.UNDER_INVESTIGATION_STATUS
   );
 
+  static Case shellCaseRecord = new Case(
+    Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
+    RecordTypeId = RTCase.generalInquiryCmos,
+    Priority = IDRConstants.CASE_PRIORITY_STANDARD
+  );
+
+  static Account accountRecord = (Account) TestUtil.setFields(
+    new Account(Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType)),
+    new Map<String, Object>{
+      'Cases' => new List<Case>{
+        new Case(
+          Id = shellCaseRecord.Id,
+          RecordTypeId = RTCase.customerComplaint,
+          Priority = IDRConstants.CASE_PRIORITY_STANDARD
+        )
+      }
+    }
+  );
+
+  static final String ONGOING = 'Ongoing';
+  static final String NOT_REQUIRED = 'Not Required';
+
   /**
    * @description Generating PendTask for testing
    * @return Task
@@ -351,5 +373,67 @@ private with sharing class IDRCaseActionsHelperTest {
         'Exception message should match'
       );
     }
+  }
+  /**
+   * @description Test to Update Priority to Customer Experiencing Vulnerability on Case if Account ECF is true.
+   */
+  @isTest
+  static void testUpdatePriorityforECF() {
+    registerMocks();
+
+    Case shellCase = shellCaseRecord;
+
+    Account testAccount = accountRecord;
+    testAccount.ExtraCareTimePeriod__c = ONGOING;
+    Case testCase = testAccount.Cases[0];
+    testCase.AccountId = testAccount.Id;
+
+    caseRepoMock.mock(
+      'getAccountsWithExtraCareFlag',
+      new List<Account>{ testAccount }
+    );
+    Test.startTest();
+    IDRCaseActionsHelper.updateCasePriorityforECFAccount(
+      new List<Case>{ testCase },
+      new Map<Id, Case>{ shellCase.Id => shellCase }
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      IDRConstants.CASE_PRIORITY_VULNERABLE,
+      testCase.Priority,
+      'Priority should be updated'
+    );
+  }
+  /**
+   * @description Test to not Update Priority to Customer Experiencing Vulnerability on Case if Account ECF is false.
+   */
+  @isTest
+  static void testUpdatePriorityforECFNegative() {
+    registerMocks();
+
+    Case shellCase = shellCaseRecord;
+
+    Account testAccount = accountRecord;
+    testAccount.ExtraCareTimePeriod__c = NOT_REQUIRED;
+    Case testCase = testAccount.Cases[0];
+    testCase.AccountId = testAccount.Id;
+
+    caseRepoMock.mock(
+      'getAccountsWithExtraCareFlag',
+      new List<Account>{ testAccount }
+    );
+    Test.startTest();
+    IDRCaseActionsHelper.updateCasePriorityforECFAccount(
+      new List<Case>{ testCase },
+      new Map<Id, Case>{ shellCase.Id => shellCase }
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      IDRConstants.CASE_PRIORITY_STANDARD,
+      testCase.Priority,
+      'Priority should not be updated to Vulnerable Customer and remain standard'
+    );
   }
 }

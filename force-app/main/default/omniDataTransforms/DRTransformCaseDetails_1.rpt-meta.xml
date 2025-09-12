@@ -1341,6 +1341,23 @@
         <name>DRTransformCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:isEcf true == var:Case:ComplaintDetails:ReadOnlyPriority var:Case:ComplaintDetails:Priority IF</formulaConverted>
+        <formulaExpression>IF(isEcf==true,%Case:ComplaintDetails:ReadOnlyPriority%,%Case:ComplaintDetails:Priority%)</formulaExpression>
+        <formulaResultPath>casePriority</formulaResultPath>
+        <formulaSequence>22.0</formulaSequence>
+        <globalKey>f786f3c7-d7e3-4c18-bef9-4c34b1c04d4d</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:isThisCustomerComplaint &quot;Yes&quot; == | &quot;select/\/\/id/\/\/from/\/\/RecordType/\/\/where/\/\/Name/\/\/=/\/\/&apos;Customer/\/\/Complaint&apos;&quot; QUERY | &quot;select/\/\/id/\/\/from/\/\/RecordType/\/\/where/\/\/Name/\/\/=/\/\/&apos;Non-Customer/\/\/Complaint&apos;&quot; QUERY IF</formulaConverted>
         <formulaExpression>IF(%Case:isThisCustomerComplaint%==&quot;Yes&quot;,QUERY(&quot;select id from RecordType where Name = &apos;Customer Complaint&apos;&quot;),QUERY(&quot;select id from RecordType where Name = &apos;Non-Customer Complaint&apos;&quot;))</formulaExpression>
         <formulaResultPath>recordType</formulaResultPath>
@@ -1632,13 +1649,14 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCaseDetails9190696857108474</globalKey>
-        <inputFieldName>Case:ComplaintDetails:Priority</inputFieldName>
+        <inputFieldName>casePriority</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Case:ComplaintDetails:Priority</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>

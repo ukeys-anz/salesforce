@@ -26,10 +26,17 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
   closeModal() {
     this.modalMsg = null;
   }
+  makePriorityFieldRequired(data) {
+    if (data.isEcf || data?.Case?.ComplaintDetails?.Priority) {
+      return;
+    }
+    this.missingFields.push("Priority");
+  }
   async callCreateCaseIP() {
     this.missingFields = [];
     this.modalMsg = "";
     this.missingFields = await validate(this.omniJsonData);
+    this.makePriorityFieldRequired(this.omniJsonData);
     if (this.missingFields.length > 0) {
       this.modalMsg = await getCustomerNumberValidationMsg(
         this.omniJsonData,
@@ -86,6 +93,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.loading = true;
       const inputs = {
         Case: this.omniJsonData.Case,
+        isEcf: this.omniJsonData.isEcf,
         Response:
           this.omniJsonData.Response != null
             ? { profile: this.omniJsonData.Response.profile }

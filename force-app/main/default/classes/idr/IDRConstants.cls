@@ -23,6 +23,7 @@ public with sharing class IDRConstants {
 
   //Case Priority
   public static final String CASE_PRIORITY_STANDARD = 'Standard';
+  public static final String CASE_PRIORITY_VULNERABLE = 'Vulnerable Customer';
 
   //Case SI_Worflow_Step
   public static final String SI_WF_STEP_ASSESSING = 'Assessing';
@@ -216,6 +217,15 @@ public with sharing class IDRConstants {
   //IDR Account number pattern
   public static final String MULTIPLE_ACCOUNT_NO_REGEX = '^[0-9]{6,42}(;[0-9]{6,42})*$';
   public static final String INVALID_ACC_NO_MESSAGE = 'Account numbers can not include any symbols or special characters. Only use a Semicolon to separate account numbers if more than 1 account';
+
+  //IDR Account ExtraCare flag values
+  public static final String TIME_PERIOD_NOT_REQUIRED = 'Not required';
+  public static final String TIME_PERIOD_ONGOING = 'Ongoing';
+  public static final Set<String> ECF_FLAG_TRUE = new Set<String>{
+    'Ongoing',
+    'Temporarily required',
+    'Ongoing and temporarily required'
+  };
 
   //Task fields Constants
   public static final String TASK_PRIORITY_NORMAL = 'Normal';
