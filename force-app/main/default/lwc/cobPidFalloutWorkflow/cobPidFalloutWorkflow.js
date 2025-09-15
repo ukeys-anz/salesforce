@@ -157,7 +157,7 @@ export default class CobPidFalloutWorkflow extends LightningElement {
     }
 
     if (
-      !getFieldValue(this.cobPidData, FIELD_COB_ONBOARDINGSTAGE) ===
+      getFieldValue(this.cobPidData, FIELD_COB_ONBOARDINGSTAGE) !==
       "Assisted Selfie"
     ) {
       return false;

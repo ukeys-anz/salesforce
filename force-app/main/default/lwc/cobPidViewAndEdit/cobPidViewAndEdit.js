@@ -1,6 +1,6 @@
 import { LightningElement, api, wire, track } from "lwc";
 import { handleErrors, showToast } from "c/utils";
-import { getRecord, getRecordNotifyChange } from "lightning/uiRecordApi";
+import { getRecord } from "lightning/uiRecordApi";
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
 import { EnclosingTabId, refreshTab } from "lightning/platformWorkspaceApi";
 import hasEditPermission from "@salesforce/customPermission/ANZx_Edit_COB_Primary_ID_Document";
@@ -178,8 +178,6 @@ export default class CobPidViewAndEdit extends LightningElement {
         });
         this.error = undefined;
 
-        await getRecordNotifyChange([{ recordId: this.recordId }]);
-
         showToast(
           this,
           "Success!",
@@ -203,10 +201,9 @@ export default class CobPidViewAndEdit extends LightningElement {
   handleClose() {
     this.isLoading = true;
     // eslint-disable-next-line @lwc/lwc/no-async-operation
-    setTimeout(() => {
+    setInterval(() => {
       refreshTab(this.tabId);
-      this.isLoading = false;
-    }, 2000);
+    }, 500);
   }
 
   validateFirstNameLastName() {
