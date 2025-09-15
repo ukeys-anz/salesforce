@@ -147,13 +147,7 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     if (!result) {
       return;
     }
-    this.financialAccounts = result.map((i) => {
-      let accNum = getAccoutProductkeys(
-        i.FinServ__FinancialAccount__r.Account_Key__c
-      );
-      return accNum;
-    });
-
+    this.financialAccounts = result;
     this.populateAccountNumbers(this._omniData);
   }
 
@@ -178,7 +172,10 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
       this.options = this.getAccountNumbers(finacialAccounts);
     } else {
       this.options = finacialAccounts.map((i) => {
-        return { label: i, value: i };
+        let accNum = getAccoutProductkeys(
+          i.FinServ__FinancialAccount__r.Account_Key__c
+        );
+        return { label: accNum, value: accNum };
       });
     }
   }
@@ -186,11 +183,19 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
   getAccountNumbers(data) {
     if (this.hasError) {
       return data
-        .filter((i) => !EXCL_ACC.includes(i))
+        .filter(
+          (i) =>
+            !EXCL_ACC.includes(
+              i.FinServ__FinancialAccount__r.FinServ__FinancialAccountType__c
+            )
+        )
         .map((i) => {
+          let accNum = getAccoutProductkeys(
+            i.FinServ__FinancialAccount__r.Account_Key__c
+          );
           return {
-            label: i,
-            value: i
+            label: accNum,
+            value: accNum
           };
         });
     }

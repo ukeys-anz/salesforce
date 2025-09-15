@@ -30,6 +30,7 @@ public with sharing class GetCustomerInformationRepo {
         (FinServ__RelatedAccount__c = :accId
         OR FinServ__RelatedAccount__r.OCV_ID__c = :ocvId)
         AND Role_Type__c IN :roleTypes
+        AND FinServ__FinancialAccount__r.FinServ__ProductName__r.SourceSystem__c != 'Zafin'
       WITH USER_MODE
     ];
   }

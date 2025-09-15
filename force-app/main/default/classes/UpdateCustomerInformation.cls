@@ -38,6 +38,9 @@ public with sharing class UpdateCustomerInformation {
       c.CPID__c = acc.CPID__c;
       c.IDR_CC_Gender__c = acc.Gender__pc;
       c.IDR_Customer_Identifier__c = IDRConstants.CUSTOMER_IDENTIFIER_CAP_ID;
+      c.IDR_NC_First_Name__c = acc.FirstName;
+      c.IDR_NC_Last_Name__c = acc.LastName;
+      c.IDR_NC_Middle_Names__c = acc.MiddleName;
     }
   }
 

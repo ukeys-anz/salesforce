@@ -95,6 +95,9 @@ public with sharing class ComplaintsRepository {
     return [
       SELECT
         Id,
+        FirstName,
+        LastName,
+        MiddleName,
         CPID__c,
         Source_System_ID__c,
         OCV_ID__c,
