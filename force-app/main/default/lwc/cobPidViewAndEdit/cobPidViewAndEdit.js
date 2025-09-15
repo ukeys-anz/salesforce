@@ -55,7 +55,10 @@ export default class CobPidViewAndEdit extends LightningElement {
   }
 
   get reachedEditLimit() {
-    return this._equifaxAttemptCount >= 2;
+    return (
+      this.data?.CXOnboardingStage__c === "Assisted Electronic Verification" &&
+      this._equifaxAttemptCount >= 2
+    );
   }
 
   get panelHeader() {
@@ -94,6 +97,9 @@ export default class CobPidViewAndEdit extends LightningElement {
     fields: RECORD_FIELDS
   })
   async wiredRecord({ error, data }) {
+    console.log("refreshing COB PID data");
+    clearInterval(this.refreshInterval);
+
     this.isLoading = true;
 
     if (data) {
@@ -201,9 +207,10 @@ export default class CobPidViewAndEdit extends LightningElement {
   handleClose() {
     this.isLoading = true;
     // eslint-disable-next-line @lwc/lwc/no-async-operation
-    setInterval(() => {
+    this.refreshInterval = setInterval(() => {
+      console.log("refreshing tab");
       refreshTab(this.tabId);
-    }, 500);
+    }, 1000);
   }
 
   validateFirstNameLastName() {
