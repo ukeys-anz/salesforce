@@ -259,7 +259,9 @@
                           class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small balance-padding"
                         >
                           <div class="header-column slds-float_right">
-                            <p class="slds-text-color_weak">
+                            <p
+                              class="slds-text-color_weak slds-var-p-right_small slds-float_right"
+                            >
                               {balanceTitle}
                               <lightning-icon
                                 icon-name="utility:info"
@@ -269,14 +271,55 @@
                               ></lightning-icon>
                             </p>
                             <p class="slds-text-heading_large">
-                              <lightning-formatted-number
-                                value={finAccount.balances.balance.value}
-                                format-style="currency"
-                                data-id="amount"
-                              ></lightning-formatted-number>
+                              <template lwc:if={finAccount.isCard}>
+                                <lightning-formatted-number
+                                  value={finAccount.balances.current_balance.value}
+                                  format-style="currency"
+                                  data-id="amount"
+                                ></lightning-formatted-number>
+                              </template>
+                              <template lwc:else>
+                                <lightning-formatted-number
+                                  value={finAccount.balances.balance.value}
+                                  format-style="currency"
+                                  data-id="amount"
+                                ></lightning-formatted-number>
+                              </template>
                             </p>
                           </div>
                         </div>
+                      </div>
+                    </div>
+
+                    <div class="slds-col slds-grid slds-size_1-of-1">
+                      <div class="slds-grid slds-wrap slds-size_1-of-1">
+                        <template lwc:if={finAccount.isCard}>
+                          <div
+                            class="slds-col slds-size_1-of-1 slds-large-size_2-of-2 slds-p-top_xx-large balance-padding"
+                          >
+                            <div class="header-column slds-float_right">
+                              <p
+                                class="slds-text-color_weak slds-var-p-right_small slds-float_right"
+                              >
+                                Funds
+                                <lightning-icon
+                                  icon-name="utility:info"
+                                  size="xx-small"
+                                  class="tooltip"
+                                  data-field="funds"
+                                  onclick={handleInfoModal}
+                                ></lightning-icon>
+                              </p>
+                              <p class="slds-text-heading_large">
+                                <lightning-formatted-number
+                                  value={finAccount.balances.available_limit.value}
+                                  format-style="currency"
+                                  data-id="amount"
+                                ></lightning-formatted-number>
+                              </p>
+                            </div>
+                          </div>
+                        </template>
                       </div>
                     </div>
                   </div>
@@ -308,8 +351,8 @@
   </article>
   <template lwc:if={showInfoModal}>
     <c-dynamic-tooltip-util
-      header-title={balanceTitle}
-      resource-name={productCode}
+      header-title={headerTitle}
+      resource-name={tooltipCode}
       product-name={componentSubTitle}
       onclosemodal={closeModal}
     ></c-dynamic-tooltip-util>

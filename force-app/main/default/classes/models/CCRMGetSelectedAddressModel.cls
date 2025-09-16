@@ -22,7 +22,7 @@ public with sharing class CCRMGetSelectedAddressModel extends CalloutModel {
   @AuraEnabled
   public String state;
   @AuraEnabled
-  public Integer postalCode;
+  public String postalCode;
   @AuraEnabled
   public String deliveryIdentifier;
   @AuraEnabled

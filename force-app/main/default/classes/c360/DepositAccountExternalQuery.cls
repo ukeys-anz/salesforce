@@ -1,12 +1,12 @@
 /**
  * @author Ian Huang
- * @since  06/2023
+ * @since  06/2025
  * @group Platform
  * @description Deposit Account external query class
  * @runTests DepositAccountExternalQueryTest
  */
 @SuppressWarnings('PMD.TooManyFields')
-public with sharing class DepositAccountExternalQuery extends FinancialAccountQueryBase {
+public with sharing class DepositAccountExternalQuery extends CAPFinancialAccountQueryBase {
   /**
    * @description Deposit account business Model class
    */
@@ -59,7 +59,9 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
     private String creditRiskGrade;
     private DateTime closeDate;
     private String sourceSystemStatus;
+    private String errorMessage;
   }
+
   /**
    * @description SeasonalLimits class
    */
@@ -132,7 +134,7 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
    * @description DepositAccount API callout response
    */
   @testVisible
-  private class DepositAccountCalloutResponse extends FinancialAccountCalloutResponse {
+  private class DepositAccountCalloutResponse extends FinancialAccountEntities.FinancialAccountCalloutResponse {
     private String customerid;
     @testVisible
     private List<DepositAccountModel> accounts;
@@ -149,8 +151,31 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
       'CAP-CIS:SSI',
       'CAP-CIS:RSV'
     };
-    this.sourceSystem = SourceSystemEnum.CAP;
-    this.externalField = 'accountNumber';
+  }
+
+  /**
+   * @description Parse query filters and prepare for API callout
+   * @param queryContext DataSource QueryContext
+   * @param tableSelection DataSource.TableSelection
+   * @return QueryMode Enum
+   **/
+  @testVisible
+  protected override ExternalObjectCalloutRequestBase prepareCallout(
+    DataSource.QueryContext queryContext,
+    DataSource.TableSelection tableSelection
+  ) {
+    ExternalObjectQueryBase.ExternalObjectCalloutRequestBase calloutRequest = super.prepareCallout(
+      queryContext,
+      queryContext.TableSelection
+    );
+
+    //set productCategory based on Product Code for FM/SSI in deposit account
+    this.productCategory = getProductCategoryBasedOnProductCode(
+      this.queryMode,
+      this.externalId
+    );
+
+    return calloutRequest;
   }
 
   /**
@@ -208,18 +233,32 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
     if (calloutResponse == null) {
       return result;
     }
-    FinancialAccountExternalQueryHelper externalQueryHelper = new FinancialAccountExternalQueryHelper();
+
     for (
       DepositAccountModel fa : ((DepositAccountCalloutResponse) calloutResponse)
         .accounts
     ) {
+      if (String.isNotBlank(fa.errorMessage)) {
+        Map<String, Object> row = new Map<String, Object>{
+          this.parentField => this.parentId,
+          'ExternalId' => UUID.randomUUID().toString(),
+          'AccountName' => 'Error: ' + fa.errorMessage,
+          'ProductName' => 'Error: ' + fa.errorMessage
+        };
+        result.externalRecords.add(row);
+        continue;
+      }
       Map<String, Object> row = new Map<String, Object>{
         this.parentField => this.parentId,
         'ExternalId' => getExternalId(fa, this.accountRoleMap),
         'DisplayUrl' => getDisplayUrl(fa.productCode + '-' + fa.accountNumber),
-        'Relationship' => getAccountRelationship(fa.accountNumber),
+        'Relationship' => FinancialAccountQueryHelper.getAccountRelationship(
+          fa.accountNumber,
+          this.roleTypes,
+          this.accountRoleMap
+        ),
         'AccountName' => fa.accountName,
-        'AccountNumber' => externalQueryHelper.formatAccountNumber(
+        'AccountNumber' => FinancialAccountQueryHelper.formatAccountNumber(
           fa.accountNumber
         ),
         'AccountStatus' => fa.status,
@@ -251,7 +290,7 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
             fa.tpmiSAO +
             ' ' +
             (MAP_OF_TPMI_TYPE.get(fa.tpmiType) ?? ''),
-        'LinkedLoanOffsets' => externalQueryHelper.formatAccountNumber(
+        'LinkedLoanOffsets' => FinancialAccountQueryHelper.formatAccountNumber(
           fa.productSetOff
         ),
         'RegulatedAccount' => fa.regulatedFlag,
@@ -261,7 +300,10 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
         'ODServiceChargeCode' => fa.odChargeCode,
         'ODServiceChargeWaiveCode' => fa.odChargeWaiveCode,
         'ODServiceChargeWaiveExpiry' => fa.odChargeWaiveExpiryDate,
-        'ProductName' => getProductName(fa.accountNumber),
+        'ProductName' => FinancialAccountQueryHelper.getProductName(
+          fa.accountNumber,
+          this.accountRoleMap
+        ),
         'StatementMailingAddress' => fa.address,
         'CCR' => fa.creditRiskGrade,
         'Date_Closed' => formatDate(fa.closeDate),
@@ -280,7 +322,7 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
    * @param faObj Object
    * @return Map<String, Object>
    **/
-  @TestVisible
+  @testVisible
   private Map<String, Object> populateProductCodeWiseFields(
     Map<String, Object> row,
     Object faObj
@@ -418,7 +460,10 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
       return this.productCategory;
     }
     String accountNumber = formattedAccountNumber.substringAfter('-');
-    String productCode = getProductCode(accountNumber);
+    String productCode = FinancialAccountQueryHelper.getProductCode(
+      accountNumber,
+      this.accountRoleMap
+    );
     Map<String, String> mapOfProductCodeWithProdCategory = new Map<String, String>{
       'FM' => 'savings',
       'SSI' => 'savings',
@@ -426,23 +471,5 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
       'RSV' => 'deposit'
     };
     return mapOfProductCodeWithProdCategory.get(productCode) ?? null;
-  }
-
-  /**
-   * @description Parse query filters and prepare for API callout
-   * @param queryContext DataSource QueryContext
-   * @return QueryMode Enum
-   **/
-  protected override ExternalObjectQueryBase.QueryModeEnum prepareCallout(
-    DataSource.QueryContext queryContext
-  ) {
-    QueryModeEnum queryMode = super.prepareCallout(queryContext);
-
-    //set productCategory based on Product Code for FM/SSI in deposit account
-    this.productCategory = getProductCategoryBasedOnProductCode(
-      queryMode,
-      this.externalId
-    );
-    return queryMode;
   }
 }

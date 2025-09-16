@@ -20,9 +20,11 @@ export default class FinancialAccount extends NavigationMixin(
   @api titleIcon;
   @api iconColor;
   @api productCode;
+  @api accountType;
   showInfoModal = false;
   productTitle;
-
+  tooltipCode = "";
+  headerTitle = "";
   @wire(EnclosingTabId) tabId;
 
   get displayContent() {
@@ -57,7 +59,6 @@ export default class FinancialAccount extends NavigationMixin(
   get processedFinAccounts() {
     return this.handleAccountInformation(this.accountDetails);
   }
-
   handleAccountInformation(finAccounts) {
     // As per story ANZX-113310 Colour of status “Active”, “Dormant“, “Closed” is changed .Hence, changing the badge class
     if (!finAccounts) {
@@ -90,6 +91,7 @@ export default class FinancialAccount extends NavigationMixin(
         finAccount.showMultipartyBadge = true;
         finAccount.finserv_ownership = "Joint";
       }
+      finAccount.isCard = finAccount.finserv_account_type === "Card";
       return finAccount;
     });
   }
@@ -103,11 +105,26 @@ export default class FinancialAccount extends NavigationMixin(
     });
   }
 
-  handleInfoModal() {
+  handleInfoModal({ currentTarget }) {
+    const field = currentTarget.dataset.field;
+    if (field) {
+      this.tooltipCode = `${this.productCode}${field.toUpperCase()}`;
+      this.headerTitle = this.formatBalanceTitle(field);
+    } else {
+      this.tooltipCode = this.productCode;
+      this.headerTitle = this.balanceTitle;
+    }
     this.showInfoModal = !this.showInfoModal;
   }
 
   closeModal() {
     this.showInfoModal = false;
+  }
+
+  formatBalanceTitle(balanceTitle) {
+    return balanceTitle
+      .split("_")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
   }
 }

@@ -100,6 +100,7 @@ export default class LaunchAppOnOpp extends NavigationMixin(LightningElement) {
     this.allowMultiple = row.allowMultiple;
     this.showRecordTypes = false;
     this.selectedRowIds = [];
+    this.showTable = false;
     this.validateOpportunityDetails(row);
   }
 

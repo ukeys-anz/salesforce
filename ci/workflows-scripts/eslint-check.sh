@@ -20,7 +20,7 @@ fi
 CHANGED_FILES=$(cat "$QUALITY_CHECK_FILE_NAME" | jq -R -s -r '
   split("\n")[] |
   select(
-    test("^(force-app|knowledge-mgm)/main/(default|sf-lending)/lwc/.*\\.js$") and
+    test("^(force-app|knowledge-mgm)/main/(default|sf-lending|generic-components)/lwc/.*\\.js$") and
     (test("\\.test\\.js$") | not)
   )
 ')

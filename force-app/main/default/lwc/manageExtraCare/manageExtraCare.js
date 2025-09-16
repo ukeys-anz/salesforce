@@ -120,7 +120,8 @@ export default class ManageExtraCare extends LightningElement {
     // Fetch the staging record status when the page loads
     const invalidStatuses = {
       Pending: PENDING_STATUS_MESSAGE,
-      Error: ERROR_STATUS_MESSAGE
+      Error: ERROR_STATUS_MESSAGE,
+      WaitingForOCVUpdate: PENDING_STATUS_MESSAGE
     };
     getStagingRecordStatus({ accountId: this.recordId })
       .then((data) => {
@@ -272,6 +273,14 @@ export default class ManageExtraCare extends LightningElement {
           this.newAccount.ExtraCareNotes__c = "";
           this.newAccount.ExtraCareReviewDate__c = "";
         }
+      }
+      if (field.dataset.id === "ExtraCareNotes__c") {
+        if (field.value.length >= 1000) {
+          field.setCustomValidity("Maximum Characters reached");
+        } else {
+          field.setCustomValidity("");
+        }
+        field.reportValidity();
       }
     }
   };

@@ -78,46 +78,6 @@ public with sharing class ResidentialLoanApplicationRepository {
   }
 
   /**
-   * @description query account based on OCVId
-   * @param ocvId List of ocvids to search account details
-   * @return  `List<Account>` the result of accounts
-   */
-  public List<Account> getAccountsFromOcvIds(List<String> ocvId) {
-    if (ocvId.isEmpty()) {
-      return new List<Account>();
-    }
-
-    List<Account> accList = [
-      SELECT FirstName, OCV_ID__c
-      FROM Account
-      WHERE OCV_ID__c IN :ocvId
-      WITH USER_MODE
-    ];
-
-    return accList;
-  }
-
-  /**
-   * @description query expense control based on justification codes
-   * @param expenseCodeSet set of justification codes
-   * @return  `List<Expense_Control__c>` the result of exepense control
-   */
-  public List<Expense_Control__c> getExpenseControl(
-    Set<String> expenseCodeSet
-  ) {
-    if (expenseCodeSet.isEmpty()) {
-      return new List<Expense_Control__c>();
-    }
-    List<Expense_Control__c> controlList = [
-      SELECT Id, Justification_Code__c, Justification_Description__c
-      FROM Expense_Control__c
-      WHERE Justification_Code__c IN :expenseCodeSet
-      WITH USER_MODE
-    ];
-    return controlList;
-  }
-
-  /**
    * @description query for loan application liabilities
    * @param loanId RLA id
    * @return  `List<LoanApplicationLiability>` list of liabilities

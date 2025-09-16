@@ -69,9 +69,14 @@ public with sharing class LeadActionsRepository {
    * @description Query task records using leadids
    * @param taskQuery string query for task
    * @param leadIds set of leadIds
+   * @param rtDevName recordTypeName
    * @return List of Task
    */
-  public List<Task> getTaskRecords(String taskQuery, set<Id> leadIds) {
+  public List<Task> getTaskRecords(
+    String taskQuery,
+    set<Id> leadIds,
+    String rtDevName
+  ) {
     if (leadIds.isEmpty()) {
       return new List<Task>();
     }

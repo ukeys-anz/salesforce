@@ -12,6 +12,11 @@
     <columns>Followup_Date__c</columns>
     <columns>Expiry_Date__c</columns>
     <columns>Priority__c</columns>
+    <columns>Owner_Role__c</columns>
+    <columns>Owner_Segment__c</columns>
+    <columns>Owner_State__c</columns>
+    <columns>Owner_Region__c</columns>
+    <columns>Owner_Team_POD__c</columns>
     <filters>
         <field>LEAD.RECORDTYPE</field>
         <operation>equals</operation>

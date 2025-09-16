@@ -4,8 +4,8 @@
  * @description trigger handler for Settlement Account object
  */
 public with sharing class SettlementAccountTriggerHandler extends Lib_TriggerHandler {
-  private static final CustomSettingsRepository BROKER_SETTINGS_REPOSITORY = (CustomSettingsRepository) Lib_InstanceProvider.forType(
-    CustomSettingsRepository.class
+  private static final BrokerSettingsRepository BROKER_SETTINGS_REPOSITORY = (BrokerSettingsRepository) Lib_InstanceProvider.forType(
+    BrokerSettingsRepository.class
   );
   /**
    * @description Constructor to call the trigger framework
@@ -27,7 +27,7 @@ public with sharing class SettlementAccountTriggerHandler extends Lib_TriggerHan
    */
 
   public override void onAfterInsert() {
-    Boolean bypassSyncEvents = BROKER_SETTINGS_REPOSITORY.brokerSettings()
+    Boolean bypassSyncEvents = BROKER_SETTINGS_REPOSITORY.getBrokerSettings()
       .BypassSettlementAccountEvent__c;
     if (bypassSyncEvents) {
       return;
@@ -51,7 +51,7 @@ public with sharing class SettlementAccountTriggerHandler extends Lib_TriggerHan
    * @param oldMap old trigger values
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    Boolean bypassSyncEvents = BROKER_SETTINGS_REPOSITORY.brokerSettings()
+    Boolean bypassSyncEvents = BROKER_SETTINGS_REPOSITORY.getBrokerSettings()
       .BypassSettlementAccountEvent__c;
     if (bypassSyncEvents) {
       return;

@@ -15,16 +15,24 @@ private class OpportunityTriggerHandlerTest {
   @istest
   static void testBeforeInsert() {
     registerMocks();
-    Opportunity oppRecord = new Opportunity(
-      Name = 'Test Opp ',
-      StageName = 'Need Analysis',
-      RecordType = new RecordType(DeveloperName = 'Commercial_Opportunity'),
-      RecordTypeId = RTOpportunity.commercialOpportunity
-    );
+    Opportunity oppRecord = getOpportunityRecord();
     Id accountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id clgAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Account accRecord = new Account(
+      Id = accountId,
+      RecordTypeId = RTAccount.personAccount
+    );
     oppRecord.AccountId = accountId;
     List<Opportunity> oppRecords = new List<Opportunity>{ oppRecord };
-    commercialOppActionRepoMock.mock('getUsers', new List<User>());
+    commercialOppActionRepoMock.mock(
+      'getAccountAccountRelationsForCLG',
+      new List<FinServ__AccountAccountRelation__c>{
+        new FinServ__AccountAccountRelation__c(
+          FinServ__Account__c = accountId,
+          FinServ__RelatedAccount__c = clgAccountId
+        )
+      }
+    );
 
     Test.startTest();
     OpportunityTriggerHandler handler = new OpportunityTriggerHandler();
@@ -33,12 +41,11 @@ private class OpportunityTriggerHandlerTest {
     Test.stopTest();
 
     Assert.areEqual(
-      'Stage can only be set to New.',
-      oppRecords[0].getErrors()[0].getMessage(),
-      'Opportunity stage can only be set new on insertion'
+      clgAccountId,
+      oppRecords[0].CLG__c,
+      'Clg Accounts id should populated on CLG__c field'
     );
   }
-
   static Opportunity getOpportunityRecord() {
     return new Opportunity(
       Name = 'Test Opp ',

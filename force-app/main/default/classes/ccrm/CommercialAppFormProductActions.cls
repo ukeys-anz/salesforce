@@ -397,7 +397,7 @@ public with sharing class CommercialAppFormProductActions {
 
   /**
    * @description This is used to update Application Amount on Opp
-   * @name updateTotalAppAmountOnOpp
+   * @name updateApprovedAmountOnOpp
    * @param records Application Form Products records
    * @param oldMap Map of Id and Application Form Products records
    */
@@ -406,12 +406,21 @@ public with sharing class CommercialAppFormProductActions {
     Map<Id, ApplicationFormProduct> oldMap
   ) {
     try {
+      //Filter AFP list when Stage changes to Opportunity Won
       List<ApplicationFormProduct> filteredAfpList = ListUtil.filter(
           records,
           oldMap
         )
         .changedTo(ApplicationFormProduct.Stage, 'Opportunity Won')
         .toList();
+
+      //Filter AFP list when Amount changes and Stage equals to Opportunity Won
+      filteredAfpList.addAll(
+        (List<ApplicationFormProduct>) ListUtil.filter(records, oldMap)
+          .changed(ApplicationFormProduct.Amount__c)
+          .equals(ApplicationFormProduct.Stage, 'Opportunity Won')
+          .toList()
+      );
 
       if (filteredAfpList.isEmpty()) {
         return;

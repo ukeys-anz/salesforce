@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Linked_Product_Code__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>This field will display the product code from the Product record linked to the account.</description>
+    <externalId>false</externalId>
+    <formula>IF( AND(FinServ__ProductName__r.SourceSystem__c = &quot;Zafin&quot;,
+NOT(ISBLANK(FinServ__ProductName__r.ANZ_Product_Code__c))),
+FinServ__ProductName__r.ANZ_Product_Code__c,
+FinServ__ProductName__r.OCV_Sub_Product_Key__c)</formula>
+    <label>Linked Product Code</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

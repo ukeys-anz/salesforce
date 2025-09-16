@@ -201,8 +201,7 @@ public with sharing class IDRCaseAccessActions {
   }
   /**
    * @description To get all the cases where owner is changed && old value of status is not equal to 'open' nor 'Under Investigation' &&
-   * current logged in user is having profile as ANZx Standard profile user && role is not equal to 'Banker' or 'Banker Line Manager'or 
-   * current logged in user should not have custom permission name as 'Hypercare Migration Permissions').
+   * current logged in user is having profile as ANZx Standard profile user.
    * @param newCases List of new cases.
    * @param oldMap Map of old cases.
    * @return `List<Case>` return list of cases which full fill the criteria.
@@ -212,17 +211,6 @@ public with sharing class IDRCaseAccessActions {
     List<Case> newCases,
     Map<Id, Case> oldMap
   ) {
-    Boolean isCurrentUserBankerOrBankLineManager = USER_INFO.checkAnyRoles(
-      new Set<String>{
-        IDRConstants.ROLE_BANKER,
-        IDRConstants.ROLE_BANKER_LINE_MANAGER
-      }
-    );
-
-    if (isCurrentUserBankerOrBankLineManager) {
-      return new List<Case>();
-    }
-
     if (!USER_INFO.checkProfile(ANZX_STANDARD_USER_PROFILE)) {
       return new List<Case>();
     }

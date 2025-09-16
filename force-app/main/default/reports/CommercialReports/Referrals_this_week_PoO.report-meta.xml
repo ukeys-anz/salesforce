@@ -11,7 +11,7 @@
         <field>LEAD_SOURCE</field>
     </columns>
     <columns>
-        <field>Lead.Customer_ID__c</field>
+        <field>Lead.FinServ__RelatedAccount__c</field>
     </columns>
     <columns>
         <field>Lead.CLG_Name__c</field>

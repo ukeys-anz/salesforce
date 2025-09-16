@@ -11,6 +11,7 @@ public with sharing class FinancialAccountEntities {
   public class FinancialAccountPayload extends ExternalObjectQueryBase.PayloadBase {
     //Summary request payload
     public Set<String> capCustomerIds;
+    public Set<String> accounts;
     public String offSet;
     public String pageSize;
     public String nextPageId;
@@ -19,6 +20,7 @@ public with sharing class FinancialAccountEntities {
     public String compositeAccountNumber;
     public String fieldSet;
     public String type;
+    public String compositeBalanceHistoryId;
   }
 
   /**
@@ -26,17 +28,25 @@ public with sharing class FinancialAccountEntities {
    */
   public virtual class FinancialAccountCalloutRequest extends ExternalObjectQueryBase.ExternalObjectCalloutRequestBase {
     public String productCategory;
+    public Set<String> accounts = new Set<String>();
     public QueryModeEnum queryMode;
     /**
      * @description abstract FinancialAccount callout response class
      * @param queryContext DataSource QueryContext
      * @param queryMode Query Mode Enum
+     * @param productCategory productCategory
+     * @param fieldSet fieldSet
+     * @param accountNumbers accountNumbers
      */
     public FinancialAccountCalloutRequest(
       DataSource.QueryContext queryContext,
-      QueryModeEnum queryMode
+      QueryModeEnum queryMode,
+      String productCategory,
+      String fieldSet,
+      Set<String> accountNumbers
     ) {
       super(queryContext, queryMode);
+      this.productCategory = productCategory;
       this.payload = new FinancialAccountPayload();
       if (this.isSummaryRequest()) {
         ((FinancialAccountPayload) this.payload).offSet = String.valueOf(
@@ -45,6 +55,12 @@ public with sharing class FinancialAccountEntities {
         ((FinancialAccountPayload) this.payload).pageSize = String.valueOf(
           queryContext.maxResults
         );
+        ((FinancialAccountPayload) this.payload).fieldSet = fieldSet;
+        if (accountNumbers != null) {
+          ((FinancialAccountPayload) this.payload).accounts = new Set<String>(
+            accountNumbers
+          );
+        }
       }
     }
     public override String getEndpoint() {

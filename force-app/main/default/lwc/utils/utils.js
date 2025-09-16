@@ -262,3 +262,6 @@ export class SimpleNav {
     );
   }
 }
+export function getAccoutProductkeys(key) {
+  return key.substring(0, key.indexOf("_"));
+}

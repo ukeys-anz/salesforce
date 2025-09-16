@@ -50,10 +50,14 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
       (this.omniJsonData.Response === false ||
         !Object.prototype.hasOwnProperty.call(this.omniJsonData, "Response")) &&
-      !this.omniJsonData.isEligibleAppForLookUp
+      !this.omniJsonData.isEligibleAppForLookUp &&
+      !this.omniJsonData.enableAccountLookUp
     ) {
       this.modalMsg +=
         "Please complete all required fields: Customer number is not valid or has not been validated, check the number and try again.";
+    } else if (this.checkOCVDown()) {
+      this.modalMsg +=
+        "Customer details cannot be retrieved as One Customer View (OCV) is currently unavailable.";
     } else if (this.validateRealFormID()) {
       handleErrorShowToast(
         this,
@@ -85,7 +89,8 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
         Response:
           this.omniJsonData.Response != null
             ? { profile: this.omniJsonData.Response.profile }
-            : this.omniJsonData.Response
+            : this.omniJsonData.Response,
+        data: this.omniJsonData.data
       };
 
       const options = {
@@ -107,6 +112,14 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
           logCaseError({
             message: result.error ?? JSON.stringify(result.result.errors)
           });
+          handleErrorShowToast(
+            this,
+            "Case Creation failed : ",
+            undefined,
+            "Please contact CMOS Support",
+            "sticky"
+          );
+          this.loading = false;
         }
 
         if (result?.CaseId) {
@@ -150,6 +163,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
   validateCustomerNumber() {
     let compare = /^[0-9]{10}$/;
     if (
+      !this.omniJsonData.enableAccountLookUp &&
       this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
       this.omniJsonData.Case.CustomerDetails.Customer &&
       (this.omniJsonData.Case.CustomerDetails.Customer !==
@@ -185,7 +199,8 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     let details = JSON.parse(JSON.stringify(this.omniJsonData.Case));
     let customerNumber = JSON.stringify(this.omniJsonData.CustomerNumber);
     if (
-      (details.isThisCustomerComplaint === "Yes" &&
+      (!this.omniJsonData.enableAccountLookUp &&
+        details.isThisCustomerComplaint === "Yes" &&
         details.CustomerDetails.Customer &&
         details.CustomerDetails.Customer !== customerNumber) ||
       (details.CustomerDetails.Customer1 &&
@@ -194,5 +209,15 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       return false;
     }
     return true;
+  }
+  checkOCVDown() {
+    if (
+      this.omniJsonData.IsOCVDown === true &&
+      this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
+      !this.omniJsonData.isEligibleAppForLookUp
+    ) {
+      return true;
+    }
+    return false;
   }
 }

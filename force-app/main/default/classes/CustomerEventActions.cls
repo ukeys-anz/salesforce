@@ -6,8 +6,8 @@
  **/
 public with sharing class CustomerEventActions {
   public static final String CUSTOMER_EVENT_UPDATE = 'update';
-  private static final BrokerSettingRepository BROKER_SETTING_REPOSITORY = (BrokerSettingRepository) Lib_InstanceProvider.forType(
-    BrokerSettingRepository.class
+  private static final BrokerSettingsRepository BROKER_SETTING_REPOSITORY = (BrokerSettingsRepository) Lib_InstanceProvider.forType(
+    BrokerSettingsRepository.class
   );
 
   /**

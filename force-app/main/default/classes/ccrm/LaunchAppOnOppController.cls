@@ -19,6 +19,8 @@ public with sharing class LaunchAppOnOppController {
   private static final String AF_ACCREDITED_BROKER_ERROR = 'Please add a valid Asset Finance accredited broker.';
   @testVisible
   private static final String NON_CLG_INDIVIDUAL_CUSTOMER_ERROR = 'Select an Organisation-type customer in the opportunity to start an AMBIT quote (Note: Quotes cannot be created for CLG or Individual customers).';
+  @testVisible
+  private static final String OPP_TEAM_MEMBR_ERROR = 'Please include Asset Finance Manager under Opportunity team to progress';
 
   private static final String SERVER_EXCEPTION = 'The server encountered an unexpected error. Please retry after some time.';
   private static final String INSUFFICIENT_EXCEPTION = 'You do not have required permission to perform this action.';
@@ -150,7 +152,8 @@ public with sharing class LaunchAppOnOppController {
   @AuraEnabled
   public static String validateOpportunity(Id oppId) {
     Opportunity oppRec = APP_REPOSITORY.getOpportunityData(oppId);
-    return validateCustomerForAMBIT(oppRec) ?? validateBrokerAFStatus(oppRec);
+    return validateCustomerForAMBIT(oppRec) ?? validateBrokerAFStatus(oppRec) ??
+      validateOppTeamMember(oppRec);
   }
 
   /**
@@ -183,6 +186,18 @@ public with sharing class LaunchAppOnOppController {
       return null;
     }
     return AF_ACCREDITED_BROKER_ERROR;
+  }
+
+  /**
+   * @description This is used to check if Asset Finance Manager is added to Opportunity team
+   * @param oppRec opportunity record
+   * @return String contains error message
+   */
+  private static String validateOppTeamMember(Opportunity oppRec) {
+    if (oppRec.OpportunityTeamMembers.size() == 0) {
+      return OPP_TEAM_MEMBR_ERROR;
+    }
+    return null;
   }
 
   /**

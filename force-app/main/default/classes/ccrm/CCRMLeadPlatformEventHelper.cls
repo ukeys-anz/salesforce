@@ -132,13 +132,17 @@ public with sharing class CCRMLeadPlatformEventHelper {
       )
     );
     String taskFields = String.join(taskFieldsSet, ',');
-
+    String rtDevName = 'Lead_Response';
     //Get ONLY latest task data for all the fields defined within custom metadata
     string query =
       'SELECT ' +
       taskFields +
-      ', WhoId, Response_Type__r.Unica_Lead_SubStatus__c FROM Task WHERE WhoId IN :leadIds order by createdDate desc LIMIT 1';
-    List<Task> tasks = LEAD_ACTION_REPOSITORY.getTaskRecords(query, leadIds);
+      ', WhoId, Response_Type__r.Unica_Lead_SubStatus__c FROM Task WHERE WhoId IN :leadIds AND RecordType.DeveloperName =:rtDevName order by createdDate desc LIMIT 1';
+    List<Task> tasks = LEAD_ACTION_REPOSITORY.getTaskRecords(
+      query,
+      leadIds,
+      rtDevName
+    );
     return (Map<Id, Task>) ListUtil.mapBy(tasks, task.WhoId);
   }
 

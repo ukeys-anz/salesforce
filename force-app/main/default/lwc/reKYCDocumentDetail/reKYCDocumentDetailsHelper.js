@@ -150,7 +150,7 @@ export function transformResponseForAddress(recordDetails) {
   const results = [];
   if (recordDetails.Residential_Address__c) {
     results.push({
-      type: "Residential",
+      type: "Previously Enrolled Residential",
       addressValue: recordDetails.Residential_Address__c,
       latitude: recordDetails.Residential_Address_Geolocation__Latitude__s,
       longitude: recordDetails.Residential_Address_Geolocation__Longitude__s

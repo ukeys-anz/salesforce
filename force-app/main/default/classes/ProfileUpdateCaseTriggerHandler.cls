@@ -39,6 +39,13 @@ public with sharing class ProfileUpdateCaseTriggerHandler extends Lib_TriggerHan
     Logger.saveLog();
   }
 
+  public override void onAfterInsert() {
+    Logger.debug('On_After_Insert started: ' + DateTimeUtils.timeString);
+    CommonCaseTriggerActions.copyCaseNumberAsync(super.newMap.keySet());
+    Logger.debug('On_After_Insert finished: ' + DateTimeUtils.timeString);
+    Logger.saveLog();
+  }
+
   /**
    * @description onBeforeUpdate to handle before update trigger actions.
    * @param oldMap old trigger values
