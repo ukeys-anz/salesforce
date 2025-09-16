@@ -186,6 +186,13 @@ export default class InitiateInteraction extends LightningElement {
     this.remainingCharMsg = "1000 characters remaining";
   }
 
+  handleShowContactTabAndChildButton() {
+    this.handleShowContactTab();
+    this.template
+      .querySelector("c-push-to-app")
+      ?.showPushTaskButtonFromParent(false);
+  }
+
   handleShowDialTab() {
     this.showContactTab = false;
     this.showDialTab = true;

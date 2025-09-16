@@ -2714,6 +2714,10 @@
             &quot;condition&quot; : &quot;=&quot;,
             &quot;data&quot; : null
           }, {
+             &quot;field&quot; : &quot;data:fields:CPID__c:value&quot;,
+             &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+             &quot;data&quot; : null
+          }, {
             &quot;field&quot; : &quot;Case:AccountId&quot;,
             &quot;condition&quot; : &quot;&lt;&gt;&quot;,
             &quot;data&quot; : null

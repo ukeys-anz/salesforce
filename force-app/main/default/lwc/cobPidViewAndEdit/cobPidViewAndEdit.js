@@ -1,6 +1,6 @@
 import { LightningElement, api, wire, track } from "lwc";
 import { handleErrors, showToast } from "c/utils";
-import { getRecord, getRecordNotifyChange } from "lightning/uiRecordApi";
+import { getRecord } from "lightning/uiRecordApi";
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
 import { EnclosingTabId, refreshTab } from "lightning/platformWorkspaceApi";
 import hasEditPermission from "@salesforce/customPermission/ANZx_Edit_COB_Primary_ID_Document";
@@ -41,7 +41,8 @@ export default class CobPidViewAndEdit extends LightningElement {
   get allowEdit() {
     return (
       hasEditPermission &&
-      this.data?.CXOnboardingStage__c === "Assisted Electronic Verification"
+      this.data?.CXOnboardingStage__c === "Assisted Electronic Verification" &&
+      !this.reachedEditLimit
     );
   }
 
@@ -54,7 +55,10 @@ export default class CobPidViewAndEdit extends LightningElement {
   }
 
   get reachedEditLimit() {
-    return this._equifaxAttemptCount >= 2;
+    return (
+      this.data?.CXOnboardingStage__c === "Assisted Electronic Verification" &&
+      this._equifaxAttemptCount >= 2
+    );
   }
 
   get panelHeader() {
@@ -93,6 +97,9 @@ export default class CobPidViewAndEdit extends LightningElement {
     fields: RECORD_FIELDS
   })
   async wiredRecord({ error, data }) {
+    console.log("refreshing COB PID data");
+    clearInterval(this.refreshInterval);
+
     this.isLoading = true;
 
     if (data) {
@@ -177,8 +184,6 @@ export default class CobPidViewAndEdit extends LightningElement {
         });
         this.error = undefined;
 
-        await getRecordNotifyChange([{ recordId: this.recordId }]);
-
         showToast(
           this,
           "Success!",
@@ -194,14 +199,18 @@ export default class CobPidViewAndEdit extends LightningElement {
         this.data = this._initDetokenizedData;
         let errorMessage = handleErrors(error);
         showToast(this, "Error!", errorMessage, "", "error", "");
+        this.isLoading = false;
       }
     }
-
-    this.isLoading = false;
   }
 
   handleClose() {
-    refreshTab(this.tabId);
+    this.isLoading = true;
+    // eslint-disable-next-line @lwc/lwc/no-async-operation
+    this.refreshInterval = setInterval(() => {
+      console.log("refreshing tab");
+      refreshTab(this.tabId);
+    }, 1000);
   }
 
   validateFirstNameLastName() {
