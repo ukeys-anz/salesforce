@@ -1,5 +1,6 @@
 import { LightningElement, api, wire, track } from "lwc";
-import { handleErrors, showToast } from "c/utils";
+import { NavigationMixin } from "lightning/navigation";
+import { handleErrors, showToast, SimpleNav } from "c/utils";
 import { getRecord } from "lightning/uiRecordApi";
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
 import { EnclosingTabId, refreshTab } from "lightning/platformWorkspaceApi";
@@ -15,7 +16,10 @@ const RECORD_FIELDS = [
   "COBPrimaryIDDocument__c.CustomerOnboardingApplication__r.CXOnboardingStage__c"
 ];
 
-export default class CobPidViewAndEdit extends LightningElement {
+export default class CobPidViewAndEdit extends NavigationMixin(
+  LightningElement
+) {
+  nav = new SimpleNav(this);
   @api recordId;
   @track data = {};
   countryOfIssueOptions;
@@ -25,10 +29,10 @@ export default class CobPidViewAndEdit extends LightningElement {
   _equifaxAttemptCount = 0;
 
   isLoading = false;
+  isLocked = false;
   error;
 
   @wire(EnclosingTabId) tabId;
-
   async connectedCallback() {
     // give ReadOnly lightning-input lwc component a default indentation to align the text in default lightning-input
     const inputAlignLeft = document.createElement("style");
@@ -36,6 +40,10 @@ export default class CobPidViewAndEdit extends LightningElement {
     document.body.appendChild(inputAlignLeft);
 
     this.isLoading = true;
+  }
+
+  get showSpinner() {
+    return this.isLoading || this.isLocked;
   }
 
   get allowEdit() {
@@ -98,8 +106,6 @@ export default class CobPidViewAndEdit extends LightningElement {
   })
   async wiredRecord({ error, data }) {
     console.log("refreshing COB PID data");
-    clearInterval(this.refreshInterval);
-
     this.isLoading = true;
 
     if (data) {
@@ -166,8 +172,6 @@ export default class CobPidViewAndEdit extends LightningElement {
   }
 
   async handleSave() {
-    this.isLoading = true;
-
     if (!this.validateFirstNameLastName()) {
       showToast(
         this,
@@ -177,40 +181,52 @@ export default class CobPidViewAndEdit extends LightningElement {
         "error",
         ""
       );
-    } else {
-      try {
-        await updateCOBPIDData({
-          record: this.data
-        });
-        this.error = undefined;
+      return;
+    }
 
-        showToast(
-          this,
-          "Success!",
-          "Successfully updated details.",
-          "",
-          "success",
-          ""
-        );
+    this.isLoading = true;
+    try {
+      await updateCOBPIDData({
+        record: this.data
+      });
+      this.error = undefined;
 
-        this.handleClose();
-      } catch (error) {
-        this.error = error;
-        this.data = this._initDetokenizedData;
-        let errorMessage = handleErrors(error);
-        showToast(this, "Error!", errorMessage, "", "error", "");
-        this.isLoading = false;
-      }
+      showToast(
+        this,
+        "Success!",
+        "Successfully updated details.",
+        "",
+        "success",
+        ""
+      );
+      this.refreshCobPid();
+    } catch (error) {
+      this.error = error;
+      this.data = this._initDetokenizedData;
+      let errorMessage = handleErrors(error);
+      showToast(this, "Error!", errorMessage, "", "error", "");
+      this.isLoading = false;
     }
   }
 
   handleClose() {
-    this.isLoading = true;
+    this.nav.toRecord(this.recordId);
+  }
+
+  /**
+   * Refresh the cobPid record data until Edit Document tab is updated to View Document
+   */
+  refreshCobPid() {
+    this.isLocked = true;
     // eslint-disable-next-line @lwc/lwc/no-async-operation
     this.refreshInterval = setInterval(() => {
       console.log("refreshing tab");
       refreshTab(this.tabId);
-    }, 1000);
+    }, 2000);
+  }
+
+  disconnectedCallback() {
+    clearInterval(this.refreshInterval);
   }
 
   validateFirstNameLastName() {
