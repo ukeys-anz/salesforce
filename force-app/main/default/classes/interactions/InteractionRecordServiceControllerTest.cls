@@ -25,7 +25,6 @@ public with sharing class InteractionRecordServiceControllerTest {
   static void testGetInteractionRecord() {
     Test.startTest();
     Account testAcc = [SELECT Id FROM Account LIMIT 1];
-    Faker faker = new Faker('AU');
 
     Case newCase = new Case(
       Status = GetHelpConstants.OPEN_STATUS,
@@ -56,6 +55,7 @@ public with sharing class InteractionRecordServiceControllerTest {
     ResidentialLoanApplication testRLA = new ResidentialLoanApplication();
     testRLA.accountid = testAcc.Id;
     testRLA.name = 'New RLA';
+    testRLA.RecordTypeId = RTResidentialLoanApplication.anzxHomeLoan;
     insert testRLA;
 
     Interaction testInteraction = new Interaction(

@@ -20,7 +20,6 @@ import CS_ACC from "@salesforce/schema/Coaching_Summary__c.Account__c";
 import CS_LEAD from "@salesforce/schema/Coaching_Summary__c.Lead__c";
 import LEAD_MP from "@salesforce/schema/Lead.MobilePhone";
 import RESI_LOAN_APPLICATION_ACCOUNTID from "@salesforce/schema/ResidentialLoanApplication.AccountId";
-import IsPushToAppEnabled from "@salesforce/label/c.IsPushToAppEnabled";
 
 const NORMAL_TAB = "slds-tabs_scoped__item";
 const ACTIVE_TAB = "slds-tabs_scoped__item slds-is-active";
@@ -124,7 +123,7 @@ export default class InitiateInteraction extends LightningElement {
           break;
         default:
       }
-      if (IsPushToAppEnabled === "true" && this.recordTypeId) {
+      if (this.recordTypeId) {
         this.getTemplateDetailsData();
       }
     } else {
@@ -185,6 +184,13 @@ export default class InitiateInteraction extends LightningElement {
     this.contactTab = ACTIVE_TAB;
     this.dialTab = NORMAL_TAB;
     this.remainingCharMsg = "1000 characters remaining";
+  }
+
+  handleShowContactTabAndChildButton() {
+    this.handleShowContactTab();
+    this.template
+      .querySelector("c-push-to-app")
+      ?.showPushTaskButtonFromParent(false);
   }
 
   handleShowDialTab() {

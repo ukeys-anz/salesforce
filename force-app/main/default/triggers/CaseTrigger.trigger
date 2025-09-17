@@ -7,6 +7,7 @@ trigger CaseTrigger on Case(
   after delete
 ) {
   CaseTriggerHandler handler = new CaseTriggerHandler();
+  CreditReferralCaseTriggerHandler creditRefHandle = new CreditReferralCaseTriggerHandler();
   COBCaseTriggerHandler cobhandler = new COBCaseTriggerHandler();
   AutoKYCQACaseTriggerHandler kycQaHandler = new AutoKYCQACaseTriggerHandler();
   DisputesCaseTriggerHandler disputesHandler = new DisputesCaseTriggerHandler();
@@ -21,4 +22,6 @@ trigger CaseTrigger on Case(
   FraudXCaseTriggerHandler fraudHandler = new FraudXCaseTriggerHandler();
   LendingCaseTriggerHandler lendingHandler = new LendingCaseTriggerHandler();
   CustomerComplaintCaseTriggerHandler customerComplaintHandler = new CustomerComplaintCaseTriggerHandler();
+  CustomerInformationUpdateTriggerHandler customerInforHandler = new CustomerInformationUpdateTriggerHandler();
+  DeceasedCustomerCaseTriggerHandler deceasedCustomerHandler = new DeceasedCustomerCaseTriggerHandler();
 }

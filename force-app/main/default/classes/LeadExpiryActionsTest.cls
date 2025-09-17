@@ -289,4 +289,77 @@ public with sharing class LeadExpiryActionsTest {
       'unable to fetch task related to ML Lead properly'
     );
   }
+
+  @isTest
+  static void getAcceptedLeadIds() {
+    Id leadId1 = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    Id leadId2 = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    Date newFollowUpDate = Date.today().addDays(1);
+    List<Lead> listLead = new List<Lead>{
+      new Lead(
+        Id = leadId1,
+        RecordTypeId = RTLead.mlcrmLead,
+        Followup_Date__c = newFollowUpDate,
+        Expiry_Date__c = Date.today().addDays(2),
+        status = 'Opportunity Identified'
+      ),
+      new Lead(
+        Id = leadId2,
+        RecordTypeId = RTLead.mlcrmLead,
+        Followup_Date__c = newFollowUpDate,
+        Expiry_Date__c = Date.today().addDays(30),
+        status = 'Opportunity Identified'
+      )
+    };
+    List<Lead> oldLeadList = new List<Lead>{
+      new Lead(Id = leadId1, status = 'New'),
+      new Lead(Id = leadId2, status = 'New')
+    };
+    Map<Id, Lead> oldMapSobject = new Map<Id, Lead>{
+      leadId1 => oldLeadList[0],
+      leadId2 => oldLeadList[1]
+    };
+    Test.startTest();
+    Set<Id> acceptedLeadIds = LeadExpiryActions.getAcceptedLeadIds(
+      listLead,
+      oldMapSobject
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      1,
+      acceptedLeadIds.size(),
+      'getAcceptedLeadIds is returning wrong list'
+    );
+    Assert.isTrue(
+      acceptedLeadIds.contains(leadId1),
+      'getAcceptedLeadIds does not contain correct lead record'
+    );
+  }
+
+  @isTest
+  static void getMapOfLeadResponseTest() {
+    Id leadId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    Id taskId = Lib_FakeIdGenerator.getMockId(Task.SObjectType);
+    registerMocks();
+    taskMockProvider.mock(
+      'getTaskResponse',
+      new List<Task>{ new Task(Id = taskId, whoId = leadId) }
+    );
+    Lead leadRec = new Lead(Id = leadId, Followup_Date__c = Date.Today());
+    Test.startTest();
+    Map<Id, Task> leadResposneMap = LeadExpiryActions.getMapOfLeadResponse(
+      new List<Lead>{ leadRec },
+      null
+    );
+    Test.stopTest();
+    Assert.isTrue(
+      leadResposneMap.containsKey(leadId),
+      'getMapOfLeadResponse does not contain expected LeadId'
+    );
+    Assert.areEqual(
+      taskId,
+      leadResposneMap.get(leadId).Id,
+      'getMapOfLeadResponse does not created lead to task map'
+    );
+  }
 }

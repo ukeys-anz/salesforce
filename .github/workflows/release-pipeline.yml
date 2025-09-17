@@ -23,7 +23,7 @@ permissions:
 jobs:
   Release:
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:2.1.0"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:2.1.1"
       options: --user root
       volumes:
         - ${{ github.workspace }}/release:/opt/harness-delegate/release
@@ -218,5 +218,5 @@ jobs:
     with:
       isSlack: true
       slackChannels: prod-release-notifications
-      slackMessage: "${{ needs.prepare-outputs.outputs.slack_msg }}"
+      slackMessage: "${{ needs.prepare-notification.outputs.slack_msg }}"
       slackPrivate: true

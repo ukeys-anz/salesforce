@@ -5,11 +5,29 @@
         <field>ApplicationForm$Opportunity</field>
     </columns>
     <columns>
-        <field>ApplicationForm$Account</field>
+        <field>ApplicationForm$Opportunity.Account</field>
+    </columns>
+    <columns>
+        <field>ApplicationForm$Opportunity.CLG__c</field>
+    </columns>
+    <columns>
+        <field>ApplicationForm.ApplicationFormProduct$Product</field>
+    </columns>
+    <columns>
+        <field>ApplicationForm.ApplicationFormProduct$Name</field>
+    </columns>
+    <columns>
+        <field>ApplicationForm$RecordType</field>
     </columns>
     <columns>
         <aggregateTypes>Sum</aggregateTypes>
         <field>ApplicationForm.ApplicationFormProduct$Amount__c</field>
+    </columns>
+    <columns>
+        <field>ApplicationForm.ApplicationFormProduct$Close_Date__c</field>
+    </columns>
+    <columns>
+        <field>ApplicationForm$Opportunity.Owner</field>
     </columns>
     <filter>
         <criteriaItems>

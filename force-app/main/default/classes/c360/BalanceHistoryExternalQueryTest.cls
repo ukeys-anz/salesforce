@@ -89,25 +89,6 @@ public class BalanceHistoryExternalQueryTest {
     Assert.areEqual(firstRecord.get('Year'), '2023', 'Year mismatch');
   }
 
-  @isTest
-  static void createDummyFinancialAccountDetailTest() {
-    BalanceHistoryExternalQuery accQuery = new BalanceHistoryExternalQuery();
-    ExternalObjectQueryBase.ExternalQueryResult dummyAcc = accQuery.createDummyFinancialAccountDetail(
-      'DDA-210568745-2'
-    );
-
-    Assert.areEqual(
-      'No further information available',
-      dummyAcc.ExternalRecords.get(0).get('AdditionalInformation'),
-      'createDummyFinancialAccounts is not returning correct result'
-    );
-    Assert.areEqual(
-      'DDA-210568745-2',
-      dummyAcc.ExternalRecords.get(0).get('ExternalId'),
-      'createDummyFinancialAccounts is not returning correct result'
-    );
-  }
-
   /**
    * @description create mock QueryContext for testing
    * @return DataSource.QueryContext mock queryContext

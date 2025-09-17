@@ -1,15 +1,12 @@
 import { LightningElement, api, wire, track } from "lwc";
 import { handleErrors, showToast } from "c/utils";
-import { getRecord, getRecordNotifyChange } from "lightning/uiRecordApi";
+import { getRecord } from "lightning/uiRecordApi";
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
-import { CloseActionScreenEvent } from "lightning/actions";
+import { EnclosingTabId, refreshTab } from "lightning/platformWorkspaceApi";
 import hasEditPermission from "@salesforce/customPermission/ANZx_Edit_COB_Primary_ID_Document";
 import detokenizeCOBPIDData from "@salesforce/apex/COBPIDViewAndEditController.detokenizeCOBPIDData";
 import updateCOBPIDData from "@salesforce/apex/COBPIDViewAndEditController.updateCOBPIDData";
 import COUNTRY_OF_ISSUE_FIELD from "@salesforce/schema/COBPrimaryIDDocument__c.CountryOfIssue__c";
-import modal from "@salesforce/resourceUrl/OnboardingCSS";
-import { loadStyle } from "lightning/platformResourceLoader";
-import showCobPidFalloutWorkflow from "@salesforce/label/c.ShowCobPidFalloutWorkflow";
 
 const RECORD_FIELDS = [
   "COBPrimaryIDDocument__c.IdDocumentType__c",
@@ -29,8 +26,8 @@ export default class CobPidViewAndEdit extends LightningElement {
 
   isLoading = false;
   error;
-  showCobPidFalloutWorkflow =
-    showCobPidFalloutWorkflow.toLowerCase() === "true";
+
+  @wire(EnclosingTabId) tabId;
 
   async connectedCallback() {
     // give ReadOnly lightning-input lwc component a default indentation to align the text in default lightning-input
@@ -39,13 +36,13 @@ export default class CobPidViewAndEdit extends LightningElement {
     document.body.appendChild(inputAlignLeft);
 
     this.isLoading = true;
-    loadStyle(this, modal);
   }
 
   get allowEdit() {
     return (
       hasEditPermission &&
-      this.data?.CXOnboardingStage__c === "Assisted Electronic Verification"
+      this.data?.CXOnboardingStage__c === "Assisted Electronic Verification" &&
+      !this.reachedEditLimit
     );
   }
 
@@ -58,7 +55,10 @@ export default class CobPidViewAndEdit extends LightningElement {
   }
 
   get reachedEditLimit() {
-    return this._equifaxAttemptCount >= 2;
+    return (
+      this.data?.CXOnboardingStage__c === "Assisted Electronic Verification" &&
+      this._equifaxAttemptCount >= 2
+    );
   }
 
   get panelHeader() {
@@ -97,6 +97,9 @@ export default class CobPidViewAndEdit extends LightningElement {
     fields: RECORD_FIELDS
   })
   async wiredRecord({ error, data }) {
+    console.log("refreshing COB PID data");
+    clearInterval(this.refreshInterval);
+
     this.isLoading = true;
 
     if (data) {
@@ -181,8 +184,6 @@ export default class CobPidViewAndEdit extends LightningElement {
         });
         this.error = undefined;
 
-        await getRecordNotifyChange([{ recordId: this.recordId }]);
-
         showToast(
           this,
           "Success!",
@@ -198,14 +199,18 @@ export default class CobPidViewAndEdit extends LightningElement {
         this.data = this._initDetokenizedData;
         let errorMessage = handleErrors(error);
         showToast(this, "Error!", errorMessage, "", "error", "");
+        this.isLoading = false;
       }
     }
-
-    this.isLoading = false;
   }
 
   handleClose() {
-    this.dispatchEvent(new CloseActionScreenEvent());
+    this.isLoading = true;
+    // eslint-disable-next-line @lwc/lwc/no-async-operation
+    this.refreshInterval = setInterval(() => {
+      console.log("refreshing tab");
+      refreshTab(this.tabId);
+    }, 1000);
   }
 
   validateFirstNameLastName() {

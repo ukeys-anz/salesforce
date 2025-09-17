@@ -101,6 +101,11 @@
         <label>Remediation</label>
     </customValue>
     <customValue>
+        <fullName>Know Your Customer</fullName>
+        <default>false</default>
+        <label>Know Your Customer</label>
+    </customValue>
+    <customValue>
         <fullName>11</fullName>
         <default>false</default>
         <label>Other</label>

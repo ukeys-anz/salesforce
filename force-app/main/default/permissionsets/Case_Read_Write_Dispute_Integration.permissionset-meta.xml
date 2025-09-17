@@ -4,6 +4,10 @@
         <name>FinancialAccountUIConfiguration__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <name>FinancialAccountConfiguration__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <description>This permission set grants Dispute Integration User read/write access to dispute fields and record types. No other case record types or fields are included in this permission set.</description>
     <fieldPermissions>
         <editable>true</editable>

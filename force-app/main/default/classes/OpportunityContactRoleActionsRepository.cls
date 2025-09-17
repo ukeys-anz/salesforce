@@ -83,4 +83,28 @@ public with sharing class OpportunityContactRoleActionsRepository {
       WITH USER_MODE
     ];
   }
+
+  /**
+   * @description getInsertedOCRs method return list of OpportunityContactRole that have been inserted
+   * @param ocrs newOCRList
+   * @return List<OpportunityContactRole> inserted list of OCR
+   */
+  public List<OpportunityContactRole> getInsertedOCRs(
+    List<OpportunityContactRole> ocrs
+  ) {
+    if (ocrs.isEmpty()) {
+      return new List<OpportunityContactRole>();
+    }
+    return [
+      SELECT
+        Id,
+        Opportunity.Territory__c,
+        Opportunity.OwnerId,
+        Opportunity.Territory__r.Primary_Franchise_Owner__c,
+        Contact.AccountId
+      FROM OpportunityContactRole
+      WHERE Id IN :ocrs
+      WITH USER_MODE
+    ];
+  }
 }

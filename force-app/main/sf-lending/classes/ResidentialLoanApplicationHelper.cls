@@ -4,11 +4,15 @@
  * @since 24/06/2024
  */
 public with sharing class ResidentialLoanApplicationHelper {
+  private static final String SYNC_STATUS_BLOCKED = 'Blocked';
   private static final ResidentialLoanApplicationRepository LOAN_APPLICATION_REPOSITORY = (ResidentialLoanApplicationRepository) Lib_InstanceProvider.forType(
     ResidentialLoanApplicationRepository.class
   );
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
+  );
+  private static final RetailContactMergeRepository BROKER_CODE_MERGE_REPOSITORY = (RetailContactMergeRepository) Lib_InstanceProvider.forType(
+    RetailContactMergeRepository.class
   );
 
   /**
@@ -130,5 +134,200 @@ public with sharing class ResidentialLoanApplicationHelper {
       '<p><b>Status: </b>' +
       status +
       ' to Cancelled</p>';
+  }
+
+  /**
+   * @description populate Assisted Broker based on Loan Type
+   * @param records records to update
+   * @param accreditationType type of loan
+   * @return List<ResidentialLoanApplication> updated records
+   */
+  public static List<ResidentialLoanApplication> processAssistedBrokerPopulation(
+    List<ResidentialLoanApplication> records,
+    String accreditationType
+  ) {
+    // Create a map of account keys to broker identifiers
+    Map<String, String> extIdToBrokerIdMap = createBrokerIdentifierMap(
+      records,
+      accreditationType
+    );
+
+    Set<String> brokerIdentifiers = new Set<String>(
+      extIdToBrokerIdMap.values()
+    );
+
+    List<Broker_Code__c> brokerCodes = BROKER_CODE_MERGE_REPOSITORY.getBrokerIdentifiers(
+      brokerIdentifiers
+    );
+
+    Map<String, Broker_Code__c> brokerCodeToContactMap = (Map<String, Broker_Code__c>) ListUtil.mapBy(
+      brokerCodes,
+      Broker_Code__c.External_Id__c
+    );
+
+    for (ResidentialLoanApplication record : records) {
+      String brokerIdentifier = extIdToBrokerIdMap.get(
+        record.ApplicationExtIdentifier
+      );
+      record.Assisted_Broker__c = brokerCodeToContactMap.get(brokerIdentifier)
+        ?.Broker_Name__c;
+    }
+    return records;
+  }
+
+  /**
+   * @description Evaluates and filters out the applications which have Blocked Sync Status
+   * @author  Deepro De | Salesforce | 05-30-2024
+   * @param records
+   * @return List<ResidentialLoanApplication> filtered list
+   **/
+  public static List<ResidentialLoanApplication> getUnblockedApplication(
+    List<ResidentialLoanApplication> records
+  ) {
+    List<ResidentialLoanApplication> filteredList = new List<ResidentialLoanApplication>();
+    for (ResidentialLoanApplication eachRecord : records) {
+      //if the Broker code is null OR if the Sync Status contains 'Blocked' then do not process
+      if (
+        eachRecord.Assisted_Broker_TPMI_SAO__c == null ||
+        (String.isNotBlank(eachRecord.Sync_Status__c) &&
+        eachRecord.Sync_Status__c.contains(SYNC_STATUS_BLOCKED))
+      ) {
+        continue;
+      }
+      filteredList.add(eachRecord);
+    }
+    return filteredList;
+  }
+
+  /**
+   * @description prepareTaskWithFieldsUpdate prepare task record's field value which needs to be updated
+   * @param masterTaskList master list of Task with all the related detail
+   * @return List<Task>  task records with status value as expired and sub status field value as Customer Cancelled.
+   */
+  public static List<Task> prepareTaskWithFieldsUpdate(
+    List<Task> masterTaskList
+  ) {
+    if (masterTaskList.isEmpty()) {
+      return masterTaskList;
+    }
+    Map<SObjectField, Object> updatedTask = new Map<SObjectField, Object>{
+      Task.Status => 'Expired',
+      Task.Sub_Status__c => 'Customer cancelled'
+    };
+
+    List<Task> taskRecordsToBeUpdated = ListUtil.setField(
+      masterTaskList,
+      updatedTask
+    );
+
+    return taskRecordsToBeUpdated;
+  }
+
+  /**
+   * @description To filter out the RLA records with Cancelled status
+   * @param newRlaRecords Residential Loan application records from trigger on update
+   * @param oldRlaRecords Holds records information before update
+   * @return Residential Loan Application records with Cancelled status to process
+   */
+  public static Set<Id> getCancelledRlaRecordsPostChatter(
+    List<ResidentialLoanApplication> newRlaRecords,
+    Map<Id, ResidentialLoanApplication> oldRlaRecords
+  ) {
+    Set<Id> rlaRecordIds = new Set<Id>();
+    List<ResidentialLoanApplication> filteredRLARecords = ListUtil.filter(
+        newRlaRecords,
+        oldRlaRecords
+      )
+      .changedTo(ResidentialLoanApplication.Status, 'STATE_CANCELLED')
+      .toList();
+
+    for (ResidentialLoanApplication rlaRecord : filteredRLARecords) {
+      rlaRecordIds.add(rlaRecord.Id);
+
+      String postContent = ResidentialLoanApplicationHelper.postNotesToChatterWhenCancelled(
+        oldRlaRecords.get(rlaRecord.Id).Status
+      );
+
+      ChatterUtils.makeAPost(
+        rlaRecord.Id,
+        postContent,
+        ChatterUtils.POST_TYPE_RICH_TEXT
+      );
+    }
+    return rlaRecordIds;
+  }
+
+  /**
+   * @description prepareCaseWithFieldsUpdate prepare Case record's field value which needs to be updated
+   * @param masterCaseList master list of Case with all the related detail
+   * @param newRlaRecords Map of RLAs with updated fields
+   * @return List<Case>  Case records with status value as expired and sub status field value as Customer Cancelled.
+   */
+  public static List<Case> prepareCaseWithFieldsUpdate(
+    List<Case> masterCaseList,
+    Map<Id, ResidentialLoanApplication> newRlaRecords
+  ) {
+    List<Case> caseRecordsToBeUpdated = new List<Case>();
+    for (Case caseRecord : masterCaseList) {
+      if (
+        newRlaRecords.get(caseRecord.Loan_Application__c)
+          .Cancellation_Reason__c == 'Credit Assessment Expired'
+      ) {
+        caseRecord.Status = 'Closed - Expired';
+      } else {
+        caseRecord.Status = 'Closed - Cancelled';
+      }
+      caseRecordsToBeUpdated.add(caseRecord);
+    }
+    return caseRecordsToBeUpdated;
+  }
+
+  /**
+   * @description calculate the date based on the configuration in the cutom metadata type and RLA status
+   * @param loanApplicationValidityMDT custom metadata containng the number of years/months/days to be added to the base field/today's date
+   * @return Date the date calculated after adding number of years/months/days to the base field/today's date
+   */
+  public static Date getLoanApplicationValidity(
+    Loan_Application_Validity__mdt loanApplicationValidityMDT
+  ) {
+    Date returnDate = Date.today();
+    if (loanApplicationValidityMDT.Years__c != null) {
+      returnDate = returnDate.addYears(
+        Integer.valueOf(loanApplicationValidityMDT.Years__c)
+      );
+    }
+    if (loanApplicationValidityMDT.Months__c != null) {
+      returnDate = returnDate.addMonths(
+        Integer.valueOf(loanApplicationValidityMDT.Months__c)
+      );
+    }
+    if (loanApplicationValidityMDT.Days__c != null) {
+      returnDate = returnDate.addDays(
+        Integer.valueOf(loanApplicationValidityMDT.Days__c)
+      );
+    }
+    return returnDate;
+  }
+
+  /**
+   * @description Create a map of account keys to broker identifiers.
+   * @param records List of records.
+   * @param accreditationType Type of accreditation.
+   * @return Map of ResidentialLoanApplication key  to Broker identifier
+   */
+  @TestVisible
+  private static Map<String, String> createBrokerIdentifierMap(
+    List<ResidentialLoanApplication> records,
+    String accreditationType
+  ) {
+    Map<String, String> extIdToBrokerIdMap = new Map<String, String>();
+    for (ResidentialLoanApplication record : records) {
+      String brokerIdentifier =
+        record.Assisted_Broker_TPMI_SAO__c +
+        '_' +
+        accreditationType;
+      extIdToBrokerIdMap.put(record.ApplicationExtIdentifier, brokerIdentifier);
+    }
+    return extIdToBrokerIdMap;
   }
 }

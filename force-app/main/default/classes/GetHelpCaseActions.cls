@@ -12,6 +12,7 @@
 )
 public with sharing class GetHelpCaseActions {
   public static final String DUPLICATE_DISPUTE_ERROR = 'Error occurred while creating dispute. An open dispute already exists for this transaction. Case number: ';
+  public static final String RESTRICT_MANUAL_ESCALATED = 'You can\'t change the status field to "Escalated". Please click "Escalate Case" to assign the case to another queue.';
   private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
   private static Map<String, String> caseSubtypeLabelByValue = new Map<String, String>();
   private static List<Case> notificationCaseList = new List<Case>();
@@ -78,11 +79,13 @@ public with sharing class GetHelpCaseActions {
         GetHelpCaseActionsHelper.handleEntitlementForUpdate(record, oldRecord);
       } else if (
         CheckCaseRecordType.isCreditReferral(record, null) &&
+        record.Case_Authority_Level__c != 'FRAUD' &&
+        CreditReferralCaseHelper.allowEscalateStatusUpdate == false &&
         record.Status == GetHelpConstants.ESCALATED_STATUS &&
         oldRecord.Status != GetHelpConstants.ESCALATED_STATUS
       ) {
-        //Set owner of case to cad referral queue if its set to escalated
-        record.OwnerId = cadReferralQueue.Id;
+        //throw error when changing status to Escalated Manually
+        record.addError(RESTRICT_MANUAL_ESCALATED);
       }
     }
 
@@ -558,48 +561,6 @@ public with sharing class GetHelpCaseActions {
       // Publish platform events
       if (peList.size() > 0) {
         PlatformEventUtils.publishEvents(peList);
-      }
-    }
-  }
-
-  /**
-   * @description populate Customer Details field on case if the record type is an
-   * ANZx complaint or Customer Complaint
-   * @param records List of cases
-   */
-  public static void populateCustomerDetailsOnComplaint(List<Case> records) {
-    Set<Id> accountIds = new Set<Id>();
-    Set<Id> eligibleRecordTypes = new Set<Id>{
-      RTCase.anzxComplaint,
-      RTCase.customerComplaint
-    };
-    //Loop through case to create list of account ids
-    for (Case c : records) {
-      if (
-        eligibleRecordTypes.contains(c.RecordTypeId) &&
-        !String.isBlank(c.AccountId)
-      ) {
-        accountIds.add(c.AccountId);
-      }
-    }
-
-    //Get map of account ocv ids
-    Map<Id, Account> accountList = new Map<Id, Account>(
-      COMPLAINTS_REPOSITORY.findAccountsByAccountIds(accountIds)
-    );
-
-    //Loop through cases again and assign ocv id
-    if (!accountList.isEmpty() && PermissionUtils.canQuery('Account')) {
-      for (Case c : records) {
-        Account acc = accountList.get(c.AccountId);
-        c.OCV_Id__c = acc.OCV_ID__c;
-        c.IDR_CC_Country__c = acc.PersonOtherCountry;
-        c.IDR_CC_Age__c = DateTimeUtils.getAge(acc.PersonBirthDate);
-        c.IDR_CC_Postcode__c = acc.PersonOtherPostalCode;
-        c.IDR_Customer_Number__c = acc.Source_System_ID__c;
-        c.CPID__c = acc.CPID__c;
-        c.IDR_CC_Gender__c = acc.Gender__pc;
-        c.IDR_Customer_Identifier__c = IDRConstants.CUSTOMER_IDENTIFIER_CAP_ID;
       }
     }
   }

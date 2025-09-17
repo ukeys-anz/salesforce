@@ -61,12 +61,6 @@ public with sharing class FinancialAccountController {
         return new List<UnifiedFinancialAccountModel>();
       }
 
-      List<UnifiedFinancialAccountModel.AccountList> homeloanaccounts = filterOutNonHomeLoanAccounts(
-        fabricAccountList
-      );
-
-      DataPartitionUtil.storeLoanAccountDetailsCache(ocvId, homeloanaccounts);
-
       List<UnifiedFinancialAccountModel> processedAccounts = FinancialAccountControllerAction.processFinancialAccounts(
         fabricAccountList
       );
@@ -140,9 +134,36 @@ public with sharing class FinancialAccountController {
       }
     }
 
+    financialAccountsToUpdate.addAll(
+      updateDigitallyConnectedAccountFlag(ocvId, financialAccountNumbers)
+    );
     DML.doUpdate(financialAccountsToUpdate, new DmlConfig().withoutSharing());
 
     return processedFinancialAccounts;
+  }
+
+  /**
+   * @description Set digitally active flag to false if the fin account is not present in the list of fin accounts
+   * received from the API
+   * @param ocvId the ocv id of the customer
+   * @param financialAccountNumbers fin account number
+   * @return List<FinServ__FinancialAccount__c> list of financial accounts
+   */
+  @TestVisible
+  private static List<FinServ__FinancialAccount__c> updateDigitallyConnectedAccountFlag(
+    String ocvId,
+    List<String> financialAccountNumbers
+  ) {
+    List<FinServ__FinancialAccount__c> digitallyConnectedFinAccountList = FINANCIAL_ACCOUNT_REPOSITORY.getDigitallyConnectedFinAccounts(
+      ocvId,
+      financialAccountNumbers
+    );
+    ListUtil.setField(
+      digitallyConnectedFinAccountList,
+      FinServ__FinancialAccount__c.Is_Digitally_Active__c,
+      false
+    );
+    return digitallyConnectedFinAccountList;
   }
 
   /**
@@ -157,12 +178,18 @@ public with sharing class FinancialAccountController {
     UnifiedFinancialAccountModel.AccountList finAccount,
     FinServ__FinancialAccount__c finAccountFromDatabase
   ) {
-    String finAccountKey =
-      finAccount.product_details.marketing_code +
-      '_' +
-      FABRIC_OWNERSHIP_UI.get(finAccount.ownership?.type);
+    String productCodeKey = TextUtils.removeNonAlphanumericChar(
+      finAccountFromDatabase?.Linked_Product_Code__c ??
+        finAccount.product_details?.marketing_code ??
+        finAccount.product_details.sub_product_code
+    );
+    if (String.isNotBlank(finAccount.ownership?.type)) {
+      productCodeKey +=
+        '_' + FABRIC_OWNERSHIP_UI.get(finAccount.ownership?.type);
+    }
+
     FinancialAccountUIConfiguration__mdt finAccConfig = QueryFinancialAccountUIConfig.configByDeveloperName.get(
-      finAccountKey
+      productCodeKey
     );
     finAccount.Id = finAccountFromDatabase?.Id;
     finAccount.finserv_product_name = finAccountFromDatabase
@@ -182,7 +209,12 @@ public with sharing class FinancialAccountController {
 
     finAccount.finserv_sortorder = finAccConfig?.Sort_Order__c ??
       DEFAULT_SORT_ORDER;
-    finAccount.finserv_showgoal = finAccConfig?.Show_Goals__c ?? true;
+    finAccount.finserv_account_type = finAccConfig?.Account_Type__c ??
+      'Non Savings';
+    finAccount.finserv_showgoal = finAccConfig?.Show_Goals__c ?? false;
+    finAccount.linkedProductCode = finAccountFromDatabase
+      ?.Linked_Product_Code__c ?? finAccount.product_details?.marketing_code ??
+      finAccount.product_details.sub_product_code;
 
     return finAccount;
   }
@@ -201,7 +233,18 @@ public with sharing class FinancialAccountController {
   ) {
     FinServ__FinancialAccount__c record = new FinServ__FinancialAccount__c();
     record.Id = finAccountFromDatabase.Id;
-    record.Name = finAccount.account_name;
+    if (
+      String.isNotBlank(
+        finAccountFromDatabase.FinServ__ProductName__r?.ANZ_Product_Code__c
+      ) &&
+      'Zafin'
+        .equalsIgnoreCase(
+          finAccountFromDatabase.FinServ__ProductName__r.SourceSystem__c
+        )
+    ) {
+      record.Name = finAccount.account_name;
+    }
+    record.Is_Digitally_Active__c = true;
     record.FinServ__Balance__c = finAccount.balances.balance.value;
     record.FinServ__CurrentPostedBalance__c = finAccount.balances.current_balance.value;
     record.FinServ__CloseDate__c = finAccount.close_date == null
@@ -211,32 +254,6 @@ public with sharing class FinancialAccountController {
       ? null
       : Date.valueOf(finAccount.open_date.value);
     return record;
-  }
-
-  /**
-   * @description Filters and returns only Home Loan accounts based on the product code
-   * @param financialAccountFabric List of all accounts to be filtered.
-   * @return A list of Home Loan accounts.
-   */
-  @TestVisible
-  private static List<UnifiedFinancialAccountModel.AccountList> filterOutNonHomeLoanAccounts(
-    List<UnifiedFinancialAccountModel.AccountList> financialAccountFabric
-  ) {
-    List<UnifiedFinancialAccountModel.AccountList> homeLoanAccounts = new List<UnifiedFinancialAccountModel.AccountList>();
-
-    for (
-      UnifiedFinancialAccountModel.AccountList acc : financialAccountFabric
-    ) {
-      if (
-        QueryFinancialAccountUIConfig.configByProductCode.get(
-            acc.product_details?.marketing_code
-          )
-          ?.Account_Type__c == 'Loan'
-      ) {
-        homeLoanAccounts.add(acc);
-      }
-    }
-    return homeLoanAccounts;
   }
 
   /**
@@ -251,35 +268,26 @@ public with sharing class FinancialAccountController {
     String ocvId,
     Id ownerId
   ) {
-    List<UnifiedFinancialAccountModel.AccountList> combinedFinancialAccountList = new List<UnifiedFinancialAccountModel.AccountList>();
-
     try {
-      List<UnifiedFinancialAccountModel.AccountList> homeLoanAccountDetailsCache = DataPartitionUtil.getLoanAccountDetailsCache(
-        ocvId
-      );
-
       List<UnifiedFinancialAccountModel.AccountList> financialAccountsFromDatabase = fetchAllFinancialAccountsDB(
         ownerId
       );
 
-      if (
-        homeLoanAccountDetailsCache == null &&
-        financialAccountsFromDatabase.isEmpty()
-      ) {
+      if (financialAccountsFromDatabase.isEmpty()) {
         return new List<UnifiedFinancialAccountModel>();
       }
 
-      if (homeLoanAccountDetailsCache != null) {
-        combinedFinancialAccountList.addAll(homeLoanAccountDetailsCache);
-      }
-
-      combinedFinancialAccountList.addAll(financialAccountsFromDatabase);
-
       return FinancialAccountControllerAction.processFinancialAccounts(
-        combinedFinancialAccountList
+        financialAccountsFromDatabase
       );
     } catch (Exception objException) {
-      CommonUtil.logException(objException);
+      Logger.error(
+          'Fetch Financial Account Data from Database failed for the customer with ocv id ' +
+            ocvId +
+            'with error message: ',
+          objException
+        )
+        .save();
       throw new AuraHandledException(FAILED_TO_RETRIEVE);
     }
   }
@@ -304,7 +312,6 @@ public with sharing class FinancialAccountController {
     );
 
     List<FinServ__FinancialAccount__c> financialAccount = FINANCIAL_ACCOUNT_REPOSITORY.getFinancialAccounts(
-      ownerId,
       new List<String>(allRelatedAccountNumbers)
     );
 

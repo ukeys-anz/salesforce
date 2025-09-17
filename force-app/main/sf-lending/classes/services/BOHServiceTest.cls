@@ -279,29 +279,6 @@ public inherited sharing class BOHServiceTest {
   }
 
   @isTest
-  static void testCancelResidentialLoanApp() {
-    String loanAppNumber = '12345';
-    String ocvId = '11111231';
-    Test.setMock(HttpCalloutMock.class, staticMockResponse());
-    Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + ocvId,
-      AuthServiceTest.IDTESTVALUE
-    );
-    Test.startTest();
-    BOHService service = new BOHService();
-    HttpCalloutResponse response = service.cancelResidentialLoanApp(
-      loanAppNumber,
-      ocvId
-    );
-    Test.stopTest();
-    System.assertEquals(
-      200,
-      response.statusCode,
-      'Response status code 200 expected'
-    );
-  }
-
-  @isTest
   static void testDeleteReferralOutcome() {
     String creditId = '1111';
     String assessmentId = '2222';

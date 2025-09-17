@@ -6,8 +6,8 @@
  **/
 
 public class BrokerEnquiryCaseEventActions {
-  private static final BrokerSettingRepository BROKER_SETTING_REPOSITORY = (BrokerSettingRepository) Lib_InstanceProvider.forType(
-    BrokerSettingRepository.class
+  private static final BrokerSettingsRepository BROKER_SETTING_REPOSITORY = (BrokerSettingsRepository) Lib_InstanceProvider.forType(
+    BrokerSettingsRepository.class
   );
   public static final Set<SObjectField> BROKER_ENQUIRY_FIELDS = new Set<SObjectField>{
     Case.Status,

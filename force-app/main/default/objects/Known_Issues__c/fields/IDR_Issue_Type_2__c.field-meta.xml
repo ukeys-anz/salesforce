@@ -119,6 +119,11 @@
                 <default>false</default>
                 <label>Other</label>
             </value>
+            <value>
+                <fullName>Know Your Customer</fullName>
+                <default>false</default>
+                <label>Know Your Customer</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

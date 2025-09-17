@@ -3,7 +3,7 @@
     "pushToAppList": {
       "items": [
         {
-          "bodyText": "We called about your Case Reference {!CaseNumber} and couldn't reach you. Please call us back or send us a message",
+          "bodyText": "Hey {!Account.FirstName}, We called about your Case Reference {!CaseNumber} and couldn't reach you. Please call us back or send us a message",
           "expireAfterDays": 12,
           "expiryDate": "2027-19-09",
           "id": "get_in_touch",

@@ -8,6 +8,10 @@ public class LeadConversionControllerTest {
   static Lib_MockProvider leadConversionActionMock;
   static Lib_MockProvider dmlRepoMock;
   static Lib_MockProvider customerRelationshipRepoMock;
+  static Lib_MockProvider accountActionsRepoMock;
+  private static final LeadConversionActionsRepository LEADCONV_REPOSITORY = (LeadConversionActionsRepository) Lib_InstanceProvider.forType(
+    LeadConversionActionsRepository.class
+  );
   static void registerMocks() {
     dmlRepoMock = Lib_MockProvider.forType(DMLRepository.class);
     leadConversionActionMock = Lib_MockProvider.forType(
@@ -15,6 +19,9 @@ public class LeadConversionControllerTest {
     );
     customerRelationshipRepoMock = Lib_MockProvider.forType(
       CustomerRelationshipsRepository.class
+    );
+    accountActionsRepoMock = Lib_MockProvider.forType(
+      AccountActionsRepository.class
     );
   }
 
@@ -408,5 +415,75 @@ public class LeadConversionControllerTest {
       ),
       LeadStatus.class
     );
+  }
+
+  /**
+   * @description test method for ConvertLeadWithMatchedParty
+   */
+  @isTest
+  static void testRetrieveParty() {
+    registerMocks();
+    Account acc = new Account();
+    acc.Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    acc.Source_System_ID__c = '12345467891';
+    acc.External_Id__c = 'CAP-CIS_123454678911';
+    accountActionsRepoMock.mock('getCurrentAccountById', acc);
+    LeadConversionController.retrieveParty((string) acc.Id);
+    System.assert(true, 'retrieveParty executed without exceptions');
+  }
+
+  @isTest
+  static void testConvertLeadNTB() {
+    registerMocks();
+    leadConversionActionMock.mock('isLeadCAPCISUpdatable', true);
+    Id accountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id idTerritory = Lib_FakeIdGenerator.getMockId(Territory__c.SObjectType);
+    Id franchiseOwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    Id custRelationshipId = Lib_FakeIdGenerator.getMockId(
+      Customer_Relationship__c.SObjectType
+    );
+
+    Territory__c terrRecord = new Territory__c(
+      Id = idTerritory,
+      Primary_Franchise_Owner__c = franchiseOwnerId
+    );
+
+    List<Customer_Relationship__c> lstOfSobject = new List<Customer_Relationship__c>{
+      new Customer_Relationship__c(
+        Id = custRelationshipId,
+        Relationship_To_Franchise__c = 'Primary',
+        Customer__c = accountId,
+        Territory__r = terrRecord,
+        Territory__c = idTerritory
+      )
+    };
+    Lead record = getMockLead('MLCRM_Lead');
+    leadConversionActionMock.mock(
+      'getOCVUser',
+      new User(
+        Id = Lib_FakeIdGenerator.getMockId(User.getSobjectType()),
+        FirstName = 'IntegrationUserOCV',
+        Username = System.Label.OCVIntegrationUsername
+      )
+    );
+    customerRelationshipRepoMock.mock(
+      'getCRDetails',
+      new List<Customer_Relationship__c>{ lstOfSobject[0] }
+    );
+    customerRelationshipRepoMock.mock(
+      'getCustRelationshipIdofShellProspectAccount',
+      lstOfSobject
+    );
+
+    Test.startTest();
+    MaintainPartyInformationWrapper.MaintainPartyResult wrapper = LeadConversionController.convertLeadNTB(
+      record
+    );
+    Assert.areEqual(
+      wrapper.isNewCustomer,
+      false,
+      'ConvertLeadNTB not able to convert new lead properly'
+    );
+    Test.stopTest();
   }
 }

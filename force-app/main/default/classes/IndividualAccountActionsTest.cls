@@ -189,4 +189,98 @@ public class IndividualAccountActionsTest {
       'On updation of Account object the Customer_Name__c field on Customer_Relationship__c object is not updating successfully'
     );
   }
+  @isTest
+  static void testcreateCasesForDeceasedCustomer() {
+    registerMocks();
+    dmlRepoMock.mock(
+      'doInsert',
+      new List<Database.SaveResult>{
+        TestUtil.getMockSaveResult('{"success":true}')
+      }
+    );
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    List<Account> records = new List<Account>{
+      new Account(
+        Id = accId,
+        Name = 'Test Account',
+        Employment_Type__c = 'Student',
+        Employer_Name__c = 'ABC Employer',
+        Self_Employed__c = 'N',
+        RecordTypeId = RTAccount.personAccount,
+        Display_Name__c = 'EXECUTOR'
+      )
+    };
+    Map<Id, Account> oldMap = new Map<Id, Account>{
+      accId => new Account(
+        Id = accId,
+        Name = 'Test Account',
+        Employment_Type__c = 'Tailor',
+        Employer_Name__c = 'ABC Employer',
+        Self_Employed__c = 'N',
+        Display_Name__c = 'Master'
+      )
+    };
+
+    Map<Id, String> recordsForQueueable = new Map<Id, String>{
+      accId => 'test'
+    };
+    Test.startTest();
+    IndividualAccountActions.createCasesForDeceasedCustomer(records, oldMap);
+    Assert.areEqual(
+      1,
+      Limits.getQueueableJobs(),
+      'Queueable should have been enqueued'
+    );
+    Test.stopTest();
+    DeceasedCustomerCaseCreationQueueable queueCls = new DeceasedCustomerCaseCreationQueueable(
+      recordsForQueueable
+    );
+    Assert.isNotNull(
+      queueCls.accountIdToCapCisIdMap,
+      'No Accounts match the criteria'
+    );
+  }
+  @isTest
+  static void testcreateCasesForDeceasedError() {
+    registerMocks();
+    dmlRepoMock.mock(
+      'doInsert',
+      new List<Database.SaveResult>{
+        TestUtil.getMockSaveResult(
+          '{"success":false,"id":"5008r00000EhhODAAZ","errors":[{"statusCode":"FIELD_CUSTOM_VALIDATION_EXCEPTION","message":"TestErrorMessage","fields":[]}]}'
+        )
+      }
+    );
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    List<Account> records = new List<Account>{
+      new Account(
+        Id = accId,
+        Name = 'Test Account',
+        Employment_Type__c = 'Student',
+        Employer_Name__c = 'ABC Employer',
+        Self_Employed__c = 'N',
+        RecordTypeId = RTAccount.personAccount,
+        Display_Name__c = 'EXECUTOR'
+      )
+    };
+    Map<Id, Account> oldMap = new Map<Id, Account>{
+      accId => new Account(
+        Id = accId,
+        Name = 'Test Account',
+        Employment_Type__c = 'Tailor',
+        Employer_Name__c = 'ABC Employer',
+        Self_Employed__c = 'N',
+        Display_Name__c = 'Master'
+      )
+    };
+
+    Test.startTest();
+    IndividualAccountActions.createCasesForDeceasedCustomer(records, oldMap);
+    Assert.areEqual(
+      1,
+      Limits.getQueueableJobs(),
+      'Queueable should have been enqueued'
+    );
+    Test.stopTest();
+  }
 }

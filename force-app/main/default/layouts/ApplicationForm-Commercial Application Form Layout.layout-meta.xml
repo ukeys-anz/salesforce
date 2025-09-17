@@ -79,21 +79,13 @@
         </platformActionListItems>
     </platformActionList>
     <relatedLists>
-        <excludeButtons>New</excludeButtons>
-        <fields>Name</fields>
-        <fields>Product</fields>
-        <fields>Stage</fields>
-        <fields>Close_Date__c</fields>
-        <relatedList>ApplicationFormProducts</relatedList>
-    </relatedLists>
-    <relatedLists>
         <relatedList>RelatedEntityHistoryList</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h9p0000042rCP</masterLabel>
+        <masterLabel>00hOa000007tX7R</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

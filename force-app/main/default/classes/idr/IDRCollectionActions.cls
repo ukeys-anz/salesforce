@@ -19,6 +19,9 @@ public with sharing class IDRCollectionActions {
   private static List<Task> stopCollectionTaskList = new List<Task>();
 
   private static List<Task> startCollectionTaskList = new List<Task>();
+  private static final String STOP_COLLECTION_ACTIVITY = 'Stop Collection';
+  private static final String START_COLLECTION_ACTIVITY = 'Start Collection';
+  private static final String IDR_COLLECTION_TASK_SUBJECT = 'Collection';
 
   /**
    * @description method to copy customer account number in bankend field for collection purposes
@@ -117,10 +120,10 @@ public with sharing class IDRCollectionActions {
       records,
       oldMap
     );
+    publishCollectionEvent(collectionsCasesEventList, STOP_COLLECTION_ACTIVITY);
     for (IDR_Collections_Event__e e : collectionsCasesEventList) {
       caseIds.add(e.IDR_Complaint_Case_Id__c);
     }
-    publishCollectionEvent(collectionsCasesEventList);
 
     if (!isCollectionEventFailed && !stopCollectionTaskList.isEmpty()) {
       //AR-15023 Using IDRTaskActions.insertSystemTasks as it has without sharing, as task creation is failing due to user access
@@ -354,9 +357,11 @@ public with sharing class IDRCollectionActions {
   /**
    * @description method to publish collection event and handle errors
    * @param collectionsEventList List of collection events
+   * @param activityType Stop/Start Collections activity
    */
   private static void publishCollectionEvent(
-    List<IDR_Collections_Event__e> collectionsEventList
+    List<IDR_Collections_Event__e> collectionsEventList,
+    String activityType
   ) {
     if (collectionsEventList.isEmpty()) {
       return;
@@ -365,12 +370,43 @@ public with sharing class IDRCollectionActions {
       collectionsEventList
     );
     for (Integer i = 0; i < publishResults.size(); i++) {
+      String eventError = '';
       if (!publishResults[i].isSuccess()) {
         isCollectionEventFailed = true;
+        eventError = publishResults[i].getErrors()[0].toString();
       }
+      logCollectionEvent(collectionsEventList[i], activityType, eventError);
     }
-    Logger.error('', publishResults);
     Logger.saveLog();
+  }
+
+  /**
+   * @description method to save collection event logs
+   * @param collectionsEvent collection Event
+   * @param activityType Stop/Start Collections activity
+   * @param eventError published event error if the event fails
+   */
+  @testVisible
+  private static void logCollectionEvent(
+    IDR_Collections_Event__e collectionsEvent,
+    String activityType,
+    String eventError
+  ) {
+    String errorLogTemplate = '{0} Event Failure: 400 - Case ID - {1} , Customer Number - {2}';
+    String successLogTemplate = '{0} Event Success: 200 - Case ID - {1} , Customer Number - {2}';
+    List<Object> logCollectionsParams = new List<Object>{
+      activityType,
+      collectionsEvent.IDR_Complaint_Case_Id__c,
+      collectionsEvent.IDR_Customer_Number__c
+    };
+    if (String.isNotBlank(eventError)) {
+      Logger.error(
+        String.format(errorLogTemplate, logCollectionsParams),
+        new HandledException(eventError)
+      );
+      return;
+    }
+    Logger.info(String.format(successLogTemplate, logCollectionsParams));
   }
 
   /**
@@ -449,7 +485,10 @@ public with sharing class IDRCollectionActions {
     }
 
     if (!collectionsStartEventList.isEmpty()) {
-      publishCollectionEvent(collectionsStartEventList);
+      publishCollectionEvent(
+        collectionsStartEventList,
+        START_COLLECTION_ACTIVITY
+      );
     }
     if (!isCollectionEventFailed && !startCollectionTaskList.isEmpty()) {
       insertSystemTasks(
@@ -523,6 +562,7 @@ public with sharing class IDRCollectionActions {
    * @param startCollecMap Map with account number as key and set of case ids as values
    * @return List<IDRCollectionsAccounts> collection account list
    */
+  @testVisible
   private static List<IDRCollectionsAccounts> validateRecordForStartCollection(
     Case rec,
     Map<String, Set<Id>> startCollecMap
@@ -805,6 +845,7 @@ public with sharing class IDRCollectionActions {
    * @param issueNumber indicates IssueType Number
    * @return Boolean if stop collection should trigger or not
    */
+  @testVisible
   private static Boolean checkStatusWithIssueTypes(
     Case newCase,
     Case oldRec,
@@ -854,5 +895,34 @@ public with sharing class IDRCollectionActions {
       IDRConstants.STATUS_STOP_COLLECTIONS.contains(newCase.Status));
     }
     return false;
+  }
+  /**
+   * @description Create Logs for PCC tasks created by mule on Case Record
+   * @param idrSystemTasks List of idr System Tasks
+   */
+  public static void logPCCCollectionTasks(List<Task> idrSystemTasks) {
+    List<Task> filteredCollectionTasks = ListUtil.filter(idrSystemTasks)
+      .equals(Task.Type, 'Collections')
+      .contains(Task.Subject, IDR_COLLECTION_TASK_SUBJECT)
+      .toList();
+    for (Task collTask : filteredCollectionTasks) {
+      if (collTask.Subject.contains('Collection successful')) {
+        Logger.info(
+          'Success - 200 : Collections Successful in PCC for Case Id : ' +
+          collTask.WhatId,
+          collTask.Id
+        );
+        continue;
+      }
+      if (collTask.Subject.contains('ERROR') || collTask.Status == 'Failed') {
+        Logger.error(
+          'Error - 400 Collections Failure in PCC for Case Id : ' +
+          collTask.WhatId,
+          collTask.Id,
+          new HandledException(collTask.description)
+        );
+      }
+    }
+    Logger.saveLog();
   }
 }

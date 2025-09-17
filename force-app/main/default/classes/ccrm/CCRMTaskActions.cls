@@ -3,7 +3,9 @@
  * @since 12/2021
  * @description CCRM Task Actions consists of all the Task related methods.
  */
-@SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
+@SuppressWarnings(
+  'PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity, PMD.AvoidDeeplyNestedIfStmts'
+)
 public with sharing class CCRMTaskActions {
   @TestVisible
   private static final String RESPONSE_DELETE_ERROR_MESSAGE = 'You cannot delete Responses.';
@@ -125,12 +127,18 @@ public with sharing class CCRMTaskActions {
                   ? 'SkipValidation'
                   : 'Validate';
                 leadRecord.SubStatus__c = checkAutoStages.Response_Status__c;
-                leadRecord.Followup_Date__c = mapLeadResponses.get(
-                      leadRecord.Id
-                    )
-                    .ActivityDate == leadRecord.Followup_Date__c
-                  ? leadRecord.Followup_Date__c
-                  : mapLeadResponses.get(leadRecord.Id).ActivityDate;
+                Date taskActivityDate = mapLeadResponses.get(leadRecord.Id)
+                  .ActivityDate;
+                if (
+                  leadRecord.RecordTypeId != RTLead.mlcrmLead ||
+                  mapLeadResponses.get(leadRecord.Id).Response_Status__c !=
+                  'Contact Attempted'
+                ) {
+                  leadRecord.Followup_Date__c = taskActivityDate ==
+                    leadRecord.Followup_Date__c
+                    ? leadRecord.Followup_Date__c
+                    : taskActivityDate;
+                }
                 leadRecord.Lead_Quality__c = mapLeadResponses.get(leadRecord.Id)
                   .Lead_Quality__c;
                 updatedLeads.add(leadRecord);

@@ -1,7 +1,8 @@
 /**
- * @author Saurabh Chauhan
- * @since 03/2025
  * @description This class provide SOQL helper for class related to RetailBrokerRelationEventActions.
+ *
+ * @created       2025-03 Saurabh Chauhan
+ * @lastModified  2025-08 Manish bisht
  */
 public with sharing class RetailContactRepository {
   /**
@@ -55,5 +56,25 @@ public with sharing class RetailContactRepository {
       WHERE Broker_Set__c IN :brokerSetIds
       WITH USER_MODE
     ];
+  }
+
+  /**
+   * @description Retrieves a single Contact record based on the provided
+   * broker contact ID.
+   *
+   * @param brokerContactId The ID of the broker contact to retrieve.
+   * @return the Contact record associated with the provided ID
+   */
+  public Contact getBrokerDetail(String brokerContactId) {
+    if (String.isBlank(brokerContactId)) {
+      return null;
+    }
+    return [
+      SELECT Id, Email
+      FROM Contact
+      WHERE Id = :brokerContactId
+      WITH USER_MODE
+      LIMIT 1
+    ] ?? null;
   }
 }

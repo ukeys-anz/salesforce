@@ -37,7 +37,32 @@
         <titleSize>18</titleSize>
     </chart>
     <columns>
-        <field>ApplicationForm.ApplicationFormProduct$Close_Date__c</field>
+        <field>ApplicationForm$Opportunity</field>
+    </columns>
+    <columns>
+        <field>ApplicationForm$Opportunity.Account</field>
+    </columns>
+    <columns>
+        <field>ApplicationForm$Opportunity.CLG__c</field>
+    </columns>
+    <columns>
+        <field>ApplicationForm.ApplicationFormProduct$Product</field>
+    </columns>
+    <columns>
+        <field>ApplicationForm.ApplicationFormProduct$Name</field>
+    </columns>
+    <columns>
+        <field>ApplicationForm$RecordType</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>ApplicationForm.ApplicationFormProduct$Amount__c</field>
+    </columns>
+    <columns>
+        <field>ApplicationForm$Opportunity.CloseDate</field>
+    </columns>
+    <columns>
+        <field>ApplicationForm$Opportunity.Owner</field>
     </columns>
     <description>FYTD Open Opportunities by Stage by Close Date</description>
     <filter>
@@ -48,14 +73,16 @@
             <operator>equals</operator>
             <value>1</value>
         </criteriaItems>
+        <criteriaItems>
+            <column>ApplicationForm.ApplicationFormProduct$ApplicationForm.Opportunity.RecordType.DeveloperName</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Commercial_Opportunity</value>
+        </criteriaItems>
         <language>en_US</language>
     </filter>
-    <format>Matrix</format>
-    <groupingsAcross>
-        <dateGranularity>Day</dateGranularity>
-        <field>ApplicationForm.ApplicationFormProduct$Amount__c</field>
-        <sortOrder>Asc</sortOrder>
-    </groupingsAcross>
+    <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
         <field>ApplicationForm.ApplicationFormProduct$Stage</field>
@@ -63,12 +90,12 @@
     </groupingsDown>
     <params>
         <name>co</name>
-        <value>0</value>
+        <value>1</value>
     </params>
     <reportType>App_Forms_with_App_Forms_Products__c</reportType>
     <scope>team</scope>
-    <showDetails>false</showDetails>
-    <showGrandTotal>false</showGrandTotal>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
     <timeFrameFilter>
         <dateColumn>ApplicationForm$Opportunity.CloseDate</dateColumn>

@@ -773,6 +773,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ResidentialLoanApplication.Credit_Reassess_Required__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ResidentialLoanApplication.Credit_Version__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -889,6 +894,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>ResidentialLoanApplication.Settlement_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ResidentialLoanApplication.SOP_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -51,5 +51,9 @@ public with sharing class IndividualAccountTriggerHandler extends Lib_TriggerHan
       (Map<Id, Account>) oldMap,
       records
     );
+    IndividualAccountActions.createCasesForDeceasedCustomer(
+      records,
+      (Map<Id, Account>) oldMap
+    );
   }
 }

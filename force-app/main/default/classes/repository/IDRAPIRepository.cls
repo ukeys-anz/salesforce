@@ -22,7 +22,7 @@ public with sharing class IDRAPIRepository extends RepositoryBase {
    * @return IDRCustomerInformationModel
    * @description called from create complaint lwc page during customer search
    */
-  @AuraEnabled(cacheable=false)
+  @AuraEnabled(cacheable=true)
   public static IDRCustomerInformationModel getCustomerInfoLWC(
     String customerId,
     String customerIdentifier

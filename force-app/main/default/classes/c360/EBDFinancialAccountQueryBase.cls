@@ -46,9 +46,11 @@ public abstract with sharing class EBDFinancialAccountQueryBase extends External
     super.prepareCallout(queryContext, queryContext.TableSelection);
     FinancialAccountEntities.FinancialAccountCalloutRequest calloutRequest = new FinancialAccountEntities.FinancialAccountCalloutRequest(
       queryContext,
-      this.queryMode
+      this.queryMode,
+      this.productCategory,
+      null,
+      null
     );
-    calloutRequest.productCategory = this.productCategory;
     return calloutRequest;
   }
 

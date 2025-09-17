@@ -14,6 +14,7 @@ public with sharing class ResidentialLoanApplicationControllerTest {
     rla.Name = 'Test Loan Application';
     rla.AccountId = acc.Id;
     rla.SOP_ID__c = '1234';
+    rla.RecordTypeId = RTResidentialLoanApplication.rlsResidentialLoanApplication;
     insert rla;
 
     ResidentialLoanApplicationController rlaCtrl = new ResidentialLoanApplicationController();
@@ -55,6 +56,7 @@ public with sharing class ResidentialLoanApplicationControllerTest {
     ResidentialLoanApplication rla = new ResidentialLoanApplication();
     rla.Name = '239XXXXXXXXXXX';
     rla.AccountId = TestDataFactory.createAccount(true).Id;
+    rla.RecordTypeId = RTResidentialLoanApplication.rlsResidentialLoanApplication;
     insert rla;
 
     LoanApplicationLiability lal1 = new LoanApplicationLiability(
@@ -88,6 +90,7 @@ public with sharing class ResidentialLoanApplicationControllerTest {
     rla.Name = 'Test Loan Application';
     rla.AccountId = acc.Id;
     rla.SOP_ID__c = '1234';
+    rla.RecordTypeId = RTResidentialLoanApplication.rlsResidentialLoanApplication;
     insert rla;
 
     ResidentialLoanApplicationController rlaCtrl = new ResidentialLoanApplicationController();
@@ -256,6 +259,7 @@ public with sharing class ResidentialLoanApplicationControllerTest {
     rla.Name = 'Test Loan Application';
     rla.AccountId = acc.Id;
     rla.SOP_ID__c = '1234';
+    rla.RecordTypeId = RTResidentialLoanApplication.rlsResidentialLoanApplication;
     insert rla;
 
     Map<String, Object> inputMap = new Map<String, Object>();
@@ -281,6 +285,7 @@ public with sharing class ResidentialLoanApplicationControllerTest {
     rla.Name = 'Test Loan Application';
     rla.AccountId = acc.Id;
     rla.SOP_ID__c = '1234';
+    rla.RecordTypeId = RTResidentialLoanApplication.rlsResidentialLoanApplication;
     insert rla;
 
     ResidentialLoanApplicationController rlaCtrl = new ResidentialLoanApplicationController();

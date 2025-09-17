@@ -4,8 +4,8 @@
  * @description SOP Expense Summary View model
  */
 public with sharing class SOPExpenseSummaryViewModel {
-  private static final ResidentialLoanApplicationRepository RLA_SOQL_REPOSITORY = (ResidentialLoanApplicationRepository) Lib_InstanceProvider.forType(
-    ResidentialLoanApplicationRepository.class
+  private static final ExpenseControlRepository EXPENSE_CONTROL_SOQL_REPOSITORY = (ExpenseControlRepository) Lib_InstanceProvider.forType(
+    ExpenseControlRepository.class
   );
 
   @AuraEnabled
@@ -75,7 +75,9 @@ public with sharing class SOPExpenseSummaryViewModel {
       justificationCodeSet.add(expense.justificationCode);
     }
     return (Map<String, Expense_Control__c>) ListUtil.mapBy(
-      RLA_SOQL_REPOSITORY.getExpenseControl(justificationCodeSet),
+      EXPENSE_CONTROL_SOQL_REPOSITORY.getExpenseControlByExpenseCode(
+        justificationCodeSet
+      ),
       Expense_Control__c.Justification_Code__c
     );
   }

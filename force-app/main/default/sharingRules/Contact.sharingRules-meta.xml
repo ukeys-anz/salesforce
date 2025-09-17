@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
-        <fullName>Commercial_Broker_Contacts_Read_Only_Access</fullName>
+        <fullName>Broker_Contacts_Read_Only_Access</fullName>
         <accessLevel>Read</accessLevel>
-        <description>Share Contact records with Broker record type to Commercial Banking</description>
-        <label>Commercial Broker Contacts Read Only Access</label>
+        <description>Share read-only access to Broker Contacts with the access group: Broker Contact Read Only Access Group</description>
+        <label>Broker Contacts Read Only Access</label>
         <sharedTo>
-            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+            <group>Broker_Contact_Read_Only_Access_Group</group>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>

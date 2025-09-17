@@ -32,6 +32,11 @@
                 <label>Goodwill payment where no ANZ error</label>
             </value>
             <value>
+                <fullName>Buyback</fullName>
+                <default>false</default>
+                <label>Buyback</label>
+            </value>
+            <value>
                 <fullName>8</fullName>
                 <default>false</default>
                 <label>Credit reporting amendment</label>
@@ -57,6 +62,11 @@
                 <label>Guarantee release</label>
             </value>
             <value>
+                <fullName>Internal credit rating upgrade</fullName>
+                <default>false</default>
+                <label>Internal credit rating upgrade</label>
+            </value>
+            <value>
                 <fullName>14</fullName>
                 <default>false</default>
                 <label>Life tenancy</label>
@@ -70,6 +80,16 @@
                 <fullName>16</fullName>
                 <default>false</default>
                 <label>Moratorium</label>
+            </value>
+            <value>
+                <fullName>Reinstatement</fullName>
+                <default>false</default>
+                <label>Reinstatement</label>
+            </value>
+            <value>
+                <fullName>Repayment arrangement</fullName>
+                <default>false</default>
+                <label>Repayment arrangement</label>
             </value>
             <value>
                 <fullName>17</fullName>
@@ -166,11 +186,6 @@
                 <default>false</default>
                 <label>Reward Points</label>
             </value>
-            <value>
-                <fullName>Repayment arrangement</fullName>
-                <default>false</default>
-                <label>Repayment arrangement</label>
-            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>1</controllingFieldValue>
@@ -183,6 +198,10 @@
         <valueSettings>
             <controllingFieldValue>1</controllingFieldValue>
             <valueName>7</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>4</controllingFieldValue>
+            <valueName>Buyback</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>4</controllingFieldValue>
@@ -206,6 +225,10 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>4</controllingFieldValue>
+            <valueName>Internal credit rating upgrade</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>4</controllingFieldValue>
             <valueName>14</valueName>
         </valueSettings>
         <valueSettings>
@@ -215,6 +238,14 @@
         <valueSettings>
             <controllingFieldValue>4</controllingFieldValue>
             <valueName>16</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>4</controllingFieldValue>
+            <valueName>Reinstatement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>4</controllingFieldValue>
+            <valueName>Repayment arrangement</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>4</controllingFieldValue>
@@ -237,10 +268,6 @@
             <controllingFieldValue>2</controllingFieldValue>
             <controllingFieldValue>3</controllingFieldValue>
             <valueName>99</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>4</controllingFieldValue>
-            <valueName>Repayment arrangement</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>2</controllingFieldValue>
