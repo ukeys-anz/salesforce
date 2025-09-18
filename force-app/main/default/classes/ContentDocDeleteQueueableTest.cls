@@ -1,17 +1,15 @@
 /**
  * @author Hitesh
  * @since 02/2024
- * @description Test Class for MLCRMContentDocDeleteQueueable
+ * @description Test Class for ContentDocDeleteQueueable
  */
 @isTest
-public class MLCRMContentDocDeleteQueueableTest {
+public class ContentDocDeleteQueueableTest {
   static Lib_MockProvider cdRepoMock;
   static Lib_MockProvider dmlRepoMock;
   static void registerMocks() {
     dmlRepoMock = Lib_MockProvider.forType(DMLRepository.class);
-    cdRepoMock = Lib_MockProvider.forType(
-      CCRMContentDocumentLinkRepository.class
-    );
+    cdRepoMock = Lib_MockProvider.forType(ContentDocumentLinkRepository.class);
   }
 
   @isTest
@@ -33,7 +31,7 @@ public class MLCRMContentDocDeleteQueueableTest {
 
     //WHEN calling a method
     Test.startTest();
-    MLCRMContentDocDeleteQueueable q = new MLCRMContentDocDeleteQueueable(
+    ContentDocDeleteQueueable q = new ContentDocDeleteQueueable(
       new List<id>{
         Lib_FakeIdGenerator.getMockId(ContentDocument.getSobjectType())
       }
@@ -47,7 +45,7 @@ public class MLCRMContentDocDeleteQueueableTest {
       ((List<ContentDocument>) dmlRepoMock.getHistory('doDelete')
           .getParam('records'))
         .size(),
-      'MLCRMContentDocDeleteQueueable is not deleting content documents'
+      'ContentDocDeleteQueueable is not deleting content documents'
     );
   }
 }

@@ -1,14 +1,14 @@
 /**
  * @author Naman Garg
  * @since 06/2024
- * @description CCRMContentDocumentLinkActions this is to handle all the CCRM (Commercial CRM) Actions
+ * @description ContentDocumentLinkActions this is to handle all the CCRM (Commercial CRM) Actions
  */
-public with sharing class CCRMContentDocumentLinkActions {
+public with sharing class ContentDocumentLinkActions {
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
-  private static final CCRMContentDocumentLinkRepository CDL_REPOSITORY = (CCRMContentDocumentLinkRepository) Lib_InstanceProvider.forType(
-    CCRMContentDocumentLinkRepository.class
+  private static final ContentDocumentLinkRepository CDL_REPOSITORY = (ContentDocumentLinkRepository) Lib_InstanceProvider.forType(
+    ContentDocumentLinkRepository.class
   );
 
   private static final String ATTACHMENT_NOTE_INITIAL = 'Please note that ';
@@ -27,8 +27,9 @@ public with sharing class CCRMContentDocumentLinkActions {
       );
 
       //Fetch the list of Email Message records from the Content Document Link
-      List<Id> emailMessageIdList = new List<Id>(
-        CommonUtil.getIds(cdlList, ContentDocumentLink.LinkedEntityId)
+      Set<Id> emailMessageIdList = ListUtil.getIds(
+        cdlList,
+        ContentDocumentLink.LinkedEntityId
       );
       if (emailMessageIdList.isEmpty()) {
         return;
@@ -93,7 +94,7 @@ public with sharing class CCRMContentDocumentLinkActions {
 
     for (ContentDocumentLink cdl : cdlList) {
       EmailMessage em = emailMessagesMap.get(cdl.LinkedEntityId);
-      if (em == null || !isContentDocumentDeleteAllowed(em)) {
+      if (em == null) {
         continue;
       }
       if (em.CreatedBy.Profile_Name__c == System.Label.MLCRM_Profile_Name) {
@@ -128,7 +129,7 @@ public with sharing class CCRMContentDocumentLinkActions {
     for (ContentDocumentLink cdl : cdlList) {
       EmailMessage em = emailMessagesMap.get(cdl.LinkedEntityId);
       count = 0;
-      if (em == null || !isContentDocumentDeleteAllowed(em)) {
+      if (em == null) {
         continue;
       }
       Matcher m = p.matcher(em.Attachment_Notes__c);
@@ -171,14 +172,14 @@ public with sharing class CCRMContentDocumentLinkActions {
   private static void deleteContentDocument(CdEmailMessageWrapper cdEmWrapper) {
     if (!cdEmWrapper.mlContentDocsToDelete.isEmpty()) {
       System.enqueueJob(
-        new MLCRMContentDocDeleteQueueable(cdEmWrapper.mlContentDocsToDelete),
+        new ContentDocDeleteQueueable(cdEmWrapper.mlContentDocsToDelete),
         integer.valueof(System.Label.ML_Outlook_Attachment_Delete_Delay)
       );
     }
 
     if (!cdEmWrapper.ccrmContentDocsToDelete.isEmpty()) {
       System.enqueueJob(
-        new MLCRMContentDocDeleteQueueable(cdEmWrapper.ccrmContentDocsToDelete),
+        new ContentDocDeleteQueueable(cdEmWrapper.ccrmContentDocsToDelete),
         integer.valueof(System.Label.CCRM_Outlook_Attachment_Delete_Delay)
       );
     }
@@ -195,37 +196,5 @@ public with sharing class CCRMContentDocumentLinkActions {
     List<Id> mlContentDocsToDelete = new List<Id>();
     @testVisible
     List<Id> ccrmContentDocsToDelete = new List<Id>();
-  }
-  /**
-   * @description This method check if Delete opeation is allowed on ContentDocument for ML User. Used in Outlook-SF Integration.
-   * @param em EmailMessage record
-   * @return Boolean
-   * @US CC-1893
-   */
-  public static Boolean isContentDocumentDeleteAllowed(EmailMessage em) {
-    return em.Incoming == true ||
-      (checkFromAddressExists(em.FromAddress, em.ToAddress) ||
-      checkFromAddressExists(em.FromAddress, em.CcAddress));
-  }
-  
-  /**
-   * @description Checks if FromAddress exisist in TargetAddress (Scenario - checks if FromAddress exists in either ccAddress or TO Address)
-   * @param fromAddress EmailMessage fromAddress String value
-   * @param addressToCheck EmailMessage targetAddress to check(Ex- ccAddress, ToAddress). In case of multiple address in cc - Format:  abc.xyz@anz.com; pqr.mnp@anz.com
-   * @return Boolean
-   * @US CC-1893
-   */
-  @TestVisible
-  private static Boolean checkFromAddressExists(
-    String fromAddress,
-    String addressToCheck
-  ) {
-    if (addressToCheck == null) {
-      return false;
-    }
-    List<String> addressessListToCheck = addressToCheck.replaceAll('\\s+', '')
-      .toLowerCase()
-      .split(';');
-    return addressessListToCheck.contains(fromAddress.toLowerCase());
   }
 }

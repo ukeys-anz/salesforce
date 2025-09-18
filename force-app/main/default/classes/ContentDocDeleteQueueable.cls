@@ -4,12 +4,12 @@
  * @description Deletes ContentDocuments in async way when uploaded from Outlook by ML User
  * @test class - ContentDocumentLinkTriggerHandler
  */
-public class MLCRMContentDocDeleteQueueable implements Queueable {
+public class ContentDocDeleteQueueable implements Queueable {
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
-  private static final CCRMContentDocumentLinkRepository CDL_REPOSITORY = (CCRMContentDocumentLinkRepository) Lib_InstanceProvider.forType(
-    CCRMContentDocumentLinkRepository.class
+  private static final ContentDocumentLinkRepository CDL_REPOSITORY = (ContentDocumentLinkRepository) Lib_InstanceProvider.forType(
+    ContentDocumentLinkRepository.class
   );
   public List<Id> contentDocsToDelete;
 
@@ -17,7 +17,7 @@ public class MLCRMContentDocDeleteQueueable implements Queueable {
    * @description onAfterInsert: After Insert actions.
    * @param records - ContentDocumentIds List to be deleted
    */
-  public MLCRMContentDocDeleteQueueable(List<Id> records) {
+  public ContentDocDeleteQueueable(List<Id> records) {
     contentDocsToDelete = records;
   }
 
