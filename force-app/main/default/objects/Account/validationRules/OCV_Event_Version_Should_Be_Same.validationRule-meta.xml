@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OCV_Event_Version_Should_Be_Same</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+ISCHANGED(OCV_Event_Version__c),
+NOT(ISNULL(OCV_Event_Version__c)),
+$Permission.Can_Update_OCV_Event_Version
+)</errorConditionFormula>
+    <errorMessage>Customer Update failed: OCV Event Version mismatch</errorMessage>
+</ValidationRule>

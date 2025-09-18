@@ -10,17 +10,7 @@ public with sharing class AccountActionsRepository {
    * @return Map<Id,Account> account Map
    */
   public Map<Id, Account> getAccountByIds(Set<ID> idsOfAcc) {
-    if (idsOfAcc.isEmpty()) {
-      return new Map<Id, Account>();
-    }
-    return new Map<Id, Account>(
-      [
-        SELECT Id, PersonContactId, Name, Salutation
-        FROM Account
-        WHERE Id IN :idsOfAcc
-        WITH USER_MODE
-      ]
-    );
+    return new SystemAction().getAccountByIds(idsOfAcc);
   }
 
   /**
@@ -55,5 +45,28 @@ public with sharing class AccountActionsRepository {
    */
   public Boolean isCurrentUserML() {
     return UserInfo.getProfileId() == QueryProfile.anzMLStandardUser.Id;
+  }
+  /**
+   * @description This class take care of Database operation that requires without sharing operation
+   */
+  private without sharing class SystemAction {
+    /**
+     * @description getAccountByIds method return account associated to the given ids of the account
+     * @param idsOfAcc Id of the Account
+     * @return Map<Id,Account> account Map
+     */
+    public Map<Id, Account> getAccountByIds(Set<ID> idsOfAcc) {
+      if (idsOfAcc.isEmpty()) {
+        return new Map<Id, Account>();
+      }
+      return new Map<Id, Account>(
+        [
+          SELECT Id, PersonContactId, Name, Salutation
+          FROM Account
+          WHERE Id IN :idsOfAcc
+          WITH SYSTEM_MODE
+        ]
+      );
+    }
   }
 }

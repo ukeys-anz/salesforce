@@ -266,6 +266,14 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
       return true;
     }
 
+    if (
+      isCurrentUserCaseOwner(caseRecord) &&
+      USER_INFO.checkRole('FraudX_Agent') &&
+      referralReason.Authority_Level__c.toUpperCase() == 'FRAUD'
+    ) {
+      return true;
+    }
+
     return false;
   }
 

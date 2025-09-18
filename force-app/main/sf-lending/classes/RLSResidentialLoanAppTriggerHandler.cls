@@ -27,6 +27,11 @@ public with sharing class RLSResidentialLoanAppTriggerHandler extends Lib_Trigge
    * @description onBeforeInsert to handle before insert trigger actions
    */
   public override void onBeforeInsert() {
+    ResidentialLoanApplicationActions.populateRetailLoanAssistedBroker(
+      records,
+      new Map<Id, ResidentialLoanApplication>()
+    );
+    ResidentialLoanApplicationActions.updateApplicationSyncStatus(records);
     ResidentialLoanApplicationActions.setResidentialLoanApplicationValidity(
       records
     );
@@ -37,10 +42,36 @@ public with sharing class RLSResidentialLoanAppTriggerHandler extends Lib_Trigge
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    ResidentialLoanApplicationActions.populateRetailLoanAssistedBroker(
+      records,
+      (Map<Id, ResidentialLoanApplication>) oldMap
+    );
     ResidentialLoanApplicationActions.setResidentialLoanApplicationValidity(
       ListUtil.filter(records, oldMap)
         .changed(ResidentialLoanApplication.Status)
         .toList()
+    );
+  }
+
+  /**
+   * @description onAfterInsert to handle after insert trigger actions
+   */
+  @TestVisible
+  public override void onAfterInsert() {
+    ResidentialLoanApplicationActions.publishSyncEvents(
+      records,
+      ApplicationEventActions.APPLICATION_EVENT_ADD
+    );
+  }
+
+  /**
+   * @description onAfterUpdate to handle after update trigger actions
+   * @param oldMap old trigger values
+   */
+  public override void onAfterUpdate(Map<Id, SObject> oldMap) {
+    ResidentialLoanApplicationActions.publishSyncEvents(
+      records,
+      ApplicationEventActions.APPLICATION_EVENT_UPDATE
     );
   }
 }

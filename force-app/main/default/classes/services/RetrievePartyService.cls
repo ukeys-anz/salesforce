@@ -4,7 +4,7 @@
  * @description extended service class for OCV retrieve party api
  * @group Service
  */
-public with sharing class RetrievePartyService extends Service {
+public with sharing virtual class RetrievePartyService extends Service {
   private static final String PARTY_TYPE = 'P';
   private static final Lib_HttpCallout CALLOUT = (Lib_HttpCallout) Lib_InstanceProvider.forType(
     Lib_HttpCallout.class

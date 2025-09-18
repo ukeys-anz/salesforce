@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>CAP-CIS:ILSSFC</label>
+    <protected>false</protected>
+    <values>
+        <field>Account_Type__c</field>
+        <value xsi:type="xsd:string">Loan</value>
+    </values>
+    <values>
+        <field>Balance_Title__c</field>
+        <value xsi:type="xsd:string">Loan Amount</value>
+    </values>
+    <values>
+        <field>FinancialAccountConfiguration__c</field>
+        <value xsi:type="xsd:string">Loan_Account_Configuration</value>
+    </values>
+    <values>
+        <field>Include_In_Total_Financial_Position__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Is_Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Ownership_Type__c</field>
+        <value xsi:type="xsd:string">Multi-party</value>
+    </values>
+    <values>
+        <field>Product_Code__c</field>
+        <value xsi:type="xsd:string">CAP-CIS:ILSSFC</value>
+    </values>
+    <values>
+        <field>Section_Header_Title__c</field>
+        <value xsi:type="xsd:string">Loan</value>
+    </values>
+    <values>
+        <field>Show_Goals__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Sort_Order__c</field>
+        <value xsi:type="xsd:double">64.0</value>
+    </values>
+</CustomMetadata>

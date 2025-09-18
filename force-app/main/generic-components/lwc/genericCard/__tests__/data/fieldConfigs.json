@@ -1,0 +1,88 @@
+{
+  "mortgageFields": [
+    { "label": "Contract ID", "value": "{contract.id}", "type": "text" },
+    {
+      "label": "Settlement Date",
+      "value": "{contract.settlementTime}",
+      "type": "date"
+    },
+    {
+      "label": "Property Address",
+      "value": "{property.address}",
+      "type": "text"
+    },
+    {
+      "label": "Loan Amount",
+      "value": "{financials.loanAmount}",
+      "type": "currency"
+    }
+  ],
+  "loanFields": [
+    { "label": "Application ID", "value": "{application.id}", "type": "text" },
+    {
+      "label": "Primary Applicant",
+      "value": "{applicant.primaryApplicant}",
+      "type": "text"
+    },
+    {
+      "label": "Credit Score",
+      "value": "{assessment.creditScore}",
+      "type": "number"
+    },
+    {
+      "label": "Requested Amount",
+      "value": "{loanDetails.requestedAmount}",
+      "type": "currency"
+    }
+  ],
+  "valuationFields": [
+    {
+      "label": "Property Address",
+      "value": "{property.address}",
+      "type": "text"
+    },
+    {
+      "label": "Current Valuation",
+      "value": "{valuation.currentValue}",
+      "type": "currency"
+    },
+    {
+      "label": "Valuation Date",
+      "value": "{valuation.valuationDate}",
+      "type": "date"
+    },
+    { "label": "Market Trend", "value": "{market.marketTrend}", "type": "text" }
+  ],
+  "settlementFields": [
+    { "label": "Settlement ID", "value": "{settlement.id}", "type": "text" },
+    {
+      "label": "Settlement Date",
+      "value": "{settlement.scheduledDate}",
+      "type": "date"
+    },
+    { "label": "Venue", "value": "{settlement.venue}", "type": "text" },
+    { "label": "Status", "value": "{settlement.status}", "type": "text" }
+  ],
+  "summaryFields": [
+    {
+      "label": "Total Contracts",
+      "value": "{summary.totalContracts}",
+      "type": "number"
+    },
+    {
+      "label": "Total Loan Value",
+      "value": "{summary.totalLoanValue}",
+      "type": "currency"
+    },
+    {
+      "label": "Average Loan Size",
+      "value": "{summary.averageLoanSize}",
+      "type": "currency"
+    },
+    {
+      "label": "Active Contracts",
+      "value": "{summary.activeContracts}",
+      "type": "number"
+    }
+  ]
+}

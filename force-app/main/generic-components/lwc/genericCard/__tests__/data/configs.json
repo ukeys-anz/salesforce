@@ -1,0 +1,38 @@
+{
+  "mortgageContractSummary": {
+    "title": "Mortgage Contract Summary",
+    "subtitle": "Settlement & Contract Details",
+    "icon": "utility:contract",
+    "theme": "success"
+  },
+  "loanApplicationOverview": {
+    "title": "Loan Application Overview",
+    "subtitle": "Application Status & Details",
+    "icon": "utility:currency",
+    "theme": "warning"
+  },
+  "propertyValuationCard": {
+    "title": "Property Valuation Assessment",
+    "subtitle": "Current Market Analysis",
+    "icon": "utility:home",
+    "theme": "info"
+  },
+  "settlementStatusCard": {
+    "title": "Settlement Status Dashboard",
+    "subtitle": "Pre-Settlement Checklist",
+    "icon": "utility:task",
+    "theme": "error"
+  },
+  "dataTableCard": {
+    "title": "Mortgage Contracts List",
+    "subtitle": "Active Contracts Dashboard",
+    "icon": "utility:table",
+    "theme": "info"
+  },
+  "combinedCard": {
+    "title": "Comprehensive Mortgage Overview",
+    "subtitle": "Fields & Table Combined",
+    "icon": "utility:apps",
+    "theme": "warning"
+  }
+}

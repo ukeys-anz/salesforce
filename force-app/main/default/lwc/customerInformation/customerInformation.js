@@ -1,5 +1,8 @@
 import { LightningElement, api, wire, track } from "lwc";
 import getCustomerData from "@salesforce/apex/IDRAPIRepository.getCustomerInfoLWC";
+import getFinancialAccounts from "@salesforce/apex/GetCustomerInformation.fetchCustomerFinancialAccounts";
+import logOCVError from "@salesforce/apex/IDRCaseActionsHelper.logOCVError";
+import { getAccoutProductkeys } from "c/utils";
 import { getRecord, getFieldValue } from "lightning/uiRecordApi";
 import { updateRecord } from "lightning/uiRecordApi";
 import { refreshApex } from "@salesforce/apex";
@@ -16,6 +19,51 @@ import RM_COMPLAINT from "@salesforce/schema/Case.Relationship_Managed_Complaint
 import OCV_ID from "@salesforce/schema/Case.OCV_Id__c";
 import CP_ID from "@salesforce/schema/Case.CPID__c";
 import ID_FIELD from "@salesforce/schema/Case.Id";
+
+const FIELDS = [
+  CAP_ID_FIELD,
+  FIRST_NAME,
+  MIDDLE_NAME,
+  LAST_NAME,
+  RM_COMPLAINT,
+  CUSTOMER_IDENTIFIER,
+  COMPLAINANT_TYPE,
+  "Case.AccountId",
+  "Case.Account.LastName",
+  "Case.Account.FirstName",
+  "Case.Account.MiddleName",
+  "Case.Relationship_Managed_Complaint__c",
+  "Case.Account.CPID__c",
+  "Case.Account.OCV_ID__c",
+  "Case.Account.PersonBirthdate",
+  "Case.Account.Other_Email__c",
+  "Case.Account.PersonEmail",
+  "Case.Account.PersonOtherPhone",
+  "Case.Account.PersonMobilePhone",
+  "Case.Account.BillingStreet",
+  "Case.Account.BillingCity",
+  "Case.Account.BillingPostalCode",
+  "Case.Account.BillingCountry",
+  "Case.Account.BillingState",
+  "Case.Account.PersonOtherCity",
+  "Case.Account.PersonOtherCountry",
+  "Case.Account.PersonOtherState",
+  "Case.Account.PersonOtherPostalCode",
+  "Case.Account.PersonOtherStreet",
+  "Case.Account.ShippingCity",
+  "Case.Account.ShippingCountry",
+  "Case.Account.ShippingPostalCode",
+  "Case.Account.ShippingState",
+  "Case.Account.ShippingStreet",
+  "Case.Account.FinServ__Age__pc",
+  "Case.Account.Gender__pc",
+  "Case.Account.RecordType.Name",
+  "Case.Account.Migration_Status__c",
+  "Case.Account.Migration_Status_Date__c",
+  "Case.Account.Controlling_Post__r.Responsible_Employee_Name__c",
+  "Case.Account.Controlling_Post__r.CPID_Phone__c",
+  "Case.Account.Controlling_Post__r.CPID_Address__c"
+];
 
 export default class CustomerInformation extends LightningElement {
   @track isLoading = false;
@@ -46,50 +94,125 @@ export default class CustomerInformation extends LightningElement {
 
   @wire(getRecord, {
     recordId: "$recordId",
-    fields: [
-      CAP_ID_FIELD,
-      FIRST_NAME,
-      MIDDLE_NAME,
-      LAST_NAME,
-      RM_COMPLAINT,
-      CUSTOMER_IDENTIFIER,
-      COMPLAINANT_TYPE
-    ]
+    fields: FIELDS
   })
   wiredProject({ error, data }) {
-    if (data && this.record !== data) {
-      this.record = data;
-
-      if (!this.customerInfo) {
-        let customerData1 = {
-          complainant_type: "",
-          first_name: "",
-          last_name: "",
-          middlename: "",
-          isRmPresent: false
-        };
-        customerData1.first_name = getFieldValue(this.record, FIRST_NAME);
-        customerData1.last_name = getFieldValue(this.record, LAST_NAME);
-        customerData1.middlename = getFieldValue(this.record, MIDDLE_NAME);
-        customerData1.isRmPresent = getFieldValue(this.record, RM_COMPLAINT);
-        customerData1.complainant_type =
-          getFieldValue(this.record, COMPLAINANT_TYPE) === "1"
-            ? "Individual"
-            : "Business";
-        this.customerInfo = customerData1;
-        this.firstName = customerData1.first_name;
-        this.lastName = customerData1.last_name;
-      }
-    } else if (error) {
+    if (!data && this.record === data) {
+      return;
+    }
+    if (error) {
       this.handleError(error);
     }
+    this.record = data;
+    let accId = this.record.fields.AccountId?.value;
+    if (!this.customerInfo && accId) {
+      let accountData = this.record.fields.Account.value.fields;
+      let customerAccountData = this.setCustomerData(accountData);
+      this.customerInfo = customerAccountData;
+      this.firstName = customerAccountData.first_name;
+      this.lastName = customerAccountData.last_name;
+    }
+
+    if (!this.customerInfo) {
+      let customerData1 = {};
+      customerData1.first_name = getFieldValue(this.record, FIRST_NAME) ?? "";
+      customerData1.last_name = getFieldValue(this.record, LAST_NAME) ?? "";
+      customerData1.middlename = getFieldValue(this.record, MIDDLE_NAME) ?? "";
+      customerData1.isRmPresent =
+        getFieldValue(this.record, RM_COMPLAINT) ?? false;
+      customerData1.complainant_type =
+        getFieldValue(this.record, COMPLAINANT_TYPE) === "1"
+          ? "Individual"
+          : "Business";
+      this.customerInfo = customerData1;
+      this.firstName = customerData1.first_name;
+      this.lastName = customerData1.last_name;
+    }
+  }
+  setCustomerData(accountData) {
+    let controllingPost = accountData.Controlling_Post__r?.value;
+    let address = this.populateAddress(accountData);
+
+    return {
+      first_name: accountData.FirstName?.value,
+      last_name: accountData.LastName?.value,
+      accId: this.record.fields.AccountId?.value,
+      middlename: accountData.MiddleName?.value,
+      isRmPresent: this.record.fields.Relationship_Managed_Complaint__c?.value,
+      gender: accountData.Gender__pc?.value,
+      age: accountData.FinServ__Age__pc?.value
+        ? Math.trunc(Number(accountData.FinServ__Age__pc.value))
+        : "",
+      cpId: accountData.CPID__c?.value,
+      ocvId: accountData.OCV_ID__c?.value,
+      capId: this.record.fields.IDR_Customer_Number__c?.value,
+      custIdentifier: this.record.fields.IDR_Customer_Identifier__c?.value,
+      emailclassic: accountData.Other_Email__c?.value,
+      emailanzplus: accountData.PersonEmail?.value,
+      mobileclassic: accountData.PersonOtherPhone?.value,
+      mobileanzplus: accountData.PersonMobilePhone?.value,
+      street: address?.street,
+      suburb: address?.suburb,
+      state: address?.state,
+      postcode: address?.postCode,
+      country: address?.country,
+      migrationStatusType: accountData.Migration_Status__c?.value,
+      migrationStatusDate: accountData.Migration_Status_Date__c?.value,
+      complainant_type: accountData.RecordType.value.fields.Name?.value,
+      rmData: {
+        name: controllingPost?.fields.Responsible_Employee_Name__c?.value ?? "",
+        phone: controllingPost?.fields.CPID_Phone__c?.value ?? "",
+        officeAddress: controllingPost?.fields.CPID_Address__c?.value ?? ""
+      }
+    };
   }
 
   showAllCustomerData() {
+    if (this.customerInfo.capId) {
+      getCustomerData({
+        customerId: this.customerInfo.capId.replace(/^0+/, ""),
+        customerIdentifier: this.customerInfo.custIdentifier
+      })
+        .then((result) => {
+          if (Array.isArray(result.accounts)) {
+            this.customerInfo.accounts = result.accounts.map((i) => ({
+              accountNumber: i.accountNumber
+            }));
+          }
+        })
+        .catch((error) => {
+          if (error?.body.message === "OCV Down") {
+            this.populateFinancialAccount();
+            logOCVError({
+              message: error.body.message,
+              customerId: this.customerInfo.capId.replace(/^0+/, "")
+            });
+          }
+        });
+      if (this.customerInfo.rmData.name) this.isRMDetails = true;
+      this.showMore = true;
+      return;
+    }
     this.custData(
       this.record.fields.IDR_Customer_Number__c.value.replace(/^0+/, ""),
       this.record.fields.IDR_Customer_Identifier__c.value
     );
+  }
+
+  populateFinancialAccount() {
+    if (!this.customerInfo.accId) {
+      return;
+    }
+    getFinancialAccounts({
+      accId: this.customerInfo.accId,
+      ocvId: this.customerInfo.ocvId
+    }).then((result) => {
+      this.customerInfo.accounts = result.map((i) => ({
+        accountNumber: getAccoutProductkeys(
+          i.FinServ__FinancialAccount__r.Account_Key__c
+        )
+      }));
+    });
   }
 
   updateCustomerDetailsonCase() {
@@ -237,6 +360,36 @@ export default class CustomerInformation extends LightningElement {
       .catch((error) => {
         this.handleError(error);
       });
+  }
+  populateAddress(accountData) {
+    if (accountData.RecordType.value.fields.Name?.value === "Individual") {
+      return {
+        street: accountData.PersonOtherStreet?.value,
+        country: accountData.PersonOtherCountry?.value,
+        postCode: accountData.PersonOtherPostalCode?.value,
+        state: accountData.PersonOtherState?.value,
+        suburb: accountData.PersonOtherCity?.value
+      };
+    }
+    if (accountData.RecordType.value.fields.Name?.value === "Organisation") {
+      if (accountData.ShippingPostalCode?.value != null) {
+        return {
+          street: accountData.ShippingStreet?.value,
+          country: accountData.ShippingCountry?.value,
+          postCode: accountData.ShippingPostalCode?.value,
+          state: accountData.ShippingState?.value,
+          suburb: accountData.ShippingCity?.value
+        };
+      }
+      return {
+        street: accountData.BillingStreet?.value,
+        country: accountData.BillingCountry?.value,
+        postCode: accountData.BillingPostalCode?.value,
+        state: accountData.BillingState?.value,
+        suburb: accountData.BillingCity?.value
+      };
+    }
+    return null;
   }
   handleError(err) {
     this.isLoading = false;

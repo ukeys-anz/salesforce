@@ -521,6 +521,36 @@
         <label>Fees and Charges</label>
     </customValue>
     <customValue>
+        <fullName>110</fullName>
+        <default>false</default>
+        <label>Restraints placed incorrectly or not removed after completing KYC</label>
+    </customValue>
+    <customValue>
+        <fullName>111</fullName>
+        <default>false</default>
+        <label>Email/SMS/letter content or format concern</label>
+    </customValue>
+    <customValue>
+        <fullName>112</fullName>
+        <default>false</default>
+        <label>Restraints placed on account due to bank policy</label>
+    </customValue>
+    <customValue>
+        <fullName>113</fullName>
+        <default>false</default>
+        <label>Current KYC verification process dissatisfaction</label>
+    </customValue>
+    <customValue>
+        <fullName>114</fullName>
+        <default>false</default>
+        <label>Partial or incorrect information captured or provided</label>
+    </customValue>
+    <customValue>
+        <fullName>131</fullName>
+        <default>false</default>
+        <label>Account closure due to KYC Non-Compliance</label>
+    </customValue>
+    <customValue>
         <fullName>Stores are cashless</fullName>
         <default>false</default>
         <isActive>false</isActive>

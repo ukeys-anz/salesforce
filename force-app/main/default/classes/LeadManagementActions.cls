@@ -437,6 +437,7 @@ public with sharing class LeadManagementActions {
     List<Lead> filteredLeads = ListUtil.filter(records, oldMap)
       .equals(Lead.Lead_Originator__c, SET_OF_ELIGIBLE_LEAD_ORIGINATOR)
       .notEquals(Lead.Id, calloutLeadIds)
+      .notEquals(Lead.Status, 'Converted')
       .anyChanged(fieldsToValidateChange)
       .toList();
     CCRMLeadPlatformEventActions.publishLeadUpdateToUnicaOrAdobe(

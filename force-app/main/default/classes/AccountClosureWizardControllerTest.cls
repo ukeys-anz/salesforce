@@ -102,6 +102,10 @@ public with sharing class AccountClosureWizardControllerTest {
       };
       registerMocks();
       finAccRepoMock.mock('getFinAccountList', mockFinancialAccounts());
+      finAccRepoMock.mock(
+        'getDigitallyConnectedFinAccounts',
+        mockFinancialAccounts()
+      );
 
       accountClosureRepoMock.mock(
         'getCasesByFinancialAccountIds',
@@ -161,18 +165,24 @@ public with sharing class AccountClosureWizardControllerTest {
   private static List<FinServ__FinancialAccount__c> mockFinancialAccounts() {
     List<FinServ__FinancialAccount__c> accounts = new List<FinServ__FinancialAccount__c>();
     accounts.add(
-      new FinServ__FinancialAccount__c(
-        Id = FAKER_FIN_ACC_ID,
-        FinServ__FinancialAccountNumber__c = '111111111',
-        FinServ__Balance__c = 1.99,
-        FinServ__CurrentPostedBalance__c = 1.99,
-        BSB__c = '014111',
-        FinServ__ProductName__c = '01t2P000000GKT7QAO',
-        FinServ__OpenDate__c = Date.newInstance(2016, 9, 21),
-        FinServ__CloseDate__c = null,
-        FinServ__Status__c = 'Active',
-        Marketing_Code__c = 'SAVING01',
-        FinServ__Ownership__c = 'Single'
+      (FinServ__FinancialAccount__c) TestUtil.setFields(
+        new FinServ__FinancialAccount__c(
+          Id = FAKER_FIN_ACC_ID,
+          FinServ__FinancialAccountNumber__c = '111111111',
+          FinServ__Balance__c = 1.99,
+          FinServ__CurrentPostedBalance__c = 1.99,
+          BSB__c = '014111',
+          FinServ__ProductName__c = '01t2P000000GKT7QAO',
+          FinServ__OpenDate__c = Date.newInstance(2016, 9, 21),
+          FinServ__CloseDate__c = null,
+          FinServ__Status__c = 'Active',
+          Marketing_Code__c = 'SAVING01',
+          FinServ__Ownership__c = 'Single'
+        ),
+        new Map<String, Object>{
+          'Ownership__c' => 'Single',
+          'Linked_Product_Code__c' => 'SAVING01'
+        }
       )
     );
     return accounts;

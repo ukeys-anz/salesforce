@@ -35,7 +35,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Newsletter__c</field>
+                <field>Indicative_FUM__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -66,10 +66,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Customer_Interests__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Indicative_FUM__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

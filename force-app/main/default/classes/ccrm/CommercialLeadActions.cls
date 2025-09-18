@@ -378,6 +378,7 @@ public with sharing class CommercialLeadActions {
     List<Lead> listOfLeads = ListUtil.filter(records, oldMap)
       .equals(Lead.Lead_Originator__c, SET_OF_ELIGIBLE_LEAD_ORIGINATOR)
       .notEquals(Lead.Id, LeadManagementActions.calloutLeadIds)
+      .notEquals(Lead.Status, 'Converted')
       .anyChanged(fieldsToValidateChange)
       .isNull(Lead.FinServ__ReferredByUser__c)
       .toList();

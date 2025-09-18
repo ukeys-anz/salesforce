@@ -4,6 +4,10 @@
         <name>FinancialAccountUIConfiguration__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <name>FinancialAccountConfiguration__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <description>Query All Files For Odaseva User to Backup Salesforce File for CMOS (PDR037)</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Query All Files</label>

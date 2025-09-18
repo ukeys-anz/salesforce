@@ -149,4 +149,49 @@ private with sharing class CommonCaseTriggerActionsTest {
       'Case Hour Duration time should be set.'
     );
   }
+
+  @isTest
+  static void testSetCaseNumber() {
+    Case case1 = (Case) TestUtil.setFields(
+      new Case(),
+      new Map<String, Object>{ 'CaseNumber' => '00010001' }
+    );
+
+    CommonCaseTriggerActions.setCaseNumber(new List<Case>{ case1 });
+
+    Assert.areEqual(
+      '00010001',
+      case1.CaseNumber__c,
+      'CaseNumber__c should be set from CaseNumber'
+    );
+  }
+
+  @isTest
+  static void testCopyCaseNumber() {
+    Id caseId1 = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    Id caseId2 = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+
+    Case case1 = (Case) TestUtil.setFields(
+      new Case(Id = caseId1),
+      new Map<String, Object>{ 'CaseNumber' => '00010001' }
+    );
+
+    Lib_MockProvider.forType(CommonCaseTriggerRepository.class)
+      .mock('queryCasesWithoutCaseNumber', new List<Case>{ case1 });
+    Lib_MockProvider dmlRepo = Lib_MockProvider.forType(DmlRepository.class);
+
+    Test.startTest();
+    CommonCaseTriggerActions.copyCaseNumberAsync(
+      new Set<Id>{ caseId1, caseId2 }
+    );
+    Test.stopTest();
+
+    List<SObject> records = (List<SObject>) dmlRepo.getHistory('doUpdate')
+      .getParam('records');
+    Assert.areEqual(
+      '00010001',
+      records[0].get('CaseNumber__c'),
+      'CaseNumber__c should be set from CaseNumber'
+    );
+  }
 }

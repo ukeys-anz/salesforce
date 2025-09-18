@@ -102,7 +102,10 @@ public with sharing class AUFControllerTest {
     );
     FinServ__FinancialAccount__c finAccount = (FinServ__FinancialAccount__c) TestUtil.setFields(
       finAccount1,
-      new Map<String, Object>{ 'Ownership__c' => 'Single' }
+      new Map<String, Object>{
+        'Ownership__c' => 'Single',
+        'Linked_Product_Code__c' => 'SAVING01'
+      }
     );
     finAccount.FinServ__ProductName__r = product;
     finAccount.FinServ__FinancialAccountNumber__c = '111111111';
@@ -810,7 +813,10 @@ public with sharing class AUFControllerTest {
   public static void testGetFinancialAccountFabricPositive() {
     registerMocks();
     finAccRepoMock.mock('getFinAccountList', createMockFinancialAccount());
-
+    finAccRepoMock.mock(
+      'getDigitallyConnectedFinAccounts',
+      createMockFinancialAccount()
+    );
     Test.startTest();
     List<UnifiedFinancialAccountModel> processedfinancialAccounts = FinancialAccountController.getFinancialAccountFabric(
       '12345',
@@ -833,6 +839,10 @@ public with sharing class AUFControllerTest {
       personDigitalIdentityRecords[0]
     );
     finAccRepoMock.mock('getFinAccountList', createMockFinancialAccount());
+    finAccRepoMock.mock(
+      'getDigitallyConnectedFinAccounts',
+      createMockFinancialAccount()
+    );
 
     Test.startTest();
     List<UnifiedFinancialAccountModel> processedfinancialAccounts = FinancialAccountController.getFinancialAccountFabric(

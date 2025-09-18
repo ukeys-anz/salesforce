@@ -59,6 +59,21 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>DeceasedEstateStatus__c</picklist>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Initiated</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Disclosure_Indicator__c</picklist>
         <values>
             <fullName>N</fullName>

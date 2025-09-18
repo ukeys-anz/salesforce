@@ -14,7 +14,7 @@
         <field>Lead.CLG_Name__c</field>
     </columns>
     <columns>
-        <field>Lead.Campaign_Code__c</field>
+        <field>Lead.Campaign_Name__c</field>
     </columns>
     <columns>
         <field>LEAD_SOURCE</field>

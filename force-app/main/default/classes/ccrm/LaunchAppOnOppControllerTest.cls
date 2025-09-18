@@ -118,15 +118,27 @@ private class LaunchAppOnOppControllerTest {
       ),
       new Map<String, Object>()
     );
-    Opportunity oppRec = new Opportunity(
-      Id = oppId,
-      Name = 'Sample Opportunity',
-      StageName = 'Opportunity Identified',
-      AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
-      OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType),
-      Broker_Name__c = brokerRec.Id,
-      Broker_Name__r = brokerRec,
-      Description = 'Sample Opp'
+    Opportunity oppRec = (Opportunity) TestUtil.setFields(
+      new Opportunity(
+        Id = oppId,
+        Name = 'Sample Opportunity',
+        StageName = 'Opportunity Identified',
+        AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+        OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+        Broker_Name__c = brokerRec.Id,
+        Broker_Name__r = brokerRec,
+        Description = 'Sample Opp'
+      ),
+      new Map<String, List<OpportunityTeamMember>>{
+        'OpportunityTeamMembers' => new List<OpportunityTeamMember>{
+          new OpportunityTeamMember(
+            Id = Lib_FakeIdGenerator.getMockId(
+              OpportunityTeamMember.SObjectType
+            ),
+            TeamMemberRole = 'Asset Finance'
+          )
+        }
+      }
     );
     launchAppRepoMock.mock('getOpportunityData', oppRec);
     Test.startTest();
@@ -305,6 +317,89 @@ private class LaunchAppOnOppControllerTest {
 
     //THEN it should return successful response
     Assert.isTrue(response, 'AMBIT Response should be true');
+  }
+
+  @isTest
+  static void testValidateOpportunityTeamMember() {
+    registerMocks();
+
+    //GIVEN Opportunity with Opp Team Member record
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Opportunity oppRec = (Opportunity) TestUtil.setFields(
+      new Opportunity(
+        Id = oppId,
+        Name = 'Sample Opportunity',
+        StageName = 'Opportunity Identified',
+        OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+        Description = 'Sample Opp'
+      ),
+      new Map<String, List<OpportunityTeamMember>>{
+        'OpportunityTeamMembers' => new List<OpportunityTeamMember>{
+          new OpportunityTeamMember(
+            Id = Lib_FakeIdGenerator.getMockId(
+              OpportunityTeamMember.SObjectType
+            ),
+            TeamMemberRole = 'Private Banking',
+            UserId = Lib_FakeIdGenerator.getMockId(User.SObjectType)
+          )
+        }
+      }
+    );
+
+    launchAppRepoMock.mock('getOpportunityData', oppRec);
+
+    //WHEN calling a method
+    Test.startTest();
+    String errorMessage = LaunchAppOnOppController.validateOpportunity(oppId);
+    Test.stopTest();
+
+    //THEN it should assert successfully
+    Assert.areNotEqual(
+      LaunchAppOnOppController.OPP_TEAM_MEMBR_ERROR,
+      errorMessage,
+      'Asset Finance Manager under Opportunity team should be there'
+    );
+  }
+
+  @isTest
+  static void testValidateOpportunityTeamMemberPositive() {
+    registerMocks();
+
+    //GIVEN Opportunity with Opp Team Member record
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Opportunity oppRec = (Opportunity) TestUtil.setFields(
+      new Opportunity(
+        Id = oppId,
+        Name = 'Sample Opportunity',
+        StageName = 'Opportunity Identified',
+        OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+        Description = 'Sample Opp'
+      ),
+      new Map<String, List<OpportunityTeamMember>>{
+        'OpportunityTeamMembers' => new List<OpportunityTeamMember>{
+          new OpportunityTeamMember(
+            Id = Lib_FakeIdGenerator.getMockId(
+              OpportunityTeamMember.SObjectType
+            ),
+            TeamMemberRole = 'Asset Finance',
+            UserId = Lib_FakeIdGenerator.getMockId(User.SObjectType)
+          )
+        }
+      }
+    );
+
+    launchAppRepoMock.mock('getOpportunityData', oppRec);
+
+    //WHEN calling a method
+    Test.startTest();
+    String errorMessage = LaunchAppOnOppController.validateOpportunity(oppId);
+    Test.stopTest();
+
+    //THEN it should assert successfully
+    Assert.isNull(
+      errorMessage,
+      'should have Asset Finance Manager under Opportunity team'
+    );
   }
 
   /**
