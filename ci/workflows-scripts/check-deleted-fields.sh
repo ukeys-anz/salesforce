@@ -20,7 +20,9 @@ check_deleted_fields() {
   local path_prefix=$3
   local deleted_files=""
 
-  deleted_files=$(git diff --name-status "$base_sha" "$head_sha" | grep '^D' | awk '{print $2}' | grep '\.field-meta\.xml$' || true)
+  deleted_files=$(git diff --name-status "$base_sha" "$head_sha" | \
+    awk '($1 == "D" || $1 ~ /^R[0-9]+$/) { print $2 }' | \
+    grep '\.field-meta\.xml$' || true)
 
   # Prepend submodule path if needed
   if [[ -n "$path_prefix" && -n "$deleted_files" ]]; then
@@ -114,6 +116,7 @@ if [[ "$any_deleted" == "true" ]]; then
   fi
 
   if [[ "$TRIGGERED_EVENT" == 'pull_request' ]];then
+    echo "<p></p>" >> deleted_fields_comment.html
     echo "<p>❗ Get Lead Engineers approval for field removal ❗</p>" >> deleted_fields_comment.html
   fi
 

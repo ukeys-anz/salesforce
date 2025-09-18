@@ -662,6 +662,7 @@
     "HasUserVerifiedPhone",
     "UserPreferencesHideManagedEcaMobilePubModal",
     "UserPreferencesDismissPersonalSpaceLegalMessage",
-    "UserPreferencesEnableLwrLexPilot"
+    "UserPreferencesEnableLwrLexPilot",
+    "UserPreferencesDismissRecordChannelsSuggestedObjects"
   ]
 }
