@@ -104,18 +104,20 @@ public with sharing class IDRCaseActionsRepository {
     ];
   }
   /**
-   *  @description Query Cases and related Account
-   *  @param accountIds Set of AccountIds
-   *  @return List<Account>
+   *  @description Query Cases and related Account fields
+   *  @param caseIds Set of CaseIds
+   *  @return List<Case>
    */
-  public List<Account> getAccountsWithExtraCareFlag(Set<Id> accountIds) {
-    if (accountIds.isEmpty()) {
-      return new List<Account>();
+  public List<Case> getCasesWithExtraCareFlagonAccount(Set<Id> caseIds) {
+    if (caseIds.isEmpty()) {
+      return new List<Case>();
     }
     return [
-      SELECT Id, ExtraCareTimePeriod__c
-      FROM Account
-      WHERE Id IN :accountIds
+      SELECT Id, AccountId, Account.ExtraCareTimePeriod__c
+      FROM Case
+      WHERE
+        Id IN :caseIds
+        AND Account.ExtraCareTimePeriod__c IN :IDRConstants.ECF_FLAG_TRUE
       WITH USER_MODE
     ];
   }

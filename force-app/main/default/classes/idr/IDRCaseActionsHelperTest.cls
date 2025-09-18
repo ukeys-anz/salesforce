@@ -389,8 +389,8 @@ private with sharing class IDRCaseActionsHelperTest {
     testCase.AccountId = testAccount.Id;
 
     caseRepoMock.mock(
-      'getAccountsWithExtraCareFlag',
-      new List<Account>{ testAccount }
+      'getCasesWithExtraCareFlagonAccount',
+      new List<Case>{ testCase }
     );
     Test.startTest();
     IDRCaseActionsHelper.updateCasePriorityforECFAccount(
@@ -419,10 +419,7 @@ private with sharing class IDRCaseActionsHelperTest {
     Case testCase = testAccount.Cases[0];
     testCase.AccountId = testAccount.Id;
 
-    caseRepoMock.mock(
-      'getAccountsWithExtraCareFlag',
-      new List<Account>{ testAccount }
-    );
+    caseRepoMock.mock('getCasesWithExtraCareFlagonAccount', new List<Case>());
     Test.startTest();
     IDRCaseActionsHelper.updateCasePriorityforECFAccount(
       new List<Case>{ testCase },

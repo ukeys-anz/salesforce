@@ -218,24 +218,26 @@ public with sharing class IDRCaseActionsHelper {
     Map<Id, SObject> oldMap
   ) {
     List<Case> cases = ListUtil.filter(listOfnewCases, oldMap)
-      .isNotNull(Case.AccountId)
       .equals(Case.RecordTypeId, RTCase.customerComplaint)
       .oldEquals(Case.RecordTypeId, RTCase.generalInquiryCmos)
       .toList();
 
-    Set<Id> accountIds = ListUtil.getIds(cases, Case.AccountId);
+    Set<Id> caseIds = ListUtil.getIds(cases, Case.Id);
 
-    Map<Id, Account> accountMap = new Map<Id, Account>(
-      CASE_REPOSITORY.getAccountsWithExtraCareFlag(accountIds)
+    List<Case> extraCareCases = CASE_REPOSITORY.getCasesWithExtraCareFlagonAccount(
+      caseIds
     );
 
-    for (Case c : cases) {
-      String extraCareTimePeriod = accountMap.get(c.AccountId)
-        .ExtraCareTimePeriod__c;
-      if (!IDRConstants.ECF_FLAG_TRUE.contains(extraCareTimePeriod)) {
-        continue;
-      }
-      c.Priority = IDRConstants.CASE_PRIORITY_VULNERABLE;
-    }
+    Set<Id> queriedCaseIds = ListUtil.getIds(extraCareCases, Case.Id);
+
+    List<Case> recordstoUpdate = ListUtil.filter(listOfnewCases)
+      .equals(Case.Id, queriedCaseIds)
+      .toList();
+
+    ListUtil.setField(
+      recordstoUpdate,
+      Case.Priority,
+      IDRConstants.CASE_PRIORITY_VULNERABLE
+    );
   }
 }
