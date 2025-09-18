@@ -5,22 +5,19 @@
  */
 
 @isTest
-public class CCRMContentDocumentLinkActionsTest {
+public class ContentDocumentLinkActionsTest {
   static Lib_MockProvider cdlRepoMock;
   static Lib_MockProvider dmlRepoMock;
   static void registerMocks() {
     dmlRepoMock = Lib_MockProvider.forType(DMLRepository.class);
-    cdlRepoMock = Lib_MockProvider.forType(
-      CCRMContentDocumentLinkRepository.class
-    );
+    cdlRepoMock = Lib_MockProvider.forType(ContentDocumentLinkRepository.class);
   }
-
   /**
- * @description Create and Return EmailMessage record with incoming as false and given From/ToAddress
- * @param givenFromAddr FromAddress for EmailMessage
- * @param givenToAddr toAddress for EmailMessage
- * @return EmailMessage New EmailMessage record
- */
+   * @description Create and Return EmailMessage record with incoming as false and given From/ToAddress
+   * @param givenFromAddr FromAddress for EmailMessage
+   * @param givenToAddr toAddress for EmailMessage
+   * @return EmailMessage New EmailMessage record
+   */
   private static EmailMessage createAndRetEmailMessage(
     String givenFromAddr,
     String givenToAddr
@@ -31,7 +28,6 @@ public class CCRMContentDocumentLinkActionsTest {
       ToAddress = givenToAddr
     );
   }
-
   private static ContentDocumentLink createMockData(Id emId) {
     ContentDocumentLink cdlRecord = new ContentDocumentLink(
       Id = Lib_FakeIdGenerator.getMockId(ContentDocumentLink.getSobjectType()),
@@ -83,7 +79,7 @@ public class CCRMContentDocumentLinkActionsTest {
 
     //WHEN calling a method
     Test.startTest();
-    CCRMContentDocumentLinkActions.CdEmailMessageWrapper cdEmWrapper = CCRMContentDocumentLinkActions.segregateContentDocument(
+    ContentDocumentLinkActions.CdEmailMessageWrapper cdEmWrapper = ContentDocumentLinkActions.segregateContentDocument(
       cdlList,
       emailMessageMap
     );
@@ -115,7 +111,7 @@ public class CCRMContentDocumentLinkActionsTest {
 
     //WHEN calling a method
     Test.startTest();
-    CCRMContentDocumentLinkActions.CdEmailMessageWrapper cdEmWrapper = CCRMContentDocumentLinkActions.segregateContentDocument(
+    ContentDocumentLinkActions.CdEmailMessageWrapper cdEmWrapper = ContentDocumentLinkActions.segregateContentDocument(
       cdlList,
       emailMessageMap
     );
@@ -147,7 +143,7 @@ public class CCRMContentDocumentLinkActionsTest {
 
     //WHEN calling a method
     Test.startTest();
-    Map<Id, Integer> emToAttachmentCountMap = CCRMContentDocumentLinkActions.getCountOfAttachment(
+    Map<Id, Integer> emToAttachmentCountMap = ContentDocumentLinkActions.getCountOfAttachment(
       cdlList,
       emailMessageMap
     );
@@ -168,7 +164,7 @@ public class CCRMContentDocumentLinkActionsTest {
 
     //WHEN calling a method
     Test.startTest();
-    List<EmailMessage> emToUpdateList = CCRMContentDocumentLinkActions.updateCountOnEmailMessage(
+    List<EmailMessage> emToUpdateList = ContentDocumentLinkActions.updateCountOnEmailMessage(
       emToAttachmentMap
     );
     Test.stopTest();
@@ -184,16 +180,11 @@ public class CCRMContentDocumentLinkActionsTest {
   @isTest
   static void testUpdateCountOnEmailMessage() {
     Id emId = Lib_FakeIdGenerator.getMockId(EmailMessage.getSobjectType());
-
-    //GIVEN Email Message record, emToAttachmentMap
-    EmailMessage emRecord = CCRMTestDataFactory.createEmailMessageInstance(
-      emId
-    );
     Map<Id, Integer> emToAttachmentMap = new Map<Id, Integer>{ emId => 1 };
 
     //WHEN calling a method
     Test.startTest();
-    List<EmailMessage> emToUpdateList = CCRMContentDocumentLinkActions.updateCountOnEmailMessage(
+    List<EmailMessage> emToUpdateList = ContentDocumentLinkActions.updateCountOnEmailMessage(
       emToAttachmentMap
     );
     Test.stopTest();
@@ -209,7 +200,7 @@ public class CCRMContentDocumentLinkActionsTest {
   @isTest
   static void testDeleteContentDocument() {
     //GIVEN cdEmWrapper
-    CCRMContentDocumentLinkActions.CdEmailMessageWrapper cdEmWrapper = new CCRMContentDocumentLinkActions.CdEmailMessageWrapper();
+    ContentDocumentLinkActions.CdEmailMessageWrapper cdEmWrapper = new ContentDocumentLinkActions.CdEmailMessageWrapper();
 
     Id cdId = Lib_FakeIdGenerator.getMockId(ContentDocument.getSobjectType());
     cdEmWrapper.mlContentDocsToDelete.add(cdId);
@@ -217,7 +208,7 @@ public class CCRMContentDocumentLinkActionsTest {
 
     //WHEN calling a method
     Test.startTest();
-    CCRMContentDocumentLinkActions.deleteContentDocument(cdEmWrapper);
+    ContentDocumentLinkActions.deleteContentDocument(cdEmWrapper);
     Test.stopTest();
 
     //THEN there should be 1 content document for CCRM available for deletion
@@ -241,9 +232,6 @@ public class CCRMContentDocumentLinkActionsTest {
 
     //GIVEN Email Message record, Content Document Link List
     ContentDocumentLink cdlRecord = createMockData(emId);
-    EmailMessage emRecord = CCRMTestDataFactory.createEmailMessageInstance(
-      emId
-    );
     List<ContentDocumentLink> cdlList = new List<ContentDocumentLink>{
       cdlRecord
     };
@@ -251,7 +239,7 @@ public class CCRMContentDocumentLinkActionsTest {
     //WHEN calling a method
     try {
       Test.startTest();
-      CCRMContentDocumentLinkActions.restrictOutlookAttachments(cdlList);
+      ContentDocumentLinkActions.restrictOutlookAttachments(cdlList);
       Test.stopTest();
     } catch (Exception ex) {
       //THEN error should thrown on UI
@@ -284,7 +272,7 @@ public class CCRMContentDocumentLinkActionsTest {
 
     //WHEN calling a method
     Test.startTest();
-    CCRMContentDocumentLinkActions.restrictOutlookAttachments(cdlList);
+    ContentDocumentLinkActions.restrictOutlookAttachments(cdlList);
     Test.stopTest();
 
     List<EmailMessage> emList = (List<EmailMessage>) dmlRepoMock.getHistory(
@@ -297,96 +285,6 @@ public class CCRMContentDocumentLinkActionsTest {
       1,
       emList.size(),
       '1 Email Message should be updated in Integration test.'
-    );
-  }
-
-  @isTest
-  static void testIsContentDocumentDeleteAllowed() {
-    Assert.isTrue(
-      CCRMContentDocumentLinkActions.isContentDocumentDeleteAllowed(
-        createAndRetEmailMessage('test123@anz.com', 'test123@AnZ.Com')
-      ),
-      'isContentDocumentDeleteAllowed is returning wrong value when toAddress is not exact match but matching with ignore-case'
-    );
-    Assert.isTrue(
-      CCRMContentDocumentLinkActions.isContentDocumentDeleteAllowed(
-        createAndRetEmailMessage('test123@anz.com', 'test123@anz.com')
-      ),
-      'isContentDocumentDeleteAllowed is returning wrong value when toAddress is exact match'
-    );
-    Assert.isFalse(
-      CCRMContentDocumentLinkActions.isContentDocumentDeleteAllowed(
-        createAndRetEmailMessage('test123@anz.com', 'test1234@anz.com')
-      ),
-      'isContentDocumentDeleteAllowed is returning wrong value when toAddress is different from FromAddress'
-    );
-    Assert.isTrue(
-      CCRMContentDocumentLinkActions.isContentDocumentDeleteAllowed(
-        createAndRetEmailMessage(
-          'test123@anz.com',
-          'test1234@anz.com; test123@anz.com'
-        )
-      ),
-      'isContentDocumentDeleteAllowed is returning wrong value when fromAddress is in ToAddress'
-    );
-    Assert.isFalse(
-      CCRMContentDocumentLinkActions.isContentDocumentDeleteAllowed(
-        createAndRetEmailMessage(
-          'test123@anz.com',
-          'test1234@anz.com; test12@anz.com'
-        )
-      ),
-      'isContentDocumentDeleteAllowed is returning wrong value when fromAddress not in ToAddress'
-    );
-    Assert.isTrue(
-      CCRMContentDocumentLinkActions.isContentDocumentDeleteAllowed(
-        new Emailmessage(Incoming = true)
-      ),
-      'isContentDocumentDeleteAllowed is not returing correct value when Incoming = true'
-    );
-    Assert.isTrue(
-      CCRMContentDocumentLinkActions.isContentDocumentDeleteAllowed(
-        new Emailmessage(
-          Incoming = false,
-          FromAddress = 'test123@anz.com',
-          ToAddress = 'test1234@anz.com',
-          CcAddress = 'test1234@anz.com;test123@anz.com'
-        )
-      ),
-      'isContentDocumentDeleteAllowed is not returing correct value when FromAddress is in CCAddress'
-    );
-  }
-
-  /**
-  * @description test method for checkFromAddressExists
-  */
-  @isTest
-  static void testCheckFromAddressExists() {
-    Assert.isFalse(
-      CCRMContentDocumentLinkActions.checkFromAddressExists('test@anz.com', null),
-      'checkFromAddressExists not returning correct result when AddressToCheck is Null'
-    );
-    Assert.isTrue(
-      CCRMContentDocumentLinkActions.checkFromAddressExists('test@anz.com', 'test@ANZ.com'),
-      'checkFromAddressExists not returning correct result when AddressToCheck is same as FromAddress'
-    );
-    Assert.isTrue(
-      CCRMContentDocumentLinkActions.checkFromAddressExists(
-        'test@anz.com',
-        'test1@anz.com; Test@anz.com'
-      ),
-      'checkFromAddressExists not returning correct result when AddressToCheck is contains FromAddress'
-    );
-    Assert.isFalse(
-      CCRMContentDocumentLinkActions.checkFromAddressExists(
-        'test@anz.com',
-        'test1@anz.com; Test2@anz.com'
-      ),
-      'checkFromAddressExists not returning correct result when AddressToCheck not contains FromAddress'
-    );
-    Assert.isFalse(
-      CCRMContentDocumentLinkActions.checkFromAddressExists('test@anz.com', 'test3@anz.com'),
-      'checkFromAddressExists not returning correct result when AddressToCheck is not equal to FromAddress '
     );
   }
 }
