@@ -8,6 +8,7 @@ public with sharing class IDRCaseActionsRepository {
   public static final String TASK_TYPE_PEND_CASE = 'Pend Case';
   public static final Set<String> CLOSED_WITHDRAWN_STATUS = new Set<String>{
     IDRConstants.CLOSED_STATUS,
+    IDRConstants.PROVISIONALLY_CLOSED_STATUS,
     IDRConstants.WITHDRAWN_STATUS
   };
   /**

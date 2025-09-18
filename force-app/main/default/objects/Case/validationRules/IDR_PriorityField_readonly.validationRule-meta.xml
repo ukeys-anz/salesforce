@@ -12,5 +12,5 @@ NOT(OR(ISPICKVAL(Account.ExtraCareTimePeriod__c,&apos;Not required&apos;),ISBLAN
 ISPICKVAL(PRIORVALUE(Priority),&apos;Vulnerable Customer&apos;),
 ISPICKVAL(Priority,&apos;Standard&apos;)
 )</errorConditionFormula>
-    <errorMessage>The customer profile has been flagged for Extra Care. The &apos;Priority&apos; field must be set to &apos;Customer experiencing vulnerability&quot;.</errorMessage>
+    <errorMessage>The customer profile has been flagged for Extra Care. The &apos;Priority&apos; field must be set to &apos;Customer experiencing vulnerability&apos;.</errorMessage>
 </ValidationRule>

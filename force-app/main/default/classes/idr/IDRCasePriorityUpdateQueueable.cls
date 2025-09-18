@@ -86,8 +86,8 @@ public with sharing class IDRCasePriorityUpdateQueueable implements Queueable {
     Map<Id, Case> mCasesToUpdate,
     String oNotificationTypeId
   ) {
-    String subjectTemplate = 'Change in Customers Extra Care Needs';
-    String description = 'Change in customers Extra Care requirements on complaint {0} for {1}';
+    String subjectTemplate = 'Change in Customer\'s Extra Care Needs';
+    String description = 'Change in customer\'s Extra Care needs on complaint {0} for {1}';
     for (Database.SaveResult sr : results) {
       if (!sr.isSuccess()) {
         continue;
