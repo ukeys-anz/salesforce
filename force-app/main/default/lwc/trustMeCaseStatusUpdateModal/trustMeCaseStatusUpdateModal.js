@@ -29,11 +29,23 @@ export default class TrustMeCaseStatusUpdateModal extends LightningModal {
   @track trustMeCase;
   checksList;
   toast = new SimpleToast(this);
+  reKYCFraudStatus = [];
 
   connectedCallback() {
     this.trustMeCase = JSON.parse(JSON.stringify(this.options.caseData));
     this.currentStatus = this.options.caseData.Status;
     this.statusOptions = this.options.statusOptions;
+    if (this.currentStatus === "Refer to Fraud") {
+      this.reKYCFraudStatus.push({
+        label: "Fraud Confirmed",
+        value: "Fraud Confirmed"
+      });
+      this.reKYCFraudStatus.push({
+        label: "Closed - No Fraud",
+        value: "Closed - No Fraud"
+      });
+      this.statusOptions = this.reKYCFraudStatus;
+    }
     this.primaryFailedReasonFieldInfo =
       this.options.primaryFailedReasonFieldInfo;
     this.secondaryFailedReasonFieldInfo =
