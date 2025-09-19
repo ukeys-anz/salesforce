@@ -213,5 +213,11 @@
         <ruleEntry>
             <formula>AND(NOT(ISNEW()), RecordType.DeveloperName = &quot;Broker_Enquiry&quot;)</formula>
         </ruleEntry>
+        <ruleEntry>
+            <formula>AND(ISNEW(),
+            OR( AND(RecordType.DeveloperName = &quot;Account_Closure&quot;,
+            ISPICKVAL(Origin, &quot;ANZ Plus App&quot;)),
+            AND(RecordType.DeveloperName = &quot;Case_Group&quot;,ISPICKVAL(Type, &quot;Account Closure&quot;) )))</formula>
+        </ruleEntry>
     </assignmentRule>
 </AssignmentRules>

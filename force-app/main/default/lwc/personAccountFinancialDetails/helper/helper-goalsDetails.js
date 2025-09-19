@@ -2,7 +2,7 @@ export function groupGoalsByAccountNumber(accountGoals) {
   const accountMap = new Map();
   accountGoals.forEach((bucket) => {
     const key = `${bucket.account_number}`;
-    if (!accountMap.has(key)) {
+    if (!accountMap.has(key) && bucket.showGoal) {
       accountMap.set(key, {
         account_number: bucket.account_number,
         account_name: bucket.financial_account_name,
@@ -17,7 +17,9 @@ export function groupGoalsByAccountNumber(accountGoals) {
         buckets: []
       });
     }
-    accountMap.get(key).buckets.push(bucket);
+    if (!bucket.is_default) {
+      accountMap?.get(key)?.buckets.push(bucket);
+    }
   });
   return Array.from(accountMap.values());
 }
@@ -29,17 +31,19 @@ export function addFinAccountAndMetaDataToGoals(processedAccounts, goalData) {
 
   Object.values(processedAccount).forEach((product) => {
     Object.values(product.accounts).forEach((acc) => {
-      accountMap.set(acc.account_number, {
-        financial_account_name: acc.account_name,
-        ownershipType: acc.finserv_ownership,
-        financial_account_id: acc.id,
-        sortorder: acc.finserv_sortorder,
-        productName: product.productNameTitle,
-        headerTitle: product.sectionHeaderTitle,
-        balanceTitle: product.balanceTitle,
-        productCode: product.productCode,
-        showGoal: acc.finserv_showgoal
-      });
+      if (acc?.finserv_status != "Closed") {
+        accountMap.set(acc.account_number, {
+          financial_account_name: acc.account_name,
+          ownershipType: acc.finserv_ownership,
+          financial_account_id: acc.id,
+          sortorder: acc.finserv_sortorder,
+          productName: product.productNameTitle,
+          headerTitle: product.sectionHeaderTitle,
+          balanceTitle: product.balanceTitle,
+          productCode: product.productCode,
+          showGoal: acc.finserv_showgoal
+        });
+      }
     });
   });
 
