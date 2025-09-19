@@ -207,6 +207,63 @@ public with sharing class AccountClosureCaseActionsTest {
     );
   }
 
+  @isTest
+  private static void testSetParentCaseStatusAsEscalated() {
+    List<Case> caseRecordsUpdated = mockParentCaseRecord(
+      CaseGroupCaseConstants.OPEN_STATUS,
+      null
+    );
+    registerMocks();
+    accountClosureRepoMock.mock(
+      'queryNotEscalatedParentCaseDetails',
+      caseRecordsUpdated
+    );
+
+    List<Case> childCases = mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID);
+    childCases[0].Sub_Status__c = CaseGroupCaseConstants.FAILED;
+    childCases[0].Origin = 'ANZ Plus App';
+
+    Assert.areEqual(
+      ChildCases[0].Status,
+      CaseGroupCaseConstants.ESCALATED_STATUS,
+      'Child Case status is Escalated'
+    );
+
+    Test.startTest();
+    AccountClosureCaseActions.setParentCaseStatusAsEscalated(childCases);
+    Test.stopTest();
+
+    caseRecordsUpdated = (List<Case>) dmlRepoMock.getHistory('doUpdate')
+      .getParam('records');
+
+    Assert.areEqual(
+      caseRecordsUpdated[0].Status,
+      CaseGroupCaseConstants.ESCALATED_STATUS,
+      'Parent Case status should be updated to Escalated'
+    );
+  }
+
+  @isTest
+  private static void testSetAccountDetailsAsEmpty() {
+    List<Case> childCases = mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID);
+    List<Case> oldCase = mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID);
+    Map<Id, Case> oldChildCase = new Map<Id, Case>();
+    oldChildCase.put(oldCase[0].Id, oldCase[0]);
+    childCases[0].Status = CaseGroupCaseConstants.WITHDRAWN_STATUS;
+
+    Test.startTest();
+    AccountClosureCaseActions.setAccountDetailsAsEmpty(
+      childCases,
+      oldChildCase
+    );
+    Test.stopTest();
+
+    Assert.isNull(
+      childCases[0].FinServ__FinancialAccount__c,
+      'Child Cases should be de-linked'
+    );
+  }
+
   private static List<Case> mockQueryChildCaseRecords(Id parentId) {
     List<Case> childcases = new List<Case>();
 
