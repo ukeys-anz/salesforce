@@ -394,6 +394,78 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.ExtraCareTimePeriod__c</fieldItem>
+                <identifier>RecordExtraCareTimePeriod_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.ExtraCareReason__c</fieldItem>
+                <identifier>RecordExtraCareReason_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-2a85fe70-69ec-4c14-8289-cd25ba5c1a31</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.ExtraCareNotes__c</fieldItem>
+                <identifier>RecordExtraCareNotes_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.ExtraCareReviewDate__c</fieldItem>
+                <identifier>RecordExtraCareReviewDate_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-3fc56158-8368-4f5b-8307-c9471c4156a5</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-2a85fe70-69ec-4c14-8289-cd25ba5c1a31</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-3fc56158-8368-4f5b-8307-c9471c4156a5</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-4df6bb42-cdb5-47cc-9fd0-3cf2d239c62c</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Employment_Type__c</fieldItem>
@@ -837,6 +909,10 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-4df6bb42-cdb5-47cc-9fd0-3cf2d239c62c</value>
+                </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>horizontalAlignment</name>
                     <value>false</value>
