@@ -6,10 +6,14 @@
 @isTest
 public class MobileLendingOppTriggerHandlerTest {
   static Lib_MockProvider dmlRepoMock;
+  static Lib_MockProvider territoryRepoMock;
   static Lib_MockProvider oppActionRepoMock;
   static Lib_MockProvider accRepoMock;
   static void registerMocks() {
     dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
+    territoryRepoMock = Lib_MockProvider.forType(
+      TerritoryActionsRepository.class
+    );
     oppActionRepoMock = Lib_MockProvider.forType(
       OpportunityActionsRepository.class
     );
@@ -60,9 +64,9 @@ public class MobileLendingOppTriggerHandlerTest {
     List<Database.Error> errors = oppRecords[0].getErrors();
     Assert.areEqual(1, errors.size(), 'record should not be valid!');
     Assert.areEqual(
-      Label.ML_ValidateTerritoryChangeByNonMLUser,
+      OpportunityActions.DUPLICATE_LAR_ERROR,
       errors[0].getMessage(),
-      'Error when Territory edited by non-ML User'
+      'should throw duplicate Loanapp Reference Error!'
     );
     Assert.areEqual(
       StatusCode.FIELD_CUSTOM_VALIDATION_EXCEPTION,
@@ -95,20 +99,36 @@ public class MobileLendingOppTriggerHandlerTest {
         )
       }
     );
+    territoryRepoMock.mock(
+      'getTerritorySharingMetadata',
+      new List<Territory_Based_Sharing_Config__mdt>{
+        new Territory_Based_Sharing_Config__mdt(
+          Active__c = true,
+          Row_Cause__c = 'Manual',
+          Sharing_Scope__c = 'Territory',
+          Sharing_Object__c = 'OpportunityShare',
+          Object_Name__c = 'Opportunity',
+          Eligible_Record_Types__c = 'MLCRM_Opportunity',
+          Territory_Field__c = 'Territory__c'
+        )
+      }
+    );
     Test.startTest();
     MobileLendingOpportunityTriggerHandler handler = new MobileLendingOpportunityTriggerHandler();
     handler.records = oppRecords;
     handler.onAfterInsert();
     Test.stopTest();
-    List<OpportunityContactRole> ocrRecords = (List<OpportunityContactRole>) dmlRepoMock.getHistory(
-        'doInsert'
-      )
-      .getParam('records');
-    Assert.isTrue(ocrRecords.size() > 0, 'OCR Records are not inserted');
+    Territory_Base_Sharing_Event__e event = (Territory_Base_Sharing_Event__e) dmlRepoMock
+      .getHistory('doPublish')
+      .listOfArgs[0];
     Assert.areEqual(
-      oppRecord.Id,
-      ocrRecords[0].opportunityId,
-      'OCR Record is not linked to opportunity'
+      'Opportunity',
+      event.Trigger_Object__c,
+      'Event should contains info for Opportunity Sharing'
+    );
+    Assert.isTrue(
+      event.Record_Ids__c.contains(oppRecord.Id),
+      'Event should contains info for Opportunity Sharing'
     );
   }
 
@@ -159,6 +179,20 @@ public class MobileLendingOppTriggerHandlerTest {
       'getAccountByIds',
       new Map<Id, Account>{ accRec.Id => accRec }
     );
+    territoryRepoMock.mock(
+      'getTerritorySharingMetadata',
+      new List<Territory_Based_Sharing_Config__mdt>{
+        new Territory_Based_Sharing_Config__mdt(
+          Active__c = true,
+          Row_Cause__c = 'Manual',
+          Sharing_Scope__c = 'Territory',
+          Sharing_Object__c = 'OpportunityShare',
+          Object_Name__c = 'Opportunity',
+          Eligible_Record_Types__c = 'MLCRM_Opportunity',
+          Territory_Field__c = 'Territory__c'
+        )
+      }
+    );
     Test.startTest();
     MobileLendingOpportunityTriggerHandler handler = new MobileLendingOpportunityTriggerHandler();
     handler.records = oppRecords;
@@ -167,9 +201,9 @@ public class MobileLendingOppTriggerHandlerTest {
     List<Database.Error> errors = oppRecords[0].getErrors();
     Assert.areEqual(1, errors.size(), 'record should not be valid!');
     Assert.areEqual(
-      Label.ML_ValidateTerritoryChangeByNonMLUser,
+      OpportunityActions.DUPLICATE_LAR_ERROR,
       errors[0].getMessage(),
-      'Error when Territory edited by non-ML User'
+      'should throw duplicate Loanapp Reference Error!'
     );
     Assert.areEqual(
       StatusCode.FIELD_CUSTOM_VALIDATION_EXCEPTION,
@@ -182,36 +216,36 @@ public class MobileLendingOppTriggerHandlerTest {
   static void testAfterUpdate() {
     registerMocks();
     Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.getSObjectType());
+    Id idOwner = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    Id idOwner2 = Lib_FakeIdGenerator.getMockId(User.SObjectType);
     Opportunity oppRecord = getOpportunityRecord();
     oppRecord.Id = oppId;
-    oppRecord.Loanapp_Reference__c = 'MLCRM-101';
+    oppRecord.OwnerId = idOwner2;
     Opportunity oldOppRecord = getOpportunityRecord();
     oldOppRecord.Id = oppId;
+    oldOppRecord.OwnerId = idOwner;
     List<Opportunity> oppRecords = new List<Opportunity>{ oppRecord };
     Map<Id, Opportunity> oldMap = new Map<Id, Opportunity>{
       oldOppRecord.Id => oldOppRecord
     };
-    OpportunityContactRole ocr = (OpportunityContactRole) TestUtil.setFields(
-      new OpportunityContactRole(
-        Id = Lib_FakeIdGenerator.getMockId(
-          OpportunityContactRole.getSobjectType()
-        ),
-        OpportunityId = oppId
-      ),
-      new Map<String, Object>{ 'Opportunity' => oppRecord }
-    );
-    Opportunity_Contact_Role_Sync__c ocrSync = new Opportunity_Contact_Role_Sync__c(
-      OpportunityContactRoleId__c = ocr.Id,
-      ExternalId__c = '_CAP-CIS_2019212'
+    territoryRepoMock.mock(
+      'getTerritorySharingMetadata',
+      new List<Territory_Based_Sharing_Config__mdt>{
+        new Territory_Based_Sharing_Config__mdt(
+          Active__c = true,
+          Row_Cause__c = 'Manual',
+          Sharing_Scope__c = 'Territory',
+          Sharing_Object__c = 'OpportunityShare',
+          Object_Name__c = 'Opportunity',
+          Eligible_Record_Types__c = 'MLCRM_Opportunity',
+          Territory_Field__c = 'Territory__c'
+        )
+      }
     );
     oppActionRepoMock.mock(
       new Map<String, Object>{
-        'getOpportunityContactRolesByOppIds' => new List<OpportunityContactRole>{
-          ocr
-        },
-        'getOCRSyncByOCRIds' => new List<Opportunity_Contact_Role_Sync__c>{
-          ocrSync
-        }
+        'getOpportunityContactRolesByOppIds' => new List<OpportunityContactRole>(),
+        'getOCRSyncByOCRIds' => new List<Opportunity_Contact_Role_Sync__c>()
       }
     );
     Test.startTest();
@@ -219,14 +253,30 @@ public class MobileLendingOppTriggerHandlerTest {
     handler.records = oppRecords;
     handler.onAfterUpdate(oldMap);
     Test.stopTest();
-    List<Opportunity_Contact_Role_Sync__c> ocrSyncList = (List<Opportunity_Contact_Role_Sync__c>) dmlRepoMock.getHistory(
-        'doUpdate'
+    List<OpportunityShare> shareRecord = (List<OpportunityShare>) dmlRepoMock.getHistory(
+        'doInsert'
       )
       .getParam('records');
     Assert.areEqual(
-      'MLCRM-101',
-      ocrSyncList[0].OpportunityId__c,
-      'Opportunity Id of OCR sync record is not updated '
+      idOwner,
+      shareRecord[0].UserOrGroupId,
+      'Record not shared with original owner'
+    );
+    Assert.isNotNull(
+      dmlRepoMock.getHistory('doPublish'),
+      'Territory Share Event is not published'
+    );
+    Territory_Base_Sharing_Event__e event = (Territory_Base_Sharing_Event__e) dmlRepoMock
+      .getHistory('doPublish')
+      .listOfArgs[0];
+    Assert.areEqual(
+      'Opportunity',
+      event.Trigger_Object__c,
+      'Event should contains info for Opportunity Sharing'
+    );
+    Assert.isTrue(
+      event.Record_Ids__c.contains(oppId),
+      'Event should contains info for Opportunity Sharing'
     );
   }
 

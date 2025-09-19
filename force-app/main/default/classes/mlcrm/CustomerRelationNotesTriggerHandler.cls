@@ -18,8 +18,8 @@ public class CustomerRelationNotesTriggerHandler extends Lib_TriggerHandler {
    * @name onBeforeInsert
    */
   public override void onBeforeInsert() {
-    MLCRMCommonUtils.assignTerritoryForMLRecord(records);
-    MLCRMCommonUtils.validateTerritoryAndOwnerChange(null, records);
+    TerritoryCommonUtils.assignTerritoryForMLRecord(records);
+    TerritoryCommonUtils.validateTerritoryAndOwnerChange(null, records);
     //Added for CC-4053 Redaction
     TextUtils.maskSObjectDataANZExtended(records, 'Notes__c');
     CustomerRelationNotesTriggerActions.updateCustomerName(null, records);
@@ -34,7 +34,7 @@ public class CustomerRelationNotesTriggerHandler extends Lib_TriggerHandler {
       null,
       records
     );
-    MLCRMSharingUtil.shareRecordByTerritory(
+    TerritorySharingUtil.shareRecordByTerritory(
       null,
       records,
       'Customer_Relationship__c'
@@ -47,8 +47,9 @@ public class CustomerRelationNotesTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    MLCRMCommonUtils.assignTerritoryForMLRecord(records);
-    MLCRMCommonUtils.validateTerritoryAndOwnerChange(oldMap, records);
+    TerritoryCommonUtils.assignTerritoryForMLRecord(records);
+    TerritoryCommonUtils.assignTerritoryOnOwnerChange(oldMap, records);
+    TerritoryCommonUtils.validateTerritoryAndOwnerChange(oldMap, records);
     //Added for CC-4053 Redaction
     TextUtils.maskSObjectDataANZExtended(records, 'Notes__c');
     CustomerRelationNotesTriggerActions.updateCustomerName(
@@ -67,7 +68,7 @@ public class CustomerRelationNotesTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Customer_Relationship__c>) oldMap,
       records
     );
-    MLCRMSharingUtil.shareRecordByTerritory(
+    TerritorySharingUtil.shareRecordByTerritory(
       oldMap,
       records,
       'Customer_Relationship__c'
