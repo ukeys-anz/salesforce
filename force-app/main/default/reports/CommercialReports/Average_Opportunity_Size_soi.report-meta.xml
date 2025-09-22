@@ -23,6 +23,9 @@
         <aggregateTypes>Average</aggregateTypes>
         <field>AMOUNT</field>
     </columns>
+    <columns>
+        <field>FULL_NAME</field>
+    </columns>
     <filter>
         <booleanFilter>1 AND 2 AND 3 AND (4 OR 5)</booleanFilter>
         <criteriaItems>

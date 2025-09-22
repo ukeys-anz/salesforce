@@ -259,6 +259,9 @@ public with sharing class LaunchAppOnOppController {
         when 'ACM' {
           this.url = Label.ACM_Link;
         }
+        when 'OCP' {
+          this.url = Label.OCP_Link;
+        }
       }
     }
   }

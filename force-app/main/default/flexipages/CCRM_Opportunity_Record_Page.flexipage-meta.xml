@@ -74,6 +74,13 @@
                         </valueListItems>
                         <valueListItems>
                             <value>Opportunity.Launch_Application</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.CCRM_Hide_Launch_Application}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>false</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
@@ -1226,6 +1233,12 @@
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
                 <identifier>force_relatedListSingleContainer</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>extraCareNotification</componentName>
+                <identifier>c_extraCareNotification</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>

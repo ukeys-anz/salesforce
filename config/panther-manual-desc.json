@@ -251,6 +251,7 @@
         "CreatedBy__c",
         "CreatedTime__c",
         "DeleteWhenMet__c",
+        "Device__c",
         "DeviceCorrelationId__c",
         "MinimumAAL__c",
         "Name__c",
@@ -572,6 +573,7 @@
       ]
     },
     "ApplicationFormProduct": {
+      "IA-2415983": ["Revenue__c"],
       "IA-2434298": [
         "Name",
         "ProductId",
@@ -601,7 +603,8 @@
         "LastModifiedById",
         "LastModifiedDate",
         "RecordTypeId"
-      ]
+      ],
+      "IA-2618802": ["Opportunity_Product__c"]
     },
     "Appointment_Commitment__c": {
       "IA-2453595": [
@@ -1800,7 +1803,12 @@
         "Sync_Status__c"
       ],
       "IA-2415860": ["Occurrence_Number__c"],
-      "IA-2453350": ["External_Id__c"],
+      "IA-2453350": [
+        "External_Id__c",
+        "Survivor_Party_Id__c",
+        "Victim_Party_Id__c",
+        "OCV_Profile_ID__c"
+      ],
       "IA-2415984": [
         "Birthdate",
         "Email",
@@ -3674,7 +3682,8 @@
         "AIP_Requested__c",
         "Approved_Amount__c",
         "New_Lending_Amount__c",
-        "Settlement_Booked__c"
+        "Settlement_Booked__c",
+        "Estimated_Revenue__c"
       ],
       "IA-2423227": ["StageName"],
       "IA-2460507": [
@@ -4434,7 +4443,18 @@
         "Secondary_Documents__c",
         "Selfie_Verification_Outcome__c",
         "TrustMe_Selfie_Reference__c",
-        "PersonID__c"
+        "PersonID__c",
+        "Trustme_Fraud_Address_Valid__c",
+        "Trustme_Fraud_Customer_Details__c",
+        "Trustme_Fraud_Customer_Photo_Modified__c",
+        "Trustme_Fraud_ID_Legible__c",
+        "Trustme_Fraud_ID_Not_Picture__c",
+        "Trustme_Fraud_MiddleNameCheck__c",
+        "Trustme_Fraud_Security_Features__c",
+        "Trustme_Fraud_Selfie_Comparison_Match__c",
+        "Certificate_Number__c",
+        "Registration_Number__c",
+        "Registration_State__c"
       ]
     },
     "ResidentialLoanApplication": {
@@ -5736,10 +5756,15 @@
       "Is_Beta_Broker__c": "ANZx::Salesforce",
       "Is_MyBroker__c": "ANZx::Salesforce",
       "Office_Group__c": "ANZx::Salesforce",
+      "OCV_Profile_ID__c": "ANZx :: Salesforce :: BrokerData :: Contact :: OCV_Profile_ID__c",
       "Primary_RBM__c": "ANZx::Salesforce",
       "Secondary_RBM__c": "ANZx::Salesforce",
       "Segment__c": "ANZx::Salesforce",
-      "SAO_State__c": "ANZx::Salesforce"
+      "SAO_State__c": "ANZx::Salesforce",
+      "Sync_Status__c": "ANZx :: Salesforce :: BrokerData :: Contact :: Sync_Status__c",
+      "Survivor_Party_Id__c": "ANZx :: Salesforce :: BrokerData :: Contact :: Survivor_Party_Id__c",
+      "Victim_Party_Id__c": "ANZx :: Salesforce :: BrokerData :: Contact :: Victim_Party_Id__c"
+   
     },
     "CustomerOnboardingApplication__c": {
       "AustralianTaxResident__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidencyStatus :: australian_tax_resident",
@@ -5938,10 +5963,14 @@
       "Is_Beta_Broker__c": "1:1 Transformation",
       "Is_MyBroker__c": "Formula field through Broker_Relation__c",
       "Office_Group__c": "Lookup to Broker_Relation__c",
+      "OCV_Profile_ID__c": "1:1 transformation",
       "Primary_RBM__c": "Formula field through Broker_Relation__c",
       "Secondary_RBM__c": "Formula field through Broker_Relation__c",
       "Segment__c": "Formula field through Broker_Relation__c",
-      "SAO_State__c": "Formula field through Broker_Relation__c"
+      "SAO_State__c": "Formula field through Broker_Relation__c",
+      "Sync_Status__c": "1:1 transformation",
+      "Survivor_Party_Id__c": "1:1 transformation",
+      "Victim_Party_Id__c" : "1:1 transformation"
     },
     "CustomerOnboardingApplication__c": {
       "AustralianTaxResident__c": "1:1 Transformation",

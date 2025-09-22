@@ -125,6 +125,41 @@ public with sharing class CommercialReferralLeadActionsTest {
   }
 
   @isTest
+  static void shareReferralRecordWithExceptionTest() {
+    registerMocks();
+    //GIVEN list of old records and new records
+    Id leadId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    Id userId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    List<Lead> records = new List<Lead>{
+      new Lead(
+        Id = leadId,
+        FinServ__ReferredByUser__c = userId,
+        Referral_Status__c = CommercialReferralLeadActions.REFERRAL_STATUS_IN_PROGRESS,
+        OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType)
+      )
+    };
+    Map<Id, Lead> oldMap = new Map<Id, Lead>{
+      leadId => new Lead(
+        Id = leadId,
+        FinServ__ReferredByUser__c = userId,
+        Referral_Status__c = CommercialReferralLeadActions.REFERRAL_STATUS_IN_PROGRESS,
+        OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType)
+      )
+    };
+    dmlRepoMock.mockException('doInsert', new DMLException('Insert failed!'));
+    try {
+      Test.startTest();
+      CommercialReferralLeadActions.shareReferralRecord(records, oldMap);
+      Test.stopTest();
+    } catch (Exception ex) {
+      Assert.isTrue(
+        ex instanceof DMLException,
+        'DMLException should have been thrown'
+      );
+    }
+  }
+
+  @isTest
   static void generateReferralLeadShareListTest() {
     //GIVEN list of old records and new records
     List<Lead> filteredReferralLeadsList = new List<Lead>{
@@ -257,12 +292,49 @@ public with sharing class CommercialReferralLeadActionsTest {
   }
 
   @isTest
+  static void sendNotificationForCCRMUsersTest() {
+    registerMocks();
+    Id userId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    List<Lead> filteredReferralLeadsList = new List<Lead>{
+      new Lead(
+        Id = Lib_FakeIdGenerator.getMockId(Lead.SObjectType),
+        OwnerId = userId,
+        FinServ__ReferredByUser__c = Lib_FakeIdGenerator.getMockId(
+          User.SObjectType
+        )
+      )
+    };
+    commercialReferralLeadRepositoryMock.mock(
+      'getCCRMUsers',
+      new List<User>{ new user(Id = userId) }
+    );
+    Boolean exceptionThrown = false;
+    String errorMessage = '';
+
+    Test.startTest();
+    try {
+      CommercialReferralLeadActions.sendNotification(filteredReferralLeadsList);
+    } catch (Exception e) {
+      exceptionThrown = true;
+      errorMessage = e.getMessage();
+    }
+    Test.stopTest();
+    Assert.areEqual(
+      false,
+      exceptionThrown,
+      'Referral lead owner should be notified.'
+    );
+  }
+
+  @isTest
   public static void publishCloudEventsTest() {
     registerMocks();
 
     // Mocking
-    User ccrmUser = CCRMTestDataFactory.getCCRMBaseUser();
-    ccrmUser.Lan_Id__c = 'TestLanId';
+    User ccrmUser = new User(
+      Id = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+      Lan_Id__c = 'TestLanId'
+    );
     commercialReferralLeadRepositoryMock.mock(
       'getUsers',
       new List<User>{ ccrmUser }
@@ -296,19 +368,20 @@ public with sharing class CommercialReferralLeadActionsTest {
         FinServ__RelatedAccount__c = account.id,
         RecordTypeId = RTLead.referralLead,
         Referral_Status__c = 'In Progress',
+        Email = 'test@test.com',
         Primary_Contact_Method__c = 'Work Phone',
         Work_Phone__c = '+61234567890'
       ),
       new Lead(
         Id = Lib_FakeIdGenerator.getMockId(Lead.SObjectType),
         FinServ__ReferredByUser__c = userId,
-        OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+        OwnerId = ccrmUser.Id,
         channel__c = 'Commercial'
       ),
       new Lead(
         Id = Lib_FakeIdGenerator.getMockId(Lead.SObjectType),
         FinServ__ReferredByUser__c = userId,
-        OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+        OwnerId = ccrmUser.Id,
         channel__c = 'Private Bank'
       )
     };
@@ -327,6 +400,47 @@ public with sharing class CommercialReferralLeadActionsTest {
         OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType)
       )
     };
+
+    PermissionSetGroup psgRecord = new PermissionSetGroup(
+      Id = Lib_FakeIdGenerator.getMockId(PermissionSetGroup.SObjectType)
+    );
+    List<PermissionSetGroupComponent> psgComponentRecord = new List<PermissionSetGroupComponent>{
+      new PermissionSetGroupComponent(
+        Id = Lib_FakeIdGenerator.getMockId(
+          PermissionSetGroupComponent.SObjectType
+        ),
+        PermissionSetId = Lib_FakeIdGenerator.getMockId(
+          PermissionSet.SObjectType
+        ),
+        PermissionSetGroupId = psgRecord.Id
+      )
+    };
+    List<SetupEntityAccess> setupEntityAccessRecord = new List<SetupEntityAccess>{
+      new SetupEntityAccess(
+        Id = Lib_FakeIdGenerator.getMockId(SetupEntityAccess.SObjectType),
+        ParentId = psgComponentRecord[0].Id
+      )
+    };
+    List<PermissionSetAssignment> psaRecord = new List<PermissionSetAssignment>{
+      new PermissionSetAssignment(
+        Id = Lib_FakeIdGenerator.getMockId(PermissionSetAssignment.SObjectType),
+        AssigneeId = ccrmUser.Id,
+        PermissionSetGroupId = psgRecord.Id
+      )
+    };
+
+    commercialReferralLeadRepositoryMock.mock(
+      'getPermissionSetWithCustomPermission',
+      setupEntityAccessRecord
+    );
+    commercialReferralLeadRepositoryMock.mock(
+      'getPermissionSetGroupFromPS',
+      psgComponentRecord
+    );
+    commercialReferralLeadRepositoryMock.mock(
+      'listOfUsersHavingCustomPermission',
+      psaRecord
+    );
 
     // WHEN calling publishCloudEvents method
     Test.startTest();
@@ -359,8 +473,10 @@ public with sharing class CommercialReferralLeadActionsTest {
   public static void publishCloudEventsExceptionTest() {
     registerMocks();
     // Mocking
-    User ccrmUser = CCRMTestDataFactory.getCCRMBaseUser();
-    ccrmUser.Lan_Id__c = 'TestLanId';
+    User ccrmUser = new User(
+      Id = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+      Lan_Id__c = 'TestLanId'
+    );
     commercialReferralLeadRepositoryMock.mock(
       'getUsers',
       new List<User>{ ccrmUser }
@@ -398,7 +514,7 @@ public with sharing class CommercialReferralLeadActionsTest {
     };
 
     commercialReferralLeadRepositoryMock.mockException(
-      'getUsers',
+      'getPermissionSetWithCustomPermission',
       new QueryException('invalid parameters')
     );
 
@@ -467,6 +583,32 @@ public with sharing class CommercialReferralLeadActionsTest {
       updateRecords[0].Lead_Outcome__c,
       'Lead Outcome should get updated to Referred on update'
     );
+  }
+
+  @isTest
+  static void updateParentLeadTestWithException() {
+    registerMocks();
+    Id parentLeadId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    List<Lead> records = new List<Lead>{
+      new Lead(
+        Id = Lib_FakeIdGenerator.getMockId(Lead.SObjectType),
+        Referrer_Lead__c = parentLeadId
+      )
+    };
+    commercialReferralLeadRepositoryMock.mockException(
+      'fetchParentLeads',
+      new QueryException('invalid parameters')
+    );
+    try {
+      Test.startTest();
+      CommercialReferralLeadActions.updateParentLead(records);
+      Test.stopTest();
+    } catch (Exception ex) {
+      Assert.isTrue(
+        ex instanceof QueryException,
+        'QueryException should have been thrown'
+      );
+    }
   }
 
   @isTest
@@ -573,6 +715,39 @@ public with sharing class CommercialReferralLeadActionsTest {
   }
 
   @isTest
+  static void populateNewToBankWithExceptionTest() {
+    registerMocks();
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id refId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    List<Lead> records = new List<Lead>{
+      new Lead(Id = refId, FinServ__RelatedAccount__c = accId)
+    };
+
+    Map<Id, Lead> oldMap = new Map<Id, Lead>{
+      refId => new Lead(
+        Id = refId,
+        FinServ__RelatedAccount__c = Lib_FakeIdGenerator.getMockId(
+          Lead.SObjectType
+        )
+      )
+    };
+    commercialReferralLeadRepositoryMock.mockException(
+      'getAccountRecords',
+      new QueryException('invalid parameters')
+    );
+    try {
+      Test.startTest();
+      CommercialReferralLeadActions.populateNewToBank(records, oldMap);
+      Test.stopTest();
+    } catch (Exception ex) {
+      Assert.isTrue(
+        ex instanceof QueryException,
+        'QueryException should have been thrown'
+      );
+    }
+  }
+
+  @isTest
   static void setNewToBankTest() {
     List<Lead> filteredRefList = new List<Lead>{
       new Lead(
@@ -647,5 +822,191 @@ public with sharing class CommercialReferralLeadActionsTest {
     Test.stopTest();
 
     Assert.areEqual('+61424234', sanitizeValue, 'should sanitize the value');
+  }
+
+  @isTest
+  public static void getListOfOwnerIdsHavingCustomPermissionTest() {
+    registerMocks();
+
+    // Mocking
+    Id ccrmUser = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+
+    PermissionSetGroup psgRecord = new PermissionSetGroup(
+      Id = Lib_FakeIdGenerator.getMockId(PermissionSetGroup.SObjectType)
+    );
+    List<PermissionSetGroupComponent> psgComponentRecord = new List<PermissionSetGroupComponent>{
+      new PermissionSetGroupComponent(
+        Id = Lib_FakeIdGenerator.getMockId(
+          PermissionSetGroupComponent.SObjectType
+        ),
+        PermissionSetId = Lib_FakeIdGenerator.getMockId(
+          PermissionSet.SObjectType
+        ),
+        PermissionSetGroupId = psgRecord.Id
+      )
+    };
+    List<SetupEntityAccess> setupEntityAccessRecord = new List<SetupEntityAccess>{
+      new SetupEntityAccess(
+        Id = Lib_FakeIdGenerator.getMockId(SetupEntityAccess.SObjectType),
+        ParentId = psgComponentRecord[0].Id
+      )
+    };
+    List<PermissionSetAssignment> psaRecord = new List<PermissionSetAssignment>{
+      new PermissionSetAssignment(
+        Id = Lib_FakeIdGenerator.getMockId(PermissionSetAssignment.SObjectType),
+        AssigneeId = ccrmUser,
+        PermissionSetGroupId = psgRecord.Id
+      )
+    };
+
+    commercialReferralLeadRepositoryMock.mock(
+      'getPermissionSetWithCustomPermission',
+      setupEntityAccessRecord
+    );
+
+    commercialReferralLeadRepositoryMock.mock(
+      'getPermissionSetGroupFromPS',
+      psgComponentRecord
+    );
+
+    commercialReferralLeadRepositoryMock.mock(
+      'listOfUsersHavingCustomPermission',
+      psaRecord
+    );
+
+    // GIVEN list of new lead referal records
+    Id nonCcrmUserOne = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    Id nonCcrmUserTwo = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    Id nonCcrmUserThree = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    Set<Id> setOfUserIds = new Set<Id>{
+      nonCcrmUserOne,
+      nonCcrmUserTwo,
+      nonCcrmUserThree,
+      ccrmUser
+    };
+    Set<Id> requiredUserIds = new Set<Id>{ ccrmUser };
+
+    // WHEN calling getListOfLeadsToPublishToIknow method
+    Test.startTest();
+    Set<Id> filteredRecords = CommercialReferralLeadActions.getListOfOwnerIdsHavingCustomPermission(
+      setOfUserIds,
+      'Manage_Referrals_in_CRM'
+    );
+    Test.stopTest();
+
+    // THEN it should return only the leads with non-crm owner not having custom permission
+    Assert.areEqual(
+      requiredUserIds,
+      filteredRecords,
+      'should only filter and keep user Id having custom permission assigned'
+    );
+  }
+
+  @isTest
+  public static void getListOfOwnerIdsHavingCustomPermissionNegativeTest() {
+    registerMocks();
+
+    // Mocking
+    commercialReferralLeadRepositoryMock.mock(
+      'getPermissionSetWithCustomPermission',
+      new List<SetupEntityAccess>()
+    );
+    commercialReferralLeadRepositoryMock.mock(
+      'getPermissionSetGroupFromPS',
+      new List<PermissionSetGroupComponent>()
+    );
+    commercialReferralLeadRepositoryMock.mock(
+      'listOfUsersHavingCustomPermission',
+      new List<PermissionSetAssignment>()
+    );
+
+    // GIVEN list of new lead referal records
+    Id ccrmUser = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    Id nonCcrmUserOne = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    Id nonCcrmUserTwo = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    Id nonCcrmUserThree = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    Set<Id> setOfUserIds = new Set<Id>{
+      nonCcrmUserOne,
+      nonCcrmUserTwo,
+      nonCcrmUserThree,
+      ccrmUser
+    };
+
+    // WHEN calling getListOfLeadsToPublishToIknow method
+    Test.startTest();
+    Set<Id> filteredRecords = CommercialReferralLeadActions.getListOfOwnerIdsHavingCustomPermission(
+      setOfUserIds,
+      'Manage_Referrals_in_CRM'
+    );
+    Test.stopTest();
+
+    // THEN it should return only the leads with non-crm owner not having custom permission
+    Assert.areEqual(
+      new Set<Id>(),
+      filteredRecords,
+      'should only return empty set since there are no users assigned customPermission'
+    );
+  }
+
+  @isTest
+  static void sanitizeContactValueTestWithNoValue() {
+    Test.startTest();
+    String sanitizeValue = CommercialReferralLeadActions.sanitizeContactValue(
+      null
+    );
+    Test.stopTest();
+
+    Assert.isNull(sanitizeValue, 'It will not sanitize the value');
+  }
+
+  @istest
+  static void updateIknowReferralStatusPositiveTest() {
+    List<Lead> records = new List<Lead>{
+      new Lead(
+        Id = Lib_FakeIdGenerator.getMockId(Lead.SObjectType),
+        Referral_Status__c = 'New',
+        External_Id__c = '2-2YDFHGF',
+        MobilePhone = '01332424',
+        Home_Phone__c = '+610131313',
+        Work_Phone__c = '313218300',
+        OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+        FinServ__ReferredByUser__c = Lib_FakeIdGenerator.getMockId(
+          User.SObjectType
+        )
+      )
+    };
+    Test.startTest();
+    CommercialReferralLeadActions.updateIknowReferralStatus(records);
+    Test.stopTest();
+    Assert.areEqual(
+      'In Progress',
+      records[0].Referral_Status__c,
+      'Referral status is not changed to In Progress'
+    );
+  }
+  @istest
+  static void updateIknowReferralStatusNegativeTest() {
+    List<Lead> records = new List<Lead>{
+      new Lead(
+        Id = Lib_FakeIdGenerator.getMockId(Lead.SObjectType),
+        Referral_Status__c = 'New',
+        External_Id__c = null,
+        MobilePhone = '01332424',
+        Home_Phone__c = '+610131313',
+        Work_Phone__c = '313218300',
+        OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+        FinServ__ReferredByUser__c = Lib_FakeIdGenerator.getMockId(
+          User.SObjectType
+        )
+      )
+    };
+    Test.startTest();
+    CommercialReferralLeadActions.updateIknowReferralStatus(records);
+    Test.stopTest();
+    Assert.areEqual(
+      'New',
+      records[0].Referral_Status__c,
+      'Referral status is changed to In Progress'
+    );
   }
 }

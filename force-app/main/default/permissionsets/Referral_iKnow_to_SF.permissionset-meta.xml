@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <customPermissions>
-        <enabled>true</enabled>
         <name>Allow_Editing_Locked_and_Cancelled_Referrals</name>
+        <enabled>true</enabled>
     </customPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -152,4 +152,12 @@
         <recordType>Lead.Referral</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ViewRoles</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ViewSetup</name>
+    </userPermissions>
 </PermissionSet>

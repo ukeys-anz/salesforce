@@ -28,11 +28,9 @@ public with sharing class CommercialInteractionTriggerHandler extends Lib_Trigge
    * @description onBeforeInsert to handle before insert trigger actions.
    * @name onBeforeInsert
    */
+  @TestVisible
   protected override void onBeforeInsert() {
-    CommercialInteractionActions.setInteractionName(
-      records,
-      new Map<Id, Interaction>()
-    );
+    CommercialInteractionActions.setNameWithChannel(records);
     CommercialInteractionActions.setCustomerOnInteraction(records, null);
     CommercialInteractionActions.restrictImagesInRichTextFields(records, null);
     CommercialInteractionActions.performRedaction(records);
@@ -44,8 +42,9 @@ public with sharing class CommercialInteractionTriggerHandler extends Lib_Trigge
    * @name onBeforeUpdate
    * @param oldMap
    */
+  @TestVisible
   protected override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    CommercialInteractionActions.setInteractionName(
+    CommercialInteractionActions.updateNameWithChannelChange(
       records,
       (Map<Id, Interaction>) oldMap
     );
@@ -58,6 +57,10 @@ public with sharing class CommercialInteractionTriggerHandler extends Lib_Trigge
       (Map<Id, Interaction>) oldMap
     );
     CommercialInteractionActions.performRedaction(records);
+    CommercialInteractionActions.populateCLG(
+      records,
+      (Map<Id, Interaction>) oldMap
+    );
     CommercialInteractionActions.validateAndPopulateCLG(
       records,
       (Map<Id, Interaction>) oldMap
@@ -67,6 +70,7 @@ public with sharing class CommercialInteractionTriggerHandler extends Lib_Trigge
   /**
    * @description onAfterInsert to handle after insert trigger actions.
    **/
+  @TestVisible
   protected override void onAfterInsert() {
     CommercialInteractionActions.publishCloudEvents(
       records,
@@ -79,6 +83,7 @@ public with sharing class CommercialInteractionTriggerHandler extends Lib_Trigge
    * @description onAfterUpdate to handle after update trigger actions.
    * @param oldMap Trigger's oldMap
    **/
+  @TestVisible
   protected override void onAfterUpdate(Map<Id, SObject> oldMap) {
     CommercialInteractionActions.publishCloudEvents(
       records,
