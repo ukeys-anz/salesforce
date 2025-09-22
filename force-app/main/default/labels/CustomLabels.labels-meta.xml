@@ -3181,4 +3181,34 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>FollowUpDateLessThanToday</shortDescription>
         <value>1</value>
     </labels>
+    <labels>
+        <fullName>Mulesoft_Get_Forge_Elevated_Token</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Mulesoft_Get_Forge_Elevated_Token</shortDescription>
+        <value>callout:SF_MS_CH2/forge/oauth/v2/customer/saas-access-token</value>
+    </labels>
+    <labels>
+        <fullName>Forge_MFA_Reset_Client_Id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Forge_MFA_Reset_Client_Id</shortDescription>
+        <value>salesforce-main</value>
+    </labels>
+    <labels>
+        <fullName>Mulesoft_Reset_Forge_MFA</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Mulesoft_Reset_Forge_MFA</shortDescription>
+        <value>callout:SF_MS_CH2/forge/oauth/v2/customer/mfa-reset</value>
+    </labels>
+    <labels>
+        <fullName>Forge_MFA_Reset_Error_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Forge_MFA_Reset_Error_Message</shortDescription>
+        <value>Error to Reset MFA please contact admin</value>
+    </labels>
 </CustomLabels>
