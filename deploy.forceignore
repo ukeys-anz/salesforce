@@ -270,6 +270,9 @@ force-app/main/default/permissionsets/View_All_Fields.permissionset-meta.xml
 force-app/main/default/classes/CommercialReferralLeadRepository.cls
 force-app/main/default/classes/CommercialReferralLeadRepository.cls-meta.xml
 
+# here are removing duplicate classes as part of CC-15970
+force-app/main/default/classes/TerritoryActionsRepository.cls          
+force-app/main/default/classes/TerritoryActionsRepository.cls-meta.xml
 # ignoring sf-lending directory changes due to settlement revert
 force-app/main/sf-lending/classes/repository/SettlementRepository.cls
 force-app/main/sf-lending/classes/repository/SettlementRepository.cls-meta.xml

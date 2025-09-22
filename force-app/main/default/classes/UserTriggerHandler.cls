@@ -66,7 +66,7 @@ public with sharing class UserTriggerHandler extends Lib_TriggerHandler {
     UserProvisioningAfterActions.logManualUserProvisioning(
       (List<User>) this.records
     );
-    ML_UserActions.createTerritoryForMLUser(this.records, null);
+    UserActions.createTerritoryForMLUser(this.records, null);
     UserProvisioningAfterActions.addOrRemoveUsertoChatterGroup(
       this.records,
       new Map<Id, User>()
@@ -143,10 +143,7 @@ public with sharing class UserTriggerHandler extends Lib_TriggerHandler {
         businessFuncAndRoles
       );
     }
-    ML_UserActions.createTerritoryForMLUser(
-      this.records,
-      (Map<Id, User>) oldMap
-    );
+    UserActions.createTerritoryForMLUser(this.records, (Map<Id, User>) oldMap);
     UserProvisioningAfterActions.addOrRemoveUsertoChatterGroup(
       this.records,
       (Map<Id, User>) oldMap

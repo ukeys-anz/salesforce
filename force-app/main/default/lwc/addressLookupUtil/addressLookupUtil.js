@@ -1,8 +1,8 @@
 import { LightningElement, api, track, wire } from "lwc";
 import getValidAddresses from "@salesforce/apex/CCRMAPIRepository.getAddressesLwcV3";
 import getSelectedAddress from "@salesforce/apex/CCRMAPIRepository.getSelectedAddressLwcV3";
-import getCountryNameToCodeMap from "@salesforce/apex/MLCRMCommonUtils.getCountryNameToCodeMap";
-import getStateNameToCodeMap from "@salesforce/apex/MLCRMCommonUtils.getStateNameToCodeMap";
+import getCountryNameToCodeMap from "@salesforce/apex/ValidateAddessLookupUtil.getCountryNameToCodeMap";
+import getStateNameToCodeMap from "@salesforce/apex/ValidateAddessLookupUtil.getStateNameToCodeMap";
 import { handleErrorShowToast } from "c/utils";
 
 const SELECT_ADDRESS_ERROR =

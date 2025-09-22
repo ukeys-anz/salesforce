@@ -2037,7 +2037,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>MLCRMCommonUtils</apexClass>
+        <apexClass>TerritoryCommonUtils</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -2049,7 +2049,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>MLCRMSharingUtil</apexClass>
+        <apexClass>TerritorySharingUtil</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>

@@ -8,7 +8,6 @@
     <permissionSets>MLCRM_Base</permissionSets>
     <permissionSets>MLCRM_Create_and_Edit_Customer_Relationships</permissionSets>
     <permissionSets>MLCRM_Create_and_Edit_Interactions</permissionSets>
-    <permissionSets>MLCRM_FieldTeam_OwnerChange</permissionSets>
     <permissionSets>MLCRM_Transfer_ML_Records</permissionSets>
     <permissionSets>MLCRM_View_Reports_and_Dashboards</permissionSets>
     <status>Updated</status>

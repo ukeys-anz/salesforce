@@ -37,16 +37,25 @@ global with sharing class AUFController {
    * @description update status for AUF
    * @param recordId recordId
    * @param action action
+   * @return Boolean
    */
   @AuraEnabled
-  public static void updateStatus(Id recordId, String action) {
+  public static Boolean updateStatus(Id recordId, String action) {
     try {
       PersonDigitalIdentity__x personDigitalRec = QUERY.getPersonDigitalIdentityRec(
         recordId
       );
+      if (
+        personDigitalRec.Mobile_Number__c.startsWith('DISPUTED') &&
+        action == 'active'
+      ) {
+        return false;
+      }
       AUFREPO.updateStatus(personDigitalRec.UUID__c, action);
+      return true;
     } catch (Exception e) {
       handleCommonException(e);
+      return false;
     }
   }
 
