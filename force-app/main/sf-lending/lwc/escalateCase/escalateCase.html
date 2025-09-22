@@ -1,0 +1,77 @@
+<template>
+  <template lwc:if={componentSpinner}>
+    <lightning-spinner
+      alternative-text="Loading"
+      varient="brand"
+      size="large"
+      class="slds-align_absolute-center"
+    >
+    </lightning-spinner>
+  </template>
+
+  <lightning-quick-action-panel header="Escalate Case">
+    <lightning-layout
+      class="slds-p-top_large slds-p-bottom_large slds-p-around_large"
+      multiple-rows
+    >
+      <!-- Escalated To Field display -->
+      <lightning-layout-item size="12">
+        <lightning-layout>
+          <lightning-layout-item class="slds-p-right_xx-small" size="2">
+            <lightning-formatted-text
+              class="slds-form-element__label"
+              value="Escalated To"
+            ></lightning-formatted-text>
+          </lightning-layout-item>
+          <lightning-layout-item size="10">
+            <lightning-combobox
+              variant="label-hidden"
+              value={escalateTo}
+              options={escalateToOptions}
+              onchange={handleEscalateToChange}
+            ></lightning-combobox>
+          </lightning-layout-item>
+        </lightning-layout>
+      </lightning-layout-item>
+
+      <!-- Comments field for FRAUD display -->
+      <template lwc:if={showCommentsField}>
+        <lightning-layout-item class="slds-p-top_medium" size="12">
+          <lightning-layout>
+            <lightning-layout-item class="slds-p-right_xx-small" size="2">
+              <span class="slds-required">* </span>
+              <lightning-formatted-text
+                class="slds-form-element__label"
+                value="Comments"
+              >
+              </lightning-formatted-text>
+            </lightning-layout-item>
+            <lightning-layout-item size="10">
+              <lightning-textarea
+                variant="label-hidden"
+                value={comments}
+                type="text"
+                required
+                onchange={handleCommentChange}
+                placeholder="Add comments here..."
+                max-length="255"
+              ></lightning-textarea>
+            </lightning-layout-item>
+          </lightning-layout>
+        </lightning-layout-item>
+      </template>
+    </lightning-layout>
+
+    <div slot="footer">
+      <lightning-button variant="neutral" label="Cancel" onclick={handleClose}>
+      </lightning-button>
+      <lightning-button
+        variant="brand"
+        class="slds-m-left_x-small"
+        label="Save"
+        onclick={handleSave}
+        disabled={disabledSaveButton}
+      ></lightning-button>
+    </div>
+  </lightning-quick-action-panel>
+</template>

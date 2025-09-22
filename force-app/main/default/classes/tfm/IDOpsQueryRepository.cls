@@ -2,7 +2,7 @@
  * @description       : Repository for PinAndSelfieWorkflow
  * @author            : Hinduja - TFM Squad
  * @group             :
- * @last modified on  : 10-17-2024
+ * @last modified on  : 08-07-2025
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
  **/
 public with sharing class IDOpsQueryRepository {
@@ -38,7 +38,7 @@ public with sharing class IDOpsQueryRepository {
       WHERE ID = :recordId
       WITH USER_MODE
       LIMIT 1
-    ];
+    ] ?? null;
     return caseRecord;
   }
 
@@ -87,7 +87,7 @@ public with sharing class IDOpsQueryRepository {
       WHERE Id = :recordId
       WITH USER_MODE
       LIMIT 1
-    ];
+    ] ?? null;
     return cobPIDRecord;
   }
 
@@ -105,7 +105,7 @@ public with sharing class IDOpsQueryRepository {
       WHERE CustomerOnboardingApplication__c = :customerOnboardingApplicationId
       WITH USER_MODE
       LIMIT 1
-    ];
+    ] ?? null;
     return cobPIDRecord;
   }
 
@@ -163,12 +163,31 @@ public with sharing class IDOpsQueryRepository {
         Status__c,
         PIN_Status__c,
         IAL_Identity_Assurance_Level__c,
-        OCV_ID__c
+        OCV_ID__c,
+        Mobile_Number__c
       FROM PersonDigitalIdentity__x
       WHERE Id = :recordId
       WITH USER_MODE
       LIMIT 1
-    ];
+    ] ?? null;
     return personDigitalIdentityRec;
+  }
+
+  /**
+   * @description documentId from COB-PID record
+   * @param  personaId PersonaId
+   * @return COBPrimaryIDDocument__c
+   **/
+  @AuraEnabled
+  public static COBPrimaryIDDocument__c getDocumentIdFromCOB(String personaId) {
+    COBPrimaryIDDocument__c pID = [
+      SELECT DaonLocationUri__c
+      FROM COBPrimaryIDDocument__c
+      WHERE
+        CustomerOnboardingApplication__r.PersonaId__c = :personaId
+        AND Latest__c = TRUE
+      LIMIT 1
+    ] ?? null;
+    return pID;
   }
 }

@@ -6,6 +6,7 @@
 @IsTest
 public class SOPGetConsolidatedViewModelTest {
   static Lib_MockProvider rlarRepoMock;
+  static Lib_MockProvider expControlRepoMock;
 
   static void registerMocks() {
     rlarRepoMock = Lib_MockProvider.forType(
@@ -16,12 +17,15 @@ public class SOPGetConsolidatedViewModelTest {
         new List<LoanApplicationProperty>{ relatedProperty }
       )
       .mock(
-        'getExpenseControl',
-        new List<Expense_Control__c>{ relatedExpenseControl }
-      )
-      .mock(
         'getLoanApplicationLiability',
         new List<LoanApplicationLiability>{ loanAppLiabilities }
+      );
+    expControlRepoMock = Lib_MockProvider.forType(
+        ExpenseControlRepository.class
+      )
+      .mock(
+        'getExpenseControlByExpenseCode',
+        new List<Expense_Control__c>{ relatedExpenseControl }
       );
   }
   static Id lapIds = Lib_FakeIdGenerator.getMockId(

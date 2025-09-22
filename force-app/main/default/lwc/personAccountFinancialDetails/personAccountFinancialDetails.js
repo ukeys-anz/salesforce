@@ -43,6 +43,14 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     );
   }
 
+  get savingsAccounts() {
+    return this.processedAccounts?.filter((group) => group.isSaving);
+  }
+
+  get othersAccounts() {
+    return this.processedAccounts?.filter((group) => group.isOthers);
+  }
+
   get homeLoanAccounts() {
     return JSON.stringify(
       this.processedAccounts

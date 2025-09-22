@@ -102,6 +102,7 @@ public with sharing class PushToAppController {
       .format('dd/MM/yyyy');
     item.notificationConfigId = config?.Id;
     item.bodyText = item.subtitle + ' ' + item.bodyText;
+
     return aemData;
   }
 

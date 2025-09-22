@@ -17,9 +17,9 @@ concurrency:
 jobs:
   validation:
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:2.1.0"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:2.1.1"
       options: --user root
-    runs-on: anzx-default-np
+    runs-on: anzx-default
     env:
       SERVICE_ACCOUNT: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1398,6 +1398,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Requested Name Downgrades Legal Name</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Text in document illegible%2Funreadable</fullName>
             <default>false</default>
         </values>
@@ -3789,6 +3793,10 @@
         </values>
         <values>
             <fullName>Failed - Document Quality Issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Change Required</fullName>
             <default>false</default>
         </values>
     </picklistValues>

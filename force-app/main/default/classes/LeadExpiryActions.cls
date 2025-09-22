@@ -14,6 +14,10 @@ public with sharing class LeadExpiryActions {
   private static final CampaignMemberActionRepository CAMPAIGN_MEMBER_REPOSITORY = (CampaignMemberActionRepository) Lib_InstanceProvider.forType(
     CampaignMemberActionRepository.class
   );
+  private static final Map<Id, String> RT_TO_DEFAULTDAY_MAP = new Map<Id, String>{
+    RTLead.mlcrmLead => Label.ML_MinDaysExpiryDateExtends,
+    RTLead.commercialLead => Label.DefaultLeadExpiryDate
+  };
 
   /**
    * @description This method extends the expiry date when:
@@ -112,13 +116,17 @@ public with sharing class LeadExpiryActions {
       .isNotNull(Lead.Followup_Date__c)
       .toList();
     Set<Id> leadIds = new Set<Id>();
-    Integer defaultDays = Integer.valueOf(Label.DefaultLeadExpiryDate);
     for (Lead objLead : lstOfLeadWithFollowDateCriteria) {
+      Integer defaultDays = Integer.valueOf(
+        RT_TO_DEFAULTDAY_MAP.get(objLead.RecordTypeId)
+      );
       Date followUpDate = objLead.Followup_Date__c.addDays(defaultDays);
       if (followUpDate > objLead.Expiry_Date__c) {
         leadIds.add(objLead.Id);
       }
     }
+    leadIds.addAll(getAcceptedLeadIds(records, oldMap));
+
     List<Task> taskRecords = TASK_REPOSITORY.getTaskResponse(leadIds);
     //map of lead id to latest task response
     Map<Id, Task> mapLeadtoLatestTaskResponse = (Map<Id, Task>) ListUtil.mapBy(
@@ -126,6 +134,39 @@ public with sharing class LeadExpiryActions {
       Task.WhoId
     );
     return mapLeadtoLatestTaskResponse;
+  }
+
+  /**
+   * @description Get Accepted Lead(having status as Opportunity Identified) and proposed expiry date is greater than current expiry date)
+   * @name getAcceptedLeadIds
+   * @param records List of lead new records.
+   * @param oldMap Map of lead with key Id.
+   * @return Set<Id> set of lead Ids
+   */
+  @TestVisible
+  private static Set<Id> getAcceptedLeadIds(
+    List<Lead> records,
+    Map<Id, Lead> oldMap
+  ) {
+    List<Lead> lstOfLeadWithStatusChange = ListUtil.filter(records, oldMap)
+      .equals(Lead.RecordTypeId, LEAD_STATUS_CHANGE_ELIGIBLE_RT_ID)
+      .changedTo(Lead.status, 'Opportunity Identified')
+      .toList();
+    Set<Id> acceptedLeadIds = new Set<Id>();
+    for (Lead objLead : lstOfLeadWithStatusChange) {
+      if (objLead.Followup_Date__c == null) {
+        acceptedLeadIds.add(objLead.Id);
+        continue;
+      }
+      Integer defaultDays = Integer.valueOf(
+        RT_TO_DEFAULTDAY_MAP.get(objLead.RecordTypeId)
+      );
+      Date newExpiryDate = objLead.Followup_Date__c.addDays(defaultDays);
+      if (newExpiryDate > objLead.Expiry_Date__c) {
+        acceptedLeadIds.add(objLead.Id);
+      }
+    }
+    return acceptedLeadIds;
   }
 
   /**

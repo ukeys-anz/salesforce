@@ -29,20 +29,12 @@ public with sharing class GetHelpCaseActionsHelper {
   private static final String MORE_THAN_TWO_ADDITIONAL_TYPES_ERROR_MSG = 'You cannot select more than two Additional Types.';
   private static final String SAME_ADDITIONAL_TYPES_ERROR_MSG = 'You cannot select a value in Additional Type that is already selected as the Primary Type.';
   private static final String NO_ENTITLEMENT_ERROR_MSG = 'No entitlement found for account.';
-
-  public static Group cadReferralQueue = QueryQueue.get(
-    'CAD_Credit_Referral_Case_Queue'
-  );
-  public static Group coachRefQueue = QueryQueue.get(
-    'No_CAD_Credit_Referral_Case_Queue'
-  );
-
   public static final String CREDIT_REF_ASSIGN_ERROR_ONE = 'You can\'t assign a credit referral case that you do not have authority to resolve. Please select another case.';
   public static final String CREDIT_REF_ASSIGN_ERROR_TWO = 'You can\'t assign a credit referral case to someone who does not have the authority to resolve it.';
   public static final String CREDIT_REF_ASSIGN_ERROR_THREE = 'You can\'t assign the credit referral case directly to someone else. Please assign the case back to the queue for it to be picked up.';
   public static final String CREDIT_REF_EDIT_ERROR = 'Only the Case Owner or Credit Assessor Lead can edit this credit referral case.';
   public static final String CREDIT_REF_ASSIGN_QUEUE_ERROR_ONE = 'You can\'t assign this credit referral case to this queue as it doesn\'t meet the minimum authority level needed to resolve it. Please select another queue.';
-  public static final String CREDIT_REF_ASSIGN_QUEUE_ERROR_TWO = 'You can\'t assign this credit referral case by changing the Case Owner field. Please update the case status to Escalated to assign to another queue.';
+  public static final String CREDIT_REF_ASSIGN_QUEUE_ERROR_TWO = 'You can\'t escalate this credit referral case by changing the Case Owner field. Please click "Escalate Case" to assign the case to another queue.';
 
   /**
    * @description  This method checks if Additional_Type__c has more than 2 values selected or
@@ -549,7 +541,8 @@ public with sharing class GetHelpCaseActionsHelper {
           'Credit_Assessor_Lead',
           'BOH_Coach',
           'BOH_Coach_Lead',
-          'Credit_Assessment_Officer'
+          'Credit_Assessment_Officer',
+          'FraudX_Agent'
         }
       ) && !USER_INFO.checkCustomPermission('ANZx_Transfer_Edit_Case');
   }
@@ -641,6 +634,7 @@ public with sharing class GetHelpCaseActionsHelper {
     newCase.Owner_Role__c != QueryRole.bohCoachLeadRole.Id &&
     !isSpecialistLender(newCase, isOwnerSpecialistLender) &&
     newCase.Owner_Role__c != QueryRole.creditAssessmentOfficerRole.Id &&
+    newCase.Owner_Role__c != QueryRole.fraudXAgent.Id &&
     newCase.Owner_Role__c != QueryRole.creditAssessorLeadRole.Id);
   }
 
@@ -701,8 +695,9 @@ public with sharing class GetHelpCaseActionsHelper {
     Case oldCase
   ) {
     return (oldCase.OwnerId == UserInfo.getUserId() &&
-    (newCase.OwnerId != coachRefQueue.Id &&
-    newCase.OwnerId != cadReferralQueue.Id));
+    (newCase.OwnerId != QueryQueue.coachRefQueue.Id &&
+    newCase.OwnerId != QueryQueue.cadReferralQueue.Id &&
+    newCase.OwnerId != QueryQueue.fraudRefQueue.Id));
   }
 
   /**
@@ -715,8 +710,9 @@ public with sharing class GetHelpCaseActionsHelper {
     Case newCase,
     Case oldCase
   ) {
-    return ((oldCase.OwnerId == coachRefQueue.Id ||
-    oldCase.OwnerId == cadReferralQueue.Id) &&
+    return ((oldCase.OwnerId == QueryQueue.coachRefQueue.Id ||
+    oldCase.OwnerId == QueryQueue.cadReferralQueue.Id ||
+    oldCase.OwnerId == QueryQueue.fraudRefQueue.Id) &&
     newCase.OwnerId != UserInfo.getUserId());
   }
 
@@ -748,7 +744,9 @@ public with sharing class GetHelpCaseActionsHelper {
   public static void isInvalidCADQueueAssignment(Case newCase, Case oldCase) {
     if (
       oldCase.OwnerId != newCase.OwnerId &&
-      newCase.OwnerId == cadReferralQueue.Id &&
+      (newCase.OwnerId == QueryQueue.cadReferralQueue.Id ||
+      newCase.OwnerId == QueryQueue.fraudRefQueue.Id) &&
+      oldCase.Owner_Role__c != QueryRole.fraudXAgent.Id &&
       newCase.Status != 'Escalated' &&
       newCase.Case_Authority_Level__c.toUpperCase() == 'NO CAD'
     ) {
@@ -764,7 +762,8 @@ public with sharing class GetHelpCaseActionsHelper {
   public static void isInvalidCoachQueueAssignment(Case newCase, Case oldCase) {
     if (
       oldCase.OwnerId != newCase.OwnerId &&
-      newCase.OwnerId == coachRefQueue.Id &&
+      (newCase.OwnerId == QueryQueue.coachRefQueue.Id) &&
+      oldCase.Owner_Role__c != QueryRole.fraudXAgent.Id &&
       newCase.Case_Authority_Level__c.toUpperCase() != 'NO CAD'
     ) {
       newCase.addError(CREDIT_REF_ASSIGN_QUEUE_ERROR_ONE);

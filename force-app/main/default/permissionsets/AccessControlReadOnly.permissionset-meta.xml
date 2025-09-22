@@ -27,6 +27,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>AccessControl__x.Device__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>AccessControl__x.DeviceCorrelationId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>AccessControl__x.MinimumAAL__c</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -113,6 +113,16 @@
         <layoutColumns/>
         <style>CustomLinks</style>
     </layoutSections>
+    <relatedLists>
+        <excludeButtons>New</excludeButtons>
+        <fields>Name__c</fields>
+        <fields>DeleteWhenMet__c</fields>
+        <fields>MinimumAAL__c</fields>
+        <fields>CreatedTime__c</fields>
+        <relatedList>AccessControl__x.Device__c</relatedList>
+        <sortField>CreatedTime__c</sortField>
+        <sortOrder>Desc</sortOrder>
+    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
     <showInteractionLogPanel>false</showInteractionLogPanel>

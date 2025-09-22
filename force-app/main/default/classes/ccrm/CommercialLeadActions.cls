@@ -378,6 +378,7 @@ public with sharing class CommercialLeadActions {
     List<Lead> listOfLeads = ListUtil.filter(records, oldMap)
       .equals(Lead.Lead_Originator__c, SET_OF_ELIGIBLE_LEAD_ORIGINATOR)
       .notEquals(Lead.Id, LeadManagementActions.calloutLeadIds)
+      .notEquals(Lead.Status, 'Converted')
       .anyChanged(fieldsToValidateChange)
       .isNull(Lead.FinServ__ReferredByUser__c)
       .toList();
@@ -521,5 +522,22 @@ public with sharing class CommercialLeadActions {
       accMap,
       accIdToClgIdAARMap
     );
+  }
+
+  /**
+   * @description : This is used to clear the company name when entity type is selected as Individual
+   * @param records Lead records
+   * @param oldMap old lead records
+   */
+  public static void setCompanyToBlankForIndividual(
+    List<Lead> records,
+    Map<Id, Lead> oldMap
+  ) {
+    List<Lead> filteredLeadList = ListUtil.filter(records, oldMap)
+      .changedTo(Lead.Entity_Type__c, ENTITY_TYPE_INDIVIDUAL)
+      .isNotNull(Lead.Company)
+      .toList();
+
+    ListUtil.setField(filteredLeadList, Lead.Company, null);
   }
 }

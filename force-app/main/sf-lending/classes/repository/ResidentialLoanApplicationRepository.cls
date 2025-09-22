@@ -4,6 +4,9 @@
  * @since 24/06/2024
  */
 public with sharing class ResidentialLoanApplicationRepository {
+  @TestVisible
+  private static Map<String, Loan_Application_Validity__mdt> loanApplicationValidityMap = new Map<String, Loan_Application_Validity__mdt>();
+
   /**
    * @description
    * @param loanId loan appklciation id
@@ -44,6 +47,7 @@ public with sharing class ResidentialLoanApplicationRepository {
         Name,
         Sync_Status__c,
         ApplicationExtIdentifier,
+        RecordTypeId,
         Account.External_Id__c
       FROM ResidentialLoanApplication
       WHERE Id IN :loanIds
@@ -71,46 +75,6 @@ public with sharing class ResidentialLoanApplicationRepository {
       WHERE Id = :recordId
       LIMIT 1
     ] ?? null;
-  }
-
-  /**
-   * @description query account based on OCVId
-   * @param ocvId List of ocvids to search account details
-   * @return  `List<Account>` the result of accounts
-   */
-  public List<Account> getAccountsFromOcvIds(List<String> ocvId) {
-    if (ocvId.isEmpty()) {
-      return new List<Account>();
-    }
-
-    List<Account> accList = [
-      SELECT FirstName, OCV_ID__c
-      FROM Account
-      WHERE OCV_ID__c IN :ocvId
-      WITH USER_MODE
-    ];
-
-    return accList;
-  }
-
-  /**
-   * @description query expense control based on justification codes
-   * @param expenseCodeSet set of justification codes
-   * @return  `List<Expense_Control__c>` the result of exepense control
-   */
-  public List<Expense_Control__c> getExpenseControl(
-    Set<String> expenseCodeSet
-  ) {
-    if (expenseCodeSet.isEmpty()) {
-      return new List<Expense_Control__c>();
-    }
-    List<Expense_Control__c> controlList = [
-      SELECT Id, Justification_Code__c, Justification_Description__c
-      FROM Expense_Control__c
-      WHERE Justification_Code__c IN :expenseCodeSet
-      WITH USER_MODE
-    ];
-    return controlList;
   }
 
   /**
@@ -174,5 +138,29 @@ public with sharing class ResidentialLoanApplicationRepository {
         AND IsClosed = FALSE
       WITH USER_MODE
     ];
+  }
+
+  /**
+   * @description get custom metadata type for RLA's status
+   * @param recordTypeName Record type name of RLA
+   * @param status Status of RLA
+   * @return Loan_Application_Validity__mdt cutom metadata type
+   */
+  public Loan_Application_Validity__mdt getLoanApplicationValidityMetadata(
+    String recordTypeName,
+    String status
+  ) {
+    String key = recordTypeName + '_' + status;
+    Loan_Application_Validity__mdt loanApplicationValidityMDT = loanApplicationValidityMap.get(
+      key
+    );
+    if (loanApplicationValidityMDT != null) {
+      return loanApplicationValidityMDT;
+    }
+    loanApplicationValidityMDT = Loan_Application_Validity__mdt.getInstance(
+      key
+    );
+    loanApplicationValidityMap.put(key, loanApplicationValidityMDT);
+    return loanApplicationValidityMDT;
   }
 }

@@ -30,7 +30,33 @@ public with sharing class CommercialOpportunityTriggerHandler extends Lib_Trigge
    */
   public override void onBeforeInsert() {
     CommercialOpportunityActions.restrictImagesInRichTextFields(records, null);
-    CommercialOpportunityActions.populateCLG(records, null);
+    CommercialOpportunityActions.populateFields(records, null);
+
+    CommercialOpportunityActions.CCRMOpportunityWrapper oppWrapper = CommercialOpportunityActions.setOpportunityWrapper(
+      records,
+      null
+    );
+
+    //Check if Secondary customer needs contains customer needs
+    CommercialOpportunityActions.checkIfSecondaryCustomerNeedsContainsCustomerNeeds(
+      oppWrapper.filteredOpps,
+      null
+    );
+
+    //checks for validations on opportunities
+    CommercialOpportunityActions.validateCCRMOpportunity(oppWrapper, true);
+    //CC-4053 Redaction
+    TextUtils.maskSObjectDataANZExtended(records, 'Description');
+    TextUtils.maskSObjectDataANZExtended(records, 'My_Notes__c');
+    CommercialOpportunityActions.populateInfo(records, null);
+  }
+
+  /**
+   * @description onAfterInsert to handle after insert trigger actions.
+   * @name onAfterInsert
+   */
+  public override void onAfterInsert() {
+    CommercialOpportunityActions.updateOpportunityNameOnInsert(records);
   }
 
   /**
@@ -43,15 +69,60 @@ public with sharing class CommercialOpportunityTriggerHandler extends Lib_Trigge
       (List<Opportunity>) records,
       (Map<Id, Opportunity>) oldMap
     );
-    CCRMOpportunityActions.transferOpportunityOwnership(
-      (List<Opportunity>) records,
-      (Map<Id, Opportunity>) oldMap
-    );
-    CommercialOpportunityActions.populateCLG(
+    OpportunityActions.transferOpportunityOwnership(
       (List<Opportunity>) records,
       (Map<Id, Opportunity>) oldMap
     );
     CommercialOpportunityActions.validateAFPBeforeOppClose(
+      (List<Opportunity>) records,
+      (Map<Id, Opportunity>) oldMap
+    );
+    CommercialOpportunityActions.populateFields(
+      records,
+      (Map<Id, Opportunity>) oldMap
+    );
+    if (!LeadConversionController.leadConverionFlow) {
+      CommercialOpportunityActions.validateCloseDate(
+        records,
+        (Map<Id, Opportunity>) oldMap
+      );
+    }
+    CommercialOpportunityActions.CCRMOpportunityWrapper oppWrapper = CommercialOpportunityActions.setOpportunityWrapper(
+      records,
+      (Map<Id, Opportunity>) oldMap
+    );
+
+    CommercialOpportunityActions.mandatoryFieldAndSkipStageCheck(
+      oppWrapper,
+      (Map<Id, Opportunity>) oldMap,
+      false
+    );
+    //Check if Secondary customer needs contains customer needs
+    CommercialOpportunityActions.checkIfSecondaryCustomerNeedsContainsCustomerNeeds(
+      oppWrapper.filteredOpps,
+      (Map<Id, Opportunity>) oldMap
+    );
+
+    //Check if AFP with closed won/lost stage related to opp has mandatory fields filled
+    CommercialOpportunityActions.checkClosedStageFieldsOnAFPRelatedToOpp(
+      oppWrapper.filteredOpps,
+      (Map<Id, Opportunity>) oldMap
+    );
+    if (!CommercialOpportunityActions.insertOpportunityContext) {
+      CommercialOpportunityActions.updateOpportunityNameOnUpdate(
+        oppWrapper.filteredOpps,
+        (Map<Id, Opportunity>) oldMap
+      );
+    }
+    //CC-4053 Redaction
+    TextUtils.maskSObjectDataANZExtended(records, 'Description');
+    TextUtils.maskSObjectDataANZExtended(records, 'My_Notes__c');
+
+    CommercialOpportunityActions.validateAndPopulateInfo(
+      (List<Opportunity>) records,
+      (Map<Id, Opportunity>) oldMap
+    );
+    CommercialOpportunityActions.populateInfo(
       (List<Opportunity>) records,
       (Map<Id, Opportunity>) oldMap
     );

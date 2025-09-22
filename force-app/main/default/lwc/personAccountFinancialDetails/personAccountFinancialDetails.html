@@ -22,10 +22,7 @@
           <div
             class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-p-right_xx-small"
           >
-            <template
-              for:each={processedAccounts}
-              for:item="eachGroupedAccount"
-            >
+            <template for:each={othersAccounts} for:item="eachGroupedAccount">
               <div key={eachGroupedAccount.productCode}>
                 <template lwc:if={eachGroupedAccount.isOthers}>
                   <c-financial-account
@@ -61,10 +58,7 @@
           <div
             class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-p-left_xx-small"
           >
-            <template
-              for:each={processedAccounts}
-              for:item="eachGroupedAccount"
-            >
+            <template for:each={savingsAccounts} for:item="eachGroupedAccount">
               <div key={eachGroupedAccount.productCode}>
                 <template lwc:if={eachGroupedAccount.isSaving}>
                   <c-financial-account

@@ -31,7 +31,8 @@ public with sharing class GetHelpCaseAssignmentRules {
     'ATM Cheque Deposit Dispute' => 'Money',
     'PayID technical issue' => 'PayID Issue/Dispute',
     'Email PayID already registered' => 'PayID Issue/Dispute',
-    'Mobile PayID already registered' => 'PayID Issue/Dispute'
+    'Mobile PayID already registered' => 'PayID Issue/Dispute',
+    'IMT Enquiry/Disputes' => 'Payments'
   };
 
   private static final Map<String, String> SUB_TYPE_TO_TYPE_MAP_DIGITAL_FRAUD_QUEUE = new Map<String, String>{

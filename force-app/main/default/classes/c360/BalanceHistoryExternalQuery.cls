@@ -1,10 +1,10 @@
 /**
  * @author Ian Huang
- * @since  08/2023
+ * @since  07/2025
  * @group Platform
  * @description Balance History external query class
  */
-public with sharing class BalanceHistoryExternalQuery extends FinancialAccountQueryBase {
+public with sharing class BalanceHistoryExternalQuery extends CAPFinancialAccountQueryBase {
   /**
    * @description BalanceHistory Model class
    */
@@ -23,9 +23,50 @@ public with sharing class BalanceHistoryExternalQuery extends FinancialAccountQu
   }
 
   /**
+   * @description abstract CAP FinancialAccount Summary callout response class
+   */
+  public virtual class BalanceHistoryCalloutRequest extends ExternalObjectQueryBase.ExternalObjectCalloutRequestBase {
+    public String productCategory;
+    public QueryModeEnum queryMode;
+    /**
+     * @description abstract FinancialAccount callout response class
+     * @param queryContext DataSource QueryContext
+     * @param queryMode Query Mode Enum
+     * @param productCategory productCategory
+     * @param fieldSet fieldSet
+     * @param accountNumber accountNumber
+     */
+    public BalanceHistoryCalloutRequest(
+      DataSource.QueryContext queryContext,
+      QueryModeEnum queryMode,
+      String productCategory,
+      String fieldSet,
+      String accountNumber
+    ) {
+      super(queryContext, queryMode);
+      this.productCategory = productCategory;
+      this.payload = new FinancialAccountEntities.FinancialAccountPayload();
+
+      if (this.isSummaryRequest()) {
+        ((FinancialAccountEntities.FinancialAccountPayload) this.payload)
+          .fieldSet = fieldSet;
+        ((FinancialAccountEntities.FinancialAccountPayload) this.payload)
+          .accountNumber = accountNumber;
+      } else {
+        ((FinancialAccountEntities.FinancialAccountPayload) this.payload)
+          .compositeBalanceHistoryId = accountNumber;
+      }
+    }
+    public override String getEndpoint() {
+      return this.productCategory + '-accounts';
+    }
+  }
+
+  /**
    * @description BalanceHistory callout response
    */
-  public class BalanceHistoryCalloutResponse extends FinancialAccountCalloutResponse {
+  @testVisible
+  private class BalanceHistoryCalloutResponse extends FinancialAccountEntities.FinancialAccountCalloutResponse {
     public List<BalanceHistoryModel> balanceHistory;
   }
 
@@ -41,28 +82,36 @@ public with sharing class BalanceHistoryExternalQuery extends FinancialAccountQu
   }
 
   /**
-   * @description Main execute method - the orchestration layer
+   * @description Parse query filters and prepare for API callout
    * @param queryContext DataSource QueryContext
-   * @return ExternalQueryResult
+   * @param tableSelection DataSource.TableSelection
+   * @return ExternalObjectCalloutRequestBase Callout Request
    */
-  public virtual override ExternalQueryResult execute(
-    DataSource.QueryContext queryContext
+  protected virtual override ExternalObjectCalloutRequestBase prepareCallout(
+    DataSource.QueryContext queryContext,
+    DataSource.TableSelection tableSelection
   ) {
-    ExternalQueryResult externalQueryResult;
-    QueryModeEnum queryMode = prepareCallout(queryContext);
-    this.paginationKey = getPaginationKey(
-      queryContext.tableSelection.tableSelected,
-      this.parentId
+    String accountNumber;
+    ExternalObjectCalloutRequestBase calloutRequest = super.prepareCallout(
+      queryContext,
+      queryContext.TableSelection
     );
-    // Display Dummay FA Detail Record
-    if (displayDummyAccountDetails(this.externalId, this.parentId)) {
-      externalQueryResult = createDummyFinancialAccountDetail(this.externalId);
-      return externalQueryResult;
+    if (calloutRequest.isSummaryRequest()) {
+      accountNumber = this.parentId.right(
+        this.parentId.length() - this.parentId.indexOf('|') - 1
+      );
+    } else {
+      accountNumber = this.externalId;
     }
-    HttpCalloutResponse response = makeCallout(queryMode, queryContext);
-    calloutResponse = parseResponse(response.body);
-    externalQueryResult = createExternalRecords(calloutResponse);
-    return externalQueryResult;
+    BalanceHistoryCalloutRequest balHistorycalloutRequest = new BalanceHistoryCalloutRequest(
+      queryContext,
+      this.queryMode,
+      this.productCategory,
+      this.fieldSet,
+      accountNumber
+    );
+    this.accountNumbers = new Set<String>{ accountNumber };
+    return balHistorycalloutRequest;
   }
 
   /**
@@ -89,6 +138,7 @@ public with sharing class BalanceHistoryExternalQuery extends FinancialAccountQu
    * @param calloutResponse calloutResponseWrapper
    * @return External object rows ExternalObjectQueryBase.ExternalQueryResult
    */
+  @testVisible
   protected override ExternalObjectQueryBase.ExternalQueryResult createExternalRecords(
     ExternalObjectCalloutResponse calloutResponse
   ) {
@@ -117,48 +167,6 @@ public with sharing class BalanceHistoryExternalQuery extends FinancialAccountQu
       };
       result.externalRecords.add(row);
     }
-    return result;
-  }
-
-  /**
-   * @description checks if Account is Deposit Account
-   * @param productCategory FA name like Deposit, Loan, etc
-   * @return boolean true/false
-   */
-  @TestVisible
-  private static Boolean isDepositProductCategory(String productCategory) {
-    return productCategory == 'deposit';
-  }
-
-  /**
-   * @description Return true if detail section is requested
-   * @param externalId externalId value. If true means detail page is showing
-   * @param parentId parentId value. If true means list view page is showing
-   * @return boolean true/false
-   */
-  @TestVisible
-  private static Boolean displayDummyAccountDetails(
-    String externalId,
-    String parentId
-  ) {
-    return String.isNotEmpty(externalId) && String.isEmpty(parentId);
-  }
-
-  /**
-   * @description Create Dummy FA record
-   * @param externalId Format - 'DDA-210568745-2'
-   * @return dummy FA record
-   **/
-  @TestVisible
-  private ExternalObjectQueryBase.ExternalQueryResult createDummyFinancialAccountDetail(
-    String externalId
-  ) {
-    ExternalObjectQueryBase.ExternalQueryResult result = new ExternalObjectQueryBase.ExternalQueryResult();
-    Map<String, Object> row = new Map<String, Object>{
-      'ExternalId' => externalId,
-      'AdditionalInformation' => 'No further information available'
-    };
-    result.ExternalRecords.add(row);
     return result;
   }
 }

@@ -15,6 +15,13 @@
         <value>anzx.salesforce.broker.v1alpha1.contract.</value>
     </labels>
     <labels>
+        <fullName>ANZX_Broker_event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Brokerdata cloud event type</shortDescription>
+        <value>anzx.salesforce.broker.v1alpha1.brokerdata.</value>
+    </labels>
+    <labels>
         <fullName>ANZX_Broker_Event_Proto_Data_Schema</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -27,6 +34,13 @@
         <protected>false</protected>
         <shortDescription>ANZX Case Event ce type</shortDescription>
         <value>anzx.salesforce.broker.v1alpha1.brokerenquiry.</value>
+    </labels>
+    <labels>
+        <fullName>ANZx_ClassicLoanApplication_Event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZx_ClassicLoanApplication_Event_ce_type</shortDescription>
+        <value>anzx.salesforce.broker.v1alpha1.retailclassicapplication.</value>
     </labels>
     <labels>
         <fullName>ANZX_ResidentialLoanApplication_event_ce_type</fullName>
@@ -872,7 +886,7 @@
         <value>{
     &quot;anz--cmosadev25&quot;: &quot;https://anzbankdev.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=CASEID&amp;sysparm_case_number=CASENUMBER&quot;,
     &quot;anz--cmosa&quot;: &quot;https://anzbankdev.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=CASEID&amp;sysparm_case_number=CASENUMBER&quot;,
-    &quot;anz--anzxbau25&quot;: &quot;https://anztechtest.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=CASEID&amp;sysparm_case_number=CASENUMBER&quot;,
+    &quot;anz--cmos&quot;: &quot;https://anzbankirmtest.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=CASEID&amp;sysparm_case_number=CASENUMBER&quot;,
     &quot;anz--test25&quot;: &quot;https://anzbankuat.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=CASEID&amp;sysparm_case_number=CASENUMBER&quot;,
     &quot;anz&quot;: &quot;https://anztech.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=CASEID&amp;sysparm_case_number=CASENUMBER&quot;
     }</value>
@@ -1468,7 +1482,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ML_MinDaysExpiryDateExtends</shortDescription>
-        <value>14</value>
+        <value>10</value>
     </labels>
     <labels>
         <fullName>ML_MaxExpiryDateErrorMessage</fullName>
@@ -2023,7 +2037,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>There are mismatches in the contact information between this lead and the linked customer profile. Check the customer profile to see if needs to be updated.</value>
     </labels>
     <labels>
-        <fullName>MLCRM_Maximum_Primary_Notes_Error</fullName>
+        <fullName>Maximum_Primary_Notes_Error</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -2031,7 +2045,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>There can be only one primary relationship notes for franchise</value>
     </labels>
     <labels>
-        <fullName>MLCRM_Minimum_Primary_Notes_Error</fullName>
+        <fullName>Minimum_Primary_Notes_Error</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
         <protected>false</protected>
@@ -2045,6 +2059,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>ML_ShellProspect_Update_ErrorMessage</shortDescription>
         <value>This is a shell prospect record.</value>
+    </labels>
+    <labels>
+        <fullName>OCP_Link</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>OCP Link</shortDescription>
+        <value>https://ocp.service.anz/</value>
     </labels>
     <labels>
         <fullName>OCV_ID_Update_ErrorMessage</fullName>
@@ -2580,11 +2601,18 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>The Suburb, State and Postcode information provided is invalid. Please check the address entered and try again.</value>
     </labels>
     <labels>
-        <fullName>ML_LeadResponseToShowFollowUpDate</fullName>
+        <fullName>ML_LeadResponseFollowUpDateEnabled</fullName>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>ML_LeadResponseToShowFollowUpDate</shortDescription>
-        <value>[&quot;Contact Attempted&quot;, &quot;Call Back&quot;]</value>
+        <shortDescription>ML_LeadResponseFollowUpDateEnabled</shortDescription>
+        <value>[&quot;Call Back&quot;, &quot;Accepted&quot;, &quot;Appointment Booked&quot;]</value>
+    </labels>
+    <labels>
+        <fullName>ML_LeadResponseFollowUpDateRequired</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ML_LeadResponseFollowUpDateRequired</shortDescription>
+        <value>[&quot;Call Back&quot;]</value>
     </labels>
     <labels>
         <fullName>CCRM_INTERACTION_EVENT_CE_TYPE</fullName>
@@ -3152,5 +3180,35 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>FollowUpDateLessThanToday</shortDescription>
         <value>1</value>
+    </labels>
+    <labels>
+        <fullName>Mulesoft_Get_Forge_Elevated_Token</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Mulesoft_Get_Forge_Elevated_Token</shortDescription>
+        <value>callout:SF_MS_CH2/forge/oauth/v2/customer/saas-access-token</value>
+    </labels>
+    <labels>
+        <fullName>Forge_MFA_Reset_Client_Id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Forge_MFA_Reset_Client_Id</shortDescription>
+        <value>salesforce-main</value>
+    </labels>
+    <labels>
+        <fullName>Mulesoft_Reset_Forge_MFA</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Mulesoft_Reset_Forge_MFA</shortDescription>
+        <value>callout:SF_MS_CH2/forge/oauth/v2/customer/mfa-reset</value>
+    </labels>
+    <labels>
+        <fullName>Forge_MFA_Reset_Error_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Forge_MFA_Reset_Error_Message</shortDescription>
+        <value>Error to Reset MFA please contact admin</value>
     </labels>
 </CustomLabels>

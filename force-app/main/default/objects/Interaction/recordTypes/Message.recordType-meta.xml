@@ -492,6 +492,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>International Payment</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>KYC</fullName>
             <default>false</default>
         </values>

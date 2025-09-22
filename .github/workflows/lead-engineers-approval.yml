@@ -2,7 +2,7 @@ name: Lead engineer approval
 
 on:
   pull_request:
-    branches: [master, develop, release]
+    branches: [master, develop, release, epic/*]
     types: [opened, ready_for_review, reopened, synchronize]
   pull_request_review:
 
@@ -14,10 +14,14 @@ permissions:
 jobs:
   check-approval:
     runs-on: anzx-default
+    outputs:
+      approved_by_lead_engineer: ${{ steps.check-approval.outputs.approved_by_lead_engineer }}
     env:
-      LEAD_ENGINEERS: "dawsond1x,patelsu,chiranjeebdhar,sebastienquinternet-anz,murugem4,jasmine-anzx,pvictoriano,victor-wang-anz"
-      TRIGGERED_EVENT: "${{ github.event_name }}"
       BASE_REF: "${{ github.event.pull_request.base.ref }}"
+      GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      LEAD_ENGINEERS: "dawsond1x,patelsu,chiranjeebdhar,sebastienquinternet-anz,murugem4,jasmine-anzx,pvictoriano,victor-wang-anz"
+      PR_NUMBER: "${{ github.event.pull_request.number }}"
+      TRIGGERED_EVENT: "${{ github.event_name }}"
     steps:
       - name: Checkout Salesforce Repository
         uses: actions/checkout@v3
@@ -28,14 +32,12 @@ jobs:
           gh-cli-version: "2.50.0"
 
       - name: Authenticate to Github
-        env:
-          GITHUB_TOKEN: ${{ secrets.SALESFORCE_CXFLOW_GH_TOKEN }}
         run: gh auth setup-git
 
       - name: Get approved reviewers from PR
         id: pr-reviewers
         run: |
-          pr_number="${{ github.event.pull_request.number }}"
+          pr_number="${{ env.PR_NUMBER }}"
           echo "PR Number: $pr_number"
           approved=$(gh pr view $pr_number --json reviews --jq '.reviews[] | select(.state=="APPROVED") | .author.login' | sort | uniq)
           echo "Approved Reviewers:"
@@ -43,10 +45,9 @@ jobs:
 
           approved_list=$(echo "$approved" | paste -sd, -)
           echo "approved_list=$approved_list" >> $GITHUB_OUTPUT
-        env:
-          GITHUB_TOKEN: ${{ secrets.SALESFORCE_CXFLOW_GH_TOKEN }}
 
       - name: Check Lead Engineer Approval
+        id: check-approval
         run: |
           approved_list="${{ steps.pr-reviewers.outputs.approved_list }}"
           lead_engineers="${{ env.LEAD_ENGINEERS }}"
@@ -72,6 +73,142 @@ jobs:
             echo "No Approvals from Lead Engineers..."
           fi
 
+          echo "approved_by_lead_engineer=$approved_by_lead_engineer" >> $GITHUB_OUTPUT
+
           if [[ ${{ env.TRIGGERED_EVENT }} == pull_request_review && (${{env.BASE_REF}} == master || ${{env.BASE_REF}} == develop || ${{env.BASE_REF}} == release) ]];then
             exit 1
+          fi
+
+  field-deletion-check:
+    name: Detect Deleted Fields
+    runs-on: anzx-default
+    needs: [check-approval]
+    if: always()
+    env:
+      APPROVED: "${{ needs.check-approval.outputs.approved_by_lead_engineer }}"
+      BASE_SHA: "${{ github.event.pull_request.base.sha }}"
+      GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      HEAD_SHA: "${{ github.event.pull_request.head.sha }}"
+      PR_NUMBER: "${{ github.event.pull_request.number }}"
+      REPO: "${{ github.repository }}"
+      REPO_NAME: "${{ github.event.repository.name }}"
+      SERVICE_ACCOUNT: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
+      TRIGGERED_EVENT: "${{ github.event_name }}"
+      WHICH_JOB: "compare"
+    steps:
+      - name: Skip check if already approved
+        if: needs.check-approval.outputs.approved_by_lead_engineer == 'true'
+        run: echo "✅ Approved By Lead Engineer — skipping field check."
+
+      - name: Checkout
+        if: needs.check-approval.outputs.approved_by_lead_engineer == 'false'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: true
+          token: ${{ secrets.SALESFORCE_CXFLOW_GH_TOKEN }}
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Run Field Deletion Check
+        if: needs.check-approval.outputs.approved_by_lead_engineer == 'false'
+        id: run-check
+        run: |
+          chmod +x ci/workflows-scripts/check-deleted-fields.sh
+          ci/workflows-scripts/check-deleted-fields.sh
+
+      - name: Install node
+        if: needs.check-approval.outputs.approved_by_lead_engineer == 'false'
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
+        if: needs.check-approval.outputs.approved_by_lead_engineer == 'false'
+        id: "authenticate-harness-delegate"
+        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
+        with:
+          service_account: ${{ env.SERVICE_ACCOUNT }}
+
+      - name: Retrieve GSM Credentials
+        if: needs.check-approval.outputs.approved_by_lead_engineer == 'false'
+        id: secrets
+        uses: google-github-actions/get-secretmanager-secrets@main
+        with:
+          secrets: |-
+            artifactory:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-artifact/versions/latest
+
+      - name: Compare files
+        if: needs.check-approval.outputs.approved_by_lead_engineer == 'false'
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/field-removal.mjs "${{ steps.secrets.outputs.artifactory }}"
+          echo WHICH_JOB="cleanPRComment" >> $GITHUB_ENV
+
+      - name: Check sending new pr comment
+        if: needs.check-approval.outputs.approved_by_lead_engineer == 'false'
+        id: pr-comment-run
+        run: |
+          PR_COMPARE_FILE="removal-field-check-${REPO_NAME}-${PR_NUMBER}-report"
+          REMOVAL_FIELD_CHECK_FILE_NAME="deleted_fields_comment.html"
+          skip=false
+
+          if [[ ! -f "$REMOVAL_FIELD_CHECK_FILE_NAME" ]]; then
+            skip=true
+          fi
+
+          if [[ -f "$PR_COMPARE_FILE" ]]; then
+            compare=$(cat "$PR_COMPARE_FILE")
+            echo "Same PR comment as before? $compare"
+
+            if [[ "$compare" == *'true'* ]]; then
+              skip=true
+            fi
+          else
+            echo "$PR_COMPARE_FILE or $REMOVAL_FIELD_CHECK_FILE_NAME does not exist..."
+          fi
+
+          echo "skip=$skip" >> "$GITHUB_OUTPUT"
+
+      - name: Setup GitHub CLI
+        if: steps.pr-comment-run.outputs.skip == 'false'
+        uses: anzx/github-reusable-actions/setup-gh-cli@main
+        with:
+          gh-cli-version: "2.50.0"
+
+      - name: Send PR Comment
+        if: steps.pr-comment-run.outputs.skip == 'false'
+        shell: bash
+        run: |
+          # Find an existing comment with the tag
+          existing_comment_id=$(gh api repos/"$REPO"/issues/"$PR_NUMBER"/comments \
+            --jq '.[] | select(.body | contains("🔍🗑️ Field Removal Checker")) | .id')
+
+          COMMENT_FILE="deleted_fields_comment.html"
+          if [[ -n "$existing_comment_id" ]]; then
+            echo "✅ Found existing comment with tag. Editing PR comment..."
+            gh api \
+              -X PATCH \
+              -H "Accept: application/vnd.github+json" \
+              /repos/"$REPO"/issues/comments/"$existing_comment_id" \
+              -f body="$(<"$COMMENT_FILE")"
+          else
+            if [[ "${{ steps.run-check.outputs.deleted_fields_flag }}" == 'true' ]]; then
+              echo "🆕 No existing comment found. Posting new comment..."
+              gh pr comment "$PR_NUMBER" --repo "$REPO" --body-file "$COMMENT_FILE"
+            else
+              echo "✅ No Field Removal."
+            fi
+          fi
+
+      - name: Cleanup
+        if: needs.check-approval.outputs.approved_by_lead_engineer == 'false'
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/field-removal.mjs "${{ steps.secrets.outputs.artifactory }}"
+
+      - name: Remove Field Result
+        run: |
+          if [[ "${{ steps.run-check.outputs.deleted_fields_flag }}" == 'true' && ${{ env.TRIGGERED_EVENT }} == pull_request_review ]]; then
+            echo "Field has been removed"
+            exit 1
+          else
+            echo "No Field Removal"
           fi

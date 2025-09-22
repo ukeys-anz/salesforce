@@ -1,8 +1,8 @@
 <template>
-  <div if:true={loading}>
+  <div lwc:if={loading}>
     <lightning-spinner size="medium" variant="brand"></lightning-spinner>
   </div>
-  <div class="slds-grid slds-grid_vertical" if:true={showButton}>
+  <div class="slds-grid slds-grid_vertical" lwc:if={showButton}>
     <div class="slds-col">
       <label
         class="slds-form-element__label slds-show--inline"
@@ -28,7 +28,7 @@
         <lightning-icon
           icon-name={iconName}
           size="xx-small"
-          if:true={apiRun}
+          lwc:if={apiRun}
         ></lightning-icon>
         <lightning-button
           class="slds-p-left_xx-small"

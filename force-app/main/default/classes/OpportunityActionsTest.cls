@@ -7,11 +7,21 @@
 public class OpportunityActionsTest {
   static Lib_MockProvider oppActoinRepoMock;
   static Lib_MockProvider dmlRepoMock;
+  static Lib_MockProvider oppRepoMock;
+  static Lib_MockProvider accRepoMock;
+  static Lib_MockProvider ocrRepoMock;
   public static User ocvUser;
   static void registerMocks() {
     dmlRepoMock = Lib_MockProvider.forType(DMLRepository.class);
     oppActoinRepoMock = Lib_MockProvider.forType(
       OpportunityActionsRepository.class
+    );
+    oppRepoMock = Lib_MockProvider.forType(
+      CommercialOpportunityRepository.class
+    );
+    accRepoMock = Lib_MockProvider.forType(AccountActionsRepository.class);
+    ocrRepoMock = Lib_MockProvider.forType(
+      OpportunityContactRoleActionsRepository.class
     );
   }
   private static final String STAGE_CLOSED = 'Closed';
@@ -66,18 +76,31 @@ public class OpportunityActionsTest {
   @isTest
   static void testCreateOppContactRoleForCustomer() {
     registerMocks();
-    Account acc = new Account();
-    acc.id = Lib_FakeIdGenerator.getMockId(Account.getSobjectType());
+    Id contactId = Lib_FakeIdGenerator.getMockId(Contact.getSobjectType());
+    Account acc = (Account) TestUtil.setFields(
+      new Account(Id = Lib_FakeIdGenerator.getMockId(Account.getSobjectType())),
+      new Map<String, Object>{ 'PersonContactId' => contactId }
+    );
     oppActoinRepoMock.mock('getAccount', acc);
     String oppId = Lib_FakeIdGenerator.getMockId(Opportunity.getSobjectType());
-    String strRole = 'TesRole';
+    String strRole = 'Applicant';
     Test.startTest();
     OpportunityActions.createOppContactRoleForCustomer(acc.Id, oppId, strRole);
     Test.stopTest();
+    OpportunityContactRole ocrInserted = (OpportunityContactRole) dmlRepoMock.getHistory(
+        'doInsert'
+      )
+      .getParam('record');
+    Assert.isNotNull(ocrInserted, 'One OCR should be inserted!');
     Assert.areEqual(
-      false,
-      dmlRepoMock.getHistories('doInsert').isEmpty(),
-      'CreateOppContactRoleForCustomer is not working properly'
+      'Applicant',
+      ocrInserted.Role,
+      'OCR role should be Applicant'
+    );
+    Assert.areEqual(
+      contactId,
+      ocrInserted.ContactId,
+      'OCR ContactId should match Customer PersonContactId'
     );
   }
 
@@ -87,8 +110,10 @@ public class OpportunityActionsTest {
   @isTest
   static void testGetOpportunity() {
     registerMocks();
-    Opportunity opp = new Opportunity();
-    opp.Id = Lib_FakeIdGenerator.getMockId(Opportunity.getSobjectType());
+    Opportunity opp = new Opportunity(
+      Id = Lib_FakeIdGenerator.getMockId(Opportunity.getSobjectType()),
+      Name = 'Test Opp'
+    );
     oppActoinRepoMock.mock('getOpportunity', new List<Opportunity>{ opp });
     Test.startTest();
     List<Opportunity> oppList = OpportunityActions.getOpportunity(
@@ -99,6 +124,11 @@ public class OpportunityActionsTest {
       1,
       oppList.size(),
       'getOpportunity is not working properly'
+    );
+    Assert.areEqual(
+      'Test Opp',
+      oppList.get(0).Name,
+      'opportunity name should be Test Opp'
     );
   }
 
@@ -133,6 +163,7 @@ public class OpportunityActionsTest {
   static void testPrepareOpportunityContactRoles() {
     Id idOwner = Lib_FakeIdGenerator.getMockId(User.SObjectType);
     Id accountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id contactId = Lib_FakeIdGenerator.getMockId(Contact.SObjectType);
     Map<Id, Account> mapOfAcc = new Map<Id, Account>();
     Opportunity oppRecord = new Opportunity(
       Id = Lib_FakeIdGenerator.getMockId(Schema.Opportunity.getSObjectType()),
@@ -147,10 +178,10 @@ public class OpportunityActionsTest {
     objAcc.put('Id', accountId);
     objAcc.put('RecordTypeId', RTAccount.personAccount);
     mapOfAcc.put(accountId, objAcc);
-
-    OpportunityContactRole objOppRole = new OpportunityContactRole();
-    objOppRole.put('Role', 'Guarantor');
-    objOppRole.put('OpportunityId', oppRecord.Id);
+    objAcc = (Account) TestUtil.setFields(
+      objAcc,
+      new Map<String, Object>{ 'PersonContactId' => contactId }
+    );
     mapOfAcc.put(accountId, objAcc);
     Test.startTest();
     List<OpportunityContactRole> lstOfOppRole = OpportunityActions.prepareOpportunityContactRoles(
@@ -163,6 +194,16 @@ public class OpportunityActionsTest {
       1,
       lstOfOppRole.size(),
       'Failed to create opportunity contact role'
+    );
+    Assert.areEqual(
+      'Applicant',
+      lstOfOppRole[0].Role,
+      'Role should be Applicant'
+    );
+    Assert.areEqual(
+      contactId,
+      lstOfOppRole[0].ContactId,
+      'contact id should be customer PersonContactId'
     );
   }
 
@@ -296,11 +337,13 @@ public class OpportunityActionsTest {
 
   @isTest
   static void testOpportunityOwnership() {
+    registerMocks();
     String opportunityId = Lib_FakeIdGenerator.getMockId(
       Opportunity.SObjectType
     );
     String user1 = Lib_FakeIdGenerator.getMockId(User.SObjectType);
     String user2 = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    oppRepoMock.mock('getUserProfileId', QueryProfile.anzCCRMStandardUser.Id);
     Map<Id, Opportunity> oldOppMap = new Map<Id, Opportunity>{
       opportunityId => (new Opportunity(
         Id = opportunityId,
@@ -332,27 +375,49 @@ public class OpportunityActionsTest {
   }
 
   /**
-   * @description test method for getFilteredOpportunitiesForLoanappReferenceNumber
+   * @description test method for setHasCloseDateChanged
    */
   @isTest
-  static void getFilteredOpportunitiesForLoanappReferenceNumberTest() {
+  static void setHasCloseDateChangedTest() {
     registerMocks();
-    Opportunity oppMl = new Opportunity(
+    Opportunity oppMl1 = new Opportunity(
       Id = Lib_FakeIdGenerator.getMockId(Opportunity.getSobjectType()),
       RecordTypeId = RTOpportunity.mlOpportunity,
-      Loanapp_Reference__c = 'MLCRM-101'
+      CloseDate = System.today(),
+      Has_Close_Date_Changed__c = false
     );
-    Opportunity oppMlChanged = new Opportunity(
+    Opportunity oppMl1Changed = new Opportunity(
+      Id = oppMl1.Id,
+      RecordTypeId = RTOpportunity.mlOpportunity
+    );
+    Opportunity oppMl2 = new Opportunity(
+      Id = Lib_FakeIdGenerator.getMockId(Opportunity.getSobjectType()),
       RecordTypeId = RTOpportunity.mlOpportunity,
-      Loanapp_Reference__c = 'MLCRM-102'
+      CloseDate = System.today()
     );
+    Opportunity oppMl2Changed = new Opportunity(
+      Id = oppMl2.Id,
+      RecordTypeId = RTOpportunity.mlOpportunity,
+      CloseDate = System.today()
+    );
+
     Test.startTest();
-    List<Opportunity> oppList = OpportunityActions.getFilteredOpportunitiesForLoanappReferenceNumber(
-      new List<Opportunity>{ oppMl },
-      new Map<Id, Opportunity>{ oppMl.Id => oppMlChanged }
+    OpportunityActions.setHasCloseDateChanged(
+      new List<Opportunity>{ oppMl1, oppMl2 },
+      new Map<Id, Opportunity>{
+        oppMl1.Id => oppMl1Changed,
+        oppMl2.Id => oppMl2Changed
+      }
     );
     Test.stopTest();
-    Assert.areEqual(1, oppList.size(), '1 opportunity should be returned!');
+    Assert.isTrue(
+      oppMl1.Has_Close_Date_Changed__c,
+      'setHasCloseDateChanged is not making Has_Close_Date_Changed__c to true'
+    );
+    Assert.isFalse(
+      oppMl2.Has_Close_Date_Changed__c,
+      'setHasCloseDateChanged is updating Has_Close_Date_Changed__c to true for wrong record'
+    );
   }
 
   @isTest
@@ -367,11 +432,14 @@ public class OpportunityActionsTest {
       RecordTypeId = RTOpportunity.mlOpportunity,
       Loanapp_Reference__c = 'MLCRM-102'
     );
-    OpportunityContactRole ocr = new OpportunityContactRole(
-      Id = Lib_FakeIdGenerator.getMockId(
-        OpportunityContactRole.getSobjectType()
+    OpportunityContactRole ocr = (OpportunityContactRole) TestUtil.setFields(
+      new OpportunityContactRole(
+        Id = Lib_FakeIdGenerator.getMockId(
+          OpportunityContactRole.getSobjectType()
+        ),
+        OpportunityId = oppMl.Id
       ),
-      OpportunityId = oppMl.Id
+      new Map<String, Object>{ 'Opportunity' => oppMlChanged }
     );
     Opportunity_Contact_Role_Sync__c ocrSync = new Opportunity_Contact_Role_Sync__c(
       OpportunityContactRoleId__c = ocr.Id,
@@ -399,6 +467,254 @@ public class OpportunityActionsTest {
       1,
       ocrSyncList.size(),
       'there should be 1 ocr sync updated'
+    );
+  }
+
+  /**
+   * @description test method for populateName
+   */
+  @isTest
+  static void testpopulateName() {
+    registerMocks();
+    Opportunity opp = new Opportunity();
+    opp.Id = Lib_FakeIdGenerator.getMockId(Opportunity.getSobjectType());
+
+    Id accountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    opp.Lead_Converted__c = true;
+    opp.AccountId = accountId;
+
+    Map<Id, Account> mapOfAcc = new Map<Id, Account>();
+    Account objAcc = new Account();
+    objAcc.Id = accountId;
+    objAcc.Name = 'AccTest';
+    mapOfAcc.put(accountId, objAcc);
+
+    oppActoinRepoMock.mock('getAccountByIds', mapOfAcc);
+    Test.startTest();
+    OpportunityActions.populateName(new List<Opportunity>{ opp });
+    Test.stopTest();
+    Assert.areEqual('AccTest', opp.Name, 'Account name is opportunity name');
+  }
+
+  @isTest
+  static void testCreateOpportunityContactRole() {
+    registerMocks();
+    Opportunity opp = new Opportunity(
+      Id = Lib_FakeIdGenerator.getMockId(Opportunity.getSobjectType()),
+      AccountId = Lib_FakeIdGenerator.getMockId(Account.getSobjectType()),
+      Lead_Converted__c = false
+    );
+
+    Account acc = (Account) TestUtil.setFields(
+      new Account(Id = opp.AccountId),
+      new Map<String, Object>{
+        'PersonContactId' => Lib_FakeIdGenerator.getMockId(
+          Contact.getSobjectType()
+        )
+      }
+    );
+
+    accRepoMock.mock('getAccountByIds', new Map<Id, Account>{ acc.Id => acc });
+
+    Test.startTest();
+    OpportunityActions.createOpportunityContactRole(
+      new List<Opportunity>{ opp }
+    );
+    Test.stopTest();
+    List<OpportunityContactRole> insertedOcrs = (List<OpportunityContactRole>) dmlRepoMock.getHistory(
+        'doInsert'
+      )
+      .getParam('records');
+    Assert.areEqual(
+      1,
+      insertedOcrs.size(),
+      'OpportunityContactRole should be created'
+    );
+    Assert.areEqual(
+      acc.PersonContactId,
+      insertedOcrs[0].ContactId,
+      'ContactId should be set to PersonContactId of Account'
+    );
+  }
+
+  @isTest
+  static void testUpdatePrimaryApplicantOnUpdate() {
+    registerMocks();
+    Id contactId = Lib_FakeIdGenerator.getMockId(Contact.SObjectType);
+    Account acc = (Account) TestUtil.setFields(
+      new Account(Id = Lib_FakeIdGenerator.getMockId(Account.getSobjectType())),
+      new Map<String, Object>{ 'PersonContactId' => contactId }
+    );
+    Account accNew = (Account) TestUtil.setFields(
+      new Account(Id = Lib_FakeIdGenerator.getMockId(Account.getSobjectType())),
+      new Map<String, Object>{
+        'PersonContactId' => Lib_FakeIdGenerator.getMockId(
+          Contact.getSobjectType()
+        )
+      }
+    );
+    Contact contactRecord = new Contact(
+      Id = contactId,
+      LastName = 'Test',
+      Email = 'testemailcontact@mail.com',
+      MobilePhone = '99999999',
+      AccountId = acc.Id
+    );
+    Opportunity opp = new Opportunity(
+      Id = Lib_FakeIdGenerator.getMockId(Opportunity.getSobjectType()),
+      AccountId = acc.Id
+    );
+    Opportunity oppNew = new Opportunity(Id = opp.Id, AccountId = accNew.Id);
+    OpportunityContactRole objOppRole = (OpportunityContactRole) TestUtil.setFields(
+      new OpportunityContactRole(Role = 'Guarantor', OpportunityId = opp.Id),
+      new Map<String, Object>{ 'Contact' => contactRecord }
+    );
+    ocrRepoMock.mock(
+      'getOppContactRole',
+      new List<OpportunityContactRole>{ objOppRole }
+    );
+    accRepoMock.mock(
+      'getAccountByIds',
+      new Map<Id, Account>{ accNew.Id => accNew }
+    );
+    Test.startTest();
+    OpportunityActions.updatePrimaryApplicantOnUpdate(
+      new List<Opportunity>{ oppNew },
+      new Map<Id, Opportunity>{ oppNew.Id => opp }
+    );
+    Test.stopTest();
+    List<OpportunityContactRole> ocrUpsertedList = (List<OpportunityContactRole>) dmlRepoMock.getHistory(
+        'doUpsert'
+      )
+      .getParam('records');
+    Assert.areEqual(1, ocrUpsertedList.size(), '1 record should be upserted');
+    Assert.areEqual(
+      accNew.PersonContactId,
+      ocrUpsertedList[0].ContactId,
+      'OCR contactId should match with new account PersonContactId'
+    );
+  }
+
+  /**
+   * @description test method for createCustomerRelationshipRecords
+   */
+  @isTest
+  static void testCreateCustomerRelationshipRecords() {
+    registerMocks();
+    Id territoryId = Lib_FakeIdGenerator.getMockId(
+      Territory__c.getSObjectType()
+    );
+    Opportunity oppMl = new Opportunity(
+      Id = Lib_FakeIdGenerator.getMockId(Opportunity.getSobjectType()),
+      RecordTypeId = RTOpportunity.mlOpportunity,
+      AccountId = Lib_FakeIdGenerator.getMockId(Account.getSObjectType()),
+      Territory__c = territoryId,
+      Lead_Converted__c = false
+    );
+    oppActoinRepoMock.mock(
+      'getTerritories',
+      new Map<Id, Territory__c>{
+        oppMl.Territory__c => new Territory__c(
+          Id = oppMl.Territory__c,
+          Primary_Franchise_Owner__c = UserInfo.getUserId()
+        )
+      }
+    );
+    Test.startTest();
+    OpportunityActions.createCustomerRelationshipRecords(
+      new List<Opportunity>{ oppMl }
+    );
+    Test.stopTest();
+    List<Customer_Relationship__c> crrsInserted = (List<Customer_Relationship__c>) dmlRepoMock.getHistory(
+        'doInsert'
+      )
+      .getParam('records');
+    Assert.areEqual(
+      1,
+      crrsInserted.size(),
+      '1 customer relationship should be inserted!'
+    );
+    Assert.areEqual(
+      territoryId,
+      crrsInserted.get(0).Territory__c,
+      'territory should match with opportunity territory!'
+    );
+  }
+
+  /**
+   * @description test method for testCreateCustomerRelationshipRecordsNegative
+   */
+  @isTest
+  static void testCreateCustomerRelationshipRecordsNegative() {
+    registerMocks();
+    Opportunity oppMl = new Opportunity(
+      Id = Lib_FakeIdGenerator.getMockId(Opportunity.getSobjectType()),
+      RecordTypeId = RTOpportunity.mlOpportunity,
+      AccountId = Lib_FakeIdGenerator.getMockId(Account.getSObjectType()),
+      Territory__c = Lib_FakeIdGenerator.getMockId(
+        Territory__c.getSObjectType()
+      ),
+      Lead_Converted__c = true
+    );
+    Test.startTest();
+    OpportunityActions.createCustomerRelationshipRecords(
+      new List<Opportunity>{ oppMl }
+    );
+    Test.stopTest();
+
+    List<Customer_Relationship__c> crrsInserted = (List<Customer_Relationship__c>) dmlRepoMock.getHistory(
+        'doInsert'
+      )
+      .getParam('records');
+    Assert.areEqual(
+      0,
+      crrsInserted.size(),
+      'no customer relationship should be inserted!'
+    );
+  }
+
+  /**
+   * @description test method for dedupeAndInsertCustomerRelationships
+   */
+  @isTest
+  static void testDedupeAndInsertCustomerRelationships() {
+    registerMocks();
+    Opportunity oppMl = new Opportunity(
+      Id = Lib_FakeIdGenerator.getMockId(Opportunity.getSObjectType()),
+      RecordTypeId = RTOpportunity.mlOpportunity,
+      AccountId = Lib_FakeIdGenerator.getMockId(Account.getSObjectType()),
+      Territory__c = Lib_FakeIdGenerator.getMockId(
+        Territory__c.getSObjectType()
+      ),
+      Lead_Converted__c = false
+    );
+    oppActoinRepoMock.mock(
+      'getTerritories',
+      new Map<Id, Territory__c>{
+        oppMl.Territory__c => new Territory__c(
+          Id = oppMl.Territory__c,
+          Primary_Franchise_Owner__c = UserInfo.getUserId()
+        )
+      }
+    );
+    Test.startTest();
+    OpportunityActions.dedupeAndInsertCustomerRelationships(
+      new List<Opportunity>{ oppMl }
+    );
+    Test.stopTest();
+    List<Customer_Relationship__c> crrsInserted = (List<Customer_Relationship__c>) dmlRepoMock.getHistory(
+        'doInsert'
+      )
+      .getParam('records');
+    Assert.areEqual(
+      1,
+      crrsInserted.size(),
+      '1 customer relationship should be inserted!'
+    );
+    Assert.areEqual(
+      oppMl.Territory__c,
+      crrsInserted.get(0).Territory__c,
+      '1 customer relationship should be inserted!'
     );
   }
 }

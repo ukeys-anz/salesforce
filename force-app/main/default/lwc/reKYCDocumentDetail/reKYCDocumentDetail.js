@@ -4,6 +4,7 @@ import trustMeErrorMessage from "@salesforce/label/c.TrustMeDocumentSecErrorMess
 import detokenize from "@salesforce/apex/VaultController.detokenizeDocumentNumber";
 import { SimpleToast } from "c/utils";
 import { getRelatedListRecords } from "lightning/uiRelatedListApi";
+import getCOBDocumentId from "@salesforce/apex/IDOpsQueryRepository.getDocumentIdFromCOB";
 
 // ReKYC Documents Custom Fields
 import CUSTOMER_UUID from "@salesforce/schema/ReKYC_Document_Detail__c.Customer_UUID__c";
@@ -27,10 +28,15 @@ import TRUSTME_SECONDARY_DOC_ID from "@salesforce/schema/ReKYC_Document_Detail__
 import TRUSTME_SECONDARY_DOC from "@salesforce/schema/ReKYC_Document_Detail__c.Secondary_Documents__c";
 import TRUSTME_PRIMARY_DOC from "@salesforce/schema/ReKYC_Document_Detail__c.Primary_Documents__c";
 import DAON_SELFIE_MATCH_ID from "@salesforce/schema/ReKYC_Document_Detail__c.Daon_Selfie_Match_ID__c";
+import CERTIFICATE_NUMBER from "@salesforce/schema/ReKYC_Document_Detail__c.Certificate_Number__c";
+import REGISTRATION_STATE from "@salesforce/schema/ReKYC_Document_Detail__c.Registration_State__c";
+import REGISTRATION_NUMBER from "@salesforce/schema/ReKYC_Document_Detail__c.Registration_Number__c";
+
 // Case Fields
 import FIELD_DAON_CHECK_ID from "@salesforce/schema/Case.Daon_Check_Id__c";
 import FIELD_DAON_USER_ID from "@salesforce/schema/Case.Daon_User_Id__c";
 import OCV_ID_FIELD from "@salesforce/schema/Case.OCV_Id__c";
+import PERSONA_ID_FIELD from "@salesforce/schema/Case.PersonaId__c";
 
 import {
   buildTrustMeCustAttribute,
@@ -67,13 +73,17 @@ const FIELDS = [
   "ReKYC_Document_Detail__c.TrustMe_Primary_Document_ID__c",
   "ReKYC_Document_Detail__c.TrustMe_Secondary_Document_ID__c",
   "ReKYC_Document_Detail__c.Secondary_Documents__c",
-  "ReKYC_Document_Detail__c.Primary_Documents__c"
+  "ReKYC_Document_Detail__c.Primary_Documents__c",
+  "ReKYC_Document_Detail__c.Certificate_Number__c",
+  "ReKYC_Document_Detail__c.Registration_State__c",
+  "ReKYC_Document_Detail__c.Registration_Number__c"
 ];
 
 const CASE_FIELDS = [
   "Case.Daon_Check_Id__c",
   "Case.Daon_User_Id__c",
-  "Case.OCV_Id__c"
+  "Case.OCV_Id__c",
+  "Case.PersonaId__c"
 ];
 
 export default class ReKYCDocumentDetail extends LightningElement {
@@ -88,7 +98,10 @@ export default class ReKYCDocumentDetail extends LightningElement {
   trustMeSelfieAndPrimaryIdDoc;
   additionalCustContext;
   addressDetails;
+  cobDocId;
   @track reKYCDocDetails;
+  @track daonLocationUri;
+
   activeSections = [
     "trustMeSelfieAndPrimaryIdDoc",
     "additionalCustContext",
@@ -98,11 +111,9 @@ export default class ReKYCDocumentDetail extends LightningElement {
   toast = new SimpleToast(this);
 
   @wire(getRecord, { recordId: "$recordId", fields: CASE_FIELDS })
-  wiredCase({ data, error }) {
+  wiredCase({ data }) {
     if (data) {
       this.caseRec = data;
-    } else if (error) {
-      this.error = error;
     }
   }
 
@@ -119,6 +130,16 @@ export default class ReKYCDocumentDetail extends LightningElement {
         await this.getDetokenizedValue();
       }
       this.getDocumentsDetails();
+      getCOBDocumentId({ personaId: this.reKYCDocDetails.PersonaId__c })
+        .then((result) => {
+          if (result) {
+            this.cobDocId = result.DaonLocationUri__c;
+            this.daonLocationUri = this.cobDocId?.split("/");
+          }
+        })
+        .catch((err) => {
+          this.toast.error("Error loading COB-PID Document Id", err);
+        });
     } else if (error) {
       this.toast.error("Error loading ReKYC Documents details", error);
     }
@@ -203,15 +224,33 @@ export default class ReKYCDocumentDetail extends LightningElement {
           this.reKYCDetails,
           TRUSTME_SECONDARY_DOC_ID
         ),
-        Secondary_Documents__c: JSON.parse(
-          getFieldValue(this.reKYCDetails, TRUSTME_SECONDARY_DOC)
+        Certificate_Number__c: getFieldValue(
+          this.reKYCDetails,
+          CERTIFICATE_NUMBER
         ),
+        Registration_State__c: getFieldValue(
+          this.reKYCDetails,
+          REGISTRATION_STATE
+        ),
+        Registration_Number__c: getFieldValue(
+          this.reKYCDetails,
+          REGISTRATION_NUMBER
+        ),
+        Secondary_Documents__c:
+          getFieldValue(this.reKYCDetails, TRUSTME_SECONDARY_DOC) !==
+          "Not Submitted"
+            ? JSON.parse(
+                getFieldValue(this.reKYCDetails, TRUSTME_SECONDARY_DOC)
+              )
+            : getFieldValue(this.reKYCDetails, TRUSTME_SECONDARY_DOC),
         Primary_Documents__c: JSON.parse(
           getFieldValue(this.reKYCDetails, TRUSTME_PRIMARY_DOC)
         ),
+
         OCV_Id__c: getFieldValue(this.caseRec, OCV_ID_FIELD),
         Daon_User_Id__c: getFieldValue(this.caseRec, FIELD_DAON_USER_ID),
-        Daon_Check_Id__c: getFieldValue(this.caseRec, FIELD_DAON_CHECK_ID)
+        Daon_Check_Id__c: getFieldValue(this.caseRec, FIELD_DAON_CHECK_ID),
+        PersonaId__c: getFieldValue(this.caseRec, PERSONA_ID_FIELD)
       };
     }
   }
@@ -228,7 +267,7 @@ export default class ReKYCDocumentDetail extends LightningElement {
 
       const secondaryDocs =
         this.reKYCDocDetails?.TrustMe_Secondary_Document_ID__c;
-      if (secondaryDocs) {
+      if (secondaryDocs && secondaryDocs !== "Not Submitted") {
         const secondaryDetokenizedValue = await this.service.detokenize(
           secondaryDocs,
           DOCUMENTYPE[this.reKYCDocDetails.Secondary_Documents__c[0].type]
@@ -279,7 +318,7 @@ export default class ReKYCDocumentDetail extends LightningElement {
     }
     return [
       {
-        title: "Primary Document",
+        title: "Trustme Primary Document",
         size: 4,
         files: FILES_BY_DOCUMENTTYPE[documents[0].type]
       }
@@ -302,17 +341,18 @@ export default class ReKYCDocumentDetail extends LightningElement {
   }
 
   get secondaryLayout() {
-    if (!this.reKYCDocDetails?.Secondary_Documents__c) {
-      return null;
-    }
     const documents = this.reKYCDocDetails?.Secondary_Documents__c;
 
-    if (!documents || !Array.isArray(documents)) {
+    if (
+      !documents ||
+      (!Array.isArray(documents) || documents[0].type) ===
+        "DOCUMENT_TYPE_BIRTH_CERTIFICATE"
+    ) {
       return null;
     }
     return [
       {
-        title: "Secondary Document",
+        title: "Trustme Secondary Document",
         size: 4,
         files: FILES_BY_DOCUMENTTYPE[documents[0].type]
       }
@@ -320,7 +360,9 @@ export default class ReKYCDocumentDetail extends LightningElement {
   }
 
   get secondarymetadata() {
-    if (!this.reKYCDocDetails?.Secondary_Documents__c) {
+    const documents = this.reKYCDocDetails?.Secondary_Documents__c;
+
+    if (!documents || documents[0].type === "DOCUMENT_TYPE_BIRTH_CERTIFICATE") {
       return null;
     }
     return {
@@ -328,6 +370,43 @@ export default class ReKYCDocumentDetail extends LightningElement {
         this.reKYCDocDetails?.Secondary_Documents__c[0].idx_document_id,
       idxIdCheckId: this.reKYCDocDetails?.Daon_Check_Id__c,
       idxUserId: this.reKYCDocDetails?.Daon_User_Id__c,
+      relatedRecordId: this.recordId,
+      ...this.customerToken
+    };
+  }
+
+  get enrolledLayout() {
+    if (!this.cobDocId) {
+      return [
+        {
+          title: "",
+          size: 4,
+          files: [
+            {
+              fileType: "DAON_FILE_TYPE_SELFIE_ENROLLED",
+              title: "Enrolled Selfie on File"
+            }
+          ]
+        }
+      ];
+    }
+    return [
+      {
+        title: "Enrolled Document",
+        size: 4,
+        files: FILES_BY_DOCUMENTTYPE.ENROLLED_DOCUMENT
+      }
+    ];
+  }
+
+  get enrolledmetadata() {
+    if (!this.cobDocId) {
+      return null;
+    }
+    return {
+      idxDocumentId: this.daonLocationUri[8],
+      idxIdCheckId: this.daonLocationUri[6],
+      idxUserId: this.daonLocationUri[4],
       relatedRecordId: this.recordId,
       ...this.customerToken
     };

@@ -187,23 +187,11 @@
     "dupcheck__dc3DisableDuplicateCheck__pc",
     "Is_Preferred_Contact__pc",
     "qualtrics__Informed_Consent__pc",
-    "SourceSystemIdentifier"
+    "SourceSystemIdentifier",
+    "PersonGender"
   ],
   "ApplicationForm": ["BranchUnitId"],
   "ApplicationFormProduct": ["ApplicantVisibleStatus"],
-  "Broker_Relation__c": [
-    "Address1__c",
-    "Address2__c",
-    "Aggregator__c",
-    "Associated_Broker_Set__c",
-    "External_Id__c",
-    "IsActive__c",
-    "Is_MyOfficeGroup__c",
-    "Primary_RBM__c",
-    "Secondary_RBM__c",
-    "Segment__c",
-    "State__c"
-  ],
   "COBPrimaryIDDocument__c": [
     "CountryOfIssue__c",
     "CountryOfIssueOCRClient__c",
@@ -269,7 +257,8 @@
     "Opt_Out_Reason__c",
     "Process_SLA_Status__c",
     "PassportNumber__c",
-    "Outcome_Letter_to_be_sent_by_Mail__c"
+    "Outcome_Letter_to_be_sent_by_Mail__c",
+    "EventTimestamp__c"
   ],
   "CaseComment": ["CommentBodyRichtext"],
   "Contact": [
@@ -316,36 +305,10 @@
     "qualtrics__Last_Survey_Invitation__c",
     "qualtrics__Last_Survey_Response__c",
     "qualtrics__Net_Promoter_Score__c",
-    "Retail_Accreditation_Status__c"
+    "Retail_Accreditation_Status__c",
+    "Gender"
   ],
   "ContactRequest": ["Focus_Area__c"],
-  "Customer_Action__c": [
-    "Accepted_By__c",
-    "Accepted_Date__c",
-    "Action__c",
-    "Category__c",
-    "Completed_By__c",
-    "Completed__c",
-    "Created__c",
-    "Customer__c",
-    "Document_Id__c",
-    "Eligible_to_Complete__c",
-    "Error_Description__c",
-    "Financial_Account__c",
-    "Loan_Applicant__c",
-    "Loan_Application_Id__c",
-    "Loan_Contract_Status__c",
-    "Memorandum_of_Common_Provisions_Version__c",
-    "Mortgage_Contract__c",
-    "New_Value__c",
-    "Old_Value__c",
-    "Role__c",
-    "Settlement__c",
-    "Task_Id__c",
-    "Task_Name__c",
-    "Terms_and_Conditions_Version__c",
-    "Triggered_From__c"
-  ],
   "CustomerOnboardingApplication__c": [
     "AustralianTaxResident__c",
     "DaonEnrolmentId__c",
@@ -698,6 +661,8 @@
     "PasswordExpirationDate",
     "HasUserVerifiedPhone",
     "UserPreferencesHideManagedEcaMobilePubModal",
-    "UserPreferencesDismissPersonalSpaceLegalMessage"
+    "UserPreferencesDismissPersonalSpaceLegalMessage",
+    "UserPreferencesEnableLwrLexPilot",
+    "UserPreferencesDismissRecordChannelsSuggestedObjects"
   ]
 }

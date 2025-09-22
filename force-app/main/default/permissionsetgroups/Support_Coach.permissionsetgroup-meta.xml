@@ -16,6 +16,7 @@
     <permissionSets>Card_Management_Coach</permissionSets>
     <permissionSets>Case_Group_Read_Write_Access</permissionSets>
     <permissionSets>Case_Read_Only_Credit_Referral</permissionSets>
+    <permissionSets>Case_Read_Only_Deceased_Case</permissionSets>
     <permissionSets>Case_Read_Write_Account_Closure</permissionSets>
     <permissionSets>Case_Read_Write_COP</permissionSets>
     <permissionSets>Case_Read_Write_Dispute</permissionSets>
@@ -81,6 +82,7 @@
     <permissionSets>View_All_Foreign_Key_Names</permissionSets>
     <permissionSets>View_Card_Details</permissionSets>
     <permissionSets>View_CoP_Financial_Account</permissionSets>
+    <permissionSets>View_Push_To_App</permissionSets>
     <permissionSets>View_Refer_to_ANZ_button</permissionSets>
     <permissionSets>View_Statements</permissionSets>
     <permissionSets>View_Transaction_History</permissionSets>

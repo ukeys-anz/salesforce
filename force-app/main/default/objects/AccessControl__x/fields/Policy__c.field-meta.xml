@@ -15,15 +15,21 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>POLICY_DENY</fullName>
+                <fullName>Deny</fullName>
                 <default>false</default>
                 <label>Deny</label>
             </value>
             <value>
-                <fullName>POLICY_CONDITIONAL</fullName>
+                <fullName>Conditional</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
                 <label>Conditional</label>
+            </value>
+            <value>
+                <fullName>POLICY_DENY</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Deny - Inactive</label>
             </value>
         </valueSetDefinition>
     </valueSet>

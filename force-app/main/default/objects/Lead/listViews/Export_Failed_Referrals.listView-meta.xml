@@ -9,6 +9,11 @@
     <columns>Error_Message__c</columns>
     <columns>Lead_Owner_Link__c</columns>
     <columns>LEAD.CREATED_DATE</columns>
+    <columns>Owner_Role__c</columns>
+    <columns>Owner_Segment__c</columns>
+    <columns>Owner_State__c</columns>
+    <columns>Owner_Region__c</columns>
+    <columns>Owner_Team_POD__c</columns>
     <filters>
         <field>LEAD.RECORDTYPE</field>
         <operation>equals</operation>

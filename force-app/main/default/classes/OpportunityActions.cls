@@ -17,6 +17,9 @@ public with sharing class OpportunityActions {
   private static final AccountActionsRepository ACCOUNT_REPOSITORY = (AccountActionsRepository) Lib_InstanceProvider.forType(
     AccountActionsRepository.class
   );
+  private static final CustomerRelationshipsRepository CR_REPOSITORY = (CustomerRelationshipsRepository) Lib_InstanceProvider.forType(
+    CustomerRelationshipsRepository.class
+  );
 
   private static final String STR_GUARANTOR = 'Guarantor';
   private static final String STR_APPLICANT = 'Applicant';
@@ -45,7 +48,6 @@ public with sharing class OpportunityActions {
         newOppList,
         oldOppMap
       )
-      .equals(Opportunity.RecordTypeId, RTOpportunity.mlOpportunity)
       .changed(Opportunity.StageName)
       .equals(
         Opportunity.StageName,
@@ -70,77 +72,53 @@ public with sharing class OpportunityActions {
   public static void createOpportunityContactRole(
     List<Opportunity> newOppList
   ) {
-    List<Opportunity> lstOfMlOppty = ListUtil.filter(newOppList)
-      .equals(Opportunity.RecordTypeId, RTOpportunity.mlOpportunity)
-      .toList();
-    if (lstOfMlOppty.isEmpty()) {
-      return;
-    }
-    List<Opportunity> lstOfMlOpptyCreatedDirectly = ListUtil.filter(
-        lstOfMlOppty
-      )
+    List<Opportunity> lstOfOpptyCreatedDirectly = ListUtil.filter(newOppList)
       .equals(Opportunity.Lead_Converted__c, false)
       .toList();
-    if (lstOfMlOpptyCreatedDirectly.isEmpty()) {
-      return;
-    }
     Map<Id, Account> mapOfAcc = getAccountsFromOpportunities(
-      lstOfMlOpptyCreatedDirectly
+      lstOfOpptyCreatedDirectly
     );
     List<OpportunityContactRole> lstPrimaryApplicantContactRole = prepareOpportunityContactRoles(
-      lstOfMlOpptyCreatedDirectly,
+      lstOfOpptyCreatedDirectly,
       mapOfAcc,
       null
     );
-    DML_REPOSITORY.doInsert(lstPrimaryApplicantContactRole);
+    DML_REPOSITORY.doInsert(
+      lstPrimaryApplicantContactRole,
+      new DmlConfig().allowPartial()
+    );
   }
 
   /**
    * @description This method is used to update role of applicant or insert a new role on change of customer on opportunity
    * @name updatePrimaryApplicantOnUpdate
-   * @param newOppList list of Opportunity sobject records
+   * @param records list of Opportunity sobject records
    * @param oldOppMap map of old opportunity sobject records
    * @US CC-10213
    */
   public static void updatePrimaryApplicantOnUpdate(
-    List<Opportunity> newOppList,
+    List<Opportunity> records,
     Map<Id, Opportunity> oldOppMap
   ) {
-    List<Opportunity> lstOfMlOppty = ListUtil.filter(newOppList)
-      .equals(Opportunity.RecordTypeId, RTOpportunity.mlOpportunity)
-      .toList();
-    if (lstOfMlOppty.isEmpty()) {
-      return;
-    }
-    List<Opportunity> lstOfOppsAcctUpd = ListUtil.filter(
-        lstOfMlOppty,
-        oldOppMap
-      )
+    List<Opportunity> filteredRecords = ListUtil.filter(records, oldOppMap)
       .changed(Opportunity.AccountId)
       .toList();
-    if (lstOfOppsAcctUpd.isEmpty()) {
-      return;
-    }
-
-    Set<Id> idsOfOpp = ListUtil.getIds(
-      lstOfOppsAcctUpd,
-      Opportunity.Id.getDescribe().getSObjectField()
-    );
+    Set<Id> idsOfOpp = ListUtil.getIds(filteredRecords, Opportunity.Id);
     List<OpportunityContactRole> lstOfOppContactRole = OPP_ROLE_REPOSITORY.getOppContactRole(
       idsOfOpp
     );
     Map<String, OpportunityContactRole> mapOfOppContactRole = prepareMapOfContactRoleByAccountId(
       lstOfOppContactRole
     );
-    Map<Id, Account> mapOfAcc = getAccountsFromOpportunities(lstOfOppsAcctUpd);
+    Map<Id, Account> mapOfAcc = getAccountsFromOpportunities(filteredRecords);
 
     List<OpportunityContactRole> lstOfOppContactRoleToUpsert = new List<OpportunityContactRole>();
     lstOfOppContactRoleToUpsert.addAll(
-      updateRoleForExistingOCR(lstOfOppsAcctUpd, mapOfOppContactRole)
+      updateRoleForExistingOCR(filteredRecords, mapOfOppContactRole)
     );
     lstOfOppContactRoleToUpsert.addAll(
       prepareOpportunityContactRoles(
-        lstOfOppsAcctUpd,
+        filteredRecords,
         mapOfAcc,
         mapOfOppContactRole
       )
@@ -181,11 +159,8 @@ public with sharing class OpportunityActions {
   private static Map<Id, Account> getAccountsFromOpportunities(
     List<Opportunity> lstOfOpp
   ) {
-    Set<Id> idsOfOppAccountId = ListUtil.getIds(
-      lstOfOpp,
-      Opportunity.AccountId.getDescribe().getSObjectField()
-    );
-    return ACCOUNT_REPOSITORY.getAccountByIds(idsOfOppAccountId);
+    Set<Id> accountIds = ListUtil.getIds(lstOfOpp, Opportunity.AccountId);
+    return ACCOUNT_REPOSITORY.getAccountByIds(accountIds);
   }
 
   /**
@@ -318,8 +293,7 @@ public with sharing class OpportunityActions {
           requestRecord,
           result
         );
-        CustomerRelationNotesTriggerActions.CustomerRelationshipCreator custRelationCreator = new CustomerRelationNotesTriggerActions.CustomerRelationshipCreator();
-        custRelationCreator.createCustomerRelationship(
+        CustomerRelationNotesTriggerActions.createCustomerRelationship(
           accInstance.Id,
           requestRecord
         );
@@ -358,8 +332,28 @@ public with sharing class OpportunityActions {
     String oppId,
     String strRole
   ) {
-    OpportunityContactRoleGenerator objInnerClass = new OpportunityContactRoleGenerator();
-    objInnerClass.createOpportunityContactRole(strRecordId, oppId, strRole);
+    Account objShellAccount = OPPACTION_REPOSITORY.getAccount(strRecordId);
+    OpportunityContactRole objContactRole = new OpportunityContactRole(
+      opportunityId = oppId,
+      ContactId = objShellAccount.PersoncontactId,
+      Role = strRole
+    );
+    try {
+      DML_REPOSITORY.doInsert(
+        objContactRole,
+        new DmlConfig().systemMode().withoutSharing()
+      );
+    } catch (CustomException e) {
+      Logger.error(
+        'Error Occured while creating Opportunity Contact Role record! ' +
+        e.getMessage(),
+        e
+      );
+      Logger.saveLog();
+      throw new AuraHandledException(
+        'Error Occured while creating Opportunity Contact Role record!'
+      );
+    }
   }
 
   /**
@@ -373,10 +367,10 @@ public with sharing class OpportunityActions {
     Map<Id, Opportunity> oldOppMap
   ) {
     Set<String> duplicateLARSetLowercase = new Set<String>();
-    List<Opportunity> filteredOppList = getFilteredOpportunitiesForLoanappReferenceNumber(
-      lstOfOpp,
-      oldOppMap
-    );
+    List<Opportunity> filteredOppList = ListUtil.filter(lstOfOpp, oldOppMap)
+      .isNotNull(Opportunity.Loanapp_Reference__c)
+      .changed(Opportunity.Loanapp_Reference__c)
+      .toList();
     Set<String> loanappRefNumSet = ListUtil.getStrings(
       filteredOppList,
       Opportunity.Loanapp_Reference__c
@@ -426,53 +420,24 @@ public with sharing class OpportunityActions {
   }
 
   /**
-   * @description This method is used to filter Opportunities for Loanapp_Reference__c
-   * @name getFilteredOpportunitiesForLoanappReferenceNumber
-   * @param oppList list of Opportunity sobject records
-   * @param oldOppMap map of old Opportunity sObject records
-   * @return List<Opportunity>
+   * @description This method will validate and update Has_Close_Date_Changed__c.
+   * @name setHasCloseDateChanged
+   * @param records New opportunity records
+   * @param oldMap Map of old Opportunity record
    */
-  public static List<Opportunity> getFilteredOpportunitiesForLoanappReferenceNumber(
-    List<Opportunity> oppList,
-    Map<Id, Opportunity> oldOppMap
+  public static void setHasCloseDateChanged(
+    List<Opportunity> records,
+    Map<Id, Opportunity> oldMap
   ) {
-    return ListUtil.filter(oppList, oldOppMap)
-      .equals(Opportunity.RecordTypeId, RTOpportunity.mlOpportunity)
-      .changed(Opportunity.Loanapp_Reference__c)
-      .isNotNull(Opportunity.Loanapp_Reference__c)
+    List<Opportunity> filteredRecords = ListUtil.filter(records, oldMap)
+      .equals(Opportunity.Has_Close_Date_Changed__c, false)
+      .changed(Opportunity.CloseDate)
       .toList();
-  }
-
-  /**
-   * @description called from create Propect from opportunity lwc component
-   *              without sharing due to new shell prospect won't be shared to current
-   *              user for further querying until after the current transaction
-   */
-  private without sharing class OpportunityContactRoleGenerator {
-    /**
-     * @description called from create Propect from opportunity lwc component
-     * @name createProspect
-     * @param accId personcontactId
-     * @param oppId current record opportunity Id
-     * @param strRole Role that user selects on create prospect UI.
-     */
-    private void createOpportunityContactRole(
-      String accId,
-      String oppId,
-      String strRole
-    ) {
-      Account objShellAccount = OPPACTION_REPOSITORY.getAccount(accId);
-      OpportunityContactRole objContactRole = new OpportunityContactRole(
-        opportunityId = oppId,
-        ContactId = objShellAccount.PersoncontactId,
-        Role = strRole
-      );
-      try {
-        DML_REPOSITORY.doInsert(objContactRole, new DmlConfig().systemMode());
-      } catch (CustomException e) {
-        throw new AuraHandledException(e.getMessage());
-      }
-    }
+    ListUtil.setField(
+      filteredRecords,
+      Opportunity.Has_Close_Date_Changed__c,
+      true
+    );
   }
 
   /**
@@ -558,6 +523,83 @@ public with sharing class OpportunityActions {
       Id = ocrSync.Id,
       ExternalId__c = ocr.ExternalId__c,
       OpportunityId__c = ocr.Opportunity.Loanapp_Reference__c
+    );
+  }
+
+  /**
+   * @description This method will update opoortunity name with the Name provided in the corresponding Account.
+   * @name populateName
+   * @param records from the trigger
+   */
+  public static void populateName(List<Opportunity> records) {
+    List<Opportunity> filteredOpportunities = ListUtil.filter(records)
+      .equals(Opportunity.Lead_Converted__c, true)
+      .isNotNull(Opportunity.AccountId)
+      .toList();
+    Map<Id, Account> accountMap;
+    Set<Id> accountIds = ListUtil.getIds(
+      filteredOpportunities,
+      Opportunity.AccountId
+    );
+    try {
+      accountMap = OPPACTION_REPOSITORY.getAccountByIds(accountIds);
+    } catch (System.QueryException e) {
+      Logger.error('InsufficientAccessException', e).save();
+    }
+    for (Opportunity record : filteredOpportunities) {
+      //CC-5603 Opportunity name should be account name for Mobile Lending Opportunity
+      record.Name = accountMap.get(record.AccountId)?.Name;
+    }
+  }
+
+  /**
+   * @description This method will auto create customer relationship records.
+   * @name createCustomerRelationshipRecords
+   * @param opportunities from the trigger
+   */
+  public static void createCustomerRelationshipRecords(
+    List<Opportunity> opportunities
+  ) {
+    //get non-lead converted opportunities
+    List<Opportunity> nonLeadConvertedOpportunities = ListUtil.filter(
+        opportunities
+      )
+      .equals(Opportunity.Lead_Converted__c, false)
+      .toList();
+    dedupeAndInsertCustomerRelationships(nonLeadConvertedOpportunities);
+  }
+
+  /**
+   * @description This method will deduplicate and insert customer relationships.
+   * @name dedupeAndInsertCustomerRelationships
+   * @param nonLeadConvertedOpportunities opportunities that have been created manually
+   */
+  @testVisible
+  private static void dedupeAndInsertCustomerRelationships(
+    List<Opportunity> nonLeadConvertedOpportunities
+  ) {
+    //get set of account ids on opportunities
+    Set<Id> oppCustomerIds = ListUtil.getIds(
+      nonLeadConvertedOpportunities,
+      Opportunity.AccountId
+    );
+
+    //query existing customer relationship records.
+    List<Customer_Relationship__c> existingCustomerRelationships = CR_REPOSITORY.getCustomerRelationshipByCustomerIds(
+      oppCustomerIds
+    );
+
+    Map<String, Customer_Relationship__c> existingCRRMap = OpportunityActionsHelper.getExistingCRRMap(
+      existingCustomerRelationships
+    );
+
+    List<Customer_Relationship__c> crrsToInsert = OpportunityActionsHelper.insertCustomerRelationships(
+      existingCRRMap,
+      nonLeadConvertedOpportunities
+    );
+    DML_REPOSITORY.doInsert(
+      crrsToInsert,
+      new DmlConfig().allowPartial().withoutSharing().systemMode()
     );
   }
 }

@@ -251,6 +251,8 @@
         "CreatedBy__c",
         "CreatedTime__c",
         "DeleteWhenMet__c",
+        "Device__c",
+        "DeviceCorrelationId__c",
         "MinimumAAL__c",
         "Name__c",
         "PersonId__c",
@@ -383,7 +385,7 @@
         "CLG_Credit_Rating__c"
       ],
       "IA-2415998": ["VOI_Expiry_Date_Classic__c", "VOI_Status_Classic__c"],
-      "IA-2453595": ["Migration_Status__c"]
+      "IA-2453595": ["Migration_Status__c", "DeceasedEstateStatus__c"]
     },
     "AccountClosureErrorMetadata__mdt": {
       "IA-2468715": ["Chatter_Post__c", "Failure_Reason__c", "Type__c"]
@@ -393,6 +395,7 @@
         "Access_Type__c",
         "Approver__c",
         "Automations_to_Bypass__c",
+        "Bypass__c",
         "CreatedById",
         "CreatedDate",
         "Duration_hrs__c",
@@ -571,6 +574,7 @@
       ]
     },
     "ApplicationFormProduct": {
+      "IA-2415983": ["Revenue__c"],
       "IA-2434298": [
         "Name",
         "ProductId",
@@ -600,7 +604,8 @@
         "LastModifiedById",
         "LastModifiedDate",
         "RecordTypeId"
-      ]
+      ],
+      "IA-2618802": ["Opportunity_Product__c"]
     },
     "Appointment_Commitment__c": {
       "IA-2453595": [
@@ -623,6 +628,10 @@
     },
     "Assessment": {
       "IA-2453595": ["Created_Date_Time__c", "Last_Modified_Date_Time__c"]
+    },
+    "Associated_Loan_Application__c": {
+      "IA-2415983": ["Interaction__c", "Residential_Loan_Application__c"],
+      "IA-2530753": ["UniqueKeyForAssociatedApplication__c"]
     },
     "AssessmentResponse": {
       "IA-2415840": [
@@ -1796,7 +1805,12 @@
         "Sync_Status__c"
       ],
       "IA-2415860": ["Occurrence_Number__c"],
-      "IA-2453350": ["External_Id__c"],
+      "IA-2453350": [
+        "External_Id__c",
+        "Survivor_Party_Id__c",
+        "Victim_Party_Id__c",
+        "OCV_Profile_ID__c"
+      ],
       "IA-2415984": [
         "Birthdate",
         "Email",
@@ -2700,8 +2714,8 @@
         "Show_Goals__c",
         "Sort_Order__c",
         "Include_In_Total_Financial_Position__c",
-        "Is_Active__c",
-        "FinancialAccountConfiguration__c"
+        "FinancialAccountConfiguration__c",
+        "Is_Active__c"
       ]
     },
     "FinancialAccountConfiguration__mdt": {
@@ -2754,6 +2768,8 @@
         "Appointment__c",
         "AppointmentId__c",
         "Attendees__c",
+        "Attendee_Category__c",
+        "Attendance_Confirmed__c",
         "Assisted__c",
         "Attendees_and_Roles__c",
         "Authentication_Method__c",
@@ -2763,6 +2779,7 @@
         "Channel_Booked__c",
         "Chat_or_Call_SID__c",
         "Chat_or_Call_SID_Formula__c",
+        "Closing_Notes__c",
         "Coaching_Summary__c",
         "Comment__c",
         "Contact_Mobile__c",
@@ -2776,12 +2793,17 @@
         "Escalated_Flag__c",
         "Event_Id__c",
         "Expiry_Date__c",
+        "Follow_up_Actions__c",
+        "Interaction__c",
         "Interaction_Auto_Number__c",
         "Interaction_External_Id__c",
         "Interaction_Number__c",
         "Interaction_Number_Link__c",
         "Interaction_Purpose__c",
+        "Interaction_Reason__c",
         "Interaction_Summary__c",
+        "Interaction_Topic__c",
+        "Interaction_Type__c",
         "Is_User_Attendee__c",
         "Is_Record_UnIdentified__c",
         "Lead__c",
@@ -2790,9 +2812,12 @@
         "LastModifiedById",
         "LastModifiedDate",
         "Lead__c",
+        "Meeting_Location__c",
         "Mobile__c",
         "Name",
+        "Office_Group__c",
         "Optional_Notes__c",
+        "Other_Interaction_Topic__c",
         "OwnerId",
         "Permanent__c",
         "Place__c",
@@ -2872,7 +2897,16 @@
         "UniqueKeyForInteractionAttendee__c"
       ],
       "IA-2415860": ["Attendee_Name_Formula__c"],
-      "IA-2530753": ["Conversation_Sid__c"]
+      "IA-2530753": [
+        "Aggregator__c",
+        "Attendee_SubType__c",
+        "Conversation_Sid__c",
+        "Formula_Attendee_Name__c",
+        "Role__c"
+      ]
+    },
+    "IDR_Omni_Settings_CMOS__mdt": {
+      "IA-2453595": ["EnableAccountLookUpforCMOS__c"]
     },
     "JSONWebTokenAttributes__mdt": {
       "IA-2415860": [
@@ -3106,7 +3140,12 @@
         "Lead_Owner_Teamcode__c",
         "My_Team_Segment__c",
         "My_Reportees_Lead__c",
-        "My_Managers_Lead__c"
+        "My_Managers_Lead__c",
+        "Owner_Region__c",
+        "Owner_Segment__c",
+        "Owner_State__c",
+        "Owner_Role__c",
+        "Owner_Team_POD__c"
       ],
       "IA-2530753": ["IsNewLead__c"],
       "IA-2618706": [
@@ -3318,6 +3357,7 @@
       "IA-2530753": ["Last_Updated_Date__c"],
       "IA-2415983": [
         "Offset__c",
+        "Interest_Rate__c",
         "Interest_Rate_Type__c",
         "Loan_Term_in_Months__c",
         "Loan_Term__c",
@@ -3595,9 +3635,9 @@
         "Has_Close_Date_Changed__c",
         "CLG__c",
         "Secondary_Customer_Needs__c",
-        "My_Notes__c",
-        "Industry__c"
+        "My_Notes__c"
       ],
+      "IA-4614597": ["CLG_ID__c"],
       "IA-2468715": [
         "CreatedById",
         "CreatedDate",
@@ -3649,7 +3689,8 @@
         "AIP_Requested__c",
         "Approved_Amount__c",
         "New_Lending_Amount__c",
-        "Settlement_Booked__c"
+        "Settlement_Booked__c",
+        "Estimated_Revenue__c"
       ],
       "IA-2423227": ["StageName"],
       "IA-2460507": [
@@ -3659,8 +3700,13 @@
         "FinServ__ReferredByContact__c",
         "FinServ__ReferredByUser__c",
         "My_Team_Segment__c",
+        "My_Manager_Opps__c",
         "My_Reportees_Opps__c",
-        "My_Manager_Opps__c"
+        "Owner_Region__c",
+        "Owner_Segment__c",
+        "Owner_State__c",
+        "Owner_Role__c",
+        "Owner_Team_POD__c"
       ],
       "IA-2530753": ["Opportunity_Owner__c"],
       "IA-2428130": ["Specialisation__c", "New_to_Bank__c"],
@@ -3794,10 +3840,9 @@
     "Privileged_Access_Request__c": {
       "IA-2468715": [
         "Access_Request__c",
-        "Access_Request_Record_Type_Name__c",
-        "Access_Request_Record_Type_Id__c",
         "Actual_Access_Granted_Time__c",
         "Actual_Access_Revoked_Time__c",
+        "Bypass__c",
         "Previous_Profile_Id__c",
         "Revoke_Time__c",
         "Start_Date_Time__c",
@@ -4082,6 +4127,7 @@
         "Correct_financial_remedy_approach__c",
         "Correct_template_used_tailored_to_case__c",
         "Corrective_actions_for_TM_CM__c",
+        "CX_Criteria_Comments__c",
         "C_Q_Comments_feedback_suggestions__c",
         "C_Q_Lead_Comments__c",
         "C_Q_Lead_Response__c",
@@ -4408,20 +4454,38 @@
         "Secondary_Documents__c",
         "Selfie_Verification_Outcome__c",
         "TrustMe_Selfie_Reference__c",
-        "PersonID__c"
+        "PersonID__c",
+        "Trustme_Fraud_Address_Valid__c",
+        "Trustme_Fraud_Customer_Details__c",
+        "Trustme_Fraud_Customer_Photo_Modified__c",
+        "Trustme_Fraud_ID_Legible__c",
+        "Trustme_Fraud_ID_Not_Picture__c",
+        "Trustme_Fraud_MiddleNameCheck__c",
+        "Trustme_Fraud_Security_Features__c",
+        "Trustme_Fraud_Selfie_Comparison_Match__c",
+        "Certificate_Number__c",
+        "Registration_Number__c",
+        "Registration_State__c"
       ]
     },
     "ResidentialLoanApplication": {
       "IA-2415855": ["Assessment_Outcome__c", "Credit_Version__c"],
       "IA-2415983": [
+        "Cancellation_Reason__c",
+        "Credit_Reassess_Required__c",
         "First_Home__c",
+        "InterestRate",
         "LoanPurpose",
         "Loan_Purpose__c",
+        "Loan_Term__c",
         "Loan_Type__c",
+        "LVR_Excl_LMI__c",
         "Main_Goal__c",
+        "Other_Cancellation_Reason__c",
         "Owner_Occupied__c",
         "Package_Code__c",
         "Package_Version__c",
+        "Product__c",
         "Settlement_ID__c",
         "Status",
         "Credit_Reassess_Required__c",
@@ -4435,21 +4499,23 @@
       "IA-2415997": ["SOP_Id__c"],
       "IA-2530753": [
         "Id",
+        "AIP_AST_Expiry__c",
         "CreatedById",
         "CreatedDate",
+        "Created_Date__c",
+        "Expiry_Date__c",
+        "Is_SOP_Ineligible__c",
         "LastModifiedById",
         "LastModifiedDate",
-        "Version__c",
         "Last_Updated_Date__c",
-        "SunsetTimestamp__c",
-        "Expiry_Date__c",
         "Loan_Purpose_Updated_Date__c",
-        "Created_Date__c",
-        "Needs_Assessment_Last_Updated_Date__c",
         "Needs_Assessment_Created_Date__c",
+        "Needs_Assessment_Last_Updated_Date__c",
         "Owner_Name__c",
         "RecordTypeId",
-        "Is_SOP_Ineligible__c"
+        "Source__c",
+        "SunsetTimestamp__c",
+        "Version__c"
       ],
       "IA-2594111": [
         "AccountId",
@@ -4466,16 +4532,18 @@
       ],
       "IA-2594113": ["State__c"],
       "IA-2415840": [
+        "Application_Progress__c",
         "E_Tag__c",
-        "Needs_Assessment_Unsuitability_Reasons__c",
-        "Joint__c",
         "Ineligible_Reasons__c",
-        "Application_Progress__c"
+        "Joint__c",
+        "Needs_Assessment_Unsuitability_Reasons__c",
+        "Settlement_ID__c"
       ],
       "IA-2415860": ["Credit_Reassess_Required__c"],
       "IA-2415790": ["Assisted_Broker__c", "Assisted_Broker_TPMI_SAO__c"],
-      "IA-2453350": ["Sync_Status__c", "Originated_By__c"],
-      "IA-2468715": ["OwnerId"]
+      "IA-2453350": ["Sync_Status__c", "Originated_By__c", "RecordTypeID"],
+      "IA-2468715": ["OwnerId"],
+      "IA-2415999": ["Application_Amount__c"]
     },
     "Response_Type__c": {
       "IA-2415860": [
@@ -4868,10 +4936,33 @@
         "LastModifiedDate"
       ],
       "IA-2415984": [
+        "ANZ_Opportunities__c",
+        "Additional_Details__c",
+        "Additional_Professional_Support__c",
+        "Broker__c",
+        "Business_Investment_Background__c",
+        "COI__c",
+        "Competitive_Landscape_and_ANZ_Relative__c",
+        "Customer_Areas_of_Interest__c",
+        "Customer_Contact_Preferences__c",
         "DOB__c",
         "Email__c",
+        "Engagement_Topics__c",
+        "Financial_Wealth_Background__c",
+        "Key_Person_1__c",
+        "Key_Person_2__c",
+        "Last_Event_Attended__c",
         "Mobile__c",
+        "Other_ANZ_Relationship__c",
+        "Other_ANZ_Relationships__c",
+        "Other_Account_Plan_Information__c",
+        "Other_Information__c",
+        "Other_Key_People__c",
+        "Personal_Background__c",
         "Postal_Code__c",
+        "Priorities_and_Objectives__c",
+        "Private_Banker_Advisor__c",
+        "Professional_Support__c",
         "Suburb__c",
         "Customer_Groups__c",
         "Indicative_FUM__c",
@@ -5699,10 +5790,14 @@
       "Is_Beta_Broker__c": "ANZx::Salesforce",
       "Is_MyBroker__c": "ANZx::Salesforce",
       "Office_Group__c": "ANZx::Salesforce",
+      "OCV_Profile_ID__c": "ANZx :: Salesforce :: BrokerData :: Contact :: OCV_Profile_ID__c",
       "Primary_RBM__c": "ANZx::Salesforce",
       "Secondary_RBM__c": "ANZx::Salesforce",
       "Segment__c": "ANZx::Salesforce",
-      "SAO_State__c": "ANZx::Salesforce"
+      "SAO_State__c": "ANZx::Salesforce",
+      "Sync_Status__c": "ANZx :: Salesforce :: BrokerData :: Contact :: Sync_Status__c",
+      "Survivor_Party_Id__c": "ANZx :: Salesforce :: BrokerData :: Contact :: Survivor_Party_Id__c",
+      "Victim_Party_Id__c": "ANZx :: Salesforce :: BrokerData :: Contact :: Victim_Party_Id__c"
     },
     "CustomerOnboardingApplication__c": {
       "AustralianTaxResident__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidencyStatus :: australian_tax_resident",
@@ -5756,8 +5851,12 @@
     "ResidentialLoanApplication": {
       "Assisted_Broker__c": "ANZx::Salesforce",
       "Assisted_Broker_TPMI_SAO__c": "ANZx::Lex::LoanApplication",
+      "LVR_Excl_LMI__c": "ANZx::lex::LoanApplication",
       "Originated_By__c": "ANZx::MuleSoft::Broker",
       "Sync_Status__c": "ANZx::MuleSoft::Broker"
+    },
+    "LoanApplicationFinancial": {
+      "Interest_Rate__c": "ANZx :: Lex :: LoanPreferences.LoanTermDetails.RepaymentTermSummary.interest_rate_basis_points :: interest_rate"
     },
     "Settlement__c": {
       "IsValidCloudEvent__c": "ANZx::Salesforce"
@@ -5897,10 +5996,14 @@
       "Is_Beta_Broker__c": "1:1 Transformation",
       "Is_MyBroker__c": "Formula field through Broker_Relation__c",
       "Office_Group__c": "Lookup to Broker_Relation__c",
+      "OCV_Profile_ID__c": "1:1 transformation",
       "Primary_RBM__c": "Formula field through Broker_Relation__c",
       "Secondary_RBM__c": "Formula field through Broker_Relation__c",
       "Segment__c": "Formula field through Broker_Relation__c",
-      "SAO_State__c": "Formula field through Broker_Relation__c"
+      "SAO_State__c": "Formula field through Broker_Relation__c",
+      "Sync_Status__c": "1:1 transformation",
+      "Survivor_Party_Id__c": "1:1 transformation",
+      "Victim_Party_Id__c": "1:1 transformation"
     },
     "CustomerOnboardingApplication__c": {
       "AustralianTaxResident__c": "1:1 Transformation",
@@ -5954,8 +6057,12 @@
     "ResidentialLoanApplication": {
       "Assisted_Broker__c": "Look up relationship against contact object",
       "Assisted_Broker_TPMI_SAO__c": "1:1 Transformation",
+      "LVR_Excl_LMI__c": "1:1 Transformation",
       "Originated_By__c": "If TPMI_SAO__c is NOT blank then set Originated By to Broker",
       "Sync_Status__c": "If GCP Event Publish where Sync_Status_c not equals to Blocked and Update = TRUE THEN set Sync_Status_c to Broker Org"
+    },
+    "LoanApplicationFinancial": {
+      "Interest_Rate__c": "1:1 Transformation"
     },
     "Settlement__c": {
       "IsValidCloudEvent__c": "If Loan Application Sync_Status is Broker org set isvalidcloudevent to true"

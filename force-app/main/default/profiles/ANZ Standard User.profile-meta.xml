@@ -1767,10 +1767,6 @@
         <recordType>Task.IDR_Task</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Task-Coach Nudge Layout</layout>
-        <recordType>Task.Coach_Nudge</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>Task-SI Task Layout</layout>
         <recordType>Task.Systemic_Issue_Task</recordType>
     </layoutAssignments>
@@ -1785,10 +1781,6 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>User_Provisioning_Setting__mdt-User Provisioning Setting Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Task-Customer Nudge Layout</layout>
-        <recordType>Task.Customer_Nudge</recordType>
     </layoutAssignments>
     <objectPermissions>
         <allowCreate>false</allowCreate>

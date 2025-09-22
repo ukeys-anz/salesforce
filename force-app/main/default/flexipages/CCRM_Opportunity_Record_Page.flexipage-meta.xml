@@ -74,6 +74,13 @@
                         </valueListItems>
                         <valueListItems>
                             <value>Opportunity.Launch_Application</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.CCRM_Hide_Launch_Application}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>false</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
@@ -367,6 +374,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CLG__c</fieldItem>
                 <identifier>RecordCLG__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CLG_ID__c</fieldItem>
+                <identifier>RecordCLG_ID_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-7388628e-6b36-4319-951a-7b0bb7daccba</name>
@@ -1180,6 +1197,9 @@
                         <valueListItems>
                             <value>Customer_Type__c</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>CPID__c</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -1226,6 +1246,12 @@
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
                 <identifier>force_relatedListSingleContainer</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>extraCareNotification</componentName>
+                <identifier>c_extraCareNotification</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>

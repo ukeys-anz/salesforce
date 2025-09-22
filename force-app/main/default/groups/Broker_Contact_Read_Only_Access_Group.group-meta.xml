@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Group xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>Broker Contact Read Only Access Group</name>
+    <description>Access group to grant read-only access to all brokers.</description>
+    <doesIncludeBosses>true</doesIncludeBosses>
+</Group>

@@ -20,7 +20,7 @@ fi
 CHANGED_FILES=$(cat "$QUALITY_CHECK_FILE_NAME" | jq -R -s -r '
   split("\n")[] |
   select(
-    test("^(force-app|knowledge-mgm)/main/(default|sf-lending)/lwc/.*\\.js$") and
+    test("^(force-app|knowledge-mgm)/main/(default|sf-lending|generic-components)/lwc/.*\\.js$") and
     (test("\\.test\\.js$") | not)
   )
 ')
@@ -60,7 +60,7 @@ if [[ "$eslint_failed" == "true" ]]; then
   {
     echo "result<<EOF"
     echo "<details><summary>❌ ESLint check failed</summary><pre>"
-    cat "$eslint_output_file"
+    sed 's/`//g' "$eslint_output_file"
     echo "</pre></details>"
     echo "EOF"
   } >> "$GITHUB_OUTPUT"

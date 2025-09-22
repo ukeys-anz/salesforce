@@ -146,4 +146,14 @@
         <default>false</default>
         <label>Appointment</label>
     </standardValue>
+    <standardValue>
+        <fullName>Virtual Meetings</fullName>
+        <default>false</default>
+        <label>Virtual Meetings</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Administration</fullName>
+        <default>false</default>
+        <label>Administration</label>
+    </standardValue>
 </StandardValueSet>

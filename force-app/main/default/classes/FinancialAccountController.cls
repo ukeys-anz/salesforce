@@ -276,11 +276,18 @@ public with sharing class FinancialAccountController {
       if (financialAccountsFromDatabase.isEmpty()) {
         return new List<UnifiedFinancialAccountModel>();
       }
+
       return FinancialAccountControllerAction.processFinancialAccounts(
         financialAccountsFromDatabase
       );
     } catch (Exception objException) {
-      CommonUtil.logException(objException);
+      Logger.error(
+          'Fetch Financial Account Data from Database failed for the customer with ocv id ' +
+            ocvId +
+            'with error message: ',
+          objException
+        )
+        .save();
       throw new AuraHandledException(FAILED_TO_RETRIEVE);
     }
   }

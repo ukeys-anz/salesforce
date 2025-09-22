@@ -3,6 +3,7 @@
     <fullName>Date_Relationship_Commenced__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Uncontrolled;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <defaultValue>TODAY()</defaultValue>
     <description>Date the relationship started</description>
     <externalId>false</externalId>
     <label>Relationship Start Date</label>

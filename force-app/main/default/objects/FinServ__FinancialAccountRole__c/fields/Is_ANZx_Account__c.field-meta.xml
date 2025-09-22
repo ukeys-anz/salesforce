@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>To identify Financial Account is of ANZx or not based on Marketing Code</description>
-    <externalId>false</externalId>
     <formula>IF(
     OR
     (

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Interaction_Topic__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Captures the relevant materials RBM referred during interactions with brokers</description>
+    <inlineHelpText>These are any relevant materials you referred to during your interaction.</inlineHelpText>
+    <label>Interaction Topic</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>ANZ Introduction Training Session (e.g. Working Better Together Induction / Masterclass)</fullName>
+                <default>false</default>
+                <label>ANZ Introduction Training Session (e.g. Working Better Together Induction / Masterclass)</label>
+            </value>
+            <value>
+                <fullName>ANZ Update Training Sessions (e.g. Working Better Together Induction / Residential Broker Update)</fullName>
+                <default>false</default>
+                <label>ANZ Update Training Sessions (e.g. Working Better Together Induction / Residential Broker Update)</label>
+            </value>
+            <value>
+                <fullName>Brokerology Basics - ANZ Pricing</fullName>
+                <default>false</default>
+                <label>Brokerology Basics - ANZ Pricing</label>
+            </value>
+            <value>
+                <fullName>Brokerology Basics - Bridging Finance</fullName>
+                <default>false</default>
+                <label>Brokerology Basics - Bridging Finance</label>
+            </value>
+            <value>
+                <fullName>Brokerology Basics - Business Income</fullName>
+                <default>false</default>
+                <label>Brokerology Basics - Business Income</label>
+            </value>
+            <value>
+                <fullName>Brokerology Basics - Employment Income</fullName>
+                <default>false</default>
+                <label>Brokerology Basics - Employment Income</label>
+            </value>
+            <value>
+                <fullName>Brokerology Basics - Foreign Income</fullName>
+                <default>false</default>
+                <label>Brokerology Basics - Foreign Income</label>
+            </value>
+            <value>
+                <fullName>Brokerology Basics - Guarantees</fullName>
+                <default>false</default>
+                <label>Brokerology Basics - Guarantees</label>
+            </value>
+            <value>
+                <fullName>Brokerology Basics - Private Bank</fullName>
+                <default>false</default>
+                <label>Brokerology Basics - Private Bank</label>
+            </value>
+            <value>
+                <fullName>Brokerology Basics - Health &amp; Medical</fullName>
+                <default>false</default>
+                <label>Brokerology Basics - Health &amp; Medical</label>
+            </value>
+            <value>
+                <fullName>Brokerology Basics - Other Income</fullName>
+                <default>false</default>
+                <label>Brokerology Basics - Other Income</label>
+            </value>
+            <value>
+                <fullName>Brokerology Basics - Lenders Mortgage Insurance (LMI)</fullName>
+                <default>false</default>
+                <label>Brokerology Basics - Lenders Mortgage Insurance (LMI)</label>
+            </value>
+            <value>
+                <fullName>Brokerology Basics - Dual Applications</fullName>
+                <default>false</default>
+                <label>Brokerology Basics - Dual Applications</label>
+            </value>
+            <value>
+                <fullName>Brokerology Basics - Construction Loans</fullName>
+                <default>false</default>
+                <label>Brokerology Basics - Construction Loans</label>
+            </value>
+            <value>
+                <fullName>Brokerology Basics - Company Home Loans</fullName>
+                <default>false</default>
+                <label>Brokerology Basics - Company Home Loans</label>
+            </value>
+            <value>
+                <fullName>Brokerology Basics - Home Loan Calculator (HLC)</fullName>
+                <default>false</default>
+                <label>Brokerology Basics - Home Loan Calculator (HLC)</label>
+            </value>
+            <value>
+                <fullName>Brokerology Basics - Valuations</fullName>
+                <default>false</default>
+                <label>Brokerology Basics - Valuations</label>
+            </value>
+            <value>
+                <fullName>Brokerology Basics - ANZ Process Library</fullName>
+                <default>false</default>
+                <label>Brokerology Basics - ANZ Process Library</label>
+            </value>
+            <value>
+                <fullName>Home Loan Campaign - Cashback</fullName>
+                <default>false</default>
+                <label>Home Loan Campaign - Cashback</label>
+            </value>
+            <value>
+                <fullName>Simpler Switch</fullName>
+                <default>false</default>
+                <label>Simpler Switch</label>
+            </value>
+            <value>
+                <fullName>Why Choose ANZ</fullName>
+                <default>false</default>
+                <label>Why Choose ANZ</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

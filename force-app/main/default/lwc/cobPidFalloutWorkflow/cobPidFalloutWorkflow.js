@@ -157,7 +157,7 @@ export default class CobPidFalloutWorkflow extends LightningElement {
     }
 
     if (
-      !getFieldValue(this.cobPidData, FIELD_COB_ONBOARDINGSTAGE) ===
+      getFieldValue(this.cobPidData, FIELD_COB_ONBOARDINGSTAGE) !==
       "Assisted Selfie"
     ) {
       return false;
@@ -192,6 +192,8 @@ export default class CobPidFalloutWorkflow extends LightningElement {
     return [
       {
         size: 6,
+        hideHeader: true,
+        title: "Documents",
         files
       }
     ];
@@ -211,6 +213,8 @@ export default class CobPidFalloutWorkflow extends LightningElement {
     return [
       {
         size: 6,
+        hideHeader: true,
+        title: "Selfie",
         files
       }
     ];
@@ -231,9 +235,9 @@ export default class CobPidFalloutWorkflow extends LightningElement {
     };
 
     return {
-      idxDocumentId: daonLocationUri[8],
-      idxIdCheckId: daonLocationUri[6],
-      idxUserId: daonLocationUri[4],
+      idxDocumentId: daonLocationUri?.[8],
+      idxIdCheckId: daonLocationUri?.[6],
+      idxUserId: daonLocationUri?.[4],
       idxExtractedFaceId: extractedFaceId,
       workflowId: this.aegisWorkflowId,
       relatedRecordId: this.recordId,
@@ -242,7 +246,9 @@ export default class CobPidFalloutWorkflow extends LightningElement {
   }
 
   get isApproveButtonDisable() {
-    return !this.isSelfieMatched || !this.isValidDocument;
+    return (
+      !this.showCheckboxes || !this.isSelfieMatched || !this.isValidDocument
+    );
   }
 
   get isRejectButtonDisable() {
@@ -315,6 +321,8 @@ export default class CobPidFalloutWorkflow extends LightningElement {
   }
 
   closeModal() {
+    this.isSelfieMatched = false;
+    this.isValidDocument = false;
     this.dispatchEvent(
       new CustomEvent("closeparentmodel", {
         detail: {

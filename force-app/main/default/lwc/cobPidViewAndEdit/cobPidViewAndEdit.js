@@ -1,15 +1,13 @@
 import { LightningElement, api, wire, track } from "lwc";
-import { handleErrors, showToast } from "c/utils";
-import { getRecord, getRecordNotifyChange } from "lightning/uiRecordApi";
+import { NavigationMixin } from "lightning/navigation";
+import { handleErrors, showToast, SimpleNav } from "c/utils";
+import { getRecord } from "lightning/uiRecordApi";
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
-import { CloseActionScreenEvent } from "lightning/actions";
+import { EnclosingTabId, refreshTab } from "lightning/platformWorkspaceApi";
 import hasEditPermission from "@salesforce/customPermission/ANZx_Edit_COB_Primary_ID_Document";
 import detokenizeCOBPIDData from "@salesforce/apex/COBPIDViewAndEditController.detokenizeCOBPIDData";
 import updateCOBPIDData from "@salesforce/apex/COBPIDViewAndEditController.updateCOBPIDData";
 import COUNTRY_OF_ISSUE_FIELD from "@salesforce/schema/COBPrimaryIDDocument__c.CountryOfIssue__c";
-import modal from "@salesforce/resourceUrl/OnboardingCSS";
-import { loadStyle } from "lightning/platformResourceLoader";
-import showCobPidFalloutWorkflow from "@salesforce/label/c.ShowCobPidFalloutWorkflow";
 
 const RECORD_FIELDS = [
   "COBPrimaryIDDocument__c.IdDocumentType__c",
@@ -18,7 +16,10 @@ const RECORD_FIELDS = [
   "COBPrimaryIDDocument__c.CustomerOnboardingApplication__r.CXOnboardingStage__c"
 ];
 
-export default class CobPidViewAndEdit extends LightningElement {
+export default class CobPidViewAndEdit extends NavigationMixin(
+  LightningElement
+) {
+  nav = new SimpleNav(this);
   @api recordId;
   @track data = {};
   countryOfIssueOptions;
@@ -28,10 +29,10 @@ export default class CobPidViewAndEdit extends LightningElement {
   _equifaxAttemptCount = 0;
 
   isLoading = false;
+  isLocked = false;
   error;
-  showCobPidFalloutWorkflow =
-    showCobPidFalloutWorkflow.toLowerCase() === "true";
 
+  @wire(EnclosingTabId) tabId;
   async connectedCallback() {
     // give ReadOnly lightning-input lwc component a default indentation to align the text in default lightning-input
     const inputAlignLeft = document.createElement("style");
@@ -39,13 +40,17 @@ export default class CobPidViewAndEdit extends LightningElement {
     document.body.appendChild(inputAlignLeft);
 
     this.isLoading = true;
-    loadStyle(this, modal);
+  }
+
+  get showSpinner() {
+    return this.isLoading || this.isLocked;
   }
 
   get allowEdit() {
     return (
       hasEditPermission &&
-      this.data?.CXOnboardingStage__c === "Assisted Electronic Verification"
+      this.data?.CXOnboardingStage__c === "Assisted Electronic Verification" &&
+      !this.reachedEditLimit
     );
   }
 
@@ -58,7 +63,10 @@ export default class CobPidViewAndEdit extends LightningElement {
   }
 
   get reachedEditLimit() {
-    return this._equifaxAttemptCount >= 2;
+    return (
+      this.data?.CXOnboardingStage__c === "Assisted Electronic Verification" &&
+      this._equifaxAttemptCount >= 2
+    );
   }
 
   get panelHeader() {
@@ -97,6 +105,7 @@ export default class CobPidViewAndEdit extends LightningElement {
     fields: RECORD_FIELDS
   })
   async wiredRecord({ error, data }) {
+    console.log("refreshing COB PID data");
     this.isLoading = true;
 
     if (data) {
@@ -163,8 +172,6 @@ export default class CobPidViewAndEdit extends LightningElement {
   }
 
   async handleSave() {
-    this.isLoading = true;
-
     if (!this.validateFirstNameLastName()) {
       showToast(
         this,
@@ -174,38 +181,52 @@ export default class CobPidViewAndEdit extends LightningElement {
         "error",
         ""
       );
-    } else {
-      try {
-        await updateCOBPIDData({
-          record: this.data
-        });
-        this.error = undefined;
-
-        await getRecordNotifyChange([{ recordId: this.recordId }]);
-
-        showToast(
-          this,
-          "Success!",
-          "Successfully updated details.",
-          "",
-          "success",
-          ""
-        );
-
-        this.handleClose();
-      } catch (error) {
-        this.error = error;
-        this.data = this._initDetokenizedData;
-        let errorMessage = handleErrors(error);
-        showToast(this, "Error!", errorMessage, "", "error", "");
-      }
+      return;
     }
 
-    this.isLoading = false;
+    this.isLoading = true;
+    try {
+      await updateCOBPIDData({
+        record: this.data
+      });
+      this.error = undefined;
+
+      showToast(
+        this,
+        "Success!",
+        "Successfully updated details.",
+        "",
+        "success",
+        ""
+      );
+      this.refreshCobPid();
+    } catch (error) {
+      this.error = error;
+      this.data = this._initDetokenizedData;
+      let errorMessage = handleErrors(error);
+      showToast(this, "Error!", errorMessage, "", "error", "");
+      this.isLoading = false;
+    }
   }
 
   handleClose() {
-    this.dispatchEvent(new CloseActionScreenEvent());
+    this.nav.toRecord(this.recordId);
+  }
+
+  /**
+   * Refresh the cobPid record data until Edit Document tab is updated to View Document
+   */
+  refreshCobPid() {
+    this.isLocked = true;
+    // eslint-disable-next-line @lwc/lwc/no-async-operation
+    this.refreshInterval = setInterval(() => {
+      console.log("refreshing tab");
+      refreshTab(this.tabId);
+    }, 2000);
+  }
+
+  disconnectedCallback() {
+    clearInterval(this.refreshInterval);
   }
 
   validateFirstNameLastName() {

@@ -9,18 +9,47 @@ public with sharing class CommercialOpportunityHelper {
   private static final String LOST_REASON_DETAIL_MISSING_AFP = 'please provide valid Lost Reason/Lost Reason Detail.';
   @testVisible
   private static final String WON_LOST_MANDATORY_AFP = 'please provide valid Won From/Lost To.';
+  public static final String ACCOUNT_ID_FIELD_NAME = 'AccountId';
+  public static final String LEAD_PROCESS_FOR_PROSPECT_ERROR = 'Error Message - Lead process to be followed for prospect opportunity creation';
   @testVisible
   private static final String LAUNCH_APP_ERROR = 'Please LAUNCH APPLICATION and mark the Application form product as WON or LOST before closing the opportunity. Please select Internal Application if none of the Origination systems are involved.';
   @testVisible
   private static final String CLOSE_AFP_FIRST_ERROR = 'Please mark all application form products as WON or LOST before closing the opportunity.';
   private static final String OPP_WON = 'Opportunity Won';
   private static final String OPP_LOST = 'Opportunity Lost';
-  private static final CommercialOpportunityRepository COMMERCIALOPP_REPOSITORY = (CommercialOpportunityRepository) Lib_InstanceProvider.forType(
+  private static final String OPPORTUNITY_LABEL = 'Opportunity';
+  private static final String SKIP_STAGE = 'Unfortunately, you are not allowed to skip stages or re-open a closed stage.';
+  private static final String REOPEN_CLOSED_OPP = 'You cannot reopen a closed stage.';
+  @testVisible
+  private static final String SELECT_RELATED_CLG_ERROR = 'Customer is not related to this CLG, please select the correct CLG';
+  @testVisible
+  private static final String SELECT_ANY_CLG_ERROR = 'Please select a related CLG';
+  @testVisible
+  private static final String NO_CLG_FOR_CUSTOMER_ERROR = 'No CLG available for this customer,please leave CLG blank';
+
+  private static final CommercialOpportunityRepository OPP_REPOSITORY = (CommercialOpportunityRepository) Lib_InstanceProvider.forType(
     CommercialOpportunityRepository.class
   );
   private static final DmlRepository DML = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
+
+  /**
+   * @description This method will Loop through Accounts mapped with Opportunity and determine if Account is a Prospect
+   * @name checkAccountIsProspect
+   * @param accounts List of Accounts used by Opportunities
+   * @param records List of Opportunities in transaction
+   */
+  public static void checkAccountIsProspect(
+    Map<Id, Account> accounts,
+    List<Opportunity> records
+  ) {
+    List<Opportunity> prospectOppRecords = ListUtil.filter(records)
+      .equals(Opportunity.AccountId, accounts.keySet())
+      .equals(Opportunity.Lead_Converted__c, false)
+      .toList();
+    ListUtil.addError(prospectOppRecords, LEAD_PROCESS_FOR_PROSPECT_ERROR);
+  }
 
   /**
    * @description Returns the AFP stages metadata
@@ -36,7 +65,7 @@ public with sharing class CommercialOpportunityHelper {
       ) {
         if (
           metadata.Object_Name__c == null ||
-          metadata.Object_Name__c.split(';').contains(CCRMConstants.OPPORTUNITY)
+          metadata.Object_Name__c.split(';').contains(OPPORTUNITY_LABEL)
         ) {
           String key =
             metadata.Current_Stage__c +
@@ -48,40 +77,6 @@ public with sharing class CommercialOpportunityHelper {
       return opportunityStagesBySegment;
     }
     set;
-  }
-
-  /**
-   * @description validate CCRM opportunities
-   * @name validateCCRMOpportunity
-   * @param oppWrapper CCRMOpportunity Wrapper
-   * @param isInsert if the operation is insert
-   */
-  public static void validateCCRMOpportunity(
-    CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper,
-    Boolean isInsert
-  ) {
-    for (Opportunity oppIterator : oppWrapper.filteredOpps) {
-      List<String> errors = new List<String>();
-
-      //check if stage is not equal to "New" on creation of lead
-      if (isInsert && oppIterator.StageName != CCRMConstants.NEW_STAGE) {
-        errors.add(CCRMConstants.OPP_DEFAULT_STAGE_ERROR);
-      }
-      //check if other source detail is provided if leadsource is other
-      if (
-        oppIterator.LeadSource == CCRMConstants.OTHER &&
-        String.isBlank(oppIterator.Other_Source_Detail__c)
-      ) {
-        errors.add(CCRMConstants.OTHER_SOURCE_DETAIL_MANDATORY);
-      }
-
-      String errorMessage = String.join(errors, '\n');
-
-      //add error message
-      if (String.isNotBlank(errorMessage)) {
-        oppIterator.addError(errorMessage);
-      }
-    }
   }
 
   /**
@@ -113,14 +108,11 @@ public with sharing class CommercialOpportunityHelper {
         oppIterator.StageName != metadata.Previous_Stage__c &&
         !nextStage.contains(oppIterator.StageName)
       ) {
-        oppIterator.addError(CCRMConstants.SKIP_STAGE);
+        oppIterator.addError(SKIP_STAGE);
       }
 
-      if (
-        oldStage == CCRMConstants.OPP_LOST ||
-        oldStage == CCRMConstants.OPP_WON
-      ) {
-        oppIterator.addError(CCRMConstants.REOPEN_CLOSED_OPP);
+      if (oldStage == OPP_LOST || oldStage == OPP_WON) {
+        oppIterator.addError(REOPEN_CLOSED_OPP);
       }
     }
   }
@@ -134,13 +126,55 @@ public with sharing class CommercialOpportunityHelper {
     Map<Id, Opportunity> closingOppoIdMap
   ) {
     //get open tasks on opportunity being closed
-    List<Map<String, Object>> openTasks = COMMERCIALOPP_REPOSITORY.getOpenTasksOnClosedOpportunity(
+    List<Map<String, Object>> openTasks = OPP_REPOSITORY.getOpenTasksOnClosedOpportunity(
       closingOppoIdMap.keySet()
     );
     for (Map<String, Object> iterator : openTasks) {
       closingOppoIdMap.get(String.valueOf(iterator.get('WhatId')))
         .addError(System.Label.CCRM_OpenTasksOnOpportunityCloseError);
     }
+  }
+
+  /**
+   * @description updates opportunity list on insert
+   * @name updateOpportunityListOnInsert
+   * @param filteredOpps list of opportunity
+   * @param updatedOppsNameMap map of oppId to updated opp name
+   */
+  @testVisible
+  public static void updateOpportunityListOnInsert(
+    List<Opportunity> filteredOpps,
+    Map<Id, String> updatedOppsNameMap
+  ) {
+    List<Opportunity> updatedOpps = new List<Opportunity>();
+    for (Opportunity opps : filteredOpps) {
+      Opportunity opp = new Opportunity(Id = opps.Id);
+      opp.Name = updatedOppsNameMap.containsKey(opps.Id)
+        ? updatedOppsNameMap.get(opps.Id)
+        : '';
+      updatedOpps.add(opp);
+    }
+    CommercialOpportunityActions.insertOpportunityContext = true;
+    DML.doUpdate(updatedOpps);
+  }
+
+  /**
+   * @description updates opportunity list on update
+   * @name updateOpportunityListOnUpdate
+   * @param filteredOpps list of opportunity
+   * @param updatedOppsNameMap map of oppId to updated opp name
+   * @return List<Opportunity> opportunity list
+   */
+  public static List<Opportunity> updateOpportunityListOnUpdate(
+    List<Opportunity> filteredOpps,
+    Map<Id, String> updatedOppsNameMap
+  ) {
+    for (Opportunity opp : filteredOpps) {
+      opp.Name = updatedOppsNameMap.containsKey(opp.Id)
+        ? updatedOppsNameMap.get(opp.Id)
+        : '';
+    }
+    return filteredOpps;
   }
 
   /**
@@ -158,7 +192,7 @@ public with sharing class CommercialOpportunityHelper {
 
       //check if Lost reason and Lost reason details are provided if AFP is lost
       if (
-        afp.Stage == CCRMConstants.OPP_LOST &&
+        afp.Stage == OPP_LOST &&
         (String.isBlank(afp.Lost_Reason__c) ||
         String.isBlank(afp.Lost_Reason_Detail__c))
       ) {
@@ -193,7 +227,7 @@ public with sharing class CommercialOpportunityHelper {
     Map<Id, Set<Id>> oppIdToAllAFPIdMap
   ) {
     //get Opp products related to Opportunities
-    List<OpportunityLineItem> oppProducts = COMMERCIALOPP_REPOSITORY.getOppProductsForOpportunity(
+    List<OpportunityLineItem> oppProducts = OPP_REPOSITORY.getOppProductsForOpportunity(
       closedOppsMap.keySet()
     );
     //create OppId -> Opp Product map
@@ -232,8 +266,8 @@ public with sharing class CommercialOpportunityHelper {
     List<ApplicationFormProduct> openAFPList = ListUtil.filter(
         appFormProductList
       )
-      .notEquals(ApplicationFormProduct.Stage,OPP_LOST)
-      .notEquals(ApplicationFormProduct.Stage,OPP_WON)
+      .notEquals(ApplicationFormProduct.Stage, OPP_LOST)
+      .notEquals(ApplicationFormProduct.Stage, OPP_WON)
       .toList();
 
     for (ApplicationFormProduct afpRecord : openAFPList) {
@@ -261,8 +295,167 @@ public with sharing class CommercialOpportunityHelper {
       if (!oppIdToAllAFPIdMap.containsKey(oppId)) {
         oppIdToAllAFPIdMap.put(oppId, new Set<Id>());
       }
-      oppIdToAllAFPIdMap.get(oppId).add(afpRecord.ProductId);
+      oppIdToAllAFPIdMap.get(oppId).add(afpRecord.Opportunity_Product__c);
     }
     return oppIdToAllAFPIdMap;
+  }
+
+  /**
+   * @description This method give filtered opportunities based on Customer/Name change
+   * @name getFilteredOpportunities
+   * @param filteredOpps List of Opportunities
+   * @param oldMap List of old Opportunities
+   * @return List<Opportunity> opportunity list
+   */
+  public static List<Opportunity> getFilteredOpportunities(
+    List<Opportunity> filteredOpps,
+    Map<Id, Opportunity> oldMap
+  ) {
+    Set<SObjectField> oppFieldsSet = new Set<SObjectField>{
+      Opportunity.Customer_Needs__c,
+      Opportunity.Secondary_Customer_Needs__c,
+      Opportunity.Name
+    };
+    return ListUtil.filter(filteredOpps, oldMap)
+      .anyChanged(oppFieldsSet)
+      .toList();
+  }
+
+  /**
+   * @description This method will get CLG account associated to accounts
+   * @name getMapOfAccountWithClgAccount
+   * @param accountIds Account Ids
+   * @return Map<Id,Id> Account Ids with associated CLG Account Ids
+   */
+  public static Map<Id, Id> getMapOfAccountWithClgAccount(Set<Id> accountIds) {
+    Map<Id, Id> mapOfAccountWithClgAccount = new Map<Id, Id>();
+    List<FinServ__AccountAccountRelation__c> aarList = OPP_REPOSITORY.getAccountAccountRelationsForCLG(
+      accountIds
+    );
+
+    for (FinServ__AccountAccountRelation__c relatedaccount : aarList) {
+      mapOfAccountWithClgAccount.put(
+        relatedaccount.FinServ__Account__c,
+        relatedaccount.FinServ__RelatedAccount__c
+      );
+    }
+    return mapOfAccountWithClgAccount;
+  }
+
+  /**
+   * @description : This is used to populate the CLG Info on Lead
+   * @param filteredLeadsList Lead records
+   * @param accMap Map of Account
+   * @param accIdToClgIdAARMap Map of account Id to related CLG Id map
+   */
+  @TestVisible
+  public static void populateClgCpidInfoOnOpp(
+    List<Opportunity> filteredLeadsList,
+    Map<Id, Account> accMap,
+    Map<Id, Map<Id, FinServ__AccountAccountRelation__c>> accIdToClgIdAARMap
+  ) {
+    for (Opportunity oppRecord : filteredLeadsList) {
+      Account accRec = accMap.get(oppRecord.AccountId);
+      Boolean isClgAccount = accRec?.RecordTypeId == RTAccount.clgAccount;
+      Boolean isAccountInMap = accIdToClgIdAARMap.containsKey(
+        oppRecord.AccountId
+      );
+
+      if (isClgAccount) {
+        setValueFromAccount(oppRecord, isAccountInMap ? null : accRec);
+        continue;
+      }
+      if (!isAccountInMap) {
+        //when customer = org and no related CLG present then nullify CLG fields
+        setValueFromAccount(oppRecord, null);
+        continue;
+      }
+      Map<Id, FinServ__AccountAccountRelation__c> clgIdToAARMap = accIdToClgIdAARMap.get(
+        oppRecord.AccountId
+      );
+      if (clgIdToAARMap.size() != 1) {
+        setValueFromAccount(oppRecord, null);
+        continue;
+      }
+      FinServ__AccountAccountRelation__c aar = clgIdToAARMap.values()[0];
+      setValueFromAccount(oppRecord, aar.FinServ__RelatedAccount__r);
+    }
+  }
+
+  /**
+   * @description : This is used to validate the CLG association on Lead
+   * @param filteredOppList Lead records
+   * @param accMap Map of Account
+   * @param accIdToClgIdsMap Map of account Id to related CLG Id map
+   */
+  public static void validateAndPopulateCLGInfo(
+    List<Opportunity> filteredOppList,
+    Map<Id, Account> accMap,
+    Map<Id, Set<Id>> accIdToClgIdsMap
+  ) {
+    for (Opportunity oppRecord : filteredOppList) {
+      Set<Id> clgIdsSet = accIdToClgIdsMap.get(oppRecord.AccountId) ??
+        new Set<Id>();
+
+      if (oppRecord.CLG__c == null) {
+        if (!clgIdsSet.isEmpty()) {
+          oppRecord.CLG__c.addError(SELECT_ANY_CLG_ERROR);
+        }
+        continue;
+      }
+      if (clgIdsSet.isEmpty()) {
+        oppRecord.CLG__c.addError(NO_CLG_FOR_CUSTOMER_ERROR);
+        continue;
+      }
+      if (!clgIdsSet.contains(oppRecord.CLG__c)) {
+        oppRecord.CLG__c.addError(SELECT_RELATED_CLG_ERROR);
+        continue;
+      }
+      setValueFromAccount(oppRecord, accMap.get(oppRecord.CLG__c));
+    }
+  }
+
+  /**
+   * @description : This is used to populate the CLG Info on Lead from Account
+   * @param oppRecord Lead record
+   * @param accRecord Account record
+   */
+  @TestVisible
+  private static void setValueFromAccount(
+    Opportunity oppRecord,
+    Account accRecord
+  ) {
+    oppRecord.CLG__c = accRecord?.Id;
+    oppRecord.CLG_ID__c = accRecord?.CLG__c;
+  }
+
+  /**
+   * @description : This is used to generate Opp name
+   * @param oppId oppId
+   * @param customerNeeds customerNeeds
+   * @param oppName oppName
+   * @param oldMap oldMap
+   * @return String opportunity name
+   */
+  @testVisible
+  public static String generateOpportunityName(
+    String oppId,
+    String customerNeeds,
+    String oppName,
+    Map<Id, Opportunity> oldMap
+  ) {
+    String opportunityName;
+
+    opportunityName = oppId + ' ';
+    if (String.isNotBlank(customerNeeds)) {
+      opportunityName += customerNeeds + ' ';
+    }
+    if (oldMap != null && String.isNotBlank(oppName)) {
+      oppName = oppName.left(30);
+    }
+    if (String.isNotBlank(oppName)) {
+      opportunityName += oppName;
+    }
+    return opportunityName;
   }
 }

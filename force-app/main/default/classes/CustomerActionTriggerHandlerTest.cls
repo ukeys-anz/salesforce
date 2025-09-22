@@ -16,6 +16,7 @@ public with sharing class CustomerActionTriggerHandlerTest {
 
     ResidentialLoanApplication rla = TestDataFactory.createTestResidentialLoanApplication();
     rla.AccountId = acc.Id;
+    rla.RecordTypeId = RTResidentialLoanApplication.anzxHomeLoan;
     insert rla;
 
     LoanApplicationFinancial loanAppFinancial = TestDataFactory.createLoanApplicationFinancial(

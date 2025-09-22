@@ -17,7 +17,8 @@
           "PAYTO"
         ],
         "product_code": "CAP-CIS:DDA",
-        "sub_product_code": "CAP-CIS:DDAXD"
+        "sub_product_code": "CAP-CIS:DDAXD",
+        "origin": "PRODUCT_ORIGIN_ANZX"
       },
       "linkedProductCode": "SAVING01",
       "balances": {

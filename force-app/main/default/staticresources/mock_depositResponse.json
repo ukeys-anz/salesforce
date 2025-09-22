@@ -1,12 +1,16 @@
 {
   "accounts": [
     {
-      "accountName": "Denis Lai",
-      "accountNumber": "3424909811",
+      "accountName": "VAALEPU CORP. NOMINEES TR",
+      "accountNumber": "901221265",
       "productCode": "DDA",
-      "accountBalance": "50.01",
-      "accountLimit": "1000",
-      "status": "Active"
+      "accountBalance": 905.57,
+      "accountLimit": 1000,
+      "status": "Open"
+    },
+    {
+      "accountNumber": "121212324",
+      "errorMessage": "ACCOUNT NOT FOUND"
     }
   ]
 }

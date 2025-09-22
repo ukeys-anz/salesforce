@@ -229,32 +229,87 @@
         <lightning-modal-header label="Confirm Action"></lightning-modal-header>
         <lightning-modal-body>
           <div class="slds-wrap">
-            <div class="slds-grid slds-align_absolute-center">
-              <!-- Static +61 prefix -->
-              <div class="slds-col slds-size_3-of-12 slds-p-around_medium">
-                <lightning-input
-                  type="text"
-                  label="Country Code"
-                  value="+61"
-                  disabled
-                  class="greyed-out"
-                ></lightning-input>
+            <template lwc:if={disputedChecks}>
+              <div class="slds-grid slds-align_absolute-center">
+                <div
+                  class="slds-col slds-size_12-of-12 slds-align--absolute-center slds-p-around_medium"
+                >
+                  <lightning-input
+                    type="checkbox"
+                    label="De-link Mobile Number"
+                    name="input1"
+                    onchange={disputedChecked}
+                  ></lightning-input>
+                </div>
               </div>
-              <div class="slds-col slds-size_7-of-12 slds-p-around_medium">
-                <lightning-input
-                  type="tel"
-                  label="Enter New Mobile Number"
-                  value={mobileNumber}
-                  maxlength="10"
-                  onchange={handleMobileInput}
-                  required
-                  field-level-help="Expected format - 04XXXXXXXX"
-                  pattern="^(?:\\+?61|0|00610)[4]([0-9]){8}$"
-                  message-when-pattern-mismatch="Invalid mobile number"
-                  class="mobileNumberCls"
-                ></lightning-input>
+              <template lwc:if={mobileNumberDisputed}>
+                <div
+                  class="slds-col slds-size_12-of-12 slds-align--absolute-center slds-p-around_medium"
+                >
+                  <p>
+                    By confirming, you agree that the customer has been
+                    contacted and has not responded after 7 days. Do you wish to
+                    De-link Mobile Number?
+                  </p>
+                </div>
+              </template>
+              <template lwc:else>
+                <div class="slds-grid slds-align_absolute-center">
+                  <!-- Static +61 prefix -->
+                  <div class="slds-col slds-size_3-of-12 slds-p-around_medium">
+                    <lightning-input
+                      type="text"
+                      label="Country Code"
+                      value="+61"
+                      disabled
+                      class="greyed-out"
+                    ></lightning-input>
+                  </div>
+                  <div class="slds-col slds-size_7-of-12 slds-p-around_medium">
+                    <lightning-input
+                      type="tel"
+                      label="Enter New Mobile Number"
+                      value={mobileNumber}
+                      maxlength="10"
+                      onchange={handleMobileInput}
+                      required
+                      field-level-help="Expected format - 04XXXXXXXX"
+                      pattern="^(?:\\+?61|0|00610)[4]([0-9]){8}$"
+                      message-when-pattern-mismatch="Invalid mobile number"
+                      class="mobileNumberCls"
+                    ></lightning-input>
+                  </div>
+                </div>
+              </template>
+            </template>
+            <template lwc:else>
+              <div class="slds-grid slds-align_absolute-center">
+                <!-- Static +61 prefix -->
+                <div class="slds-col slds-size_3-of-12 slds-p-around_medium">
+                  <lightning-input
+                    type="text"
+                    label="Country Code"
+                    value="+61"
+                    disabled
+                    class="greyed-out"
+                  ></lightning-input>
+                </div>
+                <div class="slds-col slds-size_7-of-12 slds-p-around_medium">
+                  <lightning-input
+                    type="tel"
+                    label="Enter New Mobile Number"
+                    value={mobileNumber}
+                    maxlength="10"
+                    onchange={handleMobileInput}
+                    required
+                    field-level-help="Expected format - 04XXXXXXXX"
+                    pattern="^(?:\\+?61|0|00610)[4]([0-9]){8}$"
+                    message-when-pattern-mismatch="Invalid mobile number"
+                    class="mobileNumberCls"
+                  ></lightning-input>
+                </div>
               </div>
-            </div>
+            </template>
           </div>
         </lightning-modal-body>
         <lightning-modal-footer>

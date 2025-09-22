@@ -108,7 +108,7 @@ export default class PinAndSelfieWorkflow extends LightningElement {
   }
 
   isPinWorkFlow() {
-    return this.caseDetails.recordTypeInfo.name === "Pin Recovery";
+    return this.caseDetails.recordTypeInfo.name === "PIN Recovery";
   }
 
   checkAuthVSChallengeId() {
@@ -152,7 +152,10 @@ export default class PinAndSelfieWorkflow extends LightningElement {
   }
 
   isJoinOperationReader() {
-    return this.userRole === "Join_Operations_Reader";
+    return (
+      this.userRole === "Join_Operations_Reader" ||
+      this.userRole === "Onboarding_Support_Read_Only"
+    );
   }
 
   openApprovalModal() {

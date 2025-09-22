@@ -5,12 +5,18 @@
     <columns>Account</columns>
     <columns>Status</columns>
     <columns>Application_Progress__c</columns>
+    <columns>RecordType</columns>
     <columns>CreatedDate</columns>
     <columns>Assisted_Broker__c</columns>
     <columns>Owner_Name__c</columns>
     <filters>
         <field>Assisted_Broker_TPMI_SAO__c</field>
         <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>RecordType</field>
+        <operation>equals</operation>
+        <value>ResidentialLoanApplication.RLS,ResidentialLoanApplication.Loan_Application</value>
     </filters>
     <filterScope>Everything</filterScope>
     <label>All Broker Home Loan Applications</label>

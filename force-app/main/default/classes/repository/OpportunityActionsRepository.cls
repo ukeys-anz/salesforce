@@ -11,15 +11,7 @@ public class OpportunityActionsRepository {
    * @return Account
    */
   public Account getAccount(String accId) {
-    if (String.isBlank(accId)) {
-      return null;
-    }
-    return [
-      SELECT PersoncontactId
-      FROM Account
-      WHERE Id = :accId
-      WITH SYSTEM_MODE
-    ];
+    return new SystemAction().getAccount(accId);
   }
 
   /**
@@ -48,6 +40,9 @@ public class OpportunityActionsRepository {
   public List<Opportunity> getOpportunityByLoanappReference(
     Set<String> larSet
   ) {
+    if (larSet.isEmpty()) {
+      return new List<Opportunity>();
+    }
     return new SystemAction().getOpportunityByLoanappReference(larSet);
   }
 
@@ -90,9 +85,73 @@ public class OpportunityActionsRepository {
   }
 
   /**
+   * @description return territories from opportunities
+   * @param territoryIds set of territory ids.
+   * @return Map<Id, Territory__c>
+   */
+  public Map<Id, Territory__c> getTerritories(Set<Id> territoryIds) {
+    if (territoryIds.isEmpty()) {
+      return new Map<Id, Territory__c>();
+    }
+    return new Map<Id, Territory__c>(
+      [
+        SELECT Id, Primary_Franchise_Owner__c
+        FROM Territory__c
+        WHERE Id IN :territoryIds
+        WITH SYSTEM_MODE
+      ]
+    );
+  }
+
+  /**
+   * @description getAccountsByIds
+   * @param idsOfAcc account id set
+   * @return Map<Id, Account>
+   */
+
+  public Map<Id, Account> getAccountByIds(Set<ID> idsOfAcc) {
+    if (idsOfAcc.isEmpty()) {
+      return new Map<Id, Account>();
+    }
+    return new SystemAction().getAccountByIds(idsOfAcc);
+  }
+
+  /**
    * @description This class take care of Database operation that requires without sharing operation
    */
   private without sharing class SystemAction {
+    /**
+     * @description return Account using Id
+     * @param accId Id of Account
+     * @return Account
+     */
+    public Account getAccount(String accId) {
+      return [
+        SELECT PersoncontactId
+        FROM Account
+        WHERE Id = :accId
+        WITH SYSTEM_MODE
+        LIMIT 1
+      ] ?? null;
+    }
+
+    /**
+     * @description getAccountsByIds
+     * @param idsOfAcc account id set
+     * @return Map<Id, Account>
+     */
+
+    public Map<Id, Account> getAccountByIds(Set<ID> idsOfAcc) {
+      return new Map<Id, Account>(
+        [
+          SELECT Id, Name
+          FROM Account
+          WHERE Id IN :idsOfAcc
+          WITH SYSTEM_MODE
+        ]
+      );
+    }
+
     /**
      * @description return Opportunities using Loanapp_Reference__c
      * using SYSTEM_MODE SOQL to scan through all ML Opportunities
@@ -102,9 +161,6 @@ public class OpportunityActionsRepository {
     public List<Opportunity> getOpportunityByLoanappReference(
       Set<String> larSet
     ) {
-      if (larSet.isEmpty()) {
-        return new List<Opportunity>();
-      }
       return [
         SELECT Id, Loanapp_Reference__c
         FROM Opportunity

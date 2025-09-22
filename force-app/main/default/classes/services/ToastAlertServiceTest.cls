@@ -14,6 +14,7 @@ public with sharing class ToastAlertServiceTest {
     ResidentialLoanApplication rla = TestDataFactory.createTestResidentialLoanApplication();
     rla.AccountId = acc.Id;
     rla.Credit_Reassess_Required__c = false;
+    rla.RecordTypeId = RTResidentialLoanApplication.rlsResidentialLoanApplication;
     insert rla;
 
     Case caseCR = new Case(
@@ -49,6 +50,7 @@ public with sharing class ToastAlertServiceTest {
     ResidentialLoanApplication rla = TestDataFactory.createTestResidentialLoanApplication();
     rla.AccountId = acc.Id;
     rla.Credit_Reassess_Required__c = false;
+    rla.RecordTypeId = RTResidentialLoanApplication.rlsResidentialLoanApplication;
     insert rla;
 
     Test.startTest();

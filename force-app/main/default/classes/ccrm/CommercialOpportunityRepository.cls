@@ -4,7 +4,12 @@
  * @description This class contains public repository for all queries used in CommercialOpportunityctions
  */
 public with sharing class CommercialOpportunityRepository {
+  private static final String STATUS_COMPLETED = 'Completed';
+  private static final String STATUS_NOT_REQUIRED = 'Not required';
+  private static final String OPP_WON = 'Opportunity Won';
+  private static final String OPP_LOST = 'Opportunity Lost';
   private static final String CLG = 'Customer Lending Group';
+  public static final String RECIPROCAL_ROLE_FOR_CLG = 'CG';
   /**
    * @description getUsers to get user records
    * @param userIds set of user ids
@@ -35,8 +40,8 @@ public with sharing class CommercialOpportunityRepository {
       FROM Task
       WHERE
         WhatId IN :oppIds
-        AND Status != :CCRMConstants.STATUS_COMPLETED
-        AND Status != :CCRMConstants.STATUS_NOT_REQUIRED
+        AND Status != :STATUS_COMPLETED
+        AND Status != :STATUS_NOT_REQUIRED
       WITH USER_MODE
       GROUP BY WhatId
     ]) {
@@ -77,8 +82,8 @@ public with sharing class CommercialOpportunityRepository {
       FROM ApplicationFormProduct
       WHERE
         ApplicationForm.OpportunityId IN :oppIds
-        AND (Stage = :CCRMConstants.OPP_LOST
-        OR Stage = :CCRMConstants.OPP_WON)
+        AND (Stage = :OPP_LOST
+        OR Stage = :OPP_WON)
       WITH USER_MODE
     ];
   }
@@ -127,9 +132,39 @@ public with sharing class CommercialOpportunityRepository {
 
     return new Map<Id, Account>(
       [
-        SELECT Id, Name, RecordTypeId
+        SELECT
+          Id,
+          Name,
+          RecordTypeId,
+          FinServ__Status__c,
+          CLG__c,
+          CPID__c,
+          Controlling_Post__c,
+          Controlling_Post__r.OwnerId,
+          RecordType.Name
         FROM Account
         WHERE Id IN :accountIdsSet
+        WITH USER_MODE
+      ]
+    );
+  }
+
+  /**
+   * @description to query account records
+   * @name getActiveAccountMap
+   * @param accountIdsSet set of Account Ids
+   * @return Map<Id, Account>
+   */
+  public Map<Id, Account> getActiveAccountMap(Set<Id> accountIdsSet) {
+    if (accountIdsSet.isEmpty()) {
+      return new Map<Id, Account>();
+    }
+
+    return new Map<Id, Account>(
+      [
+        SELECT Id, Name, RecordTypeId, FinServ__Status__c
+        FROM Account
+        WHERE Id IN :accountIdsSet AND FinServ__Status__c != 'Active'
         WITH USER_MODE
       ]
     );
@@ -156,7 +191,8 @@ public with sharing class CommercialOpportunityRepository {
         Stage,
         Lost_reason__c,
         Lost_Reason_Detail__c,
-        Won_from_Lost_to__c
+        Won_from_Lost_to__c,
+        Opportunity_Product__c
       FROM ApplicationFormProduct
       WHERE ApplicationForm.OpportunityId IN :oppIds
       WITH USER_MODE
@@ -179,6 +215,57 @@ public with sharing class CommercialOpportunityRepository {
       SELECT Id, OpportunityId, Product2Id
       FROM OpportunityLineItem
       WHERE OpportunityId IN :oppIds
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description getLostAFPRelatedToOpportunity gets lost AFP's related to opp
+   * @param oppIds set of oppportunity ids
+   * @return List<ApplicationFormProduct> app form products list
+   */
+  public List<Opportunity> getOpportunity(Set<Id> oppIds) {
+    if (oppIds.isEmpty()) {
+      return new List<Opportunity>();
+    }
+
+    return [
+      SELECT Id, AccountId, Lead_Converted__c, Name, Opp_Id__c, recordtypeId
+      FROM Opportunity
+      WHERE Id IN :oppIds
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description getLostAFPRelatedToOpportunity gets lost AFP's related to opp
+   * @param accountIds set of oppportunity ids
+   * @return List<ApplicationFormProduct> app form products list
+   */
+  public List<FinServ__AccountAccountRelation__c> getAccountAccountRelationsForCLG(
+    Set<Id> accountIds
+  ) {
+    if (accountIds.isEmpty()) {
+      return new List<FinServ__AccountAccountRelation__c>();
+    }
+
+    List<FinServ__ReciprocalRole__c> roleId = [
+      SELECT Id
+      FROM FinServ__ReciprocalRole__c
+      WHERE Name = :RECIPROCAL_ROLE_FOR_CLG
+      WITH USER_MODE
+      LIMIT 1
+    ];
+
+    if (roleId.isEmpty()) {
+      return new List<FinServ__AccountAccountRelation__c>();
+    }
+    return [
+      SELECT FinServ__Account__c, FinServ__RelatedAccount__c
+      FROM FinServ__AccountAccountRelation__c
+      WHERE
+        FinServ__Account__c IN :accountIds
+        AND FinServ__Role__c = :roleId[0].Id
       WITH USER_MODE
     ];
   }

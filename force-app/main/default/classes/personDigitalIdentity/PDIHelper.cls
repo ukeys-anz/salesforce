@@ -19,7 +19,7 @@ public with sharing class PDIHelper {
     if (filterField == 'PersonId') {
       return filterValue;
     }
-    if (filterField == 'ExternalId') {
+    if (filterValue.startsWith('person/')) {
       return parseResourcePath(filterValue, 'person');
     }
     throw new IllegalArgumentException('Invalid filter field ' + filterField);
@@ -42,5 +42,18 @@ public with sharing class PDIHelper {
       throw new IllegalArgumentException(key + ' found at end of ' + path);
     }
     return tokens[idx];
+  }
+
+  /**
+   * @description Reverses the key-value pairs in a map.
+   * @param inputMap The map to be flipped.
+   * @return A new map with keys and values swapped.
+   */
+  public static Map<String, String> flipMap(Map<String, String> inputMap) {
+    Map<String, String> flippedMap = new Map<String, String>();
+    for (String key : inputMap.keySet()) {
+      flippedMap.put(inputMap.get(key), key);
+    }
+    return flippedMap;
   }
 }

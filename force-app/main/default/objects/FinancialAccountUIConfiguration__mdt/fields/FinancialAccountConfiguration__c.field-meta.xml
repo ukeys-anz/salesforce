@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>This is to map the icon and transaction title to the corresponding type of financial account</description>
+    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>FinancialAccountConfiguration</label>
     <referenceTo>FinancialAccountConfiguration__mdt</referenceTo>

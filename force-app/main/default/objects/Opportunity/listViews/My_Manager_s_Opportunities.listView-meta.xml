@@ -9,6 +9,11 @@
     <columns>OPPORTUNITY.CLOSE_DATE</columns>
     <columns>OPPORTUNITY.AMOUNT</columns>
     <columns>CORE.USERS.FULL_NAME</columns>
+    <columns>Owner_Role__c</columns>
+    <columns>Owner_Segment__c</columns>
+    <columns>Owner_State__c</columns>
+    <columns>Owner_Region__c</columns>
+    <columns>Owner_Team_POD__c</columns>
     <filters>
         <field>My_Manager_Opps__c</field>
         <operation>equals</operation>
