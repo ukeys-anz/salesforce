@@ -10,7 +10,8 @@
         RecordType.DeveloperName = &quot;Card_Dispute&quot;,
         RecordType.DeveloperName = &quot;Direct_Debit_Dispute&quot;,
         RecordType.DeveloperName = &quot;Direct_Entry_Dispute&quot;,
-        RecordType.DeveloperName = &quot;NPP_Dispute&quot;
+            RecordType.DeveloperName = &quot;NPP_Dispute&quot;,
+        RecordType.DeveloperName = &quot;IMT_Dispute&quot;
     ),
     NOT(ISPICKVAL(Status,&quot;Open&quot;)),
     OR(

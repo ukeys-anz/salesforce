@@ -540,6 +540,116 @@
                 <default>false</default>
                 <label>Resolved-SystemError</label>
             </value>
+            <value>
+                <fullName>FundsReturned</fullName>
+                <default>false</default>
+                <label>FundsReturned</label>
+            </value>
+            <value>
+                <fullName>Pending</fullName>
+                <default>false</default>
+                <label>Pending</label>
+            </value>
+            <value>
+                <fullName>Pending-Accounting</fullName>
+                <default>false</default>
+                <label>Pending-Accounting</label>
+            </value>
+            <value>
+                <fullName>Pending-AddtlInfo</fullName>
+                <default>false</default>
+                <label>Pending-AddtlInfo</label>
+            </value>
+            <value>
+                <fullName>Pending-BusSupport</fullName>
+                <default>false</default>
+                <label>Pending-BusSupport</label>
+            </value>
+            <value>
+                <fullName>Pending-CaseLocked</fullName>
+                <default>false</default>
+                <label>Pending-CaseLocked</label>
+            </value>
+            <value>
+                <fullName>Pending-Claim</fullName>
+                <default>false</default>
+                <label>Pending-Claim</label>
+            </value>
+            <value>
+                <fullName>Pending-Cust</fullName>
+                <default>false</default>
+                <label>Pending-Cust</label>
+            </value>
+            <value>
+                <fullName>Pending-Diarise</fullName>
+                <default>false</default>
+                <label>Pending-Diarise</label>
+            </value>
+            <value>
+                <fullName>Pending-External</fullName>
+                <default>false</default>
+                <label>Pending-External</label>
+            </value>
+            <value>
+                <fullName>Pending-PolicyOverride</fullName>
+                <default>false</default>
+                <label>Pending-PolicyOverride</label>
+            </value>
+            <value>
+                <fullName>Pending-Printing</fullName>
+                <default>false</default>
+                <label>Pending-Printing</label>
+            </value>
+            <value>
+                <fullName>Pending-Research</fullName>
+                <default>false</default>
+                <label>Pending-Research</label>
+            </value>
+            <value>
+                <fullName>Pending-Resolution</fullName>
+                <default>false</default>
+                <label>Pending-Resolution</label>
+            </value>
+            <value>
+                <fullName>Pending-ReviewMessage</fullName>
+                <default>false</default>
+                <label>Pending-ReviewMessage</label>
+            </value>
+            <value>
+                <fullName>Pending-Undiarised</fullName>
+                <default>false</default>
+                <label>Pending-Undiarised</label>
+            </value>
+            <value>
+                <fullName>Pending-Verification</fullName>
+                <default>false</default>
+                <label>Pending-Verification</label>
+            </value>
+            <value>
+                <fullName>Resolved-Rejected</fullName>
+                <default>false</default>
+                <label>Resolved-Rejected</label>
+            </value>
+            <value>
+                <fullName>New SF</fullName>
+                <default>false</default>
+                <label>New SF</label>
+            </value>
+            <value>
+                <fullName>Resolved-Adjusted</fullName>
+                <default>false</default>
+                <label>Resolved-Adjusted</label>
+            </value>
+            <value>
+                <fullName>Resolved-No Action</fullName>
+                <default>false</default>
+                <label>Resolved-No Action</label>
+            </value>
+            <value>
+                <fullName>Resolved-NotPaid</fullName>
+                <default>false</default>
+                <label>Resolved-NotPaid</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

@@ -312,6 +312,11 @@
         <field>FinServ__FinancialAccount__c.FinServ__Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Product2.Sub_Product_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>PEGA Integration</label>
     <objectPermissions>
@@ -374,6 +379,10 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Case.Card_Dispute</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Case.IMT_Dispute</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
