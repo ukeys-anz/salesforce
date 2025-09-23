@@ -261,7 +261,6 @@ mdapi-source/packages/installedPackages/trailheadapp.installedPackage
 # AR-224436 Temporary added for renamed transactionSecurityPolicies to be deploy manually due to duplicate security policy error
 force-app/main/default/transactionSecurityPolicies
 
-
 # AR-218280 Highly previleged permission set, forceignore to ensure it is not
 # deploy automatically to high environments
 force-app/main/default/permissionsets/View_All_Fields.permissionset-meta.xml
@@ -317,3 +316,7 @@ force-app/main/default/flows/Bypass_Automation_Request_Grant_Revoke_Flow.flow-me
 force-app/main/core/objects/Privileged_Access_Request__c/fields/Access_Request_Record_Type_Name__c.field-meta.xml
 force-app/main/core/objects/Access_Request__c/recordTypes/Bypass_Automation_Request.recordType-meta.xml
 force-app/main/default/flows/Bypass_Automation_Request_Grant_Revoke_Flow.flow-meta.xml
+
+
+# AR-224436 Temporary added for renamed transactionSecurityPolicies to be deploy manually due to duplicate security policy error
+force-app/main/default/transactionSecurityPolicies

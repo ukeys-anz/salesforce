@@ -40,6 +40,27 @@ public with sharing class TSPRepository {
   }
 
   /**
+   * @description to query the Permission Set Assignment for a specific user and permission set.
+   *
+   * @param userId The Id of the user for whom the permission set assignment is being queried.
+   * @param psId The Id of the permission set to check for assignment.
+   * @return A list of PermissionSetAssignment records that match the specified user and permission set.
+   *         The list will contain at most one record, as the query is limited to 1.
+   */
+  public PermissionSetAssignment queryPermissionSetAssignmentById(
+    Id userId,
+    String psId
+  ) {
+    return [
+      SELECT Id
+      FROM PermissionSetAssignment
+      WHERE AssigneeId = :userId AND PermissionSetId = :psId AND isActive = TRUE
+      WITH USER_MODE
+      LIMIT 1
+    ] ?? null;
+  }
+
+  /**
    * @description get ContentVersion Record for TSP
    * @param fileEventStore fileEventStore event
    * @return List<ContentVersion>

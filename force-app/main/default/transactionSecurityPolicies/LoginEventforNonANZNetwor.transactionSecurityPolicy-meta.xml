@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TransactionSecurityPolicy xmlns="http://soap.sforce.com/2006/04/metadata">
     <action>
-        <block>false</block>
+        <block>true</block>
         <endSession>false</endSession>
         <freezeUser>false</freezeUser>
         <notifications>
@@ -12,10 +12,10 @@
         <twoFactorAuthentication>false</twoFactorAuthentication>
     </action>
     <active>true</active>
-    <apexClass>TSPHandler</apexClass>
-    <description>Transaction Security Policies for LoginEvent</description>
-    <developerName>ReportLoginEvent</developerName>
+    <apexClass>NonANZNetworkEventHandler</apexClass>
+    <description>LoginEvent for Non ANZ Network Policy for ANZ Plus Salesforce Access Source IP Control.</description>
+    <developerName>LoginEventforNonANZNetwor</developerName>
     <eventName>LoginEvent</eventName>
-    <masterLabel>Report Login Event</masterLabel>
+    <masterLabel>LoginEvent for Non ANZ Network Policy</masterLabel>
     <type>CustomApexPolicy</type>
 </TransactionSecurityPolicy>
