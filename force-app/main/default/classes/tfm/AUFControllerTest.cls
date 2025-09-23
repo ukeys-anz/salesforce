@@ -48,7 +48,8 @@ public with sharing class AUFControllerTest {
         Status__c = 'Active',
         PIN_Status__c = 'Active',
         IAL_Identity_Assurance_Level__c = 4,
-        Id = personDigitalIds[0]
+        Id = personDigitalIds[0],
+        Mobile_Number__c = '00610418191111'
       );
       personDigitalIdRecList.add(digitalIdentityRecord);
 

@@ -38,14 +38,15 @@ public with sharing class MobileLendingOpportunityTriggerHandler extends Lib_Tri
     OpportunityActions.populateName(records);
 
     //CC-1159 to set the territory for ML Records based on matching user territory default record.
-    MLCRMCommonUtils.assignTerritoryForMLRecord(records);
+    TerritoryCommonUtils.assignTerritoryForMLRecord(records);
+
     //CC-1058 This method to validate territory and owner change on Sobject to make sure it happen within user's territory.
-    MLCRMCommonUtils.validateTerritoryAndOwnerChange(null, records);
+    TerritoryCommonUtils.validateTerritoryAndOwnerChange(null, records);
 
     //CC-4053 Redaction
     TextUtils.maskSObjectDataANZExtended(records, 'Description');
 
-    MLCRMCommonUtils.referrerPrefill(records, null);
+    ReferrerActions.referrerPrefill(records, null);
   }
 
   /**
@@ -53,7 +54,7 @@ public with sharing class MobileLendingOpportunityTriggerHandler extends Lib_Tri
    */
   public override void onAfterInsert() {
     //CC-1252-Make Opportunities visible to Owners & users above them in the ML hierarchy
-    MLCRMSharingUtil.shareRecordByTerritory(null, records, 'Opportunity');
+    TerritorySharingUtil.shareRecordByTerritory(null, records, 'Opportunity');
     OpportunityActions.createOpportunityContactRole(records);
     OpportunityActions.createCustomerRelationshipRecords(records);
   }
@@ -89,11 +90,14 @@ public with sharing class MobileLendingOpportunityTriggerHandler extends Lib_Tri
     );
 
     //CC-1159 to set the territory for ML Records based on matching user territory default record.
-    MLCRMCommonUtils.assignTerritoryForMLRecord(records);
+    TerritoryCommonUtils.assignTerritoryForMLRecord(records);
+    TerritoryCommonUtils.assignTerritoryOnOwnerChange(oldMap, records);
     //CC-7788 and CC-8135 This method is used to validate that loan writer and franchise admin cannot change the owner of the record not owner by themself
-    MLCRMCommonUtilsHelper.validateOwnerChange(oldMap, records);
+    TerritoryCommonUtilsHelper.validateOwnerChange(oldMap, records);
+
     //CC-1058-This method to validate territory and owner change on Sobject to make sure it happen within user's territory.
-    MLCRMCommonUtils.validateTerritoryAndOwnerChange(oldMap, records);
+    TerritoryCommonUtils.validateTerritoryAndOwnerChange(oldMap, records);
+
     OpportunityActions.updatePrimaryApplicantOnUpdate(
       records,
       (Map<Id, Opportunity>) oldMap
@@ -101,7 +105,7 @@ public with sharing class MobileLendingOpportunityTriggerHandler extends Lib_Tri
 
     //CC-4053 Redaction
     TextUtils.maskSObjectDataANZExtended(records, 'Description');
-    MLCRMCommonUtils.referrerPrefill(records, oldMap);
+    ReferrerActions.referrerPrefill(records, oldMap);
   }
 
   /**
@@ -111,7 +115,7 @@ public with sharing class MobileLendingOpportunityTriggerHandler extends Lib_Tri
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     //CC-1252-Make Opportunities visible to Owners & users above them in the ML hierarchy
-    MLCRMSharingUtil.shareRecordByTerritory(oldMap, records, 'Opportunity');
+    TerritorySharingUtil.shareRecordByTerritory(oldMap, records, 'Opportunity');
     OpportunityActions.updateOCRSyncRecordsOnLARChange(
       records,
       (Map<Id, Opportunity>) oldMap

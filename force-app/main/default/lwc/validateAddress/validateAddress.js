@@ -12,8 +12,8 @@ import LEAD_STATE from "@salesforce/schema/Lead.State";
 import LEAD_COUNTRY from "@salesforce/schema/Lead.Country";
 import LEAD_POSTAL_CODE from "@salesforce/schema/Lead.PostalCode";
 import LEAD_IS_VALID_ADDRESS from "@salesforce/schema/Lead.Is_Valid_Address__c";
-import getCountryNameToCodeMap from "@salesforce/apex/MLCRMCommonUtils.getCountryNameToCodeMap";
-import getStateNameToCodeMap from "@salesforce/apex/MLCRMCommonUtils.getStateNameToCodeMap";
+import getCountryNameToCodeMap from "@salesforce/apex/ValidateAddessLookupUtil.getCountryNameToCodeMap";
+import getStateNameToCodeMap from "@salesforce/apex/ValidateAddessLookupUtil.getStateNameToCodeMap";
 
 // Util methods
 import { handleErrorShowToast } from "c/utils";

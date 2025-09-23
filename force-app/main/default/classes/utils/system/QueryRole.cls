@@ -20,6 +20,9 @@ public with sharing class QueryRole {
 
   public static UserRole joinLead = get('Join_Lead');
   public static UserRole fraudXAgent = get('FraudX_Agent');
+  public static UserRole mlFranchiseRole = get(
+    'Mobile_Lending_Franchise_Users'
+  );
 
   public static UserRole bohCoachRole = get('BOH_Coach');
   public static UserRole bohCoachLeadRole = get('BOH_Coach_Lead');

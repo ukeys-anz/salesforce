@@ -2,8 +2,15 @@
  * @author Adam Smith
  * @since 20220627
  * @description Class providing helpers regarding Events & Interactions
+ * Note Dynamic query in querySobjects method will run max 3 times.
  */
 public with sharing class InteractionEventHelper {
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
+  private static final InteractionActionsRepository INTERACTION_ACTION_REPOSITORY = (InteractionActionsRepository) Lib_InstanceProvider.forType(
+    InteractionActionsRepository.class
+  );
   /**
    * @description deletes events linked to a list of interactions
    * @param interactions List of interactions to search through and delete related events.
@@ -15,9 +22,12 @@ public with sharing class InteractionEventHelper {
     }
 
     List<Event> linkedEvents = EventHelper.queryRelatedEvents(interactionIds);
+    DmlConfig dmlConfigRecord = new DmlConfig();
+    dmlConfigRecord.systemMode();
+    dmlConfigRecord.withoutSharing();
 
     if (!linkedEvents.isEmpty()) {
-      EventDeleteHelper.deleteEvents(linkedEvents);
+      DML_REPOSITORY.doDelete(linkedEvents, dmlConfigRecord);
     }
   }
 
@@ -86,71 +96,119 @@ public with sharing class InteractionEventHelper {
   public static void assignDefaultTerritory(
     List<Interaction> lstOfInteraction
   ) {
-    Map<String, Set<Id>> mapOfParentNameToIds = new Map<String, Set<Id>>();
-    Map<Id, Sobject> mapOfSobject = new Map<Id, SObject>();
-    Territory_Based_Sharing_Config__mdt objMetadata = MLCRMSharingUtil.getTerritoryRecords(
+    Territory_Based_Sharing_Config__mdt objMetadata = QueryTerritoryBasedSharingConfig.get(
       'Interaction'
     );
-    if (objMetadata.Lookup_Fields__c != null) {
-      List<String> lstOfLookUpFields = objMetadata.Lookup_Fields__c.split(';');
-      for (Interaction objInteraction : lstOfInteraction) {
-        if (
-          objInteraction.recordTypeId == MLCRMConstants.ML_INTERACTION_RT_ID
-        ) {
-          for (String str : lstOfLookUpFields) {
-            Id strLookupId = (Id) objInteraction.get(str);
-            String strObjectName = strLookupId
-              ?.getSObjectType()
-              ?.getDescribe()
-              ?.getName();
-            if (
-              strLookupId != null &&
-              !mapOfParentNameToIds.containsKey(strObjectName)
-            ) {
-              mapOfParentNameToIds.put(
-                strObjectName,
-                new Set<Id>{ strLookupId }
-              );
-              break;
-            } else if (
-              strLookupId != null &&
-              mapOfParentNameToIds.containsKey(strObjectName)
-            ) {
-              mapOfParentNameToIds.get(strObjectName).add(strLookupId);
-              break;
-            }
-          }
-        }
-      }
+    Map<String, Set<Id>> mapOfParentNameToIds = collectParentIds(
+      lstOfInteraction,
+      objMetadata
+    );
+    Map<Id, Sobject> mapOfSobject = collectSobjectsRecords(
+      mapOfParentNameToIds
+    );
+    updateTerritoryForInteractions(lstOfInteraction, mapOfSobject, objMetadata);
+  }
 
-      if (!mapOfParentNameToIds.isEmpty()) {
-        for (String strObjectName : mapOfParentNameToIds.keySet()) {
-          Set<Id> setOfParentId = mapOfParentNameToIds.get(strObjectName);
-          String strQuery =
-            'SELECT Id,Territory__c FROM ' +
-            strObjectName +
-            ' WHERE Id IN: setOfParentId';
-          mapOfSobject.putAll(new Map<Id, Sobject>(Database.query(strQuery)));
+  /**
+   * @description This method is used to prepare map of object name to corresponding lookup ids
+   * @name collectParentIds
+   * @param lstOfMlInteraction list of ML interaction
+   * @param objMetadata territory metadata record
+   * @return Map<String, Set<Id>> map of object name to corresponding lookup ids
+   * @author Ashish Kumar
+   * @US CC-1058
+   */
+  @testVisible
+  private static Map<String, Set<Id>> collectParentIds(
+    List<Interaction> lstOfMlInteraction,
+    Territory_Based_Sharing_Config__mdt objMetadata
+  ) {
+    Map<String, Set<Id>> mapOfParentNameToIds = new Map<String, Set<Id>>();
+    if (objMetadata.Lookup_Fields__c == null) {
+      return mapOfParentNameToIds;
+    }
+
+    List<String> lstOfLookUpFields = objMetadata.Lookup_Fields__c.split(';');
+
+    for (Interaction objInteraction : lstOfMlInteraction) {
+      for (String strField : lstOfLookUpFields) {
+        Id strLookupId = (Id) objInteraction.get(strField);
+        if (strLookupId == null) {
+          continue;
         }
+        String strObjectName = strLookupId.getSObjectType().toString();
+        if (!mapOfParentNameToIds.containsKey(strObjectName)) {
+          mapOfParentNameToIds.put(strObjectName, new Set<Id>{ strLookupId });
+          break;
+        }
+        mapOfParentNameToIds.get(strObjectName).add(strLookupId);
+        break;
       }
-      for (Interaction objInteraction : lstOfInteraction) {
+    }
+    return mapOfParentNameToIds;
+  }
+
+  /**
+   * @description This method is used to prepare query and return map of corresponding sobject records
+   * @name collectSobjectsRecords
+   * @param mapOfParentNameToIds map of object name to corresponding lookup ids
+   * @return Map<Id, Sobject> map of sobject records
+   * @author Ashish Kumar
+   * @US CC-1058
+   */
+  @testVisible
+  private static Map<Id, Sobject> collectSobjectsRecords(
+    Map<String, Set<Id>> mapOfParentNameToIds
+  ) {
+    Map<Id, Sobject> mapOfSobject = new Map<Id, SObject>();
+    if (mapOfParentNameToIds.isEmpty()) {
+      return mapOfSobject;
+    }
+    for (String strObjectName : mapOfParentNameToIds.keySet()) {
+      Set<Id> setOfParentId = mapOfParentNameToIds.get(strObjectName);
+      if (setOfParentId == null) {
+        continue;
+      }
+      mapOfSobject.putAll(
+        INTERACTION_ACTION_REPOSITORY.executeQuery(strObjectName, setOfParentId)
+      );
+    }
+    return mapOfSobject;
+  }
+
+  /**
+   * @description This method is used to update ML interaction record with their valid territory
+   * @name updateTerritoryForInteractions
+   * @param lstOfMlInteraction list of ML interaction
+   * @param mapOfSobject map of sobject
+   * @param objMetadata territory metadata record
+   * @author Ashish Kumar
+   * @US CC-1058
+   */
+  @testVisible
+  private static void updateTerritoryForInteractions(
+    List<Interaction> lstOfMlInteraction,
+    Map<Id, Sobject> mapOfSobject,
+    Territory_Based_Sharing_Config__mdt objMetadata
+  ) {
+    if (objMetadata.Lookup_Fields__c == null) {
+      return;
+    }
+    List<String> lstOfLookUpFields = objMetadata.Lookup_Fields__c.split(';');
+    for (Interaction objInteraction : lstOfMlInteraction) {
+      for (String strField : lstOfLookUpFields) {
+        Id strLookupId = (Id) objInteraction.get(strField);
         if (
-          objInteraction.recordTypeId == MLCRMConstants.ML_INTERACTION_RT_ID
+          strLookupId == null ||
+          !mapOfSobject.containsKey((Id) objInteraction.get(strField))
         ) {
-          for (String str : lstOfLookUpFields) {
-            if (
-              mapOfSobject != null &&
-              objInteraction.get(str) != null &&
-              mapOfSobject.containsKey((Id) objInteraction.get(str))
-            ) {
-              objInteraction.Territory__c = (Id) mapOfSobject.get(
-                  (Id) objInteraction.get(str)
-                )
-                .get('Territory__c');
-              break;
-            }
-          }
+          continue;
         }
+        objInteraction.Territory__c = (Id) mapOfSobject.get(
+            (Id) objInteraction.get(strField)
+          )
+          .get('Territory__c');
+        break;
       }
     }
   }
