@@ -34,6 +34,8 @@ public with sharing class QueryQueue {
   public static Group coachRefQueue = get('No_CAD_Credit_Referral_Case_Queue');
   public static Group cadReferralQueue = get('CAD_Credit_Referral_Case_Queue');
   public static Group mlExpiredLeadsQueue = get('ML_Expired_Leads');
+  public static Group supportCoachQueue = get('Support_Coach_Queue');
+  public static Group cardDisputeFraudQueue = get('Card_Dispute_Fraud_Queue');
 
   /**
    * @description Returns a queue based on the provided name.

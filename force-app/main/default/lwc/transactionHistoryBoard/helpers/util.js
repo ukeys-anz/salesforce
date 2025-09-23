@@ -90,8 +90,12 @@ function processPayAnyone(transaction) {
       );
 
     //Need to check if account details are actually returned for pay anyone
-    //eslint-disable-next-line no-prototype-builtins
-    if (!transaction.pay_anyone.other_entity.hasOwnProperty("account")) {
+    if (
+      !Object.prototype.hasOwnProperty.call(
+        transaction.pay_anyone.other_entity,
+        "account"
+      )
+    ) {
       transaction.pay_anyone.other_entity.account = {
         bsb: "Unknown",
         transactionAccountNumber: "Unknown"

@@ -21,91 +21,91 @@ public with sharing class CloudEventBuildHelper {
     User theUser,
     CloudEventModel.UserModel theOwner
   ) {
-    CloudEventModel cloudEventModel;
     String caseRecordType = QueryRT.of(Case.SObjectType)
       .get(theCase.RecordTypeId)
       .getDeveloperName();
 
     switch on caseRecordType {
       when 'ATM_Dispute' {
-        cloudEventModel = new ATMDisputeCaseCloudEventModelV2(
+        return new ATMDisputeCaseCloudEventModelV2(
           theCase,
           theAccount,
           action,
           theUser,
           theOwner
         );
-        return cloudEventModel;
       }
       when 'Card_Dispute' {
-        cloudEventModel = new CardDisputeCaseCloudEventModelV2(
+        return new CardDisputeCaseCloudEventModelV2(
           theCase,
           theAccount,
           action,
           theUser,
           theOwner
         );
-        return cloudEventModel;
       }
       when 'NPP_Dispute' {
         if (theCase.Dispute_Reason__c == 'Unauthorised Transaction') {
-          cloudEventModel = new NPPFraudDisputeCaseCloudEventModel(
+          return new NPPFraudDisputeCaseCloudEventModel(
             theCase,
             theAccount,
             action,
             theUser,
             theOwner
           );
-          return cloudEventModel;
         }
-        cloudEventModel = new NPPDisputeCaseCloudEventModel(
+        return new NPPDisputeCaseCloudEventModel(
           theCase,
           theAccount,
           action,
           theUser,
           theOwner
         );
-        return cloudEventModel;
+      }
+      when 'IMT_Dispute' {
+        return new IMTDisputeCaseCloudEventModel(
+          theCase,
+          theAccount,
+          action,
+          theUser,
+          theOwner
+        );
       }
       when 'Direct_Debit_Dispute' {
-        cloudEventModel = new DirectDebitDisputeCaseCloudEventModel(
+        return new DirectDebitDisputeCaseCloudEventModel(
           theCase,
           theAccount,
           action,
           theUser,
           theOwner
         );
-        return cloudEventModel;
       }
       when 'Direct_Entry_Dispute' {
-        cloudEventModel = new DirectEntryDisputeCaseCloudEventModel(
+        return new DirectEntryDisputeCaseCloudEventModel(
           theCase,
           theAccount,
           action,
           theUser,
           theOwner
         );
-        return cloudEventModel;
       }
       when 'BPAY_Dispute' {
-        cloudEventModel = new BPayDisputeCaseCloudEventModel(
+        return new BPayDisputeCaseCloudEventModel(
           theCase,
           theAccount,
           action,
           theUser,
           theOwner
         );
-        return cloudEventModel;
       }
       when 'PayTo_Dispute' {
-        cloudEventModel = new PayToDisputeCaseCloudEventModel(
+        return new PayToDisputeCaseCloudEventModel(
           theCase,
           theAccount,
           action,
           theUser,
           theOwner
         );
-        return cloudEventModel;
       }
     }
     return null;
@@ -207,6 +207,16 @@ public with sharing class CloudEventBuildHelper {
           return cloudEventDataPayload;
         }
         NPPDisputeCaseCloudEventModel.NPPDisputeCaseCloudEventDataModel cloudEventDataModel = new NPPDisputeCaseCloudEventModel.NPPDisputeCaseCloudEventDataModel(
+          theCase,
+          theAccount,
+          theOwner,
+          theUser
+        );
+        cloudEventDataPayload = JSON.serialize(cloudEventDataModel);
+        return cloudEventDataPayload;
+      }
+      when 'IMT_Dispute' {
+        IMTDisputeCaseCloudEventModel.IMTDisputeCaseCloudEventDataModel cloudEventDataModel = new IMTDisputeCaseCloudEventModel.IMTDisputeCaseCloudEventDataModel(
           theCase,
           theAccount,
           theOwner,
