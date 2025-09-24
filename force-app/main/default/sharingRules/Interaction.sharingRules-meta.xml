@@ -376,19 +376,6 @@
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
-        <fullName>ML_Sharing_Rule_ML_to_Franchise_Team</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>Share interactions from &apos;ANZ Mobile Lending Team&apos; To &apos;Mobile
-            Lending Franchise Users&apos; with Read Only Access</description>
-        <label>ML Sharing Rule ML to Franchise Team</label>
-        <sharedTo>
-            <roleAndSubordinates>Mobile_Lending_Franchise_Users</roleAndSubordinates>
-        </sharedTo>
-        <sharedFrom>
-            <role>ANZ_Mobile_Lending_Team</role>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
         <fullName>ML_Sharing_Rule_ML_to_ML_Team</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Share Interactions from Mobile Lending Team to Mobile Lending Team</description>

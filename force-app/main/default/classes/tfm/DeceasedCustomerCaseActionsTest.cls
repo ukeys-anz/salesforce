@@ -72,4 +72,28 @@ public with sharing class DeceasedCustomerCaseActionsTest {
       'Account is not updated'
     );
   }
+
+  @IsTest
+  static void testUpdateOwner() {
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id caseId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    List<Case> records = new List<Case>{
+      new Case(
+        Id = caseId,
+        AccountId = accId,
+        Status = 'Closed',
+        Type = 'Deceased Estate',
+        Sub_Type__c = 'Removal of Electronic Access',
+        Auto_Created__c = false
+      )
+    };
+    Test.startTest();
+    DeceasedCustomerCaseActions.updateOwner(records);
+    Test.stopTest();
+    Assert.areEqual(
+      QueryQueue.get('ID_Ops_Queue').Id,
+      records[0].OwnerId,
+      'Owner is not updated'
+    );
+  }
 }
