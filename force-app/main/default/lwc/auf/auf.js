@@ -13,6 +13,8 @@ import { NavigationMixin } from "lightning/navigation";
 import { getFocusedTabInfo, refreshTab } from "lightning/platformWorkspaceApi";
 
 const SUCCESS_MESSAGE = "Operation is completed successfully.";
+const UNSUSPEND_ERROR =
+  "Unable to unsuspend profile until the customer has a valid mobile number.";
 
 const ARCHIVE_ACC_NOT_CLOSED =
   "Please ensure that all accounts are closed, before archiving the Aegis profile.";
@@ -132,7 +134,11 @@ export default class AssistedUserFunctions extends NavigationMixin(
     this.showSpinner = true;
     let statusValue = this.actionName === "Suspend" ? "Suspended" : "active";
     updateStatus({ recordId: this.recordId, action: statusValue })
-      .then(() => {
+      .then((result) => {
+        if (!result) {
+          this.toast.error(UNSUSPEND_ERROR);
+          return;
+        }
         this.toast.success(SUCCESS_MESSAGE);
         this.performRefreshActions();
       })

@@ -3,8 +3,13 @@
     <fullName>MLCRM_FieldTeam_Owner_Change</fullName>
     <active>true</active>
     <description>ML Field Team should be able to change owner only</description>
-    <errorConditionFormula>AND( $Permission.ML_Field_Team_Owner_Change ,
-NOT(ISCHANGED( OwnerId ) )
+    <errorConditionFormula>AND(
+        $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+        $Profile.Name = &quot;ANZ ML Standard User&quot;,
+        RecordType.DeveloperName = &apos;MLCRM_Opportunity&apos;,
+        NOT($Permission.ML_Edit_ML_Leads_Opportunities),
+        NOT(ISCHANGED(OwnerId)),
+        NOT(ISCHANGED(Opportunity_Owner__c))
 )</errorConditionFormula>
     <errorMessage>You only have the permission to change the owner</errorMessage>
 </ValidationRule>

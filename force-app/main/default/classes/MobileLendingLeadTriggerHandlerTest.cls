@@ -96,24 +96,31 @@ public class MobileLendingLeadTriggerHandlerTest {
   static void testBeforeInsert() {
     registerMocks();
     Lead newLead = getMLCRMLead();
-
-    leadMockProvider.mock(
-      'getCampaignRecords',
-      new List<Campaign>{
-        new Campaign(Code__c = 'IKCMP-1670', Id = campaignId)
-      }
-    );
-
+    newLead.Lead_Originator__c = 'Adobe';
     Account testAccount = new Account(
       Id = Lib_FakeIdGenerator.getMockId(Schema.Account.getSObjectType()),
       Name = 'Test Account',
       Source_System_Name__c = 'CAP-CIS',
       Source_System_ID__c = '4025663541'
     );
-    registerMocks();
+    //mocking
+    leadMockProvider.mock(
+      'getCampaignRecords',
+      new List<Campaign>{
+        new Campaign(Code__c = 'IKCMP-1670', Id = campaignId)
+      }
+    );
     leadMockProvider.mock(
       'getRelatedAccounts',
       new List<Account>{ testAccount }
+    );
+    Id userId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    userActionsRepositoryMock.mock('isIntegrationUser', true);
+    userActionsRepositoryMock.mock(
+      'getUserMapFromUserIds',
+      new Map<Id, User>{
+        userId => new User(id = userId, Lan_Id__c = 'test123')
+      }
     );
 
     Test.startTest();
@@ -134,17 +141,19 @@ public class MobileLendingLeadTriggerHandlerTest {
     Id leadId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
     Id territoryId = Lib_FakeIdGenerator.getMockId(Territory__c.SObjectType);
     registerMocks();
+
     Lead oldLead = getMLCRMLead();
     oldLead.Id = leadId;
+    oldLead.Territory__c = territoryId;
     //update lead values
     Lead newLead = getMLCRMLead();
     newLead.Id = leadId;
     newLead.Status = 'In progress';
     newLead.Description = 'DL-22222222, CC - 1234567812345678, PP- PA112222233';
     newLead.Territory__c = territoryId;
-
     Map<Id, Lead> oldMap = new Map<Id, Lead>{ oldLead.Id => oldLead };
-
+    //mocking
+    userActionsRepositoryMock.mock('isIntegrationUser', true);
     Test.startTest();
     MobileLendingLeadTriggerHandler handler = new MobileLendingLeadTriggerHandler();
     handler.records = new List<Lead>{ newLead };
@@ -157,7 +166,6 @@ public class MobileLendingLeadTriggerHandlerTest {
       'Keyword entered in Description should be masked'
     );
   }
-
   @isTest
   static void testAfterInsert() {
     registerMocks();
@@ -214,7 +222,6 @@ public class MobileLendingLeadTriggerHandlerTest {
       .getParam('records');
     Assert.isTrue(!cmCreated.isEmpty(), 'campaign members should be created!');
   }
-
   @isTest
   static void testAfterUpdate() {
     registerMocks();
@@ -246,6 +253,7 @@ public class MobileLendingLeadTriggerHandlerTest {
       whoId = leadId,
       Id = Lib_FakeIdGenerator.getMockId(Task.SObjectType)
     );
+    leadMockProvider.mock('getLeadList', new List<Lead>());
     leadMockProvider.mock(
       new Map<String, Object>{
         'getTaskRecords' => new List<Task>{ taskRecord },

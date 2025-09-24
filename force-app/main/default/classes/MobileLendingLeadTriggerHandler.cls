@@ -43,13 +43,13 @@ public with sharing class MobileLendingLeadTriggerHandler extends Lib_TriggerHan
     LeadActionsHelper.populateRelatedAccount(records);
     LeadActionsHelper.populateLeadSourceForAdobeOrigin(records);
     LeadActionsHelper.populateLeadSourceForUnicaOrigin(records);
-    MLCRMCommonUtils.referrerPrefill(records, null);
+    ReferrerActions.referrerPrefill(records, null);
     LeadManagementActions.populateFromPreviousLead(records);
     LeadManagementActions.prefillManualLeadsFromAccountOnInsert(records);
     LeadManagementActions.prefillUnicaLeadsFromAccountOnInsert(records);
     LeadManagementActions.setDuplicateBlock(records, null);
-    MLCRMCommonUtils.assignTerritoryForMLRecord(records);
-    MLCRMCommonUtils.validateTerritoryAndOwnerChange(null, records);
+    TerritoryCommonUtils.assignTerritoryForMLRecord(records);
+    TerritoryCommonUtils.validateTerritoryAndOwnerChange(null, records);
     MobileLendingLeadActions.populatePrimaryFranchise(records, null);
     TextUtils.maskSObjectDataANZExtended(records, 'Description'); //CC-4053 Redaction
   }
@@ -61,7 +61,7 @@ public with sharing class MobileLendingLeadTriggerHandler extends Lib_TriggerHan
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     MobileLendingLeadActions.setExpiryDate(records, ((Map<Id, Lead>) oldMap));
-    MLCRMCommonUtils.referrerPrefill(records, oldMap);
+    ReferrerActions.referrerPrefill(records, oldMap);
     if (!LeadConversionController.leadConverionFlow) {
       LeadManagementActions.prefillManualLeadsFromAccountOnUpdate(
         records,
@@ -75,9 +75,9 @@ public with sharing class MobileLendingLeadTriggerHandler extends Lib_TriggerHan
     );
     LeadManagementActions.updateLeadStatus(records, (Map<Id, Lead>) oldMap);
     MobileLendingLeadActions.noLongerNewLeads((Map<Id, Lead>) oldMap, records);
-    MLCRMCommonUtils.assignTerritoryForMLRecord(records);
-    MLCRMCommonUtilsHelper.validateOwnerChange(oldMap, records);
-    MLCRMCommonUtils.validateTerritoryAndOwnerChange(oldMap, records);
+    TerritoryCommonUtils.assignTerritoryForMLRecord(records);
+    TerritoryCommonUtilsHelper.validateOwnerChange(oldMap, records);
+    TerritoryCommonUtils.validateTerritoryAndOwnerChange(oldMap, records);
     MobileLendingLeadActions.populatePrimaryFranchise(
       records,
       (Map<Id, Lead>) oldMap
@@ -92,7 +92,7 @@ public with sharing class MobileLendingLeadTriggerHandler extends Lib_TriggerHan
   public override void onAfterInsert() {
     LeadManagementActions.createCampaignMember(records);
     LeadManagementActions.copyLeadId(records);
-    MLCRMSharingUtil.shareRecordByTerritory(null, records, 'Lead');
+    TerritorySharingUtil.shareRecordByTerritory(null, records, 'Lead');
     LeadManagementActions.notifyLeadOwners(null, records);
     //Keep these methods at end
     LeadManagementActions.sendManualLeadsToUnica(records, null);
@@ -112,7 +112,11 @@ public with sharing class MobileLendingLeadTriggerHandler extends Lib_TriggerHan
       records,
       (Map<Id, Lead>) oldMap
     );
-    MLCRMSharingUtil.shareRecordByTerritory(oldMap, records, 'Lead');
+    MobileLendingLeadActions.assignTerritoryOnOwnerChange(
+      (Map<Id, Lead>) oldMap,
+      records
+    );
+    TerritorySharingUtil.shareRecordByTerritory(oldMap, records, 'Lead');
     LeadManagementActions.notifyLeadOwners((Map<Id, Lead>) oldMap, records);
   }
 }

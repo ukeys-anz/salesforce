@@ -14,6 +14,9 @@ public with sharing class MobileLendingLeadActions {
   private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(
     UserInfoRepository.class
   );
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
 
   private static set<String> setOfFollowUpForContactAttempted = new Set<String>{
     'Call Back',
@@ -291,5 +294,42 @@ public with sharing class MobileLendingLeadActions {
       .isNull(Lead.Expiry_Date__c)
       .toList();
     ListUtil.setField(filteredLeads, Lead.Expiry_Date__c, expiryDate);
+  }
+
+  /**
+   * @description This method to get map of OwnerId and User record
+   * @name assignTerritoryOnOwnerChange
+   * @param oldMapSobject old map of sobject
+   * @param lstOfSobject each sobject record
+   * @author Ashish Kumar
+   * @US CC-16111
+   */
+  public static void assignTerritoryOnOwnerChange(
+    Map<Id, Lead> oldMapSobject,
+    List<Lead> lstOfSobject
+  ) {
+    if (UserInfo.getUserRoleId() == QueryRole.mlFranchiseRole.Id) {
+      return;
+    }
+    List<Sobject> lstOfOwnerChangeRecord = ListUtil.filter(
+        lstOfSobject,
+        oldMapSobject
+      )
+      .changed(Lead.OwnerId)
+      .toList();
+    Set<Id> setOfLeadIs = ListUtil.getIds(lstOfOwnerChangeRecord, Lead.Id);
+    List<Lead> lstOfOwnerChangeRecords = LA_REPOSITORY.getLeadList(setOfLeadIs);
+    List<Lead> lstOfSobjectToUpdate = (List<Lead>) TerritoryCommonUtils.assignTerritoryForRecord(
+      lstOfOwnerChangeRecords
+    );
+    ListUtil.setField(
+      lstOfSobjectToUpdate,
+      Lead.Skip_Validations__c,
+      'BulkUpdateTerritory'
+    );
+    DML_REPOSITORY.doUpdate(
+      lstOfSobjectToUpdate,
+      new DmlConfig().allowPartial().byPassDuplicateRule()
+    );
   }
 }
