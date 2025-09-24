@@ -3,5 +3,5 @@
     <batchSize>1</batchSize>
     <isProtected>false</isProtected>
     <masterLabel>TerritorySharingSubscriberTriggerConfig</masterLabel>
-    <platformEventConsumer>MLCRMTerritorySharingSubscriberTrigger</platformEventConsumer>
+    <platformEventConsumer>TerritorySharingSubscriberTrigger</platformEventConsumer>
 </PlatformEventSubscriberConfig>
