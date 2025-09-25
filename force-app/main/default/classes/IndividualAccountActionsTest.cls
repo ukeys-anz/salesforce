@@ -207,7 +207,8 @@ public class IndividualAccountActionsTest {
         Employer_Name__c = 'ABC Employer',
         Self_Employed__c = 'N',
         RecordTypeId = RTAccount.personAccount,
-        Display_Name__c = 'EXECUTOR'
+        Display_Name__c = 'EXECUTOR',
+        ANZx_Customer__c = true
       )
     };
     Map<Id, Account> oldMap = new Map<Id, Account>{
@@ -217,7 +218,8 @@ public class IndividualAccountActionsTest {
         Employment_Type__c = 'Tailor',
         Employer_Name__c = 'ABC Employer',
         Self_Employed__c = 'N',
-        Display_Name__c = 'Master'
+        Display_Name__c = 'Master',
+        ANZx_Customer__c = true
       )
     };
 
@@ -260,7 +262,8 @@ public class IndividualAccountActionsTest {
         Employer_Name__c = 'ABC Employer',
         Self_Employed__c = 'N',
         RecordTypeId = RTAccount.personAccount,
-        Display_Name__c = 'EXECUTOR'
+        Display_Name__c = 'EXECUTOR',
+        ANZx_Customer__c = true
       )
     };
     Map<Id, Account> oldMap = new Map<Id, Account>{
@@ -270,7 +273,8 @@ public class IndividualAccountActionsTest {
         Employment_Type__c = 'Tailor',
         Employer_Name__c = 'ABC Employer',
         Self_Employed__c = 'N',
-        Display_Name__c = 'Master'
+        Display_Name__c = 'Master',
+        ANZx_Customer__c = true
       )
     };
 
