@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Q6_Rationale__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Captures the rationale for the relevant resolution assessment question</description>
+    <label>Q6 Rationale</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Call_authentication_process_followed__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>In all calls, we followed the relevant authentication rules</fullName>
+                <default>false</default>
+                <label>In all calls, we followed the relevant authentication rules</label>
+            </value>
+            <value>
+                <fullName>Authentication steps not followed correctly</fullName>
+                <default>false</default>
+                <label>Authentication steps not followed correctly</label>
+            </value>
+            <value>
+                <fullName>Authentication steps followed but after substantive complaint/personal details discussed</fullName>
+                <default>false</default>
+                <label>Authentication steps followed but after substantive complaint/personal details discussed</label>
+            </value>
+            <value>
+                <fullName>Due to reassignment, prior Case Manager responsible for the Not Met.</fullName>
+                <default>false</default>
+                <label>Due to reassignment, prior Case Manager responsible for the Not Met.</label>
+            </value>
+            <value>
+                <fullName>There were no relevant calls / due to technical issues it was not possible to listen to the calls.</fullName>
+                <default>false</default>
+                <label>There were no relevant calls / due to technical issues it was not possible to listen to the calls.</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>In all calls, we followed the relevant authentication rules</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Authentication steps not followed correctly</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Authentication steps followed but after substantive complaint/personal details discussed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met (Out of Case Handler’s control)</controllingFieldValue>
+            <valueName>Due to reassignment, prior Case Manager responsible for the Not Met.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Applicable</controllingFieldValue>
+            <valueName>There were no relevant calls / due to technical issues it was not possible to listen to the calls.</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

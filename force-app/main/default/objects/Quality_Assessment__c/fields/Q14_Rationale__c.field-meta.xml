@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Q14_Rationale__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Captures the rationale for the relevant resolution assessment question</description>
+    <label>Q14 Rationale</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Was_implementation_timely__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Evidence showing that outcome was implemented in a timely manner (as per KnowHow page) (e.g., customer’s account shows funds were credited, customer’s profile shows debt was waived, etc.).</fullName>
+                <default>false</default>
+                <label>Evidence showing that outcome was implemented in a timely manner (as per KnowHow page) (e.g., customer’s account shows funds were credited, customer’s profile shows debt was waived, etc.).</label>
+            </value>
+            <value>
+                <fullName>Not implemented at all</fullName>
+                <default>false</default>
+                <label>Not implemented at all</label>
+            </value>
+            <value>
+                <fullName>Not implemented in a timely manner (as per KnowHow page)</fullName>
+                <default>false</default>
+                <label>Not implemented in a timely manner (as per KnowHow page)</label>
+            </value>
+            <value>
+                <fullName>Outcome was not implemented by previous case manager at all</fullName>
+                <default>false</default>
+                <label>Outcome was not implemented by previous case manager at all</label>
+            </value>
+            <value>
+                <fullName>Outcome was not implemented by previous case manager in a timely manner (as per KnowHow page</fullName>
+                <default>false</default>
+                <label>Outcome was not implemented by previous case manager in a timely manner (as per KnowHow page</label>
+            </value>
+            <value>
+                <fullName>No complaint resolution outcome offered in final IDR / EDR response</fullName>
+                <default>false</default>
+                <label>No complaint resolution outcome offered in final IDR / EDR response</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>Evidence showing that outcome was implemented in a timely manner (as per KnowHow page) (e.g., customer’s account shows funds were credited, customer’s profile shows debt was waived, etc.).</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Not implemented at all</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Not implemented in a timely manner (as per KnowHow page)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met (Out of Case Handler’s control)</controllingFieldValue>
+            <valueName>Outcome was not implemented by previous case manager at all</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met (Out of Case Handler’s control)</controllingFieldValue>
+            <valueName>Outcome was not implemented by previous case manager in a timely manner (as per KnowHow page</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Applicable</controllingFieldValue>
+            <valueName>No complaint resolution outcome offered in final IDR / EDR response</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>
