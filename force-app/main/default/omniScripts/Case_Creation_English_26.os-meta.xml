@@ -2778,9 +2778,9 @@
             &quot;condition&quot; : &quot;=&quot;,
             &quot;data&quot; : null
           }, {
-             &quot;field&quot; : &quot;data:fields:CPID__c:value&quot;,
-             &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-             &quot;data&quot; : null
+            &quot;field&quot; : &quot;data:fields:CPID__c:value&quot;,
+            &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+            &quot;data&quot; : null
           }, {
             &quot;field&quot; : &quot;Case:AccountId&quot;,
             &quot;condition&quot; : &quot;&lt;&gt;&quot;,
@@ -3292,9 +3292,9 @@
                 <level>2.0</level>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
+  &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;TextBlock6&quot;,
-&quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Move Status: %data:fields:Migration_Status__c:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Move Date: %data:fields:Migration_Status_Date__c:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;&lt;span style=\&quot;background-color: #ffffff; color: #000000;\&quot;&gt;&lt;a style=\&quot;background-color: #ffffff; color: #000000;\&quot; title=\&quot;To view all customer Extra Care details, navigate to the customer&apos;s profile in CMOS\&quot;&gt;Extra Care Reason(s)&lt;/a&gt;: &lt;/span&gt;%data:fields:ExtraCareReason__c:value%&lt;/div&gt;\n&lt;/div&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Move Status: %data:fields:Migration_Status__c:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Move Date: %data:fields:Migration_Status_Date__c:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;&lt;span style=\&quot;background-color: #ffffff; color: #000000;\&quot;&gt;&lt;a style=\&quot;background-color: #ffffff; color: #000000;\&quot; title=\&quot;To view all customer Extra Care details, navigate to the customer&apos;s profile in CMOS\&quot;&gt;Extra Care Reason(s)&lt;/a&gt;: &lt;/span&gt;%data:fields:ExtraCareReason__c:value%&lt;/div&gt;\n&lt;/div&gt;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,

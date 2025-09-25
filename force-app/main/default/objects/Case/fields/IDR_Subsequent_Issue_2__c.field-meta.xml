@@ -642,26 +642,6 @@
                 <label>Impacts to broader banking experience</label>
             </value>
             <value>
-                <fullName>122</fullName>
-                <default>false</default>
-                <label>Customer does not want to move to ANZ Plus</label>
-            </value>
-            <value>
-                <fullName>123</fullName>
-                <default>false</default>
-                <label>Technical issue preventing move to ANZ Plus (pre-move)</label>
-            </value>
-            <value>
-                <fullName>124</fullName>
-                <default>false</default>
-                <label>Unclear / confusing customer communication</label>
-            </value>
-            <value>
-                <fullName>125</fullName>
-                <default>false</default>
-                <label>Issue with account set up at Migration (post-move)</label>
-            </value>
-            <value>
                 <fullName>126</fullName>
                 <default>false</default>
                 <label>Customer waiting for response or update</label>
@@ -781,22 +761,6 @@
         <valueSettings>
             <controllingFieldValue>22</controllingFieldValue>
             <valueName>121</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>23</controllingFieldValue>
-            <valueName>122</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>23</controllingFieldValue>
-            <valueName>123</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>23</controllingFieldValue>
-            <valueName>124</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>23</controllingFieldValue>
-            <valueName>125</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>24</controllingFieldValue>

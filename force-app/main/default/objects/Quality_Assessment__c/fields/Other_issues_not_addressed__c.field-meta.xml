@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Other_issues_not_addressed__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Resolution Assessment question 22</description>
+    <inlineHelpText>Were there any other issues that have not been addressed in the previous questions? eg communication not customer focused?</inlineHelpText>
+    <label>Other issues not addressed?</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Met</fullName>
+                <default>false</default>
+                <label>Met</label>
+            </value>
+            <value>
+                <fullName>Not Met</fullName>
+                <default>false</default>
+                <label>Not Met</label>
+            </value>
+            <value>
+                <fullName>Not Met (Out of Case Handler’s control)</fullName>
+                <default>false</default>
+                <label>Not Met (Out of Case Handler’s control)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

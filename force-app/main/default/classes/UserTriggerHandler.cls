@@ -58,10 +58,7 @@ public with sharing class UserTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onAfterInsert() {
     if (!businessFuncAndRoles.isEmpty()) {
-      UserProvisioningAfterActions.assignMembership(
-        userList,
-        businessFuncAndRoles
-      );
+      UserProvisioningAfterActions.assignMembership(userList);
     }
     UserProvisioningAfterActions.logManualUserProvisioning(
       (List<User>) this.records
@@ -138,10 +135,7 @@ public with sharing class UserTriggerHandler extends Lib_TriggerHandler {
     }
 
     if (!businessFuncAndRoles.isEmpty()) {
-      UserProvisioningAfterActions.assignMembership(
-        userList,
-        businessFuncAndRoles
-      );
+      UserProvisioningAfterActions.assignMembership(userList);
     }
     ML_UserActions.createTerritoryForMLUser(
       this.records,
