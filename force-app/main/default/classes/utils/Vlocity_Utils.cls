@@ -7,6 +7,9 @@ global with sharing class Vlocity_Utils implements Callable {
   private static final ComplaintsRepository COMPLAINTS_REPOSITORY = (ComplaintsRepository) Lib_InstanceProvider.forType(
     ComplaintsRepository.class
   );
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
 
   /**
    * @param methodName The method passed from Integration procedure
@@ -88,8 +91,7 @@ global with sharing class Vlocity_Utils implements Callable {
     Map<String, Object> output,
     Map<String, Object> options
   ) {
-    List<Known_Issues__c> knownIssuesList = IDRExpressComplaintController.getAllKnownIssues();
-    output.put('KnownIssue', knownIssuesList);
+    output.put('KnownIssue', IDRExpressComplaintController.getAllKnownIssues());
   }
 
   /**
@@ -106,14 +108,10 @@ global with sharing class Vlocity_Utils implements Callable {
     UserAppInfo userAppInfo = COMPLAINTS_REPOSITORY.getUserAppInfoForUser(
       UserInfo.getUserId()
     );
-    if (userAppInfo == null) {
-      return;
-    }
-    AppDefinition appDefinition = QueryAppDefinition.getByDurableId(
-      userAppInfo.AppDefinitionId
+    output.put(
+      'currentAppName',
+      QueryAppDefinition.getByDurableId(userAppInfo?.AppDefinitionId)?.Label
     );
-
-    output.put('currentAppName', appDefinition.Label);
   }
 
   /**
@@ -143,31 +141,15 @@ global with sharing class Vlocity_Utils implements Callable {
         JSON.serialize(c),
         RemedyDependentValues.class
       );
-      if (remedyValues.remedy == null) {
-        continue;
-      }
+      Map<String, Object> remedies = getRemedyMap(remedyValues);
       Complaint_Resolution__c cr1 = new Complaint_Resolution__c(
-        IDR_Complaint__c = (Id) input.get('ComplaintId'),
-        IDR_Complaint_Remedy__c = remedyValues.remedy,
-        IDR_Complaint_Sub_Remedy__c = remedyValues.subRemedy
+        IDR_Complaint__c = (Id) input.get('ComplaintId')
       );
-      if (remedyValues.durationOfRemedy != null) {
-        cr1.IDR_Duration_of_Remedy__c = remedyValues.durationOfRemedy;
-      }
-      if (remedyValues.otherRemedy != null) {
-        cr1.IDR_Other_Remedy_Provided__c = remedyValues.otherRemedy;
-      }
-      if (remedyValues.paymentProvided != null) {
-        cr1.IDR_Financial_Compensation__c = remedyValues.paymentProvided;
-      }
-      if (remedyValues.rewardPoints != null) {
-        cr1.IDR_Financial_Remedy_Points__c = remedyValues.rewardPoints;
-      }
-      if (remedyValues.detailsOfComplaint != null) {
-        cr1.IDR_Provided_details_to_Manufacturer__c = remedyValues.detailsOfComplaint;
-      }
-      if (remedyValues.id != null) {
-        cr1.Id = remedyValues.id;
+      for (string str : remedies.keyset()) {
+        if (String.isBlank(String.valueOf(remedies.get(str)))) {
+          continue;
+        }
+        cr1.put(str, remedies.get(str));
       }
       crtocreate.add(cr1);
     }
@@ -176,6 +158,30 @@ global with sharing class Vlocity_Utils implements Callable {
     }
   }
 
+  private static Map<String, Object> getRemedyMap(
+    RemedyDependentValues remedyValues
+  ) {
+    return new Map<String, Object>{
+      'IDR_Complaint_Remedy__c' => remedyValues.remedy,
+      'IDR_Complaint_Sub_Remedy__c' => remedyValues.subRemedy,
+      'IDR_Complaint_Remedy_Offered__c' => remedyValues.remedyOffered,
+      'IDR_Complaint_Sub_Remedy_Offered__c' => remedyValues.subRemedyOffered,
+      'IDR_Other_Remedy_Provided__c' => remedyValues.otherRemedy,
+      'IDR_Financial_Compensation__c' => remedyValues.paymentProvided,
+      'IDR_Duration_of_Remedy__c' => remedyValues.durationOfRemedy,
+      'IDR_Provided_details_to_Manufacturer__c' => remedyValues.detailsOfComplaint,
+      'IDR_Financial_Remedy_Points__c' => remedyValues.rewardPoints,
+      'Offered_details_to_Product_Manufacturer__c' => remedyValues.offeredDetails,
+      'IDR_Description_of_Outcome_Offered__c' => remedyValues.descriptionOutcomeOffered,
+      'IDR_Duration_of_Remedy_months_Offered__c' => remedyValues.durationOfRemedyOffered,
+      'IDR_Rewards_Points_Offered__c' => remedyValues.rewardPointsOffered,
+      'IDR_Was_the_offer_enhanced_and_accepted__c' => remedyValues.offerEnhancedAndAccepted,
+      'IDR_customer_accept_resolution_offered__c' => remedyValues.customerAcceptTheResolution,
+      'IDR_Other_Remedy_Offered__c' => remedyValues.otherRemedyOffered,
+      'IDR_Payment_Amount_Offered__c' => remedyValues.paymentProvidedOffered,
+      'Id' => remedyValues.id
+    };
+  }
   /**
    * @description To handle complaint resolution actions which are used in IP
    */
@@ -205,7 +211,7 @@ global with sharing class Vlocity_Utils implements Callable {
         }
       } // loop through the CRs node from IP and delete records with blank fields, Remedy
       if (!crtodel.isEmpty()) {
-        delete crtodel;
+        DML_REPOSITORY.doDelete(crtodel, new DmlConfig().systemMode());
       }
     }
 
@@ -267,12 +273,22 @@ global with sharing class Vlocity_Utils implements Callable {
    */
   public class RemedyDependentValues {
     public String remedy;
+    public String remedyOffered;
     public String subRemedy;
+    public String subRemedyOffered;
     public Decimal durationOfRemedy;
+    public Decimal durationOfRemedyOffered;
     public String otherRemedy;
+    public String otherRemedyOffered;
     public Decimal paymentProvided;
+    public Decimal paymentProvidedOffered;
     public Decimal rewardPoints;
+    public Decimal rewardPointsOffered;
     public Boolean detailsOfComplaint;
+    public Boolean offeredDetails;
+    public String customerAcceptTheResolution;
+    public String offerEnhancedAndAccepted;
+    public String descriptionOutcomeOffered;
     public Id id;
   }
 }
