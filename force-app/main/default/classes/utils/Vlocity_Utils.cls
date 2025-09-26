@@ -210,9 +210,8 @@ global with sharing class Vlocity_Utils implements Callable {
           crtodel.add(new Complaint_Resolution__c(Id = (Id) cr.get('Id')));
         }
       } // loop through the CRs node from IP and delete records with blank fields, Remedy
-      if (!crtodel.isEmpty()) {
-        DML_REPOSITORY.doDelete(crtodel, new DmlConfig().systemMode());
-      }
+
+      DML_REPOSITORY.doDelete(crtodel, new DmlConfig().systemMode());
     }
 
     /**
@@ -222,11 +221,7 @@ global with sharing class Vlocity_Utils implements Callable {
     public void createResolutionrecords(
       List<Complaint_Resolution__c> crtocreate
     ) {
-      DMLUtil.upsertRecords(
-        crtocreate,
-        DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
-        DMLUtil.SYSTEM_MODE
-      );
+      DML_REPOSITORY.doUpsert(crtocreate, new DmlConfig().systemMode());
     }
   }
 
@@ -244,27 +239,18 @@ global with sharing class Vlocity_Utils implements Callable {
     String fieldName = String.ValueOf(input.get('FieldName'));
     String caseId = String.ValueOf(input.get('recordId'));
     output.put('lastModifiedDate' + fieldName, 0);
-    List<CaseHistory> historyList = [
-      SELECT CreatedDate
-      FROM CaseHistory
-      WHERE Field = :fieldName AND CaseId = :caseId
-      ORDER BY CreatedDate DESC
-      LIMIT 1
-    ];
-    List<Case> cseList = [SELECT CreatedDate FROM Case WHERE ID = :caseId];
-    DateTime lastModifiedDate;
-    DateTime now = DateTime.now();
-    if (!historyList.isEmpty()) {
-      lastModifiedDate = historyList[0].CreatedDate;
-    } else if (!cseList.isEmpty()) {
-      lastModifiedDate = cseList[0].CreatedDate;
-    }
+    CaseHistory historyList = COMPLAINTS_REPOSITORY.getComplaintHistory(
+      caseId,
+      fieldName
+    );
+    Case cseList = COMPLAINTS_REPOSITORY.getCreatedDate(caseId);
+    DateTime lastModifiedDate = historyList?.CreatedDate ?? cseList.CreatedDate;
+
     if (lastModifiedDate != null) {
-      Integer daysSinceLastUpdate = now.date()
-        .daysBetween(lastModifiedDate.date());
       output.put(
         'lastModifiedDate' + fieldName,
-        Math.abs(daysSinceLastUpdate) + ' Days'
+        Math.abs(DateTime.now().date().daysBetween(lastModifiedDate.date())) +
+        ' Days'
       );
     }
   }
