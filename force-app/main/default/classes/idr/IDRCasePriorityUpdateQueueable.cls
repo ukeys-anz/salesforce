@@ -11,14 +11,20 @@ public with sharing class IDRCasePriorityUpdateQueueable implements Queueable {
   static final IDRCaseActionsRepository CASE_REPOSITORY = (IDRCaseActionsRepository) Lib_InstanceProvider.forType(
     IDRCaseActionsRepository.class
   );
-  Set<Id> sEcfChangedAccountIds;
+  Set<Id> updateAccountsEcfTrue;
+  Set<Id> updateAccountsEcfFalse;
 
   /**
    * @description Constructor to accept Account Ids to query related Case records
-   * @param sFilteredAccountIds - filtered Account Ids to query related Case records
+   * @param accountsEcfTrue - filtered Account Ids where Account is flagged for ExtraCare
+   * @param accountsEcfFalse - filtered Account Ids where Account is removed from ExtraCare
    */
-  public IDRCasePriorityUpdateQueueable(Set<Id> sFilteredAccountIds) {
-    sEcfChangedAccountIds = sFilteredAccountIds;
+  public IDRCasePriorityUpdateQueueable(
+    Set<Id> accountsEcfTrue,
+    Set<Id> accountsEcfFalse
+  ) {
+    updateAccountsEcfTrue = accountsEcfTrue;
+    updateAccountsEcfFalse = accountsEcfFalse;
   }
 
   /**
@@ -26,82 +32,91 @@ public with sharing class IDRCasePriorityUpdateQueueable implements Queueable {
    * @param context contex variable
    */
   public void execute(QueueableContext context) {
-    Map<Id, Case> mCasesToUpdate = new Map<Id, Case>(
-      CASE_REPOSITORY.queryRelatedCases(sEcfChangedAccountIds)
-    );
-    List<Case> lCasesToUpdate = updateComplaintsPriority(
-      mCasesToUpdate.values()
+    Set<Id> filteredAccountsAll = new Set<Id>(updateAccountsEcfTrue);
+    filteredAccountsAll.addAll(updateAccountsEcfFalse);
+    List<Case> updatedCases = updateComplaintsPriority(
+      CASE_REPOSITORY.queryRelatedCases(filteredAccountsAll)
     );
 
     // OCV Integration user has Read only access on related Cases so withoutSharing() has been used for DML
     List<Database.SaveResult> results = DML_REPOSITORY.doUpdate(
-      lCasesToUpdate,
+      updatedCases,
       new DmlConfig().allowPartial().withoutSharing()
     );
-    CustomNotificationType oNotificationType = CommonUtil.getCustomNotificationTypeByName(
-      'CMOS'
-    );
-    sendInAppNotifications(results, mCasesToUpdate, oNotificationType.Id);
+    sendInAppNotifications(results, updatedCases);
   }
 
   /**
    * @description compare the case record's Priority field with Account's Extracare field to determine the Case Priority field value.
-   * @param lCasesToUpdate - Account's related Case records
+   * @param casesToUpdate - Account's related Case records
    * @return List<Case> - updated case records
    */
   @TestVisible
-  private List<Case> updateComplaintsPriority(List<Case> lCasesToUpdate) {
-    List<Case> lUpdatedCases = new List<Case>();
-    for (Case updateCase : lCasesToUpdate) {
-      if (
-        IDRConstants.ECF_FLAG_TRUE.contains(
-          updateCase.Account.ExtraCareTimePeriod__c
-        ) && updateCase.Priority == IDRConstants.CASE_PRIORITY_STANDARD
-      ) {
-        updateCase.Priority = IDRConstants.CASE_PRIORITY_VULNERABLE;
-        lUpdatedCases.add(updateCase);
-        continue;
-      }
-      if (
-        !IDRConstants.ECF_FLAG_TRUE.contains(
-          updateCase.Account.ExtraCareTimePeriod__c
-        ) && updateCase.Priority == IDRConstants.CASE_PRIORITY_VULNERABLE
-      ) {
-        updateCase.Priority = IDRConstants.CASE_PRIORITY_STANDARD;
-        lUpdatedCases.add(updateCase);
-      }
-    }
-    return lUpdatedCases;
+  private List<Case> updateComplaintsPriority(List<Case> casesToUpdate) {
+    List<Case> updatedCases = new List<Case>();
+    List<Case> casesForVulnerablePriority = ListUtil.filter(casesToUpdate)
+      .equals(Case.AccountId, updateAccountsEcfTrue)
+      .equals(Case.Priority, IDRConstants.CASE_PRIORITY_STANDARD)
+      .toList();
+    ListUtil.setField(
+      casesForVulnerablePriority,
+      Case.Priority,
+      IDRConstants.CASE_PRIORITY_VULNERABLE
+    );
+    updatedCases.addAll(casesForVulnerablePriority);
+
+    List<Case> casesForStandardPriority = ListUtil.filter(casesToUpdate)
+      .notEquals(Case.AccountId, updateAccountsEcfTrue)
+      .equals(Case.Priority, IDRConstants.CASE_PRIORITY_VULNERABLE)
+      .toList();
+    ListUtil.setField(
+      casesForStandardPriority,
+      Case.Priority,
+      IDRConstants.CASE_PRIORITY_STANDARD
+    );
+    updatedCases.addAll(casesForStandardPriority);
+
+    return updatedCases;
   }
 
   /**
-   * @description Send in-app notifications for Case records which have been updated successfully.
+   * @description Send in-app notifications for Case records which have been successfully to 'Customer experiencing vulnerability'.
    * @param results - DML results of Case update
-   * @param mCasesToUpdate - map of Account's related Case records to fetch OwnerId, CaseNumber and Account Name
-   * @param oNotificationTypeId - CMOS Custom Notification Id to be used for sending notifications
+   * @param updatedCases - List of updated Case records
    */
-  @TestVisible
   private void sendInAppNotifications(
     List<Database.SaveResult> results,
-    Map<Id, Case> mCasesToUpdate,
-    String oNotificationTypeId
+    List<Case> updatedCases
   ) {
+    CustomNotificationType oNotificationType = CommonUtil.getCustomNotificationTypeByName(
+      'CMOS'
+    );
+    Set<Id> vulnerableCaseIds = ListUtil.getIds(
+      ListUtil.filter(updatedCases)
+        .equals(Case.Priority, IDRConstants.CASE_PRIORITY_VULNERABLE)
+        .toList(),
+      Case.Id
+    );
+    if (vulnerableCaseIds.isEmpty()) {
+      return;
+    }
     String subjectTemplate = 'Change in Customer\'s Extra Care Needs';
     String description = 'Change in customer\'s Extra Care needs on complaint {0} for {1}';
-    for (Database.SaveResult sr : results) {
-      if (!sr.isSuccess()) {
+    for (Integer i = 0; i < results.size(); i++) {
+      Database.SaveResult sr = results[i];
+      if (!sr.isSuccess() && !vulnerableCaseIds.contains(sr.getId())) {
         continue;
       }
       List<Object> lParameters = new List<Object>{
-        mCasesToUpdate.get(sr.getId()).CaseNumber,
-        mCasesToUpdate.get(sr.getId()).Account.Name
+        updatedCases[i].CaseNumber,
+        updatedCases[i].Account.Name
       };
       String strNotificationDesc = String.format(description, lParameters);
       CommonUtil.sendInAppNotification(
         new InAppNotificationWrapper(
-          oNotificationTypeId,
+          oNotificationType.Id,
           sr.getId(),
-          mCasesToUpdate.get(sr.getId()).OwnerId,
+          updatedCases[i].OwnerId,
           subjectTemplate,
           strNotificationDesc
         )

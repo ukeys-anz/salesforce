@@ -94,6 +94,7 @@ public with sharing class IDRCaseActionsRepository {
         CaseNumber,
         OwnerId,
         Priority,
+        AccountId,
         Account.Name,
         Account.ExtraCareTimePeriod__c
       FROM Case
