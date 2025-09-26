@@ -895,8 +895,12 @@
     <picklistValues>
         <picklist>Evaluation_Type__c</picklist>
         <values>
-            <fullName>C %26 Q Assessment</fullName>
-            <default>true</default>
+            <fullName>Customer Resolution Assessment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Frontline Assessment</fullName>
+            <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
