@@ -4,6 +4,8 @@
  */
 @isTest
 public class IDRTestDataFactory {
+  static Faker faker = new Faker('AU');
+  static String anzEmail = faker.internet.anzEmail();
   /**
    *@description Create an Afca Case
    * @param priority of the Case
@@ -11,7 +13,6 @@ public class IDRTestDataFactory {
    * @param subIssueType of the Case
    * @return Case
    */
-
   public static Case createAfcaCustomerComplaintCase(
     String priority,
     String issueType,
@@ -115,5 +116,88 @@ public class IDRTestDataFactory {
       RecordTypeId = IDRConstants.idrtCQQualityAssessment
     );
     return qaRecord;
+  }
+  /**
+   * @description Method to create User record
+   * @param name name for User record
+   * @return User Object
+   */
+  public static User getUser(String name) {
+    return new User(
+      Id = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+      Email = anzEmail,
+      LastName = name,
+      UserName = anzEmail
+    );
+  }
+  /**
+   * @description Method to create Quality Assessment record
+   * @param manager User lookup for QA
+   * @param relatedCase Case object for QA
+   * @param status Status of QA
+   * @return Quality_Assessment__c Object
+   */
+  public static Quality_Assessment__c getQA(
+    User manager,
+    Case relatedCase,
+    String status
+  ) {
+    return (Quality_Assessment__c) TestUtil.setFields(
+      new Quality_Assessment__c(
+        Id = Lib_FakeIdGenerator.getMockId(Quality_Assessment__c.SObjectType),
+        OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+        Status__c = status,
+        TeamManager__c = manager.Id,
+        Case_Manager__c = manager.Id,
+        Related_Case__c = relatedCase.Id,
+        Evaluation_Type__c = 'C & Q Assessment',
+        RecordTypeId = RTQualityAssessment.idrCQQualityId
+      ),
+      new Map<String, Object>{
+        'TeamManager__r' => manager,
+        'Case_Manager__r' => manager,
+        'Related_Case__r' => relatedCase
+      }
+    );
+  }
+  /**
+   * @description Method to create Task record for QA
+   * @param recWhatId Sobject Id which needs to be set as whatId
+   * @param subject Subject of the task
+   * @return Task Object
+   */
+  public static Task getTask(Id recWhatId, String subject) {
+    return new Task(
+      Id = Lib_FakeIdGenerator.getMockId(Task.SObjectType),
+      Status = IDRConstants.OPEN_STATUS,
+      WhatId = recWhatId,
+      Subject = subject,
+      RecordTypeId = RTTask.idrTask
+    );
+  }
+  /**
+   * @description Method to create Case record
+   * @return Case Object
+   */
+  public static Case getCase() {
+    return new Case(
+      Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
+      RecordTypeId = RTCase.customerComplaint,
+      Status = IDRConstants.OPEN_STATUS,
+      CaseNumber__c = String.valueOf(new Faker('0-9').randomInteger(6))
+    );
+  }
+  /**
+   * @description Method to create Quality_Assessment__Share record
+   * @param parentId Sobject Id which needs to be set as ParentId
+   * @param userId UserOrGroupId of the Share record
+   * @return Quality_Assessment__Share Object
+   */
+  public static Quality_Assessment__Share getQAShare(Id parentId, Id userId) {
+    return new Quality_Assessment__Share(
+      ParentId = parentId,
+      UserOrGroupId = userId,
+      RowCause = 'Manual'
+    );
   }
 }
