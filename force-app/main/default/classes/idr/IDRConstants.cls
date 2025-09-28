@@ -240,6 +240,8 @@ public with sharing class IDRConstants {
   public static final String TASK_QA_COMPLIANCE_SUBJECT = 'Review Required: Quality Assessment Completed for ';
   public static final String TASK_TM_ATTESTATION_SUBJECT = 'Team Manager Corrective Actions- Attestation- ';
   public static final String TASK_QA_CLOSE_ERROR = 'Cannot close a Compliance Task if the associated Quality Assessment doesn\'t have a Team Manager Response';
+  public static final String TASK_STATUS_OPEN = 'Open';
+  public static final String TASK_QA_FEEDBACK_SUBJECT = 'Corrective Actions and Attestation Required: Quality Assessment';
   public static final Id TASK_COMPLIANCE_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
     .get('Compliance_Task')
     .getRecordTypeId();
@@ -255,9 +257,12 @@ public with sharing class IDRConstants {
   public static final String TM_REJECTS_CQ_MANAGER_REV_TASK_DESC = 'Please review the Quality Assessment and complete the C&Q Lead Response and C&Q Lead Comments fields on the Assessment Outcome tab.';
   public static final String CQ_LEAD_RESPONSE_TASK_SUBJECT = 'C&Q Lead review completed on ';
   public static final String CQ_LEAD_RESPONSE_TASK_DESC = 'Please review the comments left on the Assessment Outcome tab of the Quality Assessment';
+  public static final String TASK_QA_FEEDBACK_DESCRIPTION = 'Please review the Corrective Actions Requiring action documented on the quality evaluation. You must add a task comment detailing the actions you have taken to address these before marking this task as completed.';
+  public static final String TASK_QA_CORRECTIVE_DESCRIPTION = 'You must add a task comment detailing the action taken before marking this task as completed.';
 
   //Quality Assessment Constants
   public static final String CORRECTIVE_ACTIONS_NA = 'N/A- no action required';
+  public static final String QA_FRONTLINE_ASSESSMENT = 'Frontline Assessment';
 
   //Quality Assessment CQ Assessment outcome fields
   public static final SObjectField TEAM_MANAGER_RESPONSE = Quality_Assessment__c.Team_Manager_Response__c.getDescribe()

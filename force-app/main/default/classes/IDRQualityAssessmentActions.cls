@@ -15,6 +15,19 @@ public with sharing class IDRQualityAssessmentActions {
     'case_manager_score__c'
   };
   /**
+   * @description applyDefaults is called onBeforeInsert and onbeforeUpdate to set the following values as defaults
+   * @param records The record list form which we need to apply defaults
+   */
+  public static void applyDefaults(List<Quality_Assessment__c> records) {
+    for (Quality_Assessment__c record : records) {
+      CommonUtil.handleMasking(
+        record,
+        null,
+        SObjectType.Quality_Assessment__c.FieldSets.CMOS_Masked_Fields.getFields()
+      );
+    }
+  }
+  /**
    * @description calculate Case Manager Score and Business Manager Score
    * @param records new values
    */
@@ -110,20 +123,21 @@ public with sharing class IDRQualityAssessmentActions {
    * @return String fieldset Id matching record type and Evaluation Type
    */
   public static String getFieldsetId(Quality_Assessment__c oAssessment) {
-    String strFieldSetId = '';
-    if (oAssessment.RecordTypeId == IDRConstants.idrtCQQualityAssessment) {
-      strFieldSetId = 'C_Q_Assessment';
-    } else if (
-      oAssessment.RecordTypeId ==
-      IDRConstants.idrtCallLetterReviewQualityAssessment
-    ) {
-      if (oAssessment.Evaluation_Type__c == 'Call Review Assessment') {
-        strFieldSetId = 'Call_Review_Assessment';
-      } else if (oAssessment.Evaluation_Type__c == 'Letter Review Assessment') {
-        strFieldSetId = 'Letter_Review_Assessment';
-      }
+    Set<Id> recordTypes = new Set<Id>{
+      RTQualityAssessment.idrCQQualityId,
+      RTQualityAssessment.idrReviewAssessmentId
+    };
+    Map<String, String> evaluationTypes = new Map<String, String>{
+      'C & Q Assessment' => 'C_Q_Assessment',
+      'Customer Resolution Assessment' => 'C_R_Assessment',
+      'Frontline Assessment' => 'F_L_Assessment',
+      'Call Review Assessment' => 'Call_Review_Assessment',
+      'Letter Review Assessment' => 'Letter_Review_Assessment'
+    };
+    if (!recordTypes.contains(oAssessment.RecordTypeId)) {
+      return '';
     }
-    return strFieldSetId;
+    return evaluationTypes.get(oAssessment.Evaluation_Type__c);
   }
 
   /**

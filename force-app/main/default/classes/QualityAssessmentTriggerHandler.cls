@@ -88,6 +88,7 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    IDRQualityAssessmentActions.applyDefaults(records);
     IDRQualityAssessmentActions.setAssessmentOutcomeStatus(
       records,
       (Map<Id, Quality_Assessment__c>) oldMap
@@ -115,6 +116,7 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
    * @description onApplyDefaults method is called before onBeforeInsert to set the default values for the records.
    */
   public override void onApplyDefaults() {
+    IDRQualityAssessmentActions.applyDefaults(records);
     QualityAssessmentActions.assignToQueue(records, null);
   }
 
