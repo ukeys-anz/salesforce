@@ -38,7 +38,8 @@ public with sharing class IDRCasePriorityUpdateQueueableTest {
     );
     Test.startTest();
     IDRCasePriorityUpdateQueueable q = new IDRCasePriorityUpdateQueueable(
-      new Set<Id>{ acc.Id }
+      new Set<Id>{ acc.Id },
+      new Set<Id>()
     );
     q.execute(null);
     Test.stopTest();
@@ -76,6 +77,7 @@ public with sharing class IDRCasePriorityUpdateQueueableTest {
     );
     Test.startTest();
     IDRCasePriorityUpdateQueueable q = new IDRCasePriorityUpdateQueueable(
+      new Set<Id>(),
       new Set<Id>{ acc.Id }
     );
     q.execute(null);
@@ -111,6 +113,7 @@ public with sharing class IDRCasePriorityUpdateQueueableTest {
 
     Test.startTest();
     IDRCasePriorityUpdateQueueable q = new IDRCasePriorityUpdateQueueable(
+      new Set<Id>(),
       new Set<Id>{ acc.Id }
     );
     q.execute(null);
@@ -134,7 +137,10 @@ public with sharing class IDRCasePriorityUpdateQueueableTest {
     );
     List<Case> cases;
     Test.startTest();
-    cases = new IDRCasePriorityUpdateQueueable(new Set<Id>{ acc.Id })
+    cases = new IDRCasePriorityUpdateQueueable(
+        new Set<Id>(),
+        new Set<Id>{ acc.Id }
+      )
       .updateComplaintsPriority(new List<Case>{ cs });
     Test.stopTest();
     Assert.areEqual(
@@ -159,7 +165,10 @@ public with sharing class IDRCasePriorityUpdateQueueableTest {
     );
     List<Case> cases;
     Test.startTest();
-    cases = new IDRCasePriorityUpdateQueueable(new Set<Id>{ acc.Id })
+    cases = new IDRCasePriorityUpdateQueueable(
+        new Set<Id>(),
+        new Set<Id>{ acc.Id }
+      )
       .updateComplaintsPriority(new List<Case>{ cs });
     Test.stopTest();
     Assert.areEqual(0, cases.size(), 'Expected No case record to be updated');

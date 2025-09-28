@@ -1324,7 +1324,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>35.0</sequenceNumber>
+                <sequenceNumber>36.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -1393,7 +1393,7 @@
   &quot;label&quot; : &quot;Business Name (if Bus account)&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>31.0</sequenceNumber>
+                <sequenceNumber>32.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -1422,7 +1422,7 @@
   &quot;bStandalone&quot; : false,
   &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
-                <sequenceNumber>48.0</sequenceNumber>
+                <sequenceNumber>55.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -1439,18 +1439,26 @@
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
         &quot;field&quot; : &quot;isThisCustomerComplaint&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;No&quot;
-      } ],
-      &quot;operator&quot; : &quot;AND&quot;
+      }, {
+        &quot;field&quot; : &quot;Case:disablAddress&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;
+      }, {
+        &quot;field&quot; : &quot;SearchAddressRadio&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Search Address&quot;
+      } ]
     }
   },
   &quot;label&quot; : &quot;Country&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>44.0</sequenceNumber>
+                <sequenceNumber>50.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -1476,6 +1484,38 @@
 }</propertySetConfig>
                 <sequenceNumber>17.0</sequenceNumber>
                 <type>Formula</type>
+            </childElements>
+            <childElements>
+                <name>CountryManual</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;hide&quot; : false,
+  &quot;controlWidth&quot; : 4.0,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;isThisCustomerComplaint&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;No&quot;
+      }, {
+        &quot;field&quot; : &quot;SearchAddressRadio&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Manual Address Entry&quot;
+      } ]
+    }
+  },
+  &quot;lwcName&quot; : &quot;omniText&quot;,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;label&quot; : &quot;Country&quot;,
+  &quot;customAttributes&quot; : [ ]
+}</propertySetConfig>
+                <sequenceNumber>51.0</sequenceNumber>
+                <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
                 <name>custInfo1</name>
@@ -2062,7 +2102,7 @@
   &quot;label&quot; : &quot;Customer Type&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>30.0</sequenceNumber>
+                <sequenceNumber>31.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -2158,7 +2198,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>37.0</sequenceNumber>
+                <sequenceNumber>38.0</sequenceNumber>
                 <type>Email</type>
             </childElements>
             <childElements>
@@ -2169,7 +2209,7 @@
                 <level>2.0</level>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
+  &quot;controlWidth&quot; : 8,
   &quot;label&quot; : &quot;TextBlock10&quot;,
   &quot;text&quot; : &quot;&lt;p&gt;ex: 6147496523&lt;/p&gt;&quot;,
   &quot;show&quot; : {
@@ -2187,7 +2227,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>59.0</sequenceNumber>
+                <sequenceNumber>66.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -2235,7 +2275,7 @@
   &quot;label&quot; : &quot;Express Case Creation&quot;,
   &quot;controlWidth&quot; : 5.0
 }</propertySetConfig>
-                <sequenceNumber>47.0</sequenceNumber>
+                <sequenceNumber>54.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
@@ -2264,7 +2304,7 @@
   &quot;bStandalone&quot; : false,
   &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
-                <sequenceNumber>32.0</sequenceNumber>
+                <sequenceNumber>33.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -2312,7 +2352,7 @@
   &quot;label&quot; : &quot;Gender&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>36.0</sequenceNumber>
+                <sequenceNumber>37.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -2407,7 +2447,7 @@
   &quot;label&quot; : &quot;Last Name&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>34.0</sequenceNumber>
+                <sequenceNumber>35.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -2422,7 +2462,7 @@
   &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>45.0</sequenceNumber>
+                <sequenceNumber>52.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -2437,7 +2477,7 @@
   &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>55.0</sequenceNumber>
+                <sequenceNumber>67.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -2482,7 +2522,7 @@
   &quot;label&quot; : &quot;Middle Names&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>33.0</sequenceNumber>
+                <sequenceNumber>34.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -2525,7 +2565,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>38.0</sequenceNumber>
+                <sequenceNumber>39.0</sequenceNumber>
                 <type>Telephone</type>
             </childElements>
             <childElements>
@@ -2604,7 +2644,7 @@
   &quot;label&quot; : &quot;Phone&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>39.0</sequenceNumber>
+                <sequenceNumber>40.0</sequenceNumber>
                 <type>Telephone</type>
             </childElements>
             <childElements>
@@ -2652,6 +2692,14 @@
         &quot;field&quot; : &quot;isThisCustomerComplaint&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;No&quot;
+      }, {
+        &quot;field&quot; : &quot;Case:disablAddress&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;
+      }, {
+        &quot;field&quot; : &quot;SearchAddressRadio&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;data&quot; : &quot;Manual Address Entry&quot;
       } ]
     }
   },
@@ -2664,7 +2712,7 @@
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;helpText&quot; : &quot;Enter the Customer&apos;s 4-digit Australian postcode. If the customer is overseas, enter &apos;Overseas&apos;. if the postcode is unknown, enter &apos;Not Applicable&apos;.&quot;,
   &quot;help&quot; : true,
-  &quot;readOnly&quot; : false,
+  &quot;readOnly&quot; : true,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : true,
@@ -2673,8 +2721,43 @@
   &quot;label&quot; : &quot;Postcode&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>42.0</sequenceNumber>
+                <sequenceNumber>47.0</sequenceNumber>
                 <type>Text</type>
+            </childElements>
+            <childElements>
+                <name>PostcodeReadOnly</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;hide&quot; : false,
+  &quot;controlWidth&quot; : 4.0,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Manual Address Entry&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;SearchAddressRadio&quot;
+      }, {
+        &quot;field&quot; : &quot;isThisCustomerComplaint&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;No&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;lwcName&quot; : &quot;complaintAddressLookup&quot;,
+  &quot;label&quot; : &quot;Postcode&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;thirdPartyCheck&quot;,
+    &quot;source&quot; : &quot;false&quot;
+  } ]
+}</propertySetConfig>
+                <sequenceNumber>46.0</sequenceNumber>
+                <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
                 <name>RelationshipManagerDetails</name>
@@ -2816,6 +2899,101 @@
                 <type>Text Block</type>
             </childElements>
             <childElements>
+                <name>SearchAddressRadio</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12.0,
+  &quot;label&quot; : &quot;Search Address or Manually Enter Customer Address&quot;,
+  &quot;required&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;horizontalMode&quot; : &quot;displayWide&quot;,
+  &quot;defaultValue&quot; : &quot;Manual Address Entry&quot;,
+  &quot;help&quot; : true,
+  &quot;helpText&quot; : &quot;Choose Search Address to enter a validated full address. Choose Manually Address Entry to enter details yourself (only Postcode is required and validated)&quot;,
+  &quot;options&quot; : [ {
+    &quot;name&quot; : &quot;Search Address&quot;,
+    &quot;developerName&quot; : null,
+    &quot;value&quot; : &quot;Search Address&quot;,
+    &quot;autoAdv&quot; : null
+  }, {
+    &quot;name&quot; : &quot;Manual Address Entry&quot;,
+    &quot;developerName&quot; : null,
+    &quot;value&quot; : &quot;Manual Address Entry&quot;,
+    &quot;autoAdv&quot; : null
+  } ],
+  &quot;optionSource&quot; : {
+    &quot;type&quot; : &quot;&quot;,
+    &quot;source&quot; : &quot;&quot;
+  },
+  &quot;controllingField&quot; : {
+    &quot;element&quot; : &quot;&quot;,
+    &quot;type&quot; : &quot;&quot;,
+    &quot;source&quot; : &quot;&quot;
+  },
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;No&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;isThisCustomerComplaint&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;optionWidth&quot; : 100.0,
+  &quot;optionHeight&quot; : 100.0,
+  &quot;imageCountInRow&quot; : 3.0,
+  &quot;enableCaption&quot; : true,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>30.0</sequenceNumber>
+                <type>Radio</type>
+            </childElements>
+            <childElements>
+                <name>SearchAddressThirdParty</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 4,
+  &quot;label&quot; : &quot;Search Address&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Search Address&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;thirdPartyAddress&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;complaintAddressLookup&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;thirdPartyCheck&quot;,
+    &quot;source&quot; : &quot;true&quot;
+  }, {
+    &quot;name&quot; : &quot;isAutoSearch&quot;,
+    &quot;source&quot; : &quot;true&quot;
+  } ]
+}</propertySetConfig>
+                <sequenceNumber>68.0</sequenceNumber>
+                <type>Custom Lightning Web Component</type>
+            </childElements>
+            <childElements>
                 <name>State</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -2831,6 +3009,14 @@
         &quot;data&quot; : &quot;No&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;isThisCustomerComplaint&quot;
+      }, {
+        &quot;field&quot; : &quot;Case:disablAddress&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;
+      }, {
+        &quot;field&quot; : &quot;SearchAddressRadio&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Search Address&quot;
       } ]
     }
   },
@@ -2840,7 +3026,7 @@
   &quot;bStandalone&quot; : false,
   &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
-                <sequenceNumber>43.0</sequenceNumber>
+                <sequenceNumber>48.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -2868,6 +3054,38 @@
                 <type>Formula</type>
             </childElements>
             <childElements>
+                <name>StateManual</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;hide&quot; : false,
+  &quot;controlWidth&quot; : 4.0,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;No&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;isThisCustomerComplaint&quot;
+      }, {
+        &quot;field&quot; : &quot;SearchAddressRadio&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Manual Address Entry&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;lwcName&quot; : &quot;omniText&quot;,
+  &quot;label&quot; : &quot;State&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ ]
+}</propertySetConfig>
+                <sequenceNumber>49.0</sequenceNumber>
+                <type>Custom Lightning Web Component</type>
+            </childElements>
+            <childElements>
                 <name>Street</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -2883,6 +3101,14 @@
         &quot;data&quot; : &quot;No&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;isThisCustomerComplaint&quot;
+      }, {
+        &quot;field&quot; : &quot;Case:disablAddress&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;
+      }, {
+        &quot;field&quot; : &quot;SearchAddressRadio&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Search Address&quot;
       } ]
     }
   },
@@ -2892,7 +3118,7 @@
   &quot;bStandalone&quot; : false,
   &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
-                <sequenceNumber>40.0</sequenceNumber>
+                <sequenceNumber>42.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -2920,6 +3146,38 @@
                 <type>Formula</type>
             </childElements>
             <childElements>
+                <name>StreetManual</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;hide&quot; : false,
+  &quot;controlWidth&quot; : 4.0,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;No&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;isThisCustomerComplaint&quot;
+      }, {
+        &quot;field&quot; : &quot;SearchAddressRadio&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Manual Address Entry&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;lwcName&quot; : &quot;omniText&quot;,
+  &quot;label&quot; : &quot;Street&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ ]
+}</propertySetConfig>
+                <sequenceNumber>43.0</sequenceNumber>
+                <type>Custom Lightning Web Component</type>
+            </childElements>
+            <childElements>
                 <name>Suburb</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -2933,18 +3191,26 @@
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
         &quot;field&quot; : &quot;isThisCustomerComplaint&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;No&quot;
-      } ],
-      &quot;operator&quot; : &quot;AND&quot;
+      }, {
+        &quot;field&quot; : &quot;Case:disablAddress&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;
+      }, {
+        &quot;field&quot; : &quot;SearchAddressRadio&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Search Address&quot;
+      } ]
     }
   },
   &quot;label&quot; : &quot;Suburb&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>41.0</sequenceNumber>
+                <sequenceNumber>44.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -2970,6 +3236,38 @@
 }</propertySetConfig>
                 <sequenceNumber>14.0</sequenceNumber>
                 <type>Formula</type>
+            </childElements>
+            <childElements>
+                <name>SuburbManual</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;hide&quot; : false,
+  &quot;controlWidth&quot; : 4.0,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;isThisCustomerComplaint&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;No&quot;
+      }, {
+        &quot;field&quot; : &quot;SearchAddressRadio&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Manual Address Entry&quot;
+      } ]
+    }
+  },
+  &quot;lwcName&quot; : &quot;omniText&quot;,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;label&quot; : &quot;Suburb&quot;,
+  &quot;customAttributes&quot; : [ ]
+}</propertySetConfig>
+                <sequenceNumber>45.0</sequenceNumber>
+                <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
                 <name>switchOff3rdPartyNotCheckbox</name>
@@ -3029,7 +3327,7 @@
   &quot;lwcComponentOverride&quot; : &quot;&quot;,
   &quot;defaultValue&quot; : &quot;false&quot;
 }</propertySetConfig>
-                <sequenceNumber>50.0</sequenceNumber>
+                <sequenceNumber>57.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
@@ -3077,7 +3375,7 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>46.0</sequenceNumber>
+                <sequenceNumber>53.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
@@ -3326,6 +3624,81 @@
                 <type>Text Block</type>
             </childElements>
             <childElements>
+                <name>TextBlock7</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 4,
+  &quot;label&quot; : &quot;TextBlock7&quot;,
+  &quot;text&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>65.0</sequenceNumber>
+                <type>Text Block</type>
+            </childElements>
+            <childElements>
+                <name>thirdPartyAddress</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;optionSource&quot; : {
+    &quot;type&quot; : &quot;&quot;,
+    &quot;source&quot; : &quot;&quot;
+  },
+  &quot;helpText&quot; : &quot;Choose Search Address to enter a validated full address. Choose Manually Address Entry to enter details yourself (only Postcode is required and validated)&quot;,
+  &quot;controlWidth&quot; : 12.0,
+  &quot;defaultValue&quot; : &quot;Manual Address Entry&quot;,
+  &quot;optionHeight&quot; : 100.0,
+  &quot;repeatClone&quot; : false,
+  &quot;horizontalMode&quot; : &quot;displayWide&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;thirdPartyRepCheckbox&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Yes&quot;
+      } ]
+    }
+  },
+  &quot;controllingField&quot; : {
+    &quot;element&quot; : &quot;&quot;,
+    &quot;type&quot; : &quot;&quot;,
+    &quot;source&quot; : &quot;&quot;
+  },
+  &quot;readOnly&quot; : false,
+  &quot;enableCaption&quot; : true,
+  &quot;label&quot; : &quot;Search Address or Manually Enter Customer Address&quot;,
+  &quot;imageCountInRow&quot; : 3.0,
+  &quot;required&quot; : false,
+  &quot;help&quot; : true,
+  &quot;hide&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;options&quot; : [ {
+    &quot;name&quot; : &quot;Search Address&quot;,
+    &quot;value&quot; : &quot;Search Address&quot;
+  }, {
+    &quot;name&quot; : &quot;Manual Address Entry&quot;,
+    &quot;value&quot; : &quot;Manual Address Entry&quot;
+  } ],
+  &quot;disOnTplt&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;optionWidth&quot; : 100.0,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+                <sequenceNumber>58.0</sequenceNumber>
+                <type>Radio</type>
+            </childElements>
+            <childElements>
                 <name>thirdPartyCompanyName</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -3335,7 +3708,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;hide&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;debounceValue&quot; : 0.0,
+  &quot;debounceValue&quot; : 0,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
@@ -3349,8 +3722,8 @@
     }
   },
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;maxLength&quot; : 255.0,
-  &quot;minLength&quot; : 0.0,
+  &quot;maxLength&quot; : 255,
+  &quot;minLength&quot; : 0,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;mask&quot; : &quot;&quot;,
@@ -3361,17 +3734,16 @@
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
+  &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Nominated 3rd party company name&quot;,
-  &quot;controlWidth&quot; : 3.0
+  &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-                <sequenceNumber>52.0</sequenceNumber>
+                <sequenceNumber>59.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
                 <name>thirdPartyCountry</name>
-                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
@@ -3389,6 +3761,10 @@
         &quot;data&quot; : &quot;Yes&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;thirdPartyRepCheckbox&quot;
+      }, {
+        &quot;field&quot; : &quot;thirdPartyAddress&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Manual Address Entry&quot;
       } ]
     }
   },
@@ -3409,12 +3785,67 @@
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : true,
-  &quot;inputWidth&quot; : 12.0,
+  &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Nominated 3rd party country&quot;,
-  &quot;controlWidth&quot; : 3.0
+  &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-                <sequenceNumber>61.0</sequenceNumber>
+                <sequenceNumber>76.0</sequenceNumber>
+                <type>Select</type>
+            </childElements>
+            <childElements>
+                <name>thirdPartyCountryReadOnly</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;optionSource&quot; : {
+    &quot;source&quot; : &quot;Case.IDR_3rdParty_Country__c&quot;,
+    &quot;type&quot; : &quot;SObject&quot;
+  },
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;controlWidth&quot; : 4,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Yes&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;thirdPartyRepCheckbox&quot;
+      }, {
+        &quot;field&quot; : &quot;Case:disablThirdAddress&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;
+      }, {
+        &quot;field&quot; : &quot;thirdPartyAddress&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;data&quot; : &quot;Manual Address Entry&quot;
+      } ]
+    }
+  },
+  &quot;repeatClone&quot; : false,
+  &quot;controllingField&quot; : {
+    &quot;source&quot; : &quot;&quot;,
+    &quot;type&quot; : &quot;&quot;,
+    &quot;element&quot; : &quot;&quot;
+  },
+  &quot;readOnly&quot; : true,
+  &quot;label&quot; : &quot;Nominated 3rd party country&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;required&quot; : true,
+  &quot;help&quot; : false,
+  &quot;hide&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;options&quot; : [ ],
+  &quot;disOnTplt&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+                <sequenceNumber>71.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -3425,10 +3856,10 @@
                 <level>2.0</level>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3.0,
+  &quot;controlWidth&quot; : 4,
   &quot;label&quot; : &quot;Nominated 3rd party email address&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
+  &quot;inputWidth&quot; : 12,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -3451,12 +3882,12 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0.0,
+  &quot;debounceValue&quot; : 0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>54.0</sequenceNumber>
+                <sequenceNumber>62.0</sequenceNumber>
                 <type>Email</type>
             </childElements>
             <childElements>
@@ -3467,10 +3898,10 @@
                 <level>2.0</level>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3.0,
+  &quot;controlWidth&quot; : 4,
   &quot;label&quot; : &quot;Nominated 3rd party mobile&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
+  &quot;inputWidth&quot; : 12,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -3481,7 +3912,7 @@
   &quot;mask&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0.0,
+  &quot;minLength&quot; : 0,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -3495,12 +3926,12 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0.0,
+  &quot;debounceValue&quot; : 0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>56.0</sequenceNumber>
+                <sequenceNumber>63.0</sequenceNumber>
                 <type>Telephone</type>
             </childElements>
             <childElements>
@@ -3511,10 +3942,10 @@
                 <level>2.0</level>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3.0,
+  &quot;controlWidth&quot; : 4,
   &quot;label&quot; : &quot;Nominated 3rd party representative name&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
+  &quot;inputWidth&quot; : 12,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -3525,8 +3956,8 @@
   &quot;mask&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0.0,
-  &quot;maxLength&quot; : 255.0,
+  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -3540,12 +3971,12 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0.0,
+  &quot;debounceValue&quot; : 0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>51.0</sequenceNumber>
+                <sequenceNumber>60.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -3559,7 +3990,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;hide&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;debounceValue&quot; : 0.0,
+  &quot;debounceValue&quot; : 0,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
@@ -3573,7 +4004,7 @@
     }
   },
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0.0,
+  &quot;minLength&quot; : 0,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;mask&quot; : &quot;&quot;,
@@ -3584,39 +4015,59 @@
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
+  &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Nominated 3rd party phone&quot;,
-  &quot;controlWidth&quot; : 3.0
+  &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-                <sequenceNumber>57.0</sequenceNumber>
+                <sequenceNumber>64.0</sequenceNumber>
                 <type>Telephone</type>
             </childElements>
             <childElements>
                 <name>thirdPartyPostCode</name>
-                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3.0,
-  &quot;label&quot; : &quot;Nominated 3rd party postcode&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
-  &quot;required&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;readOnly&quot; : false,
-  &quot;help&quot; : true,
+  &quot;hide&quot; : false,
+  &quot;controlWidth&quot; : 4,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Manual Address Entry&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;thirdPartyAddress&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;lwcName&quot; : &quot;complaintAddressLookup&quot;,
+  &quot;label&quot; : &quot;Postcode&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;thirdPartyCheck&quot;,
+    &quot;source&quot; : &quot;true&quot;
+  } ]
+}</propertySetConfig>
+                <sequenceNumber>74.0</sequenceNumber>
+                <type>Custom Lightning Web Component</type>
+            </childElements>
+            <childElements>
+                <name>thirdPartyPostCodeReadOnly</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;accessibleInFutureSteps&quot; : false,
   &quot;helpText&quot; : &quot;Enter the Customer&apos;s 4-digit Australian postcode. If the customer is overseas, enter &apos;Overseas&apos;. if the postcode is unknown, enter &apos;Not Applicable&apos;.&quot;,
-  &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;mask&quot; : &quot;&quot;,
-  &quot;pattern&quot; : &quot;Overseas|Not Applicable|^[0-9]{4}&quot;,
+  &quot;controlWidth&quot; : 4,
   &quot;ptrnErrText&quot; : &quot;Postcode must be a 4-digit Australian postcode. If the customer is overseas, enter &apos;Overseas&apos;, if the postcode is unknown, enter &apos;Not Applicable&apos;.&quot;,
-  &quot;minLength&quot; : 0.0,
-  &quot;maxLength&quot; : 255.0,
-  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;minLength&quot; : 0,
+  &quot;repeatClone&quot; : false,
+  &quot;pattern&quot; : &quot;Overseas|Not Applicable|^[0-9]{4}&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
@@ -3624,17 +4075,35 @@
         &quot;data&quot; : &quot;Yes&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;thirdPartyRepCheckbox&quot;
+      }, {
+        &quot;field&quot; : &quot;Case:disablThirdAddress&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;
+      }, {
+        &quot;field&quot; : &quot;thirdPartyAddress&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;data&quot; : &quot;Manual Address Entry&quot;
       } ]
     }
   },
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0.0,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;readOnly&quot; : true,
+  &quot;label&quot; : &quot;Nominated 3rd party postcode&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;required&quot; : false,
+  &quot;help&quot; : true,
   &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false
+  &quot;debounceValue&quot; : 0,
+  &quot;repeat&quot; : false,
+  &quot;disOnTplt&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;maxLength&quot; : 255,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;mask&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>60.0</sequenceNumber>
+                <sequenceNumber>70.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -3645,10 +4114,10 @@
                 <level>2.0</level>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3.0,
+  &quot;controlWidth&quot; : 4,
   &quot;label&quot; : &quot;Relationship to complainant&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
+  &quot;inputWidth&quot; : 12,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -3682,7 +4151,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>53.0</sequenceNumber>
+                <sequenceNumber>61.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -3744,21 +4213,20 @@
   &quot;label&quot; : &quot;Does Customer wish to be represented by third party?&quot;,
   &quot;controlWidth&quot; : 12.0
 }</propertySetConfig>
-                <sequenceNumber>49.0</sequenceNumber>
+                <sequenceNumber>56.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
                 <name>thirdPartyState</name>
-                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3.0,
+  &quot;controlWidth&quot; : 4,
   &quot;label&quot; : &quot;Nominated 3rd party state&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
+  &quot;inputWidth&quot; : 12,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -3783,6 +4251,10 @@
         &quot;data&quot; : &quot;Yes&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;thirdPartyRepCheckbox&quot;
+      }, {
+        &quot;field&quot; : &quot;thirdPartyAddress&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Manual Address Entry&quot;
       } ]
     }
   },
@@ -3792,12 +4264,66 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>62.0</sequenceNumber>
+                <sequenceNumber>75.0</sequenceNumber>
+                <type>Select</type>
+            </childElements>
+            <childElements>
+                <name>thirdPartyStateReadOnly</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;optionSource&quot; : {
+    &quot;type&quot; : &quot;SObject&quot;,
+    &quot;source&quot; : &quot;Case.IDR_3rdParty_State__c&quot;
+  },
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;controlWidth&quot; : 4,
+  &quot;repeatClone&quot; : false,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Yes&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;thirdPartyRepCheckbox&quot;
+      }, {
+        &quot;field&quot; : &quot;Case:disablThirdAddress&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;
+      }, {
+        &quot;field&quot; : &quot;thirdPartyAddress&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;data&quot; : &quot;Manual Address Entry&quot;
+      } ]
+    }
+  },
+  &quot;controllingField&quot; : {
+    &quot;element&quot; : &quot;thirdPartyCountryReadOnly&quot;,
+    &quot;type&quot; : &quot;SObject&quot;,
+    &quot;source&quot; : &quot;Case.IDR_3rdParty_Country__c&quot;
+  },
+  &quot;readOnly&quot; : true,
+  &quot;label&quot; : &quot;Nominated 3rd party state&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;required&quot; : true,
+  &quot;help&quot; : false,
+  &quot;hide&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;options&quot; : [ ],
+  &quot;disOnTplt&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+                <sequenceNumber>72.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
                 <name>thirdPartyStreet</name>
-                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
@@ -3806,7 +4332,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;hide&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;debounceValue&quot; : 0.0,
+  &quot;debounceValue&quot; : 0,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
@@ -3816,12 +4342,16 @@
         &quot;data&quot; : &quot;Yes&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;thirdPartyRepCheckbox&quot;
+      }, {
+        &quot;field&quot; : &quot;thirdPartyAddress&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Manual Address Entry&quot;
       } ]
     }
   },
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;maxLength&quot; : 255.0,
-  &quot;minLength&quot; : 0.0,
+  &quot;maxLength&quot; : 255,
+  &quot;minLength&quot; : 0,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;mask&quot; : &quot;&quot;,
@@ -3832,13 +4362,103 @@
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
+  &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Nominated 3rd party street&quot;,
-  &quot;controlWidth&quot; : 3.0
+  &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-                <sequenceNumber>58.0</sequenceNumber>
+                <sequenceNumber>73.0</sequenceNumber>
                 <type>Text</type>
+            </childElements>
+            <childElements>
+                <name>thirdPartyStreetReadOnly</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;controlWidth&quot; : 4,
+  &quot;ptrnErrText&quot; : &quot;&quot;,
+  &quot;minLength&quot; : 0,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Yes&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;thirdPartyRepCheckbox&quot;
+      }, {
+        &quot;field&quot; : &quot;Case:disablThirdAddress&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;
+      }, {
+        &quot;field&quot; : &quot;thirdPartyAddress&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;data&quot; : &quot;Manual Address Entry&quot;
+      } ]
+    }
+  },
+  &quot;pattern&quot; : &quot;&quot;,
+  &quot;repeatClone&quot; : false,
+  &quot;readOnly&quot; : true,
+  &quot;label&quot; : &quot;Nominated 3rd party street&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;required&quot; : false,
+  &quot;help&quot; : false,
+  &quot;hide&quot; : false,
+  &quot;debounceValue&quot; : 0,
+  &quot;repeat&quot; : false,
+  &quot;disOnTplt&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;maxLength&quot; : 255,
+  &quot;mask&quot; : &quot;&quot;
+}</propertySetConfig>
+                <sequenceNumber>69.0</sequenceNumber>
+                <type>Text</type>
+            </childElements>
+            <childElements>
+                <name>ValidateAddress</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 4.0,
+  &quot;label&quot; : &quot;Search Address&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Search Address&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;SearchAddressRadio&quot;
+      }, {
+        &quot;field&quot; : &quot;isThisCustomerComplaint&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;No&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;complaintAddressLookup&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;thirdPartyCheck&quot;,
+    &quot;source&quot; : &quot;false&quot;
+  }, {
+    &quot;name&quot; : &quot;isAutoSearch&quot;,
+    &quot;source&quot; : &quot;true&quot;
+  } ]
+}</propertySetConfig>
+                <sequenceNumber>41.0</sequenceNumber>
+                <type>Custom Lightning Web Component</type>
             </childElements>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
             <isActive>true</isActive>
@@ -6052,7 +6672,7 @@
   &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>41.0</sequenceNumber>
+                <sequenceNumber>42.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -6532,7 +7152,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;displayCurrencyCode&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>42.0</sequenceNumber>
+                <sequenceNumber>41.0</sequenceNumber>
                 <type>Currency</type>
             </childElements>
             <childElements>
@@ -7617,7 +8237,7 @@
         <level>0.0</level>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
+  &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;&quot;,
   &quot;elementValueMap&quot; : {
     &quot;custMap&quot; : [ {
@@ -7629,8 +8249,6 @@
       &quot;Age&quot; : &quot;Age&quot;
     }, {
       &quot;Gender&quot; : &quot;Gender&quot;
-    }, {
-      &quot;Postcode&quot; : &quot;Postcode&quot;
     } ],
     &quot;thirdPartyMap&quot; : [ {
       &quot;thirdPartyName&quot; : &quot;Nominated 3rd party representative name&quot;
@@ -7640,10 +8258,6 @@
       &quot;thirdPartyEmail&quot; : &quot;Nominated 3rd party email address&quot;
     }, {
       &quot;thirdPartyMobile&quot; : &quot;Nominated 3rd party mobile&quot;
-    }, {
-      &quot;thirdPartyCountry&quot; : &quot;Nominated 3rd party country&quot;
-    }, {
-      &quot;thirdPartyState&quot; : &quot;Nominated 3rd party state&quot;
     } ],
     &quot;cmpMap&quot; : [ {
       &quot;ChannelReceived&quot; : &quot;Channel Received&quot;
@@ -7724,7 +8338,7 @@
     &quot;thirdPartyCountry&quot; : &quot;Australia&quot;,
     &quot;RestrictionLevel&quot; : &quot;No Restriction&quot;,
     &quot;Country&quot; : &quot;Australia&quot;,
-    &quot;isEligibleAppForLookUp&quot; : &quot;=CONTAINS(%currentAppName%, &apos;Coaches Workbench&apos;)&quot;,
+    &quot;isEligibleAppForLookUp&quot; : &quot;=CONTAINS(%currentAppName%, &apos;Workbench&apos;)&quot;,
     &quot;isEcf&quot; : false
   },
   &quot;showPersistentComponent&quot; : [ true, false ],

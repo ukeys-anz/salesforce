@@ -434,7 +434,6 @@ public with sharing class IDRConstants {
     'ANZ Plus App',
     'Know Your Customer',
     '22',
-    '23',
     '24'
   };
 

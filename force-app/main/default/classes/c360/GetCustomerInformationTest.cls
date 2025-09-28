@@ -48,4 +48,54 @@ public class GetCustomerInformationTest {
     );
     Test.stopTest();
   }
+  @isTest
+  static void testFetchAddess() {
+    Test.setMock(HttpCalloutMock.class, new MockAddressService());
+    Test.startTest();
+    CCRMValidateManualAddressModel resp = GetCustomerInformation.fetchAddress(
+      3029
+    );
+    Test.stopTest();
+    Assert.isTrue(resp.Result[0].postCode == 3029, 'response is successful');
+  }
+  @isTest
+  static void testFetchAddessError() {
+    Test.setMock(HttpCalloutMock.class, new MockFailReqAddressService());
+    try {
+      Test.startTest();
+      GetCustomerInformation.fetchAddress(3029);
+      Test.stopTest();
+    } catch (exception ex) {
+      Assert.isTrue(ex.getmessage() == 'API Down', 'Response is an error');
+    }
+  }
+  class MockAddressService implements HttpCalloutMock {
+    /**
+     * @description mock response for callout
+     * @param req incoming request
+     * @return HTTPResponse valid response
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      HTTPResponse res = new HTTPResponse();
+      res.setStatusCode(200);
+      res.setHeader('Content-Type', 'application/json');
+      res.setBody(
+        '{ "result": [ { "postCode": "3029", "suburb": "BARTON"} ] }'
+      );
+      return res;
+    }
+  }
+  class MockFailReqAddressService implements HttpCalloutMock {
+    /**
+     * @description mock response for callout
+     * @param req incoming request
+     * @return HTTPResponse invalid response
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      HTTPResponse res = new HTTPResponse();
+      res.setStatusCode(500);
+      res.setBody('{"error": "Something went wrong on the server"}');
+      return res;
+    }
+  }
 }

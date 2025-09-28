@@ -7,5 +7,4 @@ trigger AccountTrigger on Account(
   BusinessAccountTriggerHandler businessAccountHandler = new BusinessAccountTriggerHandler();
   IndividualAccountTriggerHandler individualAccountHandler = new IndividualAccountTriggerHandler();
   AccountTriggerHandler handler = new AccountTriggerHandler();
-  IDRAccountTriggerHandler idrHandler = new IDRAccountTriggerHandler();
 }

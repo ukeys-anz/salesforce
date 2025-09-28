@@ -84,7 +84,8 @@ public class IDRTestDataFactory {
         RecordTypeId = RTCase.customerComplaint,
         Status = IDRConstants.OPEN_STATUS,
         CaseNumber__c = String.valueOf(caseNumber),
-        Priority = priority
+        Priority = priority,
+        AccountId = acc.Id
       ),
       new Map<String, Object>{ 'CaseNumber' => caseNumber, 'Account' => acc }
     );
