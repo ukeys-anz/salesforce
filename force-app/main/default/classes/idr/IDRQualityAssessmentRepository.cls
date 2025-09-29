@@ -43,6 +43,7 @@ public with sharing class IDRQualityAssessmentRepository {
     return [
       SELECT
         Id,
+        Name,
         OwnerId,
         TeamManager__c,
         TeamManager__r.Name,
