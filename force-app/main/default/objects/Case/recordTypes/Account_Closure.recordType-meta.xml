@@ -6674,10 +6674,6 @@
     <picklistValues>
         <picklist>Origin</picklist>
         <values>
-            <fullName>ANZ Plus App</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Appointment</fullName>
             <default>false</default>
         </values>
