@@ -11,13 +11,22 @@
         class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
         role="none"
       >
-        <lightning-input
-          class="inputBox .slds-form-element_readonly"
-          onchange={handleSearchKeyChange}
-          label="Search Address"
-          value={searchString}
-          placeholder="type here..."
-        ></lightning-input>
+        <lightning-layout>
+          <lightning-layout-item flexibility="auto">
+            <lightning-input
+              class="inputBox .slds-form-element_readonly"
+              onchange={handleSearchKeyChange}
+              label="Search Address"
+              value={searchString}
+              placeholder="type here..."
+            ></lightning-input>
+          </lightning-layout-item>
+          <lightning-layout-item flexibility="shrink">
+            <lightning-helptext
+              content="Enter an Australian address. If no validated address is returned, please select 'Manual address Entry' in the button above"
+            ></lightning-helptext>
+          </lightning-layout-item>
+        </lightning-layout>
       </div>
       <div
         lwc:else

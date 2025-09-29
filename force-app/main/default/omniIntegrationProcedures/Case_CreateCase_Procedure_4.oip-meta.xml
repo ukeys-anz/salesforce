@@ -251,7 +251,7 @@
         <level>0.0</level>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;sendOnlyAdditionalInput&quot; : false,
+  &quot;sendOnlyAdditionalInput&quot; : true,
   &quot;remoteMethod&quot; : &quot;createComplaintResolution&quot;,
   &quot;returnOnlyAdditionalOutput&quot; : false,
   &quot;failOnStepError&quot; : false,

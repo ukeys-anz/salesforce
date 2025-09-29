@@ -162,7 +162,10 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
           .filter((x) => x)
           .join(", ")
       };
-      if (response.result.components) {
+      if (
+        response.result.components !== undefined &&
+        response.result.components !== null
+      ) {
         this.selectedAddress.country = this.getCountry(
           this.getCountryOptions(),
           response.result.components.country_iso_3

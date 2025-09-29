@@ -40,6 +40,18 @@
         <apexClass>omnistudio__ComponentController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>CCRMAPIRepository</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>MLCRMCommonUtils</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <customMetadataTypeAccesses>
+        <name>DCRM_CountryMapping__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <customMetadataTypeAccesses>
         <name>IDR_Omni_Settings_CMOS__mdt</name>
         <enabled>true</enabled>
