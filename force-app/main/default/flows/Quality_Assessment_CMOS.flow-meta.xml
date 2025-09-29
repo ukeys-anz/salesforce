@@ -115,6 +115,13 @@
                     <stringValue>Call_Letter_Review_Assessment</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Setup.Salesforce_Library_Settings__c.Disable_Flows__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Is_Assessment_Owned_by_Case_Manager</targetReference>
             </connector>
@@ -159,12 +166,20 @@
                     <stringValue>C_Q_Assessment</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Setup.Salesforce_Library_Settings__c.Disable_Flows__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Is_Assessment_Owned_by_Case_Manager</targetReference>
             </connector>
             <label>This is C&amp;Q Assessment</label>
         </rules>
     </decisions>
+    <description>added Evaluation not equal to front line condition</description>
     <environments>Default</environments>
     <interviewLabel>Quality Assessment CMOS {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Quality Assessment CMOS</label>
@@ -278,6 +293,13 @@
             <operator>EqualTo</operator>
             <value>
                 <stringValue>Complete</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Evaluation_Type__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Frontline Assessment</stringValue>
             </value>
         </filters>
         <locationX>144</locationX>
