@@ -155,13 +155,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Closure_Reason__c</fieldItem>
                 <identifier>RecordClosure_Reason_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Origin}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>ANZ Plus App</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -178,25 +171,26 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>required</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Comments</fieldItem>
-                <identifier>RecordCommentsField</identifier>
+                <fieldItem>Record.Package_Id__c</fieldItem>
+                <identifier>RecordPackage_Id_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.Status}</leftValue>
+                        <leftValue>{!Record.Product.ANZ_Product_Code__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Withdrawn</rightValue>
+                        <rightValue>SAVING01</rightValue>
                     </criteria>
                     <criteria>
-                        <leftValue>{!Record.RecordType.Name}</leftValue>
+                        <leftValue>{!Record.Product.ANZ_Product_Code__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Account Closure</rightValue>
+                        <rightValue>TRANSACT01</rightValue>
                     </criteria>
                     <criteria>
-                        <leftValue>{!Record.Parent.CaseNumber}</leftValue>
+                        <leftValue>{!Record.Account_Product__c}</leftValue>
                         <operator>NE</operator>
+                        <rightValue>ANZ Plus Flex Saver</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -684,31 +678,6 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection4</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 OR ( 2 AND ( 3 AND 4 AND 5) )</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Origin}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>ANZ Plus App</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Origin}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>ANZ Plus App</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Intended_Account_Number__c}</leftValue>
-                        <operator>NE</operator>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Intended_Account_Name__c}</leftValue>
-                        <operator>NE</operator>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Intended_Account_BSB__c}</leftValue>
-                        <operator>NE</operator>
-                    </criteria>
-                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -785,13 +754,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Closure_Reason__c</fieldItem>
                 <identifier>RecordClosure_Reason_cField2</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Origin}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>ANZ Plus App</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>

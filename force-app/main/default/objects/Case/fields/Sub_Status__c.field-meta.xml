@@ -73,20 +73,16 @@
         <valueSettings>
             <controllingFieldValue>Closed</controllingFieldValue>
             <controllingFieldValue>Escalated</controllingFieldValue>
-            <controllingFieldValue>Open</controllingFieldValue>
-            <controllingFieldValue>Withdrawn</controllingFieldValue>
             <valueName>Processing</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Closed</controllingFieldValue>
             <controllingFieldValue>Escalated</controllingFieldValue>
-            <controllingFieldValue>Withdrawn</controllingFieldValue>
             <valueName>Success</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Closed</controllingFieldValue>
             <controllingFieldValue>Escalated</controllingFieldValue>
-            <controllingFieldValue>Withdrawn</controllingFieldValue>
             <valueName>Failed</valueName>
         </valueSettings>
         <valueSettings>
