@@ -13,7 +13,10 @@ public with sharing class AccountQueryHelper {
     List<Account> accounts = [
       SELECT OCV_ID__c, PPID__c
       FROM Account
-      WHERE Id = :accountId AND ANZx_Customer__c = TRUE
+      WHERE
+        Id = :accountId
+        AND (ANZx_Customer__c = TRUE
+        OR Was_ANZx_Customer__c = TRUE)
     ];
     return accounts;
   }

@@ -795,6 +795,14 @@
       ]
     },
     "Broker_Relation__c": {
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ],
       "IA-2415790": ["Aggregator__c", "RecordTypeID", "State__c"],
       "IA-2453350": ["External_Id__c", "IsActive__c"],
       "IA-2460507": [
@@ -1767,6 +1775,14 @@
       ]
     },
     "Complaint_Resolution__c": {
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ],
       "IA-2468715": [
         "IDR_Complaint__c",
         "IDR_Complaint_Remedy__c",
@@ -2228,6 +2244,14 @@
       "IA-2415720": ["Customer_Status__c"]
     },
     "Customer_Task_Configuration__c": {
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ],
       "IA-2468707": [
         "AEM_Content_Id__c",
         "Applicable_Record_Types__c",
@@ -2237,6 +2261,14 @@
       ]
     },
     "Customer_Task_Data__c": {
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ],
       "IA-2468707": ["AEM_Content_Data__c"]
     },
     "Customer_Profile_Update_Event__e": {
@@ -3612,6 +3644,7 @@
         "BBD_Application_Number__c",
         "Broker_Involved__c",
         "CLP_Credit_Case_Number__c",
+        "CLG_ID__c",
         "Customer_Needs__c",
         "Lost_Reason_Detail__c",
         "ML_DataMigration_Key__c",
@@ -3636,7 +3669,6 @@
         "Secondary_Customer_Needs__c",
         "My_Notes__c"
       ],
-      "IA-4614597": ["CLG_ID__c"],
       "IA-2468715": [
         "CreatedById",
         "CreatedDate",

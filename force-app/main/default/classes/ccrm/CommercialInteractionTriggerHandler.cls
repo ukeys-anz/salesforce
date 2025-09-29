@@ -35,6 +35,8 @@ public with sharing class CommercialInteractionTriggerHandler extends Lib_Trigge
     CommercialInteractionActions.restrictImagesInRichTextFields(records, null);
     CommercialInteractionActions.performRedaction(records);
     CommercialInteractionActions.populateCLG(records, null);
+    TextUtils.maskSObjectDataANZExtended(records, 'Name');
+    TextUtils.maskSObjectDataANZExtended(records, 'Optional_Notes__c');
   }
 
   /**
@@ -65,6 +67,8 @@ public with sharing class CommercialInteractionTriggerHandler extends Lib_Trigge
       records,
       (Map<Id, Interaction>) oldMap
     );
+    TextUtils.maskSObjectDataANZExtended(records, 'Name');
+    TextUtils.maskSObjectDataANZExtended(records, 'Optional_Notes__c');
   }
 
   /**

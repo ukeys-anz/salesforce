@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Group xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>Customer Integration</name>
+    <description>GCP Integration user processes a classic loan application, it updates the loan applicant which results in an update on a AR&amp;C customer.</description>
+    <doesIncludeBosses>true</doesIncludeBosses>
+</Group>

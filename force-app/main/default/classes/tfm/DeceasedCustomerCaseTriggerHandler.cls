@@ -24,6 +24,13 @@ public with sharing class DeceasedCustomerCaseTriggerHandler extends Lib_Trigger
   /**
    * @description onAfterInsert to handle after insert trigger actions.
    */
+  public override void onBeforeInsert() {
+    DeceasedCustomerCaseActions.updateOwner(records);
+  }
+
+  /**
+   * @description onAfterInsert to handle after insert trigger actions.
+   */
   public override void onAfterInsert() {
     DeceasedCustomerCaseActions.updateDeceasedEstateStatusOnAccount(
       records,
