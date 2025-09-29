@@ -205,27 +205,6 @@ public with sharing class IDRQualityAssessmentTaskActions {
         return;
       }
     }
-    sendNotifications(feedBackTasks);
-  }
-  /**
-   * @description To send notifications for feedback tasks.
-   * @param taskRecords List of tasks to send notifications for.
-   */
-  static void sendNotifications(List<Task> taskRecords) {
-    CustomNotificationType cmosNotificationType = CommonUtil.getCustomNotificationTypeByName(
-      'CMOS'
-    );
-    for (Task record : taskRecords) {
-      CommonUtil.sendInAppNotification(
-        new InAppNotificationWrapper(
-          cmosNotificationType.Id,
-          record.Id,
-          record.OwnerId,
-          record.Subject,
-          record.Description
-        )
-      );
-    }
   }
   /**
    * @description To prepare a Task for all the QA records updated
