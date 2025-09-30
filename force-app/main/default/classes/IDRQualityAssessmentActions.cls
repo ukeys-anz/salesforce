@@ -119,24 +119,16 @@ public with sharing class IDRQualityAssessmentActions {
   /**
    * @description Use the Quality_Assessment__c record type and evaluation type to work out the fieldset id
    * @param oAssessment Quality_Assessment__c record for determining fieldset Id
-   *
    * @return String fieldset Id matching record type and Evaluation Type
    */
   public static String getFieldsetId(Quality_Assessment__c oAssessment) {
-    Set<Id> recordTypes = new Set<Id>{
-      RTQualityAssessment.idrCQQualityId,
-      RTQualityAssessment.idrReviewAssessmentId
-    };
     Map<String, String> evaluationTypes = new Map<String, String>{
-      'C & Q Assessment' => 'C_Q_Assessment',
-      'Customer Resolution Assessment' => 'C_R_Assessment',
-      'Frontline Assessment' => 'F_L_Assessment',
-      'Call Review Assessment' => 'Call_Review_Assessment',
-      'Letter Review Assessment' => 'Letter_Review_Assessment'
+      IDRConstants.QA_CQ_ASSESSMENT => 'C_Q_Assessment',
+      IDRConstants.QA_CR_ASSESSMENT => 'C_R_Assessment',
+      IDRConstants.QA_FRONTLINE_ASSESSMENT => 'F_L_Assessment',
+      IDRConstants.QA_CALL_REVIEW_ASSESSMENT => 'Call_Review_Assessment',
+      IDRConstants.QA_LETTER_REVIEW_ASSESSMENT => 'Letter_Review_Assessment'
     };
-    if (!recordTypes.contains(oAssessment.RecordTypeId)) {
-      return '';
-    }
     return evaluationTypes.get(oAssessment.Evaluation_Type__c);
   }
 
