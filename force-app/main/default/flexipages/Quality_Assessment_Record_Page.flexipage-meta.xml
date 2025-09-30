@@ -166,6 +166,29 @@
                 <identifier>RecordTeamManager_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Call_details__c</fieldItem>
+                <identifier>RecordCall_details_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-619370d4-0dba-492e-ab7b-5a0d63c81891</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -233,23 +256,13 @@
         </itemInstances>
         <itemInstances>
             <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Call_details__c</fieldItem>
-                <identifier>RecordCall_details_cField2</identifier>
+                <fieldItem>Record.Related_Case__r.IDR_Office_Created_By__c</fieldItem>
+                <identifier>RecordRelated_Case_rIDR_Office_Created_By_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Evaluation_Type__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Frontline Assessment</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Customer Resolution Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
