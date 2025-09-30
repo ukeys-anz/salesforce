@@ -2,39 +2,24 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Assessment_Result__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
-    <description>Assessment Result</description>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Automated Assessment result based on various answers in CR and FL Questions.</description>
+    <externalId>false</externalId>
+    <formula>IF(
+AssessmentOutcomePass__c == true,&apos;Pass&apos;,
+IF(AssessmentOutcomeFail__c == true,&apos;Fail&apos;,
+IF(AssessmentOutcomePassFeedback__c == true,&apos;Pass With Feedback&apos;,
+IF(AssessmentOutcomeFailOutControl__c == true,&apos;Fail – outside of complaint handler control&apos;,&apos;&apos;)
+)
+)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Assessment Result</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>true</trackHistory>
+    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Picklist</type>
-    <valueSet>
-        <restricted>true</restricted>
-        <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>Pass</fullName>
-                <default>false</default>
-                <label>Pass</label>
-            </value>
-            <value>
-                <fullName>Pass with feedback</fullName>
-                <default>false</default>
-                <label>Pass with feedback</label>
-            </value>
-            <value>
-                <fullName>Fail</fullName>
-                <default>false</default>
-                <label>Fail</label>
-            </value>
-            <value>
-                <fullName>Fail – outside of complaint handler’s control</fullName>
-                <default>false</default>
-                <label>Fail – outside of complaint handler’s control</label>
-            </value>
-        </valueSetDefinition>
-    </valueSet>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>
