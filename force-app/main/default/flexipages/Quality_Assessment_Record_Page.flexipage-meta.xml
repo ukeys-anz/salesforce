@@ -7644,7 +7644,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Assessment_Result__c</fieldItem>
                 <identifier>RecordAssessment_Result_cField</identifier>

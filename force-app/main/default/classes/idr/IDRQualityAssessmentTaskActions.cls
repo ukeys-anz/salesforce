@@ -164,60 +164,22 @@ public with sharing class IDRQualityAssessmentTaskActions {
       Quality_Assessment__c.Id
     );
 
-    List<Quality_Assessment__c> correctActionRecords = ListUtil.filter(
-        filteredRecords
-      )
-      .notEquals(
-        Quality_Assessment__c.Corrective_actions_for_TM_CM__c,
-        IDRConstants.CORRECTIVE_ACTIONS_NA
-      )
-      .toList();
-
-    Set<Id> correctActionRecordsIds = ListUtil.getIds(
-      correctActionRecords,
-      Quality_Assessment__c.Id
-    );
-
     List<Quality_Assessment__c> completedCQAssessments = QA_REPOSITORY.getQualityAssessments(
-      filteredRecordsIds,
-      correctActionRecordsIds
-    );
-
-    List<Task> taskRecords = new List<Task>();
-    taskRecords.addAll(
-      prepareStandardTask(completedCQAssessments, filteredRecordsIds)
-    );
-    taskRecords.addAll(
-      prepareCorrectiveTask(completedCQAssessments, correctActionRecordsIds)
-    );
-    List<Task> feedBackTasks = prepareFeedbackTask(
-      completedCQAssessments,
       filteredRecordsIds
     );
-    taskRecords.addAll(feedBackTasks);
-    Database.saveResult[] results = DML_REPOSITORY.doInsert(
-      taskRecords,
-      new DmlConfig().systemMode()
-    );
-
-    for (Database.saveResult sr : results) {
-      if (!sr.isSuccess()) {
-        return;
-      }
-    }
+    List<Task> taskRecords = new List<Task>();
+    taskRecords.addAll(prepareStandardTask(completedCQAssessments));
+    taskRecords.addAll(prepareFeedbackTask(completedCQAssessments));
+    DML_REPOSITORY.doInsert(taskRecords, new DmlConfig().systemMode());
   }
   /**
    * @description To prepare a Task for all the QA records updated
    * @param qaRecords List of Quality Assessment object
-   * @param qaIds Set of Quality Assessment Id
    * @return `List<Task>` List of Feedback Tasks.
    */
-  static List<Task> prepareFeedbackTask(
-    List<Quality_Assessment__c> qaRecords,
-    Set<Id> qaIds
-  ) {
+  static List<Task> prepareFeedbackTask(List<Quality_Assessment__c> qaRecords) {
     List<Quality_Assessment__c> filteredRecords = ListUtil.filter(qaRecords)
-      .equals(Quality_Assessment__c.Id, qaIds)
+      .notEquals(Quality_Assessment__c.Corrective_actions_for_TM_CM__c, null)
       .toList();
     List<Task> taskRecords = new List<Task>();
     String subject =
@@ -253,7 +215,6 @@ public with sharing class IDRQualityAssessmentTaskActions {
         new Set<SObjectField>{ Quality_Assessment__c.Status__c },
         QualityAssessmentActions.STATUS_COMPLETE
       )
-      .notEquals(Quality_Assessment__c.Corrective_actions_for_TM_CM__c, null)
       .notEquals(
         Quality_Assessment__c.Evaluation_Type__c,
         IDRConstants.QA_FRONTLINE_ASSESSMENT
@@ -263,45 +224,13 @@ public with sharing class IDRQualityAssessmentTaskActions {
   /**
    * @description method to create a Task for all the QA records updated
    * @param qaRecords List of Quality Assessment object
-   * @param qaIds Set of Quality Assessment Id
    * @return `List<Task>` List of Feedback Tasks.
    */
-  static List<Task> prepareCorrectiveTask(
-    List<Quality_Assessment__c> qaRecords,
-    Set<Id> qaIds
-  ) {
-    List<Quality_Assessment__c> filteredRecords = ListUtil.filter(qaRecords)
-      .equals(Quality_Assessment__c.Id, qaIds)
-      .toList();
-    List<Task> taskRecords = new List<Task>();
-    String subject = IDRConstants.TASK_TM_ATTESTATION_SUBJECT + ' {0}';
-    for (Quality_Assessment__c record : filteredRecords) {
-      List<Object> parameters = new List<Object>{ record.Case_Manager__r.Name };
-      String formatted = String.format(subject, parameters);
-      taskRecords.add(
-        getTask(record, IDRConstants.TASK_QA_CORRECTIVE_DESCRIPTION, formatted)
-      );
-    }
-    return taskRecords;
-  }
-  /**
-   * @description method to create a Task for all the QA records updated
-   * @param qaRecords List of Quality Assessment object
-   * @param qaIds Set of Quality Assessment Id
-   * @return `List<Task>` List of Feedback Tasks.
-   */
-  static List<Task> prepareStandardTask(
-    List<Quality_Assessment__c> qaRecords,
-    Set<Id> qaIds
-  ) {
-    List<Quality_Assessment__c> filteredRecords = ListUtil.filter(qaRecords)
-      .equals(Quality_Assessment__c.Id, qaIds)
-      .toList();
-
+  static List<Task> prepareStandardTask(List<Quality_Assessment__c> qaRecords) {
     List<Task> taskRecords = new List<Task>();
     String subject =
       IDRConstants.TASK_QA_COMPLIANCE_SUBJECT + ' {0} : CMOS Case {1}';
-    for (Quality_Assessment__c record : filteredRecords) {
+    for (Quality_Assessment__c record : qaRecords) {
       List<Object> parameters = new List<Object>{
         record.Case_Manager__r.Name,
         record.Related_Case__r.CaseNumber__c

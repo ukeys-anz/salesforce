@@ -286,6 +286,7 @@ public with sharing class IDRConstants {
   public static final String STATUS_COMPLETE = 'Complete';
   public static final String STATUS_PENDING = 'Pending';
   public static final String QA_TM_RESPONSE_AWAITING = 'Awaiting response from TM';
+  public static final String CQ_ASSESSMENT = 'C & Q Assessment';
 
   //Migrated Document
   public static final String DELETION_NOT_ALLOWED = 'You may not delete CFMS migrated documents.';

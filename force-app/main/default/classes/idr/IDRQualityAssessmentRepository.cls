@@ -30,33 +30,28 @@ public with sharing class IDRQualityAssessmentRepository {
   /**
    * @description Get Quality Assessments
    * @param assessmentIds Set of Quality Assessment Ids
-   * @param correctActionRecords Set of Correct Action Records
    * @return `List<Quality_Assessment__c>` return list of Quality Assessments
    */
   public List<Quality_Assessment__c> getQualityAssessments(
-    Set<Id> assessmentIds,
-    Set<Id> correctActionRecords
+    Set<Id> assessmentIds
   ) {
-    if (assessmentIds.isEmpty() && correctActionRecords.isEmpty()) {
+    if (assessmentIds.isEmpty()) {
       return new List<Quality_Assessment__c>();
     }
     return [
       SELECT
         Id,
         Name,
-        OwnerId,
         TeamManager__c,
-        TeamManager__r.Name,
         Case_Manager__c,
         Case_Manager__r.Name,
-        Related_Case__r.CaseNumber__c
+        Related_Case__r.CaseNumber__c,
+        Corrective_actions_for_TM_CM__c
       FROM Quality_Assessment__c
       WHERE
-        (Id IN :assessmentIds
+        Id IN :assessmentIds
         AND TeamManager__c != NULL
-        AND Case_Manager__c != NULL)
-        OR (Id IN :correctActionRecords
-        AND TeamManager__c != NULL)
+        AND Case_Manager__c != NULL
       WITH USER_MODE
     ];
   }

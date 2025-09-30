@@ -4297,6 +4297,7 @@
         "Actions_Completed__c",
         "Addressed_info_req_s_basic_accts_etc__c",
         "Assessment_Result__c",
+        "Assessment_Result_formula__c",
         "Call_authentication_process_followed__c",
         "Calls_disclosed_recording_got_consent__c",
         "Case_notes_clear_and_complete__c",

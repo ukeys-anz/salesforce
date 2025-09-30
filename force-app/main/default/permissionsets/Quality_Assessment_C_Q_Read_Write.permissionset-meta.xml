@@ -20,6 +20,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Quality_Assessment__c.Assessment_Result_formula__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Quality_Assessment__c.Addressed_info_req_s_basic_accts_etc__c</field>
         <readable>true</readable>
@@ -60,7 +65,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Quality_Assessment__c.Assessment_Result__c</field>
         <readable>true</readable>
     </fieldPermissions>
