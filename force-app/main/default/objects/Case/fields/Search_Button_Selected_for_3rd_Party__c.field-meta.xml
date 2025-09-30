@@ -3,12 +3,37 @@
     <fullName>Search_Button_Selected_for_3rd_Party__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-    <defaultValue>false</defaultValue>
     <description>Tracks if 3rd Party Address updated via search Address lookup.</description>
     <label>Search Button Selected for 3rd Party</label>
+    <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Checkbox</type>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>None</fullName>
+                <default>true</default>
+                <label>None</label>
+            </value>
+            <value>
+                <fullName>Manual Address Postcode Validated</fullName>
+                <default>false</default>
+                <label>Manual Address Postcode Validated</label>
+            </value>
+            <value>
+                <fullName>Manual Address not Validated</fullName>
+                <default>false</default>
+                <label>Manual Address not Validated</label>
+            </value>
+            <value>
+                <fullName>Search Address Validated</fullName>
+                <default>false</default>
+                <label>Search Address Validated</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>
