@@ -7,6 +7,9 @@ import RecordType from "@salesforce/schema/Case.RecordType.Name";
 import POSTCODE_FIELD from "@salesforce/schema/Case.IDR_NC_Postcode__c";
 import TPPOSTCODE_FIELD from "@salesforce/schema/Case.IDR_3rdParty_Postcode__c";
 import { handleErrorShowToast } from "c/utils";
+const POSTCODE_VALIDATED = "Manual Address Postcode Validated";
+const POSTCODE_NOT_VALIDATED = "Manual Address not Validated";
+const ADDRESS_VALIDATED = "Search Address Validated";
 export default class AddressLwc extends NavigationMixin(LightningElement) {
   @api recordId;
   @api objectAPIName = "Case";
@@ -52,6 +55,8 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
   recordTypeName;
   customerFieldsRequired = true;
   thirdPartyFieldsRequired = false;
+  searchButtonValue = "";
+  searchButtonValueTP = "";
   fields = {};
   requiredCustomerFields = {
     IDR_NC_Street__c: "Street",
@@ -150,15 +155,18 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
     this.hideManualPostCodeClass = "slds-show";
     this.hideSearchPostCodeClass = "slds-hide";
     this.disableCustomerAddressFields = true;
+    this.searchButtonValue = ADDRESS_VALIDATED;
   }
   handlePostCodeSelected(event) {
     this.ncPostCode = event.detail.toString();
+    this.searchButtonValue = POSTCODE_VALIDATED;
   }
   handleManualPostCodeChanged(event) {
     this.customerManualPostcode = event.detail.toString();
   }
   handlePostCodeApiError() {
     this.apiPostcodeError = true;
+    this.searchButtonValue = POSTCODE_NOT_VALIDATED;
   }
   validateCustomerPostcode() {
     if (
@@ -195,15 +203,18 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
     this.hideManualPostCodeClassTP = "slds-show";
     this.hideSearchPostCodeClassTP = "slds-hide";
     this.disableThirdPartyAddressFields = true;
+    this.searchButtonValueTP = ADDRESS_VALIDATED;
   }
   handlePostCodeSelectedTP(event) {
     this.tpPostCode = event.detail.toString();
+    this.searchButtonValueTP = POSTCODE_VALIDATED;
   }
   handleManualPostCodeChangedTP(event) {
     this.thirdPartyManualPostcode = event.detail.toString();
   }
   handlePostCodeApiErrorTP() {
     this.apiPostcodeErrorTP = true;
+    this.searchButtonValueTP = POSTCODE_NOT_VALIDATED;
   }
   validatePostcodeTP() {
     if (
