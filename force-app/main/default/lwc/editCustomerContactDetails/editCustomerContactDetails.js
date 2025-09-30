@@ -228,7 +228,8 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
     if (
       this.tpPostCode === this.thirdPartyManualPostcode ||
       this.thirdPartyManualPostcode === "Overseas" ||
-      this.thirdPartyManualPostcode === "Not Applicable"
+      this.thirdPartyManualPostcode === "Not Applicable" ||
+      !this.thirdPartyFieldsRequired
     ) {
       return true;
     }
@@ -244,7 +245,7 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
     return false;
   }
   validateThirdPartySearchAddress() {
-    if (!this.searchButtonSelectedForTP) {
+    if (!this.searchButtonSelectedForTP || !this.thirdPartyFieldsRequired) {
       return true;
     }
     if (this.searchButtonSelectedForTP && this.selectedTPAddress) {
@@ -324,7 +325,7 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
     if (!this.validatePostcodeTP() && !this.searchButtonSelectedForTP) {
       handleErrorShowToast(
         this,
-        "Please select an valid postcode from postcode field to save the address on Nominated 3rd Party Details",
+        "Please select a valid postcode from postcode field to save the address on Nominated 3rd Party Details",
         "pester"
       );
       this.loading = false;
