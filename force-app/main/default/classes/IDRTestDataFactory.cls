@@ -105,7 +105,7 @@ public class IDRTestDataFactory {
   ) {
     Quality_Assessment__c qaRecord = new Quality_Assessment__c(
       Id = qaRecordId,
-      Status__c = 'Complete',
+      Status__c = IDRConstants.STATUS_COMPLETE,
       Case_Manager__c = oQAUser.Id,
       TeamManager__c = oQAUser.Id,
       C_Q_Specialist__c = oQAUser.Id,
@@ -150,7 +150,7 @@ public class IDRTestDataFactory {
         TeamManager__c = manager.Id,
         Case_Manager__c = manager.Id,
         Related_Case__c = relatedCase.Id,
-        Evaluation_Type__c = 'C & Q Assessment',
+        Evaluation_Type__c = IDRConstants.CQ_ASSESSMENT,
         RecordTypeId = RTQualityAssessment.idrCQQualityId
       ),
       new Map<String, Object>{

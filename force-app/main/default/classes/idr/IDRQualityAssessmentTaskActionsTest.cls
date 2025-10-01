@@ -37,17 +37,13 @@ public with sharing class IDRQualityAssessmentTaskActionsTest {
     );
     Task task2 = IDRTestDataFactory.getTask(
       oldQa.Id,
-      IDRConstants.TASK_TM_ATTESTATION_SUBJECT
-    );
-    Task task3 = IDRTestDataFactory.getTask(
-      oldQa.Id,
       IDRConstants.TASK_QA_FEEDBACK_SUBJECT
     );
     Quality_Assessment__Share qaShare = IDRTestDataFactory.getQAShare(
       newQa.Id,
       manager.Id
     );
-    qaRepoMock.mock('getOpenTask', new List<Task>{ task1, task2, task3 });
+    qaRepoMock.mock('getOpenTask', new List<Task>{ task1, task2 });
     dmlRepoMock.mock(
       'doUpdate',
       new List<Database.SaveResult>{
@@ -56,9 +52,6 @@ public with sharing class IDRQualityAssessmentTaskActionsTest {
         ),
         TestUtil.getMockSaveResult(
           '{"success":true,"id":"' + task2.Id + '","errors":[]}'
-        ),
-        TestUtil.getMockSaveResult(
-          '{"success":true,"id":"' + task3.Id + '","errors":[]}'
         )
       }
     );
@@ -90,7 +83,7 @@ public with sharing class IDRQualityAssessmentTaskActionsTest {
     );
     Assert.areEqual(
       IDRConstants.TASK_STATUS_EXPIRED,
-      updatedTasks[2].Status,
+      updatedTasks[1].Status,
       'Task record status field is not updated to ' +
       IDRConstants.TASK_STATUS_EXPIRED
     );
@@ -289,9 +282,9 @@ public with sharing class IDRQualityAssessmentTaskActionsTest {
     List<Task> insertedTasks = (List<Task>) dmlRepoMock.getHistory('doInsert')
       .getParam('records');
     Assert.areEqual(
-      3,
+      2,
       insertedTasks.size(),
-      '3 Tasks should have been inserted'
+      '2 Tasks should have been inserted'
     );
     Assert.areEqual(
       true,
@@ -324,7 +317,7 @@ public with sharing class IDRQualityAssessmentTaskActionsTest {
     newQa.OwnerId = ownerUserId;
     newQa.Id = oldQa.Id;
     newQa.Corrective_actions_for_TM_CM__c = null;
-
+    newQa.Evaluation_Type__c = IDRConstants.QA_FRONTLINE_ASSESSMENT;
     qaRepoMock.mock(
       'getQualityAssessments',
       new List<Quality_Assessment__c>{ newQa }
@@ -343,11 +336,12 @@ public with sharing class IDRQualityAssessmentTaskActionsTest {
     List<Task> insertedTasks = (List<Task>) dmlRepoMock.getHistory('doInsert')
       .getParam('records');
     Assert.areEqual(
-      0,
+      1,
       insertedTasks.size(),
-      'No Tasks should have been inserted'
+      '1 Task should have been inserted'
     );
   }
+
   /**
    * @description fill Quality_Assessment__c record with mandatory fields noted in fieldset
    * @param oAssessment  record to apply mandatory values to

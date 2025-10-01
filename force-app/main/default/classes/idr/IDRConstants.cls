@@ -87,6 +87,12 @@ public with sharing class IDRConstants {
     .get('CFaaS_File')
     .getRecordTypeId();
 
+  public static final String QA_CQ_ASSESSMENT = 'C & Q Assessment';
+  public static final String QA_CR_ASSESSMENT = 'Customer Resolution Assessment';
+  public static final String QA_FRONTLINE_ASSESSMENT = 'Frontline Assessment';
+  public static final String QA_CALL_REVIEW_ASSESSMENT = 'Call Review Assessment';
+  public static final String QA_LETTER_REVIEW_ASSESSMENT = 'Letter Review Assessment';
+
   /**
    * @description get Quality_Assessment__c.C_Q_Assessment record on demand
    */
@@ -262,7 +268,6 @@ public with sharing class IDRConstants {
 
   //Quality Assessment Constants
   public static final String CORRECTIVE_ACTIONS_NA = 'N/A- no action required';
-  public static final String QA_FRONTLINE_ASSESSMENT = 'Frontline Assessment';
 
   //Quality Assessment CQ Assessment outcome fields
   public static final SObjectField TEAM_MANAGER_RESPONSE = Quality_Assessment__c.Team_Manager_Response__c.getDescribe()
@@ -286,6 +291,7 @@ public with sharing class IDRConstants {
   public static final String STATUS_COMPLETE = 'Complete';
   public static final String STATUS_PENDING = 'Pending';
   public static final String QA_TM_RESPONSE_AWAITING = 'Awaiting response from TM';
+  public static final String CQ_ASSESSMENT = 'C & Q Assessment';
 
   //Migrated Document
   public static final String DELETION_NOT_ALLOWED = 'You may not delete CFMS migrated documents.';

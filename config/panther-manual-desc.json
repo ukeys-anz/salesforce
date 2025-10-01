@@ -4306,6 +4306,7 @@
         "Actions_Completed__c",
         "Addressed_info_req_s_basic_accts_etc__c",
         "Assessment_Result__c",
+        "Assessment_Result_formula__c",
         "Call_authentication_process_followed__c",
         "Calls_disclosed_recording_got_consent__c",
         "Case_notes_clear_and_complete__c",
@@ -4382,7 +4383,11 @@
         "Was_implementation_timely__c",
         "Was_the_outcome_fair_for_the_customer__c",
         "Were_CMOS_fields_accurate__c",
-        "Were_risk_events_raised_and_recorded__c"
+        "Were_risk_events_raised_and_recorded__c",
+        "AssessmentOutcomeFail__c",
+        "AssessmentOutcomeFailOutControl__c",
+        "AssessmentOutcomePass__c",
+        "AssessmentOutcomePassFeedback__c"
       ],
       "IA-2415983": ["Application_ID__c"],
       "IA-2415984": ["Customer__c", "Customer_Name__c", "Calculated__c"],

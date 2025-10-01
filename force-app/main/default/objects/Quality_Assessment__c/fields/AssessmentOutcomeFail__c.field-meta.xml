@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AssessmentOutcomeFail__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Automated assessment result for overall fail outcome.</description>
+    <formula>IF(
+    AND(
+    RecordType.DeveloperName == &apos;C_Q_Assessment&apos;,
+    ISPICKVAL(Status__c, &apos;Complete&apos;),
+    OR(
+    ISPICKVAL(ID_d_cust_experiencing_vulnerability__c, &apos;Not Met&apos;),
+    ISPICKVAL(Gave_extra_care_or_met_access_need__c, &apos;Not Met&apos;),
+    ISPICKVAL(Hardship_recorded_referred_managed__c, &apos;Not Met&apos;),
+    ISPICKVAL(Calls_disclosed_recording_got_consent__c, &apos;Not Met&apos;),
+    ISPICKVAL(Call_authentication_process_followed__c, &apos;Not Met&apos;),
+    ISPICKVAL(If_resolved_w_o_IDR_letter_RG271_71_met__c, &apos;Not Met&apos;),
+    ISPICKVAL(IDR_delay_notice_decision_appropriate__c, &apos;Not Met&apos;),
+    ISPICKVAL(If_resolved_resp_details_resolution__c, &apos;Not Met&apos;),
+    ISPICKVAL(If_declined_does_resp_identify_issues__c, &apos;Not Met&apos;),
+    ISPICKVAL(Does_response_have_key_findings__c, &apos;Not Met&apos;),
+    ISPICKVAL(Does_response_have_enough_detail__c, &apos;Not Met&apos;),
+    ISPICKVAL(IDR_response_sent_within_timeframes__c, &apos;Not Met&apos;),
+    ISPICKVAL(Was_the_outcome_fair_for_the_customer__c, &apos;Not Met&apos;),
+    ISPICKVAL(Was_implementation_timely__c, &apos;Not Met&apos;),
+    ISPICKVAL(Didn_t_provide_financial_product_advice__c, &apos;Not Met&apos;),
+    ISPICKVAL(Addressed_info_req_s_basic_accts_etc__c, &apos;Not Met&apos;)
+    )
+    ),
+    true,
+    false
+    )</formula>
+    <label>AssessmentOutcomeFail</label>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
