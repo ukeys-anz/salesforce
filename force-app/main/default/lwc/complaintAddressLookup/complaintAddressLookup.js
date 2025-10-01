@@ -108,7 +108,8 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
     clearTimeout(this.pendingSearchRequest);
     const searchString = event.detail.value.trim();
     this.searchPostcode = searchString;
-    let postCode = searchString?.length === 4;
+    let postCode =
+      searchString?.length === 4 && searchString?.match(/^[0-9]+$/);
     if (postCode) {
       // eslint-disable-next-line @lwc/lwc/no-async-operation
       this.pendingSearchRequest = setTimeout(() => {
