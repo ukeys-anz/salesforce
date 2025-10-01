@@ -266,9 +266,6 @@ public with sharing class IDRConstants {
   public static final String TASK_QA_FEEDBACK_DESCRIPTION = 'Please review the Corrective Actions Requiring action documented on the quality evaluation. You must add a task comment detailing the actions you have taken to address these before marking this task as completed.';
   public static final String TASK_QA_CORRECTIVE_DESCRIPTION = 'You must add a task comment detailing the action taken before marking this task as completed.';
 
-  //Quality Assessment Constants
-  public static final String CORRECTIVE_ACTIONS_NA = 'N/A- no action required';
-
   //Quality Assessment CQ Assessment outcome fields
   public static final SObjectField TEAM_MANAGER_RESPONSE = Quality_Assessment__c.Team_Manager_Response__c.getDescribe()
     .getSObjectField();

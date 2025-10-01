@@ -54,16 +54,8 @@ public with sharing class IDRQualityAssessmentTaskActions {
       qaIds,
       caseManagerIds
     );
-    List<Quality_Assessment__Share> filteredShareRecords = ListUtil.filter(
-        qaShareRecords
-      )
-      .equals(Quality_Assessment__Share.UserOrGroupId, caseManagerIds)
-      .toList();
 
-    DML_REPOSITORY.doDelete(
-      filteredShareRecords,
-      new DMLConfig().withoutSharing()
-    );
+    DML_REPOSITORY.doDelete(qaShareRecords, new DMLConfig().withoutSharing());
   }
   /**
    * @description Filters the given list of Task records.
@@ -253,7 +245,7 @@ public with sharing class IDRQualityAssessmentTaskActions {
     String subject
   ) {
     return new Task(
-      RecordTypeId = GetHelpConstants.TASK_COMPLIANCE_RT_ID,
+      RecordTypeId = RTTask.complianceTask,
       OwnerId = record.TeamManager__c,
       WhatId = record.Id,
       Subject = subject,
