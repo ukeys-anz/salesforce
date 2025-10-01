@@ -95,7 +95,7 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
   get addressOptions() {
     return [
       { label: "Search Address", value: "searchAddress" },
-      { label: "Manually Enter Address", value: "manualAddress" }
+      { label: "Manual Address Entry", value: "manualAddress" }
     ];
   }
   get thirdPartySwitchOptions() {
