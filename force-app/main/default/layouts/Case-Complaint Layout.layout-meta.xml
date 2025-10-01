@@ -52,7 +52,7 @@
         <customLabel>true</customLabel>
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
-        <label>Nominated 3rd Party(if applicable) - Edit 3rd Party info via button at top right</label>
+        <label>Nominated 3rd Party(if applicable) - Edit this section from top banner dropdown</label>
         <layoutColumns>
             <layoutItems>
                 <behavior>Readonly</behavior>
