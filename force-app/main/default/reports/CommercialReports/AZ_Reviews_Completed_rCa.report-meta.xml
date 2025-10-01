@@ -8,13 +8,22 @@
         <field>A_Z_Review__c.Customer__c</field>
     </columns>
     <columns>
+        <field>A_Z_Review__c.CLG_Number__c</field>
+    </columns>
+    <columns>
+        <field>A_Z_Review__c.Existing_Business_Owner__c</field>
+    </columns>
+    <columns>
+        <field>A_Z_Review__c.Business_Owner__c</field>
+    </columns>
+    <columns>
+        <field>A_Z_Review__c.Business_Contact__c</field>
+    </columns>
+    <columns>
         <field>CUST_OWNER_NAME</field>
     </columns>
     <columns>
         <field>CUST_CREATED_DATE</field>
-    </columns>
-    <columns>
-        <field>A_Z_Review__c.A2Z_Review_Interaction_Type__c</field>
     </columns>
     <description>A-Z Reviews completed this week</description>
     <filter>

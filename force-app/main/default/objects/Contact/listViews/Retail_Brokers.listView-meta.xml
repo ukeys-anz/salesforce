@@ -19,6 +19,11 @@
         <operation>equals</operation>
         <value>Contact.Broker</value>
     </filters>
+    <filters>
+        <field>Sync_Status__c</field>
+        <operation>excludes</operation>
+        <value>Duplicate - Email,Duplicate - OCV Id</value>
+    </filters>
     <filterScope>Everything</filterScope>
     <label>Retail Brokers</label>
     <sharedTo>

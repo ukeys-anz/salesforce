@@ -5,86 +5,12 @@
  without sharing: for running as a system mode on BeforeDelete trigger because we cant provide users with access to have them taking action manually.
  */
 public without sharing class ContentDocumentTriggerHandler extends Lib_TriggerHandler {
-  private static final CCRMContentDocumentLinkRepository CDL_REPOSITORY = (CCRMContentDocumentLinkRepository) Lib_InstanceProvider.forType(
-    CCRMContentDocumentLinkRepository.class
-  );
   /**
    * @description onBeforeDelete
    */
   public override void onBeforeDelete() {
-    restrictFileDeleteAction((List<ContentDocument>) records);
-  }
-
-  /**
-   * @description Delete ContentDocuments CreatedBy Ml Users having incoming as true and linked with EmailMessage
-   * @param cdList list of  ContentDocument in the current trigger context
-   */
-  public static void restrictFileDeleteAction(List<ContentDocument> cdList) {
-    List<String> cvRecordTypes = new List<String>{
-      IDRConstants.CFAAS_FILE_RT_ID,
-      RTContentVersion.daonFile,
-      RTContentVersion.daonTrustXFile
-    };
-    List<String> profileNames = System.Label.DCRM_ProfileAllowToDeleteOutlookAttachments.split(
-      ';'
+    ContentDocumentTriggerActions.restrictFileDeleteAction(
+      (List<ContentDocument>) records
     );
-    Map<Id, EmailMessage> emailMessageMap = new Map<Id, EmailMessage>();
-    Map<Id, Id> cdIdToCdlIdMap = new Map<Id, Id>();
-    Map<Id, Id> cdlIdToEmIdMap = new Map<Id, Id>();
-
-    List<ContentVersion> cVersionList = CDL_REPOSITORY.getCVList(
-      cdList,
-      cvRecordTypes
-    );
-
-    List<Id> idList = new List<Id>();
-    for (ContentVersion cv : cVersionList) {
-      idList.add(cv.ContentDocumentId);
-    }
-    List<Id> contentDocIdList = new List<Id>();
-    for (ContentDocument cd : cdList) {
-      contentDocIdList.add(cd.Id);
-    }
-    List<ContentDocumentLink> cdlList = [
-      SELECT Id, LinkedEntityId, ContentDocumentId
-      FROM ContentDocumentLink
-      WHERE ContentDocumentId IN :contentDocIdList
-    ];
-
-    for (ContentDocumentLink cdl : cdlList) {
-      if (cdl.LinkedEntityId.getSObjectType() == EmailMessage.sObjectType) {
-        cdlIdToEmIdMap.put(cdl.Id, cdl.LinkedEntityId);
-        cdIdToCdlIdMap.put(cdl.ContentDocumentId, cdl.Id);
-      }
-    }
-    if (!cdlIdToEmIdMap.isEmpty()) {
-      emailMessageMap = CDL_REPOSITORY.getEmailMessageUsingProfileName(
-        cdlIdToEmIdMap.values(),
-        profileNames
-      );
-    }
-    for (ContentDocument cd : cdList) {
-      if (
-        !FeatureManagement.checkPermission('IDR_Level_1') &&
-        !idList.contains(cd.Id)
-      ) {
-        // If CotentDocument is created by ML user with Incoming as true and LinkedToEmailMessage then do not restrict to delete
-        if (
-          cdIdToCdlIdMap.containsKey(cd.Id) &&
-          cdlIdToEmIdMap.containsKey(cdIdToCdlIdMap.get(cd.id)) &&
-          emailMessageMap.containsKey(
-            cdlIdToEmIdMap.get(cdIdToCdlIdMap.get(cd.id))
-          )
-        ) {
-          EmailMessage em = emailMessageMap.get(
-            cdlIdToEmIdMap.get(cdIdToCdlIdMap.get(cd.id))
-          );
-          if (MLCRMCommonUtils.isContentDocumentDeleteAllowed(em)) {
-            continue;
-          }
-        }
-        cd.addError(IDRConstants.RESTRICTED_ACTION_MESSAGE);
-      }
-    }
   }
 }

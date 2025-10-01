@@ -118,4 +118,95 @@ public with sharing class CommercialReferralLeadRepository {
       WITH USER_MODE
     ];
   }
+
+  /**
+   * @description It will fetch all permission set Ids having custom permission assigned
+   * @param customPermission name of custom permission
+   * @return List<SetupEntityAccess>
+   */
+  public List<SetupEntityAccess> getPermissionSetWithCustomPermission(
+    String customPermission
+  ) {
+    if (customPermission == null) {
+      return new List<SetupEntityAccess>();
+    }
+    return [
+      SELECT ParentId
+      FROM SetupEntityAccess
+      WHERE
+        SetupEntityId IN (
+          SELECT Id
+          FROM CustomPermission
+          WHERE DeveloperName = :customPermission
+        )
+      WITH SYSTEM_MODE
+    ];
+  }
+
+  /**
+   * @description It will fetch all permission set groups containing mentioned permission sets
+   * @param permissionSetWithCustomPermission permission set Ids having custom permission assigned
+   * @return List<PermissionSetGroupComponent>
+   */
+  public List<PermissionSetGroupComponent> getPermissionSetGroupFromPS(
+    Set<Id> permissionSetWithCustomPermission
+  ) {
+    if (permissionSetWithCustomPermission.isEmpty()) {
+      return new List<PermissionSetGroupComponent>();
+    }
+    return [
+      SELECT PermissionSetGroupId
+      FROM PermissionSetGroupComponent
+      WHERE PermissionSetId IN :permissionSetWithCustomPermission
+      WITH SYSTEM_MODE
+    ];
+  }
+
+  /**
+   * @description It will fetch all users having assinged to permission set groups
+   * @param userIdSet set of ownerIds of lead
+   * @param permissionSetWithCustomPermission permission set Ids having custom permission assigned
+   * @param permissionSetGroupFromPS permission set groups containing mentioned permission sets
+   * @return List<PermissionSetAssignment>
+   */
+  public List<PermissionSetAssignment> listOfUsersHavingCustomPermission(
+    Set<Id> userIdSet,
+    Set<Id> permissionSetWithCustomPermission,
+    Set<Id> permissionSetGroupFromPS
+  ) {
+    if (
+      permissionSetGroupFromPS.isEmpty() ||
+      userIdSet.isEmpty() ||
+      permissionSetWithCustomPermission.isEmpty()
+    ) {
+      return new List<PermissionSetAssignment>();
+    }
+    return [
+      SELECT AssigneeId
+      FROM PermissionSetAssignment
+      WHERE
+        IsActive = TRUE
+        AND (PermissionSetId IN :permissionSetWithCustomPermission
+        OR PermissionSetGroupId IN :permissionSetGroupFromPS)
+        AND AssigneeId IN :userIdSet
+      WITH SYSTEM_MODE
+    ] ?? new List<PermissionSetAssignment>();
+  }
+
+  /**
+   * @description It will fetch all the ccrm users
+   * @param userIds set of user ids
+   * @return List<User>
+   */
+  public List<User> getCCRMUsers(Set<Id> userIds) {
+    if (userIds.isEmpty()) {
+      return new List<User>();
+    }
+    return [
+      SELECT Id, Profile.Name
+      FROM User
+      WHERE Id IN :userIds AND Profile.Name = 'ANZ CCRM Standard User'
+      WITH SYSTEM_MODE
+    ];
+  }
 }

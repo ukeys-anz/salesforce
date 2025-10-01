@@ -1,0 +1,48 @@
+<template>
+  <lightning-quick-action-panel header={CONSTANT.HEADER_TEXT}>
+    <template lwc:if={isLoading}>
+      <lightning-spinner
+        alternative-text="Loading"
+        variant="brand"
+        size="small"
+        class="slds-is-relative slds-align_absolute-center"
+      ></lightning-spinner>
+    </template>
+    <template lwc:else>
+      <template if:true={products}>
+        <lightning-combobox
+          name="product"
+          label="Product"
+          value={selectedProductId}
+          placeholder="Select a product"
+          options={productOptions}
+          onchange={handleChange}
+          class="slds-m-around_small"
+        >
+        </lightning-combobox>
+      </template>
+
+      <div class="slds-text-color_error slds-m-left_large">
+        {missingProductText}
+      </div>
+      <div slot="footer" class="slds-text-align_right">
+        <lightning-button
+          label={CONSTANT.CANCEL}
+          onclick={handleCancel}
+          class="btnCancel"
+        >
+        </lightning-button
+        >&nbsp;&nbsp;
+        <lightning-button
+          variant="brand"
+          label={CONSTANT.SAVE}
+          name="save"
+          disabled={disableSave}
+          onclick={handleSave}
+          class="saveBtn"
+        >
+        </lightning-button>
+      </div>
+    </template>
+  </lightning-quick-action-panel>
+</template>

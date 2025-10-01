@@ -17,10 +17,21 @@ const TRUSTME_ADDITIONAL_CUSTOMER_CONTEXT = {
   QAS__c: "QAS",
   Daon_Selfie_Match_ID__c: "Daon Selfie Match ID",
   Daon_Evaluation_Outcome__c: "Daon Evaluation Outcome",
-  Existing_Selfie__c: "Existing Selfie",
+  Existing_Selfie__c: "Enrolled Selfie on File",
   TrustMe_Secondary_Document_ID__c: "TrustMe Secondary Document ID"
 };
-
+const TRUSTME_ADDITIONAL_CUSTOMER_CONTEXT_WITH_BIRTH_CERTI = {
+  Customer_UUID__c: "PersonID",
+  Date_Of_Birth__c: "Date Of Birth",
+  QAS__c: "QAS",
+  Daon_Selfie_Match_ID__c: "Daon Selfie Match ID",
+  Daon_Evaluation_Outcome__c: "Daon Evaluation Outcome",
+  Existing_Selfie__c: "Enrolled Selfie on File",
+  TrustMe_Secondary_Document_ID__c: "TrustMe Secondary Document ID",
+  Certificate_Number__c: "Certificate Number",
+  Registration_Number__c: "Registration Number",
+  Registration_State__c: "Registration State"
+};
 export const DOCUMENTYPE = {
   DOCUMENT_TYPE_PASSPORT: "DOCUMENT_TYPE_AUSTRALIAN_PASSPORT",
   DOCUMENT_TYPE_DRIVERS_LICENCE: "DOCUMENT_TYPE_AUSTRALIAN_DRIVERS_LICENCE",
@@ -95,12 +106,18 @@ export const FILES_BY_DOCUMENTTYPE = {
       title: "Processed Medicare Card Front"
     },
     {
-      fileType: "DAON_FILE_TYPE_SELFIE_ENROLLED",
-      title: "Enrolled Selfie on file"
-    },
-    {
       fileType: "DAON_FILE_TYPE_FRONT_UNPROCESSED",
       title: "Unprocessed Medicare Card Front"
+    }
+  ],
+  ENROLLED_DOCUMENT: [
+    {
+      fileType: "DAON_FILE_TYPE_FRONT_PROCESSED",
+      title: "Enrolled ID Document on File"
+    },
+    {
+      fileType: "DAON_FILE_TYPE_SELFIE_ENROLLED",
+      title: "Enrolled Selfie on File"
     }
   ]
 };
@@ -113,22 +130,25 @@ export function buildTrustMeSelfieAndPrimDoc(data) {
 }
 
 export function buildTrustMeAdditionalContext(data) {
-  return transformResponse(TRUSTME_ADDITIONAL_CUSTOMER_CONTEXT, data);
+  if (!data.Registration_Number__c && !data.Registration_State__c)
+    return transformResponse(TRUSTME_ADDITIONAL_CUSTOMER_CONTEXT, data);
+
+  return transformResponse(
+    TRUSTME_ADDITIONAL_CUSTOMER_CONTEXT_WITH_BIRTH_CERTI,
+    data
+  );
 }
 
 export function transformResponseForAddress(recordDetails) {
   if (
     !recordDetails.Residential_Address__c &&
-    !recordDetails.TrustMe_Residential_Address__c
+    !recordDetails.TrustMe_Residential_Address__c &&
+    !recordDetails.International_Address__c
   ) {
     return null;
   }
   const results = [];
-  if (
-    recordDetails.Residential_Address__c &&
-    recordDetails.Residential_Address_Geolocation__Latitude__s &&
-    recordDetails.Residential_Address_Geolocation__Longitude__s
-  ) {
+  if (recordDetails.Residential_Address__c) {
     results.push({
       type: "Residential",
       addressValue: recordDetails.Residential_Address__c,
@@ -136,11 +156,7 @@ export function transformResponseForAddress(recordDetails) {
       longitude: recordDetails.Residential_Address_Geolocation__Longitude__s
     });
   }
-  if (
-    recordDetails.TrustMe_Residential_Address__c &&
-    recordDetails.TrustMe_Residential_Address_Geolocation__Latitude__s &&
-    recordDetails.TrustMe_Residential_Address_Geolocation__Longitude__s
-  ) {
+  if (recordDetails.TrustMe_Residential_Address__c) {
     results.push({
       type: "TrustMe Residential",
       addressValue: recordDetails.TrustMe_Residential_Address__c,

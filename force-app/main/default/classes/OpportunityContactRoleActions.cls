@@ -14,6 +14,10 @@ public with sharing class OpportunityContactRoleActions {
     OpportunityContactRoleActionsRepository.class
   );
 
+  private static final CustomerRelationshipsRepository CR_REPOSITORY = (CustomerRelationshipsRepository) Lib_InstanceProvider.forType(
+    CustomerRelationshipsRepository.class
+  );
+
   private static final DmlRepository DML = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
@@ -291,6 +295,37 @@ public with sharing class OpportunityContactRoleActions {
     return duplicateContactKeysSet;
   }
 
+  /**
+   * @description This method is used to auto create CRRs.
+   * @param records ocr records
+   * @US CC-16047
+   */
+  public static void createCustomerRelationshipRecords(
+    List<OpportunityContactRole> records
+  ) {
+    List<OpportunityContactRole> insertedRecords = OCR_REPOSITORY.getInsertedOCRs(
+      records
+    );
+    Set<Id> customerIds = OpportunityContactRoleActionsHelper.getCustomerIds(
+      insertedRecords
+    );
+    //query existing customer relationship records.
+    List<Customer_Relationship__c> existingCustomerRelationships = CR_REPOSITORY.getCustomerRelationshipByCustomerIds(
+      customerIds
+    );
+
+    Map<String, Customer_Relationship__c> existingCRRMap = OpportunityActionsHelper.getExistingCRRMap(
+      existingCustomerRelationships
+    );
+    List<Customer_Relationship__c> crrsToInsert = OpportunityContactRoleActionsHelper.insertCustomerRelationships(
+      insertedRecords,
+      existingCRRMap
+    );
+    DML.doInsert(
+      crrsToInsert,
+      new DmlConfig().allowPartial().withoutSharing().systemMode()
+    );
+  }
   /**
    * @description This method is used to filtered Out ML records
    * @name filteredRecords

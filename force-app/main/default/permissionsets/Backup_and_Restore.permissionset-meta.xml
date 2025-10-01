@@ -354,12 +354,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ApplicationFormProduct.Opportunity_Product__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ApplicationFormProduct.ProductId</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>ApplicationFormProduct.Reference_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ApplicationFormProduct.Revenue__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3724,6 +3734,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Contact.OCV_Profile_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Contact.OCV_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3764,6 +3779,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Contact.Survivor_Party_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Contact.Sync_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3780,6 +3800,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Contact.Office_Group__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Contact.OCV_Profile_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3800,6 +3825,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Contact.SAO_State__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Contact.Victim_Party_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -6990,6 +7020,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.Eligible_for_FHOG__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Estimated_Revenue__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -11145,6 +11180,14 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>FinServ__ChargesAndFees__c.Settlement_Fee_Details</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Broker_Relation__c.Broker_Set</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Broker_Relation__c.Office_Group</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

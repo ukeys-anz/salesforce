@@ -1,0 +1,39 @@
+<!--
+  @description       : This LWC is created for ReKYC case's Document Tab to show Document details 
+  @author            : Hinduja Upadhyay
+  @group             : 
+  @last modified on  : 08-14-2025
+
+-->
+<template>
+  <lightning-card>
+    <template lwc:if={showSpinner}>
+      <lightning-spinner variant="brand" size="large"> </lightning-spinner>
+    </template>
+    <template lwc:else>
+      <template lwc:if={showError}>
+        <p
+          class="slds-text-color_error slds-text-align--center slds-text-heading--small slds-p-around--large"
+        >
+          Error occurred: {errorMessage}
+        </p>
+      </template>
+      <template lwc:else>
+        <lightning-accordion
+          allow-multiple-sections-open
+          active-section-name={activeSections}
+        >
+          <lightning-accordion-section
+            name="trustmeQAAttribute"
+            label="TrustMe Manual Document Checks"
+          >
+            <c-trust-me-document-details-child
+              fields={trustmeQAAttribute}
+              trust-me-doc-sec-error-message={trustMeDocSecErrorMessage}
+            ></c-trust-me-document-details-child>
+          </lightning-accordion-section>
+        </lightning-accordion>
+      </template>
+    </template>
+  </lightning-card>
+</template>

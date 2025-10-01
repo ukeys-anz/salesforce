@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Anuj Jain
  * @group             :
- * @last modified on  : 08-06-2025
+ * @last modified on  : 08-05-2025
  **/
 @SuppressWarnings('PMD.TooManyFields,PMD.ExcessivePublicCount')
 public with sharing class TrustMeDocumentDetailsModel extends CalloutModel {
@@ -49,6 +49,8 @@ public with sharing class TrustMeDocumentDetailsModel extends CalloutModel {
     public String processDefinitionName;
     @AuraEnabled
     public Integer processDefinitionVersion;
+    @AuraEnabled
+    public String clientName;
   }
 
   /**
@@ -167,6 +169,12 @@ public with sharing class TrustMeDocumentDetailsModel extends CalloutModel {
     public String colour;
     @AuraEnabled
     public String documentOutcome;
+    @AuraEnabled
+    public String certificateNumber;
+    @AuraEnabled
+    public String registrationNumber;
+    @AuraEnabled
+    public String registrationState;
   }
 
   /**
@@ -243,6 +251,12 @@ public with sharing class TrustMeDocumentDetailsModel extends CalloutModel {
     public String allotmentNumber;
     @AuraEnabled
     public string addressSource;
+    @AuraEnabled
+    public string addressLine1;
+    @AuraEnabled
+    public string addressLine2;
+    @AuraEnabled
+    public string addressLine3;
   }
 
   /**

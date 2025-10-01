@@ -15,15 +15,21 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>EDGE_AUTH_CHANNEL_COMPANION</fullName>
+                <fullName>Web Banking</fullName>
                 <default>false</default>
                 <label>Web Banking</label>
             </value>
             <value>
-                <fullName>EDGE_AUTH_CHANNEL_PRIMARY</fullName>
+                <fullName>Primary Device</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
                 <label>Primary Device</label>
+            </value>
+            <value>
+                <fullName>EDGE_AUTH_CHANNEL_COMPANION</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Web Banking - Inactive</label>
             </value>
         </valueSetDefinition>
     </valueSet>

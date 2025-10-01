@@ -12,6 +12,7 @@
 )
 public with sharing class GetHelpCaseActions {
   public static final String DUPLICATE_DISPUTE_ERROR = 'Error occurred while creating dispute. An open dispute already exists for this transaction. Case number: ';
+  public static final String RESTRICT_MANUAL_ESCALATED = 'You can\'t change the status field to "Escalated". Please click "Escalate Case" to assign the case to another queue.';
   private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
   private static Map<String, String> caseSubtypeLabelByValue = new Map<String, String>();
   private static List<Case> notificationCaseList = new List<Case>();
@@ -78,11 +79,13 @@ public with sharing class GetHelpCaseActions {
         GetHelpCaseActionsHelper.handleEntitlementForUpdate(record, oldRecord);
       } else if (
         CheckCaseRecordType.isCreditReferral(record, null) &&
+        record.Case_Authority_Level__c != 'FRAUD' &&
+        CreditReferralCaseHelper.allowEscalateStatusUpdate == false &&
         record.Status == GetHelpConstants.ESCALATED_STATUS &&
         oldRecord.Status != GetHelpConstants.ESCALATED_STATUS
       ) {
-        //Set owner of case to cad referral queue if its set to escalated
-        record.OwnerId = cadReferralQueue.Id;
+        //throw error when changing status to Escalated Manually
+        record.addError(RESTRICT_MANUAL_ESCALATED);
       }
     }
 

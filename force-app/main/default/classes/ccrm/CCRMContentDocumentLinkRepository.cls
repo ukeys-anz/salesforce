@@ -58,17 +58,29 @@ public with sharing class CCRMContentDocumentLinkRepository {
   /**
    * @description return Content Versions using recordtypes and cdList
    * @param cdList list of ContentDocument
-   * @param cvRecordTypes list of recordtypes
    * @return List<ContentVersion>
    */
-  public List<ContentVersion> getCVList(
-    List<ContentDocument> cdList,
-    List<String> cvRecordTypes
-  ) {
+  public List<ContentVersion> getCVList(List<ContentDocument> cdList) {
     return [
-      SELECT ContentDocumentId
+      SELECT ContentDocumentId, RecordTypeId
       FROM ContentVersion
-      WHERE RecordTypeID IN :cvRecordTypes AND ContentDocumentId IN :cdList
+      WHERE
+        (RecordTypeID IN :ContentDocumentTriggerActions.CONTENT_VERSION_RT
+        OR RecordTypeID = NULL)
+        AND ContentDocumentId IN :cdList
+    ];
+  }
+
+  /**
+   * @description return Content Document Links using Content Document Ids
+   * @param contentDocIdList list of ContentDocument Ids
+   * @return List<ContentDocumentLink>
+   */
+  public List<ContentDocumentLink> getCDL(Set<Id> contentDocIdList) {
+    return [
+      SELECT Id, LinkedEntityId, ContentDocumentId
+      FROM ContentDocumentLink
+      WHERE ContentDocumentId IN :contentDocIdList
     ];
   }
 }

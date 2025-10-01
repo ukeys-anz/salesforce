@@ -13,6 +13,14 @@
         <visible>false</visible>
     </applicationVisibilities>
     <classAccesses>
+        <apexClass>ModifyProductController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ModifyProductRepository</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>AcceptReferralController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -444,6 +452,18 @@
         <apexClass>QueryLoanAppSystemStatusMapping</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>CommercialOppLineItemTriggerHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CommercialOppLineItemActions</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CommercialOppLineItemRepository</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <customMetadataTypeAccesses>
         <name>CCRM_Log_Interaction_Comment__mdt</name>
         <enabled>true</enabled>
@@ -460,6 +480,10 @@
         <name>FinancialAccountUIConfiguration__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
+    <customPermissions>
+        <name>Manage_Referrals_in_CRM</name>
+        <enabled>true</enabled>
+    </customPermissions>
     <description>Baseline pset for using the AR&amp;C Commercial CRM app. </description>
     <fieldPermissions>
         <editable>true</editable>
@@ -1013,12 +1037,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ApplicationFormProduct.Opportunity_Product__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ApplicationFormProduct.ProductId</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>ApplicationFormProduct.Reference_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApplicationFormProduct.Revenue__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2033,6 +2067,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Opportunity.Approved_Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.My_Manager_Opps__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Opportunity.My_Manager_Opps__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2059,6 +2103,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.Discovery_Completed__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.Estimated_Revenue__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2154,11 +2203,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.New_to_Bank__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Opportunity.My_Manager_Opps__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -9534,6 +9578,10 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>ApplicationForm.Internal_Application</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>ApplicationForm.OCP</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

@@ -52,4 +52,22 @@ public with sharing class LendingCaseRepository {
       WITH USER_MODE
     ];
   }
+
+  /**
+   * @description Query Case fields using case Id
+   * @param recordId Id
+   * @return  Case
+   */
+  public Case queryCaseRLAById(Id recordId) {
+    return [
+      SELECT
+        Id,
+        Loan_Application__c,
+        Loan_Application__r.Application_Progress__c
+      FROM Case
+      WHERE Id = :recordId
+      WITH USER_MODE
+      LIMIT 1
+    ] ?? null;
+  }
 }

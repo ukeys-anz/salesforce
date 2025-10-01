@@ -2,6 +2,7 @@
  * @author       : Hitesh
  * @since        : Feb 2025
  * @description  : MobileLendingOpportunityTriggerHandler is the handler class for Opportunity Trigger which extends Lib_TriggerHandler from the trigger framework used.
+ * @runTest      : MobileLendingOppTriggerHandlerTest
  **/
 public with sharing class MobileLendingOpportunityTriggerHandler extends Lib_TriggerHandler {
   /**
@@ -54,6 +55,7 @@ public with sharing class MobileLendingOpportunityTriggerHandler extends Lib_Tri
     //CC-1252-Make Opportunities visible to Owners & users above them in the ML hierarchy
     MLCRMSharingUtil.shareRecordByTerritory(null, records, 'Opportunity');
     OpportunityActions.createOpportunityContactRole(records);
+    OpportunityActions.createCustomerRelationshipRecords(records);
   }
 
   /**
