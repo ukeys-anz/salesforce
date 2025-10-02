@@ -137,7 +137,7 @@
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>Fraud_Total_Scam_Value__c</field>
             </layoutItems>
             <layoutItems>
@@ -145,7 +145,7 @@
                 <field>Fraud_Total_Falcon_Recalled__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>Fraud_Total_Recovered__c</field>
             </layoutItems>
             <layoutItems>

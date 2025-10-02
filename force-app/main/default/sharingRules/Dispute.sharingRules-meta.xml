@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>ANZX_Disputes_CardDisputeAgent_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All Disputes with Disputed Transaction record type are to be shared with Card Dispute Agents with Read/Write access.</description>
+        <label>ANZX_Disputes_CardDisputeAgent_RW</label>
+        <sharedTo>
+            <role>Card_Dispute_Agent</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Disputed Transaction</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>ANZX_Disputes_FinCrimeAgent_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All Disputes with Disputed Transaction record type are to be shared with FinCrime Agents with ReadOnly access.</description>
+        <label>ANZX_Disputes_FinCrimeAgent_RO</label>
+        <sharedTo>
+            <role>FinCrime_Agent</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Disputed Transaction</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>ANZX_Disputes_FraudX_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All Disputes with Disputed Transaction record type are to be shared with FraudX Agents and ID Ops Agents with Read/Write access.</description>
+        <label>ANZX_Disputes_FraudX_RW</label>
+        <sharedTo>
+            <role>FraudX_Agent</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Disputed Transaction</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>ANZX_Disputes_JoinLead_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All Disputes with Disputed Transaction record type are to be shared with Join Leads with Read/Write access.</description>
+        <label>ANZX_Disputes_JoinLead_RW</label>
+        <sharedTo>
+            <role>Join_Lead</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Disputed Transaction</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>ANZX_Disputes_StatCompAgent_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All Disputes with Disputed Transaction record type are to be shared with Join Leads with Read/Write access.</description>
+        <label>ANZX_Disputes_StatCompAgent_RO</label>
+        <sharedTo>
+            <role>Statutory_Compliance_Agent</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Disputed Transaction</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>
