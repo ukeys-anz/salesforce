@@ -16,6 +16,7 @@ public with sharing class QueryPS {
   }
 
   public static PermissionSet enablementManager = get('Enablement_Manager');
+  public static PermissionSet bypassTSP = get('Bypass_TSP');
 
   /**
    * @description Get PermissionSet by PermissionSet Name

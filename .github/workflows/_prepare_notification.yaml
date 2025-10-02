@@ -1,0 +1,56 @@
+name: Prepare Notification
+
+on:
+  workflow_call:
+    inputs:
+      job_name:
+        required: true
+        description: "Previous job name"
+        type: string
+      job_status:
+        required: true
+        description: "Previous job result"
+        type: string
+      slack_channel:
+        required: true
+        description: "Slack Channel Name"
+        type: string
+
+jobs:
+  prepare-notification:
+    runs-on: anzx-default
+    outputs:
+      slack_msg: ${{ steps.set-msg.outputs.slack_msg}}
+    steps:
+      - name: Slack Message
+        id: set-msg
+        shell: bash
+        run: |
+          jobStatus="${{ inputs.job_status }}"
+          if [[ "$jobStatus" == success ]];then
+            status=:white_check_mark:
+          else
+            status=:X:
+          fi
+
+          jobName="${{ inputs.job_name }}"
+          todayDate="$(TZ=Australia/Melbourne date '+%F | %H:%M')"
+          CAPITALIZED_REPO_NAME=$(echo "${{ github.event.repository.name }}" | awk '{print toupper(substr($0,1,1)) substr($0,2)}') 
+
+          ref="${{ github.head_ref }}"
+          if [[ -z "$ref" ]]; then
+            # choose base ref as ref on push
+            ref=$(echo ${GITHUB_REF#refs/heads/})
+          fi
+
+          msg="*$CAPITALIZED_REPO_NAME | $jobName*:\\n*Branch*: $ref\\n*Passed*: :question: $status\\n *Time*: $todayDate"
+          echo "slack_msg=$msg" >> "$GITHUB_OUTPUT"
+
+  send-release-notification:
+    needs: [prepare-notification]
+    uses: anzx/github-reusable-workflows/.github/workflows/notification-hub.yaml@main
+    with:
+      isSlack: true
+      slackChannels: "${{ inputs.slack_channel }}"
+      slackMessage: "${{ needs.prepare-notification.outputs.slack_msg }}"
+      slackPrivate: true

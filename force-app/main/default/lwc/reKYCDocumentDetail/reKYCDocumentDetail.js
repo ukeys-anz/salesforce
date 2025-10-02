@@ -13,7 +13,6 @@ import DATE_OF_BIRTH from "@salesforce/schema/ReKYC_Document_Detail__c.Date_Of_B
 import EIDV_VERIFICATION_OUTCOME from "@salesforce/schema/ReKYC_Document_Detail__c.eIDV_Verification_Outcome__c";
 import EVALUATION_DATE from "@salesforce/schema/ReKYC_Document_Detail__c.Evaluation_Date__c";
 import EVALUATION_OUTCOME from "@salesforce/schema/ReKYC_Document_Detail__c.Evaluation_Outcome__c";
-import EXISTING_SELFIE from "@salesforce/schema/ReKYC_Document_Detail__c.Existing_Selfie__c";
 import MANUAL_VERIFICATION_OUTCOME from "@salesforce/schema/ReKYC_Document_Detail__c.Manual_Verification_Outcome__c";
 import QAS from "@salesforce/schema/ReKYC_Document_Detail__c.QAS__c";
 import RESIDENTIAL_ADDRESS from "@salesforce/schema/ReKYC_Document_Detail__c.Residential_Address__c";
@@ -101,6 +100,7 @@ export default class ReKYCDocumentDetail extends LightningElement {
   cobDocId;
   @track reKYCDocDetails;
   @track daonLocationUri;
+  existingSelfie = "Not Submitted";
 
   activeSections = [
     "trustMeSelfieAndPrimaryIdDoc",
@@ -129,17 +129,20 @@ export default class ReKYCDocumentDetail extends LightningElement {
       if (this.reKYCDocDetails.TrustMe_Primary_Document_ID__c) {
         await this.getDetokenizedValue();
       }
-      this.getDocumentsDetails();
-      getCOBDocumentId({ personaId: this.reKYCDocDetails.PersonaId__c })
+      await getCOBDocumentId({ personaId: this.reKYCDocDetails.PersonaId__c })
         .then((result) => {
           if (result) {
             this.cobDocId = result.DaonLocationUri__c;
             this.daonLocationUri = this.cobDocId?.split("/");
+            if (this.cobDocId) {
+              this.existingSelfie = "Submitted";
+            }
           }
         })
         .catch((err) => {
           this.toast.error("Error loading COB-PID Document Id", err);
         });
+      this.getDocumentsDetails();
     } else if (error) {
       this.toast.error("Error loading ReKYC Documents details", error);
     }
@@ -167,7 +170,6 @@ export default class ReKYCDocumentDetail extends LightningElement {
           this.reKYCDetails,
           EVALUATION_OUTCOME
         ),
-        Existing_Selfie__c: getFieldValue(this.reKYCDetails, EXISTING_SELFIE),
         Manual_Verification_Outcome__c: getFieldValue(
           this.reKYCDetails,
           MANUAL_VERIFICATION_OUTCOME
@@ -288,6 +290,7 @@ export default class ReKYCDocumentDetail extends LightningElement {
     this.trustMeSelfieAndPrimaryIdDoc = buildTrustMeSelfieAndPrimDoc(
       this.reKYCDocDetails
     );
+    this.reKYCDocDetails.Existing_Selfie__c = this.existingSelfie;
     this.additionalCustContext = buildTrustMeAdditionalContext(
       this.reKYCDocDetails
     );
@@ -318,7 +321,7 @@ export default class ReKYCDocumentDetail extends LightningElement {
     }
     return [
       {
-        title: "Trustme Primary Document",
+        title: "TrustMe Primary Document",
         size: 4,
         files: FILES_BY_DOCUMENTTYPE[documents[0].type]
       }
@@ -352,7 +355,7 @@ export default class ReKYCDocumentDetail extends LightningElement {
     }
     return [
       {
-        title: "Trustme Secondary Document",
+        title: "TrustMe Secondary Document",
         size: 4,
         files: FILES_BY_DOCUMENTTYPE[documents[0].type]
       }

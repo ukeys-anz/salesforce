@@ -27,7 +27,7 @@ public with sharing class EmailMessageCdlTriggerHandler extends Lib_TriggerHandl
    * @description onBeforeInsert to manage before insert actions
    */
   public override void onBeforeInsert() {
-    CCRMContentDocumentLinkActions.restrictOutlookAttachments(
+    ContentDocumentLinkActions.restrictOutlookAttachments(
       (List<ContentDocumentLink>) records
     );
   }

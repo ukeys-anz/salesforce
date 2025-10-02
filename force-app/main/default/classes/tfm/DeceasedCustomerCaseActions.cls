@@ -49,4 +49,21 @@ public with sharing class DeceasedCustomerCaseActions {
       new DmlConfig().allowPartial().withoutSharing()
     );
   }
+
+  /**
+   * @description Update Owner to ID Ops Queue
+   * @param validCases List of Cases
+   */
+  public static void updateOwner(List<Case> validCases) {
+    List<Case> casesToSetOwner = ListUtil.filter(validCases)
+      .equals(Case.Sub_Type__c, 'Removal of Electronic Access')
+      .equals(Case.Auto_Created__c, false)
+      .toList();
+
+    ListUtil.setField(
+      casesToSetOwner,
+      Case.OwnerId,
+      QueryQueue.get('ID_Ops_Queue').Id
+    );
+  }
 }

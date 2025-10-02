@@ -1039,4 +1039,52 @@ public with sharing class CommonUtil {
       errorTrackerSet.add((Id) objSobject.get('Id'));
     }
   }
+
+  /**
+   * @description This method is used to get record type API name of any object dynamically
+   * @name getRecordTypeIdsByDeveloperName
+   * @param strObjectName sobject name
+   * @param lstDevelopername List of developername API Name
+   * @return Set<Id> Set of developername API Name
+   * @author Ashish Kumar
+   * @US CC-1894
+   */
+  public static Set<Id> getRecordTypeIdsByDeveloperName(
+    String strObjectName,
+    List<String> lstDevelopername
+  ) {
+    if (
+      String.isBlank(strObjectName) ||
+      lstDevelopername == null ||
+      lstDevelopername.isEmpty()
+    ) {
+      return new Set<Id>();
+    }
+    SObjectType objType = ((SObject) (Type.forName('Schema.' + strObjectName)
+        .newInstance()))
+      .getSObjectType();
+    QueryRT rtUtil = QueryRT.of(objType);
+    Set<Id> setOfRecordTypeIds = new Set<Id>();
+    for (String eachStr : lstDevelopername) {
+      setOfRecordTypeIds.add(rtUtil.getId(eachStr));
+    }
+    return setOfRecordTypeIds;
+  }
+
+  /**
+   * @description This method is used to get field metadata to utilize ListUtils
+   * @name getSObjectField
+   * @param record a SObjectRecord
+   * @param fieldApiName Api Name of field
+   * @return SObjectField metadata of field
+   */
+  public static SObjectField getSObjectField(
+    SObject record,
+    String fieldApiName
+  ) {
+    Map<String, SObjectField> mapOfSobjectFields = record.getSObjectType()
+      .getDescribe()
+      .fields.getMap();
+    return mapOfSobjectFields.get(fieldApiName);
+  }
 }
