@@ -1417,7 +1417,8 @@
         "OnboardingVerificationFailedReason__c",
         "PassportNumber__c",
         "ReimbursementReason__c",
-        "RemoteAccessUsed__c"
+        "RemoteAccessUsed__c",
+        "EventTimestamp__c"
       ],
       "IA-2415840": [
         "Advocacy_Score__c",
@@ -2303,6 +2304,30 @@
         "PersonId__c",
         "Status__c",
         "UpdatedTime__c"
+      ]
+    },
+    "Dispute": {
+      "IA-2415999": [
+        "AccountDetails__c",
+        "TotalRecoveryAmount__c",
+        "TotalTransactionAmount__c"
+      ]
+    },
+    "DisputeItem": {
+      "IA-2415999": [
+        "AccountDetails__c",
+        "Case__c",
+        "Message__c",
+        "OtherFinancialInstituteAccountNumber__c",
+        "OtherFinancialInstituteBSB__c",
+        "RecoveryAmount__c",
+        "RecoveryLocation__c",
+        "RecoveryStatus__c",
+        "Title__c",
+        "TransactionAmount",
+        "TransactionDate",
+        "TransactionIdentifier",
+        "TransactionType__c"
       ]
     },
     "Drawdown__c": {

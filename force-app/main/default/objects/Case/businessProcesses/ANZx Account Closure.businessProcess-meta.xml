@@ -19,4 +19,8 @@
         <fullName>Open</fullName>
         <default>true</default>
     </values>
+    <values>
+        <fullName>Withdrawn</fullName>
+        <default>false</default>
+    </values>
 </BusinessProcess>

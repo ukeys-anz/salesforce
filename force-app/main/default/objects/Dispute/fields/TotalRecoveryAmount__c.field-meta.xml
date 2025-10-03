@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TotalRecoveryAmount__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Sum Total of Recovery Amount in the DisputeItem records. Recovery Amounts are the recovered  amount entered by the Agent which is actually recovered.</description>
+    <label>Total Recovery Amount</label>
+    <securityClassification>Confidential</securityClassification>
+    <summarizedField>DisputeItem.RecoveryAmount__c</summarizedField>
+    <summaryForeignKey>DisputeItem.DisputeId</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <type>Summary</type>
+</CustomField>
