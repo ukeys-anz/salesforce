@@ -6,6 +6,9 @@
 @isTest
 public class CustomerRelationNotesTriggerHandlerTest {
   static Id accountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+  static Id crId = Lib_FakeIdGenerator.getMockId(
+    Customer_Relationship__c.SObjectType
+  );
   static Id idTerritory = Lib_FakeIdGenerator.getMockId(
     Territory__c.SObjectType
   );
@@ -29,6 +32,7 @@ public class CustomerRelationNotesTriggerHandlerTest {
   private static Customer_Relationship__c getCustomerRelationship() {
     return (Customer_Relationship__c) TestUtil.setFields(
       new Customer_Relationship__c(
+        Id = crId,
         Customer__c = accountId,
         Newsletter__c = true,
         Status__c = 'Active',

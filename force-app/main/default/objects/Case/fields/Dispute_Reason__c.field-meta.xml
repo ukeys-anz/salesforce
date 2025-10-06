@@ -186,6 +186,21 @@
                 <default>false</default>
                 <label>Not as per agreement</label>
             </value>
+            <value>
+                <fullName>Cancel transfer</fullName>
+                <default>false</default>
+                <label>Cancel transfer</label>
+            </value>
+            <value>
+                <fullName>Suspected fraud</fullName>
+                <default>false</default>
+                <label>Suspected fraud</label>
+            </value>
+            <value>
+                <fullName>Amendment Request</fullName>
+                <default>false</default>
+                <label>Amendment Request</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

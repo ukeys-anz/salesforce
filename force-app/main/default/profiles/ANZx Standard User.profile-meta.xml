@@ -8035,6 +8035,10 @@
         <recordType>Case.ReKYC_QA_Case</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-IMT Dispute Layout</layout>
+        <recordType>Case.IMT_Dispute</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-NPP Dispute Layout</layout>
         <recordType>Case.NPP_Dispute</recordType>
     </layoutAssignments>

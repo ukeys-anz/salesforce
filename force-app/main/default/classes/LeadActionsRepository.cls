@@ -405,4 +405,23 @@ public with sharing class LeadActionsRepository {
       WITH USER_MODE
     ];
   }
+
+  /**
+   * @description to query Lead records
+   * @name getLeadList
+   * @param leadIdIdsSet set of Lead Ids
+   * @return List<Lead>
+   */
+  public List<Lead> getLeadList(Set<Id> leadIdIdsSet) {
+    if (leadIdIdsSet.isEmpty()) {
+      return new List<Lead>();
+    }
+
+    return [
+      SELECT Id, Territory__c, OwnerId
+      FROM Lead
+      WHERE Id IN :leadIdIdsSet
+      WITH USER_MODE
+    ];
+  }
 }

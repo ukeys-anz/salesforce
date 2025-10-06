@@ -12,7 +12,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Account Closure,Direct Debit,Customer Feedback,Direct Entry,BPAY,ATM,Non-Customer Complaint,ANZ Plus Complaint,General Enquiry,Card,NPP,PayTo</value>
+            <value>Account Closure,Direct Debit,Customer Feedback,Direct Entry,BPAY,ATM,Non-Customer Complaint,ANZ Plus Complaint,General Enquiry,Card,NPP,IMT,PayTo</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -135,7 +135,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Account Closure,ID Ops Assistance,Direct Entry,Customer Feedback,General Enquiry,Fraud,Fraud Check,Card,NPP,Profile Update,Direct Debit,Recipient/Mule,False Customer Profile,BPAY,ATM,ANZ Plus Complaint,KYC QA,Scam,Identity</value>
+            <value>Account Closure,ID Ops Assistance,Direct Entry,Customer Feedback,General Enquiry,Fraud,Fraud Check,Card,NPP,IMT,Profile Update,Direct Debit,Recipient/Mule,False Customer Profile,BPAY,ATM,ANZ Plus Complaint,KYC QA,Scam,Identity</value>
         </criteriaItems>
         <criteriaItems>
             <field>Origin</field>
@@ -324,7 +324,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM,Direct Debit,Direct Entry,ANZ Plus Complaint,General Enquiry,NPP,PayTo,Customer Feedback,BPAY,Account Closure,Confirmation Of Payee</value>
+            <value>ATM,Direct Debit,Direct Entry,ANZ Plus Complaint,General Enquiry,NPP,IMT,PayTo,Customer Feedback,BPAY,Account Closure,Confirmation Of Payee</value>
         </criteriaItems>
         <criteriaItems>
             <field>Origin</field>
@@ -446,7 +446,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>NPP</value>
+            <value>NPP,IMT</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -517,7 +517,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Direct Entry,Customer Feedback,ATM,ANZ Plus Complaint,General Enquiry,KYC QA,NPP,PayTo,BPAY,Account Closure</value>
+            <value>Direct Debit,Direct Entry,Customer Feedback,ATM,ANZ Plus Complaint,General Enquiry,KYC QA,NPP,IMT,PayTo,BPAY,Account Closure</value>
         </criteriaItems>
         <criteriaItems>
             <field>Origin</field>
@@ -592,7 +592,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,ID Ops Assistance,Fraud Check,General Enquiry,KYC QA,NPP,PayTo,Customer Feedback,BPAY,Profile Update,Fraud,Scam,Recipient/Mule,Identity,False Customer Profile</value>
+            <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,ID Ops Assistance,Fraud Check,General Enquiry,KYC QA,NPP,IMT,PayTo,Customer Feedback,BPAY,Profile Update,Fraud,Scam,Recipient/Mule,Identity,False Customer Profile</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -734,7 +734,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Card,NPP,PayTo,Customer Feedback,BPAY,ID Ops Assistance,Fraud Check,False Customer Profile,Profile Update,PIN Recovery,Selfie Recovery</value>
+            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Card,NPP,IMT,PayTo,Customer Feedback,BPAY,ID Ops Assistance,Fraud Check,False Customer Profile,Profile Update,PIN Recovery,Selfie Recovery</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -922,7 +922,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Customer Feedback,Direct Entry,Fraud,General Enquiry,Card,NPP,PayTo,Direct Debit,Recipient/Mule,ATM,KYC QA,Scam,Identity,False Customer Profile,Profile Update</value>
+            <value>Customer Feedback,Direct Entry,Fraud,General Enquiry,Card,NPP,IMT,PayTo,Direct Debit,Recipient/Mule,ATM,KYC QA,Scam,Identity,False Customer Profile,Profile Update</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -963,7 +963,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Account Closure,ID Ops Assistance,Customer Feedback,Direct Entry,General Enquiry,Fraud Check,Card,NPP,PayTo,Direct Debit,BPAY,Non-Customer Complaint,ATM,ANZ Plus Complaint,Fraud,Scam,Recipient/Mule,KYC QA,ReKYC QA Case</value>
+            <value>Account Closure,ID Ops Assistance,Customer Feedback,Direct Entry,General Enquiry,Fraud Check,Card,NPP,IMT,PayTo,Direct Debit,BPAY,Non-Customer Complaint,ATM,ANZ Plus Complaint,Fraud,Scam,Recipient/Mule,KYC QA,ReKYC QA Case</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -993,7 +993,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Entry,Customer Feedback,Fraud,General Enquiry,Card,NPP,PayTo,Direct Debit,Recipient/Mule,ATM,KYC QA,Scam,ANZ Plus Complaint,Identity,BPAY,Fraud Check,ID Ops Assistance,False Customer Profile</value>
+            <value>Direct Entry,Customer Feedback,Fraud,General Enquiry,Card,NPP,IMT,PayTo,Direct Debit,Recipient/Mule,ATM,KYC QA,Scam,ANZ Plus Complaint,Identity,BPAY,Fraud Check,ID Ops Assistance,False Customer Profile</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -1078,7 +1078,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Direct Entry,ATM,NPP,PayTo,BPAY,Card</value>
+            <value>Direct Debit,Direct Entry,ATM,NPP,IMT,PayTo,BPAY,Card</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -1093,7 +1093,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ID Ops Assistance,Direct Entry,Customer Feedback,Fraud,General Enquiry,Fraud Check,Card,NPP,PayTo,Direct Debit,Recipient/Mule,BPAY,ATM,KYC QA,Scam,ANZ Plus Complaint,Identity</value>
+            <value>ID Ops Assistance,Direct Entry,Customer Feedback,Fraud,General Enquiry,Fraud Check,Card,NPP,IMT,PayTo,Direct Debit,Recipient/Mule,BPAY,ATM,KYC QA,Scam,ANZ Plus Complaint,Identity</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -1108,7 +1108,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Account Closure,Customer Feedback,Direct Entry,Unauthenticated Enquiry,General Enquiry,Customer Complaint,Card,NPP,PayTo,Direct Debit,BPAY,ATM,Non-Customer Complaint,ANZ Plus Complaint</value>
+            <value>Account Closure,Customer Feedback,Direct Entry,Unauthenticated Enquiry,General Enquiry,Customer Complaint,Card,NPP,IMT,PayTo,Direct Debit,BPAY,ATM,Non-Customer Complaint,ANZ Plus Complaint</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -1183,7 +1183,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Account Closure,Direct Debit,Credit Referral,Customer Feedback,Direct Entry,BPAY,ATM,ANZ Plus Complaint,General Enquiry,Card,NPP,PayTo</value>
+            <value>Account Closure,Direct Debit,Credit Referral,Customer Feedback,Direct Entry,BPAY,ATM,ANZ Plus Complaint,General Enquiry,Card,NPP,IMT,PayTo</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -1314,7 +1314,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Account Closure,Direct Debit,PayTo,Credit Referral,Direct Entry,Customer Feedback,BPAY,ATM,ANZ Plus Complaint,General Enquiry,NPP</value>
+            <value>Account Closure,Direct Debit,PayTo,Credit Referral,Direct Entry,Customer Feedback,BPAY,ATM,ANZ Plus Complaint,General Enquiry,NPP,IMT</value>
         </criteriaItems>
         <criteriaItems>
             <field>Origin</field>
