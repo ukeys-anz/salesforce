@@ -10,6 +10,7 @@ import { handleErrorShowToast } from "c/utils";
 const POSTCODE_VALIDATED = "Manual Address Postcode Validated";
 const POSTCODE_NOT_VALIDATED = "Manual Address not Validated";
 const ADDRESS_VALIDATED = "Search Address Validated";
+const VALID_POSTCODES = ["not applicable", "overseas"];
 export default class AddressLwc extends NavigationMixin(LightningElement) {
   @api recordId;
   @api objectAPIName = "Case";
@@ -171,16 +172,14 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
   validateCustomerPostcode() {
     if (
       this.apiPostcodeError ||
-      this.customerManualPostcode === "Overseas" ||
-      this.customerManualPostcode === "Not Applicable"
+      VALID_POSTCODES.includes(this.customerManualPostcode?.toLowerCase())
     ) {
       this.ncPostCode = this.customerManualPostcode;
       return true;
     }
     if (
       this.ncPostCode === this.customerManualPostcode ||
-      this.customerManualPostcode === "Overseas" ||
-      this.customerManualPostcode === "Not Applicable"
+      VALID_POSTCODES.includes(this.customerManualPostcode?.toLowerCase())
     ) {
       return true;
     }
@@ -219,16 +218,14 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
   validatePostcodeTP() {
     if (
       this.apiPostcodeErrorTP ||
-      this.thirdPartyManualPostcode === "Overseas" ||
-      this.thirdPartyManualPostcode === "Not Applicable"
+      VALID_POSTCODES.includes(this.thirdPartyManualPostcode?.toLowerCase())
     ) {
       this.tpPostCode = this.thirdPartyManualPostcode;
       return true;
     }
     if (
       this.tpPostCode === this.thirdPartyManualPostcode ||
-      this.thirdPartyManualPostcode === "Overseas" ||
-      this.thirdPartyManualPostcode === "Not Applicable" ||
+      VALID_POSTCODES.includes(this.thirdPartyManualPostcode?.toLowerCase()) ||
       !this.thirdPartyFieldsRequired
     ) {
       return true;

@@ -36,10 +36,10 @@
         <lightning-layout>
           <lightning-layout-item flexibility="auto">
             <lightning-input
-              pattern="Overseas|Not Applicable|^[0-9]{4}"
+              pattern="Overseas|Not Applicable|overseas|not applicable|Not applicable|not Applicable|^[0-9]{4}"
               class="inputBox .slds-form-element_readonly"
               onchange={handleSearchPostcode}
-              label="Postcode"
+              label={postcodeLabel}
               value={searchPostcode}
               placeholder="type here..."
               message-when-pattern-mismatch="Postcode must be a 4-digit Australian postcode. If the customer is overseas, enter 'Overseas', if the postcode is unknown, enter 'Not Applicable'."

@@ -2754,6 +2754,9 @@
   &quot;customAttributes&quot; : [ {
     &quot;name&quot; : &quot;thirdPartyCheck&quot;,
     &quot;source&quot; : &quot;false&quot;
+  }, {
+    &quot;name&quot; : &quot;postcodeLabel&quot;,
+    &quot;source&quot; : &quot;Postcode&quot;
   } ]
 }</propertySetConfig>
                 <sequenceNumber>46.0</sequenceNumber>
@@ -4049,6 +4052,9 @@
   &quot;customAttributes&quot; : [ {
     &quot;name&quot; : &quot;thirdPartyCheck&quot;,
     &quot;source&quot; : &quot;true&quot;
+  }, {
+    &quot;name&quot; : &quot;postcodeLabel&quot;,
+    &quot;source&quot; : &quot;Nominated 3rd Party Postcode&quot;
   } ]
 }</propertySetConfig>
                 <sequenceNumber>74.0</sequenceNumber>

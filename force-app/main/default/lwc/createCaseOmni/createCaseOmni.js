@@ -12,6 +12,8 @@ import {
 } from "lightning/platformWorkspaceApi";
 import logCaseCreation from "@salesforce/apex/IDRCaseActionsHelper.logCaseCreation";
 import logCaseError from "@salesforce/apex/IDRCaseActionsHelper.logCaseError";
+const ALLOWED_POSTCODES = ["not applicable", "overseas"];
+
 export default class CreateCaseOmni extends OmniscriptBaseMixin(
   LightningElement
 ) {
@@ -273,7 +275,8 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
         "PostcodeReadOnly"
       ) ||
         postCode === "" ||
-        !this.omniJsonData.Case?.validAddress)
+        !this.omniJsonData.Case?.validAddress) &&
+      !ALLOWED_POSTCODES.includes(postCode.toLowerCase())
     ) {
       return true;
     }
@@ -286,7 +289,8 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
         "thirdPartyPostCode"
       ) ||
         thirdPartyCode === "" ||
-        !this.omniJsonData.Case?.validAddress)
+        !this.omniJsonData.Case?.validAddress) &&
+      !ALLOWED_POSTCODES.includes(thirdPartyCode.toLowerCase())
     ) {
       return true;
     }
@@ -294,11 +298,11 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       (this.omniJsonData.Case.CustomerDetails?.SearchAddressRadio ===
         "Manual Address Entry" &&
         !postCode.match(compare) &&
-        !["Overseas", "Not Applicable"].includes(postCode)) ||
+        !ALLOWED_POSTCODES.includes(postCode.toLowerCase())) ||
       (this.omniJsonData.Case.CustomerDetails?.thirdPartyAddress ===
         "Manual Address Entry" &&
         !thirdPartyCode.match(compare) &&
-        !["Overseas", "Not Applicable"].includes(thirdPartyCode))
+        !ALLOWED_POSTCODES.includes(thirdPartyCode.toLowerCase()))
     ) {
       return true;
     }
