@@ -2,13 +2,22 @@
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
     <name>Slow Moving Opportunities</name>
     <columns>
-        <field>ApplicationForm$Opportunity.Name</field>
+        <field>ApplicationForm$Opportunity</field>
     </columns>
     <columns>
         <field>ApplicationForm$Opportunity.Account</field>
     </columns>
     <columns>
+        <field>ApplicationForm$Opportunity.CLG__c</field>
+    </columns>
+    <columns>
         <field>ApplicationForm.ApplicationFormProduct$Product</field>
+    </columns>
+    <columns>
+        <field>ApplicationForm.ApplicationFormProduct$Name</field>
+    </columns>
+    <columns>
+        <field>ApplicationForm$RecordType</field>
     </columns>
     <columns>
         <aggregateTypes>Sum</aggregateTypes>
@@ -16,6 +25,9 @@
     </columns>
     <columns>
         <field>ApplicationForm.ApplicationFormProduct$Close_Date__c</field>
+    </columns>
+    <columns>
+        <field>ApplicationForm$Opportunity.Owner</field>
     </columns>
     <filter>
         <booleanFilter>1 AND 2 AND 3 AND 4 AND (5 OR 6)</booleanFilter>

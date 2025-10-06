@@ -24,6 +24,10 @@
         <field>AMOUNT</field>
     </columns>
     <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.Approved_Amount__c</field>
+    </columns>
+    <columns>
         <field>FULL_NAME</field>
     </columns>
     <filter>

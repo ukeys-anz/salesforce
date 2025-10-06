@@ -11,12 +11,17 @@
         <field>Interaction$InteractionType</field>
     </columns>
     <description>This is used to show Interaction related to Customer and Opportunity.</description>
-    <format>Summary</format>
-    <groupingsDown>
-        <dateGranularity>Day</dateGranularity>
-        <field>Interaction$Account.Controlling_Post__c</field>
-        <sortOrder>Asc</sortOrder>
-    </groupingsDown>
+    <filter>
+        <criteriaItems>
+            <column>Interaction.Interactions__r$RecordType</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Interaction.CCRM_Interaction</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
     <params>
         <name>co</name>
         <value>1</value>

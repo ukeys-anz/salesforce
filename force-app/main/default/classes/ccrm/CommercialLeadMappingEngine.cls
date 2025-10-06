@@ -359,15 +359,9 @@ public with sharing class CommercialLeadMappingEngine {
       return null;
     }
 
-    String queryRecords =
-      'SELECT ' +
-      prefillUnicaLeadWrap.accountFields +
-      ' (SELECT ' +
-      prefillUnicaLeadWrap.contactFields +
-      ' Id FROM Contacts ORDER BY createddate DESC) FROM Account WHERE Id IN :relatedPartyIds';
-
     return LEAD_REPOSITORY.getAccountsAndRelatedContacts(
-      queryRecords,
+      prefillUnicaLeadWrap.accountFields,
+      prefillUnicaLeadWrap.contactFields,
       relatedPartyIds
     );
   }

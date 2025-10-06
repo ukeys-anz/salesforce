@@ -17,7 +17,7 @@
     <filters>
         <field>OPPORTUNITY.STAGE_NAME</field>
         <operation>notEqual</operation>
-        <value>Closed Won,Closed Lost</value>
+        <value>Opportunity Won,Opportunity Lost</value>
     </filters>
     <filters>
         <field>My_Team_Segment__c</field>
