@@ -27,7 +27,7 @@
         <value>Opportunity Identified</value>
     </filters>
     <filters>
-        <field>My_Region_Flag__c</field>
+        <field>My_Team_Segment__c</field>
         <operation>equals</operation>
         <value>1</value>
     </filters>

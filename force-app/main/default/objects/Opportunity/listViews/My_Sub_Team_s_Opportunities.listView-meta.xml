@@ -32,5 +32,6 @@
     <sharedTo>
         <roleAndSubordinates>AF_Regional_Manager</roleAndSubordinates>
         <roleAndSubordinates>SME_Head_of_NBC</roleAndSubordinates>
+        <roleAndSubordinates>PB_Head_of_Teams</roleAndSubordinates>
     </sharedTo>
 </ListView>
