@@ -190,4 +190,27 @@ public with sharing class IDOpsQueryRepository {
     ] ?? null;
     return pID;
   }
+
+  /**
+   * @description Retrieves QA Check Fields.
+   * @param caseIds A list of TrustMe/ ReKYC QA Case IDs.
+   * @return A list of TrustMe/ ReKYC QA case records with all the check fields.
+   */
+  public List<Case> queryQAChecksByIds(Set<Id> caseIds) {
+    return [
+      SELECT
+        Id,
+        Fraud_Customer_Details__c,
+        Fraud_MiddleNameCheck__c,
+        Fraud_Selfie_Comparison_Match__c,
+        Fraud_Address_Valid__c,
+        Fraud_ID_Legible__c,
+        Fraud_ID_Not_Picture__c,
+        Fraud_Customer_Photo_Modified__c,
+        Fraud_Security_Features__c
+      FROM Case
+      WHERE Id IN :caseIds
+      WITH USER_MODE
+    ] ?? null;
+  }
 }

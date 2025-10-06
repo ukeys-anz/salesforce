@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <classAccesses>
+        <apexClass>CreditAssessmentController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ResidentialLoanApplicationController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SOPIneligibilityController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ViewServiceabilityController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <description>This Permission set provides required access for integration user for Buying a home</description>
     <fieldPermissions>
         <editable>false</editable>

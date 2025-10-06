@@ -99,6 +99,16 @@
             <field>Opportunity.My_Manager_Opps__c</field>
             <table>ApplicationForm</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Opportunity.RecordType</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Opportunity.StageName</field>
+            <table>ApplicationForm</table>
+        </columns>
         <masterLabel>Application Forms</masterLabel>
     </sections>
     <sections>

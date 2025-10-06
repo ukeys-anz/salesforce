@@ -4,9 +4,6 @@
  * @since 24/06/2024
  */
 public with sharing class ResidentialLoanApplicationRepository {
-  @TestVisible
-  private static Map<String, Loan_Application_Validity__mdt> loanApplicationValidityMap = new Map<String, Loan_Application_Validity__mdt>();
-
   /**
    * @description
    * @param loanId loan appklciation id
@@ -138,29 +135,5 @@ public with sharing class ResidentialLoanApplicationRepository {
         AND IsClosed = FALSE
       WITH USER_MODE
     ];
-  }
-
-  /**
-   * @description get custom metadata type for RLA's status
-   * @param recordTypeName Record type name of RLA
-   * @param status Status of RLA
-   * @return Loan_Application_Validity__mdt cutom metadata type
-   */
-  public Loan_Application_Validity__mdt getLoanApplicationValidityMetadata(
-    String recordTypeName,
-    String status
-  ) {
-    String key = recordTypeName + '_' + status;
-    Loan_Application_Validity__mdt loanApplicationValidityMDT = loanApplicationValidityMap.get(
-      key
-    );
-    if (loanApplicationValidityMDT != null) {
-      return loanApplicationValidityMDT;
-    }
-    loanApplicationValidityMDT = Loan_Application_Validity__mdt.getInstance(
-      key
-    );
-    loanApplicationValidityMap.put(key, loanApplicationValidityMDT);
-    return loanApplicationValidityMDT;
   }
 }

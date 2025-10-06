@@ -17,6 +17,12 @@ public with sharing class QueryLeadToPlatformEventMapping {
     leadToPlatformEventMappingList,
     CCRM_Lead_to_Platform_Event_Mapping__mdt.Destination_System__c
   );
+  public static List<CCRM_Lead_to_Platform_Event_Mapping__mdt> unicaMappings = get(
+    'Unica'
+  );
+  public static List<CCRM_Lead_to_Platform_Event_Mapping__mdt> allMappings = get(
+    'All'
+  );
 
   /**
    * @description Returns list metadata record for the destination system

@@ -6444,6 +6444,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Interaction.Record_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>InteractionAttendee.AttendeeResponse</field>
         <readable>true</readable>
     </fieldPermissions>

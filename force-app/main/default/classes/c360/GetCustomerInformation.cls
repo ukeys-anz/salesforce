@@ -31,4 +31,33 @@ public with sharing class GetCustomerInformation {
   ) {
     return CUSTOMER_REPOSITORY.getFinancialAccounts(accId, ocvId, ROLE_TYPES);
   }
+  /**
+   * @description To get Address Based on Postcode Selected
+   * @param postCode Postcode to search Address
+   * @return HttpCalloutResponse return the Address returned from API
+   */
+  @AuraEnabled(cacheable=true)
+  public static CCRMValidateManualAddressModel fetchAddress(Integer postCode) {
+    CCRMValidateAddressService obj = new CCRMValidateAddressService();
+
+    try {
+      HttpCalloutResponse responseResult = obj.getPostcodeLookupV3(postCode);
+      if (responseResult.statusCode > 499) {
+        Logger.error('Address Search is Not Available');
+        Logger.saveLog();
+        throw newMessageException('API Down');
+      }
+      if (!responseResult.successful) {
+        throw newMessageException('Invalid Request');
+      }
+      return (CCRMValidateManualAddressModel.parse(responseResult.body));
+    } catch (exception ex) {
+      throw newMessageException(ex.getMessage());
+    }
+  }
+  private static AuraHandledException newMessageException(String message) {
+    AuraHandledException e = new AuraHandledException(message);
+    e.setMessage(message);
+    return e;
+  }
 }

@@ -6,6 +6,11 @@
 public with sharing class IDRCaseActionsRepository {
   public static final String TASK_STATUS_COMPLETED = 'Completed';
   public static final String TASK_TYPE_PEND_CASE = 'Pend Case';
+  public static final Set<String> CLOSED_WITHDRAWN_STATUS = new Set<String>{
+    IDRConstants.CLOSED_STATUS,
+    IDRConstants.PROVISIONALLY_CLOSED_STATUS,
+    IDRConstants.WITHDRAWN_STATUS
+  };
   /**
    * @description Query PEND Tasks whose Status is not completed
    * @param caseIds case Ids in current context
@@ -71,6 +76,50 @@ public with sharing class IDRCaseActionsRepository {
             AND PermissionSet.Name IN :IDRConstants.PSG_L2_L3_USERS
         )
       WITH SYSTEM_MODE
+    ];
+  }
+
+  /**
+   *  @description Query Account's related Cases
+   *  @param sAccountIds Set of AccountIds
+   *  @return List<Cases> list of Cases associated with AccountIds
+   */
+  public List<Case> queryRelatedCases(Set<Id> sAccountIds) {
+    if (sAccountIds.isEmpty()) {
+      return new List<Case>();
+    }
+    return [
+      SELECT
+        Id,
+        CaseNumber,
+        OwnerId,
+        Priority,
+        AccountId,
+        Account.Name,
+        Account.ExtraCareTimePeriod__c
+      FROM Case
+      WHERE
+        Status NOT IN :CLOSED_WITHDRAWN_STATUS
+        AND AccountId IN :sAccountIds
+        AND RecordType.Id = :RTCase.customerComplaint
+    ];
+  }
+  /**
+   *  @description Query Cases and related Account fields
+   *  @param caseIds Set of CaseIds
+   *  @return List<Case>
+   */
+  public List<Case> getCasesWithExtraCareFlagonAccount(Set<Id> caseIds) {
+    if (caseIds.isEmpty()) {
+      return new List<Case>();
+    }
+    return [
+      SELECT Id, AccountId, Account.ExtraCareTimePeriod__c
+      FROM Case
+      WHERE
+        Id IN :caseIds
+        AND Account.ExtraCareTimePeriod__c IN :IDRConstants.ECF_FLAG_TRUE
+      WITH USER_MODE
     ];
   }
 }

@@ -10,20 +10,14 @@
  NOT( ISPICKVAL(Type, &quot;Not a Recipient&quot;) ),
  OR(
   ISBLANK(Fraud_Detection_Case_Reference__c),
-  ISBLANK(Fraud_Total_Fraud_Received__c), 
-  Fraud_Total_Fraud_Received__c &lt; 0,
-  ISBLANK(Fraud_Total_Recovered__c), 
-  Fraud_Total_Recovered__c &lt; 0,
   ISBLANK(Fraud_Total_Customer_Exposure__c),
   Fraud_Total_Customer_Exposure__c &lt; 0,
   ISPICKVAL(Fraud_Loss_Reason_Code__c, &quot;&quot;),
   ISPICKVAL(RecipientFundsType__c, &quot;&quot;)
  )
 )</errorConditionFormula>
-    <errorMessage>These fields are required: 
-Detection Case Reference, 
-Total Fraud Received, 
-Total Recovered,
+    <errorMessage>These fields are required:
+Detection Case Reference,
 Loss Reason Code,
 Total Customer Exposure,
 Recipient Funds Type</errorMessage>

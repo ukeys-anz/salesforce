@@ -1,0 +1,489 @@
+<template>
+  <!-- sldsValidatorIgnoreNextLine -->
+  <lightning-quick-action-panel header="Customer Details">
+    <div class="slds-grid slds-gutters slds-var-p-vertical_medium">
+      <div class="slds-col slds-grid">
+        <h2 class="slds-text-heading_small slds-p-bottom_medium">
+          Search address or toggle Manual address entry
+        </h2>
+        <lightning-helptext
+          class="slds-p-left_medium"
+          content="Choose “Search Address” to enter a validated full address. Choose “Manual Address Entry” to enter details yourself (Postcode is a mandatory field)"
+        >
+        </lightning-helptext>
+      </div>
+    </div>
+    <lightning-record-edit-form
+      class="slds-m-around_medium"
+      record-id={recordId}
+      object-api-name={objectAPIName}
+      onsuccess={handleSuccess}
+      onsubmit={handleSubmit}
+      onerror={handleError}
+    >
+      <lightning-accordion
+        allow-multiple-sections-open
+        active-section-name={activeSections}
+      >
+        <lightning-accordion-section
+          name="customerDetails"
+          label="Customer Details"
+          class={hideCustomerSection}
+        >
+          <lightning-radio-group
+            class="slds-p-around_medium"
+            label=""
+            name="radioGroup"
+            onchange={handleCustAddressInputChange}
+            options={addressOptions}
+            value={defaultAddressInputNC}
+            type="button"
+          >
+          </lightning-radio-group>
+          <div class="slds-m-around_medium">
+            <lightning-layout horizontal-align="space" multiple-rows="false">
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_Complainant_Type__c"
+                  data-field="IDR_Complainant_Type__c"
+                  value={ncComplainantType}
+                  required={customerFieldsRequired}
+                ></lightning-input-field>
+              </lightning-layout-item>
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_NC_First_Name__c"
+                  data-field="IDR_NC_First_Name__c"
+                  value={ncFirstName}
+                  required={customerFieldsRequired}
+                ></lightning-input-field>
+              </lightning-layout-item>
+            </lightning-layout>
+          </div>
+          <div class="slds-m-around_medium">
+            <lightning-layout horizontal-align="space" multiple-rows="false">
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_NC_Middle_Names__c"
+                  data-field="IDR_NC_Middle_Names__c"
+                  value={ncMiddleName}
+                ></lightning-input-field>
+              </lightning-layout-item>
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_NC_Last_Name__c"
+                  data-field="IDR_NC_Last_Name__c"
+                  value={ncLastName}
+                  required={customerFieldsRequired}
+                ></lightning-input-field>
+              </lightning-layout-item>
+            </lightning-layout>
+          </div>
+          <div class="slds-m-around_medium">
+            <lightning-layout horizontal-align="space" multiple-rows="false">
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_NC_Age__c"
+                  data-field="IDR_NC_Age__c"
+                  value={ncAge}
+                ></lightning-input-field>
+              </lightning-layout-item>
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_NC_Gender__c"
+                  data-field="IDR_NC_Gender__c"
+                  value={ncGender}
+                  required={customerFieldsRequired}
+                ></lightning-input-field>
+              </lightning-layout-item>
+            </lightning-layout>
+          </div>
+          <div class="slds-m-around_medium">
+            <lightning-layout horizontal-align="space" multiple-rows="false">
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_NC_Email__c"
+                  data-field="IDR_NC_Email__c"
+                  value={ncEmail}
+                ></lightning-input-field>
+              </lightning-layout-item>
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_NC_Mobile__c"
+                  data-field="IDR_NC_Mobile__c"
+                  value={ncMobile}
+                ></lightning-input-field>
+              </lightning-layout-item>
+            </lightning-layout>
+          </div>
+          <div class="slds-m-around_medium">
+            <lightning-layout horizontal-align="space" multiple-rows="false">
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_NC_Phone__c"
+                  data-field="IDR_NC_Phone__c"
+                  value={ncPhone}
+                  required={customerFieldsRequired}
+                ></lightning-input-field>
+              </lightning-layout-item>
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_SwitchOff_Customer_Notification__c"
+                  data-field="IDR_SwitchOff_Customer_Notification__c"
+                  value={ncNotificationOff}
+                ></lightning-input-field>
+              </lightning-layout-item>
+            </lightning-layout>
+          </div>
+          <div class="slds-m-around_medium">
+            <lightning-layout horizontal-align="space" multiple-rows="false">
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_NC_Street__c"
+                  data-field="IDR_NC_Street__c"
+                  value={ncStreet}
+                  disabled={disableCustomerAddressFields}
+                  class={hideCustAddInputClass}
+                  required={customerFieldsRequired}
+                ></lightning-input-field>
+              </lightning-layout-item>
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_NC_Suburb__c"
+                  data-field="IDR_NC_Suburb__c"
+                  value={ncSuburb}
+                  disabled={disableCustomerAddressFields}
+                  class={hideCustAddInputClass}
+                  required={customerFieldsRequired}
+                ></lightning-input-field>
+              </lightning-layout-item>
+            </lightning-layout>
+          </div>
+          <div class="slds-m-around_medium">
+            <lightning-layout horizontal-align="space" multiple-rows="false">
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_NC_State__c"
+                  data-field="IDR_NC_State__c"
+                  value={ncState}
+                  disabled={disableCustomerAddressFields}
+                  class={hideCustAddInputClass}
+                  required={customerFieldsRequired}
+                ></lightning-input-field>
+              </lightning-layout-item>
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_NC_Country__c"
+                  data-field="IDR_NC_Country__c"
+                  value={ncCountry}
+                  disabled={disableCustomerAddressFields}
+                  class={hideCustAddInputClass}
+                  required={customerFieldsRequired}
+                ></lightning-input-field>
+              </lightning-layout-item>
+            </lightning-layout>
+          </div>
+          <div class="slds-m-around_medium">
+            <lightning-layout horizontal-align="space" multiple-rows="false">
+              <lightning-layout-item
+                size="12"
+                padding="right-small"
+                class={hideManualPostCodeClass}
+              >
+                <lightning-input-field
+                  field-name="IDR_NC_Postcode__c"
+                  value={ncPostCode}
+                  disabled={disableCustomerAddressFields}
+                  required={customerFieldsRequired}
+                ></lightning-input-field>
+              </lightning-layout-item>
+            </lightning-layout>
+          </div>
+          <div class="slds-m-around_medium">
+            <lightning-layout horizontal-align="space" multiple-rows="false">
+              <lightning-layout-item
+                size="12"
+                padding="right-small"
+                class={hideSearchPostCodeClass}
+              >
+                <c-complaint-address-lookup
+                  search-postcode={postCodeInputCustomer}
+                  onpostcodeselected={handlePostCodeSelected}
+                  onpostcodechanged={handleManualPostCodeChanged}
+                  onpostcodeapierror={handlePostCodeApiError}
+                  required={customerFieldsRequired}
+                ></c-complaint-address-lookup>
+              </lightning-layout-item>
+            </lightning-layout>
+          </div>
+          <div class="slds-m-around_medium">
+            <lightning-layout horizontal-align="space" multiple-rows="false">
+              <lightning-layout-item
+                size="12"
+                padding="right-small"
+                class={searchAddressFieldCustomerShow}
+              >
+                <c-complaint-address-lookup
+                  third-party-check="false"
+                  is-auto-search="true"
+                  onaddressselected={handleAddressSelected}
+                  required={customerFieldsRequired}
+                ></c-complaint-address-lookup>
+              </lightning-layout-item>
+              <lightning-layout-item size="12" padding="right-small">
+                <lightning-input-field
+                  field-name="Search_Button_Selected__c"
+                  data-field="Search_Button_Selected__c"
+                  value={searchButtonValue}
+                  class="slds-hide"
+                ></lightning-input-field>
+              </lightning-layout-item>
+            </lightning-layout>
+          </div>
+        </lightning-accordion-section>
+        <!-- ******************************* THIRD PARTY DETAILS SECTION ******************************** -->
+        <div class="slds-col slds-grid">
+          <lightning-radio-group
+            class="slds-p-around_medium"
+            label="Does Customer wish to be represented by third party?"
+            name="radioGroup3rdParty"
+            onchange={handleThirdPartySwitch}
+            options={thirdPartySwitchOptions}
+            value={defaultThirdPartySwitch}
+            type="button"
+          >
+          </lightning-radio-group>
+        </div>
+        <lightning-accordion-section
+          name="thirdPartyDetails"
+          label="Nominated 3rd Party Details (If Applicable)"
+          class={hideThirdPartyToggleClass}
+        >
+          <div class="slds-grid slds-gutters slds-var-p-vertical_medium">
+            <div class="slds-col slds-grid">
+              <lightning-radio-group
+                class="slds-p-around_medium"
+                label=""
+                name="radioGroup1"
+                onchange={handleTPAddressInputChange}
+                options={addressOptions}
+                value={defaultAddressInputTP}
+                type="button"
+              >
+              </lightning-radio-group>
+            </div>
+          </div>
+          <div class="slds-m-around_medium">
+            <lightning-layout horizontal-align="space" multiple-rows="false">
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_3rdParty_Name__c"
+                  data-field="IDR_3rdParty_Name__c"
+                  value={tpName}
+                  required={thirdPartyFieldsRequired}
+                ></lightning-input-field>
+              </lightning-layout-item>
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_Nominated_3rd_Party_Company_Name__c"
+                  value={tpCompanyName}
+                  data-field="IDR_Nominated_3rd_Party_Company_Name__c"
+                ></lightning-input-field>
+              </lightning-layout-item>
+            </lightning-layout>
+          </div>
+          <div class="slds-m-around_medium">
+            <lightning-layout horizontal-align="space" multiple-rows="false">
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_3rdParty_Relationship_To_Complainant__c"
+                  data-field="IDR_3rdParty_Relationship_To_Complainant__c"
+                  value={tpRelation}
+                  required={thirdPartyFieldsRequired}
+                ></lightning-input-field>
+              </lightning-layout-item>
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_3rdParty_Email__c"
+                  data-field="IDR_3rdParty_Email__c"
+                  value={tpEmail}
+                  required={thirdPartyFieldsRequired}
+                ></lightning-input-field>
+              </lightning-layout-item>
+            </lightning-layout>
+          </div>
+          <div class="slds-m-around_medium">
+            <lightning-layout horizontal-align="space" multiple-rows="false">
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_3rdParty_Mobile__c"
+                  data-field="IDR_3rdParty_Mobile__c"
+                  value={tpMobile}
+                  required={thirdPartyFieldsRequired}
+                ></lightning-input-field>
+              </lightning-layout-item>
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_3rdParty_Phone__c"
+                  data-field="IDR_3rdParty_Phone__c"
+                  value={tpPhone}
+                  required={thirdPartyFieldsRequired}
+                ></lightning-input-field>
+              </lightning-layout-item>
+            </lightning-layout>
+          </div>
+          <div class="slds-m-around_medium">
+            <lightning-layout horizontal-align="space" multiple-rows="false">
+              <lightning-layout-item size="12">
+                <lightning-input-field
+                  field-name="IDR_SwicthOff_3rd_Party_Notification__c"
+                  data-field="IDR_SwicthOff_3rd_Party_Notification__c"
+                  value={tpNotificationsOff}
+                  required={thirdPartyFieldsRequired}
+                ></lightning-input-field>
+              </lightning-layout-item>
+            </lightning-layout>
+          </div>
+          <div class="slds-m-around_medium">
+            <lightning-layout horizontal-align="space" multiple-rows="false">
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_3rdParty_Street__c"
+                  data-field="IDR_3rdParty_Street__c"
+                  value={tpStreet}
+                  disabled={disableThirdPartyAddressFields}
+                  class={hideTPAddressInputClass}
+                  required={thirdPartyFieldsRequired}
+                ></lightning-input-field>
+              </lightning-layout-item>
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_3rdParty_Suburb__c"
+                  data-field="IDR_3rdParty_Suburb__c"
+                  value={tpSuburb}
+                  class={hideTPAddressInputClass}
+                  disabled={disableThirdPartyAddressFields}
+                ></lightning-input-field>
+              </lightning-layout-item>
+            </lightning-layout>
+          </div>
+          <div class="slds-m-around_medium">
+            <lightning-layout horizontal-align="space" multiple-rows="false">
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_3rdParty_State__c"
+                  data-field="IDR_3rdParty_State__c"
+                  value={tpState}
+                  class={hideTPAddressInputClass}
+                  disabled={disableThirdPartyAddressFields}
+                  required={thirdPartyFieldsRequired}
+                ></lightning-input-field>
+              </lightning-layout-item>
+              <lightning-layout-item size="6" padding="right-small">
+                <lightning-input-field
+                  field-name="IDR_3rdParty_Country__c"
+                  data-field="IDR_3rdParty_Country__c"
+                  value={tpCountry}
+                  class={hideTPAddressInputClass}
+                  disabled={disableThirdPartyAddressFields}
+                  required={thirdPartyFieldsRequired}
+                ></lightning-input-field>
+              </lightning-layout-item>
+            </lightning-layout>
+          </div>
+          <div class="slds-m-around_medium">
+            <lightning-layout horizontal-align="space" multiple-rows="false">
+              <lightning-layout-item
+                size="12"
+                padding="right-small"
+                class={hideManualPostCodeClassTP}
+              >
+                <lightning-input-field
+                  field-name="IDR_3rdParty_Postcode__c"
+                  data-field="IDR_3rdParty_Postcode__c"
+                  value={tpPostCode}
+                  disabled={disableThirdPartyAddressFields}
+                  required={thirdPartyFieldsRequired}
+                ></lightning-input-field>
+              </lightning-layout-item>
+            </lightning-layout>
+          </div>
+          <div class="slds-m-around_medium">
+            <lightning-layout horizontal-align="space" multiple-rows="false">
+              <lightning-layout-item
+                size="12"
+                padding="right-small"
+                class={hideSearchPostCodeClassTP}
+              >
+                <c-complaint-address-lookup
+                  search-postcode={postCodeInputTP}
+                  onpostcodechanged={handleManualPostCodeChangedTP}
+                  onpostcodeapierror={handlePostCodeApiErrorTP}
+                  onpostcodeselected={handlePostCodeSelectedTP}
+                  required={thirdPartyFieldsRequired}
+                ></c-complaint-address-lookup>
+              </lightning-layout-item>
+            </lightning-layout>
+          </div>
+          <div class="slds-m-around_medium">
+            <lightning-layout horizontal-align="space" multiple-rows="false">
+              <lightning-layout-item
+                size="12"
+                padding="right-small"
+                class={searchAddressFieldTPShow}
+              >
+                <c-complaint-address-lookup
+                  third-party-check="true"
+                  is-auto-search="true"
+                  onaddressselected={handleTPAddressSelected}
+                  required={thirdPartyFieldsRequired}
+                ></c-complaint-address-lookup>
+              </lightning-layout-item>
+              <lightning-layout-item size="12" padding="right-small">
+                <lightning-input-field
+                  field-name="Search_Button_Selected_for_3rd_Party__c"
+                  data-field="Search_Button_Selected_for_3rd_Party__c"
+                  value={searchButtonValueTP}
+                  class="slds-hide"
+                ></lightning-input-field>
+              </lightning-layout-item>
+            </lightning-layout>
+          </div>
+        </lightning-accordion-section>
+      </lightning-accordion>
+      <!--************************************** Save/Cancel Buttons    ******************************************-->
+      <div class="slds-align_absolute-center">
+        <lightning-button
+          class="slds-m-top_medium"
+          type="submit"
+          label="Save"
+          variant="brand"
+          onclick={handleSubmit}
+        >
+        </lightning-button
+        >&nbsp;&nbsp;&nbsp;&nbsp;
+        <lightning-button
+          class="slds-m-top_medium"
+          type="cancel"
+          label="Cancel"
+          variant="brand"
+          onclick={closeQuickAction}
+        ></lightning-button>
+      </div>
+      <template lwc:if={loading}>
+        <div style="height: 6rem">
+          <div class="slds-spinner_container">
+            <div
+              role="status"
+              class="slds-spinner slds-spinner_medium slds-spinner_brand slds-is-relative"
+            >
+              <span class="slds-assistive-text">Loading</span>
+              <div class="slds-spinner__dot-a"></div>
+              <div class="slds-spinner__dot-b"></div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </lightning-record-edit-form>
+  </lightning-quick-action-panel>
+</template>

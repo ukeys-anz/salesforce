@@ -5,6 +5,7 @@
     <complianceGroup>Source_Salesforce;Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
     <description>Nominated 3rd party street</description>
     <externalId>false</externalId>
+    <inlineHelpText>To edit Nominated 3rd Party address fields, navigate to the top banner and click Edit Contact Details via the dropdown button</inlineHelpText>
     <label>Nominated 3rd party street</label>
     <length>255</length>
     <required>false</required>

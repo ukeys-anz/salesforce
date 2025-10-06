@@ -48,7 +48,6 @@
         <roleAndSubordinates>SME_State_Head</roleAndSubordinates>
         <roleAndSubordinates>CBO_State_Head</roleAndSubordinates>
         <roleAndSubordinates>DSI_Head_of_Teams</roleAndSubordinates>
-        <roleAndSubordinates>PB_Head_of_Teams</roleAndSubordinates>
         <roleAndSubordinates>TB_Head_of_Transaction_Banking</roleAndSubordinates>
     </sharedTo>
 </ListView>

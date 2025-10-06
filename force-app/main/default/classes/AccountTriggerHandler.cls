@@ -94,5 +94,6 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Account>) oldMap,
       CustomerEventActions.CUSTOMER_EVENT_UPDATE
     );
+    AccountCommonActions.checkEligibilityForCasePriorityUpdate(records, oldMap);
   }
 }
