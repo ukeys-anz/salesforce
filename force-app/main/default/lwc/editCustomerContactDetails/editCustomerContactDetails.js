@@ -60,14 +60,9 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
   searchButtonValueTP = "";
   fields = {};
   requiredCustomerFields = {
-    IDR_NC_Street__c: "Street",
-    IDR_NC_Suburb__c: "Suburb",
-    IDR_NC_State__c: "State",
-    IDR_NC_Country__c: "Country",
     IDR_NC_Postcode__c: "Postcode"
   };
   requiredThirdPartyFields = {
-    IDR_3rdParty_Street__c: "3rd Party Street",
     IDR_3rdParty_State__c: "3rd Party State",
     IDR_3rdParty_Country__c: "3rd Party Country",
     IDR_3rdParty_Postcode__c: "3rd Party Postcode"
@@ -372,7 +367,13 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
   closeQuickAction() {
     this.dispatchEvent(new CloseActionScreenEvent());
   }
-  handleError() {
+  handleError(event) {
     this.loading = false;
+    let errorMessages = event.detail?.output?.errors;
+    if (errorMessages && errorMessages.length > 0) {
+      handleErrorShowToast(this, errorMessages[0].message, "pester");
+      return;
+    }
+    handleErrorShowToast(this, event.detail.message, "pester");
   }
 }
