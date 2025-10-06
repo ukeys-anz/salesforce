@@ -5,14 +5,6 @@
  * @group Services
  */
 public with sharing class AccountClosureServiceMock extends AccountClosureService {
-  /**
-   * @description constructor which sets default status code and successful
-   */
-  public AccountClosureServiceMock() {
-    response.statusCode = 200;
-    response.successful = true;
-  }
-
   @TestVisible
   private static final String INITIATE_ACCOUNT_CLOSURE_SUCCESS = getStaticResource(
     'mock_AccountClosurePrecheckSuccess'
@@ -24,13 +16,13 @@ public with sharing class AccountClosureServiceMock extends AccountClosureServic
    * @return `HttpCalloutResponse` method response
    * @description stravinsky package closure api
    */
-  public override HttpCalloutResponse initiateAccountClosurePreChecks(
+  public virtual override HttpCalloutResponse initiateAccountClosurePreChecks(
     String ocvId,
     List<AccountClosurePrecheckRequestModel> accountDetailsForPrechecks
   ) {
-    if (!preset) {
-      response.body = INITIATE_ACCOUNT_CLOSURE_SUCCESS;
-    }
-    return response;
+    super.response.statusCode = 200;
+    super.response.successful = true;
+    super.response.body = INITIATE_ACCOUNT_CLOSURE_SUCCESS;
+    return super.response;
   }
 }

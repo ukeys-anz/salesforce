@@ -110,4 +110,7 @@ public with sharing class CaseGroupCaseConstants {
     CLOSED_STATUS,
     WITHDRAWN_STATUS
   };
+  public static final Set<String> SELF_SERVICE_ORIGIN = new Set<String>{
+    'ANZ Plus App'
+  };
 }
