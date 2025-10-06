@@ -40,6 +40,18 @@
         <apexClass>omnistudio__ComponentController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>CCRMAPIRepository</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>MLCRMCommonUtils</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <customMetadataTypeAccesses>
+        <name>DCRM_CountryMapping__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <customMetadataTypeAccesses>
         <name>IDR_Omni_Settings_CMOS__mdt</name>
         <enabled>true</enabled>
@@ -1058,6 +1070,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.SI_Total_Payment_Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Search_Button_Selected__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Search_Button_Selected_for_3rd_Party__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

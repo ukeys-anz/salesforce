@@ -350,4 +350,32 @@ public with sharing class AccountCommonActions {
     }
     return cases;
   }
+
+  /**
+   * @description Filter accounts based on ECF flag updates and enqueue to update Priority on related Cases
+   * @param records The Account records passed from Trigger.new()
+   * @param oldMap old trigger values
+   */
+  public static void checkEligibilityForCasePriorityUpdate(
+    List<Account> records,
+    Map<Id, SObject> oldMap
+  ) {
+    List<Account> accountsEcfTrue = ListUtil.filter(records, oldMap)
+      .equals(Account.ExtraCareTimePeriod__c, IDRConstants.ECF_FLAG_TRUE)
+      .oldNotEquals(Account.ExtraCareTimePeriod__c, IDRConstants.ECF_FLAG_TRUE)
+      .toList();
+    List<Account> accountsEcfFalse = ListUtil.filter(records, oldMap)
+      .notEquals(Account.ExtraCareTimePeriod__c, IDRConstants.ECF_FLAG_TRUE)
+      .oldEquals(Account.ExtraCareTimePeriod__c, IDRConstants.ECF_FLAG_TRUE)
+      .toList();
+    if (accountsEcfTrue.isEmpty() && accountsEcfFalse.isEmpty()) {
+      return;
+    }
+    System.enqueuejob(
+      new IDRCasePriorityUpdateQueueable(
+        ListUtil.getIds(accountsEcfTrue, Account.Id),
+        ListUtil.getIds(accountsEcfFalse, Account.Id)
+      )
+    );
+  }
 }

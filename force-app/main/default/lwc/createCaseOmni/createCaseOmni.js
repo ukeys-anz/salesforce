@@ -26,10 +26,17 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
   closeModal() {
     this.modalMsg = null;
   }
+  makePriorityFieldRequired(data) {
+    if (data.isEcf || data?.Case?.ComplaintDetails?.Priority) {
+      return;
+    }
+    this.missingFields.push("Priority");
+  }
   async callCreateCaseIP() {
     this.missingFields = [];
     this.modalMsg = "";
     this.missingFields = await validate(this.omniJsonData);
+    this.makePriorityFieldRequired(this.omniJsonData);
     if (this.missingFields.length > 0) {
       this.modalMsg = await getCustomerNumberValidationMsg(
         this.omniJsonData,
@@ -58,6 +65,11 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     } else if (this.checkOCVDown()) {
       this.modalMsg +=
         "Customer details cannot be retrieved as One Customer View (OCV) is currently unavailable.";
+    } else if (this.checkAddressSearch()) {
+      this.modalMsg +=
+        "Please Fill the Address Details by Selecting Address from Search";
+    } else if (this.checkValidPostCode()) {
+      this.modalMsg += "Please Enter Valid PostCode";
     } else if (this.validateRealFormID()) {
       handleErrorShowToast(
         this,
@@ -86,6 +98,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.loading = true;
       const inputs = {
         Case: this.omniJsonData.Case,
+        isEcf: this.omniJsonData.isEcf,
         Response:
           this.omniJsonData.Response != null
             ? { profile: this.omniJsonData.Response.profile }
@@ -215,6 +228,77 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.omniJsonData.IsOCVDown === true &&
       this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
       !this.omniJsonData.isEligibleAppForLookUp
+    ) {
+      return true;
+    }
+    return false;
+  }
+  checkAddressSearch() {
+    if (
+      this.omniJsonData.Case.isThisCustomerComplaint === "No" &&
+      this.omniJsonData.Case.CustomerDetails?.SearchAddressRadio ===
+        "Search Address" &&
+      !Object.prototype.hasOwnProperty.call(
+        this.omniJsonData.Case,
+        "disablAddress"
+      )
+    ) {
+      return true;
+    }
+    if (
+      this.omniJsonData.Case.CustomerDetails.thirdPartyRepCheckbox === "Yes" &&
+      this.omniJsonData.Case.CustomerDetails?.thirdPartyAddress ===
+        "Search Address" &&
+      !Object.prototype.hasOwnProperty.call(
+        this.omniJsonData.Case,
+        "disablThirdAddress"
+      )
+    ) {
+      return true;
+    }
+    return false;
+  }
+  checkValidPostCode() {
+    let compare = /^[0-9]{4}$/;
+    let postCode =
+      "" + this.omniJsonData.Case.CustomerDetails?.PostcodeReadOnly;
+    let thirdPartyCode =
+      "" + this.omniJsonData.Case.CustomerDetails?.thirdPartyPostCode;
+    if (
+      this.omniJsonData.Case.isThisCustomerComplaint === "No" &&
+      this.omniJsonData.Case.CustomerDetails?.SearchAddressRadio ===
+        "Manual Address Entry" &&
+      (!Object.prototype.hasOwnProperty.call(
+        this.omniJsonData.Case.CustomerDetails,
+        "PostcodeReadOnly"
+      ) ||
+        postCode === "" ||
+        !this.omniJsonData.Case?.validAddress)
+    ) {
+      return true;
+    }
+    if (
+      this.omniJsonData.Case.CustomerDetails.thirdPartyRepCheckbox === "Yes" &&
+      this.omniJsonData.Case.CustomerDetails?.thirdPartyAddress ===
+        "Manual Address Entry" &&
+      (!Object.prototype.hasOwnProperty.call(
+        this.omniJsonData.Case.CustomerDetails,
+        "thirdPartyPostCode"
+      ) ||
+        thirdPartyCode === "" ||
+        !this.omniJsonData.Case?.validAddress)
+    ) {
+      return true;
+    }
+    if (
+      (this.omniJsonData.Case.CustomerDetails?.SearchAddressRadio ===
+        "Manual Address Entry" &&
+        !postCode.match(compare) &&
+        !["Overseas", "Not Applicable"].includes(postCode)) ||
+      (this.omniJsonData.Case.CustomerDetails?.thirdPartyAddress ===
+        "Manual Address Entry" &&
+        !thirdPartyCode.match(compare) &&
+        !["Overseas", "Not Applicable"].includes(thirdPartyCode))
     ) {
       return true;
     }

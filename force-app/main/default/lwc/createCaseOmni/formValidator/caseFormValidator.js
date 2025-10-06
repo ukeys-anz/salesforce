@@ -120,6 +120,13 @@ function validateNonCustMap(Complaintdetails, caseDetail, omniJsonData) {
     nonCustMap.push({ firstName: "First Name" });
     nonCustMap.push({ LastName: "Last Name" });
   }
+  if (
+    caseDetails?.disablAddress &&
+    caseDetails.isThisCustomerComplaint === "No" &&
+    caseDetails.CustomerDetails?.SearchAddressRadio === "Search Address"
+  ) {
+    nonCustMap.push({ Postcode: "PostCode" });
+  }
   let temp = caseDetail.ResolutionInformation;
   if (
     temp.custWrittenResponse === CUSTOMER_AGREES ||
@@ -137,6 +144,7 @@ function checkCommonValidations(Complaintdetails, caseDetail, omniJsonData) {
   itype = Complaintdetails.IssueType;
   subtype = Complaintdetails.SubSequentIssueType;
   let cmpMap = JSON.parse(JSON.stringify(omniJsonData.cmpMap));
+  let thirdPartyMap = JSON.parse(JSON.stringify(omniJsonData.nonCustMap));
   if (
     caseDetail.CustomerDetails.expressCaseCreationCheckbox ===
       CUSTOMER_AGREES &&
@@ -144,8 +152,21 @@ function checkCommonValidations(Complaintdetails, caseDetail, omniJsonData) {
   ) {
     missingFields.push("This Complaint Is About");
   }
-  if (caseDetail.CustomerDetails.thirdPartyRepCheckbox === CUSTOMER_AGREES) {
-    checkFields(caseDetail.CustomerDetails, omniJsonData.thirdPartyMap);
+  if (
+    caseDetail.CustomerDetails.thirdPartyRepCheckbox === CUSTOMER_AGREES &&
+    caseDetails.CustomerDetails?.thirdPartyAddress === "Search Address"
+  ) {
+    thirdPartyMap.push({ thirdPartyCountryReadOnly: "thirdPartyCountry" });
+    thirdPartyMap.push({ thirdPartyStateReadOnly: "thirdPartyState" });
+    checkFields(caseDetail.CustomerDetails, thirdPartyMap);
+  }
+  if (
+    caseDetail.CustomerDetails.thirdPartyRepCheckbox === CUSTOMER_AGREES &&
+    caseDetails.CustomerDetails?.thirdPartyAddress === "Manual Address Entry"
+  ) {
+    thirdPartyMap.push({ thirdPartyState: "thirdPartyState" });
+    thirdPartyMap.push({ thirdPartyCountry: "thirdPartyCountry" });
+    checkFields(caseDetail.CustomerDetails, thirdPartyMap);
   }
 
   checkForAccountPolicyNumber(Complaintdetails, cmpMap, "1", caseDetail);
@@ -228,9 +249,11 @@ async function validateResolutionInformation(omniJsonData) {
 function checkIssueType(caseDetail) {
   if (
     caseDetail.CustomerDecision !== "Disagrees" &&
-    caseDetail.ComplaintDetails.IssueType !== "4" &&
-    caseDetail.ComplaintDetails.IssueType2 !== "4" &&
-    caseDetail.ComplaintDetails.IssueType3 !== "4"
+    ![
+      caseDetail.ComplaintDetails.IssueType,
+      caseDetail.ComplaintDetails.IssueType2,
+      caseDetail.ComplaintDetails.IssueType3
+    ].includes("4")
   ) {
     return true;
   }
