@@ -8350,7 +8350,7 @@
     &quot;thirdPartyCountry&quot; : &quot;Australia&quot;,
     &quot;RestrictionLevel&quot; : &quot;No Restriction&quot;,
     &quot;Country&quot; : &quot;Australia&quot;,
-    &quot;isEligibleAppForLookUp&quot; : &quot;=CONTAINS(%currentAppName%, &apos;Workbench&apos;)&quot;,
+    &quot;isEligibleAppForLookUp&quot; : &quot;=CONTAINS(%currentAppName%, &apos;Coaches Workbench&apos;)&quot;,
     &quot;isEcf&quot; : false
   },
   &quot;showPersistentComponent&quot; : [ true, false ],
