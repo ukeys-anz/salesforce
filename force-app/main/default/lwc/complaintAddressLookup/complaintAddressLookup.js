@@ -203,6 +203,7 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
         this.displayMessage = true;
         this.message = "No results are returned";
         this.isSearching = false;
+        this.addressPostCodeList = [];
         return;
       }
       handleErrorShowToast(
