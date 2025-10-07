@@ -67,11 +67,14 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     } else if (this.checkOCVDown()) {
       this.modalMsg +=
         "Customer details cannot be retrieved as One Customer View (OCV) is currently unavailable.";
-    } else if (this.checkAddressSearch()) {
+    } else if (this.checkForCustomerAddressSearch()) {
       this.modalMsg +=
-        "Please Fill the Address Details by Selecting Address from Search";
+        "Please fill the Address Details by Selecting address from search";
     } else if (this.checkValidPostCode()) {
-      this.modalMsg += "Please Enter Valid PostCode";
+      this.modalMsg += "Please Enter a Valid PostCode";
+    } else if (this.checkForThirdPartyAddressSearch()) {
+      this.modalMsg +=
+        "Please fill the 3rd party address details by selecting an address from search";
     } else if (this.validateRealFormID()) {
       handleErrorShowToast(
         this,
@@ -235,7 +238,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     }
     return false;
   }
-  checkAddressSearch() {
+  checkForCustomerAddressSearch() {
     if (
       this.omniJsonData.Case.isThisCustomerComplaint === "No" &&
       this.omniJsonData.Case.CustomerDetails?.SearchAddressRadio ===
@@ -247,6 +250,10 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     ) {
       return true;
     }
+
+    return false;
+  }
+  checkForThirdPartyAddressSearch() {
     if (
       this.omniJsonData.Case.CustomerDetails.thirdPartyRepCheckbox === "Yes" &&
       this.omniJsonData.Case.CustomerDetails?.thirdPartyAddress ===

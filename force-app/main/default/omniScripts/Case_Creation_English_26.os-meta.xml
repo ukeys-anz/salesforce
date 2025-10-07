@@ -2909,7 +2909,7 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;Search Address or Manually Enter Customer Address&quot;,
+  &quot;label&quot; : &quot;Search address or toggle Manual address entry&quot;,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -2918,7 +2918,7 @@
   &quot;horizontalMode&quot; : &quot;displayWide&quot;,
   &quot;defaultValue&quot; : &quot;Manual Address Entry&quot;,
   &quot;help&quot; : true,
-  &quot;helpText&quot; : &quot;Choose Search Address to enter a validated full address. Choose Manually Address Entry to enter details yourself (only Postcode is required and validated)&quot;,
+  &quot;helpText&quot; : &quot;Choose “Search Address” to enter a validated full address. Choose “Manual Address Entry” to enter details yourself (Postcode is a mandatory field)&quot;,
   &quot;options&quot; : [ {
     &quot;name&quot; : &quot;Search Address&quot;,
     &quot;developerName&quot; : null,
@@ -3660,7 +3660,7 @@
     &quot;type&quot; : &quot;&quot;,
     &quot;source&quot; : &quot;&quot;
   },
-  &quot;helpText&quot; : &quot;Choose Search Address to enter a validated full address. Choose Manually Address Entry to enter details yourself (only Postcode is required and validated)&quot;,
+  &quot;helpText&quot; : &quot;Choose “Search Address” to enter a validated full address. Choose “Manual Address Entry” to enter details yourself (Postcode is a mandatory field)&quot;,
   &quot;controlWidth&quot; : 12.0,
   &quot;defaultValue&quot; : &quot;Manual Address Entry&quot;,
   &quot;optionHeight&quot; : 100.0,
@@ -3683,7 +3683,7 @@
   },
   &quot;readOnly&quot; : false,
   &quot;enableCaption&quot; : true,
-  &quot;label&quot; : &quot;Search Address or Manually Enter Customer Address&quot;,
+  &quot;label&quot; : &quot;Search address or toggle Manual address entry&quot;,
   &quot;imageCountInRow&quot; : 3.0,
   &quot;required&quot; : false,
   &quot;help&quot; : true,
