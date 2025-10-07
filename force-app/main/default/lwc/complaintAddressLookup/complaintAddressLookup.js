@@ -93,7 +93,6 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
   displayAddressFields() {
     this.selectedAddress = null;
     this.showAddresses = false;
-    this.setReadonly(false);
   }
 
   resetValidation() {
@@ -135,7 +134,6 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
       this.displayAddresses = !isValidArray;
       this.displayMessage = isValidArray;
     } catch (error) {
-      this.setReadonly(false);
       handleErrorShowToast(
         this,
         SEARCH_ADDRESS_ERROR,
@@ -179,7 +177,6 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
         this.populateAddress(this.selectedAddress)
       );
     } catch (error) {
-      this.setReadonly(false);
       handleErrorShowToast(
         this,
         SELECT_ADDRESS_ERROR,
@@ -227,12 +224,32 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
   }
   handleSelectedAddress(event) {
     const clickedIndex = event.currentTarget.dataset.index;
-    this.omniApplyCallResp({ Case: { validAddress: true } });
+    this.omniApplyCallResp(
+      this.setPostCodeOmniResponse(
+        "" + this.addressPostCodeList[clickedIndex]?.postCode
+      )
+    );
     this.showAddresses = false;
     this.setParentAddress(
       "postcodeselected",
       this.addressPostCodeList[clickedIndex]?.postCode
     );
+  }
+  setPostCodeOmniResponse(postCode) {
+    if (this.thirdPartyCheck === "false") {
+      return {
+        Case: {
+          validAddress: true,
+          selectedpostcode: postCode
+        }
+      };
+    }
+    return {
+      Case: {
+        validAddress: true,
+        selectedThirdPartypostcode: postCode
+      }
+    };
   }
   setParentAddress(eventName, eventValue) {
     this.dispatchEvent(
@@ -242,9 +259,6 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
     );
   }
 
-  setReadonly(readonly) {
-    this.omniApplyCallResp({ Case: { disablAddress: readonly } });
-  }
   populateAddress(address) {
     let stateMap = this.getProvinceOptions();
     if (this.thirdPartyCheck === "false") {

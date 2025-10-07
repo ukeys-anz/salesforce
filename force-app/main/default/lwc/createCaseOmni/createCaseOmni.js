@@ -302,14 +302,22 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       return true;
     }
     if (
-      (this.omniJsonData.Case.CustomerDetails?.SearchAddressRadio ===
+      this.omniJsonData.Case.CustomerDetails?.SearchAddressRadio ===
         "Manual Address Entry" &&
-        !postCode.match(compare) &&
-        !ALLOWED_POSTCODES.includes(postCode.toLowerCase())) ||
-      (this.omniJsonData.Case.CustomerDetails?.thirdPartyAddress ===
+      (!postCode.match(compare) ||
+        postCode !== this.omniJsonData.Case?.selectedpostcode) &&
+      !ALLOWED_POSTCODES.includes(postCode.toLowerCase())
+    ) {
+      return true;
+    }
+
+    if (
+      this.omniJsonData.Case.CustomerDetails?.thirdPartyAddress ===
         "Manual Address Entry" &&
-        !thirdPartyCode.match(compare) &&
-        !ALLOWED_POSTCODES.includes(thirdPartyCode.toLowerCase()))
+      (!thirdPartyCode.match(compare) ||
+        thirdPartyCode !==
+          this.omniJsonData.Case?.selectedThirdPartypostcode) &&
+      !ALLOWED_POSTCODES.includes(thirdPartyCode.toLowerCase())
     ) {
       return true;
     }
