@@ -11,6 +11,11 @@ public with sharing class IDRCaseActionsHelper {
   private static final IDRCaseActionsRepository CASE_REPOSITORY = (IDRCaseActionsRepository) Lib_InstanceProvider.forType(
     IDRCaseActionsRepository.class
   );
+
+  static final Set<String> ALLOWED_RECORD_TYPES = new Set<String>{
+    RTCase.generalInquiryCmos,
+    RTCase.generalInquiry
+  };
   /**
    * @description Populate modified date when the picklist value is updated
    * @param record  from the trigger
@@ -219,7 +224,7 @@ public with sharing class IDRCaseActionsHelper {
   ) {
     List<Case> cases = ListUtil.filter(listOfnewCases, oldMap)
       .equals(Case.RecordTypeId, RTCase.customerComplaint)
-      .oldEquals(Case.RecordTypeId, RTCase.generalInquiryCmos)
+      .oldEquals(Case.RecordTypeId, ALLOWED_RECORD_TYPES)
       .toList();
 
     Set<Id> caseIds = ListUtil.getIds(cases, Case.Id);
