@@ -120,7 +120,7 @@ private class UserProvisioningAfterActionsTest {
     );
     Test.stopTest();
     List<CollaborationGroupMember> collaborationGroupList = (List<CollaborationGroupMember>) dmlRepoMock.getHistory(
-        'insertRecords'
+        'doInsert'
       )
       .getParam('records');
     System.assertEquals(
@@ -174,7 +174,7 @@ private class UserProvisioningAfterActionsTest {
     );
     Test.stopTest();
     List<CollaborationGroupMember> collaborationGroupList = (List<CollaborationGroupMember>) dmlRepoMock.getHistory(
-        'deleteRecords'
+        'doDelete'
       )
       .getParam('records');
     System.assertEquals(

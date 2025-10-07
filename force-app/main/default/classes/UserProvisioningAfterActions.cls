@@ -393,11 +393,7 @@ public with sharing class UserProvisioningAfterActions {
         .Id;
       collGroupMembers.add(member);
     }
-    DML_REPOSITORY.insertRecords(
-      collGroupMembers,
-      DmlRepository.ALLOW_PARTIAL,
-      DmlRepository.SYSTEM_MODE
-    );
+    DML_REPOSITORY.doInsert(collGroupMembers, new DmlConfig().withoutSharing());
   }
   /**
    * @description Method to remove user to chatter group
@@ -411,11 +407,7 @@ public with sharing class UserProvisioningAfterActions {
       QueryCollaborationGroup.getByName(System.Label.CMOS_Chatter_Group_Name).Id
     );
 
-    DML_REPOSITORY.deleteRecords(
-      collGroupMembers,
-      DmlRepository.ALLOW_PARTIAL,
-      DmlRepository.SYSTEM_MODE
-    );
+    DML_REPOSITORY.doDelete(collGroupMembers, new DmlConfig().withoutSharing());
   }
   /**
    * @description extend the Exception class to allow errors to be thrown if the user does not have access
