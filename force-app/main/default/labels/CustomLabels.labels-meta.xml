@@ -121,6 +121,13 @@
         <value>True</value>
     </labels>
     <labels>
+        <fullName>ListAccountsAPIPageSize</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Number of financial accounts fetched on a single page of ListAccounts callout.</shortDescription>
+        <value>200</value>
+    </labels>
+    <labels>
         <fullName>TransactionPageSize</fullName>
         <language>en_US</language>
         <protected>false</protected>
