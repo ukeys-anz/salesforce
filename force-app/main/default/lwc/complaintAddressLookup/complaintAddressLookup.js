@@ -22,6 +22,7 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
   @api isAutoSearch;
   @api searchPostcode;
   @api postcodeLabel;
+  @api searchaddressLabel;
   showAddresses = false;
   addressList = [];
   searchString;

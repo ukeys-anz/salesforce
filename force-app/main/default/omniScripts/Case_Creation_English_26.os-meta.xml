@@ -2991,6 +2991,9 @@
   }, {
     &quot;name&quot; : &quot;isAutoSearch&quot;,
     &quot;source&quot; : &quot;true&quot;
+  }, {
+    &quot;name&quot; : &quot;searchaddressLabel&quot;,
+    &quot;source&quot; : &quot;Search Address Nominated 3rd Party&quot;
   } ]
 }</propertySetConfig>
                 <sequenceNumber>68.0</sequenceNumber>
@@ -4461,6 +4464,9 @@
   }, {
     &quot;name&quot; : &quot;isAutoSearch&quot;,
     &quot;source&quot; : &quot;true&quot;
+  }, {
+    &quot;name&quot; : &quot;searchaddressLabel&quot;,
+    &quot;source&quot; : &quot;Search Address&quot;
   } ]
 }</propertySetConfig>
                 <sequenceNumber>41.0</sequenceNumber>
