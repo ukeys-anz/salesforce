@@ -2754,6 +2754,9 @@
   &quot;customAttributes&quot; : [ {
     &quot;name&quot; : &quot;thirdPartyCheck&quot;,
     &quot;source&quot; : &quot;false&quot;
+  }, {
+    &quot;name&quot; : &quot;postcodeLabel&quot;,
+    &quot;source&quot; : &quot;Postcode&quot;
   } ]
 }</propertySetConfig>
                 <sequenceNumber>46.0</sequenceNumber>
@@ -2906,7 +2909,7 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;Search Address or Manually Enter Customer Address&quot;,
+  &quot;label&quot; : &quot;Search address or toggle Manual address entry&quot;,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -2915,7 +2918,7 @@
   &quot;horizontalMode&quot; : &quot;displayWide&quot;,
   &quot;defaultValue&quot; : &quot;Manual Address Entry&quot;,
   &quot;help&quot; : true,
-  &quot;helpText&quot; : &quot;Choose Search Address to enter a validated full address. Choose Manually Address Entry to enter details yourself (only Postcode is required and validated)&quot;,
+  &quot;helpText&quot; : &quot;Choose “Search Address” to enter a validated full address. Choose “Manual Address Entry” to enter details yourself (Postcode is a mandatory field)&quot;,
   &quot;options&quot; : [ {
     &quot;name&quot; : &quot;Search Address&quot;,
     &quot;developerName&quot; : null,
@@ -2988,6 +2991,9 @@
   }, {
     &quot;name&quot; : &quot;isAutoSearch&quot;,
     &quot;source&quot; : &quot;true&quot;
+  }, {
+    &quot;name&quot; : &quot;searchaddressLabel&quot;,
+    &quot;source&quot; : &quot;Search Address Nominated 3rd Party&quot;
   } ]
 }</propertySetConfig>
                 <sequenceNumber>68.0</sequenceNumber>
@@ -3726,7 +3732,7 @@
     &quot;type&quot; : &quot;&quot;,
     &quot;source&quot; : &quot;&quot;
   },
-  &quot;helpText&quot; : &quot;Choose Search Address to enter a validated full address. Choose Manually Address Entry to enter details yourself (only Postcode is required and validated)&quot;,
+  &quot;helpText&quot; : &quot;Choose “Search Address” to enter a validated full address. Choose “Manual Address Entry” to enter details yourself (Postcode is a mandatory field)&quot;,
   &quot;controlWidth&quot; : 12.0,
   &quot;defaultValue&quot; : &quot;Manual Address Entry&quot;,
   &quot;optionHeight&quot; : 100.0,
@@ -3749,7 +3755,7 @@
   },
   &quot;readOnly&quot; : false,
   &quot;enableCaption&quot; : true,
-  &quot;label&quot; : &quot;Search Address or Manually Enter Customer Address&quot;,
+  &quot;label&quot; : &quot;Search address or toggle Manual address entry&quot;,
   &quot;imageCountInRow&quot; : 3.0,
   &quot;required&quot; : false,
   &quot;help&quot; : true,
@@ -4121,6 +4127,9 @@
   &quot;customAttributes&quot; : [ {
     &quot;name&quot; : &quot;thirdPartyCheck&quot;,
     &quot;source&quot; : &quot;true&quot;
+  }, {
+    &quot;name&quot; : &quot;postcodeLabel&quot;,
+    &quot;source&quot; : &quot;Nominated 3rd Party Postcode&quot;
   } ]
 }</propertySetConfig>
                 <sequenceNumber>74.0</sequenceNumber>
@@ -4527,6 +4536,9 @@
   }, {
     &quot;name&quot; : &quot;isAutoSearch&quot;,
     &quot;source&quot; : &quot;true&quot;
+  }, {
+    &quot;name&quot; : &quot;searchaddressLabel&quot;,
+    &quot;source&quot; : &quot;Search Address&quot;
   } ]
 }</propertySetConfig>
                 <sequenceNumber>41.0</sequenceNumber>
@@ -8410,7 +8422,7 @@
     &quot;thirdPartyCountry&quot; : &quot;Australia&quot;,
     &quot;RestrictionLevel&quot; : &quot;No Restriction&quot;,
     &quot;Country&quot; : &quot;Australia&quot;,
-    &quot;isEligibleAppForLookUp&quot; : &quot;=CONTAINS(%currentAppName%, &apos;Workbench&apos;)&quot;,
+    &quot;isEligibleAppForLookUp&quot; : &quot;=CONTAINS(%currentAppName%, &apos;Coaches Workbench&apos;)&quot;,
     &quot;isEcf&quot; : false
   },
   &quot;showPersistentComponent&quot; : [ true, false ],

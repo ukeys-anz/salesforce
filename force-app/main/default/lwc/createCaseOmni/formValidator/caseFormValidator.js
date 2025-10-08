@@ -144,7 +144,7 @@ function checkCommonValidations(Complaintdetails, caseDetail, omniJsonData) {
   itype = Complaintdetails.IssueType;
   subtype = Complaintdetails.SubSequentIssueType;
   let cmpMap = JSON.parse(JSON.stringify(omniJsonData.cmpMap));
-  let thirdPartyMap = JSON.parse(JSON.stringify(omniJsonData.nonCustMap));
+  let thirdPartyMap = JSON.parse(JSON.stringify(omniJsonData.thirdPartyMap));
   if (
     caseDetail.CustomerDetails.expressCaseCreationCheckbox ===
       CUSTOMER_AGREES &&
@@ -154,7 +154,8 @@ function checkCommonValidations(Complaintdetails, caseDetail, omniJsonData) {
   }
   if (
     caseDetail.CustomerDetails.thirdPartyRepCheckbox === CUSTOMER_AGREES &&
-    caseDetails.CustomerDetails?.thirdPartyAddress === "Search Address"
+    caseDetails.CustomerDetails?.thirdPartyAddress === "Search Address" &&
+    caseDetails?.disablThirdAddress
   ) {
     thirdPartyMap.push({ thirdPartyCountryReadOnly: "thirdPartyCountry" });
     thirdPartyMap.push({ thirdPartyStateReadOnly: "thirdPartyState" });
