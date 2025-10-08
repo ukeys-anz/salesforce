@@ -257,8 +257,7 @@
     "Opt_Out_Reason__c",
     "Process_SLA_Status__c",
     "PassportNumber__c",
-    "Outcome_Letter_to_be_sent_by_Mail__c",
-    "EventTimestamp__c"
+    "Outcome_Letter_to_be_sent_by_Mail__c"
   ],
   "CaseComment": ["CommentBodyRichtext"],
   "Contact": [
