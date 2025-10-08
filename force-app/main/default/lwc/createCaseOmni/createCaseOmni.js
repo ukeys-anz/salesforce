@@ -71,7 +71,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.modalMsg +=
         "Please fill the Address Details by Selecting address from search";
     } else if (this.checkValidPostCode()) {
-      this.modalMsg += "Please Enter a Valid PostCode";
+      this.modalMsg += "Please Enter a Valid Postcode";
     } else if (this.checkForThirdPartyAddressSearch()) {
       this.modalMsg +=
         "Please fill the 3rd party address details by selecting an address from search";
@@ -273,6 +273,9 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       "" + this.omniJsonData.Case.CustomerDetails?.PostcodeReadOnly;
     let thirdPartyCode =
       "" + this.omniJsonData.Case.CustomerDetails?.thirdPartyPostCode;
+    if (this.omniJsonData.Case?.apiDown) {
+      return false;
+    }
     if (
       this.omniJsonData.Case.isThisCustomerComplaint === "No" &&
       this.omniJsonData.Case.CustomerDetails?.SearchAddressRadio ===

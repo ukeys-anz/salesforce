@@ -134,13 +134,7 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
       this.displayAddresses = !isValidArray;
       this.displayMessage = isValidArray;
     } catch (error) {
-      handleErrorShowToast(
-        this,
-        SEARCH_ADDRESS_ERROR,
-        error,
-        error.body.message,
-        "pester"
-      );
+      handleErrorShowToast(this, SEARCH_ADDRESS_ERROR, "", "", "pester");
     } finally {
       this.isSearching = false;
       this.resetValidation();
@@ -206,13 +200,12 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
         this.addressPostCodeList = [];
         return;
       }
-      handleErrorShowToast(
-        this,
-        SELECT_ADDRESS_ERROR,
-        error,
-        error.body.message,
-        "pester"
-      );
+      this.showAddresses = false;
+      this.omniApplyCallResp({
+        Case: {
+          apiDown: true
+        }
+      });
       this.dispatchEvent(
         new CustomEvent("postcodeapierror", {
           detail: {
