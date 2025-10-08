@@ -34,7 +34,9 @@ private class DisputeItemTriggerTest {
 
       disputeItemRec = new DisputeItem(
         TransactionDate = FAKER.randomPastDate(),
-        DisputeId = disputeRec.Id
+        DisputeId = disputeRec.Id,
+        TransactionIdentifier = FAKER.randomString(10),
+        AccountDetails__c = FAKER.randomString(10)
       );
       insert disputeItemRec;
     }
