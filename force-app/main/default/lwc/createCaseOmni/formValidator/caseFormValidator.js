@@ -152,23 +152,23 @@ function checkCommonValidations(Complaintdetails, caseDetail, omniJsonData) {
   ) {
     missingFields.push("This Complaint Is About");
   }
+  if (caseDetail.CustomerDetails.thirdPartyRepCheckbox !== CUSTOMER_AGREES) {
+    return;
+  }
   if (
-    caseDetail.CustomerDetails.thirdPartyRepCheckbox === CUSTOMER_AGREES &&
     caseDetails.CustomerDetails?.thirdPartyAddress === "Search Address" &&
     caseDetails?.disablThirdAddress
   ) {
     thirdPartyMap.push({ thirdPartyCountryReadOnly: "thirdPartyCountry" });
     thirdPartyMap.push({ thirdPartyStateReadOnly: "thirdPartyState" });
-    checkFields(caseDetail.CustomerDetails, thirdPartyMap);
   }
   if (
-    caseDetail.CustomerDetails.thirdPartyRepCheckbox === CUSTOMER_AGREES &&
     caseDetails.CustomerDetails?.thirdPartyAddress === "Manual Address Entry"
   ) {
     thirdPartyMap.push({ thirdPartyState: "thirdPartyState" });
     thirdPartyMap.push({ thirdPartyCountry: "thirdPartyCountry" });
-    checkFields(caseDetail.CustomerDetails, thirdPartyMap);
   }
+  checkFields(caseDetail.CustomerDetails, thirdPartyMap);
 
   checkForAccountPolicyNumber(Complaintdetails, cmpMap, "1", caseDetail);
 
