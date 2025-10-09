@@ -74,12 +74,12 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.modalMsg += "Please Enter a Valid Postcode";
     } else if (this.checkForThirdPartyCode()) {
       this.modalMsg += "Please Enter a Valid Nominated 3rd Party Postcode";
-    } else if (
-      this.checkForThirdPartyAddressSearch() ||
-      this.isValidEmailAddress()
-    ) {
+    } else if (this.checkForThirdPartyAddressSearch()) {
       this.modalMsg +=
         "Please fill the 3rd party address details by selecting an address from search";
+    } else if (this.isValidEmailAddress()) {
+      this.modalMsg +=
+        "Incomplete third-party contact details. Please complete all required fields before processing.";
     } else if (this.validateRealFormID()) {
       handleErrorShowToast(
         this,
