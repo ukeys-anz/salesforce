@@ -10,6 +10,7 @@
     <permissionSets>Case_Read_Write_COP</permissionSets>
     <permissionSets>Customer_Task_Configuration_Write</permissionSets>
     <permissionSets>Export_Reports</permissionSets>
+    <permissionSets>ExtraCareReadOnly</permissionSets>
     <permissionSets>force__ActionPlans</permissionSets>
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>Funds_Purpose_Read_Only</permissionSets>
