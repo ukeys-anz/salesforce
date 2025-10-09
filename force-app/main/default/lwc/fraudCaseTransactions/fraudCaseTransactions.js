@@ -5,6 +5,7 @@ import { NavigationMixin } from "lightning/navigation";
 import { SimpleToast, SimpleNav } from "c/utils";
 import TransactionLink from "c/transactionLink";
 import ACCOUNT_ID_FIELD from "@salesforce/schema/Case.AccountId";
+import CASE_RECORDTYPE_FIELD from "@salesforce/schema/Case.RecordType.DeveloperName";
 // Dispute fields
 import DISPUTE_ID_D_FIELD from "@salesforce/schema/Dispute.Id";
 import CASE_ID_FIELD from "@salesforce/schema/Dispute.CaseId";
@@ -37,10 +38,11 @@ export default class FraudCaseTransactions extends NavigationMixin(
   originalTxnAccs = [];
   originalTxnIds = [];
   modalOpen = false;
+  caseRecordType;
 
   @wire(getRecord, {
     recordId: "$recordId",
-    fields: [ACCOUNT_ID_FIELD]
+    fields: [ACCOUNT_ID_FIELD, CASE_RECORDTYPE_FIELD]
   })
   async wiredCaseFields({ error, data }) {
     if (error) {
@@ -52,6 +54,7 @@ export default class FraudCaseTransactions extends NavigationMixin(
     if (!data) return;
     if (this.modalOpen) return;
     this.modalOpen = true;
+    this.caseRecordType = getFieldValue(data, CASE_RECORDTYPE_FIELD);
 
     let accId = getFieldValue(data, ACCOUNT_ID_FIELD);
     if (!accId) {
@@ -186,7 +189,10 @@ export default class FraudCaseTransactions extends NavigationMixin(
           txn.TransactionDate
         ).toLocaleDateString("en-CA"),
         [TXN_IDENTIFIER_FIELD.fieldApiName]: txn.TransactionId,
-        [TXN_AMOUNT_FIELD.fieldApiName]: txn.Amount,
+        [TXN_AMOUNT_FIELD.fieldApiName]:
+          this.caseRecordType === "Recipient_Mule"
+            ? txn.Amount
+            : txn.Amount * -1,
         [TXN_OFI_BSB_FIELD.fieldApiName]: txn.PayerBSB,
         [TXN_OFI_ACCOUNT_NUMBER_FIELD.fieldApiName]: txn.PayerAccount,
         // substring first 6 characters from Message to fit field size

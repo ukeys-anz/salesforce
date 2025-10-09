@@ -18,9 +18,11 @@
     <permissionSets>CIBA_Authorisation_Access_AAL4</permissionSets>
     <permissionSets>ConnectID_View</permissionSets>
     <permissionSets>Customer_Dispute_Management_Read_Write</permissionSets>
+    <permissionSets>Customer_Profile_Update_Read_Write</permissionSets>
     <permissionSets>DeviceDelete</permissionSets>
     <permissionSets>DeviceReadOnly</permissionSets>
     <permissionSets>Export_Reports</permissionSets>
+    <permissionSets>ExtraCareReadOnly</permissionSets>
     <permissionSets>force__ActionPlans</permissionSets>
     <permissionSets>force__Mortgage</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
@@ -29,6 +31,8 @@
     <permissionSets>Interest_Tag_Read_Only</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>Lending_Case_Read</permissionSets>
+    <permissionSets>ManageExtraCare</permissionSets>
+    <permissionSets>ManageExtraCareHighRiskScamVictim</permissionSets>
     <permissionSets>PasskeyDelete</permissionSets>
     <permissionSets>PasskeyReadOnly</permissionSets>
     <permissionSets>PayTo_View_Agreements</permissionSets>

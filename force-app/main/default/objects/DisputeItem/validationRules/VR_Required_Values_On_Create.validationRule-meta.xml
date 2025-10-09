@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR_Required_Values_On_Create</fullName>
+    <active>true</active>
+    <description>Prevents users from creating new DisputeItem records if Account Name / Transaction IDs are missing</description>
+    <errorConditionFormula>AND (
+ NOT ($Setup.Salesforce_Library_Settings__c.Disable_VRs__c),
+ RecordType.DeveloperName = &quot;Disputed_Transaction&quot;,
+ OR( ISBLANK(TRIM( AccountDetails__c )), 
+ISBLANK(TRIM( TransactionIdentifier  )))
+)</errorConditionFormula>
+    <errorMessage>Account Details and/or TransactionID are required. You are not allowed to add this transaction.</errorMessage>
+</ValidationRule>

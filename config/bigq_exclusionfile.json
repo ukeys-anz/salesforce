@@ -257,8 +257,7 @@
     "Opt_Out_Reason__c",
     "Process_SLA_Status__c",
     "PassportNumber__c",
-    "Outcome_Letter_to_be_sent_by_Mail__c",
-    "EventTimestamp__c"
+    "Outcome_Letter_to_be_sent_by_Mail__c"
   ],
   "CaseComment": ["CommentBodyRichtext"],
   "Contact": [
@@ -272,7 +271,6 @@
     "Birthdate",
     "Broker_Accreditation_Type__c",
     "Broker_Customer_Profile__c",
-    "Broker_Set__c",
     "Commercial_Accreditation_Status__c",
     "DepartmentGroup",
     "Description",
@@ -291,7 +289,6 @@
     "Manager_Lan_Id__c",
     "Manager_Email__c",
     "Notes_Interests__c",
-    "Office_Group__c",
     "Primary_RBM__c",
     "Pronouns",
     "SAO_State__c",

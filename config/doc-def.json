@@ -1053,6 +1053,19 @@
       "type": "system"
     },
     {
+      "name": "Maintain Party GCP Integration user",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Customer_Profile_Update_Read_Write",
+        "Disable_MFA",
+        "Enforce_mTLS",
+        "Read_Write_Customer_Details"
+      ],
+      "type": "system"
+    },
+    {
       "name": "Microsoft Defender Integration User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],

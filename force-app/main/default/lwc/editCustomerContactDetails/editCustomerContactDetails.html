@@ -86,6 +86,7 @@
                   field-name="IDR_NC_Age__c"
                   data-field="IDR_NC_Age__c"
                   value={ncAge}
+                  required={customerFieldsRequired}
                 ></lightning-input-field>
               </lightning-layout-item>
               <lightning-layout-item size="6" padding="right-small">
@@ -123,7 +124,6 @@
                   field-name="IDR_NC_Phone__c"
                   data-field="IDR_NC_Phone__c"
                   value={ncPhone}
-                  required={customerFieldsRequired}
                 ></lightning-input-field>
               </lightning-layout-item>
               <lightning-layout-item size="6" padding="right-small">
@@ -144,7 +144,6 @@
                   value={ncStreet}
                   disabled={disableCustomerAddressFields}
                   class={hideCustAddInputClass}
-                  required={customerFieldsRequired}
                 ></lightning-input-field>
               </lightning-layout-item>
               <lightning-layout-item size="6" padding="right-small">
@@ -154,7 +153,6 @@
                   value={ncSuburb}
                   disabled={disableCustomerAddressFields}
                   class={hideCustAddInputClass}
-                  required={customerFieldsRequired}
                 ></lightning-input-field>
               </lightning-layout-item>
             </lightning-layout>
@@ -168,7 +166,6 @@
                   value={ncState}
                   disabled={disableCustomerAddressFields}
                   class={hideCustAddInputClass}
-                  required={customerFieldsRequired}
                 ></lightning-input-field>
               </lightning-layout-item>
               <lightning-layout-item size="6" padding="right-small">
@@ -178,7 +175,6 @@
                   value={ncCountry}
                   disabled={disableCustomerAddressFields}
                   class={hideCustAddInputClass}
-                  required={customerFieldsRequired}
                 ></lightning-input-field>
               </lightning-layout-item>
             </lightning-layout>
@@ -208,6 +204,7 @@
               >
                 <c-complaint-address-lookup
                   search-postcode={postCodeInputCustomer}
+                  postcode-label="Postcode"
                   onpostcodeselected={handlePostCodeSelected}
                   onpostcodechanged={handleManualPostCodeChanged}
                   onpostcodeapierror={handlePostCodeApiError}
@@ -226,6 +223,7 @@
                 <c-complaint-address-lookup
                   third-party-check="false"
                   is-auto-search="true"
+                  searchaddress-label="Search Address"
                   onaddressselected={handleAddressSelected}
                   required={customerFieldsRequired}
                 ></c-complaint-address-lookup>
@@ -327,7 +325,6 @@
                   field-name="IDR_3rdParty_Phone__c"
                   data-field="IDR_3rdParty_Phone__c"
                   value={tpPhone}
-                  required={thirdPartyFieldsRequired}
                 ></lightning-input-field>
               </lightning-layout-item>
             </lightning-layout>
@@ -339,7 +336,6 @@
                   field-name="IDR_SwicthOff_3rd_Party_Notification__c"
                   data-field="IDR_SwicthOff_3rd_Party_Notification__c"
                   value={tpNotificationsOff}
-                  required={thirdPartyFieldsRequired}
                 ></lightning-input-field>
               </lightning-layout-item>
             </lightning-layout>
@@ -353,7 +349,6 @@
                   value={tpStreet}
                   disabled={disableThirdPartyAddressFields}
                   class={hideTPAddressInputClass}
-                  required={thirdPartyFieldsRequired}
                 ></lightning-input-field>
               </lightning-layout-item>
               <lightning-layout-item size="6" padding="right-small">
@@ -417,6 +412,7 @@
               >
                 <c-complaint-address-lookup
                   search-postcode={postCodeInputTP}
+                  postcode-label="Nominated 3rd Party Postcode"
                   onpostcodechanged={handleManualPostCodeChangedTP}
                   onpostcodeapierror={handlePostCodeApiErrorTP}
                   onpostcodeselected={handlePostCodeSelectedTP}
@@ -435,6 +431,7 @@
                 <c-complaint-address-lookup
                   third-party-check="true"
                   is-auto-search="true"
+                  searchaddress-label="Search Address Nominated 3rd Party"
                   onaddressselected={handleTPAddressSelected}
                   required={thirdPartyFieldsRequired}
                 ></c-complaint-address-lookup>

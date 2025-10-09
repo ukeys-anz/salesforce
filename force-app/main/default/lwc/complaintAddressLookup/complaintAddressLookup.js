@@ -20,7 +20,9 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
 ) {
   @api thirdPartyCheck;
   @api isAutoSearch;
-  searchPostcode;
+  @api searchPostcode;
+  @api postcodeLabel;
+  @api searchaddressLabel;
   showAddresses = false;
   addressList = [];
   searchString;
@@ -70,7 +72,6 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
     }
     return listOfCountriesMap;
   }
-
   handleSearchKeyChange(event) {
     clearTimeout(this.pendingSearchRequest);
     const searchString = event.detail.value.trim();
@@ -92,7 +93,6 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
   displayAddressFields() {
     this.selectedAddress = null;
     this.showAddresses = false;
-    this.setReadonly(false);
   }
 
   resetValidation() {
@@ -107,7 +107,6 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
   handleSearchPostcode(event) {
     clearTimeout(this.pendingSearchRequest);
     const searchString = event.detail.value.trim();
-    this.searchPostcode = searchString;
     let postCode =
       searchString?.length === 4 && searchString?.match(/^[0-9]+$/);
     if (postCode) {
@@ -118,8 +117,8 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
         this.getPostCodeAddresses(searchString);
       }, 300);
     }
-    this.omniUpdateDataJson(this.searchPostcode);
-    this.setParentAddress("postcodechanged", this.searchPostcode);
+    this.omniUpdateDataJson(searchString);
+    this.setParentAddress("postcodechanged", searchString);
   }
   async getAddresses(searchString) {
     try {
@@ -135,7 +134,6 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
       this.displayAddresses = !isValidArray;
       this.displayMessage = isValidArray;
     } catch (error) {
-      this.setReadonly(false);
       handleErrorShowToast(
         this,
         SEARCH_ADDRESS_ERROR,
@@ -179,7 +177,6 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
         this.populateAddress(this.selectedAddress)
       );
     } catch (error) {
-      this.setReadonly(false);
       handleErrorShowToast(
         this,
         SELECT_ADDRESS_ERROR,
@@ -206,6 +203,7 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
         this.displayMessage = true;
         this.message = "No results are returned";
         this.isSearching = false;
+        this.addressPostCodeList = [];
         return;
       }
       handleErrorShowToast(
@@ -227,10 +225,32 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
   }
   handleSelectedAddress(event) {
     const clickedIndex = event.currentTarget.dataset.index;
-    this.searchPostcode = this.addressPostCodeList[clickedIndex]?.postCode;
-    this.omniApplyCallResp({ Case: { validAddress: true } });
+    this.omniApplyCallResp(
+      this.setPostCodeOmniResponse(
+        "" + this.addressPostCodeList[clickedIndex]?.postCode
+      )
+    );
     this.showAddresses = false;
-    this.setParentAddress("postcodeselected", this.searchPostcode);
+    this.setParentAddress(
+      "postcodeselected",
+      this.addressPostCodeList[clickedIndex]?.postCode
+    );
+  }
+  setPostCodeOmniResponse(postCode) {
+    if (this.thirdPartyCheck === "false") {
+      return {
+        Case: {
+          validAddress: true,
+          selectedpostcode: postCode
+        }
+      };
+    }
+    return {
+      Case: {
+        validAddress: true,
+        selectedThirdPartypostcode: postCode
+      }
+    };
   }
   setParentAddress(eventName, eventValue) {
     this.dispatchEvent(
@@ -240,9 +260,6 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
     );
   }
 
-  setReadonly(readonly) {
-    this.omniApplyCallResp({ Case: { disablAddress: readonly } });
-  }
   populateAddress(address) {
     let stateMap = this.getProvinceOptions();
     if (this.thirdPartyCheck === "false") {
