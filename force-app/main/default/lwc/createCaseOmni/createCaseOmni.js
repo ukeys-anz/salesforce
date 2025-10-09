@@ -74,7 +74,10 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.modalMsg += "Please Enter a Valid Postcode";
     } else if (this.checkForThirdPartyCode()) {
       this.modalMsg += "Please Enter a Valid Nominated 3rd Party Postcode";
-    } else if (this.checkForThirdPartyAddressSearch()) {
+    } else if (
+      this.checkForThirdPartyAddressSearch() ||
+      this.isValidEmailAddress()
+    ) {
       this.modalMsg +=
         "Please fill the 3rd party address details by selecting an address from search";
     } else if (this.validateRealFormID()) {
@@ -338,5 +341,19 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       return true;
     }
     return false;
+  }
+  isValidEmailAddress() {
+    let emailRegex = /^(?![.\s,])([^\s@]+@[^\s@]+\.[^\s@]+)$/;
+    if (this.omniJsonData.Case.isThisCustomerComplaint !== "No") {
+      return false;
+    }
+    if (
+      this.omniJsonData.Case.CustomerDetails.thirdPartyRepCheckbox !== "Yes"
+    ) {
+      return false;
+    }
+    return !this.omniJsonData.Case.CustomerDetails?.thirdPartyEmail?.match(
+      emailRegex
+    );
   }
 }
