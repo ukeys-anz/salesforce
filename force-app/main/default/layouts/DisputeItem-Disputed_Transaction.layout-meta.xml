@@ -27,11 +27,11 @@
                 <field>AccountDetails__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>OtherFinancialInstituteBSB__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>OtherFinancialInstituteAccountNumber__c</field>
             </layoutItems>
         </layoutColumns>

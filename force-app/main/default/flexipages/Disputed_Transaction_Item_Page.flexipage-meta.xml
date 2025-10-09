@@ -90,7 +90,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>readonly</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.OtherFinancialInstituteBSB__c</fieldItem>
                 <identifier>RecordOtherFinancialInstituteBSB_cField</identifier>
@@ -100,7 +100,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>readonly</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.OtherFinancialInstituteAccountNumber__c</fieldItem>
                 <identifier>RecordOtherFinancialInstituteAccountNumber_cField</identifier>
