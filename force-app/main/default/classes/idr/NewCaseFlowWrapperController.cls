@@ -183,6 +183,10 @@ public with sharing class NewCaseFlowWrapperController {
         'IDR_Customer_Identifier__c',
         caseRecord.IDR_Customer_Identifier__c ?? ''
       );
+      caseDetails.put(
+        'IDR_NC_Postcode__c',
+        caseRecord.IDR_NC_Postcode__c ?? ''
+      );
     }
     return JSON.serialize(caseDetails);
   }

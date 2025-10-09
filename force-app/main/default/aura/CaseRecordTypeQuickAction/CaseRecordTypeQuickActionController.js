@@ -90,6 +90,20 @@
         );
         return;
       }
+      if (
+        helper.checkForPostcodeForNC(
+          component,
+          parsedResult,
+          selectedRecordTypeName
+        )
+      ) {
+        helper.showToast(
+          "error",
+          "Postcode is mandatory before converting this to a Non Customer Complaint.",
+          "Error!"
+        );
+        return;
+      }
       let autoFillFieldsString = "";
       for (var i in parsedResult) {
         autoFillFieldsString =
