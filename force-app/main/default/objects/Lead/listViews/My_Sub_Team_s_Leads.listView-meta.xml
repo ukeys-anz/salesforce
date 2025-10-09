@@ -38,7 +38,8 @@
     <filterScope>Everything</filterScope>
     <label>My Pod&apos;s Leads</label>
     <sharedTo>
-        <roleAndSubordinates>AF_Regional_Manager</roleAndSubordinates>
-        <roleAndSubordinates>SME_Head_of_NBC</roleAndSubordinates>
+        <roleAndSubordinatesInternal>AF_Regional_Manager</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>SME_Head_of_NBC</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>PB_Head_of_Teams</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

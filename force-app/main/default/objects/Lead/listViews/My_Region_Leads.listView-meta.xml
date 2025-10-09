@@ -45,10 +45,9 @@
     <filterScope>Everything</filterScope>
     <label>My Region&apos;s Leads</label>
     <sharedTo>
-        <roleAndSubordinates>SME_State_Head</roleAndSubordinates>
-        <roleAndSubordinates>CBO_State_Head</roleAndSubordinates>
-        <roleAndSubordinates>DSI_Head_of_Teams</roleAndSubordinates>
-        <roleAndSubordinates>PB_Head_of_Teams</roleAndSubordinates>
-        <roleAndSubordinates>TB_Head_of_Transaction_Banking</roleAndSubordinates>
+        <roleAndSubordinatesInternal>SME_State_Head</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>CBO_State_Head</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>DSI_Head_of_Teams</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>TB_Head_of_Transaction_Banking</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

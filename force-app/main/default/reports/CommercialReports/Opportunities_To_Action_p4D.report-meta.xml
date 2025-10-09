@@ -20,6 +20,10 @@
         <field>ApplicationForm$RecordType</field>
     </columns>
     <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>ApplicationForm.ApplicationFormProduct$Amount__c</field>
+    </columns>
+    <columns>
         <field>ApplicationForm.ApplicationFormProduct$Close_Date__c</field>
     </columns>
     <columns>

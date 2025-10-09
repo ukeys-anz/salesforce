@@ -6,20 +6,13 @@
  */
 @IsTest
 public class Vlocity_UtilsTest {
-  @TestSetup
-  static void makeData() {
-    Case c = new Case(
-      RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
-      Status = IDRConstants.OPEN_STATUS,
-      Description = 'Test decription',
-      IDR_Additional_Correspondence_reviewed__c = false,
-      Origin = 'Phone'
-    );
-    insert c;
-    Complaint_Resolution__c cr = new Complaint_Resolution__c(
-      IDR_Complaint__c = c.Id
-    );
-    insert cr;
+  static Lib_MockProvider complaintsMock;
+  static Lib_MockProvider queryAppDefinitionMock;
+  static Lib_MockProvider dmlRepoMock;
+  static void registerMocks() {
+    complaintsMock = Lib_MockProvider.forType(ComplaintsRepository.class);
+    queryAppDefinitionMock = Lib_MockProvider.forType(QueryAppDefinition.class);
+    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
   }
 
   /**
@@ -37,35 +30,17 @@ public class Vlocity_UtilsTest {
       'input' => input,
       'output' => new Map<String, Object>()
     };
-    obj.call(action, args);
+    Assert.isTrue(obj.call(action, args) != null, 'Method should be called');
   }
-
-  /**
-   * @description to test delete complaint resolutions
-   */
-  @IsTest
-  static void testDeleteCR() {
-    Vlocity_Utils obj = new Vlocity_Utils();
-    List<Map<String, String>> cr = new List<Map<String, String>>();
-    for (Complaint_Resolution__c cr1 : [
-      SELECT Id
-      FROM Complaint_Resolution__c
-      LIMIT 1
-    ]) {
-      cr.add(new Map<String, String>{ 'Id' => cr1.Id });
-    }
-    String action = 'deleteComplaintResolution';
-    Map<String, Object> args = new Map<String, Object>();
-    args.put('input', new Map<String, Object>{ 'ComplaintResolution' => cr });
-    obj.call(action, args);
-  }
-
   /**
    * @description to test disable omni flag
    */
   @IsTest
   static void testDisableOmni() {
-    Vlocity_Utils.getDisableOmni();
+    Assert.isTrue(
+      !Vlocity_Utils.getDisableOmni(),
+      'Omni should not be disabled'
+    );
   }
 
   /**
@@ -73,9 +48,9 @@ public class Vlocity_UtilsTest {
    */
   @IsTest
   static void testCreateCR() {
+    registerMocks();
     Vlocity_Utils obj = new Vlocity_Utils();
     List<Map<String, Object>> cr = new List<Map<String, Object>>();
-    Case c = [SELECT Id FROM Case LIMIT 1];
     Map<String, Object> inmap = new Map<String, Object>{
       'Remedy' => '4',
       'SubRemedy' => '16',
@@ -91,53 +66,139 @@ public class Vlocity_UtilsTest {
       'input',
       new Map<String, Object>{
         'ComplaintResolution' => cr,
-        'ComplaintId' => c.Id
+        'ComplaintId' => Lib_FakeIdGenerator.getMockId(Case.SObjectType)
       }
     );
+    test.startTest();
     obj.call(action, args);
+    test.stopTest();
+    List<Complaint_Resolution__c> upsertedEvents = (List<Complaint_Resolution__c>) dmlRepoMock.getHistory(
+        'doUpsert'
+      )
+      .getParam('records');
+    Assert.isTrue(!upsertedEvents.isEmpty(), 'Resolution should be updated');
   }
   /**
    * @description : To test the Last Modified Date count of a particualr field on Case.
    */
   @isTest
   static void testGetLastModifiedDateOfField() {
-    Case testCase = [SELECT ID, CreatedDate FROM Case LIMIT 1];
-    CaseHistory caseHistory = new CaseHistory(
-      CaseId = testCase.Id,
-      Field = 'Status'
+    registerMocks();
+    Case csObj = new Case(
+      Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
+      CreatedDate = System.today()
     );
-    insert caseHistory;
-    caseHistory = [
-      SELECT CreatedDate
-      FROM CaseHistory
-      WHERE CaseId = :testCase.Id AND Field = 'Status'
-    ];
+    CaseHistory hsObj = new CaseHistory(CaseId = csObj.Id, Field = 'Status');
+
+    complaintsMock.mock('getCreatedDate', csObj);
+    complaintsMock.mock('getComplaintHistory', hsObj);
     Map<String, Object> input = new Map<String, Object>{
       'FieldName' => 'Status',
-      'recordId' => testCase.Id
+      'recordId' => csObj.Id
     };
     Map<String, Object> output = new Map<String, Object>();
     Map<String, Object> options = new Map<String, Object>();
     Vlocity_Utils obj = new Vlocity_Utils();
     obj.invokeMethod('getLastModifiedDateOfField', input, output, options);
     Integer expectedDays = Math.abs(
-      Datetime.now().date().daysBetween(caseHistory.CreatedDate.date())
+      Datetime.now().date().daysBetween(System.today())
     );
-    System.assertEquals(
+    Assert.areEqual(
       expectedDays + ' Days',
-      output.get('lastModifiedDateStatus')
+      output.get('lastModifiedDateStatus'),
+      'LastModifed Date Should be Same'
     );
     input = new Map<String, Object>{
       'FieldName' => 'Type',
-      'recordId' => testCase.Id
+      'recordId' => csObj.Id
     };
     obj.invokeMethod('getLastModifiedDateOfField', input, output, options);
-    expectedDays = Math.abs(
-      Datetime.now().date().daysBetween(testCase.CreatedDate.date())
-    );
-    System.assertEquals(
+    expectedDays = Math.abs(Datetime.now().date().daysBetween(System.today()));
+    Assert.areEqual(
       expectedDays + ' Days',
-      output.get('lastModifiedDateStatus')
+      output.get('lastModifiedDateStatus'),
+      'LastModifed Status Should be Same'
     );
+  }
+  @isTest
+  static void testGetCurrentAppInvoke() {
+    registerMocks();
+    Vlocity_Utils obj = new Vlocity_Utils();
+    Map<String, Object> input = new Map<String, Object>();
+    Map<String, Object> output = new Map<String, Object>();
+    Map<String, Object> options = new Map<String, Object>();
+    Id appdefinitionId = Lib_FakeIdGenerator.getMockId(
+      AppDefinition.SObjectType
+    );
+    AppDefinition testAppDefinition = (AppDefinition) TestUtil.setFields(
+      new AppDefinition(Id = appdefinitionId),
+      new Map<String, Object>{
+        'Label' => 'Complaint Mgt',
+        'DurableId' => appdefinitionId
+      }
+    );
+    UserAppInfo testUserInfo = new UserAppInfo(
+      Id = Lib_FakeIdGenerator.getMockId(UserAppInfo.SObjectType),
+      AppDefinitionId = appdefinitionId
+    );
+    complaintsMock.mock('getUserAppInfoForUser', testUserInfo);
+    QueryAppDefinition.appsByDurableId = new Map<Id, AppDefinition>{
+      testAppDefinition.Id => testAppDefinition
+    };
+    obj.getCurrentAppName(input, output, options);
+    Assert.isTrue(
+      obj.invokeMethod('getCurrentAppName', input, output, options),
+      'getCurrentAppName Method is Invoked'
+    );
+  }
+  @isTest
+  static void testDeleteResolutionRemedy() {
+    registerMocks();
+    Vlocity_Utils obj = new Vlocity_Utils();
+    List<Map<String, String>> cr = new List<Map<String, String>>();
+    cr.add(
+      new Map<String, String>{
+        'Id' => Lib_FakeIdGenerator.getMockId(
+          Complaint_Resolution__c.SObjectType
+        ),
+        'Remedy' => null
+      }
+    );
+    String action = 'deleteComplaintResolution';
+    Map<String, Object> args = new Map<String, Object>();
+    args.put('input', new Map<String, Object>{ 'ComplaintResolution' => cr });
+    obj.call(action, args);
+    Test.startTest();
+    List<Complaint_Resolution__c> caseUpdated = (List<Complaint_Resolution__c>) dmlRepoMock.getHistory(
+        'doDelete'
+      )
+      .getParam('records');
+    Test.stopTest();
+    Assert.isTrue(!caseUpdated.isEmpty(), 'Resolution is deleted');
+  }
+  @isTest
+  static void testDeleteResolutionRemedyOffer() {
+    registerMocks();
+    Vlocity_Utils obj = new Vlocity_Utils();
+    List<Map<String, String>> cr = new List<Map<String, String>>();
+    cr.add(
+      new Map<String, String>{
+        'Id' => Lib_FakeIdGenerator.getMockId(
+          Complaint_Resolution__c.SObjectType
+        ),
+        'remedyOffered' => null
+      }
+    );
+    String action = 'deleteComplaintResolution';
+    Map<String, Object> args = new Map<String, Object>();
+    args.put('input', new Map<String, Object>{ 'ComplaintResolution' => cr });
+    obj.call(action, args);
+    Test.startTest();
+    List<Complaint_Resolution__c> caseUpdated = (List<Complaint_Resolution__c>) dmlRepoMock.getHistory(
+        'doDelete'
+      )
+      .getParam('records');
+    Test.stopTest();
+    Assert.isTrue(!caseUpdated.isEmpty(), 'Resolution is deleted');
   }
 }

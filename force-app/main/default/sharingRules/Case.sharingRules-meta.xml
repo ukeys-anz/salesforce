@@ -978,7 +978,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>PIN Recovery,Selfie Recovery</value>
+            <value>False Customer Profile,PIN Recovery,Selfie Recovery</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

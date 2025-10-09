@@ -59,7 +59,7 @@
         <field>ApplicationForm.ApplicationFormProduct$Amount__c</field>
     </columns>
     <columns>
-        <field>ApplicationForm$Opportunity.CloseDate</field>
+        <field>ApplicationForm.ApplicationFormProduct$Close_Date__c</field>
     </columns>
     <columns>
         <field>ApplicationForm$Opportunity.Owner</field>
@@ -82,7 +82,12 @@
         </criteriaItems>
         <language>en_US</language>
     </filter>
-    <format>Summary</format>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>ApplicationForm.ApplicationFormProduct$Amount__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
         <field>ApplicationForm.ApplicationFormProduct$Stage</field>

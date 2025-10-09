@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Disputed_Transaction</fullName>
+    <active>true</active>
+    <compactLayoutAssignment>Disputed_Transaction_Compact</compactLayoutAssignment>
+    <label>Disputed Transaction</label>
+    <picklistValues>
+        <picklist>DisputeSubtype</picklist>
+        <values>
+            <fullName>Account Debited but No Cash Dispensed by ATM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Charged Multiple Times</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Defective Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disclosed OTP%2C Card%2C or Account Details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Failed Transaction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraudulent Transaction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lost or Stolen Card</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding Charge on Original Payment Method</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Overcharged</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Products or Services Not as Described</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Refund Not Processed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Undelivered Product or Service</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>DisputeType</picklist>
+        <values>
+            <fullName>Consumer Dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Processing Error</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ProvisionalCreditStatus</picklist>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Initiated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Applicable</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status</picklist>
+        <values>
+            <fullName>In Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resolved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Submitted</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Waiting for Customer</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

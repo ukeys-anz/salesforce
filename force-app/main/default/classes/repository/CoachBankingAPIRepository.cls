@@ -137,6 +137,35 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
   }
 
   /**
+   * @description  The getTransactionHistory is the method to make the Http callout to Mulesoft to fetch the transaction history details from Fabric.
+   * {@link Lib_SystemLog.logAPIError} is called when ever the call fails to Fabric to have the logs recorded for monitoring.
+   *
+   * @param ocvId customer id
+   * @param ownership holds the value as Single or Multi-Party Account
+   * @param paramUrlModel The model containing the parameters for the transaction query
+   * @return `TransactionHistoryModel` model class constructed from api response
+   */
+  @AuraEnabled(cacheable=true)
+  public static TransactionHistoryModel getTransactionHistoryAuraV2(
+    String ocvId,
+    String ownership,
+    TransactionParamUrlModel paramUrlModel
+  ) {
+    String paramUrl = CoachBankingAPIRepositoryHelper.getTransactionParamUrl(
+      paramUrlModel
+    );
+    return getTransactionHistoryAura(
+      paramUrl,
+      ocvId,
+      paramUrlModel.accountNumber,
+      paramUrlModel.startDate,
+      paramUrlModel.endDate,
+      ownership,
+      paramUrlModel.bucketIds
+    );
+  }
+
+  /**
    * @param ocvId customer id
    * @return `CardListModel` model class constructed from api response
    * @description fetches card list from fabric, deserialized to a model

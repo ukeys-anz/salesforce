@@ -12,6 +12,8 @@ import {
 } from "lightning/platformWorkspaceApi";
 import logCaseCreation from "@salesforce/apex/IDRCaseActionsHelper.logCaseCreation";
 import logCaseError from "@salesforce/apex/IDRCaseActionsHelper.logCaseError";
+const ALLOWED_POSTCODES = ["not applicable", "overseas"];
+
 export default class CreateCaseOmni extends OmniscriptBaseMixin(
   LightningElement
 ) {
@@ -26,10 +28,17 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
   closeModal() {
     this.modalMsg = null;
   }
+  makePriorityFieldRequired(data) {
+    if (data.isEcf || data?.Case?.ComplaintDetails?.Priority) {
+      return;
+    }
+    this.missingFields.push("Priority");
+  }
   async callCreateCaseIP() {
     this.missingFields = [];
     this.modalMsg = "";
     this.missingFields = await validate(this.omniJsonData);
+    this.makePriorityFieldRequired(this.omniJsonData);
     if (this.missingFields.length > 0) {
       this.modalMsg = await getCustomerNumberValidationMsg(
         this.omniJsonData,
@@ -58,6 +67,14 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     } else if (this.checkOCVDown()) {
       this.modalMsg +=
         "Customer details cannot be retrieved as One Customer View (OCV) is currently unavailable.";
+    } else if (this.checkForCustomerAddressSearch()) {
+      this.modalMsg +=
+        "Please fill the Address Details by Selecting address from search";
+    } else if (this.checkValidPostCode()) {
+      this.modalMsg += "Please Enter a Valid PostCode";
+    } else if (this.checkForThirdPartyAddressSearch()) {
+      this.modalMsg +=
+        "Please fill the 3rd party address details by selecting an address from search";
     } else if (this.validateRealFormID()) {
       handleErrorShowToast(
         this,
@@ -86,6 +103,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.loading = true;
       const inputs = {
         Case: this.omniJsonData.Case,
+        isEcf: this.omniJsonData.isEcf,
         Response:
           this.omniJsonData.Response != null
             ? { profile: this.omniJsonData.Response.profile }
@@ -215,6 +233,91 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.omniJsonData.IsOCVDown === true &&
       this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
       !this.omniJsonData.isEligibleAppForLookUp
+    ) {
+      return true;
+    }
+    return false;
+  }
+  checkForCustomerAddressSearch() {
+    if (
+      this.omniJsonData.Case.isThisCustomerComplaint === "No" &&
+      this.omniJsonData.Case.CustomerDetails?.SearchAddressRadio ===
+        "Search Address" &&
+      !Object.prototype.hasOwnProperty.call(
+        this.omniJsonData.Case,
+        "disablAddress"
+      )
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+  checkForThirdPartyAddressSearch() {
+    if (
+      this.omniJsonData.Case.CustomerDetails.thirdPartyRepCheckbox === "Yes" &&
+      this.omniJsonData.Case.CustomerDetails?.thirdPartyAddress ===
+        "Search Address" &&
+      !Object.prototype.hasOwnProperty.call(
+        this.omniJsonData.Case,
+        "disablThirdAddress"
+      )
+    ) {
+      return true;
+    }
+    return false;
+  }
+  checkValidPostCode() {
+    let compare = /^[0-9]{4}$/;
+    let postCode =
+      "" + this.omniJsonData.Case.CustomerDetails?.PostcodeReadOnly;
+    let thirdPartyCode =
+      "" + this.omniJsonData.Case.CustomerDetails?.thirdPartyPostCode;
+    if (
+      this.omniJsonData.Case.isThisCustomerComplaint === "No" &&
+      this.omniJsonData.Case.CustomerDetails?.SearchAddressRadio ===
+        "Manual Address Entry" &&
+      (!Object.prototype.hasOwnProperty.call(
+        this.omniJsonData.Case.CustomerDetails,
+        "PostcodeReadOnly"
+      ) ||
+        postCode === "" ||
+        !this.omniJsonData.Case?.validAddress) &&
+      !ALLOWED_POSTCODES.includes(postCode.toLowerCase())
+    ) {
+      return true;
+    }
+    if (
+      this.omniJsonData.Case.CustomerDetails.thirdPartyRepCheckbox === "Yes" &&
+      this.omniJsonData.Case.CustomerDetails?.thirdPartyAddress ===
+        "Manual Address Entry" &&
+      (!Object.prototype.hasOwnProperty.call(
+        this.omniJsonData.Case.CustomerDetails,
+        "thirdPartyPostCode"
+      ) ||
+        thirdPartyCode === "" ||
+        !this.omniJsonData.Case?.validAddress) &&
+      !ALLOWED_POSTCODES.includes(thirdPartyCode.toLowerCase())
+    ) {
+      return true;
+    }
+    if (
+      this.omniJsonData.Case.CustomerDetails?.SearchAddressRadio ===
+        "Manual Address Entry" &&
+      (!postCode.match(compare) ||
+        postCode !== this.omniJsonData.Case?.selectedpostcode) &&
+      !ALLOWED_POSTCODES.includes(postCode.toLowerCase())
+    ) {
+      return true;
+    }
+
+    if (
+      this.omniJsonData.Case.CustomerDetails?.thirdPartyAddress ===
+        "Manual Address Entry" &&
+      (!thirdPartyCode.match(compare) ||
+        thirdPartyCode !==
+          this.omniJsonData.Case?.selectedThirdPartypostcode) &&
+      !ALLOWED_POSTCODES.includes(thirdPartyCode.toLowerCase())
     ) {
       return true;
     }

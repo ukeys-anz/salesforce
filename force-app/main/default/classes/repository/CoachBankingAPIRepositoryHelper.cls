@@ -58,6 +58,24 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
     String accountNumber,
     List<String> bucketIds
   ) {
+    TransactionParamUrlModel paramUrlModel = new TransactionParamUrlModel();
+    paramUrlModel.startDate = startDate;
+    paramUrlModel.endDate = endDate;
+    paramUrlModel.accountNumber = accountNumber;
+    paramUrlModel.bucketIds = bucketIds;
+    paramUrlModel.pageSize = Label.TransactionPageSize;
+
+    return getTransactionParamUrl(paramUrlModel);
+  }
+
+  /**
+   * @description Constructs the transaction parameter URL from the given model.
+   * @param paramUrlModel The model containing the parameters for the transaction URL.
+   * @return The constructed transaction parameter URL.
+   */
+  public static String getTransactionParamUrl(
+    TransactionParamUrlModel paramUrlModel
+  ) {
     String paramUrlString = '';
 
     String startTime = GetHelpConstants.isTransactionsV1()
@@ -71,24 +89,28 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
       : 'bucket_ids';
 
     String precedingBucketValue = EncodingUtil.urlEncode(
-      'accounts/' + accountNumber + '/buckets/',
+      'accounts/' + paramUrlModel.accountNumber + '/buckets/',
       'UTF-8'
     );
 
     ParameterBuilder builder = new ParameterBuilder();
     //It an issue in Transaction API where if page_size parameter is not found then the "next_uri" node does not come in response.
-    builder.append('account_numbers', accountNumber)
-      .append(startTime, DateTimeUtils.getUTCTimeFromString(startDate))
-      .append(endTime, DateTimeUtils.getUTCTimeFromString(endDate))
-      .append('page_size', Label.TransactionPageSize);
+    builder.append('account_numbers', paramUrlModel.accountNumber)
+      .append(
+        startTime,
+        DateTimeUtils.getUTCTimeFromString(paramUrlModel.startDate)
+      )
+      .append(
+        endTime,
+        DateTimeUtils.getUTCTimeFromString(paramUrlModel.endDate)
+      )
+      .append('page_size', paramUrlModel.pageSize);
 
-    if (!bucketIds.isEmpty()) {
-      for (String bucketId : bucketIds) {
-        String bucketValue = GetHelpConstants.isTransactionsV1()
-          ? precedingBucketValue + bucketId
-          : bucketId;
-        builder.append(bucketIdsList, bucketValue);
-      }
+    for (String bucketId : paramUrlModel.bucketIds) {
+      String bucketValue = GetHelpConstants.isTransactionsV1()
+        ? precedingBucketValue + bucketId
+        : bucketId;
+      builder.append(bucketIdsList, bucketValue);
     }
 
     paramUrlString = builder.get();

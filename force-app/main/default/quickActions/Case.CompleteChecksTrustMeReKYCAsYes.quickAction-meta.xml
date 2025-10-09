@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionSubtype>Action</actionSubtype>
+    <description>Set Document Checks to Yes on ReKYC QA and TrustMe QA Cases</description>
+    <label>Complete Checks as Yes</label>
+    <lightningWebComponent>setDocumentChecks</lightningWebComponent>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>LightningWebComponent</type>
+</QuickAction>
