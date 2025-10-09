@@ -47,7 +47,7 @@
         <fields>TransactionAmount</fields>
         <fields>OtherFinancialInstituteBSB__c</fields>
         <fields>OtherFinancialInstituteAccountNumber__c</fields>
-        <fields>TransactionType__c</fields>
+        <fields>Title__c</fields>
         <fields>RecoveryAmount__c</fields>
         <relatedList>DisputeItemList</relatedList>
     </relatedLists>

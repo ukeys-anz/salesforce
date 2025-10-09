@@ -484,7 +484,7 @@
                             <value>OtherFinancialInstituteAccountNumber__c</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>TransactionType__c</value>
+                            <value>Title__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>RecoveryStatus__c</value>
@@ -567,7 +567,7 @@
                             <value>OtherFinancialInstituteAccountNumber__c</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>TransactionType__c</value>
+                            <value>Title__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>RecoveryAmount__c</value>
