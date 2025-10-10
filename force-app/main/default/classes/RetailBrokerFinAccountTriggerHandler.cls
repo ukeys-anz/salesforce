@@ -76,13 +76,6 @@ public with sharing class RetailBrokerFinAccountTriggerHandler extends Lib_Trigg
     if (financialAccount.RecordTypeId != RTFinancialAccount.bankAccount) {
       return false;
     }
-    List<String> homeLoanMarketingCodes = new List<String>{
-      'HLVAR01',
-      'HLFXD01'
-    };
-    if (!homeLoanMarketingCodes.contains(financialAccount.Marketing_Code__c)) {
-      return false;
-    }
     if (financialAccount.Assisted_Broker_TPMI_SAO__c == null) {
       return false;
     }
