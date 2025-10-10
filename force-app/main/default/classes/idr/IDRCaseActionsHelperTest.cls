@@ -65,9 +65,6 @@ private with sharing class IDRCaseActionsHelperTest {
     }
   );
 
-  static final String ONGOING = 'Ongoing';
-  static final String NOT_REQUIRED = 'Not Required';
-
   /**
    * @description Generating PendTask for testing
    * @return Task
@@ -384,13 +381,13 @@ private with sharing class IDRCaseActionsHelperTest {
     Case shellCase = shellCaseRecord;
 
     Account testAccount = accountRecord;
-    testAccount.ExtraCareTimePeriod__c = ONGOING;
+    testAccount.ExtraCareTimePeriod__c = IDRConstants.TIME_PERIOD_ONGOING;
     Case testCase = testAccount.Cases[0];
     testCase.AccountId = testAccount.Id;
 
     caseRepoMock.mock(
-      'getCasesWithExtraCareFlagonAccount',
-      new List<Case>{ testCase }
+      'getAccountsWithExtraCareFlag',
+      new List<Account>{ testAccount }
     );
     Test.startTest();
     IDRCaseActionsHelper.updateCasePriorityforECFAccount(
@@ -415,11 +412,14 @@ private with sharing class IDRCaseActionsHelperTest {
     Case shellCase = shellCaseRecord;
 
     Account testAccount = accountRecord;
-    testAccount.ExtraCareTimePeriod__c = NOT_REQUIRED;
+    testAccount.ExtraCareTimePeriod__c = IDRConstants.TIME_PERIOD_NOT_REQUIRED;
     Case testCase = testAccount.Cases[0];
     testCase.AccountId = testAccount.Id;
 
-    caseRepoMock.mock('getCasesWithExtraCareFlagonAccount', new List<Case>());
+    caseRepoMock.mock(
+      'getAccountsWithExtraCareFlag',
+      new List<Account>{ testAccount }
+    );
     Test.startTest();
     IDRCaseActionsHelper.updateCasePriorityforECFAccount(
       new List<Case>{ testCase },
@@ -431,6 +431,65 @@ private with sharing class IDRCaseActionsHelperTest {
       IDRConstants.CASE_PRIORITY_STANDARD,
       testCase.Priority,
       'Priority should not be updated to Vulnerable Customer and remain standard'
+    );
+  }
+  /**
+   * @description Test to set Priority to Customer Experiencing Vulnerability on Case if Account has ExtraCare flag as true.
+   */
+  @isTest
+  static void testCaseInsertPriorityforECF() {
+    registerMocks();
+
+    Case cs = IDRTestDataFactory.getCase();
+    cs.Priority = IDRConstants.CASE_PRIORITY_STANDARD;
+    Account testAccount = IDRTestDataFactory.getAccountWithCase(cs);
+    testAccount.ExtraCareTimePeriod__c = IDRConstants.TIME_PERIOD_ONGOING;
+    cs.AccountId = testAccount.Id;
+    caseRepoMock.mock(
+      'getAccountsWithExtraCareFlag',
+      new List<Account>{ testAccount }
+    );
+    Test.startTest();
+    IDRCaseActionsHelper.updateCasePriorityforECFAccount(
+      new List<Case>{ cs },
+      null
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      IDRConstants.CASE_PRIORITY_VULNERABLE,
+      cs.Priority,
+      'Priority should be updated to ' + IDRConstants.CASE_PRIORITY_VULNERABLE
+    );
+  }
+  /**
+   * @description Test negative scenario to check Case priority is unchanged if Account has ExtraCare flag as false.
+   */
+  @isTest
+  static void testCaseInsertPriorityforECFNegative() {
+    registerMocks();
+    Case cs = IDRTestDataFactory.getCase();
+    cs.Priority = IDRConstants.CASE_PRIORITY_STANDARD;
+    cs.RecordTypeId = RTCase.nonCustomerComplaint;
+    Account testAccount = IDRTestDataFactory.getAccountWithCase(cs);
+    testAccount.ExtraCareTimePeriod__c = IDRConstants.TIME_PERIOD_NOT_REQUIRED;
+    cs.AccountId = testAccount.Id;
+    caseRepoMock.mock(
+      'getAccountsWithExtraCareFlag',
+      new List<Account>{ testAccount }
+    );
+    Test.startTest();
+    IDRCaseActionsHelper.updateCasePriorityforECFAccount(
+      new List<Case>{ cs },
+      null
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      IDRConstants.CASE_PRIORITY_STANDARD,
+      cs.Priority,
+      'Priority should not be updated to ' +
+      IDRConstants.CASE_PRIORITY_VULNERABLE
     );
   }
 }

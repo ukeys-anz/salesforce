@@ -200,4 +200,15 @@ public class IDRTestDataFactory {
       RowCause = 'Manual'
     );
   }
+  /**
+   * @description Method to create Account record with a Case
+   * @param cs Case object record
+   * @return Account Object
+   */
+  public static Account getAccountWithCase(Case cs) {
+    return (Account) TestUtil.setFields(
+      new Account(Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType)),
+      new Map<String, Object>{ 'Cases' => new List<Case>{ cs } }
+    );
+  }
 }
