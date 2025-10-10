@@ -118,7 +118,6 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
       }, 300);
     }
     this.omniUpdateDataJson(searchString);
-    this.setParentAddress("postcodechanged", searchString);
   }
   async getAddresses(searchString) {
     try {
@@ -166,10 +165,6 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
       }
 
       this.omniApplyCallResp(this.populateAddress(this.selectedAddress));
-      this.setParentAddress(
-        "addressselected",
-        this.populateAddress(this.selectedAddress)
-      );
     } catch (error) {
       handleErrorShowToast(
         this,
@@ -206,14 +201,6 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
           apiDown: true
         }
       });
-      this.dispatchEvent(
-        new CustomEvent("postcodeapierror", {
-          detail: {
-            error: error,
-            message: error.body.message
-          }
-        })
-      );
     }
   }
   handleSelectedAddress(event) {
@@ -224,10 +211,6 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
       )
     );
     this.showAddresses = false;
-    this.setParentAddress(
-      "postcodeselected",
-      this.addressPostCodeList[clickedIndex]?.postCode
-    );
   }
   setPostCodeOmniResponse(postCode) {
     if (this.thirdPartyCheck === "false") {
@@ -244,13 +227,6 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
         selectedThirdPartypostcode: postCode
       }
     };
-  }
-  setParentAddress(eventName, eventValue) {
-    this.dispatchEvent(
-      new CustomEvent(eventName, {
-        detail: eventValue
-      })
-    );
   }
 
   populateAddress(address) {

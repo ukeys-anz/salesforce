@@ -26,7 +26,6 @@ public with sharing class ComplaintsRepository {
         IDR_Complainant_Type__c,
         IDR_Product_Category__c,
         RecordType.DeveloperName,
-        IDR_NC_Postcode__c,
         RecordTypeId,
         Type,
         Priority,

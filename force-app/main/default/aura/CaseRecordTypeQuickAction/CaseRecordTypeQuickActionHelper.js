@@ -100,16 +100,5 @@
         !parsedResult.IDR_Customer_Identifier__c) &&
       selectedRecordTypeName == component.get("v.customerRecordType")
     );
-  },
-  checkForPostcodeForNC: function (
-    component,
-    parsedResult,
-    selectedRecordTypeName
-  ) {
-    return (
-      component.get("v.caseRecord.ANZx_Customer__c") === false &&
-      !parsedResult.IDR_NC_Postcode__c &&
-      selectedRecordTypeName == component.get("v.noncustomerRecordType")
-    );
   }
 });
