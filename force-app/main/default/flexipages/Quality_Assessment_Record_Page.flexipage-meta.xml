@@ -7373,6 +7373,19 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Case_Manager_Score__c</fieldItem>
                 <identifier>RecordCase_Manager_Score_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -7418,233 +7431,21 @@
                 <fieldItem>Record.Business_score__c</fieldItem>
                 <identifier>RecordBusiness_score_cField</identifier>
                 <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Team_Manager_Response__c</fieldItem>
-                <identifier>RecordTeam_Manager_Response_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Team_Manager_Comments__c</fieldItem>
-                <identifier>RecordTeam_Manager_Comments_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.C_Q_Manager_Response__c</fieldItem>
-                <identifier>RecordC_Q_Manager_Response_cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>C_Q_Assessment</rightValue>
                     </criteria>
                     <criteria>
-                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
                         <operator>NE</operator>
-                        <rightValue>Accepted</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.C_Q_Manager_Response__c</fieldItem>
-                <identifier>RecordC_Q_Manager_Response_cField2</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Accepted</rightValue>
+                        <rightValue>Customer Resolution Assessment</rightValue>
                     </criteria>
                     <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.C_Q_Manager_Comments__c</fieldItem>
-                <identifier>RecordC_Q_Manager_Comments_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.TM_Response_to_C_Q_Manager_Review__c</fieldItem>
-                <identifier>RecordTM_Response_to_C_Q_Manager_Review_cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
                         <operator>NE</operator>
-                        <rightValue>Accepted</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.TM_Response_to_C_Q_Manager_Review__c</fieldItem>
-                <identifier>RecordTM_Response_to_C_Q_Manager_Review_cField2</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Accepted</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.TM_Comments_for_C_Q_Manager_Review__c</fieldItem>
-                <identifier>RecordTM_Comments_for_C_Q_Manager_Review_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.C_Q_Lead_Response__c</fieldItem>
-                <identifier>RecordC_Q_Lead_Response_cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Accepted</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.C_Q_Lead_Response__c</fieldItem>
-                <identifier>RecordC_Q_Lead_Response_cField2</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Accepted</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.C_Q_Lead_Comments__c</fieldItem>
-                <identifier>RecordC_Q_Lead_Comments_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
+                        <rightValue>Frontline Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -7657,10 +7458,10 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>readonly</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Assessment_Result__c</fieldItem>
-                <identifier>RecordAssessment_Result_cField</identifier>
+                <fieldItem>Record.Assessment_Result_formula__c</fieldItem>
+                <identifier>RecordAssessment_Result_formula_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -7746,10 +7547,21 @@
                 <fieldItem>Record.What_corrective_actions_are_required__c</fieldItem>
                 <identifier>RecordWhat_corrective_actions_are_required_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -7763,10 +7575,21 @@
                 <fieldItem>Record.Has_a_REaL_form_been_raised__c</fieldItem>
                 <identifier>RecordHas_a_REaL_form_been_raised_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -7780,10 +7603,21 @@
                 <fieldItem>Record.REaL_form_receipt_no__c</fieldItem>
                 <identifier>RecordREaL_form_receipt_no_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Frontline Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -7797,10 +7631,21 @@
                 <fieldItem>Record.REaL_form_categories__c</fieldItem>
                 <identifier>RecordREaL_form_categories_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -7814,10 +7659,21 @@
                 <fieldItem>Record.REAL_form_Comments__c</fieldItem>
                 <identifier>RecordREAL_form_Comments_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Frontline Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -7831,10 +7687,21 @@
                 <fieldItem>Record.Assessment_Outcome_Status__c</fieldItem>
                 <identifier>RecordAssessment_Outcome_Status_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
