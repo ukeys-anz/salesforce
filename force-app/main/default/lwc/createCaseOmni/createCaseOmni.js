@@ -70,8 +70,10 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     } else if (this.checkForCustomerAddressSearch()) {
       this.modalMsg +=
         "Please fill the Address Details by Selecting address from search";
-    } else if (this.checkValidPostCode()) {
-      this.modalMsg += "Please Enter a Valid PostCode";
+    } else if (this.checkValidCustmerPostCode()) {
+      this.modalMsg += "Please Enter a Valid Postcode";
+    } else if (this.checkForThirdPartyCode()) {
+      this.modalMsg += "Please Enter a Valid Nominated 3rd Party Postcode";
     } else if (this.checkForThirdPartyAddressSearch()) {
       this.modalMsg +=
         "Please fill the 3rd party address details by selecting an address from search";
@@ -267,12 +269,14 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     }
     return false;
   }
-  checkValidPostCode() {
+  checkValidCustmerPostCode() {
     let compare = /^[0-9]{4}$/;
     let postCode =
       "" + this.omniJsonData.Case.CustomerDetails?.PostcodeReadOnly;
-    let thirdPartyCode =
-      "" + this.omniJsonData.Case.CustomerDetails?.thirdPartyPostCode;
+
+    if (postCode && ALLOWED_POSTCODES.includes(postCode.toLowerCase())) {
+      return false;
+    }
     if (
       this.omniJsonData.Case.isThisCustomerComplaint === "No" &&
       this.omniJsonData.Case.CustomerDetails?.SearchAddressRadio ===
@@ -282,10 +286,33 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
         "PostcodeReadOnly"
       ) ||
         postCode === "" ||
-        !this.omniJsonData.Case?.validAddress) &&
-      !ALLOWED_POSTCODES.includes(postCode.toLowerCase())
+        !postCode.match(compare))
     ) {
       return true;
+    }
+    if (this.omniJsonData.Case?.apiDown) {
+      return false;
+    }
+
+    if (
+      this.omniJsonData.Case.CustomerDetails?.SearchAddressRadio ===
+        "Manual Address Entry" &&
+      postCode !== this.omniJsonData.Case?.selectedpostcode
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+  checkForThirdPartyCode() {
+    let compare = /^[0-9]{4}$/;
+    let thirdPartyCode =
+      "" + this.omniJsonData.Case.CustomerDetails?.thirdPartyPostCode;
+    if (
+      thirdPartyCode &&
+      ALLOWED_POSTCODES.includes(thirdPartyCode.toLowerCase())
+    ) {
+      return false;
     }
     if (
       this.omniJsonData.Case.CustomerDetails.thirdPartyRepCheckbox === "Yes" &&
@@ -296,28 +323,17 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
         "thirdPartyPostCode"
       ) ||
         thirdPartyCode === "" ||
-        !this.omniJsonData.Case?.validAddress) &&
-      !ALLOWED_POSTCODES.includes(thirdPartyCode.toLowerCase())
+        !thirdPartyCode.match(compare))
     ) {
       return true;
     }
-    if (
-      this.omniJsonData.Case.CustomerDetails?.SearchAddressRadio ===
-        "Manual Address Entry" &&
-      (!postCode.match(compare) ||
-        postCode !== this.omniJsonData.Case?.selectedpostcode) &&
-      !ALLOWED_POSTCODES.includes(postCode.toLowerCase())
-    ) {
-      return true;
+    if (this.omniJsonData.Case?.apiDown) {
+      return false;
     }
-
     if (
       this.omniJsonData.Case.CustomerDetails?.thirdPartyAddress ===
         "Manual Address Entry" &&
-      (!thirdPartyCode.match(compare) ||
-        thirdPartyCode !==
-          this.omniJsonData.Case?.selectedThirdPartypostcode) &&
-      !ALLOWED_POSTCODES.includes(thirdPartyCode.toLowerCase())
+      thirdPartyCode !== this.omniJsonData.Case?.selectedThirdPartypostcode
     ) {
       return true;
     }

@@ -154,11 +154,8 @@ function checkCommonValidations(Complaintdetails, caseDetail, omniJsonData) {
   }
   if (
     caseDetail.CustomerDetails.thirdPartyRepCheckbox === CUSTOMER_AGREES &&
-    caseDetails.CustomerDetails?.thirdPartyAddress === "Search Address" &&
-    caseDetails?.disablThirdAddress
+    caseDetails.CustomerDetails?.thirdPartyAddress === "Search Address"
   ) {
-    thirdPartyMap.push({ thirdPartyCountryReadOnly: "thirdPartyCountry" });
-    thirdPartyMap.push({ thirdPartyStateReadOnly: "thirdPartyState" });
     checkFields(caseDetail.CustomerDetails, thirdPartyMap);
   }
   if (

@@ -5,7 +5,7 @@
     <complianceGroup>Privacy - Personal Information;Source - Salesforce;Integrity - Accurate</complianceGroup>
     <description>Customer&apos;s residential address: Postcode. Capture this only if customer is not found in MAUD/CAP-CIS.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Enter the customer’s 4-digit Australian postcode. If the customer is overseas, enter &apos;Overseas&apos;. If the postcode is not known, enter &apos;Not applicable&apos;.</inlineHelpText>
+    <inlineHelpText>To edit Customer address fields, navigate to the top banner and click Edit Contact Details via the dropdown button</inlineHelpText>
     <label>Postcode</label>
     <length>255</length>
     <required>false</required>
