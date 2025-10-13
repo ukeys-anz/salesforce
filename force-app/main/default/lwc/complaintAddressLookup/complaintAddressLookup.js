@@ -118,7 +118,6 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
       }, 300);
     }
     this.omniUpdateDataJson(searchString);
-    this.setParentAddress("postcodechanged", searchString);
   }
   async getAddresses(searchString) {
     try {
@@ -134,13 +133,7 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
       this.displayAddresses = !isValidArray;
       this.displayMessage = isValidArray;
     } catch (error) {
-      handleErrorShowToast(
-        this,
-        SEARCH_ADDRESS_ERROR,
-        error,
-        error.body.message,
-        "pester"
-      );
+      handleErrorShowToast(this, SEARCH_ADDRESS_ERROR, "", "", "pester");
     } finally {
       this.isSearching = false;
       this.resetValidation();
@@ -172,10 +165,6 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
       }
 
       this.omniApplyCallResp(this.populateAddress(this.selectedAddress));
-      this.setParentAddress(
-        "addressselected",
-        this.populateAddress(this.selectedAddress)
-      );
     } catch (error) {
       handleErrorShowToast(
         this,
@@ -206,21 +195,12 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
         this.addressPostCodeList = [];
         return;
       }
-      handleErrorShowToast(
-        this,
-        SELECT_ADDRESS_ERROR,
-        error,
-        error.body.message,
-        "pester"
-      );
-      this.dispatchEvent(
-        new CustomEvent("postcodeapierror", {
-          detail: {
-            error: error,
-            message: error.body.message
-          }
-        })
-      );
+      this.showAddresses = false;
+      this.omniApplyCallResp({
+        Case: {
+          apiDown: true
+        }
+      });
     }
   }
   handleSelectedAddress(event) {
@@ -231,10 +211,6 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
       )
     );
     this.showAddresses = false;
-    this.setParentAddress(
-      "postcodeselected",
-      this.addressPostCodeList[clickedIndex]?.postCode
-    );
   }
   setPostCodeOmniResponse(postCode) {
     if (this.thirdPartyCheck === "false") {
@@ -251,13 +227,6 @@ export default class AddressLookupUtil extends OmniscriptBaseMixin(
         selectedThirdPartypostcode: postCode
       }
     };
-  }
-  setParentAddress(eventName, eventValue) {
-    this.dispatchEvent(
-      new CustomEvent(eventName, {
-        detail: eventValue
-      })
-    );
   }
 
   populateAddress(address) {

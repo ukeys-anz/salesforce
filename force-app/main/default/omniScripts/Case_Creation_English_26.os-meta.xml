@@ -3036,30 +3036,6 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
-                <name>StateFormula</name>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;StateFormula&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
-  &quot;expression&quot; : &quot;IF(%data:fields:RecordType:displayValue% = &apos;Individual&apos;,%data:fields:PersonOtherState:value%,IF(%data:fields:RecordType:displayValue% = &apos;Organisation&apos;,IF(%data:fields:ShippingState:value%!=null,%data:fields:ShippingState:value%,%data:fields:BillingState:value%),&apos;&apos;))&quot;,
-  &quot;hide&quot; : true,
-  &quot;show&quot; : null,
-  &quot;mask&quot; : null,
-  &quot;dataType&quot; : null,
-  &quot;hideGroupSep&quot; : false,
-  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-                <sequenceNumber>15.0</sequenceNumber>
-                <type>Formula</type>
-            </childElements>
-            <childElements>
                 <name>StateManual</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -3152,30 +3128,6 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
-                <name>StreetFormula</name>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;StreetFormula&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
-  &quot;expression&quot; : &quot;IF(%data:fields:RecordType:displayValue% = &apos;Individual&apos;,%data:fields:PersonOtherStreet:value%,IF(%data:fields:RecordType:displayValue% = &apos;Organisation&apos;,IF(%data:fields:ShippingStreet:value%!=null,%data:fields:ShippingStreet:value%,%data:fields:BillingStreet:value%),&apos;&apos;))&quot;,
-  &quot;hide&quot; : true,
-  &quot;show&quot; : null,
-  &quot;mask&quot; : null,
-  &quot;dataType&quot; : null,
-  &quot;hideGroupSep&quot; : false,
-  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-                <sequenceNumber>13.0</sequenceNumber>
-                <type>Formula</type>
-            </childElements>
-            <childElements>
                 <name>StreetManual</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -3266,30 +3218,6 @@
 }</propertySetConfig>
                 <sequenceNumber>44.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
-            </childElements>
-            <childElements>
-                <name>SuburbFormula</name>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;SuburbFormula&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
-  &quot;expression&quot; : &quot;IF(%data:fields:RecordType:displayValue% = &apos;Individual&apos;,%data:fields:PersonOtherCity:value%,IF(%data:fields:RecordType:displayValue% = &apos;Organisation&apos;,IF(%data:fields:ShippingCity:value%!=null,%data:fields:ShippingCity:value%,%data:fields:BillingCity:value%),&apos;&apos;))&quot;,
-  &quot;hide&quot; : true,
-  &quot;show&quot; : null,
-  &quot;mask&quot; : null,
-  &quot;dataType&quot; : null,
-  &quot;hideGroupSep&quot; : false,
-  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-                <sequenceNumber>14.0</sequenceNumber>
-                <type>Formula</type>
             </childElements>
             <childElements>
                 <name>SuburbManual</name>
