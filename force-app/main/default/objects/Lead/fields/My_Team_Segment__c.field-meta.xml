@@ -16,7 +16,11 @@
         ),
         true, 
         IF(
-        OR(ISPICKVAL($User.Commercial_Segment__c, &apos;AF&apos;), ISPICKVAL($User.Commercial_Segment__c, &apos;SME NBC&apos;)),
+        OR(
+         ISPICKVAL($User.Commercial_Segment__c, &apos;AF&apos;), 
+          ISPICKVAL($User.Commercial_Segment__c, &apos;SME NBC&apos;),
+           ISPICKVAL($User.Commercial_Segment__c, &apos;PB&apos;)
+         ),
         My_Sub_Team__c ,
         My_Region_Flag__c 
         )

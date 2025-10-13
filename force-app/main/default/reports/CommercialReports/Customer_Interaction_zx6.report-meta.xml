@@ -52,6 +52,12 @@
     <columns>
         <field>Interaction$Optional_Notes__c</field>
     </columns>
+    <columns>
+        <field>Interaction$Owner.Name</field>
+    </columns>
+    <columns>
+        <field>Interaction$CreatedDate</field>
+    </columns>
     <description>Customer Interactions for Banker</description>
     <filter>
         <criteriaItems>
@@ -60,6 +66,13 @@
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
             <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Interaction$Record_Type__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>CCRM Interaction</value>
         </criteriaItems>
         <language>en_US</language>
     </filter>
@@ -74,12 +87,12 @@
         <value>1</value>
     </params>
     <reportType>Interactions_With_Interaction_Attendee__c</reportType>
-    <scope>team</scope>
+    <scope>organization</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
     <timeFrameFilter>
         <dateColumn>Interaction$CreatedDate</dateColumn>
-        <interval>INTERVAL_THISWEEK</interval>
+        <interval>INTERVAL_CUSTOM</interval>
     </timeFrameFilter>
 </Report>

@@ -4,7 +4,17 @@ const { readFileSync } = require("fs");
 const SaxonJS = require("saxon-js");
 
 //This is the main linting function, it also tests to see if this is the Check Only flag is active
+
+const NOT_DECODING_ARRAY = ["%2F"];
+
+const checkNotDecodingPath = (changedFile) =>
+  NOT_DECODING_ARRAY.some((symbol) => changedFile.includes(symbol));
+
 const xmlLinter = (changedFile) => {
+  if (checkNotDecodingPath(changedFile)) {
+    return true;
+  }
+
   const file = decodeURIComponent(changedFile);
   const lintedFile = SaxonJS.transform({
     sourceLocation: file,

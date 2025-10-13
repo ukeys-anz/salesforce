@@ -9,7 +9,7 @@
                         <valueListItems>
                             <value>Lead.Validate_Address</value>
                             <visibilityRule>
-                                <booleanFilter>((1 AND 2 AND 3 AND 4 AND 5) AND (7 OR 6) AND 8)</booleanFilter>
+                                <booleanFilter>((1 AND 2 AND 3 AND 4 AND 5) AND (7 OR 6 OR 9) AND 8)</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.Status}</leftValue>
                                     <operator>NE</operator>
@@ -50,12 +50,17 @@
                                     <operator>EQUAL</operator>
                                     <rightValue>false</rightValue>
                                 </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Profile_Name__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>ANZ CCRM Standard Automation User</rightValue>
+                                </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>Lead.Convert_Commercial_Lead_Aura</value>
                             <visibilityRule>
-                                <booleanFilter>((1 AND 2 AND 3) AND (5 OR 4 OR 7) AND 6)</booleanFilter>
+                                <booleanFilter>((1 AND 2 AND 3) AND (5 OR 4 OR 7 OR 8) AND 6)</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.Status}</leftValue>
                                     <operator>EQUAL</operator>
@@ -91,12 +96,17 @@
                                     <operator>EQUAL</operator>
                                     <rightValue>Commercial_Admin</rightValue>
                                 </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Profile_Name__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>ANZ CCRM Standard Automation User</rightValue>
+                                </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>Lead.Log_a_Response_Aura</value>
                             <visibilityRule>
-                                <booleanFilter>((1 OR 2 OR 7) AND (4 OR 3 OR 6) AND 5)</booleanFilter>
+                                <booleanFilter>((1 OR 2 OR 7) AND (4 OR 3 OR 6 OR 8) AND 5)</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.Status}</leftValue>
                                     <operator>EQUAL</operator>
@@ -131,6 +141,11 @@
                                     <leftValue>{!Record.Lead_Outcome__c}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>Referred</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Profile_Name__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>ANZ CCRM Standard Automation User</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
@@ -1513,6 +1528,10 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Tabs</value>
+                </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>tabs</name>
                     <value>tabs</value>

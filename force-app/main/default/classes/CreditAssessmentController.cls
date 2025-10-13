@@ -283,7 +283,7 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
    * @description checks if current user is the owner of case record.
    */
   private static Boolean isCurrentUserCaseOwner(Case caseRecord) {
-    return UserInfo.getUserId() == caseRecord.OwnerId;
+    return USER_INFO.getUser().Id == caseRecord.OwnerId;
   }
 
   /**

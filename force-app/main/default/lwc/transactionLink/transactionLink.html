@@ -1,0 +1,174 @@
+<template>
+  <lightning-spinner
+    lwc:if={isLoading}
+    alternative-text="Loading..."
+    variant="brand"
+    size="medium"
+  >
+  </lightning-spinner>
+  <lightning-modal-header label={currentNavAction.label}>
+  </lightning-modal-header>
+  <lightning-modal-body>
+    <div lwc:if={nav.selectFA.isVisible}>
+      <h3
+        class="slds-section__title slds-theme--shade slds-p-horizontal_small slds-m-vertical_x-small"
+      >
+        Available Accounts
+      </h3>
+      <p>Select account to search transactions.</p>
+      <lightning-datatable
+        key-field="Id"
+        data={accounts}
+        columns={faColumns}
+        selected-rows={selectedAccId}
+        max-row-selection={nav.selectFA.maxRowSelection}
+        onrowselection={handler.accSelection}
+      >
+      </lightning-datatable>
+    </div>
+    <div lwc:if={nav.selectTransactions.isVisible}>
+      <h3
+        class="slds-section__title slds-theme--shade slds-p-horizontal_small slds-m-vertical_x-small"
+      >
+        Searching transactions on the Account
+      </h3>
+      <p>Select the transactions you'd like to attach to the case.</p>
+      <div class="slds-form--inline">
+        <div class="slds-form-element search-input">
+          <lightning-input
+            class="startDate"
+            type="date"
+            name="startDate"
+            label="Start Date"
+            value={startDate}
+            max={maxStartDate}
+            onchange={handler.dateChange}
+            lwc:ref="startDateInput"
+          >
+          </lightning-input>
+        </div>
+        <div class="slds-form-element search-input">
+          <lightning-input
+            class="endDate"
+            type="date"
+            name="endDate"
+            label="End Date"
+            value={endDate}
+            max={todayDate}
+            min={startDate}
+            onchange={handler.dateChange}
+            lwc:ref="endDateInput"
+          >
+          </lightning-input>
+        </div>
+        <div class="slds-form-element search-input">
+          <lightning-button
+            variant="brand"
+            label="Search"
+            title="Search"
+            onclick={handler.search}
+            disabled={disableSearch}
+            class="slds-m-left_x-small searchButton"
+          ></lightning-button>
+        </div>
+        <div class="slds-form-element search-input">
+          <lightning-button
+            label="Reset"
+            title="Reset"
+            onclick={handler.resetSearch}
+            disabled={disableSearch}
+            class="slds-m-left_x-small resetButton"
+          ></lightning-button>
+        </div>
+      </div>
+
+      <lightning-datatable
+        lwc:if={transactions.length}
+        key-field="TransactionId"
+        data={txnsUIData}
+        columns={txnColumns}
+        selected-rows={selectedTxnIds}
+        max-row-selection={maxTxnSelection}
+        onrowselection={handler.txnSelection}
+        single-row-selection-mode="checkbox"
+        class="tableTxn"
+      ></lightning-datatable>
+      <h1 lwc:else class="slds-card__header-title main-title">
+        <span class="not-found">No Transactions Found</span>
+      </h1>
+    </div>
+    <div lwc:if={nav.review.isVisible}>
+      <div lwc:if={tnxAdded.length}>
+        <h3
+          class="slds-section__title slds-theme--shade slds-p-horizontal_small slds-m-vertical_x-small"
+        >
+          Reviewing Transactions to be attached to the case
+        </h3>
+        <p></p>
+        <lightning-datatable
+          key-field="Id"
+          data={tnxAdded}
+          columns={reviewTxnColumns}
+          show-row-number-column
+          hide-checkbox-column
+          class="reviewAddedTable"
+        >
+        </lightning-datatable>
+      </div>
+      <div lwc:if={tnxRemoved.length}>
+        <h3
+          class="slds-section__title slds-theme--shade slds-p-horizontal_small slds-m-vertical_x-small"
+        >
+          Reviewing Transactions to be removed from the case
+        </h3>
+        <p></p>
+        <lightning-datatable
+          key-field="Id"
+          data={tnxRemoved}
+          columns={reviewTxnColumns}
+          show-row-number-column
+          hide-checkbox-column
+          class="reviewRemovedTable"
+        >
+        </lightning-datatable>
+      </div>
+    </div>
+  </lightning-modal-body>
+  <lightning-modal-footer>
+    <div class="slds-grid slds-grid_align-spread">
+      <div>
+        <lightning-button
+          class="backButton"
+          label="Back"
+          title="Back"
+          onclick={handler.back}
+          disabled={isBackButtonDisabled}
+        >
+        </lightning-button>
+      </div>
+      <div class="slds-align_absolute-center">
+        <p lwc:if={nav.selectTransactions.isVisible}>
+          Total Transactions ({countAttachedTxns})
+        </p>
+      </div>
+      <div>
+        <lightning-button
+          class="slds-m-right_small cancelButton"
+          label="Cancel"
+          title="Cancel"
+          onclick={handler.cancel}
+        >
+        </lightning-button>
+        <lightning-button
+          class="nextButton"
+          variant="brand"
+          label={currentNavAction.nextButtonLabel}
+          title="Next"
+          onclick={handler.next}
+          disabled={isNextButtonDisabled}
+        >
+        </lightning-button>
+      </div>
+    </div>
+  </lightning-modal-footer>
+</template>

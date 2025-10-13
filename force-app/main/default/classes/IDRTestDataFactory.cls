@@ -4,6 +4,8 @@
  */
 @isTest
 public class IDRTestDataFactory {
+  static Faker faker = new Faker('AU');
+  static String anzEmail = faker.internet.anzEmail();
   /**
    *@description Create an Afca Case
    * @param priority of the Case
@@ -11,7 +13,6 @@ public class IDRTestDataFactory {
    * @param subIssueType of the Case
    * @return Case
    */
-
   public static Case createAfcaCustomerComplaintCase(
     String priority,
     String issueType,
@@ -59,6 +60,40 @@ public class IDRTestDataFactory {
   }
 
   /**
+   *@description Create an Account record with extra care time period and reason
+   * @param extraCareTimeperiod ExtraCare flag of the Account
+   * @return Account
+   */
+  public static Account getECFAccount(String extraCareTimeperiod) {
+    Account acc = new Account();
+    acc.Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    acc.ExtraCareTimePeriod__c = extraCareTimeperiod;
+    return acc;
+  }
+
+  /**
+   *@description Create a Customer complaint Case record with priority and related Account for Mocking framework
+   * @param priority Set Priority of Case
+   * @param acc Account object to relate with Case
+   * @return Case
+   */
+  public static Case getCaseWithAccount(String priority, Account acc) {
+    Integer caseNumber = new Faker('0-9').randomInteger(6);
+    Case cs = (Case) TestUtil.setFields(
+      new Case(
+        Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
+        RecordTypeId = RTCase.customerComplaint,
+        Status = IDRConstants.OPEN_STATUS,
+        CaseNumber__c = String.valueOf(caseNumber),
+        Priority = priority,
+        AccountId = acc.Id
+      ),
+      new Map<String, Object>{ 'CaseNumber' => caseNumber, 'Account' => acc }
+    );
+    return cs;
+  }
+
+  /**
    * @description Method to create dummy Quality Assessment record
    * @param qaRecordId recordId For Qa record
    * @param oQAUser cq Specialist
@@ -70,7 +105,7 @@ public class IDRTestDataFactory {
   ) {
     Quality_Assessment__c qaRecord = new Quality_Assessment__c(
       Id = qaRecordId,
-      Status__c = 'Complete',
+      Status__c = IDRConstants.STATUS_COMPLETE,
       Case_Manager__c = oQAUser.Id,
       TeamManager__c = oQAUser.Id,
       C_Q_Specialist__c = oQAUser.Id,

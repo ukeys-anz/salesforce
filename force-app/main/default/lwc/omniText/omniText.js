@@ -1,16 +1,52 @@
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { LightningElement, track } from "lwc";
 import tmp from "./omniText.html";
-
+const addressFields = [
+  "Country",
+  "State",
+  "Street",
+  "Suburb",
+  "CountryManual",
+  "StateManual",
+  "SuburbManual",
+  "StreetManual"
+];
+const picklistFields = ["Country", "State", "CountryManual", "StateManual"];
 export default class OmniText extends OmniscriptBaseMixin(LightningElement) {
   @track isRequired = false;
   @track isPicklist = false;
   @track isText = false;
   @track options = [];
   @track value;
+  @track inpValue;
+
+  isDisabled = false;
+
+  setValues(data) {
+    let typeOfAddress = this.omniJsonDef?.name;
+    if (!addressFields.includes(typeOfAddress)) {
+      return;
+    }
+    let addressValue = data?.CustomerDetails?.[typeOfAddress];
+    this.isDisabled = this.checkforDisableInput(data) ?? false;
+    if (picklistFields.includes(typeOfAddress) && addressValue) {
+      this.value = addressValue;
+      return;
+    }
+    this.inpValue = addressValue;
+  }
+  checkforDisableInput(data) {
+    return (
+      data?.disablAddress &&
+      data?.CustomerDetails?.SearchAddressRadio === "Search Address"
+    );
+  }
 
   connectedCallback() {
-    if (this.omniJsonDef && this.omniJsonDef.name === "Country") {
+    if (
+      this.omniJsonDef?.name === "Country" ||
+      this.omniJsonDef?.name === "CountryManual"
+    ) {
       this.getOptions("", "", "", "getCountryPicklist");
       this.value = "Australia";
       this.getOptions(
@@ -19,7 +55,10 @@ export default class OmniText extends OmniscriptBaseMixin(LightningElement) {
         this.value,
         "getDependentValues"
       );
-    } else if (this.omniJsonDef && this.omniJsonDef.name === "State") {
+    } else if (
+      this.omniJsonDef?.name === "State" ||
+      this.omniJsonDef?.name === "StateManual"
+    ) {
       this.isPicklist = true;
     } else {
       this.isText = true;
@@ -27,12 +66,14 @@ export default class OmniText extends OmniscriptBaseMixin(LightningElement) {
   }
 
   render() {
-    if (this.omniJsonData && this.omniJsonData.Case)
-      this.setRequired(this.omniJsonData.Case);
+    if (this.omniJsonData?.Case?.isThisCustomerComplaint === "No") {
+      this.setValues(this.omniJsonData?.Case);
+    }
+    if (this.omniJsonData?.Case) this.setRequired(this.omniJsonData.Case);
     if (
-      this.omniJsonData &&
-      this.omniJsonData.States &&
-      this.omniJsonDef.name === "State"
+      this.omniJsonData?.States &&
+      (this.omniJsonDef.name === "State" ||
+        this.omniJsonDef.name === "StateManual")
     ) {
       this.options = [];
       this.omniJsonData.States.options.forEach((opt) => {
@@ -49,18 +90,17 @@ export default class OmniText extends OmniscriptBaseMixin(LightningElement) {
         this.omniJsonDef.name === "LastName")
     ) {
       this.isRequired = true;
-    } else if (
+      return;
+    }
+    if (
       (data.ResolutionInformation.custWrittenResponse === "Yes" ||
         data.ResolutionInformation.complaintRelatedHardship === "Yes") &&
-      (this.omniJsonDef.name === "Street" ||
-        this.omniJsonDef.name === "Suburb" ||
-        this.omniJsonDef.name === "State" ||
-        this.omniJsonDef.name === "Country")
+      addressFields.includes(this.omniJsonDef.name)
     ) {
       this.isRequired = true;
-    } else {
-      this.isRequired = false;
+      return;
     }
+    this.isRequired = false;
   }
 
   handleChange(event) {

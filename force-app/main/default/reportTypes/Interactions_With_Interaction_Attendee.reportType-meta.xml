@@ -100,6 +100,17 @@
             <field>Optional_Notes__c</field>
             <table>Interaction</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Record Type Id</displayNameOverride>
+            <field>RecordType</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Record_Type__c</field>
+            <table>Interaction</table>
+        </columns>
         <masterLabel>Interactions</masterLabel>
     </sections>
     <sections>

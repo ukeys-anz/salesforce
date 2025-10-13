@@ -142,13 +142,6 @@ jobs:
             rm -rf "${{ github.workspace }}/release"
           fi
 
-  upload_bq_prod_schema_changes:
-    uses: ./.github/workflows/bq-upload-object-changes.yaml
-    needs: [Release]
-    secrets: inherit
-    with:
-      prod_deployment: true
-
   update-sdva:
     runs-on: anzx-default
     needs: [Release]

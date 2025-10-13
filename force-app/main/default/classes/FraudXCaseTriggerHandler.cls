@@ -24,7 +24,7 @@ public with sharing class FraudXCaseTriggerHandler extends Lib_TriggerHandler {
    * @description onBeforeInsert to handle before insert trigger actions.
    */
   public override void onBeforeInsert() {
-    Logger.debug('On_Before_Insert started: ' + System.now());
+    Logger.debug('On_Before_Insert started: ' + DateTimeUtils.timeString);
     FraudXCaseActions.populateFraudXCaseSubject(records, new Map<Id, Case>());
     CommonCaseTriggerActions.populateContactLookupForANZPlus(
       records,
@@ -32,7 +32,7 @@ public with sharing class FraudXCaseTriggerHandler extends Lib_TriggerHandler {
     );
     CommonCaseTriggerActions.maskTaxNumbers(records, new Map<Id, Case>());
     CommonCaseTriggerActions.setBusinessHours(records);
-    Logger.debug('On_Before_Insert finished: ' + System.now());
+    Logger.debug('On_Before_Insert finished: ' + DateTimeUtils.timeString);
     Logger.saveLog();
   }
 
@@ -41,7 +41,7 @@ public with sharing class FraudXCaseTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    Logger.debug('On_Before_Update started: ' + System.now());
+    Logger.debug('On_Before_Update started: ' + DateTimeUtils.timeString);
     FraudXCaseActions.populateFraudXCaseSubject(
       records,
       (Map<Id, Case>) oldMap
@@ -55,7 +55,26 @@ public with sharing class FraudXCaseTriggerHandler extends Lib_TriggerHandler {
       records,
       (Map<Id, Case>) oldMap
     );
-    Logger.debug('On_Before_Update finished: ' + System.now());
+    FraudXCaseActions.validateLinkedTxnRecoveryStatus(
+      records,
+      (Map<Id, Case>) oldMap
+    );
+    FraudXCaseActions.validateCustomerChange(records, (Map<Id, Case>) oldMap);
+    Logger.debug('On_Before_Update finished: ' + DateTimeUtils.timeString);
+    Logger.saveLog();
+  }
+
+  /**
+   * @description onAfterUpdate to handle after update trigger actions.
+   * @param oldMap old trigger values
+   */
+  public override void onAfterUpdate(Map<Id, SObject> oldMap) {
+    Logger.debug('On_After_Update started: ' + DateTimeUtils.timeString);
+    FraudXCaseActions.changeRelatedDisputeOwner(
+      records,
+      (Map<Id, Case>) oldMap
+    );
+    Logger.debug('On_After_Update finished: ' + DateTimeUtils.timeString);
     Logger.saveLog();
   }
 }

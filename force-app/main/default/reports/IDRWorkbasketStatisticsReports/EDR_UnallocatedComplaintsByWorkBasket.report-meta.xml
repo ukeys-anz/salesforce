@@ -39,6 +39,12 @@
         <field>PRIORITY</field>
     </columns>
     <columns>
+        <field>Account.ExtraCareReason__c</field>
+    </columns>
+    <columns>
+        <field>Account.ExtraCareTimePeriod__c</field>
+    </columns>
+    <columns>
         <field>Case.IDR_Product_Category__c</field>
     </columns>
     <customDetailFormulas>

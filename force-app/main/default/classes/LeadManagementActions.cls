@@ -261,12 +261,8 @@ public with sharing class LeadManagementActions {
     for (Schema.FieldSetMember field : fieldSetMembers) {
       leadFields.add(field.FieldPath);
     }
-    String leadQuery =
-      'SELECT Id, ' +
-      String.join(leadFields, ', ') +
-      ' FROM Lead WHERE Id IN :leadIds';
     return new Map<Id, Lead>(
-      LEAD_ACTION_REPOSITORY.getLeadData(leadQuery, previousLeadIds)
+      LEAD_ACTION_REPOSITORY.getLeadData(leadFields, previousLeadIds)
     );
   }
 

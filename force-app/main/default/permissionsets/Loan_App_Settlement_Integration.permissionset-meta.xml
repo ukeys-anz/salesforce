@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customMetadataTypeAccesses>
+        <name>Loan_Application_Validity__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <description>Loan app permission to settlement integration</description>
     <fieldPermissions>
         <editable>false</editable>

@@ -521,4 +521,9 @@
         <default>false</default>
         <label>Goodwill Gesture Payment</label>
     </standardValue>
+    <standardValue>
+        <fullName>Sanctions</fullName>
+        <default>false</default>
+        <label>Sanctions</label>
+    </standardValue>
 </StandardValueSet>

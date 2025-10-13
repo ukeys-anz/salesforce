@@ -387,9 +387,8 @@ public with sharing class ResidentialLoanApplicationActions {
         continue;
       }
 
-      Loan_Application_Validity__mdt loanApplicationValidityMDT = RLA_REPOSITORY.getLoanApplicationValidityMetadata(
-        recordTypeName,
-        rla.Status
+      Loan_Application_Validity__mdt loanApplicationValidityMDT = QueryLoanApplicationValidity.getByDeveloperName(
+        recordTypeName + '_' + rla.Status
       );
       if (loanApplicationValidityMDT == null) {
         continue;

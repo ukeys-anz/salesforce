@@ -17,7 +17,6 @@ on:
   push:
     branches:
       - develop
-      - master
   pull_request:
     branches:
       - develop
@@ -96,9 +95,9 @@ jobs:
           echo "BUCKET_NAME=$BUCKET_NAME" && echo "BUCKET_NAME=$BUCKET_NAME" >> $GITHUB_OUTPUT
           echo "ARTIFACT_REF=$ARTIFACT_REF" && echo "ARTIFACT_REF=$ARTIFACT_REF" >> $GITHUB_OUTPUT
 
-      - name: Upload Object Changes
-        id: run-diff
-        shell: bash
-        run: |
-          chmod +x ./ci/run-bq-diff.sh
-          ./ci/run-bq-diff.sh ${{ steps.determine-artifact.outputs.ARTIFACT_REF }} ${{ steps.determine-artifact.outputs.BUCKET_NAME }}
+      # - name: Upload Object Changes
+      #   id: run-diff
+      #   shell: bash
+      #   run: |
+      #     chmod +x ./ci/run-bq-diff.sh
+      #     ./ci/run-bq-diff.sh ${{ steps.determine-artifact.outputs.ARTIFACT_REF }} ${{ steps.determine-artifact.outputs.BUCKET_NAME }}
