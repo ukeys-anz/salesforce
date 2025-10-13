@@ -34,10 +34,10 @@
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Met</controllingFieldValue>
-            <controllingFieldValue>Not Met</controllingFieldValue>
             <valueName>All issues that led to complaint or raised through the process were identified in the IDR / EDR letter sent to customer</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
             <controllingFieldValue>Not Met (Post IDR Letter)</controllingFieldValue>
             <valueName>All issues that led to complaint or raised through the process were not identified in the IDR / EDR letter sent to customer</valueName>
         </valueSettings>

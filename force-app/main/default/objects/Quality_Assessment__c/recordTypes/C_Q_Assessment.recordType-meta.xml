@@ -731,19 +731,23 @@
     <picklistValues>
         <picklist>Corrective_actions_for_TM_CM__c</picklist>
         <values>
-            <fullName>Coaching recommended</fullName>
+            <fullName>Address customer inquiry %2F provide documentation</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Further action recommended</fullName>
+            <fullName>Complete outstanding actions as agreed with customer</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>N%2FA- no action required</fullName>
+            <fullName>Further review due to potential customer detriment</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Review customer correspondence%2Fcontact customer</fullName>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reissue IDR %2F EDR letter</fullName>
             <default>false</default>
         </values>
         <values>

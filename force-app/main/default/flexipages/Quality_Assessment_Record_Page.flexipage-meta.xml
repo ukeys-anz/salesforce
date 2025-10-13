@@ -202,10 +202,21 @@
                 <fieldItem>Record.New_Starter__c</fieldItem>
                 <identifier>RecordNew_Starter_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Frontline Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -252,19 +263,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Status__c</fieldItem>
                 <identifier>RecordStatus_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldItem>Record.Related_Case__r.IDR_Office_Created_By__c</fieldItem>
-                <identifier>RecordRelated_Case_rIDR_Office_Created_By_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Frontline Assessment</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -7177,16 +7175,10 @@
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection16</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>NE</operator>
-                        <rightValue>Frontline Assessment</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Customer Resolution Assessment</rightValue>
+                        <rightValue>C_Q_Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -7208,16 +7200,10 @@
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection17</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>NE</operator>
-                        <rightValue>Frontline Assessment</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Customer Resolution Assessment</rightValue>
+                        <rightValue>C_Q_Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -7239,16 +7225,10 @@
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection18</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>NE</operator>
-                        <rightValue>Frontline Assessment</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Customer Resolution Assessment</rightValue>
+                        <rightValue>C_Q_Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -7270,16 +7250,10 @@
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection19</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>NE</operator>
-                        <rightValue>Frontline Assessment</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Customer Resolution Assessment</rightValue>
+                        <rightValue>C_Q_Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -7302,7 +7276,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Assessment_Outcome_Status__c</fieldItem>
                 <identifier>RecordAssessment_Outcome_Status_cField2</identifier>
@@ -7460,8 +7434,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Assessment_Result_formula__c</fieldItem>
-                <identifier>RecordAssessment_Result_formula_cField</identifier>
+                <fieldItem>Record.Assessment_Result__c</fieldItem>
+                <identifier>RecordAssessment_Result_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
