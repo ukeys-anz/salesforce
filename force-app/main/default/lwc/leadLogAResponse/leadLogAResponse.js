@@ -13,6 +13,7 @@ import LEAD_LEAD_QUALITY from "@salesforce/schema/Lead.Lead_Quality__c";
 import STATUS from "@salesforce/schema/Lead.Status";
 import RECORDTYPE_DEVELOPERNAME from "@salesforce/schema/Lead.RecordType.DeveloperName";
 import TASK_LEAD_QUALITY from "@salesforce/schema/Task.Lead_Quality__c";
+import LEAD_SOURCE from "@salesforce/schema/Lead.LeadSource";
 // Util methods
 import { handleErrors } from "c/utils";
 // import labels
@@ -32,6 +33,7 @@ import Proceed_Confirmation_Message from "@salesforce/label/c.Proceed_Confirmati
 
 const MOBILE_LENDING_RECORDTYPE = "MLCRM_Lead";
 const CCRM_RECORDTYPE = "CCRM_Lead";
+const LEADSOURCE_SELF_SOURCED = "Self-Sourced";
 
 export default class LeadLogAResponse extends LightningElement {
   @api recordId;
@@ -139,7 +141,7 @@ export default class LeadLogAResponse extends LightningElement {
   }
   @wire(getRecord, {
     recordId: "$recordId",
-    fields: [LEAD_LEAD_QUALITY, STATUS, RECORDTYPE_DEVELOPERNAME]
+    fields: [LEAD_LEAD_QUALITY, STATUS, RECORDTYPE_DEVELOPERNAME, LEAD_SOURCE]
   })
   getLeadRecord({ data, error }) {
     if (data) {
@@ -214,9 +216,11 @@ export default class LeadLogAResponse extends LightningElement {
         this.selectedResponseStatusValue
       );
     } else if (this.recordTypeName === CCRM_RECORDTYPE) {
-      isRequired = this.label.CCRM_LeadQualityRequiredValues.includes(
-        this.selectedResponseStatusValue
-      );
+      isRequired =
+        this.label.CCRM_LeadQualityRequiredValues.includes(
+          this.selectedResponseStatusValue
+        ) &&
+        this.leadRecord?.fields?.LeadSource?.value !== LEADSOURCE_SELF_SOURCED;
     }
     return isRequired;
   }
