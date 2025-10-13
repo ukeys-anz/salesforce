@@ -20,7 +20,7 @@
         <accessLevel>Edit</accessLevel>
         <label>Display Contacts</label>
         <sharedTo>
-            <roleAndSubordinates>ANZ</roleAndSubordinates>
+            <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>

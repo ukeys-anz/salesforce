@@ -37,7 +37,7 @@
         <description>Individual Person Account records to be shared with Read/Write access.</description>
         <label>MLCRM Account RW</label>
         <sharedTo>
-            <roleAndSubordinates>AR_C</roleAndSubordinates>
+            <roleAndSubordinatesInternal>AR_C</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>ANZx_Customer__c</field>
@@ -72,7 +72,7 @@
         <description>provide read only access to all ANZ customers to AR &amp; C Role</description>
         <label>MLCRM Account RO</label>
         <sharedTo>
-            <roleAndSubordinates>AR_C</roleAndSubordinates>
+            <roleAndSubordinatesInternal>AR_C</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>ANZx_Customer__c</field>
@@ -92,7 +92,7 @@
         <description>Providing Read/Write access to existing account to AR&amp;C.</description>
         <label>CCRM Existing Account RW</label>
         <sharedTo>
-            <roleAndSubordinates>AR_C</roleAndSubordinates>
+            <roleAndSubordinatesInternal>AR_C</roleAndSubordinatesInternal>
         </sharedTo>
         <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
         <criteriaItems>
@@ -154,7 +154,7 @@
         <description>Read Only for CMOS to access account</description>
         <label>CMOS customer access RO</label>
         <sharedTo>
-            <roleAndSubordinates>Customer_Resolution_with_ANZ_Plus_Read_Only</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Customer_Resolution_with_ANZ_Plus_Read_Only</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>ANZx_Customer__c</field>
@@ -204,7 +204,7 @@
         <description>Provides read only access to Commercial Banking Roles and Subordinates</description>
         <label>CCRM Account RO Sharing Rule</label>
         <sharedTo>
-            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
         </sharedTo>
         <booleanFilter>1 OR 2</booleanFilter>
         <criteriaItems>
@@ -230,7 +230,7 @@
         <description>Provides read only access to Mobile Lending Roles and Subordinates</description>
         <label>MLCRM Account RO Sharing Rule</label>
         <sharedTo>
-            <roleAndSubordinates>ANZ_Mobile_Lending</roleAndSubordinates>
+            <roleAndSubordinatesInternal>ANZ_Mobile_Lending</roleAndSubordinatesInternal>
         </sharedTo>
         <booleanFilter>(1 OR 2 ) AND 3</booleanFilter>
         <criteriaItems>

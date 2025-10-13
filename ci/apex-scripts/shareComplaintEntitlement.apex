@@ -8,7 +8,7 @@ Entitlement complaintEntitlement = [
 Group anzroleAndSubordinates = [
   SELECT Id
   FROM Group
-  WHERE DeveloperName = 'ANZ' AND Type = 'roleAndSubordinates'
+  WHERE DeveloperName = 'ANZ' AND Type = 'roleAndSubordinatesInternal'
 ];
 AccountShare share = new AccountShare();
 share.AccountId = complaintEntitlement.AccountId;

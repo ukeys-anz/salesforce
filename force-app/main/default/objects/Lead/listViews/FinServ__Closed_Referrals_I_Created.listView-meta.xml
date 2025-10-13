@@ -24,6 +24,6 @@
     <filterScope>Everything</filterScope>
     <label>Closed Referrals I Created</label>
     <sharedTo>
-        <roleAndSubordinates>Engineer</roleAndSubordinates>
+        <roleAndSubordinatesInternal>Engineer</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

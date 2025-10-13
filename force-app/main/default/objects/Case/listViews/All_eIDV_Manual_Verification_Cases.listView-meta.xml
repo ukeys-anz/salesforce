@@ -7,15 +7,15 @@
     <columns>CASES.STATUS</columns>
     <columns>CASES.PRIORITY</columns>
     <columns>CORE.USERS.ALIAS</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
         <value>Case.TrustMe_eIDV_Case</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>All TrustMe Manual Review Cases</label>
     <sharedTo>
-        <roleAndSubordinates>FraudX_Agent</roleAndSubordinates>
-        <roleAndSubordinates>Join_Lead</roleAndSubordinates>
+        <roleAndSubordinatesInternal>FraudX_Agent</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>Join_Lead</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

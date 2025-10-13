@@ -22,7 +22,7 @@
     <label>All ReKYC QA Open Cases</label>
     <sharedTo>
         <role>Onboarding_Support_Read_Only</role>
-        <roleAndSubordinates>FraudX_Agent</roleAndSubordinates>
-        <roleAndSubordinates>Join_Lead</roleAndSubordinates>
+        <roleAndSubordinatesInternal>FraudX_Agent</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>Join_Lead</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>
