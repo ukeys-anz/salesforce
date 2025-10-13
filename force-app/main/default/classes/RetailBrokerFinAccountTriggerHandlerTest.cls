@@ -20,13 +20,15 @@ public with sharing class RetailBrokerFinAccountTriggerHandlerTest {
       FinServ__FinancialAccount__c financialAccount = new FinServ__FinancialAccount__c();
       financialAccount.RecordTypeId = recordTypeId;
       if (counter == 0) {
-        financialAccount.Marketing_Code__c = 'HLVAR01';
+        financialAccount.Assisted_Broker_TPMI_SAO__c = null;
       } else if (counter == 1) {
-        financialAccount.Marketing_Code__c = 'HLFXD01';
+        financialAccount.RecordTypeId = RTFinancialAccount.savingAccount;
       } else {
-        financialAccount.Marketing_Code__c = 'MCODE007';
+        financialAccount.Assisted_Broker_TPMI_SAO__c =
+          'TPMI' +
+          prefix +
+          counter;
       }
-      financialAccount.Assisted_Broker_TPMI_SAO__c = 'TPMI' + prefix + counter;
       financialAccounts.add(financialAccount);
     }
     return financialAccounts;
@@ -44,19 +46,19 @@ public with sharing class RetailBrokerFinAccountTriggerHandlerTest {
     );
     RetailBrokerFinAccountTriggerHandler retailBrokerFinAccountTriggerHandler = new RetailBrokerFinAccountTriggerHandler();
     Assert.areEqual(
-      true,
+      false,
       retailBrokerFinAccountTriggerHandler.isValidRecord(financialAccounts[0]),
-      'Should be a valid record!'
-    );
-    Assert.areEqual(
-      true,
-      retailBrokerFinAccountTriggerHandler.isValidRecord(financialAccounts[1]),
-      'Should be a valid record!'
+      'Should be a invalid record!'
     );
     Assert.areEqual(
       false,
+      retailBrokerFinAccountTriggerHandler.isValidRecord(financialAccounts[1]),
+      'Should be a invalid record!'
+    );
+    Assert.areEqual(
+      true,
       retailBrokerFinAccountTriggerHandler.isValidRecord(financialAccounts[2]),
-      'Should be an invalid record!'
+      'Should be an valid record!'
     );
   }
 }
