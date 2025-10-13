@@ -6,10 +6,10 @@
         <description>Sharing Resolution Pathway response records with CRP subordinates</description>
         <label>Resolution Pathway Response Sharing with CRP Team</label>
         <sharedTo>
-            <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Customer_Resolution_Leadership</roleAndSubordinatesInternal>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Customer_Resolution_Leadership</roleAndSubordinatesInternal>
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>

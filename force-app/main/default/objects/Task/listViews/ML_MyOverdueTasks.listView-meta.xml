@@ -29,6 +29,6 @@
     <filterScope>Mine</filterScope>
     <label>My Overdue Tasks</label>
     <sharedTo>
-        <roleAndSubordinates>ANZ_Mobile_Lending</roleAndSubordinates>
+        <roleAndSubordinatesInternal>ANZ_Mobile_Lending</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>
