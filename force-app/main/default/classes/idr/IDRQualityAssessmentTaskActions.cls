@@ -228,7 +228,9 @@ public with sharing class IDRQualityAssessmentTaskActions {
         record.Related_Case__r.CaseNumber__c
       };
       String formatted = String.format(subject, parameters);
-      taskRecords.add(getTask(record, null, formatted));
+      taskRecords.add(
+        getTask(record, IDRConstants.TASK_QA_COMPLIANCE_DESCRIPTION, formatted)
+      );
     }
     return taskRecords;
   }
