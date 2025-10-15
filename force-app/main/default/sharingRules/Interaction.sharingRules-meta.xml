@@ -20,7 +20,7 @@
         <accessLevel>Read</accessLevel>
         <label>CCRM Sharing ML Interaction with Commercial Bankers Read Only</label>
         <sharedTo>
-            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -128,7 +128,7 @@
         <description>This sharing rule provides read access to users with Settlement Officer Lead and their Subordinates</description>
         <label>Interaction Settlement Officer Lead Read Sharing Rule</label>
         <sharedTo>
-            <roleAndSubordinates>Settlement_Officer_Lead</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Settlement_Officer_Lead</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -287,7 +287,7 @@
         <description>Share Interactions within all of Commercial</description>
         <label>CCRM Interactions Sharing Rule</label>
         <sharedTo>
-            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -317,7 +317,7 @@
         <accessLevel>Read</accessLevel>
         <label>CMOS Interaction access RO</label>
         <sharedTo>
-            <roleAndSubordinates>Customer_Resolution_with_ANZ_Plus_Read_Only</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Customer_Resolution_with_ANZ_Plus_Read_Only</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>Name</field>
@@ -350,7 +350,7 @@
             <role>ANZ_Plus_Operations_Read_Only</role>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinates>ANZx</roleAndSubordinates>
+            <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
@@ -361,7 +361,7 @@
             <role>Coach_Lead</role>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinates>ANZx</roleAndSubordinates>
+            <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
@@ -372,7 +372,7 @@
             <role>Coach</role>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinates>ANZx</roleAndSubordinates>
+            <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>

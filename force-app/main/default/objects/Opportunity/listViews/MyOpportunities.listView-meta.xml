@@ -20,6 +20,6 @@
     <filterScope>Mine</filterScope>
     <label>My In-progress Opportunities</label>
     <sharedTo>
-        <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+        <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

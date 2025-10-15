@@ -6,10 +6,10 @@
         <description>Sharing rule to share Pathway records with CRP and L1 users</description>
         <label>Pathway Sharing CRP and L1</label>
         <sharedTo>
-            <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Customer_Resolution_Leadership</roleAndSubordinatesInternal>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Customer_Resolution_Leadership</roleAndSubordinatesInternal>
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>
