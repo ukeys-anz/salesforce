@@ -5256,6 +5256,31 @@
         "Sequence__c"
       ]
     },
+    "Demand_Account__x": {
+      "IA-2415984": [
+        "Customer__c",
+        "Account_Name__c",
+        "Short_Name__c"
+      ],
+      "IA-2415987": [
+        "Account_Number__c",
+        "Account_Status__c",
+        "Balance__c"
+    ]
+    },
+    "Liability_Account__x": {
+      "IA-2415984": [
+        "Customer__c",
+        "Account_Name__c"
+      ],
+      "IA-2415987": [
+        "Account_Number__c",
+        "Balance__c",
+        "Limit__c",
+        "Product_Name__c",
+        "Status__c"
+    ]
+    },
     "Deposit_Account__x": {
       "IA-2415720": [
         "Account_Name__c",
