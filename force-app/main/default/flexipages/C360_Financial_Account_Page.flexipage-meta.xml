@@ -135,6 +135,13 @@
                     <valueList>
                         <valueListItems>
                             <value>FinServ__FinancialAccount__c.View_Account_Details</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.FinServ__PrimaryOwner__r.Source_System_Name__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>CACHE</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>

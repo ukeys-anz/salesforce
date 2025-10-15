@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCRM_CACHE_Contact_No_Edit</fullName>
+    <active>true</active>
+    <description>Don&apos;t allow editing of contacts associated with CACHE customers.</description>
+    <errorConditionFormula>AND(
+  NOT(ISNEW()),
+  $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+  NOT($Permission.CCRM_Skip_Validation),
+  Account.Source_System_Name__c = &quot;CACHE&quot;
+)</errorConditionFormula>
+    <errorMessage>Unsupported customer profile selected. Please choose a valid CAP customer profile to proceed.</errorMessage>
+</ValidationRule>

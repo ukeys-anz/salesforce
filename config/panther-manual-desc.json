@@ -377,7 +377,8 @@
         "Victim_External_ID__c",
         "Survivor_Party_ID__c",
         "External_Id__c",
-        "RecordTypeId"
+        "RecordTypeId",
+        "Source_System_Icon__c"
       ],
       "IA-2415855": [
         "CustomerExitDate__c",
@@ -385,6 +386,15 @@
         "CLG_Credit_Rating__c"
       ],
       "IA-2415998": ["VOI_Expiry_Date_Classic__c", "VOI_Status_Classic__c"],
+      "IA-4674256": [
+        "CIP_Id__c",
+        "Date_Closed__c",
+        "Direct_Marketing__c",
+        "Gold_Tier_Id__c",
+        "Last_Maint_Date__c",
+        "Security_Indicator__c",
+        "Credit_Rating__c"
+      ],
       "IA-2453595": ["Migration_Status__c", "DeceasedEstateStatus__c"]
     },
     "AccountClosureErrorMetadata__mdt": {

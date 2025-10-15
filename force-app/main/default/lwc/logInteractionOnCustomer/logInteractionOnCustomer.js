@@ -3,6 +3,7 @@ import { CloseActionScreenEvent } from "lightning/actions";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import INTERACTION_OBJECT from "@salesforce/schema/Interaction";
 import { getObjectInfo } from "lightning/uiObjectInfoApi";
+import { getRecord } from "lightning/uiRecordApi";
 import NAME_FIELD from "@salesforce/schema/Interaction.Name";
 import CATEGORY_FIELD from "@salesforce/schema/Interaction.Category__c";
 import CUSTOMER_FIELD from "@salesforce/schema/Interaction.AccountId";
@@ -16,6 +17,7 @@ import PERMANENT_FIELD from "@salesforce/schema/Interaction.Permanent__c";
 import getCommentTypeMapping from "@salesforce/apex/CCRMLogInteractionController.getCommentTypeMapping";
 import getSearchResult from "@salesforce/apex/CCRMLogInteractionController.getSearchResult";
 import INTERACTION_TYPE_FIELD from "@salesforce/schema/Interaction.Interaction_Type__c";
+import SOURCE_SYSTEM_NAME_FIELD from "@salesforce/schema/Account.Source_System_Name__c";
 
 export default class LogInteractionOnCustomer extends LightningElement {
   recordTypeId;
@@ -56,12 +58,19 @@ export default class LogInteractionOnCustomer extends LightningElement {
     INT_RT: "CCRM Interaction",
     FA_ROLE_OBJECT: "FinServ__FinancialAccountRole__c",
     FA_LABEL: "Financial Account",
-    FA_PLACEHOLDER: "Search Financial Account..."
+    FA_PLACEHOLDER: "Search Financial Account...",
+    CACHE: "CACHE"
   };
   searchKey;
   searchResults = [];
   tomorrowDateFormatted;
   defaultExpiryDate;
+
+  @wire(getRecord, {
+    recordId: "$recordId",
+    fields: [SOURCE_SYSTEM_NAME_FIELD]
+  })
+  account;
 
   @wire(getObjectInfo, { objectApiName: INTERACTION_OBJECT })
   Function({ error, data }) {
@@ -228,8 +237,21 @@ export default class LogInteractionOnCustomer extends LightningElement {
   }
 
   handleSubmit(event) {
-    this.isLoading = true;
     event.preventDefault();
+    if (
+      this.account?.data?.fields?.Source_System_Name__c?.value ===
+        this.CONSTANT.CACHE &&
+      this.category === this.CONSTANT.CAP_DIARY_COMMENT
+    ) {
+      this.showToast(
+        "Error",
+        "Error",
+        "You can't create CAP diary comment for cache customer.",
+        "Dismissable"
+      );
+      return;
+    }
+    this.isLoading = true;
     if (this.reportValidity()) {
       const fields = event.detail.fields;
       if (this.category === this.CONSTANT.CAP_DIARY_COMMENT) {
