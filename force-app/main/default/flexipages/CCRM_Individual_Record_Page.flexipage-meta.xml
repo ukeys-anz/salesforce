@@ -2772,35 +2772,6 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>idField</name>
-                    <value>Id</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>limit</name>
-                    <value>15</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>tableWidth</name>
-                    <value>100%</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>OCV Customer Profile</value>
-                </componentInstanceProperties>
-                <componentName>dupcheck:dc3Live</componentName>
-                <identifier>dupcheck_dc3Live</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Source_System_Name__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>CACHE</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
                     <name>actionNames</name>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
