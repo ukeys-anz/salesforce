@@ -80,7 +80,7 @@ export default class TrustMeCaseStatusUpdateModal extends LightningModal {
     const selectedPicklistItem = this.options.statusOptions.find(
       (item) => item.value === this.trustMeCase.Status
     );
-    return selectedPicklistItem && selectedPicklistItem.attributes.closed;
+    return selectedPicklistItem && selectedPicklistItem.closed;
   }
 
   handleStatusChange(event) {
@@ -158,10 +158,11 @@ export default class TrustMeCaseStatusUpdateModal extends LightningModal {
       return;
     }
 
-    if (this.currentStatus === this.trustMeCase.Status) {
-      this.toast.warning(
-        "Case can't be updated with the same status. Please select a different status"
-      );
+    if (
+      this.currentStatus === this.trustMeCase.Status &&
+      !this.trustMeCase.IsClosed
+    ) {
+      this.toast.warning("Please select a status option.");
       return;
     }
     if (this.trustMeCase.IsClosed) {
