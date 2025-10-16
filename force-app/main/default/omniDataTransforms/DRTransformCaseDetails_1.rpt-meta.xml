@@ -2089,13 +2089,15 @@
         <name>DRTransformCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:Case:CustomerDetails:SearchAddressRadio &quot;Manual/\/\/Address/\/\/Entry&quot; == var:
-          Case:validAddress true == &amp;&amp; &quot;Manual/\/\/Address/\/\/Postcode/\/\/Validated&quot; | var:Case:CustomerDetails:SearchAddressRadio &quot;Manual/\/\/Address/\/\/Entry&quot; == var:
-          Case:validAddress var:null == &amp;&amp; &quot;Manual/\/\/Address/\/\/not/\/\/Validated&quot; | var:Case:CustomerDetails:SearchAddressRadio &quot;Search/\/\/Address&quot; == var:Case:disablAddress true == &amp;&amp; &quot;Search/\/\/Address/\/\/Validated&quot; &quot;&quot; IF IF IF</formulaConverted>
-        <formulaExpression>IF(Case:CustomerDetails:SearchAddressRadio == &quot;Manual Address Entry&quot; &amp;&amp;
-          Case:validAddress == true, &quot;Manual Address Postcode Validated&quot; , IF(Case:CustomerDetails:SearchAddressRadio == &quot;Manual Address Entry&quot; &amp;&amp;
-          Case:validAddress == null ,&quot;Manual Address not Validated&quot; , IF(Case:CustomerDetails:SearchAddressRadio == &quot;Search Address&quot; &amp;&amp; Case:disablAddress == true,&quot;Search Address Validated&quot;, &quot;&quot;)))
-        </formulaExpression>
+        <formulaConverted>| var:Case:CustomerDetails:SearchAddressRadio &quot;Manual/\/\/Address/\/\/Entry&quot; == var:Case:validAddress true == &amp;&amp; &quot;Manual/\/\/Address/\/\/Postcode/\/\/Validated&quot; | var:Case:CustomerDetails:SearchAddressRadio &quot;Search/\/\/Address&quot; == var:Case:disablAddress true == &amp;&amp; &quot;Search/\/\/Address/\/\/Validated&quot; | var:Case:CustomerDetails:SearchAddressRadio &quot;Manual/\/\/Address/\/\/Entry&quot; == var:Case:validAddress var:null == &amp;&amp; &quot;Manual/\/\/Address/\/\/not/\/\/Validated&quot; &quot;None&quot; IF IF IF</formulaConverted>
+        <formulaExpression>IF(Case:CustomerDetails:SearchAddressRadio==&quot;Manual Address Entry&quot;&amp;&amp;
+%Case:validAddress%==true,&quot;Manual Address Postcode Validated&quot;,                   IF(Case:CustomerDetails:SearchAddressRadio==&quot;Search Address&quot;
+&amp;&amp; %Case:disablAddress%==true,&quot;Search Address Validated&quot;,  
+ IF(Case:CustomerDetails:SearchAddressRadio==&quot;Manual Address Entry&quot;&amp;&amp;
+%Case:validAddress%==null,&quot;Manual Address not Validated&quot;,&quot;None&quot;
+) 
+)
+)</formulaExpression>
         <formulaResultPath>customerSearch</formulaResultPath>
         <formulaSequence>23.0</formulaSequence>
         <globalKey>f4c048f9-e7a1-4572-a79f-7759eea65528</globalKey>
@@ -2111,14 +2113,16 @@
         <name>DRTransformCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:Case:CustomerDetails:thirdPartyAddress &quot;Manual/\/\/Address/\/\/Entry&quot; == var:
-        Case:validAddress true == &amp;&amp; &quot;Manual/\/\/Address/\/\/Postcode/\/\/Validated&quot; | var:Case:CustomerDetails:thirdPartyAddress &quot;Manual/\/\/Address/\/\/Entry&quot; == var:
-        Case:validAddress var:null == &amp;&amp; &quot;Manual/\/\/Address/\/\/not/\/\/Validated&quot; | var:Case:CustomerDetails:thirdPartyAddress &quot;Search/\/\/Address&quot; == var:Case:disablThirdAddress true == &amp;&amp; &quot;Search/\/\/Address/\/\/Validated&quot; | var:Case:CustomerDetails:thirdPartyAddress var:null == &quot;&quot; &quot;&quot; IF IF IF IF</formulaConverted>
-        <formulaExpression>IF(Case:CustomerDetails:thirdPartyAddress == &quot;Manual Address Entry&quot; &amp;&amp;
-        Case:validAddress == true, &quot;Manual Address Postcode Validated&quot;, IF(Case:CustomerDetails:thirdPartyAddress == &quot;Manual Address Entry&quot; &amp;&amp;
-        Case:validAddress == null, &quot;Manual Address not Validated&quot; , IF(Case:CustomerDetails:thirdPartyAddress == &quot;Search Address&quot; &amp;&amp; Case:disablThirdAddress == true,&quot;Search Address Validated&quot;,
-        IF(Case:CustomerDetails:thirdPartyAddress == null,&quot;&quot;, &quot;&quot;))))
-       </formulaExpression>
+        <formulaConverted>| var:Case:CustomerDetails:thirdPartyAddress &quot;Manual/\/\/Address/\/\/Entry&quot; == var:Case:validAddress true == &amp;&amp; &quot;Manual/\/\/Address/\/\/Postcode/\/\/Validated&quot; | var:Case:CustomerDetails:thirdPartyAddress &quot;Search/\/\/Address&quot; == var:Case:disablThirdAddress true == &amp;&amp; &quot;Search/\/\/Address/\/\/Validated&quot; | var:Case:CustomerDetails:thirdPartyAddress &quot;Manual/\/\/Address/\/\/Entry&quot; == var:Case:validAddress var:null == &amp;&amp; &quot;Manual/\/\/Address/\/\/not/\/\/Validated&quot; &quot;None&quot; IF IF IF</formulaConverted>
+        <formulaExpression>IF(Case:CustomerDetails:thirdPartyAddress==&quot;Manual Address Entry&quot;&amp;&amp;
+%Case:validAddress%==true,&quot;Manual Address Postcode Validated&quot;,                 
+ IF(Case:CustomerDetails:thirdPartyAddress==&quot;Search Address&quot; 
+&amp;&amp; %Case:disablThirdAddress%==true,&quot;Search Address Validated&quot;,
+ IF(Case:CustomerDetails:thirdPartyAddress==&quot;Manual Address Entry&quot;&amp;&amp;
+%Case:validAddress%==null,&quot;Manual Address not Validated&quot;,&quot;None&quot;
+)
+)
+)</formulaExpression>
         <formulaResultPath>thirdPartyAddress</formulaResultPath>
         <formulaSequence>24.0</formulaSequence>
         <globalKey>277ccf39-8b4e-46e3-89ab-0455f03d53d7</globalKey>
