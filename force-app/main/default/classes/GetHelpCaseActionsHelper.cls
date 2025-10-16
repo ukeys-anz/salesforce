@@ -24,6 +24,18 @@ public with sharing class GetHelpCaseActionsHelper {
     UserInfoRepository.class
   );
 
+  private static final List<String> ENTITLEMENT_CHECK_RTS = new List<String>{
+    RTCase.generalInquiry,
+    RTCase.customerFeedback,
+    RTCase.confirmationOfPayee,
+    RTCase.signAuth
+  };
+
+  private static final List<String> COP_TYPES = new List<String>{
+    'Confirmation of Payee Opt-In',
+    'Confirmation of Payee Opt-Out'
+  };
+
   // Parent Case validation error message
   private static final String PARENT_CASE_ERROR = 'You cannot add parent case. This case is associated with child cases';
 
@@ -124,16 +136,12 @@ public with sharing class GetHelpCaseActionsHelper {
    */
   public static Set<Id> getEntitlementAccountIds(List<Case> caseList) {
     Set<Id> accountIds = new Set<Id>();
-
     for (Case c : caseList) {
       if (
-        (c.RecordTypeId == RTCase.generalInquiry ||
-        c.RecordTypeId == RTCase.customerFeedback ||
+        (ENTITLEMENT_CHECK_RTS.contains(c.RecordTypeId) ||
         CheckCaseRecordType.isDispute(c) ||
-        c.RecordTypeId == RTCase.confirmationOfPayee ||
-        (c.RecordTypeId == RTCase.caseGroup &&
-        (c.Type == 'Confirmation of Payee Opt-In' ||
-        c.Type == 'Confirmation of Payee Opt-Out'))) && c.AccountId != null
+        (c.RecordTypeId == RTCase.caseGroup && COP_TYPES.contains(c.Type))) &&
+        c.AccountId != null
       ) {
         accountIds.add(c.AccountId);
       }
@@ -177,26 +185,27 @@ public with sharing class GetHelpCaseActionsHelper {
   ) {
     for (Case c : caseList) {
       if (
-        (c.RecordTypeId == RTCase.generalInquiry ||
-        c.RecordTypeId == RTCase.customerFeedback ||
+        (ENTITLEMENT_CHECK_RTS.contains(c.RecordTypeId) ||
         CheckCaseRecordType.isDispute(c) ||
-        c.RecordTypeId == RTCase.confirmationOfPayee ||
-        (c.RecordTypeId == RTCase.caseGroup &&
-        (c.Type == 'Confirmation of Payee Opt-In' ||
-        c.Type == 'Confirmation of Payee Opt-Out'))) && c.AccountId != null
+        (c.RecordTypeId == RTCase.caseGroup && COP_TYPES.contains(c.Type))) &&
+        c.AccountId != null
       ) {
         if (!entMap.containsKey(c.AccountId)) {
           c.addError(NO_ENTITLEMENT_ERROR_MSG);
         } else {
           c.EntitlementId = entMap.get(c.AccountId);
         }
-      } else if (
+        continue;
+      }
+      if (
         (c.RecordTypeId == RTCase.nonCustomerComplaint &&
         c.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN)
       ) {
         c.EntitlementId = IDRCaseActions.getEntitlement();
         c.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
-      } else if (c.RecordTypeId == RTCase.anzxComplaint) {
+        continue;
+      }
+      if (c.RecordTypeId == RTCase.anzxComplaint) {
         c.EntitlementId = IDRCaseActions.getEntitlement();
         c.IDR_Milestone_Sla__c = IDRCaseActions.getMilestoneSla(
           c.Status,
