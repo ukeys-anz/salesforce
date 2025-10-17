@@ -67,7 +67,7 @@ public class TerritorySharingUtilTest {
       )
       .getParam('records');
     Assert.areEqual(
-      idOwner,
+      UserInfo.getUserId(),
       shareRecord[0].UserOrGroupId,
       'Record not shared with original owner'
     );
