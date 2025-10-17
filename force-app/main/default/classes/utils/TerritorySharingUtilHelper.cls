@@ -111,7 +111,7 @@ public without sharing class TerritorySharingUtilHelper {
           strSobjectName,
           record,
           objTerritoryMtd,
-          (Id) oldMapSobject.get((Id) record.get('Id')).get('OwnerId')
+          UserInfo.getUserId()
         )
       );
     }

@@ -32,7 +32,7 @@ public inherited sharing class TerritoryConfigSharingRepository {
       SELECT Id, Access_Scope__c
       FROM Territory__c
       WHERE lastModifiedDate >= :objDateTime
-      WITH USER_MODE
+      WITH SYSTEM_MODE
     ];
   }
 
