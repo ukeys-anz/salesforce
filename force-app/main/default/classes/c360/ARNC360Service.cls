@@ -19,16 +19,16 @@ public with sharing class ARNC360Service extends Service {
     ExternalObjectQueryBase.ExternalObjectCalloutRequestBase calloutRequest
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
-
     Map<String, String> headers = new Map<String, String>();
     setCommonHeaders(headers);
-
-    return calloutService.makeRestCallout(
-      Label.Financial_Account_Endpoint + calloutRequest.getEndpoint(),
-      HTTP_METHOD.HTTP_POST,
-      headers,
-      calloutRequest.getPayload()
-    );
+    Lib_HttpCallout.RESTCalloutWrapper restWrap = new Lib_HttpCallout.RESTCalloutWrapper();
+    restWrap.endpoint =
+      Label.Financial_Account_Endpoint + calloutRequest.getEndpoint();
+    restWrap.method = HTTP_METHOD.HTTP_POST;
+    restWrap.headers = headers;
+    restWrap.requestBody = calloutRequest.getPayload();
+    restWrap.timeout = calloutRequest.timeout;
+    return calloutService.makeRestCallout(restWrap);
   }
 
   /**
