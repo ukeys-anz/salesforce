@@ -43,7 +43,7 @@
         <excludeButtons>New</excludeButtons>
         <fields>Name</fields>
         <fields>AccountDetails__c</fields>
-        <fields>TransactionDate</fields>
+        <fields>TransactionDate__c</fields>
         <fields>TransactionAmount</fields>
         <fields>OtherFinancialInstituteBSB__c</fields>
         <fields>OtherFinancialInstituteAccountNumber__c</fields>

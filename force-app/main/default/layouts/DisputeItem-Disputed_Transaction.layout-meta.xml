@@ -52,8 +52,8 @@
                 <field>Title__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
-                <field>TransactionDate</field>
+                <behavior>Readonly</behavior>
+                <field>TransactionDate__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

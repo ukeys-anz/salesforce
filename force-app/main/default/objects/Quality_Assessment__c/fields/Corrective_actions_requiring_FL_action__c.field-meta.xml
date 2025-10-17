@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Corrective_actions_requiring_FL_action__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Corrective actions requiring FL action</description>
+    <label>Corrective actions requiring FL action</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Update CMOS fields or internal records</fullName>
+                <default>false</default>
+                <label>Update CMOS fields or internal records</label>
+            </value>
+            <value>
+                <fullName>Contact customer to correct factual inaccuracies (do not reopen complaint)</fullName>
+                <default>false</default>
+                <label>Contact customer to correct factual inaccuracies (do not reopen complaint)</label>
+            </value>
+            <value>
+                <fullName>Address customer inquiry / provide documentation</fullName>
+                <default>false</default>
+                <label>Address customer inquiry / provide documentation</label>
+            </value>
+            <value>
+                <fullName>Complete outstanding actions agreed with customer</fullName>
+                <default>false</default>
+                <label>Complete outstanding actions agreed with customer</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>
