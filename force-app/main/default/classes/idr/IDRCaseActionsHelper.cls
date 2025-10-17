@@ -225,18 +225,14 @@ public with sharing class IDRCaseActionsHelper {
     List<Case> cases = new List<Case>();
     if (oldMap != null) {
       cases = ListUtil.filter(listOfnewCases, oldMap)
-        .isNotNull(Case.AccountId)
-        .equals(Case.RecordTypeId, RTCase.customerComplaint)
-        .notEquals(Case.Priority, IDRConstants.CASE_PRIORITY_VULNERABLE)
         .oldEquals(Case.RecordTypeId, ALLOWED_RECORD_TYPES)
         .toList();
-    } else {
-      cases = ListUtil.filter(listOfnewCases)
-        .isNotNull(Case.AccountId)
-        .equals(Case.RecordTypeId, RTCase.customerComplaint)
-        .notEquals(Case.Priority, IDRConstants.CASE_PRIORITY_VULNERABLE)
-        .toList();
     }
+    cases = ListUtil.filter(listOfnewCases)
+      .isNotNull(Case.AccountId)
+      .equals(Case.RecordTypeId, RTCase.customerComplaint)
+      .notEquals(Case.Priority, IDRConstants.CASE_PRIORITY_VULNERABLE)
+      .toList();
     Set<Id> accountIds = ListUtil.getIds(cases, Case.AccountId);
 
     Map<Id, Account> accountMap = new Map<Id, Account>(
