@@ -135,6 +135,14 @@ export default class TrustMeCaseStatusPath extends LightningElement {
     // Filter out closed statuses
     this.pathSteps = picklistValues.filter((item) => !item.closed);
     this.statusOptions = picklistValues.filter((item) => item.closed);
+
+    if (this.caseData.Status === "Rectify Defect") {
+      this.statusOptions.unshift({
+        label: "Refer to Fraud",
+        value: "Refer to Fraud"
+      });
+    }
+
     const currentClosedItem = picklistValues.find(
       (item) => item.value === this.caseData.Status
     );
@@ -174,12 +182,7 @@ export default class TrustMeCaseStatusPath extends LightningElement {
   handleClickUpdate() {
     let statusOptions = this.statusOptions;
     let caseData = this.caseData;
-    if (this.caseData.Status === "Rectify Defect") {
-      statusOptions.unshift({
-        label: "Refer to Fraud",
-        value: "Refer to Fraud"
-      });
-    }
+
     let primaryFailedReasonFieldInfo = this.primaryFailedReasonFieldInfo;
     let secondaryFailedReasonFieldInfo = this.secondaryFailedReasonFieldInfo;
     StatusUpdateModal.open({
