@@ -652,13 +652,6 @@
       "type": "system"
     },
     {
-      "name": "C360 Complaints Integration User",
-      "profile": "Integration User",
-      "permissionsetgroups": ["IDR Level 1"],
-      "permissionsets": ["Disable_MFA", "Bypass_TSP", "API_Only"],
-      "type": "system"
-    },
-    {
       "name": "Odaseva User",
       "role": "ANZ",
       "profile": "Minimum Access - External Apps",
