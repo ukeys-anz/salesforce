@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Q19_Rationale__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Captures the rationale for the relevant resolution assessment question</description>
+    <label>Q19 Rationale</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Case_notes_clear_and_complete__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Clear consultation with appropriate bank / product / branch teams on the complaint management system with details of investigation supporting final findings and outcome AND No irrelevant personal information relating to other parties on file</fullName>
+                <default>false</default>
+                <label>Clear consultation with appropriate bank / product / branch teams on the complaint management system with details of investigation supporting final findings and outcome AND No irrelevant personal information relating to other parties on file</label>
+            </value>
+            <value>
+                <fullName>No documentation of investigatory evidence, consultation with bank teams or next steps, resulting in inability to track progress of the complaint and/or resulted in a poor customer outcome</fullName>
+                <default>false</default>
+                <label>No documentation of investigatory evidence, consultation with bank teams or next steps, resulting in inability to track progress of the complaint and/or resulted in a poor customer outcome</label>
+            </value>
+            <value>
+                <fullName>Irrelevant personal information relating to other parties on file</fullName>
+                <default>false</default>
+                <label>Irrelevant personal information relating to other parties on file</label>
+            </value>
+            <value>
+                <fullName>Previous CM responsible for Not Met</fullName>
+                <default>false</default>
+                <label>Previous CM responsible for Not Met</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>Clear consultation with appropriate bank / product / branch teams on the complaint management system with details of investigation supporting final findings and outcome AND No irrelevant personal information relating to other parties on file</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>No documentation of investigatory evidence, consultation with bank teams or next steps, resulting in inability to track progress of the complaint and/or resulted in a poor customer outcome</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Irrelevant personal information relating to other parties on file</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met (Out of Case Handler’s control)</controllingFieldValue>
+            <valueName>Previous CM responsible for Not Met</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

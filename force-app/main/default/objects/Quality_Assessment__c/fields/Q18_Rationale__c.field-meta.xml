@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Q18_Rationale__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Captures the rationale for the relevant resolution assessment question</description>
+    <label>Q18 Rationale</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Cust_interactions_accurately_recorded__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Customer interactions attached to CMOS file</fullName>
+                <default>false</default>
+                <label>Customer interactions attached to CMOS file</label>
+            </value>
+            <value>
+                <fullName>Customer interactions recorded in case notes</fullName>
+                <default>false</default>
+                <label>Customer interactions recorded in case notes</label>
+            </value>
+            <value>
+                <fullName>Customer interactions not attached to CMOS file</fullName>
+                <default>false</default>
+                <label>Customer interactions not attached to CMOS file</label>
+            </value>
+            <value>
+                <fullName>Customer interactions not recorded in case notes</fullName>
+                <default>false</default>
+                <label>Customer interactions not recorded in case notes</label>
+            </value>
+            <value>
+                <fullName>Previous CM responsible for customer interactions not attached to CMOS file</fullName>
+                <default>false</default>
+                <label>Previous CM responsible for customer interactions not attached to CMOS file</label>
+            </value>
+            <value>
+                <fullName>Previous CM responsible for customer interactions not recorded in case notes</fullName>
+                <default>false</default>
+                <label>Previous CM responsible for customer interactions not recorded in case notes</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>Customer interactions attached to CMOS file</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>Customer interactions recorded in case notes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Customer interactions not attached to CMOS file</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Customer interactions not recorded in case notes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met (Out of Case Handler’s control)</controllingFieldValue>
+            <valueName>Previous CM responsible for customer interactions not attached to CMOS file</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met (Out of Case Handler’s control)</controllingFieldValue>
+            <valueName>Previous CM responsible for customer interactions not recorded in case notes</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

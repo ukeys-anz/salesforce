@@ -40,6 +40,36 @@
                 <default>false</default>
                 <label>N/A- no action required</label>
             </value>
+            <value>
+                <fullName>Further review due to potential customer detriment</fullName>
+                <default>false</default>
+                <label>Further review due to potential customer detriment</label>
+            </value>
+            <value>
+                <fullName>Reissue IDR / EDR letter</fullName>
+                <default>false</default>
+                <label>Reissue IDR / EDR letter</label>
+            </value>
+            <value>
+                <fullName>Address customer inquiry / provide documentation</fullName>
+                <default>false</default>
+                <label>Address customer inquiry / provide documentation</label>
+            </value>
+            <value>
+                <fullName>Complete outstanding actions as agreed with customer</fullName>
+                <default>false</default>
+                <label>Complete outstanding actions as agreed with customer</label>
+            </value>
+            <value>
+                <fullName>Update CMOS fields or internal records</fullName>
+                <default>false</default>
+                <label>Update CMOS fields or internal records</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
     <visibleLines>3</visibleLines>

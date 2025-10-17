@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Q16_Rationale__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Captures the rationale for the relevant resolution assessment question</description>
+    <label>Q16 Rationale</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>PSI_identified_flagged_where_needed__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Accurate documentation of PSI details on file with sufficient detail</fullName>
+                <default>false</default>
+                <label>Accurate documentation of PSI details on file with sufficient detail</label>
+            </value>
+            <value>
+                <fullName>Relevant CMOS fields accurately completed</fullName>
+                <default>false</default>
+                <label>Relevant CMOS fields accurately completed</label>
+            </value>
+            <value>
+                <fullName>Inaccurate documentation of PSI details on file without sufficient detail</fullName>
+                <default>false</default>
+                <label>Inaccurate documentation of PSI details on file without sufficient detail</label>
+            </value>
+            <value>
+                <fullName>Relevant CMOS fields not accurately completed</fullName>
+                <default>false</default>
+                <label>Relevant CMOS fields not accurately completed</label>
+            </value>
+            <value>
+                <fullName>Inaccurate documentation of PSI details on file without sufficient detail by case manager who closed complaint</fullName>
+                <default>false</default>
+                <label>Inaccurate documentation of PSI details on file without sufficient detail by case manager who closed complaint</label>
+            </value>
+            <value>
+                <fullName>Relevant CMOS fields not accurately completed by case manager who closed complaint</fullName>
+                <default>false</default>
+                <label>Relevant CMOS fields not accurately completed by case manager who closed complaint</label>
+            </value>
+            <value>
+                <fullName>No PSI</fullName>
+                <default>false</default>
+                <label>No PSI</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>Accurate documentation of PSI details on file with sufficient detail</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>Relevant CMOS fields accurately completed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Inaccurate documentation of PSI details on file without sufficient detail</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Relevant CMOS fields not accurately completed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met (Out of Case Handler’s control)</controllingFieldValue>
+            <valueName>Inaccurate documentation of PSI details on file without sufficient detail by case manager who closed complaint</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met (Out of Case Handler’s control)</controllingFieldValue>
+            <valueName>Relevant CMOS fields not accurately completed by case manager who closed complaint</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Applicable</controllingFieldValue>
+            <valueName>No PSI</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>
