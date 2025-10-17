@@ -382,6 +382,8 @@ public with sharing class CommercialLeadActions {
       .anyChanged(fieldsToValidateChange)
       .isNull(Lead.FinServ__ReferredByUser__c)
       .toList();
+    Set<Id> leadIdSet = ListUtil.getIds(listOfLeads, Lead.Id);
+    LeadManagementActions.calloutLeadIds.addAll(leadIdSet);
     PLATFORM_EVENT_ACTIONS.publishLeadUpdateToUnicaOrAdobe(
       listOfLeads,
       new List<Task>(),

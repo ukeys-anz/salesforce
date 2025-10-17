@@ -11,6 +11,9 @@ import LEAD_CITY from "@salesforce/schema/Lead.City";
 import LEAD_STATE from "@salesforce/schema/Lead.State";
 import LEAD_COUNTRY from "@salesforce/schema/Lead.Country";
 import LEAD_POSTAL_CODE from "@salesforce/schema/Lead.PostalCode";
+import LEAD_SKIP_VALIDATION from "@salesforce/schema/Lead.Skip_Validations__c";
+import LEAD_COMPANY from "@salesforce/schema/Lead.Company";
+import LEAD_BUSINESS_COMPANY from "@salesforce/schema/Lead.Registered_Company__c";
 import LEAD_IS_VALID_ADDRESS from "@salesforce/schema/Lead.Is_Valid_Address__c";
 import getCountryNameToCodeMap from "@salesforce/apex/ValidateAddessLookupUtil.getCountryNameToCodeMap";
 import getStateNameToCodeMap from "@salesforce/apex/ValidateAddessLookupUtil.getStateNameToCodeMap";
@@ -36,6 +39,9 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
   strLatitude;
   strLongitude;
   streetFullName;
+  strSkipValidation;
+  strCompany;
+  strRegisteredCompany;
   isModalOpen = false;
   showAddresses = false;
   addressList = [];
@@ -143,7 +149,10 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
       LEAD_STATE,
       LEAD_COUNTRY,
       LEAD_POSTAL_CODE,
-      LEAD_IS_VALID_ADDRESS
+      LEAD_IS_VALID_ADDRESS,
+      LEAD_SKIP_VALIDATION,
+      LEAD_COMPANY,
+      LEAD_BUSINESS_COMPANY
     ]
   })
   wiredProject({ error, data }) {
@@ -152,6 +161,9 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
       this.strCity = data.fields.City.value;
       this.strState = data.fields.State.value;
       this.strCountry = data.fields.Country.value;
+      this.strSkipValidation = data.fields.Skip_Validations__c.value;
+      this.strCompany = data.fields.Company.value;
+      this.strRegisteredCompany = data.fields.Registered_Company__c.value;
       //CC-7217 : Making AUS default Country for Add/Edit Address
       if (data.fields.Country.value == null) {
         this.strCountry = "AUS";
@@ -210,6 +222,12 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
         this.fields.longitute = undefined;
         this.fields.PostalCode = this.strPostalCode.toString();
         this.fields.Is_Valid_Address__c = true;
+        if (this.strCompany === null || this.strRegisteredCompany === null) {
+          this.fields.Skip_Validations__c =
+            this.strSkipValidation !== "SkipValidation"
+              ? "SkipValidation"
+              : "Validate";
+        }
         this.template
           .querySelector("lightning-record-edit-form")
           .submit(this.fields);
@@ -219,6 +237,12 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
         this.fields.State = this.strState;
         this.fields.Country = this.strCountry;
         this.fields.PostalCode = this.strPostalCode.toString();
+        if (this.strCompany === null || this.strRegisteredCompany === null) {
+          this.fields.Skip_Validations__c =
+            this.strSkipValidation !== "SkipValidation"
+              ? "SkipValidation"
+              : "Validate";
+        }
         if (this.isValidAddress) {
           this.fields.Is_Valid_Address__c = true;
         } else {
@@ -449,6 +473,12 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
           fields.Country = this.strCountry;
           fields.Is_Valid_Address__c = true;
           fields.PostalCode = this.strPostalCode.toString();
+          if (this.strCompany === null || this.strRegisteredCompany === null) {
+            fields.Skip_Validations__c =
+              this.strSkipValidation !== "SkipValidation"
+                ? "SkipValidation"
+                : "Validate";
+          }
           this.template
             .querySelector("lightning-record-edit-form")
             .submit(fields);
