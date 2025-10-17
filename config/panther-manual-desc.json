@@ -2339,6 +2339,7 @@
         "Title__c",
         "TransactionAmount",
         "TransactionDate",
+        "TransactionDate__c",
         "TransactionIdentifier",
         "TransactionType__c"
       ]

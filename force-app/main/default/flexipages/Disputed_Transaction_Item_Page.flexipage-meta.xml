@@ -148,10 +148,10 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>required</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.TransactionDate</fieldItem>
-                <identifier>RecordTransactionDateField</identifier>
+                <fieldItem>Record.TransactionDate__c</fieldItem>
+                <identifier>RecordTransactionDate_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
