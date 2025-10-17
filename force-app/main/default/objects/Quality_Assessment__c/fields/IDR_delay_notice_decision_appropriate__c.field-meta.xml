@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_delay_notice_decision_appropriate__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Resolution Assessment question 9</description>
+    <inlineHelpText>If a delay exception was approved, was there no reasonable opportunity for ANZ to provide the IDR letter within the IDR timeframe because:
+
+resolution of the individual complaint is particularly complex (see RG 271.67 for examples of ‘complexity’); and/or
+
+circumstances beyond ANZ&apos;s control are causing complaint management delays; and
+
+did the delay notification provided to the complainant contain reasons for the delay and AFCA contact details?</inlineHelpText>
+    <label>IDR delay notice &amp; decision appropriate?</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Met</fullName>
+                <default>false</default>
+                <label>Met</label>
+            </value>
+            <value>
+                <fullName>Not Met</fullName>
+                <default>false</default>
+                <label>Not Met</label>
+            </value>
+            <value>
+                <fullName>Not Met (Out of Case Handler’s control)</fullName>
+                <default>false</default>
+                <label>Not Met (Out of Case Handler’s control)</label>
+            </value>
+            <value>
+                <fullName>Not Applicable</fullName>
+                <default>false</default>
+                <label>Not Applicable</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

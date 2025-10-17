@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Q21_Rationale__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Captures the rationale for the relevant resolution assessment question</description>
+    <label>Q21 Rationale</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Addressed_info_req_s_basic_accts_etc__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Where required, customer information request made and handled correctly, and we made a basic account referral, and deceased notification referred correctly</fullName>
+                <default>false</default>
+                <label>Where required, customer information request made and handled correctly, and we made a basic account referral, and deceased notification referred correctly</label>
+            </value>
+            <value>
+                <fullName>Customer information request not handled correctly</fullName>
+                <default>false</default>
+                <label>Customer information request not handled correctly</label>
+            </value>
+            <value>
+                <fullName>Basic account referral needed and not made</fullName>
+                <default>false</default>
+                <label>Basic account referral needed and not made</label>
+            </value>
+            <value>
+                <fullName>Deceased customer notification needed and not made</fullName>
+                <default>false</default>
+                <label>Deceased customer notification needed and not made</label>
+            </value>
+            <value>
+                <fullName>Commentary required</fullName>
+                <default>false</default>
+                <label>Commentary required</label>
+            </value>
+            <value>
+                <fullName>Customer did not ask for information AND we were not on notice they may be eligible for a basic account AND no deceased customer notification / notification already referred</fullName>
+                <default>false</default>
+                <label>Customer did not ask for information AND we were not on notice they may be eligible for a basic account AND no deceased customer notification / notification already referred</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>Where required, customer information request made and handled correctly, and we made a basic account referral, and deceased notification referred correctly</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Customer information request not handled correctly</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Basic account referral needed and not made</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Deceased customer notification needed and not made</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met (Out of Case Handler’s control)</controllingFieldValue>
+            <valueName>Commentary required</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Applicable</controllingFieldValue>
+            <valueName>Customer did not ask for information AND we were not on notice they may be eligible for a basic account AND no deceased customer notification / notification already referred</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

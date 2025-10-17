@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Q15_Rationale__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Captures the rationale for the relevant resolution assessment question</description>
+    <label>Q15 Rationale</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Were_risk_events_raised_and_recorded__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Relevant CMOS fields accurately completed</fullName>
+                <default>false</default>
+                <label>Relevant CMOS fields accurately completed</label>
+            </value>
+            <value>
+                <fullName>Accurate completion of REaL form or other ORE assessment attached to file</fullName>
+                <default>false</default>
+                <label>Accurate completion of REaL form or other ORE assessment attached to file</label>
+            </value>
+            <value>
+                <fullName>Relevant CMOS fields not accurately completed</fullName>
+                <default>false</default>
+                <label>Relevant CMOS fields not accurately completed</label>
+            </value>
+            <value>
+                <fullName>Inaccurate or lack of detail in REaL form or other ORE assessment attached to file</fullName>
+                <default>false</default>
+                <label>Inaccurate or lack of detail in REaL form or other ORE assessment attached to file</label>
+            </value>
+            <value>
+                <fullName>Relevant CMOS fields not accurately completed by first case manager</fullName>
+                <default>false</default>
+                <label>Relevant CMOS fields not accurately completed by first case manager</label>
+            </value>
+            <value>
+                <fullName>Inaccurate or lack of detail in REaL form or other ORE assessment attached to file by first case manager</fullName>
+                <default>false</default>
+                <label>Inaccurate or lack of detail in REaL form or other ORE assessment attached to file by first case manager</label>
+            </value>
+            <value>
+                <fullName>No ORE, no REaL to be raised</fullName>
+                <default>false</default>
+                <label>No ORE, no REaL to be raised</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>Relevant CMOS fields accurately completed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>Accurate completion of REaL form or other ORE assessment attached to file</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Relevant CMOS fields not accurately completed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Inaccurate or lack of detail in REaL form or other ORE assessment attached to file</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met (Out of Case Handler’s control)</controllingFieldValue>
+            <valueName>Relevant CMOS fields not accurately completed by first case manager</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met (Out of Case Handler’s control)</controllingFieldValue>
+            <valueName>Inaccurate or lack of detail in REaL form or other ORE assessment attached to file by first case manager</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Applicable</controllingFieldValue>
+            <valueName>No ORE, no REaL to be raised</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

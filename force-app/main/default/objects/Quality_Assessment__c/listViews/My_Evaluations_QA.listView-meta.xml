@@ -7,8 +7,8 @@
     <columns>Customer_Name__c</columns>
     <columns>CREATEDBY_USER</columns>
     <columns>Case_Manager_Score__c</columns>
+    <columns>Assessment_Result__c</columns>
     <columns>Assessment_Completion_Date__c</columns>
-    <columns>UPDATEDBY_USER</columns>
     <filters>
         <field>RECORDTYPE</field>
         <operation>equals</operation>
