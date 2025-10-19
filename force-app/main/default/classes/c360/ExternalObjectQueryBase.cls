@@ -33,6 +33,7 @@ public abstract with sharing class ExternalObjectQueryBase {
   public virtual class ExternalObjectCalloutRequestBase {
     public QueryModeEnum queryMode;
     public PayloadBase payload;
+    public Integer timeout = 20000;
     /**
      * @description Constructor
      * @param queryContext DataSource QueryContext

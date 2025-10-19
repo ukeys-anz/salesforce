@@ -50,13 +50,6 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     } else if (
       !this.missingFields.length &&
       this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
-      this.omniScriptHeaderDef.hasInvalidElements &&
-      !this.omniJsonData.isEligibleAppForLookUp
-    ) {
-      this.modalMsg = "Please complete all required fields";
-    } else if (
-      !this.missingFields.length &&
-      this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
       (this.omniJsonData.Response === false ||
         !Object.prototype.hasOwnProperty.call(this.omniJsonData, "Response")) &&
       !this.omniJsonData.isEligibleAppForLookUp &&
@@ -77,6 +70,9 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     } else if (this.checkForThirdPartyAddressSearch()) {
       this.modalMsg +=
         "Please fill the 3rd party address details by selecting an address from search";
+    } else if (this.isInValidEmailAddress()) {
+      this.modalMsg +=
+        "Incomplete third-party contact details. Please complete all required fields before processing.";
     } else if (this.validateRealFormID()) {
       handleErrorShowToast(
         this,
@@ -338,5 +334,16 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       return true;
     }
     return false;
+  }
+  isInValidEmailAddress() {
+    let emailRegex = /^(?![.\s,])([^\s@]+@[^\s@]+\.[^\s@]+)$/;
+    if (
+      this.omniJsonData.Case.CustomerDetails.thirdPartyRepCheckbox !== "Yes"
+    ) {
+      return false;
+    }
+    return !this.omniJsonData.Case.CustomerDetails?.thirdPartyEmail?.match(
+      emailRegex
+    );
   }
 }

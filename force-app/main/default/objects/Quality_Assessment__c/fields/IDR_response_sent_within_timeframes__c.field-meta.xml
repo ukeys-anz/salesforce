@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_response_sent_within_timeframes__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Resolution Assessment question 12</description>
+    <inlineHelpText>Where RG271 applies, was the final IDR letter provided to the customer within the required timeframes according to the complaint type? 
+
+Standard complaints: within 30 calendar days | Credit-related complaints: within 21 calendar days (unless a longer timeframe applies where the complaint is about hardship/request to postpone enforcement proceedings, and we have reasonably asked for information)</inlineHelpText>
+    <label>IDR response sent within timeframes?</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Met</fullName>
+                <default>false</default>
+                <label>Met</label>
+            </value>
+            <value>
+                <fullName>Not Met</fullName>
+                <default>false</default>
+                <label>Not Met</label>
+            </value>
+            <value>
+                <fullName>Not Met (Out of Case Handler’s control)</fullName>
+                <default>false</default>
+                <label>Not Met (Out of Case Handler’s control)</label>
+            </value>
+            <value>
+                <fullName>Not Applicable</fullName>
+                <default>false</default>
+                <label>Not Applicable</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

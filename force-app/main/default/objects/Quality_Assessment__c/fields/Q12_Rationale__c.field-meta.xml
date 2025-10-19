@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Q12_Rationale__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Captures the rationale for the relevant resolution assessment question</description>
+    <label>Q12 Rationale</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>IDR_response_sent_within_timeframes__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Email correspondence showing IDR letter provided to complainant</fullName>
+                <default>false</default>
+                <label>Email correspondence showing IDR letter provided to complainant</label>
+            </value>
+            <value>
+                <fullName>Evidence on file showing IDR letter was posted to complainant</fullName>
+                <default>false</default>
+                <label>Evidence on file showing IDR letter was posted to complainant</label>
+            </value>
+            <value>
+                <fullName>Email correspondence showing IDR letter provided to complainant outside of timeframe</fullName>
+                <default>false</default>
+                <label>Email correspondence showing IDR letter provided to complainant outside of timeframe</label>
+            </value>
+            <value>
+                <fullName>Evidence on file showing IDR letter was posted to complainant outside of timeframe</fullName>
+                <default>false</default>
+                <label>Evidence on file showing IDR letter was posted to complainant outside of timeframe</label>
+            </value>
+            <value>
+                <fullName>No evidence on file to show IDR letter was provided to complainant at all</fullName>
+                <default>false</default>
+                <label>No evidence on file to show IDR letter was provided to complainant at all</label>
+            </value>
+            <value>
+                <fullName>Date not recorded in CMOS fields</fullName>
+                <default>false</default>
+                <label>Date not recorded in CMOS fields</label>
+            </value>
+            <value>
+                <fullName>Previous case handler did not issue IDR letter within maximum IDR timeframe</fullName>
+                <default>false</default>
+                <label>Previous case handler did not issue IDR letter within maximum IDR timeframe</label>
+            </value>
+            <value>
+                <fullName>No valid delay notification was issued by previous case handler.</fullName>
+                <default>false</default>
+                <label>No valid delay notification was issued by previous case handler.</label>
+            </value>
+            <value>
+                <fullName>Appropriate delay exception occurred</fullName>
+                <default>false</default>
+                <label>Appropriate delay exception occurred</label>
+            </value>
+            <value>
+                <fullName>Complaint resolved at Frontline</fullName>
+                <default>false</default>
+                <label>Complaint resolved at Frontline</label>
+            </value>
+            <value>
+                <fullName>EDR complaint</fullName>
+                <default>false</default>
+                <label>EDR complaint</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>Email correspondence showing IDR letter provided to complainant</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>Evidence on file showing IDR letter was posted to complainant</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Email correspondence showing IDR letter provided to complainant outside of timeframe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Evidence on file showing IDR letter was posted to complainant outside of timeframe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>No evidence on file to show IDR letter was provided to complainant at all</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Date not recorded in CMOS fields</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met (Out of Case Handler’s control)</controllingFieldValue>
+            <valueName>Previous case handler did not issue IDR letter within maximum IDR timeframe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met (Out of Case Handler’s control)</controllingFieldValue>
+            <valueName>No valid delay notification was issued by previous case handler.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Applicable</controllingFieldValue>
+            <valueName>Appropriate delay exception occurred</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Applicable</controllingFieldValue>
+            <valueName>Complaint resolved at Frontline</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Applicable</controllingFieldValue>
+            <valueName>EDR complaint</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>
