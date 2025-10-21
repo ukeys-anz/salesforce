@@ -294,7 +294,7 @@ public with sharing class FinancialAccountRepository {
       return new List<Case>();
     }
     return [
-      SELECT Id, Status, Sub_Status__c
+      SELECT Id, Status, Sub_Status__c, FinServ__FinancialAccount__c
       FROM Case
       WHERE
         RecordTypeId = :RTCase.signAuth

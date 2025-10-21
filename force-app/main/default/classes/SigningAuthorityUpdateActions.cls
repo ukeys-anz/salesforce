@@ -148,4 +148,26 @@ public with sharing class SigningAuthorityUpdateActions {
       );
     }
   }
+
+  /**
+   * @description close the milestone once status of Case is closed
+   * @param records Case records that are updated
+   * @param oldMap old map of Case records
+   */
+  public static void completeMilestone(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    List<Case> eligibleRecordsForClosure = ListUtil.filter(records, oldMap)
+      .changedTo(Case.Status, CASE_STATUS_CLOSED)
+      .toList();
+
+    Map<Id, Case> caseMap = new Map<Id, Case>(eligibleRecordsForClosure);
+
+    MilestoneUtils.completeMilestone(
+      new List<Id>(caseMap.keySet()),
+      CaseGroupCaseConstants.RESOLUTION_TIME_MILESTONE,
+      System.now()
+    );
+  }
 }

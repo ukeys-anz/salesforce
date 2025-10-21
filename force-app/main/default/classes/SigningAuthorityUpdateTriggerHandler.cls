@@ -45,6 +45,10 @@ public with sharing class SigningAuthorityUpdateTriggerHandler extends Lib_Trigg
       records,
       (Map<Id, Case>) oldMap
     );
+    SigningAuthorityUpdateActions.completeMilestone(
+      records,
+      (Map<Id, Case>) oldMap
+    );
     SigningAuthorityUpdateActions.setSubject(eligibleRecords);
   }
 
