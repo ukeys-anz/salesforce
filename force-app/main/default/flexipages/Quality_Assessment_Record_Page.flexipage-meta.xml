@@ -7890,9 +7890,9 @@
                 <identifier>RecordTeam_Manager_Response_cField2</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>C &amp; Q Assessment</rightValue>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -8049,9 +8049,9 @@
                 <identifier>RecordTeam_Manager_Comments_cField2</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>C &amp; Q Assessment</rightValue>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -8066,9 +8066,9 @@
                 <identifier>RecordC_Q_Manager_Comments_cField2</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>C &amp; Q Assessment</rightValue>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -8083,9 +8083,9 @@
                 <identifier>RecordTM_Comments_for_C_Q_Manager_Review_cField2</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>C &amp; Q Assessment</rightValue>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -8100,9 +8100,9 @@
                 <identifier>RecordC_Q_Lead_Comments_cField2</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>C &amp; Q Assessment</rightValue>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
