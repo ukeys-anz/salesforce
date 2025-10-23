@@ -3,6 +3,16 @@
     <fullName>C_R_Assessment_mandatory</fullName>
     <description>Customer Resolution Assessment Mandatory Fields</description>
     <displayedFields>
+        <field>Case_Manager__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>TeamManager__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
         <field>Q22_Comments__c</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
