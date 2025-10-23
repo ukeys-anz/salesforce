@@ -16,15 +16,33 @@ public with sharing class IDRQualityAssessmentActions {
   };
   /**
    * @description applyDefaults is called onBeforeInsert and onbeforeUpdate to set the following values as defaults
-   * @param records The record list form which we need to apply defaults
+   * @param records The record list to apply defaults
+   * @param oldMap Old Map records
    */
-  public static void applyDefaults(List<Quality_Assessment__c> records) {
-    for (Quality_Assessment__c record : records) {
-      CommonUtil.handleMasking(
-        record,
-        null,
-        SObjectType.Quality_Assessment__c.FieldSets.CMOS_Masked_Fields.getFields()
-      );
+  public static void applyDefaults(
+    List<Quality_Assessment__c> records,
+    Map<Id, Quality_Assessment__c> oldMap
+  ) {
+    List<Quality_Assessment__c> filteredRecords = ListUtil.filter(records)
+      .equals(
+        Quality_Assessment__c.RecordTypeId,
+        RTQualityAssessment.idrCQQualityId
+      )
+      .toList();
+    for (Quality_Assessment__c record : filteredRecords) {
+      for (
+        Schema.FieldSetMember fsm : SObjectType.Quality_Assessment__c.FieldSets.CMOS_Masked_Fields.getFields()
+      ) {
+        String fieldName = fsm.getFieldPath();
+        if (
+          (oldMap == null ||
+          String.valueOf(record.get(fieldName)) !=
+          String.valueOf(oldMap.get(record.id).get(fieldName))) &&
+          String.isNotBlank(String.valueOf(record.get(fieldName)))
+        ) {
+          TextUtils.maskDataCmos(record, fieldName);
+        }
+      }
     }
   }
   /**
