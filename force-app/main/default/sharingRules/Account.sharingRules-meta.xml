@@ -198,7 +198,7 @@
         <sharedTo>
             <group>CMOS_Internal_Users</group>
         </sharedTo>
-        <booleanFilter>1 OR 2</booleanFilter>
+        <booleanFilter>(1 OR 2) AND 3</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -208,6 +208,11 @@
             <field>IsPersonAccount</field>
             <operation>equals</operation>
             <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Source_System_Name__c</field>
+            <operation>notEqual</operation>
+            <value>CACHE</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
