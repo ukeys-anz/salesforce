@@ -16,10 +16,6 @@ AND(
     OR(ISPICKVAL(Call_authentication_process_followed__c, &apos;Met&apos;),ISPICKVAL(Call_authentication_process_followed__c, &apos;Not Applicable&apos;)),
     OR(ISPICKVAL(If_resolved_w_o_IDR_letter_RG271_71_met__c, &apos;Met&apos;),ISPICKVAL(If_resolved_w_o_IDR_letter_RG271_71_met__c, &apos;Not Applicable&apos;)),
     OR(ISPICKVAL(IDR_delay_notice_decision_appropriate__c, &apos;Met&apos;),ISPICKVAL(IDR_delay_notice_decision_appropriate__c, &apos;Not Applicable&apos;)),
-    OR(ISPICKVAL(If_resolved_resp_details_resolution__c, &apos;Met&apos;),ISPICKVAL(If_resolved_resp_details_resolution__c, &apos;Not Applicable&apos;)),
-    OR(ISPICKVAL(If_declined_does_resp_identify_issues__c, &apos;Met&apos;),ISPICKVAL(If_declined_does_resp_identify_issues__c, &apos;Not Applicable&apos;)),
-    OR(ISPICKVAL(Does_response_have_key_findings__c, &apos;Met&apos;),ISPICKVAL(Does_response_have_key_findings__c, &apos;Not Applicable&apos;)),
-    OR(ISPICKVAL(Does_response_have_enough_detail__c, &apos;Met&apos;),ISPICKVAL(Does_response_have_enough_detail__c, &apos;Not Applicable&apos;)),
     OR(ISPICKVAL(IDR_response_sent_within_timeframes__c, &apos;Met&apos;),ISPICKVAL(IDR_response_sent_within_timeframes__c, &apos;Not Applicable&apos;)),
     OR(ISPICKVAL(Was_the_outcome_fair_for_the_customer__c, &apos;Met&apos;),ISPICKVAL(Was_the_outcome_fair_for_the_customer__c, &apos;Not Applicable&apos;)),
     OR(ISPICKVAL(Was_implementation_timely__c, &apos;Met&apos;),ISPICKVAL(Was_implementation_timely__c, &apos;Not Applicable&apos;)),
@@ -27,6 +23,16 @@ AND(
     OR(ISPICKVAL(Addressed_info_req_s_basic_accts_etc__c, &apos;Met&apos;),ISPICKVAL(Addressed_info_req_s_basic_accts_etc__c, &apos;Not Applicable&apos;))
     ),
 OR(
+    AND(
+    OR(ISPICKVAL(If_resolved_resp_details_resolution__c, &apos;Met&apos;),ISPICKVAL(If_resolved_resp_details_resolution__c, &apos;Not Applicable&apos;)),
+    OR(ISPICKVAL(If_declined_does_resp_identify_issues__c, &apos;Met&apos;),ISPICKVAL(If_declined_does_resp_identify_issues__c, &apos;Not Applicable&apos;)),
+    OR(ISPICKVAL(Does_response_have_key_findings__c, &apos;Met&apos;),ISPICKVAL(Does_response_have_key_findings__c, &apos;Not Applicable&apos;)),
+    OR(ISPICKVAL(Does_response_have_enough_detail__c, &apos;Met&apos;),ISPICKVAL(Does_response_have_enough_detail__c, &apos;Not Applicable&apos;))
+    ),
+    ISPICKVAL(If_resolved_resp_details_resolution__c, &apos;Not Met (Post IDR Letter)&apos;),
+    ISPICKVAL(If_declined_does_resp_identify_issues__c, &apos;Not Met (Post IDR Letter)&apos;),
+    ISPICKVAL(Does_response_have_key_findings__c, &apos;Not Met (Post IDR Letter)&apos;),
+    ISPICKVAL(Does_response_have_enough_detail__c, &apos;Not Met (Post IDR Letter)&apos;),
     CONTAINS(TEXT(Engaged_with_cust_rep_where_needed__c),&apos;Not Met&apos;),
     CONTAINS(TEXT(Reasonable_investigation_completed__c),&apos;Not Met&apos;),
     CONTAINS(TEXT(Were_risk_events_raised_and_recorded__c),&apos;Not Met&apos;),
