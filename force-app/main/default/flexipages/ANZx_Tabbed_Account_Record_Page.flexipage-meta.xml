@@ -977,6 +977,9 @@
                         <valueListItems>
                             <value>Is_ANZx_Account__c|EQUALS|true</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>External_Id__c|NOT_EQUAL|</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
