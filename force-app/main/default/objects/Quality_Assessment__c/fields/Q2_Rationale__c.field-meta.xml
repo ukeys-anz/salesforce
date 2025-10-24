@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Q2_Rationale__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Captures the rationale for the relevant resolution assessment question</description>
+    <label>Q2 Rationale</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Gave_extra_care_or_met_access_need__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Extra care details recorded in CMOS fields or case notes</fullName>
+                <default>false</default>
+                <label>Extra care details recorded in CMOS fields or case notes</label>
+            </value>
+            <value>
+                <fullName>Third party authority obtained (if applicable)</fullName>
+                <default>false</default>
+                <label>Third party authority obtained (if applicable)</label>
+            </value>
+            <value>
+                <fullName>Details of third party recorded in CMOS fields (if applicable)</fullName>
+                <default>false</default>
+                <label>Details of third party recorded in CMOS fields (if applicable)</label>
+            </value>
+            <value>
+                <fullName>CM provided referrals to external services (if applicable)</fullName>
+                <default>false</default>
+                <label>CM provided referrals to external services (if applicable)</label>
+            </value>
+            <value>
+                <fullName>Extra care not provided to customer when necessary</fullName>
+                <default>false</default>
+                <label>Extra care not provided to customer when necessary</label>
+            </value>
+            <value>
+                <fullName>Details not recorded on file</fullName>
+                <default>false</default>
+                <label>Details not recorded on file</label>
+            </value>
+            <value>
+                <fullName>CM did not provide referrals to external services (if applicable)</fullName>
+                <default>false</default>
+                <label>CM did not provide referrals to external services (if applicable)</label>
+            </value>
+            <value>
+                <fullName>CMOS file edit history indicates extra care was not provided when necessary</fullName>
+                <default>false</default>
+                <label>CMOS file edit history indicates extra care was not provided when necessary</label>
+            </value>
+            <value>
+                <fullName>CMOS file edit history indicates extra care was not recorded on file when first provided</fullName>
+                <default>false</default>
+                <label>CMOS file edit history indicates extra care was not recorded on file when first provided</label>
+            </value>
+            <value>
+                <fullName>Customer not experiencing circumstances that require extra care</fullName>
+                <default>false</default>
+                <label>Customer not experiencing circumstances that require extra care</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>Extra care details recorded in CMOS fields or case notes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>Third party authority obtained (if applicable)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>Details of third party recorded in CMOS fields (if applicable)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>CM provided referrals to external services (if applicable)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Extra care not provided to customer when necessary</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Details not recorded on file</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>CM did not provide referrals to external services (if applicable)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met (Out of Case Handler’s control)</controllingFieldValue>
+            <valueName>CMOS file edit history indicates extra care was not provided when necessary</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met (Out of Case Handler’s control)</controllingFieldValue>
+            <valueName>CMOS file edit history indicates extra care was not recorded on file when first provided</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Applicable</controllingFieldValue>
+            <valueName>Customer not experiencing circumstances that require extra care</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

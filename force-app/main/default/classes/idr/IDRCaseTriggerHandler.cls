@@ -25,6 +25,12 @@ public with sharing class IDRCaseTriggerHandler extends Lib_TriggerHandler {
     return IDR_CASE_RECORD_TYPES.contains(caseRTId);
   }
   /**
+   * @description onBeforeInsert to handle before insert trigger actions.
+   */
+  public override void onBeforeInsert() {
+    IDRCaseActionsHelper.updateCasePriorityforECFAccount(records, null);
+  }
+  /**
    * @description onBeforeUpdate to handle before update trigger actions.
    * @param oldMap old trigger values
    */

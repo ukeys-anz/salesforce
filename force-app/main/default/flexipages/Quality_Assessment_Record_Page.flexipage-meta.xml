@@ -130,7 +130,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Related_Case__c</fieldItem>
                 <identifier>RecordRelated_Case_cField</identifier>
@@ -166,6 +166,29 @@
                 <identifier>RecordTeamManager_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Call_details__c</fieldItem>
+                <identifier>RecordCall_details_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-619370d4-0dba-492e-ab7b-5a0d63c81891</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -179,10 +202,21 @@
                 <fieldItem>Record.New_Starter__c</fieldItem>
                 <identifier>RecordNew_Starter_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Frontline Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -229,6 +263,29 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Status__c</fieldItem>
                 <identifier>RecordStatus_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Duration_of_calls_retrieved_minutes__c</fieldItem>
+                <identifier>RecordDuration_of_calls_retrieved_minutes_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-15a4c8b3-4e26-438a-baa2-ba12ff2140ee</name>
@@ -321,16 +378,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Were_all_relevant_calls_retrieved__c</fieldItem>
                 <identifier>RecordWere_all_relevant_calls_retrieved_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Were_the_CM_s_calls_recorded__c</fieldItem>
-                <identifier>RecordWere_the_CM_s_calls_recorded_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-ebb220d6-cc01-486a-8a90-7783fafed379</name>
@@ -463,8 +510,1701 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.ID_d_cust_experiencing_vulnerability__c</fieldItem>
+                <identifier>RecordID_d_cust_experiencing_vulnerability_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q1_Rationale__c</fieldItem>
+                <identifier>RecordQ1_Rationale_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q1_Comments__c</fieldItem>
+                <identifier>RecordQ1_Comments_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Hardship_recorded_referred_managed__c</fieldItem>
+                <identifier>RecordHardship_recorded_referred_managed_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q3_Rationale__c</fieldItem>
+                <identifier>RecordQ3_Rationale_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q3_Comments__c</fieldItem>
+                <identifier>RecordQ3_Comments_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Calls_disclosed_recording_got_consent__c</fieldItem>
+                <identifier>RecordCalls_disclosed_recording_got_consent_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q5_Rationale__c</fieldItem>
+                <identifier>RecordQ5_Rationale_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q5_Comments__c</fieldItem>
+                <identifier>RecordQ5_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-a97bca40-0dad-4798-9567-d53c03439924</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Gave_extra_care_or_met_access_need__c</fieldItem>
+                <identifier>RecordGave_extra_care_or_met_access_need_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q2_Rationale__c</fieldItem>
+                <identifier>RecordQ2_Rationale_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q2_Comments__c</fieldItem>
+                <identifier>RecordQ2_Comments_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Engaged_with_cust_rep_where_needed__c</fieldItem>
+                <identifier>RecordEngaged_with_cust_rep_where_needed_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q4_Rationale__c</fieldItem>
+                <identifier>RecordQ4_Rationale_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q4_Comments__c</fieldItem>
+                <identifier>RecordQ4_Comments_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Call_authentication_process_followed__c</fieldItem>
+                <identifier>RecordCall_authentication_process_followed_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q6_Rationale__c</fieldItem>
+                <identifier>RecordQ6_Rationale_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q6_Comments__c</fieldItem>
+                <identifier>RecordQ6_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-2065c609-d476-46c4-8a45-c0b958ca7c55</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-a97bca40-0dad-4798-9567-d53c03439924</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column47</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-2065c609-d476-46c4-8a45-c0b958ca7c55</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column48</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-c9164360-0dde-4e9c-a858-b0550cfd56c2</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.If_resolved_w_o_IDR_letter_RG271_71_met__c</fieldItem>
+                <identifier>RecordIf_resolved_w_o_IDR_letter_RG271_71_met_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q7_Rationale__c</fieldItem>
+                <identifier>RecordQ7_Rationale_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q7_Comments__c</fieldItem>
+                <identifier>RecordQ7_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-373cc1ca-932f-4ab7-9243-8b8666a4043f</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <name>Facet-c911fc7a-5229-4022-b9b5-101d9417b98d</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-373cc1ca-932f-4ab7-9243-8b8666a4043f</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column49</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-c911fc7a-5229-4022-b9b5-101d9417b98d</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column50</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-2b87f442-87d4-436a-8225-99d864989f1c</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reasonable_investigation_completed__c</fieldItem>
+                <identifier>RecordReasonable_investigation_completed_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q8_Rationale__c</fieldItem>
+                <identifier>RecordQ8_Rationale_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q8_Comments__c</fieldItem>
+                <identifier>RecordQ8_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-6d336a97-2ff9-41fa-8cc7-59887bd7ccfd</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <name>Facet-b1285cd5-8806-440b-9a53-1beaa9a03e2e</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-6d336a97-2ff9-41fa-8cc7-59887bd7ccfd</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column51</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-b1285cd5-8806-440b-9a53-1beaa9a03e2e</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column52</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-bd5b4138-4534-4bc6-b456-9b16143d23d0</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_delay_notice_decision_appropriate__c</fieldItem>
+                <identifier>RecordIDR_delay_notice_decision_appropriate_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q9_Rationale__c</fieldItem>
+                <identifier>RecordQ9_Rationale_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q9_Comments__c</fieldItem>
+                <identifier>RecordQ9_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-9fced47b-9aeb-4071-b001-7f8c5222d9d4</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <name>Facet-259faf19-66a6-487b-a2d7-8b2f4b135411</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-9fced47b-9aeb-4071-b001-7f8c5222d9d4</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column65</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-259faf19-66a6-487b-a2d7-8b2f4b135411</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column66</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-a1e076ef-1e90-41f9-8580-c1ab80355417</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.If_resolved_resp_details_resolution__c</fieldItem>
+                <identifier>RecordIf_resolved_resp_details_resolution_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q10_Rationale__c</fieldItem>
+                <identifier>RecordQ10_Rationale_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q10_Comments__c</fieldItem>
+                <identifier>RecordQ10_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Does_response_have_key_findings__c</fieldItem>
+                <identifier>RecordDoes_response_have_key_findings_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q11b_Rationale__c</fieldItem>
+                <identifier>RecordQ11b_Rationale_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q11b_Comments__c</fieldItem>
+                <identifier>RecordQ11b_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_response_sent_within_timeframes__c</fieldItem>
+                <identifier>RecordIDR_response_sent_within_timeframes_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q12_Rationale__c</fieldItem>
+                <identifier>RecordQ12_Rationale_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q12_Comments__c</fieldItem>
+                <identifier>RecordQ12_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-f167d72f-2c79-42be-aa5d-2da027250db6</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.If_declined_does_resp_identify_issues__c</fieldItem>
+                <identifier>RecordIf_declined_does_resp_identify_issues_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q11a_Rationale__c</fieldItem>
+                <identifier>RecordQ11a_Rationale_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q11a_Comments__c</fieldItem>
+                <identifier>RecordQ11a_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Does_response_have_enough_detail__c</fieldItem>
+                <identifier>RecordDoes_response_have_enough_detail_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q11c_Rationale__c</fieldItem>
+                <identifier>RecordQ11c_Rationale_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q11c_Comments__c</fieldItem>
+                <identifier>RecordQ11c_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-43d1965a-bdf8-440f-9d87-e0fb702a6b03</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-f167d72f-2c79-42be-aa5d-2da027250db6</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column67</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-43d1965a-bdf8-440f-9d87-e0fb702a6b03</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column68</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-94c3e587-ce81-4df7-8d20-1c4f65a97ae7</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Was_the_outcome_fair_for_the_customer__c</fieldItem>
+                <identifier>RecordWas_the_outcome_fair_for_the_customer_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q13_Rationale__c</fieldItem>
+                <identifier>RecordQ13_Rationale_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q13_Comments__c</fieldItem>
+                <identifier>RecordQ13_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-b8a607da-c9d5-4dc7-80d4-c2d1cd5bdf42</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Was_implementation_timely__c</fieldItem>
+                <identifier>RecordWas_implementation_timely_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q14_Rationale__c</fieldItem>
+                <identifier>RecordQ14_Rationale_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q14_Comments__c</fieldItem>
+                <identifier>RecordQ14_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-455bb776-063b-44bf-ad8d-21d21715807c</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-b8a607da-c9d5-4dc7-80d4-c2d1cd5bdf42</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column53</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-455bb776-063b-44bf-ad8d-21d21715807c</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column54</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-c81f87f7-c020-4ef8-85b9-ae91ab7ffa12</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Were_risk_events_raised_and_recorded__c</fieldItem>
+                <identifier>RecordWere_risk_events_raised_and_recorded_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q15_Rationale__c</fieldItem>
+                <identifier>RecordQ15_Rationale_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q15_Comments__c</fieldItem>
+                <identifier>RecordQ15_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-3fa8aeec-d069-434a-883f-3b63ab381aad</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.PSI_identified_flagged_where_needed__c</fieldItem>
+                <identifier>RecordPSI_identified_flagged_where_needed_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q16_Rationale__c</fieldItem>
+                <identifier>RecordQ16_Rationale_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q16_Comments__c</fieldItem>
+                <identifier>RecordQ16_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-18a1be8b-9493-4860-8beb-d3e1a5ddae72</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-3fa8aeec-d069-434a-883f-3b63ab381aad</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column55</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-18a1be8b-9493-4860-8beb-d3e1a5ddae72</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column56</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-f0dbcdcd-918c-4a86-9fd5-76163d4728e2</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Were_CMOS_fields_accurate__c</fieldItem>
+                <identifier>RecordWere_CMOS_fields_accurate_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q17_Rationale__c</fieldItem>
+                <identifier>RecordQ17_Rationale_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q17_Comments__c</fieldItem>
+                <identifier>RecordQ17_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Case_notes_clear_and_complete__c</fieldItem>
+                <identifier>RecordCase_notes_clear_and_complete_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q19_Rationale__c</fieldItem>
+                <identifier>RecordQ19_Rationale_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q19_Comments__c</fieldItem>
+                <identifier>RecordQ19_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-830f73bf-bfbf-4faf-a72e-484771bd116b</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Cust_interactions_accurately_recorded__c</fieldItem>
+                <identifier>RecordCust_interactions_accurately_recorded_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q18_Rationale__c</fieldItem>
+                <identifier>RecordQ18_Rationale_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q18_Comments__c</fieldItem>
+                <identifier>RecordQ18_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-26658aac-dc4c-4295-abea-44f80e8dc16c</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-830f73bf-bfbf-4faf-a72e-484771bd116b</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column57</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-26658aac-dc4c-4295-abea-44f80e8dc16c</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column58</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-a6c01d7d-e93f-4667-970b-d15fb78a694d</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Didn_t_provide_financial_product_advice__c</fieldItem>
+                <identifier>RecordDidn_t_provide_financial_product_advice_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q20_Rationale__c</fieldItem>
+                <identifier>RecordQ20_Rationale_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q20_Comments__c</fieldItem>
+                <identifier>RecordQ20_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Addressed_info_req_s_basic_accts_etc__c</fieldItem>
+                <identifier>RecordAddressed_info_req_s_basic_accts_etc_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q21_Rationale__c</fieldItem>
+                <identifier>RecordQ21_Rationale_cField3</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q21_Comments__c</fieldItem>
+                <identifier>RecordQ21_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Other_issues_not_addressed__c</fieldItem>
+                <identifier>RecordOther_issues_not_addressed_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q22_Rationale__c</fieldItem>
+                <identifier>RecordQ22_Rationale_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q22_Comments__c</fieldItem>
+                <identifier>RecordQ22_Comments_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-803c6c53-922e-4455-a903-dc038cbda72f</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Addressed_info_req_s_basic_accts_etc__c</fieldItem>
+                <identifier>RecordAddressed_info_req_s_basic_accts_etc_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q21_Rationale__c</fieldItem>
+                <identifier>RecordQ21_Rationale_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q21_Comments__c</fieldItem>
+                <identifier>RecordQ21_Comments_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Other_issues_not_addressed__c</fieldItem>
+                <identifier>RecordOther_issues_not_addressed_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q22_Rationale__c</fieldItem>
+                <identifier>RecordQ22_Rationale_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Q22_Comments__c</fieldItem>
+                <identifier>RecordQ22_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-dbcd97b7-34fe-41dc-842a-1d15137836ec</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-803c6c53-922e-4455-a903-dc038cbda72f</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column59</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-dbcd97b7-34fe-41dc-842a-1d15137836ec</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column60</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-0c826c89-70a5-4400-8dac-e33a0de86b7a</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Was_quick_resolution_offer_appropriate__c</fieldItem>
                 <identifier>RecordWas_quick_resolution_offer_appropriate_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1209,6 +2949,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.In_phone_resolutions_gave_AFCA_details__c</fieldItem>
                 <identifier>RecordIn_phone_resolutions_gave_AFCA_details_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-afddb8b6-bbc1-4310-a310-e5a2f34a85c8</name>
@@ -1224,16 +2971,10 @@
                 <fieldItem>Record.Reason_C_Q_SM2_Q1__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM2_Q1_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.In_phone_resolutions_gave_AFCA_details__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Not met</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Status__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Complete</rightValue>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -1247,16 +2988,10 @@
                 <fieldItem>Record.Reason_C_Q_SM2_Q1__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM2_Q1_cField2</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.In_phone_resolutions_gave_AFCA_details__c}</leftValue>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Not met</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Status__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Complete</rightValue>
+                        <rightValue>C &amp; Q Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -1270,16 +3005,10 @@
                 <fieldItem>Record.CMOS_Comment_7__c</fieldItem>
                 <identifier>RecordCMOS_Comment_7_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.In_phone_resolutions_gave_AFCA_details__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Not met</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Status__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Complete</rightValue>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -1293,16 +3022,10 @@
                 <fieldItem>Record.CMOS_Comment_7__c</fieldItem>
                 <identifier>RecordCMOS_Comment_7_cField3</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.In_phone_resolutions_gave_AFCA_details__c}</leftValue>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Not met</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Status__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Complete</rightValue>
+                        <rightValue>C &amp; Q Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -4998,9 +6721,15 @@
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection2</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C &amp; Q Assessment</rightValue>
+                    </criteria>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
+                        <operator>CONTAINS</operator>
                         <rightValue>C_Q_Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
@@ -5035,6 +6764,231 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>columns</name>
+                    <value>Facet-c9164360-0dde-4e9c-a858-b0550cfd56c2</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Customer Support</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection24</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-2b87f442-87d4-436a-8225-99d864989f1c</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Frontline Resolution</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection25</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-bd5b4138-4534-4bc6-b456-9b16143d23d0</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Investigation</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection26</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-a1e076ef-1e90-41f9-8580-c1ab80355417</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Delays</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection33</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-94c3e587-ce81-4df7-8d20-1c4f65a97ae7</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>IDR / EDR Letter</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection34</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-c81f87f7-c020-4ef8-85b9-ae91ab7ffa12</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Fairness</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection27</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-f0dbcdcd-918c-4a86-9fd5-76163d4728e2</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Risk</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection28</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-a6c01d7d-e93f-4667-970b-d15fb78a694d</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>File Data Quality</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection29</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-0c826c89-70a5-4400-8dac-e33a0de86b7a</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Other</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection30</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
                     <value>Facet-0d89bd64-3340-4992-9498-02626be97c05</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -5049,9 +7003,9 @@
                 <identifier>flexipage_fieldSection3</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
+                        <rightValue>C &amp; Q Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -5074,9 +7028,9 @@
                 <identifier>flexipage_fieldSection5</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
+                        <rightValue>C &amp; Q Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -5099,9 +7053,9 @@
                 <identifier>flexipage_fieldSection6</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
+                        <rightValue>C &amp; Q Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -5124,9 +7078,9 @@
                 <identifier>flexipage_fieldSection7</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
+                        <rightValue>C &amp; Q Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -5149,9 +7103,9 @@
                 <identifier>flexipage_fieldSection8</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
+                        <rightValue>C &amp; Q Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -5174,9 +7128,9 @@
                 <identifier>flexipage_fieldSection9</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
+                        <rightValue>C &amp; Q Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -5199,9 +7153,9 @@
                 <identifier>flexipage_fieldSection10</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
+                        <rightValue>C &amp; Q Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -5224,9 +7178,9 @@
                 <identifier>flexipage_fieldSection11</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
+                        <rightValue>C &amp; Q Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -5249,9 +7203,9 @@
                 <identifier>flexipage_fieldSection12</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
+                        <rightValue>C &amp; Q Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -5274,9 +7228,9 @@
                 <identifier>flexipage_fieldSection13</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
+                        <rightValue>C &amp; Q Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -5297,6 +7251,13 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection15</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>Call_Letter_Review_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -5315,6 +7276,13 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection16</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -5333,6 +7301,13 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection17</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -5351,6 +7326,13 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection18</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -5369,6 +7351,13 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection19</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>Facet-e3f2688b-ad0b-40f8-beae-83967f1326d8</name>
@@ -5379,10 +7368,95 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Assessment_Completion_Date__c</fieldItem>
                 <identifier>RecordAssessment_Completion_Date_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Assessment_Outcome_Status__c</fieldItem>
+                <identifier>RecordAssessment_Outcome_Status_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.REaL_form_categories__c</fieldItem>
+                <identifier>RecordREaL_form_categories_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Next_steps_required__c</fieldItem>
+                <identifier>RecordNext_steps_required_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Date_further_review_closed__c</fieldItem>
+                <identifier>RecordDate_further_review_closed_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Corrective_actions_for_C_Q_to_complete__c</fieldItem>
+                <identifier>RecordCorrective_actions_for_C_Q_to_complete_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -5410,6 +7484,19 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Case_Manager_Score__c</fieldItem>
                 <identifier>RecordCase_Manager_Score_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -5455,233 +7542,21 @@
                 <fieldItem>Record.Business_score__c</fieldItem>
                 <identifier>RecordBusiness_score_cField</identifier>
                 <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Team_Manager_Response__c</fieldItem>
-                <identifier>RecordTeam_Manager_Response_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Team_Manager_Comments__c</fieldItem>
-                <identifier>RecordTeam_Manager_Comments_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.C_Q_Manager_Response__c</fieldItem>
-                <identifier>RecordC_Q_Manager_Response_cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>C_Q_Assessment</rightValue>
                     </criteria>
                     <criteria>
-                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
                         <operator>NE</operator>
-                        <rightValue>Accepted</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.C_Q_Manager_Response__c</fieldItem>
-                <identifier>RecordC_Q_Manager_Response_cField2</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Accepted</rightValue>
+                        <rightValue>Customer Resolution Assessment</rightValue>
                     </criteria>
                     <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.C_Q_Manager_Comments__c</fieldItem>
-                <identifier>RecordC_Q_Manager_Comments_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.TM_Response_to_C_Q_Manager_Review__c</fieldItem>
-                <identifier>RecordTM_Response_to_C_Q_Manager_Review_cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
                         <operator>NE</operator>
-                        <rightValue>Accepted</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.TM_Response_to_C_Q_Manager_Review__c</fieldItem>
-                <identifier>RecordTM_Response_to_C_Q_Manager_Review_cField2</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Accepted</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.TM_Comments_for_C_Q_Manager_Review__c</fieldItem>
-                <identifier>RecordTM_Comments_for_C_Q_Manager_Review_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.C_Q_Lead_Response__c</fieldItem>
-                <identifier>RecordC_Q_Lead_Response_cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Accepted</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.C_Q_Lead_Response__c</fieldItem>
-                <identifier>RecordC_Q_Lead_Response_cField2</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Accepted</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.C_Q_Lead_Comments__c</fieldItem>
-                <identifier>RecordC_Q_Lead_Comments_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>C_Q_Assessment</rightValue>
+                        <rightValue>Frontline Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -5696,12 +7571,12 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.What_corrective_actions_are_required__c</fieldItem>
-                <identifier>RecordWhat_corrective_actions_are_required_cField</identifier>
+                <fieldItem>Record.Assessment_Result__c</fieldItem>
+                <identifier>RecordAssessment_Result_cField</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
+                        <operator>CONTAINS</operator>
                         <rightValue>C_Q_Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
@@ -5713,13 +7588,126 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Corrective_actions_for_TM_CM__c</fieldItem>
-                <identifier>RecordCorrective_actions_for_TM_CM_cField</identifier>
+                <fieldItem>Record.REaL_form_receipt_no__c</fieldItem>
+                <identifier>RecordREaL_form_receipt_no_cField2</identifier>
                 <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_for_further_review_recommendation__c</fieldItem>
+                <identifier>RecordReason_for_further_review_recommendation_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Actions_Completed__c</fieldItem>
+                <identifier>RecordActions_Completed_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Review_outcome__c</fieldItem>
+                <identifier>RecordReview_outcome_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Corrective_actions_requiring_FL_action__c</fieldItem>
+                <identifier>RecordCorrective_actions_requiring_FL_action_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Corrective_actions_for_TM_CM__c</fieldItem>
+                <identifier>RecordCorrective_actions_for_TM_CM_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.What_corrective_actions_are_required__c</fieldItem>
+                <identifier>RecordWhat_corrective_actions_are_required_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -5733,10 +7721,21 @@
                 <fieldItem>Record.Has_a_REaL_form_been_raised__c</fieldItem>
                 <identifier>RecordHas_a_REaL_form_been_raised_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -5750,10 +7749,21 @@
                 <fieldItem>Record.REaL_form_receipt_no__c</fieldItem>
                 <identifier>RecordREaL_form_receipt_no_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Frontline Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -5767,10 +7777,21 @@
                 <fieldItem>Record.REaL_form_categories__c</fieldItem>
                 <identifier>RecordREaL_form_categories_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -5784,10 +7805,21 @@
                 <fieldItem>Record.REAL_form_Comments__c</fieldItem>
                 <identifier>RecordREAL_form_Comments_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Frontline Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -5801,10 +7833,21 @@
                 <fieldItem>Record.Assessment_Outcome_Status__c</fieldItem>
                 <identifier>RecordAssessment_Outcome_Status_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Customer Resolution Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -5838,6 +7881,261 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Team_Manager_Response__c</fieldItem>
+                <identifier>RecordTeam_Manager_Response_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.C_Q_Manager_Response__c</fieldItem>
+                <identifier>RecordC_Q_Manager_Response_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Accepted</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.C_Q_Manager_Response__c</fieldItem>
+                <identifier>RecordC_Q_Manager_Response_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Accepted</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.TM_Response_to_C_Q_Manager_Review__c</fieldItem>
+                <identifier>RecordTM_Response_to_C_Q_Manager_Review_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Accepted</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.TM_Response_to_C_Q_Manager_Review__c</fieldItem>
+                <identifier>RecordTM_Response_to_C_Q_Manager_Review_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Accepted</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.C_Q_Lead_Response__c</fieldItem>
+                <identifier>RecordC_Q_Lead_Response_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Accepted</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.C_Q_Lead_Response__c</fieldItem>
+                <identifier>RecordC_Q_Lead_Response_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Accepted</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-8e5f14bf-d7a4-4bd3-b486-8460171f8e4b</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Team_Manager_Comments__c</fieldItem>
+                <identifier>RecordTeam_Manager_Comments_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.C_Q_Manager_Comments__c</fieldItem>
+                <identifier>RecordC_Q_Manager_Comments_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.TM_Comments_for_C_Q_Manager_Review__c</fieldItem>
+                <identifier>RecordTM_Comments_for_C_Q_Manager_Review_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.C_Q_Lead_Comments__c</fieldItem>
+                <identifier>RecordC_Q_Lead_Comments_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-475c2e5e-c55a-44f0-980b-5e42b40e9ecf</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-8e5f14bf-d7a4-4bd3-b486-8460171f8e4b</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column63</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-475c2e5e-c55a-44f0-980b-5e42b40e9ecf</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column64</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-7169ba98-b3d3-47c1-9b0b-fddccb596dff</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
                     <name>columns</name>
@@ -5853,6 +8151,31 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection14</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-7169ba98-b3d3-47c1-9b0b-fddccb596dff</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Dispute Information</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection32</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>Facet-ad5b1b40-4135-4686-b8c2-ccbc09d3d923</name>
@@ -5963,6 +8286,10 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Tabs</value>
+                </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>tabs</name>
                     <value>Facet-0b114abb-77d2-4d2f-ba77-55e2b6062580</value>

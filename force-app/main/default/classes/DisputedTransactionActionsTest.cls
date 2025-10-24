@@ -150,9 +150,11 @@ private with sharing class DisputedTransactionActionsTest {
   @isTest
   static void testGetCasesForRollupUpdates() {
     Map<String, Object> mockResult = generateMockResult(RTCase.fraud);
+    Id anotherCaseId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
 
     Test.startTest();
     List<Case> cases = DisputedTransactionActions.getCasesForRollupUpdates(
+      new Set<Id>{ theCase.Id, anotherCaseId },
       new List<Map<String, Object>>{ mockResult }
     );
     Test.stopTest();
@@ -166,6 +168,16 @@ private with sharing class DisputedTransactionActionsTest {
       mockResult.get('TotalTransactionAmount__c'),
       cases[0].Fraud_Total_Fraud_Value__c,
       'The total transaction amount should be reflected to the Case'
+    );
+    Assert.areEqual(
+      0,
+      cases[1].Fraud_Total_Recovered__c,
+      'The second Case record should be the one with zero values'
+    );
+    Assert.areEqual(
+      0,
+      cases[1].Fraud_Total_Fraud_Value__c,
+      'The second Case record should be the one with zero values'
     );
   }
 

@@ -12,6 +12,10 @@ public with sharing class RTQualityAssessment {
     'ANZ_Plus_Governance_Lending_Evaluation'
   );
   public static Id joinRTId = base.getId('Join');
+  public static Id idrCQQualityId = base.getId('C_Q_Assessment');
+  public static Id idrReviewAssessmentId = base.getId(
+    'Call_Letter_Review_Assessment'
+  );
 
   /**
    * @description Get the record type info for a given record type id

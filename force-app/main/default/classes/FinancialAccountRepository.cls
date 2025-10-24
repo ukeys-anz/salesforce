@@ -139,30 +139,6 @@ public with sharing class FinancialAccountRepository {
   }
 
   /**
-   * @description To get the Customer_Action__c records based on Financial Account Ids
-   * @param financialAccountIdSet Set of Financial Account Ids
-   * @return List of Pending Customer Action records
-   */
-  public List<Customer_Action__c> getPendingCustomerActionForFinancialAccounts(
-    Set<Id> financialAccountIdSet
-  ) {
-    if (financialAccountIdSet.isEmpty()) {
-      return new List<Customer_Action__c>();
-    }
-
-    return [
-      SELECT Id, Status__c, Financial_Account__c
-      FROM Customer_Action__c
-      WHERE
-        RecordTypeId = :QueryRT.of(Customer_Action__c.SObjectType)
-          .getId('Pending_Financial_Account_Updates')
-        AND Financial_Account__c IN :financialAccountIdSet
-        AND Status__c = :FinancialAccountActions.CUSTOMER_ACTION_STATUS_PENDING
-      WITH USER_MODE
-    ];
-  }
-
-  /**
    * @description gets all the finanacial account which needds to be displayed on UI
    * @param allRelatedAccountNumbers all the rekated financial account numbers
    * @return list of FinServ__FinancialAccount__c
@@ -304,5 +280,28 @@ public with sharing class FinancialAccountRepository {
         WITH USER_MODE
       ]
     );
+  }
+
+  /**
+   * @description get Cases of record type Sign Auth with linked Financial Accounts
+   * @param financialAccounts linked financial accounts
+   * @return List<Case>  Open Sign Auth Cases
+   */
+  public List<Case> getOpenSignAuthCasesByFinacialAccount(
+    List<FinServ__FinancialAccount__c> financialAccounts
+  ) {
+    if (financialAccounts.isEmpty()) {
+      return new List<Case>();
+    }
+    return [
+      SELECT Id, Status, Sub_Status__c, FinServ__FinancialAccount__c
+      FROM Case
+      WHERE
+        RecordTypeId = :RTCase.signAuth
+        AND FinServ__FinancialAccount__c IN :financialAccounts
+        AND Status = :SigningAuthorityUpdateActions.CASE_STATUS_UNDER_INVESTIGATION
+        AND Sub_Status__c = :SigningAuthorityUpdateActions.CASE_SUB_STATUS_PROCESSING
+      WITH USER_MODE
+    ];
   }
 }

@@ -1,0 +1,23 @@
+{
+  "Account": [
+    "OCV_Event_Version__c",
+    "Source_System_Name__c",
+    "Source_System_Id__c",
+    "External_Id__c",
+    "Id",
+    "Sync_Status__c",
+    "OCV_ID__c",
+    "OCV_Profile_ID__c",
+    "IsPersonAccount",
+    "RecordTypeId"
+  ],
+  "FinServ__FinancialAccount__c": [
+    "Id",
+    "Account_Key__c",
+    "OCV_Event_Version__c"
+  ],
+  "FinServ__FinancialAccountRole__c": "all",
+  "ContactPointPhone": "all",
+  "ContactPointAddress": "all",
+  "ContactPointEmail": "all"
+}

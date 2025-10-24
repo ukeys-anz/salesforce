@@ -43,7 +43,9 @@ public with sharing class IDRCasePriorityUpdateQueueable implements Queueable {
       updatedCases,
       new DmlConfig().allowPartial().withoutSharing()
     );
-    sendInAppNotifications(results, updatedCases);
+    sendInAppNotifications(
+      filterSuccessfulVulnerableCases(updatedCases, results)
+    );
   }
 
   /**
@@ -80,43 +82,55 @@ public with sharing class IDRCasePriorityUpdateQueueable implements Queueable {
   }
 
   /**
-   * @description Send in-app notifications for Case records which have been successfully to 'Customer experiencing vulnerability'.
-   * @param results - DML results of Case update
-   * @param updatedCases - List of updated Case records
+   * @description compare the case record's Priority field with Account's Extracare field to determine the Case Priority field value.
+   * @param updatedCases - List of all updated Cases
+   * @param results - List of all DML results
+   * @return List<Case> - List of filtered Vulnerable Cases which have been updated successfully.
    */
-  private void sendInAppNotifications(
-    List<Database.SaveResult> results,
-    List<Case> updatedCases
+  private List<Case> filterSuccessfulVulnerableCases(
+    List<Case> updatedCases,
+    List<Database.SaveResult> results
   ) {
-    CustomNotificationType oNotificationType = CommonUtil.getCustomNotificationTypeByName(
-      'CMOS'
-    );
     Set<Id> vulnerableCaseIds = ListUtil.getIds(
       ListUtil.filter(updatedCases)
         .equals(Case.Priority, IDRConstants.CASE_PRIORITY_VULNERABLE)
         .toList(),
       Case.Id
     );
-    if (vulnerableCaseIds.isEmpty()) {
-      return;
-    }
-    String subjectTemplate = 'Change in Customer\'s Extra Care Needs';
-    String description = 'Change in customer\'s Extra Care needs on complaint {0} for {1}';
-    for (Integer i = 0; i < results.size(); i++) {
-      Database.SaveResult sr = results[i];
-      if (!sr.isSuccess() && !vulnerableCaseIds.contains(sr.getId())) {
+    Set<Id> vulnerableSuccessCaseIds = new Set<Id>();
+    for (Database.SaveResult sr : results) {
+      if (!sr.isSuccess() || !vulnerableCaseIds.contains(sr.getId())) {
         continue;
       }
+      vulnerableSuccessCaseIds.add(sr.getId());
+    }
+    return ListUtil.filter(updatedCases)
+      .equals(Case.Id, vulnerableSuccessCaseIds)
+      .toList();
+  }
+
+  /**
+   * @description Send in-app notifications for Case records which have been updated successfully.
+   * @param casesToSendNotification - List of Cases to send in-app notifications for.
+   */
+  @TestVisible
+  private void sendInAppNotifications(List<Case> casesToSendNotification) {
+    CustomNotificationType cmosNotificationType = CommonUtil.getCustomNotificationTypeByName(
+      'CMOS'
+    );
+    String subjectTemplate = 'Change in Customer\'s Extra Care Needs';
+    String description = 'Change in customer\'s Extra Care needs on complaint {0} for {1}';
+    for (Case cs : casesToSendNotification) {
       List<Object> lParameters = new List<Object>{
-        updatedCases[i].CaseNumber,
-        updatedCases[i].Account.Name
+        cs.CaseNumber,
+        cs.Account.Name
       };
       String strNotificationDesc = String.format(description, lParameters);
       CommonUtil.sendInAppNotification(
         new InAppNotificationWrapper(
-          oNotificationType.Id,
-          sr.getId(),
-          updatedCases[i].OwnerId,
+          cmosNotificationType.Id,
+          cs.Id,
+          cs.OwnerId,
           subjectTemplate,
           strNotificationDesc
         )
