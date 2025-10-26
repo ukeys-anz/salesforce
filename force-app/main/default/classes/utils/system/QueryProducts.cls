@@ -13,7 +13,9 @@ public with sharing class QueryProducts {
         IDR_Product_Family__c,
         ANZ_Product_Code__c,
         IDR_Product_Family__r.IDR_ANZ_com_Product_Category__c,
-        IDR_Product_Family__r.Name
+        IDR_Product_Family__r.Name,
+        Is_Retail_Classic_Loan_Product__c,
+        Sub_Product_Code__c
       FROM Product2
     ]
   );
@@ -40,5 +42,14 @@ public with sharing class QueryProducts {
    */
   public static Product2 getByProductCode(String productCode) {
     return productsByProductCode.get(productCode);
+  }
+  /**
+   * @description Returns Classic Product based on the Is_Retail_Classic_Loan_Product__c .
+   * @return Product records based on Is_Retail_Classic_Loan_Product__c.
+   */
+  public static List<Product2> getClassicProducts() {
+    return ListUtil.filter(productsById.values())
+      .equals(Product2.Is_Retail_Classic_Loan_Product__c, true)
+      .toList();
   }
 }
