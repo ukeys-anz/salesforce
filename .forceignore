@@ -181,3 +181,6 @@ force-app/main/default/staticresources/mock_sopListAssets.resource-meta.xml
 
 #PR-8811 Skip field destruction in merge
 force-app/main/default/objects/Lead/fields/Conversion_Status__c
+
+#CF-6823 SignAuth revert
+force-app/main/default/objects/Case/recordTypes/Signing_Authority_Update.recordType-meta.xml
