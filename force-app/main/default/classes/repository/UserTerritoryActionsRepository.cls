@@ -4,7 +4,7 @@
  * @description This class provide SOQL for User Territory related queries.
  * Used SYSTEM_MODE as User Territories aligned in system mode
  */
-public class UserTerritoryActionsRepository {
+public without sharing class UserTerritoryActionsRepository {
   public static final String STATUS_ACTIVE = 'Active';
   /**
    * @description getUserTerrritoriesFromUserIds method return user Territories associated to the given ids of the users

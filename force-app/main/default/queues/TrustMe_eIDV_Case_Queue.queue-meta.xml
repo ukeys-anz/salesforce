@@ -3,10 +3,10 @@
     <name>TrustMe Manual Review Case Queue</name>
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <queueMembers>
-        <roleAndSubordinatesInternal>
-            <roleAndSubordinateInternal>FraudX_Agent</roleAndSubordinateInternal>
-            <roleAndSubordinateInternal>Join_Lead</roleAndSubordinateInternal>
-        </roleAndSubordinatesInternal>
+        <roles>
+            <role>FraudX_Agent</role>
+            <role>Join_Lead</role>
+        </roles>
     </queueMembers>
     <queueSobject>
         <sobjectType>Case</sobjectType>

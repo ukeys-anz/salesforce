@@ -1,5 +1,62 @@
 @IsTest
 private class QualityAssessmentActionsTest {
+  static Quality_Assessment__c oldqaRecord = new Quality_Assessment__c(
+    Id = Lib_FakeIdGenerator.getMockId(Quality_Assessment__c.SObjectType),
+    RecordTypeId = RTQualityAssessment.idrCQQualityId
+  );
+  static Quality_Assessment__c newqaRecord = new Quality_Assessment__c(
+    Id = oldqaRecord.Id,
+    RecordTypeId = RTQualityAssessment.idrCQQualityId,
+    Status__c = QualityAssessmentActions.STATUS_COMPLETE
+  );
+
+  /**
+   * @description Test method to test data masking for QA fields for CMOS
+   */
+  @isTest
+  static void testHandleMaskingPositive() {
+    Quality_Assessment__c oldRecord = oldqaRecord;
+    oldRecord.Status__c = QualityAssessmentActions.STATUS_PENDING;
+    oldRecord.Q1_Comments__c = '';
+    Quality_Assessment__c newRecord = newqaRecord;
+    newRecord.Status__c = QualityAssessmentActions.STATUS_PENDING;
+    newRecord.Q1_Comments__c = 'card 4123-1233-1111-2222';
+    Test.startTest();
+    IDRQualityAssessmentActions.applyDefaults(
+      new List<Quality_Assessment__c>{ newRecord },
+      new Map<Id, Quality_Assessment__c>{ oldRecord.Id => oldRecord }
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      'card ************2222',
+      newRecord.Q1_Comments__c,
+      'Q1 Comments field value should be masked for CMOS if text has card string'
+    );
+  }
+  /**
+   * @description Test method to test data masking should be skipped for a particular pattern for CMOS
+   */
+  @isTest
+  static void testHandleMaskingNegative() {
+    Quality_Assessment__c oldRecord = oldqaRecord;
+    oldRecord.Status__c = QualityAssessmentActions.STATUS_PENDING;
+    oldRecord.Q1_Comments__c = '';
+    Quality_Assessment__c newRecord = newqaRecord;
+    newRecord.Status__c = QualityAssessmentActions.STATUS_PENDING;
+    newRecord.Q1_Comments__c = '$12345678';
+    Test.startTest();
+    IDRQualityAssessmentActions.applyDefaults(
+      new List<Quality_Assessment__c>{ newRecord },
+      new Map<Id, Quality_Assessment__c>{ oldRecord.Id => oldRecord }
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      '$12345678',
+      newRecord.Q1_Comments__c,
+      'Q1 Comments field value should not be masked for CMOS if text has $ prefix'
+    );
+  }
+
   //method to test negative case (return false) when calling isDisputeCaseType mehtod
   @IsTest
   private static void testIsDisputeCaseTypeNegative() {
@@ -321,5 +378,67 @@ private class QualityAssessmentActionsTest {
       qaRecordV1.Assessment_Outcome_Status__c,
       'Assessment Outcome Status should not be updated when Outcome fields are not changed'
     );
+  }
+  /**
+   * @description Test to get respective fieldset for evaluation type.
+   */
+  @IsTest
+  static void testGetFieldSet() {
+    Quality_Assessment__c newQa = newqaRecord;
+    newQa.Evaluation_Type__c = IDRConstants.QA_CQ_ASSESSMENT;
+    Test.startTest();
+    String evaluationType = IDRQualityAssessmentActions.getFieldsetId(newQa);
+    Test.stopTest();
+    Assert.areEqual(
+      evaluationType,
+      'C_Q_Assessment',
+      'Field set id should be CQ'
+    );
+  }
+  /**
+   * @description Test to validate QA status on update of QA records.
+   */
+  @IsTest
+  static void testValidateStatusCompleteforUpdate() {
+    Quality_Assessment__c newQa = newqaRecord;
+    newQa.Evaluation_Type__c = IDRConstants.QA_CQ_ASSESSMENT;
+    Quality_Assessment__c oldQa = oldqaRecord;
+
+    Test.startTest();
+    IDRQualityAssessmentActions.validateStatusComplete(
+      new List<Quality_Assessment__c>{ newQa },
+      new Map<Id, Quality_Assessment__c>{ oldQa.Id => oldQa }
+    );
+    Test.stopTest();
+    Assert.areEqual(newQa.Status__c, 'Complete', 'Status should be complete');
+  }
+  /**
+   * @description Test to validate QA status on insert of QA records.
+   */
+  @IsTest
+  static void testValidateStatusCompleteforInsert() {
+    Quality_Assessment__c newQa = newqaRecord;
+    Test.startTest();
+    IDRQualityAssessmentActions.validateStatusComplete(
+      new List<Quality_Assessment__c>{ newQa },
+      null
+    );
+    Test.stopTest();
+    Assert.areEqual(newQa.Status__c, 'Complete', 'Status should be complete');
+  }
+  /**
+   * @description Test when CQ fieldset field is updated with null value.
+   */
+  @IsTest
+  static void testAutoCalculateScore() {
+    Quality_Assessment__c newQa = newqaRecord;
+    newQa.Evaluation_Type__c = IDRConstants.QA_CQ_ASSESSMENT;
+    newQa.Was_quick_resolution_offer_appropriate__c = '';
+    Test.startTest();
+    IDRQualityAssessmentActions.autoCalculateScore(
+      new List<Quality_Assessment__c>{ newQa }
+    );
+    Test.stopTest();
+    Assert.areEqual(0, newQa.Case_Manager_Score__c, 'Case Manager score is 0');
   }
 }

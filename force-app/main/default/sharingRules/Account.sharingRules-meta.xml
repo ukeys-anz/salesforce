@@ -1,6 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
+        <fullName>ANZx_Customer</fullName>
+        <accessLevel>Read</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>Read</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>If ANZx Customer, ANZx and subordinates can view</description>
+        <label>ANZx Customer</label>
+        <sharedTo>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
+        </sharedTo>
+        <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+        <criteriaItems>
+            <field>Was_ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Source_System_Name__c</field>
+            <operation>equals</operation>
+            <value>CAP-CIS</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>ANZx_Customer_Read_Only_For_ECH_Users</fullName>
+        <accessLevel>Read</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>Read</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>View access to all the ANZx records for Extra Care Hub users</description>
+        <label>ANZx Customer Read Only For ECH Users</label>
+        <sharedTo>
+            <group>ANZx_Read_Only_Group</group>
+        </sharedTo>
+        <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+        <criteriaItems>
+            <field>Was_ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Source_System_Name__c</field>
+            <operation>equals</operation>
+            <value>CAP-CIS</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Business_Admin</fullName>
         <accessLevel>Edit</accessLevel>
         <accountSettings>
@@ -74,10 +136,16 @@
         <sharedTo>
             <roleAndSubordinatesInternal>AR_C</roleAndSubordinatesInternal>
         </sharedTo>
+        <booleanFilter>1 AND 2</booleanFilter>
         <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
             <value>true</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Source_System_Name__c</field>
+            <operation>equals</operation>
+            <value>CAP-CIS</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -130,7 +198,7 @@
         <sharedTo>
             <group>CMOS_Internal_Users</group>
         </sharedTo>
-        <booleanFilter>1 OR 2</booleanFilter>
+        <booleanFilter>(1 OR 2) AND 3</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -140,6 +208,11 @@
             <field>IsPersonAccount</field>
             <operation>equals</operation>
             <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Source_System_Name__c</field>
+            <operation>notEqual</operation>
+            <value>CACHE</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -206,7 +279,7 @@
         <sharedTo>
             <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
         </sharedTo>
-        <booleanFilter>1 OR 2</booleanFilter>
+        <booleanFilter>(1 OR 2) AND (3 OR 4)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -216,6 +289,16 @@
             <field>IsPersonAccount</field>
             <operation>equals</operation>
             <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Source_System_Name__c</field>
+            <operation>equals</operation>
+            <value>CAP-CIS</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Source_System_Name__c</field>
+            <operation>equals</operation>
+            <value>CACHE</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -263,7 +346,7 @@
         <sharedTo>
             <role>AR_C</role>
         </sharedTo>
-        <booleanFilter>1 OR 2</booleanFilter>
+        <booleanFilter>(1 OR 2) AND 3</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -273,6 +356,11 @@
             <field>IsPersonAccount</field>
             <operation>equals</operation>
             <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Source_System_Name__c</field>
+            <operation>equals</operation>
+            <value>CAP-CIS</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

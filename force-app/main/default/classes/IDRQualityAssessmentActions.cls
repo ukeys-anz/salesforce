@@ -15,6 +15,37 @@ public with sharing class IDRQualityAssessmentActions {
     'case_manager_score__c'
   };
   /**
+   * @description applyDefaults is called onBeforeInsert and onbeforeUpdate to set the following values as defaults
+   * @param records The record list to apply defaults
+   * @param oldMap Old Map records
+   */
+  public static void applyDefaults(
+    List<Quality_Assessment__c> records,
+    Map<Id, Quality_Assessment__c> oldMap
+  ) {
+    List<Quality_Assessment__c> filteredRecords = ListUtil.filter(records)
+      .equals(
+        Quality_Assessment__c.RecordTypeId,
+        RTQualityAssessment.idrCQQualityId
+      )
+      .toList();
+    for (Quality_Assessment__c record : filteredRecords) {
+      for (
+        Schema.FieldSetMember fsm : SObjectType.Quality_Assessment__c.FieldSets.CMOS_Masked_Fields.getFields()
+      ) {
+        String fieldName = fsm.getFieldPath();
+        if (
+          (oldMap == null ||
+          String.valueOf(record.get(fieldName)) !=
+          String.valueOf(oldMap.get(record.id).get(fieldName))) &&
+          String.isNotBlank(String.valueOf(record.get(fieldName)))
+        ) {
+          TextUtils.maskDataCmos(record, fieldName);
+        }
+      }
+    }
+  }
+  /**
    * @description calculate Case Manager Score and Business Manager Score
    * @param records new values
    */
@@ -106,24 +137,17 @@ public with sharing class IDRQualityAssessmentActions {
   /**
    * @description Use the Quality_Assessment__c record type and evaluation type to work out the fieldset id
    * @param oAssessment Quality_Assessment__c record for determining fieldset Id
-   *
    * @return String fieldset Id matching record type and Evaluation Type
    */
   public static String getFieldsetId(Quality_Assessment__c oAssessment) {
-    String strFieldSetId = '';
-    if (oAssessment.RecordTypeId == IDRConstants.idrtCQQualityAssessment) {
-      strFieldSetId = 'C_Q_Assessment';
-    } else if (
-      oAssessment.RecordTypeId ==
-      IDRConstants.idrtCallLetterReviewQualityAssessment
-    ) {
-      if (oAssessment.Evaluation_Type__c == 'Call Review Assessment') {
-        strFieldSetId = 'Call_Review_Assessment';
-      } else if (oAssessment.Evaluation_Type__c == 'Letter Review Assessment') {
-        strFieldSetId = 'Letter_Review_Assessment';
-      }
-    }
-    return strFieldSetId;
+    Map<String, String> evaluationTypes = new Map<String, String>{
+      IDRConstants.QA_CQ_ASSESSMENT => 'C_Q_Assessment',
+      IDRConstants.QA_CR_ASSESSMENT => 'C_R_Assessment',
+      IDRConstants.QA_FRONTLINE_ASSESSMENT => 'F_L_Assessment',
+      IDRConstants.QA_CALL_REVIEW_ASSESSMENT => 'Call_Review_Assessment',
+      IDRConstants.QA_LETTER_REVIEW_ASSESSMENT => 'Letter_Review_Assessment'
+    };
+    return evaluationTypes.get(oAssessment.Evaluation_Type__c);
   }
 
   /**

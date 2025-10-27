@@ -120,7 +120,7 @@
                             <value>AccountDetails__c</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>TransactionDate</value>
+                            <value>TransactionDate__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>TransactionAmount</value>
