@@ -2789,6 +2789,25 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Review_outcome__c</picklist>
+        <values>
+            <fullName>Original outcome upheld</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outcome enhanced</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outcome overturned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Raised in error</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Risk_and_Compliance_Category__c</picklist>
         <values>
             <fullName>Advice %2F Consent %2F Disclaimers %2F Warnings Category</fullName>

@@ -26,6 +26,11 @@
                 <label>Outcome enhanced</label>
             </value>
             <value>
+                <fullName>Outcome overturned</fullName>
+                <default>false</default>
+                <label>Outcome overturned</label>
+            </value>
+            <value>
                 <fullName>Raised in error</fullName>
                 <default>false</default>
                 <label>Raised in error</label>

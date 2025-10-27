@@ -1361,21 +1361,6 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Signing_Authority_Cases_Read_Write</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Provides Read Write access to Signing Authority record type cases.</description>
-        <label>Signing_Authority_Cases_Read_Write</label>
-        <sharedTo>
-            <group>Update_Signatory_Customer_Action_Sharing</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Signing Authority Update</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>FraudX_Agent_owned_cases_Share_RW_FraudX_agent_Join_Lead</fullName>
         <accessLevel>Edit</accessLevel>

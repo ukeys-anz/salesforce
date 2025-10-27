@@ -77,7 +77,7 @@ public with sharing class MFAResetService extends Service {
       new List<Object>{
         Label.Forge_MFA_Reset_Client_Id,
         'urn:ietf:params:oauth:grant-type:token-exchange',
-        'Au_Anzx_Broker_Accreditation_And_Onboarding_Team' /* AD Group authorized to reset MFA */,
+        'AU_ANZx_Broker_Accreditation_and_Onboarding_Team' /* AD Group authorized to reset MFA */,
         brokerEmail,
         'urn:ietf:params:oauth:token-type:jwt',
         staffToken

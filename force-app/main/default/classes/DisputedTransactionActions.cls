@@ -56,17 +56,19 @@ public with sharing class DisputedTransactionActions {
     List<Map<String, Object>> results = REPO.getRelatedAggregatedDisputes(
       caseIds
     );
-    List<Case> casesToUpdate = getCasesForRollupUpdates(results);
+    List<Case> casesToUpdate = getCasesForRollupUpdates(caseIds, results);
     DML.doUpdate(casesToUpdate);
   }
 
   /**
    * @description Get the case records for rollup updates
+   * @param caseIds set of Case Ids to consider for rollup updates
    * @param results aggregated dispute results
    * @return list of Case records to update
    */
   @TestVisible
   private static List<Case> getCasesForRollupUpdates(
+    Set<Id> caseIds,
     List<Map<String, Object>> results
   ) {
     Map<ID, SObjectField> rtFieldMap = new Map<ID, SObjectField>{
@@ -93,6 +95,21 @@ public with sharing class DisputedTransactionActions {
         caseRec.put(rtFieldMap.get(recordTypeId), totalTransactionAmount);
       }
       casesToUpdate.add(caseRec);
+    }
+    Set<Id> resultsCaseIds = new Map<Id, Case>(casesToUpdate).keySet();
+    for (Id caseId : caseIds) {
+      if (resultsCaseIds.contains(caseId)) {
+        continue;
+      }
+      casesToUpdate.add(
+        new Case(
+          Id = caseId,
+          Fraud_Total_Recovered__c = 0,
+          Fraud_Total_Scam_Value__c = 0,
+          Fraud_Total_Fraud_Value__c = 0,
+          Fraud_Total_Fraud_Received__c = 0
+        )
+      );
     }
     return casesToUpdate;
   }
