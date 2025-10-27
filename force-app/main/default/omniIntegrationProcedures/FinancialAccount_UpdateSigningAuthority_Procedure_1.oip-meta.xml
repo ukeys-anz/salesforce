@@ -8,9 +8,7 @@
 }</customJavaScript>
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
     <isActive>true</isActive>
-    <isIntegProcdSignatureAvl>false</isIntegProcdSignatureAvl>
     <isIntegrationProcedure>true</isIntegrationProcedure>
-    <isManagedUsingStdDesigner>false</isManagedUsingStdDesigner>
     <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
     <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
     <isTestProcedure>false</isTestProcedure>
@@ -24,27 +22,27 @@
         <level>0.0</level>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;vlcResponseHeaders&quot; : { },
-  &quot;returnFullDataJSON&quot; : false,
-  &quot;returnOnlyAdditionalOutput&quot; : true,
-  &quot;show&quot; : null,
-  &quot;responseFormat&quot; : &quot;JSON&quot;,
-  &quot;responseDefaultData&quot; : { },
-  &quot;isActive&quot; : true,
-  &quot;responseJSONPath&quot; : &quot;&quot;,
-  &quot;responseJSONNode&quot; : &quot;&quot;,
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;useFormulas&quot; : true,
   &quot;additionalOutput&quot; : {
+    &quot;httpCode&quot; : &quot;%updateSigningAuthorityApiCall:httpCode%&quot;,
+    &quot;status&quot; : &quot;%updateSigningAuthorityApiCall:status%&quot;,
     &quot;hideUpdatePanel&quot; : &quot;=IF(%updateSigningAuthorityApiCall:status% == \&quot;Success\&quot;, true, false)&quot;,
     &quot;hideButtons&quot; : true,
-    &quot;httpCode&quot; : &quot;%updateSigningAuthorityApiCall:httpCode%&quot;,
-    &quot;isDefaultError&quot; : &quot;%updateSigningAuthorityApiCall:isDefaultError%&quot;,
-    &quot;status&quot; : &quot;%updateSigningAuthorityApiCall:status%&quot;
+    &quot;isDefaultError&quot; : &quot;%updateSigningAuthorityApiCall:isDefaultError%&quot;
   },
+  &quot;returnOnlyAdditionalOutput&quot; : true,
+  &quot;returnFullDataJSON&quot; : false,
+  &quot;responseFormat&quot; : &quot;JSON&quot;,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
   &quot;sendJSONPath&quot; : &quot;&quot;,
-  &quot;disOnTplt&quot; : false,
-  &quot;useFormulas&quot; : true,
-  &quot;sendJSONNode&quot; : &quot;&quot;
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;responseDefaultData&quot; : { },
+  &quot;vlcResponseHeaders&quot; : { },
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;ResponseAction1&quot;,
+  &quot;disOnTplt&quot; : false
 }</propertySetConfig>
         <sequenceNumber>2.0</sequenceNumber>
         <type>Response Action</type>
@@ -56,36 +54,34 @@
         <level>0.0</level>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;sendOnlyAdditionalInput&quot; : true,
-  &quot;remoteOptions&quot; : { },
-  &quot;remoteMethod&quot; : &quot;updateSigningAutority&quot;,
-  &quot;returnOnlyAdditionalOutput&quot; : false,
+  &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
   &quot;failOnStepError&quot; : true,
-  &quot;isActive&quot; : true,
-  &quot;chainOnStep&quot; : false,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalInput&quot; : {
+    &quot;numberOfSign&quot; : &quot;%numberOfSign%&quot;,
+    &quot;finAccountNumber&quot; : &quot;%finAccountNumber%&quot;,
+    &quot;ocvId&quot; : &quot;%ocvId%&quot;,
+    &quot;finAccountId&quot; : &quot;%finAccountId%&quot;
+  },
+  &quot;additionalOutput&quot; : { },
+  &quot;failureResponse&quot; : { },
+  &quot;sendOnlyAdditionalInput&quot; : true,
+  &quot;returnOnlyAdditionalOutput&quot; : false,
   &quot;returnOnlyFailureResponse&quot; : false,
   &quot;responseJSONPath&quot; : &quot;&quot;,
   &quot;responseJSONNode&quot; : &quot;&quot;,
-  &quot;executionConditionalFormula&quot; : &quot;&quot;,
-  &quot;remoteClass&quot; : &quot;SigningAuthorityController&quot;,
-  &quot;actionMessage&quot; : &quot;&quot;,
-  &quot;additionalOutput&quot; : { },
   &quot;sendJSONPath&quot; : &quot;&quot;,
-  &quot;disOnTplt&quot; : false,
-  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;remoteClass&quot; : &quot;SigningAuthorityController&quot;,
+  &quot;remoteOptions&quot; : { },
+  &quot;remoteMethod&quot; : &quot;updateSigningAutority&quot;,
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
   &quot;additionalChainableResponse&quot; : { },
-  &quot;failureResponse&quot; : { },
-  &quot;id&quot; : &quot;&quot;,
-  &quot;additionalInput&quot; : {
-    &quot;finAccountId&quot; : &quot;%finAccountId%&quot;,
-    &quot;ocvId&quot; : &quot;%ocvId%&quot;,
-    &quot;finAccountNumber&quot; : &quot;%finAccountNumber%&quot;,
-    &quot;numberOfSign&quot; : &quot;%numberOfSign%&quot;,
-    &quot;caseRecordId&quot; : &quot;%caseRecordId%&quot;
-  },
-  &quot;useFormulas&quot; : true,
-  &quot;restOptions&quot; : { },
-  &quot;sendJSONNode&quot; : &quot;&quot;
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;RemoteAction1&quot;,
+  &quot;disOnTplt&quot; : false
 }</propertySetConfig>
         <sequenceNumber>1.0</sequenceNumber>
         <type>Remote Action</type>
@@ -93,9 +89,30 @@
     <omniProcessKey>FinancialAccount_UpdateSigningAuthority</omniProcessKey>
     <omniProcessType>Integration Procedure</omniProcessType>
     <propertySetConfig>{
-  &quot;transientValues&quot; : {
-    &quot;deactivateConsent&quot; : false
-  }
+  &quot;linkToExternalObject&quot; : &quot;&quot;,
+  &quot;trackingCustomData&quot; : { },
+  &quot;includeAllActionsInResponse&quot; : false,
+  &quot;columnsPropertyMap&quot; : [ ],
+  &quot;relationshipFieldsMap&quot; : [ ],
+  &quot;labelSingular&quot; : &quot;&quot;,
+  &quot;labelPlural&quot; : &quot;&quot;,
+  &quot;description&quot; : &quot;&quot;,
+  &quot;nameColumn&quot; : &quot;&quot;,
+  &quot;rollbackOnError&quot; : false,
+  &quot;chainableQueriesLimit&quot; : 50,
+  &quot;chainableDMLStatementsLimit&quot; : null,
+  &quot;chainableCpuLimit&quot; : 2000,
+  &quot;chainableHeapSizeLimit&quot; : null,
+  &quot;chainableDMLRowsLimit&quot; : null,
+  &quot;chainableQueryRowsLimit&quot; : null,
+  &quot;chainableSoslQueriesLimit&quot; : null,
+  &quot;chainableActualTimeLimit&quot; : null,
+  &quot;additionalChainableResponse&quot; : { },
+  &quot;queueableChainableQueriesLimit&quot; : 120,
+  &quot;queueableChainableCpuLimit&quot; : 40000,
+  &quot;queueableChainableHeapSizeLimit&quot; : 6,
+  &quot;ttlMinutes&quot; : 5,
+  &quot;mockResponseMap&quot; : { }
 }</propertySetConfig>
     <subType>UpdateSigningAuthority</subType>
     <type>FinancialAccount</type>

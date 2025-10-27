@@ -133,4 +133,50 @@ private class SigningAuthorityControllerTest {
     Test.stopTest();
     Assert.areEqual(res.statusCode, 500, 'Status Code should be 500');
   }
+
+  // Method to test the update pending customer action record with error info
+  @isTest
+  static void testCustomerActionUpdates() {
+    Faker faker = new Faker('AU');
+    Account accnt = new Account();
+    accnt.Name = 'TestAccount';
+    accnt.Display_Name__c = 'TestAccount';
+    accnt.OCV_ID__c = faker.randomString(10);
+    accnt.ANZx_Customer__c = true;
+    accnt.External_Id__c = faker.randomString(10);
+    accnt.Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+
+    FinServ__FinancialAccount__c finAccount = TestDataFactory.createFinancialAccountRecord(
+      GetHelpConstants.CHECKING_ACCOUNT_RT_ID,
+      accnt.Id,
+      false
+    );
+    List<Customer_Action__c> customerActionRecords = new List<Customer_Action__c>();
+    Customer_Action__c ca = TestDataFactory.createCustomerActionRecord(
+      QueryRT.of(Customer_Action__c.SObjectType)
+        .getId('Pending_Financial_Account_Updates'),
+      accnt.Id,
+      finAccount.Id,
+      false
+    );
+    customerActionRecords.add(ca);
+    AlterAccountSignModeModel signingModel = new AlterAccountSignModeModel();
+    signingModel.status = 'Error';
+    Test.startTest();
+    List<Customer_Action__c> updatedCustomerActionList = SigningAuthorityController.updateCustomerAction(
+      signingModel,
+      customerActionRecords
+    );
+    // Dummy callout for test coverage
+    SigningAuthorityController.processCustomerAction(
+      signingModel,
+      finAccount.Id
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      FinancialAccountActions.CUSTOMER_ACTION_ERROR,
+      updatedCustomerActionList[0].Status__c,
+      'Customer Action Status Should be Error'
+    );
+  }
 }

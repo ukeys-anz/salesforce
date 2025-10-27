@@ -1515,8 +1515,7 @@
         "Process_SLA_Status__c",
         "Financial_Account_Name__c",
         "Opt_Out_Reason__c"
-      ],
-      "IA-4796231": ["Secondary_Account_Holder_Consent__c"]
+      ]
     },
     "CaseHistory": {
       "IA-2468715": [

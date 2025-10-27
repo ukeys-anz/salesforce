@@ -8,5 +8,4 @@ public class RTFinancialAccount {
 
   public static Id bankAccount = base.getId('BankingAccount');
   public static Id savingAccount = base.getId('SavingsAccount');
-  public static Id checkingAccount = base.getId('CheckingAccount');
 }
