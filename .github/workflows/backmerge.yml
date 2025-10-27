@@ -102,7 +102,7 @@ jobs:
       matrix:
         info: ${{ fromJson(needs.find-epics-slack-channel.outputs.info) }}
     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This ensure the user will be github-action[bot]
+      GH_TOKEN: ${{ secrets.SALESFORCE_PLUGIN_CHECKOUT_TOKEN }}
     steps:
       - name: Find Info
         id: info
@@ -139,8 +139,7 @@ jobs:
       - name: Set up Git
         run: |
           git config --global user.name "github-actions"
-          # specific email for github-action[bot] user that can push PR and assign label
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.email "github-actions@github.com"
 
       - name: Check and delete existing sync branch & close PR if any
         id: cleanup_existing_branch
@@ -215,7 +214,7 @@ jobs:
         if: steps.merge.outputs.merge_status == 'conflict'
         run: |
           echo "Conflict detected. Labeling PR #${{ steps.create_pr.outputs.PR_NUMBER }}"
-          gh pr edit ${{ steps.create_pr.outputs.PR_NUMBER }} --add-label "Conflicts"
+          gh api repos/${{ github.repository }}/issues/${{ steps.create_pr.outputs.PR_NUMBER }}/labels -f labels[]="Conflicts"
           gh pr comment ${{ steps.create_pr.outputs.PR_NUMBER }} --body "⚠️ Merge conflicts detected when syncing \`${{ steps.info.outputs.from_branch }}\` into \`${{ steps.info.outputs.to_branch }}\`. Please resolve them manually."
 
       - name: Enable Auto Merge PR
@@ -249,12 +248,13 @@ jobs:
         if: steps.info.outputs.slack_group != 'none'
         uses: actions/upload-artifact@v4
         with:
-          name: sf-backmerge-slack-msg-${{ steps.info.outputs.artifact_name }}-${{ github.run_id }}
+          name: sf-backmerge-slack-msg-${{ steps.info.outputs.artifact_name }}-${{ github.run_id }}-${{ github.run_attempt }}
           path: sf-backmerge-slack-msg.txt
 
   collect-slack-messages:
     runs-on: anzx-default
     needs: [sync-epic-branch]
+    if: ${{ !cancelled() }}
     outputs:
       messages: ${{ steps.collect.outputs.messages }}
     steps:
@@ -262,6 +262,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: slack-messages
+          pattern: sf-backmerge-slack-msg-*-${{ github.run_id }}-${{ github.run_attempt }}
 
       - name: Combine Messages to JSON
         id: collect
@@ -273,6 +274,7 @@ jobs:
   send-slack-messages:
     name: slack msg
     needs: collect-slack-messages
+    if: ${{ !cancelled() && needs.collect-slack-messages.outputs.messages != '[]' }}
     strategy:
       fail-fast: false
       matrix:
