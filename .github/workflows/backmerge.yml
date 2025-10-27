@@ -130,6 +130,10 @@ jobs:
         with:
           gh-cli-version: "2.50.0"
 
+      - name: Authenticate GitHub CLI using OIDC
+        run: |
+          gh auth login --with-token <<< "${{ env.GH_TOKEN }}"
+
       - name: Checkout the ${{ steps.info.outputs.from_branch }} branch
         uses: actions/checkout@v3
         with:
