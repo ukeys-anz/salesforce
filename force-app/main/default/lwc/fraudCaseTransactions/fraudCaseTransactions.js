@@ -15,6 +15,7 @@ import RECEIVED_DATE_FIELD from "@salesforce/schema/Dispute.ReceivedDate";
 import DISPUTE_ITEM_ID_FIELD from "@salesforce/schema/DisputeItem.Id";
 import CASE_FIELD from "@salesforce/schema/DisputeItem.Case__c";
 import TXN_DATE_FIELD from "@salesforce/schema/DisputeItem.TransactionDate";
+import TXN_DATETIME_FIELD from "@salesforce/schema/DisputeItem.TransactionDate__c";
 import TXN_IDENTIFIER_FIELD from "@salesforce/schema/DisputeItem.TransactionIdentifier";
 import TXN_AMOUNT_FIELD from "@salesforce/schema/DisputeItem.TransactionAmount";
 import TXN_OFI_BSB_FIELD from "@salesforce/schema/DisputeItem.OtherFinancialInstituteBSB__c";
@@ -188,6 +189,7 @@ export default class FraudCaseTransactions extends NavigationMixin(
         [TXN_DATE_FIELD.fieldApiName]: new Date(
           txn.TransactionDate
         ).toLocaleDateString("en-CA"),
+        [TXN_DATETIME_FIELD.fieldApiName]: new Date(txn.TransactionDate),
         [TXN_IDENTIFIER_FIELD.fieldApiName]: txn.TransactionId,
         [TXN_AMOUNT_FIELD.fieldApiName]:
           this.caseRecordType === "Recipient_Mule"

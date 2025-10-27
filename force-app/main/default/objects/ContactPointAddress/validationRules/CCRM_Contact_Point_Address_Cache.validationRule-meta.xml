@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCRM_Contact_Point_Address_Cache</fullName>
+    <active>true</active>
+    <description>When I have selected a customer profile in CCRM and viewing details
+Then I should see customer address from CACHE systems</description>
+    <errorConditionFormula>AND(
+   $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+   $Profile.Name =  $Label.CCRM_Profile_Name,
+  NOT(
+      ISBLANK( Customer_Name__c )
+   ),
+   Customer_Name__r.Source_System_Name__c  = &apos;CACHE&apos;,
+   OR(
+     Customer_Name__r.RecordType.DeveloperName  =  &apos;PersonAccount&apos;,
+     Customer_Name__r.RecordType.DeveloperName = &apos;Business_Account&apos;
+   )
+)</errorConditionFormula>
+    <errorMessage>Unsupported customer profile selected. Please choose a valid CAP customer profile to proceed.</errorMessage>
+</ValidationRule>

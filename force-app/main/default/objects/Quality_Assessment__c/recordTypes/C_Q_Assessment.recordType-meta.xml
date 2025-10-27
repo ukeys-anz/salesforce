@@ -731,23 +731,27 @@
     <picklistValues>
         <picklist>Corrective_actions_for_TM_CM__c</picklist>
         <values>
-            <fullName>Coaching recommended</fullName>
+            <fullName>Address customer inquiry %2F provide documentation</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Further action recommended</fullName>
+            <fullName>Complete outstanding actions as agreed with customer</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>N%2FA- no action required</fullName>
+            <fullName>Further review due to potential customer detriment</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Review customer correspondence%2Fcontact customer</fullName>
+            <fullName>Other</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Update internal records</fullName>
+            <fullName>Reissue IDR %2F EDR letter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Update CMOS fields or internal records</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -895,8 +899,12 @@
     <picklistValues>
         <picklist>Evaluation_Type__c</picklist>
         <values>
-            <fullName>C %26 Q Assessment</fullName>
-            <default>true</default>
+            <fullName>Customer Resolution Assessment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Frontline Assessment</fullName>
+            <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
@@ -2777,6 +2785,25 @@
         </values>
         <values>
             <fullName>2033</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Review_outcome__c</picklist>
+        <values>
+            <fullName>Original outcome upheld</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outcome enhanced</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outcome overturned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Raised in error</fullName>
             <default>false</default>
         </values>
     </picklistValues>

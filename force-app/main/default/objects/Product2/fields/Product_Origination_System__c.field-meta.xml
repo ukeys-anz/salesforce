@@ -38,6 +38,21 @@
                 <default>false</default>
                 <label>CBIG</label>
             </value>
+            <value>
+                <fullName>CACHE/ORION</fullName>
+                <default>false</default>
+                <label>CACHE/ORION</label>
+            </value>
+            <value>
+                <fullName>Trade_360</fullName>
+                <default>false</default>
+                <label>Trade 360</label>
+            </value>
+            <value>
+                <fullName>MIDANZ</fullName>
+                <default>false</default>
+                <label>MIDANZ</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

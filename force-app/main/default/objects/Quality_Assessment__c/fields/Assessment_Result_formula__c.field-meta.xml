@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Assessment_Result_formula__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Assessment Result - Auto Calculated</description>
+    <externalId>false</externalId>
+    <formula>IF(
+OR(
+AND(ISPICKVAL(Evaluation_Type__c,&apos;Customer Resolution Assessment&apos;),AssessmentOutcomePass__c == true),
+AND(ISPICKVAL(Evaluation_Type__c,&apos;Frontline Assessment&apos;), AssessmentOutcomeFrontlinePass__c == true)
+),&apos;Pass&apos;,
+IF(AssessmentOutcomeFail__c  == true,&apos;Fail&apos;,
+IF(
+OR(
+AND(ISPICKVAL(Evaluation_Type__c,&apos;Customer Resolution Assessment&apos;),AssessmentOutcomePassFeedback__c == true),
+AND(ISPICKVAL(Evaluation_Type__c,&apos;Frontline Assessment&apos;),AssessmentOutcomeFLPassWithFeedback__c == true)
+),&apos;Pass With Feedback&apos;,
+IF(AssessmentOutcomeFailOutControl__c == true,&apos;Fail – outside of complaint handler’s control&apos;,&apos;&apos;)
+)
+)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Assessment Result formula</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Q9_Rationale__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Captures the rationale for the relevant resolution assessment question</description>
+    <label>Q9 Rationale</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>IDR_delay_notice_decision_appropriate__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Appropriate justification attached to file confirming complexity of complaint</fullName>
+                <default>false</default>
+                <label>Appropriate justification attached to file confirming complexity of complaint</label>
+            </value>
+            <value>
+                <fullName>Appropriate justification attached to file detailing circumstances beyond ANZ&apos;s control</fullName>
+                <default>false</default>
+                <label>Appropriate justification attached to file detailing circumstances beyond ANZ&apos;s control</label>
+            </value>
+            <value>
+                <fullName>Correspondence attached to file showing delay notification issued prior to timeframe expiring</fullName>
+                <default>false</default>
+                <label>Correspondence attached to file showing delay notification issued prior to timeframe expiring</label>
+            </value>
+            <value>
+                <fullName>The delay notification provided to the complainant is attached to the file and explains reasons for the delay and AFCA contact details</fullName>
+                <default>false</default>
+                <label>The delay notification provided to the complainant is attached to the file and explains reasons for the delay and AFCA contact details</label>
+            </value>
+            <value>
+                <fullName>Not appropriately raised as complaint not complex</fullName>
+                <default>false</default>
+                <label>Not appropriately raised as complaint not complex</label>
+            </value>
+            <value>
+                <fullName>Not appropriately raised as there were no unforeseen circumstances beyond ANZ’s control</fullName>
+                <default>false</default>
+                <label>Not appropriately raised as there were no unforeseen circumstances beyond ANZ’s control</label>
+            </value>
+            <value>
+                <fullName>Justification for delay exception not attached to file</fullName>
+                <default>false</default>
+                <label>Justification for delay exception not attached to file</label>
+            </value>
+            <value>
+                <fullName>The delay notification not provided to the complainant prior to the relevant maximum IDR timeframe expiring</fullName>
+                <default>false</default>
+                <label>The delay notification not provided to the complainant prior to the relevant maximum IDR timeframe expiring</label>
+            </value>
+            <value>
+                <fullName>The delay notification does not explain reasons for the delay or contain AFCA contact details</fullName>
+                <default>false</default>
+                <label>The delay notification does not explain reasons for the delay or contain AFCA contact details</label>
+            </value>
+            <value>
+                <fullName>First case handler did not raise a delay exception in time</fullName>
+                <default>false</default>
+                <label>First case handler did not raise a delay exception in time</label>
+            </value>
+            <value>
+                <fullName>First case handler did not appropriately raise a delay exception</fullName>
+                <default>false</default>
+                <label>First case handler did not appropriately raise a delay exception</label>
+            </value>
+            <value>
+                <fullName>First case handler did not detail reasons for delay or include AFCA contact details in delay notification</fullName>
+                <default>false</default>
+                <label>First case handler did not detail reasons for delay or include AFCA contact details in delay notification</label>
+            </value>
+            <value>
+                <fullName>No delay exception decision made.</fullName>
+                <default>false</default>
+                <label>No delay exception decision made.</label>
+            </value>
+            <value>
+                <fullName>Letter was issued before maximum IDR timeframe expired</fullName>
+                <default>false</default>
+                <label>Letter was issued before maximum IDR timeframe expired</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>Appropriate justification attached to file confirming complexity of complaint</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>Appropriate justification attached to file detailing circumstances beyond ANZ&apos;s control</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>Correspondence attached to file showing delay notification issued prior to timeframe expiring</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>The delay notification provided to the complainant is attached to the file and explains reasons for the delay and AFCA contact details</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Not appropriately raised as complaint not complex</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Not appropriately raised as there were no unforeseen circumstances beyond ANZ’s control</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Justification for delay exception not attached to file</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>The delay notification not provided to the complainant prior to the relevant maximum IDR timeframe expiring</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>The delay notification does not explain reasons for the delay or contain AFCA contact details</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met (Out of Case Handler’s control)</controllingFieldValue>
+            <valueName>First case handler did not raise a delay exception in time</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met (Out of Case Handler’s control)</controllingFieldValue>
+            <valueName>First case handler did not appropriately raise a delay exception</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met (Out of Case Handler’s control)</controllingFieldValue>
+            <valueName>First case handler did not detail reasons for delay or include AFCA contact details in delay notification</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Applicable</controllingFieldValue>
+            <valueName>No delay exception decision made.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Applicable</controllingFieldValue>
+            <valueName>Letter was issued before maximum IDR timeframe expired</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

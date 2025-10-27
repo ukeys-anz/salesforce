@@ -155,8 +155,9 @@ public with sharing class IDRTaskActions2 {
       }
       for (Task oTask : lstQATasks) {
         if (
-          (String.isBlank(oAssessment.Team_Manager_Response__c) ||
-          String.isBlank(oAssessment.Team_Manager_Comments__c)) &&
+          (IDRConstants.QA_TM_RESPONSE_AWAITING.equals(
+            oAssessment.Team_Manager_Response__c
+          ) || String.isBlank(oAssessment.Team_Manager_Comments__c)) &&
           oTask.Subject.contains(IDRConstants.TASK_QA_COMPLIANCE_SUBJECT)
         ) {
           oTask.addError(IDRConstants.TASK_QA_CLOSE_ERROR);

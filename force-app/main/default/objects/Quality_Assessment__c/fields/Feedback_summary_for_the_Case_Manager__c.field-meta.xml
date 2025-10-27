@@ -6,10 +6,10 @@
     <description>Captures Feedback summary provided by Assessor for the Case Managers</description>
     <externalId>false</externalId>
     <label>Feedback summary for the Case Manager</label>
-    <length>32768</length>
+    <length>5000</length>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>true</trackHistory>
+    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

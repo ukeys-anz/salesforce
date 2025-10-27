@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Q17_Rationale__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Captures the rationale for the relevant resolution assessment question</description>
+    <label>Q17 Rationale</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Were_CMOS_fields_accurate__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>All CMOS fields correctly captured.</fullName>
+                <default>false</default>
+                <label>All CMOS fields correctly captured.</label>
+            </value>
+            <value>
+                <fullName>Issue/sub issue types inaccurate</fullName>
+                <default>false</default>
+                <label>Issue/sub issue types inaccurate</label>
+            </value>
+            <value>
+                <fullName>Product/service names inaccurate</fullName>
+                <default>false</default>
+                <label>Product/service names inaccurate</label>
+            </value>
+            <value>
+                <fullName>Complaint remedy fields inaccurate</fullName>
+                <default>false</default>
+                <label>Complaint remedy fields inaccurate</label>
+            </value>
+            <value>
+                <fullName>Payment Amount Offered/Provided fields inaccurate</fullName>
+                <default>false</default>
+                <label>Payment Amount Offered/Provided fields inaccurate</label>
+            </value>
+            <value>
+                <fullName>Complaint received date inaccurate</fullName>
+                <default>false</default>
+                <label>Complaint received date inaccurate</label>
+            </value>
+            <value>
+                <fullName>Customer anonymity request inaccurately captured</fullName>
+                <default>false</default>
+                <label>Customer anonymity request inaccurately captured</label>
+            </value>
+            <value>
+                <fullName>Issue and subsequent issue types inaccurate but locked)</fullName>
+                <default>false</default>
+                <label>Issue and subsequent issue types inaccurate but locked)</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>All CMOS fields correctly captured.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Issue/sub issue types inaccurate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Product/service names inaccurate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Complaint remedy fields inaccurate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Payment Amount Offered/Provided fields inaccurate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Complaint received date inaccurate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Customer anonymity request inaccurately captured</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met (outside control)</controllingFieldValue>
+            <valueName>Issue and subsequent issue types inaccurate but locked)</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

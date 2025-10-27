@@ -61,7 +61,7 @@ global with sharing class NonANZNetworkEventHandler implements TxnSecurity.Event
         return ALLOWED;
       }
       String logMessage =
-        'Non ANZ network has been detected on ' +
+        'Access attempt from NON-ANZ network detected and blocked for ' +
         eventType +
         ' performed by ' +
         username +
@@ -70,7 +70,7 @@ global with sharing class NonANZNetworkEventHandler implements TxnSecurity.Event
         ') ' +
         'with sourceIp: ' +
         sourceIP;
-      Logger.error(logMessage, Logger.Severity.HIGH);
+      Logger.info(logMessage);
     } catch (Exception e) {
       String logMessage =
         'Error while processing Non ANZ network event for user: ' +

@@ -1208,6 +1208,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>DisputeItem.TransactionDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>DisputeItem.TransactionIdentifier</field>
         <readable>true</readable>
     </fieldPermissions>
