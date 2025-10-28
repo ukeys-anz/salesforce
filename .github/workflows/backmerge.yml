@@ -101,8 +101,6 @@ jobs:
       fail-fast: false
       matrix:
         info: ${{ fromJson(needs.find-epics-slack-channel.outputs.info) }}
-    env:
-      GH_TOKEN: ${{ secrets.SALESFORCE_PLUGIN_CHECKOUT_TOKEN }}
     steps:
       - name: Find Info
         id: info
@@ -130,9 +128,9 @@ jobs:
         with:
           gh-cli-version: "2.50.0"
 
-      - name: Authenticate GitHub CLI using OIDC
+      - name: Authenticate GitHub CLI
         run: |
-          gh auth login --with-token <<< "${{ env.GH_TOKEN }}"
+          gh auth login --with-token <<< "${{ secrets.SALESFORCE_PLUGIN_CHECKOUT_TOKEN }}"
 
       - name: Checkout the ${{ steps.info.outputs.from_branch }} branch
         uses: actions/checkout@v3
