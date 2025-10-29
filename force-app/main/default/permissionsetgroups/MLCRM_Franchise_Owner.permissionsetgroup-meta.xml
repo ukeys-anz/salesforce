@@ -4,8 +4,10 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>MLCRM Franchise Owner</label>
     <permissionSets>Customer_Authentication_PS</permissionSets>
+    <permissionSets>ExtraCareReadOnly</permissionSets>
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
+    <permissionSets>ManageExtraCare</permissionSets>
     <permissionSets>MLCRM_Allow_Lead_Creation</permissionSets>
     <permissionSets>MLCRM_Base</permissionSets>
     <permissionSets>MLCRM_Convert_Lead</permissionSets>
