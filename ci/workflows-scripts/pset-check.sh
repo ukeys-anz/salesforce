@@ -243,6 +243,7 @@ checkPermissionSet() {
     if ! isFieldInPermissionSet "$full_field_name" "$PSET_PATH"; then
       echo "  ❌  Failed: $full_field_name - $WHICH_PSET Permission Set Check Failed (Field)"
       localErrors+="<p>  - $full_field_name field</p>"
+      localErrors+="<p>  ⚠️ Ignore this error if $full_field_name is a required field.</p>"
       failed=true
     fi
   done <<< "$newFieldFiles"
