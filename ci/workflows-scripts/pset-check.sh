@@ -118,12 +118,12 @@ isObjectInSfDataSyncWhitelist() {
   local object_name="$1"
   local pset_name="$2"
 
-  if [[ ! -f "$OBJECT_CHANGES_LIST" ]]; then
-    return 1  # Config file doesn't exist, treat object as not in whitelist
-  fi
-
   if [[ "$pset_name" != "SF_Data_Sync_Integration" ]]; then
     return 0  # Skip whitelist check for non-SF_Data_Sync_Integration permission sets
+  fi
+
+  if [[ ! -f "$OBJECT_CHANGES_LIST" ]]; then
+    return 1  # Config file doesn't exist, treat object as not in whitelist
   fi
 
   local result=$(jq -r --arg obj "$object_name" '
@@ -148,12 +148,12 @@ isObjectInBackupExclusion() {
   local object_name="$1"
   local pset_name="$2"
 
-  if [[ ! -f "$BACKUP_EXCLUSION" ]]; then
-    return 1  # Exclusion file doesn't exist, treat object as not excluded
-  fi
-
   if [[ "$pset_name" == "SF_Data_Sync_Integration" ]]; then
     return 1  # Skip backup exclusion check for SF_Data_Sync_Integration permission set
+  fi
+
+  if [[ ! -f "$BACKUP_EXCLUSION" ]]; then
+    return 1  # Exclusion file doesn't exist, treat object as not excluded
   fi
 
   # Query the JSON exclusion file to check if the object has value "all"
