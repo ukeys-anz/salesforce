@@ -125,7 +125,7 @@ isObjectInPermissionSet() {
   local pset_file="$2"
 
   # Check if we've already checked this object
-  if [[ -n "${checkedObjects[$object_name]}" ]]; then
+  if [[ -n "${checkedObjects[$object_name]:-}" ]]; then
     return 0  # Already checked, return success to skip duplicate check
   fi
 
@@ -152,7 +152,7 @@ isObjectInSfDataSyncWhitelist() {
   fi
 
   # Check if we've already checked this object for whitelist
-  if [[ -n "${checkedWhitelist[$object_name]}" ]]; then
+  if [[ -n "${checkedWhitelist[$object_name]:-}" ]]; then
     return 0  # Already checked, return success to skip duplicate check
   fi
 
@@ -220,8 +220,10 @@ checkPermissionSet() {
   local localWarnings=""
 
   # Reset global tracking arrays for this permission set
-  checkedObjects=()
-  checkedWhitelist=()
+  unset checkedObjects
+  unset checkedWhitelist
+  declare -g -A checkedObjects=()
+  declare -g -A checkedWhitelist=()
 
   if [[ ! -f "${PSET_PATH}" ]];then
     echo "$WHICH_PSET Permission set does not exist..."
@@ -281,8 +283,8 @@ checkPermissionSet() {
     fi
 
     # Verify that the field is defined in the permission set XML file
-    isFieldInPermissionSet "$full_field_name" "$PSET_PATH" "$field_file"
-    field_check_result=$?
+    field_check_result=0
+    isFieldInPermissionSet "$full_field_name" "$PSET_PATH" "$field_file" || field_check_result=$?
 
     if [[ $field_check_result -eq 1 ]]; then
       # Field not found and is not required (must be in permission set)
