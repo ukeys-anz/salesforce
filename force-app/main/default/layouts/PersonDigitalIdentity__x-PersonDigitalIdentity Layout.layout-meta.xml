@@ -39,6 +39,10 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Readonly</behavior>
+                <field>Customer__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
                 <field>UUID__c</field>
             </layoutItems>
             <layoutItems>

@@ -9,6 +9,7 @@ import updateOcvid from "@salesforce/apex/AUFController.updateOcvid";
 import checkAccountsOpen from "@salesforce/apex/AUFController.checkAccountsOpen";
 import archiveUser from "@salesforce/apex/AUFController.archiveUser";
 import disputedChecksCall from "@salesforce/apex/AUFController.disputedChecks";
+import chatterPost from "@salesforce/apex/AUFController.createChatterPost";
 import { NavigationMixin } from "lightning/navigation";
 import { getFocusedTabInfo, refreshTab } from "lightning/platformWorkspaceApi";
 
@@ -139,6 +140,9 @@ export default class AssistedUserFunctions extends NavigationMixin(
           this.toast.error(UNSUSPEND_ERROR);
           return;
         }
+        if (this.actionName === "Unpadlock") {
+          this.createChatterPost();
+        }
         this.toast.success(SUCCESS_MESSAGE);
         this.performRefreshActions();
       })
@@ -148,6 +152,12 @@ export default class AssistedUserFunctions extends NavigationMixin(
       .finally(() => {
         this.showSpinner = false;
       });
+  }
+
+  createChatterPost() {
+    chatterPost({ recordId: this.recordId }).catch((error) => {
+      this.handleApiError(error);
+    });
   }
 
   handleResetPin() {

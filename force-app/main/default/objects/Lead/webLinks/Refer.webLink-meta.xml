@@ -36,5 +36,6 @@ Registered_Company__c={!Lead.Registered_Company__c},
 LeadSource={!Lead.LeadSource},
 FinServ__ExpressedInterest__c={!Lead.FinServ__ExpressedInterest__c},
 CLG_Name__c={!IF(NOT(ISBLANK(Lead.FinServ__RelatedAccountId__c)),Lead.CLG_NameId__c,&apos;&apos;)},
-CPID__c={!IF(NOT(ISBLANK(Lead.FinServ__RelatedAccountId__c)),Lead.CPID__c,&apos;&apos;)}</url>
+CPID__c={!IF(NOT(ISBLANK(Lead.FinServ__RelatedAccountId__c)),Lead.CPID__c,&apos;&apos;)},
+FinServ__PotentialValue__c={!Lead.FinServ__PotentialValue__c}</url>
 </WebLink>

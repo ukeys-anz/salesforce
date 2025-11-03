@@ -15,7 +15,7 @@
     <filterScope>Everything</filterScope>
     <label>All TrustMe Manual Review Cases</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>FraudX_Agent</roleAndSubordinatesInternal>
-        <roleAndSubordinatesInternal>Join_Lead</roleAndSubordinatesInternal>
+        <role>FraudX_Agent</role>
+        <role>Join_Lead</role>
     </sharedTo>
 </ListView>

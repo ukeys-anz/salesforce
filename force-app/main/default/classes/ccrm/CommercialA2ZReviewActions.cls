@@ -4,18 +4,15 @@
  * @description  :
  **/
 public with sharing class CommercialA2ZReviewActions {
-  /**
-   * @description Define custom exceptions
-   */
-  public class CustomException extends Exception {
-  }
-
   public static final String STATUS_COMPLETED = 'Completed';
 
   private static final CommercialA2ZReviewRepository A2ZREVIEW_REPO = (CommercialA2ZReviewRepository) Lib_InstanceProvider.forType(
     CommercialA2ZReviewRepository.class
   );
 
+  private static final LeadActionsRepository LEAD_ACTION_REPOSITORY = (LeadActionsRepository) Lib_InstanceProvider.forType(
+    LeadActionsRepository.class
+  );
   /**
    * @description This method will update Customer lookup when the A-Z review gets created from Opportunity/Lead having customer linked to it.
    * @name setCustomerOnA2ZReview
@@ -23,21 +20,38 @@ public with sharing class CommercialA2ZReviewActions {
    */
   public static void setCustomerOnA2ZReview(List<A_Z_Review__c> records) {
     try {
-      Map<Id, Id> mapOfCustomerWithLeadAndOpp = new Map<Id, Id>();
-      mapOfCustomerWithLeadAndOpp.putAll(
-        CCRMA2ZReviewActionHelper.fetchOpportunities(records)
+      List<A_Z_Review__c> reviewsWithLeads = ListUtil.filter(records)
+        .isNotNull(A_Z_Review__c.Lead__c)
+        .toList();
+
+      List<A_Z_Review__c> reviewsWithOpportunities = ListUtil.filter(records)
+        .isNotNull(A_Z_Review__c.Opportunity__c)
+        .toList();
+
+      Set<Id> leadsId = ListUtil.getIds(records, A_Z_Review__c.Lead__c);
+      Set<Id> oppsIds = ListUtil.getIds(records, A_Z_Review__c.Opportunity__c);
+
+      Map<Id, Lead> leadList = new Map<Id, Lead>(
+        A2ZREVIEW_REPO.getLeads(leadsId)
       );
-      mapOfCustomerWithLeadAndOpp.putAll(
-        CCRMA2ZReviewActionHelper.fetchLeads(records)
+      Map<Id, Opportunity> oppsList = new Map<Id, Opportunity>(
+        A2ZREVIEW_REPO.getOpportunities(oppsIds)
       );
-      CCRMA2ZReviewActionHelper.associateReviewsToCustomer(
-        records,
-        mapOfCustomerWithLeadAndOpp
+      CommercialA2ZReviewActionHelper.assignCustomersFromLeads(
+        reviewsWithLeads,
+        leadList
+      );
+      CommercialA2ZReviewActionHelper.assignCustomersFromOpportunities(
+        reviewsWithOpportunities,
+        oppsList
       );
     } catch (Exception e) {
-      Logger.error(e.getMessage(), e);
-      Logger.saveLog();
-      throw new CustomException(e.getMessage());
+      Logger.error(
+          'Errored out while setting Customer on A2Z Review from Opportunity/Lead',
+          e
+        )
+        .save();
+      throw e;
     }
   }
 
@@ -68,21 +82,15 @@ public with sharing class CommercialA2ZReviewActions {
     List<A_Z_Review__c> records,
     Map<Id, A_Z_Review__c> oldMap
   ) {
-    try {
-      List<A_Z_Review__c> azRecordList = ListUtil.filter(records, oldMap)
-        .changedTo(A_Z_Review__c.Status__c, STATUS_COMPLETED)
-        .toList();
+    List<A_Z_Review__c> azRecordList = ListUtil.filter(records, oldMap)
+      .changedTo(A_Z_Review__c.Status__c, STATUS_COMPLETED)
+      .toList();
 
-      ListUtil.setField(
-        azRecordList,
-        A_Z_Review__c.Completed_Date__c,
-        Date.today()
-      );
-    } catch (Exception e) {
-      Logger.error(e.getMessage(), e);
-      Logger.saveLog();
-      throw new CustomException(e.getMessage());
-    }
+    ListUtil.setField(
+      azRecordList,
+      A_Z_Review__c.Completed_Date__c,
+      Date.today()
+    );
   }
 
   /**
@@ -95,16 +103,12 @@ public with sharing class CommercialA2ZReviewActions {
     List<A_Z_Review__c> records,
     Map<Id, A_Z_Review__c> oldMap
   ) {
-    try {
-      List<SObjectField> fieldList = Schema.SObjectType.A_Z_Review__c.fields.getMap()
-        .values();
-      Set<SObjectField> richTextFieldSet = CommercialCommonUtil.getRichTextFields(
-        fieldList
-      );
-      CommercialCommonUtil.restrictImages(records, oldMap, richTextFieldSet);
-    } catch (Exception e) {
-      Logger.error('Error while restrict images on A-Z Review', e).save();
-    }
+    List<SObjectField> fieldList = Schema.SObjectType.A_Z_Review__c.fields.getMap()
+      .values();
+    Set<SObjectField> richTextFieldSet = CommercialCommonUtil.getRichTextFields(
+      fieldList
+    );
+    CommercialCommonUtil.restrictImages(records, oldMap, richTextFieldSet);
   }
 
   /**
@@ -158,33 +162,122 @@ public with sharing class CommercialA2ZReviewActions {
       filteredRecords,
       A_Z_Review__c.Customer__c
     );
-    List<A_Z_Review__c> individualCustomers = A2ZREVIEW_REPO.getA2ZRecordsAssociatedWithIndividualCustomers(
+    List<A_Z_Review__c> reviewsWithIndividualCustomers = A2ZREVIEW_REPO.getA2ZRecordsAssociatedWithIndividualCustomers(
       accountIds
     );
     Set<Id> individualAccountIds = ListUtil.getIds(
-      individualCustomers,
+      reviewsWithIndividualCustomers,
       A_Z_Review__c.Customer__c
     );
-    setBusinessOwner(filteredRecords, individualAccountIds);
+    CommercialA2ZReviewActionHelper.setBusinessOwner(
+      filteredRecords,
+      individualAccountIds
+    );
   }
 
   /**
-   * @description : set business owner
-   * @name : setBusinessOwner
-   * @param records List of A-Z records
-   * @param individualAccountIds set of account ids
+   * @description : This is used to validate the account and CLG Info
+   * @name : validateAndPopulateCLGInfo
+   * @param records list of A_Z_Review__c
+   * @param oldMap map of Id to A_Z_Review__c record beforeChange
    */
-  public static void setBusinessOwner(
+  public static void validateAndPopulateCLGInfo(
     List<A_Z_Review__c> records,
-    Set<Id> individualAccountIds
+    Map<Id, A_Z_Review__c> oldMap
   ) {
-    for (A_Z_Review__c rec : records) {
-      if (!individualAccountIds.contains(rec.Customer__c)) {
-        continue;
-      }
-      rec.Existing_Business_Owner__c = 'Yes';
-      rec.Business_Owner__c = rec.Customer__c;
-      rec.Business_Contact__c = null;
+    List<A_Z_Review__c> filteredA2ZList = ListUtil.filter(records)
+      .isNotNull(A_Z_Review__c.Customer__c)
+      .toList();
+
+    // Early Exit
+    if (filteredA2ZList.isEmpty()) {
+      return;
     }
+    if (oldMap != null) {
+      filteredA2ZList = ListUtil.filter(filteredA2ZList)
+        .changed(A_Z_Review__c.Customer__c)
+        .toList();
+    }
+
+    Set<Id> accountIdSet = ListUtil.getIds(
+      filteredA2ZList,
+      A_Z_Review__c.Customer__c
+    );
+
+    Set<Id> clgIdSet = ListUtil.getIds(
+      filteredA2ZList,
+      A_Z_Review__c.CLGCustomer__c
+    );
+
+    Set<Id> combinedAccountIdsSet = new Set<Id>(accountIdSet);
+    combinedAccountIdsSet.addAll(clgIdSet);
+
+    Map<Id, Account> accMap = new Map<Id, Account>(
+      LEAD_ACTION_REPOSITORY.getAccountList(combinedAccountIdsSet)
+    );
+
+    List<Account> clgAccountList = ListUtil.filter(accMap.values())
+      .equals(Account.RecordTypeId, RTAccount.clgAccount)
+      .toList();
+
+    List<FinServ__AccountAccountRelation__c> aarList = LEAD_ACTION_REPOSITORY.getAccountAccountRelations(
+      accountIdSet
+    );
+
+    Map<Id, Set<Id>> accIdToClgIdsMap = CommercialLeadActionsHelper.formAccountIdToCLGIdsMap(
+      aarList
+    );
+
+    CommercialLeadActionsHelper.addCLGAccountToMap(
+      accIdToClgIdsMap,
+      clgAccountList
+    );
+    CommercialA2ZReviewActionHelper.validateAndPopulateCLGInfo(
+      filteredA2ZList,
+      accMap,
+      accIdToClgIdsMap
+    );
+  }
+
+  /**
+   * @description : This is used to populate the CLG Info on A_Z_Review__c based on Existing customer
+   * @name : populateCLGInfo
+   * @param records A_Z_Review__c list
+   */
+  public static void populateCLGInfo(List<A_Z_Review__c> records) {
+    List<A_Z_Review__c> filteredA2ZReviewList = ListUtil.filter(records)
+      .isNotNull(A_Z_Review__c.Customer__c)
+      .toList();
+
+    // Early Exit
+    if (filteredA2ZReviewList.isEmpty()) {
+      return;
+    }
+
+    Set<Id> accountIdSet = ListUtil.getIds(
+      filteredA2ZReviewList,
+      A_Z_Review__c.Customer__c
+    );
+
+    // Create map of Id to account using Customer Record from A2ZReview
+    Map<Id, Account> accMap = new Map<Id, Account>(
+      LEAD_ACTION_REPOSITORY.getAccountList(accountIdSet)
+    );
+
+    // Get Account Account relation (AAR) records from Customer/Account record
+    List<FinServ__AccountAccountRelation__c> aarList = LEAD_ACTION_REPOSITORY.getAccountAccountRelations(
+      accountIdSet
+    );
+
+    // Create Map of Account Ids to CLGIds using AAR Records
+    Map<Id, Map<Id, FinServ__AccountAccountRelation__c>> accIdToClgIdAARMap = CommercialLeadActionsHelper.formAccountIdToCLGIdAARMap(
+      aarList
+    );
+
+    CommercialA2ZReviewActionHelper.populateClgInfoOnA2ZReview(
+      filteredA2ZReviewList,
+      accMap,
+      accIdToClgIdAARMap
+    );
   }
 }

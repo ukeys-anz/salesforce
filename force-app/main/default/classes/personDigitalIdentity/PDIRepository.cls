@@ -36,4 +36,41 @@ public with sharing class PDIRepository {
       LIMIT 1
     ] ?? null;
   }
+
+  /**
+   * @description Get the Account record by customerId.
+   * @param customerId Customer Id to search for.
+   * @return List<Account> List of Account records matching the customerId.
+   */
+  public Account getAccountByCustomerId(String customerId) {
+    return [
+      SELECT Id, OCV_Id__c
+      FROM Account
+      WHERE
+        (Id = :customerId
+        OR External_Id__c = :customerId)
+        AND (ANZx_Customer__c = TRUE
+        OR Was_ANZx_Customer__c = TRUE)
+      WITH USER_MODE
+      LIMIT 1
+    ] ?? null;
+  }
+
+  /**
+   * @description Get the Account record by OCV Id.
+   * @param ocvId OCV Id to search for.
+   * @return Account Account record matching the OCV Id.
+   */
+  public Account getAccountByOCVId(String ocvId) {
+    return [
+      SELECT Id, Name, External_Id__c
+      FROM Account
+      WHERE
+        OCV_Id__c = :ocvId
+        AND (ANZx_Customer__c = TRUE
+        OR Was_ANZx_Customer__c = TRUE)
+      WITH SYSTEM_MODE
+      LIMIT 1
+    ] ?? null;
+  }
 }

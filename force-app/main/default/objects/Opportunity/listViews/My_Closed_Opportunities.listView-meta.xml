@@ -27,6 +27,7 @@
     <filterScope>Mine</filterScope>
     <label>My Closed Opportunities</label>
     <sharedTo>
+        <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
         <roleAndSubordinatesInternal>Banker_Line_Manager</roleAndSubordinatesInternal>
         <roleAndSubordinatesInternal>Capability_Quality_C_Q_Team</roleAndSubordinatesInternal>
         <roleAndSubordinatesInternal>Customer_Resolution_Leadership</roleAndSubordinatesInternal>

@@ -5,8 +5,10 @@
     <label>MLCRM Super User</label>
     <permissionSets>Customer_Authentication_PS</permissionSets>
     <permissionSets>Edit_Customer_Relationship</permissionSets>
+    <permissionSets>ExtraCareReadOnly</permissionSets>
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
+    <permissionSets>ManageExtraCare</permissionSets>
     <permissionSets>MLCRM_Allow_Lead_Creation</permissionSets>
     <permissionSets>MLCRM_API_Access</permissionSets>
     <permissionSets>MLCRM_Base</permissionSets>

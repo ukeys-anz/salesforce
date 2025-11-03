@@ -38,7 +38,7 @@ jobs:
   manual-steps:
     name: ${{inputs.manual_step_name}} steps | from ${{inputs.from_which_epic}} epic to ${{inputs.to_which_epic}} epic.
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:2.1.1"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:3.0.0"
       options: --user root
     runs-on: anzx-default
     steps:
