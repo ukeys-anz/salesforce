@@ -2849,6 +2849,12 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>ocvDuplicateTable</componentName>
+                <identifier>c_ocvDuplicateTable</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>actionNames</name>
                 </componentInstanceProperties>

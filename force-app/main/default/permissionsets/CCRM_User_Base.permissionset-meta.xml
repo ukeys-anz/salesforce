@@ -21,6 +21,14 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>OCVDuplicateTableController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OCVDuplicateTableControllerRepository</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>ModifyProductRepository</apexClass>
         <enabled>true</enabled>
     </classAccesses>
