@@ -3232,4 +3232,11 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>Forge_MFA_Reset_Error_Message</shortDescription>
         <value>Error to Reset MFA please contact admin</value>
     </labels>
+    <labels>
+        <fullName>Forge_Scope_For_MFA_Reset</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Forge_Scope_For_MFA_Reset</shortDescription>
+        <value>AU_ANZx_Broker_Accreditation_and_Onboarding_Team</value>
+    </labels>
 </CustomLabels>
