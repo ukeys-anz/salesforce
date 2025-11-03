@@ -25,8 +25,15 @@ const findBranchSlackInfo = (githubEvent, branchFrom, branchTo) => {
   }
 
   const output = [];
+
+  // Add develop→master merge as first element
+  output.push("develop|master|" + (slackGroupMapping["develop"] ?? "none"));
+
+  // Add all other epic branches (they merge from develop)
   for (let epic in slackGroupMapping) {
-    output.push(epic + "|develop|" + (slackGroupMapping[epic] ?? "none"));
+    if (epic !== "develop") {
+      output.push(epic + "|develop|" + (slackGroupMapping[epic] ?? "none"));
+    }
   }
   return output;
 };

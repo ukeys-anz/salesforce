@@ -44,14 +44,15 @@ const {
   WORKING_DIR,
   REPO_NAME,
   PROD_DEPLOY_USERNAME,
-  PROD_URL
+  PROD_URL,
+  JOB_NAME,
+  JOB_ID_FILE_NAME
 } = process.env;
 
 // STAGE_NAME should be changed from preprod deployment to prod validation/deployment
 const BASE_REF = STAGE_NAME === "prod-release-start" ? "master" : "prodrel";
 const ARTIFACTORY_REPO_NAME = `anzx-${REPO_NAME}-releases`;
 const SOURCE_DIR = `artifact-master-${RELEASE_NAME}`;
-const JOB_ID_FILE_NAME = renameItem(`release-${RELEASE_NAME}`);
 
 const DEPLOY_USER_USERNAME =
   BASE_REF === "master" ? "master" : PROD_DEPLOY_USERNAME;
@@ -115,6 +116,7 @@ const prodDeployment = async () => {
     DEPLOY_USER_USERNAME,
     PROD_URL
   );
+  console.log(`Prod Deployment | JobId file name is: ${JOB_ID_FILE_NAME}`);
   const deployment = prodQuickDeployment(
     JOB_ID_FILE_NAME,
     SOURCE_DIR,
@@ -131,6 +133,7 @@ const prodDeployment = async () => {
 };
 
 const validationCleaning = () => {
+  console.log(`Upload | JobId file name is: ${JOB_ID_FILE_NAME}`);
   uploadProdValidationJobIdFile(
     JOB_ID_FILE_NAME,
     ARTIFACTORY_SECRET_VALUE,
@@ -151,12 +154,12 @@ const deploymentCleaning = () => {
 const releaseFunction = () => {
   const cleaning = booleanMap(CLEANING_JOB);
   const jobMapping = {
-    PreprodDeploy: STAGE_NAME === "prod-release-start" && !cleaning,
-    PreprodClean: STAGE_NAME === "prod-release-start" && cleaning,
-    ProdValidate: STAGE_NAME === "prod-validation" && !cleaning,
-    ProdValidateClean: STAGE_NAME === "prod-validation" && cleaning,
-    ProdDeploy: STAGE_NAME === "prod-deployment" && !cleaning,
-    ProdDeployClean: STAGE_NAME === "prod-deployment" && cleaning
+    PreprodDeploy: JOB_NAME === "preprod-deployment" && !cleaning,
+    PreprodClean: JOB_NAME === "preprod-deployment" && cleaning,
+    ProdValidate: JOB_NAME === "prod-validation" && !cleaning,
+    ProdValidateClean: JOB_NAME === "prod-validation" && cleaning,
+    ProdDeploy: JOB_NAME === "prod-deployment" && !cleaning,
+    ProdDeployClean: JOB_NAME === "prod-deployment" && cleaning
   };
   const releaseFunctionMapping = {
     PreprodDeploy: preprodDeployment,

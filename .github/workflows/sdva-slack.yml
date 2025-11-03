@@ -1,0 +1,86 @@
+name: SDVA | Slack Message
+
+on:
+  workflow_dispatch:
+    inputs:
+      NAME:
+        description: "Release Name"
+        required: true
+        type: string
+      CHANGE_REQUEST_RECORD:
+        description: "Change Request Name"
+        required: true
+        type: string
+      CHANGE_REQUEST_URL:
+        description: "Change Request URL"
+        required: true
+        type: string
+
+permissions:
+  contents: "write"
+  id-token: "write"
+
+jobs:
+  update-sdva:
+    runs-on: anzx-default
+    outputs:
+      last_tag: ${{ steps.info.outputs.last_tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get Latest master tag
+        id: info
+        run: |
+          lastTag="$( git describe --abbrev=0 --tags --match 'master*' )"
+          echo "Last tag: $lastTag"
+          echo "last_tag=$lastTag" >> $GITHUB_OUTPUT
+
+      - name: update-plat-app-versions
+        if: ${{ success() }}
+        uses: anzx/sec-domain-actions/publish-app-scm-version@main
+        with:
+          repo: ${{ github.repository }}
+          asset: salesforce
+          component: salesforce
+          env: prod
+          release-tag-or-sha: ${{ steps.info.outputs.last_tag }}
+          use-gh-token-vending: true
+          app-repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+  prepare-notification:
+    runs-on: anzx-default
+    environment: "prod-validation"
+    env:
+      CHANGE_REQUEST_URL: "${{ github.event.inputs.CHANGE_REQUEST_URL }}"
+      CHANGE_REQUEST_NUMBER: "${{ github.event.inputs.CHANGE_REQUEST_RECORD }}"
+      RELEASE_NAME: "${{ github.event.inputs.NAME }}"
+      REPO_NAME: "${{ github.event.repository.name }}"
+    outputs:
+      slack_msg: ${{ steps.set-msg.outputs.slack_msg}}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Prepare Slack Message
+        id: set-msg
+        run: |
+          CAPITALIZED_REPO_NAME=$(echo "${{ env.REPO_NAME }}" | awk '{print toupper(substr($0,1,1)) substr($0,2)}')
+          lastTag="$( git describe --abbrev=0 --tags --match 'master*' )"
+          RELEASE_VERSION="https://github.com/${{ github.repository }}/tree/$lastTag"
+          msg="*☁️ $CAPITALIZED_REPO_NAME Release*\\n*Release*: ${{ env.RELEASE_NAME }}\\n*Change Request*: <${{ env.CHANGE_REQUEST_URL }}|${{ env.CHANGE_REQUEST_NUMBER }}>\\n*Release Version*: $RELEASE_VERSION"
+          echo "slack_msg=$msg" >> "$GITHUB_OUTPUT"
+
+  send-release-notification:
+    needs: [prepare-notification]
+    uses: anzx/github-reusable-workflows/.github/workflows/notification-hub.yaml@main
+    with:
+      isSlack: true
+      slackChannels: prod-release-notifications
+      slackMessage: "${{ needs.prepare-notification.outputs.slack_msg }}"
+      slackPrivate: true
