@@ -372,6 +372,18 @@
       "type": "system"
     },
     {
+      "name": "Coach notification Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Disable_MFA",
+        "Enforce_mTLS",
+        "Read_Write_Customer_Details"
+      ],
+      "type": "system"
+    },
+    {
       "name": "Deployment User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],

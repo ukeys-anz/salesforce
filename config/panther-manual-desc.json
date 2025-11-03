@@ -3901,6 +3901,9 @@
         "PersonId__c"
       ]
     },
+    "PersonDigitalIdentity__x": {
+      "IA-2486234": ["Customer__c", "CustomerName__c"]
+    },
     "PriceBook2": {
       "IA-2415987": ["Description", "IsActive", "IsStandard", "Name"],
       "IA-2415860": [

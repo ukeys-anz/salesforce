@@ -15,7 +15,9 @@
       >
         Available Accounts
       </h3>
-      <p>Select account to search transactions.</p>
+      <p class="slds-p-vertical_small">
+        Select account to search transactions.
+      </p>
       <lightning-datatable
         key-field="Id"
         data={accounts}
@@ -32,7 +34,9 @@
       >
         Searching transactions on the Account
       </h3>
-      <p>Select the transactions you'd like to attach to the case.</p>
+      <p class="slds-p-vertical_small">
+        Select the transactions you'd like to attach to the case.
+      </p>
       <div class="slds-form--inline">
         <div class="slds-form-element search-input">
           <lightning-input
@@ -96,6 +100,16 @@
       <h1 lwc:else class="slds-card__header-title main-title">
         <span class="not-found">No Transactions Found</span>
       </h1>
+      <div class="slds-text-align_center slds-p-around_xx-small">
+        <lightning-button
+          lwc:if={nextUri}
+          variant="base"
+          label="Load More"
+          title="Click to load more transactions"
+          onclick={handleLoadMore}
+          disable-animation
+        ></lightning-button>
+      </div>
     </div>
     <div lwc:if={nav.review.isVisible}>
       <div lwc:if={tnxAdded.length}>

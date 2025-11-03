@@ -353,6 +353,14 @@
         <fields>Verification_Status__c</fields>
         <relatedList>ContactPointEmails</relatedList>
     </relatedLists>
+    <relatedLists>
+        <fields>Preferred_Name__c</fields>
+        <fields>OCV_ID__c</fields>
+        <fields>UUID__c</fields>
+        <fields>Mobile_Number__c</fields>
+        <fields>Status__c</fields>
+        <relatedList>PersonDigitalIdentity__x.Customer__c</relatedList>
+    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>true</showHighlightsPanel>
     <showInteractionLogPanel>true</showInteractionLogPanel>

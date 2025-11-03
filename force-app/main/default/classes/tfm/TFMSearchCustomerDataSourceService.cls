@@ -10,8 +10,10 @@ public with sharing class TFMSearchCustomerDataSourceService {
   private static final String NUMBERZERO = '0';
   private static final String NUMBERSIXONE = '61';
   private static final String PLUSSIXONE = '+61';
-  public DataSource.QueryContext queryContext;
-  public DataSource.TableSelection tableSelection;
+
+  private static final PDIRepository QUERY = (PDIRepository) Lib_InstanceProvider.forType(
+    PDIRepository.class
+  );
 
   /**
    * @description method will query external object
@@ -21,20 +23,32 @@ public with sharing class TFMSearchCustomerDataSourceService {
   public static DataSource.TableResult queryExtServer(
     DataSource.QueryContext context
   ) {
-    String searchText = (String) context.tableSelection.filter.columnValue;
-    searchText = String.isBlank(searchText)
-      ? (String) context.tableSelection.filter.subfilters[0].columnValue
-      : searchText;
-    searchText = getMobileInFormat(searchText);
+    String searchText = getFilterValue(context.tableSelection.filter);
     Service.IdType refId = getRefName(searchText);
     if (refId == null) {
       return null;
     }
-    List<Map<String, Object>> queryResponse = DataSource.QueryUtils.process(
+    List<Map<String, Object>> res = getRows(refId, searchText);
+    List<Map<String, Object>> transformRes = DataSource.QueryUtils.process(
       context,
-      getRows(refId, searchText)
+      res
     );
-    return DataSource.TableResult.get(context, queryResponse);
+    return DataSource.TableResult.get(context, transformRes);
+  }
+
+  private static String getFilterValue(DataSource.Filter filter) {
+    String searchField = filter.columnName ?? filter.subfilters[0].columnName;
+    String searchText = (String) (filter.columnValue ??
+      filter.subfilters[0].columnValue);
+    if (searchField == 'Customer') {
+      return getOcvIdFromCustomer(searchText);
+    }
+    return getMobileInFormat(searchText);
+  }
+
+  private static String getOcvIdFromCustomer(String customerId) {
+    Account cust = QUERY.getAccountByCustomerId(customerId);
+    return cust?.OCV_Id__c;
   }
 
   /**
