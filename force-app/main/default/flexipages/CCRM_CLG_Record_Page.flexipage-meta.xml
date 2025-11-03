@@ -1628,6 +1628,9 @@
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>adminFilters</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>maxRecordsToDisplay</name>
                     <value>5</value>
                 </componentInstanceProperties>
@@ -1637,7 +1640,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListApiName</name>
-                    <value>A_Z_Reviews__r</value>
+                    <value>A_Z_Reviews2__r</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListDisplayType</name>
@@ -1659,7 +1662,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListLabel</name>
-                    <value>A-Z Reviews</value>
+                    <value>A-Z Reviews (CLG Customer)</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>showActionBar</name>

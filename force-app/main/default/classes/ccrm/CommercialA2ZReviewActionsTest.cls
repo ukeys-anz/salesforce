@@ -6,8 +6,118 @@
 @isTest
 private class CommercialA2ZReviewActionsTest {
   static Lib_MockProvider azRepoMock;
+  static Lib_MockProvider leadRepoMock;
   static void registerMocks() {
     azRepoMock = Lib_MockProvider.forType(CommercialA2ZReviewRepository.class);
+    leadRepoMock = Lib_MockProvider.forType(LeadActionsRepository.class);
+  }
+
+  @isTest
+  static void testSetCustomerOnA2ZReview() {
+    registerMocks();
+
+    //  Create Mock Ids
+    Id azReviewId1 = Lib_FakeIdGenerator.getMockId(A_Z_Review__c.SObjectType);
+    Id azReviewId2 = Lib_FakeIdGenerator.getMockId(A_Z_Review__c.SObjectType);
+    Id mockAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id mockLeadId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    Id mockOppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+
+    // Create A2Z Reviews
+    List<A_Z_Review__c> reviewList = new List<A_Z_Review__c>{
+      new A_Z_Review__c(
+        Id = azReviewId1,
+        Lead__c = mockLeadId,
+        Status__c = 'In Progress'
+      ),
+      new A_Z_Review__c(
+        Id = azReviewId2,
+        Opportunity__c = mockOppId,
+        Status__c = 'In Progress'
+      )
+    };
+
+    //  Create mock Lead and Opportunity records
+    List<Lead> mockLeads = new List<Lead>{
+      new Lead(Id = mockLeadId, FinServ__RelatedAccount__c = mockAccountId)
+    };
+
+    List<Opportunity> mockOpportunities = new List<Opportunity>{
+      new Opportunity(Id = mockOppId, AccountId = mockAccountId)
+    };
+
+    // Mock repository method responses
+    azRepoMock.mock('getLeads', mockLeads);
+
+    azRepoMock.mock('getOpportunities', mockOpportunities);
+
+    // Step 6: Execute the actual method under test
+    Test.startTest();
+    CommercialA2ZReviewActions.setCustomerOnA2ZReview(reviewList);
+    Test.stopTest();
+
+    Assert.areEqual(
+      mockAccountId,
+      reviewList[0].Customer__c,
+      'Customer__c should be set to the mock Account Id.'
+    );
+    Assert.areEqual(
+      mockAccountId,
+      reviewList[1].Customer__c,
+      'Customer__c should be set to the mock Account Id.'
+    );
+  }
+  @isTest
+  static void testSetCustomerOnA2ZReviewNegative() {
+    registerMocks();
+
+    //  Create Mock Ids
+    Id azReviewId1 = Lib_FakeIdGenerator.getMockId(A_Z_Review__c.SObjectType);
+    Id azReviewId2 = Lib_FakeIdGenerator.getMockId(A_Z_Review__c.SObjectType);
+    Id mockLeadId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    Id mockOppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+
+    // Create A2Z Reviews
+    List<A_Z_Review__c> reviewList = new List<A_Z_Review__c>{
+      new A_Z_Review__c(
+        Id = azReviewId1,
+        Lead__c = mockLeadId,
+        Status__c = 'In Progress'
+      ),
+      new A_Z_Review__c(
+        Id = azReviewId2,
+        Opportunity__c = mockOppId,
+        Status__c = 'In Progress'
+      )
+    };
+
+    // Mock repository method exception
+    azRepoMock.mockException(
+      'getLeads',
+      new QueryException('invalid parameters')
+    );
+    azRepoMock.mockException(
+      'getOpportunities',
+      new QueryException('invalid parameters')
+    );
+    try {
+      // Step 6: Execute the actual method under test
+      Test.startTest();
+      CommercialA2ZReviewActions.setCustomerOnA2ZReview(reviewList);
+      Test.stopTest();
+      Assert.fail('Should not reach this line'); // Code shouldn't reach this line
+    } catch (Exception ex) {
+      Assert.isInstanceOfType(
+        ex,
+        QueryException.class,
+        'Incorrect exception type'
+      );
+      Assert.areEqual(
+        'invalid parameters',
+        ex.getMessage(),
+        'Message does not match'
+      );
+    }
   }
   @isTest
   static void testPerformRedactionTest() {
@@ -62,7 +172,6 @@ private class CommercialA2ZReviewActionsTest {
       'Redaction is Not Completed'
     );
   }
-
   @isTest
   public static void testCompletedDateOnUpdate() {
     User ccrmUser = new User(
@@ -105,7 +214,6 @@ private class CommercialA2ZReviewActionsTest {
       'Completed date not updated when status changes'
     );
   }
-
   @isTest
   static void testRestrictImagesInRichTextFields() {
     //GIVEN List of A-Z Review Record
@@ -130,7 +238,6 @@ private class CommercialA2ZReviewActionsTest {
       'Error while inserting A-Z Review record with Image.'
     );
   }
-
   @isTest
   static void setBusinessContactToBlankTest() {
     //GIVEN records, oldMap
@@ -345,6 +452,107 @@ private class CommercialA2ZReviewActionsTest {
       null,
       records[0].Business_Owner__c,
       'Business Owner is not set to blank.'
+    );
+  }
+  @isTest
+  static void validateAndPopulateCLGInfoTest() {
+    registerMocks();
+
+    // GIVEN records
+    Account orgRec = new Account(
+      Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+      RecordTypeId = RTAccount.businessAccount,
+      FirstName = 'Org',
+      LastName = 'Account'
+    );
+    Account orgRecTwo = new Account(
+      Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+      RecordTypeId = RTAccount.businessAccount,
+      FirstName = 'OrgTwo',
+      LastName = 'Account'
+    );
+    Account relatedClgRec = new Account(
+      Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+      RecordTypeId = RTAccount.clgAccount,
+      FirstName = 'RelatedCLG',
+      LastName = 'Account'
+    );
+    List<A_Z_Review__c> records = new List<A_Z_Review__c>{
+      new A_Z_Review__c(Customer__c = orgRec.Id)
+    };
+    A_Z_Review__c oldRec = new A_Z_Review__c(Customer__c = orgRecTwo.Id);
+    Map<Id, A_Z_Review__c> oldMap = new Map<Id, A_Z_Review__c>{
+      records[0].Id => oldRec
+    };
+    List<FinServ__AccountAccountRelation__c> listAAR = new List<FinServ__AccountAccountRelation__c>{
+      new FinServ__AccountAccountRelation__c(
+        Id = Lib_FakeIdGenerator.getMockId(
+          FinServ__AccountAccountRelation__c.SObjectType
+        ),
+        FinServ__Account__c = orgRec.Id,
+        FinServ__RelatedAccount__c = relatedClgRec.Id
+      )
+    };
+
+    leadRepoMock.mock('getAccountList', new List<Account>{ orgRec });
+    leadRepoMock.mock('getAccountAccountRelations', listAAR);
+
+    // WHEN calling method
+    Test.startTest();
+    CommercialA2ZReviewActions.validateAndPopulateCLGInfo(records, oldMap);
+    Test.stopTest();
+
+    // THEN record should have error
+    Assert.areEqual(
+      records[0].hasErrors(),
+      true,
+      'Should have errors since no related CLG record is selected'
+    );
+  }
+  @isTest
+  static void populateCLGInfoTest() {
+    registerMocks();
+
+    // GIVEN records
+    Account orgRec = new Account(
+      Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+      RecordTypeId = RTAccount.businessAccount,
+      FirstName = 'Org',
+      LastName = 'Account'
+    );
+    Account relatedClgRec = new Account(
+      Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+      RecordTypeId = RTAccount.clgAccount,
+      FirstName = 'RelatedCLG',
+      LastName = 'Account'
+    );
+    List<A_Z_Review__c> records = new List<A_Z_Review__c>{
+      new A_Z_Review__c(Customer__c = orgRec.Id)
+    };
+    List<FinServ__AccountAccountRelation__c> listAAR = new List<FinServ__AccountAccountRelation__c>{
+      new FinServ__AccountAccountRelation__c(
+        Id = Lib_FakeIdGenerator.getMockId(
+          FinServ__AccountAccountRelation__c.SObjectType
+        ),
+        FinServ__Account__c = orgRec.Id,
+        FinServ__RelatedAccount__c = relatedClgRec.Id,
+        FinServ__RelatedAccount__r = relatedClgRec
+      )
+    };
+
+    leadRepoMock.mock('getAccountList', new List<Account>{ orgRec });
+    leadRepoMock.mock('getAccountAccountRelations', listAAR);
+
+    // WHEN calling method
+    Test.startTest();
+    CommercialA2ZReviewActions.populateCLGInfo(records);
+    Test.stopTest();
+
+    // THEN record should have error
+    Assert.areEqual(
+      relatedClgRec.Id,
+      records[0].CLGCustomer__c,
+      'Related CLG Customer should be auto populated.'
     );
   }
 }

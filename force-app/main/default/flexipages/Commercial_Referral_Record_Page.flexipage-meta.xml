@@ -561,6 +561,16 @@
                 <identifier>RecordOwnerIdField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.FinServ__PotentialValue__c</fieldItem>
+                <identifier>RecordFinServ_PotentialValue_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-2c51d449-2484-4ebc-83d1-af460c70829c</name>
         <type>Facet</type>
     </flexiPageRegions>

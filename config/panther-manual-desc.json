@@ -791,7 +791,8 @@
         "Customer_Number__c",
         "Business_Owner_Number__c",
         "Business_Owner__c",
-        "Business_Contact__c"
+        "Business_Contact__c",
+        "CLGCustomer__c"
       ],
       "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"],
       "IA-2423227": ["COI_Member__c"],
