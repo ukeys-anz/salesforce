@@ -43,6 +43,8 @@ public class RTCase {
   public static Id trustMeQA = base.getId('TrustMe_eIDV_QA_Case');
   public static Id trustMeManualReview = base.getId('TrustMe_eIDV_Case');
   public static Id rekycQA = base.getId('ReKYC_QA_Case');
+  public static Id signAuth = base.getId('Signing_Authority_Update');
+  public static Id assistedTransfer = base.getId('Assisted_Transfer');
 
   /**
    * @description Get the record type info for a given record type id

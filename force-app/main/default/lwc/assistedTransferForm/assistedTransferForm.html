@@ -1,0 +1,158 @@
+<template>
+  <h1 class="slds-text-heading_small slds-p-around_xx-small slds-theme_shade">
+    <p>Assisted Transfer Account Details</p>
+  </h1>
+  <div class="slds-modal__content slds-var-p-top_medium">
+    <b>Money from Account: {selectedAccount}</b>
+
+    <!--money from account start-->
+    <form class="slds-form">
+      <div class="slds-grid slds-gutters">
+        <div class="slds-col">
+          <div class="slds-form-element slds-form-element_horizontal">
+            <label class="slds-form-element__label" style="min-width: 120px">
+              Account Name
+            </label>
+            <div class="slds-form-element__control">
+              <lightning-input
+                type="text"
+                name="accountName"
+                value={selectedRow.Name}
+                disabled
+                variant="label-hidden"
+              ></lightning-input>
+            </div>
+          </div>
+          <div class="slds-form-element slds-form-element_horizontal">
+            <label class="slds-form-element__label" style="min-width: 120px">
+              Account BSB
+            </label>
+            <div class="slds-form-element__control">
+              <lightning-input
+                type="text"
+                name="accountBSB"
+                value={selectedRow.BSB__c}
+                disabled
+                variant="label-hidden"
+              ></lightning-input>
+            </div>
+          </div>
+        </div>
+        <div class="slds-col">
+          <div class="slds-form-element slds-form-element_horizontal">
+            <label class="slds-form-element__label" style="min-width: 120px">
+              Account Number
+            </label>
+            <div class="slds-form-element__control">
+              <lightning-input
+                type="text"
+                name="accountNumber"
+                value={selectedRow.FinServ__FinancialAccountNumber__c}
+                disabled
+                variant="label-hidden"
+              ></lightning-input>
+            </div>
+          </div>
+          <div class="slds-form-element slds-form-element_horizontal">
+            <label class="slds-form-element__label" style="min-width: 120px">
+              <span class="slds-required">*</span>Transaction Amount
+            </label>
+            <div class="slds-form-element__control">
+              <lightning-input
+                type="number"
+                name="amountFrom"
+                data-id="amountFrom"
+                required="true"
+                variant="label-hidden"
+              ></lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!--money to account start-->
+  <div class="slds-modal__content slds-var-p-top_medium">
+    <b>Money To Account</b>
+    <form class="slds-form">
+      <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-2">
+          <div class="slds-form-element slds-form-element_horizontal">
+            <label class="slds-form-element__label" style="min-width: 120px">
+              <span class="slds-required">*</span>Account Name
+            </label>
+            <div class="slds-form-element__control">
+              <lightning-input
+                variant="label-hidden"
+                required="true"
+                data-id="amountTo"
+                name="toAccount"
+                value={amountToFields.toAccount}
+              ></lightning-input>
+            </div>
+          </div>
+          <div class="slds-form-element slds-form-element_horizontal">
+            <label class="slds-form-element__label" style="min-width: 120px">
+              <span class="slds-required">*</span>BSB
+            </label>
+            <div class="slds-form-element__control">
+              <lightning-input
+                variant="label-hidden"
+                required="true"
+                data-id="amountTo"
+                name="toAccountBsb"
+                value={amountToFields.toAccountBsb}
+              ></lightning-input>
+            </div>
+          </div>
+          <div class="slds-form-element slds-form-element_horizontal">
+            <label class="slds-form-element__label" style="min-width: 120px">
+              <span class="slds-required">*</span> Transfer Reason
+            </label>
+            <lightning-combobox
+              value={value}
+              required="true"
+              data-id="amountTo"
+              name="transferReason"
+              options={transferReasonOptions}
+              variant="label-hidden"
+            >
+            </lightning-combobox>
+          </div>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+          <div class="slds-form-element slds-form-element_horizontal">
+            <label class="slds-form-element__label" style="min-width: 120px">
+              <span class="slds-required">*</span>Account Number
+            </label>
+            <div class="slds-form-element__control">
+              <lightning-input
+                variant="label-hidden"
+                required="true"
+                data-id="amountTo"
+                name="toAccountNumber"
+                value={amountToFields.toAccountNumber}
+              ></lightning-input>
+            </div>
+          </div>
+          <div class="slds-form-element slds-form-element_horizontal">
+            <label class="slds-form-element__label" style="min-width: 120px">
+              <span class="slds-required">*</span> Amount
+            </label>
+            <div class="slds-form-element__control">
+              <lightning-input
+                required="true"
+                variant="label-hidden"
+                data-id="amountTo"
+                name="toAccountAmount"
+                data-prop-name="amountToBeTransferred"
+                value={amountToFields.toAccountAmount}
+              ></lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</template>

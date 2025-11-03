@@ -48,7 +48,7 @@ public with sharing class FinancialAccountTriggerHandler extends Lib_TriggerHand
    * @param oldMap old trigger values
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    FinancialAccountActions.updateCustomerActionRecord(
+    FinancialAccountActions.updateSigningAuthorityCases(
       records,
       (Map<Id, FinServ__FinancialAccount__c>) oldMap
     );
