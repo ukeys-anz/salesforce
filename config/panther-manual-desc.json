@@ -218,6 +218,7 @@
     "LogEntry__c": "The child log record, stores logging information on a record/callout level.",
     "Logging_Settings__c": "Custom settings for more control on logging.",
     "Mortgage_Contract__c": "Contains details relating to the mortgage contract",
+    "Needs_Analysis__c": "Used to store needs analysis",
     "Opportunity": "Is a record of a sale or a pending deal",
     "OpportunityLineItem": "Representing the product of a sale or a pending deal",
     "PrivateKeyStorage__c": "To store the private key from GCP in a secure way, so that even a system admin should not be able to access this information.",
