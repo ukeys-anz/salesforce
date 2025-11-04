@@ -25,7 +25,6 @@ CHANGED_FILES=$(cat "$QUALITY_CHECK_FILE_NAME" | jq -R -s -r '
 
 # Initialize flags
 CHECK_FLAG=false
-SYSL_FAILED_CHECK_FLAG=false
 
 # Directory where Sysl-related files will be staged
 DEPLOY_DIR="./tmp/sysl"
@@ -47,7 +46,6 @@ function checkFieldBusinessStatus() {
   f=$(basename "$1") && f=${f/.field-meta.xml}
   if [[ $fieldMetadata != *"<businessStatus>"* ]]; then
     echo "$2.$f : Missed businessStatus"
-    SYSL_FAILED_CHECK_FLAG=true
   elif [[ $fieldMetadata == *"<businessStatus>Hidden</businessStatus>"* ]]; then
     echo "$2.$f : No Error ---> Hidden field"
   fi
@@ -56,15 +54,15 @@ function checkFieldBusinessStatus() {
 function checkFieldMetadataInformation() {
   fieldMetadata=$(cat "$1")
   f=$(basename "$1") && f=${f/.field-meta.xml}
-  if [[ $fieldMetadata != *Source* ]]; then echo "$2.$f : Missed complianceGroup | Source"; SYSL_FAILED_CHECK_FLAG=true; fi
-  if [[ $fieldMetadata != *Integrity* ]]; then echo "$2.$f : Missed complianceGroup | Integrity"; SYSL_FAILED_CHECK_FLAG=true; fi
-  if [[ $fieldMetadata != *Privacy* ]]; then echo "$2.$f : Missed complianceGroup | Privacy"; SYSL_FAILED_CHECK_FLAG=true; fi
-  if [[ $fieldMetadata != *"<description>"* && $3 != *"$2.$f"* ]]; then echo "$2.$f : Missed description"; SYSL_FAILED_CHECK_FLAG=true; fi
-  if [[ $fieldMetadata != *"<securityClassification>"* ]]; then echo "$2.$f : Missed securityClassification"; SYSL_FAILED_CHECK_FLAG=true; fi
+  if [[ $fieldMetadata != *Source* ]]; then echo "$2.$f : Missed complianceGroup | Source"; fi
+  if [[ $fieldMetadata != *Integrity* ]]; then echo "$2.$f : Missed complianceGroup | Integrity"; fi
+  if [[ $fieldMetadata != *Privacy* ]]; then echo "$2.$f : Missed complianceGroup | Privacy"; fi
+  if [[ $fieldMetadata != *"<description>"* && $3 != *"$2.$f"* ]]; then echo "$2.$f : Missed description"; fi
+  if [[ $fieldMetadata != *"<securityClassification>"* ]]; then echo "$2.$f : Missed securityClassification"; fi
 }
 
 function checkPantherIdInformation() {
-  if [[ $3 != *"$2.$1"* ]]; then echo "$2.$1 : Missed pantherId"; SYSL_FAILED_CHECK_FLAG=true; fi
+  if [[ $3 != *"$2.$1"* ]]; then echo "$2.$1 : Missed pantherId"; fi
 }
 
 function syslCheck() {
@@ -101,7 +99,8 @@ if [[ "$CHECK_FLAG" == true ]]; then
   syslCheck > result.txt
 fi
 
-if [[ "$SYSL_FAILED_CHECK_FLAG" == true ]]; then
+# Check if result.txt exists and contains "Missed" (indicating actual errors)
+if [[ -f result.txt ]] && grep -q "Missed" result.txt; then
   cat result.txt
   {
     echo "result<<EOF"
