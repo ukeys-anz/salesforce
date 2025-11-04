@@ -184,7 +184,7 @@ private class MFAResetServiceTest {
   private static Map<String, Object> buildMockAccessTokenResponse() {
     Map<String, Object> fakeAccessTokenPayload = new Map<String, Object>{
       'access_token' => 'eyJ0eXAi***ifQ.eyJzdW...6e319.uTfe...CVQUw',
-      'scope' => 'AU_ANZx_Broker_Accreditation_and_Onboarding_Team',
+      'scope' => Label.Forge_Scope_For_MFA_Reset,
       'token_type' => 'Bearer',
       'expires_in' => 899
     };

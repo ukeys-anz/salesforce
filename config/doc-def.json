@@ -372,6 +372,18 @@
       "type": "system"
     },
     {
+      "name": "Coach notification Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Disable_MFA",
+        "Enforce_mTLS",
+        "Read_Write_Customer_Details"
+      ],
+      "type": "system"
+    },
+    {
       "name": "Deployment User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
@@ -441,7 +453,8 @@
         "FinServ__FinancialServicesCloudStandard",
         "Disable_MFA",
         "Enforce_mTLS",
-        "Bypass_TSP"
+        "Bypass_TSP",
+        "Update_Signing_Authority"
       ],
       "type": "system"
     },
@@ -647,7 +660,8 @@
         "Financial_Accounts_Read_and_Edit",
         "Bypass_TSP",
         "Read_Write_Customer_Details",
-        "Case_Read_Write_KYC_QA_Integration"
+        "Case_Read_Write_KYC_QA_Integration",
+        "Update_Signing_Authority"
       ],
       "type": "system"
     },

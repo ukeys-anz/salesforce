@@ -44,7 +44,9 @@ public with sharing class CheckCaseRecordType {
     RTCase.customerFeedback,
     RTCase.accountClosure,
     RTCase.falseCustomerProfile,
-    RTCase.profileUpdate
+    RTCase.profileUpdate,
+    RTCase.signAuth,
+    RTCase.assistedTransfer
   };
 
   public static final Set<Id> VALID_RTS_TO_CREATE_EXT_CASE_STATUS = new Set<Id>{

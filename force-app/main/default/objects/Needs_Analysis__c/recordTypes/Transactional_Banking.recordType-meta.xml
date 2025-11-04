@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Transactional_Banking</fullName>
+    <active>true</active>
+    <description>Transactional Banking Needs Analysis</description>
+    <label>Transactional Banking</label>
+    <picklistValues>
+        <picklist>Enterprise_Grade_Finance_System__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Products__c</picklist>
+        <values>
+            <fullName>ANZ Business One Card</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ Cash Escrow facility</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ Cashactive Control</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ Corporate Card</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ FileActive Host to Host</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ FileActive Portal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ Liquidity Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ Lockbox</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ Score</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ARM %28off-system BSB%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BPAY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bureau</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Essentials Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Extra Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Online Saver Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cache Set-offs %28Notional Cash Pooling Solution%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cache Sweeps %28Physical Cash Pooling Solution%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cash Active Fusion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Corporate Statutory Trust Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Corporate Transaction Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Direct Debit Facility</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Direct to Depot services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FX Online</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Foreign Currency Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Internet Banking Retail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Internet Banking for Business %28IB4B%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Intraday Credit Limit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Merchant Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Negotiator Investor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SWIFT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Statutory Trust Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transactive Global %28TG%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Qualifying_Customer_Investment__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Qualifying_the_Benefit__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Technical_Sophistication__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Technology_Staff__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

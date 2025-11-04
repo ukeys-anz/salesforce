@@ -4,6 +4,10 @@
  * @description implementation class to hit mule api to get external object
  */
 public with sharing class TFMSearchCustomerDataQueryImpl {
+  private static final PDIRepository QUERY = (PDIRepository) Lib_InstanceProvider.forType(
+    PDIRepository.class
+  );
+
   /**
    * @description method will sync columns for creating external object
    * @return List<DataSource.Table>
@@ -49,8 +53,6 @@ public with sharing class TFMSearchCustomerDataQueryImpl {
     Service.IdType refId,
     String searchText
   ) {
-    List<Map<String, Object>> lstReturnDataset = new List<Map<String, Object>>();
-    TFMPersonDigitalIdentityModel model;
     StaffTokenRequestModel staffModel = new StaffTokenRequestModel();
     staffModel.idType = refId;
     staffModel.idValue = searchText;
@@ -62,8 +64,12 @@ public with sharing class TFMSearchCustomerDataQueryImpl {
       staffModel.apiScopesRequested = 'SearchCustomerWithAIV';
     }
     TFMSearchCustomerAPIRepository api = new TFMSearchCustomerAPIRepository();
-    model = api.searchCustAPI(staffModel);
-    lstReturnDataset = setRowsOfObject(model, refId, searchText);
+    TFMPersonDigitalIdentityModel model = api.searchCustAPI(staffModel);
+    List<Map<String, Object>> lstReturnDataset = setRowsOfObject(
+      model,
+      refId,
+      searchText
+    );
     return lstReturnDataset;
   }
 
@@ -124,6 +130,7 @@ public with sharing class TFMSearchCustomerDataQueryImpl {
         TFMConstants.COL_HEADER_DISPLAYURL,
         URL.getOrgDomainURL() + '/' + res.id
       );
+      curRow.putAll(getCustomer(res.ocvId));
       if (refId != Service.IdType.IDENTIFIER) {
         curRow.put(
           TFMConstants.MOBILE_NUMBER,
@@ -187,6 +194,7 @@ public with sharing class TFMSearchCustomerDataQueryImpl {
     }
     return curRow;
   }
+
   /**
    * @description method is setting pin status data in row
    * @param  credential List<TFMPersonDigitalIdentityModel.Credential>
@@ -207,6 +215,7 @@ public with sharing class TFMSearchCustomerDataQueryImpl {
     }
     return curRow;
   }
+
   /**
    * @description method is getting ResourceIds from result json
    * @param  credential List<TFMPersonDigitalIdentityModel.Credential>
@@ -231,5 +240,21 @@ public with sharing class TFMSearchCustomerDataQueryImpl {
       }
     }
     return String.join(resourceIdList, ',');
+  }
+
+  /**
+   * @description Get the customer details from account by ocvId.
+   * @param ocvId  OCV Id to search for.
+   * @return Map<String, Object> Map of customer details.
+   */
+  private static Map<String, Object> getCustomer(string ocvId) {
+    Account cust = QUERY.getAccountByOCVId(ocvId);
+    if (cust == null) {
+      return new Map<String, Object>();
+    }
+    return new Map<String, Object>{
+      'Customer' => cust.External_Id__c,
+      'CustomerName' => cust.Name
+    };
   }
 }

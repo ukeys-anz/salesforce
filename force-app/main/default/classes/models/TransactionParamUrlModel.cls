@@ -35,6 +35,12 @@ public with sharing class TransactionParamUrlModel {
   public String pageSize { get; set; }
 
   /**
+   * @description The paramUrl which contains page token to query succeeding transaction records
+   */
+  @AuraEnabled
+  public String paramUrl { get; set; }
+
+  /**
    * @description Default constructor
    */
   public TransactionParamUrlModel() {

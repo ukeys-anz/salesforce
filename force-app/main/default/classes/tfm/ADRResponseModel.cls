@@ -24,6 +24,9 @@ public with sharing class ADRResponseModel extends CalloutModel {
    * @return `ADR` api response is serialised into ADRResponseModel
    */
   public static ADRResponseModel parse(String json) {
-    return (ADRResponseModel) deserialize(json, ADRResponseModel.class);
+    return (ADRResponseModel) System.JSON.deserialize(
+      json,
+      ADRResponseModel.class
+    );
   }
 }
