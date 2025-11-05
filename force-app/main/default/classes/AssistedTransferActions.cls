@@ -7,6 +7,7 @@ public with sharing class AssistedTransferActions {
   public static final String CASE_DEFAULT_SUBJECT = 'Assisted Transfer';
   private static final String ON_HOLD_CASE_STATUS = 'On Hold';
   public static final String CASE_STATUS_CLOSED = 'Closed';
+  public static final String AWAITING_SUPPORT_COACH_ACTION_SUB_STATUS = 'Awaiting Support Coach Action';
 
   private static final AssistedTransferRepository ASSISTED_TRANSFER_REPO = (AssistedTransferRepository) Lib_InstanceProvider.forType(
     AssistedTransferRepository.class
@@ -78,6 +79,28 @@ public with sharing class AssistedTransferActions {
       new List<Id>(caseMap.keySet()),
       CaseGroupCaseConstants.RESOLUTION_TIME_MILESTONE,
       System.now()
+    );
+  }
+
+  /**
+   * @description updates owner of Case to their Manager if SLA Status is breached
+   * @param records Case records that are updated
+   * @param oldMap old map of Case records
+   */
+  public static void updateOwnerOnSubStatusChange(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    Id supportCoachQueue = QueryQueue.supportCoachQueue.Id;
+    List<Case> eligibleRecordsForEscalation = ListUtil.filter(records, oldMap)
+      .changed(Case.Sub_Status__c)
+      .equals(Case.Sub_Status__c, AWAITING_SUPPORT_COACH_ACTION_SUB_STATUS)
+      .toList();
+
+    ListUtil.setField(
+      eligibleRecordsForEscalation,
+      Case.OwnerId,
+      supportCoachQueue
     );
   }
 }

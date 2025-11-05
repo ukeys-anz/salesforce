@@ -956,7 +956,7 @@
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Assisted Transfer</rightValue>
+                        <rightValue>Assisted_Transfer</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!Record.Sub_Status__c}</leftValue>

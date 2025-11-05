@@ -712,7 +712,7 @@
             <operation>equals</operation>
             <value>Fraud Check Pending</value>
         </milestoneCriteriaFilterItems>
-        <milestoneName>Resolution Time</milestoneName>
+        <milestoneName>Resolution Time Assisted Transfer</milestoneName>
         <minutesToComplete>240</minutesToComplete>
         <timeTriggers>
             <actions>
@@ -722,7 +722,15 @@
             <timeLength>-60</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
-        <useCriteriaStartTime>false</useCriteriaStartTime>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Violation_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
     </milestones>
     <name>anz plus - basic subscription</name>
     <versionMaster>5522N0000005BH6</versionMaster>

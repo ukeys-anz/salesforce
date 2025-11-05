@@ -49,6 +49,10 @@ public with sharing class AssistedTransferTriggerHandler extends Lib_TriggerHand
       records,
       (Map<Id, Case>) oldMap
     );
+    AssistedTransferActions.updateOwnerOnSubStatusChange(
+      records,
+      (Map<Id, Case>) oldMap
+    );
     AssistedTransferActions.completeMilestone(records, (Map<Id, Case>) oldMap);
     AssistedTransferActions.markSLAStatus(records, (Map<Id, Case>) oldMap);
   }
