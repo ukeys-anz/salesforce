@@ -1456,8 +1456,7 @@
         "Property_Valuation_Id__c",
         "Original_Feedback_Record__c",
         "TestedDate__c",
-        "Title_Reference_Number__c",
-        "Transfer_Reason__c"
+        "Title_Reference_Number__c"
       ],
       "IA-2415860": [
         "Aegis_Workflow_Id__c",
@@ -1516,8 +1515,7 @@
         "Process_SLA_Status__c",
         "Financial_Account_Name__c",
         "Opt_Out_Reason__c"
-      ],
-      "IA-4796231": ["Secondary_Account_Holder_Consent__c"]
+      ]
     },
     "CaseHistory": {
       "IA-2468715": [

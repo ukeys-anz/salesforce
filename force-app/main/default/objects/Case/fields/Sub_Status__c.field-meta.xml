@@ -57,65 +57,7 @@
                 <default>false</default>
                 <label>Opt-Out</label>
             </value>
-            <value>
-                <fullName>By Coach</fullName>
-                <default>false</default>
-                <label>By Coach</label>
-            </value>
-            <value>
-                <fullName>By Customer</fullName>
-                <default>false</default>
-                <label>By Customer</label>
-            </value>
-            <value>
-                <fullName>Fraud Check Pending</fullName>
-                <default>false</default>
-                <label>Fraud Check Pending</label>
-            </value>
-            <value>
-                <fullName>Awaiting Approval</fullName>
-                <default>false</default>
-                <label>Awaiting Approval</label>
-            </value>
-            <value>
-                <fullName>Awaiting Support Coach Action</fullName>
-                <default>false</default>
-                <label>Awaiting Support Coach Action</label>
-            </value>
-            <value>
-                <fullName>Customer Servicing</fullName>
-                <default>false</default>
-                <label>Customer Servicing</label>
-            </value>
-            <value>
-                <fullName>Transfer Completed</fullName>
-                <default>false</default>
-                <label>Transfer Completed</label>
-            </value>
-            <value>
-                <fullName>Customer request withdrawn</fullName>
-                <default>false</default>
-                <label>Customer request withdrawn</label>
-            </value>
-            <value>
-                <fullName>Approved</fullName>
-                <default>false</default>
-                <label>Approved</label>
-            </value>
-            <value>
-                <fullName>Rejected</fullName>
-                <default>false</default>
-                <label>Rejected</label>
-            </value>
         </valueSetDefinition>
-        <valueSettings>
-            <controllingFieldValue>On Hold</controllingFieldValue>
-            <valueName>By Coach</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>On Hold</controllingFieldValue>
-            <valueName>By Customer</valueName>
-        </valueSettings>
         <valueSettings>
             <controllingFieldValue>Closed</controllingFieldValue>
             <valueName>No Defect</valueName>
@@ -133,32 +75,19 @@
             <controllingFieldValue>Escalated</controllingFieldValue>
             <controllingFieldValue>Open</controllingFieldValue>
             <controllingFieldValue>Withdrawn</controllingFieldValue>
-            <controllingFieldValue>Under Investigation</controllingFieldValue>
             <valueName>Processing</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Closed</controllingFieldValue>
             <controllingFieldValue>Escalated</controllingFieldValue>
-            <controllingFieldValue>Open</controllingFieldValue>
             <controllingFieldValue>Withdrawn</controllingFieldValue>
-            <controllingFieldValue>Under Investigation</controllingFieldValue>
             <valueName>Success</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Closed</controllingFieldValue>
             <controllingFieldValue>Escalated</controllingFieldValue>
-            <controllingFieldValue>Open</controllingFieldValue>
             <controllingFieldValue>Withdrawn</controllingFieldValue>
-            <controllingFieldValue>Under Investigation</controllingFieldValue>
             <valueName>Failed</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Closed</controllingFieldValue>
-            <valueName>Transfer Completed</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Closed</controllingFieldValue>
-            <valueName>Customer request withdrawn</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Escalated</controllingFieldValue>
@@ -169,30 +98,6 @@
             <controllingFieldValue>Escalated</controllingFieldValue>
             <controllingFieldValue>Open</controllingFieldValue>
             <valueName>Opt-Out</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Escalated</controllingFieldValue>
-            <valueName>Customer Servicing</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>In Progress</controllingFieldValue>
-            <valueName>Fraud Check Pending</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>In Progress</controllingFieldValue>
-            <valueName>Awaiting Approval</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Escalated</controllingFieldValue>
-            <valueName>Awaiting Support Coach Action</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>In Progress</controllingFieldValue>
-            <valueName>Approved</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>In Progress</controllingFieldValue>
-            <valueName>Rejected</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>
