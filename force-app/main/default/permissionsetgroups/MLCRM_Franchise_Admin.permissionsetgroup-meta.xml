@@ -4,6 +4,7 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>MLCRM Franchise Admin</label>
     <permissionSets>Customer_Authentication_PS</permissionSets>
+    <permissionSets>Customer_Profile_Update_Read_Write</permissionSets>
     <permissionSets>ExtraCareReadOnly</permissionSets>
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>

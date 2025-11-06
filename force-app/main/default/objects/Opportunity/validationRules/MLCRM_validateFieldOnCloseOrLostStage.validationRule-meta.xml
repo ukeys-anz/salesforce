@@ -13,11 +13,10 @@
       Text(StageName) = &apos;Closed&apos;  
     ),
     OR(
-      IsChanged(OwnerId),
       IsChanged(Name),
       IsChanged(CloseDate)
     )
   )
 )</errorConditionFormula>
-    <errorMessage>Owner, Name, Stage, Close Date cannot be updated at this current stage.</errorMessage>
+    <errorMessage>Name, Stage, Close Date cannot be updated at this current stage.</errorMessage>
 </ValidationRule>
