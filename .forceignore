@@ -182,11 +182,3 @@ force-app/main/default/staticresources/mock_sopListAssets.resource-meta.xml
 #PR-8811 Skip field destruction in merge
 force-app/main/default/objects/Lead/fields/Conversion_Status__c
 
-#CF-6823 CMU revert
-force-app/main/default/objects/Case/recordTypes/Signing_Authority_Update.recordType-meta.xml
-force-app/main/default/objects/Case/recordTypes/Assisted_Transfer.recordType-meta.xml
-force-app/main/default/milestoneTypes/Resolution Time Assisted Transfer.milestoneType-meta.xml
-force-app/main/default/flows/Assisted_Transfer_Approval.flow-meta.xml
-force-app/main/default/flows/Assisted_Transfer_Double_Approval_Flow.flow-meta.xml
-force-app/main/default/flows/Assisted_Transfer_Single_Approver_Flow.flow-meta.xml
-force-app/main/default/flows/Update_Case_Sub_Status.flow-meta.xml
