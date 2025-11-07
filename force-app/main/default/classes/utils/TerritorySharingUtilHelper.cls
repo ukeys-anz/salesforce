@@ -104,6 +104,7 @@ public without sharing class TerritorySharingUtilHelper {
         oldMapSobject
       )
       .changed(ownerIdField)
+      .notEquals(ownerIdField, UserInfo.getUserId())
       .toList();
     for (sObject record : lstOfFilteredByOwnerChanged) {
       lstOfShareRecord.add(
