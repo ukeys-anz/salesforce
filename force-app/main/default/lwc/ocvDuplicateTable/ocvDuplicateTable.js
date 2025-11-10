@@ -25,13 +25,16 @@ export default class OcvDuplicateTable extends LightningElement {
   columns = COLUMNS;
   isLoading = false;
 
+  get showTable() {
+    return this.customerList && this.customerList.length > 0;
+  }
+
   async connectedCallback() {
     try {
       this.isLoading = true;
       let customerResult = await getAllCustomersByOCVId({
         recordId: this.recordId
       });
-
       this.customerList = customerResult.map((item) => ({
         ...item,
         NameUrl: `/${item.Id}`

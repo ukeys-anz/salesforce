@@ -66,20 +66,84 @@ global with sharing class SigningAuthorityController implements Callable {
         Integer.valueOf(signMode),
         ocvId
       );
-
+      processCustomerAction(apiResponse, finAccountId);
       output.put('httpCode', JSON.serialize(apiResponse.httpCode));
       output.put('isDefaultError', JSON.serialize(apiResponse.isDefaultError));
       output.put('status', JSON.serialize(apiResponse.status));
-
-      String caseRecordId = (String) input.get('caseRecordId');
-      SigningAuthorityUpdateActions.caseStatusUpdate(
-        caseRecordId,
-        apiResponse.httpCode == 200
-      );
     } catch (Exception ex) {
       Logger.error(ex.getMessage(), ex);
       Logger.saveLog();
     }
     return true;
+  }
+
+  /**
+   * @description  The processCustomerAction method to update customer action if api fails
+   * @param alterModel Alter Account Sign Mode Model
+   * @param finAccountId financial account id
+   * @description process Customer Action record
+   */
+  public static void processCustomerAction(
+    AlterAccountSignModeModel alterModel,
+    String finAccountId
+  ) {
+    if (alterModel.status == 'Error') {
+      List<Customer_Action__c> custActionRecords = getLatestPendingCustomerAction(
+        finAccountId
+      );
+      if (custActionRecords.isEmpty()) {
+        return;
+      }
+      List<Customer_Action__c> updatedCustomerActions = updateCustomerAction(
+        alterModel,
+        custActionRecords
+      );
+      DMLUtil.updateRecords(
+        updatedCustomerActions,
+        DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+        DMLUtil.SYSTEM_MODE
+      );
+    }
+  }
+
+  /**
+   * @description  The getLatestPendingCustomerAction method to get the pending customer action record
+   * @param finAccountId Alter Account Sign Mode Model
+   * @return `custActionRecords` pending customer action record
+   */
+  public static List<Customer_Action__c> getLatestPendingCustomerAction(
+    String finAccountId
+  ) {
+    Id customerActionRecordTypeId = QueryRT.of(Customer_Action__c.SObjectType)
+      .getId('Pending_Financial_Account_Updates');
+    List<Customer_Action__c> custActionRecords = [
+      SELECT Id, Status__c, Error_Description__c
+      FROM Customer_Action__c
+      WHERE
+        Financial_Account__c = :finAccountId
+        AND Status__c = :FinancialAccountActions.CUSTOMER_ACTION_STATUS_PENDING
+        AND RecordTypeId = :customerActionRecordTypeId
+      ORDER BY LastModifiedDate
+      LIMIT 1
+    ];
+    return custActionRecords;
+  }
+
+  /**
+   * @description  The updateCustomerAction method to update the customer action with Error
+   * @param alterModel Alter Account Sign Mode Model
+   * @param custActionRecords Customer Action Record
+   * @return `custActionRecords` updated records
+   */
+  public static List<Customer_Action__c> updateCustomerAction(
+    AlterAccountSignModeModel alterModel,
+    List<Customer_Action__c> custActionRecords
+  ) {
+    custActionRecords[0].Status__c = alterModel.status;
+    custActionRecords[0].Error_Description__c =
+      alterModel.httpCode +
+      ' | ' +
+      alterModel.message;
+    return custActionRecords;
   }
 }

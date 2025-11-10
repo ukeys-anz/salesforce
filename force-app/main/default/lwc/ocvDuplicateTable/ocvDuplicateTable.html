@@ -1,18 +1,19 @@
 <template>
-  <lightning-card title="Related Customer Profile">
-    <template lwc:if={isLoading}>
-      <lightning-spinner
-        alternative-text="Loading"
-        variant="brand"
-      ></lightning-spinner>
-    </template>
-    <lightning-datatable
-      class="slds-m-around_medium"
-      hide-checkbox-column
-      lwc:if={customerList}
-      key-field="Id"
-      data={customerList}
-      columns={columns}
-    ></lightning-datatable>
-  </lightning-card>
+  <template lwc:if={isLoading}>
+    <lightning-spinner
+      alternative-text="Loading"
+      variant="brand"
+    ></lightning-spinner>
+  </template>
+  <template lwc:if={showTable}>
+    <lightning-card title="Related Customer Profile">
+      <lightning-datatable
+        class="slds-m-around_medium"
+        hide-checkbox-column
+        key-field="Id"
+        data={customerList}
+        columns={columns}
+      ></lightning-datatable>
+    </lightning-card>
+  </template>
 </template>

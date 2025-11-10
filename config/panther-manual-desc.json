@@ -218,6 +218,7 @@
     "LogEntry__c": "The child log record, stores logging information on a record/callout level.",
     "Logging_Settings__c": "Custom settings for more control on logging.",
     "Mortgage_Contract__c": "Contains details relating to the mortgage contract",
+    "Needs_Analysis__c": "Used to store needs analysis",
     "Opportunity": "Is a record of a sale or a pending deal",
     "OpportunityLineItem": "Representing the product of a sale or a pending deal",
     "PrivateKeyStorage__c": "To store the private key from GCP in a secure way, so that even a system admin should not be able to access this information.",
@@ -1455,8 +1456,7 @@
         "Property_Valuation_Id__c",
         "Original_Feedback_Record__c",
         "TestedDate__c",
-        "Title_Reference_Number__c",
-        "Transfer_Reason__c"
+        "Title_Reference_Number__c"
       ],
       "IA-2415860": [
         "Aegis_Workflow_Id__c",
@@ -1515,8 +1515,7 @@
         "Process_SLA_Status__c",
         "Financial_Account_Name__c",
         "Opt_Out_Reason__c"
-      ],
-      "IA-4796231": ["Secondary_Account_Holder_Consent__c"]
+      ]
     },
     "CaseHistory": {
       "IA-2468715": [

@@ -18,14 +18,17 @@ public with sharing class ADRResponseModel extends CalloutModel {
     public String updateDateTime;
     public String brandName;
   }
+
   /**
    * @description Represents Response body for ADRResponseModel API
    * @param json json response from onboarding API
    * @return `ADR` api response is serialised into ADRResponseModel
    */
   public static ADRResponseModel parse(String json) {
+    // Replace the invalid key "_id" with the valid key "id"
+    String correctedJson = json.replace('"_id":', '"id":');
     return (ADRResponseModel) System.JSON.deserialize(
-      json,
+      correctedJson,
       ADRResponseModel.class
     );
   }

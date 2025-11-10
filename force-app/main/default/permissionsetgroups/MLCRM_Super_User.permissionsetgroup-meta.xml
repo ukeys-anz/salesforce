@@ -4,6 +4,7 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>MLCRM Super User</label>
     <permissionSets>Customer_Authentication_PS</permissionSets>
+    <permissionSets>Customer_Profile_Update_Read_Write</permissionSets>
     <permissionSets>Edit_Customer_Relationship</permissionSets>
     <permissionSets>ExtraCareReadOnly</permissionSets>
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>

@@ -24,7 +24,10 @@ public with sharing class OCVDuplicateTableController {
       if (String.isBlank(acc?.OCV_Id__c)) {
         return new List<Account>();
       }
-      return CTRL_REPOSITORY.getAllCustomers(acc.OCV_ID__c);
+      String sourceSystemName = (acc.Source_System_Name__c == 'CAP-CIS')
+        ? 'CACHE'
+        : 'CAP-CIS';
+      return CTRL_REPOSITORY.getAllCustomers(acc.OCV_ID__c, sourceSystemName);
     } catch (Exception e) {
       Logger.error(e.getMessage());
       Logger.saveLog();
