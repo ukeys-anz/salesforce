@@ -192,6 +192,26 @@
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CLGCustomer__c</fieldItem>
+                <identifier>RecordCLGCustomer__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CLG_Number__c</fieldItem>
+                <identifier>RecordCLG_Number__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-4dff0352-3b44-4457-bdaf-40a6b787f626</name>
         <type>Facet</type>
     </flexiPageRegions>

@@ -7,6 +7,8 @@ newFieldFiles=""
 errors=""
 warnings=""
 declare -A objectsFromFields  # Associative array to track unique parent objects that have field changes
+declare -A checkedObjects  # Track objects already checked for permission set (reset per permission set)
+declare -A checkedWhitelist  # Track objects already checked for whitelist (reset per permission set)
 
 echo ""
 echo "***************************************************************"
@@ -47,17 +49,34 @@ getFieldNameFromPath() {
 }
 
 # Check if a specific field exists in a permission set XML file
-# Args: $1=field name (Object.Field__c format), $2=permission set file path
-# Returns: 0 if found, 1 if not found
+# Args: $1=field name (Object.Field__c format), $2=permission set file path, $3=field metadata file path
+# Returns: 0 if found or if field is required, 1 if not found and field is not required, 2 if required tag not found (warning)
 isFieldInPermissionSet() {
   local field="$1"
   local pset_file="$2"
+  local field_file="$3"
 
   if grep -q "<field>$field</field>" "$pset_file" 2>/dev/null; then
-    return 0  # Found
-  else
-    return 1  # Not found
+    return 0  # Found in permission set
   fi
+
+  # Field not found in permission set, check if it's required
+  if [[ -f "$field_file" ]]; then
+    if grep -q "<required>false</required>" "$field_file" 2>/dev/null; then
+      # Field is NOT required, so it MUST be in permission set
+      return 1  # Fail - non-required field must be in permission set
+    elif grep -q "<required>true</required>" "$field_file" 2>/dev/null; then
+      # Field is required, so it's okay to not be in permission set
+      echo "  ⏭️  Skipping $field - Field is required (automatically accessible)"
+      return 0  # Pass - required fields don't need to be in permission set
+    else
+      # No required tag found
+      return 2  # Warning - couldn't determine requirement
+    fi
+  fi
+
+  # Couldn't read field file
+  return 2  # Warning - couldn't determine requirement
 }
 
 # Check if a field is excluded in a JSON exclusion file
@@ -99,10 +118,19 @@ isFieldInExclusion() {
 
 # Check if a specific object exists in a permission set XML file
 # Args: $1=object name, $2=permission set file path
-# Returns: 0 if found, 1 if not found
+# Returns: 0 if found or already checked, 1 if not found (only on first check)
+# Uses global checkedObjects array to prevent duplicate checks
 isObjectInPermissionSet() {
   local object_name="$1"
   local pset_file="$2"
+
+  # Check if we've already checked this object
+  if [[ -n "${checkedObjects[$object_name]:-}" ]]; then
+    return 0  # Already checked, return success to skip duplicate check
+  fi
+
+  # Mark this object as checked
+  checkedObjects[$object_name]=true
 
   if grep -q "<object>$object_name</object>" "$pset_file" 2>/dev/null; then
     return 0  # Object found in permission set
@@ -113,17 +141,26 @@ isObjectInPermissionSet() {
 
 # Check if an object is in the SF Data Sync whitelist
 # Args: $1=object name, $2=permission set name
-# Returns: 0 if in whitelist or not SF_Data_Sync_Integration, 1 if not in whitelist
+# Returns: 0 if in whitelist or not SF_Data_Sync_Integration or already checked, 1 if not in whitelist (only on first check)
+# Uses global checkedWhitelist array to prevent duplicate checks
 isObjectInSfDataSyncWhitelist() {
   local object_name="$1"
   local pset_name="$2"
 
-  if [[ ! -f "$OBJECT_CHANGES_LIST" ]]; then
-    return 1  # Config file doesn't exist, treat object as not in whitelist
-  fi
-
   if [[ "$pset_name" != "SF_Data_Sync_Integration" ]]; then
     return 0  # Skip whitelist check for non-SF_Data_Sync_Integration permission sets
+  fi
+
+  # Check if we've already checked this object for whitelist
+  if [[ -n "${checkedWhitelist[$object_name]:-}" ]]; then
+    return 0  # Already checked, return success to skip duplicate check
+  fi
+
+  # Mark this object as checked
+  checkedWhitelist[$object_name]=true
+
+  if [[ ! -f "$OBJECT_CHANGES_LIST" ]]; then
+    return 1  # Config file doesn't exist, treat object as not in whitelist
   fi
 
   local result=$(jq -r --arg obj "$object_name" '
@@ -148,12 +185,12 @@ isObjectInBackupExclusion() {
   local object_name="$1"
   local pset_name="$2"
 
-  if [[ ! -f "$BACKUP_EXCLUSION" ]]; then
-    return 1  # Exclusion file doesn't exist, treat object as not excluded
-  fi
-
   if [[ "$pset_name" == "SF_Data_Sync_Integration" ]]; then
     return 1  # Skip backup exclusion check for SF_Data_Sync_Integration permission set
+  fi
+
+  if [[ ! -f "$BACKUP_EXCLUSION" ]]; then
+    return 1  # Exclusion file doesn't exist, treat object as not excluded
   fi
 
   # Query the JSON exclusion file to check if the object has value "all"
@@ -181,6 +218,12 @@ checkPermissionSet() {
   local EXCLUSION_PATH="$3"
   local localErrors=""
   local localWarnings=""
+
+  # Reset global tracking arrays for this permission set
+  unset checkedObjects
+  unset checkedWhitelist
+  declare -g -A checkedObjects=()
+  declare -g -A checkedWhitelist=()
 
   if [[ ! -f "${PSET_PATH}" ]];then
     echo "$WHICH_PSET Permission set does not exist..."
@@ -240,10 +283,19 @@ checkPermissionSet() {
     fi
 
     # Verify that the field is defined in the permission set XML file
-    if ! isFieldInPermissionSet "$full_field_name" "$PSET_PATH"; then
+    field_check_result=0
+    isFieldInPermissionSet "$full_field_name" "$PSET_PATH" "$field_file" || field_check_result=$?
+
+    if [[ $field_check_result -eq 1 ]]; then
+      # Field not found and is not required (must be in permission set)
       echo "  ❌  Failed: $full_field_name - $WHICH_PSET Permission Set Check Failed (Field)"
       localErrors+="<p>  - $full_field_name field</p>"
       failed=true
+    elif [[ $field_check_result -eq 2 ]]; then
+      # Could not determine if field is required (warning)
+      echo "  ⚠️  Warning: $full_field_name - Could not find <required> tag in field metadata"
+      localWarnings+="<p>  - $full_field_name field</p><p>    Could not determine if field is required. Please verify manually.</p>"
+      warning=true
     fi
   done <<< "$newFieldFiles"
 

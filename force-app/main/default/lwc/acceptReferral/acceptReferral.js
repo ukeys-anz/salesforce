@@ -6,6 +6,7 @@ import { getRecord } from "lightning/uiRecordApi";
 import LEAD_AUTONUMBER_FIELD from "@salesforce/schema/Lead.Lead_Auto_Number__c";
 import ID_FIELD from "@salesforce/schema/Lead.Id";
 import RECORDTYPEID_FIELD from "@salesforce/schema/Lead.RecordTypeId";
+import REFERRAL_ACK_DATE_FIELD from "@salesforce/schema/Lead.Referral_Acknowledged_Date__c";
 import LEADID_FIELD from "@salesforce/schema/Lead.Lead_Id__c";
 import { getObjectInfo } from "lightning/uiObjectInfoApi";
 import checkCampaignMember from "@salesforce/apex/AcceptReferralController.checkCampaignMember";
@@ -61,6 +62,7 @@ export default class AcceptReferral extends LightningElement {
     fields[RECORDTYPEID_FIELD.fieldApiName] = this.selectedValue;
     fields[LEADID_FIELD.fieldApiName] =
       this.lead.data.fields.Lead_Auto_Number__c.value;
+    fields[REFERRAL_ACK_DATE_FIELD.fieldApiName] = new Date().toISOString();
     const recordInput = { fields };
     updateRecord(recordInput)
       .then(() => {

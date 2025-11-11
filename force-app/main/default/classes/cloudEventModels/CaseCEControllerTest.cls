@@ -5,6 +5,9 @@
  */
 @isTest
 public class CaseCEControllerTest {
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
   // test cloud event for the NPP Dispute
   @isTest
   public static void testNPPDisputeCase() {
@@ -352,6 +355,7 @@ public class CaseCEControllerTest {
     theCase.Submitted__c = false;
     theCase.Transaction_Id__c = 'Transaction Id Test_IMT_Text_255';
     theCase.Transaction_UUID__c = 'Transaction UUID Test_IMT_Text_255';
+    theCase.Dispute_Reason__c = 'Payee has not received funds';
     theCase.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
     return theCase;
   }
@@ -498,5 +502,79 @@ public class CaseCEControllerTest {
     GetHelpCaseActionsHelper.handleEntitlementForUpdate(theCase1, theCase2);
 
     Assert.areEqual(value, true, 'Case Status is closed.');
+  }
+
+  // test cloud event for the ImtBCNRCase
+  @isTest
+  public static void testImtBCNRCase() {
+    Test.startTest();
+    Case theCase = createImtBCNRCase();
+    CaseCEController.publishCloudEvents(new List<Case>{ theCase });
+    Test.stopTest();
+    String payload = CloudEventController.cloudEvents[0].Data_1__c;
+    IMTDisputeCaseCloudEventModel imtDisputeCaseCloudEventModel = (IMTDisputeCaseCloudEventModel) JSON.deserialize(
+      payload,
+      IMTDisputeCaseCloudEventModel.class
+    );
+    Assert.isTrue(
+      IMTDisputeCaseCloudEventModel.ce_type.contains('v1alpha1.dispute'),
+      'ce_type is incorrect'
+    );
+    Assert.areEqual(
+      2,
+      CloudEventController.cloudEvents.size(),
+      'Cloud Event should be generated'
+    );
+  }
+  /**
+   * @description Create Case record with fields relevant to IMT_Dispute
+   * @return Case
+   */
+  public static Case createImtBCNRCase() {
+    Case theCase = new Case();
+    theCase.RecordTypeId = RTCase.imtDispute;
+    theCase.Description = 'IMT Dispute Case Description Test_Text_32k';
+    theCase.Status = 'Open';
+    theCase.Submitted__c = false;
+    theCase.Dispute_Reason__c = 'Payee has not received funds';
+    DML_REPOSITORY.doInsert(theCase, new DMLConfig().systemMode());
+    return theCase;
+  }
+
+  // test cloud event for the ImtBCNRCase
+  @isTest
+  public static void testImtCanceOut() {
+    Test.startTest();
+    Case theCase = createImtCanceOut();
+    CaseCEController.publishCloudEvents(new List<Case>{ theCase });
+    Test.stopTest();
+    String payload = CloudEventController.cloudEvents[0].Data_1__c;
+    IMTDisputeCaseCloudEventModel imtDisputeCaseCloudEventModel = (IMTDisputeCaseCloudEventModel) JSON.deserialize(
+      payload,
+      IMTDisputeCaseCloudEventModel.class
+    );
+    Assert.isTrue(
+      IMTDisputeCaseCloudEventModel.ce_type.contains('v1alpha1.dispute'),
+      'ce_type is incorrect'
+    );
+    Assert.areEqual(
+      2,
+      CloudEventController.cloudEvents.size(),
+      'Cloud Event should be generated'
+    );
+  }
+  /**
+   * @description Create Case record with fields relevant to IMT_Dispute
+   * @return Case
+   */
+  public static Case createImtCanceOut() {
+    Case theCase = new Case();
+    theCase.RecordTypeId = RTCase.imtDispute;
+    theCase.Description = 'IMT Dispute Case Description Test_Text_32k';
+    theCase.Status = 'Open';
+    theCase.Submitted__c = false;
+    theCase.Dispute_Reason__c = 'Cancel Transfer';
+    DML_REPOSITORY.doInsert(theCase, new DMLConfig().systemMode());
+    return theCase;
   }
 }

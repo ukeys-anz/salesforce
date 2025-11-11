@@ -76,6 +76,9 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
   public static String getTransactionParamUrl(
     TransactionParamUrlModel paramUrlModel
   ) {
+    if (String.isNotBlank(paramUrlModel.paramUrl)) {
+      return paramUrlModel.paramUrl;
+    }
     String paramUrlString = '';
 
     String startTime = GetHelpConstants.isTransactionsV1()

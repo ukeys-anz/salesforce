@@ -164,7 +164,8 @@ public with sharing class IDOpsQueryRepository {
         PIN_Status__c,
         IAL_Identity_Assurance_Level__c,
         OCV_ID__c,
-        Mobile_Number__c
+        Mobile_Number__c,
+        Customer__r.Id
       FROM PersonDigitalIdentity__x
       WHERE Id = :recordId
       WITH USER_MODE

@@ -341,6 +341,15 @@
         <allowEdit>true</allowEdit>
         <allowRead>false</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
+        <object>Needs_Analysis__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
         <object>Opportunity</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
@@ -351,6 +360,24 @@
         <allowRead>false</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
         <object>OpportunityLineItem</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>PriceBook2</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>PriceBookEntry</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>

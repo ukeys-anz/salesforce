@@ -133,6 +133,7 @@
         <lookupDialogsAdditionalFields>Preferred_Name__c</lookupDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>Preferred_Name__c</lookupPhoneDialogsAdditionalFields>
         <searchResultsAdditionalFields>Preferred_Name__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CustomerName__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>OCV_ID__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>UUID__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Mobile_Number__c</searchResultsAdditionalFields>

@@ -343,6 +343,60 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
+        <content>Commercial_Transaction_Banking_Needs_Analysis_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Needs_Analysis__c</pageOrSobjectType>
+        <recordType>Needs_Analysis__c.Transactional_Banking</recordType>
+        <type>Flexipage</type>
+        <profile>ANZ CCRM Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Commercial_Transaction_Banking_Needs_Analysis_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Needs_Analysis__c</pageOrSobjectType>
+        <recordType>Needs_Analysis__c.Transactional_Banking</recordType>
+        <type>Flexipage</type>
+        <profile>ANZ CCRM Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Commercial_Transaction_Banking_Needs_Analysis_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Needs_Analysis__c</pageOrSobjectType>
+        <recordType>Needs_Analysis__c.Transactional_Banking</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Commercial_Transaction_Banking_Needs_Analysis_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Needs_Analysis__c</pageOrSobjectType>
+        <recordType>Needs_Analysis__c.Transactional_Banking</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Commercial_Transaction_Banking_Needs_Analysis_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Needs_Analysis__c</pageOrSobjectType>
+        <recordType>Needs_Analysis__c.Transactional_Banking</recordType>
+        <type>Flexipage</type>
+        <profile>ANZ CCRM Standard Automation User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Commercial_Transaction_Banking_Needs_Analysis_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Needs_Analysis__c</pageOrSobjectType>
+        <recordType>Needs_Analysis__c.Transactional_Banking</recordType>
+        <type>Flexipage</type>
+        <profile>ANZ CCRM Standard Automation User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
         <content>Commercial_A_Z_Review_Record_Page</content>
         <formFactor>Small</formFactor>
         <pageOrSobjectType>A_Z_Review__c</pageOrSobjectType>

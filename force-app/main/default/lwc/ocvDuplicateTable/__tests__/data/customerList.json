@@ -1,0 +1,23 @@
+[
+  {
+    "Id": "001AD00000oz2FPYAY",
+    "Name": "Individual Customer",
+    "Source_System_Name__c": "CAP-CIS",
+    "Source_System_ID__c": "4025935123",
+    "OCV_ID__c": "1234567890"
+  },
+  {
+    "Id": "001AD00000ozpaNYAQ",
+    "Name": "Organisation Customer",
+    "Source_System_Name__c": "CAP-CIS",
+    "Source_System_ID__c": "4025935963",
+    "OCV_ID__c": "1234567890"
+  },
+  {
+    "Id": "001AD00000p01d3YAA",
+    "Name": "Test Cache",
+    "Source_System_Name__c": "CACHE",
+    "Source_System_ID__c": "4025935912",
+    "OCV_ID__c": "1234567890"
+  }
+]

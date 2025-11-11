@@ -11,7 +11,7 @@ IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispu
 IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Return money received from an unknown person&quot;), &quot;MD06&quot;,
 IF(RecordType.DeveloperName = &quot;IMT_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Cancel Transfer&quot;), &quot;CB_Cance_Out&quot;,
 IF(RecordType.DeveloperName = &quot;IMT_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Payee has not received funds&quot;), &quot;CB_BCNR&quot;,
-IF(RecordType.DeveloperName = &quot;IMT_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Amendment Request&quot;), &quot;AmendBen&quot;,
+IF(RecordType.DeveloperName = &quot;IMT_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Amendment Request&quot;), &quot;CB_AmendBen&quot;,
 IF(RecordType.DeveloperName = &quot;IMT_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Suspected fraud&quot;), &quot;CB_Cance_Out&quot;,&quot;&quot;))))))))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Reason Code</label>

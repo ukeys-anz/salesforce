@@ -393,7 +393,7 @@
                 <fieldItem>Record.Intended_Account_Name__c</fieldItem>
                 <identifier>RecordIntended_Account_Name_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Parent.Type}</leftValue>
                         <operator>EQUAL</operator>
@@ -403,6 +403,11 @@
                         <leftValue>{!Record.Parent.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Case_Group</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Origin}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>ANZ Plus App</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -416,7 +421,7 @@
                 <fieldItem>Record.Intended_Account_Name__c</fieldItem>
                 <identifier>RecordIntended_Account_Name_cField2</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Parent.Type}</leftValue>
                         <operator>NE</operator>
@@ -426,6 +431,11 @@
                         <leftValue>{!Record.Parent.RecordType.DeveloperName}</leftValue>
                         <operator>NE</operator>
                         <rightValue>Case_Group</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Origin}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>ANZ Plus App</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -439,7 +449,7 @@
                 <fieldItem>Record.Intended_Account_Number__c</fieldItem>
                 <identifier>RecordIntended_Account_Number_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Parent.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -449,6 +459,11 @@
                         <leftValue>{!Record.Parent.Type}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Account Closure</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Origin}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>ANZ Plus App</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -462,7 +477,7 @@
                 <fieldItem>Record.Intended_Account_Number__c</fieldItem>
                 <identifier>RecordIntended_Account_Number_cField2</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Parent.RecordType.DeveloperName}</leftValue>
                         <operator>NE</operator>
@@ -472,6 +487,11 @@
                         <leftValue>{!Record.Parent.Type}</leftValue>
                         <operator>NE</operator>
                         <rightValue>Account Closure</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Origin}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>ANZ Plus App</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -495,7 +515,7 @@
                 <fieldItem>Record.Intended_Account_BSB__c</fieldItem>
                 <identifier>RecordIntended_Account_BSB_cField2</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Parent.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -505,6 +525,11 @@
                         <leftValue>{!Record.Parent.Type}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Account Closure</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Origin}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>ANZ Plus App</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -518,7 +543,7 @@
                 <fieldItem>Record.Intended_Account_BSB__c</fieldItem>
                 <identifier>RecordIntended_Account_BSB_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Parent.RecordType.DeveloperName}</leftValue>
                         <operator>NE</operator>
@@ -528,6 +553,11 @@
                         <leftValue>{!Record.Parent.Type}</leftValue>
                         <operator>NE</operator>
                         <rightValue>Account Closure</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Origin}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>ANZ Plus App</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -684,31 +714,6 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection4</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 OR ( 2 AND ( 3 AND 4 AND 5) )</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Origin}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>ANZ Plus App</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Origin}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>ANZ Plus App</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Intended_Account_Number__c}</leftValue>
-                        <operator>NE</operator>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Intended_Account_Name__c}</leftValue>
-                        <operator>NE</operator>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Intended_Account_BSB__c}</leftValue>
-                        <operator>NE</operator>
-                    </criteria>
-                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>

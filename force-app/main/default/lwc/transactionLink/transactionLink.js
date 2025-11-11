@@ -31,6 +31,7 @@ export default class TransactionLink extends LightningModal {
   todayDate = new Date().toISOString().slice(0, 10);
   startDate;
   endDate;
+  nextUri;
 
   faColumns = ACCOUNT_COLUMNS;
   txnColumns = TXN_COLUMNS;
@@ -270,6 +271,7 @@ export default class TransactionLink extends LightningModal {
     search: async () => {
       this.transactions = [];
       this.selectedTxnIds = [];
+      this.nextUri = null; // Reset pagination
       const transactions = await this.service.fetchTxns();
       this.helper.onLoadTxnTable(transactions);
     },
@@ -323,7 +325,8 @@ export default class TransactionLink extends LightningModal {
         accountNumber: this.selectedAccRow.Account_Number__c,
         startDate: startDate,
         endDate: endDate,
-        pageSize: 100
+        pageSize: 100,
+        paramUrl: this.nextUri
       };
 
       this.isLoading = true;
@@ -333,6 +336,14 @@ export default class TransactionLink extends LightningModal {
           ownership: this.selectedAccRow.Ownership__c,
           paramUrlModel
         });
+
+        if (this.isDateRangeSelected) {
+          // Store the next page URL from links if available
+          const nextUri = txns.links?.next?.uri;
+          this.nextUri = nextUri
+            ? nextUri.substring(nextUri.indexOf("?"))
+            : null;
+        }
         return this.helper.transformTransactions(txns);
       } catch (error) {
         this.toast.error("Error fetching transactions.");
@@ -342,6 +353,17 @@ export default class TransactionLink extends LightningModal {
       }
     }
   };
+
+  async handleLoadMore() {
+    if (!this.nextUri) return;
+
+    const moreTxns = await this.service.fetchTxns();
+    if (!moreTxns?.length) return;
+
+    // Append new transactions to existing ones
+    this.transactions = [...this.transactions, ...moreTxns];
+    this.helper.onLoadTxnTable(this.transactions);
+  }
 
   helper = {
     accPreSelection: () => {

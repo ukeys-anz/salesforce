@@ -17,6 +17,7 @@
  */
 const slackGroupMapping = {
   release: "sf-plat-engineers",
+  develop: "sf-plat-engineers",
   "epic/anzx-bau": "sf-bau"
 };
 

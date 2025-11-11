@@ -218,6 +218,7 @@
     "LogEntry__c": "The child log record, stores logging information on a record/callout level.",
     "Logging_Settings__c": "Custom settings for more control on logging.",
     "Mortgage_Contract__c": "Contains details relating to the mortgage contract",
+    "Needs_Analysis__c": "Used to store needs analysis",
     "Opportunity": "Is a record of a sale or a pending deal",
     "OpportunityLineItem": "Representing the product of a sale or a pending deal",
     "PrivateKeyStorage__c": "To store the private key from GCP in a secure way, so that even a system admin should not be able to access this information.",
@@ -359,7 +360,14 @@
         "Principal_Place_of_Business_Formula__c",
         "IsTruncated__c",
         "Security_Code_Updated__c",
-        "Security_Code_Requested__c"
+        "Security_Code_Requested__c",
+        "CIP_Id__c",
+        "Date_Closed__c",
+        "Direct_Marketing__c",
+        "Gold_Tier_Id__c",
+        "Last_Maint_Date__c",
+        "Security_Indicator__c",
+        "Credit_Rating__c"
       ],
       "IA-2460507": ["Last_Updated_By__c"],
       "IA-2594111": [
@@ -386,15 +394,6 @@
         "CLG_Credit_Rating__c"
       ],
       "IA-2415998": ["VOI_Expiry_Date_Classic__c", "VOI_Status_Classic__c"],
-      "IA-4674256": [
-        "CIP_Id__c",
-        "Date_Closed__c",
-        "Direct_Marketing__c",
-        "Gold_Tier_Id__c",
-        "Last_Maint_Date__c",
-        "Security_Indicator__c",
-        "Credit_Rating__c"
-      ],
       "IA-2453595": ["Migration_Status__c", "DeceasedEstateStatus__c"]
     },
     "AccountClosureErrorMetadata__mdt": {
@@ -793,7 +792,8 @@
         "Customer_Number__c",
         "Business_Owner_Number__c",
         "Business_Owner__c",
-        "Business_Contact__c"
+        "Business_Contact__c",
+        "CLGCustomer__c"
       ],
       "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"],
       "IA-2423227": ["COI_Member__c"],
@@ -3654,6 +3654,54 @@
         "LastModifiedDate"
       ]
     },
+    "Needs_Analysis__c": {
+      "IA-2415860": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId",
+        "Status__c",
+        "OwnerId"
+      ],
+      "IA-2415984": [
+        "BPAY_Payments__c",
+        "BPAY_Receipts__c",
+        "Customer__c",
+        "Direct_Debits__c",
+        "Direct_Entry_Creditor_Payments__c",
+        "Direct_Entry_Payroll_Payments__c",
+        "Domestic_ANZ_Transfers__c",
+        "Electronic_Credits_Accounts__c",
+        "Electronic_Debits_Accounts__c",
+        "Enterprise_Grade_Finance_System__c",
+        "International_Payments_Inbound__c",
+        "International_Payments_Outbound__c",
+        "International_Transfers__c",
+        "Money_Held__c",
+        "Money_In__c",
+        "Money_Out__c",
+        "Number_of_Branch_Visits__c",
+        "Number_of_Cheques_Deposited__c",
+        "Number_of_Cheques_Written__c",
+        "Number_of_Devices__c",
+        "Number_of_File_Types__c",
+        "Number_of_Sites_to_Implement__c",
+        "Opportunity__c",
+        "Osko_Payments__c",
+        "Overview__c",
+        "Payables__c",
+        "Qualifying_Customer_Investment__c",
+        "Qualifying_the_Benefit__c",
+        "Receivables__c",
+        "Returned_Items__c",
+        "RTGS_Payments__c",
+        "Technical_Sophistication__c",
+        "Technology_Staff__c"
+      ],
+      "IA-2415987": ["Products__c", "Products_Selected__c"]
+    },
     "Opportunity": {
       "IA-2423278": ["My_teams_referrer__c"],
       "IA-2415828": ["Circle_Of_Influence__c"],
@@ -3851,6 +3899,9 @@
         "Name__c",
         "PersonId__c"
       ]
+    },
+    "PersonDigitalIdentity__x": {
+      "IA-2486234": ["Customer__c", "CustomerName__c"]
     },
     "PriceBook2": {
       "IA-2415987": ["Description", "IsActive", "IsStandard", "Name"],
