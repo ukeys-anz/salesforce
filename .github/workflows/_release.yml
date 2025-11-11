@@ -44,7 +44,7 @@ jobs:
     outputs:
       JOB_ID_FILE_NAME: ${{ steps.set-job-id.outputs.JOB_ID_FILE_NAME }}
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:2.1.1"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:3.0.0"
       options: --user root
       volumes:
         - ${{ github.workspace }}/release:/opt/harness-delegate/release
