@@ -571,6 +571,7 @@
     "UserPreferencesDisableSharePostEmail",
     "UserPreferencesDisCommentAfterLikeEmail",
     "UserPreferencesDisMentionsCommentEmail",
+    "UserPreferencesDismissReuseUpdateReminderModal",
     "UserPreferencesDisProfPostCommentEmail",
     "UserPreferencesEnableAutoSubForFeeds",
     "UserPreferencesEventRemindersCheckboxDefault",
