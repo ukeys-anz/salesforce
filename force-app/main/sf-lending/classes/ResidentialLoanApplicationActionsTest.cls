@@ -347,12 +347,12 @@ private class ResidentialLoanApplicationActionsTest {
       rlaRepoMock.getHistories('queryLoanApplications').isEmpty(),
       'queryLoanApplications should have been called at least once'
     );
-    List<Id> loanApplicationIds = (List<Id>) rlaRepoMock.getHistory(
+    List<String> loanApplicationParam = (List<String>) rlaRepoMock.getHistories(
         'queryLoanApplications'
-      )
-      .getParam('loanIds');
+      )[0]
+      .listOfParamNames;
     Assert.isFalse(
-      loanApplicationIds.isEmpty(),
+      loanApplicationParam.isEmpty(),
       'loanApplicationIds should have been passed on to the queryLoanApplications method'
     );
   }
@@ -549,6 +549,7 @@ private class ResidentialLoanApplicationActionsTest {
         ResidentialLoanApplication.SObjectType
       );
       loanApp.Assisted_Broker_TPMI_SAO__c = BROKER_CODE;
+      loanApp.Sync_Status__c = 'Broker Org';
       loanApps.add(loanApp);
     }
     return loanApps;

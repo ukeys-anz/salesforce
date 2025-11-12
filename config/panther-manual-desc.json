@@ -1841,6 +1841,7 @@
       ],
       "IA-2415984": [
         "Birthdate",
+        "Birthdate__c",
         "Email",
         "Fax",
         "Name",
@@ -6000,6 +6001,7 @@
     "Contact": {
       "Broker_Set__c": "ANZx::Salesforce",
       "Is_Beta_Broker__c": "ANZx::Salesforce",
+      "Birthdate__c": "ANZx :: Salesforce :: BrokerData :: Broker_Customer_Profile__c :: PersonBirthdate",
       "Is_MyBroker__c": "ANZx::Salesforce",
       "Office_Group__c": "ANZx::Salesforce",
       "OCV_Profile_ID__c": "ANZx :: Salesforce :: BrokerData :: Contact :: OCV_Profile_ID__c",
@@ -6205,6 +6207,7 @@
     },
     "Contact": {
       "Broker_Set__c": "Lookup to Broker_Relation__c",
+      "Birthdate__c": "Formula field through Broker_Customer_Profile__r.PersonBirthdate",
       "Is_Beta_Broker__c": "1:1 Transformation",
       "Is_MyBroker__c": "Formula field through Broker_Relation__c",
       "Office_Group__c": "Lookup to Broker_Relation__c",

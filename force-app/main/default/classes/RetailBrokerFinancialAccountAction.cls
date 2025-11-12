@@ -161,7 +161,6 @@ public with sharing class RetailBrokerFinancialAccountAction {
         oldMap
       )
       .isNotNull(FinServ__FinancialAccount__c.Account_Key__c)
-      .changed(FinServ__FinancialAccount__c.Assisted_Broker_TPMI_SAO__c)
       .anyNotNull(brokerFieldsNotNull)
       .toList();
 
@@ -256,6 +255,7 @@ public with sharing class RetailBrokerFinancialAccountAction {
     List<FinServ__FinancialAccount__c> result = Listutil.filter(
         financialAccounts
       )
+      .isNotNull(FinServ__FinancialAccount__c.Assisted_Broker__c)
       .equals(
         FinServ__FinancialAccount__c.Sub_product_Code_Display__c,
         classicProductSubCodes
@@ -278,6 +278,7 @@ public with sharing class RetailBrokerFinancialAccountAction {
     List<FinServ__FinancialAccount__c> result = Listutil.filter(
         financialAccounts
       )
+      .isNotNull(FinServ__FinancialAccount__c.Assisted_Broker__c)
       .equals(
         FinServ__FinancialAccount__c.Marketing_Code__c,
         homeLoanMarketingCodes
