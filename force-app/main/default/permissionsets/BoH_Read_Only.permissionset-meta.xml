@@ -119,6 +119,10 @@
         <name>FinancialAccountConfiguration__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <name>FinancialAccountConfiguration__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <customPermissions>
         <name>ANZx_Home_Loan</name>
         <enabled>true</enabled>

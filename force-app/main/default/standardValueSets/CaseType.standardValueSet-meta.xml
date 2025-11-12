@@ -427,11 +427,6 @@
         <label>Recipient</label>
     </standardValue>
     <standardValue>
-        <fullName>Recovery</fullName>
-        <default>false</default>
-        <label>Recovery</label>
-    </standardValue>
-    <standardValue>
         <fullName>Potential AML</fullName>
         <default>false</default>
         <label>Potential AML</label>
