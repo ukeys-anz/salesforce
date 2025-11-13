@@ -4,7 +4,6 @@
  * @description StravinskyController is used to handle calls to Stravinsky Frontdoor
  */
 public with sharing class StravinskyController {
-  public static final String MISSING_PACKAGE_ID = 'No package id found. Please ensure a package id has been added to the case. Raise a fault through TechAssist if the problem persists.';
   public static final String MISSING_FIN_ACCOUNT = 'Failed to retrieve financial account data. Please refresh and try again. Raise a fault through TechAssist if the problem persists.';
   public static final String FAILED_CLOSURE = 'Failed to perform account closure. Please refresh and try again. Raise a fault through TechAssist if the problem persists.';
   //Added this error message if more than one joint account found
@@ -30,8 +29,6 @@ public with sharing class StravinskyController {
     PermissionUtils.canQuery('FinServ__FinancialAccountRole__c');
 
     Case caseRecord = queryCase(recordId);
-
-    validatePackageId(caseRecord);
 
     //Added to Fetch Financial Accounts Details based on the Case Record Account Type
     financialAccounts = checkAccountTypeAndReturnFinancialAccounts(
@@ -231,27 +228,6 @@ public with sharing class StravinskyController {
       FROM Case
       WHERE Id = :recordId
     ];
-  }
-
-  /**
-   * @param caseRecord Case Record
-   * @description this method will validate whether the package id present or not for A1/S1
-   */
-  @TestVisible
-  private static void validatePackageId(Case caseRecord) {
-    if (
-      !StravinskyAPIRepository.isS2ProductOnCase(caseRecord) &&
-      String.isBlank(caseRecord.Package_Id__c)
-    ) {
-      Logger.error(
-        'Error closing package - ' + MISSING_PACKAGE_ID,
-        caseRecord.Id
-      );
-      Logger.saveLog();
-      AuraHandledException e = new AuraHandledException(MISSING_PACKAGE_ID);
-      e.setMessage(MISSING_PACKAGE_ID);
-      throw e;
-    }
   }
 
   /**

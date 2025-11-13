@@ -276,49 +276,6 @@ public with sharing class StravinskyControllerTest {
   }
 
   @isTest
-  static void testValidatePackageIdSuccess() {
-    Faker faker = new Faker('AU');
-    Case newCase = new Case(
-      Account_Type__c = 'Individual',
-      RecordTypeId = RTCase.accountClosure,
-      Package_Id__c = FAKER.randomString(10),
-      Account_Product__c = 'ANZ Plus & ANZ Save'
-    );
-
-    Exception error;
-    Test.startTest();
-
-    try {
-      StravinskyController.validatePackageId(newCase);
-    } catch (AuraHandledException e) {
-      error = e;
-    }
-    Test.stopTest();
-
-    Assert.isNull(error, 'No Exception Thrown');
-  }
-
-  @isTest
-  static void testValidatePackageIdFailure() {
-    Case newCase = new Case(
-      Account_Type__c = 'Individual',
-      RecordTypeId = RTCase.accountClosure,
-      Account_Product__c = 'ANZ Plus & ANZ Save'
-    );
-    Test.startTest();
-    try {
-      StravinskyController.validatePackageId(newCase);
-    } catch (AuraHandledException e) {
-      Assert.areEqual(
-        'No package id found. Please ensure a package id has been added to the case. Raise a fault through TechAssist if the problem persists.',
-        e.getMessage(),
-        'Exception Message As Expected'
-      );
-      Test.stopTest();
-    }
-  }
-
-  @isTest
   static void testPackageClosureAuraFlexSuccess() {
     System.runAs(thisUser) {
       Case newCase = new Case(
