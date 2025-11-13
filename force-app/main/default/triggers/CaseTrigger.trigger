@@ -25,5 +25,6 @@ trigger CaseTrigger on Case(
   CustomerComplaintCaseTriggerHandler customerComplaintHandler = new CustomerComplaintCaseTriggerHandler();
   CustomerInformationUpdateTriggerHandler customerInforHandler = new CustomerInformationUpdateTriggerHandler();
   DeceasedCustomerCaseTriggerHandler deceasedCustomerHandler = new DeceasedCustomerCaseTriggerHandler();
+  AssistedTransferTriggerHandler assistedTransferHandler = new AssistedTransferTriggerHandler();
   SigningAuthorityUpdateTriggerHandler signingAuthorityHandler = new SigningAuthorityUpdateTriggerHandler();
 }

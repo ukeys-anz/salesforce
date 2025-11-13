@@ -27,6 +27,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     migratedRts.add(RTCase.trustMeQA);
     migratedRts.add(RTCase.trustMeManualReview);
     migratedRts.add(RTCase.rekycQA);
+    migratedRts.add(RTCase.assistedTransfer);
     migratedRts.add(RTCase.signAuth);
   }
 

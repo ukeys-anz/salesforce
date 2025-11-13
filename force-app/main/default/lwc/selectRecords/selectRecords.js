@@ -6,6 +6,7 @@ import { getFocusedTabInfo, refreshTab } from "lightning/platformWorkspaceApi";
 import getRecords from "@salesforce/apex/GenericController.getData";
 import updateRecords from "@salesforce/apex/GenericController.updateData";
 import signAuth from "./signingAuthority.html";
+import assistedTransfer from "./assistedTransfer.html";
 import defaultSpinner from "./defaultSpinner.html";
 
 const fields = [
@@ -14,6 +15,7 @@ const fields = [
   "Case.RecordType.DeveloperName",
   "Case.Type"
 ];
+const ASSISTED_TRANSFER_RT = "Assisted_Transfer";
 
 const CONTROLLER_MAP = {
   Signing_Authority_Update: "SigningAuthorityUpdateController",
@@ -28,6 +30,8 @@ const ALL_TO_SIGN_HEADER_MESSAGE =
 const ANY_TO_SIGN_HEADER_MESSAGE =
   "Displaying Any to Sign account. Only one account can be updated at a time.";
 
+const ASSISTED_TRANSFER_HEADER_MESSAGE =
+  "Only one account can be selected at a time for Assisted Transfers";
 export default class SelectRecords extends LightningElement {
   data = [];
   @api recordId;
@@ -52,8 +56,23 @@ export default class SelectRecords extends LightningElement {
     { label: "Number Of Signatures", fieldName: "Number_Of_Signatures__c" }
   ];
 
+  columnsForAssistedTransfer = [
+    { label: "Product", fieldName: "Product_Name__c" },
+    {
+      label: "Account Number",
+      fieldName: "FinServ__FinancialAccountNumber__c"
+    },
+    { label: "Account Type", fieldName: "FinServ__FinancialAccountType__c" },
+    { label: "Available Balance", fieldName: "FinServ__Balance__c" }
+  ];
+
   templateMap = {
-    [SIGN_AUTH_UPDATE_RT]: signAuth
+    [SIGN_AUTH_UPDATE_RT]: signAuth,
+    [ASSISTED_TRANSFER_RT]: assistedTransfer
+  };
+
+  childTemplateMap = {
+    [ASSISTED_TRANSFER_RT]: "c-assisted-transfer-form"
   };
 
   render() {
@@ -92,6 +111,9 @@ export default class SelectRecords extends LightningElement {
   get headerMessage() {
     if (this.issueType === "Change to Any to Sign") {
       return ALL_TO_SIGN_HEADER_MESSAGE;
+    }
+    if (this.recordTypeDevName === "Assisted_Transfer") {
+      return ASSISTED_TRANSFER_HEADER_MESSAGE;
     }
     return ANY_TO_SIGN_HEADER_MESSAGE;
   }
@@ -156,6 +178,17 @@ export default class SelectRecords extends LightningElement {
         "Error"
       );
       this.closeModal();
+    }
+  }
+
+  validateAndUpdateDate() {
+    if (this.showChild) {
+      const childComp = this.template.querySelector(
+        this.childTemplateMap[this.recordTypeDevName]
+      );
+      if (childComp) {
+        childComp.updateData();
+      }
     }
   }
 
