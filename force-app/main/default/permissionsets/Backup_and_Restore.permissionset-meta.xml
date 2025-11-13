@@ -3058,6 +3058,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Secondary_Account_Holder_Consent__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.SI_Assigned_to_Portfolios__c</field>
         <readable>true</readable>
