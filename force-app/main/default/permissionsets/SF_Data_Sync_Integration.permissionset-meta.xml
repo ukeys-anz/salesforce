@@ -7058,11 +7058,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Product2.IsAssetizable</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Product2.IsSoldOnlyWithOtherProds</field>
         <readable>true</readable>
     </fieldPermissions>
