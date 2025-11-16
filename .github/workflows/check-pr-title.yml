@@ -19,5 +19,5 @@ jobs:
       - name: Check PR Title for Ticket
         uses: ./.github/actions/pr-title-action
         with:
-          jira-project: "(ABT|IDR|ANZX|APRART|AR|CC|RIB|CF)"
+          jira-project: "(ABT|IDR|ANZX|APRART|AR|CC|RIB|CF|SCFE)"
           issue-blocklist: "^(?!.*\\b[A-Z]+[-](?!0{5,6})\\d{5,6}\\b).*"
