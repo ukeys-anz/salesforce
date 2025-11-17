@@ -324,7 +324,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM,Direct Debit,Direct Entry,ANZ Plus Complaint,General Enquiry,NPP,IMT,PayTo,Customer Feedback,BPAY,Account Closure,Confirmation Of Payee,Assisted Transfer</value>
+            <value>ATM,Direct Debit,Direct Entry,ANZ Plus Complaint,General Enquiry,NPP,IMT,PayTo,Customer Feedback,BPAY,Account Closure,Confirmation Of Payee</value>
         </criteriaItems>
         <criteriaItems>
             <field>Origin</field>
@@ -517,7 +517,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Direct Entry,Customer Feedback,ATM,ANZ Plus Complaint,General Enquiry,KYC QA,NPP,IMT,PayTo,BPAY,Account Closure,Assisted Transfer</value>
+            <value>Direct Debit,Direct Entry,Customer Feedback,ATM,ANZ Plus Complaint,General Enquiry,KYC QA,NPP,IMT,PayTo,BPAY,Account Closure</value>
         </criteriaItems>
         <criteriaItems>
             <field>Origin</field>
@@ -592,7 +592,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,ID Ops Assistance,Fraud Check,General Enquiry,KYC QA,NPP,IMT,PayTo,Customer Feedback,BPAY,Profile Update,Fraud,Scam,Recipient/Mule,Identity,False Customer Profile, Assisted Transfer</value>
+            <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,ID Ops Assistance,Fraud Check,General Enquiry,KYC QA,NPP,IMT,PayTo,Customer Feedback,BPAY,Profile Update,Fraud,Scam,Recipient/Mule,Identity,False Customer Profile</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -764,7 +764,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>TrustMe Manual Review Case,TrustMe QA Case,ReKYC QA Case,Assisted Transfer</value>
+            <value>TrustMe Manual Review Case,TrustMe QA Case,ReKYC QA Case</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -922,7 +922,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Customer Feedback,Direct Entry,Fraud,General Enquiry,Card,NPP,IMT,PayTo,Direct Debit,Recipient/Mule,ATM,KYC QA,Scam,Identity,False Customer Profile,Profile Update,Assisted Transfer</value>
+            <value>Customer Feedback,Direct Entry,Fraud,General Enquiry,Card,NPP,IMT,PayTo,Direct Debit,Recipient/Mule,ATM,KYC QA,Scam,Identity,False Customer Profile,Profile Update</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>

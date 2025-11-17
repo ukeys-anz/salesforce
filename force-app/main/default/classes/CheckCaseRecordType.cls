@@ -45,7 +45,6 @@ public with sharing class CheckCaseRecordType {
     RTCase.accountClosure,
     RTCase.falseCustomerProfile,
     RTCase.profileUpdate,
-    RTCase.assistedTransfer,
     RTCase.signAuth
   };
 
