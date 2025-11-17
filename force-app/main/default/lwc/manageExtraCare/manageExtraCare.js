@@ -266,17 +266,18 @@ export default class ManageExtraCare extends LightningElement {
       }
       this.newAccount[field.dataset.id] = field.value;
       if (field.dataset.id === "ExtraCareTimePeriod__c") {
-        if (field.value !== "Ongoing") {
+        if (field.value === "Not required") {
+          this.newAccount.ExtraCareReason__c = "";
+          this.newAccount.ExtraCareNotes__c = "";
+          this.newAccount.ExtraCareReviewDate__c = "";
+        } else if (field.value === "Ongoing") {
+          this.newAccount.ExtraCareReviewDate__c = "";
+        } else {
           this.updateReviewDate();
         }
         //reset fields
         this.newAccount.ExtraCareDisclosure__c = false;
         this.newAccount.ExtraCareConsent__c = false;
-        if (field.value === "Not required") {
-          this.newAccount.ExtraCareReason__c = "";
-          this.newAccount.ExtraCareNotes__c = "";
-          this.newAccount.ExtraCareReviewDate__c = "";
-        }
       }
       if (field.dataset.id === "ExtraCareNotes__c") {
         if (field.value.length >= 1000) {
