@@ -151,11 +151,11 @@ public with sharing class CommercialOpportunityRepository {
 
   /**
    * @description to query account records
-   * @name getActiveAccountMap
+   * @name getClosedAccountMap
    * @param accountIdsSet set of Account Ids
    * @return Map<Id, Account>
    */
-  public Map<Id, Account> getActiveAccountMap(Set<Id> accountIdsSet) {
+  public Map<Id, Account> getClosedAccountMap(Set<Id> accountIdsSet) {
     if (accountIdsSet.isEmpty()) {
       return new Map<Id, Account>();
     }
@@ -164,7 +164,9 @@ public with sharing class CommercialOpportunityRepository {
       [
         SELECT Id, Name, RecordTypeId, FinServ__Status__c
         FROM Account
-        WHERE Id IN :accountIdsSet AND FinServ__Status__c != 'Active'
+        WHERE
+          Id IN :accountIdsSet
+          AND FinServ__Status__c IN ('Closed', 'Deceased', 'Unknown')
         WITH USER_MODE
       ]
     );

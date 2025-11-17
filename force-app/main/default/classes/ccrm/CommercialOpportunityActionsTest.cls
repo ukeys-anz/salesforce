@@ -172,15 +172,42 @@ public class CommercialOpportunityActionsTest {
     Database.Error error;
     //GIVEN list of Opportunity records, old Map of Opportunity records
     Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id oppId1 = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id oppId2 = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
     Account accRecord = new Account(
       Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
-      RecordTypeId = RTAccount.businessAccount
+      RecordTypeId = RTAccount.businessAccount,
+      FinServ__Status__c = 'Closed'
     );
-    Map<Id, Account> accMap = new Map<Id, Account>{ accRecord.Id => accRecord };
+    Account accRecord1 = new Account(
+      Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+      RecordTypeId = RTAccount.businessAccount,
+      FinServ__Status__c = 'Deceased'
+    );
+    Account accRecord2 = new Account(
+      Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+      RecordTypeId = RTAccount.businessAccount,
+      FinServ__Status__c = 'Unknown'
+    );
+    Map<Id, Account> accMap = new Map<Id, Account>{
+      accRecord.Id => accRecord,
+      accRecord1.Id => accRecord1,
+      accRecord2.Id => accRecord2
+    };
     List<Opportunity> records = new List<Opportunity>{
       new Opportunity(
         Id = oppId,
         AccountId = accRecord.Id,
+        Lead_Converted__c = false
+      ),
+      new Opportunity(
+        Id = oppId1,
+        AccountId = accRecord1.Id,
+        Lead_Converted__c = false
+      ),
+      new Opportunity(
+        Id = oppId2,
+        AccountId = accRecord2.Id,
         Lead_Converted__c = false
       )
     };
@@ -189,9 +216,19 @@ public class CommercialOpportunityActionsTest {
         Id = oppId,
         AccountId = accRecord.Id,
         Lead_Converted__c = false
+      ),
+      oppId1 => new Opportunity(
+        Id = oppId1,
+        AccountId = accRecord1.Id,
+        Lead_Converted__c = false
+      ),
+      oppId2 => new Opportunity(
+        Id = oppId2,
+        AccountId = accRecord2.Id,
+        Lead_Converted__c = false
       )
     };
-    oppRepoMock.mock('getActiveAccountMap', accMap);
+    oppRepoMock.mock('getClosedAccountMap', accMap);
     //WHEN calling a method
     Test.startTest();
     CommercialOpportunityActions.populateFields(records, oldMap);
@@ -199,6 +236,24 @@ public class CommercialOpportunityActionsTest {
 
     //THEN it should fetch 1 accountId
     errors = records[0].getErrors();
+    error = errors.get(0);
+    Assert.areEqual(1, errors.size(), 'Error on update');
+    Assert.isTrue(
+      error.getMessage()
+        .contains(CommercialOpportunityHelper.LEAD_PROCESS_FOR_PROSPECT_ERROR),
+      'Validation error when opportunity is closed without app launch'
+    );
+
+    errors = records[1].getErrors();
+    error = errors.get(0);
+    Assert.areEqual(1, errors.size(), 'Error on update');
+    Assert.isTrue(
+      error.getMessage()
+        .contains(CommercialOpportunityHelper.LEAD_PROCESS_FOR_PROSPECT_ERROR),
+      'Validation error when opportunity is closed without app launch'
+    );
+
+    errors = records[2].getErrors();
     error = errors.get(0);
     Assert.areEqual(1, errors.size(), 'Error on update');
     Assert.isTrue(
