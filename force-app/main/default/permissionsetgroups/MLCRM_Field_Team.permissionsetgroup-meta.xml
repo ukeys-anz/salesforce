@@ -3,6 +3,7 @@
     <description>Permission set group for MLCRM Field Team</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>MLCRM Field Team</label>
+    <permissionSets>ExtraCareReadOnly</permissionSets>
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>MLCRM_Base</permissionSets>

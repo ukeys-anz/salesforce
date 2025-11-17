@@ -108,13 +108,8 @@ public with sharing class CommercialLeadPlatformEventActions {
     Map<Id, Account> mapOfAccount
   ) {
     List<Lead_Event__e> leadEventList = new List<Lead_Event__e>();
-    List<CCRM_Lead_to_Platform_Event_Mapping__mdt> filteredMdtRecords = QueryLeadToPlatformEventMapping.get(
-      DESTINATION_SYSTEM_ALL
-    );
-
-    filteredMdtRecords.addAll(
-      QueryLeadToPlatformEventMapping.get(DESTINATION_SYSTEM_UNICA)
-    );
+    List<CCRM_Lead_to_Platform_Event_Mapping__mdt> filteredMdtRecords = QueryLeadToPlatformEventMapping.allMappings;
+    filteredMdtRecords.addAll(QueryLeadToPlatformEventMapping.unicaMappings);
     for (Lead record : records) {
       Lead_Event__e leadEvent = new Lead_Event__e();
 

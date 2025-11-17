@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DuplicateRule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOnInsert>Block</actionOnInsert>
+    <actionOnUpdate>Block</actionOnUpdate>
+    <alertText>A record with the same Interaction and Residential Loan Application already exists.</alertText>
+    <description>Prevent the creation of duplicate record with same Interaction and Residential Loan Application Link.</description>
+    <duplicateRuleFilter xsi:nil="true"/>
+    <duplicateRuleMatchRules>
+        <matchingRule>Associated_Loan_Application_Matching_Rule</matchingRule>
+        <matchRuleSObjectType>Associated_Loan_Application__c</matchRuleSObjectType>
+        <objectMapping xsi:nil="true"/>
+    </duplicateRuleMatchRules>
+    <isActive>true</isActive>
+    <masterLabel>Prevent Duplicate Associated Loan Applications</masterLabel>
+    <securityOption>BypassSharingRules</securityOption>
+    <sortOrder>1</sortOrder>
+</DuplicateRule>

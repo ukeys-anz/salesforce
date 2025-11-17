@@ -83,6 +83,7 @@
     "Loan_Facility_Config__c",
     "Log_Record_Access__b",
     "Mortgage_Contract__c",
+    "Needs_Analysis__c",
     "Opportunity",
     "OpportunityContactRole",
     "OpportunityLineItem",
@@ -368,6 +369,18 @@
         "Case_Read_Write_KYC_QA_Integration",
         "Disable_MFA",
         "Customer_Read_Only"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Coach notification Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Disable_MFA",
+        "Enforce_mTLS",
+        "Read_Write_Customer_Details"
       ],
       "type": "system"
     },
@@ -1049,6 +1062,19 @@
         "Disable_MFA",
         "Enforce_mTLS",
         "Bypass_TSP"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Maintain Party GCP Integration user",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Customer_Profile_Update_Read_Write",
+        "Disable_MFA",
+        "Enforce_mTLS",
+        "Read_Write_Customer_Details"
       ],
       "type": "system"
     },

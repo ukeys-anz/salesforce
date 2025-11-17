@@ -87,6 +87,7 @@ public with sharing class CommercialContactTriggerHandler extends Lib_TriggerHan
    * @param oldMap
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    CommercialContactActions.populateNameOCV(records);
     CommercialContactActionsHelper.getExistingOrProspectContacts(records);
 
     CommercialContactActions.validateExistingOrProspectContacts(

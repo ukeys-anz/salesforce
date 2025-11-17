@@ -218,6 +218,7 @@
     "LogEntry__c": "The child log record, stores logging information on a record/callout level.",
     "Logging_Settings__c": "Custom settings for more control on logging.",
     "Mortgage_Contract__c": "Contains details relating to the mortgage contract",
+    "Needs_Analysis__c": "Used to store needs analysis",
     "Opportunity": "Is a record of a sale or a pending deal",
     "OpportunityLineItem": "Representing the product of a sale or a pending deal",
     "PrivateKeyStorage__c": "To store the private key from GCP in a secure way, so that even a system admin should not be able to access this information.",
@@ -359,7 +360,14 @@
         "Principal_Place_of_Business_Formula__c",
         "IsTruncated__c",
         "Security_Code_Updated__c",
-        "Security_Code_Requested__c"
+        "Security_Code_Requested__c",
+        "CIP_Id__c",
+        "Date_Closed__c",
+        "Direct_Marketing__c",
+        "Gold_Tier_Id__c",
+        "Last_Maint_Date__c",
+        "Security_Indicator__c",
+        "Credit_Rating__c"
       ],
       "IA-2460507": ["Last_Updated_By__c"],
       "IA-2594111": [
@@ -377,7 +385,8 @@
         "Victim_External_ID__c",
         "Survivor_Party_ID__c",
         "External_Id__c",
-        "RecordTypeId"
+        "RecordTypeId",
+        "Source_System_Icon__c"
       ],
       "IA-2415855": [
         "CustomerExitDate__c",
@@ -783,7 +792,8 @@
         "Customer_Number__c",
         "Business_Owner_Number__c",
         "Business_Owner__c",
-        "Business_Contact__c"
+        "Business_Contact__c",
+        "CLGCustomer__c"
       ],
       "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"],
       "IA-2423227": ["COI_Member__c"],
@@ -1260,7 +1270,9 @@
         "IDR_Date_time_Progressed_Status_selected__c",
         "Test_Complaint__c",
         "IsKYCChecksCompleted__c",
-        "KYCChecksHasDefect__c"
+        "KYCChecksHasDefect__c",
+        "Search_Button_Selected_for_3rd_Party__c",
+        "Search_Button_Selected__c"
       ],
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",
@@ -2304,6 +2316,31 @@
         "PersonId__c",
         "Status__c",
         "UpdatedTime__c"
+      ]
+    },
+    "Dispute": {
+      "IA-2415999": [
+        "AccountDetails__c",
+        "TotalRecoveryAmount__c",
+        "TotalTransactionAmount__c"
+      ]
+    },
+    "DisputeItem": {
+      "IA-2415999": [
+        "AccountDetails__c",
+        "Case__c",
+        "Message__c",
+        "OtherFinancialInstituteAccountNumber__c",
+        "OtherFinancialInstituteBSB__c",
+        "RecoveryAmount__c",
+        "RecoveryLocation__c",
+        "RecoveryStatus__c",
+        "Title__c",
+        "TransactionAmount",
+        "TransactionDate",
+        "TransactionDate__c",
+        "TransactionIdentifier",
+        "TransactionType__c"
       ]
     },
     "Drawdown__c": {
@@ -3617,6 +3654,54 @@
         "LastModifiedDate"
       ]
     },
+    "Needs_Analysis__c": {
+      "IA-2415860": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId",
+        "Status__c",
+        "OwnerId"
+      ],
+      "IA-2415984": [
+        "BPAY_Payments__c",
+        "BPAY_Receipts__c",
+        "Customer__c",
+        "Direct_Debits__c",
+        "Direct_Entry_Creditor_Payments__c",
+        "Direct_Entry_Payroll_Payments__c",
+        "Domestic_ANZ_Transfers__c",
+        "Electronic_Credits_Accounts__c",
+        "Electronic_Debits_Accounts__c",
+        "Enterprise_Grade_Finance_System__c",
+        "International_Payments_Inbound__c",
+        "International_Payments_Outbound__c",
+        "International_Transfers__c",
+        "Money_Held__c",
+        "Money_In__c",
+        "Money_Out__c",
+        "Number_of_Branch_Visits__c",
+        "Number_of_Cheques_Deposited__c",
+        "Number_of_Cheques_Written__c",
+        "Number_of_Devices__c",
+        "Number_of_File_Types__c",
+        "Number_of_Sites_to_Implement__c",
+        "Opportunity__c",
+        "Osko_Payments__c",
+        "Overview__c",
+        "Payables__c",
+        "Qualifying_Customer_Investment__c",
+        "Qualifying_the_Benefit__c",
+        "Receivables__c",
+        "Returned_Items__c",
+        "RTGS_Payments__c",
+        "Technical_Sophistication__c",
+        "Technology_Staff__c"
+      ],
+      "IA-2415987": ["Products__c", "Products_Selected__c"]
+    },
     "Opportunity": {
       "IA-2423278": ["My_teams_referrer__c"],
       "IA-2415828": ["Circle_Of_Influence__c"],
@@ -3815,6 +3900,9 @@
         "PersonId__c"
       ]
     },
+    "PersonDigitalIdentity__x": {
+      "IA-2486234": ["Customer__c", "CustomerName__c"]
+    },
     "PriceBook2": {
       "IA-2415987": ["Description", "IsActive", "IsStandard", "Name"],
       "IA-2415860": [
@@ -3966,7 +4054,12 @@
         "Category__c"
       ],
       "IA-2415840": ["ExternalId"],
-      "IA-2415987": ["Product_Segment_Type__c", "Product_Features__c"]
+      "IA-2415987": [
+        "Product_Segment_Type__c",
+        "Product_Features__c",
+        "Product_Abridged_Name__c",
+        "Is_Retail_Classic_Loan_Product__c"
+      ]
     },
     "Product_Family__c": {
       "IA-2530753": [
@@ -4343,7 +4436,94 @@
         "Were_the_CM_s_calls_recorded__c",
         "What_how_the_issues_arose_explainedHave__c",
         "What_corrective_actions_are_required__c",
-        "Written_customer_comms_professional_etc__c"
+        "Written_customer_comms_professional_etc__c",
+        "Actions_Completed__c",
+        "Addressed_info_req_s_basic_accts_etc__c",
+        "Assessment_Result__c",
+        "Assessment_Result_formula__c",
+        "Call_authentication_process_followed__c",
+        "Calls_disclosed_recording_got_consent__c",
+        "Case_notes_clear_and_complete__c",
+        "Corrective_actions_for_C_Q_to_complete__c",
+        "Corrective_actions_requiring_FL_action__c",
+        "Cust_interactions_accurately_recorded__c",
+        "Date_further_review_closed__c",
+        "Didn_t_provide_financial_product_advice__c",
+        "Does_response_have_enough_detail__c",
+        "Does_response_have_key_findings__c",
+        "Engaged_with_cust_rep_where_needed__c",
+        "Gave_extra_care_or_met_access_need__c",
+        "Hardship_recorded_referred_managed__c",
+        "ID_d_cust_experiencing_vulnerability__c",
+        "IDR_delay_notice_decision_appropriate__c",
+        "IDR_response_sent_within_timeframes__c",
+        "If_declined_does_resp_identify_issues__c",
+        "If_resolved_w_o_IDR_letter_RG271_71_met__c",
+        "If_resolved_resp_details_resolution__c",
+        "Next_steps_required__c",
+        "Other_issues_not_addressed__c",
+        "PSI_identified_flagged_where_needed__c",
+        "Q1_Comments__c",
+        "Q1_Rationale__c",
+        "Q10_Comments__c",
+        "Q10_Rationale__c",
+        "Q11a_Comments__c",
+        "Q11a_Rationale__c",
+        "Q11b_Comments__c",
+        "Q11b_Rationale__c",
+        "Q11c_Comments__c",
+        "Q11c_Rationale__c",
+        "Q12_Comments__c",
+        "Q12_Rationale__c",
+        "Q13_Comments__c",
+        "Q13_Rationale__c",
+        "Q14_Comments__c",
+        "Q14_Rationale__c",
+        "Q15_Comments__c",
+        "Q15_Rationale__c",
+        "Q16_Comments__c",
+        "Q16_Rationale__c",
+        "Q17_Comments__c",
+        "Q17_Rationale__c",
+        "Q18_Comments__c",
+        "Q18_Rationale__c",
+        "Q19_Comments__c",
+        "Q19_Rationale__c",
+        "Q2_Comments__c",
+        "Q2_Rationale__c",
+        "Q20_Comments__c",
+        "Q20_Rationale__c",
+        "Q21_Comments__c",
+        "Q21_Rationale__c",
+        "Q22_Comments__c",
+        "Q22_Rationale__c",
+        "Q3_Comments__c",
+        "Q3_Rationale__c",
+        "Q4_Comments__c",
+        "Q4_Rationale__c",
+        "Q5_Comments__c",
+        "Q5_Rationale__c",
+        "Q6_Comments__c",
+        "Q6_Rationale__c",
+        "Q7_Comments__c",
+        "Q7_Rationale__c",
+        "Q8_Comments__c",
+        "Q8_Rationale__c",
+        "Q9_Comments__c",
+        "Q9_Rationale__c",
+        "Reason_for_further_review_recommendation__c",
+        "Reasonable_investigation_completed__c",
+        "Review_outcome__c",
+        "Was_implementation_timely__c",
+        "Was_the_outcome_fair_for_the_customer__c",
+        "Were_CMOS_fields_accurate__c",
+        "Were_risk_events_raised_and_recorded__c",
+        "AssessmentOutcomeFail__c",
+        "AssessmentOutcomeFailOutControl__c",
+        "AssessmentOutcomePass__c",
+        "AssessmentOutcomePassFeedback__c",
+        "AssessmentOutcomeFLPassWithFeedback__c",
+        "AssessmentOutcomeFrontlinePass__c"
       ],
       "IA-2415983": ["Application_ID__c"],
       "IA-2415984": ["Customer__c", "Customer_Name__c", "Calculated__c"],

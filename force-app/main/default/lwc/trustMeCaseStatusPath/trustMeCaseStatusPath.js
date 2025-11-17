@@ -28,6 +28,7 @@ export default class TrustMeCaseStatusPath extends LightningElement {
   @api recordId;
   recordTypeInfo;
   statusOptions;
+  allstatusOptions;
   isLoading = true;
   caseData = {};
   primaryFailedReasonFieldInfo;
@@ -120,6 +121,7 @@ export default class TrustMeCaseStatusPath extends LightningElement {
       return;
     }
     this.statusOptions = data.values;
+    this.allstatusOptions = data.values;
     this.processPicklistValues(data);
     this.isLoading = false;
   }
@@ -132,6 +134,15 @@ export default class TrustMeCaseStatusPath extends LightningElement {
     }));
     // Filter out closed statuses
     this.pathSteps = picklistValues.filter((item) => !item.closed);
+    this.statusOptions = picklistValues.filter((item) => item.closed);
+
+    if (this.caseData.Status === "Rectify Defect") {
+      this.statusOptions.unshift({
+        label: "Refer to Fraud",
+        value: "Refer to Fraud"
+      });
+    }
+
     const currentClosedItem = picklistValues.find(
       (item) => item.value === this.caseData.Status
     );
@@ -171,6 +182,7 @@ export default class TrustMeCaseStatusPath extends LightningElement {
   handleClickUpdate() {
     let statusOptions = this.statusOptions;
     let caseData = this.caseData;
+
     let primaryFailedReasonFieldInfo = this.primaryFailedReasonFieldInfo;
     let secondaryFailedReasonFieldInfo = this.secondaryFailedReasonFieldInfo;
     StatusUpdateModal.open({
@@ -186,7 +198,7 @@ export default class TrustMeCaseStatusPath extends LightningElement {
         e.stopPropagation();
         notifyRecordUpdateAvailable([{ recordId: this.recordId }]);
         const newClosedStatus = e.detail.status;
-        const selectedPicklistItem = this.statusOptions.find(
+        const selectedPicklistItem = this.allstatusOptions.find(
           (item) => item.value === newClosedStatus
         );
         if (selectedPicklistItem && selectedPicklistItem.attributes.closed) {

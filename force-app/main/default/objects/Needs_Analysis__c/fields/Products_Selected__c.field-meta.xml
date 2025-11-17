@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Products_Selected__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Products Selected formula field</description>
+    <externalId>false</externalId>
+    <formula>IF(INCLUDES(Products__c, &quot;Merchant Services&quot;), &quot;Merchant Services;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;Internet Banking Retail&quot;), &quot;Internet Banking Retail;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;Internet Banking for Business (IB4B)&quot;), &quot;Internet Banking for Business (IB4B);&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;Transactive Global (TG)&quot;), &quot;Transactive Global (TG);&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;FX Online&quot;), &quot;FX Online;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;BPAY&quot;), &quot;BPAY;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;Bureau&quot;), &quot;Bureau;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;SWIFT&quot;), &quot;SWIFT;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;ANZ Score&quot;), &quot;ANZ Score;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;ANZ Lockbox&quot;), &quot;ANZ Lockbox;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;ARM (off-system BSB)&quot;), &quot;ARM (off-system BSB);&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;Cash Active Fusion&quot;), &quot;Cash Active Fusion;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;ANZ Cash Escrow facility&quot;), &quot;ANZ Cash Escrow facility;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;ANZ Liquidity Management&quot;), &quot;ANZ Liquidity Management;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;Corporate Statutory Trust Account&quot;), &quot;Corporate Statutory Trust Account;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;Cache Sweeps (Physical Cash Pooling Solution)&quot;), &quot;Cache Sweeps (Physical Cash Pooling Solution);&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;Cache Set-offs (Notional Cash Pooling Solution)&quot;), &quot;Cache Set-offs (Notional Cash Pooling Solution);&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;Corporate Transaction Account&quot;), &quot;Corporate Transaction Account;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;Foreign Currency Account&quot;), &quot;Foreign Currency Account;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;ANZ FileActive Host to Host&quot;), &quot;ANZ FileActive Host to Host;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;ANZ FileActive Portal&quot;), &quot;ANZ FileActive Portal;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;ANZ Cashactive Control&quot;), &quot;ANZ Cashactive Control;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;Intraday Credit Limit&quot;), &quot;Intraday Credit Limit;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;Direct to Depot services&quot;), &quot;Direct to Depot services;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;ANZ Corporate Card&quot;), &quot;ANZ Corporate Card;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;ANZ Business One Card&quot;), &quot;ANZ Business One Card;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;Statutory Trust Account&quot;), &quot;Statutory Trust Account;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;Business Extra Account&quot;), &quot;Business Extra Account;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;Business Essentials Account&quot;), &quot;Business Essentials Account;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;Business Online Saver Account&quot;), &quot;Business Online Saver Account;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;Negotiator Investor&quot;), &quot;Negotiator Investor;&quot;, &quot;&quot;) +
+IF(INCLUDES(Products__c, &quot;Direct Debit Facility&quot;), &quot;Direct Debit Facility;&quot;, &quot;&quot;)</formula>
+    <label>Products Selected</label>
+    <required>false</required>
+    <securityClassification>Public</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

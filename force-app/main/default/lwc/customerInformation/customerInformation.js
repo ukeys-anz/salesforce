@@ -60,6 +60,7 @@ const FIELDS = [
   "Case.Account.RecordType.Name",
   "Case.Account.Migration_Status__c",
   "Case.Account.Migration_Status_Date__c",
+  "Case.Account.ExtraCareReason__c",
   "Case.Account.Controlling_Post__r.Responsible_Employee_Name__c",
   "Case.Account.Controlling_Post__r.CPID_Phone__c",
   "Case.Account.Controlling_Post__r.CPID_Address__c"
@@ -156,6 +157,7 @@ export default class CustomerInformation extends LightningElement {
       state: address?.state,
       postcode: address?.postCode,
       country: address?.country,
+      extraCareReason: accountData.ExtraCareReason__c?.value,
       migrationStatusType: accountData.Migration_Status__c?.value,
       migrationStatusDate: accountData.Migration_Status_Date__c?.value,
       complainant_type: accountData.RecordType.value.fields.Name?.value,

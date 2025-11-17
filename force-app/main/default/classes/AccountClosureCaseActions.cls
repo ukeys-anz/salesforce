@@ -12,6 +12,8 @@ public with sharing class AccountClosureCaseActions {
     DmlRepository.class
   );
 
+  public static final String ANZ_PLUS_APP_ORIGIN = 'ANZ Plus App';
+
   private static final Set<SObjectField> CASE_FIELDS = new Set<SObjectField>{
     Case.Status,
     Case.Sub_Status__c
@@ -106,11 +108,7 @@ public with sharing class AccountClosureCaseActions {
       caseRecord.ParentId = parentCase.Id;
       caseRecord.Circumstance__c = parentCase.Circumstance__c;
       caseRecord.OwnerId = parentCase.OwnerId ?? UserInfo.getUserId();
-      if (
-        CaseGroupCaseConstants.SELF_SERVICE_ORIGIN.contains(
-          caseRecord.Origin
-        ) == false
-      ) {
+      if (caseRecord.Origin != ANZ_PLUS_APP_ORIGIN) {
         caseRecord.Status = parentCase.Status;
       }
     }
@@ -173,18 +171,13 @@ public with sharing class AccountClosureCaseActions {
     Map<Id, Case> parentIdAndCaseDetailsMap = new Map<Id, Case>(
       ACCOUNT_CLOSURE_REPOSITORY.queryParentCaseDetails(parentIds)
     );
-    if (parentIdAndCaseDetailsMap.isEmpty()) {
-      return;
-    }
+
     for (Case childCase : childCases) {
       Case parentCase = parentIdAndCaseDetailsMap.get(childCase.ParentId);
       childCase.OwnerId = parentCase.OwnerId;
       childCase.Circumstance__c = parentCase.Circumstance__c;
       childCase.Type = parentCase.Type;
-      if (
-        CaseGroupCaseConstants.SELF_SERVICE_ORIGIN.contains(childCase.Origin) ==
-        false
-      ) {
+      if (childCase.Origin != ANZ_PLUS_APP_ORIGIN) {
         childCase.Status = parentCase.Status;
       }
     }
@@ -203,26 +196,29 @@ public with sharing class AccountClosureCaseActions {
           CaseGroupCaseConstants.SUCCESS
         }
       )
-      .equals(Case.Origin, CaseGroupCaseConstants.SELF_SERVICE_ORIGIN)
+      .equals(Case.Origin, ANZ_PLUS_APP_ORIGIN)
       .isNotNull(Case.FinServ__FinancialAccount__c)
       .isNotNull(Case.ParentId)
       .toList();
-    if (validEscalatedCases.isEmpty()) {
-      return;
-    }
+
     List<Case> parentCasesToUpdate = new List<Case>();
+
     Set<Id> parentIds = ListUtil.getIds(validEscalatedCases, Case.ParentId);
+
     Map<Id, Case> parentIdAndCaseDetailsMap = new Map<Id, Case>(
       ACCOUNT_CLOSURE_REPOSITORY.queryNotEscalatedParentCaseDetails(parentIds)
     );
-    for (Case childCase : validEscalatedCases) {
-      if (parentIdAndCaseDetailsMap.containsKey(childCase.ParentId) == false) {
-        continue;
-      }
+
+    List<Case> filteredCases = ListUtil.filter(validEscalatedCases)
+      .equals(Case.ParentId, parentIdAndCaseDetailsMap.keySet())
+      .toList();
+
+    for (Case childCase : filteredCases) {
       Case parentCase = parentIdAndCaseDetailsMap.get(childCase.ParentId);
       parentCase.Status = CaseGroupCaseConstants.ESCALATED_STATUS;
       parentCasesToUpdate.add(parentCase);
     }
+
     DML_REPOSITORY.doUpdate(parentCasesToUpdate);
   }
 
@@ -242,16 +238,6 @@ public with sharing class AccountClosureCaseActions {
       .isNotNull(Case.ParentId)
       .toList();
 
-    removeValuesFromFields(validWithdrawnCases);
-  }
-
-  /**
-   * @description This method delink lookup fields like FinServ__FinancialAccount__c, ProductId, and fild Process_Id__c from Case record
-   * Logic: Delink lookup fields from case when child case is withdrawn, so that delinked Financial Account is available for closure again
-   * This scenario happens if Coach selected Account closure mistakely or customer do not want to close account
-   * @param validWithdrawnCases List of Cases that are updated to Withdrawn status
-   */
-  public static void removeValuesFromFields(List<Case> validWithdrawnCases) {
     ListUtil.setField(
       validWithdrawnCases,
       new Map<SObjectField, Object>{

@@ -3,10 +3,9 @@
     <fullName>CLG_Number__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non-Sensitive_Personal_Information;Source_Salesforce</complianceGroup>
-    <description>Formula Field
-Customer.CLG__c</description>
+    <description>Formula Field : CLGCustomer__r.CLG__c</description>
     <externalId>false</externalId>
-    <formula>Customer__r.CLG__c</formula>
+    <formula>CLGCustomer__r.CLG__c</formula>
     <label>CLG Number</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

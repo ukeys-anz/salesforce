@@ -33,6 +33,7 @@ public with sharing class CommercialA2ZReviewTriggerHandler extends Lib_TriggerH
     CommercialA2ZReviewActions.performRedaction(records);
     CommercialA2ZReviewActions.restrictImagesInRichTextFields(records, null);
     CommercialA2ZReviewActions.populateBusinessOwner(records, null);
+    CommercialA2ZReviewActions.populateCLGInfo(records);
   }
 
   /**
@@ -59,6 +60,10 @@ public with sharing class CommercialA2ZReviewTriggerHandler extends Lib_TriggerH
       (Map<Id, A_Z_Review__c>) oldMap
     );
     CommercialA2ZReviewActions.populateBusinessOwner(
+      records,
+      (Map<Id, A_Z_Review__c>) oldMap
+    );
+    CommercialA2ZReviewActions.validateAndPopulateCLGInfo(
       records,
       (Map<Id, A_Z_Review__c>) oldMap
     );

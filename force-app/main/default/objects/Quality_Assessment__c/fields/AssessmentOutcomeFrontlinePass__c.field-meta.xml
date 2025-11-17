@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AssessmentOutcomeFrontlinePass__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Assessment Result for fronline assessment - Pass</description>
+    <formula>IF(
+AND(
+ISPICKVAL(Evaluation_Type__c,&apos;Frontline Assessment&apos;),
+ISPICKVAL(Status__c,&apos;Complete&apos;),
+AND(
+OR(ISPICKVAL(ID_d_cust_experiencing_vulnerability__c, &apos;Met&apos;),ISPICKVAL(ID_d_cust_experiencing_vulnerability__c, &apos;Not Applicable&apos;)),
+OR(ISPICKVAL(Gave_extra_care_or_met_access_need__c, &apos;Met&apos;),ISPICKVAL(Gave_extra_care_or_met_access_need__c, &apos;Not Applicable&apos;)),
+OR(ISPICKVAL(Hardship_recorded_referred_managed__c, &apos;Met&apos;),ISPICKVAL(Hardship_recorded_referred_managed__c, &apos;Not Applicable&apos;)),
+OR(ISPICKVAL(If_resolved_w_o_IDR_letter_RG271_71_met__c, &apos;Met&apos;),ISPICKVAL(If_resolved_w_o_IDR_letter_RG271_71_met__c, &apos;Not Applicable&apos;)),
+OR(ISPICKVAL(Was_the_outcome_fair_for_the_customer__c, &apos;Met&apos;),ISPICKVAL(Was_the_outcome_fair_for_the_customer__c, &apos;Not Applicable&apos;)),
+OR(ISPICKVAL(Was_implementation_timely__c, &apos;Met&apos;),ISPICKVAL(Was_implementation_timely__c, &apos;Not Applicable&apos;)),
+OR(ISPICKVAL(Addressed_info_req_s_basic_accts_etc__c, &apos;Met&apos;),ISPICKVAL(Addressed_info_req_s_basic_accts_etc__c, &apos;Not Applicable&apos;)),
+OR(ISPICKVAL(Engaged_with_cust_rep_where_needed__c, &apos;Met&apos;),ISPICKVAL(Engaged_with_cust_rep_where_needed__c, &apos;Not Applicable&apos;)),
+OR(ISPICKVAL(Reasonable_investigation_completed__c, &apos;Met&apos;),ISPICKVAL(Reasonable_investigation_completed__c, &apos;Not Applicable&apos;)),
+OR(ISPICKVAL(Were_risk_events_raised_and_recorded__c, &apos;Met&apos;),ISPICKVAL(Were_risk_events_raised_and_recorded__c, &apos;Not Applicable&apos;)),
+OR(ISPICKVAL(PSI_identified_flagged_where_needed__c, &apos;Met&apos;),ISPICKVAL(PSI_identified_flagged_where_needed__c, &apos;Not Applicable&apos;)),
+OR(ISPICKVAL(Were_CMOS_fields_accurate__c, &apos;Met&apos;),ISPICKVAL(Were_CMOS_fields_accurate__c, &apos;Not Applicable&apos;)),
+OR(ISPICKVAL(Cust_interactions_accurately_recorded__c, &apos;Met&apos;),ISPICKVAL(Cust_interactions_accurately_recorded__c, &apos;Not Applicable&apos;)),
+OR(ISPICKVAL(Case_notes_clear_and_complete__c, &apos;Met&apos;),ISPICKVAL(Case_notes_clear_and_complete__c, &apos;Not Applicable&apos;)),
+OR(ISPICKVAL(Other_issues_not_addressed__c, &apos;Met&apos;),ISPICKVAL(Other_issues_not_addressed__c, &apos;Not Applicable&apos;))
+)
+),
+true,
+false
+)</formula>
+    <label>AssessmentOutcomeFrontlinePass</label>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

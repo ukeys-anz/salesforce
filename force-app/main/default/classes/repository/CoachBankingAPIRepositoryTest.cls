@@ -166,6 +166,106 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
   }
 
   /**
+   * @description fetch valid transaction history, mocked values in force-app/main/default/staticresources/mock_transactionHistoryV1.json
+   * called in force-app/main/default/classes/services/FabricServiceMock.cls
+   */
+  @isTest
+  static void transactionHistoryAuraV2Response() {
+    TransactionParamUrlModel paramModel = new TransactionParamUrlModel();
+    paramModel.accountNumber = '000000000';
+    paramModel.startDate = '2018-07-03 00:00:00';
+    paramModel.endDate = '2018-07-26 23:59:59';
+
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Test.startTest();
+      TransactionHistoryModel transactionModel = CoachBankingAPIRepository.getTransactionHistoryAuraV2(
+        '',
+        '1111',
+        paramModel
+      );
+      Test.stopTest();
+
+      Assert.areEqual(
+        21,
+        transactionModel.embedded.transactions.size(),
+        'Transactions size should be as expected.'
+      );
+    }
+  }
+
+  /**
+   * @description test getTransactionParamUrl with TransactionParamUrlModel containing pre-built paramUrl
+   * This tests the early return optimization when paramUrl is already provided
+   */
+  @isTest
+  static void testGetTransactionParamUrlWithPreBuiltUrl() {
+    // Given a TransactionParamUrlModel with a pre-built paramUrl
+    TransactionParamUrlModel paramModel = new TransactionParamUrlModel();
+    String expectedParamUrl = '?page_token=abc123&page_size=20';
+    paramModel.paramUrl = expectedParamUrl;
+
+    // When getTransactionParamUrl is called
+    Test.startTest();
+    String resultParamUrl = CoachBankingAPIRepositoryHelper.getTransactionParamUrl(
+      paramModel
+    );
+    Test.stopTest();
+
+    // Then it should return the pre-built paramUrl without reconstruction
+    Assert.areEqual(
+      expectedParamUrl,
+      resultParamUrl,
+      'Should return the pre-built paramUrl from the model'
+    );
+  }
+
+  /**
+   * @description test getTransactionParamUrl with TransactionParamUrlModel when paramUrl is blank
+   * This tests the URL construction logic when paramUrl is not provided
+   */
+  @isTest
+  static void testGetTransactionParamUrlWithoutPreBuiltUrl() {
+    // Given a TransactionParamUrlModel with all required parameters but no paramUrl
+    TransactionParamUrlModel paramModel = new TransactionParamUrlModel();
+    paramModel.accountNumber = '000000000';
+    paramModel.startDate = '2018-07-03 00:00:00';
+    paramModel.endDate = '2018-07-26 23:59:59';
+    paramModel.bucketIds = new List<String>{ 'bucket1', 'bucket2' };
+    paramModel.pageSize = '20';
+    paramModel.paramUrl = ''; // Empty paramUrl
+
+    // When getTransactionParamUrl is called
+    Test.startTest();
+    String resultParamUrl = CoachBankingAPIRepositoryHelper.getTransactionParamUrl(
+      paramModel
+    );
+    Test.stopTest();
+
+    // Then it should construct the URL from the model parameters
+    Assert.isTrue(
+      resultParamUrl.contains('account_numbers=000000000'),
+      'Should contain account number parameter'
+    );
+    Assert.isTrue(
+      resultParamUrl.contains('page_size=20'),
+      'Should contain page size parameter'
+    );
+    Assert.isTrue(
+      GetHelpConstants.isTransactionsV1()
+        ? resultParamUrl.contains('origin_time.after')
+        : resultParamUrl.contains('start_time'),
+      'Should contain start time parameter'
+    );
+    Assert.isTrue(
+      GetHelpConstants.isTransactionsV1()
+        ? resultParamUrl.contains('origin_time.before')
+        : resultParamUrl.contains('end_time'),
+      'Should contain end time parameter'
+    );
+  }
+
+  /**
    * @description fetch valid card list, mocked values in force-app/main/default/staticresources/mock_cardList.json
    * called in force-app/main/default/classes/services/FabricServiceMock.cls
    */

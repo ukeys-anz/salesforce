@@ -46,6 +46,7 @@ public with sharing class FinancialAccountEntities {
       Set<String> accountNumbers
     ) {
       super(queryContext, queryMode);
+      this.timeout = 60000;
       this.productCategory = productCategory;
       this.payload = new FinancialAccountPayload();
       if (this.isSummaryRequest()) {

@@ -5,18 +5,28 @@
     <complianceGroup>Integrity - Trusted;Privacy_Non_Personal_Information;Source - Salesforce</complianceGroup>
     <description>My Team Segment</description>
     <formula>IF(
+      OR(
         $UserRole.DeveloperName = &apos;SME_NBC_Senior_Manager&apos;, 
+        $UserRole.Name = &apos;AF Regional Head / Manager&apos;, 
+        $UserRole.DeveloperName = &apos;PB_Head_of_Teams&apos;
+        ),
         My_Region_Flag__c,
         IF
         (
         OR
         (
         $UserRole.DeveloperName = &apos;SME_Head_of_NBC&apos;,
-        $UserRole.DeveloperName = &apos;SME_General_Manager&apos;
+         $UserRole.DeveloperName = &apos;SME_General_Manager&apos;,
+          $UserRole.DeveloperName = &apos;AF_General_Manager&apos;,
+           $UserRole.DeveloperName = &apos;PB_General_Manager&apos;
         ),
         true, 
         IF(
-        OR(ISPICKVAL($User.Commercial_Segment__c, &apos;AF&apos;), ISPICKVAL($User.Commercial_Segment__c, &apos;SME NBC&apos;)),
+        OR(
+         ISPICKVAL($User.Commercial_Segment__c, &apos;AF&apos;), 
+          ISPICKVAL($User.Commercial_Segment__c, &apos;SME NBC&apos;),
+           ISPICKVAL($User.Commercial_Segment__c, &apos;PB&apos;)
+         ),
         My_Sub_Team__c ,
         My_Region_Flag__c 
         )

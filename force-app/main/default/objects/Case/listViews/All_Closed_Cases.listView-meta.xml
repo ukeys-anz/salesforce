@@ -17,6 +17,6 @@
     <filterScope>Everything</filterScope>
     <label>All Closed Cases</label>
     <sharedTo>
-        <roleAndSubordinates>ANZx</roleAndSubordinates>
+        <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

@@ -131,17 +131,9 @@ public with sharing class CCRMLeadPlatformEventHelper {
         CCRM_Lead_Response_Event_Mapping__mdt.Task_or_Lead_Field_API_Name__c
       )
     );
-    String taskFields = String.join(taskFieldsSet, ',');
-    String rtDevName = 'Lead_Response';
-    //Get ONLY latest task data for all the fields defined within custom metadata
-    string query =
-      'SELECT ' +
-      taskFields +
-      ', WhoId, Response_Type__r.Unica_Lead_SubStatus__c FROM Task WHERE WhoId IN :leadIds AND RecordType.DeveloperName =:rtDevName order by createdDate desc LIMIT 1';
     List<Task> tasks = LEAD_ACTION_REPOSITORY.getTaskRecords(
-      query,
-      leadIds,
-      rtDevName
+      taskFieldsSet,
+      leadIds
     );
     return (Map<Id, Task>) ListUtil.mapBy(tasks, task.WhoId);
   }
@@ -236,9 +228,7 @@ public with sharing class CCRMLeadPlatformEventHelper {
       )
     );
     leadFieldsSet.addAll(commonLeadFields);
-    String leadFields = String.join(leadFieldsSet, ',');
-    String query = 'SELECT ' + leadFields + ' FROM Lead WHERE Id IN :leadIds';
-    return LEAD_ACTION_REPOSITORY.getLeadData(query, leadIds);
+    return LEAD_ACTION_REPOSITORY.getLeadData(leadFieldsSet, leadIds);
   }
 
   /**

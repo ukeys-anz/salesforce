@@ -5,7 +5,8 @@
     "Name": "test",
     "InteractionType": "Call",
     "StartTime": "2024-07-03T06:56:00.000Z",
-    "Optional_Notes__c": "<p>test</p>"
+    "Optional_Notes__c": "<p>test</p>",
+    "Source_System_Name__c": { "displayValue": null, "value": "CACHE" }
   },
   "id": "0kz9p0000009evtAAA"
 }

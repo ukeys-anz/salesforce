@@ -206,6 +206,73 @@ jobs:
         run: |
           node --no-warnings ci/workflows/Orchestrations/quality-check.mjs
 
+  pset-check:
+    needs: detect-changes
+    runs-on: anzx-default
+    env:
+      SERVICE_ACCOUNT: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      REPO_NAME: "${{ github.event.repository.name }}"
+      WHICH_JOB: "download"
+    outputs:
+      result: ${{ steps.run-check.outputs.result }}
+      skipped: ${{ steps.should-skip.outputs.skip }}
+    steps:
+      - name: Check if pset check is needed
+        id: should-skip
+        run: |
+          if [[ "${{ needs.detect-changes.outputs.sysl_needed }}" != "true" ]]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "✅ No pset-related files changed. Skipping pset check."
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout repo (shallow)
+        if: steps.should-skip.outputs.skip == 'false'
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Install node
+        if: steps.should-skip.outputs.skip == 'false'
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
+        if: steps.should-skip.outputs.skip == 'false'
+        id: "authenticate-harness-delegate"
+        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
+        with:
+          service_account: ${{ env.SERVICE_ACCOUNT }}
+
+      - name: Retrieve GSM Credentials
+        if: steps.should-skip.outputs.skip == 'false'
+        id: secrets
+        uses: google-github-actions/get-secretmanager-secrets@main
+        with:
+          secrets: |-
+            artifactory:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-artifact/versions/latest
+
+      - name: Find all changed files
+        if: steps.should-skip.outputs.skip == 'false'
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/quality-check.mjs "${{ steps.secrets.outputs.artifactory }}"
+          echo WHICH_JOB="clean" >> $GITHUB_ENV
+
+      - name: Run Permission Set Check
+        if: steps.should-skip.outputs.skip == 'false'
+        id: run-check
+        run: |
+          chmod +x ci/workflows-scripts/pset-check.sh
+          ci/workflows-scripts/pset-check.sh
+
+      - name: cleanup
+        if: steps.should-skip.outputs.skip == 'false'
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/quality-check.mjs
+
   pmd:
     needs: detect-changes
     runs-on: anzx-default
@@ -606,13 +673,14 @@ jobs:
     needs:
       - security-check
       - sysl-check
+      - pset-check
       - pmd
       - prettier
       - eslint
       - xmlLint
       - jest
     runs-on: anzx-default
-    if: ${{ always() && !cancelled() && needs.security-check.result != 'skipped' && needs.sysl-check.result != 'skipped' && needs.pmd.result != 'skipped' && needs.prettier.result != 'skipped' && needs.eslint.result != 'skipped' && needs.xmlLint.result != 'skipped' && needs.jest.result != 'skipped' }}
+    if: ${{ always() && !cancelled() && needs.security-check.result != 'skipped' && needs.sysl-check.result != 'skipped' && needs.pset-check.result != 'skipped' && needs.pmd.result != 'skipped' && needs.prettier.result != 'skipped' && needs.eslint.result != 'skipped' && needs.xmlLint.result != 'skipped' && needs.jest.result != 'skipped' }}
     env:
       SERVICE_ACCOUNT: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
       PR_NUMBER: ${{ github.event.pull_request.number }}
@@ -647,6 +715,9 @@ jobs:
           SYSL_SKIPPED="${{ needs.sysl-check.outputs.skipped }}"
           SYSL_RESULT="${{ needs.sysl-check.outputs.result }}"
 
+          PSET_SKIPPED="${{ needs.pset-check.outputs.skipped }}"
+          PSET_RESULT="${{ needs.pset-check.outputs.result }}"
+
           PMD_SKIPPED="${{ needs.pmd.outputs.skipped }}"
           PMD_RESULT="${{ needs.pmd.outputs.result }}"
 
@@ -669,6 +740,7 @@ jobs:
           report_check "XML Lint" "$XML_LINT_SKIPPED" "$XML_LINT_RESULT"
           report_check "Jest" "$JEST_SKIPPED" "$JEST_RESULT"
           report_check "Sysl" "$SYSL_SKIPPED" "$SYSL_RESULT"
+          report_check "Permission Set" "$PSET_SKIPPED" "$PSET_RESULT"
           report_check "Security" "$SECURITY_SKIPPED" "$SECURITY_RESULT"
 
       - name: Install node

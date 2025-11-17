@@ -122,10 +122,16 @@
                 <componentName>lst:dynamicRelatedList</componentName>
                 <identifier>lst_dynamicRelatedList</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>ANZ CCRM Standard User</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.Profile_Name__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>ANZ CCRM Standard Automation User</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -174,6 +180,10 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Tabs</value>
+                </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>tabs</name>
                     <value>maintabs</value>

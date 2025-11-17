@@ -32,11 +32,11 @@
     <description>This report is used to display all the opportunities closing this week.</description>
     <filter>
         <criteriaItems>
-            <column>ApplicationForm.ApplicationFormProduct$ApplicationForm.Opportunity.RecordType.DeveloperName</column>
+            <column>ApplicationForm$Opportunity.RecordType</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
-            <value>Commercial Opportunity</value>
+            <value>Opportunity.Commercial_Opportunity</value>
         </criteriaItems>
         <criteriaItems>
             <column>ApplicationForm$Opportunity.CloseDate</column>
@@ -58,6 +58,13 @@
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
             <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ApplicationForm.ApplicationFormProduct$Stage</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Opportunity Identified,Needs Analysis,Solution Development,Approved &amp; Offered,Customer Acceptance</value>
         </criteriaItems>
         <language>en_US</language>
     </filter>

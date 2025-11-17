@@ -2608,6 +2608,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>The Suburb, State and Postcode information provided is invalid. Please check the address entered and try again.</value>
     </labels>
     <labels>
+        <fullName>CCRM_WOC_Tableau_View_URL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM WOC Tableau View URL</shortDescription>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/CCRM_Insights_WoC/WOCLANDINGPAGE</value>
+    </labels>
+    <labels>
         <fullName>ML_LeadResponseFollowUpDateEnabled</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2844,6 +2851,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>CCRM_Auto_Task_MistMatch_Subject</shortDescription>
         <value>Update customer information</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_BBD_Tableau_View_URL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM BBD Tableau View URL</shortDescription>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/BBDInsightsDashboard/ExecutiveSummary</value>
     </labels>
     <labels>
         <fullName>HideCardDetailsAfterMiliseconds</fullName>
@@ -3217,5 +3231,12 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>Forge_MFA_Reset_Error_Message</shortDescription>
         <value>Error to Reset MFA please contact admin</value>
+    </labels>
+    <labels>
+        <fullName>Forge_Scope_For_MFA_Reset</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Forge_Scope_For_MFA_Reset</shortDescription>
+        <value>AU_ANZx_Broker_Accreditation_and_Onboarding_Team</value>
     </labels>
 </CustomLabels>

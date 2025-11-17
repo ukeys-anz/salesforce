@@ -5,6 +5,17 @@
  */
 @isTest
 private class AccountCommonActionsTest {
+  static Lib_MockProvider kycQACustomerLinkingUtilRepoMock;
+  static Lib_MockProvider caseRepoMock;
+  static Lib_MockProvider dmlRepoMock;
+
+  static void registerMocks() {
+    caseRepoMock = Lib_MockProvider.forType(IDRCaseActionsRepository.class);
+    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
+    kycQACustomerLinkingUtilRepoMock = Lib_MockProvider.forType(
+      KYCQACustomerLinkingUtilRepository.class
+    );
+  }
   static Date dob1 = Date.today();
   static Date dob2 = dob1.addDays(1);
   static Date dob3 = dob2.addDays(1);
@@ -77,16 +88,6 @@ private class AccountCommonActionsTest {
     dob3,
     true
   );
-
-  static Lib_MockProvider kycQACustomerLinkingUtilRepoMock;
-  static Lib_MockProvider dmlRepoMock;
-
-  static void registerMocks() {
-    kycQACustomerLinkingUtilRepoMock = Lib_MockProvider.forType(
-      KYCQACustomerLinkingUtilRepository.class
-    );
-    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
-  }
 
   @IsTest
   static void testSetKYCQACase() {
@@ -388,5 +389,100 @@ private class AccountCommonActionsTest {
       kycQACases[2].AccountId,
       'KYC QA Case should be linked to acc3'
     );
+  }
+
+  /**
+   * @description Test positive scenario when Account record is updated and AccountActions is invoked..
+   */
+  @isTest
+  static void testcheckEligibilityForCasePriorityUpdate() {
+    registerMocks();
+    Account oldAccountRecord1 = IDRTestDataFactory.getECFAccount(
+      IDRConstants.TIME_PERIOD_NOT_REQUIRED
+    );
+    Account newAccountRecord1 = IDRTestDataFactory.getECFAccount(
+      IDRConstants.TIME_PERIOD_ONGOING
+    );
+    newAccountRecord1.Id = oldAccountRecord1.Id;
+
+    Account oldAccountRecord2 = IDRTestDataFactory.getECFAccount(
+      IDRConstants.TIME_PERIOD_ONGOING
+    );
+    Account newAccountRecord2 = IDRTestDataFactory.getECFAccount(
+      IDRConstants.TIME_PERIOD_NOT_REQUIRED
+    );
+    newAccountRecord2.Id = oldAccountRecord2.Id;
+
+    Case cs1 = IDRTestDataFactory.getCaseWithAccount(
+      IDRConstants.CASE_PRIORITY_STANDARD,
+      newAccountRecord1
+    );
+    Case cs2 = IDRTestDataFactory.getCaseWithAccount(
+      IDRConstants.CASE_PRIORITY_VULNERABLE,
+      newAccountRecord2
+    );
+
+    caseRepoMock.mock('queryRelatedCases', new List<Case>{ cs1, cs2 });
+    dmlRepoMock.mock(
+      'doUpdate',
+      new List<Database.SaveResult>{
+        TestUtil.getMockSaveResult(
+          '{"success":true,"id":"' + cs1.Id + '","errors":[]}'
+        ),
+        TestUtil.getMockSaveResult(
+          '{"success":true,"id":"' + cs2.Id + '","errors":[]}'
+        )
+      }
+    );
+
+    Test.startTest();
+    AccountCommonActions.checkEligibilityForCasePriorityUpdate(
+      new List<Account>{ newAccountRecord1, newAccountRecord2 },
+      new Map<Id, Account>{
+        oldAccountRecord1.Id => oldAccountRecord1,
+        oldAccountRecord2.Id => oldAccountRecord2
+      }
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      IDRConstants.CASE_PRIORITY_VULNERABLE,
+      ((List<Case>) dmlRepoMock.getHistory('doUpdate').getParam('records'))[0]
+        .Priority,
+      'Expected Case Priority to be updated to ' +
+      IDRConstants.CASE_PRIORITY_VULNERABLE
+    );
+    Assert.areEqual(
+      IDRConstants.CASE_PRIORITY_STANDARD,
+      ((List<Case>) dmlRepoMock.getHistory('doUpdate').getParam('records'))[1]
+        .Priority,
+      'Expected Case Priority to be updated to ' +
+      IDRConstants.CASE_PRIORITY_STANDARD
+    );
+  }
+
+  /**
+   * @description Test negative scenario when Account record is updated but there are no records to pass to Queueable job.
+   */
+  @isTest
+  static void testZeroFilteredRecords() {
+    registerMocks();
+    Account oldAccountRecord1 = IDRTestDataFactory.getECFAccount(
+      IDRConstants.TIME_PERIOD_NOT_REQUIRED
+    );
+    Account newAccountRecord1 = IDRTestDataFactory.getECFAccount(
+      IDRConstants.TIME_PERIOD_NOT_REQUIRED
+    );
+    newAccountRecord1.Id = oldAccountRecord1.Id;
+    Test.startTest();
+    AccountCommonActions.checkEligibilityForCasePriorityUpdate(
+      new List<Account>{ newAccountRecord1 },
+      new Map<Id, Account>{ oldAccountRecord1.Id => oldAccountRecord1 }
+    );
+    Assert.areEqual(
+      0,
+      Limits.getQueueableJobs(),
+      'No Queueable jobs were run since the filtered criteria was not met'
+    );
+    Test.stopTest();
   }
 }

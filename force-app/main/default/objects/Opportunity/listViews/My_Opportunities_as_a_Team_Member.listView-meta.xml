@@ -27,6 +27,6 @@
     <filterScope>SalesTeam</filterScope>
     <label>My Opportunities as a Team Member</label>
     <sharedTo>
-        <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+        <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

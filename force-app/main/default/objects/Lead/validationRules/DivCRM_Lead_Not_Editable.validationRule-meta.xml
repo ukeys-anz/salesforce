@@ -9,6 +9,8 @@ NOT(CONTAINS( $User.Username,$Label.AdobeIntegrationUserName)),
         RecordType.DeveloperName = &apos;MLCRM_Lead&apos;,
         NOT($Profile.Name = &quot;System Administrator&quot;),
         NOT(ISCHANGED(Skip_Validations__c)),
+        NOT(ISCHANGED(Territory__c)),
+        NOT(ISCHANGED(OwnerId)),
         OR(
             ISPICKVAL(PRIORVALUE(Status), &quot;No Opportunity&quot;),
             ISPICKVAL(PRIORVALUE(Status), &quot;Converted&quot;),

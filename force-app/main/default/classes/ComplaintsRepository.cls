@@ -145,4 +145,27 @@ public with sharing class ComplaintsRepository {
       WITH USER_MODE
     ];
   }
+  /**
+   * @description Get getComplaintHistory of complaint
+   * @param caseId Case Id of Complaint
+   * @param fieldName Feild Name
+   * @return CaseHistory
+   */
+  public CaseHistory getComplaintHistory(Id caseId, String fieldName) {
+    return [
+      SELECT CreatedDate
+      FROM CaseHistory
+      WHERE Field = :fieldName AND CaseId = :caseId
+      ORDER BY CreatedDate DESC
+      LIMIT 1
+    ] ?? null;
+  }
+  /**
+   * @description Get the complaint
+   * @param caseId caseId of Complaint
+   * @return Case
+   */
+  public Case getCreatedDate(Id caseId) {
+    return [SELECT CreatedDate FROM Case WHERE ID = :caseId] ?? null;
+  }
 }

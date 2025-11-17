@@ -30,6 +30,6 @@ public with sharing class AcceptReferralRepository {
       WHERE Id = :leadId
       WITH USER_MODE
       LIMIT 1
-    ];
+    ] ?? null;
   }
 }

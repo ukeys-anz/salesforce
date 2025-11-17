@@ -18,6 +18,15 @@ const APEX_ERRORS = {
 };
 const fraudStatuses = ["Fraud Confirmed", "Closed - No Fraud"];
 const reKYCOpenStatuses = ["Rectify Defect", "Refer to Fraud"];
+const closedStatuses = [
+  "No Defect",
+  "Defect Identified",
+  "Fraud Suspected",
+  "Closed - No Defect",
+  "Closed - Defect Resolved",
+  "Closed - Defect Unresolved",
+  "No Response"
+];
 
 export default class TrustMeCaseStatusUpdateModal extends LightningModal {
   @api options;
@@ -71,7 +80,7 @@ export default class TrustMeCaseStatusUpdateModal extends LightningModal {
     const selectedPicklistItem = this.options.statusOptions.find(
       (item) => item.value === this.trustMeCase.Status
     );
-    return selectedPicklistItem && selectedPicklistItem.attributes.closed;
+    return selectedPicklistItem && selectedPicklistItem.closed;
   }
 
   handleStatusChange(event) {
@@ -149,10 +158,11 @@ export default class TrustMeCaseStatusUpdateModal extends LightningModal {
       return;
     }
 
-    if (this.currentStatus === this.trustMeCase.Status) {
-      this.toast.warning(
-        "Case can't be updated with the same status. Please select a different status"
-      );
+    if (
+      this.currentStatus === this.trustMeCase.Status &&
+      !this.trustMeCase.IsClosed
+    ) {
+      this.toast.warning("Please select a status option.");
       return;
     }
     if (this.trustMeCase.IsClosed) {
@@ -203,6 +213,17 @@ export default class TrustMeCaseStatusUpdateModal extends LightningModal {
     }
 
     if (
+      (this.trustMeCase.Status === "Closed - No Defect" ||
+        this.trustMeCase.Status === "Closed - Defect Resolved") &&
+      this.checksList.includes("No")
+    ) {
+      this.toast.error(
+        "All ReKYC QA Checks must have a value of 'Yes' to move the case into this status"
+      );
+      return;
+    }
+
+    if (
       (this.trustMeCase.Status === "Defect Identified" ||
         this.trustMeCase.Status === "Fraud Suspected") &&
       !this.checksList.includes("No")
@@ -212,7 +233,28 @@ export default class TrustMeCaseStatusUpdateModal extends LightningModal {
       );
       return;
     }
-    this.setAllNullChecksToYes();
+
+    if (
+      closedStatuses.includes(this.trustMeCase.Status) &&
+      this.checksList.includes(null)
+    ) {
+      this.toast.error(
+        "Few of the documents checks are blank, please provide appropriate value prior to closing the case."
+      );
+      return;
+    }
+
+    if (
+      (this.trustMeCase.Status === "Closed - Defect Unresolved" ||
+        this.trustMeCase.Status === "No Response") &&
+      !this.checksList.includes("No")
+    ) {
+      this.toast.error(
+        "One of the ReKYC QA Checks must be marked as 'No' to move the case into this status"
+      );
+      return;
+    }
+
     this.isModalButtonDisable = true;
     this.showSpinner = true;
 
@@ -248,16 +290,5 @@ export default class TrustMeCaseStatusUpdateModal extends LightningModal {
     this.handleHideModal();
     this.toast.success("Successfully updated status.");
     this.fireRefreshEvent();
-  }
-
-  setAllNullChecksToYes() {
-    this.trustMeCase.Fraud_Customer_Details__c ??= "Yes";
-    this.trustMeCase.Fraud_MiddleNameCheck__c ??= "Yes";
-    this.trustMeCase.Fraud_Selfie_Comparison_Match__c ??= "Yes";
-    this.trustMeCase.Fraud_Address_Valid__c ??= "Yes";
-    this.trustMeCase.Fraud_ID_Legible__c ??= "Yes";
-    this.trustMeCase.Fraud_ID_Not_Picture__c ??= "Yes";
-    this.trustMeCase.Fraud_Customer_Photo_Modified__c ??= "Yes";
-    this.trustMeCase.Fraud_Security_Features__c ??= "Yes";
   }
 }

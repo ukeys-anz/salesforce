@@ -36,8 +36,7 @@ public with sharing class CaseGroupCaseActions {
       if (
         !CaseGroupCaseConstants.STATUSES_NOT_ALLOWED_FOR_UPDATE.contains(
           childCase.Status
-        ) &&
-        !CaseGroupCaseConstants.SELF_SERVICE_ORIGIN.contains(childCase.Origin)
+        ) && childCase.Origin != AccountClosureCaseActions.ANZ_PLUS_APP_ORIGIN
       ) {
         childCase.Status = parentCase.Status;
       }

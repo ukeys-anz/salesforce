@@ -5,7 +5,7 @@
  * UnusedLocalVariable Surpressed : Used variable in dynamic query
  */
 @SuppressWarnings('PMD.UnusedLocalVariable')
-public with sharing class TerritoryActionsRepository {
+public without sharing class TerritoryActionsRepository {
   /**
    * @description getTerrritories method return Territories associated to teh given ids of the Territory
    * @param idsOfTerritory Id of the Territories

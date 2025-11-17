@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Q11a_Rationale__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Captures the rationale for the relevant resolution assessment question</description>
+    <label>Q11a Rationale</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>If_declined_does_resp_identify_issues__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>All issues that led to complaint or raised through the process were identified in the IDR / EDR letter sent to customer</fullName>
+                <default>false</default>
+                <label>All issues that led to complaint or raised through the process were identified in the IDR / EDR letter sent to customer</label>
+            </value>
+            <value>
+                <fullName>All issues that led to complaint or raised through the process were not identified in the IDR / EDR letter sent to customer</fullName>
+                <default>false</default>
+                <label>All issues that led to complaint or raised through the process were not identified in the IDR / EDR letter sent to customer</label>
+            </value>
+            <value>
+                <fullName>Complaint was fully resolved in customer&apos;s favour or was resolved at Frontline within 5 business days</fullName>
+                <default>false</default>
+                <label>Complaint was fully resolved in customer&apos;s favour or was resolved at Frontline within 5 business days</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>All issues that led to complaint or raised through the process were identified in the IDR / EDR letter sent to customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <controllingFieldValue>Not Met (Post IDR Letter)</controllingFieldValue>
+            <valueName>All issues that led to complaint or raised through the process were not identified in the IDR / EDR letter sent to customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Applicable</controllingFieldValue>
+            <valueName>Complaint was fully resolved in customer&apos;s favour or was resolved at Frontline within 5 business days</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

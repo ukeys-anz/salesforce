@@ -119,11 +119,11 @@
                 <field>Fraud_Complicit_in_Fraud__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>Fraud_Total_Fraud_Received__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>Fraud_Total_Recovered__c</field>
             </layoutItems>
             <layoutItems>

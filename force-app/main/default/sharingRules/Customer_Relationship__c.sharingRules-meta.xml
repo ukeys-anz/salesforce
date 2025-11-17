@@ -9,7 +9,7 @@
             <group>Private_Bank_and_Advise</group>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinates>PB_General_Manager</roleAndSubordinates>
+            <roleAndSubordinatesInternal>PB_General_Manager</roleAndSubordinatesInternal>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>

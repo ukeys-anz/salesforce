@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Products__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>List of Applicable Products</description>
+    <label>Products</label>
+    <required>false</required>
+    <securityClassification>Public</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Merchant Services</fullName>
+                <default>false</default>
+                <label>Merchant Services</label>
+            </value>
+            <value>
+                <fullName>Internet Banking Retail</fullName>
+                <default>false</default>
+                <label>Internet Banking Retail</label>
+            </value>
+            <value>
+                <fullName>Internet Banking for Business (IB4B)</fullName>
+                <default>false</default>
+                <label>Internet Banking for Business (IB4B)</label>
+            </value>
+            <value>
+                <fullName>Transactive Global (TG)</fullName>
+                <default>false</default>
+                <label>Transactive Global (TG)</label>
+            </value>
+            <value>
+                <fullName>FX Online</fullName>
+                <default>false</default>
+                <label>FX Online</label>
+            </value>
+            <value>
+                <fullName>BPAY</fullName>
+                <default>false</default>
+                <label>BPAY</label>
+            </value>
+            <value>
+                <fullName>Bureau</fullName>
+                <default>false</default>
+                <label>Bureau</label>
+            </value>
+            <value>
+                <fullName>SWIFT</fullName>
+                <default>false</default>
+                <label>SWIFT</label>
+            </value>
+            <value>
+                <fullName>ANZ Score</fullName>
+                <default>false</default>
+                <label>ANZ Score</label>
+            </value>
+            <value>
+                <fullName>ANZ Lockbox</fullName>
+                <default>false</default>
+                <label>ANZ Lockbox</label>
+            </value>
+            <value>
+                <fullName>ARM (off-system BSB)</fullName>
+                <default>false</default>
+                <label>ARM (off-system BSB)</label>
+            </value>
+            <value>
+                <fullName>Cash Active Fusion</fullName>
+                <default>false</default>
+                <label>Cash Active Fusion</label>
+            </value>
+            <value>
+                <fullName>ANZ Cash Escrow facility</fullName>
+                <default>false</default>
+                <label>ANZ Cash Escrow facility</label>
+            </value>
+            <value>
+                <fullName>ANZ Liquidity Management</fullName>
+                <default>false</default>
+                <label>ANZ Liquidity Management</label>
+            </value>
+            <value>
+                <fullName>Corporate Statutory Trust Account</fullName>
+                <default>false</default>
+                <label>Corporate Statutory Trust Account</label>
+            </value>
+            <value>
+                <fullName>Cache Sweeps (Physical Cash Pooling Solution)</fullName>
+                <default>false</default>
+                <label>Cache Sweeps (Physical Cash Pooling Solution)</label>
+            </value>
+            <value>
+                <fullName>Cache Set-offs (Notional Cash Pooling Solution)</fullName>
+                <default>false</default>
+                <label>Cache Set-offs (Notional Cash Pooling Solution)</label>
+            </value>
+            <value>
+                <fullName>Corporate Transaction Account</fullName>
+                <default>false</default>
+                <label>Corporate Transaction Account</label>
+            </value>
+            <value>
+                <fullName>Foreign Currency Account</fullName>
+                <default>false</default>
+                <label>Foreign Currency Account</label>
+            </value>
+            <value>
+                <fullName>ANZ FileActive Host to Host</fullName>
+                <default>false</default>
+                <label>ANZ FileActive Host to Host</label>
+            </value>
+            <value>
+                <fullName>ANZ FileActive Portal</fullName>
+                <default>false</default>
+                <label>ANZ FileActive Portal</label>
+            </value>
+            <value>
+                <fullName>ANZ Cashactive Control</fullName>
+                <default>false</default>
+                <label>ANZ Cashactive Control</label>
+            </value>
+            <value>
+                <fullName>Intraday Credit Limit</fullName>
+                <default>false</default>
+                <label>Intraday Credit Limit</label>
+            </value>
+            <value>
+                <fullName>Direct to Depot services</fullName>
+                <default>false</default>
+                <label>Direct to Depot services</label>
+            </value>
+            <value>
+                <fullName>ANZ Corporate Card</fullName>
+                <default>false</default>
+                <label>ANZ Corporate Card</label>
+            </value>
+            <value>
+                <fullName>ANZ Business One Card</fullName>
+                <default>false</default>
+                <label>ANZ Business One Card</label>
+            </value>
+            <value>
+                <fullName>Statutory Trust Account</fullName>
+                <default>false</default>
+                <label>Statutory Trust Account</label>
+            </value>
+            <value>
+                <fullName>Business Extra Account</fullName>
+                <default>false</default>
+                <label>Business Extra Account</label>
+            </value>
+            <value>
+                <fullName>Business Essentials Account</fullName>
+                <default>false</default>
+                <label>Business Essentials Account</label>
+            </value>
+            <value>
+                <fullName>Business Online Saver Account</fullName>
+                <default>false</default>
+                <label>Business Online Saver Account</label>
+            </value>
+            <value>
+                <fullName>Negotiator Investor</fullName>
+                <default>false</default>
+                <label>Negotiator Investor</label>
+            </value>
+            <value>
+                <fullName>Direct Debit Facility</fullName>
+                <default>false</default>
+                <label>Direct Debit Facility</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>
