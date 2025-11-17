@@ -12,7 +12,13 @@ public with sharing class IDRQualityAssessmentActions {
     'status__c',
     'assessment_completion_date__c',
     'business_score__c',
-    'case_manager_score__c'
+    'case_manager_score__c',
+    'assessment_result__c'
+  };
+  static final Set<String> EVALUATION_TYPE_DATAMASK = new Set<String>{
+    IDRConstants.QA_CR_ASSESSMENT,
+    IDRConstants.QA_FRONTLINE_ASSESSMENT,
+    IDRConstants.QA_FINAL_LETTER_REVIEW_ASSESSMENT
   };
   /**
    * @description applyDefaults is called onBeforeInsert and onbeforeUpdate to set the following values as defaults
@@ -25,8 +31,8 @@ public with sharing class IDRQualityAssessmentActions {
   ) {
     List<Quality_Assessment__c> filteredRecords = ListUtil.filter(records)
       .equals(
-        Quality_Assessment__c.RecordTypeId,
-        RTQualityAssessment.idrCQQualityId
+        Quality_Assessment__c.Evaluation_Type__c,
+        EVALUATION_TYPE_DATAMASK
       )
       .toList();
     for (Quality_Assessment__c record : filteredRecords) {
@@ -35,13 +41,13 @@ public with sharing class IDRQualityAssessmentActions {
       ) {
         String fieldName = fsm.getFieldPath();
         if (
-          (oldMap == null ||
-          String.valueOf(record.get(fieldName)) !=
-          String.valueOf(oldMap.get(record.id).get(fieldName))) &&
-          String.isNotBlank(String.valueOf(record.get(fieldName)))
+          (String.valueOf(record.get(fieldName)) ==
+          String.valueOf(oldMap?.get(record.id).get(fieldName))) ||
+          String.isBlank(String.valueOf(record.get(fieldName)))
         ) {
-          TextUtils.maskDataCmos(record, fieldName);
+          continue;
         }
+        TextUtils.maskDataCmos(record, fieldName);
       }
     }
   }
@@ -145,7 +151,8 @@ public with sharing class IDRQualityAssessmentActions {
       IDRConstants.QA_CR_ASSESSMENT => 'C_R_Assessment',
       IDRConstants.QA_FRONTLINE_ASSESSMENT => 'F_L_Assessment',
       IDRConstants.QA_CALL_REVIEW_ASSESSMENT => 'Call_Review_Assessment',
-      IDRConstants.QA_LETTER_REVIEW_ASSESSMENT => 'Letter_Review_Assessment'
+      IDRConstants.QA_LETTER_REVIEW_ASSESSMENT => 'Letter_Review_Assessment',
+      IDRConstants.QA_FINAL_LETTER_REVIEW_ASSESSMENT => 'Final_Letter_Review_Assessment'
     };
     return evaluationTypes.get(oAssessment.Evaluation_Type__c);
   }
@@ -261,28 +268,71 @@ public with sharing class IDRQualityAssessmentActions {
     List<Quality_Assessment__c> records,
     Map<Id, Quality_Assessment__c> oldMap
   ) {
-    Id cqRecordTypeId = IDRConstants.idrtCQQualityAssessment;
-    for (Quality_Assessment__c qaRecord : records) {
-      if (
-        qaRecord.RecordTypeId != cqRecordTypeId ||
-        qaRecord.Status__c != IDRConstants.STATUS_COMPLETE
-      ) {
-        continue;
-      }
+    List<Quality_Assessment__c> filteredRecords = ListUtil.filter(records)
+      .equals(
+        Quality_Assessment__c.RecordTypeId,
+        RTQualityAssessment.idrCQQualityId
+      )
+      .equals(
+        Quality_Assessment__c.Status__c,
+        QualityAssessmentActions.STATUS_COMPLETE
+      )
+      .toList();
+    getChangedQARecords(filteredRecords, oldMap);
+    getNotChangedQARecords(filteredRecords, oldMap);
+  }
+  /**
+   * @description get changed QA records and set assessment outcome field
+   * @param records list of qa records
+   * @param oldMap map of old QA records
+   */
+  @TestVisible
+  private static void getChangedQARecords(
+    List<Quality_Assessment__c> records,
+    Map<Id, Quality_Assessment__c> oldMap
+  ) {
+    List<Quality_Assessment__c> changedRecords = ListUtil.filter(
+        records,
+        oldMap
+      )
+      .anyChanged(IDRConstants.QA_OUTCOME_FIELDS)
+      .toList();
+    for (Quality_Assessment__c qaRecord : changedRecords) {
       List<SObjectField> changedfieldAPIName = RecordComparisonUtil.detectWhichFieldWasChangedAndNotEqualNull(
         qaRecord,
-        oldMap.get(qaRecord.Id),
+        oldMap?.get(qaRecord.Id),
         IDRConstants.QA_OUTCOME_FIELDS
       );
       if (changedfieldAPIName.isEmpty()) {
         continue;
       }
-
       qaRecord.Assessment_Outcome_Status__c = getStatus(
         qaRecord,
         changedfieldAPIName[0]
       );
     }
+  }
+  /**
+   * @description get not changed QA records and set assessment outcome field
+   * @param records list of qa records
+   * @param oldMap map of old QA records
+   */
+  @TestVisible
+  private static void getNotChangedQARecords(
+    List<Quality_Assessment__c> records,
+    Map<Id, Quality_Assessment__c> oldMap
+  ) {
+    List<Quality_Assessment__c> notChangedRecords = ListUtil.filter(
+        records,
+        oldMap
+      )
+      .allNotChanged(IDRConstants.QA_OUTCOME_FIELDS)
+      .toList();
+    ListUtil.setField(
+      notChangedRecords,
+      Quality_Assessment__c.Assessment_Outcome_Status__c,
+      'Submitted'
+    );
   }
   /**
    * @description return assessment outcome field based on input values

@@ -863,7 +863,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Letter Review Assessment</fullName>
+            <fullName>Final Letter Review Assessment</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -963,21 +963,6 @@
         </values>
         <values>
             <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Has_a_complaint_LOA_been_loaded_to_PCC__c</picklist>
-        <values>
-            <fullName>N%2FA - No POA</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>No - POA not loaded</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes - POA loaded</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -1125,10 +1110,6 @@
     </picklistValues>
     <picklistValues>
         <picklist>If_unlicensed_did_communication_stop__c</picklist>
-        <values>
-            <fullName>N%2FA - no LOA%2C or LOA licensed</fullName>
-            <default>false</default>
-        </values>
         <values>
             <fullName>No - we did not stop</fullName>
             <default>false</default>

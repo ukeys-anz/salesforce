@@ -22,19 +22,19 @@
         <value>Complete,Pending</value>
     </filters>
     <filters>
-        <field>RECORDTYPE</field>
+        <field>Evaluation_Type__c</field>
         <operation>equals</operation>
-        <value>Quality_Assessment__c.Call_Letter_Review_Assessment</value>
+        <value>Final Letter Review Assessment,Call Review Assessment,Letter Review Assessment</value>
+    </filters>
+    <filters>
+        <field>Evaluation_Type__c</field>
+        <operation>equals</operation>
+        <value>C &amp; Q Assessment,Customer Resolution Assessment</value>
     </filters>
     <filters>
         <field>Status__c</field>
         <operation>equals</operation>
         <value>Complete</value>
-    </filters>
-    <filters>
-        <field>RECORDTYPE</field>
-        <operation>equals</operation>
-        <value>Quality_Assessment__c.C_Q_Assessment</value>
     </filters>
     <filterScope>Everything</filterScope>
     <label>My Team&apos;s Evaluations</label>

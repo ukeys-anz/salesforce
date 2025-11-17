@@ -6,6 +6,11 @@
         <field>Case.IDR_Real_Form_Ref_No__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.Type</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Case Read/Write - SNow Integration</label>
     <objectPermissions>
@@ -26,7 +31,7 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <userPermissions>
-        <name>ViewAllUsers</name>
         <enabled>true</enabled>
+        <name>ViewAllUsers</name>
     </userPermissions>
 </PermissionSet>

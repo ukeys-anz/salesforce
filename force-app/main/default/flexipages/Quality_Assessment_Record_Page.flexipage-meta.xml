@@ -172,6 +172,23 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.Senior_Manager__c</fieldItem>
+                <identifier>RecordSenior_Manager_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Call_details__c</fieldItem>
                 <identifier>RecordCall_details_cField2</identifier>
                 <visibilityRule>
@@ -263,6 +280,57 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Status__c</fieldItem>
                 <identifier>RecordStatus_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Is_customer_experiencing_vulnerability__c</fieldItem>
+                <identifier>RecordIs_customer_experiencing_vulnerability_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Final_letter_type__c</fieldItem>
+                <identifier>RecordFinal_letter_type_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Call_details__c</fieldItem>
+                <identifier>RecordCall_details_cField3</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -378,6 +446,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Were_all_relevant_calls_retrieved__c</fieldItem>
                 <identifier>RecordWere_all_relevant_calls_retrieved_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Were_the_CM_s_calls_recorded__c</fieldItem>
+                <identifier>RecordWere_the_CM_s_calls_recorded_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-ebb220d6-cc01-486a-8a90-7783fafed379</name>
@@ -6669,6 +6747,674 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Complaint_issues_identified_addressed__c</fieldItem>
+                <identifier>RecordComplaint_issues_identified_addressed_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_1__c</fieldItem>
+                <identifier>RecordCMOS_Comment_1_cField4</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Are_our_findings_well_supported__c</fieldItem>
+                <identifier>RecordAre_our_findings_well_supported_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_2__c</fieldItem>
+                <identifier>RecordCMOS_Comment_2_cField4</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Is_our_decision_clearly_explained__c</fieldItem>
+                <identifier>RecordIs_our_decision_clearly_explained_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_3__c</fieldItem>
+                <identifier>RecordCMOS_Comment_3_cField4</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-fb983cfa-56b7-40c4-aad7-282434a554d2</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Is_the_resolution_clear__c</fieldItem>
+                <identifier>RecordIs_the_resolution_clear_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_4__c</fieldItem>
+                <identifier>RecordCMOS_Comment_4_cField4</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.AFCA_details_provided_in_the_letter__c</fieldItem>
+                <identifier>RecordAFCA_details_provided_in_the_letter_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_5__c</fieldItem>
+                <identifier>RecordCMOS_Comment_5_cField4</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-0eaeaa1f-b988-4f94-b31c-3fffd1f6d850</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-fb983cfa-56b7-40c4-aad7-282434a554d2</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column41</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-0eaeaa1f-b988-4f94-b31c-3fffd1f6d850</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column42</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-99a29b02-d313-43ca-a11f-00203fd2ae73</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Did_we_identify_vulnerability__c</fieldItem>
+                <identifier>RecordDid_we_identify_vulnerability_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_6__c</fieldItem>
+                <identifier>RecordCMOS_Comment_6_cField4</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Were_care_and_access_needs_addressed__c</fieldItem>
+                <identifier>RecordWere_care_and_access_needs_addressed_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_7__c</fieldItem>
+                <identifier>RecordCMOS_Comment_7_cField4</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-33a3e0e1-3176-4924-908c-93729c2ff6ce</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Did_we_respond_swiftly_to_hardship__c</fieldItem>
+                <identifier>RecordDid_we_respond_swiftly_to_hardship_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_8__c</fieldItem>
+                <identifier>RecordCMOS_Comment_8_cField4</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-5f30778e-f4da-47b2-8799-81df7eab8959</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-33a3e0e1-3176-4924-908c-93729c2ff6ce</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column43</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-5f30778e-f4da-47b2-8799-81df7eab8959</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column44</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-48c4debc-6a61-49ff-96fd-d5f72fbcad7d</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Did_we_record_all_issues_correctly__c</fieldItem>
+                <identifier>RecordDid_we_record_all_issues_correctly_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_9__c</fieldItem>
+                <identifier>RecordCMOS_Comment_9_cField4</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-96d50611-b6dc-4235-a885-e4e576c30280</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Desired_outcome_recorded_correctly__c</fieldItem>
+                <identifier>RecordDesired_outcome_recorded_correctly_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_10__c</fieldItem>
+                <identifier>RecordCMOS_Comment_10_cField4</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-9e0bee45-63ac-407c-aadf-4b1073733443</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-96d50611-b6dc-4235-a885-e4e576c30280</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column45</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-9e0bee45-63ac-407c-aadf-4b1073733443</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column46</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-2e36d775-4a66-40a5-8311-ba934083191e</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Did_we_meet_time_frames__c</fieldItem>
+                <identifier>RecordDid_we_meet_time_frames_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_11__c</fieldItem>
+                <identifier>RecordCMOS_Comment_11_cField4</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-b01c9924-74f4-48b1-a3e5-4973b13d4658</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Was_delay_notice_appropriate__c</fieldItem>
+                <identifier>RecordWas_delay_notice_appropriate_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_12__c</fieldItem>
+                <identifier>RecordCMOS_Comment_12_cField5</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-5d2ad0c0-78eb-4c46-8783-8dc142b1f625</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-b01c9924-74f4-48b1-a3e5-4973b13d4658</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column61</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-5d2ad0c0-78eb-4c46-8783-8dc142b1f625</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column62</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-30eeac98-9d9c-419f-951f-c97b652d19e7</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Was_correspondence_well_written__c</fieldItem>
+                <identifier>RecordWas_correspondence_well_written_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_13__c</fieldItem>
+                <identifier>RecordCMOS_Comment_13_cField4</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-96e512d3-04eb-4b9b-a810-c7c26f600461</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <name>Facet-86b07591-9053-4ab6-9aec-c9f5b21503d9</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-96e512d3-04eb-4b9b-a810-c7c26f600461</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column69</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-86b07591-9053-4ab6-9aec-c9f5b21503d9</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column70</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-7331f13f-b5e7-4014-8f28-7d683073d430</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Is_the_outcome_fair__c</fieldItem>
+                <identifier>RecordIs_the_outcome_fair_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_14__c</fieldItem>
+                <identifier>RecordCMOS_Comment_14_cField4</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-43c207f7-a212-4a9a-aea7-c60363c9e056</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <name>Facet-a0f3b127-dd90-4666-8127-0a5e13e32cb4</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-43c207f7-a212-4a9a-aea7-c60363c9e056</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column71</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-a0f3b127-dd90-4666-8127-0a5e13e32cb4</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column72</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-379e02c6-21c2-4e3c-9059-248e0602b762</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
                     <name>columns</name>
@@ -7252,10 +7998,16 @@
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection15</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>CONTAINS</operator>
                         <rightValue>Call_Letter_Review_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -7277,10 +8029,16 @@
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection16</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>NE</operator>
                         <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -7302,10 +8060,16 @@
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection17</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>NE</operator>
                         <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -7327,10 +8091,16 @@
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection18</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>NE</operator>
                         <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -7352,10 +8122,166 @@
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection19</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>NE</operator>
                         <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-99a29b02-d313-43ca-a11f-00203fd2ae73</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Final Letter Compliance</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection21</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Call_Letter_Review_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-48c4debc-6a61-49ff-96fd-d5f72fbcad7d</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Vulnerability and Extra Care</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection22</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Call_Letter_Review_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-2e36d775-4a66-40a5-8311-ba934083191e</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>CMOS Data (Categorisation)</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection23</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Call_Letter_Review_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-30eeac98-9d9c-419f-951f-c97b652d19e7</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Meeting Time Frames</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection31</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Call_Letter_Review_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-7331f13f-b5e7-4014-8f28-7d683073d430</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Our Communication With The Customer</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection35</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Call_Letter_Review_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-379e02c6-21c2-4e3c-9059-248e0602b762</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Fairness</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection36</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Call_Letter_Review_Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -7485,7 +8411,7 @@
                 <fieldItem>Record.Case_Manager_Score__c</fieldItem>
                 <identifier>RecordCase_Manager_Score_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Evaluation_Type__c}</leftValue>
                         <operator>NE</operator>
@@ -7495,6 +8421,11 @@
                         <leftValue>{!Record.Evaluation_Type__c}</leftValue>
                         <operator>NE</operator>
                         <rightValue>Frontline Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -7508,10 +8439,16 @@
                 <fieldItem>Record.TM_Attestation_feedback_provided_to_CM__c</fieldItem>
                 <identifier>RecordTM_Attestation_feedback_provided_to_CM_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Call_Letter_Review_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -7525,10 +8462,16 @@
                 <fieldItem>Record.CMOS_Comment_12__c</fieldItem>
                 <identifier>RecordCMOS_Comment_12_cField3</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Call_Letter_Review_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -7561,6 +8504,29 @@
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Corrective_actions_required_CM__c</fieldItem>
+                <identifier>RecordCorrective_actions_required_CM_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Call_Letter_Review_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-5b6c43d4-ffea-45c2-b80f-6f5a0e9d452f</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -7574,10 +8540,16 @@
                 <fieldItem>Record.Assessment_Result__c</fieldItem>
                 <identifier>RecordAssessment_Result_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>CONTAINS</operator>
                         <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Call_Letter_Review_Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -8136,6 +9108,232 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Team_Manager_final_letter_review__c</fieldItem>
+                <identifier>RecordTeam_Manager_final_letter_review_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Call_Letter_Review_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Team_Manager_Comments__c</fieldItem>
+                <identifier>RecordTeam_Manager_Comments_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Call_Letter_Review_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Team_Manager_final_letter_review__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Overturned</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Team_Manager_Comments__c</fieldItem>
+                <identifier>RecordTeam_Manager_Comments_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Call_Letter_Review_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Team_Manager_final_letter_review__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Overturned</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Has_a_REaL_form_been_raised__c</fieldItem>
+                <identifier>RecordHas_a_REaL_form_been_raised_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Call_Letter_Review_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.REAL_form_Comments__c</fieldItem>
+                <identifier>RecordREAL_form_Comments_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Call_Letter_Review_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-cd8db8f5-ae5c-42f6-9808-be2d7754626e</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Corrective_actions_required_TL__c</fieldItem>
+                <identifier>RecordCorrective_actions_required_TL_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Call_Letter_Review_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.TL_response_to_TM_review__c</fieldItem>
+                <identifier>RecordTL_response_to_TM_review_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Call_Letter_Review_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.REaL_form_receipt_no__c</fieldItem>
+                <identifier>RecordREaL_form_receipt_no_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Call_Letter_Review_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Final Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-3352b1c4-7e36-44f6-855a-cf2dd4fa812f</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-cd8db8f5-ae5c-42f6-9808-be2d7754626e</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column73</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-3352b1c4-7e36-44f6-855a-cf2dd4fa812f</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column74</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-3c0921d6-018a-4abe-bb7d-b22931b9a487</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
                     <name>columns</name>
@@ -8174,6 +9372,31 @@
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>CONTAINS</operator>
                         <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-3c0921d6-018a-4abe-bb7d-b22931b9a487</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Team Manager Review</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection37</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Call_Letter_Review_Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>

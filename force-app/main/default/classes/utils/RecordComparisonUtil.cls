@@ -128,7 +128,7 @@ public class RecordComparisonUtil {
     SObject oldRecord,
     SObjectField field
   ) {
-    return newRecord.get(field) != oldRecord.get(field) &&
+    return newRecord.get(field) != oldRecord?.get(field) &&
       newRecord.get(field) != null;
   }
 

@@ -1985,7 +1985,17 @@
     <sections>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>IDR_Complaint__c</field>
+            <table>Case.Complaint_Resolutions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>IDR_Complaint_Remedy__c</field>
+            <table>Case.Complaint_Resolutions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IDR_Complaint_Remedy_Offered__c</field>
             <table>Case.Complaint_Resolutions__r</table>
         </columns>
         <columns>
@@ -2001,6 +2011,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>IDR_Complaint_Sub_Remedy__c</field>
+            <table>Case.Complaint_Resolutions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IDR_Complaint_Sub_Remedy_Offered__c</field>
             <table>Case.Complaint_Resolutions__r</table>
         </columns>
         <columns>
