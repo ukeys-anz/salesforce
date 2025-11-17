@@ -7,7 +7,16 @@ public with sharing class DisputesCaseActions {
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
+  private static final IDOpsQueryRepository QUERY = (IDOpsQueryRepository) Lib_InstanceProvider.forType(
+    IDOpsQueryRepository.class
+  );
 
+  public static final Set<String> TASK_STATUSES = new Set<String>{
+    'Not Started',
+    'Pending'
+  };
+
+  public static final String CASE_CLOSURE_ERR_MSG = 'This case has outstanding merchant evidence to review. Please review the evidence before attempting to close the case and action the associated task.';
   /**
    * @description Create a External Case Status when dispute is inserted.
    * @param records List of Case records from Trigger.new
@@ -32,5 +41,32 @@ public with sharing class DisputesCaseActions {
     }
 
     DML_REPOSITORY.doInsert(externalCaseStatuses, new DmlConfig().systemMode());
+  }
+
+  /**
+   * @description check if open task is associated to the case, throw validation error if open task found
+   * @param records List of Case records from Trigger.new
+   */
+  public static void checkForOpenTask(List<Case> records) {
+    List<Case> closedCases = ListUtil.filter(records)
+      .changedTo(Case.Status, 'Closed')
+      .toList();
+
+    Set<Id> caseIds = ListUtil.getIds(closedCases, Case.Id);
+
+    List<Task> tasksList = QUERY.getTaskAssociatedToCase(caseIds);
+
+    List<Task> filteredTasks = ListUtil.filter(tasksList)
+      .equals(Task.Status, TASK_STATUSES)
+      .equals(Task.Subject, 'Card - Merchant Evident Received')
+      .toList();
+
+    Set<Id> caseIdsWithOpenTask = ListUtil.getIds(filteredTasks, Task.WhatId);
+
+    List<Case> errorCases = ListUtil.filter(closedCases)
+      .equals(Case.Id, caseIdsWithOpenTask)
+      .toList();
+
+    ListUtil.addError(errorCases, CASE_CLOSURE_ERR_MSG);
   }
 }

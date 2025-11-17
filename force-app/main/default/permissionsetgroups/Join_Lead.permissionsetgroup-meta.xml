@@ -35,6 +35,7 @@
     <permissionSets>Lending_Case_Read</permissionSets>
     <permissionSets>ManageExtraCare</permissionSets>
     <permissionSets>ManageExtraCareHighRiskScamVictim</permissionSets>
+    <permissionSets>Merchant_Evidence_Privacy</permissionSets>
     <permissionSets>PasskeyDelete</permissionSets>
     <permissionSets>PasskeyReadOnly</permissionSets>
     <permissionSets>PayTo_View_Agreements</permissionSets>

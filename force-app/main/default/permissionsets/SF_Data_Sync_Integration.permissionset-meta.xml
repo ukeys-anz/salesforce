@@ -12515,6 +12515,10 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <recordType>Task.Merchant_Evident_Received</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>ResidentialLoanApplication.Loan_Application</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>

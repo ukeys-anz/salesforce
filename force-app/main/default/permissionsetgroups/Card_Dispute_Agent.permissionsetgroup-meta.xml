@@ -64,6 +64,7 @@
     <permissionSets>Lock_Unlock_Customer</permissionSets>
     <permissionSets>ManageExtraCare</permissionSets>
     <permissionSets>ManageExtraCareHighRiskScamVictim</permissionSets>
+    <permissionSets>Merchant_Evidence_Privacy</permissionSets>
     <permissionSets>OCV_Flags_Read_Only</permissionSets>
     <permissionSets>Outbound_Dialling</permissionSets>
     <permissionSets>Outbound_Message</permissionSets>
