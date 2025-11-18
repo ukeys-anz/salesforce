@@ -2,7 +2,7 @@
  * @description       : Repository for PinAndSelfieWorkflow
  * @author            : Hinduja - TFM Squad
  * @group             :
- * @last modified on  : 08-07-2025
+ * @last modified on  : 11-04-2025
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
  **/
 public with sharing class IDOpsQueryRepository {
@@ -40,6 +40,21 @@ public with sharing class IDOpsQueryRepository {
       LIMIT 1
     ] ?? null;
     return caseRecord;
+  }
+
+  /**
+   * @description get Case Records
+   * @param caseIds case recordId
+   * @return List<Case>
+   **/
+  public List<Case> getCaseRecordUsingExternalCases(Set<Id> caseIds) {
+    List<Case> caseRecords = [
+      SELECT ID, RecordTypeId
+      FROM Case
+      WHERE ID IN :caseIds
+      WITH USER_MODE
+    ] ?? new List<Case>();
+    return caseRecords;
   }
 
   /**
@@ -222,5 +237,22 @@ public with sharing class IDOpsQueryRepository {
       WHERE Id IN :caseIds
       WITH USER_MODE
     ] ?? null;
+  }
+
+  /**
+   * @description Returns the Task record
+   * @param caseIds String - caseId to fetch Task records
+   * @return List<Task> records
+   */
+  public List<Task> getTaskAssociatedToCase(Set<Id> caseIds) {
+    List<Task> tasksList = [
+      SELECT Id, WhatId, Subject, Status
+      FROM Task
+      WHERE
+        WhatId IN :caseIds
+        AND RecordTypeId = :RTTask.merchantEvidentReceivedRT
+      WITH USER_MODE
+    ] ?? new List<Task>();
+    return tasksList;
   }
 }

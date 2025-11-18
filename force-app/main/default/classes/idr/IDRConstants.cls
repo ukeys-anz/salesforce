@@ -92,6 +92,7 @@ public with sharing class IDRConstants {
   public static final String QA_FRONTLINE_ASSESSMENT = 'Frontline Assessment';
   public static final String QA_CALL_REVIEW_ASSESSMENT = 'Call Review Assessment';
   public static final String QA_LETTER_REVIEW_ASSESSMENT = 'Letter Review Assessment';
+  public static final String QA_FINAL_LETTER_REVIEW_ASSESSMENT = 'Final Letter Review Assessment';
 
   /**
    * @description get Quality_Assessment__c.C_Q_Assessment record on demand

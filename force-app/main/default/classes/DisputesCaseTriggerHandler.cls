@@ -51,4 +51,13 @@ public with sharing class DisputesCaseTriggerHandler extends Lib_TriggerHandler 
       NPP_NEW_EXTERNAL_STATUS
     );
   }
+
+  /**
+   * @description onBeforeUpdate to handle before update trigger actions.
+   * @param oldMap old trigger values
+   */
+  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    List<Case> validCases = ListUtil.filter(records).noError().toList();
+    DisputesCaseActions.checkForOpenTask(validCases);
+  }
 }

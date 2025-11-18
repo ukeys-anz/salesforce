@@ -19,4 +19,7 @@ public class RTTask {
   public static Id settlementTask = base.getId('Settlement_Task');
   public static Id systemicIssueTask = base.getId('Systemic_Issue_Task');
   public static Id customerNudge = base.getId('Customer_Nudge');
+  public static Id merchantEvidentReceivedRT = base.getId(
+    'Merchant_Evident_Received'
+  );
 }

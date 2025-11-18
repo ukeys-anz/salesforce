@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AssessmentResultFinalLetterReview__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Field to set assessment result for Final Letter Review Assessments</description>
+    <externalId>false</externalId>
+    <formula>IF(
+AND(
+ISPICKVAL(Evaluation_Type__c,&apos;Final Letter Review Assessment&apos;),
+AND(
+OR(ISPICKVAL(Complaint_issues_identified_addressed__c, &apos;Met&apos;),ISPICKVAL(Complaint_issues_identified_addressed__c, &apos;N/A&apos;)),
+OR(ISPICKVAL(Are_our_findings_well_supported__c, &apos;Met&apos;),ISPICKVAL(Are_our_findings_well_supported__c, &apos;N/A&apos;)),
+OR(ISPICKVAL(Is_our_decision_clearly_explained__c, &apos;Met&apos;),ISPICKVAL(Is_our_decision_clearly_explained__c, &apos;N/A&apos;)),
+OR(ISPICKVAL(Is_the_resolution_clear__c, &apos;Met&apos;),ISPICKVAL(Is_the_resolution_clear__c, &apos;N/A&apos;)),
+OR(ISPICKVAL(AFCA_details_provided_in_the_letter__c, &apos;Met&apos;),ISPICKVAL(AFCA_details_provided_in_the_letter__c, &apos;N/A&apos;)),
+OR(ISPICKVAL(Did_we_identify_vulnerability__c, &apos;Met&apos;),ISPICKVAL(Did_we_identify_vulnerability__c, &apos;N/A&apos;)),
+OR(ISPICKVAL(Were_care_and_access_needs_addressed__c, &apos;Met&apos;),ISPICKVAL(Were_care_and_access_needs_addressed__c, &apos;N/A&apos;)),
+OR(ISPICKVAL(Did_we_respond_swiftly_to_hardship__c, &apos;Met&apos;),ISPICKVAL(Did_we_respond_swiftly_to_hardship__c, &apos;N/A&apos;)),
+OR(ISPICKVAL(Did_we_meet_time_frames__c, &apos;Met&apos;),ISPICKVAL(Did_we_meet_time_frames__c, &apos;N/A&apos;)),
+OR(ISPICKVAL(Was_delay_notice_appropriate__c, &apos;Met&apos;),ISPICKVAL(Was_delay_notice_appropriate__c, &apos;N/A&apos;)),
+OR(ISPICKVAL(Is_the_outcome_fair__c, &apos;Met&apos;),ISPICKVAL(Is_the_outcome_fair__c, &apos;N/A&apos;))
+)
+),
+IF(
+AND(
+ISPICKVAL(Evaluation_Type__c,&apos;Final Letter Review Assessment&apos;),
+AND(
+OR(ISPICKVAL(Did_we_record_all_issues_correctly__c, &apos;Met&apos;),ISPICKVAL(Did_we_record_all_issues_correctly__c, &apos;N/A&apos;)),
+OR(ISPICKVAL(Desired_outcome_recorded_correctly__c, &apos;Met&apos;),ISPICKVAL(Desired_outcome_recorded_correctly__c, &apos;N/A&apos;)),
+OR(ISPICKVAL(Was_correspondence_well_written__c, &apos;Met&apos;),ISPICKVAL(Was_correspondence_well_written__c, &apos;N/A&apos;))
+)
+),
+&apos;Pass&apos;,
+&apos;Pass With Feedback&apos;
+),
+&apos;Fail&apos;
+)</formula>
+    <label>AssessmentResultFinalLetterReview</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
