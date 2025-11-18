@@ -267,6 +267,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Quality_Assessment__c.Has_a_REaL_form_been_raised__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Quality_Assessment__c.Issues_articulatedaddressed_in_response__c</field>
         <readable>true</readable>
     </fieldPermissions>
