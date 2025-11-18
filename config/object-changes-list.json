@@ -54,6 +54,7 @@
     "LeadHistory",
     "Lead_Flex_Field__c",
     "LoginHistory",
+    "Needs_Analysis__c",
     "Notification_Handler__c",
     "Opportunity",
     "OpportunityContactRole",
