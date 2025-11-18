@@ -244,7 +244,7 @@ public with sharing class CommercialLeadActions {
       )
       .equals(
         Lead.Expiry_Date__c,
-        Date.today().addDays(Integer.valueOf(Label.CCRM_Today_Date))
+        Date.today().addDays(Integer.valueOf(Label.CommercialExtendTodaysDate))
       )
       .toList();
     Map<Id, Boolean> leadWithIncludeFridayMap = LeadExpiryActions.getLeadsWithIncludeFridayMap(

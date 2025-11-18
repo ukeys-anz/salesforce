@@ -657,11 +657,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CCRMTaskActions</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CCRMTaskActionsTest</apexClass>
+        <apexClass>LeadResponseTaskActions</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>

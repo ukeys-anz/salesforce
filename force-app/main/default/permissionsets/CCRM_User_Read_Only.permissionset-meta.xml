@@ -6133,6 +6133,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Lead.Lead_Outcome__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Lead.Lead_Outcome_Formula__c</field>
         <readable>true</readable>
     </fieldPermissions>
