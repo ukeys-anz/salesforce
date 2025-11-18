@@ -1739,6 +1739,52 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>agentforceRestrictedPromptTemplateName</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>Customer_Summary2</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>generativeAIDisclaimer</name>
+                    <value>This tool uses generative AI. Review responses to ensure they&apos;re accurate, valid, and harmless before you use them.</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>generativeAIHeaderLabel</name>
+                    <value>AI Customer Summary</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>generativeAIPromptTemplateName</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>Customer_Summary2</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>generativeAIPromptTemplateType</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>einstein_gpt__recordSummary</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>isCachingEnabled</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>industries_common:generateSummaryWrapper</componentName>
+                <identifier>industries_common_generateSummaryWrapper</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-2dadfa66-8b25-4041-a877-e2dbe137a46d</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>actionNames</name>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -2467,6 +2513,20 @@
                         <rightValue>CAP-CIS</rightValue>
                     </criteria>
                 </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-2dadfa66-8b25-4041-a877-e2dbe137a46d</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>AI Customer Summary</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab16</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
