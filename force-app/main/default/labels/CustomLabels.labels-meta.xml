@@ -396,7 +396,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Number of days Lead expiry to extend when response log created</shortDescription>
-        <value>5</value>
+        <value>14</value>
     </labels>
     <labels>
         <fullName>CCRM_MaxDaysExpiryDateExtends</fullName>

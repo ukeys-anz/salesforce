@@ -5642,6 +5642,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Lead.Individual_Customer_Profile__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Lead.My_Team_Segment__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -6418,6 +6423,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Location.VisitorAddressId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Secondary_Customer_Needs__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

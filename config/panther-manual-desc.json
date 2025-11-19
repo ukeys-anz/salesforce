@@ -3139,6 +3139,7 @@
         "Expiry_Indicator__c",
         "FinServ__PotentialValue__c",
         "FinServ__RelatedAccount__c",
+        "Individual_Customer_Profile__c",
         "FinServ__CreatedFromLead__c",
         "FinServ__Employer__c",
         "FinServ__ReferredByContact__c",

@@ -4,7 +4,7 @@
     <protected>false</protected>
     <values>
         <field>Customer_Need__c</field>
-        <value xsi:type="xsd:string">Transactional Services (inc. IB4B, Account opening and Merchant services)</value>
+        <value xsi:type="xsd:string">Transact &amp; Save</value>
     </values>
     <values>
         <field>Lead_Record_Type__c</field>

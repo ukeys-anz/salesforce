@@ -1394,6 +1394,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>ValidateABNACNController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>UniqueIdUtil</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -8779,6 +8783,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Lead.Lead_Owner_Teamcode__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.My_Managers_Lead__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

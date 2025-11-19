@@ -542,4 +542,33 @@ public with sharing class CommercialLeadActions {
 
     ListUtil.setField(filteredLeadList, Lead.Company, null);
   }
+
+  /**
+   * @description : This is used to populate the contact info for the Individual ETB Customers
+   * @param records Lead records
+   * @param oldMap old lead records
+   */
+  public static void prefillContactInfoForIndLead(
+    List<Lead> records,
+    Map<Id, Lead> oldMap
+  ) {
+    List<Lead> filteredLeadList = ListUtil.filter(records, oldMap)
+      .changed(Lead.FinServ__RelatedAccount__c)
+      .isNotNull(Lead.FinServ__RelatedAccount__c)
+      .toList();
+
+    Set<Id> accountIdsSet = ListUtil.getIds(
+      filteredLeadList,
+      Lead.FinServ__RelatedAccount__c
+    );
+
+    Map<Id, Account> accMap = LEAD_ACTION_REPOSITORY.getIndividualAccRecords(
+      accountIdsSet
+    );
+
+    CommercialLeadActionsHelper.populateContactInfoForInd(
+      filteredLeadList,
+      accMap
+    );
+  }
 }

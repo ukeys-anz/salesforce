@@ -148,7 +148,7 @@ public with sharing class LeadResponseTaskActionsTest {
     taskRepoMock.mock(
       new Map<String, Object>{
         'getCampaignMemberRecords' => new List<CampaignMember>{
-          getCampaignMemberRecord(leadRecord, 9)
+          getCampaignMemberRecord(leadRecord, 60)
         }
       }
     );
