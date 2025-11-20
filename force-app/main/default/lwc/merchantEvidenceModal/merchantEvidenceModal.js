@@ -3,11 +3,9 @@ import { SimpleToast } from "c/utils";
 import LightningModal from "lightning/modal";
 import getTaskRecord from "@salesforce/apex/MerchantEvidenceModalController.getTaskRecord";
 import updateTaskStatus from "@salesforce/apex/MerchantEvidenceModalController.updateTaskStatus";
-import CASE_COMMENT_FIELD from "@salesforce/schema/Case.Comments";
-import CASEID_FIELD from "@salesforce/schema/Case.Id";
 import USER_ID from "@salesforce/user/Id";
 import USER_NAME_FIELD from "@salesforce/schema/User.Name";
-import { updateRecord, getRecord } from "lightning/uiRecordApi";
+import { getRecord } from "lightning/uiRecordApi";
 import { CloseActionScreenEvent } from "lightning/actions";
 
 export default class MerchantEvidenceModal extends LightningModal {
@@ -132,16 +130,19 @@ export default class MerchantEvidenceModal extends LightningModal {
 
   handleUpdateTaskStatus() {
     this.showSpinner = true;
+    let commentBody =
+      this.currentUserName +
+      this.taskStatusToChatterCommentMap.get(this.selectedStatusValue);
 
     const task = {};
     task.Id = this.taskRecord.Id;
     task.WhatId = this.taskRecord.WhatId;
     task.Status = this.selectedStatusValue;
     updateTaskStatus({
-      taskObj: task
+      taskObj: task,
+      commentBody: commentBody
     })
       .then(() => {
-        this.createChatterPostForCase();
         this.toast.success("Task status updated successfully.");
       })
       .catch(() => {
@@ -150,24 +151,6 @@ export default class MerchantEvidenceModal extends LightningModal {
       .finally(() => {
         this.showSpinner = false;
         this.handleCloseModal();
-      });
-  }
-
-  createChatterPostForCase() {
-    let commentBody =
-      this.currentUserName +
-      this.taskStatusToChatterCommentMap.get(this.selectedStatusValue);
-    const fields = {};
-    fields[CASE_COMMENT_FIELD.fieldApiName] = commentBody;
-    fields[CASEID_FIELD.fieldApiName] = this.caseRecordId;
-
-    const recordInput = { fields };
-    updateRecord(recordInput)
-      .then(() => {
-        //CHATTER POST CREATED SUCCESSFULLY
-      })
-      .catch(() => {
-        this.toast.error("Error occurred while creating chatter post.");
       });
   }
 

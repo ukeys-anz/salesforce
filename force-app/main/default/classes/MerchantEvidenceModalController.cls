@@ -40,12 +40,23 @@ public with sharing class MerchantEvidenceModalController {
   /**
    * @description updating task records
    * @param taskObj taskObj
+   * @param commentBody commentBody
    */
   @AuraEnabled
-  public static void updateTaskStatus(Task taskObj) {
+  public static void updateTaskStatus(Task taskObj, String commentBody) {
     try {
       DML_REPOSITORY.doUpdate(new List<Task>{ taskObj });
+      CaseComment commentsToCreate = new CaseComment(
+        ParentId = taskObj.WhatId,
+        CommentBody = commentBody
+      );
+      DML_REPOSITORY.doInsert(new List<CaseComment>{ commentsToCreate });
     } catch (Exception ex) {
+      Logger.error(
+        'Exception occurred while updating task and creating case comments: ',
+        ex
+      );
+      Logger.saveLog();
       throw new AuraHandledException('Exception');
     }
   }

@@ -100,7 +100,10 @@ public with sharing class MerchantEvidenceModalControllerTest {
   static void testUpdateTaskStatus() {
     registerMocks();
     Test.startTest();
-    MerchantEvidenceModalController.updateTaskStatus(taskRecords[0]);
+    MerchantEvidenceModalController.updateTaskStatus(
+      taskRecords[0],
+      'comments'
+    );
     Test.stopTest();
     Assert.isNotNull(
       dmlRepoMock.getHistory('doUpdate'),
