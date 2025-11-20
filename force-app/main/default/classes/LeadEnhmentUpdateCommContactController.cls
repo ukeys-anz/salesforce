@@ -24,6 +24,7 @@ public with sharing class LeadEnhmentUpdateCommContactController {
         'Failure on LeadEnhmentUpdateCommContactController.getIndividualCustomerRecord',
         e
       );
+      Logger.saveLog();
       throw new AuraHandledException(e.getMessage());
     }
   }

@@ -164,9 +164,9 @@ public with sharing class LeadResponseTaskActions {
       }
       Date campaignExpiryDate = mapLeadWithCampaignMembers.get(leadRecord.Id)
         .Campaign.EndDate;
-      Date extendedDate = System.today()
-        .addDays(extendTodaysDate + extendLeadExpiryDate);
-      Date updatedDate = DateTimeUtils.getWeekday(extendedDate, false, true);
+      Date updatedDate = DateTimeUtils.getNextWeekdayDate(
+        extendTodaysDate + extendLeadExpiryDate
+      );
       leadRecord.Expiry_Date__c = (campaignExpiryDate < updatedDate)
         ? campaignExpiryDate
         : updatedDate;

@@ -169,13 +169,9 @@ public with sharing class LeadResponseTaskActionsTest {
       System.Label.CommercialExtendTodaysDate
     );
     Assert.areEqual(
-      DateTimeUtils.getWeekday(
-        System.today().addDays(extendTodaysDate + extendLeadExpiryDate),
-        false,
-        true
-      ),
+      DateTimeUtils.getNextWeekdayDate(extendTodaysDate + extendLeadExpiryDate),
       leadRecord.Expiry_Date__c,
-      'Expiry date field is not updated'
+      'Expiry date field is not correctly updated'
     );
     Assert.areEqual(
       null,

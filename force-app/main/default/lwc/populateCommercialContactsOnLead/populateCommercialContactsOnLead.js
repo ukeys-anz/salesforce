@@ -34,6 +34,18 @@ const COLUMNS = [
   { label: "Email", fieldName: "Other_Email__c", type: "text" }
 ];
 
+const REGEX_MOBILE = /^(\+614[0-9]{8}$|^\+615[0-9]{8}$)/;
+const REGEX_PHONE = /^\+61[0-9]{9}$/;
+
+const ERROR_MESSAGES = {
+  MOBILE_PHONE:
+    "Mobile Phone number needs to be in the format of +614 or +615 followed by 8 digits. Eg. +61412345678 or +61512345678",
+  WORK_PHONE:
+    "Work Phone number needs to be in the format of +61 followed by 9 digits. Eg. +61312345678",
+  HOME_PHONE:
+    "Home Phone number needs to be in the format of +61 followed by 9 digits. Eg. +61312345678"
+};
+
 export default class PopulateCommercialContactsOnLead extends LightningElement {
   individualCustomerList = [];
   isLoading = true;
@@ -59,6 +71,10 @@ export default class PopulateCommercialContactsOnLead extends LightningElement {
     }
   }
 
+  get selectedAccount() {
+    return this.selectedRecord?.FinServ__RelatedAccount__r || null;
+  }
+
   get showTable() {
     return (
       this.individualCustomerList && this.individualCustomerList.length > 0
@@ -75,8 +91,7 @@ export default class PopulateCommercialContactsOnLead extends LightningElement {
   fetchAccountAccountRelRecords() {
     getIndividualCustomerRecord({ accountId: this.existingCustomerId })
       .then((result) => {
-        let customerList = result;
-        this.individualCustomerList = customerList.map((item) => ({
+        this.individualCustomerList = result.map((item) => ({
           ...item,
           Name: item.FinServ__RelatedAccount__r?.Name,
           NameUrl: `/${item.FinServ__RelatedAccount__r?.Id}`,
@@ -112,59 +127,77 @@ export default class PopulateCommercialContactsOnLead extends LightningElement {
     this.dispatchEvent(new CloseActionScreenEvent());
   }
 
-  populateContactMethod(selectedRecord) {
-    if (!selectedRecord || !selectedRecord.FinServ__RelatedAccount__r) {
+  populateContactMethod() {
+    if (!this.selectedAccount) {
       return null;
     }
-    return selectedRecord.FinServ__RelatedAccount__r.PersonOtherPhone
+    return this.selectedAccount.PersonOtherPhone
       ? "Mobile"
-      : selectedRecord.FinServ__RelatedAccount__r.Phone
+      : this.selectedAccount.Phone
         ? "Work Phone"
         : "Home Phone";
   }
 
-  sanitizePhoneNumber(phoneNumber) {
-    if (!phoneNumber) {
-      return phoneNumber;
+  validatePhone(fieldLabel, phone, regex) {
+    if (!phone) {
+      return true;
     }
-    phoneNumber = phoneNumber.toString();
-    if (phoneNumber.startsWith("0")) {
-      return "+614" + phoneNumber.substring(1);
+    if (!regex.test(phone)) {
+      let errorMsg = "";
+      switch (fieldLabel) {
+        case "Mobile Phone":
+          errorMsg = ERROR_MESSAGES.MOBILE_PHONE;
+          break;
+        case "Work Phone":
+          errorMsg = ERROR_MESSAGES.WORK_PHONE;
+          break;
+        case "Home Phone":
+          errorMsg = ERROR_MESSAGES.HOME_PHONE;
+          break;
+        default:
+          errorMsg = "Invalid phone number format.";
+          break;
+      }
+      showToast(this, "Error", errorMsg, "", "error");
+      return false;
     }
-    return phoneNumber;
+    return true;
   }
 
   handleUpdate() {
     this.isLoading = true;
-    const fields = {};
-    fields[LEAD_ID_FIELD.fieldApiName] = this.recordId;
-    fields[INDIVIDUAL_PROFILE_FIELD.fieldApiName] =
-      this.selectedRecord.FinServ__RelatedAccount__r.Id;
-    fields[SALUTATION_FIELD.fieldApiName] =
-      this.selectedRecord.FinServ__RelatedAccount__r.Salutation;
-    fields[FIRST_NAME_FIELD.fieldApiName] =
-      this.selectedRecord.FinServ__RelatedAccount__r.FirstName;
-    fields[MIDDLE_NAME_FIELD.fieldApiName] =
-      this.selectedRecord.FinServ__RelatedAccount__r.MiddleName;
-    fields[LAST_NAME_FIELD.fieldApiName] =
-      this.selectedRecord.FinServ__RelatedAccount__r.LastName;
-    fields[MOBILE_PHONE_FIELD.fieldApiName] = this.sanitizePhoneNumber(
-      this.selectedRecord.FinServ__RelatedAccount__r.PersonOtherPhone
-    );
-    fields[WORK_PHONE_FIELD.fieldApiName] = this.sanitizePhoneNumber(
-      this.selectedRecord.FinServ__RelatedAccount__r.Phone
-    );
-    fields[HOME_PHONE_FIELD.fieldApiName] = this.sanitizePhoneNumber(
-      this.selectedRecord.FinServ__RelatedAccount__r.PersonHomePhone
-    );
-    fields[EMAIL_FIELD.fieldApiName] =
-      this.selectedRecord.FinServ__RelatedAccount__r.Other_Email__c;
-    fields[CONTACT_METHOD_FIELD.fieldApiName] = this.populateContactMethod(
-      this.selectedRecord
-    );
 
-    const recordInput = { fields };
-    updateRecord(recordInput)
+    const mobilePhone = this.selectedAccount?.PersonOtherPhone;
+    const workPhone = this.selectedAccount?.Phone;
+    const homePhone = this.selectedAccount?.PersonHomePhone;
+
+    // Validate all phone numbers
+    const allPhonesValid = [
+      { type: "Mobile Phone", phone: mobilePhone, regex: REGEX_MOBILE },
+      { type: "Work Phone", phone: workPhone, regex: REGEX_PHONE },
+      { type: "Home Phone", phone: homePhone, regex: REGEX_PHONE }
+    ].every(({ type, phone, regex }) => this.validatePhone(type, phone, regex));
+
+    if (!allPhonesValid) {
+      this.isLoading = false;
+      return;
+    }
+
+    const fields = {
+      [LEAD_ID_FIELD.fieldApiName]: this.recordId,
+      [INDIVIDUAL_PROFILE_FIELD.fieldApiName]: this.selectedAccount?.Id,
+      [SALUTATION_FIELD.fieldApiName]: this.selectedAccount?.Salutation ?? "",
+      [FIRST_NAME_FIELD.fieldApiName]: this.selectedAccount?.FirstName ?? "",
+      [MIDDLE_NAME_FIELD.fieldApiName]: this.selectedAccount?.MiddleName ?? "",
+      [LAST_NAME_FIELD.fieldApiName]: this.selectedAccount?.LastName,
+      [MOBILE_PHONE_FIELD.fieldApiName]: mobilePhone ?? "",
+      [WORK_PHONE_FIELD.fieldApiName]: workPhone ?? "",
+      [HOME_PHONE_FIELD.fieldApiName]: homePhone ?? "",
+      [EMAIL_FIELD.fieldApiName]: this.selectedAccount?.Other_Email__c ?? "",
+      [CONTACT_METHOD_FIELD.fieldApiName]: this.populateContactMethod()
+    };
+
+    updateRecord({ fields })
       .then(() => {
         showToast(
           this,
@@ -176,18 +209,33 @@ export default class PopulateCommercialContactsOnLead extends LightningElement {
         );
       })
       .catch((error) => {
-        let errorMsg = error?.body?.output?.fieldErrors;
-        if (errorMsg) {
-          let firstField = Object.keys(errorMsg)[0];
-          errorMsg = errorMsg[firstField][0].message;
-        } else if (error?.body?.message) {
-          errorMsg = error.body.message;
-        }
+        const errorMsg = this.extractErrorMessage(error);
         showToast(this, "Error", errorMsg, error, "error", "dismissable");
       })
       .finally(() => {
         this.isLoading = false;
         this.dispatchEvent(new CloseActionScreenEvent());
       });
+  }
+
+  extractErrorMessage(error) {
+    let message = "Something went wrong";
+    // Field-level validation errors
+    if (error?.body?.output?.fieldErrors) {
+      const fieldErrors = error.body.output.fieldErrors;
+      const firstField = Object.keys(fieldErrors)[0];
+      if (fieldErrors[firstField] && fieldErrors[firstField][0]?.message) {
+        return fieldErrors[firstField][0].message;
+      }
+    }
+    // Page-level validation rules errors
+    if (error?.body?.output?.errors?.length > 0) {
+      return error.body.output.errors[0].message;
+    }
+    // General message
+    if (error?.body?.message) {
+      return error.body.message;
+    }
+    return message;
   }
 }
