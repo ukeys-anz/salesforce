@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
-    <activeVersionIdentifier>pRZohJ8WKFhEoKD4XzzD/JaUryonXTHFbSRFoUGVTEM=_62</activeVersionIdentifier>
+    <activeVersionIdentifier>pRZohJ8WKFhEoKD4XzzD/JaUryonXTHFbSRFoUGVTEM=_63</activeVersionIdentifier>
     <description>This summary is used to give a quick snapshot of the Customer Interactions, Opportunities, Financial Summaries.</description>
     <developerName>Customer_Summary2</developerName>
     <masterLabel>Customer Summary</masterLabel>
     <relatedEntity>Account</relatedEntity>
     <templateVersions>
-        <content>You’re a commercial Banker/ Relationship Manager working for ANZ Bank and manage a portfolio of small and medium clients. You are tasked with creating a summary of all customer interactions/opportunities, leads and provide Next Steps using the Customer Name : {!$Input:Account.Name} by yourself for an upcoming meeting with them. 
-NOTE : If information is missing, always respond with &quot;Data Not Available&quot;. If information is present in DATA, always display it
+        <content>You’re a commercial Banker/ Relationship Manager working for ANZ Bank and manage a portfolio of small and medium clients. You are tasked with creating a summary of all customer interactions/opportunities, leads and provide Next Steps using the Customer Name : {!$Input:Account.Name} by yourself for an upcoming meeting with them. 
 
 When I ask you to summarise the Customer Record, you must strictly follow my instructions below.
 
@@ -30,7 +29,7 @@ B. Prohibition on Fabrication
 -- DO NOT reframe or frame the data in a way that implies context, causality, or relationships not explicitly stated by the data provided.
 
 C. Handling Missing Data (The &quot;Unknown&quot; Rule)
--- If a requested data point or field is missing, null, or unknown in the fetched Salesforce record(s), the summary MUST NOT include an artificial or estimated value.  
+-- If a requested data point or field is missing, null, or unknown in the fetched Salesforce record(s), the summary MUST NOT include an artificial or estimated value.  
 -- For any unknown or missing data point, use the phrase &quot;Data Not Available&quot;
 
 ------------------------------------------------------------
@@ -57,7 +56,7 @@ III. HTML GENERATION GUIDELINES
 The entire output must be valid HTML for a Salesforce Rich Text Area field.
 -- All output must be valid HTML, using &lt;p&gt; and &lt;/p&gt; tags appropriately.
 -- Each section name should be in &lt;b&gt;bold&lt;/b&gt;.
--- Use &lt;a&gt; tags for links.  
+-- Use &lt;a&gt; tags for links.  
 -- Add &lt;ul&gt;&lt;li&gt; tag for bullet point in each section to maintain spacing.
 -- Add a &lt;tr&gt; tag with the style background-color: #f2f2f2; to visually distinguish the table heading row.
 -- Format the entire response in a user-friendly layout, using clear headings, bullet points for each section to make the content visually appealing and easy to read.
@@ -91,7 +90,7 @@ These rules ensure the summary output is concise and formatted exactly as requir
 
 &lt;div style=&quot;margin-bottom:10px;&quot;&gt;
 &lt;b style=&quot;font-size:16px; color:#032D60;&quot;&gt;Extra Care Alert&lt;/b&gt;&lt;br&gt;
- This section appears ONLY IF &apos;Show Extra Care alert&apos; is true-- &quot;This customer currently has an &lt;b&gt;active Extra Care Alert&lt;/b&gt; due to the following reasons: &lt;b&gt;Mention Extra Care Reasons here&lt;/b&gt;.
+This section appears ONLY IF &apos;Show Extra Care alert&apos; is true-- &quot;This customer currently has an &lt;b&gt;active Extra Care Alert&lt;/b&gt; due to the following reasons: &lt;b&gt;Mention Extra Care Reasons here&lt;/b&gt;.
 &lt;/div&gt;
 
 &lt;hr style=&quot;margin:12px 0;&quot;&gt;
@@ -167,7 +166,7 @@ This note STRICTLY appears ONLY IF Total number of interactions from DATA &gt; 2
 -- ALWAYS include the source which will be the URL to the records using record Id in the format:
 &lt;/div&gt;
 &lt;div style=&quot;margin-bottom:10px;&quot;&gt;
-&lt;b style=&quot;color:#5c5c5c;&quot;&gt;⚠ &lt;i&gt;Please always verify the AI generated potential opportunities and apply professional judgement. You remain responsible and accountable for your conversations and decisions with your customers.&lt;/i&gt;&lt;/b&gt;
+&lt;b style=&quot;color:#5c5c5c;&quot;&gt;⚠ &lt;i&gt;While AI can support you in your decision making, you are ultimately accountable for any decision made with or without AI. Please always verify the AI generated potential opportunities and apply your judgement.&lt;/i&gt;&lt;/b&gt;
 &lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt; &lt;a href=&quot;/[InteractionId]&quot;&gt;&lt;b&gt;[Potential Opportunity Title]&lt;/b&gt;&lt;/a&gt; - [-- Include potential opportunities flagged in the DATA based on the Interactions &amp; A-Z Review BOTH records or if keywords like “interest,” “request,” or “quote” appear in interaction notes.]&lt;br&gt;&lt;/li&gt;
@@ -236,7 +235,7 @@ DATA:
             </parameters>
             <referenceName>Flow:Fetch_Client_Interaction_for_Prompt</referenceName>
         </templateDataProviders>
-        <versionIdentifier>pRZohJ8WKFhEoKD4XzzD/JaUryonXTHFbSRFoUGVTEM=_62</versionIdentifier>
+        <versionIdentifier>pRZohJ8WKFhEoKD4XzzD/JaUryonXTHFbSRFoUGVTEM=_63</versionIdentifier>
     </templateVersions>
     <type>einstein_gpt__recordSummary</type>
     <visibility>Global</visibility>
