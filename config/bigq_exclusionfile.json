@@ -248,6 +248,7 @@
     "StateOfIssueOCRServer__c",
     "SubmittedAt__c"
   ],
+  "Campaign": ["Stage"],
   "Case": [
     "CertificateIdentifier__c",
     "LicenceCardNumber__c",

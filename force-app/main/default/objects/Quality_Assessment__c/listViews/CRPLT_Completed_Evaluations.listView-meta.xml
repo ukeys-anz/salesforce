@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CRPLT_Completed_Evaluations</fullName>
-    <booleanFilter>1 AND 2 AND 3</booleanFilter>
+    <booleanFilter>((1 AND 2) OR (3 AND 4)) AND 5</booleanFilter>
     <columns>NAME</columns>
     <columns>Evaluation_Type__c</columns>
+    <columns>C_Q_Specialist__c</columns>
     <columns>Related_Case__c</columns>
     <columns>Customer_Name__c</columns>
     <columns>Case_Manager__c</columns>
-    <columns>CREATEDBY_USER</columns>
-    <columns>Case_Manager_Score__c</columns>
-    <columns>Assessment_Completion_Date__c</columns>
-    <columns>Status__c</columns>
-    <columns>UPDATEDBY_USER</columns>
+    <columns>TeamManager__c</columns>
     <columns>Review_Period_Year__c</columns>
     <columns>Review_Period_Month__c</columns>
+    <columns>Status__c</columns>
+    <columns>Assessment_Outcome_Status__c</columns>
+    <columns>UPDATEDBY_USER</columns>
     <filters>
         <field>Evaluation_Type__c</field>
         <operation>equals</operation>
-        <value>C &amp; Q Assessment,Call Review Assessment,Letter Review Assessment</value>
+        <value>Call Review Assessment,Final Letter Review Assessment,Letter Review Assessment</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Complete,Pending</value>
+    </filters>
+    <filters>
+        <field>Evaluation_Type__c</field>
+        <operation>equals</operation>
+        <value>C &amp; Q Assessment,Customer Resolution Assessment</value>
     </filters>
     <filters>
         <field>Status__c</field>

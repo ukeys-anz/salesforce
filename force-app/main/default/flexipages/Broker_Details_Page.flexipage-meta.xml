@@ -108,6 +108,16 @@
                 <identifier>RecordIs_Beta_Broker_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Birthdate__c</fieldItem>
+                <identifier>RecordBirthdate__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-df46ab70-f7c2-4f77-9dfa-c90bfa6913d5</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -128,8 +138,8 @@
                     <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Birthdate</fieldItem>
-                <identifier>RecordBirthdateField</identifier>
+                <fieldItem>Record.Birthdate__c</fieldItem>
+                <identifier>RecordBirthdate_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>

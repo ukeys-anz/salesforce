@@ -1519,6 +1519,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Loan_Account__x.TPMI_SAO__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Loan_Account__x.ANZSIC_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -9,4 +9,5 @@ trigger TaskTrigger on Task(
   SettlementTaskTriggerHandler settlementHandler = new SettlementTaskTriggerHandler();
   CustomerNudgeTaskTriggerHandler customerNudgeHandler = new CustomerNudgeTaskTriggerHandler();
   IDRTaskTriggerHandler triggerHandler = new IDRTaskTriggerHandler();
+  LeadResponseTaskTriggerHandler leadResponseHandler = new LeadResponseTaskTriggerHandler();
 }

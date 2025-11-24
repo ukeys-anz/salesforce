@@ -15,6 +15,8 @@ public with sharing class IDRQualityAssessmentTaskActions {
     RTQualityAssessment.idrCQQualityId,
     RTQualityAssessment.idrReviewAssessmentId
   };
+  static final String CORRECTIVE_ACTIONS_ATTESTATION_SUBJECT =
+    IDRConstants.TASK_QA_FEEDBACK_SUBJECT + ' {0} Completed for {1}';
   /**
    * @description For all Assessments going from Completed to Pending set their Compliance Tasks to Expired.
    * @param newList new Trigger Values
@@ -174,14 +176,15 @@ public with sharing class IDRQualityAssessmentTaskActions {
       .notEquals(Quality_Assessment__c.Corrective_actions_for_TM_CM__c, null)
       .toList();
     List<Task> taskRecords = new List<Task>();
-    String subject =
-      IDRConstants.TASK_QA_FEEDBACK_SUBJECT + ' {0} Completed for {1}';
     for (Quality_Assessment__c record : filteredRecords) {
       List<Object> parameters = new List<Object>{
         record.Name,
         record.Case_Manager__r.Name
       };
-      String formatted = String.format(subject, parameters);
+      String formatted = String.format(
+        CORRECTIVE_ACTIONS_ATTESTATION_SUBJECT,
+        parameters
+      );
       taskRecords.add(
         getTask(record, IDRConstants.TASK_QA_FEEDBACK_DESCRIPTION, formatted)
       );
@@ -308,7 +311,6 @@ public with sharing class IDRQualityAssessmentTaskActions {
     Map<Id, Quality_Assessment__c> oldMap
   ) {
     return ListUtil.filter(newList, oldMap)
-      .equals(Quality_Assessment__c.RecordTypeId, ALLOWED_RECORD_TYPES)
       .anyChangedTo(
         new Set<SObjectField>{ Quality_Assessment__c.Status__c },
         QualityAssessmentActions.STATUS_COMPLETE
@@ -322,5 +324,96 @@ public with sharing class IDRQualityAssessmentTaskActions {
         Quality_Assessment__c.TeamManager__c
       )
       .toList();
+  }
+  /**
+   * @description To create Compliance Tasks if Quality Assessment record's status is changed to Completed and the Evaluation Type is Final Letter Review Assessment
+   * @param newList new Trigger values
+   * @param oldMap old Trigger values
+   */
+  public static void createFinalLetterReviewTask(
+    List<Quality_Assessment__c> newList,
+    Map<Id, Quality_Assessment__c> oldMap
+  ) {
+    List<Quality_Assessment__c> filteredRecords = ListUtil.filter(
+        newList,
+        oldMap
+      )
+      .equals(
+        Quality_Assessment__c.RecordTypeId,
+        RTQualityAssessment.idrReviewAssessmentId
+      )
+      .anyChangedTo(
+        new Set<SObjectField>{ Quality_Assessment__c.Status__c },
+        QualityAssessmentActions.STATUS_COMPLETE
+      )
+      .equals(
+        Quality_Assessment__c.Evaluation_Type__c,
+        IDRConstants.QA_FINAL_LETTER_REVIEW_ASSESSMENT
+      )
+      .toList();
+    List<Task> taskRecords = new List<Task>();
+    taskRecords.addAll(prepareCMTask(filteredRecords));
+    taskRecords.addAll(prepareTLTask(filteredRecords));
+    DML_REPOSITORY.doInsert(taskRecords, new DmlConfig().systemMode());
+  }
+  /**
+   * @description To prepare a Task for all the QA records where the Corrective actions for CM is not null.
+   * @param records List of Quality Assessment objects
+   * @return `List<Task>` List of Compliance Tasks.
+   */
+  static List<Task> prepareCMTask(List<Quality_Assessment__c> records) {
+    List<Quality_Assessment__c> filteredRecords = ListUtil.filter(records)
+      .isNotNull(Quality_Assessment__c.Corrective_actions_required_CM__c)
+      .toList();
+    List<Quality_Assessment__c> qaRecords = QA_REPOSITORY.getQualityAssessments(
+      ListUtil.getIds(filteredRecords, Quality_Assessment__c.Id)
+    );
+    List<Task> taskRecords = new List<Task>();
+    for (Quality_Assessment__c record : qaRecords) {
+      List<Object> parameters = new List<Object>{
+        record.Name,
+        record.Case_Manager__r.Name
+      };
+      String formatted = String.format(
+        CORRECTIVE_ACTIONS_ATTESTATION_SUBJECT,
+        parameters
+      );
+      Task task = getTask(
+        record,
+        IDRConstants.TASK_QA_FEEDBACK_DESCRIPTION,
+        formatted
+      );
+      task.OwnerId = record.Case_Manager__c;
+      taskRecords.add(task);
+    }
+    return taskRecords;
+  }
+  /**
+   * @description To prepare a Task for all the QA records where the Corrective actions for TL is not null.
+   * @param records List of Quality Assessment objects
+   * @return `List<Task>` List of Compliance Tasks.
+   */
+  static List<Task> prepareTLTask(List<Quality_Assessment__c> records) {
+    List<Quality_Assessment__c> filteredRecords = ListUtil.filter(records)
+      .isNotNull(Quality_Assessment__c.Corrective_actions_required_TL__c)
+      .toList();
+    List<Quality_Assessment__c> qaRecords = QA_REPOSITORY.getQualityAssessments(
+      ListUtil.getIds(filteredRecords, Quality_Assessment__c.Id)
+    );
+    List<Task> taskRecords = new List<Task>();
+    for (Quality_Assessment__c record : qaRecords) {
+      List<Object> parameters = new List<Object>{
+        record.Name,
+        record.Case_Manager__r.Name
+      };
+      String formatted = String.format(
+        CORRECTIVE_ACTIONS_ATTESTATION_SUBJECT,
+        parameters
+      );
+      taskRecords.add(
+        getTask(record, IDRConstants.TASK_QA_FEEDBACK_DESCRIPTION, formatted)
+      );
+    }
+    return taskRecords;
   }
 }

@@ -222,4 +222,156 @@ private class ProfileUpdateCaseActionsTest {
       'Case should be allowed to be closed if there are no pending staging records'
     );
   }
+
+  @IsTest
+  static void testSetLegalNameQAInfo() {
+    registerMocks();
+    Account mockAccount = constructMockAccount();
+    List<Case> cases = new List<Case>{
+      new Case(
+        Type = ProfileUpdateCaseActions.CASE_TYPE_LEGAL_NAME,
+        AccountId = mockAccount.Id
+      ),
+      new Case(
+        Type = GetHelpConstants.RESIDENTIAL_ADDRESS_QA,
+        AccountId = mockAccount.Id
+      )
+    };
+    profileUpdateCaseRepoMock.mock(
+      'getAccounts',
+      new List<Account>{ mockAccount }
+    );
+    Test.startTest();
+    ProfileUpdateCaseActions.setLegalNameQAInfo(cases);
+    Test.stopTest();
+    Assert.areEqual(
+      mockAccount.FirstName,
+      cases[0].CurrentFirstName__c,
+      'CurrentFirstName should be populated from Account'
+    );
+    Assert.areEqual(
+      mockAccount.MiddleName,
+      cases[0].CurrentMiddleName__c,
+      'CurrentMiddleName should be populated from Account'
+    );
+    Assert.areEqual(
+      mockAccount.LastName,
+      cases[0].CurrentLastName__c,
+      'CurrentLastName should be populated from Account'
+    );
+    String expectedAddress = String.format(
+      ProfileUpdateCaseActions.ADDRESS_TEMPLATE,
+      new List<String>{
+        mockAccount.PersonOtherStreet,
+        mockAccount.PersonOtherCity,
+        mockAccount.PersonOtherState,
+        mockAccount.PersonOtherPostalCode,
+        mockAccount.PersonOtherCountry
+      }
+    );
+    Assert.areEqual(
+      expectedAddress,
+      cases[0].CurrentAddress__c,
+      'CurrentAddress should be populated from Account address fields'
+    );
+    Assert.isNull(
+      cases[1].CurrentFirstName__c,
+      'Non-Legal Name QA cases should not be populated'
+    );
+  }
+
+  @IsTest
+  static void testSetLegalNameQAInfoWithAccounts() {
+    Account mockAccount = constructMockAccount();
+    List<Case> cases = new List<Case>{
+      new Case(
+        Type = ProfileUpdateCaseActions.CASE_TYPE_LEGAL_NAME,
+        AccountId = mockAccount.Id
+      )
+    };
+    Test.startTest();
+    ProfileUpdateCaseActions.setLegalNameQAInfo(
+      cases,
+      new List<Account>{ mockAccount }
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      mockAccount.FirstName,
+      cases[0].CurrentFirstName__c,
+      'CurrentFirstName should be populated from Account'
+    );
+    Assert.areEqual(
+      mockAccount.MiddleName,
+      cases[0].CurrentMiddleName__c,
+      'CurrentMiddleName should be populated from Account'
+    );
+    Assert.areEqual(
+      mockAccount.LastName,
+      cases[0].CurrentLastName__c,
+      'CurrentLastName should be populated from Account'
+    );
+    String expectedAddress = String.format(
+      ProfileUpdateCaseActions.ADDRESS_TEMPLATE,
+      new List<String>{
+        mockAccount.PersonOtherStreet,
+        mockAccount.PersonOtherCity,
+        mockAccount.PersonOtherState,
+        mockAccount.PersonOtherPostalCode,
+        mockAccount.PersonOtherCountry
+      }
+    );
+    Assert.areEqual(
+      expectedAddress,
+      cases[0].CurrentAddress__c,
+      'CurrentAddress should be populated from Account address fields'
+    );
+  }
+
+  @IsTest
+  static void testSetLegalNameQAInfoMissingAccount() {
+    Id accountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Account mockAccount = constructMockAccount();
+    List<Case> cases = new List<Case>{
+      new Case(
+        Type = ProfileUpdateCaseActions.CASE_TYPE_LEGAL_NAME,
+        AccountId = accountId
+      )
+    };
+    Test.startTest();
+    ProfileUpdateCaseActions.setLegalNameQAInfo(
+      cases,
+      new List<Account>{ mockAccount }
+    );
+    Test.stopTest();
+    Assert.isNull(
+      cases[0].CurrentFirstName__c,
+      'CurrentFirstName should remain null when Account is not found'
+    );
+    Assert.isNull(
+      cases[0].CurrentMiddleName__c,
+      'CurrentMiddleName should remain null when Account is not found'
+    );
+    Assert.isNull(
+      cases[0].CurrentLastName__c,
+      'CurrentLastName should remain null when Account is not found'
+    );
+    Assert.isNull(
+      cases[0].CurrentAddress__c,
+      'CurrentAddress should remain null when Account is not found'
+    );
+  }
+
+  static Account constructMockAccount() {
+    return new Account(
+      Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+      FirstName = FAKER.person.firstName(),
+      MiddleName = FAKER.person.firstName(),
+      LastName = FAKER.person.lastName(),
+      PersonOtherStreet = FAKER.address.street(),
+      PersonOtherCity = FAKER.address.city(),
+      PersonOtherState = FAKER.address.state(),
+      PersonOtherPostalCode = FAKER.address.stateCode(),
+      PersonOtherCountry = FAKER.address.country()
+    );
+  }
 }

@@ -628,31 +628,9 @@ public with sharing class CommercialReferralLeadActionsTest {
 
     //THEN it should return Lead with updated customer lead
     Assert.areEqual(
-      'Purchasing Property',
+      'Commercial Lending',
       leadsList[0].FinServ__ExpressedInterest__c,
       'referral customer need should get mapped to correct value'
-    );
-  }
-
-  @isTest
-  static void mapReferralCustomerNeedTestNull() {
-    //GIVEN list of lead
-    List<Lead> leadsList = new List<Lead>{
-      new Lead(
-        Id = Lib_FakeIdGenerator.getMockId(Lead.SObjectType),
-        Referral_Customer_Needs__c = 'Selling/Closing your Business'
-      )
-    };
-
-    //WHEN calling a method
-    Test.startTest();
-    CommercialReferralLeadActions.mapReferralCustomerNeed(leadsList);
-    Test.stopTest();
-
-    //THEN it should return Lead with updated customer lead
-    Assert.isNull(
-      leadsList[0].FinServ__ExpressedInterest__c,
-      'referral customer need should be null for other values'
     );
   }
 

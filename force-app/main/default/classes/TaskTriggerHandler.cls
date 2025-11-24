@@ -18,14 +18,12 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
     IDRTaskActions.updateNotificationSubject(records);
     IDRTaskActions.beforeInsertActions(records);
     GetHelpTaskActions.beforeInsertActions(records);
-    CCRMTaskActions.validateLeadAbnACN(records);
     //Added for CC-4053 Redaction
     TextUtils.RecordListWrapper wrapperData = TextUtils.checkRecordTypeRedactionMethod(
       records,
       new List<Id>{
         CCRMConstants.CCRM_TASK_RT_ID,
-        MLCRMConstants.MLCRM_TASK_RT_ID,
-        CCRMConstants.LEAD_RESPONSE_RT_ID
+        MLCRMConstants.MLCRM_TASK_RT_ID
       }
     );
 
@@ -40,7 +38,6 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onAfterInsert() {
     IDRTaskActions.afterInsertActions(records);
-    CCRMTaskActions.updateCCRMLeads(records);
   }
   /**
    * @description onBeforeUpdate to handle after update trigger actions.
@@ -55,8 +52,7 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
       records,
       new List<Id>{
         CCRMConstants.CCRM_TASK_RT_ID,
-        MLCRMConstants.MLCRM_TASK_RT_ID,
-        CCRMConstants.LEAD_RESPONSE_RT_ID
+        MLCRMConstants.MLCRM_TASK_RT_ID
       }
     );
 
@@ -83,6 +79,5 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onBeforeDelete() {
     IDRTaskActions.beforeDeleteActions(records);
-    CCRMTaskActions.preventDelete(records);
   }
 }

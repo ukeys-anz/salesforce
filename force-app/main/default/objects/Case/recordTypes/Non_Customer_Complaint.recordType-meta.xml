@@ -5212,10 +5212,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>23</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>24</fullName>
             <default>false</default>
         </values>
@@ -5312,10 +5308,6 @@
         </values>
         <values>
             <fullName>Know Your Customer</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>23</fullName>
             <default>false</default>
         </values>
         <values>
@@ -6613,23 +6605,15 @@
     <picklistValues>
         <picklist>IDR_Reason_for_re_opening__c</picklist>
         <values>
-            <fullName>1</fullName>
+            <fullName>6</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>2</fullName>
+            <fullName>7</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>3</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>4</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>5</fullName>
+            <fullName>8</fullName>
             <default>false</default>
         </values>
     </picklistValues>

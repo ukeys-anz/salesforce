@@ -67,6 +67,16 @@
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Lead_Id__c</fieldItem>
+                <identifier>RecordLead_Id_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-83a5be57-88b7-4a15-9e52-62e8b693ff23</name>
         <type>Facet</type>
     </flexiPageRegions>

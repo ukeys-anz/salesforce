@@ -106,6 +106,11 @@ public with sharing class ProfileUpdateCaseRepository {
         FirstName,
         MiddleName,
         LastName,
+        PersonOtherStreet,
+        PersonOtherCity,
+        PersonOtherState,
+        PersonOtherPostalCode,
+        PersonOtherCountry,
         OCV_ID__c,
         Source_System_ID__c,
         Source_System_Name__c

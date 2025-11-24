@@ -274,4 +274,31 @@ public with sharing class CommercialLeadActionsHelper {
     leadRecord.CPID__c = accRecord?.CPID__c;
     leadRecord.CPID_Owner__c = accRecord?.Controlling_Post__r?.OwnerId;
   }
+
+  /**
+   * @description : This is used to populate the contatc Info on Lead from Individual ETB Account
+   * name populateContactInfoForInd
+   * @param filteredLeadsList filtered Lead records
+   * @param accMap Map of Id and Account
+   */
+  public static void populateContactInfoForInd(
+    List<Lead> filteredLeadsList,
+    Map<Id, Account> accMap
+  ) {
+    for (Lead leadRec : filteredLeadsList) {
+      Account accRec = accMap.get(leadRec.FinServ__RelatedAccount__c);
+      if (accRec == null) {
+        continue;
+      }
+      leadRec.MobilePhone = accRec.PersonOtherPhone;
+      leadRec.Work_Phone__c = accRec.Phone;
+      leadRec.Home_Phone__c = accRec.PersonHomePhone;
+      leadRec.Email = accRec.Other_Email__c;
+      leadRec.Primary_Contact_Method__c = (leadRec.MobilePhone != null)
+        ? 'Mobile'
+        : ((leadRec.Work_Phone__c != null)
+            ? 'Work Phone'
+            : ((leadRec.Home_Phone__c != null) ? 'Home Phone' : null));
+    }
+  }
 }

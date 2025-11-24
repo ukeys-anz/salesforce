@@ -468,6 +468,14 @@
         <apexClass>CommercialCRActions</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>LeadEnhmentUpdateCommContactController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>LeadCommContactRepository</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <customMetadataTypeAccesses>
         <name>CCRM_Log_Interaction_Comment__mdt</name>
         <enabled>true</enabled>
@@ -6073,6 +6081,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Lead.Individual_Customer_Profile__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Lead.Followup_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -6129,6 +6142,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Lead.Lead_Originator__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.Lead_Outcome__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -91,4 +91,22 @@
         <label>Auto Archived</label>
         <closed>true</closed>
     </standardValue>
+    <standardValue>
+        <fullName>Pending</fullName>
+        <default>false</default>
+        <label>Pending</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>No Review Required</fullName>
+        <default>false</default>
+        <label>No Review Required</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Reviewed</fullName>
+        <default>false</default>
+        <label>Reviewed</label>
+        <closed>true</closed>
+    </standardValue>
 </StandardValueSet>

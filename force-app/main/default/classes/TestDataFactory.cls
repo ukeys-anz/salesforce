@@ -730,7 +730,6 @@ public without sharing class TestDataFactory {
     }
     return finAccount;
   }
-
   /**
    * @description To create test data for Customer_Action__c
    * @param recordTypeId Record type Id for the record
@@ -753,7 +752,7 @@ public without sharing class TestDataFactory {
     ca.Financial_Account__c = financialAccountId;
     ca.New_Value__c = '2';
     ca.Old_Value__c = '1';
-    ca.Status__c = FinancialAccountActions.CUSTOMER_ACTION_STATUS_PENDING;
+    ca.Status__c = 'STATE_PENDING';
     ca.Triggered_From__c = faker.randomString(10);
 
     if (isInsert) {

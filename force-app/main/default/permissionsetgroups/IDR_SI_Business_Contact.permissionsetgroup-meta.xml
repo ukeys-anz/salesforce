@@ -6,6 +6,7 @@
     <permissionSets>Chatter_User_with_License</permissionSets>
     <permissionSets>dupcheck_CMOS</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
+    <permissionSets>IDR_C360_Base</permissionSets>
     <permissionSets>IDR_User</permissionSets>
     <permissionSets>IDR_User_Level_3</permissionSets>
     <permissionSets>IDR_User_SIBU</permissionSets>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Corrective_actions_required_CM__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Lists corrective actions to be completed by the related case owner</description>
+    <label>Corrective actions required CM</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Final letter not compliant</fullName>
+                <default>false</default>
+                <label>Final letter not compliant</label>
+            </value>
+            <value>
+                <fullName>Vulnerability / extra care not identified or provided</fullName>
+                <default>false</default>
+                <label>Vulnerability / extra care not identified or provided</label>
+            </value>
+            <value>
+                <fullName>Hardship notice not identified or responded to promptly</fullName>
+                <default>false</default>
+                <label>Hardship notice not identified or responded to promptly</label>
+            </value>
+            <value>
+                <fullName>Timeliness requirements not met</fullName>
+                <default>false</default>
+                <label>Timeliness requirements not met</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

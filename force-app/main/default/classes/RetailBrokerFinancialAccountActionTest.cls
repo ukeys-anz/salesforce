@@ -100,6 +100,9 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
       createFinancialAccounts(RTFinancialAccount.bankAccount, null)
     );
     finAccounts[0].Marketing_Code__c = 'HLVAR01';
+    finAccounts[0].Assisted_Broker__c = Lib_FakeIdGenerator.getMockId(
+      Broker_Code__c.SObjectType
+    );
     Integer cloudEventsBefore = CloudEventController.cloudEvents == null
       ? 0
       : CloudEventController.cloudEvents.size();
@@ -267,6 +270,9 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
       RTFinancialAccount.bankAccount,
       newRecordId
     );
+    newRecord.Assisted_Broker__c = Lib_FakeIdGenerator.getMockId(
+      Broker_Code__c.SObjectType
+    );
     newRecord.Marketing_Code__c = 'HLVAR01';
     Test.startTest();
     List<FinServ__FinancialAccount__c> validRecords = RetailBrokerFinancialAccountAction.filterPlusFinancialAccounts(
@@ -309,6 +315,9 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
     FinServ__FinancialAccount__c validRecord = createFinancialAccounts(
       RTFinancialAccount.bankAccount,
       newRecordId
+    );
+    validRecord.Assisted_Broker__c = Lib_FakeIdGenerator.getMockId(
+      Broker_Code__c.SObjectType
     );
     String jsonValid = JSON.serialize(validRecord);
     Map<String, Object> validMap = (Map<String, Object>) JSON.deserializeUntyped(

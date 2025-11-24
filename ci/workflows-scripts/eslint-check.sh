@@ -49,11 +49,11 @@ if [[ ! -n "$allFilesPath" ]]; then
   exit 0
 fi
 
-echo "⚙️ Running ESLint with .lwc-eslintrc.json..."
+echo "⚙️ Running ESLint with eslint.config.mjs (ESLint 9)..."
 eslint_failed=false
 
 eslint_output_file="$RUNNER_TEMP/eslint_output.log"
-npx eslint $allFilesPath -c .lwc-eslintrc.json > "$eslint_output_file" 2>&1 || eslint_failed=true
+npx eslint $allFilesPath > "$eslint_output_file" 2>&1 || eslint_failed=true
 
 if [[ "$eslint_failed" == "true" ]]; then
   cat "$eslint_output_file"

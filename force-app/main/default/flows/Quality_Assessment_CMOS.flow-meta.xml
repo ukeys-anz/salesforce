@@ -106,8 +106,30 @@
         <name>Is_Call_Letter_Review</name>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <label>Is This Call/Letter Review or CQ Assessment</label>
-        <locationX>94</locationX>
+        <locationX>402</locationX>
         <locationY>276</locationY>
+        <rules>
+            <name>Final_Letter_Review_Assessment</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Evaluation_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Final Letter Review Assessment</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Setup.Salesforce_Library_Settings__c.Disable_Flows__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Assessment_Result_On_Final_Letter_Review</targetReference>
+            </connector>
+            <label>Final Letter Review Assessment</label>
+        </rules>
         <rules>
             <name>This_is_Call_Letter_Review</name>
             <conditionLogic>and</conditionLogic>
@@ -164,7 +186,7 @@
         <name>Is_Case_Manager_Level_1</name>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <label>Is Case Manager Level 1</label>
-        <locationX>754</locationX>
+        <locationX>1128</locationX>
         <locationY>1103</locationY>
         <rules>
             <name>Case_Manager_is_Level_1</name>
@@ -360,6 +382,22 @@
         </inputAssignments>
         <inputReference>$Record</inputReference>
         <label>Update Assessment Result on CQ</label>
+        <locationX>490</locationX>
+        <locationY>384</locationY>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Assessment_Result_On_Final_Letter_Review</name>
+        <connector>
+            <targetReference>Is_Assessment_Owned_by_Case_Manager</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Assessment_Result__c</field>
+            <value>
+                <elementReference>$Record.AssessmentResultFinalLetterReview__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+        <label>Update Assessment Result On Final Letter Review</label>
         <locationX>50</locationX>
         <locationY>384</locationY>
     </recordUpdates>
@@ -376,7 +414,7 @@
                 <stringValue>Complete</stringValue>
             </value>
         </filters>
-        <locationX>430</locationX>
+        <locationX>804</locationX>
         <locationY>0</locationY>
         <object>Quality_Assessment__c</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>

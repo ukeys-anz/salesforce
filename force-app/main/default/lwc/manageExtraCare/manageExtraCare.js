@@ -266,17 +266,18 @@ export default class ManageExtraCare extends LightningElement {
       }
       this.newAccount[field.dataset.id] = field.value;
       if (field.dataset.id === "ExtraCareTimePeriod__c") {
-        if (field.value !== "Ongoing") {
+        if (field.value === "Not required") {
+          this.newAccount.ExtraCareReason__c = "";
+          this.newAccount.ExtraCareNotes__c = "";
+          this.newAccount.ExtraCareReviewDate__c = "";
+        } else if (field.value === "Ongoing") {
+          this.newAccount.ExtraCareReviewDate__c = "";
+        } else {
           this.updateReviewDate();
         }
         //reset fields
         this.newAccount.ExtraCareDisclosure__c = false;
         this.newAccount.ExtraCareConsent__c = false;
-        if (field.value === "Not required") {
-          this.newAccount.ExtraCareReason__c = "";
-          this.newAccount.ExtraCareNotes__c = "";
-          this.newAccount.ExtraCareReviewDate__c = "";
-        }
       }
       if (field.dataset.id === "ExtraCareNotes__c") {
         if (field.value.length >= 1000) {
@@ -359,11 +360,8 @@ export default class ManageExtraCare extends LightningElement {
   }
 
   updateReviewDate() {
-    let today = new Date();
-    today.setDate(today.getDate() + 1);
-    let futureDate = new Date();
-    futureDate.setFullYear(today.getFullYear() + 1);
-    let oneYearFromToday = futureDate.toISOString().split("T")[0];
+    const oneYearFromToday = this.getNextYear();
+
     // Review Date is not visible
     if (!this.showReviewDate) {
       this.newAccount.ExtraCareReviewDate__c = null;
@@ -388,5 +386,25 @@ export default class ManageExtraCare extends LightningElement {
     if (!ecReasonAreSame && newEcReason.length > oldEcReason.length) {
       this.newAccount.ExtraCareReviewDate__c = oneYearFromToday;
     }
+  }
+
+  getNextYear() {
+    // Get current date in AEDT
+    const today = new Date();
+
+    // Add one year
+    const nextYear = new Date(today);
+    nextYear.setFullYear(today.getFullYear() + 1);
+
+    // Format in AEDT
+    const options = {
+      timeZone: "Australia/Melbourne", // AEDT time zone
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit"
+    };
+
+    const formatter = new Intl.DateTimeFormat("en-CA", options);
+    return formatter.format(nextYear);
   }
 }
