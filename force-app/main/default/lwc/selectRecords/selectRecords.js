@@ -76,6 +76,7 @@ export default class SelectRecords extends LightningElement {
           this.getData();
         }
       }
+      // eslint-disable-next-line no-unused-vars
     } catch (error) {
       this.handleToastNotification(
         "Failed To fetch data",
@@ -111,6 +112,7 @@ export default class SelectRecords extends LightningElement {
       });
       this.data = finAccounts;
       this.showNoDataMessage = this.data.length === 0;
+      // eslint-disable-next-line no-unused-vars
     } catch (error) {
       this.handleToastNotification(
         "Failed To retrieve the records",
@@ -149,6 +151,7 @@ export default class SelectRecords extends LightningElement {
       );
       this.closeModal();
       this.refreshTab();
+      // eslint-disable-next-line no-unused-vars
     } catch (error) {
       this.handleToastNotification(
         "Failed To update the Case",
