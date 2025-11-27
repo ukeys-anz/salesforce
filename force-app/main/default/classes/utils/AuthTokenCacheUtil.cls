@@ -284,7 +284,9 @@ public with sharing class AuthTokenCacheUtil {
         staffToken != null &&
         (APISCOPE_HAVING_JWE_TOKEN.contains(
           staffModelWrapper.apiScopesRequested
-        ) || AuthTokenCacheUtil.isTokenValid(staffToken))
+        ) ||
+        forgeAuth.isJWEToken__c ||
+        AuthTokenCacheUtil.isTokenValid(staffToken))
       ) {
         return staffToken;
       }
@@ -301,8 +303,8 @@ public with sharing class AuthTokenCacheUtil {
       expiresIn = responseModel.expiresIn.intValue();
       // DCRM_FinSummary has TTL 299,
       if (
-        staffModelWrapper.apiScopesRequested == 'DCRM_FinSummary' &&
-        expiresIn < 300
+        (staffModelWrapper.apiScopesRequested == 'DCRM_FinSummary' ||
+        forgeAuth.IsJWEToken__c) && expiresIn < 300
       ) {
         expiresIn = 300;
       }

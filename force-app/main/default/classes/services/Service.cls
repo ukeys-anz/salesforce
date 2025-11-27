@@ -185,6 +185,21 @@ public with sharing virtual class Service {
   }
 
   /**
+   * @param staffModelWrapper wrapper for forgeV2 api
+   * @param idToken id token as the bearer token
+   * @param forgeAuth custom metadata which contains the client id and secret
+   * @return `HttpCalloutResponse` api response
+   * @description fetches response from forge api
+   */
+  public virtual HttpCalloutResponse getForgeJWEToken(
+    StaffTokenRequestModel staffModelWrapper,
+    String idToken,
+    Forgerock_Auth__mdt forgeAuth
+  ) {
+    return null;
+  }
+
+  /**
    * @param ocvId customer id
    * @param paramUrl Used to fetch the next lot of transactions or search by date
    * @return `HttpCalloutResponse` api response
@@ -331,6 +346,17 @@ public with sharing virtual class Service {
   }
 
   /**
+   * @return `Map<String, String>` header map for aegis environment
+   * @description sets x-aegis-env header for sandboxes only
+   */
+  public Map<String, String> getAegisEnv() {
+    if (QueryOrganization.isSandbox()) {
+      return new Map<String, String>();
+    }
+    return new Map<String, String>{ 'x-aegis-env' => Label.x_aegis_env };
+  }
+
+  /**
    * @param staffModelWrapper wrapper for forgeV2 api
    * @return `Map<String, String>` header map
    * @description sets all headers required for a callout
@@ -340,6 +366,11 @@ public with sharing virtual class Service {
   ) {
     Map<String, String> headers = new Map<String, String>();
     headers = setAuthorizationCommonHeaders(staffModelWrapper);
+    //secure waf flow goes to waf gateway directly without mule
+    if (staffModelWrapper.isSecureWafFlow) {
+      headers.putAll(getAegisEnv());
+      return headers;
+    }
     headers = setMuleCommonHeaders(headers);
     return headers;
   }

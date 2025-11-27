@@ -62,6 +62,13 @@ public with sharing class JWTUtil {
     }
     return null;
   }
+  /**
+   * @description Combine JWTHeader, JWTPayload and signature
+   * @return Signed JWT
+   */
+  public String getSignedJWT() {
+    return getSignedJWT(null, null, UUID.randomUUID().toString());
+  }
 
   /**
    * @description Build standard JWT header
@@ -89,21 +96,32 @@ public with sharing class JWTUtil {
     JSONGenerator body = JSON.createGenerator(false);
     body.writeStartObject();
     body.writeStringField('iss', jwtAttributes.Issuer__c);
-    if (jwtAttributes.LoginHint__c != null) {
+    body.writeStringField('sub', jwtAttributes.Issuer__c); // create a new field for sub
+    body.writeStringField('aud', jwtAttributes.Audience__c);
+    body.writeNumberField('exp', (rightNow + jwtAttributes.ValidFor__c));
+    body.writeNumberField('iat', rightNow);
+    body.writeStringField('jti', uuid);
+
+    if (string.isNotBlank(jwtAttributes.LoginHint__c)) {
       String strLoginHint = String.format(
         jwtAttributes.LoginHint__c,
         new List<String>{ ocvId }
       );
       body.writeStringField('login_hint', strLoginHint);
     }
-    body.writeStringField('aud', jwtAttributes.Audience__c);
-    body.writeStringField('acr_values', acrValue);
-    body.writeStringField('auth_context', jwtAttributes.AuthContext__c);
-    body.writeStringField('scope', jwtAttributes.Scope__c);
-    body.writeStringField('binding_message', jwtAttributes.BindingMessage__c);
-    body.writeNumberField('exp', (rightNow + jwtAttributes.ValidFor__c));
-    body.writeNumberField('iat', rightNow);
-    body.writeStringField('jti', uuid);
+    if (string.isNotBlank(acrValue)) {
+      body.writeStringField('acr_values', acrValue);
+    }
+    if (string.isNotBlank(jwtAttributes.AuthContext__c)) {
+      body.writeStringField('auth_context', jwtAttributes.AuthContext__c);
+    }
+
+    if (string.isNotBlank(jwtAttributes.BindingMessage__c)) {
+      body.writeStringField('binding_message', jwtAttributes.BindingMessage__c);
+    }
+    if (string.isNotBlank(jwtAttributes.Scope__c)) {
+      body.writeStringField('scope', jwtAttributes.Scope__c);
+    }
     body.writeEndObject();
     return CommonUtil.base64URLencode(body.getAsString());
   }

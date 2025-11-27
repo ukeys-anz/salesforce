@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Issuer__c</fullName>
-    <businessStatus>Active</businessStatus>
+    <fullName>IsJWEToken__c</fullName>
+    <businessStatus>Hidden</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-    <description>JSON Web Token Issuer</description>
-    <externalId>false</externalId>
+    <defaultValue>false</defaultValue>
+    <description>Indicates if it is a jwe token.</description>
     <fieldManageability>DeveloperControlled</fieldManageability>
-    <label>Issuer</label>
-    <length>20</length>
-    <required>false</required>
+    <label>Is JWE Token</label>
     <securityClassification>Internal</securityClassification>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Checkbox</type>
 </CustomField>
