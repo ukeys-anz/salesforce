@@ -4317,6 +4317,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ContentDocument.ContentSizeLong</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ContentVersion.ContentSize</field>
         <readable>true</readable>
     </fieldPermissions>
