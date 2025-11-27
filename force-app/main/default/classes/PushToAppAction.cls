@@ -50,7 +50,17 @@ public with sharing class PushToAppAction {
         caseRecIds
       );
       ListUtil.setField(tasksToUpdate, Task.Status, 'TASK_STATE_AUTO_ARCHIVED');
-      DML_REPOSITORY.doUpdate(tasksToUpdate);
+      /** 
+       *  
+        Reason for System Mode:
+        Update the task in System mode because, during case escalation, IDR/CMOS users who do not own the
+        related task lack permission to update it—causing the task to shift to TASK_STATE_AUTO_ARCHIVED.
+        System context ensures the task is updated correctly regardless of record ownership.
+      */
+      DML_REPOSITORY.doUpdate(
+        tasksToUpdate,
+        new DmlConfig().systemMode().withoutSharing()
+      );
     } catch (Exception objException) {
       Logger.error(
           'Push To App Customer Nudge Task To Auto Expire Update Failed with error message: ',
