@@ -15,7 +15,7 @@ public with sharing class ValidateABNACNController {
    * @name validateAbnAcnForCallout
    * @param leadId leads id
    */
-  @AuraEnabled(cacheable=true)
+  @AuraEnabled
   public static void validateAbnAcnForCallout(Id leadId) {
     Lead leadRecord = LEAD_REPOSITORY.getLead(leadId);
     if (leadRecord.Registered_Company__c != 'Yes') {

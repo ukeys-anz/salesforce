@@ -1,6 +1,7 @@
 <template>
   <div lwc:if={isLoading}>
-    <lightning-spinner alternative-text="Loading..." variant="brand">
-    </lightning-spinner>
+    <lightning-card>
+      <p class="slds-m-left_medium">{message}</p>
+    </lightning-card>
   </div>
 </template>

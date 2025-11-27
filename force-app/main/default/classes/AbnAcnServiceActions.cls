@@ -13,6 +13,10 @@ public with sharing class AbnAcnServiceActions {
     DmlRepository.class
   );
 
+  private static final LeadActionsRepository LEAD_REPOSITORY = (LeadActionsRepository) Lib_InstanceProvider.forType(
+    LeadActionsRepository.class
+  );
+
   /**
    * @description Check if the lead's ABN or ACN is added and set ABN or ACN validation status to Validation in progress
    * @name setValidationStatus
@@ -101,9 +105,13 @@ public with sharing class AbnAcnServiceActions {
   public static void makeAbnCallout(String abn, String leadId) {
     CCRMAPIRepository apiRepo = new CCRMAPIRepository();
     CCRMValidateAbnAcnModel responseMap = apiRepo.validateAbn(abn);
+    Lead leadRecord = LEAD_REPOSITORY.getLead(leadId);
     Lead leadRec = new Lead(id = leadId);
     leadRec.ABN_Validation_Status__c = responseMap?.abnStatus ??
       ABN_ACN_STATUS_FAILED;
+    leadRec.Skip_Validations__c = setSkipValidation(
+      leadRecord.Skip_Validations__c
+    );
     LeadManagementActions.calloutLeadIds.add(leadId);
     DML_REPOSITORY.doUpdate(leadRec);
   }
@@ -116,10 +124,26 @@ public with sharing class AbnAcnServiceActions {
   public static void makeAcnCallout(String acn, String leadId) {
     CCRMAPIRepository apiRepo = new CCRMAPIRepository();
     CCRMValidateAbnAcnModel responseMap = apiRepo.validateAcn(acn);
+    Lead leadRecord = LEAD_REPOSITORY.getLead(leadId);
     Lead leadRec = new Lead(id = leadId);
     leadRec.ACN_Validation_Status__c = responseMap?.abnStatus ??
       ABN_ACN_STATUS_FAILED;
+    leadRec.Skip_Validations__c = setSkipValidation(
+      leadRecord.Skip_Validations__c
+    );
     LeadManagementActions.calloutLeadIds.add(leadId);
     DML_REPOSITORY.doUpdate(leadRec);
+  }
+
+  /**
+   * @description Used to set Skip Validation flag to bypass validation
+   * @param skipValidation Skip validation value from lead
+   * @return String skipValidation value
+   */
+  private static String setSkipValidation(String skipValidation) {
+    if (skipValidation != 'SkipValidation') {
+      return 'SkipValidation';
+    }
+    return 'Validate';
   }
 }
