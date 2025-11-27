@@ -126,6 +126,31 @@
                 <default>false</default>
                 <label>Transactional Services (inc. IB4B, Account opening and Merchant services)</label>
             </value>
+            <value>
+                <fullName>ANZ Plus Home Loan - Refinance</fullName>
+                <default>false</default>
+                <label>ANZ Plus Home Loan - Refinance</label>
+            </value>
+            <value>
+                <fullName>Commercial Lending</fullName>
+                <default>false</default>
+                <label>Commercial Lending</label>
+            </value>
+            <value>
+                <fullName>Transact &amp; Save</fullName>
+                <default>false</default>
+                <label>Transact &amp; Save</label>
+            </value>
+            <value>
+                <fullName>Working Capital Solutions</fullName>
+                <default>false</default>
+                <label>Working Capital Solutions</label>
+            </value>
+            <value>
+                <fullName>Home Loans</fullName>
+                <default>false</default>
+                <label>Home Loans</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

@@ -35,6 +35,7 @@ public with sharing class CommercialReferralLeadTriggerHandler extends Lib_Trigg
     CommercialReferralLeadActions.populateNewToBank(records, null);
     CommercialLeadActions.populateInfo(records, null);
     CommercialReferralLeadActions.updateIknowReferralStatus(records);
+    CommercialLeadActions.prefillContactInfoForIndLead(records, null);
   }
 
   /**
@@ -59,6 +60,10 @@ public with sharing class CommercialReferralLeadTriggerHandler extends Lib_Trigg
       (List<Lead>) records,
       (Map<Id, Lead>) oldMap
     );
+    CommercialLeadActions.prefillContactInfoForIndLead(
+      (List<Lead>) records,
+      (Map<Id, Lead>) oldMap
+    );
   }
 
   /**
@@ -66,6 +71,7 @@ public with sharing class CommercialReferralLeadTriggerHandler extends Lib_Trigg
    * @name onAfterInsert
    */
   public override void onAfterInsert() {
+    LeadManagementActions.copyLeadId(records);
     LeadManagementActions.createCampaignMember(records);
     CommercialReferralLeadActions.updateParentLead(records);
     CommercialReferralLeadActions.sendBellNotificationIknowReferral(records);

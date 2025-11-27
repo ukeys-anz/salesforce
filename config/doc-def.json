@@ -83,6 +83,7 @@
     "Loan_Facility_Config__c",
     "Log_Record_Access__b",
     "Mortgage_Contract__c",
+    "Needs_Analysis__c",
     "Opportunity",
     "OpportunityContactRole",
     "OpportunityLineItem",

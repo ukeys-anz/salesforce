@@ -264,7 +264,7 @@ public class LogAResponseControllerTest {
         FinServ__RelatedAccount__c = Lib_FakeIdGenerator.getMockId(
           Schema.Account.getSObjectType()
         ),
-        FinServ__ExpressedInterest__c = 'Purchasing Vacant Land',
+        FinServ__ExpressedInterest__c = 'Commercial Lending',
         ABN__c = '99 083 344 334',
         ACN__c = '083 344 334',
         ABN_Validation_Status__c = 'Active',

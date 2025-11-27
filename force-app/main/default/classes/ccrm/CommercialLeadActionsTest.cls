@@ -644,8 +644,8 @@ public class CommercialLeadActionsTest {
 
     lead = new Lead(
       Id = Lib_FakeIdGenerator.getMockId(Schema.Lead.getSObjectType()),
-      FinServ__ExpressedInterest__c = 'Purchasing Property',
-      Secondary_Customer_Needs__c = 'Purchasing Property',
+      FinServ__ExpressedInterest__c = 'Commercial Lending',
+      Secondary_Customer_Needs__c = 'Commercial Lending',
       RecordTypeId = RTLead.commercialLead
     );
 
@@ -770,5 +770,91 @@ public class CommercialLeadActionsTest {
 
     //THEN it should not set the company to blank
     Assert.isNotNull(records[0].Company, 'Company should not set to blank');
+  }
+
+  @isTest
+  static void prefillContactInfoForIndLeadInsertTest() {
+    registerMocks();
+    //GIVEN records, accMap
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.getSObjectType());
+    List<Lead> records = new List<Lead>{
+      new Lead(
+        Id = Lib_FakeIdGenerator.getMockId(Lead.getSObjectType()),
+        Lead_Originator__c = 'UNICA',
+        FinServ__RelatedAccount__c = accId
+      )
+    };
+
+    Map<Id, Account> accMap = new Map<Id, Account>{
+      accId => new Account(
+        Id = accId,
+        PersonOtherPhone = '+61412345677',
+        Phone = '+61412345678',
+        PersonHomePhone = '+61412345679',
+        Other_Email__c = 'sample@google.com'
+      )
+    };
+
+    leadActionRepoMock.mock('getIndividualAccRecords', accMap);
+
+    //WHEN calling a method
+    Test.startTest();
+    CommercialLeadActions.prefillContactInfoForIndLead(records, null);
+    Test.stopTest();
+
+    //THEN it should assert successfully
+    Assert.areEqual(
+      '+61412345678',
+      records[0].Work_Phone__c,
+      'Work Phone should get populated from Account.'
+    );
+  }
+
+  @isTest
+  static void prefillContactInfoForIndLeadUpdateTest() {
+    registerMocks();
+    //GIVEN records, oldMap, accMap
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.getSObjectType());
+    Id accId2 = Lib_FakeIdGenerator.getMockId(Account.getSObjectType());
+    Id leadId = Lib_FakeIdGenerator.getMockId(Lead.getSObjectType());
+    List<Lead> records = new List<Lead>{
+      new Lead(
+        Id = leadId,
+        Lead_Originator__c = 'UNICA',
+        FinServ__RelatedAccount__c = accId
+      )
+    };
+
+    Map<Id, Lead> oldMap = new Map<Id, Lead>{
+      leadId => new Lead(
+        Id = leadId,
+        Lead_Originator__c = 'UNICA',
+        FinServ__RelatedAccount__c = accId2
+      )
+    };
+
+    Map<Id, Account> accMap = new Map<Id, Account>{
+      accId => new Account(
+        Id = accId,
+        PersonOtherPhone = '+61412345677',
+        Phone = '+61412345678',
+        PersonHomePhone = '+61412345679',
+        Other_Email__c = 'sample@google.com'
+      )
+    };
+
+    leadActionRepoMock.mock('getIndividualAccRecords', accMap);
+
+    //WHEN calling a method
+    Test.startTest();
+    CommercialLeadActions.prefillContactInfoForIndLead(records, oldMap);
+    Test.stopTest();
+
+    //THEN it should assert successfully
+    Assert.areEqual(
+      '+61412345679',
+      records[0].Home_Phone__c,
+      'Home Phone should get populated from Account.'
+    );
   }
 }

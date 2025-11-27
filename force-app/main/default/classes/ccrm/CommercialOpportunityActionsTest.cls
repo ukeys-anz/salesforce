@@ -528,15 +528,15 @@ public class CommercialOpportunityActionsTest {
 
     opp = new Opportunity(
       Id = Lib_FakeIdGenerator.getMockId(Schema.Opportunity.getSObjectType()),
-      Customer_Needs__c = 'Purchasing Property',
-      Secondary_Customer_Needs__c = 'Purchasing Property',
+      Customer_Needs__c = 'Commercial Lending',
+      Secondary_Customer_Needs__c = 'Commercial Lending',
       RecordTypeId = RTOpportunity.commercialOpportunity
     );
 
     oldMap = new Map<Id, Opportunity>{
       opp.Id => new Opportunity(
         Id = opp.Id,
-        Customer_Needs__c = 'Purchasing Vacant Land',
+        Customer_Needs__c = 'Commercial Lending',
         RecordTypeId = RTOpportunity.commercialOpportunity
       )
     };

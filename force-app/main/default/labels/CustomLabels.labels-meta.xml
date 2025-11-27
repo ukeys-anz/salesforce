@@ -392,11 +392,11 @@
         <value>&apos;No Opportunity&apos;, &apos;Referred&apos;, &apos;Expired&apos;, &apos;Opportunity Identified&apos;</value>
     </labels>
     <labels>
-        <fullName>CCRM_ExtendLeadExpiryDateWhenResponseLogCreated</fullName>
+        <fullName>CommercialExtendLeadExpiryDateForLogResponse</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Number of days Lead expiry to extend when response log created</shortDescription>
-        <value>5</value>
+        <value>14</value>
     </labels>
     <labels>
         <fullName>CCRM_MaxDaysExpiryDateExtends</fullName>
@@ -423,7 +423,7 @@
         <value>ANZ CCRM Standard User</value>
     </labels>
     <labels>
-        <fullName>CCRM_Today_Date</fullName>
+        <fullName>CommercialExtendTodaysDate</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>
         <protected>false</protected>

@@ -302,43 +302,23 @@
     <picklistValues>
         <picklist>FinServ__ExpressedInterest__c</picklist>
         <values>
-            <fullName>Assist with Business Working Capital%2FTemporary Finance</fullName>
+            <fullName>Commercial Lending</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Purchasing Property</fullName>
+            <fullName>Transact &amp; Save</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Purchasing a new Business</fullName>
+            <fullName>Working Capital Solutions</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Purchasing an existing Business</fullName>
+            <fullName>Home Loans</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Purchasing equipment %28inc%2E vehicles and fit out%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Refinance from Other Financial Institutions</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Purchasing Vacant Land</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Construction and Renovation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Set up a new Business %28Start Up%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Transactional Services %28inc%2E IB4B%2C Account opening and Merchant services%29</fullName>
+            <fullName>Other</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -3436,135 +3416,23 @@
     <picklistValues>
         <picklist>Secondary_Customer_Needs__c</picklist>
         <values>
-            <fullName>Asset Finance</fullName>
+            <fullName>Commercial Lending</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Assist with Business Working Capital%2FTemporary Finance</fullName>
+            <fullName>Transact &amp; Save</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Construction and Renovation</fullName>
+            <fullName>Working Capital Solutions</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Credit Card</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Foreign Exchange</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Home Loan</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Home Loan - Bridging Finance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Home Loan - Construction</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Home Loan - Increase</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Home Loan - Maintenance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Home Loan - Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Home Loan - Purchase</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Home Loan - Refinance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Home Loan - Refinance %2B Purchase</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Indemnity Guarantee</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Individual</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Insurance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Merchant</fullName>
+            <fullName>Home Loans</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other Loans</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Overdraft</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Personal Loan</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Purchasing Property</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Purchasing Vacant Land</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Purchasing a new Business</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Purchasing an existing Business</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Purchasing equipment %28inc%2E vehicles and fit out%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Refinance from Other Financial Institutions</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Set up a new Business %28Start Up%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Term Loan</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Trade Finance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Transactional Services %28inc%2E IB4B%2C Account opening and Merchant services%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Wealth</fullName>
             <default>false</default>
         </values>
     </picklistValues>

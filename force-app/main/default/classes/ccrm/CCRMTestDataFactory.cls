@@ -710,7 +710,7 @@ public with sharing class CCRMTestDataFactory {
     leadRecord.Company = 'Test Company';
     leadRecord.Registered_Company__c = 'No';
     leadRecord.Expiry_Date__c = System.today() + 10;
-    leadRecord.FinServ__ExpressedInterest__c = 'Purchasing Property';
+    leadRecord.FinServ__ExpressedInterest__c = 'Commercial Lending';
     leadRecord.FinServ__PotentialValue__c = 12000;
     leadRecord.FirstName = 'Sam' + staticNumber;
     leadRecord.LastName = 'Jacob';
@@ -901,7 +901,7 @@ public with sharing class CCRMTestDataFactory {
       leadRecord.Company = 'Test Company';
       leadRecord.Registered_Company__c = 'No';
       leadRecord.Expiry_Date__c = System.today() + 10;
-      leadRecord.FinServ__ExpressedInterest__c = 'Purchasing Property';
+      leadRecord.FinServ__ExpressedInterest__c = 'Commercial Lending';
       leadRecord.FinServ__PotentialValue__c = 12000;
       leadRecord.FirstName = 'Sam' + staticNumber;
       leadRecord.LastName = 'Jacob';

@@ -253,7 +253,7 @@ public with sharing class LeadExpiryActions {
     List<Lead> filteredFutureLead = ListUtil.filter(records)
       .notEquals(
         Lead.Expiry_Date__c,
-        Date.today().addDays(Integer.valueOf(System.Label.CCRM_Today_Date))
+        Date.today().addDays(Integer.valueOf(Label.CommercialExtendTodaysDate))
       )
       .toList();
     for (Lead record : filteredFutureLead) {

@@ -380,7 +380,7 @@ public with sharing class IDRQualityAssessmentTaskActions {
       );
       Task task = getTask(
         record,
-        IDRConstants.TASK_QA_COMPLIANCE_DESCRIPTION,
+        IDRConstants.TASK_QA_FEEDBACK_DESCRIPTION,
         formatted
       );
       task.OwnerId = record.Case_Manager__c;
@@ -411,7 +411,7 @@ public with sharing class IDRQualityAssessmentTaskActions {
         parameters
       );
       taskRecords.add(
-        getTask(record, IDRConstants.TASK_QA_COMPLIANCE_DESCRIPTION, formatted)
+        getTask(record, IDRConstants.TASK_QA_FEEDBACK_DESCRIPTION, formatted)
       );
     }
     return taskRecords;
