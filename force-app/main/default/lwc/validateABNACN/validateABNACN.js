@@ -3,10 +3,10 @@ import validateAbnAcnForCallout from "@salesforce/apex/ValidateABNACNController.
 import { CloseActionScreenEvent } from "lightning/actions";
 import { getFocusedTabInfo, refreshTab } from "lightning/platformWorkspaceApi";
 import { NavigationMixin } from "lightning/navigation";
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 export default class ValidateABNACN extends NavigationMixin(LightningElement) {
-  isLoading = true;
-  message = "ABN and ACN validation has been initiated...";
+  message = "ABN and ACN validation has been initiated.";
   @api
   set recordId(value) {
     this._recordId = value;
@@ -21,9 +21,15 @@ export default class ValidateABNACN extends NavigationMixin(LightningElement) {
     validateAbnAcnForCallout({ leadId: this._recordId });
     // eslint-disable-next-line @lwc/lwc/no-async-operation
     setTimeout(() => {
-      this.isLoading = false;
-      this.dispatchEvent(new CloseActionScreenEvent());
+      this.dispatchEvent(
+        new ShowToastEvent({
+          title: "Success",
+          message: this.message,
+          variant: "success"
+        })
+      );
       this.refreshConsoleTab();
+      this.dispatchEvent(new CloseActionScreenEvent());
     }, 5000);
   }
 

@@ -103,17 +103,24 @@ public with sharing class AbnAcnServiceActions {
    */
   @future(callOut=true)
   public static void makeAbnCallout(String abn, String leadId) {
+    Lead leadRec = abnCallout(abn, leadId);
+    DML_REPOSITORY.doUpdate(leadRec);
+  }
+
+  /**
+   * @description method to make ABN callout and get abn status
+   * @param abn Australian Business Number
+   * @param leadId lead record id from the trigger
+   * @return Lead leadRec
+   */
+  public static Lead abnCallout(String abn, String leadId) {
     CCRMAPIRepository apiRepo = new CCRMAPIRepository();
     CCRMValidateAbnAcnModel responseMap = apiRepo.validateAbn(abn);
-    Lead leadRecord = LEAD_REPOSITORY.getLead(leadId);
     Lead leadRec = new Lead(id = leadId);
     leadRec.ABN_Validation_Status__c = responseMap?.abnStatus ??
       ABN_ACN_STATUS_FAILED;
-    leadRec.Skip_Validations__c = setSkipValidation(
-      leadRecord.Skip_Validations__c
-    );
     LeadManagementActions.calloutLeadIds.add(leadId);
-    DML_REPOSITORY.doUpdate(leadRec);
+    return leadRec;
   }
   /**
    * @description method to make ACN callout and get acn status
@@ -122,28 +129,23 @@ public with sharing class AbnAcnServiceActions {
    */
   @future(callOut=true)
   public static void makeAcnCallout(String acn, String leadId) {
-    CCRMAPIRepository apiRepo = new CCRMAPIRepository();
-    CCRMValidateAbnAcnModel responseMap = apiRepo.validateAcn(acn);
-    Lead leadRecord = LEAD_REPOSITORY.getLead(leadId);
-    Lead leadRec = new Lead(id = leadId);
-    leadRec.ACN_Validation_Status__c = responseMap?.abnStatus ??
-      ABN_ACN_STATUS_FAILED;
-    leadRec.Skip_Validations__c = setSkipValidation(
-      leadRecord.Skip_Validations__c
-    );
-    LeadManagementActions.calloutLeadIds.add(leadId);
+    Lead leadRec = acnCallout(acn, leadId);
     DML_REPOSITORY.doUpdate(leadRec);
   }
 
   /**
-   * @description Used to set Skip Validation flag to bypass validation
-   * @param skipValidation Skip validation value from lead
-   * @return String skipValidation value
+   * @description method to make ACN callout and get acn status
+   * @param acn Australian Company Number
+   * @param leadId lead record id from the trigger
+   * @return Lead leadRec
    */
-  private static String setSkipValidation(String skipValidation) {
-    if (skipValidation != 'SkipValidation') {
-      return 'SkipValidation';
-    }
-    return 'Validate';
+  public static Lead acnCallout(String acn, String leadId) {
+    CCRMAPIRepository apiRepo = new CCRMAPIRepository();
+    CCRMValidateAbnAcnModel responseMap = apiRepo.validateAcn(acn);
+    Lead leadRec = new Lead(id = leadId);
+    leadRec.ACN_Validation_Status__c = responseMap?.abnStatus ??
+      ABN_ACN_STATUS_FAILED;
+    LeadManagementActions.calloutLeadIds.add(leadId);
+    return LeadRec;
   }
 }
