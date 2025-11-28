@@ -5394,13 +5394,41 @@
       ]
     },
     "Liability_Account__x": {
-      "IA-2415984": ["Customer__c", "Account_Name__c"],
+      "IA-2415984": ["Customer__c", "Account_Name__c", "Short_Name__c"],
       "IA-2415987": [
         "Account_Number__c",
+        "Account_Name_Line_1__c",
+        "Account_Name_Line_2__c",
+        "Account_Name_Line_3__c",
+        "Account_Securitisation_Indicator__c",
+        "Account_Title__c",
+        "Annual_Review_Date__c",
+        "ANZSIC__c",
         "Balance__c",
+        "Banking_Code_of_Practice__c",
+        "Code__c",
+        "Commitment__c",
+        "Cost_Centre__c",
+        "Credit_Rating__c",
+        "Domicile_Branch__c",
+        "Facility_Start_Date__c",
+        "Facility_Type__c",
+        "Last_Opportunity_to_Reprice__c",
         "Limit__c",
+        "Limit_Expiry_Date__c",
+        "Next_Opportunity_to_Reprice__c",
+        "Ownership_Code__c",
         "Product_Name__c",
-        "Status__c"
+        "Product_Code__c",
+        "Purpose_Code__c",
+        "Refinance_Alteration_Additional_Indicat__c",
+        "RI_INC__c",
+        "Security_Indicator__c",
+        "Service_Branch__c",
+        "Sub_Product_Code__c",
+        "Status__c",
+        "Unavailable_Funds__c",
+        "Relationship__c"
       ]
     },
     "Deposit_Account__x": {
