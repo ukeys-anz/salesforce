@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tiered_Credit_Int_Percentage_Factor9__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - CACHE</complianceGroup>
+    <description>Credit Factor</description>
+    <externalDeveloperName>TieredCreditInterestPercentageFactor9</externalDeveloperName>
+    <externalId>false</externalId>
+    <isFilteringDisabled>true</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>true</isSortingDisabled>
+    <label>Tiered Credit Int - Percentage Factor 9</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>5</scale>
+    <securityClassification>Confidential</securityClassification>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>
