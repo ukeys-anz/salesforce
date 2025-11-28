@@ -19,8 +19,11 @@ import updateOpportunity from "@salesforce/apex/OpportunityCreateOpenLoanappCont
 import SimpologyBaseUrl from "@salesforce/label/c.Simpology_Base_Url";
 import LoanappPrerequisiteLabel from "@salesforce/label/c.LoanappPrerequisiteLabel";
 import LoanappFriendlyErrorMessage from "@salesforce/label/c.LoanappFriendlyErrorMessage";
+import DefaultServiceBranchCode from "@salesforce/label/c.SimpologyDefaultServiceBranchCode";
 
 const USER_FRIENDLY_ERROR = LoanappFriendlyErrorMessage;
+const DEFAULT_SERVICE_BRANCH_CODE = DefaultServiceBranchCode;
+
 const VALID_CUSTOMER_NEEDS = [
   "Home Loan - Bridging Finance",
   "Home Loan - Refinance",
@@ -81,7 +84,6 @@ export default class OpportunityCreateOpenLoanapp extends LightningElement {
       this.oppDetails[AMOUNT_FIELD.fieldApiName] > 0 &&
       this.oppDetails[TPMI_FIELD.fieldApiName] &&
       this.oppDetails[EXPECTED_SETTLEMENT_DT_FIELD.fieldApiName] &&
-      this.oppDetails[SERVICING_BRANCH_FIELD.fieldApiName] &&
       this.validCustomerNeeds.includes(
         this.oppDetails[CUSTOMER_NEEDS_FIELD.fieldApiName]
       ) &&
@@ -118,6 +120,7 @@ export default class OpportunityCreateOpenLoanapp extends LightningElement {
         this.sendRequestToSimpology();
       }
     } catch (error) {
+      console.log(error);
       this.isLoading = false;
       this.showError = true;
     }
@@ -153,7 +156,7 @@ export default class OpportunityCreateOpenLoanapp extends LightningElement {
       }
       this.progress = 98;
       this.applicationKey = createOpenResult;
-      const oppInput = this.setApplicationKey(createOpenResult);
+      const oppInput = this.setApplicationKeyAndBranch(createOpenResult);
       await updateOpportunity({ opp: oppInput });
       await notifyRecordUpdateAvailable([{ recordId: this.recordId }]);
       this.progress = 100;
@@ -176,10 +179,13 @@ export default class OpportunityCreateOpenLoanapp extends LightningElement {
     }
   }
 
-  setApplicationKey(createOpenResult) {
+  setApplicationKeyAndBranch(createOpenResult) {
     const fields = {};
     fields[OPP_ID_FIELD.fieldApiName] = this.wiredRecordId;
     fields[APP_KEY_FIELD.fieldApiName] = createOpenResult;
+    if (!fields[SERVICING_BRANCH_FIELD.fieldApiName]) {
+      fields[SERVICING_BRANCH_FIELD.fieldApiName] = DEFAULT_SERVICE_BRANCH_CODE;
+    }
     if (!this.openApp) {
       let leadingZerosTrimmed = this.oppDetails[OPP_ID_CUST_FIELD.fieldApiName];
       leadingZerosTrimmed = leadingZerosTrimmed.replace(/^0+/, "");
