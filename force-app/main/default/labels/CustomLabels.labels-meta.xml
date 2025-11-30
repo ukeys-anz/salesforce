@@ -862,6 +862,13 @@
         <value>callout:SF_MS_CH2/coach-banking/v1/accounts</value>
     </labels>
     <labels>
+        <fullName>SimpologyDefaultServiceBranchCode</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Default Servicing Branch Code for Simpology</shortDescription>
+        <value>0000</value>
+    </labels>
+    <labels>
         <fullName>ST_Close_Package</fullName>
         <categories>ST</categories>
         <language>en_US</language>
@@ -2960,7 +2967,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>LoanappPrerequisiteLabel</shortDescription>
-        <value>Information missing. To Create Loanapp, please fill in the Amount, Customer Needs (Home Loans options only), Servicing Branch, Expected Settlement Date and ensure all customers have a DOB and gender. Expected Settlement Date must be in the future and must fall on a weekday.</value>
+        <value>Information missing. To Create Loanapp, please fill in the Amount, Customer Needs (Home Loans options only), Expected Settlement Date and ensure all customers have a DOB and gender. Expected Settlement Date must be in the future and must fall on a weekday.</value>
     </labels>
     <labels>
         <fullName>Complaints_Anz_Com_Sender_Address</fullName>
