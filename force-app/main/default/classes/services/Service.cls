@@ -350,7 +350,7 @@ public with sharing virtual class Service {
    * @description sets x-aegis-env header for sandboxes only
    */
   public Map<String, String> getAegisEnv() {
-    if (QueryOrganization.isSandbox()) {
+    if (QueryOrganization.isSandbox() == false) {
       return new Map<String, String>();
     }
     return new Map<String, String>{ 'x-aegis-env' => Label.x_aegis_env };
