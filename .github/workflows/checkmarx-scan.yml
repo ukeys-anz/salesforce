@@ -26,6 +26,7 @@ jobs:
       - name: Set env variables
         env:
           GITHUB_HEAD_REF: ${{ github.head_ref }}
+          EVENT_NAME: ${{ github.event_name }}
         run: |
           GITHUB_BRANCH=$GITHUB_HEAD_REF
           BUG_TRACKER=Sarif
@@ -34,7 +35,7 @@ jobs:
             GITHUB_BRANCH=$(echo ${GITHUB_REF#refs/heads/})
           fi
 
-          if [[ ${{ github.event.pull_request }} != '' ]]; then
+          if [[ $EVENT_NAME == 'pull_request' ]]; then
             BUG_TRACKER=GitHubPull
           fi
 
