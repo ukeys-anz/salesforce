@@ -21,11 +21,11 @@ public with sharing class IMTDisputeCaseCloudEventModel extends DisputeCaseCloud
   ) {
     super(theCase, theAccount);
     ce_type =
-      System.Label.ANZX_Disputes_event_ce_type_v1beta1 +
+      System.Label.ANZX_Disputes_event_ce_type_v1beta2 +
       'imt.' +
       action;
     ce_dataschema =
-      System.Label.ANZX_Disputes_Event_Proto_Data_Schema_v1beta1 +
+      System.Label.ANZX_Disputes_Event_Proto_Data_Schema_v1beta2 +
       '#IMTDispute';
     this.ce_data = new IMTDisputeCaseCloudEventDataModel(
       theCase,
