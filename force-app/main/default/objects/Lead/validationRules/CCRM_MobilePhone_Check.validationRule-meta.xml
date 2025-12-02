@@ -28,8 +28,7 @@
                 )
             )
         ),
-        AND(RecordType.DeveloperName = &apos;MLCRM_Lead&apos;,Text(Status) != &apos;Expired&apos;,OR(ISNEW(),ISCHANGED(MobilePhone))),
-        RecordType.DeveloperName = &apos;Referral&apos;
+        AND(RecordType.DeveloperName = &apos;MLCRM_Lead&apos;,Text(Status) != &apos;Expired&apos;,OR(ISNEW(),ISCHANGED(MobilePhone)))
     ),
     NOT ISBLANK( MobilePhone ) ,
     NOT(ISCHANGED(RecordTypeId)),
