@@ -5,12 +5,13 @@
     <description>Prevents updates to Contact Point Email records with certain Usage Type for DCRM Users</description>
     <errorConditionFormula>AND(
     $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = FALSE,
-    $Permission.CCRM_Skip_Validation = FALSE ,
+    $Permission.CCRM_Skip_Validation = FALSE,
     $Profile.Name = $Label.CCRM_Profile_Name,
     OR(
         ISPICKVAL(UsageType, &quot;Security Email&quot;),
         ISPICKVAL(UsageType, &quot;Business Email&quot;)
-    )
+    ),
+    NOT(ISCHANGED(UsageType))
 )</errorConditionFormula>
     <errorMessage>You are not authorized to create or edit email record with this Usage Type.</errorMessage>
 </ValidationRule>

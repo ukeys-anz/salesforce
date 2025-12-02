@@ -9,9 +9,9 @@
     $Profile.Name = $Label.CCRM_Profile_Name,
     OR(
         ISPICKVAL(UsageType, &quot;Security Mobile&quot;),
-        ISPICKVAL(UsageType, &quot;Business Phone&quot;),
         ISPICKVAL(UsageType, &quot;Primary Business Telephone&quot;)
-    )
+    ),
+    NOT(ISCHANGED(UsageType))
 )</errorConditionFormula>
     <errorMessage>You are not authorized to create or edit phone record with this Usage Type.</errorMessage>
 </ValidationRule>
