@@ -33,6 +33,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>CloneLeadController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CommercialNeedsAnalysisActions</apexClass>
         <enabled>true</enabled>
     </classAccesses>
