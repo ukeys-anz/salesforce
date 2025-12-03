@@ -122,15 +122,26 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
     );
   }
 
-  /* Assisted_Broker and Assisted_brokerTPMI_Sao is null */
+  /* Assisted_Broker and Assisted_brokerTPMI_Sao is not changed */
   @istest
-  static void testpopulateFinancialAccountAssistedBrokerWhenTPMIIsNull() {
+  static void testpopulateFinancialAccountAssistedBrokerWhenTPMINotChanged() {
     Id newRecordId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-    Map<Id, FinServ__FinancialAccount__c> oldMap = new Map<Id, FinServ__FinancialAccount__c>();
+
     FinServ__FinancialAccount__c newRecord = createFinancialAccounts(
       RTFinancialAccount.bankAccount,
       newRecordId
     );
+    newRecord.Assisted_Broker_TPMI_SAO__c = 'oldBroker-TPMISAO-1';
+    FinServ__FinancialAccount__c oldRecord = newRecord.Clone(
+      true,
+      true,
+      true,
+      true
+    );
+    oldRecord.Assisted_Broker_TPMI_SAO__c = 'oldBroker-TPMISAO-1';
+
+    Map<Id, FinServ__FinancialAccount__c> oldMap = new Map<Id, FinServ__FinancialAccount__c>();
+    oldMap.put(oldRecord.Id, oldRecord);
     Broker_Code__c mockBrokerCode = createMockBrokerCode(
       'Broker-TPMISAO-1_Retail',
       newRecord.Id
@@ -145,6 +156,7 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
       new List<FinServ__FinancialAccount__c>{ newRecord },
       oldMap
     );
+
     Test.stopTest();
 
     Assert.areEqual(0, recordsToUpdate.size(), 'No records should be updated');
