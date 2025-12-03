@@ -11,10 +11,9 @@
     NOT(ISBLANK(Servicing_Branch__c)),
     OR(
         NOT(ISNUMBER(Servicing_Branch__c)),
-        BEGINS(Servicing_Branch__c,&apos;0&apos;),
         LEN(Servicing_Branch__c) &lt; 4
     )
 )</errorConditionFormula>
     <errorDisplayField>Servicing_Branch__c</errorDisplayField>
-    <errorMessage>Servicing Branch is a 4-digit number, and should not start with a zero.</errorMessage>
+    <errorMessage>Servicing Branch is a 4-digit number.</errorMessage>
 </ValidationRule>

@@ -290,15 +290,36 @@ public with sharing class CommercialLeadActionsHelper {
       if (accRec == null) {
         continue;
       }
-      leadRec.MobilePhone = accRec.PersonOtherPhone;
-      leadRec.Work_Phone__c = accRec.Phone;
-      leadRec.Home_Phone__c = accRec.PersonHomePhone;
-      leadRec.Email = accRec.Other_Email__c;
-      leadRec.Primary_Contact_Method__c = (leadRec.MobilePhone != null)
-        ? 'Mobile'
-        : ((leadRec.Work_Phone__c != null)
-            ? 'Work Phone'
-            : ((leadRec.Home_Phone__c != null) ? 'Home Phone' : null));
+      leadRec.MobilePhone = leadRec.MobilePhone ??
+        santizePhoneNumber(accRec.PersonOtherPhone);
+      leadRec.Work_Phone__c = leadRec.Work_Phone__c ??
+        santizePhoneNumber(accRec.Phone);
+      leadRec.Home_Phone__c = leadRec.Home_Phone__c ??
+        santizePhoneNumber(accRec.PersonHomePhone);
+      leadRec.Email = leadRec.Email ?? accRec.Other_Email__c;
+      if (leadRec.Primary_Contact_Method__c == null) {
+        leadRec.Primary_Contact_Method__c = (leadRec.MobilePhone != null)
+          ? 'Mobile'
+          : ((leadRec.Work_Phone__c != null)
+              ? 'Work Phone'
+              : ((leadRec.Home_Phone__c != null) ? 'Home Phone' : null));
+      }
     }
+  }
+
+  /**
+   * @description : This is used to sanitize the Phone number
+   * name santizePhoneNumber
+   * @param phoneNumber Phone Number from account
+   * @return String return correct phone number after sanitize
+   */
+  private static String santizePhoneNumber(String phoneNumber) {
+    if (phoneNumber == null) {
+      return phoneNumber;
+    }
+    if (phoneNumber.startsWith('0')) {
+      phoneNumber = phoneNumber.replaceFirst('0', '+61');
+    }
+    return phoneNumber;
   }
 }

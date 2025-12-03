@@ -16,8 +16,8 @@ public with sharing class PushToAppRepository {
   ) {
     Id userRoleId = UserInfo.getUserRoleId();
     String recordTypeDeveloperName = QueryRT.of(recordId.getSObjectType())
-    .get(recordTypeId)
-    .getDeveloperName();
+      .get(recordTypeId)
+      .getDeveloperName();
     String userRoleDeveloperName = QueryRole.getById(userRoleId).DeveloperName;
     String sobjectName = recordId.getSObjectType().toString();
     // Query Notification Configuration using the fetched role and record type name
@@ -25,12 +25,8 @@ public with sharing class PushToAppRepository {
       SELECT Id, AEM_Content_Id__c, Name
       FROM Customer_Task_Configuration__c
       WHERE
-        Applicable_User_Role__c INCLUDES (
-          :userRoleDeveloperName
-        )
-        AND Applicable_Record_Types__c INCLUDES (
-          :recordTypeDeveloperName
-        )
+        Applicable_User_Role__c INCLUDES (:userRoleDeveloperName)
+        AND Applicable_Record_Types__c INCLUDES (:recordTypeDeveloperName)
         AND SObject_Type__c = :sobjectName
       WITH USER_MODE
     ];
@@ -44,7 +40,7 @@ public with sharing class PushToAppRepository {
   public Customer_Task_Configuration__c selectedNotificationConfigDetail(
     String templateName
   ) {
-        return [
+    return [
       SELECT Id, Name, Expire_After_Days__c
       FROM Customer_Task_Configuration__c
       WHERE AEM_Content_Id__c = :templateName
@@ -103,10 +99,7 @@ public with sharing class PushToAppRepository {
    * @param recordId The Id of the record for which notification needs to send.
    * @return List of field values retrieved from database
    */
-  public SObject queryMergeFieldsData(
-    Set<String> fieldsToQuery,
-    Id recordId
-  ) {
+  public SObject queryMergeFieldsData(Set<String> fieldsToQuery, Id recordId) {
     if (fieldsToQuery.isEmpty()) {
       return null;
     }
@@ -134,7 +127,7 @@ public with sharing class PushToAppRepository {
         ActivityDate < TODAY
         AND RecordTypeId = :RTTask.customerNudge
         AND IsClosed != TRUE
-        LIMIT 1000
+      LIMIT 1000
     ];
   }
 
@@ -177,6 +170,10 @@ public with sharing class PushToAppRepository {
 
   /**
    * @description Query OcvId of the Account
+     Reason for System Mode:
+     Update the task in System mode because, during case escalation, IDR/CMOS users who do not own the
+     related task lack permission to update it—causing the task to shift to TASK_STATE_AUTO_ARCHIVED.
+     System context ensures the task is updated correctly regardless of record ownership.
    * @param taskIds set of account Ids
    * @return List<Account> List of accounts with their ocvIds
    */
@@ -211,7 +208,7 @@ public with sharing class PushToAppRepository {
         RecordTypeId
       FROM Task
       WHERE Id IN :taskIds
-      WITH USER_MODE
+      WITH SYSTEM_MODE
     ];
   }
 
@@ -232,22 +229,22 @@ public with sharing class PushToAppRepository {
     ];
   }
 
-   /**
+  /**
    * @description Query related Push To App tasks records with the cases
    * @param caseIds eligible Customer Complaint case records
    * @return List<Task> Customer Nudge Task records to update.
    */
   public List<Task> getRelatedCustomerNudgeTasks(Set<Id> caseIds) {
-    if(caseIds.isEmpty())
-    {
+    if (caseIds.isEmpty()) {
       return new List<Task>();
     }
     return [
       SELECT Id, Status
       FROM Task
-      WHERE whatId IN :caseIds
-      AND RecordTypeId = :RTTask.customerNudge
-      AND IsClosed = false
+      WHERE
+        whatId IN :caseIds
+        AND RecordTypeId = :RTTask.customerNudge
+        AND IsClosed = FALSE
       WITH USER_MODE
     ];
   }

@@ -28,8 +28,7 @@ NOT(CONTAINS( $User.Username,$Label.IknowToSfIntegrationUserName)),
                 )
             )
         ),
-        AND(RecordType.DeveloperName = &apos;MLCRM_Lead&apos;,Text(Status) != &apos;Expired&apos;, OR(ISNEW(),ISCHANGED(Home_Phone__c))),
-        RecordType.DeveloperName = &apos;Referral&apos;
+        AND(RecordType.DeveloperName = &apos;MLCRM_Lead&apos;,Text(Status) != &apos;Expired&apos;, OR(ISNEW(),ISCHANGED(Home_Phone__c)))
     ),
     NOT ISBLANK(  Home_Phone__c  ) ,
     NOT(ISCHANGED(RecordTypeId)),
