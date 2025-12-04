@@ -34,18 +34,6 @@ const COLUMNS = [
   { label: "Email", fieldName: "Other_Email__c", type: "text" }
 ];
 
-const REGEX_MOBILE = /^(\+614[0-9]{8}$|^\+615[0-9]{8}$)/;
-const REGEX_PHONE = /^\+61[0-9]{9}$/;
-
-const ERROR_MESSAGES = {
-  MOBILE_PHONE:
-    "Mobile Phone number needs to be in the format of +614 or +615 followed by 8 digits. Eg. +61412345678 or +61512345678",
-  WORK_PHONE:
-    "Work Phone number needs to be in the format of +61 followed by 9 digits. Eg. +61312345678",
-  HOME_PHONE:
-    "Home Phone number needs to be in the format of +61 followed by 9 digits. Eg. +61312345678"
-};
-
 export default class PopulateCommercialContactsOnLead extends LightningElement {
   individualCustomerList = [];
   isLoading = true;
@@ -138,50 +126,26 @@ export default class PopulateCommercialContactsOnLead extends LightningElement {
         : "Home Phone";
   }
 
-  validatePhone(fieldLabel, phone, regex) {
-    if (!phone) {
-      return true;
+  sanitizePhoneNumber(phoneNumber) {
+    if (!phoneNumber) {
+      return null;
     }
-    if (!regex.test(phone)) {
-      let errorMsg = "";
-      switch (fieldLabel) {
-        case "Mobile Phone":
-          errorMsg = ERROR_MESSAGES.MOBILE_PHONE;
-          break;
-        case "Work Phone":
-          errorMsg = ERROR_MESSAGES.WORK_PHONE;
-          break;
-        case "Home Phone":
-          errorMsg = ERROR_MESSAGES.HOME_PHONE;
-          break;
-        default:
-          errorMsg = "Invalid phone number format.";
-          break;
-      }
-      showToast(this, "Error", errorMsg, "", "error");
-      return false;
+    if (phoneNumber.startsWith("0")) {
+      return "+61" + phoneNumber.substring(1);
     }
-    return true;
+    return phoneNumber;
   }
 
   handleUpdate() {
     this.isLoading = true;
 
-    const mobilePhone = this.selectedAccount?.PersonOtherPhone;
-    const workPhone = this.selectedAccount?.Phone;
-    const homePhone = this.selectedAccount?.PersonHomePhone;
-
-    // Validate all phone numbers
-    const allPhonesValid = [
-      { type: "Mobile Phone", phone: mobilePhone, regex: REGEX_MOBILE },
-      { type: "Work Phone", phone: workPhone, regex: REGEX_PHONE },
-      { type: "Home Phone", phone: homePhone, regex: REGEX_PHONE }
-    ].every(({ type, phone, regex }) => this.validatePhone(type, phone, regex));
-
-    if (!allPhonesValid) {
-      this.isLoading = false;
-      return;
-    }
+    const mobilePhone = this.sanitizePhoneNumber(
+      this.selectedAccount?.PersonOtherPhone
+    );
+    const workPhone = this.sanitizePhoneNumber(this.selectedAccount?.Phone);
+    const homePhone = this.sanitizePhoneNumber(
+      this.selectedAccount?.PersonHomePhone
+    );
 
     const fields = {
       [LEAD_ID_FIELD.fieldApiName]: this.recordId,

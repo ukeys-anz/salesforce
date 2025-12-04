@@ -21,8 +21,10 @@ private class ValidateABNACNControllerTest {
       ABN__c = '11005 357 522',
       ACN__c = '004085616',
       LeadSource = 'Individual',
+      Registered_Company__c = 'Yes',
       ABN_Validation_Status__c = 'Active',
-      ACN_Validation_Status__c = 'Active'
+      ACN_Validation_Status__c = 'Active',
+      Skip_Validations__c = 'copyLeadId'
     );
     leadRepoMock.mock('getLead', leadRec);
     Test.startTest();

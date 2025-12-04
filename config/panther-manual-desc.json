@@ -1490,7 +1490,8 @@
         "Unique_External_Id__c",
         "SecondaryVerificationFailedReason__c",
         "KYC_Verification_Id__c",
-        "PersonId_Txt__c"
+        "PersonId_Txt__c",
+        "Outcome_Letter_to_be_sent_by_Mail__c"
       ],
       "IA-2594111": [
         "CustomerOnboardingApplication__c",
@@ -2451,6 +2452,7 @@
     "Event": {
       "IA-2415999": ["PEGA_Case_Status__c"],
       "IA-2415984": ["Customer_Name__c"],
+      "IA-2453350": ["External_Id__c"],
       "IA-2453595": [
         "Action__c",
         "Authentication_Method__c",
@@ -2538,7 +2540,13 @@
         "FinServ__NextSteps__c",
         "FinServ__Regarding__c"
       ],
-      "IA-2530753": ["StartDateTime", "Pega_CDH_Id__c"],
+      "IA-2530753": [
+        "StartDateTime",
+        "Pega_CDH_Id__c",
+        "Customer_Task_Configuration__c",
+        "Customer_Task_Data__c",
+        "TaskNumber__c"
+      ],
       "IA-2468713": ["Pub_Sub_Event_Id__c"]
     },
     "External_Case_Status__c": {
@@ -4778,7 +4786,8 @@
         "Ineligible_Reasons__c",
         "Joint__c",
         "Needs_Assessment_Unsuitability_Reasons__c",
-        "Settlement_ID__c"
+        "Settlement_ID__c",
+        "Source__c"
       ],
       "IA-2415860": ["Credit_Reassess_Required__c"],
       "IA-2415790": ["Assisted_Broker__c", "Assisted_Broker_TPMI_SAO__c"],
@@ -4990,8 +4999,14 @@
         "FinServ__NextSteps__c",
         "FinServ__Regarding__c"
       ],
-      "IA-2530753": ["Pega_CDH_Id__c"],
-      "IA-2468713": ["Pub_Sub_Event_Id__c"]
+      "IA-2530753": [
+        "Pega_CDH_Id__c",
+        "Customer_Task_Configuration__c",
+        "Customer_Task_Data__c",
+        "TaskNumber__c"
+      ],
+      "IA-2468713": ["Pub_Sub_Event_Id__c"],
+      "IA-2453350": ["External_Id__c"]
     },
     "Traced_Application_Log__b": {
       "IA-2468710": [

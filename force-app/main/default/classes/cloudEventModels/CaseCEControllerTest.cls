@@ -30,7 +30,7 @@ public class CaseCEControllerTest {
   }
   // test cloud event for the IMT Dispute
   @isTest
-  public static void testImtDisputeCase() {
+  public static void testImtDisputeCaseCloudEventsOnCaseCreate() {
     Test.startTest();
     Case theCase = createImtDisputeCase();
     CaseCEController.publishCloudEvents(new List<Case>{ theCase });
@@ -41,13 +41,13 @@ public class CaseCEControllerTest {
       IMTDisputeCaseCloudEventModel.class
     );
     Assert.isTrue(
-      IMTDisputeCaseCloudEventModel.ce_type.contains('v1beta1.dispute.imt'),
+      IMTDisputeCaseCloudEventModel.ce_type.contains('v1beta2.dispute.imt'),
       'ce_type is incorrect'
     );
     Assert.areEqual(
       1,
       CloudEventController.cloudEvents.size(),
-      'Cloud Event should be generated'
+      'Only 1 cloud event of type v1beta2.dispute.imt.created should be generated'
     );
   }
 
@@ -81,7 +81,7 @@ public class CaseCEControllerTest {
 
   // test cloud event for the IMT Dispute
   @isTest
-  public static void testImtDisputeCaseForStatusChange() {
+  public static void testImtDisputeCaseCloudEventsOnStatusChange() {
     Test.startTest();
     Map<String, Case> theCaseMap = getTestImtCaseRecord();
     CaseCEController.publishCloudEvents(
@@ -97,13 +97,13 @@ public class CaseCEControllerTest {
       IMTDisputeCaseCloudEventModel.class
     );
     Assert.isTrue(
-      imtDisputeCaseCloudEventModel.ce_type.contains('v1beta1.dispute.imt'),
+      imtDisputeCaseCloudEventModel.ce_type.contains('v1beta2.dispute.imt'),
       'ce_type is incorrect'
     );
     Assert.areEqual(
       2,
       CloudEventController.cloudEvents.size(),
-      'Cloud Event should be generated'
+      'Two cloud Event should be generated, one for v1beta2.dispute.imt.status.open another for v1beta2.dispute.imt.updated'
     );
   }
 

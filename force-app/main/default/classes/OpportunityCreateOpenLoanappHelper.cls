@@ -50,7 +50,9 @@ public with sharing class OpportunityCreateOpenLoanappHelper {
 
     //populate branch
     LoanappModel.Branch brn = new LoanappModel.Branch();
-    brn.bsb = '01' + opp.Servicing_Branch__c;
+    brn.bsb = String.isEmpty(opp.Servicing_Branch__c)
+      ? '00' + Label.SimpologyDefaultServiceBranchCode
+      : '01' + opp.Servicing_Branch__c;
     sm.loan_application.branch = brn;
 
     //populate applicants

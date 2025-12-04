@@ -7,6 +7,11 @@
     <label>Total Recovery Amount</label>
     <securityClassification>Confidential</securityClassification>
     <summarizedField>DisputeItem.RecoveryAmount__c</summarizedField>
+    <summaryFilterItems>
+        <field>DisputeItem.RecoveryStatus__c</field>
+        <operation>notEqual</operation>
+        <value>Pending OFI Response</value>
+    </summaryFilterItems>
     <summaryForeignKey>DisputeItem.DisputeId</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>
     <trackHistory>false</trackHistory>

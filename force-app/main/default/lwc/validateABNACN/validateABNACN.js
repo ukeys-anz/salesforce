@@ -1,31 +1,44 @@
-import { LightningElement, api, wire } from "lwc";
-import validateAbnAcnForCallout from "@salesforce/apex/validateABNACNController.validateAbnAcnForCallout";
+import { LightningElement, api } from "lwc";
+import validateAbnAcnForCallout from "@salesforce/apex/ValidateABNACNController.validateAbnAcnForCallout";
 import { CloseActionScreenEvent } from "lightning/actions";
+import { getFocusedTabInfo, refreshTab } from "lightning/platformWorkspaceApi";
 import { NavigationMixin } from "lightning/navigation";
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 export default class ValidateABNACN extends NavigationMixin(LightningElement) {
-  @api recordId;
   isLoading = true;
-
-  @wire(validateAbnAcnForCallout, { leadId: "$recordId" })
-  validateAbnAcnForCallout() {
-    this.isLoading = false;
-    this.dispatchEvent(new CloseActionScreenEvent());
+  message = "ABN and ACN validation has been initiated.";
+  @api
+  set recordId(value) {
+    this._recordId = value;
+    this.validateABNACN();
   }
 
-  disconnectedCallback() {
-    window.location.reload();
+  get recordId() {
+    return this._recordId;
   }
 
-  refreshPage() {
-    // Reloads the current page by navigating to it again
-    this[NavigationMixin.Navigate]({
-      type: "standard__recordPage",
-      attributes: {
-        recordId: this.recordId, // Record ID of the current page
-        objectApiName: "Lead", // Object name of the current record
-        actionName: "view" // Action to perform (view)
-      }
+  validateABNACN() {
+    validateAbnAcnForCallout({ leadId: this._recordId });
+    // eslint-disable-next-line @lwc/lwc/no-async-operation
+    setTimeout(() => {
+      this.isLoading = false;
+      this.dispatchEvent(
+        new ShowToastEvent({
+          title: "Success",
+          message: this.message,
+          variant: "success"
+        })
+      );
+      this.refreshConsoleTab();
+      this.dispatchEvent(new CloseActionScreenEvent());
+    }, 5000);
+  }
+
+  async refreshConsoleTab() {
+    const { tabId } = await getFocusedTabInfo();
+    await refreshTab(tabId, {
+      includeAllSubtabs: false
     });
   }
 }
