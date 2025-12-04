@@ -139,7 +139,13 @@ public with sharing class LeadActionsRepository {
    */
   public Lead getLead(Id leadId) {
     return [
-      SELECT Id, Name, Registered_Company__c, ABN__c, ACN__c
+      SELECT
+        Id,
+        Name,
+        Registered_Company__c,
+        ABN__c,
+        ACN__c,
+        Skip_Validations__c
       FROM Lead
       WHERE Id = :leadId
       WITH USER_MODE
