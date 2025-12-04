@@ -10,6 +10,7 @@ public class RTCase {
   public static Id accountClosure = base.getId('Account_Closure');
   public static Id anzxComplaint = base.getId('ANZx_Complaint');
   public static Id atmDispute = base.getId('ATM_Dispute');
+  public static Id bankPostDispute = base.getId('Bank_Post_Dispute');
   public static Id bpayDispute = base.getId('BPAY_Dispute');
   public static Id brokerEnquiry = base.getId('Broker_Enquiry');
   public static Id cardDispute = base.getId('Card_Dispute');

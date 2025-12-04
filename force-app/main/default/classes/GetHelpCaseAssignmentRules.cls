@@ -127,7 +127,8 @@ public with sharing class GetHelpCaseAssignmentRules {
       return getOwnerIdForImt(rec);
     } else if (
       rec.Dispute_Reason__c == UNAUTHORISED_TRANSACTION &&
-      !CheckCaseRecordType.isDirectDebitDispute(rec)
+      !CheckCaseRecordType.isDirectDebitDispute(rec) &&
+      !CheckCaseRecordType.isBankPostDispute(rec)
     ) {
       return QueryQueue.digitalFraudQueue.Id;
     } else {

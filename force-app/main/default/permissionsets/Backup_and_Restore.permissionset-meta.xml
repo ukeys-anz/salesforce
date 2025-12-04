@@ -16876,6 +16876,10 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <recordType>Case.Bank_Post_Dispute</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>Case.Broker_Enquiry</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
