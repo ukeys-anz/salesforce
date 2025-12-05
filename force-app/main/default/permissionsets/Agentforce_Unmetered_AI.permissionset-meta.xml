@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <agentAccesses>
+        <agentName>Banking_Relationship_Assistance</agentName>
+        <enabled>true</enabled>
+    </agentAccesses>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Agentforce Unmetered AI</label>
+    <license>UnmeteredUserBasedAIPsl</license>
+</PermissionSet>

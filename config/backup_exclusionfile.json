@@ -16,6 +16,9 @@
     "Account_Key__c",
     "OCV_Event_Version__c"
   ],
+  "Acitivity" : [
+    "AI_Generated__c"
+  ],
   "Aegis_Env_Setting__c": "all",
   "BrokerSettings__c": "all",
   "ContactPointPhone": "all",

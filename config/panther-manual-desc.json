@@ -514,7 +514,8 @@
         "SI_Tribe_BU__c",
         "Task_Sub_Type__c",
         "My_extended_team_s_tasks__c",
-        "Sub_Status__c"
+        "Sub_Status__c",
+        "AI_Generated__c"
       ],
       "IA-2460507": ["Interaction_Owner__c"],
       "IA-2468715": ["Voice_Call_SID__c", "Case_Number__c", "PEGA_Case_Id__c"],

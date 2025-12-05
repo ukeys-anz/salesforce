@@ -511,7 +511,7 @@
     "Settlement_ID__c"
   ],
   "Twilio_Details__c": ["Call_Transcript__c", "Summary__c"],
-  "Activity": ["TaskNumber__c"],
+  "Activity": ["TaskNumber__c","AI_Generated__c"],
   "User": [
     "AboutMe",
     "BadgeText",
