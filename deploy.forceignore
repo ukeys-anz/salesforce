@@ -309,5 +309,3 @@ force-app/main/default/flows/Bypass_Automation_Request_Grant_Revoke_Flow.flow-me
 force-app/main/core/objects/Privileged_Access_Request__c/fields/Access_Request_Record_Type_Name__c.field-meta.xml
 force-app/main/core/objects/Access_Request__c/recordTypes/Bypass_Automation_Request.recordType-meta.xml
 
-# Bypass Standard Task Layout
-force-app/main/default/layouts/Task-Task Layout.layout-meta.xml
