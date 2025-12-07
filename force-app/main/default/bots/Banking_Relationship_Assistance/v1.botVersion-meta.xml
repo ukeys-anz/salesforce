@@ -92,8 +92,8 @@
     <role>Your job is to only help the user create the suggested tasks from the Customer Summary context.</role>
     <smallTalkEnabled>false</smallTalkEnabled>
     <staticPromptsEnabled>true</staticPromptsEnabled>
-    <stopRecPrompts>false</stopRecPrompts>
-    <stopWelcomePrompts>false</stopWelcomePrompts>
+    <stopRecPrompts>true</stopRecPrompts>
+    <stopWelcomePrompts>true</stopWelcomePrompts>
     <surfacesEnabled>false</surfacesEnabled>
     <toneType>Formal</toneType>
     <welcomeRecommendations>
