@@ -262,6 +262,8 @@ private class LendingCaseActionsTest {
     Map<Id, Case> oldCaseMap = new Map<Id, Case>{
       getOldCaseRecords.get(0).Id => getOldCaseRecords.get(0)
     };
+    registerMocks();
+    userMock.mock('checkPermission', false);
     Test.startTest();
     LendingCaseActions.restrictUserFromUpdatingCaseToClosed(
       getNewCaseRecords,
@@ -277,6 +279,37 @@ private class LendingCaseActionsTest {
       'Case cannot be updated'
     );
   }
+
+  @isTest
+  static void caseCloseSuccess() {
+    List<Case> getNewCaseRecords = createMockCaseRecordList(
+      'Closed - Approved'
+    );
+    List<Case> getOldCaseRecords = createMockCaseRecordList('Open');
+    Map<Id, Case> oldCaseMap = new Map<Id, Case>{
+      getOldCaseRecords.get(0).Id => getOldCaseRecords.get(0)
+    };
+    registerMocks();
+    Test.startTest();
+    LendingCaseActions.restrictUserFromUpdatingCaseToClosed(
+      getNewCaseRecords,
+      oldCaseMap
+    );
+    Test.stopTest();
+    List<Database.Error> errors = getNewCaseRecords[0].getErrors();
+    Assert.areEqual(
+      0,
+      errors.size(),
+      'Allow User with required Permission to close the case'
+    );
+
+    Assert.areEqual(
+      getNewCaseRecords[0].Status,
+      'Closed - Approved',
+      'Case is closed'
+    );
+  }
+
   @isTest
   static void caseCreationFailure() {
     List<Case> getCaseRecords = createMockCaseRecordList('Open');
