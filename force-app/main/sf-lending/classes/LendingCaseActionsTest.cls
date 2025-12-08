@@ -155,6 +155,36 @@ private class LendingCaseActionsTest {
     );
   }
 
+  @isTest
+  static void caseStatusUpdateSuccess() {
+    List<Case> getNewCaseRecords = createMockCaseRecordList(
+      'Closed - Approved'
+    );
+    List<Case> getOldCaseRecords = createMockCaseRecordList('Open');
+    Map<Id, Case> oldCaseMap = new Map<Id, Case>{
+      getOldCaseRecords.get(0).Id => getOldCaseRecords.get(0)
+    };
+    registerMocks();
+    Test.startTest();
+    LendingCaseActions.restrictFromUpdatingStatusIfNotOwner(
+      getNewCaseRecords,
+      oldCaseMap
+    );
+    Test.stopTest();
+    List<Database.Error> errors = getNewCaseRecords[0].getErrors();
+    Assert.areEqual(
+      0,
+      errors.size(),
+      'Allow User with required Permission to update the case status'
+    );
+
+    Assert.areEqual(
+      getNewCaseRecords[0].Status,
+      'Closed - Approved',
+      'Case is closed'
+    );
+  }
+
   @IsTest
   static void restrictBohCoachFromChangingOwnerIfNotCaseOwner() {
     List<Case> getNewCaseRecords = createMockCaseRecordList('InProgress');

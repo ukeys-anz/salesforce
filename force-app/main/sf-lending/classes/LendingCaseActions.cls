@@ -133,6 +133,9 @@ public with sharing class LendingCaseActions {
     List<Case> records,
     Map<Id, Case> oldMap
   ) {
+    if (USER_INFO.checkPermission('Loan_app_Integration')) {
+      return;
+    }
     List<Case> casesWithUpdatedStatus = ListUtil.filter(records, oldMap)
       .changed(Case.Status)
       .notEquals(Case.OwnerId, USER_INFO.getUser().Id)
