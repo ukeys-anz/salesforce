@@ -24,6 +24,24 @@ public with sharing class FinancialAccountEntities {
   }
 
   /**
+   * @description Cache Account Payload class
+   */
+  public class CacheAccountPayload extends ExternalObjectQueryBase.PayloadBase {
+    //Summary request payload
+    public List<AccountFilter> accounts;
+    //Detail request payload
+    public AccountFilter account;
+  }
+
+  /**
+   * @description AccountFilter class
+   */
+  public class AccountFilter {
+    public String productCode;
+    public String accountNumber;
+  }
+
+  /**
    * @description abstract FinancialAccount Summary callout response class
    */
   public virtual class FinancialAccountCalloutRequest extends ExternalObjectQueryBase.ExternalObjectCalloutRequestBase {

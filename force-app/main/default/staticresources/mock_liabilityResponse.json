@@ -1,0 +1,32 @@
+{
+  "accounts": [
+    {
+      "accountName": "Liability Account 1",
+      "accountNumber": "101221265",
+      "balance": 905.57,
+      "status": "Open",
+      "productName": "Asset Finance",
+      "accountLimit": 1000
+    },
+    {
+      "accountName": "Liability Account 2",
+      "accountNumber": "101221266",
+      "balance": 915.57,
+      "status": "Open",
+      "productName": "Asset Finance",
+      "accountLimit": 2000
+    },
+    {
+      "accountName": "Liability Account 3",
+      "accountNumber": "101221267",
+      "balance": 904.57,
+      "status": "Open",
+      "productName": "Asset Finance",
+      "accountLimit": 1002
+    },
+    {
+      "accountNumber": "12122324",
+      "error": "ACCOUNT NOT FOUND"
+    }
+  ]
+}

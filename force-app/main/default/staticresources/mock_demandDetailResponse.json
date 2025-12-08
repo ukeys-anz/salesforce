@@ -1,0 +1,159 @@
+{
+  "accountNumber": "817130139",
+  "accountName": "High Interest Savings Account",
+  "shortName": "HI Savings",
+  "productCode": "SAV",
+  "subProductCode": "HISA",
+  "status": "ACTIVE",
+  "accountBalance": 125000.5,
+  "ownershipCode": "SINGLE",
+  "costCentre": "CC001",
+  "domicileBranch": "0100",
+  "accountNameLines": {
+    "accountNameLine1": "High Interest",
+    "accountNameLine2": "Savings Account",
+    "accountNameLine3": "Personal"
+  },
+  "accountTitle": "High Interest Savings Account",
+  "anzsic": "6220",
+  "accountCategory": "PERSONAL",
+  "creditInterestCode": "TIER3",
+  "creditInterestCycle": "30",
+  "negativeInterestApplicable": "N",
+  "effectiveDate": "2023-01-15",
+  "tieredCreditInterest": {
+    "percentageFactors": {
+      "percentageFactor1": 2.5,
+      "percentageFactor2": 3.0,
+      "percentageFactor3": 3.5,
+      "percentageFactor4": 4.0,
+      "percentageFactor5": 4.5,
+      "percentageFactor6": 5.0,
+      "percentageFactor7": 5.25,
+      "percentageFactor8": 5.5,
+      "percentageFactor9": 6.0
+    },
+    "pointsDifference": {
+      "pointsDifference1": 0.25,
+      "pointsDifference2": 0.5,
+      "pointsDifference3": 0.75,
+      "pointsDifference4": 1.0,
+      "pointsDifference5": 1.25,
+      "pointsDifference6": 1.5,
+      "pointsDifference7": 1.75,
+      "pointsDifference8": 2.0,
+      "pointsDifference9": 2.5
+    },
+    "limits": {
+      "limit1": 5000.0,
+      "limit2": 50000.0,
+      "limit3": 100000.0,
+      "limit4": 250000.0,
+      "limit5": 500000.0,
+      "limit6": 750000.0,
+      "limit7": 1000000.0,
+      "limit8": 2500000.0,
+      "limit9": 5000000.0
+    }
+  },
+  "currentInterestBasis": "365",
+  "creditInterestTo": "987654321",
+  "directBankFeesTo": "987654321",
+  "serviceChargeTypeCode": "STANDARD",
+  "bankFeeCycleCode": "M",
+  "waiveCode": "N",
+  "annualBaseFee": 0.0,
+  "paperDebits": 0.5,
+  "paperCredits": 0.3,
+  "paperCollectionItems": 1.5,
+  "electronicDebits": 0.0,
+  "electronicCredits": 0.0,
+  "agentCredits": 2.5,
+  "agentCollectionItems": 3.0,
+  "excessFeeAmount": 5.0,
+  "directExcessFeeTo": "987654321",
+  "directExcessFeeToAlternativeDda": 123456000.0,
+  "creditRating": "A1",
+  "securityIndicator": "N",
+  "outOfBoundsProObpCode": "STANDARD",
+  "penaltyInterestApplicable": "N",
+  "statementCycles": {
+    "statementCycle1": "30",
+    "statementCycle2": "365"
+  },
+  "nextStatementDate": "2025-12-01",
+  "mailingCode": "E",
+  "numberOfCopies": "1",
+  "commitment": "UNCOMMITTED",
+  "limitTypes": {
+    "type1": "OPERATING",
+    "type2": "OVERDRAFT",
+    "type3": "CREDIT_FACILITY"
+  },
+  "currentGrossLimits": {
+    "limit1": 100000.0,
+    "limit2": 50000.0,
+    "limit3": 25000.0
+  },
+  "facilityTypes": {
+    "type1": "SAVINGS",
+    "type2": "ONLINE",
+    "type3": "MOBILE"
+  },
+  "startDates": {
+    "data1": "2023-01-15",
+    "data2": "2023-01-15",
+    "data3": "2023-02-01"
+  },
+  "expiryDates": {
+    "data1": "2025-01-15",
+    "data2": "2025-01-15",
+    "data3": "2025-02-01"
+  },
+  "facilityStartDate": "2023-01-15",
+  "lastOpportunityToReprice": "2024-01-15",
+  "nextOpportunityToReprice": "2026-01-15",
+  "managersReviewDate": "2025-06-15",
+  "annualReviewDate": "2025-01-15",
+  "purposeCode": "SAVINGS",
+  "refinanceAlterationAdditionIndicator": "N",
+  "instructions": "Standard operating instructions",
+  "interestBasis": 365.0,
+  "interestCycle": "30",
+  "pointDifferenceMargin": 0.25,
+  "percentageFactors": {
+    "percentageFactor1": 2.5,
+    "percentageFactor2": 3.0,
+    "percentageFactor3": 3.5,
+    "percentageFactor4": 4.0,
+    "percentageFactor5": 4.5,
+    "percentageFactor6": 5.0,
+    "percentageFactor7": 5.25,
+    "percentageFactor8": 5.5,
+    "percentageFactor9": 6.0
+  },
+  "pointsDifference": {
+    "pointsDifference1": 0.25,
+    "pointsDifference2": 0.5,
+    "pointsDifference3": 0.75,
+    "pointsDifference4": 1.0,
+    "pointsDifference5": 1.25,
+    "pointsDifference6": 1.5,
+    "pointsDifference7": 1.75,
+    "pointsDifference8": 2.0,
+    "pointsDifference9": 2.5
+  },
+  "limits": {
+    "limit1": 5000.0,
+    "limit2": 50000.0,
+    "limit3": 100000.0,
+    "limit4": 250000.0,
+    "limit5": 500000.0,
+    "limit6": 750000.0,
+    "limit7": 1000000.0,
+    "limit8": 2500000.0,
+    "limit9": 5000000.0
+  },
+  "penaltyInterest": "N",
+  "accountToDebitForInterest": "987654321"
+}

@@ -1735,11 +1735,11 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>rowsToDisplay</name>
-                    <value>6</value>
+                    <value>10</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>showActionBar</name>
-                    <value>false</value>
+                    <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
                 <identifier>force_relatedListSingleContainer9</identifier>
@@ -1761,17 +1761,17 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>rowsToDisplay</name>
-                    <value>6</value>
+                    <value>10</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>showActionBar</name>
-                    <value>false</value>
+                    <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
                 <identifier>force_relatedListSingleContainer19</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-88d12bd0-1f5c-40eb-938c-ba440a84fc5a</name>
+        <name>Facet-8bcdee77-27f5-4746-b871-a2e3601aeed1</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -2549,14 +2549,14 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-88d12bd0-1f5c-40eb-938c-ba440a84fc5a</value>
+                    <value>Facet-8bcdee77-27f5-4746-b871-a2e3601aeed1</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
                     <value>Accounts</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>flexipage_tab16</identifier>
+                <identifier>flexipage_tab17</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Source_System_Name__c}</leftValue>

@@ -5311,6 +5311,7 @@
         "Tiered_Credit_Interest_Limit8__c",
         "Tiered_Credit_Interest_Limit9__c",
         "Current_Interest_Basis__c",
+        "Product_Name__c",
         "Credit_Interest_To__c",
         "Direct_Bank_Fees_To__c",
         "Service_Charge_Type_Code__c",

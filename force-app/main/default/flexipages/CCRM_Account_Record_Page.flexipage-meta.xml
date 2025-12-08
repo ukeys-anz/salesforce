@@ -1832,14 +1832,14 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>rowsToDisplay</name>
-                    <value>6</value>
+                    <value>10</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>showActionBar</name>
-                    <value>false</value>
+                    <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer4</identifier>
+                <identifier>force_relatedListSingleContainer9</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1858,17 +1858,17 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>rowsToDisplay</name>
-                    <value>6</value>
+                    <value>10</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>showActionBar</name>
-                    <value>false</value>
+                    <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer5</identifier>
+                <identifier>force_relatedListSingleContainer22</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-bbae1470-1ae8-49a3-8952-e24b045f609b</name>
+        <name>Facet-8bcdee77-27f5-4746-b871-a2e3601aeed1</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -2582,14 +2582,14 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-bbae1470-1ae8-49a3-8952-e24b045f609b</value>
+                    <value>Facet-8bcdee77-27f5-4746-b871-a2e3601aeed1</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
                     <value>Accounts</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>flexipage_tab15</identifier>
+                <identifier>flexipage_tab17</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Source_System_Name__c}</leftValue>
