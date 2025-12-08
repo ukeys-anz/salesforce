@@ -49,6 +49,11 @@ private class OpportunityCreateOpenLoanappHelperTest {
       opp,
       false
     );
+    opp.Servicing_Branch__c = null;
+    LoanappModel mdlWithoutBranch = OpportunityCreateOpenLoanappHelper.createOpenLoanAppRequestBody(
+      opp,
+      false
+    );
     Test.stopTest();
     Assert.isNotNull(
       mdl.loan_application,
@@ -69,6 +74,16 @@ private class OpportunityCreateOpenLoanappHelperTest {
       mdl.loan_application.preferences[0].rba_lending_purpose,
       'RBA_LENDING_PURPOSE_FURTHER_ADVANCE',
       'invalid rba_lending_purpose value, should be RBA_LENDING_PURPOSE_FURTHER_ADVANCE!'
+    );
+    Assert.areEqual(
+      '011234',
+      mdl.loan_application.branch.bsb,
+      'Servicing branch is not updated correctly when having value'
+    );
+    Assert.areEqual(
+      '000000',
+      mdlWithoutBranch.loan_application.branch.bsb,
+      'Servicing branch is not updated correctly when blank'
     );
   }
 

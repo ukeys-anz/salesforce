@@ -104,4 +104,22 @@ public with sharing class TaskActionRepository {
       WITH USER_MODE
     ];
   }
+
+  /**
+   * @description getOpenTasks method return Tasks associated to the given WhatId
+   * @param accountId Id of the object record(e.g account)
+   * @return List<Task> Task List
+   */
+  public List<Task> getOpenTasks(Id accountId) {
+    if (accountId == null) {
+      return new List<Task>();
+    }
+    return [
+      SELECT Id, Subject, ActivityDate, Description, Priority, Status
+      FROM Task
+      WHERE WhatId = :accountId AND Status IN ('Open')
+      WITH USER_MODE
+      ORDER BY ActivityDate ASC
+    ];
+  }
 }

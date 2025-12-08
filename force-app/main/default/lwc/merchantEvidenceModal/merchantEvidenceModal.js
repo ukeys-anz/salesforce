@@ -93,24 +93,18 @@ export default class MerchantEvidenceModal extends LightningModal {
     }
     getTaskRecord({ caseId: this.caseRecordId })
       .then((result) => {
-        if (
-          !this.isFromPopup &&
-          (result.Status === "No Review Required" ||
-            result.Status === "Reviewed")
-        ) {
-          this.toast.warning("The task associated is already completed.");
+        if (!result && !this.isFromPopup) {
+          this.toast.warning(
+            "The task is not created or it is already completed for this case."
+          );
           this.handleCloseModal();
-          return;
         }
-
         this.taskRecord = result;
         this.showEvidenceModal();
       })
       .catch(() => {
         this.showSpinner = false;
-        if (!this.isFromPopup) {
-          this.toast.warning("The task is not created for this case.");
-        }
+        this.toast.error("Error occurred while fetching task record.");
         this.handleCloseModal();
       });
   }

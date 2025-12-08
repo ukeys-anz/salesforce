@@ -155,6 +155,7 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
       new List<FinServ__FinancialAccount__c>{ newRecord },
       oldMap
     );
+
     Test.stopTest();
 
     Assert.areEqual(0, recordsToUpdate.size(), 'No records should be updated');

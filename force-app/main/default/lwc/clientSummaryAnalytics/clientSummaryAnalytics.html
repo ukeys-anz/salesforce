@@ -1,0 +1,29 @@
+<template>
+  <lightning-card>
+    <!-- ✅ Data Table -->
+    <template if:true={data}>
+      <lightning-datatable
+        key-field="userId"
+        data={data}
+        columns={columns}
+        hide-checkbox-column="true"
+        onsort={handleSort}
+        sorted-by={sortedBy}
+        sorted-direction={sortDirection}
+      >
+      </lightning-datatable>
+    </template>
+
+    <!-- ❌ Error State (e.g., no access) -->
+    <template if:true={error}>
+      <div class="slds-p-around_medium slds-text-color_error">{error}</div>
+    </template>
+
+    <!-- ⏳ Loading State -->
+    <template if:true={isLoading}>
+      <div class="slds-p-around_medium slds-text-color_weak">
+        Loading user generation analytics…
+      </div>
+    </template>
+  </lightning-card>
+</template>

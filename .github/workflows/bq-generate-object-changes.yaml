@@ -27,7 +27,7 @@ jobs:
     outputs:
       CHANGES_DETECTED: ${{ steps.run-diff.outputs.CHANGES_DETECTED }}
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-bq:1.0.0"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-bq:1.1.0"
       options: --user root
     runs-on: [anzx-default]
     steps:

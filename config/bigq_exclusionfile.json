@@ -190,6 +190,7 @@
     "SourceSystemIdentifier",
     "PersonGender"
   ],
+  "Activity": ["TaskNumber__c", "AI_Generated__c"],
   "ApplicationForm": ["BranchUnitId"],
   "ApplicationFormProduct": ["ApplicantVisibleStatus"],
   "COBPrimaryIDDocument__c": [
@@ -344,6 +345,7 @@
     "TncName__c",
     "TncVersion__c"
   ],
+  "Event": ["AI_Generated__c"],
   "FinServ__FinancialAccount__c": [
     "FinServ__AccrualFrequency__c",
     "FinServ__AccruedInterest__c",
@@ -510,8 +512,8 @@
     "SOP_Id__c",
     "Settlement_ID__c"
   ],
+  "Task": ["AI_Generated__c"],
   "Twilio_Details__c": ["Call_Transcript__c", "Summary__c"],
-  "Activity": ["TaskNumber__c"],
   "User": [
     "AboutMe",
     "BadgeText",
@@ -574,11 +576,13 @@
     "UserPreferencesDisMentionsCommentEmail",
     "UserPreferencesDismissReuseUpdateReminderModal",
     "UserPreferencesDisProfPostCommentEmail",
+    "UserPreferencesEmailSummarizationGptConsent",
     "UserPreferencesEnableAutoSubForFeeds",
     "UserPreferencesEventRemindersCheckboxDefault",
     "UserPreferencesExcludeMailAppAttachments",
     "UserPreferencesFavoritesShowTopFavorites",
     "UserPreferencesFavoritesWTShown",
+    "UserPreferencesGenAISummarizationUserConsent",
     "UserPreferencesGlobalNavBarWTShown",
     "UserPreferencesGlobalNavGridMenuWTShown",
     "UserPreferencesHasCelebrationBadge",
@@ -591,6 +595,7 @@
     "UserPreferencesHideCSNDesktopTask",
     "UserPreferencesHideCSNGetChatterMobileTask",
     "UserPreferencesHideEndUserOnboardingAssistantModal",
+    "UserPreferencesHideFlowTypeChangeConfirmationModal",
     "UserPreferencesHideLightningMigrationModal",
     "UserPreferencesHideOnlineSalesAppWelcomeMat",
     "UserPreferencesHideS1BrowserUI",

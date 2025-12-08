@@ -56,7 +56,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       Test.stopTest();
 
       Assert.areEqual(
-        21,
+        22,
         transactionModel.embedded.transactions.size(),
         'Transactions size should be as expected.'
       );
@@ -105,7 +105,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       Test.stopTest();
 
       Assert.areEqual(
-        21,
+        22,
         transactionModel.embedded.transactions.size(),
         'Transactions size should be as expected.'
       );
@@ -158,7 +158,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       Test.stopTest();
 
       Assert.areEqual(
-        21,
+        22,
         transactionModel.embedded.transactions.size(),
         'Transactions size should be as expected.'
       );
@@ -187,7 +187,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       Test.stopTest();
 
       Assert.areEqual(
-        21,
+        22,
         transactionModel.embedded.transactions.size(),
         'Transactions size should be as expected.'
       );

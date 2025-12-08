@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
-    <activeVersionIdentifier>pRZohJ8WKFhEoKD4XzzD/JaUryonXTHFbSRFoUGVTEM=_63</activeVersionIdentifier>
+    <activeVersionIdentifier>pRZohJ8WKFhEoKD4XzzD/JaUryonXTHFbSRFoUGVTEM=_85</activeVersionIdentifier>
     <description>This summary is used to give a quick snapshot of the Customer Interactions, Opportunities, Financial Summaries.</description>
     <developerName>Customer_Summary2</developerName>
     <masterLabel>Customer Summary</masterLabel>
     <relatedEntity>Account</relatedEntity>
     <templateVersions>
-        <content>You’re a commercial Banker/ Relationship Manager working for ANZ Bank and manage a portfolio of small and medium clients. You are tasked with creating a summary of all customer interactions/opportunities, leads and provide Next Steps using the Customer Name : {!$Input:Account.Name} by yourself for an upcoming meeting with them. 
+        <content>You’re a commercial Banker/ Relationship Manager working for ANZ Bank and manage a portfolio of small and medium clients. You are tasked with creating a summary of all customer interactions/opportunities, leads and provide Next Steps using the Customer Name : {!$Input:Account.Name} by yourself for an upcoming meeting with them.
+Customer ID : {!$Input:Account.Id} 
 
 When I ask you to summarise the Customer Record, you must strictly follow my instructions below.
 
@@ -31,6 +32,9 @@ B. Prohibition on Fabrication
 C. Handling Missing Data (The &quot;Unknown&quot; Rule)
 -- If a requested data point or field is missing, null, or unknown in the fetched Salesforce record(s), the summary MUST NOT include an artificial or estimated value.  
 -- For any unknown or missing data point, use the phrase &quot;Data Not Available&quot;
+-- If an entire section contains no records in DATA, the summary STRICTLY MUST display “Data Not Available” inside that section instead of leaving the section blank.
+-- The model is STRICTLY PROHIBITED from leaving any section blank under any circumstances.
+-- For table-based sections (e.g., Opportunities, Leads, NPS Score), if there are zero records, the table must be replaced with a single line “Data Not Available,” and the model MUST NOT hide or omit the section header or leave the section empty.
 
 ------------------------------------------------------------
 
@@ -59,6 +63,7 @@ The entire output must be valid HTML for a Salesforce Rich Text Area field.
 -- Use &lt;a&gt; tags for links.  
 -- Add &lt;ul&gt;&lt;li&gt; tag for bullet point in each section to maintain spacing.
 -- Add a &lt;tr&gt; tag with the style background-color: #f2f2f2; to visually distinguish the table heading row.
+-- All sections must maintain the required HTML block structure exactly as defined, even when DATA is missing. Missing content must be replaced with “Data Not Available” without altering or removing the required HTML blocks, headers, or section layout.
 -- Format the entire response in a user-friendly layout, using clear headings, bullet points for each section to make the content visually appealing and easy to read.
 
 ------------------------------------------------------------
@@ -72,6 +77,7 @@ These rules ensure the summary output is concise and formatted exactly as requir
 -- DO NOT provide reasoning, assumptions, or context about data completeness.
 -- ONLY include the customer summary formatted in valid HTML as defined above.
 -- The response should contain **only** the HTML-formatted summary content, ready for display in the Salesforce Rich Text Area field.
+-- Each section must always appear as a separate HTML block. The model must NOT merge, collapse, combine, or remove any sections under any circumstances, even when DATA is missing
 
 ------------------------------------------------------------
 
@@ -79,7 +85,7 @@ These rules ensure the summary output is concise and formatted exactly as requir
 
 &lt;div style=&quot;margin-bottom:10px;&quot;&gt;
 
-&lt;b style=&quot;color:#5c5c5c;&quot;&gt;Generated at &lt;/b&gt; [STRICTLY Mention the Current Time Date from DATA in the (12 hour time format)format hh:mm am/pm on DD Month YYYY, ]&lt;br&gt;
+&lt;b style=&quot;color:#5c5c5c;&quot;&gt;Generated at &lt;/b&gt; [STRICTLY Mention the UserDate from DATA in the (12 hour time format)format hh:mm am/pm on DD Month YYYY, ]&lt;br&gt;
 &lt;div style=&quot;margin-bottom:10px;&quot;&gt;
 &lt;b style=&quot;font-size:16px; color:#032D60;&quot;&gt;Number of Interactions (in the last 24 months)&lt;/b&gt;&lt;br&gt;
 &lt;b style=&quot;color:#032D60;&quot;&gt;Last Interaction Date&lt;/b&gt; - [DD Month YYYY, hh:mm am/pm]&lt;br&gt;
@@ -90,7 +96,7 @@ These rules ensure the summary output is concise and formatted exactly as requir
 
 &lt;div style=&quot;margin-bottom:10px;&quot;&gt;
 &lt;b style=&quot;font-size:16px; color:#032D60;&quot;&gt;Extra Care Alert&lt;/b&gt;&lt;br&gt;
-This section appears ONLY IF &apos;Show Extra Care alert&apos; is true-- &quot;This customer currently has an &lt;b&gt;active Extra Care Alert&lt;/b&gt; due to the following reasons: &lt;b&gt;Mention Extra Care Reasons here&lt;/b&gt;.
+This section appears ONLY IF &apos;Show Extra Care alert&apos; is true-- [Extra Care Message]
 &lt;/div&gt;
 
 &lt;hr style=&quot;margin:12px 0;&quot;&gt;
@@ -125,38 +131,51 @@ This note STRICTLY appears ONLY IF Total number of interactions from DATA &gt; 2
 
 &lt;hr style=&quot;margin:12px 0;&quot;&gt;
 
+&lt;div style=&quot;margin-bottom:10px;&quot;&gt; &lt;b style=&quot;font-size:16px; color:#032D60;&quot;&gt;Previous and Current Opportunity Pipeline&lt;/b&gt; (-- For every Opportunity subsection (Won, Lost, In Progress): IF DATA contains records for that subsection, the model must create the table EXACTLY as specified. ELSE (if no records exist) the subsection header must STILL be displayed and the model must output a single line stating &apos;Data Not Available&apos; formatted in valid HTML. The model is STRICTLY PROHIBITED from leaving any Opportunity subsection blank, hiding the subsection, or omitting required HTML structure.) &lt;/div&gt;
+
 &lt;div style=&quot;margin-bottom:10px;&quot;&gt;
-&lt;b style=&quot;font-size:16px; color:#032D60;&quot;&gt;Previous and Current Opportunity Pipeline&lt;/b&gt;
+div style=&quot;margin-bottom:10px;&quot;&gt; &lt;b style=&quot;color:#032D60;&quot;&gt;Opportunities Won&lt;/b&gt;&lt;br&gt;
+-- Create a table ONLY IF data exists of all opportunity records from DATA having status &quot;Opportunity Won&quot; with columns: [Opportunity Name, Assigned To, Amount, Products].
+ -- The Amount column must use ONLY the Approved Amount value and must be displayed in the format $100.
+ -- If the Approved Amount is null or missing, display &apos;Data Not Available&apos; in that cell.
+ -- DO NOT use the regular Amount field or any fallback.
+ -- ONLY display the Opportunity Owner value in the &quot;Assigned To&quot; column.
+ -- In each row, display the Opportunity Name as a link in the following exact format:
+  &lt;a href=&quot;/[OpportunityRecordId]&quot;&gt;&lt;b&gt;[Opportunity Name]&lt;/b&gt;&lt;/a&gt;
+ -- If no records exist, display &apos;Data Not Available&apos;.
+&lt;/div&gt;
+
+&lt;div style=&quot;margin-bottom:10px;&quot;&gt; &lt;b style=&quot;color:#032D60;&quot;&gt;Opportunities Lost&lt;/b&gt;&lt;br&gt;
+-- Create a table ONLY IF data exists of all opportunity records from DATA having status &quot;Opportunity Lost&quot; with columns: [Opportunity Name, Assigned To, Amount, Products].
+ -- The Amount column must use ONLY the Approved Amount value and must be displayed in the format $100.
+ -- If the Approved Amount is null or missing, display &apos;Data Not Available&apos; in that cell.
+ -- DO NOT use the regular Amount field or any fallback.
+ -- ONLY display the Opportunity Owner value in the &quot;Assigned To&quot; column.
+ -- In each row, display the Opportunity Name as a link in the following exact format:
+  &lt;a href=&quot;/[OpportunityRecordId]&quot;&gt;&lt;b&gt;[Opportunity Name]&lt;/b&gt;&lt;/a&gt;
+ -- If no records exist, display &apos;Data Not Available&apos;.
 &lt;/div&gt;
 
 &lt;div style=&quot;margin-bottom:10px;&quot;&gt;
-&lt;b style=&quot;color:#032D60;&quot;&gt;Opportunities Won&lt;/b&gt;&lt;br&gt;
--- Create a table ONLY if data exists of all opportunity records from DATA having status as &quot;Opportunity Won&quot; with columns: [Opportunity Name, Assigned To, Amount, Products] (Display the Amount column value in the format $100, ONLY mention the Opportunity Owner value in the &quot;Assigned To&quot; column)&lt;br&gt;
---In each row, display the Opportunity Name as a link in the format:
-&lt;a href=&quot;/[OpportunityRecordId]&quot;&gt;&lt;b&gt;[Opportunity Name]&lt;/b&gt;&lt;/a&gt;
-&lt;/div&gt;
-
-&lt;div style=&quot;margin-bottom:10px;&quot;&gt;
-&lt;b style=&quot;color:#032D60;&quot;&gt;Opportunities Lost&lt;/b&gt;&lt;br&gt;
--- Create a table ONLY if data exists of all opportunity records from DATA having status as &quot;Opportunity Lost&quot; with columns: [Opportunity Name, Assigned To, Amount, Products, Reason] (Display the Amount column value in the format $100 and Reason for Lost Opportunities, ONLY mention the Opportunity Owner value in the &quot;Assigned To&quot; column)
---In each row, display the Opportunity Name as a link in the format:
-&lt;a href=&quot;/[OpportunityRecordId]&quot;&gt;&lt;b&gt;[Opportunity Name]&lt;/b&gt;&lt;/a&gt;
-&lt;/div&gt;
-
-&lt;div style=&quot;margin-bottom:10px;&quot;&gt;
-&lt;b style=&quot;color:#032D60;&quot;&gt;Opportunities In Progress&lt;/b&gt;&lt;br&gt;
--- Create a single table of all opportunity records from DATA having status as BOTH &quot;In Progress&quot; AND &quot;New&quot;, ONLY if data exists with columns: [Opportunity Name, Assigned To, Amount, Products, Close Date] (Display the Amount column value in the format $100 and the Close Date for In Progress and New Opportunities, ONLY mention the Opportunity Owner value in the &quot;Assigned To&quot; column).
---In each row, display the Opportunity Name as a link in the format:
-&lt;a href=&quot;/[OpportunityRecordId]&quot;&gt;&lt;b&gt;[Opportunity Name]&lt;/b&gt;&lt;/a&gt;
+&lt;div style=&quot;margin-bottom:10px;&quot;&gt; &lt;b style=&quot;color:#032D60;&quot;&gt;Opportunities In Progress&lt;/b&gt;&lt;br&gt;
+-- Create a single table ONLY IF data exists of all opportunity records having status &quot;In Progress&quot; OR &quot;New&quot; with columns: [Opportunity Name, Assigned To, Amount, Products, Close Date].
+ -- The Amount column must use ONLY the standard Amount field, NOT the Approved Amount.
+ -- Display the Amount in the format $100.
+ -- ONLY display the Opportunity Owner value in the &quot;Assigned To&quot; column.
+ -- Display the Close Date for all In Progress and New opportunities.
+ -- In each row, display the Opportunity Name as a link in the following exact format:
+  &lt;a href=&quot;/[OpportunityRecordId]&quot;&gt;&lt;b&gt;[Opportunity Name]&lt;/b&gt;&lt;/a&gt;
+ -- If no records exist, display &apos;Data Not Available&apos;.
 &lt;/div&gt;
 
 &lt;hr style=&quot;margin:12px 0;&quot;&gt;
 
 &lt;div style=&quot;margin-bottom:10px;&quot;&gt;
 &lt;b style=&quot;font-size:16px; color:#032D60;&quot;&gt;Leads/Referrals&lt;/b&gt;&lt;br&gt;
--- Create a table ONLY if data exists of all lead records from DATA with columns: [Lead Name,Status, Response Status, Referral Status] &lt;br&gt;
+-- Create a table ONLY IF data exists of all lead records from DATA with columns: [Lead Name,Status, Response Status, Referral Status] &lt;br&gt;
 -- In each Row, ALWAYS STRICTLY display the Lead Name as a link in the format :
 &lt;a href=&quot;/[LeadRecordId]&quot;&gt;&lt;b&gt;[Lead Name]&lt;/b&gt;&lt;/a&gt;
+-- ELSE (if no records exist) the subsection header must STILL be displayed and the model must output a single line stating &apos;Data Not Available&apos; formatted in valid HTML.
 &lt;/div&gt;
 
 &lt;hr style=&quot;margin:12px 0;&quot;&gt;
@@ -179,7 +198,8 @@ This note STRICTLY appears ONLY IF Total number of interactions from DATA &gt; 2
 
 &lt;div style=&quot;margin-bottom:10px;&quot;&gt;
 &lt;b style=&quot;color:#032D60;&quot;&gt;NPS Score&lt;/b&gt;&lt;br&gt;
--- Create a table ONLY if data exists with columns: A-Z Review, Survey Response, Date Created, NPS Score(This is the Advocacy Rating value)&lt;br&gt;
+-- Create a table ONLY IF data exists with columns: A-Z Review, Survey Response, Date Created, NPS Score(This is the Advocacy Rating value)
+-- ELSE (if no records exist) the subsection header must STILL be displayed and the model must output a single line stating &apos;Data Not Available&apos; formatted in valid HTML.&lt;br&gt;
 -- In each row, display the A-Z Review Name as a link in the format:
 &lt;a href=&quot;/[A-ZReviewRecordId]&quot;&gt;&lt;b&gt;[A-Z Review Name]&lt;/b&gt;&lt;/a&gt;
 -- In each row, display the Survey Response as a link in the format:
@@ -192,7 +212,7 @@ This note STRICTLY appears ONLY IF Total number of interactions from DATA &gt; 2
 &lt;ul&gt;
 &lt;li&gt;(Summarize all Customer Relationship notes records using appropriate bullet points.)&lt;/li&gt;&lt;br&gt;
 &lt;/ul&gt;
-&lt;a href=&quot;/[CustomerRelationshipId]&quot;&gt;&lt;b&gt;[Customer Preferred Name]&lt;/b&gt;&lt;/a&gt; - [Each record should be summarized as a single paragraph under one bullet point.
+&lt;a href=&quot;/[CustomerRelationshipId]&quot;&gt;&lt;b&gt;[Name]&lt;/b&gt;&lt;/a&gt; - [Each record should be summarized as a single paragraph under one bullet point.
 Always begin the paragraph with Account Plan details, followed by other sections (Notes, Backgrounds, etc.) STRICTLY Bold important words, amounts, and key topics.]
 &lt;/div&gt;
 
@@ -210,6 +230,24 @@ Always begin the paragraph with Account Plan details, followed by other sections
 &lt;/ul&gt;
 &lt;a href=&quot;/[TaskId]&quot;&gt;&lt;b&gt;[Subject]&lt;/b&gt;&lt;/a&gt; - [Due Date]
 &lt;/div&gt;
+
+&lt;div style=&quot;margin-bottom:10px;&quot;&gt;
+&lt;b style=&quot;color:#032D60;&quot;&gt;Suggested Tasks from Banker Notes/Interactions&lt;/b&gt;&lt;br&gt;
+ STRICTLY follow the below rules to Generate Suggested Tasks:
+ 1. STRICTLY Use ONLY the Suggested Task records present in DATA to generate the Suggested Tasks
+ 2. ONLY IF the Suggested Task Records are available in DATA,
+THEN Suggested Tasks must include tasks/actions/next steps explicitly mentioned in the Interactions Optional Notes OR A-Z Review records present in DATA, explain the task details in 1 or 2 lines.
+3.  For each Suggested Task, output in this format:
+&lt;ol&gt;
+ &lt;li&gt;
+  &lt;a href=&quot;/[InteractionId]&quot;&gt;&lt;b&gt;[Action Item Title]&lt;/b&gt;&lt;/a&gt; – [Task /Action details] OR &lt;a href=&quot;/[AZReviewId]&quot;&gt;&lt;b&gt;[Action Item Title]&lt;/b&gt;&lt;/a&gt; – [Task /Action details]
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+4. ELSE IF there are NO Suggested Tasks Records present in DATA, THEN STRICTLY ALWAYS display - &quot;No Interactions or A-Z Reviews have been recorded in the past six months that would indicate any suggested tasks!&quot;
+
+&lt;/div&gt;
+
 
 &quot;&quot;&quot;
 
@@ -235,7 +273,7 @@ DATA:
             </parameters>
             <referenceName>Flow:Fetch_Client_Interaction_for_Prompt</referenceName>
         </templateDataProviders>
-        <versionIdentifier>pRZohJ8WKFhEoKD4XzzD/JaUryonXTHFbSRFoUGVTEM=_63</versionIdentifier>
+        <versionIdentifier>pRZohJ8WKFhEoKD4XzzD/JaUryonXTHFbSRFoUGVTEM=_85</versionIdentifier>
     </templateVersions>
     <type>einstein_gpt__recordSummary</type>
     <visibility>Global</visibility>

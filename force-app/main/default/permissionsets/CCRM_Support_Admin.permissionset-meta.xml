@@ -69,6 +69,14 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>CCRMAgentCreateTasks</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CCRMAgentFetchTasks</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TaskActionRepository</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -442,6 +450,14 @@
     </classAccesses>
     <classAccesses>
         <apexClass>ValidateABNACNController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OCVDuplicateTableController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OCVDuplicateTableControllerRepository</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <customMetadataTypeAccesses>
@@ -2478,6 +2494,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Task.WhoId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task.AI_Generated__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

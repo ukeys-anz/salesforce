@@ -1178,6 +1178,8 @@ private class LeadManagementActionsTest {
   static void makeAcnCalloutTest() {
     registerMocks();
     Id leadId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    Lead leadRec = new Lead(Id = leadId, Skip_Validations__c = 'copyLeadId');
+    leadActionRepoMock.mock('getLead', leadRec);
     Test.startTest();
     AbnAcnServiceActions.makeAcnCallout('005357522', leadId);
     Test.stopTest();
@@ -1198,6 +1200,8 @@ private class LeadManagementActionsTest {
   static void makeAbnCalloutTest() {
     registerMocks();
     Id leadId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    Lead leadRec = new Lead(Id = leadId, Skip_Validations__c = 'copyLeadId');
+    leadActionRepoMock.mock('getLead', leadRec);
     Test.startTest();
     AbnAcnServiceActions.makeAbnCallout('005357522', leadId);
     Test.stopTest();
@@ -1221,8 +1225,10 @@ private class LeadManagementActionsTest {
       Id = Lib_FakeIdGenerator.getMockId(Lead.SObjectType),
       ABN__c = '005357522',
       ACN__c = '005357522',
-      Registered_Company__c = 'Yes'
+      Registered_Company__c = 'Yes',
+      Skip_Validations__c = 'copyLeadId'
     );
+    leadActionRepoMock.mock('getLead', leadRec);
     Test.startTest();
     AbnAcnServiceActions.validateAbnAcnForCallout(
       new List<Lead>{ leadRec },
