@@ -31,7 +31,12 @@ public with sharing class MerchantEvidenceModalController {
         new Set<Id>{ caseId }
       );
 
-      return taskRecords[0];
+      List<Task> openTasks = ListUtil.filter(taskRecords)
+        .equals(Task.Status, TASK_STATUSES)
+        .equals(Task.Subject, 'Card - Merchant Evident Received')
+        .toList();
+
+      return !openTasks.isEmpty() ? openTasks[0] : null;
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
     }
