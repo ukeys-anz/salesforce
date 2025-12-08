@@ -45,16 +45,19 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
-    <sharingOwnerRules>
-        <fullName>Enablement_Manager_Edit_Each_Others_Records</fullName>
+    <sharingCriteriaRules>
+        <fullName>Enablement_Manager_Edit_All_Records</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Enablement Managers should be able to Read/Write Broker Relations owned by each other.</description>
-        <label>Enablement Manager Edit Each Others Records</label>
+        <description>Enablement Managers should be able to Read/Write all Broker Relations records.</description>
+        <label>Enablement Manager Edit All Records</label>
         <sharedTo>
             <role>Enablement_Manager</role>
         </sharedTo>
-        <sharedFrom>
-            <role>Enablement_Manager</role>
-        </sharedFrom>
-    </sharingOwnerRules>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
 </SharingRules>

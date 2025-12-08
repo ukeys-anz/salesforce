@@ -112,7 +112,11 @@ public with sharing class LeadResponseTaskActions {
           'SkipValidation'
           ? 'SkipValidation'
           : 'Validate';
-        if (leadRecord.Followup_Date__c != relatedTask.ActivityDate) {
+        if (
+          leadRecord.Followup_Date__c != relatedTask.ActivityDate &&
+          !(leadRecord.RecordTypeId == RTLead.mlcrmLead &&
+          relatedTask.Response_Status__c == 'Contact Attempted')
+        ) {
           leadRecord.Followup_Date__c = relatedTask.ActivityDate;
         }
         updatedLeads.add(leadRecord);

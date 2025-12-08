@@ -1,0 +1,43 @@
+{
+  "required" : [ "acctRecordId", "description", "dueDate", "priority", "subject" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "acctRecordId" : {
+      "title" : "acctRecordId",
+      "description" : "This is the input Account/Customer Record Id.",
+      "lightning:type" : "lightning__recordIdType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "description" : {
+      "title" : "description",
+      "description" : "This is the input description of the task.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "dueDate" : {
+      "title" : "dueDate",
+      "description" : "This is the input due date of the task.",
+      "lightning:type" : "lightning__dateType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "priority" : {
+      "title" : "priority",
+      "description" : "This is the input priority of the task.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "subject" : {
+      "title" : "subject",
+      "description" : "This is the input subject of the task.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType",
+  "lightning:textIndexed" : true
+}

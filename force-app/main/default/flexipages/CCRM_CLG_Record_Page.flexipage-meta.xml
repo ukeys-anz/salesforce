@@ -870,11 +870,6 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>agentforceRestrictedPromptTemplateName</name>
-                    <valueList>
-                        <valueListItems>
-                            <value>Customer_Summary2</value>
-                        </valueListItems>
-                    </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>generativeAIDisclaimer</name>

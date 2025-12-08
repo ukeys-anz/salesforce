@@ -126,7 +126,6 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
   @istest
   static void testpopulateFinancialAccountAssistedBrokerWhenTPMINotChanged() {
     Id newRecordId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-
     FinServ__FinancialAccount__c newRecord = createFinancialAccounts(
       RTFinancialAccount.bankAccount,
       newRecordId
@@ -139,9 +138,9 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
       true
     );
     oldRecord.Assisted_Broker_TPMI_SAO__c = 'oldBroker-TPMISAO-1';
-
     Map<Id, FinServ__FinancialAccount__c> oldMap = new Map<Id, FinServ__FinancialAccount__c>();
     oldMap.put(oldRecord.Id, oldRecord);
+
     Broker_Code__c mockBrokerCode = createMockBrokerCode(
       'Broker-TPMISAO-1_Retail',
       newRecord.Id

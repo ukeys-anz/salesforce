@@ -7947,6 +7947,10 @@
         <recordType>Case.ATM_Dispute</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-ATM Dispute Layout</layout>
+        <recordType>Case.Bank_Post_Dispute</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Account Closure Layout</layout>
         <recordType>Case.Account_Closure</recordType>
     </layoutAssignments>
