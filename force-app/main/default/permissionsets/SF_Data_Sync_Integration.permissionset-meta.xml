@@ -552,6 +552,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Activity.AI_Generated__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Activity.Authentication_Method__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5152,6 +5157,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Event.AI_Generated__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Event.Attendees</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8873,6 +8883,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Task.ActivityDate</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.AI_Generated__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
