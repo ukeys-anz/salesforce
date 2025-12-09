@@ -4379,9 +4379,5 @@
             <fullName>Unexpected Money%2FWinnings</fullName>
             <default>false</default>
         </values>
-        <values>
-            <fullName>Recovery</fullName>
-            <default>false</default>
-        </values>
     </picklistValues>
 </RecordType>

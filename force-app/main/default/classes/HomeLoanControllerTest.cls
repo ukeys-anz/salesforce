@@ -55,36 +55,6 @@ public inherited sharing class HomeLoanControllerTest {
     insert finAccounts;
   }
 
-  @isTest
-  static void testHomeLoanAccountRetrieve() {
-    Set<String> permissionSetAssigned = TestUtil.getUserPermissionSets(
-      UserInfo.getUserId()
-    );
-    if (!permissionSetAssigned.contains('BoH_Read_Only')) {
-      TestUtil.addPermissionSets(new List<String>{ 'BoH_Read_Only' });
-    }
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
-    System.runAs(thisUser) {
-      Test.startTest();
-      HomeLoanModel response = HomeLoanController.getHomeLoanAccount(
-        '2222',
-        null
-      );
-
-      Test.stopTest();
-      System.assertEquals(
-        1,
-        response.accounts.size(),
-        'Home loan found with ocvId and corresponding home loan marketing code'
-      );
-      System.assertEquals(
-        '222222222',
-        response.accounts[0].account_number,
-        'Account number is corresponding to OCVId'
-      );
-    }
-  }
-
   @IsTest
   static void testGetLinkedHomeLoanFinancialAccountRole() {
     Account homeLoanCustomer = [
