@@ -139,7 +139,13 @@ public with sharing class LeadActionsRepository {
    */
   public Lead getLead(Id leadId) {
     return [
-      SELECT Id, Name, Registered_Company__c, ABN__c, ACN__c
+      SELECT
+        Id,
+        Name,
+        Registered_Company__c,
+        ABN__c,
+        ACN__c,
+        Skip_Validations__c
       FROM Lead
       WHERE Id = :leadId
       WITH USER_MODE
@@ -442,5 +448,37 @@ public with sharing class LeadActionsRepository {
       WHERE Id IN :leadIdIdsSet
       WITH USER_MODE
     ];
+  }
+
+  /**
+   * @description to query account records related to leads
+   * @name getIndividualAccRecords
+   * @param accountIdsSet set of Account Ids
+   * @return Map<Id, Account> Account Map
+   */
+  public Map<Id, Account> getIndividualAccRecords(Set<Id> accountIdsSet) {
+    if (accountIdsSet.isEmpty()) {
+      return new Map<Id, Account>();
+    }
+
+    return new Map<Id, Account>(
+      [
+        SELECT
+          Id,
+          PersonOtherPhone,
+          Phone,
+          PersonHomePhone,
+          Other_Email__c,
+          Source_System_Name__c,
+          RecordTypeId
+        FROM Account
+        WHERE
+          Source_System_Name__c = :System.Label.CCRM_Source_System_Name
+          AND Id IN :accountIdsSet
+          AND FinServ__Status__c IN ('Active', 'Inactive')
+          AND RecordTypeId = :RTAccount.personAccount
+        WITH USER_MODE
+      ]
+    );
   }
 }

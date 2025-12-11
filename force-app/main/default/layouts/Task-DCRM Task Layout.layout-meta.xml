@@ -24,6 +24,10 @@
                 <emptySpace>true</emptySpace>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>AI_Generated__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Required</behavior>
                 <field>OwnerId</field>
             </layoutItems>

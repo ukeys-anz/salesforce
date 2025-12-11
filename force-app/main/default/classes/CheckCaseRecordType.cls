@@ -27,6 +27,7 @@ public with sharing class CheckCaseRecordType {
 
   public static final Set<Id> DISPUTE_RT_IDS = new Set<Id>{
     RTCase.atmDispute,
+    RTCase.bankPostDispute,
     RTCase.cardDispute,
     RTCase.directDebitDispute,
     RTCase.directEntryDispute,
@@ -57,7 +58,8 @@ public with sharing class CheckCaseRecordType {
     RTCase.customerFeedback,
     RTCase.accountClosure,
     RTCase.falseCustomerProfile,
-    RTCase.profileUpdate
+    RTCase.profileUpdate,
+    RTCase.signAuth
   };
 
   public static final Set<Id> VALID_RTS_TO_CREATE_EXT_CASE_STATUS = new Set<Id>{
@@ -288,5 +290,14 @@ public with sharing class CheckCaseRecordType {
    */
   public static Boolean isDirectDebitDispute(Case record) {
     return RTCase.directDebitDispute == record.RecordTypeId;
+  }
+
+  /**
+   * @description Check if a case is Bank_Post_Dispute Case
+   * @param record The case record to check
+   * @return true if the case is a Bank_Post_Dispute Case
+   */
+  public static Boolean isBankPostDispute(Case record) {
+    return RTCase.bankPostDispute == record.RecordTypeId;
   }
 }

@@ -55,4 +55,26 @@ public with sharing class GenericController {
       throw new AuraHandledException(e.getMessage());
     }
   }
+
+  /**
+   * @description generic method to update data based on GenericClass implementation
+   * @param apexController Class to instantiate
+   * @param param Parameter to pass to the updateData method
+   */
+  @AuraEnabled
+  public static void updateData(String apexController, String param) {
+    try {
+      if (String.isBlank(apexController)) {
+        throw new IllegalArgumentException('No ApexController defined');
+      }
+      // Get the Type corresponding to the class name
+      Type tclass = Type.forName(apexController);
+      // Instantiate the type.
+      IGenericModify getDataClass = (IGenericModify) tclass.newInstance();
+      // Execute updateData
+      getDataClass.updateData(param);
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
+    }
+  }
 }

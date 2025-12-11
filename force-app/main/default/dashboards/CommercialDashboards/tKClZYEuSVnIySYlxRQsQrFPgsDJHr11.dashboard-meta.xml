@@ -274,6 +274,7 @@
         <rowHeight>36</rowHeight>
     </dashboardGridLayout>
     <dashboardType>LoggedInUser</dashboardType>
+    <description>Commercial Dashboard for Banker 4</description>
     <isGridLayout>true</isGridLayout>
     <textColor>#000000</textColor>
     <title>Commercial Dashboard</title>

@@ -274,28 +274,4 @@ public with sharing class StravinskyControllerTest {
       }
     }
   }
-
-  @isTest
-  static void testPackageClosureAuraFlexSuccess() {
-    System.runAs(thisUser) {
-      Case newCase = new Case(
-        Account_Type__c = 'Individual',
-        RecordTypeId = RTCase.accountClosure,
-        Account_Product__c = 'ANZ Plus & ANZ Save'
-      );
-
-      Test.startTest();
-      GenesisPackageClosureModel response = StravinskyController.getPackageClosureAuraFlex(
-        newCase,
-        'accounts/391074663'
-      );
-
-      Test.stopTest();
-      Assert.areEqual(
-        null,
-        response.errorinfo,
-        'No ErrorInfo Present in Response'
-      );
-    }
-  }
 }

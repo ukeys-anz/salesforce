@@ -521,4 +521,14 @@
         <default>false</default>
         <label>Sanctions</label>
     </standardValue>
+    <standardValue>
+        <fullName>Change to Any to Sign</fullName>
+        <default>false</default>
+        <label>Change to Any to Sign</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Change to All to Sign</fullName>
+        <default>false</default>
+        <label>Change to All to Sign</label>
+    </standardValue>
 </StandardValueSet>

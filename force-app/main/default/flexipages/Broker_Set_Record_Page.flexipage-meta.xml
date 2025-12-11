@@ -12,7 +12,7 @@ Record details has 2 identical section; one for RBM with all fields as read-only
                         <valueListItems>
                             <value>Broker_Relation__c.Activate</value>
                             <visibilityRule>
-                                <booleanFilter>1 AND 2</booleanFilter>
+                                <booleanFilter>1 AND (2 OR 3)</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.IsActive__c}</leftValue>
                                     <operator>EQUAL</operator>
@@ -23,12 +23,17 @@ Record details has 2 identical section; one for RBM with all fields as read-only
                                     <operator>EQUAL</operator>
                                     <rightValue>Enablement_Manager</rightValue>
                                 </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Broker_Profile_Admin</rightValue>
+                                </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>Broker_Relation__c.Deactivate</value>
                             <visibilityRule>
-                                <booleanFilter>1 AND 2</booleanFilter>
+                                <booleanFilter>1 AND (2 OR 3)</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.IsActive__c}</leftValue>
                                     <operator>EQUAL</operator>
@@ -38,6 +43,11 @@ Record details has 2 identical section; one for RBM with all fields as read-only
                                     <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>Enablement_Manager</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Broker_Profile_Admin</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>

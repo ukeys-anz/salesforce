@@ -4,12 +4,6 @@
  * @description Wrapper Class for IMT Dispute metadata and data
  */
 public with sharing class IMTDisputeCaseCloudEventModel extends DisputeCaseCloudEventModelV2 {
-  private static final String BENEFICIARY_CLAIMS_NON_RECEIPT = 'Beneficiary Claims Non Receipt';
-  private static final String PAYMENT_RECALL = 'Payment Recall';
-  private static final String CB_BCNR = 'CB_BCNR';
-  private static final String CB_CANCE_OUT = 'CB_Cance_Out';
-  private static final String SINGLE_SPACE = ' ';
-
   /**
    * @description Constructor
    * @param theCase Case record
@@ -27,11 +21,11 @@ public with sharing class IMTDisputeCaseCloudEventModel extends DisputeCaseCloud
   ) {
     super(theCase, theAccount);
     ce_type =
-      System.Label.ANZX_Disputes_event_ce_type_v1beta1 +
+      System.Label.ANZX_Disputes_event_ce_type_v1beta2 +
       'imt.' +
       action;
     ce_dataschema =
-      System.Label.ANZX_Disputes_Event_Proto_Data_Schema_v1beta1 +
+      System.Label.ANZX_Disputes_Event_Proto_Data_Schema_v1beta2 +
       '#IMTDispute';
     this.ce_data = new IMTDisputeCaseCloudEventDataModel(
       theCase,
@@ -84,17 +78,6 @@ public with sharing class IMTDisputeCaseCloudEventModel extends DisputeCaseCloud
       this.receipt = theCase.Receipt__c;
       this.reasonCode = theCase.Reason_Code__c;
       this.paymentId = theCase.Payment_ID__c;
-      if (theCase.Reason_Code__c == CB_BCNR) {
-        this.caseDetails.description =
-          BENEFICIARY_CLAIMS_NON_RECEIPT +
-          SINGLE_SPACE +
-          theCase.Description;
-      } else if (theCase.Reason_Code__c == CB_CANCE_OUT) {
-        this.caseDetails.description =
-          PAYMENT_RECALL +
-          SINGLE_SPACE +
-          theCase.Description;
-      }
     }
   }
 }

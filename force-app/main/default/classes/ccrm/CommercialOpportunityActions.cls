@@ -141,7 +141,7 @@ public with sharing class CommercialOpportunityActions {
     Map<Id, Opportunity> oldMap
   ) {
     Set<Id> accountIds = ListUtil.getIds(records, Opportunity.AccountId);
-    Map<Id, Account> accounts = OPP_REPOSITORY.getActiveAccountMap(accountIds);
+    Map<Id, Account> accounts = OPP_REPOSITORY.getClosedAccountMap(accountIds);
     CommercialOpportunityHelper.checkAccountIsProspect(accounts, records);
   }
 

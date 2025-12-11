@@ -341,6 +341,114 @@ public with sharing class IDRQualityAssessmentTaskActionsTest {
       '1 Task should have been inserted'
     );
   }
+  /**
+   * @description Test positive scenario when QA record is updated to Complete status and final letter review task is created.
+   */
+  @isTest
+  static void testcreateFinalLetterReviewTask() {
+    registerMocks();
+    Case relatedCase = IDRTestDataFactory.getCase();
+    User manager = IDRTestDataFactory.getUser('Test user1');
+    Quality_Assessment__c oldQaCM = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_PENDING
+    );
+    oldQaCM.OwnerId = ownerUserId;
+    oldQaCM.Corrective_actions_required_CM__c = '';
+    Quality_Assessment__c oldQaTL = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_PENDING
+    );
+    oldQaTL.OwnerId = ownerUserId;
+    oldQaTL.Corrective_actions_required_TL__c = '';
+    Quality_Assessment__c newQaCM = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_COMPLETE
+    );
+    newQaCM.RecordTypeId = RTQualityAssessment.idrReviewAssessmentId;
+    newQaCM.OwnerId = ownerUserId;
+    newQaCM.Id = oldQaCM.Id;
+    newQaCM.Corrective_actions_required_CM__c = 'Final letter not compliant';
+    newQaCM.Evaluation_Type__c = IDRConstants.QA_FINAL_LETTER_REVIEW_ASSESSMENT;
+    Quality_Assessment__c newQaTL = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_COMPLETE
+    );
+    newQaTL.RecordTypeId = RTQualityAssessment.idrReviewAssessmentId;
+    newQaTL.OwnerId = ownerUserId;
+    newQaTL.Id = oldQaTL.Id;
+    newQaTL.Corrective_actions_required_TL__c = 'Further review due to potential customer detriment';
+    newQaTL.Evaluation_Type__c = IDRConstants.QA_FINAL_LETTER_REVIEW_ASSESSMENT;
+    qaRepoMock.mock(
+      'getQualityAssessments',
+      new List<Quality_Assessment__c>{ newQaCM }
+    );
+
+    dmlRepoMock.mock(
+      'doInsert',
+      new List<Database.SaveResult>{
+        TestUtil.getMockSaveResult('{"success":true,"id":1323235,"errors":[]}')
+      }
+    );
+    Test.startTest();
+    IDRQualityAssessmentTaskActions.createFinalLetterReviewTask(
+      new List<Quality_Assessment__c>{ newQaCM, newQaTL },
+      new Map<Id, Quality_Assessment__c>{
+        oldQaCM.Id => oldQaCM,
+        oldQaTL.Id => oldQaTL
+      }
+    );
+    Test.stopTest();
+    List<Task> insertedTasks = (List<Task>) dmlRepoMock.getHistory('doInsert')
+      .getParam('records');
+    Assert.areEqual(2, insertedTasks.size(), '2 Task is created');
+  }
+  /**
+   * @description Test negative scenario when QA record is updated to Complete status but final letter review task is not created.
+   */
+  @isTest
+  static void createFinalLetterReviewTaskFalse() {
+    registerMocks();
+    Case relatedCase = IDRTestDataFactory.getCase();
+    User manager = IDRTestDataFactory.getUser('Test user1');
+    Quality_Assessment__c oldQa = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_PENDING
+    );
+    oldQa.OwnerId = ownerUserId;
+    Quality_Assessment__c newQa = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_COMPLETE
+    );
+    newQa.OwnerId = ownerUserId;
+    newQa.Id = oldQa.Id;
+    newQa.Evaluation_Type__c = IDRConstants.QA_FRONTLINE_ASSESSMENT;
+    qaRepoMock.mock('getQualityAssessments', new List<Quality_Assessment__c>{});
+
+    dmlRepoMock.mock(
+      'doInsert',
+      new List<Database.SaveResult>{ TestUtil.getMockSaveResult('{}') }
+    );
+    Test.startTest();
+    IDRQualityAssessmentTaskActions.createFinalLetterReviewTask(
+      new List<Quality_Assessment__c>{ newQa },
+      new Map<Id, Quality_Assessment__c>{ oldQa.Id => oldQa }
+    );
+    Test.stopTest();
+    List<Task> insertedTasks = (List<Task>) dmlRepoMock.getHistory('doInsert')
+      .getParam('records');
+    Assert.areEqual(
+      0,
+      insertedTasks.size(),
+      'No Task is created as recordtype && evaluation type does not match'
+    );
+  }
 
   /**
    * @description fill Quality_Assessment__c record with mandatory fields noted in fieldset

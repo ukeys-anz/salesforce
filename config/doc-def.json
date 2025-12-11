@@ -454,7 +454,8 @@
         "FinServ__FinancialServicesCloudStandard",
         "Disable_MFA",
         "Enforce_mTLS",
-        "Bypass_TSP"
+        "Bypass_TSP",
+        "Update_Signing_Authority"
       ],
       "type": "system"
     },
@@ -492,6 +493,19 @@
         "Enforce_mTLS",
         "KYC_QA_Integration",
         "Bypass_TSP"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "GCP bulk Data Upload Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Bulk_API",
+        "Disable_MFA",
+        "Read_Write_Customer_Details",
+        "Restrict_OCV_Event_Version_Update"
       ],
       "type": "system"
     },
@@ -590,10 +604,10 @@
       "permissionsetgroups": [],
       "permissionsets": [
         "API_Only",
-        "Disable_MFA",
-        "Update_Referral_Export_Status",
         "Bypass_TSP",
-        "CCRM_Marketing_Integration_User"
+        "CCRM_Marketing_Integration_User",
+        "Disable_MFA",
+        "Referral_SF_to_iKnow"
       ],
       "type": "system"
     },
@@ -660,7 +674,8 @@
         "Financial_Accounts_Read_and_Edit",
         "Bypass_TSP",
         "Read_Write_Customer_Details",
-        "Case_Read_Write_KYC_QA_Integration"
+        "Case_Read_Write_KYC_QA_Integration",
+        "Update_Signing_Authority"
       ],
       "type": "system"
     },
@@ -742,9 +757,10 @@
       "permissionsetgroups": [],
       "permissionsets": [
         "API_Only",
+        "CCRM_Marketing_Integration_User",
         "Disable_MFA",
         "Referral_iKnow_to_SF",
-        "CCRM_Marketing_Integration_User"
+        "Referral_Status_Update"
       ],
       "type": "system"
     },
@@ -1313,13 +1329,13 @@
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
-        "Mortgage",
         "API_Only",
-        "Broker_Details_Integration",
         "Case_Read_Write_Broker_Enquiry",
         "Case_View_All",
         "Disable_MFA",
-        "Enforce_mTLS"
+        "Enforce_mTLS",
+        "Loan_app_View_All",
+        "force__Mortgage"
       ],
       "type": "system"
     },

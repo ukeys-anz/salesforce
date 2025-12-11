@@ -41,8 +41,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Industry</fieldItem>
-                <identifier>RecordIndustryField</identifier>
+                <fieldItem>Record.Industry__c</fieldItem>
+                <identifier>RecordIndustry_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -153,7 +153,7 @@
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Industry__c</fieldItem>
-                <identifier>RecordIndustry_cField</identifier>
+                <identifier>RecordIndustry_cField2</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-0eb60de6-d0bc-4abd-90ec-b879091bfd0a</name>
@@ -821,6 +821,36 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Account.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>Contacts</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>GRID</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>rowsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer11</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-083772eb-0084-4191-8a07-056d60c8ea63</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
                 <componentName>financialSummaryViewAsync</componentName>
                 <identifier>c_financialSummaryViewAsync</identifier>
                 <visibilityRule>
@@ -833,6 +863,47 @@
             </componentInstance>
         </itemInstances>
         <name>Facet-gpoa20wziaf</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>agentforceRestrictedPromptTemplateName</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>generativeAIDisclaimer</name>
+                    <value>This tool uses generative AI. Review responses to ensure they&apos;re accurate, valid, and harmless before you use them.</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>generativeAIHeaderLabel</name>
+                    <value>AI Customer Summary</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>generativeAIPromptTemplateName</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>Customer_Summary2</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>generativeAIPromptTemplateType</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>einstein_gpt__recordSummary</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>isCachingEnabled</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>industries_common:generateSummaryWrapper</componentName>
+                <identifier>industries_common_generateSummaryWrapper</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-51c7538e-eb95-45c3-859e-10b9dc625084</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -1388,6 +1459,20 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
+                    <value>Facet-083772eb-0084-4191-8a07-056d60c8ea63</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Contact Details</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab15</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
                     <value>Facet-246b923b-e769-4604-aa34-028db30443f6</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -1424,6 +1509,20 @@
                         <rightValue>CAP-CIS</rightValue>
                     </criteria>
                 </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-51c7538e-eb95-45c3-859e-10b9dc625084</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>AI Customer Summary</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab16</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>

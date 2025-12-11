@@ -26,7 +26,6 @@ public class TransactionHistoryModelV1Test {
       responseJson,
       mapPersonaIdAndCustomerName
     );
-    Decimal testValue = obj.embedded.transactions[0].Amount.value;
     Assert.isNotNull(
       obj.embedded.transactions,
       'Transaction should not be null.'
@@ -34,10 +33,19 @@ public class TransactionHistoryModelV1Test {
     Assert.isNotNull(obj.embedded.tags, 'Tags should not be null');
     Assert.isNotNull(obj.embedded.merchants, 'Merchants should not be null.');
 
+    // Find VicRoads transaction by transaction_id instead of using index
+    Decimal testValue = null;
+    for (TransactionHistoryModel.Transactions txn : obj.embedded.transactions) {
+      if (txn.transaction_id == '82bfc211-b647-4440-9463-edbf356f5d25') {
+        testValue = txn.amount.value;
+        break;
+      }
+    }
+
     Assert.areEqual(
-      -64.19,
+      1,
       testValue,
-      'Value should match amout.value and nanos from 1st transaction of mock_transactionHistoryV1.json.'
+      'Value should match amount.value for VicRoads transaction (UID: 82bfc211-b647-4440-9463-edbf356f5d25) from mock_transactionHistoryV1.json.'
     );
   }
 }

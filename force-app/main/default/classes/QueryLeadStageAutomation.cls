@@ -14,9 +14,14 @@ public with sharing class QueryLeadStageAutomation {
       What_happens_next__c,
       Lead_Record_Type__c,
       Lead_Status__c,
-      Next_Lead_Status__c
+      Next_Lead_Status__c,
+      Outcome_Type__c
     FROM Lead_Stage_Automation__mdt
-    WHERE isActive__c = TRUE
+    WHERE
+      isActive__c = TRUE
+      AND Lead_Status__c != NULL
+      AND Next_Lead_Status__c != NULL
+      AND Response_Status__c != NULL
     WITH SYSTEM_MODE
   ];
 

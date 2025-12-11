@@ -190,6 +190,7 @@
     "SourceSystemIdentifier",
     "PersonGender"
   ],
+  "Activity": ["TaskNumber__c"],
   "ApplicationForm": ["BranchUnitId"],
   "ApplicationFormProduct": ["ApplicantVisibleStatus"],
   "COBPrimaryIDDocument__c": [
@@ -248,6 +249,7 @@
     "StateOfIssueOCRServer__c",
     "SubmittedAt__c"
   ],
+  "Campaign": ["Stage"],
   "Case": [
     "CertificateIdentifier__c",
     "LicenceCardNumber__c",
@@ -510,7 +512,6 @@
     "Settlement_ID__c"
   ],
   "Twilio_Details__c": ["Call_Transcript__c", "Summary__c"],
-  "Activity": ["TaskNumber__c"],
   "User": [
     "AboutMe",
     "BadgeText",
@@ -573,11 +574,13 @@
     "UserPreferencesDisMentionsCommentEmail",
     "UserPreferencesDismissReuseUpdateReminderModal",
     "UserPreferencesDisProfPostCommentEmail",
+    "UserPreferencesEmailSummarizationGptConsent",
     "UserPreferencesEnableAutoSubForFeeds",
     "UserPreferencesEventRemindersCheckboxDefault",
     "UserPreferencesExcludeMailAppAttachments",
     "UserPreferencesFavoritesShowTopFavorites",
     "UserPreferencesFavoritesWTShown",
+    "UserPreferencesGenAISummarizationUserConsent",
     "UserPreferencesGlobalNavBarWTShown",
     "UserPreferencesGlobalNavGridMenuWTShown",
     "UserPreferencesHasCelebrationBadge",
@@ -590,6 +593,7 @@
     "UserPreferencesHideCSNDesktopTask",
     "UserPreferencesHideCSNGetChatterMobileTask",
     "UserPreferencesHideEndUserOnboardingAssistantModal",
+    "UserPreferencesHideFlowTypeChangeConfirmationModal",
     "UserPreferencesHideLightningMigrationModal",
     "UserPreferencesHideOnlineSalesAppWelcomeMat",
     "UserPreferencesHideS1BrowserUI",
@@ -653,6 +657,7 @@
     "UserPermissionsSFContentUser",
     "UserPermissionsSupportUser",
     "UserPreferencesAssistiveActionsEnabledInActionLauncher",
+    "User_Role__c",
     "UserRoleId",
     "SuAccessExpirationDate",
     "StartDay",

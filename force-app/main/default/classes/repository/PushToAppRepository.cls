@@ -170,7 +170,7 @@ public with sharing class PushToAppRepository {
 
   /**
    * @description Query OcvId of the Account
-   * Reason for System Mode:
+     Reason for System Mode:
      Update the task in System mode because, during case escalation, IDR/CMOS users who do not own the
      related task lack permission to update it—causing the task to shift to TASK_STATE_AUTO_ARCHIVED.
      System context ensures the task is updated correctly regardless of record ownership.

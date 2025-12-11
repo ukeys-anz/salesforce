@@ -29,7 +29,6 @@ public with sharing class StravinskyController {
     PermissionUtils.canQuery('FinServ__FinancialAccountRole__c');
 
     Case caseRecord = queryCase(recordId);
-
     //Added to Fetch Financial Accounts Details based on the Case Record Account Type
     financialAccounts = checkAccountTypeAndReturnFinancialAccounts(
       caseRecord,

@@ -151,18 +151,12 @@ public with sharing class RetailBrokerFinancialAccountAction {
     List<FinServ__FinancialAccount__c> records,
     Map<Id, FinServ__FinancialAccount__c> oldMap
   ) {
-    Set<SObjectField> brokerFieldsNotNull = new Set<SObjectField>{
-      FinServ__FinancialAccount__c.Assisted_Broker__c,
-      FinServ__FinancialAccount__c.Assisted_Broker_TPMI_SAO__c
-    };
-
     List<FinServ__FinancialAccount__c> recordsToUpdate = ListUtil.filter(
         records,
         oldMap
       )
       .isNotNull(FinServ__FinancialAccount__c.Account_Key__c)
       .changed(FinServ__FinancialAccount__c.Assisted_Broker_TPMI_SAO__c)
-      .anyNotNull(brokerFieldsNotNull)
       .toList();
 
     return processAssistedBrokerPopulation(recordsToUpdate, 'Retail');
@@ -256,6 +250,7 @@ public with sharing class RetailBrokerFinancialAccountAction {
     List<FinServ__FinancialAccount__c> result = Listutil.filter(
         financialAccounts
       )
+      .isNotNull(FinServ__FinancialAccount__c.Assisted_Broker__c)
       .equals(
         FinServ__FinancialAccount__c.Sub_product_Code_Display__c,
         classicProductSubCodes
@@ -278,6 +273,7 @@ public with sharing class RetailBrokerFinancialAccountAction {
     List<FinServ__FinancialAccount__c> result = Listutil.filter(
         financialAccounts
       )
+      .isNotNull(FinServ__FinancialAccount__c.Assisted_Broker__c)
       .equals(
         FinServ__FinancialAccount__c.Marketing_Code__c,
         homeLoanMarketingCodes

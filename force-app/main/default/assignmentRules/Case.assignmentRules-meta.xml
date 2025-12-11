@@ -61,7 +61,8 @@
                 &amp;&amp; Submitted__c = true,
                 OR(
                     RecordType.DeveloperName = &quot;Direct_Debit_Dispute&quot;,
-                    RecordType.DeveloperName = &quot;Direct_Entry_Dispute&quot;
+                    RecordType.DeveloperName = &quot;Direct_Entry_Dispute&quot;,
+                    RecordType.DeveloperName = &quot;Bank_Post_Dispute&quot;
                   )
                 )
             </formula>

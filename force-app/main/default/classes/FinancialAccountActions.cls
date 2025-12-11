@@ -11,72 +11,55 @@ public class FinancialAccountActions {
     DmlRepository.class
   );
 
-  public static final String CUSTOMER_ACTION_STATUS_PENDING = 'STATE_PENDING';
-  public static final String CUSTOMER_ACTION_ERROR = 'Error';
-  public static final String CUSTOMER_ACTION_STATUS_COMPLETED = 'Completed';
-
   /**
-   * @description To update the Cutomer_Action__c record
+   * @description To update the related Sign Auth Case record
    * @param records FinServ__FinancialAccount__c new updated records
    * @param oldMap FinServ__FinancialAccount__c map of old records
    */
-  public static void updateCustomerActionRecord(
+  public static void updateSigningAuthorityCases(
     List<FinServ__FinancialAccount__c> records,
     Map<Id, FinServ__FinancialAccount__c> oldMap
   ) {
     try {
-      List<Customer_Action__c> pendingCustomerActions = FINANCIAL_ACCOUNT_REPOSITORY.getPendingCustomerActionForFinancialAccounts(
-        oldMap.keySet()
+      List<Case> signAuthCasesToUpdate = new List<Case>();
+      List<FinServ__FinancialAccount__c> filteredFinancialAccounts = ListUtil.filter(
+          records,
+          oldmap
+        )
+        .changed(FinServ__FinancialAccount__c.Number_Of_Signatures__c)
+        .isNotNull(FinServ__FinancialAccount__c.Number_Of_Signatures__c)
+        .toList();
+
+      Map<Id, Case> signAuthCaseByFinAccount = (Map<Id, Case>) ListUtil.mapBy(
+        FINANCIAL_ACCOUNT_REPOSITORY.getOpenSignAuthCasesByFinacialAccount(
+          filteredFinancialAccounts
+        ),
+        Case.FinServ__FinancialAccount__c
       );
 
-      Map<Id, Customer_Action__c> finAccIdToCustActionMap = (Map<Id, Customer_Action__c>) ListUtil.mapBy(
-        pendingCustomerActions,
-        Customer_Action__c.Financial_Account__c
-      );
+      List<FinServ__FinancialAccount__c> filteredFinancialAccountsToUpdate = ListUtil.filter(
+          filteredFinancialAccounts
+        )
+        .equals(
+          FinServ__FinancialAccount__c.Id,
+          signAuthCaseByFinAccount.keySet()
+        )
+        .toList();
 
-      if (finAccIdToCustActionMap.isEmpty()) {
-        return;
+      for (
+        FinServ__FinancialAccount__c finAccount : filteredFinancialAccountsToUpdate
+      ) {
+        Case caseRecord = signAuthCaseByFinAccount.get(finAccount.Id);
+        caseRecord.Status = SigningAuthorityUpdateActions.CASE_STATUS_CLOSED;
+        caseRecord.Sub_Status__c = SigningAuthorityUpdateActions.CASE_SUB_STATUS_SUCCESS;
+        signAuthCasesToUpdate.add(caseRecord);
       }
 
-      List<Customer_Action__c> customerActionToUpdateList = updateCustomerActionToComplete(
-        records,
-        oldMap,
-        finAccIdToCustActionMap
-      );
-
-      DML_REPOSITORY.doUpdate(customerActionToUpdateList);
+      DML_REPOSITORY.doUpdate(signAuthCasesToUpdate);
     } catch (Exception exp) {
-      Logger.error(exp.getMessage(), exp);
+      Logger.error('updateSigningAuthorityCases ' + exp.getMessage(), exp);
       Logger.saveLog();
     }
-  }
-
-  /**
-   * @description To check if pending customer Action should be there
-   * @param records FinServ__FinancialAccount__c new updated records
-   * @param oldMap FinServ__FinancialAccount__c map of old records
-   * @param finAccIdToCustActionMap Financial Account Id to Customer Action Map
-   * @return List<Customer_Action__c> updated list of Customer_Action__c
-   */
-  @TestVisible
-  private static List<Customer_Action__c> updateCustomerActionToComplete(
-    List<FinServ__FinancialAccount__c> records,
-    Map<Id, FinServ__FinancialAccount__c> oldMap,
-    Map<Id, Customer_Action__c> finAccIdToCustActionMap
-  ) {
-    List<Customer_Action__c> customerActionToUpdateList = new List<Customer_Action__c>();
-    for (FinServ__FinancialAccount__c finAcc : records) {
-      FinServ__FinancialAccount__c oldFinAcc = oldMap.get(finAcc.Id);
-      if (
-        oldFinAcc.Number_Of_Signatures__c != finAcc.Number_Of_Signatures__c &&
-        finAccIdToCustActionMap.get(finAcc.Id) != null
-      ) {
-        Customer_Action__c ca = finAccIdToCustActionMap.get(finAcc.Id);
-        ca.Status__c = CUSTOMER_ACTION_STATUS_COMPLETED;
-        customerActionToUpdateList.add(ca);
-      }
-    }
-    return customerActionToUpdateList;
   }
 
   /**

@@ -4673,7 +4673,7 @@
   &quot;defaultValue&quot; : &quot;Yes&quot;,
   &quot;help&quot; : true,
   &quot;helpText&quot; : &quot;Select &apos;No&apos; to record a complaint for a non-ANZ Customer or where the customer has requested to remain anonymous&quot;,
-  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;helpTextPos&quot; : &quot;top-left&quot;,
   &quot;options&quot; : [ {
     &quot;name&quot; : &quot;Yes&quot;,
     &quot;value&quot; : &quot;Yes&quot;

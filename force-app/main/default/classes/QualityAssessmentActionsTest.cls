@@ -17,9 +17,11 @@ private class QualityAssessmentActionsTest {
   static void testHandleMaskingPositive() {
     Quality_Assessment__c oldRecord = oldqaRecord;
     oldRecord.Status__c = QualityAssessmentActions.STATUS_PENDING;
+    oldRecord.Evaluation_Type__c = IDRConstants.QA_CR_ASSESSMENT;
     oldRecord.Q1_Comments__c = '';
     Quality_Assessment__c newRecord = newqaRecord;
     newRecord.Status__c = QualityAssessmentActions.STATUS_PENDING;
+    newRecord.Evaluation_Type__c = IDRConstants.QA_CR_ASSESSMENT;
     newRecord.Q1_Comments__c = 'card 4123-1233-1111-2222';
     Test.startTest();
     IDRQualityAssessmentActions.applyDefaults(
@@ -40,9 +42,11 @@ private class QualityAssessmentActionsTest {
   static void testHandleMaskingNegative() {
     Quality_Assessment__c oldRecord = oldqaRecord;
     oldRecord.Status__c = QualityAssessmentActions.STATUS_PENDING;
+    oldRecord.Evaluation_Type__c = IDRConstants.QA_CR_ASSESSMENT;
     oldRecord.Q1_Comments__c = '';
     Quality_Assessment__c newRecord = newqaRecord;
     newRecord.Status__c = QualityAssessmentActions.STATUS_PENDING;
+    newRecord.Evaluation_Type__c = IDRConstants.QA_CR_ASSESSMENT;
     newRecord.Q1_Comments__c = '$12345678';
     Test.startTest();
     IDRQualityAssessmentActions.applyDefaults(
@@ -54,6 +58,59 @@ private class QualityAssessmentActionsTest {
       '$12345678',
       newRecord.Q1_Comments__c,
       'Q1 Comments field value should not be masked for CMOS if text has $ prefix'
+    );
+  }
+
+  /**
+   * @description Test method to test data masking for Final letter review - QA fields for CMOS
+   */
+  @isTest
+  static void testHandleMaskingFinalLetterPositive() {
+    Quality_Assessment__c oldRecord = oldqaRecord;
+    oldRecord.Status__c = QualityAssessmentActions.STATUS_PENDING;
+    oldRecord.Evaluation_Type__c = IDRConstants.QA_FINAL_LETTER_REVIEW_ASSESSMENT;
+    oldRecord.RecordTypeId = RTQualityAssessment.idrReviewAssessmentId;
+    oldRecord.Feedback_summary_for_the_Case_Manager__c = '';
+    Quality_Assessment__c newRecord = newqaRecord;
+    newRecord.Status__c = QualityAssessmentActions.STATUS_PENDING;
+    newRecord.Evaluation_Type__c = IDRConstants.QA_FINAL_LETTER_REVIEW_ASSESSMENT;
+    newRecord.Feedback_summary_for_the_Case_Manager__c = 'card 4123-1233-1111-2222';
+    Test.startTest();
+    IDRQualityAssessmentActions.applyDefaults(
+      new List<Quality_Assessment__c>{ newRecord },
+      new Map<Id, Quality_Assessment__c>{ oldRecord.Id => oldRecord }
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      'card ************2222',
+      newRecord.Feedback_summary_for_the_Case_Manager__c,
+      'Feedback summary for the Case Manager field value should be masked for CMOS if text has card string'
+    );
+  }
+  /**
+   * @description Test method to test data masking should be skipped for a particular pattern for CMOS
+   */
+  @isTest
+  static void testHandleMaskingFinalLetterNegative() {
+    Quality_Assessment__c oldRecord = oldqaRecord;
+    oldRecord.Status__c = QualityAssessmentActions.STATUS_PENDING;
+    oldRecord.Evaluation_Type__c = IDRConstants.QA_FINAL_LETTER_REVIEW_ASSESSMENT;
+    oldRecord.RecordTypeId = RTQualityAssessment.idrReviewAssessmentId;
+    oldRecord.Feedback_summary_for_the_Case_Manager__c = '';
+    Quality_Assessment__c newRecord = newqaRecord;
+    newRecord.Status__c = QualityAssessmentActions.STATUS_PENDING;
+    newRecord.Evaluation_Type__c = IDRConstants.QA_FINAL_LETTER_REVIEW_ASSESSMENT;
+    newRecord.Feedback_summary_for_the_Case_Manager__c = '$12345678';
+    Test.startTest();
+    IDRQualityAssessmentActions.applyDefaults(
+      new List<Quality_Assessment__c>{ newRecord },
+      new Map<Id, Quality_Assessment__c>{ oldRecord.Id => oldRecord }
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      '$12345678',
+      newRecord.Feedback_summary_for_the_Case_Manager__c,
+      'Feedback summary for the Case Manager field value should not be masked for CMOS if text has $ prefix'
     );
   }
 
@@ -252,31 +309,13 @@ private class QualityAssessmentActionsTest {
       );
 
       insert caseRecord;
-
       Quality_Assessment__c qaRecord = new Quality_Assessment__c(
-        RecordTypeId = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
-          .get('Call_Letter_Review_Assessment')
-          .getRecordTypeId(),
-        Related_Case__c = caseRecord.Id,
-        Evaluation_Type__c = 'Letter Review Assessment',
-        Status__c = 'Complete'
-      );
-      Map<String, FieldSet> mpAssessmentFieldSets = Schema.SObjectType.Quality_Assessment__c.fieldSets.getMap();
-      IDRQualityAssessmentTaskActionsTest.fillMandatoryFields(
-        qaRecord,
-        mpAssessmentFieldSets
-      );
-
-      insert qaRecord;
-
-      qaRecord = new Quality_Assessment__c(
-        RecordTypeId = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
-          .get('Call_Letter_Review_Assessment')
-          .getRecordTypeId(),
+        RecordTypeId = RTQualityAssessment.idrReviewAssessmentId,
         Related_Case__c = caseRecord.Id,
         Evaluation_Type__c = 'Call Review Assessment',
         Status__c = 'Complete'
       );
+      Map<String, FieldSet> mpAssessmentFieldSets = Schema.SObjectType.Quality_Assessment__c.fieldSets.getMap();
       IDRQualityAssessmentTaskActionsTest.fillMandatoryFields(
         qaRecord,
         mpAssessmentFieldSets
@@ -440,5 +479,97 @@ private class QualityAssessmentActionsTest {
     );
     Test.stopTest();
     Assert.areEqual(0, newQa.Case_Manager_Score__c, 'Case Manager score is 0');
+  }
+  /**
+   * @description Test when only status is getting changed.
+   */
+  @isTest
+  static void testGetNotChangedQARecords() {
+    Quality_Assessment__c oldRecord = oldqaRecord;
+    oldRecord.Status__c = QualityAssessmentActions.STATUS_PENDING;
+    Quality_Assessment__c newRecord = newqaRecord;
+    newRecord.Status__c = QualityAssessmentActions.STATUS_COMPLETE;
+    Test.startTest();
+    IDRQualityAssessmentActions.getNotChangedQARecords(
+      new List<Quality_Assessment__c>{ newRecord },
+      new Map<Id, Quality_Assessment__c>{ oldRecord.Id => oldRecord }
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      IDRConstants.qaAssessmentStatusMapping.get(
+        IDRConstants.QA_TM_RESPONSE_AWAITING
+      ),
+      newRecord.Assessment_Outcome_Status__c,
+      'Assessment outcome status should Submitted'
+    );
+  }
+  /**
+   * @description Test when Team Manager response is updated along with status.
+   */
+  @isTest
+  static void testGetNotChangedQARecordsInvalid() {
+    Quality_Assessment__c oldRecord = oldqaRecord;
+    oldRecord.Status__c = QualityAssessmentActions.STATUS_PENDING;
+    oldRecord.Assessment_Outcome_Status__c = null;
+    Quality_Assessment__c newRecord = newqaRecord;
+    newRecord.Team_Manager_Response__c = IDRConstants.TEAM_MANAGER_REJECTION_RESPONSE;
+    newRecord.Status__c = QualityAssessmentActions.STATUS_COMPLETE;
+    Test.startTest();
+    IDRQualityAssessmentActions.getNotChangedQARecords(
+      new List<Quality_Assessment__c>{ newRecord },
+      new Map<Id, Quality_Assessment__c>{ oldRecord.Id => oldRecord }
+    );
+    Test.stopTest();
+    Assert.isNull(
+      oldRecord.Assessment_Outcome_Status__c,
+      'Assessment  outcome status should be null i.e., no change in value'
+    );
+  }
+  /**
+   * @description Test when Team Manager response is updated along with status.
+   */
+  @isTest
+  static void testGetChangedQARecords() {
+    Quality_Assessment__c oldRecord = oldqaRecord;
+    oldRecord.Status__c = QualityAssessmentActions.STATUS_PENDING;
+    oldRecord.Assessment_Outcome_Status__c = null;
+    oldRecord.Team_Manager_Response__c = null;
+    Quality_Assessment__c newRecord = newqaRecord;
+    newRecord.Team_Manager_Response__c = IDRConstants.TEAM_MANAGER_REJECTION_RESPONSE;
+    newRecord.Status__c = QualityAssessmentActions.STATUS_COMPLETE;
+    Test.startTest();
+    IDRQualityAssessmentActions.getChangedQARecords(
+      new List<Quality_Assessment__c>{ newRecord },
+      new Map<Id, Quality_Assessment__c>{ oldRecord.Id => oldRecord }
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      IDRConstants.qaAssessmentStatusMapping.get(
+        IDRConstants.TEAM_MANAGER_REJECTION_RESPONSE
+      ),
+      newRecord.Assessment_Outcome_Status__c,
+      'Assessment outcome status should be Disputed'
+    );
+  }
+  /**
+   * @description Test when only status is getting changed.
+   */
+  @isTest
+  static void testGetChangedQARecordsInvalid() {
+    Quality_Assessment__c oldRecord = oldqaRecord;
+    oldRecord.Status__c = QualityAssessmentActions.STATUS_PENDING;
+    oldRecord.Assessment_Outcome_Status__c = null;
+    Quality_Assessment__c newRecord = newqaRecord;
+    newRecord.Status__c = QualityAssessmentActions.STATUS_COMPLETE;
+    Test.startTest();
+    IDRQualityAssessmentActions.getChangedQARecords(
+      new List<Quality_Assessment__c>{ newRecord },
+      new Map<Id, Quality_Assessment__c>{ oldRecord.Id => oldRecord }
+    );
+    Test.stopTest();
+    Assert.isNull(
+      oldRecord.Assessment_Outcome_Status__c,
+      'Assessment  outcome status should be null i.e., no change in value'
+    );
   }
 }

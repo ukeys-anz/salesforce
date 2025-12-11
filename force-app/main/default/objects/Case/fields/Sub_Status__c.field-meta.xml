@@ -57,7 +57,25 @@
                 <default>false</default>
                 <label>Opt-Out</label>
             </value>
+            <value>
+                <fullName>By Coach</fullName>
+                <default>false</default>
+                <label>By Coach</label>
+            </value>
+            <value>
+                <fullName>By Customer</fullName>
+                <default>false</default>
+                <label>By Customer</label>
+            </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>On Hold</controllingFieldValue>
+            <valueName>By Coach</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>On Hold</controllingFieldValue>
+            <valueName>By Customer</valueName>
+        </valueSettings>
         <valueSettings>
             <controllingFieldValue>Closed</controllingFieldValue>
             <valueName>No Defect</valueName>
@@ -74,6 +92,7 @@
             <controllingFieldValue>Closed</controllingFieldValue>
             <controllingFieldValue>Escalated</controllingFieldValue>
             <controllingFieldValue>Open</controllingFieldValue>
+            <controllingFieldValue>Under Investigation</controllingFieldValue>
             <controllingFieldValue>Withdrawn</controllingFieldValue>
             <valueName>Processing</valueName>
         </valueSettings>

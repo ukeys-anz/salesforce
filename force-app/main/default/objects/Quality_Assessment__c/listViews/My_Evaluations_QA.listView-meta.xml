@@ -5,15 +5,11 @@
     <columns>Evaluation_Type__c</columns>
     <columns>Related_Case__c</columns>
     <columns>Customer_Name__c</columns>
+    <columns>Case_Manager__c</columns>
     <columns>CREATEDBY_USER</columns>
     <columns>Case_Manager_Score__c</columns>
     <columns>Assessment_Result__c</columns>
     <columns>Assessment_Completion_Date__c</columns>
-    <filters>
-        <field>RECORDTYPE</field>
-        <operation>equals</operation>
-        <value>Quality_Assessment__c.C_Q_Assessment,Quality_Assessment__c.Call_Letter_Review_Assessment</value>
-    </filters>
     <filters>
         <field>Status__c</field>
         <operation>equals</operation>
@@ -23,6 +19,11 @@
         <field>IsItemCaseManagerLoggedInUser__c</field>
         <operation>equals</operation>
         <value>1</value>
+    </filters>
+    <filters>
+        <field>Evaluation_Type__c</field>
+        <operation>equals</operation>
+        <value>Final Letter Review Assessment,Call Review Assessment,C &amp; Q Assessment,Customer Resolution Assessment,Letter Review Assessment</value>
     </filters>
     <filterScope>Everything</filterScope>
     <label>My Evaluations</label>

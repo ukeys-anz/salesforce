@@ -22,7 +22,7 @@ private class CaseSendCommunicationControllerTest {
     OCVId__c = '0123456789',
     PersonaId__c = FAKER.randomString(15),
     ElectronicVerificationAcknowledged__c = true,
-    VerificationType__c = COBApplicationActionsHelper.VERIFICATION_TYPE_ASSISTED
+    VerificationType__c = AutoKYCQACaseActions.VERIFICATION_TYPE_ASSISTED
   );
   private static Case kycQACase = new Case(
     Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),

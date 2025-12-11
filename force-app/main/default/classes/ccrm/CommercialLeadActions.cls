@@ -244,7 +244,7 @@ public with sharing class CommercialLeadActions {
       )
       .equals(
         Lead.Expiry_Date__c,
-        Date.today().addDays(Integer.valueOf(Label.CCRM_Today_Date))
+        Date.today().addDays(Integer.valueOf(Label.CommercialExtendTodaysDate))
       )
       .toList();
     Map<Id, Boolean> leadWithIncludeFridayMap = LeadExpiryActions.getLeadsWithIncludeFridayMap(
@@ -541,5 +541,34 @@ public with sharing class CommercialLeadActions {
       .toList();
 
     ListUtil.setField(filteredLeadList, Lead.Company, null);
+  }
+
+  /**
+   * @description : This is used to populate the contact info for the Individual ETB Customers
+   * @param records Lead records
+   * @param oldMap old lead records
+   */
+  public static void prefillContactInfoForIndLead(
+    List<Lead> records,
+    Map<Id, Lead> oldMap
+  ) {
+    List<Lead> filteredLeadList = ListUtil.filter(records, oldMap)
+      .changed(Lead.FinServ__RelatedAccount__c)
+      .isNotNull(Lead.FinServ__RelatedAccount__c)
+      .toList();
+
+    Set<Id> accountIdsSet = ListUtil.getIds(
+      filteredLeadList,
+      Lead.FinServ__RelatedAccount__c
+    );
+
+    Map<Id, Account> accMap = LEAD_ACTION_REPOSITORY.getIndividualAccRecords(
+      accountIdsSet
+    );
+
+    CommercialLeadActionsHelper.populateContactInfoForInd(
+      filteredLeadList,
+      accMap
+    );
   }
 }

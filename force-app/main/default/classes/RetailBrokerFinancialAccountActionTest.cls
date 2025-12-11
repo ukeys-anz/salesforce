@@ -100,6 +100,9 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
       createFinancialAccounts(RTFinancialAccount.bankAccount, null)
     );
     finAccounts[0].Marketing_Code__c = 'HLVAR01';
+    finAccounts[0].Assisted_Broker__c = Lib_FakeIdGenerator.getMockId(
+      Broker_Code__c.SObjectType
+    );
     Integer cloudEventsBefore = CloudEventController.cloudEvents == null
       ? 0
       : CloudEventController.cloudEvents.size();
@@ -119,15 +122,25 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
     );
   }
 
-  /* Assisted_Broker and Assisted_brokerTPMI_Sao is null */
+  /* Assisted_Broker and Assisted_brokerTPMI_Sao is not changed */
   @istest
-  static void testpopulateFinancialAccountAssistedBrokerWhenTPMIIsNull() {
+  static void testpopulateFinancialAccountAssistedBrokerWhenTPMINotChanged() {
     Id newRecordId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-    Map<Id, FinServ__FinancialAccount__c> oldMap = new Map<Id, FinServ__FinancialAccount__c>();
     FinServ__FinancialAccount__c newRecord = createFinancialAccounts(
       RTFinancialAccount.bankAccount,
       newRecordId
     );
+    newRecord.Assisted_Broker_TPMI_SAO__c = 'oldBroker-TPMISAO-1';
+    FinServ__FinancialAccount__c oldRecord = newRecord.Clone(
+      true,
+      true,
+      true,
+      true
+    );
+    oldRecord.Assisted_Broker_TPMI_SAO__c = 'oldBroker-TPMISAO-1';
+    Map<Id, FinServ__FinancialAccount__c> oldMap = new Map<Id, FinServ__FinancialAccount__c>();
+    oldMap.put(oldRecord.Id, oldRecord);
+
     Broker_Code__c mockBrokerCode = createMockBrokerCode(
       'Broker-TPMISAO-1_Retail',
       newRecord.Id
@@ -142,6 +155,7 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
       new List<FinServ__FinancialAccount__c>{ newRecord },
       oldMap
     );
+
     Test.stopTest();
 
     Assert.areEqual(0, recordsToUpdate.size(), 'No records should be updated');
@@ -267,6 +281,9 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
       RTFinancialAccount.bankAccount,
       newRecordId
     );
+    newRecord.Assisted_Broker__c = Lib_FakeIdGenerator.getMockId(
+      Broker_Code__c.SObjectType
+    );
     newRecord.Marketing_Code__c = 'HLVAR01';
     Test.startTest();
     List<FinServ__FinancialAccount__c> validRecords = RetailBrokerFinancialAccountAction.filterPlusFinancialAccounts(
@@ -309,6 +326,9 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
     FinServ__FinancialAccount__c validRecord = createFinancialAccounts(
       RTFinancialAccount.bankAccount,
       newRecordId
+    );
+    validRecord.Assisted_Broker__c = Lib_FakeIdGenerator.getMockId(
+      Broker_Code__c.SObjectType
     );
     String jsonValid = JSON.serialize(validRecord);
     Map<String, Object> validMap = (Map<String, Object>) JSON.deserializeUntyped(

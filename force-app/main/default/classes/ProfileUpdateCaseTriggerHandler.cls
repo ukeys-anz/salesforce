@@ -24,7 +24,7 @@ public with sharing class ProfileUpdateCaseTriggerHandler extends Lib_TriggerHan
    * @description onBeforeInsert to handle before insert trigger actions.
    */
   public override void onBeforeInsert() {
-    Logger.debug('On_Before_Insert started: ' + System.now());
+    Logger.debug('On_Before_Insert started: ' + DateTimeUtils.timeString);
     CommonCaseTriggerActions.populateContactLookupForANZPlus(
       records,
       new Map<Id, Case>()
@@ -36,6 +36,8 @@ public with sharing class ProfileUpdateCaseTriggerHandler extends Lib_TriggerHan
       records,
       new Map<Id, Case>()
     );
+    ProfileUpdateCaseActions.setLegalNameQAInfo(records);
+    Logger.debug('On_Before_Insert finished: ' + DateTimeUtils.timeString);
     Logger.saveLog();
   }
 
