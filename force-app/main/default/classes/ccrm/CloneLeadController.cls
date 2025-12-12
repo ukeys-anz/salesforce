@@ -30,7 +30,8 @@ public with sharing class CloneLeadController {
       // Validation: Only clone if NTB == 'Yes' AND customer is a Prospect (or no related account)
       if (
         oldLead.New_to_Bank__c != 'Yes' ||
-        !(oldLead.FinServ__RelatedAccount__r?.Is_Prospect__c ?? true)
+        (oldLead.FinServ__RelatedAccount__r?.FinServ__Status__c != null &&
+        oldLead.FinServ__RelatedAccount__r?.FinServ__Status__c != 'Prospect')
       ) {
         throw new AuraHandledException(ERROR_NOT_CLONEABLE);
       }

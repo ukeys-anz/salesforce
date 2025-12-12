@@ -116,7 +116,7 @@ public with sharing class CloneLeadControllerTest {
     Lead leadRecord = getDefaultLead();
     Account associatedAccount = (Account) TestUtil.setFields(
       new Account(Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType)),
-      new Map<String, Object>{ 'Is_Prospect__c' => false }
+      new Map<String, Object>{ 'FinServ__Status__c' => 'Active' }
     );
     leadRecord.finserv__RelatedAccount__r = associatedAccount;
 
