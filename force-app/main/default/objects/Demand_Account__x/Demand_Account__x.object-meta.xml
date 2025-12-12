@@ -112,7 +112,7 @@
         <formFactor>Small</formFactor>
         <type>Default</type>
     </actionOverrides>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <compactLayoutAssignment>Demand_Account_Compact_Layout</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Demand Accounts for cache customers.</description>
     <enableFeeds>false</enableFeeds>
@@ -121,7 +121,7 @@
     <enableSearch>false</enableSearch>
     <externalDataSource>Core_Banking_Data_Source</externalDataSource>
     <externalName>DemandAccount</externalName>
-    <label>Demand Account</label>
-    <pluralLabel>Demand Accounts</pluralLabel>
-    <searchLayouts></searchLayouts>
+    <label>Deposit Account</label>
+    <pluralLabel>Deposit Accounts</pluralLabel>
+    <searchLayouts/>
 </CustomObject>

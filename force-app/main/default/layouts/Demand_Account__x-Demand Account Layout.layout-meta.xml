@@ -29,11 +29,15 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Relationship__c</field>
+                <field>Sub_Product_Code__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Sub_Product_Code__c</field>
+                <field>Limit__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Relationship__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -147,11 +151,25 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Tiered_Credit_Int_Points_Diff1__c</field>
+            </layoutItems>
+            <layoutItems>
+                <emptySpace>true</emptySpace>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Tiered_Credit_Int_Percentage_Factor2__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Tiered_Credit_Interest_Limit2__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Tiered_Credit_Int_Points_Diff2__c</field>
+            </layoutItems>
+            <layoutItems>
+                <emptySpace>true</emptySpace>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -163,11 +181,25 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Tiered_Credit_Int_Points_Diff3__c</field>
+            </layoutItems>
+            <layoutItems>
+                <emptySpace>true</emptySpace>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Tiered_Credit_Int_Percentage_Factor4__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Tiered_Credit_Interest_Limit4__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Tiered_Credit_Int_Points_Diff4__c</field>
+            </layoutItems>
+            <layoutItems>
+                <emptySpace>true</emptySpace>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -179,11 +211,24 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Tiered_Credit_Int_Points_Diff5__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Tiered_Credit_Int_Percentage_Factor6__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Tiered_Credit_Interest_Limit6__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Tiered_Credit_Int_Points_Diff6__c</field>
+            </layoutItems>
+            <layoutItems>
+                <emptySpace>true</emptySpace>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -195,6 +240,13 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Tiered_Credit_Int_Points_Diff7__c</field>
+            </layoutItems>
+            <layoutItems>
+                <emptySpace>true</emptySpace>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Tiered_Credit_Int_Percentage_Factor8__c</field>
             </layoutItems>
             <layoutItems>
@@ -203,45 +255,18 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Tiered_Credit_Int_Points_Diff8__c</field>
+            </layoutItems>
+            <layoutItems>
+                <emptySpace>true</emptySpace>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Tiered_Credit_Int_Percentage_Factor9__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Tiered_Credit_Interest_Limit9__c</field>
-            </layoutItems>
-        </layoutColumns>
-        <layoutColumns>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Tiered_Credit_Int_Points_Diff1__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Tiered_Credit_Int_Points_Diff2__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Tiered_Credit_Int_Points_Diff3__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Tiered_Credit_Int_Points_Diff4__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Tiered_Credit_Int_Points_Diff5__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Tiered_Credit_Int_Points_Diff6__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Tiered_Credit_Int_Points_Diff7__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Tiered_Credit_Int_Points_Diff8__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -431,7 +456,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Next_Opportunity_To_Reprice__c</field>
+                <field>Annual_Review_Date__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -465,7 +490,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Annual_Review_Date__c</field>
+                <field>Next_Opportunity_To_Reprice__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -513,7 +538,7 @@
         <customLabel>true</customLabel>
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
-        <label>Points Difference Margin</label>
+        <label>Point Difference Margin</label>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>

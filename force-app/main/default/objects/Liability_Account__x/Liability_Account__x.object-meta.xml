@@ -112,7 +112,7 @@
         <formFactor>Small</formFactor>
         <type>Default</type>
     </actionOverrides>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <compactLayoutAssignment>Liability_Account_Compact_Layout</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Liability Accounts for cache customers.</description>
     <enableFeeds>false</enableFeeds>
@@ -123,5 +123,5 @@
     <externalName>LiabilityAccount</externalName>
     <label>Liability Account</label>
     <pluralLabel>Liability Accounts</pluralLabel>
-    <searchLayouts></searchLayouts>
+    <searchLayouts/>
 </CustomObject>

@@ -12,7 +12,7 @@
     <length>255</length>
     <referenceTargetField>Account.External_Id__c</referenceTargetField>
     <referenceTo>Account</referenceTo>
-    <relationshipLabel>Demand Accounts</relationshipLabel>
+    <relationshipLabel>Deposit Accounts</relationshipLabel>
     <relationshipName>Demand_Account</relationshipName>
     <securityClassification>Confidential</securityClassification>
     <type>IndirectLookup</type>

@@ -103,7 +103,10 @@ public with sharing class LiabilityAccountExternalQuery extends CacheFinancialAc
       Map<String, Object> row = new Map<String, Object>{
         this.parentField => this.parentId,
         'ExternalId' => UUID.randomUUID().toString(),
-        'AccountName' => 'Error: ' + fa.error
+        'AccountName' => 'Error: ' +
+        FinancialAccountQueryHelper.formatAccountNumber(fa.accountNumber) +
+        ' ' +
+        fa.error
       };
       return row;
     }
@@ -118,7 +121,10 @@ public with sharing class LiabilityAccountExternalQuery extends CacheFinancialAc
       'AccountNumber' => FinancialAccountQueryHelper.formatAccountNumber(
         fa.accountNumber
       ),
-      'AccountStatus' => fa.status,
+      'AccountStatus' => FinancialAccountQueryHelper.getAccountStatus(
+        fa.accountNumber,
+        this.accountRoleMap
+      ),
       'Balance' => fa.balance,
       'Limit' => fa.accountLimit,
       'AccountNameLine1' => fa.accountNameLines?.accountNameLine1,
@@ -149,7 +155,12 @@ public with sharing class LiabilityAccountExternalQuery extends CacheFinancialAc
       'ShortName' => fa.shortName,
       'SecurityIndicator' => fa.securityIndicator,
       'SubProductCode' => fa.subProductCode,
-      'UnavailableFunds' => fa.unavailableFunds
+      'UnavailableFunds' => fa.unavailableFunds,
+      'Relationship' => FinancialAccountQueryHelper.getAccountRelationship(
+        fa.accountNumber,
+        this.roleTypes,
+        this.accountRoleMap
+      )
     };
     return row;
   }

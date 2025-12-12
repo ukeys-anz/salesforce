@@ -103,7 +103,10 @@ public with sharing class DemandAccountExternalQuery extends CacheFinancialAccou
       Map<String, Object> row = new Map<String, Object>{
         this.parentField => this.parentId,
         'ExternalId' => UUID.randomUUID().toString(),
-        'AccountName' => 'Error: ' + fa.error
+        'AccountName' => 'Error: ' +
+        FinancialAccountQueryHelper.formatAccountNumber(fa.accountNumber) +
+        ' ' +
+        fa.error
       };
       return row;
     }
@@ -119,7 +122,10 @@ public with sharing class DemandAccountExternalQuery extends CacheFinancialAccou
       'AccountNumber' => FinancialAccountQueryHelper.formatAccountNumber(
         fa.accountNumber
       ),
-      'AccountStatus' => fa.status,
+      'AccountStatus' => FinancialAccountQueryHelper.getAccountStatus(
+        fa.accountNumber,
+        this.accountRoleMap
+      ),
       'ShortName' => fa.shortName,
       'SecurityIndicator' => fa.securityIndicator,
       'DirectExcessFeeTo' => fa.directExcessFeeTo,
@@ -182,7 +188,12 @@ public with sharing class DemandAccountExternalQuery extends CacheFinancialAccou
       'AccountNameLine3' => fa.accountNameLines?.accountNameLine3,
       'LimitType1' => fa.limitTypes?.type1,
       'LimitType2' => fa.limitTypes?.type2,
-      'LimitType3' => fa.limitTypes?.type3
+      'LimitType3' => fa.limitTypes?.type3,
+      'Relationship' => FinancialAccountQueryHelper.getAccountRelationship(
+        fa.accountNumber,
+        this.roleTypes,
+        this.accountRoleMap
+      )
     };
     row.putAll(populateDates(fa.startDates, 'StartDate'));
     row.putAll(populateGrossLimits(fa.currentGrossLimits));
