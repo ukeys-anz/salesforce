@@ -233,16 +233,6 @@
                 <identifier>RecordTransfer_cField</identifier>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Status__c</fieldItem>
-                <identifier>RecordStatus_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-33ee8b5b-84cc-4bd0-b896-c968af65e4e9</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -275,6 +265,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Authentication_Method__c</fieldItem>
                 <identifier>RecordAuthentication_Method_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Status__c</fieldItem>
+                <identifier>RecordStatus_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-f5ba9402-62f0-4a37-9c53-d8950e68f88f</name>
