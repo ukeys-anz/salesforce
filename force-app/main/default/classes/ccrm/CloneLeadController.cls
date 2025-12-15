@@ -109,7 +109,7 @@ public with sharing class CloneLeadController {
     // Always include required fields
     fieldNames.add('Id');
     fieldNames.add('New_to_Bank__c'); //required for validation
-    fieldNames.add('FinServ__RelatedAccount__r.Is_Prospect__c'); //required for validation
+    fieldNames.add('FinServ__RelatedAccount__r.FinServ__Status__c'); //required for validation
 
     // Build SOQL dynamically
     String query =
