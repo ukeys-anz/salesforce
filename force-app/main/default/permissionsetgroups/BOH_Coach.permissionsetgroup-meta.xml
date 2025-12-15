@@ -80,5 +80,6 @@
     <permissionSets>View_Refer_to_ANZ_button</permissionSets>
     <permissionSets>View_Statements</permissionSets>
     <permissionSets>View_Transaction_History</permissionSets>
+    <permissionSets>CIBA_Authorisation_Access_AAL4</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
