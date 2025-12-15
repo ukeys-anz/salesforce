@@ -57,6 +57,7 @@ public with sharing class CloneLeadController {
       DML_REPOSITORY.doInsert(
         newLead,
         new DmlConfig()
+          .systemMode()
           .byPassDuplicateRule()
           .errorLog('Error while inserting lead record in CloneLeadController')
       );
