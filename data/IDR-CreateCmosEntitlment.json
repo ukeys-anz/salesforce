@@ -1,6 +1,6 @@
 [
   {
-    "sobject": "Entitlment",
+    "sobject": "Entitlement",
     "saveRefs": false,
     "resolveRefs": true,
     "files": ["IDR-Entitlment.json"]
