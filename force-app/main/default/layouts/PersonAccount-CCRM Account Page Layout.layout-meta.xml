@@ -423,6 +423,7 @@
     <relatedLists>
         <fields>Account_Number__c</fields>
         <fields>Account_Name__c</fields>
+        <fields>Product_Name__c</fields>
         <fields>Product_Code__c</fields>
         <fields>Sub_Product_Code__c</fields>
         <fields>Balance__c</fields>
@@ -433,11 +434,12 @@
     <relatedLists>
         <fields>Account_Number__c</fields>
         <fields>Account_Name__c</fields>
+        <fields>Product_Name__c</fields>
         <fields>Product_Code__c</fields>
         <fields>Sub_Product_Code__c</fields>
-        <fields>Balance__c</fields>
         <fields>Limit__c</fields>
         <fields>Status__c</fields>
+        <fields>Relationship__c</fields>
         <relatedList>Liability_Account__x.Customer__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>

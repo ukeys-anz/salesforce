@@ -160,6 +160,10 @@ public with sharing class LiabilityAccountExternalQuery extends CacheFinancialAc
         fa.accountNumber,
         this.roleTypes,
         this.accountRoleMap
+      ),
+      'ProductName' => FinancialAccountQueryHelper.getProductName(
+        fa.accountNumber,
+        this.accountRoleMap
       )
     };
     return row;

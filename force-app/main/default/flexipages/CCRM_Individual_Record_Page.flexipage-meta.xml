@@ -2558,10 +2558,16 @@
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab17</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Source_System_Name__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>CACHE</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.View_CACHE_360_Accounts}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>

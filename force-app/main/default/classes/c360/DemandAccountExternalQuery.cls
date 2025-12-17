@@ -193,6 +193,10 @@ public with sharing class DemandAccountExternalQuery extends CacheFinancialAccou
         fa.accountNumber,
         this.roleTypes,
         this.accountRoleMap
+      ),
+      'ProductName' => FinancialAccountQueryHelper.getProductName(
+        fa.accountNumber,
+        this.accountRoleMap
       )
     };
     row.putAll(populateDates(fa.startDates, 'StartDate'));
