@@ -159,9 +159,7 @@ public with sharing class DemandAccountExternalQuery extends CacheFinancialAccou
       'CreditInterestCode' => fa.creditInterestCode,
       'LastOpportunityToReprice' => fa.lastOpportunityToReprice,
       'AccountCategory' => fa.accountCategory,
-      'NextOpportunityToReprice' => fa.nextOpportunityToReprice != null
-        ? Date.valueOf(fa.nextOpportunityToReprice)
-        : null,
+      'NextOpportunityToReprice' => fa.nextOpportunityToReprice,
       'ANZSIC' => fa.anzsic,
       'ManagersReviewDate' => fa.managersReviewDate,
       'AccountTitle' => fa.accountTitle,
@@ -202,11 +200,11 @@ public with sharing class DemandAccountExternalQuery extends CacheFinancialAccou
     row.putAll(populateDates(fa.startDates, 'StartDate'));
     row.putAll(populateGrossLimits(fa.currentGrossLimits));
     row.putAll(
-      populatePointsDifferences(fa.pointsDifference, 'PointsDifference')
+      populatePointsDifferences(fa.pointsDifferences, 'PointsDifference')
     );
     row.putAll(
       populatePointsDifferences(
-        fa.tieredCreditInterest?.pointsDifference,
+        fa.tieredCreditInterest?.pointsDifferences,
         'TieredCreditInterestPointsDifference'
       )
     );

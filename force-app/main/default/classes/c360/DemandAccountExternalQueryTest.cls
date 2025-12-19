@@ -353,7 +353,7 @@ private class DemandAccountExternalQueryTest {
   static void testPopulatePointsDifferences() {
     DemandAccountModel model = new DemandAccountModel();
     DemandAccountModel.pointsDifference pointsDifference = new DemandAccountModel.pointsDifference();
-    model.pointsDifference = pointsDifference;
+    model.pointsDifferences = pointsDifference;
     pointsDifference.pointsDifference1 = 2.5;
     Map<String, Object> row = new Map<String, Object>();
     Test.startTest();

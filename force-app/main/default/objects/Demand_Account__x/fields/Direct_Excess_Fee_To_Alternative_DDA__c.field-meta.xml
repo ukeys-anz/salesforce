@@ -3,13 +3,13 @@
     <fullName>Direct_Excess_Fee_To_Alternative_DDA__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_CACHE</complianceGroup>
-    <description>Direct Excess Fee to…Alternative DDA</description>
+    <description>Direct Excess Fee to Alternative DDA</description>
     <externalDeveloperName>DirectExcessFeeToAlternativeDDA</externalDeveloperName>
     <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
-    <label>Direct Excess Fee to…Alternative DDA</label>
+    <label>Direct Excess Fee to alternative DDA</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

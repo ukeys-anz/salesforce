@@ -52,7 +52,7 @@ public class DemandAccountModel extends FinancialAccountEntities.FinancialAccoun
   public String creditInterestCycle;
   public Date lastOpportunityToReprice;
   public String creditInterestCode;
-  public String nextOpportunityToReprice;
+  public Date nextOpportunityToReprice;
   public String accountCategory;
   public Date managersReviewDate;
   public String anzsic;
@@ -71,7 +71,7 @@ public class DemandAccountModel extends FinancialAccountEntities.FinancialAccoun
   public Decimal pointDifferenceMargin;
   public percentageFactors percentageFactors;
   public String subProductCode;
-  public pointsDifference pointsDifference;
+  public pointsDifference pointsDifferences;
   public limits limits;
   public String shortName;
   public String penaltyInterest;
@@ -81,7 +81,7 @@ public class DemandAccountModel extends FinancialAccountEntities.FinancialAccoun
    * @description tieredCreditInterest class
    */
   public class tieredCreditInterest {
-    public pointsDifference pointsDifference;
+    public pointsDifference pointsDifferences;
     public limits limits;
     public percentageFactors percentageFactors;
   }
