@@ -24,7 +24,7 @@ This script allows you to batch create multiple test users in a Salesforce sandb
 2. Or use keyboard shortcut: `Ctrl+E` (Windows) or `Cmd+E` (Mac)
 
 ### Step 3: Configure User Data
-1. Open the `user.apex` script
+1. Open the `createUsers.apex` script
 2. Locate the `userDataJSON` variable
 3. Uncomment the user definitions you want to create by removing the `//` at the beginning of each line
 4. Modify user data as needed following the JSON structure
