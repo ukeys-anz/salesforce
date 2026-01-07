@@ -66,7 +66,7 @@ This script allows you to batch create multiple test users in a Salesforce sandb
 - **Option C**: Ensure manager users already exist in the database
 
 ### Step 5: Execute the Script
-1. Copy the entire contents of `user.apex`
+1. Copy the entire contents of `createUsers.apex`
 2. Paste into the Execute Anonymous Window
 3. Ensure **Open Log** checkbox is checked
 4. Click **Execute**
