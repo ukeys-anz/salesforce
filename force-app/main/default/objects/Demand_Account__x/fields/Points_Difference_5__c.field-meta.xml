@@ -12,7 +12,7 @@
     <label>Points Difference 5</label>
     <precision>18</precision>
     <required>false</required>
-    <scale>2</scale>
+    <scale>0</scale>
     <securityClassification>Confidential</securityClassification>
     <type>Number</type>
     <unique>false</unique>

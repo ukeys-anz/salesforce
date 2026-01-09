@@ -9,7 +9,7 @@
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>Tiered Credit Int - Percentage Factor 5</label>
+    <label>Percentage Factor 5</label>
     <precision>18</precision>
     <required>false</required>
     <scale>5</scale>

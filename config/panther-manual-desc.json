@@ -5429,7 +5429,8 @@
         "Sub_Product_Code__c",
         "Status__c",
         "Unavailable_Funds__c",
-        "Relationship__c"
+        "Relationship__c",
+        "Last_Limit_Change__c"
       ]
     },
     "Deposit_Account__x": {

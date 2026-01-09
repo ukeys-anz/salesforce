@@ -9,7 +9,7 @@
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>Tiered Credit Int - Points Diff 3</label>
+    <label>Points Difference 3</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

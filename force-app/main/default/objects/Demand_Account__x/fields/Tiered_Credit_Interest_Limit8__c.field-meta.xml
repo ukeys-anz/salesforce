@@ -9,7 +9,7 @@
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>Tiered Credit Interest - Limit 8</label>
+    <label>Limit 8</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

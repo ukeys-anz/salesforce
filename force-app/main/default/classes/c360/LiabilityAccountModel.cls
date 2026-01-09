@@ -40,6 +40,7 @@ public with sharing class LiabilityAccountModel extends FinancialAccountEntities
   public String shortName;
   public String refinanceAlterationAdditionalIndicator;
   public String riinc;
+  public Date lastLimitChangeDate;
   public String error;
 
   /**

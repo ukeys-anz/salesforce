@@ -52,10 +52,6 @@
                 <behavior>Edit</behavior>
                 <field>Account_Name__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Last_Limit_Change__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

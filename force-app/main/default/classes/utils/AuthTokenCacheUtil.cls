@@ -24,7 +24,8 @@ public with sharing class AuthTokenCacheUtil {
   }
   private static final Set<String> VALID_PROFILES_SET = new Set<String>{
     'ANZx Standard User',
-    'ANZ ML Standard User'
+    'ANZ ML Standard User',
+    'ANZ CCRM Standard User'
   };
   private static final Set<String> APISCOPE_HAVING_JWE_TOKEN = new Set<String>{
     'DCRM_FinSummary'

@@ -156,6 +156,7 @@ public with sharing class LiabilityAccountExternalQuery extends CacheFinancialAc
       'SecurityIndicator' => fa.securityIndicator,
       'SubProductCode' => fa.subProductCode,
       'UnavailableFunds' => fa.unavailableFunds,
+      'LastLimitChange' => fa.lastLimitChangeDate,
       'Relationship' => FinancialAccountQueryHelper.getAccountRelationship(
         fa.accountNumber,
         this.roleTypes,
