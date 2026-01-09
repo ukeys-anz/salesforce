@@ -30,7 +30,6 @@ This script allows you to batch create multiple test users in a Salesforce sandb
 4. Modify user data as needed following the JSON structure
 
 ### User Data JSON Structure
-```json
 {
   "FirstName": "Test",
   "LastName": "User Name",
