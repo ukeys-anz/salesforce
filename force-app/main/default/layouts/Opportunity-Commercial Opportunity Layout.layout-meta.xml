@@ -168,9 +168,9 @@
     <relatedLists>
         <excludeButtons>ChoosePricebook</excludeButtons>
         <fields>Product2</fields>
-        <fields>UnitPrice</fields>
-        <fields>Expected_Settlement_Date__c</fields>
-        <fields>Funding_purpose__c</fields>
+        <fields>Opp_Product_name__c</fields>
+        <fields>ProductCode</fields>
+        <fields>Sub_Product_Code__c</fields>
         <relatedList>RelatedLineItemList</relatedList>
     </relatedLists>
     <relatedLists>

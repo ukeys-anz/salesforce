@@ -11049,6 +11049,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>OpportunityLineItem.Opp_Product_name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>OpportunityContactRole.ExternalId__c</field>
         <readable>true</readable>
     </fieldPermissions>

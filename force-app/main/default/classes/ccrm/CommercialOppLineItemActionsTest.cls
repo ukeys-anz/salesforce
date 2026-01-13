@@ -141,4 +141,108 @@ public with sharing class CommercialOppLineItemActionsTest {
       'should throw error while deletion OLI'
     );
   }
+
+  @isTest
+  static void formOppProdCountMapTest() {
+    //GIVEN oliList
+    List<OpportunityLineItem> oliList = new List<OpportunityLineItem>{
+      new OpportunityLineItem(
+        Id = Lib_FakeIdGenerator.getMockId(OpportunityLineItem.SObjectType),
+        OpportunityId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType),
+        Product2Id = Lib_FakeIdGenerator.getMockId(Product2.SObjectType)
+      )
+    };
+
+    //WHEN calling a method
+    Test.startTest();
+    Map<String, Integer> oppProdCountMap = CommercialOppLineItemActions.formOppProdCountMap(
+      oliList
+    );
+    Test.stopTest();
+
+    //THEN it should successfully form a map
+    Assert.areEqual(
+      1,
+      oppProdCountMap.size(),
+      'should form a map of OppId and ProductId'
+    );
+  }
+
+  @isTest
+  static void updateOppProductNameTest() {
+    //GIVEN records, oppProdCountMap, productMap
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id prodId = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
+    List<OpportunityLineItem> records = new List<OpportunityLineItem>{
+      new OpportunityLineItem(
+        Id = Lib_FakeIdGenerator.getMockId(OpportunityLineItem.SObjectType),
+        OpportunityId = oppId,
+        Product2Id = prodId
+      )
+    };
+
+    Map<String, Integer> oppProdCountMap = new Map<String, Integer>{};
+
+    Map<Id, Product2> productMap = new Map<Id, Product2>{
+      prodId => new Product2(Id = prodId, Name = 'ANZ Product')
+    };
+
+    //WHEN calling a method
+    Test.startTest();
+    CommercialOppLineItemActions.updateOppProductName(
+      records,
+      oppProdCountMap,
+      productMap
+    );
+    Test.stopTest();
+
+    //THEN it should successfully update the opp Product name
+    Assert.areEqual(
+      '1 - ANZ Product',
+      records[0].Opp_Product_Name__c,
+      'should successfully update the Opp Product Name to 1 - ANZ Product'
+    );
+  }
+
+  @isTest
+  static void populateOppProductNameTest() {
+    registerMocks();
+    //GIVEN records, oppProdCountMap, productMap
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id prodId = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
+    List<OpportunityLineItem> records = new List<OpportunityLineItem>{
+      new OpportunityLineItem(
+        Id = Lib_FakeIdGenerator.getMockId(OpportunityLineItem.SObjectType),
+        OpportunityId = oppId,
+        Product2Id = prodId
+      )
+    };
+
+    List<Opportunity> oppList = new List<Opportunity>{
+      new Opportunity(
+        Id = oppId,
+        RecordTypeId = RTOpportunity.commercialOpportunity
+      )
+    };
+
+    Map<Id, Product2> productMap = new Map<Id, Product2>{
+      prodId => new Product2(Id = prodId, Name = 'ANZ Product')
+    };
+
+    oliRepoMock.mock('getOpportunityRecords', oppList);
+    oliRepoMock.mock('getExistingOLIs', records);
+    oliRepoMock.mock('getProductMap', productMap);
+
+    //WHEN calling a method
+    Test.startTest();
+    CommercialOppLineItemActions.populateOppProductName(records);
+    Test.stopTest();
+
+    //THEN it should successfully update the opp Product name
+    Assert.areEqual(
+      '2 - ANZ Product',
+      records[0].Opp_Product_Name__c,
+      'should successfully update the Opp Product Name to 2 - ANZ Product'
+    );
+  }
 }

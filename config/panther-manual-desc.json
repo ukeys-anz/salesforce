@@ -3880,7 +3880,8 @@
         "Amount",
         "Name",
         "ProductCode",
-        "Sub_Product_Code__c"
+        "Sub_Product_Code__c",
+        "Opp_Product_name__c"
       ],
       "IA-2415720": ["Reference_Number__c"],
       "IA-2415840": ["Purpose__c"],
