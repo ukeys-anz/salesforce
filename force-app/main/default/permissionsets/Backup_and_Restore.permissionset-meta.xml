@@ -11069,6 +11069,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Opportunity.Pricing_Reference_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>OpportunityContactRole.Email_Classic__c</field>
         <readable>true</readable>
     </fieldPermissions>

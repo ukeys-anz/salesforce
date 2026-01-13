@@ -3851,7 +3851,10 @@
       ],
       "IA-2530753": ["Opportunity_Owner__c"],
       "IA-2428130": ["Specialisation__c", "New_to_Bank__c"],
-      "IA-2434298": ["Total_Application_Amount__c"],
+      "IA-2434298": [
+        "Total_Application_Amount__c",
+        "Pricing_Reference_Number__c"
+      ],
       "IA-2453350": ["Can_Create_Loanapp__c", "Application_Key__c"],
       "IA-2415790": ["TPMI__c", "Broker_Name__c"],
       "IA-2618940": ["Industry__c"]
