@@ -2999,6 +2999,7 @@
         "AuthContext__c",
         "BindingMessage__c",
         "Issuer__c",
+        "Subject__c",
         "KeyIdentification__c",
         "LoginHint__c",
         "Scope__c",

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <label>Forge Edge Jwt Claims</label>
+    <label>Forge Edge Jwt Claims System</label>
     <protected>false</protected>
     <values>
         <field>Algorithm__c</field>
@@ -37,6 +37,10 @@
     <values>
         <field>SigningCertificateDeveloperName__c</field>
         <value xsi:type="xsd:string">sf_np_forgeedge</value>
+    </values>
+    <values>
+        <field>Subject__c</field>
+        <value xsi:type="xsd:string">salesforce-saas</value>
     </values>
     <values>
         <field>Type__c</field>

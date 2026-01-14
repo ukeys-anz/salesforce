@@ -186,11 +186,15 @@ public with sharing class AuthService extends Service {
     Forgerock_Auth__mdt forgeAuth
   ) {
     String idType = IDTYPEMAP.get(staffModelWrapper.idType);
+    String forgeJwtMdtNameWithRealm =
+      forgeJwtMdtName +
+      '_' +
+      staffModelWrapper.realm;
     String payload =
       'client_id=' +
       EncodingUtil.urlEncode(forgeAuth.Encrypted_forge_client_id__c, 'UTF-8') +
       '&client_assertion=' +
-      new JWTUtil(forgeJwtMdtName).getSignedJWT() +
+      new JWTUtil(forgeJwtMdtNameWithRealm).getSignedJWT() +
       '&client_assertion_type=' +
       EncodingUtil.urlEncode(forgeAuth.Forgev2_subject_token_type__c, 'UTF-8') +
       '&scope=' +

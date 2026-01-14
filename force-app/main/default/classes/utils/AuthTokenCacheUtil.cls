@@ -108,6 +108,7 @@ public with sharing class AuthTokenCacheUtil {
         Cache.Visibility.NAMESPACE,
         true
       );
+      logPartitionCapacity(AuthTokenCacheUtil.SESSIONPART);
 
       // remove org cache tokens
       Cache.Org.remove(AuthTokenCacheUtil.ORGPART + 'idToken' + userId);
@@ -199,6 +200,7 @@ public with sharing class AuthTokenCacheUtil {
         Cache.Visibility.NAMESPACE,
         true
       );
+      logPartitionCapacity(AuthTokenCacheUtil.SESSIONPART);
     } catch (Exception e) {
       Logger.error(e.getMessage(), e, Logger.Severity.LOW);
       Logger.saveLog();
@@ -250,6 +252,7 @@ public with sharing class AuthTokenCacheUtil {
       staffToken,
       expiresIn
     );
+    logPartitionCapacity(STAFFPART);
     return staffToken;
   }
   /**
@@ -468,5 +471,24 @@ public with sharing class AuthTokenCacheUtil {
     Blob hashedKeyBlob = Crypto.generateDigest('MD5', Blob.valueOf(key));
     String hashedKey = EncodingUtil.convertToHex(hashedKeyBlob);
     return hashedKey;
+  }
+
+  /**
+   * @description logging used cache capacity
+   * @param partitionName name of the partition for which capacity is being logged
+   */
+  private static void logPartitionCapacity(String partitionName) {
+    Double usedCapacity = Cache.Session.getPartition(
+        partitionName.removeEnd('.')
+      )
+      .getCapacity();
+    if (usedCapacity < 80) {
+      return;
+    }
+    Logger.info(
+      'ForgeToken Cache Partition is using ' +
+        usedCapacity +
+        '% of allocated capacity.'
+    );
   }
 }

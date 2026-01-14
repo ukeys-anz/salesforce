@@ -320,6 +320,10 @@
                 <behavior>Edit</behavior>
                 <field>Penalty_Interest_Applicable__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Instructions__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
