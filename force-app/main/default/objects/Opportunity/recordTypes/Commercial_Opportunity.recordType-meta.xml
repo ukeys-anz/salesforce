@@ -96,6 +96,21 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Cancelled_Reason__c</picklist>
+        <values>
+            <fullName>Created %2F closed in error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Duplicate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Customer_Needs__c</picklist>
         <values>
             <fullName>Commercial Lending</fullName>
