@@ -29,6 +29,16 @@ public with sharing class LaunchAppOnOppHelper {
       item.oppLineItemId = record.Id;
       item.productURL = '/lightning/r/Product2/' + record.Product2Id + '/view';
       item.productName = record.Product2?.Name;
+      item.oppProductURL =
+        '/lightning/r/OpportunityLineItem/' +
+        record.Id +
+        '/view';
+      item.oppProductName = String.isNotBlank(record.Opp_Product_name__c)
+        ? record.Opp_Product_name__c
+        : record.Product2?.Name;
+      if (String.isBlank(item.oppProductName)) {
+        item.oppProductName = 'View Line Item';
+      }
       item.unitPrice = record.UnitPrice;
       item.fundingPurpose = record.Funding_purpose__c;
       item.productId = record.Product2Id;

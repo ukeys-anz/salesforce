@@ -104,56 +104,58 @@ public with sharing class CommercialOppLineItemActions {
     List<OpportunityLineItem> filteredOliList = ListUtil.filter(records)
       .equals(OpportunityLineItem.OpportunityId, oppIdSet)
       .toList();
+    List<OpportunityLineItem> existingOliList = OLI_REPOSITORY.getExistingOLIsList(
+      oppIdSet
+    );
     Set<Id> productIdsSet = ListUtil.getIds(
       filteredOliList,
       OpportunityLineItem.Product2Id
     );
-    List<OpportunityLineItem> oliList = OLI_REPOSITORY.getExistingOLIs(
-      oppIdSet,
-      productIdsSet
-    );
-    Map<String, Integer> oppProdCountMap = formOppProdCountMap(oliList);
     Map<Id, Product2> productMap = OLI_REPOSITORY.getProductMap(productIdsSet);
-    updateOppProductName(filteredOliList, oppProdCountMap, productMap);
+    Map<String, Integer> oppIdToOliCountMap = formOppIdToOliCountMap(
+      existingOliList
+    );
+    updateOppProductName(filteredOliList, oppIdToOliCountMap, productMap);
   }
 
   /**
-   * @description Forms a map of OppId ProdId and OLI count Map.
-   * @name formOppProdCountMap
+   * @description Forms a map of OppId to OLI count Map.
+   * @name formOppIdToOliCountMap
    * @param oliList List of OpportunityLineItem
    * @return Map<String, Integer> Map containing the count
    */
   @TestVisible
-  private static Map<String, Integer> formOppProdCountMap(
+  private static Map<String, Integer> formOppIdToOliCountMap(
     List<OpportunityLineItem> oliList
   ) {
-    Map<String, Integer> oppProdCountMap = new Map<String, Integer>();
+    Map<String, Integer> oppIdToOliCountMap = new Map<String, Integer>();
     for (OpportunityLineItem oli : oliList) {
-      String key = oli.OpportunityId + '-' + oli.Product2Id;
-      Integer count = oppProdCountMap.get(key) ?? 0;
-      oppProdCountMap.put(key, ++count);
+      Integer count = oppIdToOliCountMap.get(oli.OpportunityId) ?? 0;
+      count++;
+      oppIdToOliCountMap.put(oli.OpportunityId, count);
     }
-    return oppProdCountMap;
+    return oppIdToOliCountMap;
   }
 
   /**
    * @description To update Opp product name field.
    * @name updateOppProductName
-   * @param records List of OLI records
-   * @param oppProdCountMap Map of oppId, productId and count of OLI.
+   * @param filteredOliList List of filtered OLI records
+   * @param oppIdToOliCountMap Map of oppId and count of OLI.
    * @param productMap Map of Id and Product
    */
   @TestVisible
   private static void updateOppProductName(
-    List<OpportunityLineItem> records,
-    Map<String, Integer> oppProdCountMap,
+    List<OpportunityLineItem> filteredOliList,
+    Map<String, Integer> oppIdToOliCountMap,
     Map<Id, Product2> productMap
   ) {
-    for (OpportunityLineItem oli : records) {
-      String key = oli.OpportunityId + '-' + oli.Product2Id;
-      Integer count = oppProdCountMap.get(key) ?? 0;
+    for (OpportunityLineItem oli : filteredOliList) {
+      Integer count = oppIdToOliCountMap.get(oli.OpportunityId) ?? 0;
+      count++;
+      oppIdToOliCountMap.put(oli.OpportunityId, count);
       String productName = productMap.get(oli.Product2Id).Name;
-      oli.Opp_Product_Name__c = (++count) + ' - ' + productName;
+      oli.Opp_Product_Name__c = count + ' - ' + productName;
     }
   }
 }

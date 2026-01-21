@@ -81,19 +81,14 @@ public with sharing class CommercialOppLineItemRepository {
   /**
    * @description To fetch the existing Opportunity Line Items records
    * @param oppIdsSet Set of Opportunity Ids
-   * @param productIdsSet Set of Product Ids
    * @return List<OpportunityLineItem> list of Opportunity Line Items records
    */
-  public List<OpportunityLineItem> getExistingOLIs(
-    Set<Id> oppIdsSet,
-    Set<Id> productIdsSet
-  ) {
+  public List<OpportunityLineItem> getExistingOLIsList(Set<Id> oppIdsSet) {
     return [
       SELECT Id, OpportunityId, Product2Id
       FROM OpportunityLineItem
       WHERE
         OpportunityId IN :oppIdsSet
-        AND Product2Id IN :productIdsSet
         AND Opportunity.RecordTypeId = :RTOpportunity.commercialOpportunity
       WITH USER_MODE
     ];

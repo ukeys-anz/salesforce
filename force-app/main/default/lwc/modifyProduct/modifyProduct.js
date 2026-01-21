@@ -68,7 +68,7 @@ export default class ModifyProduct extends LightningElement {
   get productOptions() {
     return (
       this.products?.map((product) => ({
-        label: product.Product2.Name,
+        label: product.Opp_Product_name__c,
         value: product.Id
       })) || []
     );

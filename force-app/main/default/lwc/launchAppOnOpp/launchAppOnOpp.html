@@ -31,7 +31,7 @@
       </template>
       <template lwc:else>
         <template lwc:if={showTable}>
-          <div class="slds-p-around_medium">
+          <div class="slds-p-around_medium slds-scrollable_x">
             <table
               class="slds-table slds-table_bordered slds-table_cell-buffer"
             >
@@ -61,6 +61,11 @@
                     <span class="slds-truncate" title={CONSTANT.FUNDINGPURPOSE}
                       >{CONSTANT.FUNDINGPURPOSE}</span
                     >
+                  </th>
+                  <th scope="col" class="slds-text-align_center">
+                    <span class="slds-truncate" title={CONSTANT.OPP_PRODUCT}>
+                      {CONSTANT.OPP_PRODUCT}
+                    </span>
                   </th>
                 </tr>
               </thead>
@@ -106,6 +111,13 @@
                       <lightning-formatted-text
                         value={row.fundingPurpose}
                       ></lightning-formatted-text>
+                    </td>
+                    <td class="slds-text-align_center">
+                      <lightning-formatted-url
+                        value={row.oppProductURL}
+                        label={row.oppProductName}
+                        target="_blank"
+                      ></lightning-formatted-url>
                     </td>
                   </tr>
                 </template>

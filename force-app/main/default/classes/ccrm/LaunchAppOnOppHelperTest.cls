@@ -197,4 +197,30 @@ private class LaunchAppOnOppHelperTest {
       'Field Name value should be matched'
     );
   }
+
+  @isTest
+  static void createProductAmountMapTest() {
+    //GIVEN items
+    List<OpportunityLineItem> items = new List<OpportunityLineItem>{
+      new OpportunityLineItem(
+        Id = Lib_FakeIdGenerator.getMockId(OpportunityLineItem.SObjectType),
+        Product2Id = Lib_FakeIdGenerator.getMockId(Product2.SObjectType),
+        UnitPrice = 10
+      )
+    };
+
+    //WHEN calling a method
+    Test.startTest();
+    Map<Id, Decimal> productIdToAmountMap = LaunchAppOnOppHelper.createProductAmountMap(
+      items
+    );
+    Test.stopTest();
+
+    //THEN it shoould successfully create a map
+    Assert.areEqual(
+      1,
+      productIdToAmountMap.size(),
+      'should able to form a map'
+    );
+  }
 }

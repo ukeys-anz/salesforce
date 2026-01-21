@@ -104,6 +104,31 @@ private class LaunchAppOnOppControllerTest {
   }
 
   @isTest
+  static void populateRecordTypeWrapperBBDTest() {
+    registerMocks();
+    Exception ex;
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id recordTypeId = QueryRT.of(ApplicationForm.SObjectType).getId('BBD');
+    launchAppRepoMock.mock(
+      'getOppIdAndSourceSystemId',
+      new Opportunity(
+        Id = oppId,
+        Account = new Account(Source_System_ID__c = '12345')
+      )
+    );
+    Test.startTest();
+    try {
+      List<LaunchAppOnOppController.RecordTypeWrapper> recordTypeWrapperList = LaunchAppOnOppController.populateRecordTypeWrapper(
+        oppId
+      );
+    } catch (Exception e) {
+      ex = e;
+    }
+    Test.stopTest();
+    Assert.isNotNull(ex, 'Exception should be thrown');
+  }
+
+  @isTest
   static void testValidateOpportunityPositive() {
     registerMocks();
     Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
@@ -400,6 +425,209 @@ private class LaunchAppOnOppControllerTest {
       errorMessage,
       'should have Asset Finance Manager under Opportunity team'
     );
+  }
+
+  @isTest
+  static void validateSelectedOppLineItemsTest() {
+    registerMocks();
+
+    //GIVEN Opportunity Id, appFormProducts
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id oliId = Lib_FakeIdGenerator.getMockId(OpportunityLineItem.SObjectType);
+    List<Id> selectedLineItemIds = new List<Id>{ oliId };
+
+    List<ApplicationFormProduct> appFormProducts = new List<ApplicationFormProduct>{
+      new ApplicationFormProduct(
+        Id = Lib_FakeIdGenerator.getMockId(ApplicationFormProduct.SObjectType),
+        Opportunity_Product__c = oliId
+      )
+    };
+
+    launchAppRepoMock.mock(
+      'getAppFormProductsNotRelatedToAMBIT',
+      appFormProducts
+    );
+
+    //WHEN calling a method
+    Test.startTest();
+    List<ApplicationFormProduct> afpList = LaunchAppOnOppController.validateSelectedOppLineItems(
+      oppId,
+      selectedLineItemIds
+    );
+    Test.stopTest();
+
+    //THEN it should successfully get the AFP records
+    Assert.areEqual(
+      1,
+      afpList.size(),
+      'should have 1 Application Form Product'
+    );
+  }
+
+  @isTest
+  static void getOpportunityLineItemsCatchTest() {
+    registerMocks();
+
+    //GIVEN opportunityId
+    Exception ex;
+    Id opportunityId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    launchAppRepoMock.mock('getOpportunityLineItems', null);
+
+    //WHEN calling a method
+    Test.startTest();
+    try {
+      List<LaunchAppOnOppController.OppLineItemWrapper> itemWrapper = LaunchAppOnOppController.getOpportunityLineItems(
+        opportunityId,
+        'BBD'
+      );
+    } catch (Exception e) {
+      ex = e;
+    }
+    Test.stopTest();
+
+    //THEN it should throw an exception
+    Assert.isNotNull(ex, 'Exception should be thrown');
+  }
+
+  @isTest
+  static void createApplicationCatchTest() {
+    registerMocks();
+
+    //GIVEN opportunityId, productId, recordTypeId, oli
+    Exception ex;
+    Id opportunityId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id productId = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
+    Id recordTypeId = QueryRT.of(ApplicationForm.SObjectType).getId('AMBIT');
+    launchAppRepoMock.mock('getSelectedOppLineItems', null);
+
+    //WHEN calling a method
+    Test.startTest();
+    try {
+      List<Id> appFormProductIds = LaunchAppOnOppController.createApplication(
+        opportunityId,
+        new List<Id>{ productId },
+        recordTypeId
+      );
+    } catch (Exception e) {
+      ex = e;
+    }
+    Test.stopTest();
+
+    //THEN it should throw an exception
+    Assert.isNotNull(ex, 'Exception should be thrown');
+  }
+
+  @isTest
+  static void validateSelectedOppLineItemsCatchTest() {
+    registerMocks();
+
+    //GIVEN oppId, oliId, selectedLineItemIds
+    Exception ex;
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id oliId = Lib_FakeIdGenerator.getMockId(OpportunityLineItem.SObjectType);
+    List<Id> selectedLineItemIds = new List<Id>{ oliId };
+
+    launchAppRepoMock.mock('getAppFormProductsNotRelatedToAMBIT', null);
+
+    //WHEN calling a method
+    Test.startTest();
+    try {
+      List<ApplicationFormProduct> afpList = LaunchAppOnOppController.validateSelectedOppLineItems(
+        oppId,
+        selectedLineItemIds
+      );
+    } catch (Exception e) {
+      ex = e;
+    }
+    Test.stopTest();
+
+    //THEN it should throw an exception
+    Assert.isNotNull(ex, 'Exception should be thrown');
+  }
+
+  @isTest
+  static void getAMBITResponseCatchTest() {
+    registerMocks();
+
+    //GIVEN oppId, oliId
+    Exception ex;
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id oliId = Lib_FakeIdGenerator.getMockId(OpportunityLineItem.SObjectType);
+
+    launchAppRepoMock.mock('getOpportunityData', null);
+
+    //WHEN calling a method
+    Test.startTest();
+    try {
+      Boolean response = LaunchAppOnOppController.getAMBITResponse(
+        oppId,
+        oliId
+      );
+    } catch (Exception e) {
+      ex = e;
+    }
+    Test.stopTest();
+
+    //THEN it should throw an exception
+    Assert.isNotNull(ex, 'Exception should be thrown');
+  }
+
+  @isTest
+  static void validateBrokerAFStatusNullTest() {
+    //GIVEN oppRec
+    Opportunity oppRec = new Opportunity(
+      Id = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType),
+      Name = 'Sample Opportunity',
+      StageName = 'Opportunity Identified',
+      AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+      OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+      Description = 'Sample Opp'
+    );
+
+    //WHEN Calling a method
+    Test.startTest();
+    String brokerValue = LaunchAppOnOppController.validateBrokerAFStatus(
+      oppRec
+    );
+    Test.stopTest();
+
+    //THEN it should assert correctly
+    Assert.isNull(brokerValue, 'Broker should be null');
+  }
+
+  @isTest
+  static void validateOppTeamMemberNullTest() {
+    //GIVEN oppRec
+    Opportunity oppRec = (Opportunity) TestUtil.setFields(
+      new Opportunity(
+        Id = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType),
+        Name = 'Sample Opportunity',
+        StageName = 'New',
+        OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+        Description = 'Sample Opp'
+      ),
+      new Map<String, List<OpportunityTeamMember>>{
+        'OpportunityTeamMembers' => new List<OpportunityTeamMember>{
+          new OpportunityTeamMember(
+            Id = Lib_FakeIdGenerator.getMockId(
+              OpportunityTeamMember.SObjectType
+            ),
+            TeamMemberRole = 'Asset Finance',
+            UserId = Lib_FakeIdGenerator.getMockId(User.SObjectType)
+          )
+        }
+      }
+    );
+
+    //WHEN Calling a method
+    Test.startTest();
+    String teamMemberValue = LaunchAppOnOppController.validateOppTeamMember(
+      oppRec
+    );
+    Test.stopTest();
+
+    //THEN it should assert correctly
+    Assert.isNull(teamMemberValue, 'Team Member should be null');
   }
 
   /**

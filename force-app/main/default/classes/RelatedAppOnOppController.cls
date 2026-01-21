@@ -139,6 +139,24 @@ public with sharing class RelatedAppOnOppController {
     public Decimal productAmount { get; set; }
 
     /**
+     * @description Opp Product Name Field
+     **/
+    @AuraEnabled
+    public String oppProdId { get; set; }
+
+    /**
+     * @description Opp Product Name Field
+     **/
+    @AuraEnabled
+    public String oppProdName { get; set; }
+
+    /**
+     * @description Opp Product Name Field
+     **/
+    @AuraEnabled
+    public String oppProdUrl { get; set; }
+
+    /**
      * @description Constructor for ApplicationFormProductWrapper
      * @param product ApplicationFormProduct
      **/
@@ -149,6 +167,12 @@ public with sharing class RelatedAppOnOppController {
       this.productId = product.ProductId;
       this.productName = product.Product.Name;
       this.productUrl = '/lightning/r/Product/' + product.ProductId + '/view';
+      this.oppProdId = product.Opportunity_Product__c;
+      this.oppProdName = product.Opportunity_Product__r?.Opp_Product_name__c;
+      this.oppProdUrl =
+        '/lightning/r/OpportunityLineItem/' +
+        product.Opportunity_Product__c +
+        '/view';
       this.closeDate = product.Close_Date__c;
       this.referenceNumber = product.Reference_Number__c;
       this.productAmount = product.Amount__c;

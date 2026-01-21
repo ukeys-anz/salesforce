@@ -143,7 +143,7 @@ public with sharing class CommercialOppLineItemActionsTest {
   }
 
   @isTest
-  static void formOppProdCountMapTest() {
+  static void formOppIdToOliCountMap() {
     //GIVEN oliList
     List<OpportunityLineItem> oliList = new List<OpportunityLineItem>{
       new OpportunityLineItem(
@@ -155,7 +155,7 @@ public with sharing class CommercialOppLineItemActionsTest {
 
     //WHEN calling a method
     Test.startTest();
-    Map<String, Integer> oppProdCountMap = CommercialOppLineItemActions.formOppProdCountMap(
+    Map<String, Integer> oppProdCountMap = CommercialOppLineItemActions.formOppIdToOliCountMap(
       oliList
     );
     Test.stopTest();
@@ -164,7 +164,7 @@ public with sharing class CommercialOppLineItemActionsTest {
     Assert.areEqual(
       1,
       oppProdCountMap.size(),
-      'should form a map of OppId and ProductId'
+      'should form a map of OppId and count of OLI'
     );
   }
 
@@ -230,7 +230,7 @@ public with sharing class CommercialOppLineItemActionsTest {
     };
 
     oliRepoMock.mock('getOpportunityRecords', oppList);
-    oliRepoMock.mock('getExistingOLIs', records);
+    oliRepoMock.mock('getExistingOLIsList', records);
     oliRepoMock.mock('getProductMap', productMap);
 
     //WHEN calling a method
