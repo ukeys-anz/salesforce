@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        secret-name: ["sf-platform-np-intpnv", "sf-platform-np-blm"]
+        secret-name: ["sf-platform-np-blm"]
     uses: ./.github/workflows/_validation-quick-deployment.yml
     with:
       sfdx_name: ${{ matrix.secret-name }}
