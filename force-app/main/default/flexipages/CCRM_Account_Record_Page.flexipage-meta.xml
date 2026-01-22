@@ -2638,6 +2638,13 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab15</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Source_System_Name__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>CACHE</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
