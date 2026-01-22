@@ -2,7 +2,12 @@ List<Id> usrLId = new List<Id>();
 
 List<user> usrs = [
   SELECT Id, FederationIdentifier
-  FROM User WHERE IsActive = TRUE
+  FROM User
+  WHERE
+    IsActive = TRUE
+    AND (FederationIdentifier LIKE '%@anz.com'
+    OR FederationIdentifier LIKE '%@ANZ.com'
+    OR FederationIdentifier LIKE '%@ANZ.COM')
   LIMIT 2000
 ];
 
@@ -10,8 +15,12 @@ List<user> newUsers = new List<user>();
 
 for (user u : usrs) {
   string fed = u.FederationIdentifier;
-  if (fed != null) {
+  if (fed.contains('@anz.com')) {
     u.FederationIdentifier = fed.replace('anz.com', 'anznp.com');
+  } else if (fed.contains('@ANZ.com')) {
+    u.FederationIdentifier = fed.replace('ANZ.com', 'anznp.com');
+  } else if (fed.contains('@ANZ.COM')) {
+    u.FederationIdentifier = fed.replace('ANZ.COM', 'anznp.com');
   }
 
   newUsers.add(u);
@@ -35,24 +44,29 @@ system.debug(newUsers.size());
 system.debug(usrLL.size());
 
 try {
-  update newUsers;
+  Database.update(newUsers, false);
   system.debug('success on User');
 } catch (Exception e) {
   system.debug(e.getMessage());
 }
 
 try {
-  update usrLL;
+  Database.update(usrLL, false);
   system.debug('success on UserLogin');
 } catch (Exception e) {
   system.debug(e.getMessage());
 }
 
 usrs = [
-  SELECT Id
+  SELECT Id, FederationIdentifier
   FROM User
-  WHERE FederationIdentifier LIKE '%@anz.com' AND IsActive = TRUE
+  WHERE
+    IsActive = TRUE
+    AND (FederationIdentifier LIKE '%@anz.com'
+    OR FederationIdentifier LIKE '%@ANZ.com'
+    OR FederationIdentifier LIKE '%@ANZ.COM')
 ];
+
 system.debug('Remained: ' + String.valueOf(usrs.size()));
 system.debug(
   'Stop job Flag: ' + String.valueOf(newUsers.size() == usrs.size())

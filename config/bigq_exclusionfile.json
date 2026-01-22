@@ -134,7 +134,6 @@
     "Mailing_Title_2__c",
     "Manager__pc",
     "Mobile__c",
-    "Name",
     "NumberOfEmployees",
     "Occupation__c",
     "Office_Group__pc",
@@ -295,7 +294,6 @@
     "Pronouns",
     "SAO_State__c",
     "Secondary_RBM__c",
-    "Segment__c",
     "TitleType",
     "Preferred_Contact__c",
     "Previous_Record_Type__c",
@@ -304,7 +302,6 @@
     "qualtrics__Last_Survey_Invitation__c",
     "qualtrics__Last_Survey_Response__c",
     "qualtrics__Net_Promoter_Score__c",
-    "Retail_Accreditation_Status__c",
     "Gender"
   ],
   "ContactRequest": ["Focus_Area__c"],
