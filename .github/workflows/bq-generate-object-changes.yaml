@@ -67,9 +67,9 @@ jobs:
           for object in $sfdatasync_object_list; do
             echo "---------------------------------------------------------------------------"
             echo "Running xschema-generate on sfdatasync user for $object..."
-            if  ! sf xschema generate -a sfdatasync.user@anzx.com.test25 -e ./config/bigq_exclusionfile.json -r ./config/bigq_remappingfile.json -n $object \
+            if  ! sf xschema generate -a sfdatasync.user@anzx.com.sitl -e ./config/bigq_exclusionfile.json -r ./config/bigq_remappingfile.json -n $object \
                   -f sfdatasync_user_output; then
-                errors+=("$object for user sfdatasync.user@anzx.com.test25")
+                errors+=("$object for user sfdatasync.user@anzx.com.sitl")
                 echo "Errors occurred while running the xSchema generate."
             fi
           done

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExternalClientApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>Chiranjeeb.Dhar@anz.com</contactEmail>
+    <distributionState>Local</distributionState>
+    <isProtected>false</isProtected>
+    <label>Broker Portal</label>
+    <logoUrl>https://anz--rbmaincust--c.sandbox.vf.force.com/resource/ANZ_LOGO_IMG</logoUrl>
+</ExternalClientApplication>

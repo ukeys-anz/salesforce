@@ -101,6 +101,31 @@ const updateUserFedId = (orgAlias) => {
 
     if (output.includes("Stop job Flag: true")) {
       continueFlag = false;
+    } else if (output.includes("Error while updating UserLogins")) {
+      console.log("Encountered error while updating UserLogins...");
+      process.exit(1);
+    }
+  }
+};
+
+const unfreezeUsers = (orgAlias) => {
+  console.log("--- running updateUserFedId ---");
+  nonProdChangeValidation(orgAlias);
+  let continueFlag = true;
+  while (continueFlag) {
+    console.log("----------------------------");
+    console.log("Run updateFrozenUser apex....");
+    const output = runCommand(`
+      sf apex run -f ci/apex-scripts/updateFrozenUser.apex -o "${orgAlias}"
+    `);
+
+    console.log(output);
+
+    if (output.includes("Stop job Flag: true")) {
+      continueFlag = false;
+    } else if (output.includes("Error while updating UserLogins")) {
+      console.log("Encountered error while updating UserLogins...");
+      process.exit(1);
     }
   }
 };
@@ -124,7 +149,7 @@ const assignDeployUserViewAllFields = (orgAlias) => {
   nonProdChangeValidation(orgAlias);
 
   // Validate sandbox name, as this script is only required for test sandboxes
-  if (!orgAlias.startsWith("test")) {
+  if (!orgAlias.startsWith("sitl")) {
     console.log("No action needed for other sandbox, besides Test Sandbox");
     return;
   }
@@ -177,5 +202,6 @@ export {
   deployRequiredFiles,
   runLoggingRecordsPurgeScheduler,
   updatePamApproversCustomSetting,
-  assignDeployUserViewAllFields
+  assignDeployUserViewAllFields,
+  unfreezeUsers
 };

@@ -10,7 +10,6 @@ on:
       - release
     paths:
       - force-app/**
-      - ci/apex-scripts/**
       - .github/workflows/checkmarx-scan.yml
   schedule:
     - cron: "0 9 * * 0-4" # Run every day between 8-9 pm
@@ -69,7 +68,7 @@ jobs:
           incremental: false
           break_build: true
           bug_tracker: ${{ env.BUG_TRACKER }}
-          zip_exclude: \.git\/.*,\.git\-hooks\/.*,\.github\/.*,apexdoc\/.*,apex\-scripts\/.*,automation\-test\/.*,bash\-scripts\/.*,ci\/.*,config\/.*,coverage\/.*,data\/.*,ea\/.*,ea\-seeder\/.*,mdapi\-source\/.*,misc\/.*,node_modules\/.*,pmdscripts\/.*,createCmosEntitlment.js
+          zip_exclude: \.git\/.*,\.git\-hooks\/.*,\.github\/.*,ci\/.*,config\/.*,coverage\/.*,data\/.*,mdapi\-source\/.*,misc\/.*,node_modules\/.*
           params: --namespace=${{ github.repository_owner }} --repo-name=${{ github.event.repository.name }} --branch=${{ env.GITHUB_BRANCH }} --merge-id=${{ github.event.number }} --severity=High --checkmarx.scan-resubmit=true --checkmarx.scan-queuing=true
 
   slack-msg:
