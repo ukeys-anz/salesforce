@@ -26,7 +26,7 @@ export default class LaunchAppOnOpp extends NavigationMixin(LightningElement) {
     PRODUCT: "Product",
     UNITPRICE: "Unit Price",
     FUNDINGPURPOSE: "Funding Purpose",
-    OPP_PRODUCT: "Opportunity Product Name"
+    OPP_PRODUCT: "Sequence"
   };
   buttonLabel;
   noOppItemsMessage = "No opportunity line items found";
@@ -263,7 +263,9 @@ export default class LaunchAppOnOpp extends NavigationMixin(LightningElement) {
           ...new Set(
             result
               .map(
-                (afp) => afp.Opportunity_Product__r?.Opp_Product_name__c ?? ""
+                (afp) =>
+                  afp.Opportunity_Product__r?.Opp_Product_name__c ??
+                  afp.Product?.Name
               )
               .filter((name) => name !== "")
           )

@@ -167,11 +167,17 @@ public with sharing class RelatedAppOnOppController {
       this.productId = product.ProductId;
       this.productName = product.Product.Name;
       this.productUrl = '/lightning/r/Product/' + product.ProductId + '/view';
-      this.oppProdId = product.Opportunity_Product__c;
-      this.oppProdName = product.Opportunity_Product__r?.Opp_Product_name__c;
+      this.oppProdId = String.isNotBlank(product.Opportunity_Product__c)
+        ? product.Opportunity_Product__c
+        : this.productId;
+      this.oppProdName = String.isNotBlank(
+          product.Opportunity_Product__r?.Opp_Product_name__c
+        )
+        ? product.Opportunity_Product__r?.Opp_Product_name__c
+        : this.productName;
       this.oppProdUrl =
         '/lightning/r/OpportunityLineItem/' +
-        product.Opportunity_Product__c +
+        this.oppProdId +
         '/view';
       this.closeDate = product.Close_Date__c;
       this.referenceNumber = product.Reference_Number__c;

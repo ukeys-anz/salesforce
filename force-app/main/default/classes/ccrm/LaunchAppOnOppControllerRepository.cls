@@ -99,7 +99,8 @@ public with sharing class LaunchAppOnOppControllerRepository {
         Opportunity_Product__r.Name,
         ApplicationForm.OpportunityId,
         ApplicationForm.RecordTypeId,
-        Opportunity_Product__r.Opp_Product_name__c
+        Opportunity_Product__r.Opp_Product_name__c,
+        Product.Name
       FROM ApplicationFormProduct
       WHERE
         ApplicationForm.OpportunityId = :oppId

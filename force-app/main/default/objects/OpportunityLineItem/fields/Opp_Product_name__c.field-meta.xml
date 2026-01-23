@@ -6,7 +6,7 @@
     <description>A unique identifier for this line item, automatically generated based on the product name and its sequence on this opportunity.</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
-    <label>Opp Product name</label>
+    <label>Sequence</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

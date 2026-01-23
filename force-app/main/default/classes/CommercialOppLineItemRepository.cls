@@ -85,12 +85,13 @@ public with sharing class CommercialOppLineItemRepository {
    */
   public List<OpportunityLineItem> getExistingOLIsList(Set<Id> oppIdsSet) {
     return [
-      SELECT Id, OpportunityId, Product2Id
+      SELECT Id, OpportunityId, Product2Id, Opp_Product_Name__c
       FROM OpportunityLineItem
       WHERE
         OpportunityId IN :oppIdsSet
         AND Opportunity.RecordTypeId = :RTOpportunity.commercialOpportunity
       WITH USER_MODE
+      ORDER BY Createddate DESC
     ];
   }
 
