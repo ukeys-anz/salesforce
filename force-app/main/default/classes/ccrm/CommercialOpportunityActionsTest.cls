@@ -273,6 +273,7 @@ public class CommercialOpportunityActionsTest {
   @isTest
   static void updateOpportunityNameOnUpdateTest() {
     Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    String longBankerName = 'A'.repeat(120);
 
     Opportunity mockOpp = (Opportunity) TestUtil.setFields(
       new Opportunity(
@@ -281,7 +282,7 @@ public class CommercialOpportunityActionsTest {
         Customer_Needs__c = 'Other',
         StageName = 'In Progress',
         RecordTypeid = RTOpportunity.commercialOpportunity,
-        Name = 'NewTest123456789012345678901234567890'
+        Name = longBankerName
       ),
       new Map<String, Object>{ 'Opp_Id__c' => '12345678' }
     );
@@ -297,10 +298,17 @@ public class CommercialOpportunityActionsTest {
     Test.startTest();
     CommercialOpportunityActions.updateOpportunityNameOnUpdate(oppList, oppMap);
     Test.stopTest();
+
+    String expectedName = ('12345678 ' + longBankerName).left(120);
+
     Assert.areEqual(
+      expectedName,
       oppList[0].Name,
-      '12345678 Other NewTest12345678901234567890123',
-      'Name should contain new customer need'
+      'Name should be truncated to 120 and exclude Customer Needs'
+    );
+    Assert.isFalse(
+      oppList[0].Name.contains('Other'),
+      'Commercial Opportunity name should not contain Customer Needs'
     );
   }
 

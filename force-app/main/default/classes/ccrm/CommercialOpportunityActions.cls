@@ -347,19 +347,12 @@ public with sharing class CommercialOpportunityActions {
     Map<Id, String> updatedOppsNameMap = new Map<Id, String>();
 
     for (Opportunity opp : filteredOpps) {
-      String oppName;
-      String customerNeeds;
-      String updatedOppName;
+      String bankerEnteredName = getOpportunityName(opp, oldMap);
 
-      customerNeeds = opp.Secondary_Customer_Needs__c != null
-        ? MULTIPLE_CUSTOMER_NEEDS
-        : opp.Customer_Needs__c;
-
-      oppName = getOpportunityName(opp, oldMap);
-      updatedOppName = CommercialOpportunityHelper.generateOpportunityName(
+      String updatedOppName = CommercialOpportunityHelper.generateOpportunityName(
         opp.Opp_Id__c,
-        customerNeeds,
-        oppName,
+        null,
+        bankerEnteredName,
         oldMap
       );
       updatedOppsNameMap.put(opp.Id, updatedOppName);
