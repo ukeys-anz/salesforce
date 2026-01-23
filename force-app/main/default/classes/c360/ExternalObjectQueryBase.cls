@@ -50,8 +50,17 @@ public abstract with sharing class ExternalObjectQueryBase {
      * @return String API end point
      */
     public virtual String getEndpoint() {
-      return '';
+      return Label.Financial_Account_Endpoint;
     }
+
+    /**
+     * @description get staff model
+     * @return StaffTokenRequestModel staff model
+     */
+    public virtual StaffTokenRequestModel getStaffModel() {
+      return null;
+    }
+
     /**
      * @description get API Payload
      * @return String API Payload

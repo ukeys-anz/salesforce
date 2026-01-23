@@ -7,7 +7,7 @@
     <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Issuer</label>
-    <length>10</length>
+    <length>20</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <type>Text</type>
