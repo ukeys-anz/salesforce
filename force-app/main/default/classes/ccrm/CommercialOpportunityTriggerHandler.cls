@@ -73,10 +73,6 @@ public with sharing class CommercialOpportunityTriggerHandler extends Lib_Trigge
       (List<Opportunity>) records,
       (Map<Id, Opportunity>) oldMap
     );
-    CommercialOpportunityActions.validateAFPBeforeOppClose(
-      (List<Opportunity>) records,
-      (Map<Id, Opportunity>) oldMap
-    );
     CommercialOpportunityActions.populateFields(
       records,
       (Map<Id, Opportunity>) oldMap
