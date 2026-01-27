@@ -89,6 +89,7 @@ public with sharing class CommercialOppLineItemActions {
       }
     }
   }
+
   /**
    * @description This is to populate the derived Opp Product Name.
    * @name populateOppProductName
@@ -112,58 +113,55 @@ public with sharing class CommercialOppLineItemActions {
       OpportunityLineItem.Product2Id
     );
     Map<Id, Product2> productMap = OLI_REPOSITORY.getProductMap(productIdsSet);
-    Map<Id, String> oppIdToOppProductNameMap = formOppIdToOppProdNameMap(
+    Map<Id, Integer> oppIdToliCountMap = formOppIdToOliCountMap(
       existingOliList
     );
-    updateOppProductName(filteredOliList, oppIdToOppProductNameMap, productMap);
+    updateOppProductName(filteredOliList, oppIdToliCountMap, productMap);
   }
 
   /**
-   * @description Forms a map of OppId to OLI OppProductName Map.
-   * @name formOppIdToOppProdNameMap
+   * @description Forms a map of OppId to OLI Count Map.
+   * @name formOppIdToOliCountMap
    * @param oliList List of OpportunityLineItem
-   * @return Map<Id, String> Map containing the Opp Id to Opp Prod Name
+   * @return Map<Id, Integer> Map containing the Opp Id to Oli Count
    */
   @TestVisible
-  private static Map<Id, String> formOppIdToOppProdNameMap(
+  private static Map<Id, Integer> formOppIdToOliCountMap(
     List<OpportunityLineItem> oliList
   ) {
-    Map<Id, String> oppIdToOppProductNameMap = new Map<Id, String>();
+    Map<Id, Integer> oppIdToliCountMap = new Map<Id, Integer>();
     for (OpportunityLineItem oliRec : oliList) {
-      if (!oppIdToOppProductNameMap.containsKey(oliRec.OpportunityId)) {
-        oppIdToOppProductNameMap.put(
-          oliRec.OpportunityId,
-          oliRec.Opp_Product_name__c
-        );
+      Integer lastSequenceNumber = oliRec.Opp_Product_name__c?.contains('-')
+        ? Integer.valueOf(oliRec.Opp_Product_name__c.split('-')[0].trim())
+        : 0;
+      Integer sequenceNumber = oppIdToliCountMap.get(oliRec.OpportunityId) ?? 0;
+
+      if (sequenceNumber > lastSequenceNumber) {
+        continue;
       }
+      oppIdToliCountMap.put(oliRec.OpportunityId, lastSequenceNumber);
     }
-    return oppIdToOppProductNameMap;
+    return oppIdToliCountMap;
   }
 
   /**
    * @description To update Opp product name field.
    * @name updateOppProductName
    * @param filteredOliList List of filtered OLI records
-   * @param oppIdToOppProductNameMap Map of oppId and count of OLI.
+   * @param oppIdToliCountMap Map of oppId and count of OLI.
    * @param productMap Map of Id and Product
    */
   @TestVisible
   private static void updateOppProductName(
     List<OpportunityLineItem> filteredOliList,
-    Map<Id, String> oppIdToOppProductNameMap,
+    Map<Id, Integer> oppIdToliCountMap,
     Map<Id, Product2> productMap
   ) {
     for (OpportunityLineItem oli : filteredOliList) {
-      String oppProdName = oppIdToOppProductNameMap.get(oli.OpportunityId) ??
-        '0 -';
-      String prevCount = oppProdName.contains('-')
-        ? oppProdName.split('-')[0].trim()
-        : oppProdName;
-      Integer nextCount = Integer.valueOf(prevCount) + 1;
-      oppIdToOppProductNameMap.put(
-        oli.OpportunityId,
-        String.valueOf(nextCount)
-      );
+      Integer lastSequenceNumber = oppIdToliCountMap.get(oli.OpportunityId) ??
+        0;
+      Integer nextCount = lastSequenceNumber + 1;
+      oppIdToliCountMap.put(oli.OpportunityId, nextCount);
       String productName = productMap.get(oli.Product2Id).Name;
       oli.Opp_Product_name__c = nextCount + ' - ' + productName;
     }

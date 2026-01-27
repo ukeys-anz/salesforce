@@ -143,7 +143,7 @@ public with sharing class CommercialOppLineItemActionsTest {
   }
 
   @isTest
-  static void formOppIdToOppProdNameMapTest() {
+  static void formOppIdToOliCountMapTest() {
     //GIVEN oliList
     List<OpportunityLineItem> oliList = new List<OpportunityLineItem>{
       new OpportunityLineItem(
@@ -156,7 +156,7 @@ public with sharing class CommercialOppLineItemActionsTest {
 
     //WHEN calling a method
     Test.startTest();
-    Map<Id, String> oppIdToOppProductNameMap = CommercialOppLineItemActions.formOppIdToOppProdNameMap(
+    Map<Id, Integer> oppIdToOliCountMap = CommercialOppLineItemActions.formOppIdToOliCountMap(
       oliList
     );
     Test.stopTest();
@@ -164,7 +164,7 @@ public with sharing class CommercialOppLineItemActionsTest {
     //THEN it should successfully form a map
     Assert.areEqual(
       1,
-      oppIdToOppProductNameMap.size(),
+      oppIdToOliCountMap.size(),
       'should form a map of OppId and count of OLI'
     );
   }
@@ -182,7 +182,7 @@ public with sharing class CommercialOppLineItemActionsTest {
       )
     };
 
-    Map<Id, String> oppIdToOppProductNameMap = new Map<Id, String>{};
+    Map<Id, Integer> oppIdToOliCountMap = new Map<Id, Integer>{};
 
     Map<Id, Product2> productMap = new Map<Id, Product2>{
       prodId => new Product2(Id = prodId, Name = 'ANZ Product')
@@ -192,7 +192,7 @@ public with sharing class CommercialOppLineItemActionsTest {
     Test.startTest();
     CommercialOppLineItemActions.updateOppProductName(
       records,
-      oppIdToOppProductNameMap,
+      oppIdToOliCountMap,
       productMap
     );
     Test.stopTest();
@@ -215,7 +215,8 @@ public with sharing class CommercialOppLineItemActionsTest {
       new OpportunityLineItem(
         Id = Lib_FakeIdGenerator.getMockId(OpportunityLineItem.SObjectType),
         OpportunityId = oppId,
-        Product2Id = prodId
+        Product2Id = prodId,
+        Opp_Product_name__c = ''
       )
     };
 

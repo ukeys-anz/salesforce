@@ -91,7 +91,6 @@ public with sharing class CommercialOppLineItemRepository {
         OpportunityId IN :oppIdsSet
         AND Opportunity.RecordTypeId = :RTOpportunity.commercialOpportunity
       WITH USER_MODE
-      ORDER BY Createddate DESC
     ];
   }
 
