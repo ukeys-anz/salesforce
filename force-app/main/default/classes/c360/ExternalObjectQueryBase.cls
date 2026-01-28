@@ -203,7 +203,7 @@ public abstract with sharing class ExternalObjectQueryBase {
    * @param columnValue Filter column value
    * @return QueryModeEnum
    */
-  private QueryModeEnum parseFields(
+  protected QueryModeEnum parseFields(
     String parentFieldName,
     String columnName,
     String columnValue
@@ -425,7 +425,7 @@ public abstract with sharing class ExternalObjectQueryBase {
    * @param tableSelection DataSource.TableSelection
    * @return Boolean is primary filter empty
    */
-  private Boolean primaryFilterIsNotNull(
+  protected Boolean primaryFilterIsNotNull(
     DataSource.TableSelection tableSelection
   ) {
     return tableSelection.filter != null &&
@@ -437,7 +437,7 @@ public abstract with sharing class ExternalObjectQueryBase {
    * @param tableSelection DataSource.TableSelection
    * @return Boolean is sub filters empty
    */
-  private Boolean subFiltersIsNotNull(
+  protected Boolean subFiltersIsNotNull(
     DataSource.TableSelection tableSelection
   ) {
     return tableSelection.filter != null &&

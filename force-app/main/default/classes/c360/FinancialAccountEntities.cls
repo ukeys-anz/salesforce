@@ -15,6 +15,8 @@ public with sharing class FinancialAccountEntities {
     public String offSet;
     public String pageSize;
     public String nextPageId;
+    public String startDate;
+    public String endDate;
     //Detail request payload
     public String accountNumber;
     public String compositeAccountNumber;
@@ -83,7 +85,8 @@ public with sharing class FinancialAccountEntities {
       }
     }
     public override String getEndpoint() {
-      return this.productCategory + '-accounts';
+      String host = Label.Financial_Account_Endpoint;
+      return host + this.productCategory + '-accounts';
     }
   }
 

@@ -4,7 +4,7 @@
  * @group Platform
  * @description Transaction History external query class
  */
-public with sharing class TransactionHistoryExternalQuery extends FinancialAccountQueryBase {
+public with sharing class TransactionHistoryExternalQuery extends CAPFinancialAccountQueryBase {
   /**
    * @description Transaction History Model class
    */
@@ -22,9 +22,51 @@ public with sharing class TransactionHistoryExternalQuery extends FinancialAccou
   }
 
   /**
+   * @description abstract CAP FinancialAccount Summary callout response class
+   */
+  public virtual class TransactionHistoryCalloutRequest extends ExternalObjectQueryBase.ExternalObjectCalloutRequestBase {
+    public String productCategory;
+    public QueryModeEnum queryMode;
+    /**
+     * @description abstract FinancialAccount callout response class
+     * @param queryContext DataSource QueryContext
+     * @param queryMode Query Mode Enum
+     * @param crw calloutRequestWrapper having startdate and endDate
+     */
+    public TransactionHistoryCalloutRequest(
+      DataSource.QueryContext queryContext,
+      QueryModeEnum queryMode,
+      CalloutRequestWrapper crw
+    ) {
+      super(queryContext, queryMode);
+      this.productCategory = crw.productCategory;
+      this.payload = new FinancialAccountEntities.FinancialAccountPayload();
+      if (this.isSummaryRequest()) {
+        ((FinancialAccountEntities.FinancialAccountPayload) this.payload)
+          .offSet = String.valueOf(queryContext.offSet);
+        ((FinancialAccountEntities.FinancialAccountPayload) this.payload)
+          .pageSize = String.valueOf(queryContext.maxResults);
+        ((FinancialAccountEntities.FinancialAccountPayload) this.payload)
+          .fieldSet = crw.fieldSet;
+        ((FinancialAccountEntities.FinancialAccountPayload) this.payload)
+          .accountNumber = crw.accountNumber;
+        ((FinancialAccountEntities.FinancialAccountPayload) this.payload)
+          .startDate = crw.startDate;
+        ((FinancialAccountEntities.FinancialAccountPayload) this.payload)
+          .endDate = crw.endDate;
+      }
+    }
+
+    public override String getEndpoint() {
+      String host = Label.Financial_Account_Endpoint;
+      return host + 'transactions';
+    }
+  }
+
+  /**
    * @description DepositAccount API callout response
    */
-  private class TransactionHistoryCalloutResponse extends FinancialAccountCalloutResponse {
+  private class TransactionHistoryCalloutResponse extends FinancialAccountEntities.FinancialAccountCalloutResponse {
     public List<TransactionHistoryModel> transactions;
   }
 
@@ -92,7 +134,7 @@ public with sharing class TransactionHistoryExternalQuery extends FinancialAccou
         this.parentField => this.parentId,
         'Description' => TextUtils.maskDataAnzx(th.description),
         'EffectiveDate' => formatDate(th.transactionDate),
-        'PostDate' => formatDate(th.postedDate),
+        'PostDate' => th.postedDate.dateGmt(),
         'RunningBalance' => th.runningBalance,
         'Source' => formatSource(th.source),
         'Time' => th.transactionTime,
@@ -168,39 +210,259 @@ public with sharing class TransactionHistoryExternalQuery extends FinancialAccou
   }
 
   /**
-   * @description Rest API callout to get financial accounts by product codes and account numbers
-   * @param queryMode QueryMode Enum
+   * @description Parse query filters and prepare for API callout
    * @param queryContext DataSource QueryContext
-   * @return HttpCalloutResponse
+   * @param tableSelection DataSource.TableSelection
+   * @return calloutRequest
+   **/
+  @testVisible
+  protected override ExternalObjectCalloutRequestBase prepareCallout(
+    DataSource.QueryContext queryContext,
+    DataSource.TableSelection tableSelection
+  ) {
+    Date startDate = extractDate(queryContext, 'GREATER_THAN_OR_EQUAL_TO');
+    Date endDate = extractDate(queryContext, 'LESS_THAN_OR_EQUAL_TO');
+
+    if (isDateOlderThan7Years(startDate)) {
+      throw new CommonUtil.GenericUserException(
+        'Selected date range exceeds the 7-year allowable limit. Please refine your selection.'
+      );
+    }
+    if (isDurationMoreThan2Years(startDate, endDate)) {
+      throw new CommonUtil.GenericUserException(
+        'The selected date range exceeds the 2-year limit per search. Please adjust your date range and perform multiple searches to cover the full period (maximum of 7 years), with each search covering no more than 2 years.'
+      );
+    }
+    String accountNumber;
+    ExternalObjectCalloutRequestBase calloutRequest = super.prepareCallout(
+      queryContext,
+      queryContext.TableSelection
+    );
+    if (calloutRequest.isSummaryRequest()) {
+      accountNumber = this.parentId.right(
+        this.parentId.length() - this.parentId.indexOf('|') - 1
+      );
+    }
+    this.productCategory = 'transactions';
+    CalloutRequestWrapper crw = new CalloutRequestWrapper();
+    crw.startDate = String.valueOf(startDate);
+    crw.endDate = String.valueOf(endDate);
+    crw.productCategory = this.productCategory;
+    crw.fieldSet = this.fieldSet;
+    crw.accountNumber = accountNumber;
+    TransactionHistoryCalloutRequest transCalloutRequest = new TransactionHistoryCalloutRequest(
+      queryContext,
+      this.queryMode,
+      crw
+    );
+    this.accountNumbers = new Set<String>{ accountNumber };
+    return transCalloutRequest;
+  }
+
+  /**
+   * @description Main execute method - the orchestration layer
+   * @param queryContext DataSource QueryContext
+   * @return ExternalQueryResult
    */
-  protected virtual override HttpCalloutResponse makeCallout(
-    QueryModeEnum queryMode,
+  public override ExternalQueryResult execute(
     DataSource.QueryContext queryContext
   ) {
-    ARNCService service = new ARNCService();
-    ARNCService.FinancialAccountQueryParameters queryParams = new ARNCService.FinancialAccountQueryParameters();
-    HttpCalloutResponse response;
-
-    String payload = getPayload(queryContext);
-    response = getCAPSummaryAccounts(service, queryParams, payload);
-    response = getEBDSummaryAccounts(
-      service,
-      queryParams,
-      payload,
-      response,
-      queryContext
+    this.tableName = queryContext.TableSelection.tableSelected;
+    ExternalObjectCalloutRequestBase calloutRequest = prepareCallout(
+      queryContext,
+      queryContext.TableSelection
     );
-    response = getDetailAccounts(service, payload, response);
-
-    if (response == null) {
-      String errorMessge = String.format(
-        'Invalid source system: {0} or query mode: {1}',
-        new List<Object>{ this.sourceSystem, queryMode }
+    this.paginationKey = getPaginationKey(
+      queryContext.tableSelection.tableSelected,
+      this.parentId
+    );
+    ExternalObjectCalloutResponse calloutResponse;
+    if (this.queryMode == QueryModeEnum.RECORD_DETAIL && displayDummyRecord()) {
+      return createDummyExternalRecord(
+        this.externalId,
+        new Map<String, Object>()
       );
-      Logger.error(errorMessge);
-      Logger.saveLog();
-      throw new TypeException(errorMessge);
     }
-    return response;
+    if (!this.accountNumbers.isEmpty()) {
+      HttpCalloutResponse response = makeCallout(calloutRequest);
+      calloutResponse = parseResponse(response.body);
+    }
+    return createExternalRecords(calloutResponse);
+  }
+
+  /**
+   * @description Filter Date from QueryContext
+   * @param ctx DataSource QueryContext
+   * @param dateType DateType to extract
+   * @return Datevalue
+   **/
+  private static Date extractDate(
+    DataSource.QueryContext ctx,
+    String dateType
+  ) {
+    String stringContext = String.valueOf(ctx);
+    Integer typeIndex = stringContext.indexOf('type=' + dateType);
+    if (typeIndex < 0) {
+      return null;
+    }
+    Integer cvIndex = stringContext.lastIndexOf('columnValue=', typeIndex);
+    Integer start = cvIndex + 'columnValue='.length();
+    String dateStr = stringContext.substring(start, start + 10);
+    return Date.valueOf(dateStr);
+  }
+
+  /**
+   * @description checks if given date is older then 7 years
+   * @param dateValue provided date
+   * @return boolean
+   **/
+  public static Boolean isDateOlderThan7Years(Date dateValue) {
+    Date sevenYearsAgo = Date.today().addYears(-7);
+    if (dateValue != null && dateValue < sevenYearsAgo) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * @description checks if given dates have difference more then 2 years
+   * @param startDate startingDate
+   * @param endDate endingDate
+   * @return boolean
+   **/
+  public static Boolean isDurationMoreThan2Years(Date startDate, Date endDate) {
+    if (startDate == null && endDate == null) {
+      return false;
+    }
+    if (startDate == null && endDate != null) {
+      return false;
+    }
+    Date startPlus2 = startDate.addYears(2);
+    if (startDate != null && endDate == null) {
+      return Date.today() > startPlus2;
+    }
+
+    return endDate > startPlus2;
+  }
+
+  /**
+   * @description Parse External Id and Customer Id from SF query contenxt paramaters
+   * @param parentFieldName parent name e.g. CustomerId
+   * @param tableSelection DataSource.TableSelection
+   * @return QueryModeEnum
+   */
+  @testVisible
+  protected override QueryModeEnum parseFilters(
+    String parentFieldName,
+    DataSource.TableSelection tableSelection
+  ) {
+    Set<String> subFiltersToSkip = new Set<String>{ 'PostDate' };
+    if (primaryFilterIsNotNull(tableSelection)) {
+      return parseFields(
+        parentFieldName,
+        tableSelection.filter.columnName,
+        String.valueOf(tableSelection.filter.columnValue)
+      );
+    } else if (subFiltersIsNotNull(tableSelection.filter)) {
+      DataSource.Filter match = findFirstMatchingFilter(
+        tableSelection.filter,
+        subFiltersToSkip
+      );
+      if (match != null) {
+        return parseFields(
+          parentFieldName,
+          match.columnName,
+          String.valueOf(match.columnValue)
+        );
+      }
+    }
+    return null;
+  }
+
+  /**
+   * @description find first filter skipping names from set
+   * @param root root filter
+   * @param skipNames set of string to skip filters
+   * @return datasource filter
+   */
+  private DataSource.Filter findFirstMatchingFilter(
+    DataSource.Filter root,
+    Set<String> skipNames
+  ) {
+    if (root == null) {
+      return null;
+    }
+    if (root.columnName != null && !skipNames.contains(root.columnName)) {
+      return root;
+    }
+    if (root.subfilters != null) {
+      for (DataSource.Filter child : root.subfilters) {
+        DataSource.Filter match = findFirstMatchingFilter(child, skipNames);
+        if (match != null) {
+          return match;
+        }
+      }
+    }
+    return null;
+  }
+
+  /**
+   * @description get parent object name
+   * @param tableSelection DataSource.TableSelection
+   * @return String parent object name
+   */
+  @testVisible
+  protected override String getParentName(
+    DataSource.TableSelection tableSelection
+  ) {
+    Set<String> subFiltersToSkip = new Set<String>{ 'PostDate' };
+    if (primaryFilterIsNotNull(tableSelection)) {
+      if (tableSelection.filter.columnName != 'ExternalId') {
+        return tableSelection.filter.columnName;
+      }
+    } else if (subFiltersIsNotNull(tableSelection.filter)) {
+      DataSource.Filter match = findFirstMatchingFilter(
+        tableSelection.filter,
+        subFiltersToSkip
+      );
+
+      if (match.columnName != 'ExternalId') {
+        return match.columnName;
+      }
+    }
+    return '';
+  }
+
+  /**
+   * @description recursively verify if subfliter is null or not
+   * @param filter Datasource filter
+   * @return Boolean
+   */
+  private Boolean subFiltersIsNotNull(DataSource.Filter filter) {
+    if (filter == null) {
+      return false;
+    }
+    if (filter.columnName != null) {
+      return true;
+    }
+    if (filter.subfilters != null) {
+      for (DataSource.Filter sf : filter.subfilters) {
+        if (subFiltersIsNotNull(sf)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  /**
+   * @description Wrapper class for CalloutRequest
+   */
+  private class CalloutRequestWrapper {
+    public String startDate;
+    public String endDate;
+    public String productCategory;
+    public String fieldSet;
+    public String accountNumber;
   }
 }

@@ -58,7 +58,8 @@ public with sharing class BalanceHistoryExternalQuery extends CAPFinancialAccoun
       }
     }
     public override String getEndpoint() {
-      return this.productCategory + '-accounts';
+      String host = Label.Financial_Account_Endpoint;
+      return host + this.productCategory + '-accounts';
     }
   }
 

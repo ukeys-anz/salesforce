@@ -75,10 +75,11 @@ public abstract with sharing class CAPFinancialAccountQueryBase extends External
       }
     }
     public override String getEndpoint() {
+      String host = Label.Financial_Account_Endpoint;
       if (this.isSummaryRequest()) {
-        return 'summaries';
+        return host + 'summaries';
       } else {
-        return this.productCategory + '-accounts';
+        return host + this.productCategory + '-accounts';
       }
     }
   }
