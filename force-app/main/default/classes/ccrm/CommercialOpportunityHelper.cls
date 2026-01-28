@@ -17,9 +17,11 @@ public with sharing class CommercialOpportunityHelper {
   private static final String CLOSE_AFP_FIRST_ERROR = 'Please mark all application form products as WON or LOST before closing the opportunity.';
   private static final String OPP_WON = 'Opportunity Won';
   private static final String OPP_LOST = 'Opportunity Lost';
+  private static final String OPP_CANCELLED = 'Cancelled';
   private static final String OPPORTUNITY_LABEL = 'Opportunity';
   private static final String SKIP_STAGE = 'Unfortunately, you are not allowed to skip stages or re-open a closed stage.';
   private static final String REOPEN_CLOSED_OPP = 'You cannot reopen a closed stage.';
+  private static final String COMMERCIAL_ADMIN_ROLE = 'Commercial_Admin';
   @testVisible
   private static final String SELECT_RELATED_CLG_ERROR = 'Customer is not related to this CLG, please select the correct CLG';
   @testVisible
@@ -27,13 +29,22 @@ public with sharing class CommercialOpportunityHelper {
   @testVisible
   private static final String NO_CLG_FOR_CUSTOMER_ERROR = 'No CLG available for this customer,please leave CLG blank';
 
+  @testVisible
+  private static final Set<String> SET_CLOSED_STAGES = new Set<String>{
+    OPP_WON,
+    OPP_LOST,
+    OPP_CANCELLED
+  };
+
   private static final CommercialOpportunityRepository OPP_REPOSITORY = (CommercialOpportunityRepository) Lib_InstanceProvider.forType(
     CommercialOpportunityRepository.class
   );
   private static final DmlRepository DML = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
-
+  private static final UserInfoRepository USER_REPO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
   /**
    * @description This method will Loop through Accounts mapped with Opportunity and determine if Account is a Prospect
    * @name checkAccountIsProspect
@@ -91,9 +102,17 @@ public with sharing class CommercialOpportunityHelper {
     Map<Id, Opportunity> oldOppMap,
     Map<Id, String> oppsStageSegmentMap
   ) {
+    if (USER_REPO.checkRole(COMMERCIAL_ADMIN_ROLE)) {
+      return;
+    }
     for (Opportunity oppIterator : stageUpdatedOpps) {
       List<String> nextStage = new List<String>();
       String oldStage = oldOppMap.get(oppIterator.Id).StageName;
+
+      if (SET_CLOSED_STAGES.contains(oldStage)) {
+        oppIterator.addError(REOPEN_CLOSED_OPP);
+        return;
+      }
 
       Commercial_Stage__mdt metadata = opportunityStagesBySegment.get(
         oppsStageSegmentMap.get(oppIterator.Id)
@@ -109,10 +128,6 @@ public with sharing class CommercialOpportunityHelper {
         !nextStage.contains(oppIterator.StageName)
       ) {
         oppIterator.addError(SKIP_STAGE);
-      }
-
-      if (oldStage == OPP_LOST || oldStage == OPP_WON) {
-        oppIterator.addError(REOPEN_CLOSED_OPP);
       }
     }
   }

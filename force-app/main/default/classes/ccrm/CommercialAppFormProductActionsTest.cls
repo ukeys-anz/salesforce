@@ -1125,6 +1125,7 @@ private class CommercialAppFormProductActionsTest {
     List<Database.Error> errors;
     Database.Error error;
     userRepoMock.mock('checkProfile', true);
+    userRepoMock.mock('checkRole', false);
     Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
     Id appFormId = Lib_FakeIdGenerator.getMockId(ApplicationForm.SObjectType);
     Id appFormProductId = Lib_FakeIdGenerator.getMockId(

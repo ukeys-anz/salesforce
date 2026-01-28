@@ -1087,6 +1087,7 @@ public class CommercialOpportunityActionsTest {
     taskList.add(taskmap);
     oppRepoMock.mock('getUsers', userList);
     oppRepoMock.mock('getOpenTasksOnClosedOpportunity', taskList);
+    userRepoMock.mock('checkRole', false);
     Test.startTest();
     oppWrapper = CommercialOpportunityActions.setOpportunityWrapper(
       oppList,

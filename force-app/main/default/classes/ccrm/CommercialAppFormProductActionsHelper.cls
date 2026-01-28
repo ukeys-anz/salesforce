@@ -11,11 +11,23 @@ public with sharing class CommercialAppFormProductActionsHelper {
     CommercialAppFormProductActionsRepo.class
   );
   private static final String REOPEN_CLOSED_OPP = 'You cannot reopen a closed stage.';
+  private static final String COMMERCIAL_ADMIN_ROLE = 'Commercial_Admin';
 
-  private static final Set<String> CLOSED_STAGES = new Set<String>{
-    'Opportunity Won',
-    'Opportunity Lost'
+  @testVisible
+  private static final String OPP_WON = 'Opportunity Won';
+  @testVisible
+  private static final String OPP_LOST = 'Opportunity Lost';
+  @testVisible
+  private static final String OPP_CANCELLED = 'Cancelled';
+  private static final Set<String> CLOSED_STAGES = new Set<String>{ OPP_LOST };
+  private static final Set<String> OPP_WON_ALLOWED_STAGES = new Set<String>{
+    OPP_LOST,
+    OPP_CANCELLED
   };
+  private static final String INVALID_TRANSITION_ERROR = 'Unfortunately, you are not allowed to move to a stage other than Opportunity Lost or Cancelled from Opportunity Won stage.';
+  private static final UserInfoRepository USER_REPO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
 
   /**
    * @description getAppFormProductsRelatedToCommercialOpportunity to get app form products records related to commercial opp
@@ -129,7 +141,10 @@ public with sharing class CommercialAppFormProductActionsHelper {
       //checks for validations on afp
       validateCommercialAppFormProducts(appFormProductWrapper, isInsert);
 
-      //gets AFPs whose old stages are Opp Won/Lost
+      if (USER_REPO.checkRole(COMMERCIAL_ADMIN_ROLE)) {
+        return;
+      }
+      //gets AFPs whose old stages are Opp Lost
       List<ApplicationFormProduct> filteredRecords = ListUtil.filter(
           appFormProductWrapper.stageUpdatedAppFormProducts.values(),
           oldMap
@@ -139,6 +154,17 @@ public with sharing class CommercialAppFormProductActionsHelper {
         .toList();
 
       ListUtil.addError(filteredRecords, REOPEN_CLOSED_OPP);
+
+      //gets AFPs whose old stages are opp won
+      List<ApplicationFormProduct> cancelledOpps = ListUtil.filter(
+          appFormProductWrapper.stageUpdatedAppFormProducts.values(),
+          oldMap
+        )
+        .changed(ApplicationFormProduct.Stage)
+        .notEquals(ApplicationFormProduct.Stage, OPP_WON_ALLOWED_STAGES)
+        .oldEquals(ApplicationFormProduct.Stage, OPP_WON)
+        .toList();
+      ListUtil.addError(cancelledOpps, INVALID_TRANSITION_ERROR);
     } catch (Exception e) {
       Logger.error('Error ocurred while checking stage on AFP', e).save();
     }
