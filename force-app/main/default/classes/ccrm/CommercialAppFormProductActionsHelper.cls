@@ -12,7 +12,6 @@ public with sharing class CommercialAppFormProductActionsHelper {
   );
   private static final String REOPEN_CLOSED_OPP = 'You cannot reopen a closed stage.';
   private static final String COMMERCIAL_ADMIN_ROLE = 'Commercial_Admin';
-
   @testVisible
   private static final String OPP_WON = 'Opportunity Won';
   @testVisible
@@ -409,6 +408,50 @@ public with sharing class CommercialAppFormProductActionsHelper {
       oppToUpdateList.add(oppRec);
     }
     return oppToUpdateList;
+  }
+  /**
+   * @description updateAmountOngetAFPsRelatedToOppOpportunity return list of afps related to opp
+   * @param appFormProductsList appFormProducts list
+   * @return Map<Id, List<ApplicationFormProduct>> map of opp Id and app form products
+   */
+  public static Map<Id, List<ApplicationFormProduct>> getAFPsRelatedToOpp(
+    List<ApplicationFormProduct> appFormProductsList
+  ) {
+    Map<Id, List<ApplicationFormProduct>> appFormProductsByOppId = new Map<Id, List<ApplicationFormProduct>>();
+    for (ApplicationFormProduct afp : appFormProductsList) {
+      if (
+        !appFormProductsByOppId.containsKey(afp.ApplicationForm.OpportunityId)
+      ) {
+        appFormProductsByOppId.put(
+          afp.ApplicationForm.OpportunityId,
+          new List<ApplicationFormProduct>()
+        );
+      }
+      appFormProductsByOppId.get(afp.ApplicationForm.OpportunityId).add(afp);
+    }
+    return appFormProductsByOppId;
+  }
+
+  /**
+   * @description resolveStage resolves stage acc to conditions
+   * @param stages set of opp stages
+   * @return String stage name
+   */
+  public static String resolveStage(Set<String> stages) {
+    if (stages.contains(OPP_WON)) {
+      return OPP_WON;
+    }
+    if (stages.contains(OPP_LOST) && !stages.contains(OPP_WON)) {
+      return OPP_LOST;
+    }
+    if (
+      stages.contains(OPP_CANCELLED) &&
+      !stages.contains(OPP_WON) &&
+      !stages.contains(OPP_LOST)
+    ) {
+      return OPP_CANCELLED;
+    }
+    return null;
   }
 
   /**

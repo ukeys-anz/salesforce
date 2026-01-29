@@ -369,6 +369,51 @@ private class CommercialAFPActionsHelperTest {
       'Estimated Revenue on opp is not 500'
     );
   }
+
+  @isTest
+  static void getAFPsRelatedToOppTest() {
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id afpId = Lib_FakeIdGenerator.getMockId(
+      ApplicationFormProduct.SObjectType
+    );
+    List<ApplicationFormProduct> afpList = new List<ApplicationFormProduct>{
+      new ApplicationFormProduct(
+        Id = afpId,
+        Stage = 'Opportunity Identified',
+        ApplicationForm = new ApplicationForm(
+          RecordTypeId = RTApplicationForm.acmApplication,
+          OpportunityId = oppId
+        )
+      )
+    };
+
+    Test.startTest();
+    Map<Id, List<ApplicationFormProduct>> appFormProductsByOppId = CommercialAppFormProductActionsHelper.getAFPsRelatedToOpp(
+      afpList
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      1,
+      appFormProductsByOppId.values().size(),
+      'Size of AFPs related to opportunity is 1. '
+    );
+  }
+
+  static void resolveStageTest() {
+    Set<String> stages = new Set<String>{ 'Opportunity Won', 'Cancelled' };
+
+    Test.startTest();
+    String stageName = CommercialAppFormProductActionsHelper.resolveStage(
+      stages
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      CommercialAppFormProductActionsHelper.OPP_WON,
+      stageName,
+      'Result is not opportunity won.'
+    );
+  }
+
   @isTest
   static void formRefNoToExistingAfpListMapTest() {
     //GIVEN existingAfpList

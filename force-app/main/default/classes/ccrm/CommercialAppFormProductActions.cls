@@ -21,6 +21,12 @@ public with sharing class CommercialAppFormProductActions {
   );
 
   private static final String ANZ_CCRM_STANDARD_USER = 'ANZ CCRM Standard User';
+  @testVisible
+  private static final String OPP_WON = 'Opportunity Won';
+  @testVisible
+  private static final String OPP_LOST = 'Opportunity Lost';
+  @testVisible
+  private static final String OPP_CANCELLED = 'Cancelled';
 
   /**
    * @description checkd stage of AFP on insert
@@ -577,6 +583,94 @@ public with sharing class CommercialAppFormProductActions {
       Logger.error('Error while updating estimated revenue on Opportunity', e)
         .save();
     }
+  }
+
+  /**
+   * @description This is used to update stage on opp
+   * @name updateStageOnOpportunity
+   * @param records Application Form Products records
+   * @param oldMap Map of Id and Application Form Products records
+   */
+  public static void updateStageOnOpportunity(
+    List<ApplicationFormProduct> records,
+    Map<Id, ApplicationFormProduct> oldMap
+  ) {
+    try {
+      List<ApplicationFormProduct> filteredAfpList = ListUtil.filter(
+          records,
+          oldMap
+        )
+        .changed(ApplicationFormProduct.Stage)
+        .anyEqual(
+          new Set<SObjectField>{ ApplicationFormProduct.Stage },
+          new Set<String>{ OPP_WON, OPP_LOST, OPP_CANCELLED }
+        )
+        .toList();
+
+      if (filteredAfpList.isEmpty()) {
+        return;
+      }
+      Set<Id> appFormProductIds = new Map<Id, ApplicationFormProduct>(
+          filteredAfpList
+        )
+        .keySet();
+      List<ApplicationFormProduct> appFormProducts = AFP_REPOSITORY.getRelatedAFP(
+        appFormProductIds
+      );
+      Set<Id> oppIds = new Set<Id>();
+      for (ApplicationFormProduct afp : appFormProducts) {
+        oppIds.add(afp.ApplicationForm.OpportunityId);
+      }
+      List<ApplicationFormProduct> appFormProductsList = AFP_REPOSITORY.getAfpRelatedToOpp(
+        oppIds
+      );
+      Map<Id, List<ApplicationFormProduct>> appFormProductsByOppId = CommercialAppFormProductActionsHelper.getAFPsRelatedToOpp(
+        appFormProductsList
+      );
+      List<Opportunity> opps = populateStage(appFormProductsByOppId);
+      DML.doUpdate(opps);
+    } catch (Exception e) {
+      Logger.error('Error while updating stage on Opportunity', e).save();
+    }
+  }
+
+  /**
+   * @description populateStage updates stage on opp based on AFP
+   * @param appFormProductsByOppId map of opp Id and app form products
+   * @return List<Opportunity> list of opportunities
+   */
+  public static List<Opportunity> populateStage(
+    Map<Id, List<ApplicationFormProduct>> appFormProductsByOppId
+  ) {
+    List<Opportunity> opps = new List<Opportunity>();
+
+    for (Id oppId : appFormProductsByOppId.keySet()) {
+      Set<String> stages = new Set<String>();
+
+      for (ApplicationFormProduct afp : appFormProductsByOppId.get(oppId)) {
+        if (
+          afp.Stage != OPP_WON &&
+          afp.Stage != OPP_LOST &&
+          afp.Stage != OPP_CANCELLED
+        ) {
+          stages.clear();
+          break;
+        }
+        stages.add(afp.Stage);
+      }
+
+      if (stages.isEmpty()) {
+        continue;
+      }
+
+      String stageName = CommercialAppFormProductActionsHelper.resolveStage(
+        stages
+      );
+      if (stageName != null) {
+        opps.add(new Opportunity(Id = oppId, StageName = stageName));
+      }
+    }
+    return opps;
   }
 
   /**

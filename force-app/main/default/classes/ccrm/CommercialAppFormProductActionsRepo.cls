@@ -99,6 +99,28 @@ public class CommercialAppFormProductActionsRepo {
       ]
     );
   }
+
+  /**
+   * @description getRelatedAFP - To fetch the related AFPs
+   * @param appFormProductIds set of app form product ids
+   * @return  List<ApplicationFormProduct> afp list
+   */
+  public List<ApplicationFormProduct> getRelatedAFP(Set<Id> appFormProductIds) {
+    if (appFormProductIds.isEmpty()) {
+      return new List<ApplicationFormProduct>();
+    }
+    return new List<ApplicationFormProduct>(
+      [
+        SELECT Id, ApplicationFormId, Stage, ApplicationForm.OpportunityId
+        FROM ApplicationFormProduct
+        WHERE
+          Id IN :appFormProductIds
+          AND ApplicationForm.Opportunity.RecordTypeId = :RTOpportunity.commercialOpportunity
+        WITH USER_MODE
+      ]
+    );
+  }
+
   /**
    * @description getApplicationForms to get BBD app forms records related to commercial Closed won opp
    * @param appFormIds set of new app form ids

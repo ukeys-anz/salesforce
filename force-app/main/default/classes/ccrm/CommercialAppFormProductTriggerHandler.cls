@@ -73,6 +73,10 @@ public with sharing class CommercialAppFormProductTriggerHandler extends Lib_Tri
       records,
       (Map<Id, ApplicationFormProduct>) oldMap
     );
+    CommercialAppFormProductActions.updateStageOnOpportunity(
+      records,
+      (Map<Id, ApplicationFormProduct>) oldMap
+    );
     CommercialAppFormProductActions.setPotentialDuplicateFlag(
       records,
       (Map<Id, ApplicationFormProduct>) oldMap

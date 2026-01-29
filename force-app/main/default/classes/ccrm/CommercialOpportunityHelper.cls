@@ -13,10 +13,11 @@ public with sharing class CommercialOpportunityHelper {
   public static final String LEAD_PROCESS_FOR_PROSPECT_ERROR = 'Error Message - Lead process to be followed for prospect opportunity creation';
   private static final String OPP_WON = 'Opportunity Won';
   private static final String OPP_LOST = 'Opportunity Lost';
-  private static final String OPP_CANCELLED = 'Cancelled';
   private static final String OPPORTUNITY_LABEL = 'Opportunity';
   private static final String SKIP_STAGE = 'Unfortunately, you are not allowed to skip stages or re-open a closed stage.';
   private static final String REOPEN_CLOSED_OPP = 'You cannot reopen a closed stage.';
+  private static final String OPP_CANCELLED = 'Cancelled';
+
   private static final String COMMERCIAL_ADMIN_ROLE = 'Commercial_Admin';
   @testVisible
   private static final String SELECT_RELATED_CLG_ERROR = 'Customer is not related to this CLG, please select the correct CLG';
@@ -102,28 +103,10 @@ public with sharing class CommercialOpportunityHelper {
       return;
     }
     for (Opportunity oppIterator : stageUpdatedOpps) {
-      List<String> nextStage = new List<String>();
       String oldStage = oldOppMap.get(oppIterator.Id).StageName;
 
       if (SET_CLOSED_STAGES.contains(oldStage)) {
         oppIterator.addError(REOPEN_CLOSED_OPP);
-        return;
-      }
-
-      Commercial_Stage__mdt metadata = opportunityStagesBySegment.get(
-        oppsStageSegmentMap.get(oppIterator.Id)
-      );
-
-      if (metadata != null && metadata.Next_Stage__c != null) {
-        nextStage = metadata.Next_Stage__c.split(';');
-      }
-
-      if (
-        oldStage == metadata.Current_Stage__c &&
-        oppIterator.StageName != metadata.Previous_Stage__c &&
-        !nextStage.contains(oppIterator.StageName)
-      ) {
-        oppIterator.addError(SKIP_STAGE);
       }
     }
   }
