@@ -182,6 +182,31 @@ public with sharing class FinancialAccountQueryHelper {
   }
 
   /**
+   * @description get account ocv status
+   * @param accountNumber Account Number
+   * @param accountRoleMap far map
+   * @return Account status
+   */
+  public static String getAccountStatus(
+    String accountNumber,
+    Map<String, FinServ__FinancialAccountRole__c> accountRoleMap
+  ) {
+    String result = '';
+    if (
+      !accountRoleMap.containsKey(accountNumber) ||
+      String.isEmpty(
+        accountRoleMap.get(accountNumber)
+          .FinServ__FinancialAccount__r.FinServ__Status__c
+      )
+    ) {
+      return result;
+    }
+    result = accountRoleMap.get(accountNumber)
+      .FinServ__FinancialAccount__r.FinServ__Status__c;
+    return result;
+  }
+
+  /**
    * @description get product code
    * @param accountNumber Account Number
    * @param accountRoleMap far map

@@ -3,7 +3,7 @@
     <isDefaultPartition>false</isDefaultPartition>
     <masterLabel>ForgeToken</masterLabel>
     <platformCachePartitionTypes>
-        <allocatedCapacity>1</allocatedCapacity>
+        <allocatedCapacity>18</allocatedCapacity>
         <allocatedPartnerCapacity>0</allocatedPartnerCapacity>
         <allocatedPurchasedCapacity>0</allocatedPurchasedCapacity>
         <allocatedTrialCapacity>0</allocatedTrialCapacity>

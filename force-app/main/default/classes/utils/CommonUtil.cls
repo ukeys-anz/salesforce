@@ -334,6 +334,12 @@ public with sharing class CommonUtil {
   }
 
   /**
+   * @description extend the Exception class to allow errors to be thrown for generic exceptions
+   */
+  public class GenericUserException extends Exception {
+  }
+
+  /**
    * [DEPRECATED] Use `QueryProfile.get`.
    * @description Get Profile by Profile Name
    * @param profileName name of the Profile

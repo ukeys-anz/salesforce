@@ -62,11 +62,9 @@ public with sharing class CaseGroupCaseAutoCloseSchedulerTest {
     CaseGroupCaseAutoCloseScheduler caseGroupSch = new CaseGroupCaseAutoCloseScheduler();
     caseGroupSch.execute(null);
     Test.stopTest();
-    List<Case> notClosedCases = (List<Case>) dmlRepoMock.getHistory('doUpdate')
-      .getParam('records');
-    Assert.isTrue(
-      notclosedCases.isEmpty(),
-      'Status should be not be changed to closed'
+    Assert.isNull(
+      dmlRepoMock.getHistory('doUpdate'),
+      'doUpdate should not have been invoked'
     );
   }
 
