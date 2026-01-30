@@ -369,4 +369,71 @@ private class CommercialAFPActionsHelperTest {
       'Estimated Revenue on opp is not 500'
     );
   }
+  @isTest
+  static void formRefNoToExistingAfpListMapTest() {
+    //GIVEN existingAfpList
+    List<ApplicationFormProduct> existingAfpList = new List<ApplicationFormProduct>{
+      new ApplicationFormProduct(
+        Id = Lib_FakeIdGenerator.getMockId(ApplicationFormProduct.SObjectType),
+        Reference_Number__c = '1234'
+      )
+    };
+
+    //WHEN calling a method
+    Test.startTest();
+    Map<String, List<ApplicationFormProduct>> refNoToExistingAfpListMap = CommercialAppFormProductActionsHelper.formRefNoToExistingAfpListMap(
+      existingAfpList
+    );
+    Test.stopTest();
+
+    //THEN it should assert successfully
+    Assert.areEqual(
+      1,
+      refNoToExistingAfpListMap.size(),
+      'should form a map successfully'
+    );
+  }
+
+  @isTest
+  static void setPDFlagTest() {
+    //GIVEN refNoToExistingAfpListMap
+    Map<String, List<ApplicationFormProduct>> refNoToExistingAfpListMap = new Map<String, List<ApplicationFormProduct>>{
+      '1234' => new List<ApplicationFormProduct>{
+        new ApplicationFormProduct(
+          Id = Lib_FakeIdGenerator.getMockId(
+            ApplicationFormProduct.SObjectType
+          ),
+          Reference_Number__c = '1234'
+        )
+      },
+      '12345' => new List<ApplicationFormProduct>{
+        new ApplicationFormProduct(
+          Id = Lib_FakeIdGenerator.getMockId(
+            ApplicationFormProduct.SObjectType
+          ),
+          Reference_Number__c = '12345'
+        ),
+        new ApplicationFormProduct(
+          Id = Lib_FakeIdGenerator.getMockId(
+            ApplicationFormProduct.SObjectType
+          ),
+          Reference_Number__c = '12345'
+        )
+      }
+    };
+
+    //WHEN calling a method
+    Test.startTest();
+    List<ApplicationFormProduct> afpListToUpdate = CommercialAppFormProductActionsHelper.setPDFlag(
+      refNoToExistingAfpListMap
+    );
+    Test.stopTest();
+
+    //THEN it should assert successfully
+    Assert.areEqual(
+      3,
+      afpListToUpdate.size(),
+      'should return 3 records of AFP to be updated'
+    );
+  }
 }

@@ -602,6 +602,7 @@
       "IA-2423227": [
         "Cancelled_Reason__c",
         "Cancelled_Reason_Detail__c",
+        "Is_Potential_Duplicate__c",
         "Won_from_Lost_to__c",
         "Lost_reason__c",
         "Lost_Reason_Detail__c",

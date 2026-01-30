@@ -1279,6 +1279,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ApplicationFormProduct.Is_Potential_Duplicate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ApplicationFormProduct.Interest_Rate__c</field>
         <readable>true</readable>
     </fieldPermissions>

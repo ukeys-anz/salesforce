@@ -412,6 +412,71 @@ public with sharing class CommercialAppFormProductActionsHelper {
   }
 
   /**
+   * @description updateAmountOngetAFPsRelatedToOppOpportunity return list of afps related to opp
+   * @param appFormProductsList appFormProducts list
+   * @return Map<Id, List<ApplicationFormProduct>> map of opp Id and app form products
+   */
+  public static Map<Id, List<ApplicationFormProduct>> getAFPsRelatedToOpp(
+    List<ApplicationFormProduct> appFormProductsList
+  ) {
+    Map<Id, List<ApplicationFormProduct>> appFormProductsByOppId = new Map<Id, List<ApplicationFormProduct>>();
+    for (ApplicationFormProduct afp : appFormProductsList) {
+      List<ApplicationFormProduct> afpList = appFormProductsByOppId.get(
+        afp.ApplicationForm.OpportunityId
+      ) ?? new List<ApplicationFormProduct>();
+      afpList.add(afp);
+      appFormProductsByOppId.put(afp.ApplicationForm.OpportunityId, afpList);
+    }
+    return appFormProductsByOppId;
+  }
+
+  /**
+   * @description This is used to form a map of Reference number and list of AFP
+   * @name formRefNoToExistingAfpListMap
+   * @param existingAfpList Existing AFP records
+   * @return Map<String, List<ApplicationFormProduct>> Reference number to list of AFP map
+   */
+  public static Map<String, List<ApplicationFormProduct>> formRefNoToExistingAfpListMap(
+    List<ApplicationFormProduct> existingAfpList
+  ) {
+    Map<String, List<ApplicationFormProduct>> refNoToExistingAfpListMap = new Map<String, List<ApplicationFormProduct>>();
+    for (ApplicationFormProduct afpRec : existingAfpList) {
+      List<ApplicationFormProduct> afpList = refNoToExistingAfpListMap.get(
+        afpRec.Reference_Number__c
+      ) ?? new List<ApplicationFormProduct>();
+      afpList.add(afpRec);
+      refNoToExistingAfpListMap.put(afpRec.Reference_Number__c, afpList);
+    }
+    return refNoToExistingAfpListMap;
+  }
+
+  /**
+   * @description This is used to update the Is Potential Duplicate flag
+   * @name setPDFlag
+   * @param refNoToExistingAfpListMap Reference number to list of AFP map
+   * @return List<ApplicationFormProduct> AFP Record to be updated
+   */
+  public static List<ApplicationFormProduct> setPDFlag(
+    Map<String, List<ApplicationFormProduct>> refNoToExistingAfpListMap
+  ) {
+    List<ApplicationFormProduct> afpListToUpdate = new List<ApplicationFormProduct>();
+    for (String refNumber : refNoToExistingAfpListMap.keySet()) {
+      List<ApplicationFormProduct> afpList = refNoToExistingAfpListMap.get(
+        refNumber
+      );
+      Boolean isPotentialDuplicate = (afpList.size() != 1);
+      afpListToUpdate.addAll(
+        (List<ApplicationFormProduct>) ListUtil.setField(
+          afpList,
+          ApplicationFormProduct.Is_Potential_Duplicate__c,
+          isPotentialDuplicate
+        )
+      );
+    }
+    return afpListToUpdate;
+  }
+
+  /**
    * @description wrapper class for commercial afp
    */
   public class AppFormProductWrapper {

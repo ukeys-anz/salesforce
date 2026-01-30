@@ -1234,4 +1234,85 @@ private class CommercialAppFormProductActionsTest {
       'App Form Share record is not created'
     );
   }
+  @isTest
+  static void setPotentialDuplicateFlagTest() {
+    registerMocks();
+
+    //GIVEN records, oldMap
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id appFormId = Lib_FakeIdGenerator.getMockId(ApplicationForm.SObjectType);
+    Id appFormProdId = Lib_FakeIdGenerator.getMockId(
+      ApplicationFormProduct.SObjectType
+    );
+    List<ApplicationFormProduct> records = new List<ApplicationFormProduct>{
+      new ApplicationFormProduct(
+        Id = appFormProdId,
+        ApplicationFormId = appFormId,
+        Reference_Number__c = '1234',
+        Is_Potential_Duplicate__c = false
+      )
+    };
+
+    Map<Id, ApplicationFormProduct> oldMap = new Map<Id, ApplicationFormProduct>{
+      appFormProdId => new ApplicationFormProduct(
+        Id = appFormProdId,
+        ApplicationFormId = appFormId,
+        Reference_Number__c = '123456',
+        Is_Potential_Duplicate__c = false
+      )
+    };
+
+    Map<Id, ApplicationForm> appFormMap = new Map<Id, ApplicationForm>{
+      appFormId => new ApplicationForm(
+        Id = appFormId,
+        OpportunityId = oppId,
+        RecordTypeId = RTApplicationForm.bbdApplication
+      )
+    };
+
+    List<ApplicationFormProduct> existingAfpList = new List<ApplicationFormProduct>{
+      new ApplicationFormProduct(
+        Id = Lib_FakeIdGenerator.getMockId(ApplicationFormProduct.SObjectType),
+        ApplicationFormId = appFormProdId,
+        Reference_Number__c = '1234',
+        Is_Potential_Duplicate__c = false
+      ),
+      new ApplicationFormProduct(
+        Id = Lib_FakeIdGenerator.getMockId(ApplicationFormProduct.SObjectType),
+        ApplicationFormId = appFormProdId,
+        Reference_Number__c = '1234',
+        Is_Potential_Duplicate__c = false
+      )
+    };
+
+    appFormProductRepoMock.mock('getApplicationFormsList', appFormMap);
+    appFormProductRepoMock.mock('getExistingAfpList', existingAfpList);
+    dmlRepoMock.mock(
+      'doUpdate',
+      TestUtil.getMockSaveResult('{"success":true}')
+    );
+
+    //WHEN calling a method
+    Test.startTest();
+    CommercialAppFormProductActions.setPotentialDuplicateFlag(records, oldMap);
+    Test.stopTest();
+
+    //THEN it should assert successfully
+    Assert.isNotNull(
+      dmlRepoMock.getHistory('doUpdate'),
+      'doUpdate should have been invoked'
+    );
+
+    List<ApplicationFormProduct> updatedRecords = (List<ApplicationFormProduct>) dmlRepoMock.getHistory(
+        'doUpdate'
+      )
+      .getParam('records');
+
+    //THEN it should update AFP Record
+    Assert.areEqual(
+      true,
+      updatedRecords[0].Is_Potential_Duplicate__c,
+      'should update the potential duplicate flag to true'
+    );
+  }
 }

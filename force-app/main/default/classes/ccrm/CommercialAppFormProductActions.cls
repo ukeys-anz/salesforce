@@ -578,4 +578,86 @@ public with sharing class CommercialAppFormProductActions {
         .save();
     }
   }
+
+  /**
+   * @description This is used to update the Is Potential Duplicate flag
+   * @name setPotentialDuplicateFlag
+   * @param records AFP records
+   * @param oldMap Map of Id, records
+   */
+  public static void setPotentialDuplicateFlag(
+    List<ApplicationFormProduct> records,
+    Map<Id, ApplicationFormProduct> oldMap
+  ) {
+    try {
+      //Get the list of AFP where Reference_Number__c changed
+      List<ApplicationFormProduct> filteredAfpList = ListUtil.filter(
+          records,
+          oldMap
+        )
+        .changed(ApplicationFormProduct.Reference_Number__c)
+        .toList();
+
+      //Extract the AF Ids from above filtered AFPs
+      Set<Id> appFormIds = ListUtil.getIds(
+        filteredAfpList,
+        ApplicationFormProduct.ApplicationFormId
+      );
+
+      //Query AF records where Record type = 'BBD' and Opp stage = 'Opp Won'
+      Map<Id, ApplicationForm> appFormMap = AFP_REPOSITORY.getApplicationFormsList(
+        appFormIds
+      );
+
+      //Filter New version of AFPs records where AF Ids exists in above AF Map
+      List<ApplicationFormProduct> newAfpList = ListUtil.filter(filteredAfpList)
+        .equals(ApplicationFormProduct.ApplicationFormId, appFormMap.keySet())
+        .toList();
+
+      //Extract the new Reference number
+      List<String> rnList = (List<String>) ListUtil.getValues(
+        newAfpList,
+        'Reference_Number__c',
+        String.class
+      );
+
+      //Filter Old version of AFPs records where AF Ids exists in above AF Map
+      List<ApplicationFormProduct> oldAfpList = ListUtil.filter(oldMap.values())
+        .equals(ApplicationFormProduct.ApplicationFormId, appFormMap.keySet())
+        .toList();
+
+      //Extract the old Reference number
+      rnList.addAll(
+        (List<String>) ListUtil.getValues(
+          oldAfpList,
+          'Reference_Number__c',
+          String.class
+        )
+      );
+
+      //Queries all the existing AFPs based on above Reference Number and AFP Ids
+      List<ApplicationFormProduct> existingAfpList = AFP_REPOSITORY.getExistingAfpList(
+        rnList
+      );
+
+      //Form a Map of Reference number and list of AFPs
+      Map<String, List<ApplicationFormProduct>> refNoToExistingAfpListMap = CommercialAppFormProductActionsHelper.formRefNoToExistingAfpListMap(
+        existingAfpList
+      );
+
+      //Prepare the List of AFPs that need to be updated
+      List<ApplicationFormProduct> afpListToUpdate = CommercialAppFormProductActionsHelper.setPDFlag(
+        refNoToExistingAfpListMap
+      );
+
+      //Update AFPs records
+      DML.doUpdate(afpListToUpdate, new DmlConfig().systemMode());
+    } catch (Exception e) {
+      Logger.error(
+          'Error while setting the Is Potential Duplicate flag on AFPs',
+          e
+        )
+        .save();
+    }
+  }
 }

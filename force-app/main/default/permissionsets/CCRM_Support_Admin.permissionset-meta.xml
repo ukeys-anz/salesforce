@@ -7438,6 +7438,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ApplicationFormProduct.Is_Potential_Duplicate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ApplicationFormProduct.Asset_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>

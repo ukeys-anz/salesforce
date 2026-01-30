@@ -99,4 +99,58 @@ public class CommercialAppFormProductActionsRepo {
       ]
     );
   }
+  /**
+   * @description getApplicationForms to get BBD app forms records related to commercial Closed won opp
+   * @param appFormIds set of new app form ids
+   * @return Map<Id, ApplicationForm> app forms Map
+   */
+  public Map<Id, ApplicationForm> getApplicationFormsList(Set<Id> appFormIds) {
+    if (appFormIds.isEmpty()) {
+      return new Map<Id, ApplicationForm>();
+    }
+    return new Map<Id, ApplicationForm>(
+      [
+        SELECT
+          Id,
+          RecordTypeId,
+          OpportunityId,
+          Opportunity.RecordTypeId,
+          Opportunity.closeDate,
+          Opportunity.OwnerId,
+          Opportunity.StageName,
+          OwnerId
+        FROM ApplicationForm
+        WHERE
+          Id IN :appFormIds
+          AND RecordTypeId = :RTApplicationForm.bbdApplication
+          AND Opportunity.RecordTypeId = :RTOpportunity.commercialOpportunity
+          AND Opportunity.StageName = 'Opportunity Won'
+        WITH SYSTEM_MODE
+      ]
+    );
+  }
+
+  /**
+   * @description getExistingAfpList - Fetch all AFP list
+   * @param rnList List of Reference Number
+   * @return List<ApplicationFormProduct> afp list
+   */
+  public List<ApplicationFormProduct> getExistingAfpList(List<String> rnList) {
+    return [
+      SELECT
+        Id,
+        Reference_Number__c,
+        ApplicationFormId,
+        ApplicationForm.RecordTypeId,
+        ApplicationForm.Opportunity.RecordTypeId,
+        ApplicationForm.Opportunity.StageName
+      FROM ApplicationFormProduct
+      WHERE
+        Reference_Number__c IN :rnList
+        AND ApplicationForm.RecordTypeId = :RTApplicationForm.bbdApplication
+        AND ApplicationForm.Opportunity.RecordTypeId = :RTOpportunity.CommercialOpportunity
+        AND ApplicationForm.Opportunity.StageName = 'Opportunity Won'
+      WITH SYSTEM_MODE
+    ];
+  }
 }
