@@ -409,6 +409,7 @@ public with sharing class CommercialAppFormProductActionsHelper {
     }
     return oppToUpdateList;
   }
+
   /**
    * @description updateAmountOngetAFPsRelatedToOppOpportunity return list of afps related to opp
    * @param appFormProductsList appFormProducts list
@@ -419,15 +420,11 @@ public with sharing class CommercialAppFormProductActionsHelper {
   ) {
     Map<Id, List<ApplicationFormProduct>> appFormProductsByOppId = new Map<Id, List<ApplicationFormProduct>>();
     for (ApplicationFormProduct afp : appFormProductsList) {
-      if (
-        !appFormProductsByOppId.containsKey(afp.ApplicationForm.OpportunityId)
-      ) {
-        appFormProductsByOppId.put(
-          afp.ApplicationForm.OpportunityId,
-          new List<ApplicationFormProduct>()
-        );
-      }
-      appFormProductsByOppId.get(afp.ApplicationForm.OpportunityId).add(afp);
+      List<ApplicationFormProduct> afpList = appFormProductsByOppId.get(
+        afp.ApplicationForm.OpportunityId
+      ) ?? new List<ApplicationFormProduct>();
+      afpList.add(afp);
+      appFormProductsByOppId.put(afp.ApplicationForm.OpportunityId, afpList);
     }
     return appFormProductsByOppId;
   }
@@ -476,25 +473,6 @@ public with sharing class CommercialAppFormProductActionsHelper {
       );
     }
     return olisToUpdate.values();
-  }
-
-  /**
-   * @description updateAmountOngetAFPsRelatedToOppOpportunity return list of afps related to opp
-   * @param appFormProductsList appFormProducts list
-   * @return Map<Id, List<ApplicationFormProduct>> map of opp Id and app form products
-   */
-  public static Map<Id, List<ApplicationFormProduct>> getAFPsRelatedToOpp(
-    List<ApplicationFormProduct> appFormProductsList
-  ) {
-    Map<Id, List<ApplicationFormProduct>> appFormProductsByOppId = new Map<Id, List<ApplicationFormProduct>>();
-    for (ApplicationFormProduct afp : appFormProductsList) {
-      List<ApplicationFormProduct> afpList = appFormProductsByOppId.get(
-        afp.ApplicationForm.OpportunityId
-      ) ?? new List<ApplicationFormProduct>();
-      afpList.add(afp);
-      appFormProductsByOppId.put(afp.ApplicationForm.OpportunityId, afpList);
-    }
-    return appFormProductsByOppId;
   }
 
   /**
