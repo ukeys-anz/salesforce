@@ -1375,6 +1375,96 @@ private class CommercialAppFormProductActionsTest {
   }
 
   @isTest
+  static void testSyncSettlementDateAndAmountToOppProductSuccess() {
+    registerMocks();
+
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id appFormId = Lib_FakeIdGenerator.getMockId(ApplicationForm.SObjectType);
+    Id afpId = Lib_FakeIdGenerator.getMockId(
+      ApplicationFormProduct.SObjectType
+    );
+    Id oliId = Lib_FakeIdGenerator.getMockId(OpportunityLineItem.SObjectType);
+
+    Date initialDate = System.today().addDays(5);
+    Date newSettlementDate = System.today().addDays(10);
+    Decimal newAmount = 5000.00;
+
+    ApplicationForm appFormobj = new ApplicationForm(
+      Id = appFormId,
+      OpportunityId = oppId,
+      Opportunity = new Opportunity(Id = oppId, CloseDate = initialDate)
+    );
+
+    ApplicationFormProduct oldAfp = new ApplicationFormProduct(
+      Id = afpId,
+      ApplicationFormId = appFormId,
+      Close_Date__c = initialDate,
+      Amount__c = 1000.00,
+      Opportunity_Product__c = oliId
+    );
+
+    ApplicationFormProduct newAfp = new ApplicationFormProduct(
+      Id = afpId,
+      ApplicationFormId = appFormId,
+      Close_Date__c = newSettlementDate,
+      Amount__c = newAmount,
+      Opportunity_Product__c = oliId
+    );
+
+    appFormProductRepoMock.mock(
+      'getApplicationForms',
+      new List<ApplicationForm>{ appFormobj }
+    );
+
+    Test.startTest();
+    CommercialAppFormProductActions.syncSettlementDateAndAmountToOppProduct(
+      new List<ApplicationFormProduct>{ newAfp },
+      new Map<Id, ApplicationFormProduct>{ afpId => oldAfp }
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      newSettlementDate,
+      newSettlementDate,
+      'Settlement Date mismatch on OLI'
+    );
+    Assert.areEqual(newAmount, newAmount, 'Amount mismatch on OLI');
+    Assert.areEqual(
+      newSettlementDate,
+      newSettlementDate,
+      'Opp CloseDate mismatch'
+    );
+  }
+
+  @isTest
+  static void testSyncSettlementDateAndAmountToOppProductNoChange() {
+    registerMocks();
+
+    Id afpId = Lib_FakeIdGenerator.getMockId(
+      ApplicationFormProduct.SObjectType
+    );
+    Date today = System.today();
+
+    ApplicationFormProduct afp = new ApplicationFormProduct(
+      Id = afpId,
+      Close_Date__c = today,
+      Amount__c = 100
+    );
+
+    Test.startTest();
+    CommercialAppFormProductActions.syncSettlementDateAndAmountToOppProduct(
+      new List<ApplicationFormProduct>{ afp },
+      new Map<Id, ApplicationFormProduct>{ afpId => afp }
+    );
+    Test.stopTest();
+
+    Assert.isNull(
+      dmlRepoMock.getHistory('doUpdate'),
+      'No DML should be performed when no fields changed'
+    );
+  }
+
+  @isTest
   static void setPotentialDuplicateFlagTest() {
     registerMocks();
 

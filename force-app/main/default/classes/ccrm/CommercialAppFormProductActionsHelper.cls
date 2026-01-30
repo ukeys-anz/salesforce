@@ -455,6 +455,30 @@ public with sharing class CommercialAppFormProductActionsHelper {
   }
 
   /**
+   * @description Processes changed AFP records to construct update list for OLI only.
+   * Opportunity logic has been moved to setFieldsOnRelatedOpportunity.
+   * @param changedAfpList list of AFP
+   * @return List<OpportunityLineItem> list of OLI
+   */
+  public static List<OpportunityLineItem> prepareSyncOLI(
+    List<ApplicationFormProduct> changedAfpList
+  ) {
+    Map<Id, OpportunityLineItem> olisToUpdate = new Map<Id, OpportunityLineItem>();
+
+    for (ApplicationFormProduct afp : changedAfpList) {
+      olisToUpdate.put(
+        afp.Opportunity_Product__c,
+        new OpportunityLineItem(
+          Id = afp.Opportunity_Product__c,
+          Expected_Settlement_Date__c = afp.Close_Date__c,
+          UnitPrice = afp.Amount__c
+        )
+      );
+    }
+    return olisToUpdate.values();
+  }
+
+  /**
    * @description updateAmountOngetAFPsRelatedToOppOpportunity return list of afps related to opp
    * @param appFormProductsList appFormProducts list
    * @return Map<Id, List<ApplicationFormProduct>> map of opp Id and app form products

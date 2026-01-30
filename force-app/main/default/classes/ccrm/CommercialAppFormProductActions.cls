@@ -674,6 +674,42 @@ public with sharing class CommercialAppFormProductActions {
   }
 
   /**
+   * @description Synchronizes related Opportunity and Opportunity Line Item (OLI) fields
+   * based on changes made to the Application Form Product (AFP) records.
+   * @param records List of updated ApplicationFormProduct records (Trigger.new).
+   * @param oldMap Map of ApplicationFormProduct records prior to update (Trigger.oldMap).
+   */
+  public static void syncSettlementDateAndAmountToOppProduct(
+    List<ApplicationFormProduct> records,
+    Map<Id, ApplicationFormProduct> oldMap
+  ) {
+    try {
+      List<ApplicationFormProduct> changedAfpList = ListUtil.filter(
+          records,
+          oldMap
+        )
+        .anyChanged(
+          new Set<SObjectField>{
+            ApplicationFormProduct.Amount__c,
+            ApplicationFormProduct.Close_Date__c
+          }
+        )
+        .isNotNull(ApplicationFormProduct.Opportunity_Product__c)
+        .toList();
+      if (changedAfpList.isEmpty()) {
+        return;
+      }
+      List<OpportunityLineItem> olisToUpdate = CommercialAppFormProductActionsHelper.prepareSyncOLI(
+        changedAfpList
+      );
+      DML.doUpdate(olisToUpdate);
+    } catch (Exception e) {
+      Logger.error('Error in syncSettlementDateAndAmountToOppProduct', e)
+        .save();
+    }
+  }
+
+  /**
    * @description This is used to update the Is Potential Duplicate flag
    * @name setPotentialDuplicateFlag
    * @param records AFP records
