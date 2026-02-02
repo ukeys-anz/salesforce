@@ -596,6 +596,7 @@ public with sharing class CommercialAppFormProductActions {
           oldMap
         )
         .changed(ApplicationFormProduct.Reference_Number__c)
+        .equals(ApplicationFormProduct.Stage, 'Opportunity Won')
         .toList();
 
       //Extract the AF Ids from above filtered AFPs

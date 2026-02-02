@@ -124,7 +124,6 @@ public class CommercialAppFormProductActionsRepo {
           Id IN :appFormIds
           AND RecordTypeId = :RTApplicationForm.bbdApplication
           AND Opportunity.RecordTypeId = :RTOpportunity.commercialOpportunity
-          AND Opportunity.StageName = 'Opportunity Won'
         WITH SYSTEM_MODE
       ]
     );
@@ -141,15 +140,16 @@ public class CommercialAppFormProductActionsRepo {
         Id,
         Reference_Number__c,
         ApplicationFormId,
+        Stage,
         ApplicationForm.RecordTypeId,
         ApplicationForm.Opportunity.RecordTypeId,
         ApplicationForm.Opportunity.StageName
       FROM ApplicationFormProduct
       WHERE
         Reference_Number__c IN :rnList
+        AND Stage = 'Opportunity Won'
         AND ApplicationForm.RecordTypeId = :RTApplicationForm.bbdApplication
         AND ApplicationForm.Opportunity.RecordTypeId = :RTOpportunity.CommercialOpportunity
-        AND ApplicationForm.Opportunity.StageName = 'Opportunity Won'
       WITH SYSTEM_MODE
     ];
   }

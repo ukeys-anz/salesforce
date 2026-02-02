@@ -1249,7 +1249,8 @@ private class CommercialAppFormProductActionsTest {
         Id = appFormProdId,
         ApplicationFormId = appFormId,
         Reference_Number__c = '1234',
-        Is_Potential_Duplicate__c = false
+        Is_Potential_Duplicate__c = false,
+        Stage = 'Opportunity Won'
       )
     };
 
@@ -1258,7 +1259,8 @@ private class CommercialAppFormProductActionsTest {
         Id = appFormProdId,
         ApplicationFormId = appFormId,
         Reference_Number__c = '123456',
-        Is_Potential_Duplicate__c = false
+        Is_Potential_Duplicate__c = false,
+        Stage = 'Opportunity Won'
       )
     };
 
@@ -1275,13 +1277,15 @@ private class CommercialAppFormProductActionsTest {
         Id = Lib_FakeIdGenerator.getMockId(ApplicationFormProduct.SObjectType),
         ApplicationFormId = appFormProdId,
         Reference_Number__c = '1234',
-        Is_Potential_Duplicate__c = false
+        Is_Potential_Duplicate__c = false,
+        Stage = 'Opportunity Won'
       ),
       new ApplicationFormProduct(
         Id = Lib_FakeIdGenerator.getMockId(ApplicationFormProduct.SObjectType),
         ApplicationFormId = appFormProdId,
         Reference_Number__c = '1234',
-        Is_Potential_Duplicate__c = false
+        Is_Potential_Duplicate__c = false,
+        Stage = 'Opportunity Won'
       )
     };
 
