@@ -103,11 +103,20 @@ public with sharing class AuthRepository extends RepositoryBase {
       throw new AuraHandledException(e.getMessage());
     }
 
-    HttpCalloutResponse response = authSvc.getForgeJWTToken(
-      staffModelWrapper,
-      idToken,
-      forgeAuth
-    );
+    HttpCalloutResponse response = new HttpCalloutResponse();
+    if (forgeAuth.isJWEToken__c) {
+      response = authSvc.getForgeJWEToken(
+        staffModelWrapper,
+        idToken,
+        forgeAuth
+      );
+    } else {
+      response = authSvc.getForgeJWTToken(
+        staffModelWrapper,
+        idToken,
+        forgeAuth
+      );
+    }
     return getIdentityResult(response);
   }
   /**
