@@ -25,8 +25,8 @@ public with sharing class CloneLeadController {
   public static Id cloneLeadRecord(Id leadId) {
     try {
       Lead newLead = new Lead();
-      String query = buildLeadQuery(leadId);
-      Lead oldLead = CLONE_LEAD_REPOSITORY.getLeadRecordByQuery(query);
+      String query = buildLeadQuery(CLONE_FIELDSET);
+      Lead oldLead = CLONE_LEAD_REPOSITORY.getLeadRecordByQuery(query, leadId);
       // Validation: Only clone if NTB == 'Yes' AND customer is a Prospect (or no related account)
       if (
         oldLead.New_to_Bank__c != 'Yes' ||
@@ -95,12 +95,10 @@ public with sharing class CloneLeadController {
   /**
    * @name buildLeadQuery
    * @description Dynamically builds SOQL for fetching a Lead with all Field Set + validation fields
-   * @param leadId - Lead record Id
+   * @param fieldSet - FieldSet containing fields to query
    * @return SOQL query string
    */
-  private static String buildLeadQuery(Id leadId) {
-    Schema.FieldSet fieldSet = SObjectType.Lead.FieldSets.getMap()
-      .get(FIELDSET_API_NAME);
+  private static String buildLeadQuery(Schema.FieldSet fieldSet) {
     Set<String> fieldNames = new Set<String>();
 
     for (Schema.FieldSetMember fsm : fieldSet.getFields()) {
@@ -111,18 +109,11 @@ public with sharing class CloneLeadController {
     fieldNames.add('Id');
     fieldNames.add('New_to_Bank__c'); //required for validation
     fieldNames.add('FinServ__RelatedAccount__r.FinServ__Status__c'); //required for validation
-
-    // Build SOQL dynamically
     String query =
       'SELECT ' +
       String.join(new List<String>(fieldNames), ',') +
-      ' FROM Lead WHERE Id = \'' +
-      String.valueOf(leadId) +
-      '\'' +
-      ' AND RecordTypeId = \'' +
-      String.valueOf(RTLead.commercialLead) +
-      '\'' +
-      ' WITH SYSTEM_MODE LIMIT 1';
+      ' FROM Lead WHERE Id = :leadId AND RecordTypeId = :rtId' +
+      ' LIMIT 1';
 
     return query;
   }
