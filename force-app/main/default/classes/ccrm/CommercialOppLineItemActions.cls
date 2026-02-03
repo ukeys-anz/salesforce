@@ -131,7 +131,10 @@ public with sharing class CommercialOppLineItemActions {
   ) {
     Map<Id, Integer> oppIdToliCountMap = new Map<Id, Integer>();
     for (OpportunityLineItem oliRec : oliList) {
-      Integer lastSequenceNumber = oliRec.Opp_Product_name__c?.contains('-')
+      if (oliRec.Opp_Product_name__c == null) {
+        continue;
+      }
+      Integer lastSequenceNumber = oliRec.Opp_Product_name__c.contains('-')
         ? Integer.valueOf(oliRec.Opp_Product_name__c.split('-')[0].trim())
         : 0;
       Integer sequenceNumber = oppIdToliCountMap.get(oliRec.OpportunityId) ?? 0;
