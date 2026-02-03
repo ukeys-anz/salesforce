@@ -1240,6 +1240,10 @@ private class CommercialAppFormProductActionsTest {
         appFormProductList[0]
       }
     );
+    commercialOppRepoMock.mock(
+      'getOpenTasksOnClosedOpportunity',
+      new List<Map<String, Object>>{}
+    );
     Test.startTest();
     CommercialAppFormProductActions.updateStageOnOpportunity(
       appFormProductList,
@@ -1318,6 +1322,10 @@ private class CommercialAppFormProductActionsTest {
         appFormProductObj,
         appFormProductList[0]
       }
+    );
+    commercialOppRepoMock.mock(
+      'getOpenTasksOnClosedOpportunity',
+      new List<Map<String, Object>>{}
     );
     Test.startTest();
     CommercialAppFormProductActions.updateStageOnOpportunity(

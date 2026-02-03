@@ -542,7 +542,6 @@ public with sharing class CommercialAppFormProductActionsHelper {
     }
     return afpListToUpdate;
   }
-
   /**
    * @description wrapper class for commercial afp
    */

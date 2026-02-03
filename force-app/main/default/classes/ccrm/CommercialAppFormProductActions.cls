@@ -628,6 +628,12 @@ public with sharing class CommercialAppFormProductActions {
         appFormProductsList
       );
       List<Opportunity> opps = populateStage(appFormProductsByOppId);
+      Map<Id, Opportunity> oppsToUpdate = new Map<Id, Opportunity>(opps);
+      CommercialAFPActionsExtended.checkForOpenTasks(
+        appFormProducts,
+        filteredAfpList,
+        oppsToUpdate
+      );
       DML.doUpdate(opps);
     } catch (Exception e) {
       Logger.error('Error while updating stage on Opportunity', e).save();
