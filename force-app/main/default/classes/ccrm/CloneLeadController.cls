@@ -6,6 +6,10 @@
 public with sharing class CloneLeadController {
   private static final String CAMPAIGN_CODE = 'IKCMP-1579';
   private static final String ERROR_NOT_CLONEABLE = 'Only New to Bank leads associated with a Prospect can be cloned.';
+  private static final String ADOBE = 'Adobe';
+  private static final String UNICA = 'UNICA';
+  private static final String CLONE = 'Clone';
+
   private static final Schema.FieldSet CLONE_FIELDSET = SObjectType.Lead.FieldSets.CCRM_Clone_Lead_Fields;
 
   private static final CloneLeadRepository CLONE_LEAD_REPOSITORY = (CloneLeadRepository) Lib_InstanceProvider.forType(
@@ -43,6 +47,12 @@ public with sharing class CloneLeadController {
       newLead.OwnerId = UserInfo.getUserId();
       newLead.Previous_Lead__c = oldLead.Id;
       newLead.FinServ__ExpressedInterest__c = null;
+      if (
+        oldLead.Lead_Originator__c == ADOBE ||
+        oldLead.Lead_Originator__c == UNICA
+      ) {
+        newLead.Skip_Validations__c = CLONE;
+      }
 
       DML_REPOSITORY.doInsert(
         newLead,
@@ -92,6 +102,8 @@ public with sharing class CloneLeadController {
     fieldNames.add('Id');
     fieldNames.add('New_to_Bank__c'); //required for validation
     fieldNames.add('FinServ__RelatedAccount__r.FinServ__Status__c'); //required for validation
+    fieldNames.add('Lead_Originator__c'); //required for setting Skip Validation
+
     String query =
       'SELECT ' +
       String.join(new List<String>(fieldNames), ',') +
