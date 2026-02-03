@@ -372,12 +372,17 @@ export default class ManageExtraCare extends LightningElement {
 
   updateReviewDate() {
     const oneYearFromToday = this.getNextYear();
-
     // Review Date is not visible
     if (!this.showReviewDate) {
       this.newAccount.ExtraCareReviewDate__c = null;
       return;
     }
+
+    // if the review date is already set, do not change it
+    if (this.newAccount.ExtraCareReviewDate__c) {
+      return;
+    }
+
     // Reason is changed with having no prior value (Or)
     // TimePeriod changed with same reasons
     if (
