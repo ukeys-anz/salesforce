@@ -64,12 +64,10 @@ public with sharing class CloneLeadControllerTest {
     Lead oldLead = getDefaultLead();
     Lead newLead = new Lead();
 
+    Schema.FieldSet fieldSet = SObjectType.Lead.FieldSets.CCRM_Clone_Lead_Fields;
+
     Test.startTest();
-    CloneLeadController.copyFieldSetValues(
-      oldLead,
-      newLead,
-      'CCRM_Clone_Lead_Fields'
-    );
+    CloneLeadController.copyFieldSetValues(oldLead, newLead, fieldSet);
     Test.stopTest();
 
     // Verify a few key fields copied
