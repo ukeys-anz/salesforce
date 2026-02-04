@@ -135,6 +135,9 @@ public class CommercialAppFormProductActionsRepo {
    * @return List<ApplicationFormProduct> afp list
    */
   public List<ApplicationFormProduct> getExistingAfpList(List<String> rnList) {
+    if (rnList.isEmpty()) {
+      return new List<ApplicationFormProduct>();
+    }
     return [
       SELECT
         Id,

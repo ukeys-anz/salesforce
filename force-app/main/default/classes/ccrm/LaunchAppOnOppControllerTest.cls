@@ -439,7 +439,11 @@ private class LaunchAppOnOppControllerTest {
     List<ApplicationFormProduct> appFormProducts = new List<ApplicationFormProduct>{
       new ApplicationFormProduct(
         Id = Lib_FakeIdGenerator.getMockId(ApplicationFormProduct.SObjectType),
-        Opportunity_Product__c = oliId
+        Opportunity_Product__c = oliId,
+        Opportunity_Product__r = new OpportunityLineItem(
+          Id = oliId,
+          Opp_Product_name__c = 'ANZ Product'
+        )
       )
     };
 
@@ -450,7 +454,7 @@ private class LaunchAppOnOppControllerTest {
 
     //WHEN calling a method
     Test.startTest();
-    List<ApplicationFormProduct> afpList = LaunchAppOnOppController.validateSelectedOppLineItems(
+    List<String> alreadyLaunchedProductList = LaunchAppOnOppController.validateSelectedOppLineItems(
       oppId,
       selectedLineItemIds
     );
@@ -459,7 +463,7 @@ private class LaunchAppOnOppControllerTest {
     //THEN it should successfully get the AFP records
     Assert.areEqual(
       1,
-      afpList.size(),
+      alreadyLaunchedProductList.size(),
       'should have 1 Application Form Product'
     );
   }
@@ -532,7 +536,7 @@ private class LaunchAppOnOppControllerTest {
     //WHEN calling a method
     Test.startTest();
     try {
-      List<ApplicationFormProduct> afpList = LaunchAppOnOppController.validateSelectedOppLineItems(
+      List<String> alreadyLaunchedProductList = LaunchAppOnOppController.validateSelectedOppLineItems(
         oppId,
         selectedLineItemIds
       );

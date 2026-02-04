@@ -259,23 +259,8 @@ export default class LaunchAppOnOpp extends NavigationMixin(LightningElement) {
       selectedLineItemIds: this.selectedRowIds
     }).then((result) => {
       if (result && result.length > 0) {
-        const productNames = [
-          ...new Set(
-            result
-              .map(
-                (afp) =>
-                  afp.Opportunity_Product__r?.Opp_Product_name__c ??
-                  afp.Product?.Name
-              )
-              .filter((name) => name !== "")
-          )
-        ];
-
-        const productNamesLabel =
-          productNames.length > 0
-            ? `${productNames.join(", ")}`
-            : "Selected Product(s): ";
-
+        const productNames = [...new Set(result)];
+        const productNamesLabel = productNames.join(", ");
         let content = `The selected product(s) <b>${productNamesLabel}</b> were already launched previously. Do you want to continue?`;
 
         this.openModal(

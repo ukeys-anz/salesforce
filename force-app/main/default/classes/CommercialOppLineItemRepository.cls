@@ -66,6 +66,9 @@ public with sharing class CommercialOppLineItemRepository {
    * @return List<Opportunity> opp List
    */
   public List<Opportunity> getOpportunityRecords(Set<Id> oppIdsSet) {
+    if (oppIdsSet.isEmpty()) {
+      return new List<Opportunity>();
+    }
     return new List<Opportunity>(
       [
         SELECT Id, Name, RecordTypeId
@@ -84,6 +87,9 @@ public with sharing class CommercialOppLineItemRepository {
    * @return List<OpportunityLineItem> list of Opportunity Line Items records
    */
   public List<OpportunityLineItem> getExistingOLIsList(Set<Id> oppIdsSet) {
+    if (oppIdsSet.isEmpty()) {
+      return new List<OpportunityLineItem>();
+    }
     return [
       SELECT Id, OpportunityId, Product2Id, Opp_Product_Name__c
       FROM OpportunityLineItem
@@ -100,6 +106,9 @@ public with sharing class CommercialOppLineItemRepository {
    * @return Map<Id, Product2> Map of Products
    */
   public Map<Id, Product2> getProductMap(Set<Id> productIdsSet) {
+    if (productIdsSet.isEmpty()) {
+      return new Map<Id, Product2>();
+    }
     return new Map<Id, Product2>(
       [
         SELECT Id, Name

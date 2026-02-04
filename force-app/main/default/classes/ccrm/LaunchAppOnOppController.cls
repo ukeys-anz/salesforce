@@ -206,10 +206,10 @@ public with sharing class LaunchAppOnOppController {
    * @description This is used to validate the selected OLI
    * @param oppId Opportunity Id
    * @param selectedLineItemIds Selected OLI from Launch app
-   * @return List<ApplicationFormProduct> List of AFP records for which the AFP is already created.
+   * @return List<String> List of Product which is already launched
    */
   @AuraEnabled
-  public static List<ApplicationFormProduct> validateSelectedOppLineItems(
+  public static List<String> validateSelectedOppLineItems(
     String oppId,
     List<Id> selectedLineItemIds
   ) {
@@ -217,13 +217,15 @@ public with sharing class LaunchAppOnOppController {
       List<ApplicationFormProduct> appFormProducts = APP_REPOSITORY.getAppFormProductsNotRelatedToAMBIT(
         oppId
       );
-      List<ApplicationFormProduct> afpList = new List<ApplicationFormProduct>();
+      List<String> alreadyLaunchProductList = new List<String>();
       for (ApplicationFormProduct afp : appFormProducts) {
         if (selectedLineItemIds.contains(afp.Opportunity_Product__c)) {
-          afpList.add(afp);
+          alreadyLaunchProductList.add(
+            afp.Opportunity_Product__r?.Opp_Product_name__c ?? afp.Product?.Name
+          );
         }
       }
-      return afpList;
+      return alreadyLaunchProductList;
     } catch (Exception e) {
       Logger.error('Error occured while validating selected opp line items', e)
         .save();
