@@ -21,7 +21,7 @@ public with sharing class CloneLeadController {
    * @param leadId
    * @return Id
    **/
-  @AuraEnabled(cacheable=true)
+  @AuraEnabled
   public static Id cloneLeadRecord(Id leadId) {
     try {
       Lead newLead = new Lead();
