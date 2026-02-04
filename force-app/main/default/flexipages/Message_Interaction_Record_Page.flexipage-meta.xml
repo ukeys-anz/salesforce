@@ -233,16 +233,6 @@
                 <identifier>RecordTransfer_cField</identifier>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Status__c</fieldItem>
-                <identifier>RecordStatus_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-33ee8b5b-84cc-4bd0-b896-c968af65e4e9</name>
         <type>Facet</type>
     </flexiPageRegions>

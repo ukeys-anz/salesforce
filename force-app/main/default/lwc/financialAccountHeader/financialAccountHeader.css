@@ -96,3 +96,6 @@
 .cicon {
   --sds-c-icon-color-background: rgb(27, 150, 255);
 }
+.card-icon-color {
+  --sds-c-icon-color-background: rgb(255, 154, 60);
+}
