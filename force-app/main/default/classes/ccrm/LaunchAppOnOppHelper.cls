@@ -50,6 +50,22 @@ public with sharing class LaunchAppOnOppHelper {
   }
 
   /**
+   * @description create productId  amount map
+   * @name createProductAmountMap
+   * @param items opp line items
+   * @return Map<Id, Decimal> productIdToAmountMap
+   */
+  public static Map<Id, Decimal> createProductAmountMap(
+    List<OpportunityLineItem> items
+  ) {
+    Map<Id, Decimal> productIdToAmountMap = new Map<Id, Decimal>();
+    for (OpportunityLineItem item : items) {
+      productIdToAmountMap.put(item.Product2Id, item.UnitPrice);
+    }
+    return productIdToAmountMap;
+  }
+
+  /**
    * @description create application form
    * @name createApplicationForm
    * @param oppId opportunityId
