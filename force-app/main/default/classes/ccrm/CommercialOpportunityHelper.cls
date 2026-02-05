@@ -107,7 +107,10 @@ public with sharing class CommercialOpportunityHelper {
         stageUpdatedOpps,
         oldOppMap
       )
-      .oldEquals(Opportunity.StageName, OPP_LOST)
+      .oldEquals(
+        Opportunity.StageName,
+        new Set<String>{ OPP_LOST, OPP_CANCELLED }
+      )
       .toList();
     ListUtil.addError(lostOpportunities, REOPEN_CLOSED_OPP);
 
