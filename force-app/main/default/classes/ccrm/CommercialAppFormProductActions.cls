@@ -742,7 +742,7 @@ public with sharing class CommercialAppFormProductActions {
         ApplicationFormProduct.ApplicationFormId
       );
 
-      //Query AF records where Record type = 'BBD' and Opp stage = 'Opp Won'
+      //Query AF records where Record type = 'BBD' and AFP stage = 'Opp Won'
       Map<Id, ApplicationForm> appFormMap = AFP_REPOSITORY.getApplicationFormsList(
         appFormIds
       );
@@ -789,7 +789,7 @@ public with sharing class CommercialAppFormProductActions {
       );
 
       //Update AFPs records
-      DML.doUpdate(afpListToUpdate, new DmlConfig().systemMode());
+      DML.doUpdate(afpListToUpdate, new DmlConfig().withoutSharing());
     } catch (Exception e) {
       Logger.error(
           'Error while setting the Is Potential Duplicate flag on AFPs',
