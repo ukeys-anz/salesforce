@@ -412,21 +412,22 @@ public with sharing class CommercialAppFormProductActions {
     Map<Id, ApplicationFormProduct> oldMap
   ) {
     try {
-      //Filter AFP list when Stage changes to Opportunity Won
+      //Filter AFP list when Amount changes and Stage equals to Opportunity Won or cancelled
       List<ApplicationFormProduct> filteredAfpList = ListUtil.filter(
           records,
           oldMap
         )
-        .changedTo(ApplicationFormProduct.Stage, 'Opportunity Won')
+        .anyChanged(
+          new Set<SObjectField>{
+            ApplicationFormProduct.Amount__c,
+            ApplicationFormProduct.Stage
+          }
+        )
+        .equals(
+          ApplicationFormProduct.Stage,
+          new Set<String>{ OPP_WON, OPP_CANCELLED }
+        )
         .toList();
-
-      //Filter AFP list when Amount changes and Stage equals to Opportunity Won
-      filteredAfpList.addAll(
-        (List<ApplicationFormProduct>) ListUtil.filter(records, oldMap)
-          .changed(ApplicationFormProduct.Amount__c)
-          .equals(ApplicationFormProduct.Stage, 'Opportunity Won')
-          .toList()
-      );
 
       if (filteredAfpList.isEmpty()) {
         return;
@@ -483,7 +484,7 @@ public with sharing class CommercialAppFormProductActions {
         oliList
       );
 
-      Map<Id, Decimal> oppToAppAmountMap = CommercialAppFormProductActionsHelper.formOppToAmountMap(
+      Map<Id, Decimal> oppToAppAmountMap = CommercialAFPActionsExtended.formOppToAmountMap(
         itemIdToOppIdMap,
         oliToAfpMap,
         ApplicationFormProduct.Amount__c
@@ -567,7 +568,7 @@ public with sharing class CommercialAppFormProductActions {
         oliList
       );
 
-      Map<Id, Decimal> oppToEstimatedRevenueMap = CommercialAppFormProductActionsHelper.formOppToAmountMap(
+      Map<Id, Decimal> oppToEstimatedRevenueMap = CommercialAFPActionsExtended.formOppToAmountMap(
         itemIdToOppIdMap,
         oliToAfpMap,
         ApplicationFormProduct.Revenue__c
