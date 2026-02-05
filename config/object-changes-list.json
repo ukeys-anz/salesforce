@@ -8,7 +8,6 @@
     "Appointment_Commitment__c",
     "Associated_Loan_Application__c",
     "AuthenticationHistory__c",
-    "Broker_Code__c",
     "Broker_Relation__c",
     "BusinessHours",
     "Campaign",
