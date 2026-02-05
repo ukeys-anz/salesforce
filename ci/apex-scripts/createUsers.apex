@@ -14,14 +14,18 @@ String userDataJSON =
   // ANZx automation test users
   // '{"FirstName":"Test","LastName":"Automation BOH Coach","Username":"_automation.bohcoach","UserRole":"BOH_Coach","Profile":"ANZx Standard Automation User","PermissionSets":["Bypass_TSP","Password_Never_Expires","SFDX_Full_Dev_Hub_Access"],"PermissionSetGroups":["BOH_Coach"]},' +
   // '{"FirstName":"Test","LastName":"Automation Business Admin","Username":"_automation.businessadmin","UserRole":"Business_Admin","Profile":"ANZx Standard Automation User","KnowledgeUser":true,"PermissionSets":["Bypass_TSP","Password_Never_Expires","SFDX_Full_Dev_Hub_Access"],"PermissionSetGroups":["Business_Admin"]},' +
+  // '{"FirstName":"Test","LastName":"Automation Card Dispute Agent 1","Username":"_automation.carddisputeagent.1","UserRole":"Card_Dispute_Agent","Profile":"ANZx Standard Automation User","PermissionSets":["Bypass_TSP","Password_Never_Expires","SFDX_Full_Dev_Hub_Access"],"PermissionSetGroups":["Card_Dispute_Agent"]},' +
+  // '{"FirstName":"Test","LastName":"Automation Card Dispute Agent 2","Username":"_automation.carddisputeagent.2","UserRole":"Card_Dispute_Agent","Profile":"ANZx Standard Automation User","PermissionSets":["Bypass_TSP","Password_Never_Expires","SFDX_Full_Dev_Hub_Access"],"PermissionSetGroups":["Card_Dispute_Agent"]},' +
   // '{"FirstName":"Test","LastName":"Automation Coach","Username":"_automation.coach","UserRole":"Coach","Profile":"ANZx Standard Automation User","PermissionSets":["Bypass_TSP","Password_Never_Expires","SFDX_Full_Dev_Hub_Access"],"PermissionSetGroups":["Coach"]},' +
   // '{"FirstName":"Test","LastName":"Automation Coach Lead","Username":"_automation.coachlead","UserRole":"Coach_Lead","Profile":"ANZx Standard Automation User","KnowledgeUser":true,"PermissionSets":["Bypass_TSP","Password_Never_Expires","SFDX_Full_Dev_Hub_Access"],"PermissionSetGroups":["Coach_Lead"]},' +
+  // '{"FirstName":"Test","LastName":"Automation Credit Assessor Lead 1","Username":"_automation.creditassessorlead.1","UserRole":"Credit_Assessor_Lead","Profile":"ANZx Standard Automation User","PermissionSets":["Bypass_TSP","Password_Never_Expires","SFDX_Full_Dev_Hub_Access"],"PermissionSetGroups":["Credit_Assessor_Lead"]},' +
+  // '{"FirstName":"Test","LastName":"Automation Credit Assessor Lead 2","Username":"_automation.creditassessorlead.2","UserRole":"Credit_Assessor_Lead","Profile":"ANZx Standard Automation User","PermissionSets":["Bypass_TSP","Password_Never_Expires","SFDX_Full_Dev_Hub_Access"],"PermissionSetGroups":["Credit_Assessor_Lead"]},' +
   // '{"FirstName":"Test","LastName":"Automation Content Writer","Username":"_automation.contentwriter","UserRole":"Content_Writer","Profile":"ANZx Standard Automation User","PermissionSets":["Bypass_TSP","Password_Never_Expires","SFDX_Full_Dev_Hub_Access"],"PermissionSetGroups":["Content_Author_PSG"]},' +
   // '{"FirstName":"Test","LastName":"Automation FinCrime Agent","Username":"_automation.fincrimeagent","UserRole":"FinCrime_Agent","Profile":"ANZx Standard Automation User","PermissionSets":["Bypass_TSP","Password_Never_Expires","SFDX_Full_Dev_Hub_Access"],"PermissionSetGroups":["FinCrime_Agent"]},' +
   // '{"FirstName":"Test","LastName":"Automation FraudX Agent","Username":"_automation.fraudxagent","UserRole":"FraudX_Agent","Profile":"ANZx Standard Automation User","PermissionSets":["Bypass_TSP","Password_Never_Expires","SFDX_Full_Dev_Hub_Access"],"PermissionSetGroups":["FraudX_Agent"]},' +
   // '{"FirstName":"Test","LastName":"Automation Join Lead","Username":"_automation.joinlead","UserRole":"Join_Lead","Profile":"ANZx Standard Automation User","PermissionSets":["Bypass_TSP","Password_Never_Expires","SFDX_Full_Dev_Hub_Access"],"PermissionSetGroups":["FraudX_Agent","Join_Lead","Quality_Analyst"]},' +
   // '{"FirstName":"Test","LastName":"Automation Quality Analyst","Username":"_automation.qualityanalyst","UserRole":"Quality_Analyst","Profile":"ANZx Standard Automation User","PermissionSets":["Bypass_TSP","Password_Never_Expires","SFDX_Full_Dev_Hub_Access"],"PermissionSetGroups":["Quality_Analyst"]},' +
-  // '{"FirstName":"Test","LastName":"Automation Qualtrics Integration","Username":"_automation.qualtricsintegration","UserRole":"ANZx","Profile":"ANZx Standard Automation User","PermissionSets":["ActionPlans","Backup_and_Restore","BoH_Read_Write","Broker_Details_Integration","Bypass_TSP","Case_Read_Write_KYC_QA_Integration","Case_Read_Write_All","Case_Read_Write_Customer_Onboarding_Integration","Case_Read_Write_Qualtrics_Integration","Coach_Nudge_Integration","Customer_Feedback_Read_Write","Customer_Onboarding_Integration","FinancialServicesCloudExtension","Interaction_Read_Write","Lead_Read_Write","Lead_Read_Write_Qualtrics_Integration","Loan_app_Integration","Mortgage","Password_Never_Expires","PEGA_Integration","Qualtrics_Admin","Read_Only_Admin","Read_Write_Customer_Details","Settlements_Read_Write","SFDX_Deploy","SFDX_Full_Dev_Hub_Access","Streaming_Monitor"]},' +
+  // '{"FirstName":"Test","LastName":"Automation Qualtrics Integration","Username":"_automation.qualtricsintegration","UserRole":"ANZx","Profile":"ANZx Standard Automation User","PermissionSets":["ActionPlans","Backup_and_Restore","BoH_Read_Write","Broker_Details_Integration","Bypass_TSP","Case_Read_Write_KYC_QA_Integration","Case_Read_Write_All","Case_Read_Write_Customer_Onboarding_Integration","Case_Read_Write_Qualtrics_Integration","Coach_Nudge_Integration","Customer_Feedback_Read_Write","Customer_Onboarding_Integration","FinancialServicesCloudExtension","Interaction_Read_Write","Lead_Read_Write","Lead_Read_Write_Qualtrics_Integration","Loan_app_Integration","Mortgage","Password_Never_Expires","PEGA_Integration","Qualtrics_Admin","Read_Only_Admin","Read_Write_Customer_Details","Settlements_Read_Write","SFDX_Deploy","SFDX_Full_Dev_Hub_Access","Streaming_Monitor","Bulk_API","Financial_Accounts_Read_and_Edit","Financial_Services_Cloud_Standard"]},' +
   // '{"FirstName":"Test","LastName":"Automation Residential Broker Manager","Username":"_automation.residentialbrokermanager","UserRole":"Residential_Broker_Manager","Profile":"ANZx Standard User","PermissionSets":["Bypass_TSP","Password_Never_Expires","SFDX_Full_Dev_Hub_Access"],"PermissionSetGroups":["Residential_Broker_Manager"]},' +
   // '{"FirstName":"Test","LastName":"Automation Support Coach","Username":"_automation.supportcoach","UserRole":"Support_Coach","Profile":"ANZx Standard Automation User","PermissionSets":["Bypass_TSP","Password_Never_Expires","SFDX_Full_Dev_Hub_Access"],"PermissionSetGroups":["Support_Coach"]}' +
   // ANZx manual test users
@@ -127,14 +131,15 @@ String userDataJSON =
   // '{"FirstName":"Test","LastName":"CMOS UAT SIBC 1","Username":"_cmos.uat.sibc.1","UserRole":"Systemic_Issue_Team","Profile":"ANZ Standard User","PermissionSets":["Password_Never_Expires"],"PermissionSetGroups":["IDR_SI_Business_Contact"]},' +
   // '{"FirstName":"Test","LastName":"CMOS UAT SIBC 2","Username":"_cmos.uat.sibc.2","UserRole":"Systemic_Issue_Team","Profile":"ANZ Standard User","PermissionSets":["Password_Never_Expires"],"PermissionSetGroups":["IDR_SI_Business_Contact"]}' +
   // Testing team users
+  // '{"FirstName":"autotest","LastName":"creditassessorlead01","Username":"autotest.creditassessorsso.1","UserRole":"Credit_Assessor_Lead","Profile":"ANZx Standard User","PermissionSets":["Password_Never_Expires"],"PermissionSetGroups":["Credit_Assessor_Lead"]},' +
+  // '{"FirstName":"autotest","LastName":"creditassessorlead02","Username":"autotest.creditassessorsso.2","UserRole":"Credit_Assessor_Lead","Profile":"ANZx Standard User","PermissionSets":["Password_Never_Expires"],"PermissionSetGroups":["Credit_Assessor_Lead"]},' +
+  // '{"FirstName":"autotest","LastName":"fraudxagentsso01","Username":"autotest.fraudxagentsso.1","UserRole":"FraudX_Agent","Profile":"ANZx Standard User","FederationId":"sf.automationtest01@anznp.com","PermissionSets":["Password_Never_Expires"],"PermissionSetGroups":["FraudX_Agent"]},' +
+  // '{"FirstName":"autotest","LastName":"fraudxagentsso02","Username":"autotest.fraudxagentsso.2","UserRole":"FraudX_Agent","Profile":"ANZx Standard User","PermissionSets":["Password_Never_Expires"],"PermissionSetGroups":["FraudX_Agent"]},' +
   // '{"FirstName":"Lalitha Ravali","LastName":"Chintaluri","Username":"lalitharavali.chintaluri","UserRole":"Engineer","Profile":"Minimum Access - Salesforce","FederationId":"lalitharavali.chintaluri@anznp.com","PermissionSets":["Password_Never_Expires","Read_Only_Admin"],"PermissionSetGroups":["Engineer"]},' +
-  // '{"FirstName":"Navarose","LastName":"Haneefa Kutty","Username":"navarose.haneefakutty","UserRole":"Engineer","Profile":"Minimum Access - Salesforce","FederationId":"navarose.haneefakutty@anznp.com","PermissionSets":["Password_Never_Expires","Read_Only_Admin"],"PermissionSetGroups":["Engineer"]},' +
   // '{"FirstName":"Yogesh","LastName":"Jamgaonkar","Username":"yogesh.jamgaonkar","UserRole":"Engineer","Profile":"Minimum Access - Salesforce","FederationId":"yogesh.jamgaonkar@anznp.com","PermissionSets":["Password_Never_Expires","Read_Only_Admin"],"PermissionSetGroups":["Engineer"]},' +
   // '{"FirstName":"Pooja","LastName":"Lunkar","Username":"pooja.lunkar","UserRole":"Engineer","Profile":"Minimum Access - Salesforce","FederationId":"pooja.lunkar@anznp.com","PermissionSets":["Password_Never_Expires","Read_Only_Admin"],"PermissionSetGroups":["Engineer"]},' +
   // '{"FirstName":"Rajani","LastName":"Murthy","Username":"rajani.murthy","UserRole":"Engineer","Profile":"Minimum Access - Salesforce","FederationId":"rajani.murthy@anznp.com","PermissionSets":["Password_Never_Expires","Read_Only_Admin"],"PermissionSetGroups":["Engineer"]},' +
-  // '{"FirstName":"Prasad Reddy","LastName":"Patlolla","Username":"prasad.patlolla","UserRole":"Engineer","Profile":"Minimum Access - Salesforce","FederationId":"prasad.patlolla@anznp.com","PermissionSets":["Password_Never_Expires","Read_Only_Admin"],"PermissionSetGroups":["Engineer"]},' +
-  // '{"FirstName":"Kevin","LastName":"Tan","Username":"kevin.tan2","UserRole":"Engineer","Profile":"Minimum Access - Salesforce","FederationId":"kevin.tan@anznp.com","PermissionSets":["Password_Never_Expires","Read_Only_Admin"],"PermissionSetGroups":["Engineer"]},' +
-  // '{"FirstName":"Anmol","LastName":"Verma","Username":"anmol.verma","UserRole":"Engineer","Profile":"Minimum Access - Salesforce","FederationId":"anmol.verma@anznp.com","PermissionSets":["Password_Never_Expires","Read_Only_Admin"],"PermissionSetGroups":["Engineer"]}' +
+  // '{"FirstName":"Kevin","LastName":"Tan","Username":"kevin.tan2","UserRole":"Engineer","Profile":"Minimum Access - Salesforce","FederationId":"kevin.tan@anznp.com","PermissionSets":["Password_Never_Expires","Read_Only_Admin"],"PermissionSetGroups":["Engineer"]}' +
   // Twilio test users
   // '{"FirstName":"Test","LastName":"Twilio Coach 1","Username":"_twilio.coach.1","UserRole":"Coach","Profile":"ANZx Standard User","CallCenter":true,"FederationId":"newcoach@anznp.com","PermissionSetGroups":["Coach"]},' +
   // '{"FirstName":"Test","LastName":"Twilio Coach 2","Username":"_twilio.coach.2","UserRole":"Coach","Profile":"ANZx Standard User","CallCenter":true,"FederationId":"expcoach@anznp.com","PermissionSetGroups":["Coach"]},' +
@@ -162,29 +167,45 @@ public class UserData {
 System.Domain domain = System.DomainParser.parse(URL.getOrgDomainUrl());
 String sandboxName = domain.getSandboxName();
 
-Id twilioCallCenterId = [
-  SELECT Id
-  FROM CallCenter
-  WHERE Name = 'Twilo Flex Call Center Adapter Open CTI'
-  LIMIT 1
-]
-.Id;
+// Safely query CallCenter with null check
+Id twilioCallCenterId = null;
+try {
+  List<CallCenter> callCenters = [
+    SELECT Id
+    FROM CallCenter
+    WHERE Name = 'Twilo Flex Call Center Adapter Open CTI'
+    LIMIT 1
+  ];
+  if (!callCenters.isEmpty()) {
+    twilioCallCenterId = callCenters[0].Id;
+  }
+} catch (Exception e) {
+  System.debug('CallCenter query failed: ' + e.getMessage());
+}
 
 private User createUser(UserData userData) {
+  UserRole userRole = QueryRole.get(userData.UserRole);
+  if (userRole == null) {
+    throw new IllegalArgumentException('UserRole not found: ' + userData.UserRole);
+  }
+  
+  Profile profile = QueryProfile.get(userData.Profile);
+  if (profile == null) {
+    throw new IllegalArgumentException('Profile not found: ' + userData.Profile);
+  }
+  
   return new User(
     FirstName = !String.isBlank(userData.FirstName) ? userData.FirstName : null,
     LastName = userData.LastName,
-    Alias = createAlias(UserData),
+    Alias = createAlias(userData),
     Email = !String.isBlank(userData.Email) ? userData.Email : email,
     Username = userData.Username + '@anzx.com.' + sandboxName,
-    UserRoleId = QueryRole.get(userData.UserRole).Id,
-    ProfileId = QueryProfile.get(userData.Profile).Id,
-    CallCenterId = userData.CallCenter != null &&
-      userData.CallCenter == true
+    UserRoleId = userRole.Id,
+    ProfileId = profile.Id,
+    CallCenterId = userData.CallCenter != null && userData.CallCenter == true
       ? twilioCallCenterId
       : null,
-    UserPermissionsKnowledgeUser = userData.KnowledgeUser != null &&
-      userData.KnowledgeUser == true
+    UserPermissionsKnowledgeUser = userData.KnowledgeUser != null && userData.KnowledgeUser == true
       ? true
       : false,
     FederationIdentifier = !String.isBlank(userData.FederationId)
@@ -199,15 +220,9 @@ private User createUser(UserData userData) {
 
 private String createAlias(UserData userData) {
   return ((!String.isBlank(userData.FirstName)
-      ? userData.FirstName.substring(
-          0,
-          (userData.FirstName.length() >= 1 ? 1 : 0)
-        )
+      ? userData.FirstName.substring(0, (userData.FirstName.length() >= 1 ? 1 : 0))
       : '') +
-    userData.LastName.substring(
-      0,
-      (userData.LastName.length() >= 4 ? 4 : userData.LastName.length())
-    ))
+    userData.LastName.substring(0, (userData.LastName.length() >= 4 ? 4 : userData.LastName.length())))
     .toLowerCase();
 }
 
@@ -218,9 +233,14 @@ List<UserData> userDatas = (List<UserData>) JSON.deserialize(
 );
 List<User> users = new List<User>();
 for (UserData userData : userDatas) {
-  users.add(createUser(userData));
+  try {
+    users.add(createUser(userData));
+  } catch (Exception e) {
+    System.debug('Error creating user ' + userData.Username + ': ' + e.getMessage());
+    throw e;
+  }
 }
-insert (users);
+insert users;
 Map<String, User> usersByUsername = new Map<String, User>();
 for (User user : users) {
   usersByUsername.put(user.Username.split('@')[0], user);
@@ -228,45 +248,59 @@ for (User user : users) {
 
 // Assign permission sets and permission set groups
 List<PermissionSetAssignment> permissionSetAssignments = new List<PermissionSetAssignment>();
-for (UserData userData : UserDatas) {
-  if (userData.PermissionSets == null) {
-    continue;
+for (UserData userData : userDatas) {
+  if (userData.PermissionSets != null) {
+    User user = usersByUsername.get(userData.Username);
+    for (String permissionSet : userData.PermissionSets) {
+      PermissionSet ps = QueryPS.get(permissionSet);
+      if (ps == null) {
+        System.debug('Warning: PermissionSet not found: ' + permissionSet);
+        continue;
+      }
+      permissionSetAssignments.add(
+        new PermissionSetAssignment(
+          PermissionSetId = ps.Id,
+          AssigneeId = user.Id
+        )
+      );
+    }
   }
-  User user = usersByUsername.get(userData.Username);
-  for (String permissionSet : userData.permissionSets) {
-    permissionSetAssignments.add(
-      new PermissionSetAssignment(
-        PermissionSetId = QueryPS.get(permissionSet).Id,
-        AssigneeId = user.Id
-      )
-    );
+  
+  if (userData.PermissionSetGroups != null) {
+    User user = usersByUsername.get(userData.Username);
+    for (String permissionSetGroup : userData.PermissionSetGroups) {
+      PermissionSetGroup psg = QueryPSG.get(permissionSetGroup);
+      if (psg == null) {
+        System.debug('Warning: PermissionSetGroup not found: ' + permissionSetGroup);
+        continue;
+      }
+      permissionSetAssignments.add(
+        new PermissionSetAssignment(
+          PermissionSetGroupId = psg.Id,
+          AssigneeId = user.Id
+        )
+      );
+    }
   }
 }
-for (UserData userData : UserDatas) {
-  if (userData.PermissionSetGroups == null) {
-    continue;
-  }
-  User user = usersByUsername.get(userData.Username);
-  for (String permissionSetGroup : userData.permissionSetGroups) {
-    permissionSetAssignments.add(
-      new PermissionSetAssignment(
-        PermissionSetGroupId = QueryPSG.get(permissionSetGroup).Id,
-        AssigneeId = user.Id
-      )
-    );
-  }
+if (!permissionSetAssignments.isEmpty()) {
+  insert permissionSetAssignments;
 }
-insert (permissionSetAssignments);
 
 // Assign manager
 List<User> userManagers = new List<User>();
-for (UserData userData : UserDatas) {
-  if (String.isBlank(userData.Manager) == true) {
-    continue;
+for (UserData userData : userDatas) {
+  if (!String.isBlank(userData.Manager)) {
+    User user = usersByUsername.get(userData.Username);
+    User manager = usersByUsername.get(userData.Manager);
+    if (manager != null) {
+      user.ManagerId = manager.Id;
+      userManagers.add(user);
+    } else {
+      System.debug('Warning: Manager not found in batch: ' + userData.Manager + ' for user: ' + userData.Username);
+    }
   }
-  User user = usersByUsername.get(userData.Username);
-  User manager = usersByUsername.get(userData.Manager);
-  user.ManagerId = manager.Id;
-  userManagers.add(user);
 }
-update (userManagers);
+if (!userManagers.isEmpty()) {
+  update userManagers;
+}

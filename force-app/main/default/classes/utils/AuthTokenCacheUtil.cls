@@ -24,7 +24,8 @@ public with sharing class AuthTokenCacheUtil {
   }
   private static final Set<String> VALID_PROFILES_SET = new Set<String>{
     'ANZx Standard User',
-    'ANZ ML Standard User'
+    'ANZ ML Standard User',
+    'ANZ CCRM Standard User'
   };
   private static final Set<String> APISCOPE_HAVING_JWE_TOKEN = new Set<String>{
     'DCRM_FinSummary'
@@ -107,6 +108,7 @@ public with sharing class AuthTokenCacheUtil {
         Cache.Visibility.NAMESPACE,
         true
       );
+      logPartitionCapacity(AuthTokenCacheUtil.SESSIONPART);
 
       // remove org cache tokens
       Cache.Org.remove(AuthTokenCacheUtil.ORGPART + 'idToken' + userId);
@@ -198,6 +200,7 @@ public with sharing class AuthTokenCacheUtil {
         Cache.Visibility.NAMESPACE,
         true
       );
+      logPartitionCapacity(AuthTokenCacheUtil.SESSIONPART);
     } catch (Exception e) {
       Logger.error(e.getMessage(), e, Logger.Severity.LOW);
       Logger.saveLog();
@@ -249,6 +252,7 @@ public with sharing class AuthTokenCacheUtil {
       staffToken,
       expiresIn
     );
+    logPartitionCapacity(STAFFPART);
     return staffToken;
   }
   /**
@@ -284,7 +288,9 @@ public with sharing class AuthTokenCacheUtil {
         staffToken != null &&
         (APISCOPE_HAVING_JWE_TOKEN.contains(
           staffModelWrapper.apiScopesRequested
-        ) || AuthTokenCacheUtil.isTokenValid(staffToken))
+        ) ||
+        forgeAuth.isJWEToken__c ||
+        AuthTokenCacheUtil.isTokenValid(staffToken))
       ) {
         return staffToken;
       }
@@ -301,8 +307,8 @@ public with sharing class AuthTokenCacheUtil {
       expiresIn = responseModel.expiresIn.intValue();
       // DCRM_FinSummary has TTL 299,
       if (
-        staffModelWrapper.apiScopesRequested == 'DCRM_FinSummary' &&
-        expiresIn < 300
+        (staffModelWrapper.apiScopesRequested == 'DCRM_FinSummary' ||
+        forgeAuth.IsJWEToken__c) && expiresIn < 300
       ) {
         expiresIn = 300;
       }
@@ -465,5 +471,24 @@ public with sharing class AuthTokenCacheUtil {
     Blob hashedKeyBlob = Crypto.generateDigest('MD5', Blob.valueOf(key));
     String hashedKey = EncodingUtil.convertToHex(hashedKeyBlob);
     return hashedKey;
+  }
+
+  /**
+   * @description logging used cache capacity
+   * @param partitionName name of the partition for which capacity is being logged
+   */
+  private static void logPartitionCapacity(String partitionName) {
+    Double usedCapacity = Cache.Session.getPartition(
+        partitionName.removeEnd('.')
+      )
+      .getCapacity();
+    if (usedCapacity < 80) {
+      return;
+    }
+    Logger.info(
+      'ForgeToken Cache Partition is using ' +
+        usedCapacity +
+        '% of allocated capacity.'
+    );
   }
 }

@@ -11,9 +11,9 @@
         "product_code": "DDA"
       },
       "title": "To John",
-      "update_time": "2023-03-13T21:53:59Z",
-      "origin_time": "1969-12-18T00:00:00Z",
-      "value_time": "2020-11-22T13:00:00Z",
+      "update_time": "2023-12-13T21:53:59Z",
+      "origin_time": "2023-11-22T13:00:00Z",
+      "value_time": "2023-11-22T13:00:00Z",
       "status": "POSTED_PRIORDAY",
       "type": "INTERNATIONAL_PAYMENT",
       "raw_type": "20",

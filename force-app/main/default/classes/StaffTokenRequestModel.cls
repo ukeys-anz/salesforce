@@ -25,10 +25,15 @@ public with sharing class StaffTokenRequestModel {
    */
   public String realm { get; set; }
   /**
+   * @description isSecureWafFlow is new secure waf flow
+   */
+  public Boolean isSecureWafFlow { get; set; }
+  /**
    * @description constructor to set the default value for apiScopesRequested
    */
   public StaffTokenRequestModel() {
     apiScopesRequested = 'ForgeV2';
     realm = 'customer';
+    isSecureWafFlow = false;
   }
 }

@@ -25,6 +25,7 @@ public with sharing class JWTUtil {
         BindingMessage__c,
         DeveloperName,
         Issuer__c,
+        Subject__c,
         KeyIdentification__c,
         LoginHint__c,
         Scope__c,
@@ -62,6 +63,13 @@ public with sharing class JWTUtil {
     }
     return null;
   }
+  /**
+   * @description Combine JWTHeader, JWTPayload and signature
+   * @return Signed JWT
+   */
+  public String getSignedJWT() {
+    return getSignedJWT(null, null, UUID.randomUUID().toString());
+  }
 
   /**
    * @description Build standard JWT header
@@ -89,21 +97,23 @@ public with sharing class JWTUtil {
     JSONGenerator body = JSON.createGenerator(false);
     body.writeStartObject();
     body.writeStringField('iss', jwtAttributes.Issuer__c);
-    if (jwtAttributes.LoginHint__c != null) {
+    body.writeStringField('aud', jwtAttributes.Audience__c);
+    body.writeNumberField('exp', (rightNow + jwtAttributes.ValidFor__c));
+    body.writeNumberField('iat', rightNow);
+    body.writeStringField('jti', uuid);
+
+    if (string.isNotBlank(jwtAttributes.LoginHint__c)) {
       String strLoginHint = String.format(
         jwtAttributes.LoginHint__c,
         new List<String>{ ocvId }
       );
       body.writeStringField('login_hint', strLoginHint);
     }
-    body.writeStringField('aud', jwtAttributes.Audience__c);
-    body.writeStringField('acr_values', acrValue);
-    body.writeStringField('auth_context', jwtAttributes.AuthContext__c);
-    body.writeStringField('scope', jwtAttributes.Scope__c);
-    body.writeStringField('binding_message', jwtAttributes.BindingMessage__c);
-    body.writeNumberField('exp', (rightNow + jwtAttributes.ValidFor__c));
-    body.writeNumberField('iat', rightNow);
-    body.writeStringField('jti', uuid);
+    addOptionalClaims(body, 'sub', jwtAttributes.Subject__c);
+    addOptionalClaims(body, 'acr_values', acrValue);
+    addOptionalClaims(body, 'auth_context', jwtAttributes.AuthContext__c);
+    addOptionalClaims(body, 'binding_message', jwtAttributes.BindingMessage__c);
+    addOptionalClaims(body, 'scope', jwtAttributes.Scope__c);
     body.writeEndObject();
     return CommonUtil.base64URLencode(body.getAsString());
   }
@@ -122,5 +132,17 @@ public with sharing class JWTUtil {
       jwtAttributes.SigningCertificateDeveloperName__c
     );
     return CommonUtil.base64URLencode(bSignature);
+  }
+
+  /**
+   * @description adding optional claims to json body
+   * @param body JSONGenerator body
+   * @param key JSON attribute key
+   * @param value JSON attribute value
+   */
+  private void addOptionalClaims(JSONGenerator body, String key, String value) {
+    if (String.isNotBlank(value)) {
+      body.writeStringField(key, value);
+    }
   }
 }

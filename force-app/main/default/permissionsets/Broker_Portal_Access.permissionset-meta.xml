@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Permission set for RBM, Broker Profile Admin, Enablement Manager, Retail Broker Business admin to access the Broker Portal</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Broker Portal Access</label>
+</PermissionSet>

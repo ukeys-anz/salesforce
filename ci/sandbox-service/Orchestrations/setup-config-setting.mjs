@@ -12,7 +12,8 @@ import {
   updateOmniStudioRemoteSetting,
   updatePamApproversCustomSetting,
   updateUserFedId,
-  assignDeployUserViewAllFields
+  assignDeployUserViewAllFields,
+  unfreezeUsers
 } from "../Services/config-setting.mjs";
 import { removeSensitiveProdInformation } from "../Services/remove-secrets.mjs";
 
@@ -33,6 +34,7 @@ const runSetupConfigAndSettings = (orgAlias) => {
   updatePamApproversCustomSetting(orgAlias);
   deployRequiredFiles(orgAlias);
   updateUserFedId(orgAlias);
+  unfreezeUsers(orgAlias);
   runLoggingRecordsPurgeScheduler(orgAlias);
   deployAllOmnistudioComponents(orgAlias);
   assignDeployUserViewAllFields(orgAlias); //Only Required for Test Sandbox (BigQuery Integrated Sandbox)

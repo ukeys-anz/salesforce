@@ -1,4 +1,3 @@
-
 //--- Add non-prod approvers to PAM Approvers Queue
 
 // Find the sandbox name:
@@ -15,12 +14,12 @@ Group pamApproversQueue = [
 
 // Add users to PAM approver Queue
 List<String> npApproversUserNames = new List<String>{
-  'victor.wang@anzx.com.' +
-  sandboxName, // Qing Wang ( Victor )
-  'mani.murugesan@anzx.com.' +
-  sandboxName, // Manivasaga Vengatesh Murugesan
-  'ngockieutrang.nguyen@anzx.com.' +
-  sandboxName // Jasmine Nguyen
+  'nagendra.singh@anzx.com.' +
+  sandboxName, // Nagendra Singh
+  'yogesh.jamgaonkar@anzx.com.' +
+  sandboxName, // Yogesh Jamgaonkar
+  'vaibhav.joshi@anzx.com.' +
+  sandboxName // Vaibhav Joshi
 };
 List<User> usrs = [
   SELECT Id, Username

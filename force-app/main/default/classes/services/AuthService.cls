@@ -5,6 +5,7 @@
  * @group Services
  */
 public with sharing class AuthService extends Service {
+  private static String forgeJwtMdtName = 'Forge_Edge_Jwt_Claims';
   /**
    *
    * Map Enum Id Type to camel case values required by Forge endpoint
@@ -116,6 +117,88 @@ public with sharing class AuthService extends Service {
       forgeAuth.RequestedScopes__c +
       '&subject_token_type=' +
       EncodingUtil.urlEncode(forgeAuth.Forgev2_subject_token_type__c, 'UTF-8') +
+      '&subject_token=' +
+      idToken +
+      '&grant_type=client_credentials';
+    if (staffModelWrapper.realm == 'customer') {
+      payload =
+        payload +
+        '&rqf_id_type=' +
+        idType.substring(1, idType.length() - 1) +
+        '&rqf_id_value=' +
+        EncodingUtil.urlEncode(staffModelWrapper.idValue, 'UTF-8');
+    }
+
+    if (String.isNotBlank(forgeAuth.Audience__c)) {
+      payload =
+        payload +
+        '&audience=' +
+        EncodingUtil.urlEncode(forgeAuth.Audience__c, 'UTF-8');
+    }
+    return payload;
+  }
+
+  /**
+   * @description method gets forge JWE token response
+   * @param staffModelWrapper wrapper for forgeV2 api
+   * @param idToken id token as the bearer token
+   * @param forgeAuth custom metadata which contains the client id and secret
+   * @return HttpCalloutResponse
+   */
+  public override HttpCalloutResponse getForgeJWEToken(
+    StaffTokenRequestModel staffModelWrapper,
+    String idToken,
+    Forgerock_Auth__mdt forgeAuth
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    HttpCalloutResponse response = new HttpCalloutResponse();
+    Map<String, String> headers = new Map<String, String>();
+    headers.put('x-correlation-id', CommonUtil.generateUUID());
+    headers.put('traceparent', CommonUtil.generateTraceParent());
+    headers.put('Content-Type', 'application/x-www-form-urlencoded');
+    headers.put('Accept', 'application/json');
+    headers.putAll(getAegisEnv());
+
+    String payload = getJWEPayload(staffModelWrapper, idToken, forgeAuth);
+    response = calloutService.makeRestCallout(
+      Label.Forge_Edge_Token.replace(
+        '{anzTokenType}',
+        staffModelWrapper.anzTokenType
+      ),
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      payload
+    );
+    return response;
+  }
+
+  /**
+   * @description method gets JWE Payload
+   * @param staffModelWrapper wrapper for forgeV2 api
+   * @param idToken id token as the bearer token
+   * @param forgeAuth custom metadata which contains the client id and secret
+   * @return String
+   */
+  @testVisible
+  private static String getJWEPayload(
+    StaffTokenRequestModel staffModelWrapper,
+    String idToken,
+    Forgerock_Auth__mdt forgeAuth
+  ) {
+    String idType = IDTYPEMAP.get(staffModelWrapper.idType);
+    String forgeJwtMdtNameWithRealm =
+      forgeJwtMdtName +
+      '_' +
+      staffModelWrapper.realm;
+    String payload =
+      'client_id=' +
+      EncodingUtil.urlEncode(forgeAuth.Encrypted_forge_client_id__c, 'UTF-8') +
+      '&client_assertion=' +
+      new JWTUtil(forgeJwtMdtNameWithRealm).getSignedJWT() +
+      '&client_assertion_type=' +
+      EncodingUtil.urlEncode(forgeAuth.Forgev2_subject_token_type__c, 'UTF-8') +
+      '&scope=' +
+      forgeAuth.RequestedScopes__c +
       '&subject_token=' +
       idToken +
       '&grant_type=client_credentials';
