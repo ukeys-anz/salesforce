@@ -11,8 +11,6 @@ public with sharing class CommercialAFPActionsExtended {
   private static final CommercialOpportunityRepository COMMERCIALOPP_REPOSITORY = (CommercialOpportunityRepository) Lib_InstanceProvider.forType(
     CommercialOpportunityRepository.class
   );
-  @testVisible
-  private static final String OPP_CANCELLED = 'Cancelled';
 
   /**
    * @description This check for open tasks on opportunity
@@ -80,62 +78,5 @@ public with sharing class CommercialAFPActionsExtended {
       }
     }
     return afpWithTasks;
-  }
-
-  /**
-   * @description formOppToAmountMap form map of opportunity and amount/revenue to update
-   * @param itemIdToOppIdMap Opp line item Id to Opp Id map
-   * @param oliToAfpMap OLI to AFP map
-   * @param fieldToRollup field whose values need to be consider for rollup
-   * @return Map<Id, Decimal> oppId to amount map
-   */
-  public static Map<Id, Decimal> formOppToAmountMap(
-    Map<Id, Id> itemIdToOppIdMap,
-    Map<Id, List<ApplicationFormProduct>> oliToAfpMap,
-    SobjectField fieldToRollup
-  ) {
-    Map<Id, Decimal> oppToRolledUpValueMap = new Map<Id, Decimal>();
-    Map<Id, Decimal> opplineItemIdToValueMap = new Map<Id, Decimal>();
-
-    for (Id oliId : oliToAfpMap.keySet()) {
-      Decimal value = 0;
-
-      //Get the list of AFP associated with Opportunity line item
-      List<ApplicationFormProduct> afpList = oliToAfpMap.get(oliId);
-      for (ApplicationFormProduct apfRec : afpList) {
-        Decimal amount = (Decimal) apfRec.get(fieldToRollup) ?? 0;
-
-        //if the multiple AFPs linked to same OLI
-        //and out of those AFPs if any one of them is linked with AMBIT Application Form
-        //then consider only that AFP for calculating amount/revenue and ignore rest of the AFPs associated to the same OLI.
-        //If no AFPs is linked to AMBIT Application Form then add then amount/revenue of all AFPs.
-        if (apfRec.Stage == OPP_CANCELLED) {
-          value = value - amount;
-          continue;
-        }
-
-        if (
-          apfRec.ApplicationForm.RecordTypeId ==
-          RTApplicationForm.ambitApplication
-        ) {
-          value = amount;
-          break;
-        }
-        value += amount;
-      }
-      opplineItemIdToValueMap.put(oliId, value);
-      Id oppId = itemIdToOppIdMap.get(oliId);
-
-      //Form the map of Opportunity Id with the respective amount/revenue to update
-      if (!oppToRolledUpValueMap.containsKey(oppId)) {
-        oppToRolledUpValueMap.put(oppId, 0);
-      }
-      Decimal amount = oppToRolledUpValueMap.get(oppId);
-      oppToRolledUpValueMap.put(
-        oppId,
-        amount + opplineItemIdToValueMap.get(oliId)
-      );
-    }
-    return oppToRolledUpValueMap;
   }
 }
