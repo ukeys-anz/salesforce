@@ -292,6 +292,7 @@
     </relatedLists>
     <relatedLists>
         <fields>EmailAddress</fields>
+        <fields>UsageType</fields>
         <relatedList>ContactPointEmails</relatedList>
     </relatedLists>
     <relatedLists>
