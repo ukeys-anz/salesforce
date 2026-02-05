@@ -25,10 +25,10 @@ public with sharing class CommercialOpportunityHelper {
   private static final String SELECT_ANY_CLG_ERROR = 'Please select a related CLG';
   @testVisible
   private static final String NO_CLG_FOR_CUSTOMER_ERROR = 'No CLG available for this customer,please leave CLG blank';
-
   @testVisible
-  private static final Set<String> SET_CLOSED_STAGES = new Set<String>{
-    OPP_WON,
+  private static final String INVALID_TRANSITION_ERROR = 'Unfortunately, you are not allowed to move to a stage other than Opportunity Lost or Cancelled from Opportunity Won stage.';
+  @testVisible
+  private static final Set<String> OPP_WON_ALLOWED_STAGES = new Set<String>{
     OPP_LOST,
     OPP_CANCELLED
   };
@@ -102,13 +102,24 @@ public with sharing class CommercialOpportunityHelper {
     if (USER_REPO.checkRole(COMMERCIAL_ADMIN_ROLE)) {
       return;
     }
-    for (Opportunity oppIterator : stageUpdatedOpps) {
-      String oldStage = oldOppMap.get(oppIterator.Id).StageName;
+    //get Opportunities who's stages are Opp lost
+    List<Opportunity> lostOpportunities = ListUtil.filter(
+        stageUpdatedOpps,
+        oldOppMap
+      )
+      .oldEquals(Opportunity.StageName, OPP_LOST)
+      .toList();
+    ListUtil.addError(lostOpportunities, REOPEN_CLOSED_OPP);
 
-      if (SET_CLOSED_STAGES.contains(oldStage)) {
-        oppIterator.addError(REOPEN_CLOSED_OPP);
-      }
-    }
+    //get Opportunities who's stages are Opp won
+    List<Opportunity> wonOpportunities = ListUtil.filter(
+        stageUpdatedOpps,
+        oldOppMap
+      )
+      .notEquals(Opportunity.StageName, OPP_WON_ALLOWED_STAGES)
+      .oldEquals(Opportunity.StageName, OPP_WON)
+      .toList();
+    ListUtil.addError(wonOpportunities, INVALID_TRANSITION_ERROR);
   }
 
   /**
