@@ -190,8 +190,10 @@
     "PersonGender"
   ],
   "Activity": ["TaskNumber__c"],
-  "ApplicationForm": ["BranchUnitId"],
+  "ApplicationForm": ["BranchUnitId", "SubmittedById"],
   "ApplicationFormProduct": ["ApplicantVisibleStatus"],
+  "ContentDocument": ["MalwareScanDate", "MalwareScanStatus"],
+  "ContentVersion": ["ContentSizeLong", "MalwareScanDate", "MalwareScanStatus"],
   "COBPrimaryIDDocument__c": [
     "CountryOfIssue__c",
     "CountryOfIssueOCRClient__c",
@@ -261,7 +263,11 @@
     "Outcome_Letter_to_be_sent_by_Mail__c",
     "qualtrics__QSC_Is_Private__c",
     "qualtrics__QSC_Permalink__c",
-    "qualtrics__QSC_Author_Id__c"
+    "qualtrics__QSC_Author_Id__c",
+    "qualtrics__QSC_Case_Id__c",
+    "qualtrics__QSC_Is_Case__c",
+    "qualtrics__QSC_Ownership__c",
+    "qualtrics__QSC_Service__c"
   ],
   "CaseComment": ["CommentBodyRichtext"],
   "Contact": [
@@ -305,6 +311,8 @@
     "qualtrics__Last_Survey_Invitation__c",
     "qualtrics__Last_Survey_Response__c",
     "qualtrics__Net_Promoter_Score__c",
+    "qualtrics__QSC_Author_Id__c",
+    "qualtrics__QSC_Permalink__c",
     "Gender"
   ],
   "ContactRequest": ["Focus_Area__c"],
