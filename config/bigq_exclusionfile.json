@@ -258,7 +258,10 @@
     "Opt_Out_Reason__c",
     "Process_SLA_Status__c",
     "PassportNumber__c",
-    "Outcome_Letter_to_be_sent_by_Mail__c"
+    "Outcome_Letter_to_be_sent_by_Mail__c",
+    "qualtrics__QSC_Is_Private__c",
+    "qualtrics__QSC_Permalink__c",
+    "qualtrics__QSC_Author_Id__c"
   ],
   "CaseComment": ["CommentBodyRichtext"],
   "Contact": [
@@ -641,6 +644,7 @@
     "UserPreferencesTaskRemindersCheckboxDefault",
     "UserPreferencesUserDebugModePref",
     "UserPreferencesHideOnlineSalesAppTabVisibilityRequirementsModal",
+    "UserPreferencesOverrideDefaultPageContext",
     "LocaleSidKey",
     "FederationIdentifier",
     "LastPasswordChangeDate",
