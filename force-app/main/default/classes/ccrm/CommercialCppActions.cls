@@ -10,7 +10,7 @@ public with sharing class CommercialCppActions {
   private static final String NOT_ALLOWED_USAGE_TYPE_ERROR = 'You are not authorized to insert the ANZx mobile phone';
   @TestVisible
   private static final String USAGE_TYPE_CHANGE_ERROR = 'You do not have the necessary privileges to update the usage type';
-  private static final String CONTACT_ADMIN_ERROR = 'You do not have the level of access necessary to perform the operation you requested. Please contact the owner of the record or your administrator if access is necessary.';
+  private static final String CONTACT_ADMIN_ERROR = 'You are not authorized to update Security Mobile.';
 
   /**
    * @description validate if insert is allowed based on usage type
