@@ -1156,6 +1156,7 @@
     <tabs>standard-Dashboard</tabs>
     <tabs>standard-report</tabs>
     <tabs>Circle_Of_Influence__c</tabs>
+    <tabs>Insights</tabs>
     <tabs>standard-Product2</tabs>
     <tabs>Controlling_Post__c</tabs>
     <uiType>Lightning</uiType>
@@ -1166,6 +1167,9 @@
         </mappings>
         <mappings>
             <tab>Circle_Of_Influence__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Insights</tab>
         </mappings>
         <mappings>
             <tab>standard-Account</tab>

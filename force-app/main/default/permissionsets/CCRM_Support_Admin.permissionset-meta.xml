@@ -9960,6 +9960,10 @@
         <visibility>Available</visibility>
     </tabSettings>
     <tabSettings>
+        <tab>Insights</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
         <tab>standard-contact</tab>
         <visibility>Available</visibility>
     </tabSettings>
