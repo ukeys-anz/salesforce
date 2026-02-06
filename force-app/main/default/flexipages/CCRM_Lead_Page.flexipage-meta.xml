@@ -682,16 +682,6 @@
                 <identifier>RecordCPID_cField</identifier>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.CPID_Owner__c</fieldItem>
-                <identifier>RecordCPID_Owner_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-dc83uywb7cq</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -1737,6 +1727,9 @@
                         </valueListItems>
                         <valueListItems>
                             <value>Customer_Type__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>CPID__c</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>

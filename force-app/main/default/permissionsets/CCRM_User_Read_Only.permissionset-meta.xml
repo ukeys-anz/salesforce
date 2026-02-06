@@ -10294,6 +10294,10 @@
         <tab>FinServ__FinancialAccount__c</tab>
         <visibility>Available</visibility>
     </tabSettings>
+    <tabSettings>
+        <tab>Insights</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
     <userPermissions>
         <enabled>true</enabled>
         <name>AddDirectMessageMembers</name>
