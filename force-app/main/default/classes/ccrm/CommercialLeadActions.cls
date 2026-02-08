@@ -571,4 +571,42 @@ public with sharing class CommercialLeadActions {
       accMap
     );
   }
+
+  /**
+   * @description : This is used to populate the contact info for the Individual ETB Customers
+   * @param records Lead records
+   * @param oldMap old lead records
+   */
+  public static void updateDetailsOnCPIDChange(
+    List<Lead> records,
+    Map<Id, Lead> oldMap
+  ) {
+    List<Lead> leadsWithCPIDValue = ListUtil.filter(records, oldMap)
+      .changed(Lead.CPID__c)
+      .isNotNull(Lead.CPID__c)
+      .toList();
+    List<Lead> leadsWithBlankCPID = ListUtil.filter(records, oldMap)
+      .changed(Lead.CPID__c)
+      .isNull(Lead.CPID__c)
+      .toList();
+    ListUtil.setField(leadsWithBlankCPID, Lead.CPID_Owner__c, null);
+
+    Set<String> uniqueCPIDs = ListUtil.getStrings(
+      leadsWithCPIDValue,
+      Lead.CPID__c
+    );
+    List<Controlling_Post__c> controllingPosts = LEAD_ACTION_REPOSITORY.getControllingPostsByCPIDs(
+      uniqueCPIDs
+    );
+
+    Map<String, Controlling_Post__c> controllingPostsByCPIDs = (Map<String, Controlling_Post__c>) ListUtil.mapBy(
+      controllingPosts,
+      Controlling_Post__c.CPID__c
+    );
+
+    CommercialLeadActionsHelper.updateCPIDOwnerByCPID(
+      leadsWithCPIDValue,
+      controllingPostsByCPIDs
+    );
+  }
 }

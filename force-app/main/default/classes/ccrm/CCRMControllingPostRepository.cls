@@ -7,6 +7,7 @@
 public with sharing class CCRMControllingPostRepository {
   /**
    * @description Retrieves a list of user records
+   * running in SYSTEM_MODE as we need to look up all users regardless of sharing settings.
    * @param lanIdsSet A set of Lan Ids
    * @return List<User> List of active user Records
    */
@@ -17,8 +18,8 @@ public with sharing class CCRMControllingPostRepository {
     return [
       SELECT Id, Lan_Id__c, IsActive
       FROM User
-      WHERE Lan_Id__c IN :lanIdsSet AND IsActive = TRUE
-      WITH USER_MODE
+      WHERE Lan_Id__c IN :lanIdsSet
+      WITH SYSTEM_MODE
     ];
   }
 }
