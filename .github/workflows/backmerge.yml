@@ -1,0 +1,289 @@
+# --------------------------------------------------------------------------------------------------
+# Name: Backmerge workflow
+#
+# Description:
+# This workflow automates syncing changes from a source branch (e.g., `develop`) into multiple
+# target epic branches (e.g., `epic/xyz`). It handles:
+#   - Identifying target branches and related Slack groups
+#   - Creating sync branches and pull requests
+#   - Detecting and reporting merge conflicts
+#   - Notifying relevant Slack groups of the outcome
+#
+# Triggered by:
+#   - Manual dispatch (`workflow_dispatch`) with inputs: `branch_from`, `branch_to`
+#   - Pushes to `master` (for future compatibility or automation)
+#
+# Jobs:
+#   1. **find-epics-slack-channel**:
+#      - Finds the Branches and Slack group and prepares sync info for one or more epic branches.
+#      - Outputs a matrix of info strings used in the next job.
+#
+#   2. **sync-epic-branch**:
+#      - Runs in a matrix across each `branch_to`.
+#      - Creates a new sync branch from `branch_from`, merges in `branch_to`, handles conflicts,
+#        creates a PR, and optionally enable auto merges it if clean.
+#      - Prepares and uploads a Slack message as an artifact.
+#
+#   3. **collect-slack-messages**:
+#      - Aggregates Slack messages generated in the previous job.
+#      - Converts them into a JSON array for broadcast.
+#
+#   4. **send-slack-messages**:
+#      - Dispatches notifications via a reusable workflow (`notification-hub.yaml`).
+#
+# Environment Variables:
+#   - `GITHUB_EVENT`: Name of the GitHub event (`workflow_dispatch`, `push`, etc.)
+#   - `BRANCH_FROM`: Source branch for sync (e.g., `develop`)
+#   - `BRANCH_TO`: Target epic branch (e.g., `epic/xyz`)
+#
+# Permissions:
+#   - Required for GitHub API usage: content writes, PR edits, and OIDC for reusable workflows.
+#
+# Notes:
+#   - This workflow supports syncing multiple epics and notifying relevant Slack groups.
+#   - Conflicts are detected and labeled, with merge attempts auto-aborted on failure.
+#   - Slack messages are uploaded as artifacts and combined before sending.
+#
+# --------------------------------------------------------------------------------------------------
+
+name: Backmerge workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch_to:
+        description: "Epic branch name (e.g., epic/x)"
+        required: true
+        type: string
+      branch_from:
+        description: "With branch to be synced with"
+        required: true
+        default: develop
+        type: string
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: "write"
+  id-token: "write"
+  pull-requests: "write"
+
+jobs:
+  find-epics-slack-channel:
+    runs-on: anzx-default
+    env:
+      GITHUB_EVENT: "${{ github.event_name }}"
+      BRANCH_FROM: "${{ inputs.branch_from }}"
+      BRANCH_TO: "${{ inputs.branch_to }}"
+    outputs:
+      info: ${{steps.set-output.outputs.info}}
+    steps:
+      - name: Checkout (shallow)
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Install node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Find Branch-Slack-FromBranch
+        id: set-output
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/back-merge.mjs
+
+  sync-epic-branch:
+    runs-on: anzx-default
+    needs: [find-epics-slack-channel]
+    strategy:
+      fail-fast: false
+      matrix:
+        info: ${{ fromJson(needs.find-epics-slack-channel.outputs.info) }}
+    steps:
+      - name: Find Info
+        id: info
+        run: |
+          INFO="${{matrix.info}}"
+          echo "info: $INFO"
+
+          BRANCH_TO=$(echo "$INFO" | cut -d'|' -f1 | xargs)
+          BRANCH_FROM=$(echo "$INFO" | cut -d'|' -f2 | xargs)
+          SLACK_GROUP=$(echo "$INFO" | cut -d'|' -f3 | xargs)
+          ARTIFACT_NAME="$(echo "$BRANCH_FROM" | sed 's/[^a-zA-Z0-9]/-/g')-to-$(echo "$BRANCH_TO" | sed 's/[^a-zA-Z0-9]/-/g')"
+          SYNC_PREFIX="sync/$ARTIFACT_NAME"
+          NEW_BRANCH="$SYNC_PREFIX-$(date +%Y%m%d%H%M%S)"
+
+          echo "Sync $BRANCH_TO from $BRANCH_FROM and tag $SLACK_GROUP"
+          echo "to_branch=$BRANCH_TO" >> $GITHUB_OUTPUT
+          echo "from_branch=$BRANCH_FROM" >> $GITHUB_OUTPUT
+          echo "slack_group=$SLACK_GROUP" >> $GITHUB_OUTPUT
+          echo "sync_prefix=$SYNC_PREFIX" >> $GITHUB_OUTPUT
+          echo "new_branch=$NEW_BRANCH" >> $GITHUB_OUTPUT
+          echo "artifact_name=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
+
+      - name: Install GH
+        uses: "anzx/github-reusable-actions/setup-gh-cli@main"
+        with:
+          gh-cli-version: "2.50.0"
+
+      - name: Authenticate GitHub CLI
+        run: |
+          gh auth login --with-token <<< "${{ secrets.SALESFORCE_PLUGIN_CHECKOUT_TOKEN }}"
+
+      - name: Checkout the ${{ steps.info.outputs.from_branch }} branch
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ steps.info.outputs.from_branch }}
+          fetch-depth: 0
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+      - name: Check and delete existing sync branch & close PR if any
+        id: cleanup_existing_branch
+        run: |
+          SYNC_PREFIX="${{ steps.info.outputs.sync_prefix}}"
+          echo "Looking for existing branches with prefix: $SYNC_PREFIX"
+
+          # Get the most recent branch with this prefix (if any)
+          EXISTING_BRANCH=$(git ls-remote --heads origin "$SYNC_PREFIX*" | awk '{print $2}' | sed 's/refs\/heads\///' | sort | tail -n1)
+
+          if [ -n "$EXISTING_BRANCH" ]; then
+            echo "Found existing sync branch: $EXISTING_BRANCH"
+
+            # Try to find PR associated with this branch
+            PR_INFO=$(gh pr list --head "$EXISTING_BRANCH" --state open --json number --jq '.[0].number')
+
+            if [ -n "$PR_INFO" ]; then
+              echo "Closing open PR #$PR_INFO for branch $EXISTING_BRANCH"
+              gh pr close "$PR_INFO" --comment "🛑 Auto-closing outdated sync PR before creating a fresh one."
+            fi
+
+            echo "Deleting branch $EXISTING_BRANCH"
+            git push origin --delete "$EXISTING_BRANCH"
+          else
+            echo "No existing sync branch found."
+          fi
+
+      - name: Create a new branch from ${{ steps.info.outputs.from_branch }}
+        run: |
+          NEW_BRANCH="${{ steps.info.outputs.new_branch}}"
+          echo "Branch name: $NEW_BRANCH"
+          git checkout -b "$NEW_BRANCH"
+          git push origin "$NEW_BRANCH"
+
+      - name: Fetch the branch (eg:epic/x)
+        run: |
+          git fetch origin ${{ steps.info.outputs.to_branch}}
+
+      - name: Merge branch into the new branch
+        id: merge
+        run: |
+          set -e
+
+          MERGE_BRANCH="${{ steps.info.outputs.new_branch }}"
+          echo "Working on branch: $MERGE_BRANCH"
+
+          # Try merging the epic branch into the new branch
+          if git merge origin/${{ steps.info.outputs.to_branch }} --no-ff --allow-unrelated-histories -m "Merge origin/${{ steps.info.outputs.to_branch }} into $MERGE_BRANCH"; then
+            merge_status=success
+          else
+            echo "Merge conflicts detected."
+            git merge --abort
+            merge_status=conflict
+          fi
+
+          echo "merge_status=$merge_status" >> $GITHUB_OUTPUT
+          # Push the branch (with or without merge commit)
+          git push origin "$MERGE_BRANCH"
+
+      - name: Create PR
+        id: create_pr
+        run: |
+          PR_TITLE="Sync ${{ steps.info.outputs.from_branch }} into ${{ steps.info.outputs.to_branch }}"
+          PR_BODY="This PR syncs the latest changes from \`${{ steps.info.outputs.from_branch }}\` into \`${{ steps.info.outputs.to_branch }}\`."
+          PR_URL=$(gh pr create --title "$PR_TITLE" --body "$PR_BODY" --base "${{ steps.info.outputs.to_branch }}" --head "${{ steps.info.outputs.new_branch }}" --draft=false)
+
+          echo "PR created: $PR_URL"
+          echo "PR_URL=$PR_URL" >> $GITHUB_OUTPUT
+          echo "PR_NUMBER=$(basename $PR_URL)" >> $GITHUB_OUTPUT
+
+      - name: Label/comment PR if conflicts
+        if: steps.merge.outputs.merge_status == 'conflict'
+        run: |
+          echo "Conflict detected. Labeling PR #${{ steps.create_pr.outputs.PR_NUMBER }}"
+          gh api repos/${{ github.repository }}/issues/${{ steps.create_pr.outputs.PR_NUMBER }}/labels -f labels[]="Conflicts"
+          gh pr comment ${{ steps.create_pr.outputs.PR_NUMBER }} --body "⚠️ Merge conflicts detected when syncing \`${{ steps.info.outputs.from_branch }}\` into \`${{ steps.info.outputs.to_branch }}\`. Please resolve them manually."
+
+      - name: Enable Auto Merge PR
+        if: steps.merge.outputs.merge_status != 'conflict'
+        shell: bash
+        run: |
+          echo "Merging ${{ steps.info.outputs.new_branch }} into ${{steps.info.outputs.to_branch}} on ${{ github.event.repository.name }}..."
+          gh pr merge "${{ steps.info.outputs.new_branch }}" \
+          --repo "${{ github.repository }}" \
+          --merge \
+          --auto \
+          --delete-branch
+
+      - name: Prepare Slack Message
+        if: steps.info.outputs.slack_group != 'none'
+        id: set-msg
+        shell: bash
+        run: |
+          conflict_check="${{ steps.merge.outputs.merge_status }}"
+          if [[ "$conflict_check" == conflict ]];then
+            conflict_status=:merge-conflict:
+          else
+            conflict_status=:large_green_circle:
+          fi
+          CAPITALIZED_REPO_NAME=$(echo "${{ github.event.repository.name }}" | awk '{print toupper(substr($0,1,1)) substr($0,2)}')
+          msg="*$CAPITALIZED_REPO_NAME | BackMerge PR*\\n*PR Link:* <${{ steps.create_pr.outputs.PR_URL }}|#${{ steps.create_pr.outputs.PR_NUMBER }}>\\n*Sync:* ${{ steps.info.outputs.to_branch }}\\n*With:* ${{steps.info.outputs.from_branch}}\\n*Conflict:* :question: $conflict_status\\n*Group:* @${{steps.info.outputs.slack_group}}"
+          # echo "slack_msg=$msg" >> "$GITHUB_OUTPUT"
+          echo "$msg" > sf-backmerge-slack-msg.txt
+
+      - name: Upload Slack Message
+        if: steps.info.outputs.slack_group != 'none'
+        uses: actions/upload-artifact@v4
+        with:
+          name: sf-backmerge-slack-msg-${{ steps.info.outputs.artifact_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: sf-backmerge-slack-msg.txt
+
+  collect-slack-messages:
+    runs-on: anzx-default
+    needs: [sync-epic-branch]
+    if: ${{ !cancelled() }}
+    outputs:
+      messages: ${{ steps.collect.outputs.messages }}
+    steps:
+      - name: Download Slack Messages
+        uses: actions/download-artifact@v4
+        with:
+          path: slack-messages
+          pattern: sf-backmerge-slack-msg-*-${{ github.run_id }}-${{ github.run_attempt }}
+
+      - name: Combine Messages to JSON
+        id: collect
+        run: |
+          # Find and read all messages
+          all_msgs=$(find slack-messages -name sf-backmerge-slack-msg.txt -exec cat {} \; | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          echo "messages=$all_msgs" >> $GITHUB_OUTPUT
+
+  send-slack-messages:
+    name: slack msg
+    needs: collect-slack-messages
+    if: ${{ !cancelled() && needs.collect-slack-messages.outputs.messages != '[]' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        msg: ${{ fromJson(needs.collect-slack-messages.outputs.messages) }}
+    uses: anzx/github-reusable-workflows/.github/workflows/notification-hub.yaml@main
+    with:
+      isSlack: true
+      slackChannels: "sf-pr-approvals"
+      slackMessage: "${{ matrix.msg }}"
+      slackPrivate: true

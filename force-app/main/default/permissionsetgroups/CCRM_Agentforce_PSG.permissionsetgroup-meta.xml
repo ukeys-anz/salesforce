@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This permission set group is a custom PSG to give access to all Agentic and Einstein features.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>CCRM Agentforce PSG</label>
+    <permissionSets>Agentforce_Unmetered_AI</permissionSets>
+    <permissionSets>force__EinsteinGPTPromptTemplateUser</permissionSets>
+    <permissionSets>force__EinsteinServiceInnovations</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

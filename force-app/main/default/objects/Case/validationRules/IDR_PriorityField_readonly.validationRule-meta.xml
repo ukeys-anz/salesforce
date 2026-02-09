@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_PriorityField_readonly</fullName>
+    <active>true</active>
+    <description>Restrict &apos;Priority&apos; field update because the customer&apos;s profile was flagged for Extra Care</description>
+    <errorConditionFormula>AND(
+!ISNEW(),
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
+NOT(ISBLANK(AccountId)),
+NOT(OR(ISPICKVAL(Account.ExtraCareTimePeriod__c,&apos;Not required&apos;),ISBLANK(TEXT(Account.ExtraCareTimePeriod__c)))),
+ISPICKVAL(PRIORVALUE(Priority),&apos;Vulnerable Customer&apos;),
+ISPICKVAL(Priority,&apos;Standard&apos;)
+)</errorConditionFormula>
+    <errorMessage>The customer profile has been flagged for Extra Care. The &apos;Priority&apos; field must be set to &apos;Customer experiencing vulnerability&apos;.</errorMessage>
+</ValidationRule>

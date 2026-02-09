@@ -7,10 +7,13 @@
     <permissionSets>CCRM_Opportunity_Access</permissionSets>
     <permissionSets>CCRM_User_Base</permissionSets>
     <permissionSets>Customer_Authentication_PS</permissionSets>
+    <permissionSets>Customer_Profile_Update_Read_Write</permissionSets>
+    <permissionSets>ExtraCareReadOnly</permissionSets>
     <permissionSets>Financial_Summary_Calculation_Publish</permissionSets>
     <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
+    <permissionSets>ManageExtraCare</permissionSets>
     <permissionSets>View_C360_Financial_Accounts</permissionSets>
     <permissionSets>View_C360_Financial_Summary</permissionSets>
     <permissionSets>View_Diary_Comment</permissionSets>

@@ -4,7 +4,7 @@
     <protected>false</protected>
     <values>
         <field>Customer_Need__c</field>
-        <value xsi:type="xsd:string">Assist with Business Working Capital/Temporary Finance</value>
+        <value xsi:type="xsd:string">Working Capital Solutions</value>
     </values>
     <values>
         <field>Lead_Record_Type__c</field>

@@ -6,10 +6,10 @@
         <description>This is used to provide the Read access to all the Commercial Bankers.</description>
         <label>Commercial COI Read</label>
         <sharedTo>
-            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>

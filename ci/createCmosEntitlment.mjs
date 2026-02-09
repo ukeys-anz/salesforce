@@ -4,7 +4,11 @@ import fs from "fs";
 let accRecId = "";
 let entitlementProcessRec = "";
 
-const createCMOSEntitlement = (username) =>
+const createCMOSEntitlement = (
+  username,
+  accRecId = "",
+  entitlementProcessRec = ""
+) =>
   exec(
     "sf data import tree -p data/IDR-EntitlementAccCreate.json --json" +
       (username ? ` -o ${username}` : ""),
@@ -22,7 +26,7 @@ const createCMOSEntitlement = (username) =>
         }
         //extract the id of SlaProcess (I.e Entitlement Process) for complaint.
         exec(
-          "sf data query -q \"Select Id from SlaProcess Where Name= 'Complaints'\" --json" +
+          `sf data query -q "Select Id from SlaProcess Where Name= 'Complaints'" --json` +
             (username ? ` -o ${username}` : ""),
           (err, stdout, stderr) => {
             if (err) {

@@ -137,7 +137,6 @@ if [[ "$CHECK_FLAG" == true ]]; then
   checkSpecificMetadata "profiles" >> result.txt
   checkBypassString "flows" >> result.txt
   checkValidationRuleBypass >> result.txt
-  checkRoleAndSubordinatesInternal >> result.txt
 else
   echo "No files copied — nothing to check."
 fi

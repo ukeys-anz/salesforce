@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TotalTransactionAmount__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Sum Total of Amount in the DisputeItem records. Transaction Amounts are the actual amount for which the transactions are raised.</description>
+    <label>Total Transaction Amount</label>
+    <securityClassification>Confidential</securityClassification>
+    <summarizedField>DisputeItem.TransactionAmount</summarizedField>
+    <summaryFilterItems>
+        <field>DisputeItem.RecoveryStatus__c</field>
+        <operation>notEqual</operation>
+        <value>Pending OFI Response</value>
+    </summaryFilterItems>
+    <summaryForeignKey>DisputeItem.DisputeId</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <type>Summary</type>
+</CustomField>

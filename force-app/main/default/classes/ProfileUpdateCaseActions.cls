@@ -11,6 +11,8 @@ public with sharing class ProfileUpdateCaseActions {
   @TestVisible
   private static final String ERROR_STAGING_PENDING = 'Cannot close case until the legal name is updated in OCV.';
   private static final String AU_COUNTRY_CODE = 'AUS';
+  @TestVisible
+  private static final String ADDRESS_TEMPLATE = '{0}\r\n{1} {2} {3}\r\n{4}';
   public static final string CASE_TYPE_LEGAL_NAME = 'Legal Name QA';
   public static final string PASS = 'Pass';
   public static final string FAILED_DOCUMENT_INVALID = 'Failed - Document Provided Invalid';
@@ -139,5 +141,52 @@ public with sharing class ProfileUpdateCaseActions {
       acctRecords,
       null
     );
+  }
+
+  /**
+   * @description Filters the provided Case records to include only legal name cases
+   * and retrieves associated Account information for further processing.
+   * @param records The list of Case records to filter and process.
+   */
+  public static void setLegalNameQAInfo(List<Case> records) {
+    records = ListUtil.filter(records)
+      .equals(Case.Type, CASE_TYPE_LEGAL_NAME)
+      .toList();
+    Set<Id> accountIds = ListUtil.getIds(records, Case.AccountId);
+    List<Account> accounts = REPOSITORY.getAccounts(accountIds);
+    setLegalNameQAInfo(records, accounts);
+  }
+
+  /**
+   * @description Updates the provided Case records with legal name and address information
+   * from the associated Account records.
+   * @param records  The list of Case records to update.
+   * @param accounts The list of Account records containing legal name and address information.
+   */
+  @TestVisible
+  public static void setLegalNameQAInfo(
+    List<Case> records,
+    List<Account> accounts
+  ) {
+    Map<Id, Account> accountMap = new Map<Id, Account>(accounts);
+    for (Case c : records) {
+      Account acc = accountMap.get(c.AccountId);
+      if (acc == null) {
+        continue;
+      }
+      c.CurrentFirstName__c = acc.FirstName;
+      c.CurrentMiddleName__c = acc.MiddleName;
+      c.CurrentLastName__c = acc.LastName;
+      c.CurrentAddress__c = String.format(
+        ADDRESS_TEMPLATE,
+        new List<String>{
+          acc.PersonOtherStreet,
+          acc.PersonOtherCity,
+          acc.PersonOtherState,
+          acc.PersonOtherPostalCode,
+          acc.PersonOtherCountry
+        }
+      );
+    }
   }
 }

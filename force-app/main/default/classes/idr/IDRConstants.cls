@@ -23,6 +23,7 @@ public with sharing class IDRConstants {
 
   //Case Priority
   public static final String CASE_PRIORITY_STANDARD = 'Standard';
+  public static final String CASE_PRIORITY_VULNERABLE = 'Vulnerable Customer';
 
   //Case SI_Worflow_Step
   public static final String SI_WF_STEP_ASSESSING = 'Assessing';
@@ -85,6 +86,13 @@ public with sharing class IDRConstants {
   public static final Id CFAAS_FILE_RT_ID = Schema.SObjectType.ContentVersion.getRecordTypeInfosByDeveloperName()
     .get('CFaaS_File')
     .getRecordTypeId();
+
+  public static final String QA_CQ_ASSESSMENT = 'C & Q Assessment';
+  public static final String QA_CR_ASSESSMENT = 'Customer Resolution Assessment';
+  public static final String QA_FRONTLINE_ASSESSMENT = 'Frontline Assessment';
+  public static final String QA_CALL_REVIEW_ASSESSMENT = 'Call Review Assessment';
+  public static final String QA_LETTER_REVIEW_ASSESSMENT = 'Letter Review Assessment';
+  public static final String QA_FINAL_LETTER_REVIEW_ASSESSMENT = 'Final Letter Review Assessment';
 
   /**
    * @description get Quality_Assessment__c.C_Q_Assessment record on demand
@@ -217,6 +225,15 @@ public with sharing class IDRConstants {
   public static final String MULTIPLE_ACCOUNT_NO_REGEX = '^[0-9]{6,42}(;[0-9]{6,42})*$';
   public static final String INVALID_ACC_NO_MESSAGE = 'Account numbers can not include any symbols or special characters. Only use a Semicolon to separate account numbers if more than 1 account';
 
+  //IDR Account ExtraCare flag values
+  public static final String TIME_PERIOD_NOT_REQUIRED = 'Not required';
+  public static final String TIME_PERIOD_ONGOING = 'Ongoing';
+  public static final Set<String> ECF_FLAG_TRUE = new Set<String>{
+    'Ongoing',
+    'Temporarily required',
+    'Ongoing and temporarily required'
+  };
+
   //Task fields Constants
   public static final String TASK_PRIORITY_NORMAL = 'Normal';
   public static final String TASK_TYPE_PEND_CASE = 'Pend Case';
@@ -228,8 +245,11 @@ public with sharing class IDRConstants {
   public static final String TASK_CORRESPONDENCE_SUBJECT = 'New Correspondence received on a Closed Complaint added by';
   public static final String TASK_CORRESPONDENCE_DESCRIPTION = 'You must add a task comment detailing the action taken in your review of the new correspondence received on the closed complaint before marking this task as completed';
   public static final String TASK_QA_COMPLIANCE_SUBJECT = 'Review Required: Quality Assessment Completed for ';
+  public static final String TASK_QA_COMPLIANCE_DESCRIPTION = 'You must action the Team Manager Response field on the related to evaluation before you are able to mark this task as complete.';
   public static final String TASK_TM_ATTESTATION_SUBJECT = 'Team Manager Corrective Actions- Attestation- ';
   public static final String TASK_QA_CLOSE_ERROR = 'Cannot close a Compliance Task if the associated Quality Assessment doesn\'t have a Team Manager Response';
+  public static final String TASK_STATUS_OPEN = 'Open';
+  public static final String TASK_QA_FEEDBACK_SUBJECT = 'Corrective Actions and Attestation Required: Quality Assessment';
   public static final Id TASK_COMPLIANCE_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
     .get('Compliance_Task')
     .getRecordTypeId();
@@ -245,9 +265,8 @@ public with sharing class IDRConstants {
   public static final String TM_REJECTS_CQ_MANAGER_REV_TASK_DESC = 'Please review the Quality Assessment and complete the C&Q Lead Response and C&Q Lead Comments fields on the Assessment Outcome tab.';
   public static final String CQ_LEAD_RESPONSE_TASK_SUBJECT = 'C&Q Lead review completed on ';
   public static final String CQ_LEAD_RESPONSE_TASK_DESC = 'Please review the comments left on the Assessment Outcome tab of the Quality Assessment';
-
-  //Quality Assessment Constants
-  public static final String CORRECTIVE_ACTIONS_NA = 'N/A- no action required';
+  public static final String TASK_QA_FEEDBACK_DESCRIPTION = 'Please review the Corrective Actions Requiring action documented on the quality evaluation. You must add a task comment detailing the actions you have taken to address these before marking this task as completed.';
+  public static final String TASK_QA_CORRECTIVE_DESCRIPTION = 'You must add a task comment detailing the action taken before marking this task as completed.';
 
   //Quality Assessment CQ Assessment outcome fields
   public static final SObjectField TEAM_MANAGER_RESPONSE = Quality_Assessment__c.Team_Manager_Response__c.getDescribe()
@@ -270,6 +289,8 @@ public with sharing class IDRConstants {
   //QA Status Constants
   public static final String STATUS_COMPLETE = 'Complete';
   public static final String STATUS_PENDING = 'Pending';
+  public static final String QA_TM_RESPONSE_AWAITING = 'Awaiting response from TM';
+  public static final String CQ_ASSESSMENT = 'C & Q Assessment';
 
   //Migrated Document
   public static final String DELETION_NOT_ALLOWED = 'You may not delete CFMS migrated documents.';
@@ -424,7 +445,6 @@ public with sharing class IDRConstants {
     'ANZ Plus App',
     'Know Your Customer',
     '22',
-    '23',
     '24'
   };
 

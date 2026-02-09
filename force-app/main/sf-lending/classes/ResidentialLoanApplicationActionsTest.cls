@@ -347,12 +347,12 @@ private class ResidentialLoanApplicationActionsTest {
       rlaRepoMock.getHistories('queryLoanApplications').isEmpty(),
       'queryLoanApplications should have been called at least once'
     );
-    List<Id> loanApplicationIds = (List<Id>) rlaRepoMock.getHistory(
+    List<String> loanApplicationParam = (List<String>) rlaRepoMock.getHistories(
         'queryLoanApplications'
-      )
-      .getParam('loanIds');
+      )[0]
+      .listOfParamNames;
     Assert.isFalse(
-      loanApplicationIds.isEmpty(),
+      loanApplicationParam.isEmpty(),
       'loanApplicationIds should have been passed on to the queryLoanApplications method'
     );
   }
@@ -549,6 +549,7 @@ private class ResidentialLoanApplicationActionsTest {
         ResidentialLoanApplication.SObjectType
       );
       loanApp.Assisted_Broker_TPMI_SAO__c = BROKER_CODE;
+      loanApp.Sync_Status__c = 'Broker Org';
       loanApps.add(loanApp);
     }
     return loanApps;
@@ -572,18 +573,7 @@ private class ResidentialLoanApplicationActionsTest {
 
   @IsTest
   static void testSetResidentialLoanApplicationValidityRLS() {
-    Loan_Application_Validity__mdt loanApplicationValidityMDT = new Loan_Application_Validity__mdt(
-      DeveloperName = 'RLS STATE SUBMITTED',
-      MasterLabel = 'RLS_STATE_SUBMITTED',
-      Years__c = 1,
-      Months__c = 6,
-      Days__c = 60
-    );
     registerMocks();
-    rlaRepoMock.mock(
-      'getLoanApplicationValidityMetadata',
-      loanApplicationValidityMDT
-    );
     ResidentialLoanApplication rla = new ResidentialLoanApplication();
     rla.RecordTypeId = RTResidentialLoanApplication.rlsResidentialLoanApplication;
     rla.Status = 'STATE_SUBMITTED';
@@ -592,7 +582,7 @@ private class ResidentialLoanApplicationActionsTest {
       new List<ResidentialLoanApplication>{ rla }
     );
     Test.stopTest();
-    Date expectedDate = Date.today().addYears(1).addMonths(6).addDays(60);
+    Date expectedDate = Date.today().addDays(60);
     Assert.areEqual(
       expectedDate,
       rlas[0].SunsetTimestamp__c,
@@ -618,7 +608,6 @@ private class ResidentialLoanApplicationActionsTest {
   @IsTest
   static void testSetResidentialLoanApplicationValidityInelgibleStatus() {
     registerMocks();
-    rlaRepoMock.mock('getLoanApplicationValidityMetadata', null);
     ResidentialLoanApplication rla = new ResidentialLoanApplication();
     rla.RecordTypeId = RTResidentialLoanApplication.rlsResidentialLoanApplication;
     rla.Status = 'STATE_NOTVALID_FOR_SUNSET_TIMESTAMP';

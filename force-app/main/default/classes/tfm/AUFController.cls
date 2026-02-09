@@ -252,4 +252,24 @@ global with sharing class AUFController {
       return false;
     }
   }
+
+  /**
+   * @description create a chatter post
+   * @param recordId PDI record Id
+   */
+  @AuraEnabled
+  public static void createChatterPost(Id recordId) {
+    try {
+      PersonDigitalIdentity__x personDigitalRec = QUERY.getPersonDigitalIdentityRec(
+        recordId
+      );
+      ChatterUtils.makeAPost(
+        personDigitalRec.Customer__r.Id,
+        'Padlocked removed successfully',
+        ChatterUtils.POST_TYPE_TEXT
+      );
+    } catch (Exception e) {
+      handleCommonException(e);
+    }
+  }
 }

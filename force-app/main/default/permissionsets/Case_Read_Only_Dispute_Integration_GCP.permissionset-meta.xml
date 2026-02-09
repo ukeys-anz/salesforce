@@ -456,6 +456,10 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <recordType>Case.Bank_Post_Dispute</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>Case.BPAY_Dispute</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
@@ -469,6 +473,10 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Case.Direct_Entry_Dispute</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Case.IMT_Dispute</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

@@ -218,6 +218,7 @@
     "LogEntry__c": "The child log record, stores logging information on a record/callout level.",
     "Logging_Settings__c": "Custom settings for more control on logging.",
     "Mortgage_Contract__c": "Contains details relating to the mortgage contract",
+    "Needs_Analysis__c": "Used to store needs analysis",
     "Opportunity": "Is a record of a sale or a pending deal",
     "OpportunityLineItem": "Representing the product of a sale or a pending deal",
     "PrivateKeyStorage__c": "To store the private key from GCP in a secure way, so that even a system admin should not be able to access this information.",
@@ -359,7 +360,14 @@
         "Principal_Place_of_Business_Formula__c",
         "IsTruncated__c",
         "Security_Code_Updated__c",
-        "Security_Code_Requested__c"
+        "Security_Code_Requested__c",
+        "CIP_Id__c",
+        "Date_Closed__c",
+        "Direct_Marketing__c",
+        "Gold_Tier_Id__c",
+        "Last_Maint_Date__c",
+        "Security_Indicator__c",
+        "Credit_Rating__c"
       ],
       "IA-2460507": ["Last_Updated_By__c"],
       "IA-2594111": [
@@ -377,7 +385,8 @@
         "Victim_External_ID__c",
         "Survivor_Party_ID__c",
         "External_Id__c",
-        "RecordTypeId"
+        "RecordTypeId",
+        "Source_System_Icon__c"
       ],
       "IA-2415855": [
         "CustomerExitDate__c",
@@ -505,7 +514,8 @@
         "SI_Tribe_BU__c",
         "Task_Sub_Type__c",
         "My_extended_team_s_tasks__c",
-        "Sub_Status__c"
+        "Sub_Status__c",
+        "AI_Generated__c"
       ],
       "IA-2460507": ["Interaction_Owner__c"],
       "IA-2468715": ["Voice_Call_SID__c", "Case_Number__c", "PEGA_Case_Id__c"],
@@ -783,7 +793,8 @@
         "Customer_Number__c",
         "Business_Owner_Number__c",
         "Business_Owner__c",
-        "Business_Contact__c"
+        "Business_Contact__c",
+        "CLGCustomer__c"
       ],
       "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"],
       "IA-2423227": ["COI_Member__c"],
@@ -795,6 +806,14 @@
       ]
     },
     "Broker_Relation__c": {
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ],
       "IA-2415790": ["Aggregator__c", "RecordTypeID", "State__c"],
       "IA-2453350": ["External_Id__c", "IsActive__c"],
       "IA-2460507": [
@@ -1252,7 +1271,9 @@
         "IDR_Date_time_Progressed_Status_selected__c",
         "Test_Complaint__c",
         "IsKYCChecksCompleted__c",
-        "KYCChecksHasDefect__c"
+        "KYCChecksHasDefect__c",
+        "Search_Button_Selected_for_3rd_Party__c",
+        "Search_Button_Selected__c"
       ],
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",
@@ -1332,6 +1353,10 @@
         "Has_Assessment__c",
         "ContactMobile",
         "ContactEmail",
+        "CurrentAddress__c",
+        "CurrentFirstName__c",
+        "CurrentMiddleName__c",
+        "CurrentLastName__c",
         "IDR_3rdParty_Country__c",
         "IDR_3rdParty_Email__c",
         "IDR_Nominated_3rd_Party_Company_Name__c",
@@ -1409,7 +1434,8 @@
         "OnboardingVerificationFailedReason__c",
         "PassportNumber__c",
         "ReimbursementReason__c",
-        "RemoteAccessUsed__c"
+        "RemoteAccessUsed__c",
+        "EventTimestamp__c"
       ],
       "IA-2415840": [
         "Advocacy_Score__c",
@@ -1465,7 +1491,8 @@
         "Unique_External_Id__c",
         "SecondaryVerificationFailedReason__c",
         "KYC_Verification_Id__c",
-        "PersonId_Txt__c"
+        "PersonId_Txt__c",
+        "Outcome_Letter_to_be_sent_by_Mail__c"
       ],
       "IA-2594111": [
         "CustomerOnboardingApplication__c",
@@ -1494,7 +1521,8 @@
         "Process_SLA_Status__c",
         "Financial_Account_Name__c",
         "Opt_Out_Reason__c"
-      ]
+      ],
+      "IA-4796231": ["Secondary_Account_Holder_Consent__c"]
     },
     "CaseHistory": {
       "IA-2468715": [
@@ -1767,6 +1795,14 @@
       ]
     },
     "Complaint_Resolution__c": {
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ],
       "IA-2468715": [
         "IDR_Complaint__c",
         "IDR_Complaint_Remedy__c",
@@ -1812,6 +1848,7 @@
       ],
       "IA-2415984": [
         "Birthdate",
+        "Birthdate__c",
         "Email",
         "Fax",
         "Name",
@@ -2228,6 +2265,14 @@
       "IA-2415720": ["Customer_Status__c"]
     },
     "Customer_Task_Configuration__c": {
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ],
       "IA-2468707": [
         "AEM_Content_Id__c",
         "Applicable_Record_Types__c",
@@ -2237,6 +2282,14 @@
       ]
     },
     "Customer_Task_Data__c": {
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ],
       "IA-2468707": ["AEM_Content_Data__c"]
     },
     "Customer_Profile_Update_Event__e": {
@@ -2271,6 +2324,31 @@
         "PersonId__c",
         "Status__c",
         "UpdatedTime__c"
+      ]
+    },
+    "Dispute": {
+      "IA-2415999": [
+        "AccountDetails__c",
+        "TotalRecoveryAmount__c",
+        "TotalTransactionAmount__c"
+      ]
+    },
+    "DisputeItem": {
+      "IA-2415999": [
+        "AccountDetails__c",
+        "Case__c",
+        "Message__c",
+        "OtherFinancialInstituteAccountNumber__c",
+        "OtherFinancialInstituteBSB__c",
+        "RecoveryAmount__c",
+        "RecoveryLocation__c",
+        "RecoveryStatus__c",
+        "Title__c",
+        "TransactionAmount",
+        "TransactionDate",
+        "TransactionDate__c",
+        "TransactionIdentifier",
+        "TransactionType__c"
       ]
     },
     "Drawdown__c": {
@@ -2375,6 +2453,7 @@
     "Event": {
       "IA-2415999": ["PEGA_Case_Status__c"],
       "IA-2415984": ["Customer_Name__c"],
+      "IA-2453350": ["External_Id__c"],
       "IA-2453595": [
         "Action__c",
         "Authentication_Method__c",
@@ -2462,7 +2541,13 @@
         "FinServ__NextSteps__c",
         "FinServ__Regarding__c"
       ],
-      "IA-2530753": ["StartDateTime", "Pega_CDH_Id__c"],
+      "IA-2530753": [
+        "StartDateTime",
+        "Pega_CDH_Id__c",
+        "Customer_Task_Configuration__c",
+        "Customer_Task_Data__c",
+        "TaskNumber__c"
+      ],
       "IA-2468713": ["Pub_Sub_Event_Id__c"]
     },
     "External_Case_Status__c": {
@@ -2914,6 +2999,7 @@
         "AuthContext__c",
         "BindingMessage__c",
         "Issuer__c",
+        "Subject__c",
         "KeyIdentification__c",
         "LoginHint__c",
         "Scope__c",
@@ -3063,6 +3149,7 @@
         "Expiry_Indicator__c",
         "FinServ__PotentialValue__c",
         "FinServ__RelatedAccount__c",
+        "Individual_Customer_Profile__c",
         "FinServ__CreatedFromLead__c",
         "FinServ__Employer__c",
         "FinServ__ReferredByContact__c",
@@ -3584,6 +3671,54 @@
         "LastModifiedDate"
       ]
     },
+    "Needs_Analysis__c": {
+      "IA-2415860": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId",
+        "Status__c",
+        "OwnerId"
+      ],
+      "IA-2415984": [
+        "BPAY_Payments__c",
+        "BPAY_Receipts__c",
+        "Customer__c",
+        "Direct_Debits__c",
+        "Direct_Entry_Creditor_Payments__c",
+        "Direct_Entry_Payroll_Payments__c",
+        "Domestic_ANZ_Transfers__c",
+        "Electronic_Credits_Accounts__c",
+        "Electronic_Debits_Accounts__c",
+        "Enterprise_Grade_Finance_System__c",
+        "International_Payments_Inbound__c",
+        "International_Payments_Outbound__c",
+        "International_Transfers__c",
+        "Money_Held__c",
+        "Money_In__c",
+        "Money_Out__c",
+        "Number_of_Branch_Visits__c",
+        "Number_of_Cheques_Deposited__c",
+        "Number_of_Cheques_Written__c",
+        "Number_of_Devices__c",
+        "Number_of_File_Types__c",
+        "Number_of_Sites_to_Implement__c",
+        "Opportunity__c",
+        "Osko_Payments__c",
+        "Overview__c",
+        "Payables__c",
+        "Qualifying_Customer_Investment__c",
+        "Qualifying_the_Benefit__c",
+        "Receivables__c",
+        "Returned_Items__c",
+        "RTGS_Payments__c",
+        "Technical_Sophistication__c",
+        "Technology_Staff__c"
+      ],
+      "IA-2415987": ["Products__c", "Products_Selected__c"]
+    },
     "Opportunity": {
       "IA-2423278": ["My_teams_referrer__c"],
       "IA-2415828": ["Circle_Of_Influence__c"],
@@ -3612,6 +3747,7 @@
         "BBD_Application_Number__c",
         "Broker_Involved__c",
         "CLP_Credit_Case_Number__c",
+        "CLG_ID__c",
         "Customer_Needs__c",
         "Lost_Reason_Detail__c",
         "ML_DataMigration_Key__c",
@@ -3636,7 +3772,6 @@
         "Secondary_Customer_Needs__c",
         "My_Notes__c"
       ],
-      "IA-4614597": ["CLG_ID__c"],
       "IA-2468715": [
         "CreatedById",
         "CreatedDate",
@@ -3781,6 +3916,9 @@
         "Name__c",
         "PersonId__c"
       ]
+    },
+    "PersonDigitalIdentity__x": {
+      "IA-2486234": ["Customer__c", "CustomerName__c"]
     },
     "PriceBook2": {
       "IA-2415987": ["Description", "IsActive", "IsStandard", "Name"],
@@ -3933,7 +4071,12 @@
         "Category__c"
       ],
       "IA-2415840": ["ExternalId"],
-      "IA-2415987": ["Product_Segment_Type__c", "Product_Features__c"]
+      "IA-2415987": [
+        "Product_Segment_Type__c",
+        "Product_Features__c",
+        "Product_Abridged_Name__c",
+        "Is_Retail_Classic_Loan_Product__c"
+      ]
     },
     "Product_Family__c": {
       "IA-2530753": [
@@ -4310,7 +4453,116 @@
         "Were_the_CM_s_calls_recorded__c",
         "What_how_the_issues_arose_explainedHave__c",
         "What_corrective_actions_are_required__c",
-        "Written_customer_comms_professional_etc__c"
+        "Written_customer_comms_professional_etc__c",
+        "Actions_Completed__c",
+        "Addressed_info_req_s_basic_accts_etc__c",
+        "Assessment_Result__c",
+        "Assessment_Result_formula__c",
+        "Call_authentication_process_followed__c",
+        "Calls_disclosed_recording_got_consent__c",
+        "Case_notes_clear_and_complete__c",
+        "Corrective_actions_for_C_Q_to_complete__c",
+        "Corrective_actions_requiring_FL_action__c",
+        "Cust_interactions_accurately_recorded__c",
+        "Date_further_review_closed__c",
+        "Didn_t_provide_financial_product_advice__c",
+        "Does_response_have_enough_detail__c",
+        "Does_response_have_key_findings__c",
+        "Engaged_with_cust_rep_where_needed__c",
+        "Gave_extra_care_or_met_access_need__c",
+        "Hardship_recorded_referred_managed__c",
+        "ID_d_cust_experiencing_vulnerability__c",
+        "IDR_delay_notice_decision_appropriate__c",
+        "IDR_response_sent_within_timeframes__c",
+        "If_declined_does_resp_identify_issues__c",
+        "If_resolved_w_o_IDR_letter_RG271_71_met__c",
+        "If_resolved_resp_details_resolution__c",
+        "Next_steps_required__c",
+        "Other_issues_not_addressed__c",
+        "PSI_identified_flagged_where_needed__c",
+        "Q1_Comments__c",
+        "Q1_Rationale__c",
+        "Q10_Comments__c",
+        "Q10_Rationale__c",
+        "Q11a_Comments__c",
+        "Q11a_Rationale__c",
+        "Q11b_Comments__c",
+        "Q11b_Rationale__c",
+        "Q11c_Comments__c",
+        "Q11c_Rationale__c",
+        "Q12_Comments__c",
+        "Q12_Rationale__c",
+        "Q13_Comments__c",
+        "Q13_Rationale__c",
+        "Q14_Comments__c",
+        "Q14_Rationale__c",
+        "Q15_Comments__c",
+        "Q15_Rationale__c",
+        "Q16_Comments__c",
+        "Q16_Rationale__c",
+        "Q17_Comments__c",
+        "Q17_Rationale__c",
+        "Q18_Comments__c",
+        "Q18_Rationale__c",
+        "Q19_Comments__c",
+        "Q19_Rationale__c",
+        "Q2_Comments__c",
+        "Q2_Rationale__c",
+        "Q20_Comments__c",
+        "Q20_Rationale__c",
+        "Q21_Comments__c",
+        "Q21_Rationale__c",
+        "Q22_Comments__c",
+        "Q22_Rationale__c",
+        "Q3_Comments__c",
+        "Q3_Rationale__c",
+        "Q4_Comments__c",
+        "Q4_Rationale__c",
+        "Q5_Comments__c",
+        "Q5_Rationale__c",
+        "Q6_Comments__c",
+        "Q6_Rationale__c",
+        "Q7_Comments__c",
+        "Q7_Rationale__c",
+        "Q8_Comments__c",
+        "Q8_Rationale__c",
+        "Q9_Comments__c",
+        "Q9_Rationale__c",
+        "Reason_for_further_review_recommendation__c",
+        "Reasonable_investigation_completed__c",
+        "Review_outcome__c",
+        "Was_implementation_timely__c",
+        "Was_the_outcome_fair_for_the_customer__c",
+        "Were_CMOS_fields_accurate__c",
+        "Were_risk_events_raised_and_recorded__c",
+        "AssessmentOutcomeFail__c",
+        "AssessmentOutcomeFailOutControl__c",
+        "AssessmentOutcomePass__c",
+        "AssessmentOutcomePassFeedback__c",
+        "AFCA_details_provided_in_the_letter__c",
+        "Are_our_findings_well_supported__c",
+        "Complaint_issues_identified_addressed__c",
+        "Corrective_actions_required_CM__c",
+        "Corrective_actions_required_TL__c",
+        "Desired_outcome_recorded_correctly__c",
+        "Did_we_identify_vulnerability__c",
+        "Did_we_meet_time_frames__c",
+        "Did_we_record_all_issues_correctly__c",
+        "Did_we_respond_swiftly_to_hardship__c",
+        "Final_letter_type__c",
+        "Is_customer_experiencing_vulnerability__c",
+        "Is_our_decision_clearly_explained__c",
+        "Is_the_outcome_fair__c",
+        "Is_the_resolution_clear__c",
+        "Senior_Manager__c",
+        "Team_Manager_final_letter_review__c",
+        "TL_response_to_TM_review__c",
+        "Was_correspondence_well_written__c",
+        "Was_delay_notice_appropriate__c",
+        "Were_care_and_access_needs_addressed__c",
+        "AssessmentOutcomeFLPassWithFeedback__c",
+        "AssessmentOutcomeFrontlinePass__c",
+        "AssessmentResultFinalLetterReview__c"
       ],
       "IA-2415983": ["Application_ID__c"],
       "IA-2415984": ["Customer__c", "Customer_Name__c", "Calculated__c"],
@@ -4536,7 +4788,8 @@
         "Ineligible_Reasons__c",
         "Joint__c",
         "Needs_Assessment_Unsuitability_Reasons__c",
-        "Settlement_ID__c"
+        "Settlement_ID__c",
+        "Source__c"
       ],
       "IA-2415860": ["Credit_Reassess_Required__c"],
       "IA-2415790": ["Assisted_Broker__c", "Assisted_Broker_TPMI_SAO__c"],
@@ -4748,8 +5001,14 @@
         "FinServ__NextSteps__c",
         "FinServ__Regarding__c"
       ],
-      "IA-2530753": ["Pega_CDH_Id__c"],
-      "IA-2468713": ["Pub_Sub_Event_Id__c"]
+      "IA-2530753": [
+        "Pega_CDH_Id__c",
+        "Customer_Task_Configuration__c",
+        "Customer_Task_Data__c",
+        "TaskNumber__c"
+      ],
+      "IA-2468713": ["Pub_Sub_Event_Id__c"],
+      "IA-2453350": ["External_Id__c"]
     },
     "Traced_Application_Log__b": {
       "IA-2468710": [
@@ -4996,6 +5255,183 @@
         "Other_Limits_and_Liabilities__c",
         "Additional_Information__c",
         "Sequence__c"
+      ]
+    },
+    "Demand_Account__x": {
+      "IA-2415984": ["Customer__c", "Account_Name__c", "Short_Name__c"],
+      "IA-2415987": [
+        "Account_Number__c",
+        "Account_Status__c",
+        "Balance__c",
+        "Limit__c",
+        "Relationship__c",
+        "Product_Code__c",
+        "Sub_Product_Code__c",
+        "Balance__c",
+        "Last_Limit_Change__c",
+        "Account_Status__c",
+        "Ownership_Code__c",
+        "Cost_Centre__c",
+        "Domicile_Branch__c",
+        "Account_Name_Line_1__c",
+        "Account_Name_Line_2__c",
+        "Account_Name_Line_3__c",
+        "Account_Title__c",
+        "ANZSIC__c",
+        "Account_Category__c",
+        "Credit_Interest_Code__c",
+        "Credit_Interest_Cycle__c",
+        "Negative_Interest_Applicable__c",
+        "Effective_Date__c",
+        "Credit_Interest_Code__c",
+        "Tiered_Credit_Int_Percentage_Factor1__c",
+        "Tiered_Credit_Int_Percentage_Factor2__c",
+        "Tiered_Credit_Int_Percentage_Factor3__c",
+        "Tiered_Credit_Int_Percentage_Factor4__c",
+        "Tiered_Credit_Int_Percentage_Factor5__c",
+        "Tiered_Credit_Int_Percentage_Factor6__c",
+        "Tiered_Credit_Int_Percentage_Factor7__c",
+        "Tiered_Credit_Int_Percentage_Factor8__c",
+        "Tiered_Credit_Int_Percentage_Factor9__c",
+        "Tiered_Credit_Int_Points_Diff1__c",
+        "Tiered_Credit_Int_Points_Diff2__c",
+        "Tiered_Credit_Int_Points_Diff3__c",
+        "Tiered_Credit_Int_Points_Diff4__c",
+        "Tiered_Credit_Int_Points_Diff5__c",
+        "Tiered_Credit_Int_Points_Diff6__c",
+        "Tiered_Credit_Int_Points_Diff7__c",
+        "Tiered_Credit_Int_Points_Diff8__c",
+        "Tiered_Credit_Int_Points_Diff9__c",
+        "Tiered_Credit_Interest_Limit1__c",
+        "Tiered_Credit_Interest_Limit2__c",
+        "Tiered_Credit_Interest_Limit3__c",
+        "Tiered_Credit_Interest_Limit4__c",
+        "Tiered_Credit_Interest_Limit5__c",
+        "Tiered_Credit_Interest_Limit6__c",
+        "Tiered_Credit_Interest_Limit7__c",
+        "Tiered_Credit_Interest_Limit8__c",
+        "Tiered_Credit_Interest_Limit9__c",
+        "Current_Interest_Basis__c",
+        "Product_Name__c",
+        "Credit_Interest_To__c",
+        "Direct_Bank_Fees_To__c",
+        "Service_Charge_Type_Code__c",
+        "Bank_Fee_Cycle_Code__c",
+        "Waive_Code__c",
+        "Annual_Base_Fee__c",
+        "Paper_Debits__c",
+        "Paper_Credits__c",
+        "Paper_Collection_Items__c",
+        "Electronic_Debits__c",
+        "Electronic_Credits__c",
+        "Agent_Credits__c",
+        "Agent_Collection_Items__c",
+        "Excess_Fee_Amount__c",
+        "Direct_Excess_Fee_To__c",
+        "Direct_Excess_Fee_To_Alternative_DDA__c",
+        "Credit_Rating__c",
+        "Security_Indicator__c",
+        "Out_Of_Bounds_Pro__c",
+        "Penalty_Interest_Applicable__c",
+        "Statement_Cycle_1__c",
+        "Statement_Cycle_2__c",
+        "Next_Statement_Date__c",
+        "Mailing_Code__c",
+        "Number_Of_Copies__c",
+        "Commitment__c",
+        "Limit_Type_1__c",
+        "Limit_Type_2__c",
+        "Limit_Type_3__c",
+        "Current_Gross_Limit_1__c",
+        "Current_Gross_Limit_2__c",
+        "Current_Gross_Limit_3__c",
+        "Facility_Type_1__c",
+        "Facility_Type_2__c",
+        "Facility_Type_3__c",
+        "Start_Date_1__c",
+        "Start_Date_2__c",
+        "Start_Date_3__c",
+        "Expiry_Date_1__c",
+        "Expiry_Date_2__c",
+        "Expiry_Date_3__c",
+        "Facility_Start_Date__c",
+        "Last_Opportunity_To_Reprice__c",
+        "Next_Opportunity_To_Reprice__c",
+        "Managers_Review_Date__c",
+        "Annual_Review_Date__c",
+        "Purpose_Code__c",
+        "Refinance_Alteration_Addition_Indicator__c",
+        "Instructions__c",
+        "Interest_Basis__c",
+        "Interest_Cycle__c",
+        "Point_Difference_Margin__c",
+        "Percentage_Factor_1__c",
+        "Percentage_Factor_2__c",
+        "Percentage_Factor_3__c",
+        "Percentage_Factor_4__c",
+        "Percentage_Factor_5__c",
+        "Percentage_Factor_6__c",
+        "Percentage_Factor_7__c",
+        "Percentage_Factor_8__c",
+        "Percentage_Factor_9__c",
+        "Points_Difference_1__c",
+        "Points_Difference_2__c",
+        "Points_Difference_3__c",
+        "Points_Difference_4__c",
+        "Points_Difference_5__c",
+        "Points_Difference_6__c",
+        "Points_Difference_7__c",
+        "Points_Difference_8__c",
+        "Points_Difference_9__c",
+        "Limit_1__c",
+        "Limit_2__c",
+        "Limit_3__c",
+        "Limit_4__c",
+        "Limit_5__c",
+        "Limit_6__c",
+        "Limit_7__c",
+        "Limit_8__c",
+        "Penalty_Interest__c",
+        "Account_To_Debit_For_Interest__c"
+      ]
+    },
+    "Liability_Account__x": {
+      "IA-2415984": ["Customer__c", "Account_Name__c", "Short_Name__c"],
+      "IA-2415987": [
+        "Account_Number__c",
+        "Account_Name_Line_1__c",
+        "Account_Name_Line_2__c",
+        "Account_Name_Line_3__c",
+        "Account_Securitisation_Indicator__c",
+        "Account_Title__c",
+        "Annual_Review_Date__c",
+        "ANZSIC__c",
+        "Balance__c",
+        "Banking_Code_of_Practice__c",
+        "Code__c",
+        "Commitment__c",
+        "Cost_Centre__c",
+        "Credit_Rating__c",
+        "Domicile_Branch__c",
+        "Facility_Start_Date__c",
+        "Facility_Type__c",
+        "Last_Opportunity_to_Reprice__c",
+        "Limit__c",
+        "Limit_Expiry_Date__c",
+        "Next_Opportunity_to_Reprice__c",
+        "Ownership_Code__c",
+        "Product_Name__c",
+        "Product_Code__c",
+        "Purpose_Code__c",
+        "Refinance_Alteration_Additional_Indicat__c",
+        "RI_INC__c",
+        "Security_Indicator__c",
+        "Service_Branch__c",
+        "Sub_Product_Code__c",
+        "Status__c",
+        "Unavailable_Funds__c",
+        "Relationship__c",
+        "Last_Limit_Change__c"
       ]
     },
     "Deposit_Account__x": {
@@ -5787,6 +6223,7 @@
     "Contact": {
       "Broker_Set__c": "ANZx::Salesforce",
       "Is_Beta_Broker__c": "ANZx::Salesforce",
+      "Birthdate__c": "ANZx :: Salesforce :: BrokerData :: Broker_Customer_Profile__c :: PersonBirthdate",
       "Is_MyBroker__c": "ANZx::Salesforce",
       "Office_Group__c": "ANZx::Salesforce",
       "OCV_Profile_ID__c": "ANZx :: Salesforce :: BrokerData :: Contact :: OCV_Profile_ID__c",
@@ -5992,6 +6429,7 @@
     },
     "Contact": {
       "Broker_Set__c": "Lookup to Broker_Relation__c",
+      "Birthdate__c": "Formula field through Broker_Customer_Profile__r.PersonBirthdate",
       "Is_Beta_Broker__c": "1:1 Transformation",
       "Is_MyBroker__c": "Formula field through Broker_Relation__c",
       "Office_Group__c": "Lookup to Broker_Relation__c",

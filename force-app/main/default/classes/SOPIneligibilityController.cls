@@ -77,8 +77,6 @@ global with sharing class SOPIneligibilityController implements omnistudio.Vloci
       sopModel.isError = true;
       outMap.put('object', sopModel);
       outMap.put('toast', ex.getMessage());
-      Logger.error(ex.getMessage(), ex);
-      Logger.saveLog();
       return false;
     }
   }

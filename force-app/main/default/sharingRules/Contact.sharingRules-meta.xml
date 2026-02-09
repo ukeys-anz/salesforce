@@ -16,16 +16,31 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Display_Contacts</fullName>
+        <fullName>Contact_access_for_Broker_Profile_Admin</fullName>
         <accessLevel>Edit</accessLevel>
-        <label>Display Contacts</label>
+        <description>Contact access for Broker Profile Admin</description>
+        <label>Contact access for Broker Profile Admin</label>
         <sharedTo>
-            <roleAndSubordinates>ANZ</roleAndSubordinates>
+            <role>Broker_Profile_Admin</role>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Organisation,Individual,Business</value>
+            <value>Broker</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Display_Contacts</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Display Contacts</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Individual,Business</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -41,6 +56,21 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Broker</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CCRM_Organisation_Contact_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Provides read/write access to Organisation contacts to Commercial Banking role.</description>
+        <label>CCRM Organisation Contact RW</label>
+        <sharedTo>
+            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Organisation</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

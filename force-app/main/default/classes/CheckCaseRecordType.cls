@@ -14,10 +14,12 @@ public with sharing class CheckCaseRecordType {
 
   public static final Set<Id> DISPUTE_RT_IDS = new Set<Id>{
     RTCase.atmDispute,
+    RTCase.bankPostDispute,
     RTCase.cardDispute,
     RTCase.directDebitDispute,
     RTCase.directEntryDispute,
     RTCase.nppDispute,
+    RTCase.imtDispute,
     RTCase.bpayDispute,
     RTCase.payToDispute
   };
@@ -35,6 +37,7 @@ public with sharing class CheckCaseRecordType {
     RTCase.directDebitDispute,
     RTCase.directEntryDispute,
     RTCase.nppDispute,
+    RTCase.imtDispute,
     RTCase.bpayDispute,
     //other record types
     RTCase.generalInquiry,
@@ -42,7 +45,8 @@ public with sharing class CheckCaseRecordType {
     RTCase.customerFeedback,
     RTCase.accountClosure,
     RTCase.falseCustomerProfile,
-    RTCase.profileUpdate
+    RTCase.profileUpdate,
+    RTCase.signAuth
   };
 
   public static final Set<Id> VALID_RTS_TO_CREATE_EXT_CASE_STATUS = new Set<Id>{
@@ -229,5 +233,50 @@ public with sharing class CheckCaseRecordType {
     return isUnauthenticatedEnquiry(record) &&
       record.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN &&
       record.ANZx_Customer__c;
+  }
+
+  /**
+   * @description Check if a case is IMT_Dispute Case
+   * @param record The case record to check
+   * @return true if the case is a IMT_Dispute Case
+   */
+  public static Boolean isImtDispute(Case record) {
+    return RTCase.imtDispute == record.RecordTypeId;
+  }
+
+  /**
+   * @description Check if a case is Card_Dispute Case
+   * @param record The case record to check
+   * @return true if the case is a Card_Dispute Case
+   */
+  public static Boolean isCardDispute(Case record) {
+    return RTCase.cardDispute == record.RecordTypeId;
+  }
+
+  /**
+   * @description Check if a case is ATM_Dispute Case
+   * @param record The case record to check
+   * @return true if the case is a ATM_Dispute Case
+   */
+  public static Boolean isAtmDispute(Case record) {
+    return RTCase.atmDispute == record.RecordTypeId;
+  }
+
+  /**
+   * @description Check if a case is Direct_Debit_Dispute Case
+   * @param record The case record to check
+   * @return true if the case is a Direct_Debit_Dispute Case
+   */
+  public static Boolean isDirectDebitDispute(Case record) {
+    return RTCase.directDebitDispute == record.RecordTypeId;
+  }
+
+  /**
+   * @description Check if a case is Bank_Post_Dispute Case
+   * @param record The case record to check
+   * @return true if the case is a Bank_Post_Dispute Case
+   */
+  public static Boolean isBankPostDispute(Case record) {
+    return RTCase.bankPostDispute == record.RecordTypeId;
   }
 }

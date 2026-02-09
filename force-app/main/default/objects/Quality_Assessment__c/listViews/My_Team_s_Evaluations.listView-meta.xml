@@ -9,9 +9,8 @@
     <columns>Case_Manager__c</columns>
     <columns>CREATEDBY_USER</columns>
     <columns>Case_Manager_Score__c</columns>
+    <columns>Assessment_Result__c</columns>
     <columns>Assessment_Completion_Date__c</columns>
-    <columns>Status__c</columns>
-    <columns>UPDATEDBY_USER</columns>
     <filters>
         <field>isTeamManagerLoggedInUser__c</field>
         <operation>equals</operation>
@@ -23,19 +22,19 @@
         <value>Complete,Pending</value>
     </filters>
     <filters>
-        <field>RECORDTYPE</field>
+        <field>Evaluation_Type__c</field>
         <operation>equals</operation>
-        <value>Quality_Assessment__c.Call_Letter_Review_Assessment</value>
+        <value>Final Letter Review Assessment,Call Review Assessment,Letter Review Assessment</value>
+    </filters>
+    <filters>
+        <field>Evaluation_Type__c</field>
+        <operation>equals</operation>
+        <value>C &amp; Q Assessment,Customer Resolution Assessment</value>
     </filters>
     <filters>
         <field>Status__c</field>
         <operation>equals</operation>
         <value>Complete</value>
-    </filters>
-    <filters>
-        <field>RECORDTYPE</field>
-        <operation>equals</operation>
-        <value>Quality_Assessment__c.C_Q_Assessment</value>
     </filters>
     <filterScope>Everything</filterScope>
     <label>My Team&apos;s Evaluations</label>

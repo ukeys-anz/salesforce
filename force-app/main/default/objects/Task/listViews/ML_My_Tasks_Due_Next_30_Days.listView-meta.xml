@@ -34,6 +34,6 @@
     <filterScope>Mine</filterScope>
     <label>My Tasks Due Next 30 Days</label>
     <sharedTo>
-        <roleAndSubordinates>ANZ_Mobile_Lending</roleAndSubordinates>
+        <roleAndSubordinatesInternal>ANZ_Mobile_Lending</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

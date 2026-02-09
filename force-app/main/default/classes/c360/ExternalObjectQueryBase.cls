@@ -33,6 +33,7 @@ public abstract with sharing class ExternalObjectQueryBase {
   public virtual class ExternalObjectCalloutRequestBase {
     public QueryModeEnum queryMode;
     public PayloadBase payload;
+    public Integer timeout = 20000;
     /**
      * @description Constructor
      * @param queryContext DataSource QueryContext
@@ -49,8 +50,17 @@ public abstract with sharing class ExternalObjectQueryBase {
      * @return String API end point
      */
     public virtual String getEndpoint() {
-      return '';
+      return Label.Financial_Account_Endpoint;
     }
+
+    /**
+     * @description get staff model
+     * @return StaffTokenRequestModel staff model
+     */
+    public virtual StaffTokenRequestModel getStaffModel() {
+      return null;
+    }
+
     /**
      * @description get API Payload
      * @return String API Payload
@@ -193,7 +203,7 @@ public abstract with sharing class ExternalObjectQueryBase {
    * @param columnValue Filter column value
    * @return QueryModeEnum
    */
-  private QueryModeEnum parseFields(
+  protected QueryModeEnum parseFields(
     String parentFieldName,
     String columnName,
     String columnValue
@@ -415,7 +425,7 @@ public abstract with sharing class ExternalObjectQueryBase {
    * @param tableSelection DataSource.TableSelection
    * @return Boolean is primary filter empty
    */
-  private Boolean primaryFilterIsNotNull(
+  protected Boolean primaryFilterIsNotNull(
     DataSource.TableSelection tableSelection
   ) {
     return tableSelection.filter != null &&
@@ -427,7 +437,7 @@ public abstract with sharing class ExternalObjectQueryBase {
    * @param tableSelection DataSource.TableSelection
    * @return Boolean is sub filters empty
    */
-  private Boolean subFiltersIsNotNull(
+  protected Boolean subFiltersIsNotNull(
     DataSource.TableSelection tableSelection
   ) {
     return tableSelection.filter != null &&

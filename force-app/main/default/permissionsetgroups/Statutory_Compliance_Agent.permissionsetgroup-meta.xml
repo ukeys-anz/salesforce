@@ -15,6 +15,7 @@
     <permissionSets>Customer_Feedback_Read_Only</permissionSets>
     <permissionSets>Customer_Onboarding_Read_Only</permissionSets>
     <permissionSets>Customer_Read_Only</permissionSets>
+    <permissionSets>ExtraCareReadOnly</permissionSets>
     <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>

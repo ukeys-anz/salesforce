@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Money_Held__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Personal Information;Source - Salesforce</complianceGroup>
+    <description>List the number and type of accounts (CAP or Cache) FCA, including average balances. Explain the rationale behind the current or proposed structure. Note any overdraft needs (include amount if applicable). Highlight what matters most to the customer (e.g. low cost, fewer accounts). Include a brief overview of the corporate structure relevant to the account setup.</description>
+    <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
+    <label>Money Held</label>
+    <length>32768</length>
+    <securityClassification>Confidential</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

@@ -10,26 +10,36 @@ on:
       - release
     paths:
       - force-app/**
-      - ci/apex-scripts/**
       - .github/workflows/checkmarx-scan.yml
   schedule:
     - cron: "0 9 * * 0-4" # Run every day between 8-9 pm
+
+concurrency:
+  group: "checkmarx-check-${{ github.event.repository.name }}-${{ github.event.pull_request.number || github.ref_name || 'schedule' }}"
+  cancel-in-progress: true
 
 jobs:
   checkmarx-scan:
     runs-on: [self-hosted, salesforce-prod]
     steps:
-      - name: Set GITHUB_BRANCH
+      - name: Set env variables
         env:
           GITHUB_HEAD_REF: ${{ github.head_ref }}
+          EVENT_NAME: ${{ github.event_name }}
         run: |
           GITHUB_BRANCH=$GITHUB_HEAD_REF
+          BUG_TRACKER=Sarif
 
           if [[ $GITHUB_BRANCH == '' ]];then
             GITHUB_BRANCH=$(echo ${GITHUB_REF#refs/heads/})
           fi
 
+          if [[ $EVENT_NAME == 'pull_request' ]]; then
+            BUG_TRACKER=GitHubPull
+          fi
+
           echo GITHUB_BRANCH=$GITHUB_BRANCH >> $GITHUB_ENV
+          echo BUG_TRACKER=$BUG_TRACKER >> $GITHUB_ENV
 
       - uses: actions/checkout@v4
       - env:
@@ -57,22 +67,16 @@ jobs:
           github_token: ${{ secrets.SALESFORCE_CXFLOW_GH_TOKEN }}
           incremental: false
           break_build: true
-          bug_tracker: Sarif
-          zip_exclude: \.git\/.*,\.git\-hooks\/.*,\.github\/.*,apexdoc\/.*,apex\-scripts\/.*,automation\-test\/.*,bash\-scripts\/.*,ci\/.*,config\/.*,coverage\/.*,data\/.*,ea\/.*,ea\-seeder\/.*,mdapi\-source\/.*,misc\/.*,node_modules\/.*,pmdscripts\/.*,createCmosEntitlment.js
+          bug_tracker: ${{ env.BUG_TRACKER }}
+          zip_exclude: \.git\/.*,\.git\-hooks\/.*,\.github\/.*,ci\/.*,config\/.*,coverage\/.*,data\/.*,mdapi\-source\/.*,misc\/.*,node_modules\/.*
           params: --namespace=${{ github.repository_owner }} --repo-name=${{ github.event.repository.name }} --branch=${{ env.GITHUB_BRANCH }} --merge-id=${{ github.event.number }} --severity=High --checkmarx.scan-resubmit=true --checkmarx.scan-queuing=true
 
-      - if: ${{ always() }}
-        name: Slack message
-        env:
-          CHECKMARX_STATUS: ${{ steps.checkmarx.outcome }}
-        run: |
-          if [[ $CHECKMARX_STATUS == success ]];then
-            status=:white_check_mark:
-          else
-            status=:X:
-          fi
-
-          TodayDate="$(TZ=Australia/Melbourne date +%F\|%H:%M)"
-          actionURL="https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"
-          IDENTITY_TOKEN=$(curl -H "Metadata-Flavor: Google" 'http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity?audience=https://platform-notify.platform-notify.services-platdev.x.gcpnp.anz&format=full&licenses=TRUE')
-          curl -H "Authorization: Bearer ${IDENTITY_TOKEN}" --data '{"channel":"sf-security","templateID":"ghasfsecurity","args":{"startdatetime":"'${TodayDate}'","passed":"'${status}'","branch":"'${{env.GITHUB_BRANCH}}'","checkname":"Checkmarx","reponame":"Salesforce","resultsurl":"'${actionURL}'"}}' https://platform-notify.platform-notify.services-platdev.x.gcpnp.anz/slack
+  slack-msg:
+    name: Send Slack Message
+    if: ${{ always() && (needs.checkmarx-scan.result == 'success' || needs.checkmarx-scan.result == 'failure') }}
+    needs: [checkmarx-scan]
+    uses: ./.github/workflows/_prepare_notification.yaml
+    with:
+      job_name: "Checkmarx"
+      job_status: "${{ needs.checkmarx-scan.result }}"
+      slack_channel: "sf-security"

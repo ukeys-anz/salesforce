@@ -1,0 +1,1504 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>A_Z_Reviews_Records_Start</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>********* A-Z Reviews Records Start *******
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Iterate_Over_A_Z_Reviews</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>A-Z Reviews Records Start</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
+        <name>CLG_Extra_Care_Data</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>****** EXTRA CARE ALERT *****
+Show Extra Care Alert : True;
+Extra Care Message : There is at least one related Extra Care customer, please review the customer profile for additional details.
+**** END***
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Opportunity_Record_Type</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>CLG Extra Care Data</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
+        <name>Customer_Relationship_Records</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>********Customer Relationship Records Start *******
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_over_Customer_Relationship</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>Customer Relationship Records</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
+        <name>End_of_Suggested_Task</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>******* Suggested Task End *****
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Opportunity_Records_Start</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>End of Suggested Task</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
+        <name>Extra_Care_Data</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>****** EXTRA CARE ALERT *****
+Show Extra Care Alert : True;
+Extra Care Message : This customer currently has an &lt;b&gt;active Extra Care Alert&lt;/b&gt; due to the following reasons: &lt;b&gt;{!accountRecord.ExtraCareReason__c}&lt;/b&gt;.
+**** END***
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Opportunity_Record_Type</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>Extra Care Data</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
+        <name>Interaction_Count</name>
+        <assignmentItems>
+            <assignToReference>interactionCount</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Is_No_of_Interaction_20</targetReference>
+        </connector>
+        <label>Interaction Count</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
+        <name>Interaction_Records_Start</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>********* Interaction Records Start *******
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Intearctions</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>Interaction Records Start</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
+        <name>Lead_Records_Start</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>********* Lead Records Start *******
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Iterate_Over_Leads</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>Lead Records Start</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
+        <name>NO_NPS_Records</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>-NPS Data Not Available
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Iterate_Over_A_Z_Reviews</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>NO NPS Records</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
+        <name>Opportunity_Records_Start</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>********* Opportunity Records Start *******
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Iterate_over_Opportunities</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>Opportunity Records Start</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
+        <name>Pass_A_Z_Reviews_Data</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>AZReviewId: {!Suggested_Task_for_AZ_Reviews.Id}
+Name :{!Suggested_Task_for_AZ_Reviews.Name},
+Business Details :{!Suggested_Task_for_AZ_Reviews.Business_Details__c},
+{!Suggested_Task_for_AZ_Reviews.Borrowing_OFI_Relationship__c} 
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Suggested_Task_for_AZ_Reviews</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>Pass A-Z Reviews Data</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
+        <name>Pass_Customer_Relationship</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Id : {!Loop_over_Customer_Relationship.Id},
+Name : {!Loop_over_Customer_Relationship.Name}
+***Account Plan Section***
+Private Banker Advisor : {!Loop_over_Customer_Relationship.Private_Banker_Advisor__r.Name},
+Customer Areas of Interest: {!Loop_over_Customer_Relationship.Customer_Areas_of_Interest__c},
+Priorities and Objectives: {!Loop_over_Customer_Relationship.Priorities_and_Objectives__c},
+Other Account Plan Information: {!Loop_over_Customer_Relationship.Other_Account_Plan_Information__c},
+ANZ Opportunities: {!Loop_over_Customer_Relationship.ANZ_Opportunities__c},
+Competitive Landscape and ANZ’s Relative:{!Loop_over_Customer_Relationship.Competitive_Landscape_and_ANZ_Relative__c},
+********** Account Plan End********
+Notes :{!Loop_over_Customer_Relationship.Notes__c}
+Personal Background : {!Loop_over_Customer_Relationship.Personal_Background__c},
+Financial/Wealth Background : {!Loop_over_Customer_Relationship.Financial_Wealth_Background__c},
+Business/Investment Background :{!Loop_over_Customer_Relationship.Business_Investment_Background__c},
+Key Person 1 :{!Loop_over_Customer_Relationship.Key_Person_1__r.Name},
+Key Person 2 :{!Loop_over_Customer_Relationship.Key_Person_2__r.Name},
+Additional Details :{!Loop_over_Customer_Relationship.Additional_Details__c},
+Status:{!Loop_over_Customer_Relationship.Status__c}
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_over_Customer_Relationship</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>Pass Customer Relationship</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
+        <name>Pass_Interaction_Data_for_suggested_Task</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Interaction Id : {!loopinteractionsforsuggestedTask.Id}
+Interaction Name : {!loopinteractionsforsuggestedTask.Name},
+Interaction Summary : {!loopinteractionsforsuggestedTask.Optional_Notes__c},
+Interaction Type :{!loopinteractionsforsuggestedTask.InteractionType},
+Start Time :{!loopinteractionsforsuggestedTask.StartTime},
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>loopinteractionsforsuggestedTask</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>Pass Interaction Data for suggested Task</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
+        <name>Pass_Survey_Response_Data</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>******Survey Response (NPS)****
+Survey Id : {!Get_Survey_Response.Id},
+Survey Response Name :{!Get_Survey_Response.Name},
+Date Created :{!Get_Survey_Response.qualtrics__Date_Responded__c},
+Advocacy Rating :{!Get_Survey_Response.qualtrics__Net_Promoter_Score__c},
+Customer Feedback :{!Get_Survey_Response.Customer_Feedback__c}.
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Iterate_Over_A_Z_Reviews</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>Pass Survey Response Data</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
+        <name>Pass_Task_Records</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>*******OPEN TASKS********
+Task Id :{!Loop_over_Tasks.Id}
+Subject :{!Loop_over_Tasks.Subject}
+Due Date :{!Loop_over_Tasks.ActivityDate}
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_over_Tasks</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>Pass Task Records</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
+        <name>send_A_Z_Reviews_Data</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>A_Z Reviews ID : {!Iterate_Over_A_Z_Reviews.Id}
+Name :{!Iterate_Over_A_Z_Reviews.Name},
+Business Details :{!Iterate_Over_A_Z_Reviews.Business_Details__c},
+******************
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Survey_Response</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>Pass A-Z Reviews Data</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
+        <name>Send_Interaction_Data</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Interaction Id : {!Loop_Intearctions.Id}
+Interaction Name : {!Loop_Intearctions.Name},
+Interaction Summary : {!Loop_Intearctions.Optional_Notes__c},
+Interaction Type :{!Loop_Intearctions.InteractionType},
+Start Time :{!Loop_Intearctions.StartTime},
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Intearctions</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>Pass Interaction Data</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
+        <name>Send_Lead_Data</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>ID : {!Iterate_Over_Leads.Id},
+Lead Name :{!Iterate_Over_Leads.Name},
+Response Status : {!Iterate_Over_Leads.SubStatus__c},
+Status :{!Iterate_Over_Leads.Status},
+Referral Status:{!Iterate_Over_Leads.Referral_Status__c},
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Iterate_Over_Leads</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>Pass Lead Data</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
+        <name>send_Opportunity_details</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>ID : {!Iterate_over_Opportunities.Id},
+Opportunity Name :{!Iterate_over_Opportunities.Name},
+Opportunity Owner : {!Get_Owner_Name.Name},
+Amount : {!Iterate_over_Opportunities.Amount},
+Approved Amount : {!Iterate_over_Opportunities.Approved_Amount__c}
+Closed Date :{!Iterate_over_Opportunities.CloseDate},
+Stage Name :{!Iterate_over_Opportunities.StageName},
+Lost Reason :{!Iterate_over_Opportunities.Lost_Reason__c},
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Product</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>Pass opportunity details</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
+        <name>Send_Product_Details</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Opportunity Product Name :{!Loop_Over_Products.Product2.Name},
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Over_Products</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>Send Product Details</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
+        <name>Suggested_Task</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>******* Suggested Task Records *****
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>loopinteractionsforsuggestedTask</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>Suggested Task</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
+        <name>Total_Interaction_Count</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Total number of interactions :{!interactionCount}
+
+UserDate :{!GenerationTimeDate}
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Suggested_Task</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>Total Interaction Count</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <decisions>
+        <name>Check_Extra_Care_Permission</name>
+        <defaultConnector>
+            <targetReference>Get_Opportunity_Record_Type</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No Extra Care Access</defaultConnectorLabel>
+        <description>Does user have Extra Care permission?</description>
+        <label>Check Extra Care Permission</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <rules>
+            <name>Has_Extra_Care_Access</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Permission.ExtracareReadOnly</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Has_Extra_Care_Alert2</targetReference>
+            </connector>
+            <label>Has Extra Care Access</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>check_for_Last_6_Months_AZ_Reviews</name>
+        <defaultConnector>
+            <targetReference>Suggested_Task_for_AZ_Reviews</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <label>check for Last 6 Months AZ Reviews</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <rules>
+            <name>Last_6_Months_AZ_Reviews</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Suggested_Task_for_AZ_Reviews.CreatedDate</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <elementReference>SixMonthsAgoDate</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Pass_A_Z_Reviews_Data</targetReference>
+            </connector>
+            <label>Last 6 Months AZ Reviews</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>check_for_Last_6_Months_Interactions</name>
+        <defaultConnector>
+            <targetReference>loopinteractionsforsuggestedTask</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <label>check for Last 6 Months Interactions</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <rules>
+            <name>Last_6_Months_Interactions</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>loopinteractionsforsuggestedTask.StartTime</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <elementReference>SixMonthsAgoDate</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Pass_Interaction_Data_for_suggested_Task</targetReference>
+            </connector>
+            <label>Last 6 Months Interactions</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_for_PB_User</name>
+        <defaultConnector>
+            <targetReference>Interaction_Records_Start</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <label>Check for PB User ?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <rules>
+            <name>PB_User</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$User.Commercial_Segment__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>PB</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Customer_Relationship_Records</targetReference>
+            </connector>
+            <label>PB User</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_the_Customer_Record_Type</name>
+        <defaultConnector>
+            <targetReference>Interaction_Records_Start</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Other</defaultConnectorLabel>
+        <label>Check the Customer Record Type</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <rules>
+            <name>CLG</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Account_Record_Type.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>CLG</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Interaction_Records_for_CLG</targetReference>
+            </connector>
+            <label>CLG</label>
+        </rules>
+        <rules>
+            <name>Organisation_Individual</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Account_Record_Type.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Business_Account</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Account_Record_Type.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>IndustriesIndividual</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Account_Record_Type.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>PersonAccount</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Interaction_Records_of_Organisation</targetReference>
+            </connector>
+            <label>Organisation/Individual</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Has_Any_Related_Customer_Extra_Care_Alert</name>
+        <defaultConnector>
+            <targetReference>Get_Opportunity_Record_Type</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <label>Has Any Related Customer Extra Care Alert?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <rules>
+            <name>Has_Extra_Care_Alert</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Related_Customers</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>CLG_Extra_Care_Data</targetReference>
+            </connector>
+            <label>Has Extra Care Alert</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Has_Extra_Care_Alert2</name>
+        <defaultConnector>
+            <targetReference>Get_Related_Customers</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <label>Has Extra Care Alert?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <rules>
+            <name>Has_Extra_Alert</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>accountRecord.ExtraCareTimePeriod__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>accountRecord.ExtraCareTimePeriod__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Not required</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Extra_Care_Data</targetReference>
+            </connector>
+            <label>Has Extra Alert</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Flow_disabled</name>
+        <defaultConnector>
+            <targetReference>Get_Account_Record_Type</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <description>To check the flow is disabled for User/Profile using Salesforce_Library_Settings__c Custom setting</description>
+        <label>Is Flow disabled?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <rules>
+            <name>Disabled</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Setup.Salesforce_Library_Settings__c.Disable_Flows__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Disabled</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_No_of_Interaction_20</name>
+        <defaultConnector>
+            <targetReference>Loop_Intearctions</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <label>Is No. of Interaction &lt;= 20 ?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>interactionCount</leftValueReference>
+                <operator>LessThanOrEqualTo</operator>
+                <rightValue>
+                    <numberValue>20.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Interaction_Data</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>Suggested Task</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>GenerationTimeDate</name>
+        <dataType>DateTime</dataType>
+        <expression>{!$Flow.CurrentDateTime}</expression>
+    </formulas>
+    <formulas>
+        <name>SixMonthsAgoDate</name>
+        <dataType>Date</dataType>
+        <expression>TODAY() - 180</expression>
+    </formulas>
+    <formulas>
+        <name>ThreeMonthsAgoDate</name>
+        <dataType>Date</dataType>
+        <expression>TODAY() - 90</expression>
+    </formulas>
+    <formulas>
+        <name>TwoYearsAgoDate</name>
+        <dataType>Date</dataType>
+        <expression>TODAY() - 730</expression>
+    </formulas>
+    <interviewLabel>Fetch Client Interaction for Prompt {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Fetch Client Interaction for Prompt</label>
+    <loops>
+        <name>Iterate_Over_A_Z_Reviews</name>
+        <collectionReference>A_Z_ReviewRecords</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <label>Iterate Over A-Z Reviews</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <nextValueConnector>
+            <targetReference>send_A_Z_Reviews_Data</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Open_Tasks</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
+        <name>Iterate_Over_Leads</name>
+        <collectionReference>leadRecords</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <label>Iterate Over Leads</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <nextValueConnector>
+            <targetReference>Send_Lead_Data</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>A_Z_Reviews_Records_Start</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
+        <name>Iterate_over_Opportunities</name>
+        <collectionReference>opportunityRecords</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <label>Iterate over Opportunities</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <nextValueConnector>
+            <targetReference>Get_Owner_Name</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Lead_Records_Start</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
+        <name>Loop_Intearctions</name>
+        <collectionReference>InteractionList</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <label>Loop Intearctions</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <nextValueConnector>
+            <targetReference>Interaction_Count</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Total_Interaction_Count</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
+        <name>Loop_over_Customer_Relationship</name>
+        <collectionReference>Get_Customer_Relationship_Records</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <label>Loop over Customer Relationship</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <nextValueConnector>
+            <targetReference>Pass_Customer_Relationship</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Interaction_Records_Start</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
+        <name>Loop_Over_Products</name>
+        <collectionReference>Get_Product</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <label>Loop Over Products</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <nextValueConnector>
+            <targetReference>Send_Product_Details</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Iterate_over_Opportunities</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
+        <name>Loop_over_Tasks</name>
+        <collectionReference>Open_Tasks</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <label>Loop over Tasks</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <nextValueConnector>
+            <targetReference>Pass_Task_Records</targetReference>
+        </nextValueConnector>
+    </loops>
+    <loops>
+        <name>loopinteractionsforsuggestedTask</name>
+        <collectionReference>InteractionList</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <label>loop interactions for suggested Task</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <nextValueConnector>
+            <targetReference>check_for_Last_6_Months_Interactions</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Suggested_Task_for_AZ_Reviews</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
+        <name>Suggested_Task_for_AZ_Reviews</name>
+        <collectionReference>A_Z_ReviewRecords</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <label>Suggested Task for AZ Reviews</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <nextValueConnector>
+            <targetReference>check_for_Last_6_Months_AZ_Reviews</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>End_of_Suggested_Task</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>PromptFlow</processType>
+    <recordLookups>
+        <name>Get_A_Z_Reviews</name>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Opportunity_Records</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Customer__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>accountRecord.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>CreatedDate</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <elementReference>TwoYearsAgoDate</elementReference>
+            </value>
+        </filters>
+        <label>Get A-Z Reviews</label>
+        <limit>
+            <numberValue>15.0</numberValue>
+        </limit>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <object>A_Z_Review__c</object>
+        <outputReference>A_Z_ReviewRecords</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <queriedFields>Business_Details__c</queriedFields>
+        <queriedFields>CreatedDate</queriedFields>
+        <queriedFields>Borrowing_OFI_Relationship__c</queriedFields>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_A_Z_Reviews_for_CLG</name>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Opportunity_Records_for_CLG</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>CLGCustomer__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>accountRecord.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>CreatedDate</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <elementReference>TwoYearsAgoDate</elementReference>
+            </value>
+        </filters>
+        <label>Get A-Z Reviews for CLG</label>
+        <limit>
+            <numberValue>15.0</numberValue>
+        </limit>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <object>A_Z_Review__c</object>
+        <outputReference>A_Z_ReviewRecords</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <queriedFields>Business_Details__c</queriedFields>
+        <queriedFields>CreatedDate</queriedFields>
+        <queriedFields>Borrowing_OFI_Relationship__c</queriedFields>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Account_Record_Type</name>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_Extra_Care_Permission</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>accountRecord.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <label>Get Account Record Type</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Customer_Relationship_Records</name>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Customer_Relationship_Records</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Customer__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>accountRecord.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <label>Get Customer Relationship Records</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <object>Customer_Relationship__c</object>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Interaction_Records_for_CLG</name>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_A_Z_Reviews_for_CLG</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>CLGCustomer__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>accountRecord.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>StartTime</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <elementReference>TwoYearsAgoDate</elementReference>
+            </value>
+        </filters>
+        <label>Get Interaction Records for CLG</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <object>Interaction</object>
+        <outputReference>InteractionList</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <queriedFields>Optional_Notes__c</queriedFields>
+        <queriedFields>StartTime</queriedFields>
+        <queriedFields>InteractionType</queriedFields>
+        <sortField>StartTime</sortField>
+        <sortOrder>Desc</sortOrder>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Interaction_Records_of_Organisation</name>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_A_Z_Reviews</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>accountRecord.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>StartTime</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <elementReference>TwoYearsAgoDate</elementReference>
+            </value>
+        </filters>
+        <label>Get Interaction Records of Organisation</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <object>Interaction</object>
+        <outputReference>InteractionList</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <queriedFields>Optional_Notes__c</queriedFields>
+        <queriedFields>StartTime</queriedFields>
+        <queriedFields>InteractionType</queriedFields>
+        <sortField>StartTime</sortField>
+        <sortOrder>Desc</sortOrder>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Lead_Records</name>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Interaction_Records_Start</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>FinServ__RelatedAccount__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>accountRecord.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>CreatedDate</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <elementReference>TwoYearsAgoDate</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Lead_Outcome__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Expired</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>IsConverted</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <label>Get Lead Records</label>
+        <limit>
+            <numberValue>20.0</numberValue>
+        </limit>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <object>Lead</object>
+        <outputReference>leadRecords</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <queriedFields>SubStatus__c</queriedFields>
+        <queriedFields>Status</queriedFields>
+        <queriedFields>Referral_Status__c</queriedFields>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Lead_Records_for_CLG</name>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_for_PB_User</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>CLG_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>accountRecord.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>CreatedDate</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <elementReference>TwoYearsAgoDate</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Lead_Outcome__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Expired</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>IsConverted</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <label>Get Lead Records for CLG</label>
+        <limit>
+            <numberValue>20.0</numberValue>
+        </limit>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <object>Lead</object>
+        <outputReference>leadRecords</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <queriedFields>SubStatus__c</queriedFields>
+        <queriedFields>Status</queriedFields>
+        <queriedFields>Referral_Status__c</queriedFields>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Opportunity_Record_Type</name>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_the_Customer_Record_Type</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>SobjectType</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Opportunity</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Commercial_Opportunity</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <label>Get Opportunity Record Type</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <object>RecordType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Opportunity_Records</name>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Lead_Records</targetReference>
+        </connector>
+        <description>Fetches related Opportunity</description>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>accountRecord.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>CreatedDate</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <elementReference>TwoYearsAgoDate</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>RecordTypeId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Opportunity_Record_Type.Id</elementReference>
+            </value>
+        </filters>
+        <label>Get Opportunity Records</label>
+        <limit>
+            <numberValue>20.0</numberValue>
+        </limit>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <object>Opportunity</object>
+        <outputReference>opportunityRecords</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <queriedFields>Amount</queriedFields>
+        <queriedFields>OwnerId</queriedFields>
+        <queriedFields>StageName</queriedFields>
+        <queriedFields>CloseDate</queriedFields>
+        <queriedFields>Customer_Needs__c</queriedFields>
+        <queriedFields>Lost_Reason__c</queriedFields>
+        <queriedFields>Approved_Amount__c</queriedFields>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Opportunity_Records_for_CLG</name>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Lead_Records_for_CLG</targetReference>
+        </connector>
+        <description>Fetches related Opportunity</description>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>CLG__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>accountRecord.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>CreatedDate</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <elementReference>TwoYearsAgoDate</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>RecordTypeId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Opportunity_Record_Type.Id</elementReference>
+            </value>
+        </filters>
+        <label>Get Opportunity Records for CLG</label>
+        <limit>
+            <numberValue>20.0</numberValue>
+        </limit>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <object>Opportunity</object>
+        <outputReference>opportunityRecords</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <queriedFields>OwnerId</queriedFields>
+        <queriedFields>Customer_Needs__c</queriedFields>
+        <queriedFields>Amount</queriedFields>
+        <queriedFields>CloseDate</queriedFields>
+        <queriedFields>StageName</queriedFields>
+        <queriedFields>Lost_Reason__c</queriedFields>
+        <queriedFields>Approved_Amount__c</queriedFields>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Owner_Name</name>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>send_Opportunity_details</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Iterate_over_Opportunities.OwnerId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <label>Get Owner Name</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <object>User</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Product</name>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_Over_Products</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>OpportunityId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Iterate_over_Opportunities.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <label>Get Product</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <object>OpportunityLineItem</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Related_Customers</name>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Has_Any_Related_Customer_Extra_Care_Alert</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>FinServ__Account__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>accountRecord.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>ExtraCare__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <label>Get Related Customers</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <object>FinServ__AccountAccountRelation__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Survey_Response</name>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Pass_Survey_Response_Data</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>NO_NPS_Records</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>A_Z_Review__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Iterate_Over_A_Z_Reviews.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <label>Get Survey Response</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <object>qualtrics__Survey_Response__c</object>
+        <sortField>qualtrics__Date_Responded__c</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Open_Tasks</name>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_over_Tasks</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>accountRecord.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Open</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>CreatedDate</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <elementReference>ThreeMonthsAgoDate</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <label>Open Tasks</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <connector>
+            <targetReference>Is_Flow_disabled</targetReference>
+        </connector>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <triggerType>Capability</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>A_Z_ReviewRecords</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>A_Z_Review__c</objectType>
+    </variables>
+    <variables>
+        <name>accountRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Account</objectType>
+    </variables>
+    <variables>
+        <name>CLG_relatedCustomerIds</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>interactionCount</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+        <value>
+            <numberValue>0.0</numberValue>
+        </value>
+    </variables>
+    <variables>
+        <name>InteractionList</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Interaction</objectType>
+    </variables>
+    <variables>
+        <name>leadRecords</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Lead</objectType>
+    </variables>
+    <variables>
+        <name>opportunityRecords</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Opportunity</objectType>
+    </variables>
+    <variables>
+        <name>surveyResponseRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>qualtrics__Survey_Response__c</objectType>
+    </variables>
+</Flow>

@@ -26,31 +26,26 @@ public class TransactionHistoryModelV1Test {
       responseJson,
       mapPersonaIdAndCustomerName
     );
-
-    String transactionid = obj.embedded.transactions[0].transaction_id;
-    DateTime expectedDatetime = DateTime.newInstanceGMT(
-      2021,
-      11,
-      12,
-      2,
-      57,
-      58
-    );
-    String testTransactionDateLocal = obj.embedded.transactions[0]
-      .transactionDateLocal;
-    String testTransactionPostedDate = obj.embedded.transactions[0]
-      .transaction_posted_date;
-    Decimal testValue = obj.embedded.transactions[0].Amount.value;
-    System.assert(
-      obj.embedded.transactions != null,
+    Assert.isNotNull(
+      obj.embedded.transactions,
       'Transaction should not be null.'
     );
-    System.assert(obj.embedded.tags != null, 'Tags should not be null');
-    System.assert(
-      obj.embedded.merchants != null,
-      'Merchants should not be null.'
-    );
+    Assert.isNotNull(obj.embedded.tags, 'Tags should not be null');
+    Assert.isNotNull(obj.embedded.merchants, 'Merchants should not be null.');
 
-    System.assertEquals(1, testValue, 'Value should not be null.');
+    // Find VicRoads transaction by transaction_id instead of using index
+    Decimal testValue = null;
+    for (TransactionHistoryModel.Transactions txn : obj.embedded.transactions) {
+      if (txn.transaction_id == '82bfc211-b647-4440-9463-edbf356f5d25') {
+        testValue = txn.amount.value;
+        break;
+      }
+    }
+
+    Assert.areEqual(
+      1,
+      testValue,
+      'Value should match amount.value for VicRoads transaction (UID: 82bfc211-b647-4440-9463-edbf356f5d25) from mock_transactionHistoryV1.json.'
+    );
   }
 }

@@ -67,6 +67,7 @@ for (Account acc : personAccounts) {
     Account_Key__c = acc.OCV_ID__c + faker.randomString(5),
     FinServ__Balance__c = savingAccBalance,
     FinServ__CurrentPostedBalance__c = savingAccBalance,
+    Marketing_Code__c = 'SAVING01',
     RecordTypeId = savingsRTId
   );
   finAccList.add(fin_acc_savings);
@@ -84,15 +85,22 @@ for (Account acc : personAccounts) {
     Account_Key__c = acc.OCV_ID__c + faker.randomString(6),
     FinServ__Balance__c = bankBalance,
     FinServ__CurrentPostedBalance__c = bankBalance,
+    Marketing_Code__c = 'TRANSACT01',
     RecordTypeId = checkingRTId
   );
   finAccList.add(fin_acc_checking);
 
   FinServ__FinancialAccount__c fin_acc_homeloan = new FinServ__FinancialAccount__c(
     Name = acc.FirstName + ' ' + acc.LastName,
+    FinServ__FinancialAccountType__c = 'CAP-CIS:ILS',
     FinServ__PrimaryOwner__c = acc.Id,
     FinServ__FinancialAccountNumber__c = String.valueOf(faker.randomInteger(9)),
+    FinServ__Status__c = 'Active',
+    FinServ__Stage__c = 'Active',
     Account_Key__c = acc.OCV_ID__c + faker.randomString(6),
+    FinServ__Balance__c = bankBalance,
+    FinServ__CurrentPostedBalance__c = bankBalance,
+    Marketing_Code__c = 'HLVAR01',
     RecordTypeId = bankingRTId
   );
   finAccList.add(fin_acc_homeloan);
@@ -112,5 +120,11 @@ finAccList[1].FinServ__FinancialAccountNumber__c = '000000000';
 finAccList[1].BSB__c = '014111';
 finAccList[1].FinServ__Balance__c = 18.00;
 finAccList[1].FinServ__CurrentPostedBalance__c = 18.00;
+
+// H1 Account
+finAccList[2].FinServ__FinancialAccountNumber__c = '390877181';
+finAccList[2].BSB__c = '014111';
+finAccList[2].FinServ__Balance__c = 111111118.00;
+finAccList[2].FinServ__CurrentPostedBalance__c = 111111118.00;
 
 insert finAccList;

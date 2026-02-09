@@ -6,6 +6,7 @@
     <permissionSets>Access_Application_Form_Related_Functionality</permissionSets>
     <permissionSets>CCRM_User_Read_Only</permissionSets>
     <permissionSets>Customer_Authentication_PS</permissionSets>
+    <permissionSets>ExtraCareReadOnly</permissionSets>
     <permissionSets>Financial_Summary_Calculation_Publish</permissionSets>
     <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>
     <permissionSets>force__ActionPlans</permissionSets>

@@ -12,6 +12,11 @@ public with sharing class RetailBrokerFinancialAccountAction {
     RetailContactMergeRepository.class
   );
 
+  private static final Set<String> HOME_LOAN_MARKETING_CODES = new Set<String>{
+    'HLVAR01',
+    'HLFXD01'
+  };
+
   /**
    * @description onAfterUpdate to handle after update trigger actions.
    * @param financialAccounts list of Financial Account Records
@@ -21,19 +26,36 @@ public with sharing class RetailBrokerFinancialAccountAction {
     List<FinServ__FinancialAccount__c> financialAccounts,
     String eventType
   ) {
-    Set<Id> accountIds = ListUtil.getIds(
+    List<Product2> products = QueryProducts.getClassicProducts();
+    Set<string> classicProductSubCodes = ListUtil.getStrings(
+      products,
+      Product2.Sub_Product_Code__c
+    );
+    List<FinServ__FinancialAccount__c> classicFinancialAccountsList = filterClassicFinancialAccounts(
       financialAccounts,
+      classicProductSubCodes
+    );
+    List<FinServ__FinancialAccount__c> plusFinancialAccountsList = filterPlusFinancialAccounts(
+      financialAccounts,
+      HOME_LOAN_MARKETING_CODES
+    );
+    List<FinServ__FinancialAccount__c> validRecords = isValidFinancialRecords(
+      classicFinancialAccountsList,
+      plusFinancialAccountsList
+    );
+    Set<Id> accountIds = ListUtil.getIds(
+      validRecords,
       FinServ__FinancialAccount__c.FinServ__PrimaryOwner__c
     );
     Map<Id, Account> accountIdsVsAccounts = ACCOUNT_REPOSITORY.getAccountsWithExternalId(
       accountIds
     );
     Map<Id, Account> finAccountIdsVsAccounts = getFinancialAccountIdsAndAccounts(
-      financialAccounts,
+      validRecords,
       accountIdsVsAccounts
     );
     List<BrokerDataCloudEventModel> cloudEventModels = generateCotractEventModel(
-      financialAccounts,
+      validRecords,
       finAccountIdsVsAccounts,
       eventType
     );
@@ -129,18 +151,12 @@ public with sharing class RetailBrokerFinancialAccountAction {
     List<FinServ__FinancialAccount__c> records,
     Map<Id, FinServ__FinancialAccount__c> oldMap
   ) {
-    Set<SObjectField> brokerFieldsNotNull = new Set<SObjectField>{
-      FinServ__FinancialAccount__c.Assisted_Broker__c,
-      FinServ__FinancialAccount__c.Assisted_Broker_TPMI_SAO__c
-    };
-
     List<FinServ__FinancialAccount__c> recordsToUpdate = ListUtil.filter(
         records,
         oldMap
       )
       .isNotNull(FinServ__FinancialAccount__c.Account_Key__c)
       .changed(FinServ__FinancialAccount__c.Assisted_Broker_TPMI_SAO__c)
-      .anyNotNull(brokerFieldsNotNull)
       .toList();
 
     return processAssistedBrokerPopulation(recordsToUpdate, 'Retail');
@@ -218,5 +234,68 @@ public with sharing class RetailBrokerFinancialAccountAction {
     Logger.info(
       'Financial Account Published' + successEvents.size() + ' Cloud Events'
     );
+  }
+
+  /**
+   * @description Filters out invalid FinServ__FinancialAccount__c based on Sub Product Code
+   * @param financialAccounts  list of financial account records to be filtered.
+   * @param classicProductSubCodes set of classic product sub codes.
+   * @return filtered list of financial account records.
+   */
+  @TestVisible
+  private static List<FinServ__FinancialAccount__c> filterClassicFinancialAccounts(
+    List<FinServ__FinancialAccount__c> financialAccounts,
+    Set<String> classicProductSubCodes
+  ) {
+    List<FinServ__FinancialAccount__c> result = Listutil.filter(
+        financialAccounts
+      )
+      .isNotNull(FinServ__FinancialAccount__c.Assisted_Broker__c)
+      .equals(
+        FinServ__FinancialAccount__c.Sub_product_Code_Display__c,
+        classicProductSubCodes
+      )
+      .toList();
+    return result;
+  }
+
+  /**
+   * @description Filters out invalid FinServ__FinancialAccount__c based on Marketing Code
+   * @param financialAccounts  list of financial account records to be filtered.
+   * @param homeLoanMarketingCodes set of home loan marketing codes.
+   * @return filtered list of financial account records.
+   */
+  @TestVisible
+  private static List<FinServ__FinancialAccount__c> filterPlusFinancialAccounts(
+    List<FinServ__FinancialAccount__c> financialAccounts,
+    Set<String> homeLoanMarketingCodes
+  ) {
+    List<FinServ__FinancialAccount__c> result = Listutil.filter(
+        financialAccounts
+      )
+      .isNotNull(FinServ__FinancialAccount__c.Assisted_Broker__c)
+      .equals(
+        FinServ__FinancialAccount__c.Marketing_Code__c,
+        homeLoanMarketingCodes
+      )
+      .toList();
+    return result;
+  }
+
+  /**
+   * @description Filters out invalid FinServ__FinancialAccount__c based on Marketing Code and Sub Product Code
+   * @param validCodeFinancialRecords  valid list of financial account based on Marketing code.
+   * @param validProductFinancialRecords valid list of financial account based on Product code.
+   * @return filtered list of financial account records.
+   */
+  @TestVisible
+  private static List<FinServ__FinancialAccount__c> isValidFinancialRecords(
+    List<FinServ__FinancialAccount__c> validCodeFinancialRecords,
+    List<FinServ__FinancialAccount__c> validProductFinancialRecords
+  ) {
+    Map<Id, FinServ__FinancialAccount__c> uniqueRecords = new Map<Id, FinServ__FinancialAccount__c>();
+    uniqueRecords.putAll(validCodeFinancialRecords);
+    uniqueRecords.putAll(validProductFinancialRecords);
+    return uniqueRecords.values();
   }
 }

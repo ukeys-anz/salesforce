@@ -178,7 +178,6 @@
         <fields>FULL_NAME</fields>
         <fields>CONTACT.TITLE</fields>
         <fields>CONTACT.PHONE1</fields>
-        <fields>CONTACT.EMAIL</fields>
         <relatedList>RelatedContactList</relatedList>
     </relatedLists>
     <relatedLists>
@@ -345,6 +344,28 @@
         <fields>Limit__c</fields>
         <fields>Limit_Expiry__c</fields>
         <relatedList>Trade_Finance__x.Customer__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Account_Number__c</fields>
+        <fields>Account_Name__c</fields>
+        <fields>Product_Name__c</fields>
+        <fields>Product_Code__c</fields>
+        <fields>Sub_Product_Code__c</fields>
+        <fields>Balance__c</fields>
+        <fields>Account_Status__c</fields>
+        <fields>Relationship__c</fields>
+        <relatedList>Demand_Account__x.Customer__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Account_Number__c</fields>
+        <fields>Account_Name__c</fields>
+        <fields>Product_Name__c</fields>
+        <fields>Product_Code__c</fields>
+        <fields>Sub_Product_Code__c</fields>
+        <fields>Limit__c</fields>
+        <fields>Status__c</fields>
+        <fields>Relationship__c</fields>
+        <relatedList>Liability_Account__x.Customer__c</relatedList>
     </relatedLists>
     <relatedObjects>ParentId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>

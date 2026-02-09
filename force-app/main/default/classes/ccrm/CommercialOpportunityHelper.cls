@@ -450,9 +450,7 @@ public with sharing class CommercialOpportunityHelper {
     if (String.isNotBlank(customerNeeds)) {
       opportunityName += customerNeeds + ' ';
     }
-    if (oldMap != null && String.isNotBlank(oppName)) {
-      oppName = oppName.left(30);
-    }
+    oppName = String.isNotBlank(oppName) ? oppName.left(30) : oppName;
     if (String.isNotBlank(oppName)) {
       opportunityName += oppName;
     }

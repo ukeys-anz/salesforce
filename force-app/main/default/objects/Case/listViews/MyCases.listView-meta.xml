@@ -14,7 +14,7 @@
     <filterScope>Mine</filterScope>
     <label>My Cases</label>
     <sharedTo>
-        <roleAndSubordinates>ANZ</roleAndSubordinates>
-        <roleAndSubordinates>ANZx</roleAndSubordinates>
+        <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

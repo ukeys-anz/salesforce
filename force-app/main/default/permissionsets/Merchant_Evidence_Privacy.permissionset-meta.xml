@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <classAccesses>
+        <apexClass>DisputesCaseActions</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>DisputesCaseTriggerHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>MerchantEvidenceActions</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>MerchantEvidenceModalController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>MerchantEvidenceTriggerHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <description>Merchant Evidence Privacy permission set to provide record type access of Task</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Merchant Evidence Privacy</label>
+    <recordTypeVisibilities>
+        <recordType>Task.Merchant_Evident_Received</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+</PermissionSet>

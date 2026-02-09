@@ -264,7 +264,6 @@ public with sharing class ContactPointPhoneActions {
           new Set<String>{ ACTIVE_STATUS, INACTIVE_STATUS }
         )
         .equals(Account.Source_System_Name__c, Label.CCRM_Source_System_Name)
-        .equals(Account.ANZx_Customer__c, false)
         .toList();
       existingAccounts = (Map<Id, Account>) ListUtil.mapBy(
         filteredExistingCustomers,

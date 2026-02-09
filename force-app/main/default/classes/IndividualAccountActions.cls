@@ -181,6 +181,7 @@ public with sharing class IndividualAccountActions {
         records,
         oldMap
       )
+      .equals(Account.ANZx_Customer__c, true)
       .changedTo(Account.Display_Name__c, 'EXECUTOR')
       .toList();
 

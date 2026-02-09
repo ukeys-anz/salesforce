@@ -638,6 +638,7 @@ public with sharing class CCRMTestDataFactory {
     clgAccount.FinServ__KYCStatus__c = 'Completed - Valid';
     clgAccount.FinServ__Status__c = 'Active';
     clgAccount.RecordTypeId = CCRMConstants.ACCOUNT_CLG_RT_ID;
+    clgAccount.Source_System_Name__c = System.Label.CCRM_Source_System_Name;
     insert clgAccount;
     return clgAccount;
   }
@@ -670,6 +671,7 @@ public with sharing class CCRMTestDataFactory {
       accnt.BillingState = 'Victoria';
       accnt.BillingCountry = 'AUS';
       accnt.FinServ__Status__c = 'Prospect';
+      accnt.Source_System_Name__c = System.Label.CCRM_Source_System_Name;
       accountList.add(accnt);
     }
     insert accountList;
@@ -696,6 +698,7 @@ public with sharing class CCRMTestDataFactory {
     accnt.FinServ__TotalFinAcctsPrimaryOwner__c = 200;
     accnt.External_Id__c = faker.randomString(10);
     accnt.RecordTypeId = CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID;
+    accnt.Source_System_Name__c = System.Label.CCRM_Source_System_Name;
     //Rollup summary hardcoded to 200, as it doesn't work in test scenarios and is not the focus of these test cases
     insert accnt;
 
@@ -707,7 +710,7 @@ public with sharing class CCRMTestDataFactory {
     leadRecord.Company = 'Test Company';
     leadRecord.Registered_Company__c = 'No';
     leadRecord.Expiry_Date__c = System.today() + 10;
-    leadRecord.FinServ__ExpressedInterest__c = 'Purchasing Property';
+    leadRecord.FinServ__ExpressedInterest__c = 'Commercial Lending';
     leadRecord.FinServ__PotentialValue__c = 12000;
     leadRecord.FirstName = 'Sam' + staticNumber;
     leadRecord.LastName = 'Jacob';
@@ -780,6 +783,7 @@ public with sharing class CCRMTestDataFactory {
     accnt.Name = 'System Customer';
     accnt.OCV_ID__c = faker.randomString(10);
     accnt.RecordTypeId = CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID;
+    accnt.Source_System_Name__c = System.Label.CCRM_Source_System_Name;
     insert accnt;
 
     Financial_Account_Settings__c faSettings = Financial_Account_Settings__c.getOrgDefaults();
@@ -855,6 +859,7 @@ public with sharing class CCRMTestDataFactory {
     accnt.Source_System_Name__c = 'CAP';
     accnt.Finserv__KYCStatus__c = 'CO';
     accnt.FinServ__Status__c = 'Active';
+    accnt.Source_System_Name__c = System.Label.CCRM_Source_System_Name;
     insert accnt;
 
     return accnt;
@@ -896,7 +901,7 @@ public with sharing class CCRMTestDataFactory {
       leadRecord.Company = 'Test Company';
       leadRecord.Registered_Company__c = 'No';
       leadRecord.Expiry_Date__c = System.today() + 10;
-      leadRecord.FinServ__ExpressedInterest__c = 'Purchasing Property';
+      leadRecord.FinServ__ExpressedInterest__c = 'Commercial Lending';
       leadRecord.FinServ__PotentialValue__c = 12000;
       leadRecord.FirstName = 'Sam' + staticNumber;
       leadRecord.LastName = 'Jacob';
@@ -1108,6 +1113,7 @@ public with sharing class CCRMTestDataFactory {
     objAccount.FinServ__KYCStatus__c = 'Completed - Valid';
     objAccount.FinServ__Status__c = 'Active';
     objAccount.RecordTypeId = RTAccount.businessAccount;
+    objAccount.Source_System_Name__c = System.Label.CCRM_Source_System_Name;
     insert objAccount;
 
     List<Opportunity> newOpps = new List<Opportunity>();

@@ -6,7 +6,8 @@
     <description>Traffic Light Indicator for Lead Expiry</description>
     <externalId>false</externalId>
     <formula>IF(
-    OR(ISPICKVAL(Status,&quot;Referred&quot;),  ISPICKVAL(Status, &quot;No Opportunity&quot;) , ISPICKVAL(Status, &quot;Converted&quot;)), 
+    OR(ISPICKVAL(Status,&quot;Referred&quot;),  ISPICKVAL(Status, &quot;No Opportunity&quot;) , ISPICKVAL(Status, &quot;Converted&quot;),
+	   ISPICKVAL(Status, &quot;Outcome&quot;)),
     &apos;&apos;, 
     IMAGE( 
         IF(  Expiry_Date__c  &gt;=  TODAY(), 

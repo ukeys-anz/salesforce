@@ -68,10 +68,6 @@
                 <behavior>Required</behavior>
                 <field>Authentication_Method__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Video_Call__c</field>
-            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>

@@ -20,6 +20,6 @@
     <filterScope>Mine</filterScope>
     <label>Closed Referrals I&apos;m Assigned</label>
     <sharedTo>
-        <roleAndSubordinates>Engineer</roleAndSubordinates>
+        <roleAndSubordinatesInternal>Engineer</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

@@ -15,12 +15,32 @@ public with sharing class FinancialAccountEntities {
     public String offSet;
     public String pageSize;
     public String nextPageId;
+    public String startDate;
+    public String endDate;
     //Detail request payload
     public String accountNumber;
     public String compositeAccountNumber;
     public String fieldSet;
     public String type;
     public String compositeBalanceHistoryId;
+  }
+
+  /**
+   * @description Cache Account Payload class
+   */
+  public class CacheAccountPayload extends ExternalObjectQueryBase.PayloadBase {
+    //Summary request payload
+    public List<AccountFilter> accounts;
+    //Detail request payload
+    public AccountFilter account;
+  }
+
+  /**
+   * @description AccountFilter class
+   */
+  public class AccountFilter {
+    public String productCode;
+    public String accountNumber;
   }
 
   /**
@@ -46,6 +66,7 @@ public with sharing class FinancialAccountEntities {
       Set<String> accountNumbers
     ) {
       super(queryContext, queryMode);
+      this.timeout = 60000;
       this.productCategory = productCategory;
       this.payload = new FinancialAccountPayload();
       if (this.isSummaryRequest()) {
@@ -64,7 +85,8 @@ public with sharing class FinancialAccountEntities {
       }
     }
     public override String getEndpoint() {
-      return this.productCategory + '-accounts';
+      String host = Label.Financial_Account_Endpoint;
+      return host + this.productCategory + '-accounts';
     }
   }
 

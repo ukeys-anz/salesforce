@@ -37,6 +37,10 @@ public with sharing class GetHelpConstants {
     .get('BPAY_Dispute')
     .getRecordTypeId();
 
+  public static final Id BANK_POST_DISPUTE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('Bank_Post_Dispute')
+    .getRecordTypeId();
+
   public static final Id COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('ANZx_Complaint')
     .getRecordTypeId();

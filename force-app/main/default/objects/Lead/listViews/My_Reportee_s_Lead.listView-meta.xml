@@ -21,9 +21,19 @@
         <operation>equals</operation>
         <value>1</value>
     </filters>
+    <filters>
+        <field>LEAD.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Lead.CCRM_Lead</value>
+    </filters>
+    <filters>
+        <field>LEAD.STATUS</field>
+        <operation>equals</operation>
+        <value>Assigned,In progress</value>
+    </filters>
     <filterScope>Everything</filterScope>
     <label>My Reportee&apos;s Lead</label>
     <sharedTo>
-        <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+        <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

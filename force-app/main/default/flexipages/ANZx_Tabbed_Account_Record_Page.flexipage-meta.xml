@@ -543,6 +543,32 @@
                 <identifier>force_detailPanel</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Account.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>PersonDigitalIdentities__r</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>ADVGRID</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>rowsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer</identifier>
+            </componentInstance>
+        </itemInstances>
         <name>column4</name>
         <type>Region</type>
     </flexiPageRegions>
@@ -976,6 +1002,9 @@
                         </valueListItems>
                         <valueListItems>
                             <value>Is_ANZx_Account__c|EQUALS|true</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>External_Id__c|NOT_EQUAL|</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>

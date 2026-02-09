@@ -166,7 +166,7 @@ private class LeadManagementActionsTest {
     leadRecord.Description = 'Need a new Credit Card';
     leadRecord.Registered_Company__c = 'No';
     leadRecord.Expiry_Date__c = System.today() + 10;
-    leadRecord.FinServ__ExpressedInterest__c = 'Purchasing Property';
+    leadRecord.FinServ__ExpressedInterest__c = 'Commercial Lending';
     leadRecord.FinServ__PotentialValue__c = 12000;
     leadRecord.FirstName = 'Sam1';
     leadRecord.LastName = 'Jacob';
@@ -182,7 +182,7 @@ private class LeadManagementActionsTest {
     leadRecord2.Description = 'Need a new Credit Card';
     leadRecord2.Registered_Company__c = 'No';
     leadRecord2.Expiry_Date__c = System.today() + 10;
-    leadRecord2.FinServ__ExpressedInterest__c = 'Purchasing Property';
+    leadRecord2.FinServ__ExpressedInterest__c = 'Commercial Lending';
     leadRecord2.FinServ__PotentialValue__c = 12000;
     leadRecord2.FirstName = 'Sam2';
     leadRecord2.LastName = 'Jacob';
@@ -198,7 +198,7 @@ private class LeadManagementActionsTest {
     leadRecord3.Description = 'Need a new Credit Card';
     leadRecord3.Registered_Company__c = 'No';
     leadRecord3.Expiry_Date__c = System.today() + 10;
-    leadRecord3.FinServ__ExpressedInterest__c = 'Purchasing Property';
+    leadRecord3.FinServ__ExpressedInterest__c = 'Commercial Lending';
     leadRecord3.FinServ__PotentialValue__c = 12000;
     leadRecord3.FirstName = 'Sam3';
     leadRecord3.LastName = 'Jacob';
@@ -536,7 +536,7 @@ private class LeadManagementActionsTest {
     leadRecord.Description = 'Need a new Credit Card';
     leadRecord.Registered_Company__c = 'No';
     leadRecord.Expiry_Date__c = System.today() + 10;
-    leadRecord.FinServ__ExpressedInterest__c = 'Purchasing Property';
+    leadRecord.FinServ__ExpressedInterest__c = 'Commercial Lending';
     leadRecord.FinServ__PotentialValue__c = 12000;
     leadRecord.FirstName = 'Adobe Ingested';
     leadRecord.LastName = 'Lead1';
@@ -580,7 +580,7 @@ private class LeadManagementActionsTest {
     leadRecord.Description = 'Need a new Credit Card';
     leadRecord.Registered_Company__c = 'No';
     leadRecord.Expiry_Date__c = System.today() + 10;
-    leadRecord.FinServ__ExpressedInterest__c = 'Purchasing Property';
+    leadRecord.FinServ__ExpressedInterest__c = 'Commercial Lending';
     leadRecord.FinServ__PotentialValue__c = 12000;
     leadRecord.FirstName = 'Unica Ingested';
     leadRecord.LastName = 'Lead';
@@ -633,7 +633,7 @@ private class LeadManagementActionsTest {
       leadRecord.Description = 'Need a new Credit Card';
       leadRecord.Registered_Company__c = 'No';
       leadRecord.Expiry_Date__c = System.today() + 10;
-      leadRecord.FinServ__ExpressedInterest__c = 'Purchasing Property';
+      leadRecord.FinServ__ExpressedInterest__c = 'Commercial Lending';
       leadRecord.FinServ__PotentialValue__c = 12000;
       leadRecord.FirstName = 'Default';
       leadRecord.LastName = 'Campaign';
@@ -1178,6 +1178,8 @@ private class LeadManagementActionsTest {
   static void makeAcnCalloutTest() {
     registerMocks();
     Id leadId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    Lead leadRec = new Lead(Id = leadId, Skip_Validations__c = 'copyLeadId');
+    leadActionRepoMock.mock('getLead', leadRec);
     Test.startTest();
     AbnAcnServiceActions.makeAcnCallout('005357522', leadId);
     Test.stopTest();
@@ -1198,6 +1200,8 @@ private class LeadManagementActionsTest {
   static void makeAbnCalloutTest() {
     registerMocks();
     Id leadId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    Lead leadRec = new Lead(Id = leadId, Skip_Validations__c = 'copyLeadId');
+    leadActionRepoMock.mock('getLead', leadRec);
     Test.startTest();
     AbnAcnServiceActions.makeAbnCallout('005357522', leadId);
     Test.stopTest();
@@ -1221,8 +1225,10 @@ private class LeadManagementActionsTest {
       Id = Lib_FakeIdGenerator.getMockId(Lead.SObjectType),
       ABN__c = '005357522',
       ACN__c = '005357522',
-      Registered_Company__c = 'Yes'
+      Registered_Company__c = 'Yes',
+      Skip_Validations__c = 'copyLeadId'
     );
+    leadActionRepoMock.mock('getLead', leadRec);
     Test.startTest();
     AbnAcnServiceActions.validateAbnAcnForCallout(
       new List<Lead>{ leadRec },

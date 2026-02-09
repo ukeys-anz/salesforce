@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Q1_Rationale__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Captures the rationale for the relevant resolution assessment question</description>
+    <label>Q1 Rationale</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>ID_d_cust_experiencing_vulnerability__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Customer vulnerability recorded in CMOS &apos;Priority&apos; field and/or Extra Care Flag</fullName>
+                <default>false</default>
+                <label>Customer vulnerability recorded in CMOS &apos;Priority&apos; field and/or Extra Care Flag</label>
+            </value>
+            <value>
+                <fullName>Customer vulnerability not identified and/or recorded on file</fullName>
+                <default>false</default>
+                <label>Customer vulnerability not identified and/or recorded on file</label>
+            </value>
+            <value>
+                <fullName>Customer vulnerability included in call or case notes only, but not flagged as priority in CMOS and/or Extra Care Flag unmarked</fullName>
+                <default>false</default>
+                <label>Customer vulnerability included in call or case notes only, but not flagged as priority in CMOS and/or Extra Care Flag unmarked</label>
+            </value>
+            <value>
+                <fullName>CMOS file edit history indicates priority / ECF field not updated when vulnerability was first identifiable</fullName>
+                <default>false</default>
+                <label>CMOS file edit history indicates priority / ECF field not updated when vulnerability was first identifiable</label>
+            </value>
+            <value>
+                <fullName>Customer not experiencing vulnerability</fullName>
+                <default>false</default>
+                <label>Customer not experiencing vulnerability</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>Customer vulnerability recorded in CMOS &apos;Priority&apos; field and/or Extra Care Flag</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Customer vulnerability not identified and/or recorded on file</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Customer vulnerability included in call or case notes only, but not flagged as priority in CMOS and/or Extra Care Flag unmarked</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met (Out of Case Handler’s control)</controllingFieldValue>
+            <valueName>CMOS file edit history indicates priority / ECF field not updated when vulnerability was first identifiable</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Applicable</controllingFieldValue>
+            <valueName>Customer not experiencing vulnerability</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

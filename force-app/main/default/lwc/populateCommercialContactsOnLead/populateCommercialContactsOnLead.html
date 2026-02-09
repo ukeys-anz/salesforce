@@ -1,0 +1,43 @@
+<template>
+  <lightning-quick-action-panel header="Update Related Individual Profile">
+    <div class="datatable-container slds-p-around_medium slds-relative">
+      <template lwc:if={isLoading}>
+        <div class="slds-spinner_container">
+          <lightning-spinner
+            alternative-text="Loading"
+            variant="brand"
+          ></lightning-spinner>
+        </div>
+      </template>
+      <template if:true={showTable}>
+        <lightning-datatable
+          key-field="Id"
+          data={individualCustomerList}
+          columns={columns}
+          max-row-selection="1"
+          onrowselection={handleRowSelection}
+        >
+        </lightning-datatable>
+        <div class="slds-m-top_medium slds-text-align_right">
+          <lightning-button
+            label="Cancel"
+            variant="neutral"
+            onclick={handleCancel}
+          >
+          </lightning-button>
+          <lightning-button
+            class="slds-m-left_x-small"
+            label="Link & Update Lead"
+            variant="brand"
+            onclick={handleUpdate}
+            disabled={disableSave}
+          >
+          </lightning-button>
+        </div>
+      </template>
+      <template if:true={showNoRecordsText}>
+        <p>No records found</p>
+      </template>
+    </div>
+  </lightning-quick-action-panel>
+</template>

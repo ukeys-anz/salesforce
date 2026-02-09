@@ -199,6 +199,7 @@ public with sharing class ResidentialLoanApplicationActions {
         records
       )
       .isNotNull(ResidentialLoanApplication.Sync_Status__c)
+      .isNotNull(ResidentialLoanApplication.Assisted_Broker__c)
       .notContains(
         ResidentialLoanApplication.Sync_Status__c,
         SYNC_STATUS_BLOCKED
@@ -242,11 +243,15 @@ public with sharing class ResidentialLoanApplicationActions {
     List<ResidentialLoanApplication> records,
     Map<Id, ResidentialLoanApplication> oldMap
   ) {
+    Set<SObjectField> brokerFieldsNotNull = new Set<SObjectField>{
+      ResidentialLoanApplication.Assisted_Broker__c,
+      ResidentialLoanApplication.Assisted_Broker_TPMI_SAO__c
+    };
     List<ResidentialLoanApplication> recordsToUpdate = ListUtil.filter(
         records,
         oldMap
       )
-      .changed(ResidentialLoanApplication.Assisted_Broker_TPMI_SAO__c)
+      .anyNotNull(brokerFieldsNotNull)
       .toList();
 
     return ResidentialLoanApplicationHelper.processAssistedBrokerPopulation(
@@ -387,9 +392,8 @@ public with sharing class ResidentialLoanApplicationActions {
         continue;
       }
 
-      Loan_Application_Validity__mdt loanApplicationValidityMDT = RLA_REPOSITORY.getLoanApplicationValidityMetadata(
-        recordTypeName,
-        rla.Status
+      Loan_Application_Validity__mdt loanApplicationValidityMDT = QueryLoanApplicationValidity.getByDeveloperName(
+        recordTypeName + '_' + rla.Status
       );
       if (loanApplicationValidityMDT == null) {
         continue;

@@ -5,14 +5,12 @@
     <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Date of when transaction was settled</description>
     <externalDeveloperName>PostDate</externalDeveloperName>
-    <externalId>false</externalId>
-    <isFilteringDisabled>true</isFilteringDisabled>
-    <isNameField>true</isNameField>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Post Date</label>
-    <length>50</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
-    <type>Text</type>
+    <type>Date</type>
     <unique>false</unique>
 </CustomField>

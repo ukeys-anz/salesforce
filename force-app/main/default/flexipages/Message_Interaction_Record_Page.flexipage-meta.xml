@@ -277,16 +277,6 @@
                 <identifier>RecordAuthentication_Method_cField</identifier>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Video_Call__c</fieldItem>
-                <identifier>RecordVideo_Call_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-f5ba9402-62f0-4a37-9c53-d8950e68f88f</name>
         <type>Facet</type>
     </flexiPageRegions>

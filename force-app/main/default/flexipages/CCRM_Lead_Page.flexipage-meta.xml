@@ -9,7 +9,7 @@
                         <valueListItems>
                             <value>Lead.Validate_Address</value>
                             <visibilityRule>
-                                <booleanFilter>((1 AND 2 AND 3 AND 4 AND 5) AND (7 OR 6) AND 8)</booleanFilter>
+                                <booleanFilter>((1 AND 2 AND 3 AND 4 AND 5) AND (7 OR 6 OR 9) AND 8)</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.Status}</leftValue>
                                     <operator>NE</operator>
@@ -50,12 +50,17 @@
                                     <operator>EQUAL</operator>
                                     <rightValue>false</rightValue>
                                 </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Profile_Name__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>ANZ CCRM Standard Automation User</rightValue>
+                                </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>Lead.Convert_Commercial_Lead_Aura</value>
                             <visibilityRule>
-                                <booleanFilter>((1 AND 2 AND 3) AND (5 OR 4 OR 7) AND 6)</booleanFilter>
+                                <booleanFilter>((1 AND 2 AND 3) AND (5 OR 4 OR 7 OR 8) AND 6)</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.Status}</leftValue>
                                     <operator>EQUAL</operator>
@@ -91,12 +96,17 @@
                                     <operator>EQUAL</operator>
                                     <rightValue>Commercial_Admin</rightValue>
                                 </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Profile_Name__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>ANZ CCRM Standard Automation User</rightValue>
+                                </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>Lead.Log_a_Response_Aura</value>
                             <visibilityRule>
-                                <booleanFilter>((1 OR 2 OR 7) AND (4 OR 3 OR 6) AND 5)</booleanFilter>
+                                <booleanFilter>((1 OR 2 OR 7) AND (4 OR 3 OR 6 OR 8) AND 5)</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.Status}</leftValue>
                                     <operator>EQUAL</operator>
@@ -131,6 +141,50 @@
                                     <leftValue>{!Record.Lead_Outcome__c}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>Referred</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Profile_Name__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>ANZ CCRM Standard Automation User</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Lead.Update_Commercial_Contact</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.FinServ__RelatedAccount__r.RecordType.DeveloperName}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>&apos;&apos;</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Lead.ValidateABNACN</value>
+                            <visibilityRule>
+                                <booleanFilter>5 AND ((1 AND 3) OR (2 AND 4))</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.ABN_Validation_Status__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Active</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.ACN_Validation_Status__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Active</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.ABN__c}</leftValue>
+                                    <operator>NE</operator>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.ACN__c}</leftValue>
+                                    <operator>NE</operator>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Registered_Company__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Yes</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
@@ -626,16 +680,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CPID__c</fieldItem>
                 <identifier>RecordCPID_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.CPID_Owner__c</fieldItem>
-                <identifier>RecordCPID_Owner_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-dc83uywb7cq</name>
@@ -1514,6 +1558,10 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Tabs</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>tabs</name>
                     <value>tabs</value>
                 </componentInstanceProperties>
@@ -1679,6 +1727,9 @@
                         </valueListItems>
                         <valueListItems>
                             <value>Customer_Type__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>CPID__c</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
@@ -1853,6 +1904,69 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
                 <identifier>flexipage_tabset3</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>decorate</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>richTextValue</name>
+                    <value>&lt;p&gt;&lt;strong&gt;&lt;u&gt;Customer Needs Sub-Categories:&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Commercial Lending&lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Term Debt&lt;/li&gt;&lt;li&gt;Asset Finance&lt;/li&gt;&lt;li&gt;Overdraft&lt;/li&gt;&lt;li&gt;Indemnity Guarantee&lt;/li&gt;&lt;li&gt;Commercial Bill&lt;/li&gt;&lt;li&gt;Trade&lt;/li&gt;&lt;li&gt;Other&lt;/li&gt;&lt;/ul&gt;</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:richText</componentName>
+                <identifier>flexipage_richText4</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__ExpressedInterest__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Commercial Lending</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>decorate</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>richTextValue</name>
+                    <value>&lt;p&gt;&lt;strong style=&quot;color: rgb(68, 68, 68);&quot;&gt;&lt;u&gt;Customer Needs Sub-Categories:&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Working Capital Solutions&lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Commercial Cards&lt;/li&gt;&lt;li&gt;Merchant&lt;/li&gt;&lt;li&gt;Markets&lt;/li&gt;&lt;li&gt;Payment Facilities&lt;/li&gt;&lt;li&gt;Working Capital&lt;/li&gt;&lt;li&gt;Other&lt;/li&gt;&lt;/ul&gt;</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:richText</componentName>
+                <identifier>flexipage_richText5</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__ExpressedInterest__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Working Capital Solutions</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>decorate</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>richTextValue</name>
+                    <value>&lt;p&gt;&lt;strong&gt;&lt;u&gt;Customer Needs Sub-Categories:&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Other&lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;IB4B&lt;/li&gt;&lt;li&gt;Personal Credit Card&lt;/li&gt;&lt;li&gt;Personal Loan&lt;/li&gt;&lt;li&gt;Other&lt;/li&gt;&lt;/ul&gt;</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:richText</componentName>
+                <identifier>flexipage_richText6</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__ExpressedInterest__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Other</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>

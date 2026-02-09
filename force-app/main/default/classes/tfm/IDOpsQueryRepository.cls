@@ -2,7 +2,7 @@
  * @description       : Repository for PinAndSelfieWorkflow
  * @author            : Hinduja - TFM Squad
  * @group             :
- * @last modified on  : 08-07-2025
+ * @last modified on  : 11-04-2025
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
  **/
 public with sharing class IDOpsQueryRepository {
@@ -40,6 +40,21 @@ public with sharing class IDOpsQueryRepository {
       LIMIT 1
     ] ?? null;
     return caseRecord;
+  }
+
+  /**
+   * @description get Case Records
+   * @param caseIds case recordId
+   * @return List<Case>
+   **/
+  public List<Case> getCaseRecordUsingExternalCases(Set<Id> caseIds) {
+    List<Case> caseRecords = [
+      SELECT ID, RecordTypeId
+      FROM Case
+      WHERE ID IN :caseIds
+      WITH USER_MODE
+    ] ?? new List<Case>();
+    return caseRecords;
   }
 
   /**
@@ -164,7 +179,8 @@ public with sharing class IDOpsQueryRepository {
         PIN_Status__c,
         IAL_Identity_Assurance_Level__c,
         OCV_ID__c,
-        Mobile_Number__c
+        Mobile_Number__c,
+        Customer__r.Id
       FROM PersonDigitalIdentity__x
       WHERE Id = :recordId
       WITH USER_MODE
@@ -180,14 +196,63 @@ public with sharing class IDOpsQueryRepository {
    **/
   @AuraEnabled
   public static COBPrimaryIDDocument__c getDocumentIdFromCOB(String personaId) {
-    COBPrimaryIDDocument__c pID = [
-      SELECT DaonLocationUri__c
-      FROM COBPrimaryIDDocument__c
-      WHERE
-        CustomerOnboardingApplication__r.PersonaId__c = :personaId
-        AND Latest__c = TRUE
+    CustomerOnboardingApplication__c cob = [
+      SELECT
+        Id,
+        (
+          SELECT Id, DaonLocationUri__c
+          FROM COBPrimaryIDDocuments__r
+          ORDER BY CreatedDate DESC
+          LIMIT 1
+        )
+      FROM CustomerOnboardingApplication__c
+      WHERE PersonaId__c = :personaId
       LIMIT 1
     ] ?? null;
-    return pID;
+
+    if (cob == null || cob.COBPrimaryIDDocuments__r.isEmpty()) {
+      return null;
+    }
+    return cob.COBPrimaryIDDocuments__r[0];
+  }
+
+  /**
+   * @description Retrieves QA Check Fields.
+   * @param caseIds A list of TrustMe/ ReKYC QA Case IDs.
+   * @return A list of TrustMe/ ReKYC QA case records with all the check fields.
+   */
+  public List<Case> queryQAChecksByIds(Set<Id> caseIds) {
+    return [
+      SELECT
+        Id,
+        Fraud_Customer_Details__c,
+        Fraud_MiddleNameCheck__c,
+        Fraud_Selfie_Comparison_Match__c,
+        Fraud_Address_Valid__c,
+        Fraud_ID_Legible__c,
+        Fraud_ID_Not_Picture__c,
+        Fraud_Customer_Photo_Modified__c,
+        Fraud_Security_Features__c
+      FROM Case
+      WHERE Id IN :caseIds
+      WITH USER_MODE
+    ] ?? null;
+  }
+
+  /**
+   * @description Returns the Task record
+   * @param caseIds String - caseId to fetch Task records
+   * @return List<Task> records
+   */
+  public List<Task> getTaskAssociatedToCase(Set<Id> caseIds) {
+    List<Task> tasksList = [
+      SELECT Id, WhatId, Subject, Status
+      FROM Task
+      WHERE
+        WhatId IN :caseIds
+        AND RecordTypeId = :RTTask.merchantEvidentReceivedRT
+      WITH USER_MODE
+    ] ?? new List<Task>();
+    return tasksList;
   }
 }

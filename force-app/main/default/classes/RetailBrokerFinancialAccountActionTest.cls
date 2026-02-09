@@ -64,6 +64,28 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
   }
 
   /**
+   * @description Mock broker codes required for creating map.
+   * @param productCode Value of product code
+   * @param subProductCode Value of sub product code
+   * @param isClassic Classic loan check
+   * @return Product2 record
+   */
+  static Product2 createProduct(
+    String productCode,
+    String subProductCode,
+    Boolean isClassic
+  ) {
+    Product2 product = new Product2(
+      Id = Lib_FakeIdGenerator.getMockId(Product2.SObjectType),
+      Name = 'Test Product',
+      ANZ_Product_Code__c = productCode,
+      Is_Retail_Classic_Loan_Product__c = isClassic,
+      Sub_Product_Code__c = subProductCode
+    );
+    return product;
+  }
+
+  /**
    * @description test function to test RetailBrokerFinancialAccountAction.publishContractEvents
    * Assertion is made against the count of the cloud events generated which should be equal to the number of records provided to the function
    */
@@ -76,6 +98,10 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
     );
     finAccounts.add(
       createFinancialAccounts(RTFinancialAccount.bankAccount, null)
+    );
+    finAccounts[0].Marketing_Code__c = 'HLVAR01';
+    finAccounts[0].Assisted_Broker__c = Lib_FakeIdGenerator.getMockId(
+      Broker_Code__c.SObjectType
     );
     Integer cloudEventsBefore = CloudEventController.cloudEvents == null
       ? 0
@@ -96,15 +122,25 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
     );
   }
 
-  /* Assisted_Broker and Assisted_brokerTPMI_Sao is null */
+  /* Assisted_Broker and Assisted_brokerTPMI_Sao is not changed */
   @istest
-  static void testpopulateFinancialAccountAssistedBrokerWhenTPMIIsNull() {
+  static void testpopulateFinancialAccountAssistedBrokerWhenTPMINotChanged() {
     Id newRecordId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-    Map<Id, FinServ__FinancialAccount__c> oldMap = new Map<Id, FinServ__FinancialAccount__c>();
     FinServ__FinancialAccount__c newRecord = createFinancialAccounts(
       RTFinancialAccount.bankAccount,
       newRecordId
     );
+    newRecord.Assisted_Broker_TPMI_SAO__c = 'oldBroker-TPMISAO-1';
+    FinServ__FinancialAccount__c oldRecord = newRecord.Clone(
+      true,
+      true,
+      true,
+      true
+    );
+    oldRecord.Assisted_Broker_TPMI_SAO__c = 'oldBroker-TPMISAO-1';
+    Map<Id, FinServ__FinancialAccount__c> oldMap = new Map<Id, FinServ__FinancialAccount__c>();
+    oldMap.put(oldRecord.Id, oldRecord);
+
     Broker_Code__c mockBrokerCode = createMockBrokerCode(
       'Broker-TPMISAO-1_Retail',
       newRecord.Id
@@ -119,6 +155,7 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
       new List<FinServ__FinancialAccount__c>{ newRecord },
       oldMap
     );
+
     Test.stopTest();
 
     Assert.areEqual(0, recordsToUpdate.size(), 'No records should be updated');
@@ -235,5 +272,124 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
       brokerIdentifierMap.get('AccountKey_20010101'),
       'Broker identifier should be mapped correctly'
     );
+  }
+
+  @isTest
+  static void testfilterPlusFinancialAccounts() {
+    Id newRecordId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    FinServ__FinancialAccount__c newRecord = createFinancialAccounts(
+      RTFinancialAccount.bankAccount,
+      newRecordId
+    );
+    newRecord.Assisted_Broker__c = Lib_FakeIdGenerator.getMockId(
+      Broker_Code__c.SObjectType
+    );
+    newRecord.Marketing_Code__c = 'HLVAR01';
+    Test.startTest();
+    List<FinServ__FinancialAccount__c> validRecords = RetailBrokerFinancialAccountAction.filterPlusFinancialAccounts(
+      new List<FinServ__FinancialAccount__c>{ newRecord },
+      new Set<string>{ 'HLVAR01', 'HLFXD01' }
+    );
+    Test.stopTest();
+    Assert.areEqual(validRecords.size(), 1, 'One record should be valid');
+    Assert.areEqual(
+      newRecord.Id,
+      validRecords[0].Id,
+      'Returned record should match the input record'
+    );
+    Assert.isTrue(
+      new Set<String>{ 'HLVAR01', 'HLFXD01' }
+        .contains(validRecords[0].Marketing_Code__c),
+      'Marketing code should be in the allowed set'
+    );
+  }
+
+  @isTest
+  static void testNegativefilterPlusFinancialAccounts() {
+    Test.startTest();
+    List<FinServ__FinancialAccount__c> emptyResult = RetailBrokerFinancialAccountAction.filterPlusFinancialAccounts(
+      new List<FinServ__FinancialAccount__c>(),
+      new Set<String>{ 'HLVAR01', 'HLFXD01' }
+    );
+    Test.stopTest();
+    Assert.isTrue(
+      emptyResult.isEmpty(),
+      'Empty input list should return empty result'
+    );
+  }
+
+  @isTest
+  static void testFilterClassicFinancialAccounts() {
+    Id newRecordId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Product2 product = createProduct('ANZX', 'ANZ198', true);
+
+    FinServ__FinancialAccount__c validRecord = createFinancialAccounts(
+      RTFinancialAccount.bankAccount,
+      newRecordId
+    );
+    validRecord.Assisted_Broker__c = Lib_FakeIdGenerator.getMockId(
+      Broker_Code__c.SObjectType
+    );
+    String jsonValid = JSON.serialize(validRecord);
+    Map<String, Object> validMap = (Map<String, Object>) JSON.deserializeUntyped(
+      jsonValid
+    );
+    validMap.put('Sub_product_Code_Display__c', 'ANZ198');
+    String validJson = JSON.serialize(validMap);
+    FinServ__FinancialAccount__c updatedValidRecord = (FinServ__FinancialAccount__c) JSON.deserialize(
+      validJson,
+      FinServ__FinancialAccount__c.class
+    );
+
+    FinServ__FinancialAccount__c invalidRecord = createFinancialAccounts(
+      RTFinancialAccount.bankAccount,
+      Lib_FakeIdGenerator.getMockId(Account.SObjectType)
+    );
+    String jsonInvalid = JSON.serialize(invalidRecord);
+    Map<String, Object> invalidMap = (Map<String, Object>) JSON.deserializeUntyped(
+      jsonInvalid
+    );
+    invalidMap.put('Sub_product_Code_Display__c', 'INVALID198');
+    String invalidJson = JSON.serialize(invalidMap);
+    FinServ__FinancialAccount__c updatedInvalidRecord = (FinServ__FinancialAccount__c) JSON.deserialize(
+      invalidJson,
+      FinServ__FinancialAccount__c.class
+    );
+
+    List<FinServ__FinancialAccount__c> allRecords = new List<FinServ__FinancialAccount__c>{
+      updatedValidRecord,
+      updatedInvalidRecord
+    };
+
+    QueryProducts.productsById = new Map<Id, Product2>{ product.Id => product };
+
+    Test.startTest();
+    List<FinServ__FinancialAccount__c> validRecords = RetailBrokerFinancialAccountAction.filterClassicFinancialAccounts(
+      allRecords,
+      new Set<string>{ 'ANZ198' }
+    );
+    Test.stopTest();
+    Assert.areEqual(validRecords.size(), 1, 'One record should be valid');
+    Assert.areEqual(
+      updatedValidRecord.Id,
+      validRecords[0].Id,
+      'Returned record should match the input record'
+    );
+    Assert.areEqual(
+      'ANZ198',
+      validRecords[0].Sub_product_Code_Display__c,
+      'Sub product code should be ANZ198'
+    );
+  }
+
+  @isTest
+  static void testNegativeFilterClassicFinancialAccounts() {
+    Test.startTest();
+    List<FinServ__FinancialAccount__c> filtered = RetailBrokerFinancialAccountAction.filterClassicFinancialAccounts(
+      new List<FinServ__FinancialAccount__c>(),
+      new Set<String>{ 'ANZ198' }
+    );
+    Test.stopTest();
+    Assert.areEqual(0, filtered.size(), 'No records should be returned');
   }
 }

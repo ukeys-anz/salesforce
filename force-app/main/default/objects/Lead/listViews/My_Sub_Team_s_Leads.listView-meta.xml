@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>My_Sub_Team_s_Leads</fullName>
-    <booleanFilter>(1 OR 2 ) AND 3 AND 4</booleanFilter>
     <columns>FULL_NAME</columns>
     <columns>LEAD.EMAIL</columns>
     <columns>LEAD.COMPANY</columns>
@@ -21,11 +20,6 @@
         <value>Assigned,In progress</value>
     </filters>
     <filters>
-        <field>Lead_Outcome__c</field>
-        <operation>equals</operation>
-        <value>Opportunity Identified</value>
-    </filters>
-    <filters>
         <field>My_Sub_Team__c</field>
         <operation>equals</operation>
         <value>1</value>
@@ -39,6 +33,7 @@
     <label>My Pod&apos;s Leads</label>
     <sharedTo>
         <roleAndSubordinates>AF_Regional_Manager</roleAndSubordinates>
+        <roleAndSubordinates>PB_Head_of_Teams</roleAndSubordinates>
         <roleAndSubordinates>SME_Head_of_NBC</roleAndSubordinates>
     </sharedTo>
 </ListView>

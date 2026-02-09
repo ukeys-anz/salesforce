@@ -12,7 +12,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Account Closure,Direct Debit,Customer Feedback,Direct Entry,BPAY,ATM,Non-Customer Complaint,ANZ Plus Complaint,General Enquiry,Card,NPP,PayTo</value>
+            <value>Account Closure,Direct Debit,Customer Feedback,Direct Entry,BPAY,ATM,Non-Customer Complaint,ANZ Plus Complaint,General Enquiry,Card,NPP,IMT,PayTo</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -58,7 +58,7 @@
         <description>Provides access to Non Customer Complaints for ANZx</description>
         <label>ANZx Non Customer Complaints</label>
         <sharedTo>
-            <roleAndSubordinates>ANZx</roleAndSubordinates>
+            <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -78,7 +78,7 @@
         <description>Sharing rules for customer complaints that aren&apos;t marked ANZx and AEM converted</description>
         <label>AR&amp;C Non Customer Complaint</label>
         <sharedTo>
-            <roleAndSubordinates>ANZ</roleAndSubordinates>
+            <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
         </sharedTo>
         <booleanFilter>(1 AND 2 AND 5) OR (1 AND 3 AND 4 AND 5)</booleanFilter>
         <criteriaItems>
@@ -135,7 +135,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Account Closure,ID Ops Assistance,Direct Entry,Customer Feedback,General Enquiry,Fraud,Fraud Check,Card,NPP,Profile Update,Direct Debit,Recipient/Mule,False Customer Profile,BPAY,ATM,ANZ Plus Complaint,KYC QA,Scam,Identity</value>
+            <value>Account Closure,ID Ops Assistance,Direct Entry,Customer Feedback,General Enquiry,Fraud,Fraud Check,Card,NPP,IMT,Profile Update,Direct Debit,Recipient/Mule,False Customer Profile,BPAY,ATM,ANZ Plus Complaint,KYC QA,Scam,Identity</value>
         </criteriaItems>
         <criteriaItems>
             <field>Origin</field>
@@ -216,7 +216,7 @@
         <description>Great Read write access to complaint records for Bankers and Line Managers</description>
         <label>Complaint_RTs_BankerManager_RW</label>
         <sharedTo>
-            <roleAndSubordinates>Banker_Line_Manager</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Banker_Line_Manager</roleAndSubordinatesInternal>
         </sharedTo>
         <booleanFilter>1 AND 2</booleanFilter>
         <criteriaItems>
@@ -237,7 +237,7 @@
         <description>Great Read write access to complaint records for Commercial Banking</description>
         <label>Complaint_RTs_Commercial_RW</label>
         <sharedTo>
-            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
         </sharedTo>
         <booleanFilter>1 AND 2</booleanFilter>
         <criteriaItems>
@@ -258,7 +258,7 @@
         <description>Grant read access to ANZx and CFMS migrated complaint records for Customer Resolution Users</description>
         <label>Complaint_RTs_CRPUsers_RO</label>
         <sharedTo>
-            <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Customer_Resolution_Leadership</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -273,7 +273,7 @@
         <description>Grants Read write access to complaint records, CFMS Migrated, Unauthenticated Enquiry records, and Escalated case for Customer Resolution Users</description>
         <label>Complaint_RTs_CRPUsers_RW</label>
         <sharedTo>
-            <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Customer_Resolution_Leadership</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -324,7 +324,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM,Direct Debit,Direct Entry,ANZ Plus Complaint,General Enquiry,NPP,PayTo,Customer Feedback,BPAY,Account Closure,Confirmation Of Payee</value>
+            <value>ATM,Direct Debit,Direct Entry,ANZ Plus Complaint,General Enquiry,NPP,IMT,PayTo,Customer Feedback,BPAY,Account Closure,Confirmation Of Payee</value>
         </criteriaItems>
         <criteriaItems>
             <field>Origin</field>
@@ -446,7 +446,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>NPP</value>
+            <value>NPP,IMT</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -517,7 +517,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Direct Entry,Customer Feedback,ATM,ANZ Plus Complaint,General Enquiry,KYC QA,NPP,PayTo,BPAY,Account Closure</value>
+            <value>Direct Debit,Direct Entry,Customer Feedback,ATM,ANZ Plus Complaint,General Enquiry,KYC QA,NPP,IMT,PayTo,BPAY,Account Closure</value>
         </criteriaItems>
         <criteriaItems>
             <field>Origin</field>
@@ -592,7 +592,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,ID Ops Assistance,Fraud Check,General Enquiry,KYC QA,NPP,PayTo,Customer Feedback,BPAY,Profile Update,Fraud,Scam,Recipient/Mule,Identity,False Customer Profile</value>
+            <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,ID Ops Assistance,Fraud Check,General Enquiry,KYC QA,NPP,IMT,PayTo,Customer Feedback,BPAY,Profile Update,Fraud,Scam,Recipient/Mule,Identity,False Customer Profile</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -734,7 +734,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Card,NPP,PayTo,Customer Feedback,BPAY,ID Ops Assistance,Fraud Check,False Customer Profile,Profile Update,PIN Recovery,Selfie Recovery</value>
+            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Card,NPP,IMT,PayTo,Customer Feedback,BPAY,ID Ops Assistance,Fraud Check,False Customer Profile,Profile Update,PIN Recovery,Selfie Recovery</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -922,7 +922,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Customer Feedback,Direct Entry,Fraud,General Enquiry,Card,NPP,PayTo,Direct Debit,Recipient/Mule,ATM,KYC QA,Scam,Identity,False Customer Profile,Profile Update</value>
+            <value>Customer Feedback,Direct Entry,Fraud,General Enquiry,Card,NPP,IMT,PayTo,Direct Debit,Recipient/Mule,ATM,KYC QA,Scam,Identity,False Customer Profile,Profile Update</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -963,7 +963,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Account Closure,ID Ops Assistance,Customer Feedback,Direct Entry,General Enquiry,Fraud Check,Card,NPP,PayTo,Direct Debit,BPAY,Non-Customer Complaint,ATM,ANZ Plus Complaint,Fraud,Scam,Recipient/Mule,KYC QA,ReKYC QA Case</value>
+            <value>Account Closure,ID Ops Assistance,Customer Feedback,Direct Entry,General Enquiry,Fraud Check,Card,NPP,IMT,PayTo,Direct Debit,BPAY,Non-Customer Complaint,ATM,ANZ Plus Complaint,Fraud,Scam,Recipient/Mule,KYC QA,ReKYC QA Case</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -978,7 +978,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>PIN Recovery,Selfie Recovery</value>
+            <value>False Customer Profile,PIN Recovery,Selfie Recovery</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -993,7 +993,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Entry,Customer Feedback,Fraud,General Enquiry,Card,NPP,PayTo,Direct Debit,Recipient/Mule,ATM,KYC QA,Scam,ANZ Plus Complaint,Identity,BPAY,Fraud Check,ID Ops Assistance,False Customer Profile</value>
+            <value>Direct Entry,Customer Feedback,Fraud,General Enquiry,Card,NPP,IMT,PayTo,Direct Debit,Recipient/Mule,ATM,KYC QA,Scam,ANZ Plus Complaint,Identity,BPAY,Fraud Check,ID Ops Assistance,False Customer Profile</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -1002,7 +1002,7 @@
         <accessLevel>Edit</accessLevel>
         <label>Join Lead Non Customer Compliant RW</label>
         <sharedTo>
-            <roleAndSubordinates>Join_Lead</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Join_Lead</roleAndSubordinatesInternal>
         </sharedTo>
         <booleanFilter>1 AND 2 AND (3 AND 4) AND 5</booleanFilter>
         <criteriaItems>
@@ -1078,7 +1078,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Direct Entry,ATM,NPP,PayTo,BPAY,Card</value>
+            <value>Direct Debit,Direct Entry,ATM,NPP,IMT,PayTo,BPAY,Card</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -1093,7 +1093,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ID Ops Assistance,Direct Entry,Customer Feedback,Fraud,General Enquiry,Fraud Check,Card,NPP,PayTo,Direct Debit,Recipient/Mule,BPAY,ATM,KYC QA,Scam,ANZ Plus Complaint,Identity</value>
+            <value>ID Ops Assistance,Direct Entry,Customer Feedback,Fraud,General Enquiry,Fraud Check,Card,NPP,IMT,PayTo,Direct Debit,Recipient/Mule,BPAY,ATM,KYC QA,Scam,ANZ Plus Complaint,Identity</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -1102,13 +1102,13 @@
         <accessLevel>Read</accessLevel>
         <label>CMOS ANZ Case access RO</label>
         <sharedTo>
-            <roleAndSubordinates>Customer_Resolution_with_ANZ_Plus_Read_Only</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Customer_Resolution_with_ANZ_Plus_Read_Only</roleAndSubordinatesInternal>
         </sharedTo>
         <booleanFilter>1 OR (2 AND 3)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Account Closure,Customer Feedback,Direct Entry,Unauthenticated Enquiry,General Enquiry,Customer Complaint,Card,NPP,PayTo,Direct Debit,BPAY,ATM,Non-Customer Complaint,ANZ Plus Complaint</value>
+            <value>Account Closure,Customer Feedback,Direct Entry,Unauthenticated Enquiry,General Enquiry,Customer Complaint,Card,NPP,IMT,PayTo,Direct Debit,BPAY,ATM,Non-Customer Complaint,ANZ Plus Complaint</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -1148,7 +1148,7 @@
         <description>Grant Read Only access to systemic issue records for SI Key Commercial Banking</description>
         <label>SI_RT_SI_Commercial_RO</label>
         <sharedTo>
-            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -1183,7 +1183,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Account Closure,Direct Debit,Credit Referral,Customer Feedback,Direct Entry,BPAY,ATM,ANZ Plus Complaint,General Enquiry,Card,NPP,PayTo</value>
+            <value>Account Closure,Direct Debit,Credit Referral,Customer Feedback,Direct Entry,BPAY,ATM,ANZ Plus Complaint,General Enquiry,Card,NPP,IMT,PayTo</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -1277,7 +1277,7 @@
         <accessLevel>Edit</accessLevel>
         <label>Complaint Unauth RT</label>
         <sharedTo>
-            <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Customer_Resolution_Leadership</roleAndSubordinatesInternal>
         </sharedTo>
         <booleanFilter>1 AND (2 OR 3 OR 4)</booleanFilter>
         <criteriaItems>
@@ -1314,7 +1314,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Account Closure,Direct Debit,PayTo,Credit Referral,Direct Entry,Customer Feedback,BPAY,ATM,ANZ Plus Complaint,General Enquiry,NPP</value>
+            <value>Account Closure,Direct Debit,PayTo,Credit Referral,Direct Entry,Customer Feedback,BPAY,ATM,ANZ Plus Complaint,General Enquiry,NPP,IMT</value>
         </criteriaItems>
         <criteriaItems>
             <field>Origin</field>
@@ -1358,6 +1358,21 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Lending</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Signing_Authority_Cases_Read_Write</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Provides Read Write access to Signing Authority record type cases.</description>
+        <label>Signing_Authority_Cases_Read_Write</label>
+        <sharedTo>
+            <group>Update_Signatory_Customer_Action_Sharing</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Signing Authority Update</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

@@ -36,10 +36,13 @@
             </value>
         </inputParameters>
         <label>Send In-App Notification</label>
-        <locationX>336</locationX>
-        <locationY>1427</locationY>
+        <locationX>622</locationX>
+        <locationY>1535</locationY>
+        <nameSegment>customNotificationAction</nameSegment>
+        <offset>0</offset>
     </actionCalls>
     <apiVersion>59.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <assignments>
         <name>Assignment_Quality_Assessment_Share</name>
         <assignmentItems>
@@ -74,8 +77,8 @@
             <targetReference>Create_Assessment_Share_records</targetReference>
         </connector>
         <label>Assignment Quality Assessment Share</label>
-        <locationX>336</locationX>
-        <locationY>1103</locationY>
+        <locationX>622</locationX>
+        <locationY>1211</locationY>
     </assignments>
     <decisions>
         <name>Is_Assessment_Owned_by_Case_Manager</name>
@@ -84,8 +87,8 @@
         </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <label>Is Assessment Owned by Case Manager</label>
-        <locationX>270</locationX>
-        <locationY>671</locationY>
+        <locationX>556</locationX>
+        <locationY>779</locationY>
         <rules>
             <name>Assessment_is_Owned_by_Case_Manager</name>
             <conditionLogic>and</conditionLogic>
@@ -102,9 +105,31 @@
     <decisions>
         <name>Is_Call_Letter_Review</name>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <label>Is This Call/Letter Review</label>
-        <locationX>50</locationX>
+        <label>Is This Call/Letter Review or CQ Assessment</label>
+        <locationX>402</locationX>
         <locationY>276</locationY>
+        <rules>
+            <name>Final_Letter_Review_Assessment</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Evaluation_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Final Letter Review Assessment</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Setup.Salesforce_Library_Settings__c.Disable_Flows__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Assessment_Result_On_Final_Letter_Review</targetReference>
+            </connector>
+            <label>Final Letter Review Assessment</label>
+        </rules>
         <rules>
             <name>This_is_Call_Letter_Review</name>
             <conditionLogic>and</conditionLogic>
@@ -115,18 +140,54 @@
                     <stringValue>Call_Letter_Review_Assessment</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Setup.Salesforce_Library_Settings__c.Disable_Flows__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Is_Assessment_Owned_by_Case_Manager</targetReference>
             </connector>
             <label>This is Call/Letter Review</label>
+        </rules>
+        <rules>
+            <name>CQ_Assessment</name>
+            <conditionLogic>(1 OR 2) AND 3</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Evaluation_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Customer Resolution Assessment</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Evaluation_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Frontline Assessment</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Setup.Salesforce_Library_Settings__c.Disable_Flows__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Assessment_Result_on_CQ</targetReference>
+            </connector>
+            <label>CQ Assessment</label>
         </rules>
     </decisions>
     <decisions>
         <name>Is_Case_Manager_Level_1</name>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <label>Is Case Manager Level 1</label>
-        <locationX>468</locationX>
-        <locationY>995</locationY>
+        <locationX>1128</locationX>
+        <locationY>1103</locationY>
         <rules>
             <name>Case_Manager_is_Level_1</name>
             <conditionLogic>and</conditionLogic>
@@ -147,7 +208,7 @@
         <name>Is_This_C_Q_Assessment</name>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <label>Is This C&amp;Q Assessment</label>
-        <locationX>490</locationX>
+        <locationX>666</locationX>
         <locationY>276</locationY>
         <rules>
             <name>This_is_C_Q_Assessment</name>
@@ -157,6 +218,20 @@
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>C_Q_Assessment</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Setup.Salesforce_Library_Settings__c.Disable_Flows__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Evaluation_Type__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Frontline Assessment</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -194,8 +269,8 @@
         </connector>
         <inputReference>Quality_Assessment_Share_Record</inputReference>
         <label>Create Assessment Share records</label>
-        <locationX>336</locationX>
-        <locationY>1211</locationY>
+        <locationX>622</locationX>
+        <locationY>1319</locationY>
     </recordCreates>
     <recordLookups>
         <name>Get_Notification_Type</name>
@@ -213,8 +288,8 @@
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <label>Get Notification Type</label>
-        <locationX>336</locationX>
-        <locationY>1319</locationY>
+        <locationX>622</locationX>
+        <locationY>1427</locationY>
         <object>CustomNotificationType</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
@@ -241,8 +316,8 @@
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <label>Get Permission Set Assignment</label>
-        <locationX>468</locationX>
-        <locationY>887</locationY>
+        <locationX>754</locationX>
+        <locationY>995</locationY>
         <object>PermissionSetAssignment</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
@@ -262,11 +337,70 @@
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <label>Get Permission Set Group</label>
-        <locationX>468</locationX>
-        <locationY>779</locationY>
+        <locationX>754</locationX>
+        <locationY>887</locationY>
         <object>PermissionSetGroup</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordUpdates>
+        <name>Auto_populate_Accepted_by_TM_on_Team_manager_response</name>
+        <description>If the Team Manager does not complete the &apos;Team Manager Response&apos; field on the evaluation within 5 business days then set the field to &apos;Accepted by TM&apos;</description>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Evaluation_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Customer Resolution Assessment</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Team_Manager_Response__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Awaiting response from TM</stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Team_Manager_Response__c</field>
+            <value>
+                <stringValue>Accepted by TM</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+        <label>Auto-populate &apos;Accepted by TM&apos; on Team manager response</label>
+        <locationX>1018</locationX>
+        <locationY>276</locationY>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Assessment_Result_on_CQ</name>
+        <description>Update Assessment outcome field on CQ evaluation</description>
+        <inputAssignments>
+            <field>Assessment_Result__c</field>
+            <value>
+                <elementReference>$Record.Assessment_Result_formula__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+        <label>Update Assessment Result on CQ</label>
+        <locationX>490</locationX>
+        <locationY>384</locationY>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Assessment_Result_On_Final_Letter_Review</name>
+        <connector>
+            <targetReference>Is_Assessment_Owned_by_Case_Manager</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Assessment_Result__c</field>
+            <value>
+                <elementReference>$Record.AssessmentResultFinalLetterReview__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+        <label>Update Assessment Result On Final Letter Review</label>
+        <locationX>50</locationX>
+        <locationY>384</locationY>
+    </recordUpdates>
     <start>
         <connector>
             <targetReference>Is_Call_Letter_Review</targetReference>
@@ -280,7 +414,7 @@
                 <stringValue>Complete</stringValue>
             </value>
         </filters>
-        <locationX>144</locationX>
+        <locationX>804</locationX>
         <locationY>0</locationY>
         <object>Quality_Assessment__c</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
@@ -291,6 +425,16 @@
             </connector>
             <label>3 Days after Completion</label>
             <offsetNumber>3</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <timeSource>RecordTriggerEvent</timeSource>
+        </scheduledPaths>
+        <scheduledPaths>
+            <name>X5_days_after_Completion</name>
+            <connector>
+                <targetReference>Auto_populate_Accepted_by_TM_on_Team_manager_response</targetReference>
+            </connector>
+            <label>5 days after Completion</label>
+            <offsetNumber>7</offsetNumber>
             <offsetUnit>Days</offsetUnit>
             <timeSource>RecordTriggerEvent</timeSource>
         </scheduledPaths>

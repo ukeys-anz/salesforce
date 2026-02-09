@@ -12,6 +12,7 @@ public without sharing class CaseCEController {
     RTCase.directDebitDispute,
     RTCase.directEntryDispute,
     RTCase.nppDispute,
+    RTCase.imtDispute,
     RTCase.bpayDispute,
     RTCase.payToDispute
   };
@@ -184,9 +185,6 @@ public without sharing class CaseCEController {
       if (caseCloudSet.contains(theCaseNew.Id)) {
         continue;
       }
-      String caseRecordType = QueryRT.of(Case.SObjectType)
-        .get(theCaseNew.RecordTypeId)
-        .getDeveloperName();
       Id relatedAccountId = theCaseNew.AccountId;
       Account relatedAccount = relatedAccounts.get(relatedAccountId);
       User relatedUser = relatedUsers.get(theCaseNew.LastModifiedById);

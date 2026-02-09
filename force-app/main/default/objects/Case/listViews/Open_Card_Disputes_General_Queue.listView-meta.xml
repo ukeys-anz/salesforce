@@ -17,6 +17,6 @@
     <label>Open Card Disputes - General Queue</label>
     <queue>Card_Dispute_General_Queue</queue>
     <sharedTo>
-        <roleAndSubordinates>ANZx</roleAndSubordinates>
+        <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

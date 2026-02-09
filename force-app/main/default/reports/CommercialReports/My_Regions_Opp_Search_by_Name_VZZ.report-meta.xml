@@ -27,7 +27,7 @@
             <column>STAGE_NAME</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
-            <operator>equals</operator>
+            <operator>notEqual</operator>
             <value>Opportunity Won,Opportunity Lost</value>
         </criteriaItems>
         <criteriaItems>

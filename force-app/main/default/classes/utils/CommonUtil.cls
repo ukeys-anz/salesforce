@@ -49,11 +49,7 @@ public with sharing class CommonUtil {
     Schema.SObjectType sObj = Schema.getGlobalDescribe().get(sObjectTypeName);
     List<Id> recordTypeIds = new List<Id>();
     for (RecordTypeInfo rti : sObj.getDescribe().getRecordTypeInfos()) {
-      if (
-        rti.isAvailable() && // Ignore the Master Record Type, whose Id always ends with 'AAA'.
-        // We check the Id because Name can change depending on the user's language.
-        !String.valueOf(rti.getRecordTypeId()).endsWith('AAA')
-      ) {
+      if (rti.isAvailable() && !rti.isMaster()) {
         recordTypeIds.add(rti.getRecordTypeId());
       }
     }
@@ -335,6 +331,12 @@ public with sharing class CommonUtil {
    * @description extend the Exception class to allow errors to be thrown if the user does not have access
    */
   private class InsufficientAccessException extends Exception {
+  }
+
+  /**
+   * @description extend the Exception class to allow errors to be thrown for generic exceptions
+   */
+  public class GenericUserException extends Exception {
   }
 
   /**

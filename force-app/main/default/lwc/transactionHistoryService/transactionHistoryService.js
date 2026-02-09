@@ -19,6 +19,7 @@ export const TRANSACTION_TYPES = {
   Fee: "Fee",
   Interest: "Interest",
   Deposit_Withdrawal: "Deposit Withdrawal",
+  International_Payment: "International Payment",
   Transfer: "Transfer",
   PAYID: "PAYID",
   BSB_ACC: "BSB/ACC",
@@ -26,7 +27,8 @@ export const TRANSACTION_TYPES = {
   Other: "Other",
   Salary: "Salary",
   Payment: "Payment",
-  PayTo: "PayTo"
+  PayTo: "PayTo",
+  Bank_Post: "Bank@Post"
 };
 
 export const CARD_TYPES = {
@@ -92,6 +94,7 @@ export const transactionTypeMapping = {
   CARD: TRANSACTION_TYPES.Card,
   DIRECT_DEBIT: TRANSACTION_TYPES.Direct_Debit,
   INTEREST: TRANSACTION_TYPES.Interest,
+  INTERNATIONAL_PAYMENT: TRANSACTION_TYPES.International_Payment,
   DEPOSIT_WITHDRAWAL: TRANSACTION_TYPES.Deposit_Withdrawal, // DEPOSIT_WITHDRAWAL with typo as this is what Fabric sends, confirmed with their team
   TRANSFER: TRANSACTION_TYPES.Transfer,
   PAYID: TRANSACTION_TYPES.PAYID,
@@ -100,6 +103,7 @@ export const transactionTypeMapping = {
   SALARY: TRANSACTION_TYPES.Salary,
   PAYMENT: TRANSACTION_TYPES.Payment,
   PAYTO: TRANSACTION_TYPES.PayTo,
+  BANK_AT_POST: TRANSACTION_TYPES.Bank_Post,
 
   //For BetaV1, this will be removed once Mule has onboarded V1
   TRANSACTION_TYPE_UNSPECIFIED: TRANSACTION_TYPES.Unknown, // common in both v1 and v1b1

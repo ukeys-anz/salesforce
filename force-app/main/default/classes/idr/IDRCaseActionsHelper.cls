@@ -11,6 +11,11 @@ public with sharing class IDRCaseActionsHelper {
   private static final IDRCaseActionsRepository CASE_REPOSITORY = (IDRCaseActionsRepository) Lib_InstanceProvider.forType(
     IDRCaseActionsRepository.class
   );
+
+  static final Set<String> ALLOWED_RECORD_TYPES = new Set<String>{
+    RTCase.generalInquiryCmos,
+    RTCase.generalInquiry
+  };
   /**
    * @description Populate modified date when the picklist value is updated
    * @param record  from the trigger
@@ -207,5 +212,40 @@ public with sharing class IDRCaseActionsHelper {
         message
     );
     Logger.saveLog();
+  }
+  /**
+   * @description Update Priority field on Case based on Extra Care Time Period on Account
+   * @param listOfnewCases List of New cases
+   * @param oldMap OldMap of Cases
+   */
+  public static void updateCasePriorityforECFAccount(
+    List<Case> listOfnewCases,
+    Map<Id, SObject> oldMap
+  ) {
+    List<Case> cases = new List<Case>();
+    if (oldMap != null) {
+      cases = ListUtil.filter(listOfnewCases, oldMap)
+        .oldEquals(Case.RecordTypeId, ALLOWED_RECORD_TYPES)
+        .toList();
+    }
+    cases = ListUtil.filter(listOfnewCases)
+      .isNotNull(Case.AccountId)
+      .equals(Case.RecordTypeId, RTCase.customerComplaint)
+      .notEquals(Case.Priority, IDRConstants.CASE_PRIORITY_VULNERABLE)
+      .toList();
+    Set<Id> accountIds = ListUtil.getIds(cases, Case.AccountId);
+
+    Map<Id, Account> accountMap = new Map<Id, Account>(
+      CASE_REPOSITORY.getAccountsWithExtraCareFlag(accountIds)
+    );
+
+    for (Case c : cases) {
+      String extraCareTimePeriod = accountMap.get(c.AccountId)
+        .ExtraCareTimePeriod__c;
+      if (!IDRConstants.ECF_FLAG_TRUE.contains(extraCareTimePeriod)) {
+        continue;
+      }
+      c.Priority = IDRConstants.CASE_PRIORITY_VULNERABLE;
+    }
   }
 }

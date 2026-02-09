@@ -10,6 +10,7 @@ public class RTCase {
   public static Id accountClosure = base.getId('Account_Closure');
   public static Id anzxComplaint = base.getId('ANZx_Complaint');
   public static Id atmDispute = base.getId('ATM_Dispute');
+  public static Id bankPostDispute = base.getId('Bank_Post_Dispute');
   public static Id bpayDispute = base.getId('BPAY_Dispute');
   public static Id brokerEnquiry = base.getId('Broker_Enquiry');
   public static Id cardDispute = base.getId('Card_Dispute');
@@ -30,6 +31,7 @@ public class RTCase {
   public static Id kycQa = base.getId('KYC_QA');
   public static Id nonCustomerComplaint = base.getId('Non_Customer_Complaint');
   public static Id nppDispute = base.getId('NPP_Dispute');
+  public static Id imtDispute = base.getId('IMT_Dispute');
   public static Id payToDispute = base.getId('PayTo_Dispute');
   public static Id pinRecovery = base.getId('PIN_Recovery');
   public static Id profileUpdate = base.getId('Profile_Update');
@@ -42,6 +44,7 @@ public class RTCase {
   public static Id trustMeQA = base.getId('TrustMe_eIDV_QA_Case');
   public static Id trustMeManualReview = base.getId('TrustMe_eIDV_Case');
   public static Id rekycQA = base.getId('ReKYC_QA_Case');
+  public static Id signAuth = base.getId('Signing_Authority_Update');
 
   /**
    * @description Get the record type info for a given record type id

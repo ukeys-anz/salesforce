@@ -1,0 +1,12 @@
+<template>
+  <lightning-quick-action-panel header="Validate ABN/ACN">
+    <template lwc:if={isLoading}>
+      <lightning-spinner
+        alternative-text="Loading"
+        variant="brand"
+        size="small"
+        class="slds-is-relative slds-align_absolute-center"
+      ></lightning-spinner>
+    </template>
+  </lightning-quick-action-panel>
+</template>

@@ -144,16 +144,16 @@ export default class TransactionHistoryBoard extends LightningElement {
 
           currentTransaction.transaction_date =
             currentTransaction.transactionDateLocal
-              ? new Date(currentTransaction.transactionDateLocal)
-                  .toISOString()
-                  .split("T")[0]
+              ? new Date(
+                  currentTransaction.transactionDateLocal
+                ).toLocaleDateString("en-CA")
               : null;
 
           currentTransaction.transaction_posted_date =
             currentTransaction.transaction_posted_date
-              ? new Date(currentTransaction.transaction_posted_date)
-                  .toISOString()
-                  .split("T")[0]
+              ? new Date(
+                  currentTransaction.transaction_posted_date
+                ).toLocaleDateString("en-CA")
               : null;
 
           // Date only value to be passed to default field values, use locale "en-CA" to get YYYY-MM-DD format
@@ -513,6 +513,11 @@ export default class TransactionHistoryBoard extends LightningElement {
         return this.transactionTypeDisputeIdMapFromParent.Direct_Debit_Dispute;
       case transaction.formatted_type === TRANSACTION_TYPES.BPAY:
         return this.transactionTypeDisputeIdMapFromParent.BPAY_Dispute;
+      case transaction.formatted_type ===
+        TRANSACTION_TYPES.International_Payment:
+        return this.transactionTypeDisputeIdMapFromParent.IMT_Dispute;
+      case transaction.formatted_type === TRANSACTION_TYPES.Bank_Post:
+        return this.transactionTypeDisputeIdMapFromParent.Bank_Post_Dispute;
       default:
         return "";
     }

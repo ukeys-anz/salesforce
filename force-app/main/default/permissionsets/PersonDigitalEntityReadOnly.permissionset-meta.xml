@@ -37,6 +37,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>PDIRepository</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>Service</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -54,6 +58,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TFMDataINRemoteUtility</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TFMDataINPaginationController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -141,10 +149,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TFMAUFController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>AUFController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -227,6 +231,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>PersonDigitalIdentity__x.Created_On__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>PersonDigitalIdentity__x.Customer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>PersonDigitalIdentity__x.CustomerName__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -365,14 +379,6 @@
         <object>PersonDigitalIdentity__x</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-    <recordTypeVisibilities>
-        <recordType>Case.PIN_Recovery</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>Case.Selfie_Recovery</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
     <tabSettings>
         <tab>TFMManageOpenBankingPage</tab>
         <visibility>Visible</visibility>

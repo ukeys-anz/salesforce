@@ -6,6 +6,7 @@ import { getPicklistValuesByRecordType } from "lightning/uiObjectInfoApi";
 import saveAccountDetails from "@salesforce/apex/ManageExtraCareController.handleExtraCareUpdate";
 import getStagingRecordStatus from "@salesforce/apex/ManageExtraCareController.getStagingRecordStatus";
 import canManageHighRiskVictim from "@salesforce/customPermission/ManageExtraCareHighRiskScamVictim";
+import canManagePowerOfAttorney from "@salesforce/customPermission/ManageExtraCarePowerOfAttorney";
 import RECORD_TYPE_ID_FIELD from "@salesforce/schema/Account.RecordTypeId";
 import ACCOUNT_ID from "@salesforce/schema/Account.Id";
 import TIME_PERIOD from "@salesforce/schema/Account.ExtraCareTimePeriod__c";
@@ -40,6 +41,8 @@ const FIELDS = [
 ];
 const HIGH_RISK_VICTIM_ERROR =
   "You are not authorised to add or remove 'High risk scam victim'";
+const POA_ADMINISTRATION_ORDER_ERROR =
+  "You're not authorised to add 'Power of Attorney' and 'Administrative Order'";
 const PENDING_STATUS_MESSAGE =
   "The latest request is observed to be in 'Pending' Status. Please try again after some time";
 const ERROR_STATUS_MESSAGE =
@@ -54,6 +57,8 @@ const SENSITIVE_REASONS = [
   "Serious medical conditions (including mental health)"
 ];
 const HIGH_RISK_REASONS = "High Risk Scam Victim";
+const POWER_OF_ATTORNEY = "Power of Attorney";
+const ADMINISTRATION_ORDER = "Administration Order";
 
 const NOTES_HELP_TEXT =
   "Only record information that is needed to ensure appropriate provision of extra care to the customer, keeping the notes brief. DO NOT leave notes with your opinion, derogatory comments, or emotive language. For support or more information, refer to KnowHow or relevant knowledge article.";
@@ -258,21 +263,24 @@ export default class ManageExtraCare extends LightningElement {
       }
       if (field.dataset.id === "ExtraCareReason__c") {
         this.newAccount[field.dataset.id] = field.value.sort().join(";");
-        this.validation.checkHighRiskScamVictim(field.value);
-        this.updateReviewDate();
+        this.validation.validateExtraCareReason(field.value);
+        if (!this.oldAccount.ExtraCareReason__c) {
+          this.updateReviewDate();
+        }
         return;
       }
       this.newAccount[field.dataset.id] = field.value;
       if (field.dataset.id === "ExtraCareTimePeriod__c") {
-        this.updateReviewDate();
-        //reset fields
-        this.newAccount.ExtraCareDisclosure__c = false;
-        this.newAccount.ExtraCareConsent__c = false;
+        this.resetReviewDateByTimePeriod();
         if (field.value === "Not required") {
           this.newAccount.ExtraCareReason__c = "";
           this.newAccount.ExtraCareNotes__c = "";
-          this.newAccount.ExtraCareReviewDate__c = "";
+        } else {
+          this.updateReviewDate();
         }
+        //reset fields
+        this.newAccount.ExtraCareDisclosure__c = false;
+        this.newAccount.ExtraCareConsent__c = false;
       }
       if (field.dataset.id === "ExtraCareNotes__c") {
         if (field.value.length >= 1000) {
@@ -297,30 +305,38 @@ export default class ManageExtraCare extends LightningElement {
       });
       return isValid;
     },
-    checkHighRiskScamVictim: (reasons) => {
-      if (canManageHighRiskVictim) {
-        return;
-      }
+    validateExtraCareReason: (reasons) => {
       let field = this.template.querySelector(
         "lightning-dual-listbox[data-id=ExtraCareReason__c]"
       );
 
-      let oldReasons = this.oldAccount.ExtraCareReason__c || [];
       if (
-        (reasons.includes(HIGH_RISK_REASONS) &&
-          !oldReasons.includes(HIGH_RISK_REASONS)) ||
-        (!reasons.includes(HIGH_RISK_REASONS) &&
-          oldReasons.includes(HIGH_RISK_REASONS))
+        !canManageHighRiskVictim &&
+        this.checkIfReasonChanged(reasons, HIGH_RISK_REASONS)
       ) {
         this.toast.error("Error", HIGH_RISK_VICTIM_ERROR);
         field.setCustomValidity(HIGH_RISK_VICTIM_ERROR);
-        field.reportValidity();
+      } else if (
+        !canManagePowerOfAttorney &&
+        (this.checkIfReasonChanged(reasons, POWER_OF_ATTORNEY) ||
+          this.checkIfReasonChanged(reasons, ADMINISTRATION_ORDER))
+      ) {
+        this.toast.error("Error", POA_ADMINISTRATION_ORDER_ERROR);
+        field.setCustomValidity(POA_ADMINISTRATION_ORDER_ERROR);
       } else {
         field.setCustomValidity("");
         field.reportValidity();
       }
     }
   };
+
+  checkIfReasonChanged(reasons, value) {
+    let oldReasons = this.oldAccount.ExtraCareReason__c || [];
+    return (
+      (reasons.includes(value) && !oldReasons.includes(value)) ||
+      (!reasons.includes(value) && oldReasons.includes(value))
+    );
+  }
 
   async refreshTab() {
     if (!this.isConsoleNavigation) {
@@ -355,16 +371,18 @@ export default class ManageExtraCare extends LightningElement {
   }
 
   updateReviewDate() {
-    let today = new Date();
-    today.setDate(today.getDate() + 1);
-    let futureDate = new Date();
-    futureDate.setFullYear(today.getFullYear() + 1);
-    let oneYearFromToday = futureDate.toISOString().split("T")[0];
+    const oneYearFromToday = this.getNextYear();
     // Review Date is not visible
     if (!this.showReviewDate) {
       this.newAccount.ExtraCareReviewDate__c = null;
       return;
     }
+
+    // if the review date is already set, do not change it
+    if (this.newAccount.ExtraCareReviewDate__c) {
+      return;
+    }
+
     // Reason is changed with having no prior value (Or)
     // TimePeriod changed with same reasons
     if (
@@ -384,5 +402,34 @@ export default class ManageExtraCare extends LightningElement {
     if (!ecReasonAreSame && newEcReason.length > oldEcReason.length) {
       this.newAccount.ExtraCareReviewDate__c = oneYearFromToday;
     }
+  }
+
+  resetReviewDateByTimePeriod() {
+    const reasonsToReset = ["Not Required", "Ongoing"];
+    this.newAccount.ExtraCareReviewDate__c = reasonsToReset.includes(
+      this.newAccount.ExtraCareTimePeriod__c
+    )
+      ? null
+      : this.oldAccount.ExtraCareReviewDate__c;
+  }
+
+  getNextYear() {
+    // Get current date in AEDT
+    const today = new Date();
+
+    // Add one year
+    const nextYear = new Date(today);
+    nextYear.setFullYear(today.getFullYear() + 1);
+
+    // Format in AEDT
+    const options = {
+      timeZone: "Australia/Melbourne", // AEDT time zone
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit"
+    };
+
+    const formatter = new Intl.DateTimeFormat("en-CA", options);
+    return formatter.format(nextYear);
   }
 }

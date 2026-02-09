@@ -46,7 +46,7 @@ private class AcceptReferralControllerTest {
     );
     acceptReferralRepoMock.mock(
       'getLeadRecord',
-      new Lead(Id = leadId, Campaign_Code__c = '')
+      new Lead(Id = leadId, Campaign_Code__c = 'IKCMP-1670')
     );
     leadMockProvider.mock(
       'getCampaignRecords',
@@ -60,6 +60,15 @@ private class AcceptReferralControllerTest {
     Assert.isNotNull(
       dmlRepoMock.getHistory('doInsert'),
       'doInsert should have been invoked'
+    );
+    List<CampaignMember> campaignMemberRec = (List<CampaignMember>) dmlRepoMock.getHistory(
+        'doInsert'
+      )
+      .getParam('records');
+    Assert.areEqual(
+      1,
+      campaignMemberRec.size(),
+      'One campaign member record should be created'
     );
   }
 }

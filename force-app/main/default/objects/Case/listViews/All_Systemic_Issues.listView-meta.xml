@@ -17,6 +17,6 @@
     <filterScope>Everything</filterScope>
     <label>All Possible Systemic Issues</label>
     <sharedTo>
-        <roleAndSubordinates>ANZ</roleAndSubordinates>
+        <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

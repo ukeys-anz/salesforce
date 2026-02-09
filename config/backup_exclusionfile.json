@@ -1,0 +1,41 @@
+{
+  "Account": [
+    "OCV_Event_Version__c",
+    "Source_System_Name__c",
+    "Source_System_Id__c",
+    "External_Id__c",
+    "Id",
+    "Sync_Status__c",
+    "OCV_ID__c",
+    "OCV_Profile_ID__c",
+    "IsPersonAccount",
+    "RecordTypeId"
+  ],
+  "FinServ__FinancialAccount__c": [
+    "Id",
+    "Account_Key__c",
+    "OCV_Event_Version__c"
+  ],
+  "Activity": ["AI_Generated__c"],
+  "Aegis_Env_Setting__c": "all",
+  "BrokerSettings__c": "all",
+  "ContactPointPhone": "all",
+  "ContactPointAddress": "all",
+  "ContactPointEmail": "all",
+  "Financial_Account_Settings__c": "all",
+  "FinServ__FinancialAccountRole__c": "all",
+  "IDR_Email_Settings__c": "all",
+  "IDR_Notification_Hours__c": "all",
+  "IDR_Omni_Settings__c": "all",
+  "Log__c": "all",
+  "LogEntry__c": "all",
+  "LoggingSettings__c": "all",
+  "LogsPurgingSettings__c": "all",
+  "Non_Prod_Settings__c": "all",
+  "PAM_Global_Approver__c": "all",
+  "Salesforce_Bypass_Trigger_Actions__c": "all",
+  "Salesforce_Library_Settings__c": "all",
+  "SecureLogEntry__c": "all",
+  "User_Provisioning_Request__c": "all",
+  "UUID_Log_Entry__c": "all"
+}

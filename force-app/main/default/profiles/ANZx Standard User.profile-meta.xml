@@ -7947,6 +7947,10 @@
         <recordType>Case.ATM_Dispute</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-ATM Dispute Layout</layout>
+        <recordType>Case.Bank_Post_Dispute</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Account Closure Layout</layout>
         <recordType>Case.Account_Closure</recordType>
     </layoutAssignments>
@@ -8035,6 +8039,10 @@
         <recordType>Case.ReKYC_QA_Case</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-IMT Dispute Layout</layout>
+        <recordType>Case.IMT_Dispute</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-NPP Dispute Layout</layout>
         <recordType>Case.NPP_Dispute</recordType>
     </layoutAssignments>
@@ -8115,6 +8123,12 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Customer_Profile_Updates__c-Restrain Updates to Customer Details Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Dispute-Disputed_Transaction</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>DisputeItem-Disputed_Transaction</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>FinServ__ContactContactRelation__c-Broker Staff</layout>

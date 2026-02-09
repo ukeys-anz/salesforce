@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
+        <fullName>Broker_Profile_Admin_Edit_Each_Others_Records</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Broker Profile Admin users should be able to Read/Write Broker Relations owned by each other.</description>
+        <label>Broker Profile Admin Edit Each Others Records</label>
+        <sharedTo>
+            <role>Broker_Profile_Admin</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Broker Set</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Residential_Broker_Manager_Edit_Office_Groups</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Grant Residential Broker Manager Read/Write access to Office Groups.</description>
@@ -30,16 +45,19 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
-    <sharingOwnerRules>
-        <fullName>Enablement_Manager_Edit_Each_Others_Records</fullName>
+    <sharingCriteriaRules>
+        <fullName>Enablement_Manager_Edit_All_Records</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Enablement Managers should be able to Read/Write Broker Relations owned by each other.</description>
-        <label>Enablement Manager Edit Each Others Records</label>
+        <description>Enablement Managers should be able to Read/Write all Broker Relations records.</description>
+        <label>Enablement Manager Edit All Records</label>
         <sharedTo>
             <role>Enablement_Manager</role>
         </sharedTo>
-        <sharedFrom>
-            <role>Enablement_Manager</role>
-        </sharedFrom>
-    </sharingOwnerRules>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
 </SharingRules>

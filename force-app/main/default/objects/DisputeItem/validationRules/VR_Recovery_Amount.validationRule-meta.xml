@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR_Recovery_Amount</fullName>
+    <active>true</active>
+    <description>Prevents users to enter Recovery Amount values greater than the Transaction Amount</description>
+    <errorConditionFormula>AND(
+ NOT($Setup.Salesforce_Library_Settings__c.Disable_VRs__c),
+ RecordType.DeveloperName = &apos;Disputed_Transaction&apos;,
+ RecoveryAmount__c  &gt;  TransactionAmount 
+)</errorConditionFormula>
+    <errorDisplayField>RecoveryAmount__c</errorDisplayField>
+    <errorMessage>The Recovery Amount should not be more than the Transaction Amount.</errorMessage>
+</ValidationRule>

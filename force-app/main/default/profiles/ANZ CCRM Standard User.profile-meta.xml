@@ -657,11 +657,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CCRMTaskActions</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CCRMTaskActionsTest</apexClass>
+        <apexClass>LeadResponseTaskActions</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -770,26 +766,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CFaasFilesCleanupTest</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>COBApplicationActions</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>COBApplicationActionsHelper</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>COBApplicationActionsHelperTest</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>COBApplicationTriggerHandler</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>COBApplicationTriggerHandlerTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -2050,14 +2026,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TerritorySharingUtil</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>MLCRMTerritorySharingActions</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>MLCRMTerritorySharingTriggerHandler</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -23198,6 +23166,10 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Case-Case Layout</layout>
+        <recordType>Case.Bank_Post_Dispute</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Case Layout</layout>
         <recordType>Case.Account_Closure</recordType>
     </layoutAssignments>
     <layoutAssignments>
@@ -24758,6 +24730,11 @@
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>Case.ATM_Dispute</recordType>
+        <visible>false</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Case.Bank_Post_Dispute</recordType>
         <visible>false</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

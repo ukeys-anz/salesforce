@@ -19,16 +19,15 @@ public with sharing class ARNC360Service extends Service {
     ExternalObjectQueryBase.ExternalObjectCalloutRequestBase calloutRequest
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
-
     Map<String, String> headers = new Map<String, String>();
-    setCommonHeaders(headers);
-
-    return calloutService.makeRestCallout(
-      Label.Financial_Account_Endpoint + calloutRequest.getEndpoint(),
-      HTTP_METHOD.HTTP_POST,
-      headers,
-      calloutRequest.getPayload()
-    );
+    setCommonHeaders(headers, calloutRequest.getStaffModel());
+    Lib_HttpCallout.RESTCalloutWrapper restWrap = new Lib_HttpCallout.RESTCalloutWrapper();
+    restWrap.endpoint = calloutRequest.getEndpoint();
+    restWrap.method = HTTP_METHOD.HTTP_POST;
+    restWrap.headers = headers;
+    restWrap.requestBody = calloutRequest.getPayload();
+    restWrap.timeout = calloutRequest.timeout;
+    return calloutService.makeRestCallout(restWrap);
   }
 
   /**
@@ -54,10 +53,14 @@ public with sharing class ARNC360Service extends Service {
 
   /**
    * @param headers key value pairs of headers to set
+   * @param staffModel staffModel
    * @return `Map<String, String>` header map
    * @description sets all headers required for a mulesoft callout, loads client id and secret from named credential
    */
-  private Map<String, String> setCommonHeaders(Map<String, String> headers) {
+  private Map<String, String> setCommonHeaders(
+    Map<String, String> headers,
+    StaffTokenRequestModel staffModel
+  ) {
     headers.put('Channel', 'DCRM');
     headers.put('Content-Type', 'application/json');
     headers.put('X-Workstation', System.Label.Customer_Auth_Workstation);
@@ -73,7 +76,13 @@ public with sharing class ARNC360Service extends Service {
     if (String.isNotEmpty(operatorId)) {
       headers.put('X-Operator-Id', operatorId);
     }
-    headers = setMuleSoftCommonHeaders(headers);
+    if (staffModel == null) {
+      //usual flow
+      headers = setMuleSoftCommonHeaders(headers);
+    } else {
+      //new Ingress++ flow
+      headers.putAll(setCalloutCommonHeaders(staffModel));
+    }
     return headers;
   }
 

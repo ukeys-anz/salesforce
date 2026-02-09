@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DISPUTE_DD_DE_NPP_IMT_Queue</fullName>
+    <active>true</active>
+    <description>Throws error if the Case Record Type is Direct Debit or Direct Entry or NPP or IMT and not in the Support Coach Queue or Digital Fraud Queue or User doesn&apos;t have a Coach, Support Coach, Card Dispute Agent or FraudX Agent Role.</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+ISCHANGED(OwnerId),
+OR(
+RecordType.DeveloperName = &apos;Direct_Debit_Dispute&apos;,
+RecordType.DeveloperName = &apos;Direct_Entry_Dispute&apos;,
+RecordType.DeveloperName = &apos;NPP_Dispute&apos;,
+RecordType.DeveloperName = &apos;IMT_Dispute&apos;),
+AND(
+NOT(Owner:Queue.QueueName = &apos;Support Coach Queue&apos;),
+NOT(Owner:Queue.QueueName = &apos;Digital Fraud Queue&apos;),
+NOT(Owner:Queue.QueueName = &apos;ID Ops Queue&apos;),
+NOT(Owner:Queue.QueueName = &apos;Coach Queue&apos;),
+NOT(Owner:Queue.QueueName = &apos;BOH Coach Queue&apos;),
+NOT(Owner:User.UserRole.Name = &apos;Coach&apos;),
+NOT(Owner:User.UserRole.Name = &apos;Coach Lead&apos;),
+NOT(Owner:User.UserRole.Name = &apos;BOH Coach Lead&apos;),
+NOT(Owner:User.UserRole.Name = &apos;Support Coach&apos;),
+NOT(Owner:User.UserRole.Name = &apos;Card Dispute Agent&apos;),
+NOT(Owner:User.UserRole.Name = &apos;FraudX Agent&apos;))
+)</errorConditionFormula>
+    <errorMessage>For Direct Debit, Direct Entry, NPP, or IMT cases, please select either Support Coach Queue, Digital Fraud Queue, ID Ops Queue or Coach Queue. Or the Case Owner must have a Coach, Coach Lead, Support Coach, Card Dispute Agent or FraudX Agent Role.</errorMessage>
+</ValidationRule>

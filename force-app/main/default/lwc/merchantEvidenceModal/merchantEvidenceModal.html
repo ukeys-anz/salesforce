@@ -1,0 +1,56 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 11-03-2025
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+  <template lwc:if={showSpinner}>
+    <div class="spinnerHolder">
+      <lightning-spinner
+        variant="brand"
+        alternative-text="Loading"
+      ></lightning-spinner>
+    </div>
+  </template>
+  <template lwc:else>
+    <template lwc:if={showMerchantEvidenceModal}>
+      <lightning-modal-header
+        label="Confirm Merchant Evidence"
+      ></lightning-modal-header>
+      <lightning-modal-body>
+        <div class="slds-grid slds-wrap">
+          <div
+            class="slds-col slds-size_1-of-1 slds-align_absolute-left slds-p-around--x-small"
+          >
+            <div>
+              <lightning-radio-group
+                label="The merchant has provided evidence in this case. Please advise whether the evidence is required to be redacted if being sent to the customer."
+                options={radioOptions}
+                onchange={handleChange}
+                required
+                type="radio"
+              ></lightning-radio-group>
+            </div>
+          </div>
+        </div>
+      </lightning-modal-body>
+      <lightning-modal-footer>
+        <div class="slds-grid slds-grid_align-end">
+          <lightning-button
+            label="Cancel"
+            variant="neutral"
+            onclick={handleCloseModal}
+          ></lightning-button>
+          <lightning-button
+            class="slds-m-left_small"
+            label="Confirm"
+            variant="brand"
+            disabled={disableConfirmButton}
+            onclick={handleUpdateTaskStatus}
+          ></lightning-button>
+        </div>
+      </lightning-modal-footer>
+    </template> </template
+></template>

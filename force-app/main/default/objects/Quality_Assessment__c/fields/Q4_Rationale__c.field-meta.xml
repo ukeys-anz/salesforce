@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Q4_Rationale__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Captures the rationale for the relevant resolution assessment question</description>
+    <label>Q4 Rationale</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Engaged_with_cust_rep_where_needed__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>CMOS case comments and files show representation obtained appropriately.</fullName>
+                <default>false</default>
+                <label>CMOS case comments and files show representation obtained appropriately.</label>
+            </value>
+            <value>
+                <fullName>CMOS case comments and files show we (a) dealt with representative and (b) customer contact not made or warranted.</fullName>
+                <default>false</default>
+                <label>CMOS case comments and files show we (a) dealt with representative and (b) customer contact not made or warranted.</label>
+            </value>
+            <value>
+                <fullName>We did not help the customer appoint a representative if appropriate (eg by explaining the process and appropriate options)</fullName>
+                <default>false</default>
+                <label>We did not help the customer appoint a representative if appropriate (eg by explaining the process and appropriate options)</label>
+            </value>
+            <value>
+                <fullName>We did not deal with the representative unless a valid exception applied</fullName>
+                <default>false</default>
+                <label>We did not deal with the representative unless a valid exception applied</label>
+            </value>
+            <value>
+                <fullName>When a valid exception applied, we did not switch to customer contact and followed the relevant process (eg Best Interests Process)</fullName>
+                <default>false</default>
+                <label>When a valid exception applied, we did not switch to customer contact and followed the relevant process (eg Best Interests Process)</label>
+            </value>
+            <value>
+                <fullName>Due to reassignment, prior Case Manager responsible for the Not Met.</fullName>
+                <default>false</default>
+                <label>Due to reassignment, prior Case Manager responsible for the Not Met.</label>
+            </value>
+            <value>
+                <fullName>Customer did not want to, try to, or actually appoint a representative.</fullName>
+                <default>false</default>
+                <label>Customer did not want to, try to, or actually appoint a representative.</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>CMOS case comments and files show representation obtained appropriately.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>CMOS case comments and files show we (a) dealt with representative and (b) customer contact not made or warranted.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>We did not help the customer appoint a representative if appropriate (eg by explaining the process and appropriate options)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>We did not deal with the representative unless a valid exception applied</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>When a valid exception applied, we did not switch to customer contact and followed the relevant process (eg Best Interests Process)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met (Out of Case Handler’s control)</controllingFieldValue>
+            <valueName>Due to reassignment, prior Case Manager responsible for the Not Met.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Applicable</controllingFieldValue>
+            <valueName>Customer did not want to, try to, or actually appoint a representative.</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

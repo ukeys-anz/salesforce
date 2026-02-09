@@ -1,209 +1,453 @@
 /**
- * @author Greg Shaw
- * @since 09-2023
+ * @author CMOS
+ * @since 09-2025
  * @description Test class for IDRQualityAssessmentTaskActions
  */
-
-@IsTest
-public class IDRQualityAssessmentTaskActionsTest {
-  @IsTest
-  static void checkMandatoryFields() {
-    Boolean fExceptionThrown = false;
-    try {
-      createComplianceTasksImpl(false);
-    } catch (DmlException ex) {
-      fExceptionThrown = true;
-    }
-    System.assert(
-      fExceptionThrown,
-      'Mandatory fields didn\'t trigger exception'
-    );
-  }
-  /**
-   * @description Tests IDRQualityAssessmentTaskActions.checkOnReversionToPending
-   */
-  @IsTest
-  static void checkOnReversionFromComplete() {
-    User oQAUser = createComplianceTasksImpl(true);
-
-    System.runAs(oQAUser) {
-      List<Quality_Assessment__c> lstAssessments = [
-        SELECT Id, Status__c
-        FROM Quality_Assessment__c
-        WHERE Status__c = :QualityAssessmentActions.STATUS_COMPLETE
-      ];
-      Set<Id> stAssessmentIds = new Set<Id>();
-      for (Quality_Assessment__c oAssessment : lstAssessments) {
-        oAssessment.Status__c = QualityAssessmentActions.STATUS_PENDING;
-        stAssessmentIds.add(oAssessment.Id);
-      }
-
-      update lstAssessments;
-
-      List<Task> lstTasks = [
-        SELECT Id, Status, WhatId, RecordType.DeveloperName
-        FROM Task
-        WHERE
-          WhatId IN :stAssessmentIds
-          AND Status = :IDRConstants.TASK_STATUS_EXPIRED
-          AND RecordTypeId = :GetHelpConstants.TASK_COMPLIANCE_RT_ID
-      ];
-
-      System.assertEquals(lstAssessments.size() * 2, lstTasks.size(), 'Count');
-    }
-    Profile noAccessrProfile = CommonUtil.getProfileByName('No Access');
-    user noAcessUser = TestUtil.createTestUser(
-      new Map<String, Object>{
-        'FirstName' => 'noAcess_User',
-        'ProfileId' => noAccessrProfile.Id,
-        'UserRoleId' => ''
-      }
-    );
-    insert noAcessUser;
-    System.runAs(noAcessUser) {
-      IDRQualityAssessmentTaskActions.createComplianceTasks(null, null);
-    }
-
+@isTest
+public with sharing class IDRQualityAssessmentTaskActionsTest {
+  static Lib_MockProvider qaRepoMock;
+  static Lib_MockProvider dmlRepoMock;
+  static Id ownerUserId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+  static void registerMocks() {
+    qaRepoMock = Lib_MockProvider.forType(IDRQualityAssessmentRepository.class);
+    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
   }
 
-  /**
-   * @description Tests IDRQualityAssessmentTaskActions.createComplianceTasks
-   */
-  @IsTest
-  static void createComplianceTasks() {
-    createComplianceTasksImpl(true);
-  }
-
-  static User createComplianceTasksImpl(Boolean fFillMandatoryFields) {
-    Profile stdUserProfile = QueryProfile.anzUser;
-    UserRole cqRole = CommonUtil.getUserRoleByDevName(
-      'Capability_Quality_C_Q_Team'
+  @isTest
+  static void testCheckOnReversionFromComplete() {
+    registerMocks();
+    Case relatedCase = IDRTestDataFactory.getCase();
+    User manager = IDRTestDataFactory.getUser('Test user1');
+    Quality_Assessment__c oldQa = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_COMPLETE
     );
-    UserRole crplRole = CommonUtil.getUserRoleByDevName(
-      'Customer_Resolution_Leadership'
+    oldQa.OwnerId = ownerUserId;
+    Quality_Assessment__c newQa = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_PENDING
     );
-
-    User oQAUser;
-    User oIDRUser;
-    List<User> lstUsers = new List<User>{
-      // Create QA user
-      oQAUser = TestUtil.createTestUser(
-        new Map<String, Object>{
-          'FirstName' => 'QA_User',
-          'ProfileId' => stdUserProfile.Id,
-          'UserRoleId' => cqRole.Id
-        }
-      ),
-      // Create IDR user
-      oIDRUser = TestUtil.createTestUser(
-        new Map<String, Object>{
-          'FirstName' => 'IDR_User',
-          'ProfileId' => stdUserProfile.Id,
-          'UserRoleId' => crplRole.Id
-        }
-      )
-    };
-    insert lstUsers;
-
-    // Add IDR User permissions on test users
-    PermissionSet ps = CommonUtil.getPermissionSetByName('IDR_User');
-    List<PermissionSetAssignment> lstPSA = new List<PermissionSetAssignment>{
-      TestUtil.createPSAssignment(oQAUser.Id, ps.Id)
-    };
-
-    List<PermissionSetGroup> lstPSG = [
-      SELECT Id, DeveloperName
-      FROM PermissionSetGroup
-      WHERE DeveloperName IN ('CMOS_Quality_Assessor', 'IDR_Level_1')
-    ];
-    List<Id> lstPSGIds = new List<Id>();
-    for (PermissionSetGroup psg : lstPSG) {
-      lstPSGIds.add(psg.Id);
-      lstPSA.add(
-        new PermissionSetAssignment(
-          AssigneeId = oQAUser.Id,
-          PermissionSetGroupId = psg.Id
+    newQa.OwnerId = ownerUserId;
+    newQa.Id = oldQa.Id;
+    Task task1 = IDRTestDataFactory.getTask(
+      oldQa.Id,
+      IDRConstants.TASK_QA_COMPLIANCE_SUBJECT
+    );
+    Task task2 = IDRTestDataFactory.getTask(
+      oldQa.Id,
+      IDRConstants.TASK_QA_FEEDBACK_SUBJECT
+    );
+    Quality_Assessment__Share qaShare = IDRTestDataFactory.getQAShare(
+      newQa.Id,
+      manager.Id
+    );
+    qaRepoMock.mock('getOpenTask', new List<Task>{ task1, task2 });
+    dmlRepoMock.mock(
+      'doUpdate',
+      new List<Database.SaveResult>{
+        TestUtil.getMockSaveResult(
+          '{"success":true,"id":"' + task1.Id + '","errors":[]}'
+        ),
+        TestUtil.getMockSaveResult(
+          '{"success":true,"id":"' + task2.Id + '","errors":[]}'
         )
-      );
-    }
-
-    Test.calculatePermissionSetGroup(lstPSGIds);
-
-    insert lstPSA;
-
+      }
+    );
+    qaRepoMock.mock(
+      'getQAShareRecords',
+      new List<Quality_Assessment__Share>{ qaShare }
+    );
+    dmlRepoMock.mock(
+      'doDelete',
+      new List<Database.DeleteResult>{
+        TestUtil.getMockDeleteResult(
+          '{"success":true,"id":"' + qaShare.Id + '","errors":[]}'
+        )
+      }
+    );
     Test.startTest();
+    IDRQualityAssessmentTaskActions.checkOnReversionFromComplete(
+      new List<Quality_Assessment__c>{ newQa },
+      new Map<Id, Quality_Assessment__c>{ oldQa.Id => oldQa }
+    );
+    Test.stopTest();
+    List<Task> updatedTasks = (List<Task>) dmlRepoMock.getHistory('doUpdate')
+      .getParam('records');
+    Assert.areEqual(
+      IDRConstants.TASK_STATUS_EXPIRED,
+      updatedTasks[0].Status,
+      'Task record status field is not updated to ' +
+      IDRConstants.TASK_STATUS_EXPIRED
+    );
+    Assert.areEqual(
+      IDRConstants.TASK_STATUS_EXPIRED,
+      updatedTasks[1].Status,
+      'Task record status field is not updated to ' +
+      IDRConstants.TASK_STATUS_EXPIRED
+    );
+    List<Quality_Assessment__Share> deletedShares = (List<Quality_Assessment__Share>) dmlRepoMock.getHistory(
+        'doDelete'
+      )
+      .getParam('records');
+    Assert.areEqual(
+      1,
+      deletedShares.size(),
+      'There should be one share record deleted'
+    );
+  }
 
-    Case[] newCases = new List<Case>();
-    System.runAs(oQAUser) {
-      for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-        newCases.add(
-          new Case(
-            RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
-            IDR_Customer_Number__c = '1234567890',
-            Status = 'Closed'
-          )
-        );
+  /**
+   * @description Test negative scenario when QA record is updated to Pending status but records are filtered out so Tasks are not updated.
+   */
+  @isTest
+  static void testCheckOnReversionFromCompleteNoTasks() {
+    registerMocks();
+    Case relatedCase = IDRTestDataFactory.getCase();
+    User manager = IDRTestDataFactory.getUser('Test user1');
+    Quality_Assessment__c oldQa = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_COMPLETE
+    );
+    oldQa.OwnerId = ownerUserId;
+    Quality_Assessment__c newQa = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_PENDING
+    );
+    newQa.OwnerId = ownerUserId;
+    newQa.Id = oldQa.Id;
+    Task task1 = IDRTestDataFactory.getTask(
+      oldQa.Id,
+      IDRConstants.TASK_CORRESPONDENCE_SUBJECT
+    );
+    Quality_Assessment__Share qaShare = IDRTestDataFactory.getQAShare(
+      newQa.Id,
+      manager.Id
+    );
+    qaRepoMock.mock('getOpenTask', new List<Task>{ task1 });
+    dmlRepoMock.mock(
+      'doUpdate',
+      new List<Database.SaveResult>{ TestUtil.getMockSaveResult('{}') }
+    );
+    qaRepoMock.mock(
+      'getQAShareRecords',
+      new List<Quality_Assessment__Share>{ qaShare }
+    );
+    dmlRepoMock.mock(
+      'doDelete',
+      new List<Database.DeleteResult>{
+        TestUtil.getMockDeleteResult(
+          '{"success":true,"id":"' + qaShare.Id + '","errors":[]}'
+        )
       }
-      insert newCases;
-
-      Quality_Assessment__c[] lstAssessments = new List<Quality_Assessment__c>();
-      Quality_Assessment__c oNewAssessment;
-      Map<String, FieldSet> mpAssessmentFieldSets = Schema.SObjectType.Quality_Assessment__c.fieldSets.getMap();
-      for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-        lstAssessments.add(
-          oNewAssessment = new Quality_Assessment__c(
-            Status__c = QualityAssessmentActions.STATUS_PENDING,
-            Related_Case__c = newCases[i].Id,
-            Case_Manager__c = oQAUser.Id,
-            TeamManager__c = oIDRUser.Id,
-            RecordTypeId = IDRConstants.idrtCQQualityAssessment,
-            Corrective_actions_for_TM_CM__c = 'Update internal records'
-          )
-        );
-        if (fFillMandatoryFields) {
-          fillMandatoryFields(oNewAssessment, mpAssessmentFieldSets);
-        }
+    );
+    Test.startTest();
+    IDRQualityAssessmentTaskActions.checkOnReversionFromComplete(
+      new List<Quality_Assessment__c>{ newQa },
+      new Map<Id, Quality_Assessment__c>{ oldQa.Id => oldQa }
+    );
+    Test.stopTest();
+    List<Task> updatedTasks = (List<Task>) dmlRepoMock.getHistory('doUpdate')
+      .getParam('records');
+    Assert.areEqual(0, updatedTasks.size(), 'No records should be updated');
+  }
+  /**
+   * @description Test positive scenario when QA record is updated to Complete status so QA record is shared with Case manager.
+   */
+  @isTest
+  static void testCreateQAShareRecord() {
+    registerMocks();
+    Case relatedCase = IDRTestDataFactory.getCase();
+    User manager = IDRTestDataFactory.getUser('Test user1');
+    Quality_Assessment__c oldQa = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_PENDING
+    );
+    oldQa.OwnerId = ownerUserId;
+    Quality_Assessment__c newQa = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_COMPLETE
+    );
+    newQa.OwnerId = ownerUserId;
+    newQa.Id = oldQa.Id;
+    dmlRepoMock.mock(
+      'doInsert',
+      new List<Database.SaveResult>{
+        TestUtil.getMockSaveResult('{"success":true,"id":1323235,"errors":[]}')
       }
-      insert lstAssessments;
+    );
+    Test.startTest();
+    IDRQualityAssessmentTaskActions.createQAShareRecord(
+      new List<Quality_Assessment__c>{ newQa },
+      new Map<Id, Quality_Assessment__c>{ oldQa.Id => oldQa }
+    );
+    Test.stopTest();
+    List<Quality_Assessment__Share> insertedQAShare = (List<Quality_Assessment__Share>) dmlRepoMock.getHistory(
+        'doInsert'
+      )
+      .getParam('records');
+    Assert.areEqual(
+      insertedQAShare[0].AccessLevel,
+      'Edit',
+      'Quality assessment share record should have been inserted with Edit access'
+    );
+  }
+  /**
+   * @description Test negative scenario when QA record is updated to Complete status but records are filtered out so record is not shared with manager.
+   */
+  @isTest
+  static void testCreateQAShareRecordNegative() {
+    registerMocks();
+    Case relatedCase = IDRTestDataFactory.getCase();
+    User manager = IDRTestDataFactory.getUser('Test user1');
+    Quality_Assessment__c oldQa = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_PENDING
+    );
+    oldQa.OwnerId = ownerUserId;
+    Quality_Assessment__c newQa = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_WITHDRAWN
+    );
+    newQa.OwnerId = ownerUserId;
+    newQa.Id = oldQa.Id;
+    dmlRepoMock.mock(
+      'doInsert',
+      new List<Database.SaveResult>{ TestUtil.getMockSaveResult('{}') }
+    );
+    Test.startTest();
+    IDRQualityAssessmentTaskActions.createQAShareRecord(
+      new List<Quality_Assessment__c>{ newQa },
+      new Map<Id, Quality_Assessment__c>{ oldQa.Id => oldQa }
+    );
+    Test.stopTest();
+    List<Quality_Assessment__Share> insertedQAShare = (List<Quality_Assessment__Share>) dmlRepoMock.getHistory(
+        'doInsert'
+      )
+      .getParam('records');
+    Assert.areEqual(
+      0,
+      insertedQAShare.size(),
+      'No Quality assessment share record should have been inserted'
+    );
+  }
+  /**
+   * @description Test positive scenario when QA record is updated to Complete status and compliance tasks are created.
+   */
+  @isTest
+  static void testCreateComplianceTasks() {
+    registerMocks();
+    Case relatedCase = IDRTestDataFactory.getCase();
+    User manager = IDRTestDataFactory.getUser('Test user1');
+    Quality_Assessment__c oldQa = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_PENDING
+    );
+    oldQa.OwnerId = ownerUserId;
+    oldQa.Corrective_actions_for_TM_CM__c = '';
+    Quality_Assessment__c newQa = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_COMPLETE
+    );
+    newQa.OwnerId = ownerUserId;
+    newQa.Id = oldQa.Id;
+    newQa.Corrective_actions_for_TM_CM__c = 'Coaching recommended';
 
-      Set<Id> stAssessmentIds = new Set<Id>();
-      for (Quality_Assessment__c oAssessment : lstAssessments) {
-        oAssessment.Status__c = QualityAssessmentActions.STATUS_COMPLETE;
-        oAssessment.Case_Manager__c = null;
-        stAssessmentIds.add(oAssessment.Id);
+    qaRepoMock.mock(
+      'getQualityAssessments',
+      new List<Quality_Assessment__c>{ newQa }
+    );
+
+    dmlRepoMock.mock(
+      'doInsert',
+      new List<Database.SaveResult>{
+        TestUtil.getMockSaveResult('{"success":true,"id":1323235,"errors":[]}')
       }
-      Boolean fExceptionThrown = false;
-      try {
-        update lstAssessments;
-      } catch (DmlException ex) {
-        fExceptionThrown = true;
+    );
+    Test.startTest();
+    IDRQualityAssessmentTaskActions.createComplianceTasks(
+      new List<Quality_Assessment__c>{ newQa },
+      new Map<Id, Quality_Assessment__c>{ oldQa.Id => oldQa }
+    );
+    Test.stopTest();
+    List<Task> insertedTasks = (List<Task>) dmlRepoMock.getHistory('doInsert')
+      .getParam('records');
+    Assert.areEqual(
+      2,
+      insertedTasks.size(),
+      '2 Tasks should have been inserted'
+    );
+    Assert.areEqual(
+      true,
+      insertedTasks[0]
+        .Subject.startsWith(IDRConstants.TASK_QA_COMPLIANCE_SUBJECT),
+      '1st Task should start with ' + IDRConstants.TASK_QA_COMPLIANCE_SUBJECT
+    );
+  }
+  /**
+   * @description Test negative scenario when QA record is updated to Complete status but no compliance tasks are created.
+   */
+
+  @isTest
+  static void testCreateComplianceTasksNegative() {
+    registerMocks();
+    Case relatedCase = IDRTestDataFactory.getCase();
+    User manager = IDRTestDataFactory.getUser('Test user1');
+    Quality_Assessment__c oldQa = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_PENDING
+    );
+    oldQa.OwnerId = ownerUserId;
+    oldQa.Corrective_actions_for_TM_CM__c = '';
+    Quality_Assessment__c newQa = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_COMPLETE
+    );
+    newQa.OwnerId = ownerUserId;
+    newQa.Id = oldQa.Id;
+    newQa.Corrective_actions_for_TM_CM__c = null;
+    newQa.Evaluation_Type__c = IDRConstants.QA_FRONTLINE_ASSESSMENT;
+    qaRepoMock.mock(
+      'getQualityAssessments',
+      new List<Quality_Assessment__c>{ newQa }
+    );
+
+    dmlRepoMock.mock(
+      'doInsert',
+      new List<Database.SaveResult>{ TestUtil.getMockSaveResult('{}') }
+    );
+    Test.startTest();
+    IDRQualityAssessmentTaskActions.createComplianceTasks(
+      new List<Quality_Assessment__c>{ newQa },
+      new Map<Id, Quality_Assessment__c>{ oldQa.Id => oldQa }
+    );
+    Test.stopTest();
+    List<Task> insertedTasks = (List<Task>) dmlRepoMock.getHistory('doInsert')
+      .getParam('records');
+    Assert.areEqual(
+      1,
+      insertedTasks.size(),
+      '1 Task should have been inserted'
+    );
+  }
+  /**
+   * @description Test positive scenario when QA record is updated to Complete status and final letter review task is created.
+   */
+  @isTest
+  static void testcreateFinalLetterReviewTask() {
+    registerMocks();
+    Case relatedCase = IDRTestDataFactory.getCase();
+    User manager = IDRTestDataFactory.getUser('Test user1');
+    Quality_Assessment__c oldQaCM = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_PENDING
+    );
+    oldQaCM.OwnerId = ownerUserId;
+    oldQaCM.Corrective_actions_required_CM__c = '';
+    Quality_Assessment__c oldQaTL = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_PENDING
+    );
+    oldQaTL.OwnerId = ownerUserId;
+    oldQaTL.Corrective_actions_required_TL__c = '';
+    Quality_Assessment__c newQaCM = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_COMPLETE
+    );
+    newQaCM.RecordTypeId = RTQualityAssessment.idrReviewAssessmentId;
+    newQaCM.OwnerId = ownerUserId;
+    newQaCM.Id = oldQaCM.Id;
+    newQaCM.Corrective_actions_required_CM__c = 'Final letter not compliant';
+    newQaCM.Evaluation_Type__c = IDRConstants.QA_FINAL_LETTER_REVIEW_ASSESSMENT;
+    Quality_Assessment__c newQaTL = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_COMPLETE
+    );
+    newQaTL.RecordTypeId = RTQualityAssessment.idrReviewAssessmentId;
+    newQaTL.OwnerId = ownerUserId;
+    newQaTL.Id = oldQaTL.Id;
+    newQaTL.Corrective_actions_required_TL__c = 'Further review due to potential customer detriment';
+    newQaTL.Evaluation_Type__c = IDRConstants.QA_FINAL_LETTER_REVIEW_ASSESSMENT;
+    qaRepoMock.mock(
+      'getQualityAssessments',
+      new List<Quality_Assessment__c>{ newQaCM }
+    );
+
+    dmlRepoMock.mock(
+      'doInsert',
+      new List<Database.SaveResult>{
+        TestUtil.getMockSaveResult('{"success":true,"id":1323235,"errors":[]}')
       }
-      System.assert(
-        fExceptionThrown,
-        'Update should\'ve failed for missing Case_Manager__c.'
-      );
-
-      for (Quality_Assessment__c oAssessment : lstAssessments) {
-        oAssessment.Case_Manager__c = UserInfo.getUserId();
+    );
+    Test.startTest();
+    IDRQualityAssessmentTaskActions.createFinalLetterReviewTask(
+      new List<Quality_Assessment__c>{ newQaCM, newQaTL },
+      new Map<Id, Quality_Assessment__c>{
+        oldQaCM.Id => oldQaCM,
+        oldQaTL.Id => oldQaTL
       }
-      // try again
-      update lstAssessments;
+    );
+    Test.stopTest();
+    List<Task> insertedTasks = (List<Task>) dmlRepoMock.getHistory('doInsert')
+      .getParam('records');
+    Assert.areEqual(2, insertedTasks.size(), '2 Task is created');
+  }
+  /**
+   * @description Test negative scenario when QA record is updated to Complete status but final letter review task is not created.
+   */
+  @isTest
+  static void createFinalLetterReviewTaskFalse() {
+    registerMocks();
+    Case relatedCase = IDRTestDataFactory.getCase();
+    User manager = IDRTestDataFactory.getUser('Test user1');
+    Quality_Assessment__c oldQa = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_PENDING
+    );
+    oldQa.OwnerId = ownerUserId;
+    Quality_Assessment__c newQa = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_COMPLETE
+    );
+    newQa.OwnerId = ownerUserId;
+    newQa.Id = oldQa.Id;
+    newQa.Evaluation_Type__c = IDRConstants.QA_FRONTLINE_ASSESSMENT;
+    qaRepoMock.mock('getQualityAssessments', new List<Quality_Assessment__c>{});
 
-      Test.stopTest();
-
-      List<Task> lstTasks = [
-        SELECT Id, Status, WhatId, RecordType.DeveloperName
-        FROM Task
-        WHERE
-          WhatId IN :stAssessmentIds
-          AND Status = 'Open'
-          AND RecordTypeId = :GetHelpConstants.TASK_COMPLIANCE_RT_ID
-      ];
-
-      System.debug('Tasks: ' + lstTasks);
-      System.assertEquals(lstAssessments.size() * 2, lstTasks.size(), 'Count');
-    }
-    return oQAUser;
+    dmlRepoMock.mock(
+      'doInsert',
+      new List<Database.SaveResult>{ TestUtil.getMockSaveResult('{}') }
+    );
+    Test.startTest();
+    IDRQualityAssessmentTaskActions.createFinalLetterReviewTask(
+      new List<Quality_Assessment__c>{ newQa },
+      new Map<Id, Quality_Assessment__c>{ oldQa.Id => oldQa }
+    );
+    Test.stopTest();
+    List<Task> insertedTasks = (List<Task>) dmlRepoMock.getHistory('doInsert')
+      .getParam('records');
+    Assert.areEqual(
+      0,
+      insertedTasks.size(),
+      'No Task is created as recordtype && evaluation type does not match'
+    );
   }
 
   /**

@@ -1,6 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
+        <fullName>ANZx_Customer</fullName>
+        <accessLevel>Read</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>Read</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>If ANZx Customer, ANZx and subordinates can view</description>
+        <label>ANZx Customer</label>
+        <sharedTo>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
+        </sharedTo>
+        <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+        <criteriaItems>
+            <field>Was_ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Source_System_Name__c</field>
+            <operation>equals</operation>
+            <value>CAP-CIS</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>ANZx_Customer_Read_Only_For_ECH_Users</fullName>
+        <accessLevel>Read</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>Read</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>View access to all the ANZx records for Extra Care Hub users</description>
+        <label>ANZx Customer Read Only For ECH Users</label>
+        <sharedTo>
+            <group>ANZx_Read_Only_Group</group>
+        </sharedTo>
+        <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+        <criteriaItems>
+            <field>Was_ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Source_System_Name__c</field>
+            <operation>equals</operation>
+            <value>CAP-CIS</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Business_Admin</fullName>
         <accessLevel>Edit</accessLevel>
         <accountSettings>
@@ -37,7 +99,7 @@
         <description>Individual Person Account records to be shared with Read/Write access.</description>
         <label>MLCRM Account RW</label>
         <sharedTo>
-            <roleAndSubordinates>AR_C</roleAndSubordinates>
+            <roleAndSubordinatesInternal>AR_C</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>ANZx_Customer__c</field>
@@ -72,12 +134,54 @@
         <description>provide read only access to all ANZ customers to AR &amp; C Role</description>
         <label>MLCRM Account RO</label>
         <sharedTo>
-            <roleAndSubordinates>AR_C</roleAndSubordinates>
+            <roleAndSubordinatesInternal>AR_C</roleAndSubordinatesInternal>
         </sharedTo>
+        <booleanFilter>1 AND 2</booleanFilter>
         <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
             <value>true</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Source_System_Name__c</field>
+            <operation>equals</operation>
+            <value>CAP-CIS</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CCRM_ANZPlusAccount_RW_Sharing_Rule</fullName>
+        <accessLevel>Edit</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>None</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>Provide Edit Access to ANZ Plus Accounts For Commercial Banking Group. Sharing These accounts Enables the Bankers to Edit the ContactPointPhone and ContactPointEmail on ANZ Plus Customers.</description>
+        <label>CCRM ANZPlusAccount RW Sharing Rule</label>
+        <sharedTo>
+            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+        </sharedTo>
+        <booleanFilter>1 AND 2 AND (3 OR 4)</booleanFilter>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>true</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Source_System_Name__c</field>
+            <operation>equals</operation>
+            <value>CAP-CIS</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Organisation,CLG</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IsPersonAccount</field>
+            <operation>equals</operation>
+            <value>True</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -92,7 +196,7 @@
         <description>Providing Read/Write access to existing account to AR&amp;C.</description>
         <label>CCRM Existing Account RW</label>
         <sharedTo>
-            <roleAndSubordinates>AR_C</roleAndSubordinates>
+            <roleAndSubordinatesInternal>AR_C</roleAndSubordinatesInternal>
         </sharedTo>
         <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
         <criteriaItems>
@@ -130,7 +234,7 @@
         <sharedTo>
             <group>CMOS_Internal_Users</group>
         </sharedTo>
-        <booleanFilter>1 OR 2</booleanFilter>
+        <booleanFilter>(1 OR 2) AND 3</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -140,6 +244,11 @@
             <field>IsPersonAccount</field>
             <operation>equals</operation>
             <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Source_System_Name__c</field>
+            <operation>notEqual</operation>
+            <value>CACHE</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -154,7 +263,7 @@
         <description>Read Only for CMOS to access account</description>
         <label>CMOS customer access RO</label>
         <sharedTo>
-            <roleAndSubordinates>Customer_Resolution_with_ANZ_Plus_Read_Only</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Customer_Resolution_with_ANZ_Plus_Read_Only</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>ANZx_Customer__c</field>
@@ -204,9 +313,9 @@
         <description>Provides read only access to Commercial Banking Roles and Subordinates</description>
         <label>CCRM Account RO Sharing Rule</label>
         <sharedTo>
-            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
         </sharedTo>
-        <booleanFilter>1 OR 2</booleanFilter>
+        <booleanFilter>(1 OR 2) AND (3 OR 4)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -216,6 +325,16 @@
             <field>IsPersonAccount</field>
             <operation>equals</operation>
             <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Source_System_Name__c</field>
+            <operation>equals</operation>
+            <value>CAP-CIS</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Source_System_Name__c</field>
+            <operation>equals</operation>
+            <value>CACHE</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -230,7 +349,7 @@
         <description>Provides read only access to Mobile Lending Roles and Subordinates</description>
         <label>MLCRM Account RO Sharing Rule</label>
         <sharedTo>
-            <roleAndSubordinates>ANZ_Mobile_Lending</roleAndSubordinates>
+            <roleAndSubordinatesInternal>ANZ_Mobile_Lending</roleAndSubordinatesInternal>
         </sharedTo>
         <booleanFilter>(1 OR 2 ) AND 3</booleanFilter>
         <criteriaItems>
@@ -263,7 +382,7 @@
         <sharedTo>
             <role>AR_C</role>
         </sharedTo>
-        <booleanFilter>1 OR 2</booleanFilter>
+        <booleanFilter>(1 OR 2) AND 3</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -273,6 +392,11 @@
             <field>IsPersonAccount</field>
             <operation>equals</operation>
             <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Source_System_Name__c</field>
+            <operation>equals</operation>
+            <value>CAP-CIS</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -298,6 +422,32 @@
             <field>OCV_ID__c</field>
             <operation>notEqual</operation>
             <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>ARC_C_Customer_Read_Write_Integration_for_GCP_Users</fullName>
+        <accessLevel>Edit</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>None</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>Provide Read/write permission to Loan App GCP Integration User on both Classic and Plus applications</description>
+        <label>ARC&amp;C Customer Read Write Integration for GCP Users</label>
+        <sharedTo>
+            <group>Customer_Integration</group>
+        </sharedTo>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <field>IsPersonAccount</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Organisation,CLG</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

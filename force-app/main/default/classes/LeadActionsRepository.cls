@@ -67,37 +67,48 @@ public with sharing class LeadActionsRepository {
 
   /**
    * @description Query task records using leadids
-   * @param taskQuery string query for task
+   * @param taskFieldsList list of task fields
    * @param leadIds set of leadIds
-   * @param rtDevName recordTypeName
    * @return List of Task
    */
   public List<Task> getTaskRecords(
-    String taskQuery,
-    set<Id> leadIds,
-    String rtDevName
+    List<String> taskFieldsList,
+    set<Id> leadIds
   ) {
     if (leadIds.isEmpty()) {
       return new List<Task>();
     }
-    return Database.query(
+    String leadResponseDevName = 'Lead_Response';
+    string taskQuery =
+      'SELECT ' +
+      String.join(taskFieldsList, ',') +
+      ', WhoId, Response_Type__r.Unica_Lead_SubStatus__c FROM Task WHERE WhoId IN :leadIds AND RecordType.DeveloperName =:leadResponseDevName order by createdDate desc LIMIT 1';
+    return Database.queryWithBinds(
       String.escapeSingleQuotes(taskQuery),
+      new Map<String, Object>{
+        'leadIds' => leadIds,
+        'leadResponseDevName' => leadResponseDevName
+      },
       AccessLevel.SYSTEM_MODE
     );
   }
 
   /**
    * @description getlead records using Leadids
-   * @param query string query
-   * @param leadIds set of Ids
+   * @param leadFields list of lead fields
+   * @param leadIds leads ids
    * @return list of lead records
    */
-  public List<Lead> getLeadData(String query, Set<Id> leadIds) {
+  public List<Lead> getLeadData(List<String> leadFields, Set<Id> leadIds) {
     if (leadIds.isEmpty()) {
       return new List<Lead>();
     }
+    String leadQuery =
+      'SELECT Id, ' +
+      String.join(leadFields, ', ') +
+      ' FROM Lead WHERE Id IN :leadIds';
     return Database.query(
-      String.escapeSingleQuotes(query),
+      String.escapeSingleQuotes(leadQuery),
       AccessLevel.SYSTEM_MODE
     );
   }
@@ -128,7 +139,13 @@ public with sharing class LeadActionsRepository {
    */
   public Lead getLead(Id leadId) {
     return [
-      SELECT Id, Name, Registered_Company__c, ABN__c, ACN__c
+      SELECT
+        Id,
+        Name,
+        Registered_Company__c,
+        ABN__c,
+        ACN__c,
+        Skip_Validations__c
       FROM Lead
       WHERE Id = :leadId
       WITH USER_MODE
@@ -363,19 +380,27 @@ public with sharing class LeadActionsRepository {
   /**
    * @description to query accounts & related contacts
    * @name getAccountsAndRelatedContacts
-   * @param query string containing field to query
+   * @param accountFields string containing account fields
+   * @param contactFields string containing contact fields
    * @param relatedPartyIds set of related party Ids
    * @return List<Account> List of account records
    */
   public List<Account> getAccountsAndRelatedContacts(
-    String query,
+    String accountFields,
+    String contactFields,
     Set<String> relatedPartyIds
   ) {
-    if (String.isBlank(query)) {
+    if (relatedPartyIds.isEmpty()) {
       return new List<Account>();
     }
+    String queryRecords =
+      'SELECT ' +
+      accountFields +
+      ' (SELECT ' +
+      contactFields +
+      ' Id FROM Contacts ORDER BY createddate DESC) FROM Account WHERE Id IN :relatedPartyIds';
     return Database.queryWithBinds(
-      query,
+      queryRecords,
       new Map<String, Object>{ 'relatedPartyIds' => relatedPartyIds },
       AccessLevel.SYSTEM_MODE
     );
@@ -398,6 +423,8 @@ public with sharing class LeadActionsRepository {
         CPID__c,
         Controlling_Post__c,
         Controlling_Post__r.OwnerId,
+        Controlling_Post__r.CPID_LanID__c,
+        Controlling_Post__r.CPID_User__c,
         RecordType.Name,
         RecordTypeId
       FROM Account
@@ -421,6 +448,56 @@ public with sharing class LeadActionsRepository {
       SELECT Id, Territory__c, OwnerId
       FROM Lead
       WHERE Id IN :leadIdIdsSet
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description to query account records related to leads
+   * @name getIndividualAccRecords
+   * @param accountIdsSet set of Account Ids
+   * @return Map<Id, Account> Account Map
+   */
+  public Map<Id, Account> getIndividualAccRecords(Set<Id> accountIdsSet) {
+    if (accountIdsSet.isEmpty()) {
+      return new Map<Id, Account>();
+    }
+
+    return new Map<Id, Account>(
+      [
+        SELECT
+          Id,
+          PersonOtherPhone,
+          Phone,
+          PersonHomePhone,
+          Other_Email__c,
+          Source_System_Name__c,
+          RecordTypeId
+        FROM Account
+        WHERE
+          Source_System_Name__c = :System.Label.CCRM_Source_System_Name
+          AND Id IN :accountIdsSet
+          AND FinServ__Status__c IN ('Active', 'Inactive')
+          AND RecordTypeId = :RTAccount.personAccount
+        WITH USER_MODE
+      ]
+    );
+  }
+  /**
+   * @description Retrieves a list of controlling posts based on cpids
+   * @param cpids A set of LAN CPIDs from leads
+   * @return List<Controlling_Post__c> A list of Controlling post records based on cpids.
+   */
+  public List<Controlling_Post__c> getControllingPostsByCPIDs(
+    Set<String> cpids
+  ) {
+    if (cpids.isEmpty()) {
+      return new List<Controlling_Post__c>();
+    }
+    return [
+      SELECT Id, CPID_LanId__c, CPID__c, CPID_User__c
+      FROM Controlling_Post__c
+      WHERE CPID__c IN :cpids
       WITH USER_MODE
     ];
   }

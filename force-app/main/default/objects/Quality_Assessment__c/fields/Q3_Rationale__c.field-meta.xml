@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Q3_Rationale__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Captures the rationale for the relevant resolution assessment question</description>
+    <label>Q3 Rationale</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Hardship_recorded_referred_managed__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Customer Hardship recorded in CMOS &apos;Issue Type&apos; field as primary issue</fullName>
+                <default>false</default>
+                <label>Customer Hardship recorded in CMOS &apos;Issue Type&apos; field as primary issue</label>
+            </value>
+            <value>
+                <fullName>Escalation to specialised hardship complaints team evidenced by Hardship CM assigned to complaint</fullName>
+                <default>false</default>
+                <label>Escalation to specialised hardship complaints team evidenced by Hardship CM assigned to complaint</label>
+            </value>
+            <value>
+                <fullName>Customer hardship not recorded in CMOS &apos;Issue Type&apos; field as primary issue ,</fullName>
+                <default>false</default>
+                <label>Customer hardship not recorded in CMOS &apos;Issue Type&apos; field as primary issue ,</label>
+            </value>
+            <value>
+                <fullName>Customer hardship included in call or case notes only but not flagged in CMOS ‘Issue Type’ field</fullName>
+                <default>false</default>
+                <label>Customer hardship included in call or case notes only but not flagged in CMOS ‘Issue Type’ field</label>
+            </value>
+            <value>
+                <fullName>No escalation to specialised hardship complaints team / hardship assessment team evidenced by Hardship CM not assigned to complaint / no referral details on CMOS or PCC.</fullName>
+                <default>false</default>
+                <label>No escalation to specialised hardship complaints team / hardship assessment team evidenced by Hardship CM not assigned to complaint / no referral details on CMOS or PCC.</label>
+            </value>
+            <value>
+                <fullName>CMOS file edit history indicates customer hardship was not recorded as primary ‘Issue Type’ / not referred to hardship assessment team by first case manager or Frontline</fullName>
+                <default>false</default>
+                <label>CMOS file edit history indicates customer hardship was not recorded as primary ‘Issue Type’ / not referred to hardship assessment team by first case manager or Frontline</label>
+            </value>
+            <value>
+                <fullName>CMOS file edit history indicates that complaint was incorrectly assigned</fullName>
+                <default>false</default>
+                <label>CMOS file edit history indicates that complaint was incorrectly assigned</label>
+            </value>
+            <value>
+                <fullName>Customer not experiencing hardship or their hardship notice was not a complaint issue.</fullName>
+                <default>false</default>
+                <label>Customer not experiencing hardship or their hardship notice was not a complaint issue.</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>Customer Hardship recorded in CMOS &apos;Issue Type&apos; field as primary issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Met</controllingFieldValue>
+            <valueName>Escalation to specialised hardship complaints team evidenced by Hardship CM assigned to complaint</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Customer hardship not recorded in CMOS &apos;Issue Type&apos; field as primary issue ,</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>Customer hardship included in call or case notes only but not flagged in CMOS ‘Issue Type’ field</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met</controllingFieldValue>
+            <valueName>No escalation to specialised hardship complaints team / hardship assessment team evidenced by Hardship CM not assigned to complaint / no referral details on CMOS or PCC.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met (Out of Case Handler’s control)</controllingFieldValue>
+            <valueName>CMOS file edit history indicates customer hardship was not recorded as primary ‘Issue Type’ / not referred to hardship assessment team by first case manager or Frontline</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Met (Out of Case Handler’s control)</controllingFieldValue>
+            <valueName>CMOS file edit history indicates that complaint was incorrectly assigned</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not Applicable</controllingFieldValue>
+            <valueName>Customer not experiencing hardship or their hardship notice was not a complaint issue.</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

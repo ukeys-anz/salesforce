@@ -55,8 +55,8 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       );
       Test.stopTest();
 
-      System.assertEquals(
-        20,
+      Assert.areEqual(
+        22,
         transactionModel.embedded.transactions.size(),
         'Transactions size should be as expected.'
       );
@@ -104,8 +104,8 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       );
       Test.stopTest();
 
-      System.assertEquals(
-        20,
+      Assert.areEqual(
+        22,
         transactionModel.embedded.transactions.size(),
         'Transactions size should be as expected.'
       );
@@ -130,7 +130,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       resultException = e;
     }
     Test.stopTest();
-    System.assertEquals(
+    Assert.areEqual(
       'Get transaction history failed',
       resultException.getMessage(),
       'Error message should be as expected.'
@@ -157,12 +157,112 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       );
       Test.stopTest();
 
-      System.assertEquals(
-        20,
+      Assert.areEqual(
+        22,
         transactionModel.embedded.transactions.size(),
         'Transactions size should be as expected.'
       );
     }
+  }
+
+  /**
+   * @description fetch valid transaction history, mocked values in force-app/main/default/staticresources/mock_transactionHistoryV1.json
+   * called in force-app/main/default/classes/services/FabricServiceMock.cls
+   */
+  @isTest
+  static void transactionHistoryAuraV2Response() {
+    TransactionParamUrlModel paramModel = new TransactionParamUrlModel();
+    paramModel.accountNumber = '000000000';
+    paramModel.startDate = '2018-07-03 00:00:00';
+    paramModel.endDate = '2018-07-26 23:59:59';
+
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Test.startTest();
+      TransactionHistoryModel transactionModel = CoachBankingAPIRepository.getTransactionHistoryAuraV2(
+        '',
+        '1111',
+        paramModel
+      );
+      Test.stopTest();
+
+      Assert.areEqual(
+        22,
+        transactionModel.embedded.transactions.size(),
+        'Transactions size should be as expected.'
+      );
+    }
+  }
+
+  /**
+   * @description test getTransactionParamUrl with TransactionParamUrlModel containing pre-built paramUrl
+   * This tests the early return optimization when paramUrl is already provided
+   */
+  @isTest
+  static void testGetTransactionParamUrlWithPreBuiltUrl() {
+    // Given a TransactionParamUrlModel with a pre-built paramUrl
+    TransactionParamUrlModel paramModel = new TransactionParamUrlModel();
+    String expectedParamUrl = '?page_token=abc123&page_size=20';
+    paramModel.paramUrl = expectedParamUrl;
+
+    // When getTransactionParamUrl is called
+    Test.startTest();
+    String resultParamUrl = CoachBankingAPIRepositoryHelper.getTransactionParamUrl(
+      paramModel
+    );
+    Test.stopTest();
+
+    // Then it should return the pre-built paramUrl without reconstruction
+    Assert.areEqual(
+      expectedParamUrl,
+      resultParamUrl,
+      'Should return the pre-built paramUrl from the model'
+    );
+  }
+
+  /**
+   * @description test getTransactionParamUrl with TransactionParamUrlModel when paramUrl is blank
+   * This tests the URL construction logic when paramUrl is not provided
+   */
+  @isTest
+  static void testGetTransactionParamUrlWithoutPreBuiltUrl() {
+    // Given a TransactionParamUrlModel with all required parameters but no paramUrl
+    TransactionParamUrlModel paramModel = new TransactionParamUrlModel();
+    paramModel.accountNumber = '000000000';
+    paramModel.startDate = '2018-07-03 00:00:00';
+    paramModel.endDate = '2018-07-26 23:59:59';
+    paramModel.bucketIds = new List<String>{ 'bucket1', 'bucket2' };
+    paramModel.pageSize = '20';
+    paramModel.paramUrl = ''; // Empty paramUrl
+
+    // When getTransactionParamUrl is called
+    Test.startTest();
+    String resultParamUrl = CoachBankingAPIRepositoryHelper.getTransactionParamUrl(
+      paramModel
+    );
+    Test.stopTest();
+
+    // Then it should construct the URL from the model parameters
+    Assert.isTrue(
+      resultParamUrl.contains('account_numbers=000000000'),
+      'Should contain account number parameter'
+    );
+    Assert.isTrue(
+      resultParamUrl.contains('page_size=20'),
+      'Should contain page size parameter'
+    );
+    Assert.isTrue(
+      GetHelpConstants.isTransactionsV1()
+        ? resultParamUrl.contains('origin_time.after')
+        : resultParamUrl.contains('start_time'),
+      'Should contain start time parameter'
+    );
+    Assert.isTrue(
+      GetHelpConstants.isTransactionsV1()
+        ? resultParamUrl.contains('origin_time.before')
+        : resultParamUrl.contains('end_time'),
+      'Should contain end time parameter'
+    );
   }
 
   /**
@@ -232,7 +332,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
         resultException = e;
       }
       Test.stopTest();
-      System.assertEquals(
+      Assert.areEqual(
         'Get card list failed',
         resultException.getMessage(),
         'Error message should be as expected.'
@@ -249,7 +349,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       String replaceNumber = coachAPI.replaceCard('1111', '1234', 'stolen');
       Test.stopTest();
 
-      System.assertEquals(
+      Assert.areEqual(
         '9741329257534100',
         replaceNumber,
         'Replace number should be as expected.'
@@ -269,7 +369,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       } catch (CoachBankingAPIRepository.InvalidInformationException e) {
         errorMsg = e.getMessage();
       }
-      System.assertEquals(
+      Assert.areEqual(
         'The replace reason is not valid.',
         errorMsg,
         'Error message should be as expected.'
@@ -294,7 +394,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
         resultException = e;
       }
       Test.stopTest();
-      System.assertEquals(
+      Assert.areEqual(
         'Replace card failed',
         resultException.getMessage(),
         'Error message should be as expected.'
@@ -322,7 +422,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
 
       // THEN
       // parsing data on to CardListModel should not fail
-      System.assertEquals(
+      Assert.areEqual(
         mockedCardsSize,
         cardsModel.cards.size(),
         'Error occured while parsing JSON payload related to cards'
@@ -344,7 +444,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       CardControlModel cardControlModel = coachAPI.getCardControlsList('1111');
       Test.stopTest();
 
-      System.assertEquals(
+      Assert.areEqual(
         6,
         cardControlModel.card_controls.size(),
         'Card control mock response should be received'
@@ -375,7 +475,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
         resultException = e;
       }
       Test.stopTest();
-      System.assertEquals(
+      Assert.areEqual(
         'Get card control list failed',
         resultException.getMessage(),
         'Exception should be returned for failed call'
@@ -400,7 +500,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       );
       Test.stopTest();
 
-      System.assertEquals(
+      Assert.areEqual(
         CardTempLockController.GCT_GLOBAL_CONTROL_STRING,
         lockCardResponse?.card_controls[0].control_type,
         'Successful lock card control response should be received'
@@ -430,7 +530,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
         resultException = e;
       }
       Test.stopTest();
-      System.assertEquals(
+      Assert.areEqual(
         'Place lock on card failed',
         resultException.getMessage(),
         'Exception should be returned for failed call'
@@ -456,7 +556,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
 
     String expectedString = '?status_filter=BUCKET_STATUS_FILTER_OPEN&page_size=7';
 
-    System.assertEquals(
+    Assert.areEqual(
       expectedString,
       paramUrlString,
       'Parameter URL string should be built as expected'
@@ -486,7 +586,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       ? '?account_numbers=000000000&origin_time.after=2018-07-02T14:00:00.000Z&origin_time.before=2018-07-26T13:59:59.000Z&page_size=20'
       : '?account_numbers=000000000&start_time=2018-07-02T14:00:00.000Z&end_time=2018-07-26T13:59:59.000Z&page_size=20';
 
-    System.assertEquals(
+    Assert.areEqual(
       expectedString,
       paramUrlString,
       'Parameter URL string should be built as expected'

@@ -1,0 +1,35 @@
+{
+  "accounts": [
+    {
+      "productCode": "DDA",
+      "accountName": "Business Transaction Account",
+      "accountNumber": "123456789",
+      "accountBalance": 905.57,
+      "status": "ACTIVE",
+      "shortName": "BTA",
+      "error": ""
+    },
+    {
+      "productCode": "DDA",
+      "accountName": "Business Transaction Account2",
+      "accountNumber": "123456780",
+      "accountBalance": 905.57,
+      "status": "ACTIVE",
+      "shortName": "BTA",
+      "error": ""
+    },
+    {
+      "productCode": "DDA",
+      "accountName": "Business Transaction Account3",
+      "accountNumber": "123456788",
+      "accountBalance": 905.57,
+      "status": "ACTIVE",
+      "shortName": "BTA",
+      "error": ""
+    },
+    {
+      "accountNumber": "121212324",
+      "error": "ACCOUNT NOT FOUND"
+    }
+  ]
+}

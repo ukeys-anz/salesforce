@@ -15,7 +15,8 @@ public with sharing class QueryForgeRockAuth {
         Forgev2_subject_token_type__c,
         CacheStaffToken__c,
         developername,
-        Audience__c
+        Audience__c,
+        IsJWEToken__c
       FROM Forgerock_Auth__mdt
       WITH SYSTEM_MODE
     ]) {

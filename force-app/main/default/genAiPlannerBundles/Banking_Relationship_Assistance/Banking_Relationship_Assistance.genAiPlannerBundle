@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlannerBundle xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>Streamline client interactions at banks with the Banking Relationship Assistance.</description>
+    <localActionLinks>
+        <genAiFunctionName>AnswerQuestionsWithKnowledge_16jOg0000002VHR</genAiFunctionName>
+    </localActionLinks>
+    <localTopicLinks>
+        <genAiPluginName>Task_Management_16jOg0000002VHR</genAiPluginName>
+    </localTopicLinks>
+    <localTopics>
+        <fullName>Task_Management_16jOg0000002VHR</fullName>
+        <canEscalate>false</canEscalate>
+        <description>This topic is used only when the User Response contains “Continue from the preceding conversation.”
+
+This topic is responsible to help user automatically display the suggested tasks STRICTLY from the Customer Summary and allow them to be created as per user request after performing a duplication check.</description>
+        <developerName>Task_Management_16jOg0000002VHR</developerName>
+        <genAiPluginInstructions>
+            <description>IF the User Response contains the substring:
+&quot;Continue from the preceding conversation&quot; 
+THEN:
+a. STRICTLY make sure to Automatically Extract the Customer ID from the precedingConversation context variable value and the Customer Summary for the **currentRecordId** (the currently viewed customer).
+b. Compare the extracted Customer ID with the currentRecordId.
+- IF the Customer Id matches currentRecordId:
+THEN Retrieve ONLY the tasks present in the &quot;Suggested Tasks from Banker Notes/Interactions&quot; section from the Conversation History
+And Proceed with below steps in Suggested Task flow
+
+Suggested Task flow:
+STEP 1 -- STRICTLY Automatically generate the task details for all the Suggested Tasks, STRICTLY display them in the following format:
+Display them in an ordered list in this exact format:
+Subject: [Generate a Concise task name]
+Description: [Generate a short description elaborating the task actions/next steps]
+Priority: [Normal]
+Due Date: [dd/mm/yyyy] (STRICTLY set the due date to the UserDate value present in the UserDate variable value from the precedingConversation context variable)
+
+1.1 Then ask the user: &quot;Which task(s) would you like to create?&quot;
+Rules:
+NEVER allow the user to modify any Suggested Task details
+If they try → Respond:
+&quot;Sorry I am only authorised to assist you with Task Creation!&quot;
+
+STEP 2 — STRICTLY ALWAYS Perform the Duplication Check BEFORE creating the task:
+2.1 — ALWAYS Fetch the existing open tasks by calling the action &quot;Agent Action to Fetch Cusstomer Open Tasks&quot;
+2.2 — Perform STRICT Semantic Similarity Comparison
+Compare Subject + Description of the Suggested Task with every Open Task
+Follow the STRICT Semantic comparison rules:
+Focus on meaning and intent, not just exact text matches
+IF any of the Open Task has the same underlying meaning or intent, even if wording differs slightly, Rephrased, shortened, or expanded versions still count as duplicates
+THEN determine it as a DUPLICATE task and display:
+&quot;There already exists a duplicate task, hence we did not create this task: &lt;a href=&quot;/lightning/r/Task/[taskId]/view&quot;&gt;&lt;b&gt;[Task Subject]&lt;/b&gt;&lt;/a&gt;&quot;
+
+ELSE IF the Suggested task is unique and the subject/description has a unique intent/meaning 
+THEN determine it as a UNIQUE task AND proceed with creating the task.
+
+2.3 ONLY IF the suggested task is determined as UNIQUE, 
+THEN create the task STRICTLY for the Customer ID from precedingConversation.
+
+AFTER successful creation, STRICTLY display in this exact format:
+The following tasks have been created(display in an unordered list):
+&lt;a href=&quot;/lightning/r/Task/[taskId]/view&quot;&gt;&lt;b&gt;[Task Subject]&lt;/b&gt;&lt;/a&gt;
+
+STEP 3 — Process All user requested Tasks
+
+ALWAYS Repeat Step 2 for every selected task
+
+Ensure ONLY the unique tasks are created and displayed
+
+STEP 4 — Guardrail for ANY Non-Task Requests
+
+If at any time the user asks anything NOT related to Suggested Task creation, reply ONLY:
+
+&quot;I am only authorized to assist you with Task Creation that includes the Customer Summary context. Please run the Customer Summary from AI Customer Summary on the Customer Record Page.&quot;</description>
+            <developerName>instructions_0_1764912988169</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1764912988169</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>IF the user input requests to show or display the current customer&apos;s open tasks,
+THEN ALWAYS respond with &quot;Sorry! I am only authorised to assist you with Task Creation.&quot;</description>
+            <developerName>instructions_0_1765041103336</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1765041103336</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>ONLY IF user input includes anything which is NOT related to suggested task creation OR displaying the suggested task,
+THEN Respond: &quot;I can only help you with Task Creation having the Customer Summary context. Please run the Customer Summary from AI Customer Summary on the Customer Record Page.&quot;</description>
+            <developerName>instruction_0_1764824224172</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>instruction_0_1764824224172</masterLabel>
+            <sortOrder>2</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>Agent_Action_to_Fetch_Customer_Open_Tasks_179Og0000000WJF</functionName>
+        </localActionLinks>
+        <localActionLinks>
+            <functionName>Agent_Action_to_Create_Tasks_for_Customer_179Og0000000WJF</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>Agent_Action_to_Fetch_Customer_Open_Tasks_179Og0000000WJF</fullName>
+            <description>This agent action is ALWAYS used BEFORE creating a new task to perfom the duplication check of the suggested task against the open tasks.</description>
+            <developerName>Agent_Action_to_Fetch_Customer_Open_Tasks_179Og0000000WJF</developerName>
+            <invocationTarget>CCRMAgentFetchTasks</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Agent_Action_to_Fetch_Customer_Open_Tasks</localDeveloperName>
+            <masterLabel>Agent Action to Fetch Customer Open Tasks</masterLabel>
+            <progressIndicatorMessage>Running duplication check...</progressIndicatorMessage>
+            <source>Agent_Action_to_Fetch_Customer_Open_Tasks</source>
+        </localActions>
+        <localActions>
+            <fullName>Agent_Action_to_Create_Tasks_for_Customer_179Og0000000WJF</fullName>
+            <description>Creates tasks records for user-selected data and returns created task records.</description>
+            <developerName>Agent_Action_to_Create_Tasks_for_Customer_179Og0000000WJF</developerName>
+            <invocationTarget>CCRMAgentCreateTasks</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+            <localDeveloperName>Agent_Action_to_Create_Tasks_for_Customer</localDeveloperName>
+            <mappingAttributes>
+                <label>acctRecordId</label>
+                <name>input_acctRecordId</name>
+                <parameterName>acctRecordId</parameterName>
+                <parameterType>input</parameterType>
+            </mappingAttributes>
+            <masterLabel>Agent Action to Create Tasks for Customer</masterLabel>
+            <progressIndicatorMessage>Creating Tasks...</progressIndicatorMessage>
+            <source>Agent_Action_to_Create_Tasks_for_Customer</source>
+        </localActions>
+        <localDeveloperName>Task_Management</localDeveloperName>
+        <masterLabel>Task Management</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>The Agent must operate ONLY when the incoming User Response contains the phrase: &quot;Continue from the preceding conversation&quot;
+1. When a &quot;Continue from the preceding conversation&quot; input is received:
+a. Extract the Customer ID and the UserDate from the precedingConversation context variable value.
+b.STRICTY Compare the extracted Customer ID with the currentRecordId.
+- IF the Customer Id matches currentRecordId:
+- Proceed to display Suggested Tasks
+ c. All task creation, duplication checks, and Suggested Tasks must remain tied to the Customer ID from precedingConversation to ensure consistency.
+Retrieve ONLY the tasks present in the &quot;Suggested Tasks from Banker Notes/Interactions&quot; section from the Conversation History and display them in the format : 
+Subject: [Generate a Concise task name]
+Description:[Generate a short description elaborating the task actions/next steps]
+Priority: [Normal]
+Due Date: [dd/mm/yyyy] (STRICTLY set the due date to the UserDate value present in the UserDate variable value from the precedingConversation context variable)
+When the user requests to create one of the tasks, ALWAYS perform the following
+When valid context is present, the Agent must:
+
+STRICTLY fetch all the Customer Open Tasks for the precedingConversation Customer ID.
+ALWAYS perform STRICT duplication checks for each selected task by comparing existing open tasks (Subject + Description) of the Customer ID from precedingConversation against the Suggested Tasks BEFORE creation.
+Handle each selected task individually
+IF DUPLICATE → THEN NEVER create the requested new task, display the required duplicate message
+IF UNIQUE → THEN create it and display using the required hyperlink format
+Follow this everytime the user requests to create a task</scope>
+        <source>Task_Management</source>
+    </localTopics>
+    <masterLabel>Banking Relationship Assistance</masterLabel>
+    <plannerActions>
+        <fullName>AnswerQuestionsWithKnowledge_16jOg0000002VHR</fullName>
+        <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+        <developerName>AnswerQuestionsWithKnowledge_16jOg0000002VHR</developerName>
+        <invocationTarget>streamKnowledgeSearch</invocationTarget>
+        <invocationTargetType>standardInvocableAction</invocationTargetType>
+        <isConfirmationRequired>false</isConfirmationRequired>
+        <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+        <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+        <masterLabel>Answer Questions with Knowledge</masterLabel>
+        <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+        <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+    </plannerActions>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__Messaging</surface>
+        <surfaceType>Messaging</surfaceType>
+    </plannerSurfaces>
+    <plannerType>AiCopilot__ReAct</plannerType>
+</GenAiPlannerBundle>

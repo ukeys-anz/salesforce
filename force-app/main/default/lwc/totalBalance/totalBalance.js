@@ -22,7 +22,6 @@ export default class TotalBalance extends LightningElement {
   totalSavedAlignment = "header-column slds-float_right";
   allProductNames;
   savingProductNames;
-  showComponent = false;
   @wire(getRecord, {
     recordId: "$recordId",
     fields: [ACCOUNT_OCV_ID_FIELD]

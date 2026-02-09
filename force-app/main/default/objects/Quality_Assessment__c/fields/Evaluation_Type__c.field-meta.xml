@@ -101,6 +101,21 @@
                 <default>false</default>
                 <label>Appointment</label>
             </value>
+            <value>
+                <fullName>Customer Resolution Assessment</fullName>
+                <default>false</default>
+                <label>Customer Resolution Assessment</label>
+            </value>
+            <value>
+                <fullName>Frontline Assessment</fullName>
+                <default>false</default>
+                <label>Frontline Assessment</label>
+            </value>
+            <value>
+                <fullName>Final Letter Review Assessment</fullName>
+                <default>false</default>
+                <label>Final Letter Review Assessment</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

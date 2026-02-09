@@ -7,7 +7,6 @@
     <columns>CASES.STATUS</columns>
     <columns>CASES.PRIORITY</columns>
     <columns>CORE.USERS.ALIAS</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
@@ -18,9 +17,10 @@
         <operation>equals</operation>
         <value>0</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>All TrustMe QA Open Cases</label>
     <sharedTo>
-        <roleAndSubordinates>FraudX_Agent</roleAndSubordinates>
-        <roleAndSubordinates>Join_Lead</roleAndSubordinates>
+        <role>FraudX_Agent</role>
+        <role>Join_Lead</role>
     </sharedTo>
 </ListView>

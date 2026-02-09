@@ -15,10 +15,16 @@
                 &amp;&amp; Submitted__c = true,
                 OR(
                     RecordType.DeveloperName = &quot;NPP_Dispute&quot;,
-                    RecordType.DeveloperName = &quot;BPAY_Dispute&quot;
+                    RecordType.DeveloperName = &quot;BPAY_Dispute&quot;,
+                    RecordType.DeveloperName = &quot;IMT_Dispute&quot;
                 ),
+                OR(
                 ISPICKVAL(
                     Dispute_Reason__c, &quot;Unauthorised Transaction&quot;
+                ),
+                ISPICKVAL(
+                    Dispute_Reason__c, &quot;Suspected fraud&quot;
+                )
                 )
             )
             </formula>
@@ -26,22 +32,22 @@
         <ruleEntry>
             <assignedTo>Support_Coach_Queue</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <formula>
-            AND(
-                OR(
-                    ISNEW(),
-                    ISCHANGED(Submitted__c)
-                )
-                &amp;&amp; Submitted__c = true,
-                OR(
-                    RecordType.DeveloperName = &quot;NPP_Dispute&quot;,
-                    RecordType.DeveloperName = &quot;BPAY_Dispute&quot;
-                ),
-                NOT(
-                    ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised Transaction&quot;)
-                )
+            <formula>AND( 
+    OR( ISNEW(),  ISCHANGED(Submitted__c) )   &amp;&amp; Submitted__c = true,   
+    OR(
+        AND(
+            OR(RecordType.DeveloperName = &quot;NPP_Dispute&quot;,  RecordType.DeveloperName = &quot;BPAY_Dispute&quot;), NOT(   ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised Transaction&quot;)   )
+        ), 
+        AND(
+            RecordType.DeveloperName = &quot;IMT_Dispute&quot;,
+            OR(
+                ISPICKVAL(Dispute_Reason__c, &quot;Cancel Payment&quot;),
+                ISPICKVAL(Dispute_Reason__c, &quot;Money not received&quot;),
+                ISPICKVAL(Dispute_Reason__c, &quot;Amendment Request&quot;)
             )
-            </formula>
+        )
+    )
+)</formula>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>Support_Coach_Queue</assignedTo>
@@ -55,7 +61,8 @@
                 &amp;&amp; Submitted__c = true,
                 OR(
                     RecordType.DeveloperName = &quot;Direct_Debit_Dispute&quot;,
-                    RecordType.DeveloperName = &quot;Direct_Entry_Dispute&quot;
+                    RecordType.DeveloperName = &quot;Direct_Entry_Dispute&quot;,
+                    RecordType.DeveloperName = &quot;Bank_Post_Dispute&quot;
                   )
                 )
             </formula>

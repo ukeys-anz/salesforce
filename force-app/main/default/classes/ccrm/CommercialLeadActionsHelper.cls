@@ -150,6 +150,25 @@ public with sharing class CommercialLeadActionsHelper {
         aar.FinServ__RelatedAccount__r
       );
     }
+    populateCpIdOwner(filteredLeadsList, accMap);
+  }
+
+  /**
+   * @description : This is used to populate the CPID Owner on Lead from CPID LanID of Controlling Post.
+   * @param filteredLeadsList A filtered lead list with change of related account
+   * @param accMap  A map of related account of the lead
+   */
+  private static void populateCpIdOwner(
+    List<Lead> filteredLeadsList,
+    Map<Id, Account> accMap
+  ) {
+    for (Lead leadRecord : filteredLeadsList) {
+      Controlling_Post__c cPost = accMap.get(
+          leadRecord.FinServ__RelatedAccount__c
+        )
+        ?.Controlling_Post__r;
+      leadRecord.CPID_Owner__c = cPost?.CPID_User__c;
+    }
   }
 
   /**
@@ -272,6 +291,68 @@ public with sharing class CommercialLeadActionsHelper {
     leadRecord.CLG_Name__c = accRecord?.Id;
     leadRecord.CLG_ID__c = accRecord?.CLG__c;
     leadRecord.CPID__c = accRecord?.CPID__c;
-    leadRecord.CPID_Owner__c = accRecord?.Controlling_Post__r?.OwnerId;
+  }
+
+  /**
+   * @description : This is used to populate the contatc Info on Lead from Individual ETB Account
+   * name populateContactInfoForInd
+   * @param filteredLeadsList filtered Lead records
+   * @param accMap Map of Id and Account
+   */
+  public static void populateContactInfoForInd(
+    List<Lead> filteredLeadsList,
+    Map<Id, Account> accMap
+  ) {
+    for (Lead leadRec : filteredLeadsList) {
+      Account accRec = accMap.get(leadRec.FinServ__RelatedAccount__c);
+      if (accRec == null) {
+        continue;
+      }
+      leadRec.MobilePhone = leadRec.MobilePhone ??
+        santizePhoneNumber(accRec.PersonOtherPhone);
+      leadRec.Work_Phone__c = leadRec.Work_Phone__c ??
+        santizePhoneNumber(accRec.Phone);
+      leadRec.Home_Phone__c = leadRec.Home_Phone__c ??
+        santizePhoneNumber(accRec.PersonHomePhone);
+      leadRec.Email = leadRec.Email ?? accRec.Other_Email__c;
+      if (leadRec.Primary_Contact_Method__c == null) {
+        leadRec.Primary_Contact_Method__c = (leadRec.MobilePhone != null)
+          ? 'Mobile'
+          : ((leadRec.Work_Phone__c != null)
+              ? 'Work Phone'
+              : ((leadRec.Home_Phone__c != null) ? 'Home Phone' : null));
+      }
+    }
+  }
+
+  /**
+   * @description : This is used to sanitize the Phone number
+   * name santizePhoneNumber
+   * @param phoneNumber Phone Number from account
+   * @return String return correct phone number after sanitize
+   */
+  private static String santizePhoneNumber(String phoneNumber) {
+    if (phoneNumber == null) {
+      return phoneNumber;
+    }
+    if (phoneNumber.startsWith('0')) {
+      phoneNumber = phoneNumber.replaceFirst('0', '+61');
+    }
+    return phoneNumber;
+  }
+
+  /**
+   * @description : This is used to update CPID Owner on Lead from Controlling Post
+   * @param leadsWithCPIDValue Lead records having CPID value
+   * @param controllingPostsByCPIDs Map of CPID and Controlling Post record
+   */
+  public static void updateCPIDOwnerByCPID(
+    List<Lead> leadsWithCPIDValue,
+    Map<String, Controlling_Post__c> controllingPostsByCPIDs
+  ) {
+    for (Lead leadRec : leadsWithCPIDValue) {
+      Controlling_Post__c cPost = controllingPostsByCPIDs.get(leadRec.CPID__c);
+      leadRec.CPID_Owner__c = cPost?.CPID_User__c;
+    }
   }
 }
