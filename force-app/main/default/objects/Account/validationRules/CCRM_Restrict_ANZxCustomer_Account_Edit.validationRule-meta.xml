@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCRM_Restrict_ANZxCustomer_Account_Edit</fullName>
+    <active>true</active>
+    <description>Prevents Bankers from editing Account records where ANZx_Customer__c = TRUE</description>
+    <errorConditionFormula>$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false &amp;&amp;
+$Permission.CCRM_Skip_Validation = false &amp;&amp;
+$Profile.Name = $Label.CCRM_Profile_Name &amp;&amp;
+NOT(ISNEW()) &amp;&amp;
+ANZx_Customer__c = TRUE</errorConditionFormula>
+    <errorMessage>You are not authorized to update ANZ Plus Customer Accounts.</errorMessage>
+</ValidationRule>
