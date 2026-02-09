@@ -21,6 +21,27 @@
         <locationY>0</locationY>
     </assignments>
     <assignments>
+        <name>CLG_Extra_Care_Data</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>****** EXTRA CARE ALERT *****
+Show Extra Care Alert : True;
+Extra Care Message : There is at least one related Extra Care customer, please review the customer profile for additional details.
+**** END***
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Opportunity_Record_Type</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>CLG Extra Care Data</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
         <name>Customer_Relationship_Records</name>
         <assignmentItems>
             <assignToReference>$Output.Prompt</assignToReference>
@@ -39,14 +60,32 @@
         <locationY>0</locationY>
     </assignments>
     <assignments>
+        <name>End_of_Suggested_Task</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>******* Suggested Task End *****
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Opportunity_Records_Start</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>End of Suggested Task</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
         <name>Extra_Care_Data</name>
         <assignmentItems>
             <assignToReference>$Output.Prompt</assignToReference>
             <operator>Add</operator>
             <value>
                 <stringValue>****** EXTRA CARE ALERT *****
-Show Extra Care Alert : {!accountRecord.ShowExtraCareAlert__c};
-Extra Care Reasons : {!accountRecord.ExtraCareReason__c} .
+Show Extra Care Alert : True;
+Extra Care Message : This customer currently has an &lt;b&gt;active Extra Care Alert&lt;/b&gt; due to the following reasons: &lt;b&gt;{!accountRecord.ExtraCareReason__c}&lt;/b&gt;.
 **** END***
 </stringValue>
             </value>
@@ -112,6 +151,25 @@ Extra Care Reasons : {!accountRecord.ExtraCareReason__c} .
         <locationY>0</locationY>
     </assignments>
     <assignments>
+        <name>NO_NPS_Records</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>-NPS Data Not Available
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Iterate_Over_A_Z_Reviews</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>NO NPS Records</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
         <name>Opportunity_Records_Start</name>
         <assignmentItems>
             <assignToReference>$Output.Prompt</assignToReference>
@@ -130,13 +188,34 @@ Extra Care Reasons : {!accountRecord.ExtraCareReason__c} .
         <locationY>0</locationY>
     </assignments>
     <assignments>
+        <name>Pass_A_Z_Reviews_Data</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>AZReviewId: {!Suggested_Task_for_AZ_Reviews.Id}
+Name :{!Suggested_Task_for_AZ_Reviews.Name},
+Business Details :{!Suggested_Task_for_AZ_Reviews.Business_Details__c},
+{!Suggested_Task_for_AZ_Reviews.Borrowing_OFI_Relationship__c} 
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Suggested_Task_for_AZ_Reviews</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>Pass A-Z Reviews Data</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
         <name>Pass_Customer_Relationship</name>
         <assignmentItems>
             <assignToReference>$Output.Prompt</assignToReference>
             <operator>Add</operator>
             <value>
                 <stringValue>Id : {!Loop_over_Customer_Relationship.Id},
-Customer Preferred Name : {!Loop_over_Customer_Relationship.Preferred_Name__c},
+Name : {!Loop_over_Customer_Relationship.Name}
 ***Account Plan Section***
 Private Banker Advisor : {!Loop_over_Customer_Relationship.Private_Banker_Advisor__r.Name},
 Customer Areas of Interest: {!Loop_over_Customer_Relationship.Customer_Areas_of_Interest__c},
@@ -161,6 +240,51 @@ Status:{!Loop_over_Customer_Relationship.Status__c}
         </connector>
         <elementSubtype>AddPromptInstructions</elementSubtype>
         <label>Pass Customer Relationship</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
+        <name>Pass_Interaction_Data_for_suggested_Task</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>Interaction Id : {!loopinteractionsforsuggestedTask.Id}
+Interaction Name : {!loopinteractionsforsuggestedTask.Name},
+Interaction Summary : {!loopinteractionsforsuggestedTask.Optional_Notes__c},
+Interaction Type :{!loopinteractionsforsuggestedTask.InteractionType},
+Start Time :{!loopinteractionsforsuggestedTask.StartTime},
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>loopinteractionsforsuggestedTask</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>Pass Interaction Data for suggested Task</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
+        <name>Pass_Survey_Response_Data</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>******Survey Response (NPS)****
+Survey Id : {!Get_Survey_Response.Id},
+Survey Response Name :{!Get_Survey_Response.Name},
+Date Created :{!Get_Survey_Response.qualtrics__Date_Responded__c},
+Advocacy Rating :{!Get_Survey_Response.qualtrics__Net_Promoter_Score__c},
+Customer Feedback :{!Get_Survey_Response.Customer_Feedback__c}.
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Iterate_Over_A_Z_Reviews</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>Pass Survey Response Data</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
     </assignments>
@@ -194,18 +318,12 @@ Due Date :{!Loop_over_Tasks.ActivityDate}
                 <stringValue>A_Z Reviews ID : {!Iterate_Over_A_Z_Reviews.Id}
 Name :{!Iterate_Over_A_Z_Reviews.Name},
 Business Details :{!Iterate_Over_A_Z_Reviews.Business_Details__c},
-******Survey Response (NPS)****
-Survey Id : {!Get_Survey_Response.Id},
-Survey Response Name :{!Get_Survey_Response.Name},
-Date Created :{!Get_Survey_Response.qualtrics__Date_Responded__c},
-Advocacy Rating :{!Get_Survey_Response.qualtrics__Net_Promoter_Score__c},
-Customer Feedback :{!Get_Survey_Response.Customer_Feedback__c}.
 ******************
 </stringValue>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Iterate_Over_A_Z_Reviews</targetReference>
+            <targetReference>Get_Survey_Response</targetReference>
         </connector>
         <elementSubtype>AddPromptInstructions</elementSubtype>
         <label>Pass A-Z Reviews Data</label>
@@ -266,6 +384,7 @@ Referral Status:{!Iterate_Over_Leads.Referral_Status__c},
 Opportunity Name :{!Iterate_over_Opportunities.Name},
 Opportunity Owner : {!Get_Owner_Name.Name},
 Amount : {!Iterate_over_Opportunities.Amount},
+Approved Amount : {!Iterate_over_Opportunities.Approved_Amount__c}
 Closed Date :{!Iterate_over_Opportunities.CloseDate},
 Stage Name :{!Iterate_over_Opportunities.StageName},
 Lost Reason :{!Iterate_over_Opportunities.Lost_Reason__c},
@@ -299,6 +418,24 @@ Lost Reason :{!Iterate_over_Opportunities.Lost_Reason__c},
         <locationY>0</locationY>
     </assignments>
     <assignments>
+        <name>Suggested_Task</name>
+        <assignmentItems>
+            <assignToReference>$Output.Prompt</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>******* Suggested Task Records *****
+</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>loopinteractionsforsuggestedTask</targetReference>
+        </connector>
+        <elementSubtype>AddPromptInstructions</elementSubtype>
+        <label>Suggested Task</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </assignments>
+    <assignments>
         <name>Total_Interaction_Count</name>
         <assignmentItems>
             <assignToReference>$Output.Prompt</assignToReference>
@@ -306,12 +443,12 @@ Lost Reason :{!Iterate_over_Opportunities.Lost_Reason__c},
             <value>
                 <stringValue>Total number of interactions :{!interactionCount}
 
-Current Time Date :{!GenerationTimeDate}
+UserDate :{!GenerationTimeDate}
 </stringValue>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Opportunity_Records_Start</targetReference>
+            <targetReference>Suggested_Task</targetReference>
         </connector>
         <elementSubtype>AddPromptInstructions</elementSubtype>
         <label>Total Interaction Count</label>
@@ -339,9 +476,59 @@ Current Time Date :{!GenerationTimeDate}
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Extra_Care_Data</targetReference>
+                <targetReference>Has_Extra_Care_Alert2</targetReference>
             </connector>
             <label>Has Extra Care Access</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>check_for_Last_6_Months_AZ_Reviews</name>
+        <defaultConnector>
+            <targetReference>Suggested_Task_for_AZ_Reviews</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <label>check for Last 6 Months AZ Reviews</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <rules>
+            <name>Last_6_Months_AZ_Reviews</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Suggested_Task_for_AZ_Reviews.CreatedDate</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <elementReference>SixMonthsAgoDate</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Pass_A_Z_Reviews_Data</targetReference>
+            </connector>
+            <label>Last 6 Months AZ Reviews</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>check_for_Last_6_Months_Interactions</name>
+        <defaultConnector>
+            <targetReference>loopinteractionsforsuggestedTask</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <label>check for Last 6 Months Interactions</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <rules>
+            <name>Last_6_Months_Interactions</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>loopinteractionsforsuggestedTask.StartTime</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <elementReference>SixMonthsAgoDate</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Pass_Interaction_Data_for_suggested_Task</targetReference>
+            </connector>
+            <label>Last 6 Months Interactions</label>
         </rules>
     </decisions>
     <decisions>
@@ -424,6 +611,63 @@ Current Time Date :{!GenerationTimeDate}
         </rules>
     </decisions>
     <decisions>
+        <name>Has_Any_Related_Customer_Extra_Care_Alert</name>
+        <defaultConnector>
+            <targetReference>Get_Opportunity_Record_Type</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <label>Has Any Related Customer Extra Care Alert?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <rules>
+            <name>Has_Extra_Care_Alert</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Related_Customers</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>CLG_Extra_Care_Data</targetReference>
+            </connector>
+            <label>Has Extra Care Alert</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Has_Extra_Care_Alert2</name>
+        <defaultConnector>
+            <targetReference>Get_Related_Customers</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <label>Has Extra Care Alert?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <rules>
+            <name>Has_Extra_Alert</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>accountRecord.ExtraCareTimePeriod__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>accountRecord.ExtraCareTimePeriod__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Not required</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Extra_Care_Data</targetReference>
+            </connector>
+            <label>Has Extra Alert</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Is_Flow_disabled</name>
         <defaultConnector>
             <targetReference>Get_Account_Record_Type</targetReference>
@@ -471,12 +715,17 @@ Current Time Date :{!GenerationTimeDate}
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>Customer Relationship records are fetched for Summary</description>
+    <description>Suggested Task</description>
     <environments>Default</environments>
     <formulas>
         <name>GenerationTimeDate</name>
         <dataType>DateTime</dataType>
         <expression>{!$Flow.CurrentDateTime}</expression>
+    </formulas>
+    <formulas>
+        <name>SixMonthsAgoDate</name>
+        <dataType>Date</dataType>
+        <expression>TODAY() - 180</expression>
     </formulas>
     <formulas>
         <name>ThreeMonthsAgoDate</name>
@@ -498,7 +747,7 @@ Current Time Date :{!GenerationTimeDate}
         <locationX>0</locationX>
         <locationY>0</locationY>
         <nextValueConnector>
-            <targetReference>Get_Survey_Response</targetReference>
+            <targetReference>send_A_Z_Reviews_Data</targetReference>
         </nextValueConnector>
         <noMoreValuesConnector>
             <targetReference>Open_Tasks</targetReference>
@@ -585,6 +834,34 @@ Current Time Date :{!GenerationTimeDate}
             <targetReference>Pass_Task_Records</targetReference>
         </nextValueConnector>
     </loops>
+    <loops>
+        <name>loopinteractionsforsuggestedTask</name>
+        <collectionReference>InteractionList</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <label>loop interactions for suggested Task</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <nextValueConnector>
+            <targetReference>check_for_Last_6_Months_Interactions</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Suggested_Task_for_AZ_Reviews</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
+        <name>Suggested_Task_for_AZ_Reviews</name>
+        <collectionReference>A_Z_ReviewRecords</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <label>Suggested Task for AZ Reviews</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <nextValueConnector>
+            <targetReference>check_for_Last_6_Months_AZ_Reviews</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>End_of_Suggested_Task</targetReference>
+        </noMoreValuesConnector>
+    </loops>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -636,6 +913,8 @@ Current Time Date :{!GenerationTimeDate}
         <queriedFields>Id</queriedFields>
         <queriedFields>Name</queriedFields>
         <queriedFields>Business_Details__c</queriedFields>
+        <queriedFields>CreatedDate</queriedFields>
+        <queriedFields>Borrowing_OFI_Relationship__c</queriedFields>
         <sortField>CreatedDate</sortField>
         <sortOrder>Desc</sortOrder>
     </recordLookups>
@@ -671,6 +950,8 @@ Current Time Date :{!GenerationTimeDate}
         <queriedFields>Id</queriedFields>
         <queriedFields>Name</queriedFields>
         <queriedFields>Business_Details__c</queriedFields>
+        <queriedFields>CreatedDate</queriedFields>
+        <queriedFields>Borrowing_OFI_Relationship__c</queriedFields>
         <sortField>CreatedDate</sortField>
         <sortOrder>Desc</sortOrder>
     </recordLookups>
@@ -961,6 +1242,7 @@ Current Time Date :{!GenerationTimeDate}
         <queriedFields>CloseDate</queriedFields>
         <queriedFields>Customer_Needs__c</queriedFields>
         <queriedFields>Lost_Reason__c</queriedFields>
+        <queriedFields>Approved_Amount__c</queriedFields>
         <sortField>CreatedDate</sortField>
         <sortOrder>Desc</sortOrder>
     </recordLookups>
@@ -1009,6 +1291,7 @@ Current Time Date :{!GenerationTimeDate}
         <queriedFields>CloseDate</queriedFields>
         <queriedFields>StageName</queriedFields>
         <queriedFields>Lost_Reason__c</queriedFields>
+        <queriedFields>Approved_Amount__c</queriedFields>
         <sortField>CreatedDate</sortField>
         <sortOrder>Desc</sortOrder>
     </recordLookups>
@@ -1055,11 +1338,42 @@ Current Time Date :{!GenerationTimeDate}
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
+        <name>Get_Related_Customers</name>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Has_Any_Related_Customer_Extra_Care_Alert</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>FinServ__Account__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>accountRecord.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>ExtraCare__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <label>Get Related Customers</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <object>FinServ__AccountAccountRelation__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>Get_Survey_Response</name>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>send_A_Z_Reviews_Data</targetReference>
+            <targetReference>Pass_Survey_Response_Data</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>NO_NPS_Records</targetReference>
+        </faultConnector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>A_Z_Review__c</field>
@@ -1138,6 +1452,13 @@ Current Time Date :{!GenerationTimeDate}
         <objectType>Account</objectType>
     </variables>
     <variables>
+        <name>CLG_relatedCustomerIds</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
         <name>interactionCount</name>
         <dataType>Number</dataType>
         <isCollection>false</isCollection>
@@ -1171,5 +1492,13 @@ Current Time Date :{!GenerationTimeDate}
         <isInput>false</isInput>
         <isOutput>false</isOutput>
         <objectType>Opportunity</objectType>
+    </variables>
+    <variables>
+        <name>surveyResponseRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>qualtrics__Survey_Response__c</objectType>
     </variables>
 </Flow>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <name>ManageExtraCarePowerOfAttorney</name>
+        <enabled>true</enabled>
+    </customPermissions>
+    <description>Added a Custom Permission Manage Extra Care - Power Of Attorney,
+                user with this permission can Click the Button and Edit
+                user with this permission can Add/remove Power Of Attorney and Administration Order
+    </description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Manage Extra Care - Power Of Attorney</label>
+</PermissionSet>

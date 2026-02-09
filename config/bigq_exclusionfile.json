@@ -134,7 +134,6 @@
     "Mailing_Title_2__c",
     "Manager__pc",
     "Mobile__c",
-    "Name",
     "NumberOfEmployees",
     "Occupation__c",
     "Office_Group__pc",
@@ -190,6 +189,7 @@
     "SourceSystemIdentifier",
     "PersonGender"
   ],
+  "Activity": ["TaskNumber__c"],
   "ApplicationForm": ["BranchUnitId"],
   "ApplicationFormProduct": ["ApplicantVisibleStatus"],
   "COBPrimaryIDDocument__c": [
@@ -248,6 +248,7 @@
     "StateOfIssueOCRServer__c",
     "SubmittedAt__c"
   ],
+  "Campaign": ["Stage"],
   "Case": [
     "CertificateIdentifier__c",
     "LicenceCardNumber__c",
@@ -293,7 +294,6 @@
     "Pronouns",
     "SAO_State__c",
     "Secondary_RBM__c",
-    "Segment__c",
     "TitleType",
     "Preferred_Contact__c",
     "Previous_Record_Type__c",
@@ -302,7 +302,6 @@
     "qualtrics__Last_Survey_Invitation__c",
     "qualtrics__Last_Survey_Response__c",
     "qualtrics__Net_Promoter_Score__c",
-    "Retail_Accreditation_Status__c",
     "Gender"
   ],
   "ContactRequest": ["Focus_Area__c"],
@@ -510,7 +509,6 @@
     "Settlement_ID__c"
   ],
   "Twilio_Details__c": ["Call_Transcript__c", "Summary__c"],
-  "Activity": ["TaskNumber__c"],
   "User": [
     "AboutMe",
     "BadgeText",
@@ -573,11 +571,13 @@
     "UserPreferencesDisMentionsCommentEmail",
     "UserPreferencesDismissReuseUpdateReminderModal",
     "UserPreferencesDisProfPostCommentEmail",
+    "UserPreferencesEmailSummarizationGptConsent",
     "UserPreferencesEnableAutoSubForFeeds",
     "UserPreferencesEventRemindersCheckboxDefault",
     "UserPreferencesExcludeMailAppAttachments",
     "UserPreferencesFavoritesShowTopFavorites",
     "UserPreferencesFavoritesWTShown",
+    "UserPreferencesGenAISummarizationUserConsent",
     "UserPreferencesGlobalNavBarWTShown",
     "UserPreferencesGlobalNavGridMenuWTShown",
     "UserPreferencesHasCelebrationBadge",
@@ -590,6 +590,7 @@
     "UserPreferencesHideCSNDesktopTask",
     "UserPreferencesHideCSNGetChatterMobileTask",
     "UserPreferencesHideEndUserOnboardingAssistantModal",
+    "UserPreferencesHideFlowTypeChangeConfirmationModal",
     "UserPreferencesHideLightningMigrationModal",
     "UserPreferencesHideOnlineSalesAppWelcomeMat",
     "UserPreferencesHideS1BrowserUI",
@@ -653,6 +654,7 @@
     "UserPermissionsSFContentUser",
     "UserPermissionsSupportUser",
     "UserPreferencesAssistiveActionsEnabledInActionLauncher",
+    "User_Role__c",
     "UserRoleId",
     "SuAccessExpirationDate",
     "StartDay",

@@ -18,7 +18,10 @@
 const slackGroupMapping = {
   release: "sf-plat-engineers",
   develop: "sf-plat-engineers",
-  "epic/anzx-bau": "sf-bau"
+  "epic/anzx-bau": "sf-bau",
+  "epic/cmos-a":"sf-cmos",
+  "epic/cmos-main":"sf-cmos",
+  "epic/imtv1": "sf-quantum"
 };
 
 export { slackGroupMapping };

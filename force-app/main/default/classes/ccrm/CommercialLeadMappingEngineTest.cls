@@ -721,7 +721,7 @@ public class CommercialLeadMappingEngineTest {
 
     //THEN it should successfully assert
     Assert.areEqual(
-      'No Contact Found',
+      '<Insert ',
       mappingEngine.leadList[0].FirstName,
       'FirstName should be No Contact Found'
     );
@@ -770,7 +770,7 @@ public class CommercialLeadMappingEngineTest {
 
     //THEN it should successfully assert
     Assert.areEqual(
-      'Check for Commercial Contacts on profile',
+      '<Insert ',
       mappingEngine.leadList[0].FirstName,
       'FirstName should be Check for Commercial Contacts on profile'
     );

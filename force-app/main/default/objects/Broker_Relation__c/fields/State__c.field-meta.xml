@@ -5,7 +5,7 @@
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source_Salesforce</complianceGroup>
     <description>Represents the state to which this Broker Set is Associated.
 SAO = Sub-Aggregator Originator</description>
-    <label>SAO State</label>
+    <label>RBM State</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackHistory>false</trackHistory>

@@ -45,7 +45,9 @@ public with sharing class CommercialLeadTriggerHandler extends Lib_TriggerHandle
     CommercialLeadActions.checkForExistingCustomer(records, null);
     CommercialLeadActions.restrictImagesInRichTextFields(records, null);
     CommercialLeadActions.populateInfo(records, null);
+    CommercialLeadActions.updateDetailsOnCPIDChange(records, null);
     CommercialLeadActions.populatePrimaryContactMethod(records);
+    CommercialLeadActions.prefillContactInfoForIndLead(records, null);
   }
 
   /**
@@ -110,6 +112,14 @@ public with sharing class CommercialLeadTriggerHandler extends Lib_TriggerHandle
       (Map<Id, Lead>) oldMap
     );
     CommercialLeadActions.populateInfo(
+      (List<Lead>) records,
+      (Map<Id, Lead>) oldMap
+    );
+    CommercialLeadActions.updateDetailsOnCPIDChange(
+      (List<Lead>) records,
+      (Map<Id, Lead>) oldMap
+    );
+    CommercialLeadActions.prefillContactInfoForIndLead(
       (List<Lead>) records,
       (Map<Id, Lead>) oldMap
     );

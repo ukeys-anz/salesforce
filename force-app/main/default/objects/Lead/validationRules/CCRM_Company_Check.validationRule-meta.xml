@@ -11,6 +11,7 @@
         TEXT(Entity_Type__c) != &apos;Individual&apos;,
         TEXT(Entity_Type__c) != &apos;Customer Lending Group&apos;
     ),
+    NOT(FinServ__RelatedAccount__r.RecordType.DeveloperName = &apos;CLG&apos;),
     RecordType.DeveloperName = &apos;CCRM_Lead&apos;,
 	OR(
 		ISBLANK(Company), 

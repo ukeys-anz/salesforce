@@ -110,4 +110,124 @@ public class CommercialLeadActionsHelperTest {
       'Expiry Date not updated properly for Call Back Response'
     );
   }
+
+  @isTest
+  static void populateContactInfoForIndTest() {
+    //GIVEN filteredLeadsList, accMap
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.getSObjectType());
+    List<Lead> filteredLeadsList = new List<Lead>{
+      new Lead(
+        Id = Lib_FakeIdGenerator.getMockId(Lead.getSObjectType()),
+        FinServ__RelatedAccount__c = accId
+      )
+    };
+    Map<Id, Account> accMap = new Map<Id, Account>{
+      accId => new Account(
+        Id = accId,
+        PersonOtherPhone = '+61412345677',
+        Phone = '+61412345678',
+        PersonHomePhone = '+61412345679',
+        Other_Email__c = 'sample@google.com'
+      )
+    };
+
+    //WHEN calling a method
+    Test.startTest();
+    CommercialLeadActionsHelper.populateContactInfoForInd(
+      filteredLeadsList,
+      accMap
+    );
+    Test.stopTest();
+
+    //THEN it should assert successfully
+    Assert.areEqual(
+      '+61412345677',
+      filteredLeadsList[0].MobilePhone,
+      'Mobile should get populated from Account.'
+    );
+    Assert.areEqual(
+      'Mobile',
+      filteredLeadsList[0].Primary_Contact_Method__c,
+      'should set primary contact method to mobile.'
+    );
+  }
+
+  @isTest
+  static void populateContactInfoForIndTest1() {
+    //GIVEN filteredLeadsList, accMap
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.getSObjectType());
+    List<Lead> filteredLeadsList = new List<Lead>{
+      new Lead(
+        Id = Lib_FakeIdGenerator.getMockId(Lead.getSObjectType()),
+        FinServ__RelatedAccount__c = accId
+      )
+    };
+    Map<Id, Account> accMap = new Map<Id, Account>{
+      accId => new Account(
+        Id = accId,
+        Phone = '+61412345678',
+        PersonHomePhone = '+61412345679',
+        Other_Email__c = 'sample@google.com'
+      )
+    };
+
+    //WHEN calling a method
+    Test.startTest();
+    CommercialLeadActionsHelper.populateContactInfoForInd(
+      filteredLeadsList,
+      accMap
+    );
+    Test.stopTest();
+
+    //THEN it should assert successfully
+    Assert.areEqual(
+      '+61412345678',
+      filteredLeadsList[0].Work_Phone__c,
+      'Work Phone should get populated from Account.'
+    );
+    Assert.areEqual(
+      'Work Phone',
+      filteredLeadsList[0].Primary_Contact_Method__c,
+      'should set primary contact method to Work Phone.'
+    );
+  }
+
+  @isTest
+  static void populateContactInfoForIndTest2() {
+    //GIVEN filteredLeadsList, accMap
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.getSObjectType());
+    List<Lead> filteredLeadsList = new List<Lead>{
+      new Lead(
+        Id = Lib_FakeIdGenerator.getMockId(Lead.getSObjectType()),
+        FinServ__RelatedAccount__c = accId
+      )
+    };
+    Map<Id, Account> accMap = new Map<Id, Account>{
+      accId => new Account(
+        Id = accId,
+        PersonHomePhone = '+61412345679',
+        Other_Email__c = 'sample@google.com'
+      )
+    };
+
+    //WHEN calling a method
+    Test.startTest();
+    CommercialLeadActionsHelper.populateContactInfoForInd(
+      filteredLeadsList,
+      accMap
+    );
+    Test.stopTest();
+
+    //THEN it should assert successfully
+    Assert.areEqual(
+      '+61412345679',
+      filteredLeadsList[0].Home_Phone__c,
+      'Home Phone should get populated from Account.'
+    );
+    Assert.areEqual(
+      'Home Phone',
+      filteredLeadsList[0].Primary_Contact_Method__c,
+      'should set primary contact method to Home Phone.'
+    );
+  }
 }

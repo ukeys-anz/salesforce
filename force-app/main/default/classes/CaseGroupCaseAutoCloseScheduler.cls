@@ -12,6 +12,28 @@ public with sharing class CaseGroupCaseAutoCloseScheduler implements Schedulable
     AccountClosureRepository.class
   );
 
+  private static final Integer DEFAULT_BATCH_SIZE = 200;
+
+  private Integer batchSize;
+
+  /**
+   * @description No-arg constructor required by the platform when instantiating scheduled Apex.
+   */
+  public CaseGroupCaseAutoCloseScheduler() {
+    this.batchSize = DEFAULT_BATCH_SIZE;
+  }
+
+  /**
+   * @description Constructor for processing a list of SObjects
+   * @param batchSize Number of records to process per execution
+   */
+  public CaseGroupCaseAutoCloseScheduler(Integer batchSize) {
+    this.batchSize = (batchSize == null ||
+      batchSize <= 0)
+      ? DEFAULT_BATCH_SIZE
+      : batchSize;
+  }
+
   /**
    * @description execute method to run logic to auto close case group cases having no open account closure child cases
    * @param sc SchedulableContext
@@ -35,13 +57,16 @@ public with sharing class CaseGroupCaseAutoCloseScheduler implements Schedulable
       caseGroupCasesToUpdate.add(parentCase);
     }
 
-    DML_REPOSITORY.doUpdate(
-      caseGroupCasesToUpdate,
-      new DmlConfig()
-        .allowPartial()
-        .errorLog(
-          'Case Group Case Auto Close Scheduler: One or more case updates failed during execution. See database results for more details'
-        )
+    if (caseGroupCasesToUpdate.isEmpty()) {
+      return;
+    }
+
+    System.enqueueJob(
+      new ProcessRecordsInChunksQueueable(
+        caseGroupCasesToUpdate,
+        batchSize,
+        ProcessRecordsInChunksQueueable.DMLOperation.DML_UPDATE
+      )
     );
   }
 }

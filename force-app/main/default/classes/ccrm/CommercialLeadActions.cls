@@ -244,7 +244,7 @@ public with sharing class CommercialLeadActions {
       )
       .equals(
         Lead.Expiry_Date__c,
-        Date.today().addDays(Integer.valueOf(Label.CCRM_Today_Date))
+        Date.today().addDays(Integer.valueOf(Label.CommercialExtendTodaysDate))
       )
       .toList();
     Map<Id, Boolean> leadWithIncludeFridayMap = LeadExpiryActions.getLeadsWithIncludeFridayMap(
@@ -541,5 +541,72 @@ public with sharing class CommercialLeadActions {
       .toList();
 
     ListUtil.setField(filteredLeadList, Lead.Company, null);
+  }
+
+  /**
+   * @description : This is used to populate the contact info for the Individual ETB Customers
+   * @param records Lead records
+   * @param oldMap old lead records
+   */
+  public static void prefillContactInfoForIndLead(
+    List<Lead> records,
+    Map<Id, Lead> oldMap
+  ) {
+    List<Lead> filteredLeadList = ListUtil.filter(records, oldMap)
+      .changed(Lead.FinServ__RelatedAccount__c)
+      .isNotNull(Lead.FinServ__RelatedAccount__c)
+      .toList();
+
+    Set<Id> accountIdsSet = ListUtil.getIds(
+      filteredLeadList,
+      Lead.FinServ__RelatedAccount__c
+    );
+
+    Map<Id, Account> accMap = LEAD_ACTION_REPOSITORY.getIndividualAccRecords(
+      accountIdsSet
+    );
+
+    CommercialLeadActionsHelper.populateContactInfoForInd(
+      filteredLeadList,
+      accMap
+    );
+  }
+
+  /**
+   * @description : This is used to populate the contact info for the Individual ETB Customers
+   * @param records Lead records
+   * @param oldMap old lead records
+   */
+  public static void updateDetailsOnCPIDChange(
+    List<Lead> records,
+    Map<Id, Lead> oldMap
+  ) {
+    List<Lead> leadsWithCPIDValue = ListUtil.filter(records, oldMap)
+      .changed(Lead.CPID__c)
+      .isNotNull(Lead.CPID__c)
+      .toList();
+    List<Lead> leadsWithBlankCPID = ListUtil.filter(records, oldMap)
+      .changed(Lead.CPID__c)
+      .isNull(Lead.CPID__c)
+      .toList();
+    ListUtil.setField(leadsWithBlankCPID, Lead.CPID_Owner__c, null);
+
+    Set<String> uniqueCPIDs = ListUtil.getStrings(
+      leadsWithCPIDValue,
+      Lead.CPID__c
+    );
+    List<Controlling_Post__c> controllingPosts = LEAD_ACTION_REPOSITORY.getControllingPostsByCPIDs(
+      uniqueCPIDs
+    );
+
+    Map<String, Controlling_Post__c> controllingPostsByCPIDs = (Map<String, Controlling_Post__c>) ListUtil.mapBy(
+      controllingPosts,
+      Controlling_Post__c.CPID__c
+    );
+
+    CommercialLeadActionsHelper.updateCPIDOwnerByCPID(
+      leadsWithCPIDValue,
+      controllingPostsByCPIDs
+    );
   }
 }

@@ -224,10 +224,16 @@
     </milestones>
     <milestones>
         <businessHours>ANZx Case Business Hours</businessHours>
+        <criteriaBooleanFilter>1 OR 2</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
             <value>Direct Entry</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Bank@Post</value>
         </milestoneCriteriaFilterItems>
         <milestoneName>Resolution Time</milestoneName>
         <minutesToComplete>43200</minutesToComplete>

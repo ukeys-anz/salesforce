@@ -38,6 +38,16 @@ public class ExternalQueryContextMock {
           parentColumnMap.get(tableName)[1],
           DataSource.FilterType.EQUALS
         );
+      } else if (
+        tableName == 'DemandAccount' ||
+        tableName == 'LiabilityAccount'
+      ) {
+        subFilter = createFilter(
+          tableName,
+          'CustomerId',
+          'CACHE_4011643101',
+          DataSource.FilterType.EQUALS
+        );
       } else {
         subFilter = createFilter(
           tableName,
@@ -270,6 +280,8 @@ public class ExternalQueryContextMock {
     tableColumnMap.put('AFAMBITCreditLine', columnNames);
     tableColumnMap.put('QueryComment', columnNames);
     tableColumnMap.put('AFAMBITContract', columnNames);
+    tableColumnMap.put('DemandAccount', columnNames);
+    tableColumnMap.put('LiabilityAccount', columnNames);
 
     tableColumnMap.put(
       'MerchantFacility',

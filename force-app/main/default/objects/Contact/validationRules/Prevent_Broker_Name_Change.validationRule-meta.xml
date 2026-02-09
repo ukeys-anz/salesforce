@@ -2,13 +2,14 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Prevent_Broker_Name_Change</fullName>
     <active>true</active>
-    <description>Residential Broker Manager and Enablement Manager users are not allowed to edit the Broker Name after the record is inserted.</description>
+    <description>Residential Broker Manager, Enablement Manager and Broker Profile Admin users are not allowed to edit the Broker Name after the record is inserted.</description>
     <errorConditionFormula>AND(
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 NOT(ISNEW()),
 RecordType.DeveloperName = &apos;Broker&apos;,
 OR( $UserRole.DeveloperName = &apos;Residential_Broker_Manager&apos;,  
-$UserRole.DeveloperName = &apos;Enablement_Manager&apos;),
+$UserRole.DeveloperName = &apos;Enablement_Manager&apos;,
+$UserRole.DeveloperName = &apos;Broker_Profile_Admin&apos;),
 OR(
 ISCHANGED(Salutation),
 ISCHANGED(FirstName),

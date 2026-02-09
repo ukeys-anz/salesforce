@@ -130,6 +130,40 @@
       "lwc_transaction_description": "International Transfer to 953481"
     },
     {
+      "name": "transactions/22bed289-e2db-4293-8fd7-b2eb6691cbea",
+      "uid": "22bed289-e2db-4293-8fd7-b2eb6691cbea",
+      "account": {
+        "bsb": "014111",
+        "account_number": "219246611",
+        "account": "accounts/219246611",
+        "sub_product_code": "XD",
+        "product_code": "DDA"
+      },
+      "title": "Bank At Post Branch Withdrawal",
+      "update_time": "2025-10-06T00:33:40.718653Z",
+      "origin_time": "2025-10-06T00:33:40Z",
+      "value_time": "2025-10-06T00:33:40Z",
+      "status": "POSTED_INTRADAY",
+      "type": "BANK_AT_POST",
+      "raw_type": "3",
+      "raw_code": "58",
+      "reportable": true,
+      "long_description": "Bank at post branch withdrawal",
+      "short_description": "Bank At Post Branch Withdrawal",
+      "amount": { "currency_code": "AUD", "units": "-25", "nanos": -930000000 },
+      "country_code": "AU",
+      "international": {
+        "amount": { "currency_code": "AUD", "units": "35", "nanos": 930000000 },
+        "exchange_rate": 1,
+        "country_code": "AU"
+      },
+      "origination_system_id": "ANZX5P000000009000",
+      "open_banking": {},
+      "primary_anzx_category": "categories/5e66210a-a35b-511a-b1b0-0e4da99642e8",
+      "original_anzx_category": "categories/5e66210a-a35b-511a-b1b0-0e4da99642e8",
+      "categories": ["categories/5e66210a-a35b-511a-b1b0-0e4da99642e8"]
+    },
+    {
       "name": "transactions/82bfc211-b647-4440-9463-edbf356f5d25",
       "uid": "82bfc211-b647-4440-9463-edbf356f5d25",
       "account": {

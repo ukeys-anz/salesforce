@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiFunction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Creates tasks records for user-selected data and returns created task records.</description>
+    <developerName>Agent_Action_to_Create_Tasks_for_Customer</developerName>
+    <invocationTarget>CCRMAgentCreateTasks</invocationTarget>
+    <invocationTargetType>apex</invocationTargetType>
+    <isConfirmationRequired>false</isConfirmationRequired>
+    <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+    <localDeveloperName>Agent_Action_to_Create_Tasks_for_Customer</localDeveloperName>
+    <masterLabel>Agent Action to Create Tasks for Customer</masterLabel>
+    <progressIndicatorMessage>Creating Tasks...</progressIndicatorMessage>
+</GenAiFunction>

@@ -22,16 +22,36 @@ public with sharing class ImtDisputesCaseTriggerHandler extends Lib_TriggerHandl
   }
 
   /**
-   * @description onAfterInsert to handle after update trigger actions.
+   * @description onBeforeInsert to handle before insert trigger actions.
    */
-  public override void onAfterInsert() {
-    createImtExternalCase();
+  public override void onBeforeInsert() {
+    Logger.debug('On_Before_Insert started: ' + System.now());
+    ImtCaseTriggerActions.updateDescription(records);
+    Logger.debug('On_Before_Insert finished: ' + System.now());
+    Logger.saveLog();
   }
 
-  private void createImtExternalCase() {
+  /**
+   * @description onAfterInsert to handle after insert trigger actions.
+   */
+  public override void onAfterInsert() {
+    Logger.debug('On_After_Insert started: ' + System.now());
     DisputesCaseActions.createExternalCaseStatuses(
       (List<Case>) records,
       IMT_NEW_EXTERNAL_STATUS
     );
+    Logger.debug('On_After_Insert finished: ' + System.now());
+    Logger.saveLog();
+  }
+
+  /**
+   * @description onBeforeUpdate to handle before update trigger actions.
+   * @param oldMap old trigger values
+   */
+  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    Logger.debug('On_Before_Update started: ' + System.now());
+    ImtCaseTriggerActions.updateDescription(records);
+    Logger.debug('On_Before_Update finished: ' + System.now());
+    Logger.saveLog();
   }
 }

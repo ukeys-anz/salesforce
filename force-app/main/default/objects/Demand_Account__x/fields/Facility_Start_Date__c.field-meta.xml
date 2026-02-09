@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Facility_Start_Date__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_CACHE</complianceGroup>
+    <description>Orion Facility Start Date</description>
+    <externalDeveloperName>FacilityStartDate</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Facility Start Date</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <type>Date</type>
+</CustomField>

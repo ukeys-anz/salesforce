@@ -10,7 +10,6 @@ on:
       - release
     paths:
       - force-app/**
-      - ci/apex-scripts/**
       - .github/workflows/checkmarx-scan.yml
   schedule:
     - cron: "0 9 * * 0-4" # Run every day between 8-9 pm
@@ -23,17 +22,24 @@ jobs:
   checkmarx-scan:
     runs-on: [self-hosted, salesforce-prod]
     steps:
-      - name: Set GITHUB_BRANCH
+      - name: Set env variables
         env:
           GITHUB_HEAD_REF: ${{ github.head_ref }}
+          EVENT_NAME: ${{ github.event_name }}
         run: |
           GITHUB_BRANCH=$GITHUB_HEAD_REF
+          BUG_TRACKER=Sarif
 
           if [[ $GITHUB_BRANCH == '' ]];then
             GITHUB_BRANCH=$(echo ${GITHUB_REF#refs/heads/})
           fi
 
+          if [[ $EVENT_NAME == 'pull_request' ]]; then
+            BUG_TRACKER=GitHubPull
+          fi
+
           echo GITHUB_BRANCH=$GITHUB_BRANCH >> $GITHUB_ENV
+          echo BUG_TRACKER=$BUG_TRACKER >> $GITHUB_ENV
 
       - uses: actions/checkout@v4
       - env:
@@ -61,8 +67,8 @@ jobs:
           github_token: ${{ secrets.SALESFORCE_CXFLOW_GH_TOKEN }}
           incremental: false
           break_build: true
-          bug_tracker: Sarif
-          zip_exclude: \.git\/.*,\.git\-hooks\/.*,\.github\/.*,apexdoc\/.*,apex\-scripts\/.*,automation\-test\/.*,bash\-scripts\/.*,ci\/.*,config\/.*,coverage\/.*,data\/.*,ea\/.*,ea\-seeder\/.*,mdapi\-source\/.*,misc\/.*,node_modules\/.*,pmdscripts\/.*,createCmosEntitlment.js
+          bug_tracker: ${{ env.BUG_TRACKER }}
+          zip_exclude: \.git\/.*,\.git\-hooks\/.*,\.github\/.*,ci\/.*,config\/.*,coverage\/.*,data\/.*,mdapi\-source\/.*,misc\/.*,node_modules\/.*
           params: --namespace=${{ github.repository_owner }} --repo-name=${{ github.event.repository.name }} --branch=${{ env.GITHUB_BRANCH }} --merge-id=${{ github.event.number }} --severity=High --checkmarx.scan-resubmit=true --checkmarx.scan-queuing=true
 
   slack-msg:

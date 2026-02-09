@@ -139,7 +139,13 @@ public with sharing class LeadActionsRepository {
    */
   public Lead getLead(Id leadId) {
     return [
-      SELECT Id, Name, Registered_Company__c, ABN__c, ACN__c
+      SELECT
+        Id,
+        Name,
+        Registered_Company__c,
+        ABN__c,
+        ACN__c,
+        Skip_Validations__c
       FROM Lead
       WHERE Id = :leadId
       WITH USER_MODE
@@ -417,6 +423,8 @@ public with sharing class LeadActionsRepository {
         CPID__c,
         Controlling_Post__c,
         Controlling_Post__r.OwnerId,
+        Controlling_Post__r.CPID_LanID__c,
+        Controlling_Post__r.CPID_User__c,
         RecordType.Name,
         RecordTypeId
       FROM Account
@@ -440,6 +448,56 @@ public with sharing class LeadActionsRepository {
       SELECT Id, Territory__c, OwnerId
       FROM Lead
       WHERE Id IN :leadIdIdsSet
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description to query account records related to leads
+   * @name getIndividualAccRecords
+   * @param accountIdsSet set of Account Ids
+   * @return Map<Id, Account> Account Map
+   */
+  public Map<Id, Account> getIndividualAccRecords(Set<Id> accountIdsSet) {
+    if (accountIdsSet.isEmpty()) {
+      return new Map<Id, Account>();
+    }
+
+    return new Map<Id, Account>(
+      [
+        SELECT
+          Id,
+          PersonOtherPhone,
+          Phone,
+          PersonHomePhone,
+          Other_Email__c,
+          Source_System_Name__c,
+          RecordTypeId
+        FROM Account
+        WHERE
+          Source_System_Name__c = :System.Label.CCRM_Source_System_Name
+          AND Id IN :accountIdsSet
+          AND FinServ__Status__c IN ('Active', 'Inactive')
+          AND RecordTypeId = :RTAccount.personAccount
+        WITH USER_MODE
+      ]
+    );
+  }
+  /**
+   * @description Retrieves a list of controlling posts based on cpids
+   * @param cpids A set of LAN CPIDs from leads
+   * @return List<Controlling_Post__c> A list of Controlling post records based on cpids.
+   */
+  public List<Controlling_Post__c> getControllingPostsByCPIDs(
+    Set<String> cpids
+  ) {
+    if (cpids.isEmpty()) {
+      return new List<Controlling_Post__c>();
+    }
+    return [
+      SELECT Id, CPID_LanId__c, CPID__c, CPID_User__c
+      FROM Controlling_Post__c
+      WHERE CPID__c IN :cpids
       WITH USER_MODE
     ];
   }

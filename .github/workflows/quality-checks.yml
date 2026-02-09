@@ -38,7 +38,7 @@ jobs:
       - name: Install node
         uses: actions/setup-node@v3
         with:
-          node-version: "20"
+          node-version: "22"
 
       - name: Detect Changed Files
         id: set-flags
@@ -104,7 +104,7 @@ jobs:
         if: steps.should-skip.outputs.skip == 'false'
         uses: actions/setup-node@v3
         with:
-          node-version: "20"
+          node-version: "22"
 
       - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
         if: steps.should-skip.outputs.skip == 'false'
@@ -171,7 +171,7 @@ jobs:
         if: steps.should-skip.outputs.skip == 'false'
         uses: actions/setup-node@v3
         with:
-          node-version: "20"
+          node-version: "22"
 
       - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
         if: steps.should-skip.outputs.skip == 'false'
@@ -238,7 +238,7 @@ jobs:
         if: steps.should-skip.outputs.skip == 'false'
         uses: actions/setup-node@v3
         with:
-          node-version: "20"
+          node-version: "22"
 
       - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
         if: steps.should-skip.outputs.skip == 'false'
@@ -337,7 +337,7 @@ jobs:
         if: steps.should-skip.outputs.skip == 'false'
         uses: actions/setup-node@v3
         with:
-          node-version: "20"
+          node-version: "22"
 
       - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
         if: steps.should-skip.outputs.skip == 'false'
@@ -431,7 +431,7 @@ jobs:
         if: steps.should-skip.outputs.skip == 'false'
         uses: actions/setup-node@v3
         with:
-          node-version: "20"
+          node-version: "22"
 
       - name: Install node packages
         if: steps.should-skip.outputs.skip == 'false'
@@ -510,7 +510,7 @@ jobs:
         if: steps.should-skip.outputs.skip == 'false'
         uses: actions/setup-node@v3
         with:
-          node-version: "20"
+          node-version: "22"
 
       - name: Install node packages
         if: steps.should-skip.outputs.skip == 'false'
@@ -584,7 +584,7 @@ jobs:
         if: steps.should-skip.outputs.skip == 'false'
         uses: actions/setup-node@v3
         with:
-          node-version: "20"
+          node-version: "22"
 
       - name: Install node packages
         if: steps.should-skip.outputs.skip == 'false'
@@ -653,7 +653,7 @@ jobs:
         if: steps.should-skip.outputs.skip == 'false'
         uses: actions/setup-node@v3
         with:
-          node-version: "20"
+          node-version: "22"
 
       - name: Install node packages
         if: steps.should-skip.outputs.skip == 'false'
@@ -746,7 +746,7 @@ jobs:
       - name: Install node
         uses: actions/setup-node@v3
         with:
-          node-version: "20"
+          node-version: "22"
 
       - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
         id: "authenticate-harness-delegate"

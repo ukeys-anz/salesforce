@@ -4,6 +4,12 @@
  * @description Wrapper Class for External_Case_Status__c metadata and data
  */
 public with sharing class ExternalCaseStatusCloudEventModelV2 extends CloudEventModel {
+  public static Map<String, String> mapImtRtToEndPoint = new Map<String, String>{
+    RTCase.imtDispute +
+    'ce_type' => System.Label.ANZX_Disputes_event_ce_type_v1beta2,
+    RTCase.imtDispute +
+    'ce_dataschema' => System.Label.ANZX_Disputes_Event_Proto_Data_Schema_v1beta2
+  };
   /**
    * @description Constructor
    * @param externalCaseStatus Case record
@@ -41,17 +47,24 @@ public with sharing class ExternalCaseStatusCloudEventModelV2 extends CloudEvent
       }
     }
 
-    ce_type =
-      System.Label.ANZX_Disputes_event_ce_type_v1beta1 +
-      caseType +
-      'externalstatus.' +
-      action;
+    ce_type = mapImtRtToEndPoint.containsKey(theCase.RecordTypeId + 'ce_type')
+      ? mapImtRtToEndPoint.get(theCase.RecordTypeId + 'ce_type')
+      : System.Label.ANZX_Disputes_event_ce_type_v1beta1 +
+        caseType +
+        'externalstatus.' +
+        action;
+
     ce_source = 'case.salesforce.anzx';
     ce_subject = 'ExternalCaseStatusNumber/' + externalCaseStatus.Name;
     ce_partitionkey = 'CaseNumber/' + theCase.CaseNumber;
-    ce_dataschema =
-      System.Label.ANZX_Disputes_Event_Proto_Data_Schema_v1beta1 +
-      '#ExternalCaseStatus';
+
+    ce_dataschema = mapImtRtToEndPoint.containsKey(
+        theCase.RecordTypeId + 'ce_dataschema'
+      )
+      ? mapImtRtToEndPoint.get(theCase.RecordTypeId + 'ce_dataschema')
+      : System.Label.ANZX_Disputes_Event_Proto_Data_Schema_v1beta1 +
+        '#ExternalCaseStatus';
+
     String sourceSystemName = '';
     if (
       theCase.Account?.Source_System_Name__c != null &&

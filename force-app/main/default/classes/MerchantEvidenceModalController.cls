@@ -31,7 +31,12 @@ public with sharing class MerchantEvidenceModalController {
         new Set<Id>{ caseId }
       );
 
-      return taskRecords[0];
+      List<Task> openTasks = ListUtil.filter(taskRecords)
+        .equals(Task.Status, TASK_STATUSES)
+        .equals(Task.Subject, 'Card - Merchant Evident Received')
+        .toList();
+
+      return !openTasks.isEmpty() ? openTasks[0] : null;
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
     }
@@ -40,12 +45,23 @@ public with sharing class MerchantEvidenceModalController {
   /**
    * @description updating task records
    * @param taskObj taskObj
+   * @param commentBody commentBody
    */
   @AuraEnabled
-  public static void updateTaskStatus(Task taskObj) {
+  public static void updateTaskStatus(Task taskObj, String commentBody) {
     try {
       DML_REPOSITORY.doUpdate(new List<Task>{ taskObj });
+      CaseComment commentsToCreate = new CaseComment(
+        ParentId = taskObj.WhatId,
+        CommentBody = commentBody
+      );
+      DML_REPOSITORY.doInsert(new List<CaseComment>{ commentsToCreate });
     } catch (Exception ex) {
+      Logger.error(
+        'Exception occurred while updating task and creating case comments: ',
+        ex
+      );
+      Logger.saveLog();
       throw new AuraHandledException('Exception');
     }
   }

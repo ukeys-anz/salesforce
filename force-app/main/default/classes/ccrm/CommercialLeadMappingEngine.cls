@@ -25,8 +25,8 @@ public with sharing class CommercialLeadMappingEngine {
   private static final String ACCOUNT_OBJECT = 'Account';
   private static final String CONTACT_OBJECT = 'Contact';
   private static final String ORIGINATOR_UNICA = 'Unica';
-  private static final String NO_CONTACT_FOUND = 'No Contact Found';
-  private static final String COMMERCIAL_CONTACT_INFO = 'Check for Commercial Contacts on profile';
+  private static final String FIRST_NAME = '<Insert ';
+  private static final String LAST_NAME = 'Name>';
 
   private static final Map<Id, String> ACCOUNT_TYPE_MAP = new Map<Id, String>{
     RTAccount.businessAccount => BUSINESS_ACCOUNT,
@@ -415,8 +415,8 @@ public with sharing class CommercialLeadMappingEngine {
         lead.FirstName == null &&
         lead.LastName == null
       ) {
-        lead.put(FIRSTNAME_FIELD, NO_CONTACT_FOUND);
-        lead.put(LASTNAME_FIELD, NO_CONTACT_FOUND);
+        lead.put(FIRSTNAME_FIELD, FIRST_NAME);
+        lead.put(LASTNAME_FIELD, LAST_NAME);
         continue;
       }
       if (
@@ -425,8 +425,8 @@ public with sharing class CommercialLeadMappingEngine {
         lead.FirstName == null &&
         lead.LastName == null
       ) {
-        lead.put(FIRSTNAME_FIELD, COMMERCIAL_CONTACT_INFO);
-        lead.put(LASTNAME_FIELD, COMMERCIAL_CONTACT_INFO);
+        lead.put(FIRSTNAME_FIELD, FIRST_NAME);
+        lead.put(LASTNAME_FIELD, LAST_NAME);
         continue;
       }
       for (String fieldName : contactToLeadMapping.keySet()) {

@@ -10,6 +10,7 @@ ISPICKVAL(Evaluation_Type__c,&apos;Frontline Assessment&apos;),
 ISPICKVAL(Status__c, &apos;Complete&apos;),
 AND(
 OR(ISPICKVAL(ID_d_cust_experiencing_vulnerability__c, &apos;Met&apos;),ISPICKVAL(ID_d_cust_experiencing_vulnerability__c, &apos;Not Applicable&apos;)),
+OR(ISPICKVAL(Engaged_with_cust_rep_where_needed__c, &apos;Met&apos;),ISPICKVAL(Engaged_with_cust_rep_where_needed__c, &apos;Not Applicable&apos;)),
 OR(ISPICKVAL(Gave_extra_care_or_met_access_need__c, &apos;Met&apos;),ISPICKVAL(Gave_extra_care_or_met_access_need__c, &apos;Not Applicable&apos;)),
 OR(ISPICKVAL(Hardship_recorded_referred_managed__c, &apos;Met&apos;),ISPICKVAL(Hardship_recorded_referred_managed__c, &apos;Not Applicable&apos;)),
 OR(ISPICKVAL(If_resolved_w_o_IDR_letter_RG271_71_met__c, &apos;Met&apos;),ISPICKVAL(If_resolved_w_o_IDR_letter_RG271_71_met__c, &apos;Not Applicable&apos;)),
@@ -18,7 +19,6 @@ OR(ISPICKVAL(Was_implementation_timely__c, &apos;Met&apos;),ISPICKVAL(Was_implem
 OR(ISPICKVAL(Addressed_info_req_s_basic_accts_etc__c, &apos;Met&apos;),ISPICKVAL(Addressed_info_req_s_basic_accts_etc__c, &apos;Not Applicable&apos;))
 ),
 OR(
-CONTAINS(TEXT(Engaged_with_cust_rep_where_needed__c),&apos;Not Met&apos;),
 CONTAINS(TEXT(Reasonable_investigation_completed__c),&apos;Not Met&apos;),
 CONTAINS(TEXT(Were_risk_events_raised_and_recorded__c),&apos;Not Met&apos;),
 CONTAINS(TEXT(PSI_identified_flagged_where_needed__c),&apos;Not Met&apos;),
