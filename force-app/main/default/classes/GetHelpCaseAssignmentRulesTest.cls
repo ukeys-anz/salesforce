@@ -8,8 +8,8 @@
 public with sharing class GetHelpCaseAssignmentRulesTest {
   private static final String COACH_TEST_FIRST_NAME = 'CoachUserDisTest22';
   private static final String SUSPECTED_FRAUD = 'Suspected fraud';
-  private static final String CANCEL_TRANSFER = 'Cancel transfer';
-  private static final String PAYEE_HAS_NOT_RECIEVED_FUNDS = 'Payee has not received funds';
+  private static final String CANCEL_PAYMENT = 'Cancel Payment';
+  private static final String MONEY_NOT_RECEIVED = 'Money not received';
   private static final String OPEN_STATUS = 'Open';
   private static final String AMENDMENT_REQUEST = 'Amendment Request';
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
@@ -617,13 +617,13 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
 
   /**
    * @description : This is to test for IMT dispute assignment rule for Suport Coach queue
-   * For dispute reason CANCEL_TRANSFER, PAYEE_HAS_NOT_RECIEVED_FUNDS and AMENDMENT_REQUEST  case must be assigned to supportCoachQueue
+   * For dispute reason CANCEL_PAYMENT, MONEY_NOT_RECEIVED and AMENDMENT_REQUEST  case must be assigned to supportCoachQueue
    */
   @isTest
   static void testSupportCoachQueueIMT() {
     List<String> disputeReasons = new List<String>{
-      CANCEL_TRANSFER,
-      PAYEE_HAS_NOT_RECIEVED_FUNDS,
+      CANCEL_PAYMENT,
+      MONEY_NOT_RECEIVED,
       AMENDMENT_REQUEST
     };
     List<Case> imtCases = new List<Case>();

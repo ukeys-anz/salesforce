@@ -6,8 +6,8 @@
 public with sharing class ImtCaseTriggerActions {
   public static final Map<String, String> PREFIX_MAP = new Map<String, String>{
     'Suspected fraud' => 'Payment Recall ',
-    'Cancel transfer' => 'Payment Recall ',
-    'Payee has not received funds' => 'Beneficiary Claims Non Receipt '
+    'Cancel Payment' => 'Payment Recall ',
+    'Money not received' => 'Beneficiary Claims Non Receipt '
   };
   public static final Set<String> PREFIXES = new Set<String>(
     PREFIX_MAP.values()
