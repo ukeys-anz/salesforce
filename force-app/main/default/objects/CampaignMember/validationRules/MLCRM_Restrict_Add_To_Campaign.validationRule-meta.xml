@@ -3,10 +3,10 @@
     <fullName>MLCRM_Restrict_Add_To_Campaign</fullName>
     <active>true</active>
     <errorConditionFormula>AND(
-$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
-$Profile.Name = &quot;ANZ ML Standard User&quot;,
-Contact.RecordType.DeveloperName = &apos;Organisation&apos;,
-NOT(ISBLANK(Contact.Id))
+	$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+	OR($Profile.Name = &quot;ANZ ML Standard User&quot;,$Profile.Name = &quot;ANZ CCRM Standard User&quot;),
+	Contact.RecordType.DeveloperName = &apos;Organisation&apos;,
+	NOT(ISBLANK(Contact.Id))
 )</errorConditionFormula>
     <errorMessage>You don&apos;t have sufficient privileges to add organisational contact as campaign member. Please contact system administrator.</errorMessage>
 </ValidationRule>
