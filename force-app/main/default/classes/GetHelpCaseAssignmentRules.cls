@@ -10,9 +10,9 @@ public with sharing class GetHelpCaseAssignmentRules {
   public static final String DID_NOT_AUTHORISE_TRANSACTION = 'Didn\'t authorise transaction';
   public static final String DO_NOT_RECOGNISE_TRANSACTION = 'Don\'t recognise the transaction';
   public static final String HOME_LOANS_PRODUCT_CATEGORY = 'Home loans';
-  public static final String CANCEL_TRANSFER = 'Cancel transfer';
+  public static final String CANCEL_PAYMENT = 'Cancel Payment';
   public static final String SUSPECTED_FRAUD = 'Suspected fraud';
-  public static final String PAYEE_HAS_NOT_RECIEVED_FUNDS = 'Payee has not received funds';
+  public static final String MONEY_NOT_RECEIVED = 'Money not received';
   public static final String AMENDMENT_REQUEST = 'Amendment Request';
   public static final Group COACH_QUEUE = CommonUtil.getQueueByName(
     'Coach_Queue'
@@ -34,8 +34,8 @@ public with sharing class GetHelpCaseAssignmentRules {
   };
 
   private static final Set<String> SUPPORT_COACH_DISPUTE_REASONS = new Set<String>{
-    CANCEL_TRANSFER,
-    PAYEE_HAS_NOT_RECIEVED_FUNDS,
+    CANCEL_PAYMENT,
+    MONEY_NOT_RECEIVED,
     AMENDMENT_REQUEST
   };
 

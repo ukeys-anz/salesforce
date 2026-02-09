@@ -201,6 +201,16 @@
                 <default>false</default>
                 <label>Amendment Request</label>
             </value>
+            <value>
+                <fullName>Money not received</fullName>
+                <default>false</default>
+                <label>Money not received</label>
+            </value>
+            <value>
+                <fullName>Cancel Payment</fullName>
+                <default>false</default>
+                <label>Cancel Payment</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
