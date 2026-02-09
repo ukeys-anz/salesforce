@@ -62,7 +62,7 @@ public abstract with sharing class EBDFinancialAccountQueryBase extends External
   protected virtual override HttpCalloutResponse makeCallout(
     ExternalObjectCalloutRequestBase calloutRequest
   ) {
-    ARNCService service = new ARNCService();
+    ARNC360Service service = new ARNC360Service();
     HttpCalloutResponse response = service.queryExternalData(calloutRequest);
     if (response == null || !response.successful) {
       String errorMessge = String.format(
