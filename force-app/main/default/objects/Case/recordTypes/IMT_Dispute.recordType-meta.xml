@@ -1477,11 +1477,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Cancel transfer</fullName>
+            <fullName>Cancel Payment</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Payee has not received funds</fullName>
+            <fullName>Money not received</fullName>
             <default>false</default>
         </values>
         <values>
