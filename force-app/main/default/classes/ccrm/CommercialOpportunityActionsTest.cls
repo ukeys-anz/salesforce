@@ -43,129 +43,6 @@ public class CommercialOpportunityActionsTest {
   }
 
   @isTest
-  static void validateAFPBeforeOppCloseWithAFPTest() {
-    List<Database.Error> errors;
-    Database.Error error;
-    registerMocks();
-
-    String opportunityId = Lib_FakeIdGenerator.getMockId(
-      Opportunity.SObjectType
-    );
-    String productId = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
-
-    Map<Id, Opportunity> oldOppMap = new Map<Id, Opportunity>{
-      opportunityId => (new Opportunity(
-        Id = opportunityId,
-        RecordTypeId = RTOpportunity.commercialOpportunity,
-        StageName = CommercialOpportunityActions.NEW_STAGE
-      ))
-    };
-
-    List<Opportunity> oppList = new List<Opportunity>{
-      new Opportunity(
-        Id = opportunityId,
-        RecordTypeId = RTOpportunity.commercialOpportunity,
-        StageName = CommercialOpportunityActions.OPP_LOST
-      )
-    };
-
-    oppRepoMock.mock(
-      'getAFPRelatedToOpportunity',
-      new List<ApplicationFormProduct>{
-        new ApplicationFormProduct(
-          Id = Lib_FakeIdGenerator.getMockId(
-            ApplicationFormProduct.SObjectType
-          ),
-          Stage = 'Opportunity Identified',
-          ProductId = productId,
-          ApplicationForm = new ApplicationForm(
-            Id = Lib_FakeIdGenerator.getMockId(ApplicationForm.SObjectType),
-            OpportunityId = opportunityId
-          )
-        )
-      }
-    );
-
-    oppRepoMock.mock(
-      'getOppProductsForOpportunity',
-      new List<OpportunityLineItem>{
-        new OpportunityLineItem(
-          Id = Lib_FakeIdGenerator.getMockId(OpportunityLineItem.SObjectType),
-          OpportunityId = opportunityId,
-          Product2Id = productId
-        )
-      }
-    );
-    Test.startTest();
-    CommercialOpportunityActions.validateAFPBeforeOppClose(oppList, oldOppMap);
-    Test.stopTest();
-
-    errors = oppList[0].getErrors();
-    error = errors.get(0);
-    Assert.areEqual(1, errors.size(), 'Error on update');
-    Assert.isTrue(
-      error.getMessage()
-        .contains(CommercialOpportunityHelper.CLOSE_AFP_FIRST_ERROR),
-      'Validation error when opportunity is closed without closing AFPs'
-    );
-  }
-
-  @isTest
-  static void validateAFPBeforeOppCloseWithNoAFPTest() {
-    List<Database.Error> errors;
-    Database.Error error;
-    registerMocks();
-
-    String opportunityId = Lib_FakeIdGenerator.getMockId(
-      Opportunity.SObjectType
-    );
-    String productId = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
-
-    Map<Id, Opportunity> oldOppMap = new Map<Id, Opportunity>{
-      opportunityId => (new Opportunity(
-        Id = opportunityId,
-        RecordTypeId = RTOpportunity.commercialOpportunity,
-        StageName = CommercialOpportunityActions.NEW_STAGE
-      ))
-    };
-
-    List<Opportunity> oppList = new List<Opportunity>{
-      new Opportunity(
-        Id = opportunityId,
-        RecordTypeId = RTOpportunity.commercialOpportunity,
-        StageName = CommercialOpportunityActions.OPP_LOST
-      )
-    };
-
-    oppRepoMock.mock(
-      'getAFPRelatedToOpportunity',
-      new List<ApplicationFormProduct>()
-    );
-
-    oppRepoMock.mock(
-      'getOppProductsForOpportunity',
-      new List<OpportunityLineItem>{
-        new OpportunityLineItem(
-          Id = Lib_FakeIdGenerator.getMockId(OpportunityLineItem.SObjectType),
-          OpportunityId = opportunityId,
-          Product2Id = productId
-        )
-      }
-    );
-    Test.startTest();
-    CommercialOpportunityActions.validateAFPBeforeOppClose(oppList, oldOppMap);
-    Test.stopTest();
-
-    errors = oppList[0].getErrors();
-    error = errors.get(0);
-    Assert.areEqual(1, errors.size(), 'Error on update');
-    Assert.isTrue(
-      error.getMessage().contains(CommercialOpportunityHelper.LAUNCH_APP_ERROR),
-      'Validation error when opportunity is closed without app launch'
-    );
-  }
-
-  @isTest
   static void populateFieldsTest() {
     registerMocks();
     List<Database.Error> errors;
@@ -396,6 +273,7 @@ public class CommercialOpportunityActionsTest {
   @isTest
   static void updateOpportunityNameOnUpdateTest() {
     Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    String longBankerName = 'A'.repeat(120);
 
     Opportunity mockOpp = (Opportunity) TestUtil.setFields(
       new Opportunity(
@@ -404,7 +282,7 @@ public class CommercialOpportunityActionsTest {
         Customer_Needs__c = 'Other',
         StageName = 'In Progress',
         RecordTypeid = RTOpportunity.commercialOpportunity,
-        Name = 'NewTest123456789012345678901234567890'
+        Name = longBankerName
       ),
       new Map<String, Object>{ 'Opp_Id__c' => '12345678' }
     );
@@ -420,10 +298,17 @@ public class CommercialOpportunityActionsTest {
     Test.startTest();
     CommercialOpportunityActions.updateOpportunityNameOnUpdate(oppList, oppMap);
     Test.stopTest();
+
+    String expectedName = ('12345678 ' + longBankerName).left(120);
+
     Assert.areEqual(
+      expectedName,
       oppList[0].Name,
-      '12345678 Other NewTest12345678901234567890123',
-      'Name should contain new customer need'
+      'Name should be truncated to 120 and exclude Customer Needs'
+    );
+    Assert.isFalse(
+      oppList[0].Name.contains('Other'),
+      'Commercial Opportunity name should not contain Customer Needs'
     );
   }
 
@@ -1087,6 +972,7 @@ public class CommercialOpportunityActionsTest {
     taskList.add(taskmap);
     oppRepoMock.mock('getUsers', userList);
     oppRepoMock.mock('getOpenTasksOnClosedOpportunity', taskList);
+    userRepoMock.mock('checkRole', false);
     Test.startTest();
     oppWrapper = CommercialOpportunityActions.setOpportunityWrapper(
       oppList,

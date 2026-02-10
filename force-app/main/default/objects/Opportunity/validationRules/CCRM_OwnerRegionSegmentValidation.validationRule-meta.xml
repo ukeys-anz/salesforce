@@ -6,6 +6,7 @@
     <errorConditionFormula>AND(
     $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
     RecordType.DeveloperName = &apos;Commercial_Opportunity&apos;,
+    $UserRole.DeveloperName &lt;&gt; &apos;Commercial_Admin&apos;,
     OR($UserRole.DeveloperName = &apos;Relationship_Manager&apos;,  
         $UserRole.DeveloperName = &apos;Regional_Executive&apos;,
         $UserRole.DeveloperName = &apos;Area_Manager&apos;),

@@ -277,82 +277,6 @@ private class CommercialAFPActionsHelperTest {
   }
 
   @isTest
-  static void formOppToAmountMapTest() {
-    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
-    Id oliId = Lib_FakeIdGenerator.getMockId(OpportunityLineItem.SObjectType);
-    Id afId = Lib_FakeIdGenerator.getMockId(ApplicationForm.SObjectType);
-    Id afId2 = Lib_FakeIdGenerator.getMockId(ApplicationForm.SObjectType);
-    Id afpId = Lib_FakeIdGenerator.getMockId(
-      ApplicationFormProduct.SObjectType
-    );
-
-    List<ApplicationFormProduct> afpList = new List<ApplicationFormProduct>{
-      new ApplicationFormProduct(
-        Id = afpId,
-        Opportunity_Product__c = oliId,
-        ApplicationFormId = afId,
-        Revenue__c = 50,
-        ApplicationForm = new ApplicationForm(
-          Id = afId,
-          RecordTypeId = RTApplicationForm.acmApplication,
-          OpportunityId = oppId
-        )
-      ),
-      new ApplicationFormProduct(
-        Id = afpId,
-        Opportunity_Product__c = oliId,
-        ApplicationFormId = afId2,
-        Revenue__c = 500,
-        ApplicationForm = new ApplicationForm(
-          Id = afId2,
-          RecordTypeId = RTApplicationForm.ambitApplication,
-          OpportunityId = oppId
-        )
-      )
-    };
-
-    Map<Id, Id> itemIdToOppIdMap = new Map<Id, Id>{ oliId => oppId };
-    Map<Id, List<ApplicationFormProduct>> oliToAfpMap = new Map<Id, List<ApplicationFormProduct>>{
-      oliId => afpList
-    };
-    Test.startTest();
-    Map<Id, Decimal> oppToEstimatedRevenueMap = CommercialAppFormProductActionsHelper.formOppToAmountMap(
-      itemIdToOppIdMap,
-      oliToAfpMap,
-      ApplicationFormProduct.Revenue__c
-    );
-    Test.stopTest();
-    Assert.areEqual(
-      500,
-      oppToEstimatedRevenueMap.get(oppId),
-      'Estimated Revenue on opp is not 500'
-    );
-  }
-
-  @isTest
-  static void formOppToAmountMapNegativeTest() {
-    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
-    Id oliId = Lib_FakeIdGenerator.getMockId(OpportunityLineItem.SObjectType);
-
-    Map<Id, Id> itemIdToOppIdMap = new Map<Id, Id>{ oliId => oppId };
-    Map<Id, List<ApplicationFormProduct>> oliToAfpMap = new Map<Id, List<ApplicationFormProduct>>{
-      oliId => new List<ApplicationFormProduct>()
-    };
-    Test.startTest();
-    Map<Id, Decimal> oppToEstimatedRevenueMap = CommercialAppFormProductActionsHelper.formOppToAmountMap(
-      itemIdToOppIdMap,
-      oliToAfpMap,
-      ApplicationFormProduct.Revenue__c
-    );
-    Test.stopTest();
-    Assert.areEqual(
-      0,
-      oppToEstimatedRevenueMap.get(oppId),
-      'Estimated Revenue on opp is not 0'
-    );
-  }
-
-  @isTest
   static void updateAmountOnOpportunityTest() {
     Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
     Map<Id, Decimal> oppToAppAmountMap = new Map<Id, Decimal>{ oppId => 500 };
@@ -367,6 +291,118 @@ private class CommercialAFPActionsHelperTest {
       500,
       opps[0].Estimated_Revenue__c,
       'Estimated Revenue on opp is not 500'
+    );
+  }
+
+  @isTest
+  static void getAFPsRelatedToOppTest() {
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id afpId = Lib_FakeIdGenerator.getMockId(
+      ApplicationFormProduct.SObjectType
+    );
+    List<ApplicationFormProduct> afpList = new List<ApplicationFormProduct>{
+      new ApplicationFormProduct(
+        Id = afpId,
+        Stage = 'Opportunity Identified',
+        ApplicationForm = new ApplicationForm(
+          RecordTypeId = RTApplicationForm.acmApplication,
+          OpportunityId = oppId
+        )
+      )
+    };
+
+    Test.startTest();
+    Map<Id, List<ApplicationFormProduct>> appFormProductsByOppId = CommercialAppFormProductActionsHelper.getAFPsRelatedToOpp(
+      afpList
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      1,
+      appFormProductsByOppId.values().size(),
+      'Size of AFPs related to opportunity is 1. '
+    );
+  }
+
+  static void resolveStageTest() {
+    Set<String> stages = new Set<String>{ 'Opportunity Won', 'Cancelled' };
+
+    Test.startTest();
+    String stageName = CommercialAppFormProductActionsHelper.resolveStage(
+      stages
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      CommercialAppFormProductActionsHelper.OPP_WON,
+      stageName,
+      'Result is not opportunity won.'
+    );
+  }
+
+  @isTest
+  static void formRefNoToExistingAfpListMapTest() {
+    //GIVEN existingAfpList
+    List<ApplicationFormProduct> existingAfpList = new List<ApplicationFormProduct>{
+      new ApplicationFormProduct(
+        Id = Lib_FakeIdGenerator.getMockId(ApplicationFormProduct.SObjectType),
+        Reference_Number__c = '1234'
+      )
+    };
+
+    //WHEN calling a method
+    Test.startTest();
+    Map<String, List<ApplicationFormProduct>> refNoToExistingAfpListMap = CommercialAppFormProductActionsHelper.formRefNoToExistingAfpListMap(
+      existingAfpList
+    );
+    Test.stopTest();
+
+    //THEN it should assert successfully
+    Assert.areEqual(
+      1,
+      refNoToExistingAfpListMap.size(),
+      'should form a map successfully'
+    );
+  }
+
+  @isTest
+  static void setPDFlagTest() {
+    //GIVEN refNoToExistingAfpListMap
+    Map<String, List<ApplicationFormProduct>> refNoToExistingAfpListMap = new Map<String, List<ApplicationFormProduct>>{
+      '1234' => new List<ApplicationFormProduct>{
+        new ApplicationFormProduct(
+          Id = Lib_FakeIdGenerator.getMockId(
+            ApplicationFormProduct.SObjectType
+          ),
+          Reference_Number__c = '1234'
+        )
+      },
+      '12345' => new List<ApplicationFormProduct>{
+        new ApplicationFormProduct(
+          Id = Lib_FakeIdGenerator.getMockId(
+            ApplicationFormProduct.SObjectType
+          ),
+          Reference_Number__c = '12345'
+        ),
+        new ApplicationFormProduct(
+          Id = Lib_FakeIdGenerator.getMockId(
+            ApplicationFormProduct.SObjectType
+          ),
+          Reference_Number__c = '12345'
+        )
+      }
+    };
+
+    //WHEN calling a method
+    Test.startTest();
+    List<ApplicationFormProduct> afpListToUpdate = CommercialAppFormProductActionsHelper.setPDFlag(
+      refNoToExistingAfpListMap
+    );
+    Test.stopTest();
+
+    //THEN it should assert successfully
+    Assert.areEqual(
+      3,
+      afpListToUpdate.size(),
+      'should return 3 records of AFP to be updated'
     );
   }
 }

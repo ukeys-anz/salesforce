@@ -53,6 +53,14 @@
                 <behavior>Edit</behavior>
                 <field>Lost_Reason__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>Cancelled_Reason__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Cancelled_Reason_Detail__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
@@ -168,9 +176,9 @@
     <relatedLists>
         <excludeButtons>ChoosePricebook</excludeButtons>
         <fields>Product2</fields>
-        <fields>UnitPrice</fields>
-        <fields>Expected_Settlement_Date__c</fields>
-        <fields>Funding_purpose__c</fields>
+        <fields>Opp_Product_name__c</fields>
+        <fields>ProductCode</fields>
+        <fields>Sub_Product_Code__c</fields>
         <relatedList>RelatedLineItemList</relatedList>
     </relatedLists>
     <relatedLists>

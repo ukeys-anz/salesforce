@@ -176,6 +176,7 @@ public with sharing class LaunchAppOnOppController {
    * @param oppRec opportunity record
    * @return String contains error message
    */
+  @TestVisible
   private static String validateBrokerAFStatus(Opportunity oppRec) {
     if (oppRec.Broker_Name__c == null) {
       return null;
@@ -193,11 +194,45 @@ public with sharing class LaunchAppOnOppController {
    * @param oppRec opportunity record
    * @return String contains error message
    */
+  @TestVisible
   private static String validateOppTeamMember(Opportunity oppRec) {
     if (oppRec.OpportunityTeamMembers.size() == 0) {
       return OPP_TEAM_MEMBR_ERROR;
     }
     return null;
+  }
+
+  /**
+   * @description This is used to validate the selected OLI
+   * @param oppId Opportunity Id
+   * @param selectedLineItemIds Selected OLI from Launch app
+   * @return List<String> List of Product which is already launched
+   */
+  @AuraEnabled
+  public static List<String> validateSelectedOppLineItems(
+    String oppId,
+    List<Id> selectedLineItemIds
+  ) {
+    try {
+      List<ApplicationFormProduct> appFormProducts = APP_REPOSITORY.getAppFormProductsNotRelatedToAMBIT(
+        oppId
+      );
+      List<String> alreadyLaunchProductList = new List<String>();
+      for (ApplicationFormProduct afp : appFormProducts) {
+        if (selectedLineItemIds.contains(afp.Opportunity_Product__c)) {
+          alreadyLaunchProductList.add(
+            afp.Opportunity_Product__r?.Opp_Product_name__c ?? afp.Product?.Name
+          );
+        }
+      }
+      return alreadyLaunchProductList;
+    } catch (Exception e) {
+      Logger.error('Error occured while validating selected opp line items', e)
+        .save();
+      throw new AuraHandledException(
+        'An unexpected error occurred while validating selected opp line items. Please contact your System Administrator.'
+      );
+    }
   }
 
   /**
@@ -212,6 +247,10 @@ public with sharing class LaunchAppOnOppController {
     public String productURL;
     @AuraEnabled
     public String productName;
+    @AuraEnabled
+    public String oppProductName; // New field from OLI : Opp Product Name
+    @AuraEnabled
+    public String oppProductURL; // Opp Product Name URL
     @AuraEnabled
     public Decimal unitPrice;
     @AuraEnabled
