@@ -517,7 +517,11 @@
         "Sub_Status__c",
         "AI_Generated__c"
       ],
-      "IA-2460507": ["Interaction_Owner__c"],
+      "IA-2460507": [
+        "Interaction_Owner__c",
+        "My_Sub_Team__c",
+        "My_Team_Segment__c"
+      ],
       "IA-2468715": ["Voice_Call_SID__c", "Case_Number__c", "PEGA_Case_Id__c"],
       "IA-2415860": [
         "Case_Owner__c",
@@ -525,6 +529,7 @@
         "Lead_Quality__c",
         "Lead__c",
         "ML_DataMigration_Key__c",
+        "My_Region_Flag__c",
         "Outcome_Reason__c",
         "Response_Status__c",
         "Response_Type__c",
