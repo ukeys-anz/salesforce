@@ -21,6 +21,12 @@ public with sharing class CommercialAppFormProductActions {
   );
 
   private static final String ANZ_CCRM_STANDARD_USER = 'ANZ CCRM Standard User';
+  @testVisible
+  private static final String OPP_WON = 'Opportunity Won';
+  @testVisible
+  private static final String OPP_LOST = 'Opportunity Lost';
+  @testVisible
+  private static final String OPP_CANCELLED = 'Cancelled';
 
   /**
    * @description checkd stage of AFP on insert
@@ -406,21 +412,22 @@ public with sharing class CommercialAppFormProductActions {
     Map<Id, ApplicationFormProduct> oldMap
   ) {
     try {
-      //Filter AFP list when Stage changes to Opportunity Won
+      //Filter AFP list when Amount changes and Stage equals to Opportunity Won or cancelled
       List<ApplicationFormProduct> filteredAfpList = ListUtil.filter(
           records,
           oldMap
         )
-        .changedTo(ApplicationFormProduct.Stage, 'Opportunity Won')
+        .anyChanged(
+          new Set<SObjectField>{
+            ApplicationFormProduct.Amount__c,
+            ApplicationFormProduct.Stage
+          }
+        )
+        .equals(
+          ApplicationFormProduct.Stage,
+          new Set<String>{ OPP_WON, OPP_CANCELLED }
+        )
         .toList();
-
-      //Filter AFP list when Amount changes and Stage equals to Opportunity Won
-      filteredAfpList.addAll(
-        (List<ApplicationFormProduct>) ListUtil.filter(records, oldMap)
-          .changed(ApplicationFormProduct.Amount__c)
-          .equals(ApplicationFormProduct.Stage, 'Opportunity Won')
-          .toList()
-      );
 
       if (filteredAfpList.isEmpty()) {
         return;
@@ -477,7 +484,7 @@ public with sharing class CommercialAppFormProductActions {
         oliList
       );
 
-      Map<Id, Decimal> oppToAppAmountMap = CommercialAppFormProductActionsHelper.formOppToAmountMap(
+      Map<Id, Decimal> oppToAppAmountMap = CommercialAFPActionsExtended.formOppToAmountMap(
         itemIdToOppIdMap,
         oliToAfpMap,
         ApplicationFormProduct.Amount__c
@@ -561,7 +568,7 @@ public with sharing class CommercialAppFormProductActions {
         oliList
       );
 
-      Map<Id, Decimal> oppToEstimatedRevenueMap = CommercialAppFormProductActionsHelper.formOppToAmountMap(
+      Map<Id, Decimal> oppToEstimatedRevenueMap = CommercialAFPActionsExtended.formOppToAmountMap(
         itemIdToOppIdMap,
         oliToAfpMap,
         ApplicationFormProduct.Revenue__c
@@ -575,6 +582,219 @@ public with sharing class CommercialAppFormProductActions {
       DML.doUpdate(oppToUpdateList);
     } catch (Exception e) {
       Logger.error('Error while updating estimated revenue on Opportunity', e)
+        .save();
+    }
+  }
+
+  /**
+   * @description This is used to update stage on opp
+   * @name updateStageOnOpportunity
+   * @param records Application Form Products records
+   * @param oldMap Map of Id and Application Form Products records
+   */
+  public static void updateStageOnOpportunity(
+    List<ApplicationFormProduct> records,
+    Map<Id, ApplicationFormProduct> oldMap
+  ) {
+    try {
+      List<ApplicationFormProduct> filteredAfpList = ListUtil.filter(
+          records,
+          oldMap
+        )
+        .changed(ApplicationFormProduct.Stage)
+        .anyEqual(
+          new Set<SObjectField>{ ApplicationFormProduct.Stage },
+          new Set<String>{ OPP_WON, OPP_LOST, OPP_CANCELLED }
+        )
+        .toList();
+
+      if (filteredAfpList.isEmpty()) {
+        return;
+      }
+      Set<Id> appFormProductIds = new Map<Id, ApplicationFormProduct>(
+          filteredAfpList
+        )
+        .keySet();
+      List<ApplicationFormProduct> appFormProducts = AFP_REPOSITORY.getRelatedAFP(
+        appFormProductIds
+      );
+      Set<Id> oppIds = new Set<Id>();
+      for (ApplicationFormProduct afp : appFormProducts) {
+        oppIds.add(afp.ApplicationForm.OpportunityId);
+      }
+      List<ApplicationFormProduct> appFormProductsList = AFP_REPOSITORY.getAfpRelatedToOpp(
+        oppIds
+      );
+      Map<Id, List<ApplicationFormProduct>> appFormProductsByOppId = CommercialAppFormProductActionsHelper.getAFPsRelatedToOpp(
+        appFormProductsList
+      );
+      List<Opportunity> opps = populateStage(appFormProductsByOppId);
+      Map<Id, Opportunity> oppsToUpdate = new Map<Id, Opportunity>(opps);
+      CommercialAFPActionsExtended.checkForOpenTasks(
+        appFormProducts,
+        filteredAfpList,
+        oppsToUpdate
+      );
+      DML.doUpdate(opps);
+    } catch (Exception e) {
+      Logger.error('Error while updating stage on Opportunity', e).save();
+    }
+  }
+
+  /**
+   * @description populateStage updates stage on opp based on AFP
+   * @param appFormProductsByOppId map of opp Id and app form products
+   * @return List<Opportunity> list of opportunities
+   */
+  public static List<Opportunity> populateStage(
+    Map<Id, List<ApplicationFormProduct>> appFormProductsByOppId
+  ) {
+    List<Opportunity> opps = new List<Opportunity>();
+
+    for (Id oppId : appFormProductsByOppId.keySet()) {
+      Set<String> stages = new Set<String>();
+
+      for (ApplicationFormProduct afp : appFormProductsByOppId.get(oppId)) {
+        if (
+          afp.Stage != OPP_WON &&
+          afp.Stage != OPP_LOST &&
+          afp.Stage != OPP_CANCELLED
+        ) {
+          stages.clear();
+          break;
+        }
+        stages.add(afp.Stage);
+      }
+
+      if (stages.isEmpty()) {
+        continue;
+      }
+
+      String stageName = CommercialAppFormProductActionsHelper.resolveStage(
+        stages
+      );
+      if (stageName != null) {
+        opps.add(new Opportunity(Id = oppId, StageName = stageName));
+      }
+    }
+    return opps;
+  }
+
+  /**
+   * @description Synchronizes related Opportunity and Opportunity Line Item (OLI) fields
+   * based on changes made to the Application Form Product (AFP) records.
+   * @param records List of updated ApplicationFormProduct records (Trigger.new).
+   * @param oldMap Map of ApplicationFormProduct records prior to update (Trigger.oldMap).
+   */
+  public static void syncSettlementDateAndAmountToOppProduct(
+    List<ApplicationFormProduct> records,
+    Map<Id, ApplicationFormProduct> oldMap
+  ) {
+    try {
+      List<ApplicationFormProduct> changedAfpList = ListUtil.filter(
+          records,
+          oldMap
+        )
+        .anyChanged(
+          new Set<SObjectField>{
+            ApplicationFormProduct.Amount__c,
+            ApplicationFormProduct.Close_Date__c
+          }
+        )
+        .isNotNull(ApplicationFormProduct.Opportunity_Product__c)
+        .toList();
+      if (changedAfpList.isEmpty()) {
+        return;
+      }
+      List<OpportunityLineItem> olisToUpdate = CommercialAppFormProductActionsHelper.prepareSyncOLI(
+        changedAfpList
+      );
+      DML.doUpdate(olisToUpdate);
+    } catch (Exception e) {
+      Logger.error('Error in syncSettlementDateAndAmountToOppProduct', e)
+        .save();
+    }
+  }
+
+  /**
+   * @description This is used to update the Is Potential Duplicate flag
+   * @name setPotentialDuplicateFlag
+   * @param records AFP records
+   * @param oldMap Map of Id, records
+   */
+  public static void setPotentialDuplicateFlag(
+    List<ApplicationFormProduct> records,
+    Map<Id, ApplicationFormProduct> oldMap
+  ) {
+    try {
+      //Get the list of AFP where Reference_Number__c changed
+      List<ApplicationFormProduct> filteredAfpList = ListUtil.filter(
+          records,
+          oldMap
+        )
+        .changed(ApplicationFormProduct.Reference_Number__c)
+        .equals(ApplicationFormProduct.Stage, 'Opportunity Won')
+        .toList();
+
+      //Extract the AF Ids from above filtered AFPs
+      Set<Id> appFormIds = ListUtil.getIds(
+        filteredAfpList,
+        ApplicationFormProduct.ApplicationFormId
+      );
+
+      //Query AF records where Record type = 'BBD' and AFP stage = 'Opp Won'
+      Map<Id, ApplicationForm> appFormMap = AFP_REPOSITORY.getApplicationFormsList(
+        appFormIds
+      );
+
+      //Filter New version of AFPs records where AF Ids exists in above AF Map
+      List<ApplicationFormProduct> newAfpList = ListUtil.filter(filteredAfpList)
+        .equals(ApplicationFormProduct.ApplicationFormId, appFormMap.keySet())
+        .toList();
+
+      //Extract the new Reference number
+      List<String> rnList = (List<String>) ListUtil.getValues(
+        newAfpList,
+        'Reference_Number__c',
+        String.class
+      );
+
+      //Filter Old version of AFPs records where AF Ids exists in above AF Map
+      List<ApplicationFormProduct> oldAfpList = ListUtil.filter(oldMap.values())
+        .equals(ApplicationFormProduct.ApplicationFormId, appFormMap.keySet())
+        .toList();
+
+      //Extract the old Reference number
+      rnList.addAll(
+        (List<String>) ListUtil.getValues(
+          oldAfpList,
+          'Reference_Number__c',
+          String.class
+        )
+      );
+
+      //Queries all the existing AFPs based on above Reference Number and AFP Ids
+      List<ApplicationFormProduct> existingAfpList = AFP_REPOSITORY.getExistingAfpList(
+        rnList
+      );
+
+      //Form a Map of Reference number and list of AFPs
+      Map<String, List<ApplicationFormProduct>> refNoToExistingAfpListMap = CommercialAppFormProductActionsHelper.formRefNoToExistingAfpListMap(
+        existingAfpList
+      );
+
+      //Prepare the List of AFPs that need to be updated
+      List<ApplicationFormProduct> afpListToUpdate = CommercialAppFormProductActionsHelper.setPDFlag(
+        refNoToExistingAfpListMap
+      );
+
+      //Update AFPs records
+      DML.doUpdate(afpListToUpdate, new DmlConfig().withoutSharing());
+    } catch (Exception e) {
+      Logger.error(
+          'Error while setting the Is Potential Duplicate flag on AFPs',
+          e
+        )
         .save();
     }
   }

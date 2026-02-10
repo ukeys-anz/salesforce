@@ -59,4 +59,63 @@ public with sharing class CommercialOppLineItemRepository {
       WITH USER_MODE
     ];
   }
+
+  /**
+   * @description To fetch the Opportunity records
+   * @param oppIdsSet Set of Opportunity Ids
+   * @return List<Opportunity> opp List
+   */
+  public List<Opportunity> getOpportunityRecords(Set<Id> oppIdsSet) {
+    if (oppIdsSet.isEmpty()) {
+      return new List<Opportunity>();
+    }
+    return new List<Opportunity>(
+      [
+        SELECT Id, Name, RecordTypeId
+        FROM Opportunity
+        WHERE
+          Id IN :oppIdsSet
+          AND RecordTypeId = :RTOpportunity.commercialOpportunity
+        WITH USER_MODE
+      ]
+    );
+  }
+
+  /**
+   * @description To fetch the existing Opportunity Line Items records
+   * @param oppIdsSet Set of Opportunity Ids
+   * @return List<OpportunityLineItem> list of Opportunity Line Items records
+   */
+  public List<OpportunityLineItem> getExistingOLIsList(Set<Id> oppIdsSet) {
+    if (oppIdsSet.isEmpty()) {
+      return new List<OpportunityLineItem>();
+    }
+    return [
+      SELECT Id, OpportunityId, Product2Id, Opp_Product_Name__c
+      FROM OpportunityLineItem
+      WHERE
+        OpportunityId IN :oppIdsSet
+        AND Opportunity.RecordTypeId = :RTOpportunity.commercialOpportunity
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description To fetch the existing product
+   * @param productIdsSet Set of Product Ids
+   * @return Map<Id, Product2> Map of Products
+   */
+  public Map<Id, Product2> getProductMap(Set<Id> productIdsSet) {
+    if (productIdsSet.isEmpty()) {
+      return new Map<Id, Product2>();
+    }
+    return new Map<Id, Product2>(
+      [
+        SELECT Id, Name
+        FROM Product2
+        WHERE Id IN :productIdsSet
+        WITH USER_MODE
+      ]
+    );
+  }
 }

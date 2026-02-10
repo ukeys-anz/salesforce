@@ -36,6 +36,8 @@ public with sharing class RelatedAppOnOppControllerRepository {
             Name,
             Stage,
             Product.Name,
+            Opportunity_Product__c,
+            Opportunity_Product__r.Opp_Product_name__c,
             ProductId,
             Close_Date__c,
             Reference_Number__c,

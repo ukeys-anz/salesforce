@@ -217,4 +217,14 @@
         <probability>0</probability>
         <won>false</won>
     </standardValue>
+    <standardValue>
+        <fullName>Cancelled</fullName>
+        <default>false</default>
+        <label>Cancelled</label>
+        <closed>true</closed>
+        <description>Opportunity cancelled</description>
+        <forecastCategory>Closed</forecastCategory>
+        <probability>0</probability>
+        <won>true</won>
+    </standardValue>
 </StandardValueSet>

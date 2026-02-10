@@ -16,7 +16,7 @@
     <filters>
         <field>OPPORTUNITY.STAGE_NAME</field>
         <operation>notEqual</operation>
-        <value>Opportunity Won,Opportunity Lost</value>
+        <value>Opportunity Won,Opportunity Lost,Cancelled</value>
     </filters>
     <filters>
         <field>My_Region_Flag__c</field>

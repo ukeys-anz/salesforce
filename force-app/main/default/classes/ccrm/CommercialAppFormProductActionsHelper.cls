@@ -11,11 +11,22 @@ public with sharing class CommercialAppFormProductActionsHelper {
     CommercialAppFormProductActionsRepo.class
   );
   private static final String REOPEN_CLOSED_OPP = 'You cannot reopen a closed stage.';
-
-  private static final Set<String> CLOSED_STAGES = new Set<String>{
-    'Opportunity Won',
-    'Opportunity Lost'
+  private static final String COMMERCIAL_ADMIN_ROLE = 'Commercial_Admin';
+  @testVisible
+  private static final String OPP_WON = 'Opportunity Won';
+  @testVisible
+  private static final String OPP_LOST = 'Opportunity Lost';
+  @testVisible
+  private static final String OPP_CANCELLED = 'Cancelled';
+  private static final Set<String> CLOSED_STAGES = new Set<String>{ OPP_LOST };
+  private static final Set<String> OPP_WON_ALLOWED_STAGES = new Set<String>{
+    OPP_LOST,
+    OPP_CANCELLED
   };
+  private static final String INVALID_TRANSITION_ERROR = 'Unfortunately, you are not allowed to move to a stage other than Opportunity Lost or Cancelled from Opportunity Won stage.';
+  private static final UserInfoRepository USER_REPO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
 
   /**
    * @description getAppFormProductsRelatedToCommercialOpportunity to get app form products records related to commercial opp
@@ -129,7 +140,10 @@ public with sharing class CommercialAppFormProductActionsHelper {
       //checks for validations on afp
       validateCommercialAppFormProducts(appFormProductWrapper, isInsert);
 
-      //gets AFPs whose old stages are Opp Won/Lost
+      if (USER_REPO.checkRole(COMMERCIAL_ADMIN_ROLE)) {
+        return;
+      }
+      //gets AFPs whose old stages are Opp Lost
       List<ApplicationFormProduct> filteredRecords = ListUtil.filter(
           appFormProductWrapper.stageUpdatedAppFormProducts.values(),
           oldMap
@@ -139,6 +153,17 @@ public with sharing class CommercialAppFormProductActionsHelper {
         .toList();
 
       ListUtil.addError(filteredRecords, REOPEN_CLOSED_OPP);
+
+      //gets AFPs whose old stages are opp won
+      List<ApplicationFormProduct> cancelledOpps = ListUtil.filter(
+          appFormProductWrapper.stageUpdatedAppFormProducts.values(),
+          oldMap
+        )
+        .changed(ApplicationFormProduct.Stage)
+        .notEquals(ApplicationFormProduct.Stage, OPP_WON_ALLOWED_STAGES)
+        .oldEquals(ApplicationFormProduct.Stage, OPP_WON)
+        .toList();
+      ListUtil.addError(cancelledOpps, INVALID_TRANSITION_ERROR);
     } catch (Exception e) {
       Logger.error('Error ocurred while checking stage on AFP', e).save();
     }
@@ -314,58 +339,6 @@ public with sharing class CommercialAppFormProductActionsHelper {
   }
 
   /**
-   * @description formOppToAmountMap form map of opportunity and amount/revenue to update
-   * @param itemIdToOppIdMap Opp line item Id to Opp Id map
-   * @param oliToAfpMap OLI to AFP map
-   * @param fieldToRollup field whose values need to be consider for rollup
-   * @return Map<Id, Decimal> oppId to amount map
-   */
-  public static Map<Id, Decimal> formOppToAmountMap(
-    Map<Id, Id> itemIdToOppIdMap,
-    Map<Id, List<ApplicationFormProduct>> oliToAfpMap,
-    SobjectField fieldToRollup
-  ) {
-    Map<Id, Decimal> oppToRolledUpValueMap = new Map<Id, Decimal>();
-    Map<Id, Decimal> opplineItemIdToValueMap = new Map<Id, Decimal>();
-
-    for (Id oliId : oliToAfpMap.keySet()) {
-      Decimal value = 0;
-
-      //Get the list of AFP associated with Opportunity line item
-      List<ApplicationFormProduct> afpList = oliToAfpMap.get(oliId);
-      for (ApplicationFormProduct apfRec : afpList) {
-        Decimal amount = (Decimal) apfRec.get(fieldToRollup) ?? 0;
-
-        //if the multiple AFPs linked to same OLI
-        //and out of those AFPs if any one of them is linked with AMBIT Application Form
-        //then consider only that AFP for calculating amount/revenue and ignore rest of the AFPs associated to the same OLI.
-        //If no AFPs is linked to AMBIT Application Form then add then amount/revenue of all AFPs.
-        if (
-          apfRec.ApplicationForm.RecordTypeId ==
-          RTApplicationForm.ambitApplication
-        ) {
-          value = amount;
-          break;
-        }
-        value += amount;
-      }
-      opplineItemIdToValueMap.put(oliId, value);
-      Id oppId = itemIdToOppIdMap.get(oliId);
-
-      //Form the map of Opportunity Id with the respective amount/revenue to update
-      if (!oppToRolledUpValueMap.containsKey(oppId)) {
-        oppToRolledUpValueMap.put(oppId, 0);
-      }
-      Decimal amount = oppToRolledUpValueMap.get(oppId);
-      oppToRolledUpValueMap.put(
-        oppId,
-        amount + opplineItemIdToValueMap.get(oliId)
-      );
-    }
-    return oppToRolledUpValueMap;
-  }
-
-  /**
    * @description updateAmountOnOpportunity return list of opportunity to update
    * @param oppToAppAmountMap Opp to amount map
    * @param fieldName field of opp to update
@@ -385,6 +358,116 @@ public with sharing class CommercialAppFormProductActionsHelper {
     return oppToUpdateList;
   }
 
+  /**
+   * @description updateAmountOngetAFPsRelatedToOppOpportunity return list of afps related to opp
+   * @param appFormProductsList appFormProducts list
+   * @return Map<Id, List<ApplicationFormProduct>> map of opp Id and app form products
+   */
+  public static Map<Id, List<ApplicationFormProduct>> getAFPsRelatedToOpp(
+    List<ApplicationFormProduct> appFormProductsList
+  ) {
+    Map<Id, List<ApplicationFormProduct>> appFormProductsByOppId = new Map<Id, List<ApplicationFormProduct>>();
+    for (ApplicationFormProduct afp : appFormProductsList) {
+      List<ApplicationFormProduct> afpList = appFormProductsByOppId.get(
+        afp.ApplicationForm.OpportunityId
+      ) ?? new List<ApplicationFormProduct>();
+      afpList.add(afp);
+      appFormProductsByOppId.put(afp.ApplicationForm.OpportunityId, afpList);
+    }
+    return appFormProductsByOppId;
+  }
+
+  /**
+   * @description resolveStage resolves stage acc to conditions
+   * @param stages set of opp stages
+   * @return String stage name
+   */
+  public static String resolveStage(Set<String> stages) {
+    if (stages.contains(OPP_WON)) {
+      return OPP_WON;
+    }
+    if (stages.contains(OPP_LOST) && !stages.contains(OPP_WON)) {
+      return OPP_LOST;
+    }
+    if (
+      stages.contains(OPP_CANCELLED) &&
+      !stages.contains(OPP_WON) &&
+      !stages.contains(OPP_LOST)
+    ) {
+      return OPP_CANCELLED;
+    }
+    return null;
+  }
+
+  /**
+   * @description Processes changed AFP records to construct update list for OLI only.
+   * Opportunity logic has been moved to setFieldsOnRelatedOpportunity.
+   * @param changedAfpList list of AFP
+   * @return List<OpportunityLineItem> list of OLI
+   */
+  public static List<OpportunityLineItem> prepareSyncOLI(
+    List<ApplicationFormProduct> changedAfpList
+  ) {
+    Map<Id, OpportunityLineItem> olisToUpdate = new Map<Id, OpportunityLineItem>();
+
+    for (ApplicationFormProduct afp : changedAfpList) {
+      olisToUpdate.put(
+        afp.Opportunity_Product__c,
+        new OpportunityLineItem(
+          Id = afp.Opportunity_Product__c,
+          Expected_Settlement_Date__c = afp.Close_Date__c,
+          UnitPrice = afp.Amount__c
+        )
+      );
+    }
+    return olisToUpdate.values();
+  }
+
+  /**
+   * @description This is used to form a map of Reference number and list of AFP
+   * @name formRefNoToExistingAfpListMap
+   * @param existingAfpList Existing AFP records
+   * @return Map<String, List<ApplicationFormProduct>> Reference number to list of AFP map
+   */
+  public static Map<String, List<ApplicationFormProduct>> formRefNoToExistingAfpListMap(
+    List<ApplicationFormProduct> existingAfpList
+  ) {
+    Map<String, List<ApplicationFormProduct>> refNoToExistingAfpListMap = new Map<String, List<ApplicationFormProduct>>();
+    for (ApplicationFormProduct afpRec : existingAfpList) {
+      List<ApplicationFormProduct> afpList = refNoToExistingAfpListMap.get(
+        afpRec.Reference_Number__c
+      ) ?? new List<ApplicationFormProduct>();
+      afpList.add(afpRec);
+      refNoToExistingAfpListMap.put(afpRec.Reference_Number__c, afpList);
+    }
+    return refNoToExistingAfpListMap;
+  }
+
+  /**
+   * @description This is used to update the Is Potential Duplicate flag
+   * @name setPDFlag
+   * @param refNoToExistingAfpListMap Reference number to list of AFP map
+   * @return List<ApplicationFormProduct> AFP Record to be updated
+   */
+  public static List<ApplicationFormProduct> setPDFlag(
+    Map<String, List<ApplicationFormProduct>> refNoToExistingAfpListMap
+  ) {
+    List<ApplicationFormProduct> afpListToUpdate = new List<ApplicationFormProduct>();
+    for (String refNumber : refNoToExistingAfpListMap.keySet()) {
+      List<ApplicationFormProduct> afpList = refNoToExistingAfpListMap.get(
+        refNumber
+      );
+      Boolean isPotentialDuplicate = (afpList.size() != 1);
+      afpListToUpdate.addAll(
+        (List<ApplicationFormProduct>) ListUtil.setField(
+          afpList,
+          ApplicationFormProduct.Is_Potential_Duplicate__c,
+          isPotentialDuplicate
+        )
+      );
+    }
+    return afpListToUpdate;
+  }
   /**
    * @description wrapper class for commercial afp
    */

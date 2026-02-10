@@ -15,7 +15,7 @@ public with sharing class ModifyProductRepository {
       return new List<OpportunityLineItem>();
     }
     return [
-      SELECT Id, Product2Id, Product2.Name
+      SELECT Id, Product2Id, Product2.Name, Opp_Product_name__c
       FROM OpportunityLineItem
       WHERE OpportunityId = :oppId
       WITH USER_MODE

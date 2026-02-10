@@ -173,55 +173,6 @@ public with sharing class CommercialOpportunityRepository {
   }
 
   /**
-   * @description getAFPRelatedToOpportunity gets lost AFP's related to opp
-   * @param oppIds set of oppportunity ids
-   * @return List<ApplicationFormProduct> app form products list
-   */
-  public List<ApplicationFormProduct> getAFPRelatedToOpportunity(
-    Set<Id> oppIds
-  ) {
-    if (oppIds.isEmpty()) {
-      return new List<ApplicationFormProduct>();
-    }
-
-    return [
-      SELECT
-        Id,
-        Name,
-        ApplicationForm.OpportunityId,
-        ProductId,
-        Stage,
-        Lost_reason__c,
-        Lost_Reason_Detail__c,
-        Won_from_Lost_to__c,
-        Opportunity_Product__c
-      FROM ApplicationFormProduct
-      WHERE ApplicationForm.OpportunityId IN :oppIds
-      WITH USER_MODE
-    ];
-  }
-
-  /**
-   * @description getOppProductsForOpportunity gets OLI related to opp
-   * @param oppIds set of oppportunity ids
-   * @return List<OpportunityLineItem> OLI list
-   */
-  public List<OpportunityLineItem> getOppProductsForOpportunity(
-    Set<Id> oppIds
-  ) {
-    if (oppIds.isEmpty()) {
-      return new List<OpportunityLineItem>();
-    }
-
-    return [
-      SELECT Id, OpportunityId, Product2Id
-      FROM OpportunityLineItem
-      WHERE OpportunityId IN :oppIds
-      WITH USER_MODE
-    ];
-  }
-
-  /**
    * @description getLostAFPRelatedToOpportunity gets lost AFP's related to opp
    * @param oppIds set of oppportunity ids
    * @return List<ApplicationFormProduct> app form products list
