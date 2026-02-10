@@ -102,19 +102,24 @@ public with sharing class CommercialAppFormProductActionsHelper {
     Map<Id, ApplicationForm> appformMap = new Map<Id, ApplicationForm>(
       appFormList
     );
-    list<Opportunity> oppToUpdate = new List<opportunity>();
+    Map<Id, Opportunity> oppsToUpdate = new Map<Id, Opportunity>();
 
     for (ApplicationFormProduct rec : records) {
       if (!appformMap.containsKey(rec.ApplicationFormId)) {
         continue;
       }
       Opportunity opp = appformMap.get(rec.ApplicationFormId).Opportunity;
-      if (rec.Close_Date__c > opp.closeDate) {
-        opp.closedate = rec.Close_Date__c;
-        oppToUpdate.add(opp);
+
+      Date currentFarthestDate = oppsToUpdate.containsKey(opp.Id)
+        ? oppsToUpdate.get(opp.Id).CloseDate
+        : opp.CloseDate;
+
+      if (rec.Close_Date__c > currentFarthestDate) {
+        opp.CloseDate = rec.Close_Date__c;
+        oppsToUpdate.put(opp.Id, opp);
       }
     }
-    return oppToUpdate;
+    return oppsToUpdate.values();
   }
 
   /**

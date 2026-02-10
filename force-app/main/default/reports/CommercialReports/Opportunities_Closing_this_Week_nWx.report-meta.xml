@@ -40,14 +40,14 @@
             <value>Opportunity.Commercial_Opportunity</value>
         </criteriaItems>
         <criteriaItems>
-            <column>ApplicationForm$Opportunity.CloseDate</column>
+            <column>ApplicationForm.ApplicationFormProduct$Close_Date__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>greaterOrEqual</operator>
             <value>TODAY</value>
         </criteriaItems>
         <criteriaItems>
-            <column>ApplicationForm$Opportunity.CloseDate</column>
+            <column>ApplicationForm.ApplicationFormProduct$Close_Date__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
