@@ -5747,7 +5747,9 @@
         "Term_Deposit__c",
         "Portfolio_Of_Loan__c",
         "Asset_Finance_AMBIT_Contract__c",
-        "Credit_Card__c"
+        "Credit_Card__c",
+        "Demand_Account__c",
+        "Liability_Account__c"
       ],
       "IA-2530753": [
         "Customer__c",
