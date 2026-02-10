@@ -20,20 +20,9 @@ public abstract with sharing class CacheFinancialAccountQueryBase extends Extern
   /**
    * @description Financial account role types
    */
-  protected Map<String, String> roleTypes = new Map<String, String>{
-    'BCC' => 'Business Card Customer',
-    'CLG' => 'Customer Lending Group',
-    'COF' => 'Co-Owner First',
-    'COO' => 'Co-Owner Other',
-    'DBN' => 'Direct Beneficiary',
-    'GTR' => 'Guarantor',
-    'PCC' => 'Personal Card Customer',
-    'PRI' => 'Primary Owner',
-    'SOL' => 'Sole Owner',
-    'TSF' => 'Trustee First',
-    'TSO' => 'Trustee Other',
-    'UNO' => 'Unnamed Owner'
-  };
+  protected Map<String, String> roleTypes = CommonUtil.getPicklistLabelsByValues(
+    FinServ__FinancialAccountRole__c.Role_Type__c
+  );
 
   /**
    * @description abstract Cache FinancialAccount Summary callout response class
