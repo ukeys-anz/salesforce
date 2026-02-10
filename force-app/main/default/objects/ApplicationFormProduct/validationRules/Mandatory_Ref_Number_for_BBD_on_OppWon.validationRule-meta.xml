@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mandatory_Ref_Number_for_BBD_on_OppWon</fullName>
+    <active>true</active>
+    <description>This Ensures &apos;Reference Number&apos; is mandatory and numeric-only when the Application Type is BBD and the Stage is Opportunity Won.</description>
+    <errorConditionFormula>AND(
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    ApplicationForm.Opportunity.RecordType.DeveloperName = &apos;Commercial_Opportunity&apos;,
+    $User.Profile_Name__c = &apos;ANZ CCRM Standard User&apos;,
+    ApplicationForm.RecordType.DeveloperName = &apos;BBD&apos;,
+    ISPICKVAL(Stage, &apos;Opportunity Won&apos;),
+    OR(
+        ISBLANK(Reference_Number__c),
+        NOT(REGEX(Reference_Number__c, &quot;^[0-9]{10}$&quot;))
+    )
+)</errorConditionFormula>
+    <errorDisplayField>Reference_Number__c</errorDisplayField>
+    <errorMessage>Enter a valid reference number.</errorMessage>
+</ValidationRule>

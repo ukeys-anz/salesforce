@@ -35,9 +35,9 @@ export default class OpportunityRelatedApplications extends NavigationMixin(
     },
     {
       label: "Product",
-      fieldName: "productUrl",
+      fieldName: "oppProdUrl",
       type: "url",
-      typeAttributes: { label: { fieldName: "productName" }, target: "_self" },
+      typeAttributes: { label: { fieldName: "oppProdName" }, target: "_self" },
       sortable: true
     },
     {

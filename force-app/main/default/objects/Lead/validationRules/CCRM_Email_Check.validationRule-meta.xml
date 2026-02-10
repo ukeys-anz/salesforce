@@ -18,7 +18,8 @@
                 Skip_Validations__c = &apos;Validate&apos;
             )
         )
-    )
+    ),
+    NOT( AND( IsNew(), Skip_Validations__c = &apos;Clone&apos;))
 )</errorConditionFormula>
     <errorDisplayField>Email</errorDisplayField>
     <errorMessage>Please enter Email in correct format.</errorMessage>

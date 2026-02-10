@@ -5,11 +5,12 @@ import createApplication from "@salesforce/apex/LaunchAppOnOppController.createA
 import populateRecordTypeWrapper from "@salesforce/apex/LaunchAppOnOppController.populateRecordTypeWrapper";
 import validateOpportunity from "@salesforce/apex/LaunchAppOnOppController.validateOpportunity";
 import getAMBITResponse from "@salesforce/apex/LaunchAppOnOppController.getAMBITResponse";
+import validateSelectedOppLineItems from "@salesforce/apex/LaunchAppOnOppController.validateSelectedOppLineItems";
+import ConfirmationModal from "c/confirmationModal";
 import { NavigationMixin } from "lightning/navigation";
 import { publish, MessageContext } from "lightning/messageService";
 import CloseModal from "@salesforce/messageChannel/CloseModal__c";
 import { showToast, handleErrorShowToast } from "c/utils"; // Importing the methods from Utils.js
-
 export default class LaunchAppOnOpp extends NavigationMixin(LightningElement) {
   disableNext = true;
   showRecordTypes = true;
@@ -24,7 +25,8 @@ export default class LaunchAppOnOpp extends NavigationMixin(LightningElement) {
     BACK: "Back",
     PRODUCT: "Product",
     UNITPRICE: "Unit Price",
-    FUNDINGPURPOSE: "Funding Purpose"
+    FUNDINGPURPOSE: "Funding Purpose",
+    OPP_PRODUCT: "Sequence"
   };
   buttonLabel;
   noOppItemsMessage = "No opportunity line items found";
@@ -213,41 +215,86 @@ export default class LaunchAppOnOpp extends NavigationMixin(LightningElement) {
   }
 
   handleSave() {
-    this.isLoading = true;
     this.recordTypeRec = this.recordTypeList.filter(
       (recType) => recType.recordTypeName === this.buttonLabel
     );
     this.recordTypeIdValue = this.recordTypeRec?.[0]?.recordTypeId ?? "";
     switch (this.recordTypeRec?.[0]?.recordTypeName) {
       case "AMBIT":
-        getAMBITResponse({
-          oppId: this._recordId,
-          oppLineItemId: this.selectedRowIds[0]
-        })
-          .then((result) => {
-            if (result === true) {
-              this.createAFAndAFP();
-            }
-          })
-          .catch((error) => {
-            handleErrorShowToast(
-              this,
-              "Error",
-              "",
-              error.body.message,
-              "Dismissable"
-            );
-          })
-          .finally(() => {
-            this.isLoading = false;
-          });
+        this.isLoading = true;
+        this.processAmbitFlow();
         break;
       default:
-        this.createAFAndAFP();
+        this.checkDuplicateProducts();
     }
   }
 
+  processAmbitFlow() {
+    getAMBITResponse({
+      oppId: this._recordId,
+      oppLineItemId: this.selectedRowIds[0]
+    })
+      .then((result) => {
+        if (result === true) {
+          this.createAFAndAFP();
+        }
+      })
+      .catch((error) => {
+        handleErrorShowToast(
+          this,
+          "Error",
+          "",
+          error.body.message,
+          "Dismissable"
+        );
+      })
+      .finally(() => {
+        this.isLoading = false;
+      });
+  }
+
+  checkDuplicateProducts() {
+    validateSelectedOppLineItems({
+      oppId: this._recordId,
+      selectedLineItemIds: this.selectedRowIds
+    }).then((result) => {
+      if (result && result.length > 0) {
+        const productNames = [...new Set(result)];
+        const productNamesLabel = productNames.join(", ");
+        let content = `The selected product(s) <b>${productNamesLabel}</b> were already launched previously. Do you want to continue?`;
+
+        this.openModal(
+          "small",
+          "Product(s) selected already launched",
+          content
+        );
+      } else {
+        this.createAFAndAFP();
+      }
+    });
+  }
+
+  openModal(size, description, content) {
+    ConfirmationModal.open({
+      size: size,
+      description: description,
+      content: content,
+      onselect: (e) => {
+        e.stopPropagation();
+        if (e.detail === "confirm") {
+          this.createAFAndAFP();
+        }
+        if (e.detail === "cancel") {
+          this.isLoading = false;
+          this.showTable = true;
+        }
+      }
+    });
+  }
+
   createAFAndAFP() {
+    this.isLoading = true;
+    this.showTable = false;
     createApplication({
       oppId: this._recordId,
       oppLineItemIds: this.selectedRowIds,

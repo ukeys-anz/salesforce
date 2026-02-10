@@ -89,48 +89,6 @@ public with sharing class CommercialOpportunityActions {
   }
 
   /**
-   * @description This method will validate if AFPs are present for Opp Products and are closed before an Opportunity is closed
-   * @name validateAFPBeforeOppClose
-   * @param records from the trigger
-   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values
-   */
-  public static void validateAFPBeforeOppClose(
-    List<Opportunity> records,
-    Map<Id, Opportunity> oldMap
-  ) {
-    List<Opportunity> closedOppsList = ListUtil.filter(records, oldMap)
-      .changed(Opportunity.StageName)
-      .anyEqual(
-        new Set<SObjectField>{ Opportunity.StageName },
-        new Set<String>{ OPP_WON, OPP_LOST }
-      )
-      .toList();
-
-    Map<Id, Opportunity> closedOppsMap = new Map<Id, Opportunity>(
-      closedOppsList
-    );
-
-    //get AFPs related to Opportunities
-    List<ApplicationFormProduct> appFormProducts = OPP_REPOSITORY.getAFPRelatedToOpportunity(
-      closedOppsMap.keySet()
-    );
-
-    Map<Id, Set<Id>> oppIdToOpenAFPMap = CommercialOpportunityHelper.formOppIdToOpenAFPMap(
-      appFormProducts
-    );
-
-    Map<Id, Set<Id>> oppIdToAllAFPIdMap = CommercialOpportunityHelper.formOppIdToAllAFPIdMap(
-      appFormProducts
-    );
-
-    CommercialOpportunityHelper.addErrorOnOppForOpenAFP(
-      closedOppsMap,
-      oppIdToOpenAFPMap,
-      oppIdToAllAFPIdMap
-    );
-  }
-
-  /**
    * @description This method will update Controlling Post field depending on the CPID provided in Account.
    * @name populateFields
    * @param records from the trigger
@@ -389,19 +347,12 @@ public with sharing class CommercialOpportunityActions {
     Map<Id, String> updatedOppsNameMap = new Map<Id, String>();
 
     for (Opportunity opp : filteredOpps) {
-      String oppName;
-      String customerNeeds;
-      String updatedOppName;
+      String bankerEnteredName = getOpportunityName(opp, oldMap);
 
-      customerNeeds = opp.Secondary_Customer_Needs__c != null
-        ? MULTIPLE_CUSTOMER_NEEDS
-        : opp.Customer_Needs__c;
-
-      oppName = getOpportunityName(opp, oldMap);
-      updatedOppName = CommercialOpportunityHelper.generateOpportunityName(
+      String updatedOppName = CommercialOpportunityHelper.generateOpportunityName(
         opp.Opp_Id__c,
-        customerNeeds,
-        oppName,
+        null,
+        bankerEnteredName,
         oldMap
       );
       updatedOppsNameMap.put(opp.Id, updatedOppName);

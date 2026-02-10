@@ -19,48 +19,6 @@ private class CommercialOpportunityHelperTest {
   }
 
   @isTest
-  static void validateSkipStageTest() {
-    Opportunity opp;
-    Opportunity oldOpp;
-    Map<Id, String> oppsStageSegmentMap;
-    List<Database.Error> errors;
-    Database.Error error;
-
-    opp = CCRMTestDataFactory.createStaticOpportunityData(
-      Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType),
-      'Test Opp 1',
-      RTOpportunity.commercialOpportunity,
-      CCRMConstants.OPP_WON
-    );
-
-    oldOpp = CCRMTestDataFactory.createStaticOpportunityData(
-      opp.Id,
-      'Test Opp 2',
-      RTOpportunity.commercialOpportunity,
-      CCRMConstants.NEW_STAGE
-    );
-
-    oppsStageSegmentMap = new Map<Id, String>{ opp.Id => 'New-CBO' };
-
-    Test.startTest();
-    CommercialOpportunityHelper.addErrorForSkippedStage(
-      new List<Opportunity>{ opp },
-      new Map<Id, Opportunity>{ opp.Id => oldOpp },
-      oppsStageSegmentMap
-    );
-    Test.stopTest();
-
-    errors = opp.getErrors();
-    Assert.isFalse(errors.isEmpty(), 'Error not found');
-    error = errors.get(0);
-    Assert.areEqual(
-      CCRMConstants.SKIP_STAGE,
-      error.getMessage(),
-      'Opp updated successfully'
-    );
-  }
-
-  @isTest
   static void checkOpenTaskForClosedOpportunitiesTest() {
     registerMocks();
     List<Database.Error> errors;

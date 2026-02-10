@@ -31,7 +31,7 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
-            <value>,New,In Progress,Opportunity Identified,Prospecting,Qualification,Needs Analysis,Solution Development,Submitted,Assessed,Value Proposition,Id. Decision Makers,Perception Analysis,Proposal/Price Quote,Approved &amp; Offered,Customer Acceptance,Documents,Settlement,Negotiation/Review,Closed Won,Opportunity Won,Closed,Closed Lost,Opportunity Lost,Lost</value>
+            <value>,New,In Progress,Opportunity Identified,Prospecting,Qualification,Needs Analysis,Solution Development,Submitted,Assessed,Value Proposition,Id. Decision Makers,Perception Analysis,Proposal/Price Quote,Approved &amp; Offered,Customer Acceptance,Documents,Settlement,Negotiation/Review,Closed Won,Opportunity Won,Closed,Closed Lost,Opportunity Lost,Lost,Cancelled</value>
         </criteriaItems>
         <criteriaItems>
             <column>Needs_Analysis__c.Products__c</column>

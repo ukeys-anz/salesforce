@@ -1159,6 +1159,7 @@
     <tabs>Insights</tabs>
     <tabs>standard-Product2</tabs>
     <tabs>Controlling_Post__c</tabs>
+    <tabs>standard-Task</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Commercial_CRM_UtilityBar</utilityBar>
     <workspaceConfig>
@@ -1185,6 +1186,9 @@
         </mappings>
         <mappings>
             <tab>standard-Product2</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-Task</tab>
         </mappings>
         <mappings>
             <tab>standard-home</tab>
