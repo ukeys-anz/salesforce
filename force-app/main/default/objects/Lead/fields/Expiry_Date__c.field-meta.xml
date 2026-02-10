@@ -18,12 +18,12 @@
                         , ADDMONTHS(TODAY(), 6)
                     )
             ),
-            &apos;Referral&apos;,            
-            IF((WEEKDAY(TODAY()+ VALUE($Label.Referral_ExpiryDateDays)) = 1)
-                ,TODAY()+ VALUE($Label.Referral_ExpiryDateDays) + 1,
-                IF((WEEKDAY(TODAY()+ VALUE($Label.Referral_ExpiryDateDays)) = 7)
-                    ,TODAY()+ VALUE($Label.Referral_ExpiryDateDays) + 2
-                    ,TODAY()+ VALUE($Label.Referral_ExpiryDateDays)
+            &apos;Referral&apos;,
+            IF((WEEKDAY(ADDMONTHS(TODAY(), 6)) = 1)
+                , ADDMONTHS(TODAY()+ 1, 6),
+                IF((WEEKDAY(ADDMONTHS(TODAY(), 6)) = 7)
+                    , ADDMONTHS(TODAY()+ 2, 6)
+                    , ADDMONTHS(TODAY(), 6)
                 )
             ),
             NULL

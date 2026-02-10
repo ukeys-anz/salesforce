@@ -12,7 +12,7 @@
     </values>
     <values>
         <field>Next_Stage__c</field>
-        <value xsi:type="xsd:string">Opportunity Won;Opportunity Lost</value>
+        <value xsi:type="xsd:string">Opportunity Won;Opportunity Lost;Cancelled</value>
     </values>
     <values>
         <field>Object_Name__c</field>

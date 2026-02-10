@@ -450,6 +450,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Controlling_Post__c.CPID_LanID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Controlling_Post__c.CPID_User__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Controlling_Post__c.End_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>

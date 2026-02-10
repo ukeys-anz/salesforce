@@ -117,7 +117,7 @@ public with sharing class IDRCaseActionsRepository {
       SELECT Id, ExtraCareTimePeriod__c
       FROM Account
       WHERE Id IN :accountIds
-      WITH USER_MODE
+      WITH SYSTEM_MODE
     ];
   }
 }

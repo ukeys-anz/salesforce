@@ -517,7 +517,11 @@
         "Sub_Status__c",
         "AI_Generated__c"
       ],
-      "IA-2460507": ["Interaction_Owner__c"],
+      "IA-2460507": [
+        "Interaction_Owner__c",
+        "My_Sub_Team__c",
+        "My_Team_Segment__c"
+      ],
       "IA-2468715": ["Voice_Call_SID__c", "Case_Number__c", "PEGA_Case_Id__c"],
       "IA-2415860": [
         "Case_Owner__c",
@@ -525,6 +529,7 @@
         "Lead_Quality__c",
         "Lead__c",
         "ML_DataMigration_Key__c",
+        "My_Region_Flag__c",
         "Outcome_Reason__c",
         "Response_Status__c",
         "Response_Type__c",
@@ -600,6 +605,9 @@
         "Term__c"
       ],
       "IA-2423227": [
+        "Cancelled_Reason__c",
+        "Cancelled_Reason_Detail__c",
+        "Is_Potential_Duplicate__c",
         "Won_from_Lost_to__c",
         "Lost_reason__c",
         "Lost_Reason_Detail__c",
@@ -3826,7 +3834,11 @@
         "Settlement_Booked__c",
         "Estimated_Revenue__c"
       ],
-      "IA-2423227": ["StageName"],
+      "IA-2423227": [
+        "Cancelled_Reason__c",
+        "Cancelled_Reason_Detail__c",
+        "StageName"
+      ],
       "IA-2460507": [
         "My_Sub_Team__c",
         "My_Team__c",
@@ -3844,7 +3856,10 @@
       ],
       "IA-2530753": ["Opportunity_Owner__c"],
       "IA-2428130": ["Specialisation__c", "New_to_Bank__c"],
-      "IA-2434298": ["Total_Application_Amount__c"],
+      "IA-2434298": [
+        "Total_Application_Amount__c",
+        "Pricing_Reference_Number__c"
+      ],
       "IA-2453350": ["Can_Create_Loanapp__c", "Application_Key__c"],
       "IA-2415790": ["TPMI__c", "Broker_Name__c"],
       "IA-2618940": ["Industry__c"]
@@ -3880,7 +3895,8 @@
         "Amount",
         "Name",
         "ProductCode",
-        "Sub_Product_Code__c"
+        "Sub_Product_Code__c",
+        "Opp_Product_name__c"
       ],
       "IA-2415720": ["Reference_Number__c"],
       "IA-2415840": ["Purpose__c"],

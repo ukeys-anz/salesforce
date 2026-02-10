@@ -3,6 +3,10 @@
     <fullName>CCRM Opportunity Process</fullName>
     <isActive>true</isActive>
     <values>
+        <fullName>Cancelled</fullName>
+        <default>false</default>
+    </values>
+    <values>
         <fullName>In Progress</fullName>
         <default>false</default>
     </values>

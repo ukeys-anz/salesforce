@@ -23,6 +23,7 @@
             )
         )
     ),
+    NOT( AND( IsNew(), Skip_Validations__c = &apos;Clone&apos;)),
     ISBLANK( Email ) , 
     ISBLANK( MobilePhone ) , 
     ISBLANK( Home_Phone__c ) , 

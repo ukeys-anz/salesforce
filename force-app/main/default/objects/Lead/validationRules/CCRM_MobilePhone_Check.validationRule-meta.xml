@@ -26,7 +26,8 @@
                         Skip_Validations__c = &apos;Validate&apos;
                     )
                 )
-            )
+            ),
+            NOT( AND( IsNew(), Skip_Validations__c = &apos;Clone&apos;))
         ),
         AND(RecordType.DeveloperName = &apos;MLCRM_Lead&apos;,Text(Status) != &apos;Expired&apos;,OR(ISNEW(),ISCHANGED(MobilePhone)))
     ),
