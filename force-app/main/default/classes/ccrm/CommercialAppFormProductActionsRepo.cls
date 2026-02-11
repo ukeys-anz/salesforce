@@ -178,4 +178,20 @@ public class CommercialAppFormProductActionsRepo {
       WITH SYSTEM_MODE
     ];
   }
+  /**
+   * @description getOppLineItemsRelatedToOpp - Fetch all opp line items related to opp
+   * @param oppIds set of opp ids
+   * @return List<OpportunityLineItem> opp line items list
+   */
+  public List<OpportunityLineItem> getOppLineItemsRelatedToOpp(Set<Id> oppIds) {
+    if (oppIds.isEmpty()) {
+      return new List<OpportunityLineItem>();
+    }
+    return [
+      SELECT Id, OpportunityId
+      FROM OpportunityLineItem
+      WHERE OpportunityId IN :oppIds
+      WITH USER_MODE
+    ];
+  }
 }

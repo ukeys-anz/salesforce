@@ -138,4 +138,24 @@ public with sharing class CommercialAFPActionsExtended {
     }
     return oppToRolledUpValueMap;
   }
+
+  /**
+   * @description validateOppLineItems validate opp line items
+   * @param oppLineItemIds opp line item ids
+   * @param oppProductFromAFPIds opp product from afp ids
+   * @return Boolean
+   */
+  public static Boolean validateOppLineItems(
+    Set<Id> oppLineItemIds,
+    Set<Id> oppProductFromAFPIds
+  ) {
+    Boolean result = true;
+    for (Id oppLineItemId : oppLineItemIds) {
+      if (!oppProductFromAFPIds.contains(oppLineItemId)) {
+        result = false;
+        break;
+      }
+    }
+    return result;
+  }
 }
