@@ -12,7 +12,7 @@
     <filters>
         <field>OPPORTUNITY.STAGE_NAME</field>
         <operation>equals</operation>
-        <value>Opportunity Won,Opportunity Lost</value>
+        <value>Opportunity Won,Opportunity Lost,Cancelled</value>
     </filters>
     <filters>
         <field>OPPORTUNITY.CLOSE_DATE</field>

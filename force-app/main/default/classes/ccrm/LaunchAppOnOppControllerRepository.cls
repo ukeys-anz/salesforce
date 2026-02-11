@@ -21,7 +21,8 @@ public with sharing class LaunchAppOnOppControllerRepository {
         Product2Id,
         Product2.Name,
         Funding_purpose__c,
-        UnitPrice
+        UnitPrice,
+        Opp_Product_name__c
       FROM OpportunityLineItem
       WHERE OpportunityId = :oppId
       WITH USER_MODE
@@ -75,6 +76,35 @@ public with sharing class LaunchAppOnOppControllerRepository {
       WHERE
         ApplicationForm.OpportunityId = :oppId
         AND ApplicationForm.RecordTypeId = :RTApplicationForm.ambitApplication
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description get app form products not related to AMBIT
+   * @name getAppFormProductsNotRelatedToAMBIT
+   * @param oppId opp Id
+   * @return List<ApplicationFormProduct> app form products list
+   */
+  public List<ApplicationFormProduct> getAppFormProductsNotRelatedToAMBIT(
+    Id oppId
+  ) {
+    if (oppId == null) {
+      return new List<ApplicationFormProduct>();
+    }
+    return [
+      SELECT
+        Id,
+        Opportunity_Product__c,
+        Opportunity_Product__r.Name,
+        ApplicationForm.OpportunityId,
+        ApplicationForm.RecordTypeId,
+        Opportunity_Product__r.Opp_Product_name__c,
+        Product.Name
+      FROM ApplicationFormProduct
+      WHERE
+        ApplicationForm.OpportunityId = :oppId
+        AND ApplicationForm.RecordTypeId != :RTApplicationForm.ambitApplication
       WITH USER_MODE
     ];
   }
