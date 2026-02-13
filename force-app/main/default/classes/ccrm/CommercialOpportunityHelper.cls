@@ -352,31 +352,32 @@ public with sharing class CommercialOpportunityHelper {
   }
 
   /**
-   * @description Generates the Opportunity Name and enforces a 120 char limit.
-   * @param oppId The Opportunity ID string
-   * @param customerNeeds The needs string
-   * @param bankerName The name entered by the user
-   * @param oldMap Old record map
-   * @return String formatted name truncated to 120 chars
+   * @description : This is used to generate Opp name
+   * @param oppId oppId
+   * @param customerNeeds customerNeeds
+   * @param oppName oppName
+   * @param oldMap oldMap
+   * @return String opportunity name
    */
+  @testVisible
   public static String generateOpportunityName(
     String oppId,
     String customerNeeds,
-    String bankerName,
+    String oppName,
     Map<Id, Opportunity> oldMap
   ) {
-    List<String> nameParts = new List<String>();
+    String opportunityName;
 
-    if (String.isNotBlank(oppId)) {
-      nameParts.add(oppId);
-    }
+    opportunityName = oppId + ' ';
     if (String.isNotBlank(customerNeeds)) {
-      nameParts.add(customerNeeds);
+      opportunityName += customerNeeds + ' ';
     }
-    if (String.isNotBlank(bankerName)) {
-      nameParts.add(bankerName);
+    if (String.isNotBlank(oppName)) {
+      opportunityName += oppName;
     }
-    String fullName = String.join(nameParts, ' ');
-    return (fullName != null) ? fullName.left(120) : fullName;
+    opportunityName = opportunityName.length() > 120
+      ? opportunityName.left(120)
+      : opportunityName;
+    return opportunityName;
   }
 }
