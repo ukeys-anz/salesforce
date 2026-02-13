@@ -358,7 +358,7 @@ public with sharing class CommercialOpportunityActions {
       oppName = getOpportunityName(opp, oldMap);
       updatedOppName = CommercialOpportunityHelper.generateOpportunityName(
         opp.Opp_Id__c,
-        opp.Lead_Converted__c ? customerNeeds : null,
+        (opp.Lead_Converted__c && oldMap == null) ? customerNeeds : null,
         oppName,
         oldMap
       );
