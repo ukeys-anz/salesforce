@@ -150,6 +150,25 @@ public with sharing class CommercialLeadActionsHelper {
         aar.FinServ__RelatedAccount__r
       );
     }
+    populateCpIdOwner(filteredLeadsList, accMap);
+  }
+
+  /**
+   * @description : This is used to populate the CPID Owner on Lead from CPID LanID of Controlling Post.
+   * @param filteredLeadsList A filtered lead list with change of related account
+   * @param accMap  A map of related account of the lead
+   */
+  private static void populateCpIdOwner(
+    List<Lead> filteredLeadsList,
+    Map<Id, Account> accMap
+  ) {
+    for (Lead leadRecord : filteredLeadsList) {
+      Controlling_Post__c cPost = accMap.get(
+          leadRecord.FinServ__RelatedAccount__c
+        )
+        ?.Controlling_Post__r;
+      leadRecord.CPID_Owner__c = cPost?.CPID_User__c;
+    }
   }
 
   /**
@@ -272,7 +291,6 @@ public with sharing class CommercialLeadActionsHelper {
     leadRecord.CLG_Name__c = accRecord?.Id;
     leadRecord.CLG_ID__c = accRecord?.CLG__c;
     leadRecord.CPID__c = accRecord?.CPID__c;
-    leadRecord.CPID_Owner__c = accRecord?.Controlling_Post__r?.OwnerId;
   }
 
   /**
@@ -321,5 +339,20 @@ public with sharing class CommercialLeadActionsHelper {
       phoneNumber = phoneNumber.replaceFirst('0', '+61');
     }
     return phoneNumber;
+  }
+
+  /**
+   * @description : This is used to update CPID Owner on Lead from Controlling Post
+   * @param leadsWithCPIDValue Lead records having CPID value
+   * @param controllingPostsByCPIDs Map of CPID and Controlling Post record
+   */
+  public static void updateCPIDOwnerByCPID(
+    List<Lead> leadsWithCPIDValue,
+    Map<String, Controlling_Post__c> controllingPostsByCPIDs
+  ) {
+    for (Lead leadRec : leadsWithCPIDValue) {
+      Controlling_Post__c cPost = controllingPostsByCPIDs.get(leadRec.CPID__c);
+      leadRec.CPID_Owner__c = cPost?.CPID_User__c;
+    }
   }
 }

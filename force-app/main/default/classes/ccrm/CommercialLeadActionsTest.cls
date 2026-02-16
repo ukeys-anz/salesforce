@@ -857,4 +857,43 @@ public class CommercialLeadActionsTest {
       'Home Phone should get populated from Account.'
     );
   }
+
+  @isTest
+  static void updateDetailsOnCPIDChangeTest() {
+    registerMocks();
+    // GIVEN list of lead records with CPID change
+    Id leadId1 = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    Id leadId2 = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    Id userId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+
+    List<Lead> records = new List<Lead>{
+      new Lead(Id = leadId1, CPID__c = 'CPID123'),
+      new Lead(Id = leadId2, CPID__c = null)
+    };
+    Map<Id, Lead> oldMap = new Map<Id, Lead>{
+      leadId1 => new Lead(Id = leadId1, CPID__c = 'OLDCPID'),
+      leadId2 => new Lead(Id = leadId2, CPID__c = 'OLDCPID2')
+    };
+
+    List<Controlling_Post__c> controllingPosts = new List<Controlling_Post__c>{
+      new Controlling_Post__c(CPID__c = 'CPID123', CPID_User__c = userId)
+    };
+    leadActionRepoMock.mock('getControllingPostsByCPIDs', controllingPosts);
+
+    // WHEN calling the method
+    Test.startTest();
+    CommercialLeadActions.updateDetailsOnCPIDChange(records, oldMap);
+    Test.stopTest();
+
+    // THEN CPID_Owner__c should be updated for non-null CPID and set to null for blank CPID
+    Assert.areEqual(
+      userId,
+      records[0].CPID_Owner__c,
+      'CPID_Owner__c should be set to the CPID_User__c'
+    );
+    Assert.isNull(
+      records[1].CPID_Owner__c,
+      'CPID_Owner__c should be set to null when CPID is blank'
+    );
+  }
 }

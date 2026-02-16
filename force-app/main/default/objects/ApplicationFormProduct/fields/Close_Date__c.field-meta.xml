@@ -4,7 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted;Privacy - Personal Information;Source_Loan_Domain</complianceGroup>
     <description>The actual date of settlement of the product on the application form.</description>
-    <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
+    <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
     <label>Settlement Date</label>
     <required>true</required>

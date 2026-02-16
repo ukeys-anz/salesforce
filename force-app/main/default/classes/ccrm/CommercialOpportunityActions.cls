@@ -89,48 +89,6 @@ public with sharing class CommercialOpportunityActions {
   }
 
   /**
-   * @description This method will validate if AFPs are present for Opp Products and are closed before an Opportunity is closed
-   * @name validateAFPBeforeOppClose
-   * @param records from the trigger
-   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values
-   */
-  public static void validateAFPBeforeOppClose(
-    List<Opportunity> records,
-    Map<Id, Opportunity> oldMap
-  ) {
-    List<Opportunity> closedOppsList = ListUtil.filter(records, oldMap)
-      .changed(Opportunity.StageName)
-      .anyEqual(
-        new Set<SObjectField>{ Opportunity.StageName },
-        new Set<String>{ OPP_WON, OPP_LOST }
-      )
-      .toList();
-
-    Map<Id, Opportunity> closedOppsMap = new Map<Id, Opportunity>(
-      closedOppsList
-    );
-
-    //get AFPs related to Opportunities
-    List<ApplicationFormProduct> appFormProducts = OPP_REPOSITORY.getAFPRelatedToOpportunity(
-      closedOppsMap.keySet()
-    );
-
-    Map<Id, Set<Id>> oppIdToOpenAFPMap = CommercialOpportunityHelper.formOppIdToOpenAFPMap(
-      appFormProducts
-    );
-
-    Map<Id, Set<Id>> oppIdToAllAFPIdMap = CommercialOpportunityHelper.formOppIdToAllAFPIdMap(
-      appFormProducts
-    );
-
-    CommercialOpportunityHelper.addErrorOnOppForOpenAFP(
-      closedOppsMap,
-      oppIdToOpenAFPMap,
-      oppIdToAllAFPIdMap
-    );
-  }
-
-  /**
    * @description This method will update Controlling Post field depending on the CPID provided in Account.
    * @name populateFields
    * @param records from the trigger
@@ -400,7 +358,7 @@ public with sharing class CommercialOpportunityActions {
       oppName = getOpportunityName(opp, oldMap);
       updatedOppName = CommercialOpportunityHelper.generateOpportunityName(
         opp.Opp_Id__c,
-        customerNeeds,
+        opp.Lead_Converted__c ? customerNeeds : null,
         oppName,
         oldMap
       );
@@ -434,9 +392,9 @@ public with sharing class CommercialOpportunityActions {
     oppoName = oppoName.replace(customerNeeds + ' ', '');
 
     //Replace old if it has customer needs and opp Id with blank
-    oppoName = oppoName.replace(oldCustomerNeeds + ' ', '');
+    oppoName = oppoName.replace(oldCustomerNeeds, '');
     oppoName = oppoName.contains(MULTIPLE_CUSTOMER_NEEDS)
-      ? oppoName.replace(MULTIPLE_CUSTOMER_NEEDS + ' ', '')
+      ? oppoName.replace(MULTIPLE_CUSTOMER_NEEDS, '')
       : oppoName;
     return oppoName;
   }

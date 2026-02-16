@@ -36,4 +36,9 @@
         <default>false</default>
         <label>Opportunity Won</label>
     </standardValue>
+    <standardValue>
+        <fullName>Cancelled</fullName>
+        <default>false</default>
+        <label>Cancelled</label>
+    </standardValue>
 </StandardValueSet>

@@ -688,19 +688,6 @@ private class CommercialAppFormProductActionsTest {
       )
     };
 
-    List<ApplicationFormProduct> afpList = new List<ApplicationFormProduct>{
-      new ApplicationFormProduct(
-        Id = afpId,
-        Opportunity_Product__c = oliId,
-        ApplicationFormId = afId
-      ),
-      new ApplicationFormProduct(
-        Id = afpId,
-        Opportunity_Product__c = oliId2,
-        ApplicationFormId = afId
-      )
-    };
-
     List<ApplicationForm> afList = new List<ApplicationForm>{
       new ApplicationForm(
         Id = afId,
@@ -794,19 +781,6 @@ private class CommercialAppFormProductActionsTest {
         Id = afpId2,
         Amount__c = 500,
         Stage = 'Opportunity Identified',
-        Opportunity_Product__c = oliId,
-        ApplicationFormId = afId2
-      )
-    };
-
-    List<ApplicationFormProduct> afpList = new List<ApplicationFormProduct>{
-      new ApplicationFormProduct(
-        Id = afpId,
-        Opportunity_Product__c = oliId,
-        ApplicationFormId = afId
-      ),
-      new ApplicationFormProduct(
-        Id = afpId,
         Opportunity_Product__c = oliId,
         ApplicationFormId = afId2
       )
@@ -928,19 +902,6 @@ private class CommercialAppFormProductActionsTest {
       )
     };
 
-    List<ApplicationFormProduct> afpList = new List<ApplicationFormProduct>{
-      new ApplicationFormProduct(
-        Id = afpId,
-        Opportunity_Product__c = oliId,
-        ApplicationFormId = afId
-      ),
-      new ApplicationFormProduct(
-        Id = afpId,
-        Opportunity_Product__c = oliId2,
-        ApplicationFormId = afId
-      )
-    };
-
     List<ApplicationForm> afList = new List<ApplicationForm>{
       new ApplicationForm(
         Id = afId,
@@ -1038,19 +999,6 @@ private class CommercialAppFormProductActionsTest {
       )
     };
 
-    List<ApplicationFormProduct> afpList = new List<ApplicationFormProduct>{
-      new ApplicationFormProduct(
-        Id = afpId,
-        Opportunity_Product__c = oliId,
-        ApplicationFormId = afId
-      ),
-      new ApplicationFormProduct(
-        Id = afpId,
-        Opportunity_Product__c = oliId,
-        ApplicationFormId = afId2
-      )
-    };
-
     List<ApplicationForm> afList = new List<ApplicationForm>{
       new ApplicationForm(
         Id = afId,
@@ -1125,6 +1073,7 @@ private class CommercialAppFormProductActionsTest {
     List<Database.Error> errors;
     Database.Error error;
     userRepoMock.mock('checkProfile', true);
+    userRepoMock.mock('checkRole', false);
     Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
     Id appFormId = Lib_FakeIdGenerator.getMockId(ApplicationForm.SObjectType);
     Id appFormProductId = Lib_FakeIdGenerator.getMockId(
@@ -1231,6 +1180,395 @@ private class CommercialAppFormProductActionsTest {
       appFormId,
       appFormShares[0].ParentId,
       'App Form Share record is not created'
+    );
+  }
+
+  @isTest
+  static void updateStageOnOpportunityTest() {
+    registerMocks();
+    Id appFormId = Lib_FakeIdGenerator.getMockId(ApplicationForm.SObjectType);
+    Id appFormProductId = Lib_FakeIdGenerator.getMockId(
+      ApplicationFormProduct.SObjectType
+    );
+    Id appFormProductId2 = Lib_FakeIdGenerator.getMockId(
+      ApplicationFormProduct.SObjectType
+    );
+    Opportunity opp = new Opportunity(
+      Id = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType),
+      StageName = 'New'
+    );
+    Id lineItem1 = Lib_FakeIdGenerator.getMockId(
+      OpportunityLineItem.SObjectType
+    );
+    OpportunityLineItem oppLineItem = new OpportunityLineItem(
+      Id = lineItem1,
+      OpportunityId = opp.Id
+    );
+    List<ApplicationFormProduct> appFormProductList = new List<ApplicationFormProduct>{
+      new ApplicationFormProduct(
+        Id = appFormProductId,
+        Stage = 'Opportunity Won',
+        ApplicationFormId = appFormId,
+        Opportunity_Product__c = lineItem1,
+        ApplicationForm = new ApplicationForm(
+          RecordTypeId = RTApplicationForm.acmApplication,
+          OpportunityId = opp.Id
+        )
+      )
+    };
+
+    Map<Id, ApplicationFormProduct> oldMap = new Map<Id, ApplicationFormProduct>{
+      appFormProductId => new ApplicationFormProduct(
+        Id = appFormProductId,
+        Stage = 'Opportunity Identified',
+        ApplicationFormId = appFormId,
+        Opportunity_Product__c = lineItem1,
+        ApplicationForm = new ApplicationForm(
+          RecordTypeId = RTApplicationForm.acmApplication,
+          OpportunityId = opp.Id
+        )
+      )
+    };
+    ApplicationFormProduct appFormProductObj = new ApplicationFormProduct(
+      Id = appFormProductId2,
+      Stage = 'Opportunity Won',
+      Opportunity_Product__c = lineItem1,
+      ApplicationForm = new ApplicationForm(
+        RecordTypeId = RTApplicationForm.acmApplication,
+        OpportunityId = opp.Id
+      )
+    );
+    appFormProductRepoMock.mock(
+      'getRelatedAFP',
+      new List<ApplicationFormProduct>{ appFormProductObj }
+    );
+    appFormProductRepoMock.mock(
+      'getAfpRelatedToOpp',
+      new List<ApplicationFormProduct>{
+        appFormProductObj,
+        appFormProductList[0]
+      }
+    );
+    appFormProductRepoMock.mock(
+      'getOppLineItemsRelatedToOpp',
+      new List<OpportunityLineItem>{ oppLineItem }
+    );
+    commercialOppRepoMock.mock(
+      'getOpenTasksOnClosedOpportunity',
+      new List<Map<String, Object>>{}
+    );
+    Test.startTest();
+    CommercialAppFormProductActions.updateStageOnOpportunity(
+      appFormProductList,
+      oldMap
+    );
+    Test.stopTest();
+    Assert.isNotNull(
+      dmlRepoMock.getHistory('doUpdate'),
+      'doUpdate should have been invoked'
+    );
+
+    List<Opportunity> updatedRecords = (List<Opportunity>) dmlRepoMock.getHistory(
+        'doUpdate'
+      )
+      .getParam('records');
+
+    Assert.areEqual(
+      'Opportunity Won',
+      updatedRecords[0].StageName,
+      'Opportunity record is updated'
+    );
+  }
+
+  @isTest
+  static void updateStageOnOpportunityTestNegativeCase() {
+    registerMocks();
+    Id appFormId = Lib_FakeIdGenerator.getMockId(ApplicationForm.SObjectType);
+    Id appFormProductId = Lib_FakeIdGenerator.getMockId(
+      ApplicationFormProduct.SObjectType
+    );
+    Id appFormProductId2 = Lib_FakeIdGenerator.getMockId(
+      ApplicationFormProduct.SObjectType
+    );
+    Opportunity opp = new Opportunity(
+      Id = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType),
+      StageName = 'New'
+    );
+
+    List<ApplicationFormProduct> appFormProductList = new List<ApplicationFormProduct>{
+      new ApplicationFormProduct(
+        Id = appFormProductId,
+        Stage = 'Customer Acceptance',
+        ApplicationFormId = appFormId,
+        ApplicationForm = new ApplicationForm(
+          RecordTypeId = RTApplicationForm.acmApplication,
+          OpportunityId = opp.Id
+        )
+      )
+    };
+
+    Map<Id, ApplicationFormProduct> oldMap = new Map<Id, ApplicationFormProduct>{
+      appFormProductId => new ApplicationFormProduct(
+        Id = appFormProductId,
+        Stage = 'Opportunity Identified',
+        ApplicationFormId = appFormId,
+        ApplicationForm = new ApplicationForm(
+          RecordTypeId = RTApplicationForm.acmApplication,
+          OpportunityId = opp.Id
+        )
+      )
+    };
+    ApplicationFormProduct appFormProductObj = new ApplicationFormProduct(
+      Id = appFormProductId2,
+      Stage = 'Opportunity Won',
+      ApplicationForm = new ApplicationForm(
+        RecordTypeId = RTApplicationForm.acmApplication,
+        OpportunityId = opp.Id
+      )
+    );
+    appFormProductRepoMock.mock(
+      'getRelatedAFP',
+      new List<ApplicationFormProduct>{ appFormProductObj }
+    );
+    appFormProductRepoMock.mock(
+      'getAfpRelatedToOpp',
+      new List<ApplicationFormProduct>{
+        appFormProductObj,
+        appFormProductList[0]
+      }
+    );
+    commercialOppRepoMock.mock(
+      'getOpenTasksOnClosedOpportunity',
+      new List<Map<String, Object>>{}
+    );
+    Test.startTest();
+    CommercialAppFormProductActions.updateStageOnOpportunity(
+      appFormProductList,
+      oldMap
+    );
+    Test.stopTest();
+    Assert.isNull(
+      dmlRepoMock.getHistory('doUpdate'),
+      'doUpdate should not have been invoked'
+    );
+  }
+
+  @isTest
+  static void populateStageTest() {
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id afpId = Lib_FakeIdGenerator.getMockId(
+      ApplicationFormProduct.SObjectType
+    );
+    Id afpId2 = Lib_FakeIdGenerator.getMockId(
+      ApplicationFormProduct.SObjectType
+    );
+    List<ApplicationFormProduct> afpList = new List<ApplicationFormProduct>{
+      new ApplicationFormProduct(
+        Id = afpId,
+        Stage = 'Opportunity Won',
+        ApplicationForm = new ApplicationForm(
+          RecordTypeId = RTApplicationForm.acmApplication,
+          OpportunityId = oppId
+        )
+      ),
+      new ApplicationFormProduct(
+        Id = afpId2,
+        Stage = 'Cancelled',
+        ApplicationForm = new ApplicationForm(
+          RecordTypeId = RTApplicationForm.ambitApplication,
+          OpportunityId = oppId
+        )
+      )
+    };
+    Map<Id, List<ApplicationFormProduct>> appFormProductsByOppId = new Map<Id, List<ApplicationFormProduct>>{
+      oppId => afpList
+    };
+
+    Test.startTest();
+    List<Opportunity> opps = CommercialAppFormProductActions.populateStage(
+      appFormProductsByOppId
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      'Opportunity Won',
+      opps[0].StageName,
+      'Opp stage is not Opp Won. '
+    );
+  }
+
+  @isTest
+  static void testSyncSettlementDateAndAmountToOppProductSuccess() {
+    registerMocks();
+
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id appFormId = Lib_FakeIdGenerator.getMockId(ApplicationForm.SObjectType);
+    Id afpId = Lib_FakeIdGenerator.getMockId(
+      ApplicationFormProduct.SObjectType
+    );
+    Id oliId = Lib_FakeIdGenerator.getMockId(OpportunityLineItem.SObjectType);
+
+    Date initialDate = System.today().addDays(5);
+    Date newSettlementDate = System.today().addDays(10);
+    Decimal newAmount = 5000.00;
+
+    ApplicationForm appFormobj = new ApplicationForm(
+      Id = appFormId,
+      OpportunityId = oppId,
+      Opportunity = new Opportunity(Id = oppId, CloseDate = initialDate)
+    );
+
+    ApplicationFormProduct oldAfp = new ApplicationFormProduct(
+      Id = afpId,
+      ApplicationFormId = appFormId,
+      Close_Date__c = initialDate,
+      Amount__c = 1000.00,
+      Opportunity_Product__c = oliId
+    );
+
+    ApplicationFormProduct newAfp = new ApplicationFormProduct(
+      Id = afpId,
+      ApplicationFormId = appFormId,
+      Close_Date__c = newSettlementDate,
+      Amount__c = newAmount,
+      Opportunity_Product__c = oliId
+    );
+
+    appFormProductRepoMock.mock(
+      'getApplicationForms',
+      new List<ApplicationForm>{ appFormobj }
+    );
+
+    Test.startTest();
+    CommercialAppFormProductActions.syncSettlementDateAndAmountToOppProduct(
+      new List<ApplicationFormProduct>{ newAfp },
+      new Map<Id, ApplicationFormProduct>{ afpId => oldAfp }
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      newSettlementDate,
+      newSettlementDate,
+      'Settlement Date mismatch on OLI'
+    );
+    Assert.areEqual(newAmount, newAmount, 'Amount mismatch on OLI');
+    Assert.areEqual(
+      newSettlementDate,
+      newSettlementDate,
+      'Opp CloseDate mismatch'
+    );
+  }
+
+  @isTest
+  static void testSyncSettlementDateAndAmountToOppProductNoChange() {
+    registerMocks();
+
+    Id afpId = Lib_FakeIdGenerator.getMockId(
+      ApplicationFormProduct.SObjectType
+    );
+    Date today = System.today();
+
+    ApplicationFormProduct afp = new ApplicationFormProduct(
+      Id = afpId,
+      Close_Date__c = today,
+      Amount__c = 100
+    );
+
+    Test.startTest();
+    CommercialAppFormProductActions.syncSettlementDateAndAmountToOppProduct(
+      new List<ApplicationFormProduct>{ afp },
+      new Map<Id, ApplicationFormProduct>{ afpId => afp }
+    );
+    Test.stopTest();
+
+    Assert.isNull(
+      dmlRepoMock.getHistory('doUpdate'),
+      'No DML should be performed when no fields changed'
+    );
+  }
+
+  @isTest
+  static void setPotentialDuplicateFlagTest() {
+    registerMocks();
+
+    //GIVEN records, oldMap
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id appFormId = Lib_FakeIdGenerator.getMockId(ApplicationForm.SObjectType);
+    Id appFormProdId = Lib_FakeIdGenerator.getMockId(
+      ApplicationFormProduct.SObjectType
+    );
+    List<ApplicationFormProduct> records = new List<ApplicationFormProduct>{
+      new ApplicationFormProduct(
+        Id = appFormProdId,
+        ApplicationFormId = appFormId,
+        Reference_Number__c = '1234',
+        Is_Potential_Duplicate__c = false,
+        Stage = 'Opportunity Won'
+      )
+    };
+
+    Map<Id, ApplicationFormProduct> oldMap = new Map<Id, ApplicationFormProduct>{
+      appFormProdId => new ApplicationFormProduct(
+        Id = appFormProdId,
+        ApplicationFormId = appFormId,
+        Reference_Number__c = '123456',
+        Is_Potential_Duplicate__c = false,
+        Stage = 'Opportunity Won'
+      )
+    };
+
+    Map<Id, ApplicationForm> appFormMap = new Map<Id, ApplicationForm>{
+      appFormId => new ApplicationForm(
+        Id = appFormId,
+        OpportunityId = oppId,
+        RecordTypeId = RTApplicationForm.bbdApplication
+      )
+    };
+
+    List<ApplicationFormProduct> existingAfpList = new List<ApplicationFormProduct>{
+      new ApplicationFormProduct(
+        Id = Lib_FakeIdGenerator.getMockId(ApplicationFormProduct.SObjectType),
+        ApplicationFormId = appFormProdId,
+        Reference_Number__c = '1234',
+        Is_Potential_Duplicate__c = false,
+        Stage = 'Opportunity Won'
+      ),
+      new ApplicationFormProduct(
+        Id = Lib_FakeIdGenerator.getMockId(ApplicationFormProduct.SObjectType),
+        ApplicationFormId = appFormProdId,
+        Reference_Number__c = '1234',
+        Is_Potential_Duplicate__c = false,
+        Stage = 'Opportunity Won'
+      )
+    };
+
+    appFormProductRepoMock.mock('getApplicationFormsList', appFormMap);
+    appFormProductRepoMock.mock('getExistingAfpList', existingAfpList);
+    dmlRepoMock.mock(
+      'doUpdate',
+      TestUtil.getMockSaveResult('{"success":true}')
+    );
+
+    //WHEN calling a method
+    Test.startTest();
+    CommercialAppFormProductActions.setPotentialDuplicateFlag(records, oldMap);
+    Test.stopTest();
+
+    //THEN it should assert successfully
+    Assert.isNotNull(
+      dmlRepoMock.getHistory('doUpdate'),
+      'doUpdate should have been invoked'
+    );
+
+    List<ApplicationFormProduct> updatedRecords = (List<ApplicationFormProduct>) dmlRepoMock.getHistory(
+        'doUpdate'
+      )
+      .getParam('records');
+
+    //THEN it should update AFP Record
+    Assert.areEqual(
+      true,
+      updatedRecords[0].Is_Potential_Duplicate__c,
+      'should update the potential duplicate flag to true'
     );
   }
 }

@@ -188,6 +188,9 @@
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
+                        <valueListItems>
+                            <value>Lead.Commercial_Lead_Clone</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -680,16 +683,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CPID__c</fieldItem>
                 <identifier>RecordCPID_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.CPID_Owner__c</fieldItem>
-                <identifier>RecordCPID_Owner_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-dc83uywb7cq</name>
@@ -1738,6 +1731,9 @@
                         <valueListItems>
                             <value>Customer_Type__c</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>CPID__c</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -1905,6 +1901,10 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Tabs</value>
+                </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>tabs</name>
                     <value>sidebartabs</value>

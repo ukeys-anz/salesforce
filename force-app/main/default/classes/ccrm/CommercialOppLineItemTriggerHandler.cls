@@ -23,4 +23,14 @@ public with sharing class CommercialOppLineItemTriggerHandler extends Lib_Trigge
       (Map<Id, OpportunityLineItem>) oldMap
     );
   }
+
+  /**
+   * @description onBeforeInsert to handle naming logic.
+   * @name onBeforeInsert
+   */
+  public override void onBeforeInsert() {
+    CommercialOppLineItemActions.populateOppProductName(
+      (List<OpportunityLineItem>) records
+    );
+  }
 }

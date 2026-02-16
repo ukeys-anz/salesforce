@@ -178,7 +178,6 @@
         <fields>FULL_NAME</fields>
         <fields>CONTACT.TITLE</fields>
         <fields>CONTACT.PHONE1</fields>
-        <fields>CONTACT.EMAIL</fields>
         <relatedList>RelatedContactList</relatedList>
     </relatedLists>
     <relatedLists>

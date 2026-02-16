@@ -423,6 +423,8 @@ public with sharing class LeadActionsRepository {
         CPID__c,
         Controlling_Post__c,
         Controlling_Post__r.OwnerId,
+        Controlling_Post__r.CPID_LanID__c,
+        Controlling_Post__r.CPID_User__c,
         RecordType.Name,
         RecordTypeId
       FROM Account
@@ -480,5 +482,23 @@ public with sharing class LeadActionsRepository {
         WITH USER_MODE
       ]
     );
+  }
+  /**
+   * @description Retrieves a list of controlling posts based on cpids
+   * @param cpids A set of LAN CPIDs from leads
+   * @return List<Controlling_Post__c> A list of Controlling post records based on cpids.
+   */
+  public List<Controlling_Post__c> getControllingPostsByCPIDs(
+    Set<String> cpids
+  ) {
+    if (cpids.isEmpty()) {
+      return new List<Controlling_Post__c>();
+    }
+    return [
+      SELECT Id, CPID_LanId__c, CPID__c, CPID_User__c
+      FROM Controlling_Post__c
+      WHERE CPID__c IN :cpids
+      WITH USER_MODE
+    ];
   }
 }

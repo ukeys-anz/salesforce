@@ -2050,6 +2050,16 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>IDR_Was_the_offer_enhanced_and_accepted__c</field>
+            <table>Case.Complaint_Resolutions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IDR_customer_accept_resolution_offered__c</field>
+            <table>Case.Complaint_Resolutions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>IDR_Financial_Compensation__c</field>
             <table>Case.Complaint_Resolutions__r</table>
         </columns>
@@ -2060,7 +2070,27 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>IDR_Description_of_Outcome_Offered__c</field>
+            <table>Case.Complaint_Resolutions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IDR_Other_Remedy_Offered__c</field>
+            <table>Case.Complaint_Resolutions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>IDR_Financial_Remedy_Points__c</field>
+            <table>Case.Complaint_Resolutions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IDR_Payment_Amount_Offered__c</field>
+            <table>Case.Complaint_Resolutions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IDR_Duration_of_Remedy_months_Offered__c</field>
             <table>Case.Complaint_Resolutions__r</table>
         </columns>
         <masterLabel>Complaint Resolutions</masterLabel>
