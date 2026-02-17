@@ -32,7 +32,16 @@ public with sharing class IndividualAccountActions {
   private static final AccountActionsRepository ACC_REPOSITORY = (AccountActionsRepository) Lib_InstanceProvider.forType(
     AccountActionsRepository.class
   );
-
+  private static final UserActionsRepository USER_REPOSITORY = (UserActionsRepository) Lib_InstanceProvider.forType(
+    UserActionsRepository.class
+  );
+  private static final String ANZ_PLUS_CUSTOMER_ERROR_MESSAGE = 'You are not authorized to update ANZ Plus Customer Accounts.';
+  private static final UserInfoRepository USERINFO_REPO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
+  public static final Boolean IS_COMMERCIAL_USER = USERINFO_REPO.checkProfile(
+    'ANZ CCRM Standard User'
+  );
   /**
    * @description CC-5112 && CC-7016 to restrict Date of Birth in Future
    * @name validateDateOfBirth
@@ -70,6 +79,25 @@ public with sharing class IndividualAccountActions {
       .anyNotNull(BILLING_ADDRESS_FIELDS)
       .toList();
     blankBillingAddress(accountsToRevert);
+  }
+
+  /**
+   * @description restrict edit on ANZ Plus Customer Accounts
+   * @name restrictEditOnPlusCustomer
+   * @param records
+   **/
+  public static void restrictEditOnPlusCustomer(List<Account> records) {
+    if (
+      LeadConversionController.leadConverionFlow ||
+      !IS_COMMERCIAL_USER ||
+      USER_REPOSITORY.isCustomValidationsSkipped()
+    ) {
+      return;
+    }
+    List<Account> accountsToRevert = ListUtil.filter(records)
+      .equals(Account.ANZx_Customer__c, true)
+      .toList();
+    ListUtil.addError(accountsToRevert, ANZ_PLUS_CUSTOMER_ERROR_MESSAGE);
   }
 
   /**
