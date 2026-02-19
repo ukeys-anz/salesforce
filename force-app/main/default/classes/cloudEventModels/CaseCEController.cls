@@ -21,6 +21,13 @@ public without sharing class CaseCEController {
     RTCase.cardDispute
   };
 
+  private static set<Id> caseRecordTypesForSubmitted = new Set<Id>{
+    RTCase.atmDispute,
+    RTCase.cardDispute,
+    RTCase.nppDispute,
+    RTCase.imtDispute
+  };
+
   private static final CaseDisputesRepository CASE_DISPUTES_REPOSITORY = (CaseDisputesRepository) Lib_InstanceProvider.forType(
     CaseDisputesRepository.class
   );
@@ -164,7 +171,7 @@ public without sharing class CaseCEController {
    * NcssMethodCount Suppressed : To have all the code lines together in one place. Code generates cloud event models on insert, update and status change
    * @return List<CloudEventModel> List of Case Cloud Event Model
    */
-  @SuppressWarnings('PMD.CognitiveComplexity')
+  @SuppressWarnings('PMD.CognitiveComplexity, PMD.NcssMethodCount')
   public static List<CloudEventModel> generateCloudEventModel(
     List<Case> theCasesNew,
     Map<Id, Case> theCasesOld
@@ -273,6 +280,21 @@ public without sharing class CaseCEController {
               relatedOwner
             )
           );
+        }
+      }
+      if (
+        theCaseNew.Submitted__c &&
+        theCaseNew.Submitted__c != theCaseOld.Submitted__c
+      ) {
+        if (caseRecordTypesForSubmitted.contains(theCaseNew.RecordTypeId)) {
+          CloudEventModel ceModel = CloudEventBuildHelper.createCloudEvent(
+            theCaseNew,
+            relatedAccount,
+            'submitted',
+            relatedUser,
+            relatedOwner
+          );
+          cloudEventModels.add(ceModel);
         }
       }
     }
