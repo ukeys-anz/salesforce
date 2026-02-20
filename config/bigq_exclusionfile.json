@@ -444,7 +444,6 @@
     "FinServ__RenewalDate__c",
     "FinServ__RecordTypeName__c",
     "FinServ__RebalanceFrequency__c",
-    "FinServ__ProductName__c",
     "FinServ__PropTaxPaidYearToDate__c",
     "FinServ__Stage__c",
     "FinServ__SourceSystemId__c",
