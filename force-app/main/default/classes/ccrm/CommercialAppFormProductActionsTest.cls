@@ -1197,12 +1197,19 @@ private class CommercialAppFormProductActionsTest {
       Id = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType),
       StageName = 'New'
     );
-
+    Id lineItem1 = Lib_FakeIdGenerator.getMockId(
+      OpportunityLineItem.SObjectType
+    );
+    OpportunityLineItem oppLineItem = new OpportunityLineItem(
+      Id = lineItem1,
+      OpportunityId = opp.Id
+    );
     List<ApplicationFormProduct> appFormProductList = new List<ApplicationFormProduct>{
       new ApplicationFormProduct(
         Id = appFormProductId,
         Stage = 'Opportunity Won',
         ApplicationFormId = appFormId,
+        Opportunity_Product__c = lineItem1,
         ApplicationForm = new ApplicationForm(
           RecordTypeId = RTApplicationForm.acmApplication,
           OpportunityId = opp.Id
@@ -1215,6 +1222,7 @@ private class CommercialAppFormProductActionsTest {
         Id = appFormProductId,
         Stage = 'Opportunity Identified',
         ApplicationFormId = appFormId,
+        Opportunity_Product__c = lineItem1,
         ApplicationForm = new ApplicationForm(
           RecordTypeId = RTApplicationForm.acmApplication,
           OpportunityId = opp.Id
@@ -1224,6 +1232,7 @@ private class CommercialAppFormProductActionsTest {
     ApplicationFormProduct appFormProductObj = new ApplicationFormProduct(
       Id = appFormProductId2,
       Stage = 'Opportunity Won',
+      Opportunity_Product__c = lineItem1,
       ApplicationForm = new ApplicationForm(
         RecordTypeId = RTApplicationForm.acmApplication,
         OpportunityId = opp.Id
@@ -1239,6 +1248,10 @@ private class CommercialAppFormProductActionsTest {
         appFormProductObj,
         appFormProductList[0]
       }
+    );
+    appFormProductRepoMock.mock(
+      'getOppLineItemsRelatedToOpp',
+      new List<OpportunityLineItem>{ oppLineItem }
     );
     commercialOppRepoMock.mock(
       'getOpenTasksOnClosedOpportunity',
@@ -1266,6 +1279,7 @@ private class CommercialAppFormProductActionsTest {
       'Opportunity record is updated'
     );
   }
+
   @isTest
   static void updateStageOnOpportunityTestNegativeCase() {
     registerMocks();

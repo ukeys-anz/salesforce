@@ -615,6 +615,7 @@ public with sharing class CommercialAppFormProductActions {
           filteredAfpList
         )
         .keySet();
+      //gets opp ids from related AFPs
       List<ApplicationFormProduct> appFormProducts = AFP_REPOSITORY.getRelatedAFP(
         appFormProductIds
       );
@@ -622,9 +623,33 @@ public with sharing class CommercialAppFormProductActions {
       for (ApplicationFormProduct afp : appFormProducts) {
         oppIds.add(afp.ApplicationForm.OpportunityId);
       }
+      //get all AFPs related to opp
       List<ApplicationFormProduct> appFormProductsList = AFP_REPOSITORY.getAfpRelatedToOpp(
         oppIds
       );
+      //get opp product ids from afp
+      Set<Id> oppProductFromAFPIds = ListUtil.getIds(
+        appFormProductsList,
+        ApplicationFormProduct.Opportunity_Product__c
+      );
+      //get opp line items from opp
+      List<OpportunityLineItem> oppLineItems = AFP_REPOSITORY.getOppLineItemsRelatedToOpp(
+        oppIds
+      );
+      // get opp line item ids
+      Set<Id> oppLineItemIds = ListUtil.getIds(
+        oppLineItems,
+        OpportunityLineItem.Id
+      );
+      //validates if opp line item is linked to any afp
+      Boolean result = CommercialAFPActionsExtended.validateOppLineItems(
+        oppLineItemIds,
+        oppProductFromAFPIds
+      );
+      if (!result) {
+        return;
+      }
+      //forms map of opp Id and AFPs
       Map<Id, List<ApplicationFormProduct>> appFormProductsByOppId = CommercialAppFormProductActionsHelper.getAFPsRelatedToOpp(
         appFormProductsList
       );

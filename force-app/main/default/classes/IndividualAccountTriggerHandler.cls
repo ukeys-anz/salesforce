@@ -33,6 +33,7 @@ public with sharing class IndividualAccountTriggerHandler extends Lib_TriggerHan
    * @param oldMap
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    IndividualAccountActions.restrictEditOnPlusCustomer(records);
     IndividualAccountActions.validateDateOfBirth(records);
     IndividualAccountActions.validateCustomerAttribute(records, oldMap);
     IndividualAccountActions.revertShellProspectBillingAddress(records);
