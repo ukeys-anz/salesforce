@@ -717,4 +717,35 @@ public class OpportunityActionsTest {
       '1 customer relationship should be inserted!'
     );
   }
+
+  /**
+   * @description test method for populateContactDetails
+   */
+  @isTest
+  static void revertLostReasonDetailsTest() {
+    registerMocks();
+    Map<Id, Opportunity> oldMap = new Map<Id, Opportunity>();
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.getSobjectType());
+    Opportunity oldOpp = new Opportunity(
+      Id = oppId,
+      StageName = 'Lost',
+      Lost_Reason__c = 'Test Lost Reason',
+      Lost_Reason_Detail__c = 'Test Reason Detail'
+    );
+    oldMap.put(oppId, oldOpp);
+
+    Opportunity updatedOpp = new Opportunity(Id = oppId, StageName = 'Closed');
+
+    Test.startTest();
+    OpportunityActions.revertLostReasonDetails(
+      new List<Opportunity>{ updatedOpp },
+      oldMap
+    );
+    Test.stopTest();
+    Assert.isNull(updatedOpp.Lost_Reason__c, 'Lost reason is not null');
+    Assert.isNull(
+      updatedOpp.Lost_Reason_Detail__c,
+      'Lost reason detail is not null'
+    );
+  }
 }
