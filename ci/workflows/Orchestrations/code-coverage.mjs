@@ -69,7 +69,6 @@ const clean = () => {
     ARTIFACTORY_REPO_NAME,
     "PR Comment HTML"
   );
-  unauthenticate(BRANCH_NAME_ALIAS);
   deleteFile(JOB_ID_FILE_NAME);
   deleteFile(CODE_COVERAGE_FILE_NAME + ".html");
 };
