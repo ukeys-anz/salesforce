@@ -71,7 +71,8 @@ const salesforceSecretNames = {
   "epic/editloan": "sf-platform-np-editloan",
   "epic/extracare": "sf-platform-np-extracare",
   "epic/rlaSharing": "sf-platform-np-rlasharing",
-  "epic/imtv1": "sf-platform-np-imtv1"
+  "epic/imtv1": "sf-platform-np-imtv1",
+  "epic/wap": "sf-platform-np-wap"
 };
 
 const brokerSecretNames = {
