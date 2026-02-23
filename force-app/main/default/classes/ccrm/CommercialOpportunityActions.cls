@@ -358,7 +358,7 @@ public with sharing class CommercialOpportunityActions {
       oppName = getOpportunityName(opp, oldMap);
       updatedOppName = CommercialOpportunityHelper.generateOpportunityName(
         opp.Opp_Id__c,
-        opp.Lead_Converted__c ? customerNeeds : null,
+        (opp.Lead_Converted__c && oldMap == null) ? customerNeeds : null,
         oppName,
         oldMap
       );
@@ -388,15 +388,15 @@ public with sharing class CommercialOpportunityActions {
     String oldCustomerNeeds = oldOpp?.Customer_Needs__c;
 
     //Replace new customer needs and opp Id with blank
-    oppoName = oppName.replace(opp?.Opp_Id__c + ' ', '');
-    oppoName = oppoName.replace(customerNeeds + ' ', '');
+    oppoName = oppName.replace(opp?.Opp_Id__c, '');
+    oppoName = oppoName.replace(customerNeeds, '');
 
     //Replace old if it has customer needs and opp Id with blank
     oppoName = oppoName.replace(oldCustomerNeeds, '');
     oppoName = oppoName.contains(MULTIPLE_CUSTOMER_NEEDS)
       ? oppoName.replace(MULTIPLE_CUSTOMER_NEEDS, '')
       : oppoName;
-    return oppoName;
+    return oppoName.trim();
   }
 
   /**

@@ -14,6 +14,7 @@
     <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>View_C360_Financial_Accounts</permissionSets>
     <permissionSets>View_C360_Financial_Summary</permissionSets>
+    <permissionSets>View_CACHE_360_Financial_Accounts</permissionSets>
     <permissionSets>View_Diary_Comment</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
