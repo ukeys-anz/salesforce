@@ -41,8 +41,8 @@
         AND(
             RecordType.DeveloperName = &quot;IMT_Dispute&quot;,
             OR(
-                ISPICKVAL(Dispute_Reason__c, &quot;Cancel transfer&quot;),
-                ISPICKVAL(Dispute_Reason__c, &quot;Payee has not received funds&quot;),
+                ISPICKVAL(Dispute_Reason__c, &quot;Cancel Payment&quot;),
+                ISPICKVAL(Dispute_Reason__c, &quot;Money not received&quot;),
                 ISPICKVAL(Dispute_Reason__c, &quot;Amendment Request&quot;)
             )
         )
