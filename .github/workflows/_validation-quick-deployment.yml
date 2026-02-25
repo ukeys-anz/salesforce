@@ -6,6 +6,10 @@ on:
         required: false
         description: "Secret Name as an Input"
         type: string
+      base_ref:
+        required: false
+        description: "Base reference branch"
+        type: string
     secrets:
       token:
         required: true
@@ -16,6 +20,7 @@ jobs:
     uses: ./.github/workflows/_validation.yml
     with:
       sfdx_name: ${{ inputs.sfdx_name }}
+      base_ref: ${{ inputs.base_ref }}
     secrets:
       token: ${{ secrets.token }}
 
@@ -24,5 +29,6 @@ jobs:
     uses: ./.github/workflows/_quick-deployment.yml
     with:
       sfdx_name: ${{ inputs.sfdx_name }}
+      base_ref: ${{ inputs.base_ref }}
     secrets:
       token: ${{ secrets.token }}

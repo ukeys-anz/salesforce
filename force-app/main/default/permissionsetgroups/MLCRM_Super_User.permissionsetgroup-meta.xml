@@ -23,7 +23,7 @@
     <permissionSets>MLCRM_Edit_ML_Leads_and_Opportunities</permissionSets>
     <permissionSets>MLCRM_Modify_Territory_Sharing_Access</permissionSets>
     <permissionSets>MLCRM_Transfer_ML_Records</permissionSets>
-    <permissionSets>MLCRM_View_Reports_and_Dashboards</permissionSets>
     <permissionSets>MLCRM_View_Quick_Text</permissionSets>
+    <permissionSets>MLCRM_View_Reports_and_Dashboards</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
