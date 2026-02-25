@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
-    <activeVersionIdentifier>+5Qpb5XXbOgm9dusjurGGSP3I8jOGxlChJhi9PASSyQ=_66</activeVersionIdentifier>
+    <activeVersionIdentifier>+5Qpb5XXbOgm9dusjurGGSP3I8jOGxlChJhi9PASSyQ=_67</activeVersionIdentifier>
     <description>This summary is used to give a quick snapshot of the Customer Interactions, Opportunities, Financial Summaries.</description>
     <developerName>Customer_Summary2</developerName>
     <masterLabel>Customer Summary</masterLabel>
@@ -114,10 +114,10 @@ This section appears ONLY IF &apos;Show Extra Care alert&apos; is true-- [Extra 
 
 &lt;hr style=&quot;margin:12px 0;&quot;&gt;
 
-This note STRICTLY appears ONLY IF Total number of interactions from DATA &gt; 20)
+This note STRICTLY appears ONLY IF Total number of interactions from DATA &gt; 15)
 &lt;div style=&quot;margin-bottom:10px;&quot;&gt;
 &lt;b style=&quot;font-size:16px; color:#032D60;&quot;&gt;Note on Interactions:&lt;/b&gt;&lt;br&gt;
-[&quot;This summarizes the most recent 20 interaction records&quot;]
+[&quot;This summarizes the most recent 15 interaction records&quot;]
 &lt;/div&gt;
 
 &lt;hr style=&quot;margin:12px 0;&quot;&gt;
@@ -370,7 +370,7 @@ CUSTOMER_COMPLAINTS:
             </parameters>
             <referenceName>Apex:CCRMAgentCustomerSummaryPrompt</referenceName>
         </templateDataProviders>
-        <versionIdentifier>+5Qpb5XXbOgm9dusjurGGSP3I8jOGxlChJhi9PASSyQ=_66</versionIdentifier>
+        <versionIdentifier>+5Qpb5XXbOgm9dusjurGGSP3I8jOGxlChJhi9PASSyQ=_67</versionIdentifier>
     </templateVersions>
     <type>einstein_gpt__recordSummary</type>
     <visibility>Global</visibility>
