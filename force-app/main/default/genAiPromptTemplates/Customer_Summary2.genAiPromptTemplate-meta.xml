@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
-    <activeVersionIdentifier>+5Qpb5XXbOgm9dusjurGGSP3I8jOGxlChJhi9PASSyQ=_67</activeVersionIdentifier>
+    <activeVersionIdentifier>+5Qpb5XXbOgm9dusjurGGSP3I8jOGxlChJhi9PASSyQ=_68</activeVersionIdentifier>
     <description>This summary is used to give a quick snapshot of the Customer Interactions, Opportunities, Financial Summaries.</description>
     <developerName>Customer_Summary2</developerName>
     <masterLabel>Customer Summary</masterLabel>
@@ -242,7 +242,8 @@ div style=&quot;margin-bottom:10px;&quot;&gt; &lt;b style=&quot;color:#032D60;&q
 &lt;/div&gt;
 
 &lt;div style=&quot;margin-bottom:10px;&quot;&gt;
-&lt;b style=&quot;color:#032D60;&quot;&gt;Customer Complaints&lt;/b&gt;&lt;br&gt;
+&lt;b style=&quot;color:#032D60;&quot;&gt;CMOS Complaints&lt;/b&gt;&lt;br&gt;
+&lt;b style=&quot;color:#5c5c5c;&quot;&gt;&lt;i&gt;Please always review the CMOS case for complaint details.&lt;/i&gt;&lt;/b&gt;
 -- Create a table ONLY IF data from CUSTOMER_COMPLAINTS exists with columns: Complaint Case Number, Date/Time Opened, Date/Time Closed
 -- ELSE (if no records exist) the subsection header must STILL be displayed and the model must output a single line stating &apos;Data Not Available&apos; formatted in valid HTML.
 -- Display the Date/Time Opened and Date/Time Closed in the format [&apos;DD/MM/YYYY, h:mm am/pm&apos;]&lt;br&gt;
@@ -338,6 +339,17 @@ CUSTOMER_COMPLAINTS:
             <referenceName>Apex:CCRMAgentAccountSnapshot</referenceName>
         </templateDataProviders>
         <templateDataProviders>
+            <definition>apex://CCRMAgentCustomerSummaryPrompt</definition>
+            <label>CCRMAgentCustomerSummaryPrompt</label>
+            <parameters>
+                <definition>SOBJECT://Account</definition>
+                <isRequired>true</isRequired>
+                <parameterName>accountObj</parameterName>
+                <valueExpression>{!$Input:Account}</valueExpression>
+            </parameters>
+            <referenceName>Apex:CCRMAgentCustomerSummaryPrompt</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
             <definition>apex://CCRMAgentCapDiaryCommentsPrompt</definition>
             <label>CCRMAgent Get CAP Diary Comments</label>
             <parameters>
@@ -359,18 +371,7 @@ CUSTOMER_COMPLAINTS:
             </parameters>
             <referenceName>Apex:CCRMAgentCustomerComplaintsPrompt</referenceName>
         </templateDataProviders>
-        <templateDataProviders>
-            <definition>apex://CCRMAgentCustomerSummaryPrompt</definition>
-            <label>CCRMAgentCustomerSummaryPrompt</label>
-            <parameters>
-                <definition>SOBJECT://Account</definition>
-                <isRequired>true</isRequired>
-                <parameterName>accountObj</parameterName>
-                <valueExpression>{!$Input:Account}</valueExpression>
-            </parameters>
-            <referenceName>Apex:CCRMAgentCustomerSummaryPrompt</referenceName>
-        </templateDataProviders>
-        <versionIdentifier>+5Qpb5XXbOgm9dusjurGGSP3I8jOGxlChJhi9PASSyQ=_67</versionIdentifier>
+        <versionIdentifier>+5Qpb5XXbOgm9dusjurGGSP3I8jOGxlChJhi9PASSyQ=_68</versionIdentifier>
     </templateVersions>
     <type>einstein_gpt__recordSummary</type>
     <visibility>Global</visibility>
