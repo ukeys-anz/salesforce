@@ -5,14 +5,76 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_CACHE</complianceGroup>
     <description>Debit Interest Pay Cycle Code</description>
     <externalDeveloperName>InterestCycle</externalDeveloperName>
-    <externalId>false</externalId>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Interest Cycle</label>
-    <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>00</fullName>
+                <default>false</default>
+                <label>00 - No Cycle</label>
+            </value>
+            <value>
+                <fullName>DA</fullName>
+                <default>false</default>
+                <label>DA - Daily</label>
+            </value>
+            <value>
+                <fullName>EM</fullName>
+                <default>false</default>
+                <label>EM - Cycle at end of moth</label>
+            </value>
+            <value>
+                <fullName>ET</fullName>
+                <default>false</default>
+                <label>ET - Cycle at end of term (Sub-products 43 &amp; 39 only)</label>
+            </value>
+            <value>
+                <fullName>32</fullName>
+                <default>false</default>
+                <label>32 - Cycle Monthly on first business day of the month</label>
+            </value>
+            <value>
+                <fullName>33</fullName>
+                <default>false</default>
+                <label>33 - Cycle Quarterly</label>
+            </value>
+            <value>
+                <fullName>50</fullName>
+                <default>false</default>
+                <label>50 - Cycle Half-yearly</label>
+            </value>
+            <value>
+                <fullName>99</fullName>
+                <default>false</default>
+                <label>99 - Cycle Yearly</label>
+            </value>
+            <value>
+                <fullName>IM</fullName>
+                <default>false</default>
+                <label>IM - Cycle Monthly</label>
+            </value>
+            <value>
+                <fullName>IQ</fullName>
+                <default>false</default>
+                <label>IQ - Cycle Quarterly</label>
+            </value>
+            <value>
+                <fullName>IS</fullName>
+                <default>false</default>
+                <label>IS - Cycle Half-yearly</label>
+            </value>
+            <value>
+                <fullName>IY</fullName>
+                <default>false</default>
+                <label>IY - Cycle Yearly</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>

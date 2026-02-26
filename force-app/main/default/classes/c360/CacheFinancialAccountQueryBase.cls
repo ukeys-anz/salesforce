@@ -25,6 +25,13 @@ public abstract with sharing class CacheFinancialAccountQueryBase extends Extern
   );
 
   /**
+   * @description Industry Map for ANZSIC
+   */
+  protected Map<String, String> industries = CommonUtil.getPicklistLabelsByValues(
+    Account.Industry
+  );
+
+  /**
    * @description abstract Cache FinancialAccount Summary callout response class
    */
   public virtual class CacheFinancialAccountCalloutRequest extends ExternalObjectQueryBase.ExternalObjectCalloutRequestBase {

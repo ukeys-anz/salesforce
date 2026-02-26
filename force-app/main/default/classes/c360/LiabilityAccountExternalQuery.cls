@@ -134,7 +134,9 @@ public with sharing class LiabilityAccountExternalQuery extends CacheFinancialAc
       'AccountSecuritisationIndicator' => fa.accountSecuritisationIndicator,
       'AccountTitle' => fa.accountTitle,
       'AnnualReviewDate' => fa.annualReviewDate,
-      'ANZSIC' => fa.anzsic,
+      'ANZSIC' => this.industries.containsKey(fa.anzsic)
+        ? fa.anzsic + ' - ' + this.industries.get(fa.anzsic)
+        : fa.anzsic,
       'BankingCodeOfPractice' => fa.bankingCodeOfPractice,
       'Code' => fa.code,
       'Commitment' => fa.commitment,
