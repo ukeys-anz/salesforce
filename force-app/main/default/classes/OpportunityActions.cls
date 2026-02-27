@@ -602,25 +602,4 @@ public with sharing class OpportunityActions {
       new DmlConfig().allowPartial().withoutSharing().systemMode()
     );
   }
-
-  /**
-   * @description Remove Lost Reason fields when stage changed from Lost to other stage
-   * @param records records to update
-   * @param oldMap old records map
-   */
-  public static void revertLostReasonDetails(
-    List<Opportunity> records,
-    Map<Id, Opportunity> oldMap
-  ) {
-    List<Opportunity> opptsUpdatedFromLost = ListUtil.filter(records, oldMap)
-      .changedFrom(Opportunity.StageName, STAGE_LOST)
-      .toList();
-
-    ListUtil.setField(opptsUpdatedFromLost, Opportunity.Lost_Reason__c, null);
-    ListUtil.setField(
-      opptsUpdatedFromLost,
-      Opportunity.Lost_Reason_Detail__c,
-      null
-    );
-  }
 }
