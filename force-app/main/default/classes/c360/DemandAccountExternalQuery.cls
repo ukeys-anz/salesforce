@@ -160,8 +160,8 @@ public with sharing class DemandAccountExternalQuery extends CacheFinancialAccou
       'LastOpportunityToReprice' => fa.lastOpportunityToReprice,
       'AccountCategory' => fa.accountCategory,
       'NextOpportunityToReprice' => fa.nextOpportunityToReprice,
-      'ANZSIC' => this.industries.containsKey(fa.anzsic)
-        ? fa.anzsic + ' - ' + this.industries.get(fa.anzsic)
+      'ANZSIC' => getIndustries().containsKey(fa.anzsic)
+        ? fa.anzsic + ' - ' + getIndustries().get(fa.anzsic)
         : fa.anzsic,
       'ManagersReviewDate' => fa.managersReviewDate,
       'AccountTitle' => fa.accountTitle,
