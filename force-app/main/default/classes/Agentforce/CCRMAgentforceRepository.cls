@@ -503,13 +503,16 @@ public with sharing class CCRMAgentforceRepository {
         Id,
         AccountId,
         CaseNumber,
+        Status,
+        Actual_Outcome__c,
+        IDR_Complaint_Remedy__c,
         CreatedDate,
         ClosedDate,
         RecordType.DeveloperName
       FROM Case
       WHERE
         AccountId IN :accountIds
-        AND CreatedDate >= N_MONTHS_AGO:24
+        AND CreatedDate = LAST_N_MONTHS:24
         AND (RecordTypeId = :RTCase.customerComplaint
         OR (RecordTypeId = :RTCasE.generalInquiryCmos
         AND CreatedBy.Name = :IDR_USER))
