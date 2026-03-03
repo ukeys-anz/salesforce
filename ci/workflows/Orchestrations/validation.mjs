@@ -91,7 +91,8 @@ const validate = async () => {
     SOURCE_DIR,
     BASE_REF_LAST_TAG,
     ARTIFACTORY_SECRET_VALUE,
-    ARTIFACTORY_REPO_NAME
+    ARTIFACTORY_REPO_NAME,
+    BASE_REF
   );
   authenticate(BRANCH_NAME_ALIAS, SFDX_URL);
   cancel(

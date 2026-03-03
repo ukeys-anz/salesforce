@@ -81,7 +81,7 @@ public with sharing class MobileLendingOpportunityTriggerHandler extends Lib_Tri
     OpportunityActions.preventDuplicateLoanappReferenceNumber(
       records,
       (Map<Id, Opportunity>) oldMap
-    ); // check with Prahlad if need to add for CCRM as well
+    );
 
     //CC-4528 validate Opportunity for MLCRM
     OpportunityActions.validateClosedOpportunity(

@@ -349,6 +349,14 @@
         <fields>CONTACT.PHONE5</fields>
         <profileName>ANZ ML Standard User</profileName>
     </profileSearchLayouts>
+    <profileSearchLayouts>
+        <fields>FULL_NAME</fields>
+        <fields>ACCOUNT.NAME</fields>
+        <fields>CONTACT.PHONE1</fields>
+        <fields>CONTACT.EMAIL</fields>
+        <fields>Broker_Accreditation_Type__c</fields>
+        <profileName>ANZx Standard User</profileName>
+    </profileSearchLayouts>
     <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
     <searchLayouts>
         <customTabListAdditionalFields>FULL_NAME</customTabListAdditionalFields>

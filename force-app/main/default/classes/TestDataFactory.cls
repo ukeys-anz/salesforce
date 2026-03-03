@@ -175,6 +175,9 @@ public without sharing class TestDataFactory {
       when 'Credit_Referral' {
         newCase = createCreditReferralCase();
       }
+      when 'IMT_Dispute' {
+        newCase = createIMTDisputeCase();
+      }
       when 'PayTo_Dispute' {
         newCase = TestHelper.createPayToDispute();
       }
@@ -336,6 +339,21 @@ public without sharing class TestDataFactory {
     theCase.Submitted__c = false;
     theCase.Transaction_Id__c = 'Transaction Id Test_NPP_Text_255';
     theCase.Transaction_UUID__c = 'Transaction UUID Test_NPP_Text_255';
+    return theCase;
+  }
+
+  /**
+   * @description Create Case record with fields relevant to IMT_Dispute
+   * @return Case
+   */
+  public static Case createIMTDisputeCase() {
+    Case theCase = new Case();
+    theCase.Description = 'IMT Dispute Case Description Test';
+    theCase.Status = 'Open';
+    theCase.Submitted__c = false;
+    theCase.Dispute_Reason__c = 'Incorrect Amount Transferred';
+    theCase.Receipt__c = 'Test Receipt';
+    theCase.Payment_ID__c = 'TestPayment Id Test IMT';
     return theCase;
   }
 
