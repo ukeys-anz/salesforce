@@ -15,7 +15,6 @@ public with sharing class UserInfoRepository {
             UserName,
             Lan_Id__c,
             Profile.Name,
-            Commercial_Segment__c,
             UserRole.DeveloperName
           FROM User
           WHERE Id = :UserInfo.getUserId()

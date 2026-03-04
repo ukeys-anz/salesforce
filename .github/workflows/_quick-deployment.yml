@@ -7,6 +7,10 @@ on:
         required: false
         description: "Secret Name as an Input"
         type: string
+      base_ref:
+        required: false
+        description: "Base reference branch"
+        type: string
     secrets:
       token:
         required: true
@@ -20,7 +24,7 @@ jobs:
   Quick-Deployment:
     name: Quick Deployment ${{inputs.sfdx_name}}
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:3.0.0"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:3.0.1"
       options: --user root
     runs-on: anzx-default
     steps:
@@ -44,9 +48,12 @@ jobs:
 
       - name: ENV vars
         run: |
-          baseRef="${{ github.base_ref }}"
-          [[ "${{inputs.sfdx_name}}" == "sf-platform-np-intpnv" ]] && baseRef=intpnv
-          [[ "${{inputs.sfdx_name}}" == "sf-platform-np-blm" ]] && baseRef=blm
+          # Use input base_ref if provided, otherwise fall back to github.base_ref
+          if [[ -n "${{ inputs.base_ref }}" ]]; then
+            baseRef="${{ inputs.base_ref }}"
+          else
+            baseRef="${{ github.base_ref }}"
+          fi
           echo BASE_REF="$baseRef" >> $GITHUB_ENV
           echo BRANCH_NAME="${{ github.head_ref }}" >> $GITHUB_ENV
           echo PR_NUMBER="${{ github.event.number }}" >> $GITHUB_ENV

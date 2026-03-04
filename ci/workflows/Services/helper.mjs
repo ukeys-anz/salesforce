@@ -7,10 +7,15 @@ import {
   renameSync,
   rmSync,
   mkdirSync,
-  writeFileSync
+  writeFileSync,
+  appendFileSync
 } from "fs";
 
 import { checkIfTestWhiteListed } from "../Config/validateConfig.mjs";
+import {
+  clonedSandboxes,
+  agentforcePaths
+} from "../Config/agentforce-config.mjs";
 
 const renameFile = (oldFilepath, newFilepath) => {
   renameSync(oldFilepath, newFilepath);
@@ -564,6 +569,33 @@ const findAllArgvs = () => {
   return argvs.slice(2);
 };
 
+const addAgentforceToForceignore = (baseRef) => {
+  // Check if the baseRef matches a cloned sandbox
+  const isClonedSandbox = clonedSandboxes.includes(baseRef);
+
+  if (!isClonedSandbox) {
+    return;
+  }
+
+  loggerInStep(
+    `Cloned sandbox detected (${baseRef}), excluding Agentforce paths from deployment`
+  );
+
+  // Append Agentforce paths to .forceignore
+  const forceignorePath = ".forceignore";
+  const agentforceEntries =
+    "\n# Agentforce exclusions for cloned sandboxes\n" +
+    agentforcePaths.join("\n") +
+    "\n";
+
+  try {
+    appendFileSync(forceignorePath, agentforceEntries, "utf8");
+    loggerInStep("Agentforce paths added to .forceignore");
+  } catch (error) {
+    console.error("Failed to update .forceignore:", error);
+  }
+};
+
 export {
   runCommand,
   runDiffCommand,
@@ -603,5 +635,6 @@ export {
   salesforceIgnoredFileChanges,
   findAllArgvs,
   readFileLines,
-  canSkipTest
+  canSkipTest,
+  addAgentforceToForceignore
 };

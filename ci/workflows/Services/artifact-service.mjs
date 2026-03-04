@@ -11,7 +11,8 @@ import {
   salesforceIgnoredDestructiveChanges,
   salesforceDestructiveChanges,
   salesforceFileChanges,
-  salesforceIgnoredFileChanges
+  salesforceIgnoredFileChanges,
+  addAgentforceToForceignore
 } from "./helper.mjs";
 
 const renameForceignore = () => {
@@ -75,8 +76,9 @@ const findAllChangedFileOnDeploy = (folderName, baseRef, tagRef) => {
   });
 };
 
-const buildArtifactOnValidate = (folderName, tagRef) => {
+const buildArtifactOnValidate = (folderName, tagRef, baseRef) => {
   renameForceignore();
+  addAgentforceToForceignore(baseRef);
   createArtifactFolder(folderName);
   const output = execSync(
     `sf artifact xbuild -f ${folderName} -t ${tagRef} -i .forceignore`,
@@ -89,6 +91,7 @@ const buildArtifactOnValidate = (folderName, tagRef) => {
 
 const buildArtifactOnDeploy = (folderName, baseRef, tagRef) => {
   renameForceignore();
+  addAgentforceToForceignore(baseRef);
   createArtifactFolder(folderName);
   const output = execSync(
     `sf artifact xbuild -f ${folderName} -t ${tagRef} -b ${baseRef} -i .forceignore`,
@@ -105,8 +108,8 @@ const artifactFolderExist = (artifactPath) => {
   }
 };
 
-const createDiffOnValidate = (folderName, tagRef) => {
-  buildArtifactOnValidate(folderName, tagRef);
+const createDiffOnValidate = (folderName, tagRef, baseRef) => {
+  buildArtifactOnValidate(folderName, tagRef, baseRef);
   artifactFolderExist(folderName);
 };
 
@@ -167,10 +170,11 @@ const createAndUploadArtifact = (
   folderName,
   tagRef,
   artifactorySecret,
-  artifactoryRepoName
+  artifactoryRepoName,
+  baseRef
 ) => {
   logger("Build Artifact");
-  createDiffOnValidate(folderName, tagRef);
+  createDiffOnValidate(folderName, tagRef, baseRef);
   uploadToArtifactory(artifactorySecret, folderName, artifactoryRepoName);
 };
 
