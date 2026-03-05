@@ -6,6 +6,8 @@
  * @runTests DemandAccountExternalQueryTest
  */
 public with sharing class DemandAccountExternalQuery extends CacheFinancialAccountQueryBase {
+  private static final String DEFAULT_MAILING_CODE = 'Default code - Normal address';
+
   /**
    * @description DemandAccount API callout response
    */
@@ -139,7 +141,9 @@ public with sharing class DemandAccountExternalQuery extends CacheFinancialAccou
       'ElectronicCredits' => fa.electronicCredits,
       'NextStatementDate' => fa.nextStatementDate,
       'ElectronicDebits' => fa.electronicDebits,
-      'MailingCode' => fa.mailingCode,
+      'MailingCode' => String.isBlank(fa.mailingCode)
+        ? DEFAULT_MAILING_CODE
+        : fa.mailingCode,
       'PaperCollectionItems' => fa.paperCollectionItems,
       'NumberOfCopies' => fa.numberOfCopies,
       'PaperCredits' => fa.paperCredits,
