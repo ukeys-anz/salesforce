@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
-    <activeVersionIdentifier>pRZohJ8WKFhEoKD4XzzD/JaUryonXTHFbSRFoUGVTEM=_85</activeVersionIdentifier>
+    <activeVersionIdentifier>+5Qpb5XXbOgm9dusjurGGSP3I8jOGxlChJhi9PASSyQ=_66</activeVersionIdentifier>
     <description>This summary is used to give a quick snapshot of the Customer Interactions, Opportunities, Financial Summaries.</description>
     <developerName>Customer_Summary2</developerName>
     <masterLabel>Customer Summary</masterLabel>
@@ -57,14 +57,29 @@ III. PROFANITY AND INAPPROPRIATE LANGUAGE FILTER
 ------------------------------------------------------------
 
 III. HTML GENERATION GUIDELINES
-The entire output must be valid HTML for a Salesforce Rich Text Area field.
--- All output must be valid HTML, using &lt;p&gt; and &lt;/p&gt; tags appropriately.
--- Each section name should be in &lt;b&gt;bold&lt;/b&gt;.
--- Use &lt;a&gt; tags for links.  
--- Add &lt;ul&gt;&lt;li&gt; tag for bullet point in each section to maintain spacing.
--- Add a &lt;tr&gt; tag with the style background-color: #f2f2f2; to visually distinguish the table heading row.
--- All sections must maintain the required HTML block structure exactly as defined, even when DATA is missing. Missing content must be replaced with “Data Not Available” without altering or removing the required HTML blocks, headers, or section layout.
--- Format the entire response in a user-friendly layout, using clear headings, bullet points for each section to make the content visually appealing and easy to read.
+Your response must begin directly with an HTML tag (no code blocks, no backticks)
+-- NEVER output escaped entities like &lt; or &gt; to &amp;lt; or &amp;gt;
+
+ - All output must be valid HTML, using &lt;p&gt; and &lt;/p&gt; tags appropriately.
+ -- Each section name should be in &lt;b&gt;bold&lt;/b&gt;.
+ -- Use &lt;a&gt; tags for links.
+ -- Add &lt;ul&gt;&lt;li&gt; tags for bullet points in each section to maintain spacing.
+ -- Add a &lt;tr&gt; tag with the style background-color: #f2f2f2; to visually distinguish the table heading row.
+ -- All sections must maintain the required HTML block structure exactly as defined, even when DATA is missing. Missing content must be replaced with &quot;Data Not Available&quot; without altering or removing the required HTML blocks, headers, or section layout.
+ -- Format the entire response in a user-friendly layout, using clear headings, bullet points for each section to make the content visually appealing and easy to read.
+
+ CRITICAL OUTPUT FORMAT:
+ -- OUTPUT ONLY RAW, UNESCAPED HTML
+ -- Your response must begin with an HTML tag like &lt;div&gt; or &lt;p&gt;
+ -- NEVER output escaped entities like &lt; or &gt; to &amp;lt; or &amp;gt;
+ -- Write tags literally: &lt;div&gt;, &lt;p&gt;, &lt;b&gt;, &lt;br&gt;, &lt;table&gt;, &lt;tr&gt;, &lt;td&gt;, &lt;th&gt;, &lt;a&gt;, &lt;ul&gt;, &lt;li&gt;, &lt;hr&gt;
+ -- Do NOT encode or escape ANY HTML characters
+
+ Example of CORRECT output format:
+&lt;div&gt;&lt;p&gt;&lt;b&gt;Section Name&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Item 1&lt;/li&gt;&lt;li&gt;Item 2&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+
+ Example of INCORRECT output (DO NOT DO THIS):
+&lt;div&gt;&lt;p&gt;&lt;b&gt;Section Name&lt;/b&gt;&lt;/p&gt;&lt;/div&gt;
 
 ------------------------------------------------------------
 
@@ -80,15 +95,13 @@ These rules ensure the summary output is concise and formatted exactly as requir
 -- Each section must always appear as a separate HTML block. The model must NOT merge, collapse, combine, or remove any sections under any circumstances, even when DATA is missing
 
 ------------------------------------------------------------
-
-&lt;b&gt;STRICT OUTPUT STRUCTURE:&lt;/b&gt;
-
+-- STRICTLY ALWAYS follow the below OUTPUT Format:
 &lt;div style=&quot;margin-bottom:10px;&quot;&gt;
 
 &lt;b style=&quot;color:#5c5c5c;&quot;&gt;Generated at &lt;/b&gt; [STRICTLY Mention the UserDate from DATA in the (12 hour time format)format hh:mm am/pm on DD Month YYYY, ]&lt;br&gt;
 &lt;div style=&quot;margin-bottom:10px;&quot;&gt;
 &lt;b style=&quot;font-size:16px; color:#032D60;&quot;&gt;Number of Interactions (in the last 24 months)&lt;/b&gt;&lt;br&gt;
-&lt;b style=&quot;color:#032D60;&quot;&gt;Last Interaction Date&lt;/b&gt; - [DD Month YYYY, hh:mm am/pm]&lt;br&gt;
+&lt;b style=&quot;color:#032D60;&quot;&gt;Last Interaction Date&lt;/b&gt; - [Display the exact &quot;StartTime&quot; of the most recent Interaction record in the format &apos;DD Month YYYY, hh:mm am/pm&apos;]&lt;br&gt;
 &lt;b style=&quot;color:#032D60;&quot;&gt;Total Interactions&lt;/b&gt; - [InteractionCount]
 &lt;/div&gt;
 
@@ -131,6 +144,35 @@ This note STRICTLY appears ONLY IF Total number of interactions from DATA &gt; 2
 
 &lt;hr style=&quot;margin:12px 0;&quot;&gt;
 
+&lt;div style=&quot;margin-bottom:10px;&quot;&gt;
+&lt;b style=&quot;font-size:16px; color:#032D60;&quot;&gt;Account Snapshot&lt;/b&gt;
+&lt;/div&gt;
+--Create a table for Account Snapshot with columns: [Account Category, # Active/Open, Details] from ACCOUNT SNAPSHOT.
+--In the details column display ALL detail Lines exactly as provided in the ACCOUNT SNAPSHOT data, without summarizing or altering the content. If the detail value is blank or null, display a blank value.
+&lt;a href=&quot;/lightning/r/Account/{AccountId}/related/{accountCategoryRelatedListName}/view&quot;&gt;&lt;b&gt;{Account Category}&lt;/b&gt;&lt;/a&gt;
+---Where {accountCategoryRelatedListName} is accountCategoryRelatedListName attribute from the ACCOUNT SNAPSHOT List 
+ and AccountId is {!$Input:Account.Id}
+
+&lt;hr style=&quot;margin:12px 0;&quot;&gt;
+
+This note STRICTLY appears ONLY IF TotalRecentDiaryComments from CAP_DIARY_COMMENTS &gt; 10)
+&lt;div style=&quot;margin-bottom:10px;&quot;&gt;
+&lt;b style=&quot;font-size:16px; color:#032D60;&quot;&gt;Note on CAP Diary Comments:&lt;/b&gt;&lt;br&gt;
+[&quot;There exists more than 10 CAP Diary Comments.&quot;]
+&lt;/div&gt;
+
+&lt;hr style=&quot;margin:12px 0;&quot;&gt;
+
+&lt;div style=&quot;margin-bottom:10px;&quot;&gt;
+&lt;b style=&quot;font-size:16px; color:#032D60;&quot;&gt;CAP Diary Comments&lt;/b&gt;
+&lt;/div&gt;
+--Display the CAP Diary Comments from CAP_DIARY_COMMENTS, listing all comments with Permanent = true first, followed by the remaining comments, all presented in an ordered list.
+&lt;ol&gt;
+&lt;li&gt;&lt;b&gt;[AccountName] : &lt;/b&gt; [Comment]&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr style=&quot;margin:12px 0;&quot;&gt;
+
 &lt;div style=&quot;margin-bottom:10px;&quot;&gt; &lt;b style=&quot;font-size:16px; color:#032D60;&quot;&gt;Previous and Current Opportunity Pipeline&lt;/b&gt; (-- For every Opportunity subsection (Won, Lost, In Progress): IF DATA contains records for that subsection, the model must create the table EXACTLY as specified. ELSE (if no records exist) the subsection header must STILL be displayed and the model must output a single line stating &apos;Data Not Available&apos; formatted in valid HTML. The model is STRICTLY PROHIBITED from leaving any Opportunity subsection blank, hiding the subsection, or omitting required HTML structure.) &lt;/div&gt;
 
 &lt;div style=&quot;margin-bottom:10px;&quot;&gt;
@@ -140,19 +182,21 @@ div style=&quot;margin-bottom:10px;&quot;&gt; &lt;b style=&quot;color:#032D60;&q
  -- If the Approved Amount is null or missing, display &apos;Data Not Available&apos; in that cell.
  -- DO NOT use the regular Amount field or any fallback.
  -- ONLY display the Opportunity Owner value in the &quot;Assigned To&quot; column.
+ --- The Products column must display only Product Name.
  -- In each row, display the Opportunity Name as a link in the following exact format:
-  &lt;a href=&quot;/[OpportunityRecordId]&quot;&gt;&lt;b&gt;[Opportunity Name]&lt;/b&gt;&lt;/a&gt;
+ &lt;a href=&quot;/[OpportunityRecordId]&quot;&gt;&lt;b&gt;[Opportunity Name]&lt;/b&gt;&lt;/a&gt;
  -- If no records exist, display &apos;Data Not Available&apos;.
 &lt;/div&gt;
 
 &lt;div style=&quot;margin-bottom:10px;&quot;&gt; &lt;b style=&quot;color:#032D60;&quot;&gt;Opportunities Lost&lt;/b&gt;&lt;br&gt;
--- Create a table ONLY IF data exists of all opportunity records from DATA having status &quot;Opportunity Lost&quot; with columns: [Opportunity Name, Assigned To, Amount, Products].
- -- The Amount column must use ONLY the Approved Amount value and must be displayed in the format $100.
+-- Create a table ONLY IF data exists of all opportunity records from DATA having status &quot;Opportunity Lost&quot; with columns: [Opportunity Name, Assigned To, Amount, Products, Reason].
+ --  The Amount column must use ONLY the standard Amount field, NOT the Approved Amount.
  -- If the Approved Amount is null or missing, display &apos;Data Not Available&apos; in that cell.
  -- DO NOT use the regular Amount field or any fallback.
  -- ONLY display the Opportunity Owner value in the &quot;Assigned To&quot; column.
+ --- The Products column must display only Product Name.
  -- In each row, display the Opportunity Name as a link in the following exact format:
-  &lt;a href=&quot;/[OpportunityRecordId]&quot;&gt;&lt;b&gt;[Opportunity Name]&lt;/b&gt;&lt;/a&gt;
+ &lt;a href=&quot;/[OpportunityRecordId]&quot;&gt;&lt;b&gt;[Opportunity Name]&lt;/b&gt;&lt;/a&gt;
  -- If no records exist, display &apos;Data Not Available&apos;.
 &lt;/div&gt;
 
@@ -163,8 +207,9 @@ div style=&quot;margin-bottom:10px;&quot;&gt; &lt;b style=&quot;color:#032D60;&q
  -- Display the Amount in the format $100.
  -- ONLY display the Opportunity Owner value in the &quot;Assigned To&quot; column.
  -- Display the Close Date for all In Progress and New opportunities.
+ --- The Products column must display Product Name (&lt;ProductStage&gt;) when ProductStage is not null or empty; otherwise, display only Product Name.
  -- In each row, display the Opportunity Name as a link in the following exact format:
-  &lt;a href=&quot;/[OpportunityRecordId]&quot;&gt;&lt;b&gt;[Opportunity Name]&lt;/b&gt;&lt;/a&gt;
+ &lt;a href=&quot;/[OpportunityRecordId]&quot;&gt;&lt;b&gt;[Opportunity Name]&lt;/b&gt;&lt;/a&gt;
  -- If no records exist, display &apos;Data Not Available&apos;.
 &lt;/div&gt;
 
@@ -194,6 +239,15 @@ div style=&quot;margin-bottom:10px;&quot;&gt; &lt;b style=&quot;color:#032D60;&q
 
 &lt;div style=&quot;margin-bottom:10px;&quot;&gt;
 &lt;b style=&quot;font-size:16px; color:#032D60;&quot;&gt;Other&lt;/b&gt;
+&lt;/div&gt;
+
+&lt;div style=&quot;margin-bottom:10px;&quot;&gt;
+&lt;b style=&quot;color:#032D60;&quot;&gt;Customer Complaints&lt;/b&gt;&lt;br&gt;
+-- Create a table ONLY IF data from CUSTOMER_COMPLAINTS exists with columns: Complaint Case Number, Date/Time Opened, Date/Time Closed
+-- ELSE (if no records exist) the subsection header must STILL be displayed and the model must output a single line stating &apos;Data Not Available&apos; formatted in valid HTML.
+-- Display the Date/Time Opened and Date/Time Closed in the format [&apos;DD/MM/YYYY, h:mm am/pm&apos;]&lt;br&gt;
+-- In each row, display the Complaint Case Number as a link in the format:
+&lt;a href=&quot;/lightning/app/c__IDR_Console/r/Case/[CaseId]/view&quot;&gt;
 &lt;/div&gt;
 
 &lt;div style=&quot;margin-bottom:10px;&quot;&gt;
@@ -237,11 +291,11 @@ Always begin the paragraph with Account Plan details, followed by other sections
  1. STRICTLY Use ONLY the Suggested Task records present in DATA to generate the Suggested Tasks
  2. ONLY IF the Suggested Task Records are available in DATA,
 THEN Suggested Tasks must include tasks/actions/next steps explicitly mentioned in the Interactions Optional Notes OR A-Z Review records present in DATA, explain the task details in 1 or 2 lines.
-3.  For each Suggested Task, output in this format:
+3. For each Suggested Task, output in this format:
 &lt;ol&gt;
- &lt;li&gt;
-  &lt;a href=&quot;/[InteractionId]&quot;&gt;&lt;b&gt;[Action Item Title]&lt;/b&gt;&lt;/a&gt; – [Task /Action details] OR &lt;a href=&quot;/[AZReviewId]&quot;&gt;&lt;b&gt;[Action Item Title]&lt;/b&gt;&lt;/a&gt; – [Task /Action details]
-  &lt;/li&gt;
+ &lt;li&gt;
+ &lt;a href=&quot;/[InteractionId]&quot;&gt;&lt;b&gt;[Action Item Title]&lt;/b&gt;&lt;/a&gt; – [Task /Action details] OR &lt;a href=&quot;/[AZReviewId]&quot;&gt;&lt;b&gt;[Action Item Title]&lt;/b&gt;&lt;/a&gt; – [Task /Action details]
+ &lt;/li&gt;
 &lt;/ol&gt;
 
 4. ELSE IF there are NO Suggested Tasks Records present in DATA, THEN STRICTLY ALWAYS display - &quot;No Interactions or A-Z Reviews have been recorded in the past six months that would indicate any suggested tasks!&quot;
@@ -253,7 +307,16 @@ THEN Suggested Tasks must include tasks/actions/next steps explicitly mentioned 
 
 ###
 DATA:
-{!$Flow:Fetch_Client_Interaction_for_Prompt.Prompt}
+{!$Apex:CCRMAgentCustomerSummaryPrompt.Prompt}
+
+ACCOUNT SNAPSHOT:
+{!$Apex:CCRMAgentAccountSnapshot.Prompt}
+
+CAP_DIARY_COMMENTS:
+{!$Apex:CCRMAgentCapDiaryCommentsPrompt.Prompt}
+
+CUSTOMER_COMPLAINTS:
+{!$Apex:CCRMAgentCustomerComplaintsPrompt.Prompt}
 </content>
         <inputs>
             <apiName>objectToSummarize</apiName>
@@ -261,19 +324,53 @@ DATA:
             <referenceName>Input:Account</referenceName>
             <required>true</required>
         </inputs>
-        <primaryModel>sfdc_ai__DefaultBedrockAnthropicClaude37Sonnet</primaryModel>
+        <primaryModel>sfdc_ai__DefaultBedrockAnthropicClaude45Sonnet</primaryModel>
         <status>Published</status>
         <templateDataProviders>
-            <definition>flow://Fetch_Client_Interaction_for_Prompt</definition>
+            <definition>apex://CCRMAgentAccountSnapshot</definition>
+            <label>Get Account Snapshot</label>
             <parameters>
                 <definition>SOBJECT://Account</definition>
                 <isRequired>true</isRequired>
-                <parameterName>accountRecord</parameterName>
+                <parameterName>accountObj</parameterName>
                 <valueExpression>{!$Input:Account}</valueExpression>
             </parameters>
-            <referenceName>Flow:Fetch_Client_Interaction_for_Prompt</referenceName>
+            <referenceName>Apex:CCRMAgentAccountSnapshot</referenceName>
         </templateDataProviders>
-        <versionIdentifier>pRZohJ8WKFhEoKD4XzzD/JaUryonXTHFbSRFoUGVTEM=_85</versionIdentifier>
+        <templateDataProviders>
+            <definition>apex://CCRMAgentCapDiaryCommentsPrompt</definition>
+            <label>CCRMAgent Get CAP Diary Comments</label>
+            <parameters>
+                <definition>SOBJECT://Account</definition>
+                <isRequired>true</isRequired>
+                <parameterName>accountObj</parameterName>
+                <valueExpression>{!$Input:Account}</valueExpression>
+            </parameters>
+            <referenceName>Apex:CCRMAgentCapDiaryCommentsPrompt</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>apex://CCRMAgentCustomerComplaintsPrompt</definition>
+            <label>CCRMAgent Get Customer Complaints</label>
+            <parameters>
+                <definition>SOBJECT://Account</definition>
+                <isRequired>true</isRequired>
+                <parameterName>accountObj</parameterName>
+                <valueExpression>{!$Input:Account}</valueExpression>
+            </parameters>
+            <referenceName>Apex:CCRMAgentCustomerComplaintsPrompt</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>apex://CCRMAgentCustomerSummaryPrompt</definition>
+            <label>CCRMAgentCustomerSummaryPrompt</label>
+            <parameters>
+                <definition>SOBJECT://Account</definition>
+                <isRequired>true</isRequired>
+                <parameterName>accountObj</parameterName>
+                <valueExpression>{!$Input:Account}</valueExpression>
+            </parameters>
+            <referenceName>Apex:CCRMAgentCustomerSummaryPrompt</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>+5Qpb5XXbOgm9dusjurGGSP3I8jOGxlChJhi9PASSyQ=_66</versionIdentifier>
     </templateVersions>
     <type>einstein_gpt__recordSummary</type>
     <visibility>Global</visibility>
