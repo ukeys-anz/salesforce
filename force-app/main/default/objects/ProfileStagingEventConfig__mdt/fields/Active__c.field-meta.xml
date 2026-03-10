@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>EventType__c</fullName>
+    <fullName>Active__c</fullName>
     <businessStatus>Hidden</businessStatus>
-    <externalId>false</externalId>
+    <defaultValue>false</defaultValue>
+    <description>To publish Cloud Event</description>
     <fieldManageability>DeveloperControlled</fieldManageability>
-    <label>EventType</label>
-    <length>255</length>
-    <required>true</required>
-    <type>Text</type>
-    <unique>false</unique>
+    <label>Active</label>
+    <type>Checkbox</type>
 </CustomField>

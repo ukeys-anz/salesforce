@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <label>LegalName</label>
+    <label>KycDowngradeEvent</label>
     <protected>false</protected>
     <values>
         <field>Active__c</field>
@@ -8,11 +8,11 @@
     </values>
     <values>
         <field>DataSchema__c</field>
-        <value xsi:type="xsd:string">proto://buf.anz/anz/salesforceapis/salesforce.service.party.v1alpha1#LegalNameUpdateEvent</value>
+        <value xsi:type="xsd:string">proto://buf.anz/anz/salesforceapis/salesforce.service.party.v1alpha1#KycDowngradeEvent</value>
     </values>
     <values>
         <field>EventType__c</field>
-        <value xsi:type="xsd:string">anzx.salesforce.party.v1alpha1.party.legalnameupdate</value>
+        <value xsi:type="xsd:string">anzx.salesforce.party.v1alpha1.party.kyc_downgrade</value>
     </values>
     <values>
         <field>PartitionKey__c</field>
@@ -20,7 +20,7 @@
     </values>
     <values>
         <field>PayloadModel__c</field>
-        <value xsi:type="xsd:string">ProfileStagingCloudEventModel.LegalNameChange</value>
+        <value xsi:type="xsd:string">ProfileStagingCloudEventModel.PartyChange</value>
     </values>
     <values>
         <field>PublishOldEvent__c</field>
@@ -40,6 +40,6 @@
     </values>
     <values>
         <field>TriggeredFrom__c</field>
-        <value xsi:type="xsd:string">Case.ProfileUpdate.LegalNameUpdate</value>
+        <value xsi:type="xsd:string">Case.KYC_QA.Downgrade</value>
     </values>
 </CustomMetadata>
