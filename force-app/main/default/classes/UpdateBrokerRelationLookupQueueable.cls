@@ -61,6 +61,22 @@ public class UpdateBrokerRelationLookupQueueable implements Queueable {
       }
     }
 
+    if (
+      contactMap.get('duplicateEmailContacts') != null &&
+      contactMap.get('duplicateOcvIdContacts') != null
+    ) {
+      contactsToUpdate.addAll(
+        getDuplicateContacts(
+          contactMap.get('duplicateEmailContacts') != null
+            ? contactMap.get('duplicateEmailContacts')
+            : new List<Contact>(),
+          contactMap.get('duplicateOcvIdContacts') != null
+            ? contactMap.get('duplicateOcvIdContacts')
+            : new List<Contact>()
+        )
+      );
+    }
+
     DML_REPOSITORY.doUpdate(contactsToUpdate);
 
     List<Contact> contactList = (contactMap != null &&
@@ -151,5 +167,60 @@ public class UpdateBrokerRelationLookupQueueable implements Queueable {
       accountsToUpdate.add(acc);
     }
     return accountsToUpdate;
+  }
+
+  /**
+   * @description Constructor to initialize the queueable job.
+   * @param emailDuplicateContacts List of Contacts with duplicate emails
+   * @param ocvIDDuplicateContacts List of Contacts with duplicate OCV IDs
+   * @return  list<Contact> list of contacts to be updated with duplicate email and ocv id status
+   */
+
+  public static List<Contact> getDuplicateContacts(
+    List<Contact> emailDuplicateContacts,
+    List<Contact> ocvIDDuplicateContacts
+  ) {
+    List<Contact> contactList = new List<Contact>(emailDuplicateContacts);
+    contactList.addAll(ocvIDDuplicateContacts);
+    List<Contact> contactsToBeUpdated = new List<Contact>();
+    List<Contact> contactsListToValidate = CONTACT_REPOSITORY.getContactsByIds(
+      ListUtil.getIds(contactList, Contact.Id)
+    );
+
+    map<id, contact> emailContactMap = (Map<Id, Contact>) ListUtil.mapBy(
+      emailDuplicateContacts,
+      Contact.Id
+    );
+    map<id, contact> ocvIdContactMap = (Map<Id, Contact>) ListUtil.mapBy(
+      ocvIDDuplicateContacts,
+      Contact.Id
+    );
+
+    for (Contact con : contactsListToValidate) {
+      if (String.isBlank(con.Sync_Status__c)) {
+        continue;
+      }
+
+      Set<String> statusValues = new Set<String>(con.Sync_Status__c.split(';'));
+
+      if (emailContactMap.containsKey(con.Id)) {
+        statusValues.add(BrokerConstants.SYNC_STATUS_DUPLICATE_EMAIL);
+      }
+
+      if (ocvIdContactMap.containsKey(con.Id)) {
+        statusValues.add(BrokerConstants.SYNC_STATUS_DUPLICATE_OCVID);
+      }
+      if (
+        statusValues.contains(BrokerConstants.SYNC_STATUS_BROKER_ORG) &&
+        statusValues.size() > 1
+      ) {
+        statusValues.remove(BrokerConstants.SYNC_STATUS_BROKER_ORG);
+      }
+
+      con.Sync_Status__c = String.join(new List<String>(statusValues), ';');
+
+      contactsToBeUpdated.add(con);
+    }
+    return contactsToBeUpdated;
   }
 }
