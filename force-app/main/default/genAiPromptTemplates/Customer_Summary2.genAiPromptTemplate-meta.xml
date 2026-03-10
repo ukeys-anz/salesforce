@@ -629,7 +629,7 @@ DATA:
             <referenceName>Input:Account</referenceName>
             <required>true</required>
         </inputs>
-        <primaryModel>sfdc_ai__DefaultBedrockAnthropicClaude37Sonnet</primaryModel>
+        <primaryModel>sfdc_ai__DefaultBedrockAnthropicClaude45Sonnet</primaryModel>
         <status>Published</status>
         <templateDataProviders>
             <definition>flow://Fetch_Client_Interaction_for_Prompt</definition>
