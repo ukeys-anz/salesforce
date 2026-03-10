@@ -72,8 +72,8 @@ public with sharing class CCRMAgentCustomerSummaryPrompt {
       : REPO.fetchInteractionCount(accId, twoYearsAgo);
 
     List<Interaction> interactionRecords = isCLG
-      ? REPO.fetchLatestInteractionsForCLG(accId, twoYearsAgo, 20)
-      : REPO.fetchLatestInteractions(accId, twoYearsAgo, 20);
+      ? REPO.fetchLatestInteractionsForCLG(accId, twoYearsAgo, 15)
+      : REPO.fetchLatestInteractions(accId, twoYearsAgo, 15);
 
     List<Map<String, Object>> interactionList = buildInteractionMap(
       interactionRecords
@@ -81,8 +81,8 @@ public with sharing class CCRMAgentCustomerSummaryPrompt {
 
     // OPPORTUNITIES
     List<Opportunity> opps = isCLG
-      ? REPO.fetchOpportunitiesForCLG(accId, twoYearsAgo, 15)
-      : REPO.fetchOpportunities(accId, twoYearsAgo, 15);
+      ? REPO.fetchOpportunitiesForCLG(accId, twoYearsAgo, 10)
+      : REPO.fetchOpportunities(accId, twoYearsAgo, 10);
 
     Set<Id> oppIds = ListUtil.getIds(opps, Opportunity.Id);
 
@@ -100,15 +100,15 @@ public with sharing class CCRMAgentCustomerSummaryPrompt {
 
     // LEADS
     List<Lead> leads = isCLG
-      ? REPO.fetchLeadsForCLG(accId, twoYearsAgo, 15)
-      : REPO.fetchLeads(accId, twoYearsAgo, 15);
+      ? REPO.fetchLeadsForCLG(accId, twoYearsAgo, 10)
+      : REPO.fetchLeads(accId, twoYearsAgo, 10);
 
     List<Map<String, Object>> leadsList = buildLeadMap(leads);
 
     // A-Z REVIEWS + SURVEYS
     List<A_Z_Review__c> reviews = isCLG
-      ? REPO.fetchAZReviewsForCLG(accId, twoYearsAgo, 15)
-      : REPO.fetchAZReviews(accId, twoYearsAgo, 15);
+      ? REPO.fetchAZReviewsForCLG(accId, twoYearsAgo, 5)
+      : REPO.fetchAZReviews(accId, twoYearsAgo, 5);
 
     Set<Id> reviewIds = ListUtil.getIds(reviews, A_Z_Review__c.Id);
 
