@@ -5,14 +5,41 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_CACHE</complianceGroup>
     <description>Service Change Type Code</description>
     <externalDeveloperName>BankFeeCycleCode</externalDeveloperName>
-    <externalId>false</externalId>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Bank Fee Cycle Code</label>
-    <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>00</fullName>
+                <default>false</default>
+                <label>00 - No cycling</label>
+            </value>
+            <value>
+                <fullName>32</fullName>
+                <default>false</default>
+                <label>32 - Monthly - cycled on last business day (default code).</label>
+            </value>
+            <value>
+                <fullName>33</fullName>
+                <default>false</default>
+                <label>33 - End-of-quarter - cycled on last business day in Mar, June, Sep and Dec</label>
+            </value>
+            <value>
+                <fullName>50</fullName>
+                <default>false</default>
+                <label>50 - Half-yearly - cycled on last business day in March and September.</label>
+            </value>
+            <value>
+                <fullName>99</fullName>
+                <default>false</default>
+                <label>99 - Yearly - cycled on last business day in September.</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>

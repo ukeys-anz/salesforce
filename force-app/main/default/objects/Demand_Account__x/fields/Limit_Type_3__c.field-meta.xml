@@ -5,14 +5,41 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_CACHE</complianceGroup>
     <description>ANZ OD LIMIT TYPE 3</description>
     <externalDeveloperName>LimitType3</externalDeveloperName>
-    <externalId>false</externalId>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Limit Type 3</label>
-    <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>81</fullName>
+                <default>false</default>
+                <label>81 - Basic.</label>
+            </value>
+            <value>
+                <fullName>82</fullName>
+                <default>false</default>
+                <label>82 - Temporary (1 - 3 months).</label>
+            </value>
+            <value>
+                <fullName>83</fullName>
+                <default>false</default>
+                <label>83 - Approved Temporary Arrangement (ATA) (&lt; 30 days).</label>
+            </value>
+            <value>
+                <fullName>84</fullName>
+                <default>false</default>
+                <label>84 - Reducing (Date driven).</label>
+            </value>
+            <value>
+                <fullName>85</fullName>
+                <default>false</default>
+                <label>85 - Seasonal (Date driven).</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>
