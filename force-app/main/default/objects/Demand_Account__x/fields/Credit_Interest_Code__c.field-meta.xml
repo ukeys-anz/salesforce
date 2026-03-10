@@ -5,14 +5,356 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_CACHE</complianceGroup>
     <description>Credit Interest Code</description>
     <externalDeveloperName>CreditInterestCode</externalDeveloperName>
-    <externalId>false</externalId>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Credit Interest Code</label>
-    <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>00</fullName>
+                <default>false</default>
+                <label>00 - ODTD NON INTEREST BEARING &gt;$50,000</label>
+            </value>
+            <value>
+                <fullName>A1</fullName>
+                <default>false</default>
+                <label>A1 - CALCULATED CASH RATE</label>
+            </value>
+            <value>
+                <fullName>A2</fullName>
+                <default>false</default>
+                <label>A2 - CALCULATED CASH RATE</label>
+            </value>
+            <value>
+                <fullName>BC</fullName>
+                <default>false</default>
+                <label>BC - BANK BILL SWAP REFERENCE RATE CR</label>
+            </value>
+            <value>
+                <fullName>BD</fullName>
+                <default>false</default>
+                <label>BD - BANK BILL SWAP REFERENCE RATE CR</label>
+            </value>
+            <value>
+                <fullName>B1</fullName>
+                <default>false</default>
+                <label>B1 - CERTIFICATE OF DEPOSIT - ONE DAY</label>
+            </value>
+            <value>
+                <fullName>B2</fullName>
+                <default>false</default>
+                <label>B2 - CERTIFICATE OF DEPOSIT - ONE DAY</label>
+            </value>
+            <value>
+                <fullName>B3</fullName>
+                <default>false</default>
+                <label>B3 - ANZ CORP INVEST CCR</label>
+            </value>
+            <value>
+                <fullName>CA</fullName>
+                <default>false</default>
+                <label>CA - BUSINESS DEPOSIT RATE</label>
+            </value>
+            <value>
+                <fullName>CB</fullName>
+                <default>false</default>
+                <label>CB - C.A.B.I. - SOLICITORS TRUST A/C.SA</label>
+            </value>
+            <value>
+                <fullName>CC</fullName>
+                <default>false</default>
+                <label>CC - C.A.B.I. - SOLICITORS TRUST A/C.VIC</label>
+            </value>
+            <value>
+                <fullName>CD</fullName>
+                <default>false</default>
+                <label>CD - C.A.B.I. - SOLICITORS TRUST A/C.NSW</label>
+            </value>
+            <value>
+                <fullName>CE</fullName>
+                <default>false</default>
+                <label>CE - C.A.B.I. - SOLICITORS TRUST A/C.NT</label>
+            </value>
+            <value>
+                <fullName>CF</fullName>
+                <default>false</default>
+                <label>CF - C.A.B.I. - SOLICITORS TRUST A/C.ACT</label>
+            </value>
+            <value>
+                <fullName>CG</fullName>
+                <default>false</default>
+                <label>CG - C.A.B.I. - SOLICITORS TRUST A/C.QLD</label>
+            </value>
+            <value>
+                <fullName>CH</fullName>
+                <default>false</default>
+                <label>CH - C.A.B.I. - SOLICITORS TRUST A/C.TAS</label>
+            </value>
+            <value>
+                <fullName>CI</fullName>
+                <default>false</default>
+                <label>CI - C.A.B.I. - CONVEYANCERS A/C VIC</label>
+            </value>
+            <value>
+                <fullName>CJ</fullName>
+                <default>false</default>
+                <label>CJ - C.A.B.I. - SOLICITORS TRUST A/C.WA</label>
+            </value>
+            <value>
+                <fullName>CK</fullName>
+                <default>false</default>
+                <label>CK - C.A.B.I. - TRUST,LAW INSTITUTE.VIC</label>
+            </value>
+            <value>
+                <fullName>CL</fullName>
+                <default>false</default>
+                <label>CL - C.A.B.I. - TRUST,LAW INSTITUTE.NSW</label>
+            </value>
+            <value>
+                <fullName>CM</fullName>
+                <default>false</default>
+                <label>CM - C.A.B.I. - TRUST,LAW INSTITUTE.NT</label>
+            </value>
+            <value>
+                <fullName>CN</fullName>
+                <default>false</default>
+                <label>CN - C.A.B.I. - TRUST,LAW INSTITUTE.ACT</label>
+            </value>
+            <value>
+                <fullName>CO</fullName>
+                <default>false</default>
+                <label>CO - C.A.B.I. - CARAVAN PARK BOND WA</label>
+            </value>
+            <value>
+                <fullName>CP</fullName>
+                <default>false</default>
+                <label>CP - C.A.B.I. - AGENTS TRUST A/C TAS</label>
+            </value>
+            <value>
+                <fullName>CQ</fullName>
+                <default>false</default>
+                <label>CQ - C.A.B.I. - TRUST,LAW INSTITUTE.SA</label>
+            </value>
+            <value>
+                <fullName>CR</fullName>
+                <default>false</default>
+                <label>CR - C.A.B.I. - TRUST,LAW INSTITUTE.WA</label>
+            </value>
+            <value>
+                <fullName>CS</fullName>
+                <default>false</default>
+                <label>CS - C.A.B.I. (MMB) - OTHER</label>
+            </value>
+            <value>
+                <fullName>CT</fullName>
+                <default>false</default>
+                <label>CT - C.A.B.I. - OTHER</label>
+            </value>
+            <value>
+                <fullName>CU</fullName>
+                <default>false</default>
+                <label>CU - C.A.B.I. - AGENTS TRUST A/C WA</label>
+            </value>
+            <value>
+                <fullName>CV</fullName>
+                <default>false</default>
+                <label>CV - C.A.B.I. - AGENTS TRUST A/C ACT</label>
+            </value>
+            <value>
+                <fullName>CW</fullName>
+                <default>false</default>
+                <label>CW - C.A.B.I. - AGENTS TRUST A/C QLD</label>
+            </value>
+            <value>
+                <fullName>CX</fullName>
+                <default>false</default>
+                <label>CX - C.A.B.I. - AGENTS TRUST A/C NSW</label>
+            </value>
+            <value>
+                <fullName>CY</fullName>
+                <default>false</default>
+                <label>CY - C.A.B.I. - AGENTS TRUST A/C VIC</label>
+            </value>
+            <value>
+                <fullName>CZ</fullName>
+                <default>false</default>
+                <label>CZ - C.A.B.I. - AGENTS TRUST A/C SA</label>
+            </value>
+            <value>
+                <fullName>C1</fullName>
+                <default>false</default>
+                <label>C1 - ACCT LVL CR RATE POINTS AGAINST CASH MGT</label>
+            </value>
+            <value>
+                <fullName>C2</fullName>
+                <default>false</default>
+                <label>C2 - ACCT LVL CR RATE POINTS AGAINST PRIME</label>
+            </value>
+            <value>
+                <fullName>C3</fullName>
+                <default>false</default>
+                <label>C3 - ACCT LVL FIXED CR RATE</label>
+            </value>
+            <value>
+                <fullName>C4</fullName>
+                <default>false</default>
+                <label>C4 - ACCT LVL CASH MANGT SPLIT RATE</label>
+            </value>
+            <value>
+                <fullName>C5</fullName>
+                <default>false</default>
+                <label>C5 - ACCT LVL PRIME SPLIT RATE</label>
+            </value>
+            <value>
+                <fullName>C6</fullName>
+                <default>false</default>
+                <label>C6 - BBSY CREDIT RATE 1</label>
+            </value>
+            <value>
+                <fullName>C7</fullName>
+                <default>false</default>
+                <label>C7 - ACCT LVL CR RATE % OF PRIME</label>
+            </value>
+            <value>
+                <fullName>C8</fullName>
+                <default>false</default>
+                <label>C8 - ACTL LVL CSH MGT SPLIT RATE</label>
+            </value>
+            <value>
+                <fullName>C9</fullName>
+                <default>false</default>
+                <label>C9 - BBSY CREDIT RATE 2</label>
+            </value>
+            <value>
+                <fullName>E1</fullName>
+                <default>false</default>
+                <label>E1 - OFFICIAL CASH RATE</label>
+            </value>
+            <value>
+                <fullName>E2</fullName>
+                <default>false</default>
+                <label>E2 - OFFICIAL CASH RATE</label>
+            </value>
+            <value>
+                <fullName>F1</fullName>
+                <default>false</default>
+                <label>F1 - CORPORATE DEPOSIT RATE</label>
+            </value>
+            <value>
+                <fullName>F2</fullName>
+                <default>false</default>
+                <label>F2 - CORPORATE DEPOSIT RATE</label>
+            </value>
+            <value>
+                <fullName>G1</fullName>
+                <default>false</default>
+                <label>G1 - INSTITUTIONAL DEPOSIT RATE</label>
+            </value>
+            <value>
+                <fullName>G2</fullName>
+                <default>false</default>
+                <label>G2 - INSTITUTIONAL DEPOSIT RATE</label>
+            </value>
+            <value>
+                <fullName>LC</fullName>
+                <default>false</default>
+                <label>LC - Credit Interest code that identifies an account is activated in Liquidity Management. No Interest calculated or cycled by CACHE. Interest accruals and liquidations sent from Liquidity Management.</label>
+            </value>
+            <value>
+                <fullName>O1</fullName>
+                <default>false</default>
+                <label>O1 - CABI 11.00AM CALL RATE 1</label>
+            </value>
+            <value>
+                <fullName>O2</fullName>
+                <default>false</default>
+                <label>O2 - CABI 11.00AM CALL RATE 2</label>
+            </value>
+            <value>
+                <fullName>S1</fullName>
+                <default>false</default>
+                <label>S1 - C.A.B.I. - SETTLEMENT A/C WA</label>
+            </value>
+            <value>
+                <fullName>S2</fullName>
+                <default>false</default>
+                <label>S2 - C.A.B.I. - TENANCY A/C WA</label>
+            </value>
+            <value>
+                <fullName>S3</fullName>
+                <default>false</default>
+                <label>S3 - C.A.B.I. - FAIR TRADING A/C WA</label>
+            </value>
+            <value>
+                <fullName>S4</fullName>
+                <default>false</default>
+                <label>S4 - C.A.B.I. - MOTOR DEALER TRUST A/C QLD</label>
+            </value>
+            <value>
+                <fullName>S5</fullName>
+                <default>false</default>
+                <label>S5 - C.A.B.I. - AGENT TRUST A/C NT</label>
+            </value>
+            <value>
+                <fullName>SS</fullName>
+                <default>false</default>
+                <label>SS - FORTUNE PASSBOOK</label>
+            </value>
+            <value>
+                <fullName>TA</fullName>
+                <default>false</default>
+                <label>TA - CDA CARDED RATE (DAYS)</label>
+            </value>
+            <value>
+                <fullName>TB</fullName>
+                <default>false</default>
+                <label>TB - CDA CARDED RATE (MONTHS)</label>
+            </value>
+            <value>
+                <fullName>TC</fullName>
+                <default>false</default>
+                <label>TC - CD &lt; $50,000</label>
+            </value>
+            <value>
+                <fullName>TD</fullName>
+                <default>false</default>
+                <label>TD - CD $25,001 - $100,000 (DAYS)</label>
+            </value>
+            <value>
+                <fullName>TE</fullName>
+                <default>false</default>
+                <label>TE - CD $25,001 - $100,000 (MONTHS)</label>
+            </value>
+            <value>
+                <fullName>T1</fullName>
+                <default>false</default>
+                <label>T1 - CDA NON-CARDED RATE (DAYS)</label>
+            </value>
+            <value>
+                <fullName>T2</fullName>
+                <default>false</default>
+                <label>T2 - CDA NON-CARDED RATE (MONTHS)</label>
+            </value>
+            <value>
+                <fullName>T3</fullName>
+                <default>false</default>
+                <label>T3 - CERTIFICATE OF DEPOSIT &gt; $50,000</label>
+            </value>
+            <value>
+                <fullName>T4</fullName>
+                <default>false</default>
+                <label>T4 - ACCT LVL ONE DAY CDA SPLIT RATE</label>
+            </value>
+            <value>
+                <fullName>T8</fullName>
+                <default>false</default>
+                <label>T8 - ACCT LVL ONE DAY CDA SPLIT RATE</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>

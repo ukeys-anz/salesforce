@@ -941,9 +941,9 @@
         <label>Toowong (QLD)</label>
     </customValue>
     <customValue>
-        <fullName>Toowoomba (QLD)</fullName>
+        <fullName>Toowoomba &amp; Highfields (QLD)</fullName>
         <default>false</default>
-        <label>Toowoomba (QLD)</label>
+        <label>Toowoomba &amp; Highfields (QLD)</label>
     </customValue>
     <customValue>
         <fullName>Townsville (QLD)</fullName>
