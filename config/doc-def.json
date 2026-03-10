@@ -2037,6 +2037,41 @@
       "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
       "permissionsets": ["Enforce_SSO"],
       "type": "user"
+    },
+    {
+      "name": "Markets General Manager",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Markets National Sales Director",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Markets State Head",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Markets Director",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Markets Associate",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
     }
   ]
 }

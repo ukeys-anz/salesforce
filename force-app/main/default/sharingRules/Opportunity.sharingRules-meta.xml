@@ -104,6 +104,18 @@
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
+        <fullName>Commercial_Opportunity_Read_Write_Access_Markets</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This is to provide Read and Write access to Markets Segment.</description>
+        <label>Commercial Opportunity Read Write Access Markets</label>
+        <sharedTo>
+            <group>Markets</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Markets</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>Commercial_Opportunity_Read_Write_Access_PB</fullName>
         <accessLevel>Edit</accessLevel>
         <description>This is to provide Read and Write access to PB.</description>
