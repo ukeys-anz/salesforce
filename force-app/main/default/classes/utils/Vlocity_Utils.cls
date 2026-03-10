@@ -176,7 +176,7 @@ global with sharing class Vlocity_Utils implements Callable {
       'IDR_Duration_of_Remedy_months_Offered__c' => remedyValues.durationOfRemedyOffered,
       'IDR_Rewards_Points_Offered__c' => remedyValues.rewardPointsOffered,
       'IDR_Was_the_offer_enhanced_and_accepted__c' => remedyValues.offerEnhancedAndAccepted,
-      'IDR_customer_accept_resolution_offered__c' => remedyValues.customerAcceptTheResolution,
+      'IDR_customer_accept_resolution_offered__c' => remedyValues.customerAcceptResolution,
       'IDR_Other_Remedy_Offered__c' => remedyValues.otherRemedyOffered,
       'IDR_Payment_Amount_Offered__c' => remedyValues.paymentProvidedOffered,
       'Id' => remedyValues.id
@@ -272,7 +272,7 @@ global with sharing class Vlocity_Utils implements Callable {
     public Decimal rewardPointsOffered;
     public Boolean detailsOfComplaint;
     public Boolean offeredDetails;
-    public String customerAcceptTheResolution;
+    public String customerAcceptResolution;
     public String offerEnhancedAndAccepted;
     public String descriptionOutcomeOffered;
     public Id id;
