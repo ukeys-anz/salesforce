@@ -106,6 +106,10 @@ public with sharing class MobileLendingOpportunityTriggerHandler extends Lib_Tri
     //CC-4053 Redaction
     TextUtils.maskSObjectDataANZExtended(records, 'Description');
     ReferrerActions.referrerPrefill(records, oldMap);
+    OpportunityActions.revertLostReasonDetails(
+      records,
+      (Map<Id, Opportunity>) oldMap
+    );
   }
 
   /**
