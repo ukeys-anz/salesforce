@@ -97,7 +97,7 @@ private class DepositAccountExternalQueryTest {
       'Name should match the account returned from external source'
     );
     Assert.areEqual(
-      'Error: ACCOUNT NOT FOUND',
+      'Error: 1212-12324 ACCOUNT NOT FOUND',
       secondRecord.get('AccountName'),
       'Account not found error as Account is deleted from sources'
     );
