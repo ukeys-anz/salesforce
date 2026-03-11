@@ -46,7 +46,11 @@ public with sharing class CCRMAgentAccountSnapshot {
     'active',
     'open',
     'complete activated',
-    'approved'
+    'approved',
+    'current',
+    'loss adjustment phase 1a',
+    'loss adjustment phase 1b',
+    'loss adjustment current'
   };
 
   /**
@@ -778,10 +782,15 @@ public with sharing class CCRMAgentAccountSnapshot {
       safe(l.num) +
       '</a>';
 
-    return String.join(
-      new List<String>{ link, safe(l.name), safe(l.product), l.message },
-      ' - '
-    );
+    List<String> parts = new List<String>();
+    parts.add(link);
+    if (!String.isBlank(l.name)) {
+      parts.add(safe(l.name));
+    }
+    parts.add(safe(l.product));
+    parts.add(l.message);
+
+    return String.join(parts, ' - ');
   }
 
   /**

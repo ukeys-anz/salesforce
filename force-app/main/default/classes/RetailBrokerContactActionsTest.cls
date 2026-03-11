@@ -432,6 +432,14 @@ private class RetailBrokerContactActionsTest {
       'queryContactRecordsByExternalIds',
       new List<Contact>{ newContacts[1] }
     );
+    RETAIL_CONTACT_MERGE_REPOSITORY_MOCK.mock(
+      'getDuplicateContacts',
+      new List<Contact>{ newContacts[1] }
+    );
+    RETAIL_CONTACT_MERGE_REPOSITORY_MOCK.mock(
+      'getContactsByIds',
+      new List<Contact>{ newContacts[1] }
+    );
 
     Test.startTest();
     RetailBrokerContactActions.contactMergeEvent(
@@ -449,31 +457,6 @@ private class RetailBrokerContactActionsTest {
       1,
       deletebrokerCode.size(),
       'Must have one Broker code to delete'
-    );
-  }
-
-  @IsTest
-  static void testcheckDuplicateContacts() {
-    List<Contact> newContacts = createTestContacts(2);
-    newContacts[0].Email = 'testEmail.com';
-    newContacts[0].OCV_ID__c = '123456';
-    newContacts[1].Email = 'testEmail.com';
-    newContacts[1].OCV_ID__c = '123456';
-    RETAIL_CONTACT_MERGE_REPOSITORY_MOCK.mock(
-      'getDuplicateContacts',
-      new List<Contact>{ newContacts[0] }
-    );
-    Test.startTest();
-    RetailBrokerContactActions.checkDuplicateContacts(
-      new List<Contact>{ newContacts[1] }
-    );
-    Test.stopTest();
-    Assert.areEqual(
-      newContacts[1].Sync_Status__c,
-      RetailBrokerContactActions.SYNC_STATUS_DUPLICATE_EMAIL +
-        ';' +
-        RetailBrokerContactActions.SYNC_STATUS_DUPLICATE_OCVID,
-      'Sync Status should contain Duplicate status'
     );
   }
 

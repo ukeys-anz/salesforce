@@ -242,8 +242,10 @@ public with sharing class DepositAccountExternalQuery extends CAPFinancialAccoun
         Map<String, Object> row = new Map<String, Object>{
           this.parentField => this.parentId,
           'ExternalId' => UUID.randomUUID().toString(),
-          'AccountName' => 'Error: ' + fa.errorMessage,
-          'ProductName' => 'Error: ' + fa.errorMessage
+          'AccountName' => 'Error: ' +
+          FinancialAccountQueryHelper.formatAccountNumber(fa.accountNumber) +
+          ' ' +
+          fa.errorMessage
         };
         result.externalRecords.add(row);
         continue;

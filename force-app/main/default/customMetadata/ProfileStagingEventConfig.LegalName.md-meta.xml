@@ -3,6 +3,10 @@
     <label>LegalName</label>
     <protected>false</protected>
     <values>
+        <field>Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
         <field>DataSchema__c</field>
         <value xsi:type="xsd:string">proto://buf.anz/anz/salesforceapis/salesforce.service.party.v1alpha1#LegalNameUpdateEvent</value>
     </values>
@@ -17,6 +21,10 @@
     <values>
         <field>PayloadModel__c</field>
         <value xsi:type="xsd:string">ProfileStagingCloudEventModel.LegalNameChange</value>
+    </values>
+    <values>
+        <field>PublishOldEvent__c</field>
+        <value xsi:type="xsd:boolean">false</value>
     </values>
     <values>
         <field>RelatedIdField__c</field>

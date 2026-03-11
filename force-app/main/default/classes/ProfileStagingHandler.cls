@@ -4,7 +4,8 @@
  * @description Handles the processing of profile staging records Customer_Profile_Updates__c
  *  - This class provides methods to capture changes to records.
  *  - Insert `Customer_Profile_Updates__c` records.
- *  - Publish `Customer_Profile_Update_Event__e` events based on the provided configuration.
+ *  - The `publishEvents` method retrieves the list of `Customer_Profile_Updates__c` records based on the provided record IDs and publishes events accordingly.
+ *    It generates `Customer_Profile_Update_Event__e` platform events and `Cloud_Event__e` events based on the event configuration.
  */
 public virtual with sharing class ProfileStagingHandler {
   private static final ProfileStagingRepository REPOSITORY = (ProfileStagingRepository) Lib_InstanceProvider.forType(
@@ -98,97 +99,72 @@ public virtual with sharing class ProfileStagingHandler {
     List<Customer_Profile_Updates__c> records = REPOSITORY.queryCustomerProfileUpdates(
       recordIds
     );
-    Set<String> triggers = ListUtil.getStrings(
-      records,
-      Customer_Profile_Updates__c.TriggeredFrom__c
-    );
-    List<ProfileStagingEventConfig__mdt> eventConfigs = REPOSITORY.queryEventConfig(
-      triggers
-    );
-    this.publishEventsByType(records, eventConfigs);
-  }
 
-  private virtual void publishEventsByType(
-    List<Customer_Profile_Updates__c> records,
-    List<ProfileStagingEventConfig__mdt> eventConfigs
-  ) {
-    Map<String, ProfileStagingEventConfig__mdt> triggerConfigMap = (Map<String, ProfileStagingEventConfig__mdt>) ListUtil.mapBy(
-      eventConfigs,
-      Customer_Profile_Updates__c.TriggeredFrom__c
-    );
+    List<Customer_Profile_Update_Event__e> pEvents = new List<Customer_Profile_Update_Event__e>();
+    List<Cloud_Event__e> cEvents = new List<Cloud_Event__e>();
 
-    List<Customer_Profile_Updates__c> toPlatformEvents = ListUtil.filter(
-        records
-      )
-      .notEquals(
-        Customer_Profile_Updates__c.TriggeredFrom__c,
-        triggerConfigMap.Keyset()
-      )
-      .toList();
-    this.publishPlatformEvents(toPlatformEvents);
+    for (Customer_Profile_Updates__c record : records) {
+      ProfileStagingEventConfig__mdt eventConfig = getEventConfig(record);
+      if (eventConfig == null) {
+        pEvents.add(generatePlatformEvent(record));
+        continue;
+      }
 
-    List<Customer_Profile_Updates__c> toCloudEvents = ListUtil.filter(records)
-      .Equals(
-        Customer_Profile_Updates__c.TriggeredFrom__c,
-        triggerConfigMap.Keyset()
-      )
-      .toList();
-    this.publishCloudEvents(toCloudEvents, triggerConfigMap);
-  }
+      cEvents.add(generateCloudEvent(record, eventConfig));
 
-  private virtual void publishPlatformEvents(
-    List<Customer_Profile_Updates__c> records
-  ) {
-    List<Customer_Profile_Update_Event__e> events = generateEvents(records);
+      if (eventConfig.PublishOldEvent__c == false) {
+        continue;
+      }
+      pEvents.add(generatePlatformEvent(record));
+    }
+
+    List<sObject> events = new List<sObject>();
+    events.addAll(pEvents);
+    events.addAll(cEvents);
     DML.doPublish(events);
   }
 
   /**
-   * @description Builds a list of Customer_Profile_Update_Event__e objects based on the given list of Customer_Profile_Updates__c records.
-   * @param records The list of Customer_Profile_Updates__c records to process.
-   * @return A list of Customer_Profile_Update_Event__e objects.
+   * @description Retrieves the event configuration for the given Customer_Profile_Updates__c record.
+   * @param record The Customer_Profile_Updates__c record to retrieve the event configuration for.
+   * @return The event configuration for the given record, or null if no configuration is found
+   */
+  protected virtual ProfileStagingEventConfig__mdt getEventConfig(
+    Customer_Profile_Updates__c record
+  ) {
+    return REPOSITORY.getEventConfig(record.TriggeredFrom__c);
+  }
+
+  @TestVisible
+  /**
+   * @description Generates a Customer_Profile_Update_Event__e platform event based on the given Customer_Profile_Updates__c record.
+   * @param record The Customer_Profile_Updates__c record to generate the platform event from.
+   * @return A Customer_Profile_Update_Event__e platform event instance.
+   */
+  private virtual Customer_Profile_Update_Event__e generatePlatformEvent(
+    Customer_Profile_Updates__c record
+  ) {
+    return new Customer_Profile_Update_Event__e(
+      Customer_Profile_Update_Identifier__c = record.Id,
+      RecordType_Name__c = record.Customer_Name__r?.RecordType?.DeveloperName
+    );
+  }
+
+  /**
+   * @description Generates a Cloud_Event__e event based on the given Customer_Profile_Updates__c record and event configuration.
+   * @param record The Customer_Profile_Updates__c record to generate the cloud event from.
+   * @param eventConfig The event configuration metadata to use for generating the cloud event.
+   * @return A Cloud_Event__e event instance.
    */
   @TestVisible
-  private virtual List<Customer_Profile_Update_Event__e> generateEvents(
-    List<Customer_Profile_Updates__c> records
+  private virtual Cloud_Event__e generateCloudEvent(
+    Customer_Profile_Updates__c record,
+    ProfileStagingEventConfig__mdt eventConfig
   ) {
-    List<Customer_Profile_Update_Event__e> events = new List<Customer_Profile_Update_Event__e>();
-    for (Customer_Profile_Updates__c record : records) {
-      Customer_Profile_Update_Event__e event = new Customer_Profile_Update_Event__e(
-        Customer_Profile_Update_Identifier__c = record.Id,
-        RecordType_Name__c = record.Customer_Name__r?.RecordType?.DeveloperName
-      );
-      events.add(event);
-    }
-    return events;
-  }
-
-  private virtual void publishCloudEvents(
-    List<Customer_Profile_Updates__c> records,
-    Map<String, ProfileStagingEventConfig__mdt> triggerConfigMap
-  ) {
-    List<Cloud_Event__e> events = generateCloudEvents(
-      records,
-      triggerConfigMap
+    CloudEventModel model = new ProfileStagingCloudEventModel(
+      record,
+      eventConfig
     );
-    DML.doPublish(events);
-  }
-
-  private virtual List<Cloud_Event__e> generateCloudEvents(
-    List<Customer_Profile_Updates__c> records,
-    Map<String, ProfileStagingEventConfig__mdt> triggerConfigMap
-  ) {
-    List<Cloud_Event__e> events = new List<Cloud_Event__e>();
-    for (Customer_Profile_Updates__c record : records) {
-      ProfileStagingEventConfig__mdt config = triggerConfigMap.get(
-        record.TriggeredFrom__c
-      );
-      CloudEventModel model = new ProfileStagingCloudEventModel(record, config);
-      Cloud_Event__e event = new Cloud_Event__e(
-        Data_1__c = JSON.serialize(model, true)
-      );
-      events.add(event);
-    }
-    return events;
+    return new Cloud_Event__e(Data_1__c = JSON.serializePretty(model, true));
   }
 }

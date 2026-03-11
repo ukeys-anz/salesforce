@@ -16,7 +16,7 @@ private class ProfileStagingHandlerTest {
   static Customer_Profile_Updates__c cpu = new Customer_Profile_Updates__c(
     Id = Lib_FakeIdGenerator.getMockId(Customer_Profile_Updates__c.SObjectType),
     Customer_Name__r = new Account(
-      RecordType = new RecordType(DeveloperName = 'Customer')
+      RecordType = new RecordType(DeveloperName = 'Individual')
     )
   );
   static Account record = new Account(
@@ -74,7 +74,7 @@ private class ProfileStagingHandlerTest {
     Assert.areEqual(
       new Customer_Profile_Update_Event__e(
         Customer_Profile_Update_Identifier__c = cpu.Id,
-        RecordType_Name__c = 'Customer'
+        RecordType_Name__c = 'Individual'
       ),
       events[0],
       'Event should contains info for Customer_Profile_Updates__c from query'
@@ -82,7 +82,29 @@ private class ProfileStagingHandlerTest {
   }
 
   @IsTest
-  static void testGenerateUpdates() {
+  static void testGenerateUpdatesActionAdd() {
+    registerMocks();
+    config.processOverride = true;
+
+    Test.startTest();
+    List<Customer_Profile_Updates__c> updates = new ProfileStagingHandler()
+      .generateUpdates(config, new List<SObject>{ record }, null);
+    Test.stopTest();
+
+    Assert.isFalse(updates.isEmpty(), 'List of updates should not be empty');
+    Assert.areEqual(
+      new Customer_Profile_Updates__c(
+        Action__c = 'Add',
+        Status__c = 'Pending',
+        UserLanId__c = currentUser.Lan_Id__c
+      ),
+      updates[0],
+      'The update should be the same as the Customer_Profile_Updates__c with Action Add'
+    );
+  }
+
+  @IsTest
+  static void testGenerateUpdatesActionUpdate() {
     registerMocks();
     config.processOverride = true;
 
@@ -95,7 +117,7 @@ private class ProfileStagingHandlerTest {
       );
     Test.stopTest();
 
-    Assert.isFalse(updates.isEmpty(), 'Should not be empty');
+    Assert.isFalse(updates.isEmpty(), 'List of updates should not be empty');
     Assert.areEqual(
       new Customer_Profile_Updates__c(
         Action__c = 'Update',
@@ -103,7 +125,7 @@ private class ProfileStagingHandlerTest {
         UserLanId__c = currentUser.Lan_Id__c
       ),
       updates[0],
-      'Should be the same'
+      'The update should be the same as the Customer_Profile_Updates__c with Action Update'
     );
   }
 
@@ -121,46 +143,192 @@ private class ProfileStagingHandlerTest {
       );
     Test.stopTest();
 
-    Assert.isTrue(updates.isEmpty(), 'Should be empty when no changes');
+    Assert.isTrue(
+      updates.isEmpty(),
+      'List of updates should be empty when no changes'
+    );
   }
 
   @IsTest
-  static void testGenerateEvents() {
+  static void testGeneratePlatformEvent() {
     Test.startTest();
-    List<Customer_Profile_Update_Event__e> events = new ProfileStagingHandler()
-      .generateEvents(new List<Customer_Profile_Updates__c>{ cpu });
+    Customer_Profile_Update_Event__e event = new ProfileStagingHandler()
+      .generatePlatformEvent(cpu);
     Test.stopTest();
 
-    Assert.isFalse(events.isEmpty(), 'Should not be empty');
+    Assert.isNotNull(event, 'Event should not be null');
     Assert.areEqual(
       cpu.Id,
-      events[0].Customer_Profile_Update_Identifier__c,
-      'Should have the same id'
+      event.Customer_Profile_Update_Identifier__c,
+      'Event should have the same id as the Customer_Profile_Updates__c'
     );
     Assert.areEqual(
-      'Customer',
-      events[0].RecordType_Name__c,
-      'Should have the same record type'
+      'Individual',
+      event.RecordType_Name__c,
+      'Event should have the same record type as the Customer_Profile_Updates__c'
     );
   }
 
   @IsTest
-  static void testPublishEvents() {
+  static void testGeneratePlatformEventAccountNull() {
+    cpu.Customer_Name__r = null;
+    Test.startTest();
+    Customer_Profile_Update_Event__e event = new ProfileStagingHandler()
+      .generatePlatformEvent(cpu);
+    Test.stopTest();
+
+    Assert.isNotNull(event, 'Event should not be null');
+    Assert.areEqual(
+      null,
+      event.RecordType_Name__c,
+      'Event record type should be null when account is null'
+    );
+  }
+
+  @IsTest
+  static void testGeneratePlatformEventAccountRecordTypeNull() {
+    cpu.Customer_Name__r = new Account();
+    Test.startTest();
+    Customer_Profile_Update_Event__e event = new ProfileStagingHandler()
+      .generatePlatformEvent(cpu);
+    Test.stopTest();
+
+    Assert.isNotNull(event, 'Event should not be null');
+    Assert.areEqual(
+      null,
+      event.RecordType_Name__c,
+      'Event record type should be null when account record type is null'
+    );
+  }
+
+  @isTest
+  static void testGenerateCloudEvent() {
+    Test.startTest();
+    ProfileStagingEventConfig__mdt mdt = new ProfileStagingEventConfig__mdt(
+      RelatedIdField__c = 'Customer_Name__c',
+      Subject__c = 'Customer_Name__c',
+      PartitionKey__c = 'Customer_Name__c',
+      PayloadModel__c = 'ProfileStagingHandlerTest.MockChange'
+    );
+    Cloud_Event__e event = new ProfileStagingHandler()
+      .generateCloudEvent(cpu, mdt);
+    Test.stopTest();
+
+    Assert.isNotNull(event, 'Event should not be null');
+    Assert.isNotNull(event.Data_1__c, 'Data_1__c should not be null');
+    Assert.isTrue(
+      event.Data_1__c.contains('"recordTypeName" : "Individual"'),
+      'Data_1__c should contain the record type name'
+    );
+  }
+
+  //test publishEvents for only platform events
+  @IsTest
+  static void testPublishEventsOnlyPlatformEvent() {
     registerMocks();
     repoMock.mock(
       'queryCustomerProfileUpdates',
       new List<Customer_Profile_Updates__c>{ cpu }
+    );
+    repoMock.mock('getEventConfig', null);
+
+    Test.startTest();
+    new ProfileStagingHandler().publishEvents(new Set<Id>{ cpu.Id });
+    Test.stopTest();
+
+    Assert.isFalse(
+      repoMock.getHistories('getEventConfig').isEmpty(),
+      'getEventConfig should have been called.'
+    );
+
+    List<sObject> events = (List<sObject>) dmlRepoMock
+      .getHistory('doPublish')
+      .getParam('events');
+    Assert.isFalse(events.isEmpty(), 'Should not be empty');
+    Assert.isTrue(
+      events[0] instanceof Customer_Profile_Update_Event__e,
+      'Event should be instance of Customer_Profile_Update_Event__e'
+    );
+  }
+
+  //only cloud event
+  @IsTest
+  static void testPublishEventsOnlyCloudEvent() {
+    registerMocks();
+    repoMock.mock(
+      'queryCustomerProfileUpdates',
+      new List<Customer_Profile_Updates__c>{ cpu }
+    );
+    repoMock.mock(
+      'getEventConfig',
+      new ProfileStagingEventConfig__mdt(
+        RelatedIdField__c = 'Customer_Name__c',
+        Subject__c = 'Customer_Name__c',
+        PartitionKey__c = 'Customer_Name__c',
+        PayloadModel__c = 'ProfileStagingHandlerTest.MockChange',
+        PublishOldEvent__c = false
+      )
     );
 
     Test.startTest();
     new ProfileStagingHandler().publishEvents(new Set<Id>{ cpu.Id });
     Test.stopTest();
 
-    List<Customer_Profile_Update_Event__e> events = (List<Customer_Profile_Update_Event__e>) dmlRepoMock
+    Assert.isFalse(
+      repoMock.getHistories('getEventConfig').isEmpty(),
+      'getEventConfig should have been called.'
+    );
+
+    List<sObject> events = (List<sObject>) dmlRepoMock
       .getHistory('doPublish')
       .getParam('events');
-
     Assert.isFalse(events.isEmpty(), 'Should not be empty');
+    Assert.isTrue(
+      events[0] instanceof Cloud_Event__e,
+      'Event should be instance of Cloud_Event__e'
+    );
+  }
+
+  //both platform and cloud events
+  @IsTest
+  static void testPublishEventsCloudAndPlatformEvents() {
+    registerMocks();
+    repoMock.mock(
+      'queryCustomerProfileUpdates',
+      new List<Customer_Profile_Updates__c>{ cpu }
+    );
+    repoMock.mock(
+      'getEventConfig',
+      new ProfileStagingEventConfig__mdt(
+        RelatedIdField__c = 'Customer_Name__c',
+        Subject__c = 'Customer_Name__c',
+        PartitionKey__c = 'Customer_Name__c',
+        PayloadModel__c = 'ProfileStagingHandlerTest.MockChange',
+        PublishOldEvent__c = true
+      )
+    );
+
+    Test.startTest();
+    new ProfileStagingHandler().publishEvents(new Set<Id>{ cpu.Id });
+    Test.stopTest();
+
+    Assert.isFalse(
+      repoMock.getHistories('getEventConfig').isEmpty(),
+      'getEventConfig should have been called.'
+    );
+
+    List<sObject> events = (List<sObject>) dmlRepoMock
+      .getHistory('doPublish')
+      .getParam('events');
+    Assert.isFalse(events.isEmpty(), 'Should not be empty');
+    Assert.isTrue(
+      events[0] instanceof Customer_Profile_Update_Event__e,
+      'First event should be instance of Customer_Profile_Update_Event__e'
+    );
+    Assert.isTrue(
+      events[1] instanceof Cloud_Event__e,
+      'Second event should be instance of Cloud_Event__e'
+    );
   }
 
   @IsTest
@@ -214,6 +382,23 @@ private class ProfileStagingHandlerTest {
      * @param cpu The Customer_Profile_Updates__c object containing the profile updates.
      */
     protected override void finalise(Customer_Profile_Updates__c cpu) {
+    }
+  }
+
+  /**
+   * @description Represents the mock change data model for profile staging cloud events.
+   */
+  public virtual class MockChange extends ProfileStagingCloudEventModel.ProfileUpdate {
+    /**
+     * @description Initializes the MockChange instance.
+     * @param staging The staging object containing profile update details.
+     * @param triggerConfig The trigger configuration metadata.
+     */
+    protected override void init(
+      Customer_Profile_Updates__c staging,
+      ProfileStagingEventConfig__mdt triggerConfig
+    ) {
+      super.init(staging, triggerConfig);
     }
   }
 }

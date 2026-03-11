@@ -47,7 +47,8 @@
       "Primary_RBM__c": "Captures the Primary RBM Information.",
       "Secondary_RBM__c": "Captures the Secondary  RBM Information.",
       "Segment__c": "Captures the Segment of the associated Broker Set.",
-      "SAO_State__c": "Represents the state to which Broker's Broker Set is Associated."
+      "SAO_State__c": "Represents the state to which Broker's Broker Set is Associated.",
+      "Is_Synced_To_Broker_Org__c": "Identify if a broker is synced to Broker Org."
     },
     "ContentVersion": {
       "ContentSize": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
@@ -1881,6 +1882,7 @@
         "External_Id__c",
         "Is_Beta_Broker__c",
         "Is_MyBroker__c",
+        "Is_Synced_To_Broker_Org__c",
         "Occurrence_Number__c",
         "After_Hours_Availability__c",
         "Broker_Customer_Profile__c",
@@ -6243,6 +6245,7 @@
       "Is_Beta_Broker__c": "ANZx::Salesforce",
       "Birthdate__c": "ANZx :: Salesforce :: BrokerData :: Broker_Customer_Profile__c :: PersonBirthdate",
       "Is_MyBroker__c": "ANZx::Salesforce",
+      "Is_Synced_To_Broker_Org__c": "ANZx::Salesforce",
       "Office_Group__c": "ANZx::Salesforce",
       "OCV_Profile_ID__c": "ANZx :: Salesforce :: BrokerData :: Contact :: OCV_Profile_ID__c",
       "Primary_RBM__c": "ANZx::Salesforce",
@@ -6450,6 +6453,7 @@
       "Birthdate__c": "Formula field through Broker_Customer_Profile__r.PersonBirthdate",
       "Is_Beta_Broker__c": "1:1 Transformation",
       "Is_MyBroker__c": "Formula field through Broker_Relation__c",
+      "Is_Synced_To_Broker_Org__c": "1:1 Transformation",
       "Office_Group__c": "Lookup to Broker_Relation__c",
       "OCV_Profile_ID__c": "1:1 transformation",
       "Primary_RBM__c": "Formula field through Broker_Relation__c",
