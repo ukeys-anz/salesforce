@@ -166,7 +166,12 @@ public with sharing class CommercialOpportunityRepository {
         FROM Account
         WHERE
           Id IN :accountIdsSet
-          AND FinServ__Status__c IN ('Closed', 'Deceased', 'Unknown')
+          AND FinServ__Status__c IN (
+            'Closed',
+            'Deceased',
+            'Unknown',
+            'Prospect'
+          )
         WITH USER_MODE
       ]
     );

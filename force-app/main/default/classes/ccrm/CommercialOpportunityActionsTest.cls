@@ -51,6 +51,7 @@ public class CommercialOpportunityActionsTest {
     Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
     Id oppId1 = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
     Id oppId2 = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id oppId3 = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
     Account accRecord = new Account(
       Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
       RecordTypeId = RTAccount.businessAccount,
@@ -66,10 +67,16 @@ public class CommercialOpportunityActionsTest {
       RecordTypeId = RTAccount.businessAccount,
       FinServ__Status__c = 'Unknown'
     );
+    Account accRecord3 = new Account(
+      Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+      RecordTypeId = RTAccount.businessAccount,
+      FinServ__Status__c = 'Prospect'
+    );
     Map<Id, Account> accMap = new Map<Id, Account>{
       accRecord.Id => accRecord,
       accRecord1.Id => accRecord1,
-      accRecord2.Id => accRecord2
+      accRecord2.Id => accRecord2,
+      accRecord3.Id => accRecord3
     };
     List<Opportunity> records = new List<Opportunity>{
       new Opportunity(
@@ -85,6 +92,11 @@ public class CommercialOpportunityActionsTest {
       new Opportunity(
         Id = oppId2,
         AccountId = accRecord2.Id,
+        Lead_Converted__c = false
+      ),
+      new Opportunity(
+        Id = oppId3,
+        AccountId = accRecord3.Id,
         Lead_Converted__c = false
       )
     };
@@ -102,6 +114,11 @@ public class CommercialOpportunityActionsTest {
       oppId2 => new Opportunity(
         Id = oppId2,
         AccountId = accRecord2.Id,
+        Lead_Converted__c = false
+      ),
+      oppId3 => new Opportunity(
+        Id = oppId3,
+        AccountId = accRecord3.Id,
         Lead_Converted__c = false
       )
     };
@@ -131,6 +148,15 @@ public class CommercialOpportunityActionsTest {
     );
 
     errors = records[2].getErrors();
+    error = errors.get(0);
+    Assert.areEqual(1, errors.size(), 'Error on update');
+    Assert.isTrue(
+      error.getMessage()
+        .contains(CommercialOpportunityHelper.LEAD_PROCESS_FOR_PROSPECT_ERROR),
+      'Validation error when opportunity is closed without app launch'
+    );
+
+    errors = records[3].getErrors();
     error = errors.get(0);
     Assert.areEqual(1, errors.size(), 'Error on update');
     Assert.isTrue(
