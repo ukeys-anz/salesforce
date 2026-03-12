@@ -17,7 +17,6 @@ public with sharing class RetailContactRepository {
     return [
       SELECT
         Id,
-        Email,
         Name,
         Broker_Set__r.Primary_RBM__c,
         Broker_Set__r.Secondary_RBM__c,

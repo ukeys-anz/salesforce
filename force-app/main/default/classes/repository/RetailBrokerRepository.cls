@@ -14,6 +14,7 @@ public with sharing class RetailBrokerRepository extends RepositoryBase {
     return [
       SELECT
         Id,
+        Email,
         Name,
         External_Id__c,
         Broker_Customer_Profile__r.External_Id__c,
