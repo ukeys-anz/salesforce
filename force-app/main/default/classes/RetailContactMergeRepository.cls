@@ -28,7 +28,8 @@ public with sharing class RetailContactMergeRepository {
         Survivor_Party_Id__c,
         Victim_Party_Id__c,
         OCV_Profile_ID__c,
-        Sync_Status__c
+        Sync_Status__c,
+        Is_Synced_To_Broker_Org__c
       FROM Contact
       WHERE
         RecordTypeId = :RTContact.broker
@@ -60,7 +61,8 @@ public with sharing class RetailContactMergeRepository {
         Sync_Status__c,
         Broker_Set__c,
         Office_Group__c,
-        Is_Beta_Broker__c
+        Is_Beta_Broker__c,
+        Is_Synced_To_Broker_Org__c
       FROM Contact
       WHERE External_Id__c IN :survivorExternalIdList
       WITH USER_MODE
@@ -169,7 +171,8 @@ public with sharing class RetailContactMergeRepository {
         Survivor_Party_Id__c,
         Victim_Party_Id__c,
         OCV_Profile_ID__c,
-        Sync_Status__c
+        Sync_Status__c,
+        Is_Synced_To_Broker_Org__c
       FROM Contact
       WHERE RecordTypeId = :RTContact.broker AND ID IN :contactIds
       WITH USER_MODE
