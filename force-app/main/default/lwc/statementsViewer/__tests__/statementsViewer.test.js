@@ -1,14 +1,10 @@
 import { createElement } from "lwc";
 import statementsViewer from "c/statementsViewer";
-import getStatements from "@salesforce/apex/StatementAPIRepository.getStatementsAura";
+import getStatements from "@salesforce/apex/DocumentTypeController.getStatements";
 import fetchOCVIdFromAccount from "@salesforce/apex/FinancialAccountController.fetchOCVIdFromAccount";
 import { getRecord } from "lightning/uiRecordApi";
 import { setImmediate } from "timers";
-import {
-  EnclosingTabId,
-  getTabInfo,
-  getFocusedTabInfo
-} from "lightning/platformWorkspaceApi";
+import { EnclosingTabId, getTabInfo } from "lightning/platformWorkspaceApi";
 const RECORD_ID = "a0c2O000002XttOQAS";
 const APEX_GET_STATEMENTS_SUCCESS = require("./data/statements.json");
 const STATEMENTS_SORTED = require("./data/statementsSorted.json");
@@ -17,7 +13,7 @@ const WIRED_FINANCIAL_ACCOUNT = require("./data/wiredFinancialAccount.json");
 const WIRED_FINANCIAL_ACCOUNT_JOINT = require("./data/wiredFinancialAccountJoint.json");
 
 jest.mock(
-  "@salesforce/apex/StatementAPIRepository.getStatementsAura",
+  "@salesforce/apex/DocumentTypeController.getStatements",
   () => {
     return {
       default: jest.fn()
@@ -27,7 +23,7 @@ jest.mock(
 );
 
 jest.mock(
-  "@salesforce/apex/StatementAPIRepository.getStatementsUrlAura",
+  "@salesforce/apex/DocumentTypeController.getStatementUrl",
   () => {
     return {
       default: jest.fn()

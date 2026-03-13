@@ -40,12 +40,20 @@
         <apexClass>StatementAPIRepository</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>DocumentTypeController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <customMetadataTypeAccesses>
         <name>FinancialAccountUIConfiguration__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
     <customMetadataTypeAccesses>
         <name>FinancialAccountConfiguration__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <name>FinancialAccountDocumentTypes__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
     <customPermissions>

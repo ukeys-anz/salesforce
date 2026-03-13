@@ -131,48 +131,71 @@ public with sharing class FabricService extends Service {
   /**
    * @param ocvId required to make the callout to Mulesoft
    * @param accountNumber Account number for which we want to fetch the statements
-   * @param pageSize number of statement records to be returned from Fabric
+   * @param pageSize number of document records to be returned from Fabric
+   * @param contextType which indicates whether the documents is statements or notices
    * @return `HttpCalloutResponse` the api response
    * @description fetches statements from the fabric API
    */
   public override HttpCalloutResponse getStatements(
     String ocvId,
     String accountNumber,
-    String pageSize
+    String pageSize,
+    String contextType
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
-    Map<String, String> headers = new Map<String, String>();
-    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
+    StaffTokenRequestModel staffModel = getStaffModel(
+      'DocumentsApiScopes',
+      ocvId
+    );
+    Map<String, String> headers = setCalloutCommonHeaders(staffModel);
     headers.put('Content-Type', 'application/json');
+    List<String> queryParams = new List<String>();
+    queryParams.add('page_size=' + pageSize);
+    queryParams.add(
+      'accounts_filter.accounts=' +
+      EncodingUtil.urlEncode('accounts/' + accountNumber, 'UTF-8')
+    );
+
+    Map<String, FinancialAccountDocumentTypes__mdt> documentTypes = FinancialAccountDocumentTypes__mdt.getall();
+
+    for (
+      FinancialAccountDocumentTypes__mdt documentType : documentTypes.values()
+    ) {
+      if (documentType.Type__c == contextType) {
+        queryParams.add(
+          'structured_filter.doctypes=' +
+          EncodingUtil.urlEncode(documentType.Document_Type__c, 'UTF-8')
+        );
+      }
+    }
+    // Make the callout
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      Label.MS_Get_StatementList,
-      HTTP_METHOD.HTTP_POST,
+      Label.MS_Get_StatementList + '?' + String.join(queryParams, '&'),
+      HTTP_METHOD.HTTP_GET,
       headers,
-      '{"page_size":' +
-        pageSize +
-        ',' +
-        '"account_numbers": ["' +
-        accountNumber +
-        '"]}'
+      null
     );
     return response;
   }
   /**
    * @param ocvId required to make the callout to Mulesoft
-   * @param statementId for which we want to fetch the statement url
+   * @param documentId for which we want to fetch the document url
    * @return `HttpCalloutResponse` the api response
-   * @description fetches statement URL from the fabric API against the statement url mentioned
+   * @description fetches document URL from the fabric API against the document url mentioned
    */
   public override HttpCalloutResponse getStatementUrl(
     String ocvId,
-    String statementId
+    String documentId
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
-    Map<String, String> headers = new Map<String, String>();
-    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
+    StaffTokenRequestModel staffModel = getStaffModel(
+      'GenerateSignedDocumentURLScopes',
+      ocvId
+    );
+    Map<String, String> headers = setCalloutCommonHeaders(staffModel);
     headers.put('cache-control', 'no-store');
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      Label.MS_Get_StatementUrl + statementId,
+      Label.MS_Get_StatementUrl + documentId,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -278,5 +301,22 @@ public with sharing class FabricService extends Service {
     );
 
     return response;
+  }
+
+  /**
+   * @description getStaffModel method
+   * @param scopes requested
+   * @param ocvId customer id
+   * @return StaffTokenRequestModel
+   */
+  public StaffTokenRequestModel getStaffModel(String scopes, String ocvId) {
+    StaffTokenRequestModel staffModel = new StaffTokenRequestModel();
+    staffModel.apiScopesRequested = scopes;
+    staffModel.anzTokenType = 'staffRqfCustomer';
+    staffModel.realm = 'customer';
+    staffModel.idType = Service.IdType.OCVID;
+    staffModel.idValue = ocvId;
+    staffModel.isSecureWafFlow = true;
+    return staffModel;
   }
 }

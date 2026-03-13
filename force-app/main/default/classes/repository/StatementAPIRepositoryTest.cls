@@ -1,53 +1,89 @@
 /**
  * @author Victor Wang
  * @since November 2021
- * @description Test class for StatementAPIRepository
+ * @description Test class for DocumentTypeController
  */
 @isTest
 public with sharing class StatementAPIRepositoryTest {
-  /**
-   * @description Add required PermissionSet
-   */
-  @testSetup
-  public static void setup() {
-    TestUtil.addPermissionSets(new List<String>{ 'View_Statements' });
-
-    User thisUser = new User(Id = UserInfo.getUserId());
-    System.runAs(thisUser) {
-      // Create a FraudX User with 'FraudX Agent' role
-      Profile profile = CommonUtil.getProfileByName('ANZx Standard User');
-      UserRole role = CommonUtil.getUserRoleByDevName('FraudX_Agent');
-      User fraudXAgent = TestUtil.createTestUser(
-        new Map<String, Object>{
-          'FirstName' => 'FraudXTest',
-          'ProfileId' => profile.Id,
-          'UserRoleId' => role.Id
-        }
-      );
-      insert fraudXAgent;
-    }
+  private static final String ACCOUNT_OCV_ID = '2200993355';
+  private static final String ACCOUNT_NUMBER = '210490765';
+  private static final String PAGE_SIZE = '10';
+  private static final String CONTEXT_TYPE = 'Statements';
+  private static final String NAME = 'documents/7f3a9b2e-1c4d-4f12-8a2b-0d3e9f6a1234';
+  static Lib_MockProvider userMock;
+  static void registerMocks() {
+    userMock = Lib_MockProvider.forType(UserInfoRepository.class)
+      .mock('checkCustomPermission', true);
   }
 
   /**
-   * @description Test getStatements list
+   * @description Test getStatements
    */
   @isTest
   public static void testGetStatement() {
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
-    System.runAs(thisUser) {
-      Test.startTest();
-      StatementModel model = StatementAPIRepository.getStatementsAura(
-        '1111',
-        null,
-        '10'
-      );
-      Test.stopTest();
+    registerMocks();
+    Test.startTest();
+    ListDocumentModel model = DocumentTypeController.getStatements(
+      ACCOUNT_OCV_ID,
+      ACCOUNT_NUMBER,
+      PAGE_SIZE,
+      CONTEXT_TYPE
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      23,
+      model.allDocuments.size(),
+      'Should return 23 statement records.'
+    );
+  }
 
-      System.assert(
-        model.statements.size() == 4,
-        'Should return 4 statement records.'
-      );
-    }
+  /**
+   * @description Test getStatement for Notices
+   */
+  @isTest
+  public static void testGetStatementForNotices() {
+    registerMocks();
+    Test.startTest();
+    ListDocumentModel model = DocumentTypeController.getStatements(
+      ACCOUNT_OCV_ID,
+      ACCOUNT_NUMBER,
+      PAGE_SIZE,
+      'NOTICES'
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      10,
+      model.allDocuments.size(),
+      'Should return 10 valid notice records.'
+    );
+  }
+
+  /**
+   * @description fetch statement url for a valid statement id
+   */
+  @isTest
+  static void testGetStatementUrlAura() {
+    registerMocks();
+    Map<String, String> additionaldetails = new Map<String, String>();
+    additionaldetails.put('accountId', 'test1234');
+    additionaldetails.put('financialAccountId', '1234');
+    additionaldetails.put('contextType', 'Statements');
+    additionaldetails.put('fromDate', '2025-09-15');
+    additionaldetails.put('toDate', '2025-09-30');
+    additionaldetails.put('issueDate', '2025-09-15');
+    additionaldetails.put('documentType', 'ANZ Test Product');
+    additionaldetails.put('sUID', userinfo.getUserId());
+    Test.startTest();
+    DocumentSignedURLModel statement = DocumentTypeController.getStatementUrl(
+      ACCOUNT_OCV_ID,
+      NAME,
+      additionaldetails
+    );
+    Test.stopTest();
+    Assert.isNotNull(
+      statement.document,
+      'Statement document should not be null'
+    );
   }
 
   /**
@@ -55,28 +91,29 @@ public with sharing class StatementAPIRepositoryTest {
    */
   @isTest
   public static void testGetStatementException() {
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
-    System.runAs(thisUser) {
-      StatementModel model;
-      HttpCalloutResponse res = getStatementInvalidResponse();
-      Service s = ServiceProvider.getService(FabricService.class);
-      s.setCalloutResponse(res);
-      Exception resultException;
-      Test.startTest();
-      StatementAPIRepository statementapi = new StatementAPIRepository();
-      try {
-        model = statementapi.getStatements('1111', '1111', '10');
-      } catch (Exception e) {
-        resultException = e;
-      }
-      Test.stopTest();
-
-      System.assertEquals(
-        'Statement retrieve failed',
-        resultException.getMessage(),
-        'Should return exception message.'
+    registerMocks();
+    ListDocumentModel model;
+    HttpCalloutResponse res = getStatementInvalidResponse();
+    Service s = ServiceProvider.getService(FabricService.class);
+    s.setCalloutResponse(res);
+    Exception resultException;
+    Test.startTest();
+    try {
+      model = DocumentTypeController.getStatements(
+        ACCOUNT_OCV_ID,
+        ACCOUNT_NUMBER,
+        PAGE_SIZE,
+        CONTEXT_TYPE
       );
+    } catch (Exception e) {
+      resultException = e;
     }
+    Test.stopTest();
+    Assert.areEqual(
+      'Statement retrieve failed',
+      resultException.getMessage(),
+      'Should return exception message.'
+    );
   }
 
   /**
@@ -96,130 +133,99 @@ public with sharing class StatementAPIRepositoryTest {
    */
   @isTest
   public static void testGetStatementPermissionException() {
-    User fraudUser = TestUtil.getUserByFirstName('FraudXTest');
-    System.runAs(fraudUser) {
-      Exception resultException;
-      Test.startTest();
-      try {
-        StatementAPIRepository.getStatementsAura('1111', null, '10');
-      } catch (Exception e) {
-        resultException = e;
-      }
-      Test.stopTest();
-
-      System.assertEquals(
-        'User does not have the view statements permission.',
-        resultException.getMessage(),
-        'Should return exception message.'
+    registerMocks();
+    userMock = Lib_MockProvider.forType(UserInfoRepository.class)
+      .mock('checkCustomPermission', false);
+    Exception ex;
+    Test.startTest();
+    try {
+      DocumentTypeController.getStatements(
+        ACCOUNT_OCV_ID,
+        ACCOUNT_NUMBER,
+        PAGE_SIZE,
+        CONTEXT_TYPE
       );
+    } catch (Exception e) {
+      ex = e;
     }
+    Test.stopTest();
+    Assert.areEqual(
+      'User does not have the view statements permission.',
+      ex.getMessage(),
+      'Exception should be thrown'
+    );
   }
 
   /**
-   * @description Test year attribute is null
+   * @description Test getStatementURL exception
    */
   @isTest
-  static void missingYearInResponse() {
+  public static void testGetStatementURLException() {
+    registerMocks();
+    Map<String, String> additionaldetails = new Map<String, String>();
+    additionaldetails.put('accountId', 'test1234');
+    additionaldetails.put('financialAccountId', '1234');
+    additionaldetails.put('contextType', 'Statements');
+    additionaldetails.put('fromDate', '2025-09-15');
+    additionaldetails.put('toDate', '2025-09-30');
+    additionaldetails.put('issueDate', '2025-09-15');
+    additionaldetails.put('documentType', 'ANZ Test Product');
+    additionaldetails.put('sUID', userinfo.getUserId());
+    HttpCalloutResponse res = getStatementInvalidResponse();
     Service s = ServiceProvider.getService(FabricService.class);
-    HttpCalloutResponse response = s.getStatements('1111', '1111', '10');
-    String validResponse = response.body;
-
-    validResponse = validResponse.replaceAll('\n', '');
-    String matchString = '2021';
-    String manipulatedResponse = validResponse.replaceFirst(
-      matchString,
-      'null'
-    );
-
+    s.setCalloutResponse(res);
     Exception resultException;
-
     Test.startTest();
-
     try {
-      StatementModel.parse(manipulatedResponse);
+      DocumentTypeController.getStatementUrl(
+        ACCOUNT_OCV_ID,
+        NAME,
+        additionaldetails
+      );
     } catch (Exception e) {
       resultException = e;
     }
-
     Test.stopTest();
-
-    System.assert(
-      resultException.getMessage()
-        .contains('Statements Information is invalid.'),
-      'Should return Statements Information is invalid. exception message.'
+    Assert.areEqual(
+      'Statement retrieve failed',
+      resultException.getMessage(),
+      'Should return exception for url generation.'
     );
   }
 
   /**
-   * @description fetch statement statement id for a account number
+   * @description Test user without View Statements permission
    */
   @isTest
-  public static void statementsAuraTest() {
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
-    System.runAs(thisUser) {
-      Test.startTest();
-      StatementModel statement = StatementAPIRepository.getStatementsAura(
-        '1234',
-        '1111',
-        '10'
-      );
-      Test.stopTest();
-      System.assertEquals(
-        4,
-        statement.statements.size(),
-        'The statements size should be as expected.'
-      );
-    }
-  }
-  /**
-   * @description fetch statement url for a valid statement id
-   */
-  @isTest
-  static void statementUrlTest() {
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
-    System.runAs(thisUser) {
-      Map<String, String> additionaldetails = new Map<String, String>();
-      additionaldetails.put('statementId', 'test1234');
-      additionaldetails.put('url', 'https://test.invalid.com');
-      additionaldetails.put('sfUserId', '005134242');
-      additionaldetails.put('statementId', '12345');
-      additionaldetails.put('url', '2453535');
-      Test.startTest();
-      StatementModel statement = StatementAPIRepository.getStatementUrlAura(
-        '1234',
-        '1111',
+  public static void testGetStatementURLPermissionException() {
+    registerMocks();
+    Map<String, String> additionaldetails = new Map<String, String>();
+    additionaldetails.put('accountId', 'test1234');
+    additionaldetails.put('financialAccountId', '1234');
+    additionaldetails.put('contextType', 'Statements');
+    additionaldetails.put('fromDate', '2025-09-15');
+    additionaldetails.put('toDate', '2025-09-30');
+    additionaldetails.put('issueDate', '2025-09-15');
+    additionaldetails.put('documentType', 'ANZ Test Product');
+    additionaldetails.put('sUID', userinfo.getUserId());
+    userMock = Lib_MockProvider.forType(UserInfoRepository.class)
+      .mock('checkCustomPermission', false);
+    Exception ex;
+    Test.startTest();
+    try {
+      DocumentTypeController.getStatementUrl(
+        ACCOUNT_OCV_ID,
+        NAME,
         additionaldetails
       );
-      Test.stopTest();
-      System.assert(statement != null, 'Statement should not be null.');
+    } catch (Exception e) {
+      ex = e;
     }
-  }
-
-  /**
-   * @description fetch invalid statement
-   */
-  @isTest
-  static void statementInvalidResponse() {
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
-    System.runAs(thisUser) {
-      StatementModel statementModel;
-      HttpCalloutResponse res = getStatementInvalidResponse();
-      Service s = ServiceProvider.getService(FabricService.class);
-      s.setCalloutResponse(res);
-      Exception resultException;
-      Test.startTest();
-      StatementAPIRepository statementAPI = new StatementAPIRepository();
-      try {
-        statementModel = statementAPI.getStatements('1111', '2222', '10');
-      } catch (Exception e) {
-        resultException = e;
-      }
-      Test.stopTest();
-      System.assertEquals(
-        'Statement retrieve failed',
-        resultException.getMessage(),
-        'Error message should be as expected.'
-      );
-    }
+    Test.stopTest();
+    Assert.areEqual(
+      'User does not have the view statements permission.',
+      ex.getMessage(),
+      'Exception should be thrown'
+    );
   }
 }

@@ -1,0 +1,296 @@
+{
+  "documents": [
+    {
+      "name": "documents/7f3a9b2e-1c4d-4f12-8a2b-0d3e9f6a1234",
+      "readers": [{ "personaId": "personas/abc-123" }],
+      "bsb": "123456",
+      "accountNumber": "10000001",
+      "statementDda": {
+        "startDate": { "year": 2025, "day": 1 },
+        "endDate": { "year": 2025, "month": 10, "day": 31 }
+      }
+    },
+    {
+      "name": "documents/4c2b1a9f-9e3b-4d8f-a2b1-5c6d7e8f9012",
+      "readers": [{ "personaId": "personas/xyz-789" }],
+      "bsb": "123456",
+      "accountNumber": "10000002",
+      "statementDda": {
+        "startDate": { "month": 10, "day": 20 },
+        "endDate": { "year": 2025, "month": 10, "day": 31 }
+      },
+      "proofOfBalance": {
+        "issueDate": { "year": 2025, "month": 10, "day": 15 }
+      }
+    },
+    {
+      "name": "documents/9a1d2c3b-4e5f-6789-abcd-0123456789ab",
+      "readers": [{ "personaId": "personas/p-001" }],
+      "bsb": "123456",
+      "accountNumber": "10000003",
+      "statementILS": {
+        "startDate": { "year": 2025, "month": 9, "day": 15 },
+        "endDate": { "year": 2025, "month": 9, "day": 30 }
+      }
+    },
+    {
+      "name": "documents/1b2c3d4e-5f67-48ab-cdef-23456789abcd",
+      "readers": [{ "personaId": "personas/p-002" }],
+      "bsb": "123456",
+      "accountNumber": "10000004",
+      "statementDda": {
+        "startDate": { "year": 2025, "month": 8, "day": 1 },
+        "endDate": { "year": 2025, "month": 8, "day": 31 }
+      }
+    },
+    {
+      "name": "documents/a3b4c5d6-e7f8-9012-3456-abcdef123456",
+      "readers": [{ "personaId": "personas/p-003" }],
+      "bsb": "123456",
+      "accountNumber": "10000005",
+      "statementDda": {
+        "startDate": { "year": 2025, "month": 7, "day": 1 },
+        "endDate": { "year": 2025, "month": 7, "day": 31 }
+      },
+      "proofOfBalance": {
+        "issueDate": { "year": 2025, "month": 7, "day": 25 }
+      }
+    },
+    {
+      "name": "documents/b7c8d9e0-1122-3344-5566-778899aabbcc",
+      "readers": [{ "personaId": "personas/p-004" }],
+      "bsb": "123456",
+      "accountNumber": "10000006",
+      "statementDda": {
+        "startDate": { "year": 2025, "month": 6, "day": 1 },
+        "endDate": { "year": 2025, "month": 6, "day": 30 }
+      }
+    },
+    {
+      "name": "documents/c0ffee00-1234-5678-9abc-def012345678",
+      "readers": [{ "personaId": "personas/p-005" }],
+      "bsb": "123456",
+      "accountNumber": "10000007",
+      "statementDda": {
+        "startDate": { "year": 2025, "month": 5, "day": 1 },
+        "endDate": { "year": 2025, "month": 5, "day": 31 }
+      }
+    },
+    {
+      "name": "documents/d1e2f3a4-b5c6-7890-1234-56789abcdef0",
+      "readers": [{ "personaId": "personas/p-006" }],
+      "bsb": "123456",
+      "accountNumber": "10000008",
+      "statementDda": {
+        "startDate": { "year": 2025, "month": 4, "day": 1 },
+        "endDate": { "year": 2025, "month": 4, "day": 30 }
+      },
+      "proofOfBalance": {
+        "issueDate": { "year": 2025, "month": 4, "day": 20 }
+      }
+    },
+    {
+      "name": "documents/eaa11bb2-33cc-44dd-55ee-66778899aabb",
+      "readers": [{ "personaId": "personas/p-007" }],
+      "bsb": "123456",
+      "accountNumber": "10000009",
+      "statementDda": {
+        "startDate": { "year": 2025, "month": 3, "day": 1 },
+        "endDate": { "year": 2025, "month": 3, "day": 31 }
+      }
+    },
+    {
+      "name": "documents/f0e1d2c3-b4a5-6789-0abc-def345678901",
+      "readers": [{ "personaId": "personas/p-008" }],
+      "bsb": "123456",
+      "accountNumber": "10000010",
+      "statementDda": {
+        "startDate": { "year": 2025, "month": 2, "day": 1 },
+        "endDate": { "year": 2025, "month": 2, "day": 28 }
+      }
+    },
+    {
+      "name": "documents/01234567-89ab-cdef-0123-456789abcdef",
+      "readers": [{ "personaId": "personas/p-009" }],
+      "bsb": "123456",
+      "accountNumber": "10000011",
+      "statementDda": {
+        "startDate": { "year": 2024, "month": 12, "day": 1 },
+        "endDate": { "year": 2024, "month": 12, "day": 31 }
+      },
+      "proofOfBalance": {
+        "issueDate": { "year": 2024, "month": 12, "day": 20 }
+      }
+    },
+    {
+      "name": "documents/89abcdef-0123-4567-89ab-cdef01234567",
+      "readers": [{ "personaId": "personas/p-010" }],
+      "bsb": "123456",
+      "accountNumber": "10000012",
+      "statementDda": {
+        "startDate": { "year": 2024, "month": 11, "day": 1 },
+        "endDate": { "year": 2024, "month": 11, "day": 30 }
+      }
+    },
+    {
+      "name": "documents/aa11aa22-bb33-cc44-dd55-ee66ff778899",
+      "readers": [{ "personaId": "personas/p-011" }],
+      "bsb": "123456",
+      "accountNumber": "10000013",
+      "statementDda": {
+        "startDate": { "year": 2024, "month": 10, "day": 1 },
+        "endDate": { "year": 2024, "month": 10, "day": 31 }
+      },
+      "proofOfBalance": {
+        "issueDate": { "year": 2024, "month": 10, "day": 15 }
+      }
+    },
+    {
+      "name": "documents/bb22bb33-cc44-dd55-ee66-ff7799880011",
+      "readers": [{ "personaId": "personas/p-012" }],
+      "bsb": "123456",
+      "accountNumber": "10000014",
+      "statementDda": {
+        "startDate": { "year": 2024, "month": 9, "day": 1 },
+        "endDate": { "year": 2024, "month": 9, "day": 30 }
+      }
+    },
+    {
+      "name": "documents/cc33cc44-dd55-ee66-ff77-998800112233",
+      "readers": [{ "personaId": "personas/p-013" }],
+      "bsb": "123456",
+      "accountNumber": "10000015",
+      "statementDda": {
+        "startDate": { "year": 2024, "month": 8, "day": 1 },
+        "endDate": { "year": 2024, "month": 8, "day": 31 }
+      },
+      "proofOfBalance": {
+        "issueDate": { "year": 2024, "month": 8, "day": 28 }
+      }
+    },
+    {
+      "name": "documents/dd44dd55-ee66-ff77-9988-001122334455",
+      "readers": [{ "personaId": "personas/p-014" }],
+      "bsb": "123456",
+      "accountNumber": "10000016",
+      "statementDda": {
+        "startDate": { "year": 2024, "month": 7, "day": 1 },
+        "endDate": { "year": 2024, "month": 7, "day": 31 }
+      }
+    },
+    {
+      "name": "documents/ee55ee66-ff77-9988-0011-223344556677",
+      "readers": [{ "personaId": "personas/p-015" }],
+      "bsb": "123456",
+      "accountNumber": "10000017",
+      "statementDda": {
+        "startDate": { "year": 2024, "month": 6, "day": 1 },
+        "endDate": { "year": 2024, "month": 6, "day": 30 }
+      },
+      "proofOfBalance": {
+        "issueDate": { "year": 2024, "month": 6, "day": 18 }
+      }
+    },
+    {
+      "name": "documents/ff66ff77-9988-0011-2233-445566778899",
+      "readers": [{ "personaId": "personas/p-016" }],
+      "bsb": "123456",
+      "accountNumber": "10000018",
+      "statementDda": {
+        "startDate": { "year": 2024, "month": 5, "day": 1 },
+        "endDate": { "year": 2024, "month": 5, "day": 31 }
+      }
+    },
+    {
+      "name": "documents/00112233-4455-6677-8899-aabbccddeeff",
+      "readers": [{ "personaId": "personas/p-017" }],
+      "bsb": "123456",
+      "accountNumber": "10000019",
+      "statementDda": {
+        "startDate": { "year": 2024, "month": 4, "day": 1 },
+        "endDate": { "year": 2024, "month": 4, "day": 30 }
+      },
+      "proofOfBalance": {
+        "issueDate": { "year": 2024, "month": 4, "day": 10 }
+      }
+    },
+    {
+      "name": "documents/11223344-5566-7788-99aa-bbccddeeff00",
+      "readers": [{ "personaId": "personas/p-018" }],
+      "bsb": "123456",
+      "accountNumber": "10000020",
+      "statementDda": {
+        "startDate": { "year": 2024, "month": 3, "day": 1 },
+        "endDate": { "year": 2024, "month": 3, "day": 31 }
+      }
+    },
+    {
+      "name": "documents/22334455-6677-8899-aabb-ccddee001122",
+      "readers": [{ "personaId": "personas/p-019" }],
+      "bsb": "123456",
+      "accountNumber": "10000021",
+      "statementDda": {
+        "startDate": { "year": 2024, "month": 2, "day": 1 },
+        "endDate": { "year": 2024, "month": 2, "day": 29 }
+      },
+      "proofOfBalance": {
+        "issueDate": { "year": 2024, "month": 2, "day": 29 }
+      }
+    },
+    {
+      "name": "documents/33445566-7788-99aa-bbcc-ddee11223344",
+      "readers": [{ "personaId": "personas/p-020" }],
+      "bsb": "123456",
+      "accountNumber": "10000022",
+      "statementDda": {
+        "startDate": { "year": 2024, "month": 1, "day": 1 },
+        "endDate": { "year": 2024, "month": 1, "day": 31 }
+      }
+    },
+    {
+      "name": "documents/44556677-8899-aabb-ccdd-eeff22334455",
+      "readers": [{ "personaId": "personas/p-021" }],
+      "bsb": "123456",
+      "accountNumber": "10000023",
+      "statementDda": {
+        "startDate": { "year": 2023, "month": 12, "day": 1 },
+        "endDate": { "year": 2023, "month": 12, "day": 31 }
+      }
+    },
+    {
+      "name": "documents/55667788-99aa-bbcc-ddee-ff0011223344",
+      "readers": [{ "personaId": "personas/p-022" }],
+      "bsb": "123456",
+      "accountNumber": "10000024",
+      "statementDda": {
+        "startDate": { "year": 2023, "month": 11, "day": 1 },
+        "endDate": { "year": 2023, "month": 11, "day": 30 }
+      },
+      "proofOfBalance": {
+        "issueDate": { "year": 2023, "month": 11, "day": 20 }
+      }
+    },
+    {
+      "name": "documents/66778899-aabb-ccdd-eeff-001122334455",
+      "readers": [{ "personaId": "personas/p-023" }],
+      "bsb": "123456",
+      "accountNumber": "10000025",
+      "statementDda": {
+        "startDate": { "year": 2023, "month": 10, "day": 1 },
+        "endDate": { "year": 2023, "month": 10, "day": 31 }
+      }
+    }
+  ],
+    "next": {
+        "grpcRequest": {
+            "@type": "type.googleapis.com/fabric.service.documents.v1.ListDocumentsRequest",
+            "pageToken": "50",
+            "structuredFilter": {
+                "doctypes": [
+                    "DOCUMENT_TYPE_STATEMENT_DDA",
+                    "DOCUMENT_TYPE_STATEMENT_ILS"
+                ]
+            }
+        }
+    }
+}

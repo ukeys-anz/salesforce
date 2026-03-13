@@ -58,11 +58,29 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>contextType</name>
+                    <value>STATEMENTS</value>
+                </componentInstanceProperties>
                 <componentName>statementsViewer</componentName>
                 <identifier>statementsViewer</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-b9a693ff-d38f-48c1-9c05-e92b6c23ac9b</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>contextType</name>
+                    <value>NOTICES</value>
+                </componentInstanceProperties>
+                <componentName>statementsViewer</componentName>
+                <identifier>c_statementsViewer</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-dc60ca29-05a3-41a7-90cc-a41136004579</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -209,6 +227,31 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
+                    <value>Facet-dc60ca29-05a3-41a7-90cc-a41136004579</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Notices</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab4</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__ProductName__r.ANZ_Product_Code__c}</leftValue>
+                        <operator>NE</operator>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__ProductName__r.SourceSystem__c}</leftValue>
+                        <operator>NE</operator>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
                     <value>Facet-5ba94398-3ec2-41a0-a00c-6bb9aa8c5f7a</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -263,6 +306,10 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Tabs</value>
+                </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>tabs</name>
                     <value>Facet-7188c568-afd4-48b9-a8df-672656f1f07a</value>
@@ -518,6 +565,10 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Tabs</value>
+                </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>tabs</name>
                     <value>sidebartabs</value>

@@ -1,4 +1,10 @@
 <template>
+  <template lwc:if={hasInvalidDocuments}>
+    <div class="slds-notify slds-notify_alert slds-alert_warning" role="alert">
+      <span class="slds-assistive-text">warning</span>
+      {errorMessage}
+    </div>
+  </template>
   <template lwc:if={isLoading}>
     <div class="slds-is-relative spinner-height">
       <lightning-spinner
@@ -27,8 +33,8 @@
           <span
             class="slds-var-m-vertical_large slds-align_absolute-center slds-text-heading_small slds-text-title_bold"
           >
-            Only save statements in the permitted share folder and delete
-            immediately after it's been sent to the customer.
+            Only save {statementOrNoticeText} in the permitted share folder and
+            delete immediately after it's been sent to the customer.
           </span>
           <lightning-datatable
             key-field="statementId"
@@ -48,7 +54,7 @@
           <span
             class="slds-var-m-vertical_large slds-align_absolute-center slds-text-heading_small slds-text-title_bold"
           >
-            There are currently no statements for this account.
+            There are currently no {statementOrNoticeText} for this account.
           </span>
         </template>
 
