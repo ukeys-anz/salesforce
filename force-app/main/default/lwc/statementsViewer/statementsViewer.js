@@ -304,7 +304,7 @@ export default class StatementsViewer extends LightningElement {
 
   handleError(error) {
     let msg = ERROR_UNKNOWN_TITLE;
-
+    this.errorMessage = "";
     if (error.message) {
       msg = error.message;
     }

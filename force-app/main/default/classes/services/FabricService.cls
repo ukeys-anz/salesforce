@@ -170,7 +170,7 @@ public with sharing class FabricService extends Service {
     }
     // Make the callout
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      Label.MS_Get_StatementList + '?' + String.join(queryParams, '&'),
+      Label.SECURE_WAF_GET_ListDocuments + '?' + String.join(queryParams, '&'),
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -195,7 +195,10 @@ public with sharing class FabricService extends Service {
     Map<String, String> headers = setCalloutCommonHeaders(staffModel);
     headers.put('cache-control', 'no-store');
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      Label.MS_Get_StatementUrl + documentId,
+      Label.SECURE_WAF_GET_GenerateSignedUrl.replace(
+        '{documentId}',
+        documentId
+      ),
       HTTP_METHOD.HTTP_GET,
       headers,
       null
