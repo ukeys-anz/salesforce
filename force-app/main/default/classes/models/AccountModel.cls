@@ -23,11 +23,11 @@ public class AccountModel {
   /**
    * @description Holds status of the account
    */
-  public String status { get; set; }
+  private String status { get; set; }
   /**
    * @description Holds RecordType of the account
    */
-  public RecordTypeModal recordType { get; set; }
+  private RecordTypeModal recordType { get; set; }
 
   /**
    * @description get an instance of AccountModel
@@ -44,11 +44,12 @@ public class AccountModel {
 
     // This approach is taken to avoid exceptions when accessing fields that haven't been previously queried.
     // This way, it will simply yield null when we try to retrieve a non-existent key.
-    Map<String, Object> fldMap = theAccount.getPopulatedFieldsAsMap();
-    this.status = (string) fldMap.get('FinServ__Status__c');
-    this.recordType = new RecordTypeModal(
-      (RecordType) fldMap.get('RecordType')
-    );
+    //Comennted out untill GCP is ready
+    // Map<String, Object> fldMap = theAccount.getPopulatedFieldsAsMap();
+    // this.status = (string) fldMap.get('FinServ__Status__c');
+    // this.recordType = new RecordTypeModal(
+    //   (RecordType) fldMap.get('RecordType')
+    // );
   }
 
   /**
