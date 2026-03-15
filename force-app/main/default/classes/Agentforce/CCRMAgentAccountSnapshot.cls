@@ -395,7 +395,7 @@ public with sharing class CCRMAgentAccountSnapshot {
           line(
             new AccountLineBuilder()
               .withId(a.Id)
-              .withNum(a.Account_Number__c)
+              .withNum(TextUtils.maskData(a.Account_Number__c))
               .withName(a.Account_Name__c)
               .withProduct(a.Product_Name__c)
               .withMessage('is overdrawn')
@@ -408,7 +408,7 @@ public with sharing class CCRMAgentAccountSnapshot {
           line(
             new AccountLineBuilder()
               .withId(a.Id)
-              .withNum(a.Account_Number__c)
+              .withNum(TextUtils.maskData(a.Account_Number__c))
               .withName(a.Account_Name__c)
               .withProduct(a.Product_Name__c)
               .withMessage('has a delinquent amount')

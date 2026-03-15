@@ -97,7 +97,7 @@ public with sharing class CCRMAgentCapDiaryCommentsPrompt {
         displayList.add(
           new Map<String, Object>{
             'AccountName' => acc.Name,
-            'Comment' => dc.Description__c,
+            'Comment' => TextUtils.maskDataAnzx(dc.Description__c),
             'Permanent' => dc.Permanent__c
           }
         );
