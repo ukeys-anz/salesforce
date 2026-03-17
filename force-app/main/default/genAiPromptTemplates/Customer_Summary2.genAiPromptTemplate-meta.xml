@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
-    <activeVersionIdentifier>pRZohJ8WKFhEoKD4XzzD/JaUryonXTHFbSRFoUGVTEM=_85</activeVersionIdentifier>
+    <activeVersionIdentifier>pRZohJ8WKFhEoKD4XzzD/JaUryonXTHFbSRFoUGVTEM=_86</activeVersionIdentifier>
     <description>This summary is used to give a quick snapshot of the Customer Interactions, Opportunities, Financial Summaries.</description>
     <developerName>Customer_Summary2</developerName>
     <masterLabel>Customer Summary</masterLabel>
@@ -273,7 +273,7 @@ DATA:
             </parameters>
             <referenceName>Flow:Fetch_Client_Interaction_for_Prompt</referenceName>
         </templateDataProviders>
-        <versionIdentifier>pRZohJ8WKFhEoKD4XzzD/JaUryonXTHFbSRFoUGVTEM=_85</versionIdentifier>
+        <versionIdentifier>pRZohJ8WKFhEoKD4XzzD/JaUryonXTHFbSRFoUGVTEM=_86</versionIdentifier>
     </templateVersions>
     <type>einstein_gpt__recordSummary</type>
     <visibility>Global</visibility>
