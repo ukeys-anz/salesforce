@@ -122,6 +122,7 @@
     "Is_MyBroker__pc",
     "IsPersonAccount",
     "Is_Broker_User_Active__pc",
+    "Is_Synced_To_Broker_Org__pc",
     "Jigsaw",
     "JigsawCompanyId",
     "KYCVerificationDate__c",

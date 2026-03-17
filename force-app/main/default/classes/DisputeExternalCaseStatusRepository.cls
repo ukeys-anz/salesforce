@@ -63,4 +63,52 @@ public with sharing class DisputeExternalCaseStatusRepository {
       WHERE Id IN :caseIds
     ];
   }
+
+  /**
+   * @description getRelatedCasesByCaseId is to query case Id based on relatedCaseIds
+   * @param relatedCaseIds Set of related Case ids to be queried
+   * @return A list of Case records
+   */
+  public List<Case> getRelatedCasesByCaseId(Set<Id> relatedCaseIds) {
+    // Check if relatedCaseIds is null or empty
+    if (relatedCaseIds == null || relatedCaseIds.isEmpty()) {
+      return new List<Case>(); // Return empty list if no IDs are provided
+    }
+
+    // Perform the SOQL query to retrieve the related cases
+    return [
+      SELECT
+        Id,
+        CaseNumber,
+        Dispute_Reason__c,
+        RecordTypeId,
+        Account.OCV_ID__c,
+        Transaction_UUID__c,
+        OCV_ID__c,
+        LastModifiedDate,
+        AccountId,
+        Account.Source_System_Name__c,
+        Account.Source_System_ID__c,
+        Account.PersonEmail,
+        Account.PersonMobilePhone,
+        Account.FirstName,
+        Account.LastName
+      FROM Case
+      WHERE Id IN :relatedCaseIds
+    ];
+  }
+
+  /**
+   * @description getRelatedUsersByUserId is to query User list based on relatedUserIds
+   * @param relatedUserIds Set of related User ids to be queried
+   * @return A list of users related to Case records
+   */
+  public List<User> getRelatedUsersByUserId(Set<Id> relatedUserIds) {
+    // Check if relatedCaseIds is not null and not empty
+    if (relatedUserIds == null || relatedUserIds.isEmpty()) {
+      return new List<User>();
+    }
+
+    return [SELECT Id, Email, UserName FROM User WHERE Id IN :relatedUserIds];
+  }
 }

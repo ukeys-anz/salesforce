@@ -17,7 +17,7 @@ concurrency:
 jobs:
   validation:
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:3.0.1"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:3.0.2"
       options: --user root
     runs-on: anzx-default
     env:

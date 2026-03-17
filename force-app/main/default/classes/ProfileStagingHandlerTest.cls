@@ -16,6 +16,7 @@ private class ProfileStagingHandlerTest {
   static Customer_Profile_Updates__c cpu = new Customer_Profile_Updates__c(
     Id = Lib_FakeIdGenerator.getMockId(Customer_Profile_Updates__c.SObjectType),
     Customer_Name__r = new Account(
+      Source_System_Name__c = 'CAP-CIS',
       RecordType = new RecordType(DeveloperName = 'Individual')
     )
   );
@@ -217,8 +218,8 @@ private class ProfileStagingHandlerTest {
     Assert.isNotNull(event, 'Event should not be null');
     Assert.isNotNull(event.Data_1__c, 'Data_1__c should not be null');
     Assert.isTrue(
-      event.Data_1__c.contains('"recordTypeName" : "Individual"'),
-      'Data_1__c should contain the record type name'
+      event.Data_1__c.contains('"sourceSystem" : "CAP-CIS"'),
+      'Data_1__c should contain the source system'
     );
   }
 
