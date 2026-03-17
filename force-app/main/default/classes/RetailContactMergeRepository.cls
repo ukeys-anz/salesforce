@@ -6,13 +6,15 @@
 public with sharing class RetailContactMergeRepository {
   /**
    * @description To be used fetch Contact records
+   * @param contactIds List of ContactIds of Triggering Contacts.
    * @param contactEmails List of Contact Emails
    * @param ocvIds List of Contact OCV Ids
    * @return List<Contact> Contact list
    */
   public List<Contact> getDuplicateContacts(
-    List<String> contactEmails,
-    List<String> ocvIds
+    Set<Id> contactIds,
+    Set<String> contactEmails,
+    Set<String> ocvIds
   ) {
     if (contactEmails.isEmpty() && ocvIds.isEmpty()) {
       return new List<Contact>();
@@ -25,9 +27,15 @@ public with sharing class RetailContactMergeRepository {
         OCV_ID__c,
         Survivor_Party_Id__c,
         Victim_Party_Id__c,
-        OCV_Profile_ID__c
+        OCV_Profile_ID__c,
+        Sync_Status__c,
+        Is_Synced_To_Broker_Org__c
       FROM Contact
-      WHERE Email IN :contactEmails OR OCV_ID__c IN :ocvIds
+      WHERE
+        RecordTypeId = :RTContact.broker
+        AND ID NOT IN :contactIds
+        AND (Email IN :contactEmails
+        OR OCV_ID__c IN :ocvIds)
       WITH USER_MODE
     ];
   }
@@ -53,7 +61,8 @@ public with sharing class RetailContactMergeRepository {
         Sync_Status__c,
         Broker_Set__c,
         Office_Group__c,
-        Is_Beta_Broker__c
+        Is_Beta_Broker__c,
+        Is_Synced_To_Broker_Org__c
       FROM Contact
       WHERE External_Id__c IN :survivorExternalIdList
       WITH USER_MODE
@@ -141,6 +150,32 @@ public with sharing class RetailContactMergeRepository {
       WHERE
         Assisted_Broker_TPMI_SAO__c IN :brokerTPMIIds
         AND Assisted_Broker__c = NULL
+    ];
+  }
+
+  /**
+   * @description To be used fetch Contact records
+   * @param contactIds Set of Contact Ids
+   * @return List<Contact> Contact list
+   */
+  public List<Contact> getContactsByIds(Set<Id> contactIds) {
+    if (contactIds.isEmpty()) {
+      return new List<Contact>();
+    }
+    return [
+      SELECT
+        Id,
+        Email,
+        External_Id__c,
+        OCV_ID__c,
+        Survivor_Party_Id__c,
+        Victim_Party_Id__c,
+        OCV_Profile_ID__c,
+        Sync_Status__c,
+        Is_Synced_To_Broker_Org__c
+      FROM Contact
+      WHERE RecordTypeId = :RTContact.broker AND ID IN :contactIds
+      WITH USER_MODE
     ];
   }
 }

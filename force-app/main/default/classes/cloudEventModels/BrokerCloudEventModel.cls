@@ -74,6 +74,10 @@ public virtual with sharing class BrokerCloudEventModel extends CloudEventModel 
      * @description Captures the fields related to a merge event.
      */
     public ContactMergeTargetNode mergeDetails { get; set; }
+    /**
+     * @description Captures the fields related to a merge event.
+     */
+    public String emailChanged { get; set; }
   }
   /**
    * @description the model for building Parent object data where we define the parent data
@@ -154,6 +158,10 @@ public virtual with sharing class BrokerCloudEventModel extends CloudEventModel 
         brokerDataMap.get('merge_contact'),
         ContactMergeTargetNode.class
       );
+    }
+
+    if (brokerDataMap.containsKey('email_changed')) {
+      brokerTargetNode.emailChanged = brokerDataMap.get('email_changed');
     }
 
     MasterNode brokerMasterNode = new MasterNode();

@@ -35,6 +35,18 @@
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
+        <fullName>Commercial_AF_Read_Write_Access_Markets</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This is used to provide Read and Write access to Markets Segment.</description>
+        <label>Commercial AF Read Write Access Markets</label>
+        <sharedTo>
+            <group>Markets</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Markets</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>Commercial_AF_Read_Write_Access_PB</fullName>
         <accessLevel>Edit</accessLevel>
         <label>Commercial AF Read Write Access PB</label>

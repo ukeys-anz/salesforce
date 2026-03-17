@@ -129,6 +129,10 @@ private class DemandAccountExternalQueryTest {
       'getFinancialAccountsWithCustomerId',
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
+    faRepoMock.mock(
+      'getIndustryNamesByCodes',
+      new Map<String, String>{ '6220' => 'Test Industry' }
+    );
     faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
     ExternalObjectQueryBase.ExternalQueryResult result = demandAcct.execute(
       context
@@ -167,6 +171,10 @@ private class DemandAccountExternalQueryTest {
     DataSource.QueryContext context = createDemandAccountDetailContext();
     DemandAccountExternalQuery demandAcct = new DemandAccountExternalQuery();
     faRepoMock.mock(
+      'getIndustryNamesByCodes',
+      new Map<String, String>{ '6220' => 'Test Industry' }
+    );
+    faRepoMock.mock(
       'getFinancialAccountsWithAcctNum',
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
@@ -193,6 +201,10 @@ private class DemandAccountExternalQueryTest {
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
     faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
+    faRepoMock.mock(
+      'getIndustryNamesByCodes',
+      new Map<String, String>{ '6220' => 'Test Industry' }
+    );
     DemandAccountExternalQuery demandAcct = new DemandAccountExternalQuery();
     DataSource.QueryContext context = createDemandAccountQueryContext();
     Test.startTest();

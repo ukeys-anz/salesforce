@@ -35,5 +35,6 @@
         <roleAndSubordinatesInternal>CBO_State_Head</roleAndSubordinatesInternal>
         <roleAndSubordinatesInternal>DSI_Head_of_Teams</roleAndSubordinatesInternal>
         <roleAndSubordinatesInternal>TB_Head_of_Transaction_Banking</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>Markets_National_Sales_Director</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

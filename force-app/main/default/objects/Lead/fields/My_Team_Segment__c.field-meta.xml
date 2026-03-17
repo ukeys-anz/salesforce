@@ -16,9 +16,13 @@
         OR
         (
         $UserRole.DeveloperName = &apos;SME_Head_of_NBC&apos;,
-         $UserRole.DeveloperName = &apos;SME_General_Manager&apos;,
-          $UserRole.DeveloperName = &apos;AF_General_Manager&apos;,
-           $UserRole.DeveloperName = &apos;PB_General_Manager&apos;
+        $UserRole.DeveloperName = &apos;SME_General_Manager&apos;,
+        $UserRole.DeveloperName = &apos;AF_General_Manager&apos;,
+        $UserRole.DeveloperName = &apos;PB_General_Manager&apos;,
+        $UserRole.DeveloperName = &apos;Markets_National_Sales_Director&apos;,
+        $UserRole.DeveloperName = &apos;Channel_Segment_Manager&apos;,
+        $UserRole.DeveloperName = &apos;Commercial_Operations_Team&apos;,
+        $UserRole.DeveloperName = &apos;Credit_Overview_Team&apos;
         ),
         true, 
         IF(

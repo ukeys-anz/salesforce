@@ -28,7 +28,7 @@ public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerH
    */
   @TestVisible
   protected override void onBeforeInsert() {
-    RetailBrokerContactActions.checkDuplicateContacts(records);
+    RetailBrokerDuplicateContactAction.checkDuplicateContacts(records, null);
   }
 
   /**
@@ -43,6 +43,10 @@ public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerH
     );
 
     RetailBrokerContactActions.setBlankOfficeGroupOnChangeBrokerSet(
+      records,
+      (Map<Id, Contact>) oldMap
+    );
+    RetailBrokerDuplicateContactAction.checkDuplicateContacts(
       records,
       (Map<Id, Contact>) oldMap
     );

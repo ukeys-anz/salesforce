@@ -67,6 +67,15 @@ public with sharing class BrokerCloudEventBuilder {
     if (mergeNode != null) {
       dataContractMap.put('merge_contact', JSON.serialize(mergeNode));
     }
+
+    if (
+      oldRecord != null &&
+      record.Email != oldRecord.Email &&
+      record.Email != null
+    ) {
+      dataContractMap.put('email_changed', 'true');
+    }
+
     return BrokerCloudEventModel.buildMasterNode(dataContractMap);
   }
 

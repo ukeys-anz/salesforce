@@ -108,4 +108,21 @@ public with sharing class CacheFinancialAccountQueryBaseRepository {
       WITH USER_MODE
     ];
   }
+
+  /**
+   * @description Retrieves industry code and description from Industry__c object
+   * @return Map<String, String>
+   */
+  public Map<String, String> getIndustryNamesByCodes() {
+    Map<String, String> industryNamesByCodes = new Map<String, String>();
+    for (Industry__c industry : [
+      SELECT Code__c, Name
+      FROM Industry__c
+      WHERE IsActive__c = TRUE
+      WITH USER_MODE
+    ]) {
+      industryNamesByCodes.put(industry.Code__c, industry.Name);
+    }
+    return industryNamesByCodes;
+  }
 }
