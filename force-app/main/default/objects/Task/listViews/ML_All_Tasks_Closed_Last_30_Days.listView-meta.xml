@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ML_All_Tasks_Closed_Last_30_Days</fullName>
-    <booleanFilter>1 AND 2 AND 3 AND 4 AND (5 OR 6)</booleanFilter>
+    <booleanFilter>1 AND 2 AND 3 AND 4 AND (5 OR 6) AND 7</booleanFilter>
     <columns>SUBJECT</columns>
     <columns>WHO_NAME</columns>
     <columns>WHAT_NAME</columns>
@@ -39,9 +39,14 @@
         <field>WHAT.WHAT_ID</field>
         <operation>notEqual</operation>
     </filters>
+    <filters>
+        <field>IS_RECURRENCE</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
     <filterScope>Everything</filterScope>
     <label>All Tasks Closed Last 30 Days</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>ANZ_Mobile_Lending</roleAndSubordinatesInternal>
+       <roleAndSubordinatesInternal>ANZ_Mobile_Lending</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

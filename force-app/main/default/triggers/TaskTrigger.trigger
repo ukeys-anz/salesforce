@@ -10,4 +10,5 @@ trigger TaskTrigger on Task(
   CustomerNudgeTaskTriggerHandler customerNudgeHandler = new CustomerNudgeTaskTriggerHandler();
   IDRTaskTriggerHandler triggerHandler = new IDRTaskTriggerHandler();
   LeadResponseTaskTriggerHandler leadResponseHandler = new LeadResponseTaskTriggerHandler();
+  MobileLendingTaskTriggerHandler mlTaskHandler = new MobileLendingTaskTriggerHandler();
 }

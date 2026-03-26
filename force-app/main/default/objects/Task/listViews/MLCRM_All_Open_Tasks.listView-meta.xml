@@ -7,6 +7,7 @@
     <columns>WHO_NAME</columns>
     <columns>WHAT_NAME</columns>
     <columns>DUE_DATE</columns>
+    <columns>IS_RECURRENCE</columns>
     <columns>CORE.USERS.ALIAS</columns>
     <columns>PRIORITY</columns>
     <columns>CREATED_DATE</columns>
@@ -33,6 +34,6 @@
     <filterScope>Everything</filterScope>
     <label>MLCRM All Open Tasks</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>ANZ_Mobile_Lending</roleAndSubordinatesInternal>
+       <roleAndSubordinatesInternal>ANZ_Mobile_Lending</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>
