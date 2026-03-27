@@ -28,7 +28,6 @@
     </values>
     <values>
         <field>RequestedScopes__c</field>
-        <value xsi:type="xsd:string">https://fabric.anz.com/scopes/documents:download https://fabric.anz.com/scopes/entitlements:read
-AU.RETAIL.ACCOUNT.STATEMENT.DOCUMENT.READ</value>
+        <value xsi:type="xsd:string">https://fabric.anz.com/scopes/documents:download https://fabric.anz.com/scopes/entitlements:read AU.RETAIL.ACCOUNT.STATEMENT.DOCUMENT.READ aegis-introspect</value>
     </values>
 </CustomMetadata>

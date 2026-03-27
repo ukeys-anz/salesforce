@@ -243,7 +243,8 @@
                     </criteria>
                     <criteria>
                         <leftValue>{!Record.FinServ__ProductName__r.SourceSystem__c}</leftValue>
-                        <operator>NE</operator>
+                        <operator>EQUAL</operator>
+                        <rightValue>Zafin</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
