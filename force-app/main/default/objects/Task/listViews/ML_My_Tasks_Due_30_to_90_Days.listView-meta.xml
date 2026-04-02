@@ -16,7 +16,7 @@
         <operation>equals</operation>
         <value>0</value>
     </filters>
-     <filters>
+    <filters>
         <field>IS_RECURRENCE</field>
         <operation>equals</operation>
         <value>0</value>

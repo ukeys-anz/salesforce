@@ -48,6 +48,6 @@
     <filterScope>Everything</filterScope>
     <label>All Tasks Due Next 30 Days</label>
     <sharedTo>
-       <roleAndSubordinatesInternal>ANZ_Mobile_Lending</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>ANZ_Mobile_Lending</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>
