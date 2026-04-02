@@ -82,7 +82,13 @@ public without sharing class UserTerritoryActionsRepository {
       return new List<User_Territory__c>();
     }
     return [
-      SELECT Id, ML_Role__c, User__c, Territory__c, Territory__r.Access_Scope__c, Status__c
+      SELECT
+        Id,
+        ML_Role__c,
+        User__c,
+        Territory__c,
+        Territory__r.Access_Scope__c,
+        Status__c
       FROM User_Territory__c
       WHERE
         Territory__c IN :idsOfTerritory
