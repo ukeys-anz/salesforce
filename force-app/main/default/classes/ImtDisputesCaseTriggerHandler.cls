@@ -22,6 +22,19 @@ public with sharing class ImtDisputesCaseTriggerHandler extends Lib_TriggerHandl
   }
 
   /**
+   * @description onApplyDefaults method is called before onBeforeInsert to set the default values for the records.
+   */
+  public override void onApplyDefaults() {
+    Logger.debug('On_Apply_Default started: ' + System.now());
+    DisputeCasesAssignmentRules.assignDisputeCases(
+      (List<Case>) records,
+      (Map<Id, Case>) oldMap
+    );
+    Logger.debug('On_Apply_Default finished: ' + System.now());
+    Logger.saveLog();
+  }
+
+  /**
    * @description onBeforeInsert to handle before insert trigger actions.
    */
   public override void onBeforeInsert() {
@@ -51,6 +64,10 @@ public with sharing class ImtDisputesCaseTriggerHandler extends Lib_TriggerHandl
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     Logger.debug('On_Before_Update started: ' + System.now());
     ImtCaseTriggerActions.updateDescription(records);
+    DisputeCasesAssignmentRules.assignDisputeCases(
+      (List<Case>) records,
+      (Map<Id, Case>) oldMap
+    );
     Logger.debug('On_Before_Update finished: ' + System.now());
     Logger.saveLog();
   }
