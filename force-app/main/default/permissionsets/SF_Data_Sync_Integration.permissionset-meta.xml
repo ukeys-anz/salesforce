@@ -5736,6 +5736,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__FinancialAccount__c.Portfolio_Indicator__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>FinServ__FinancialAccount__c.Product_Name__c</field>
         <readable>true</readable>
@@ -8093,6 +8098,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Product2.ANZ_Product_Code_Num__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Product2.Is_Portfolio__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

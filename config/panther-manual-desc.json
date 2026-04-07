@@ -2727,6 +2727,7 @@
         "System_Record_Status__c",
         "Migration_Status_Date__c"
       ],
+      "IA-2415840": ["Portfolio_Indicator__c"],
       "IA-2415860": [
         "Product_Code_Display__c",
         "Sub_product_Code_Display__c",
@@ -4107,7 +4108,7 @@
         "Product_Origination_System__c",
         "Category__c"
       ],
-      "IA-2415840": ["ExternalId"],
+      "IA-2415840": ["ExternalId", "Is_Portfolio__c"],
       "IA-2415987": [
         "Product_Segment_Type__c",
         "Product_Features__c",
