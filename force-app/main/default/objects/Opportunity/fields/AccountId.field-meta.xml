@@ -7,7 +7,7 @@
     <inlineHelpText>Including  Individual, Organisation and CLG</inlineHelpText>
     <lookupFilter>
         <active>true</active>
-        <booleanFilter>(1 AND 2) OR (3 AND 4)</booleanFilter>
+        <booleanFilter>(1 AND 2) OR (3 AND 4) OR (5 AND 6)</booleanFilter>
         <filterItems>
             <field>$Source.RecordTypeId</field>
             <operation>equals</operation>
@@ -21,12 +21,22 @@
         <filterItems>
             <field>$Source.RecordTypeId</field>
             <operation>notEqual</operation>
-            <value>Mobile Lending Opportunity</value>
+            <value>Commercial Opportunity, Mobile Lending Opportunity</value>
         </filterItems>
         <filterItems>
             <field>Account.Id</field>
             <operation>notEqual</operation>
             <value/>
+        </filterItems>
+        <filterItems>
+            <field>$Source.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Commercial Opportunity</value>
+        </filterItems>
+        <filterItems>
+            <field>Account.Source_System_Name__c</field>
+            <operation>notEqual</operation>
+            <value>CACHE</value>
         </filterItems>
         <isOptional>false</isOptional>
     </lookupFilter>

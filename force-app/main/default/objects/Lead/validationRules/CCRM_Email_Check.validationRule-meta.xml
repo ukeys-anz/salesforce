@@ -10,6 +10,7 @@
     NOT(ISCHANGED(RecordTypeId)),
     NOT REGEX( Email ,  $Label.Regex_Email ),
     NOT(ISCHANGED(Skip_Validations__c)),
+    NOT(CONTAINS( $User.Username,$Label.AdobeIntegrationUserName)),
     NOT(
         AND(
             ISCHANGED(Skip_Validations__c),

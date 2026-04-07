@@ -32,6 +32,15 @@ public with sharing class CommercialOpportunityHelper {
     OPP_LOST,
     OPP_CANCELLED
   };
+  @testVisible
+  private static final String NEW_STAGE = 'New';
+  @testVisible
+  private static final String OPP_DEFAULT_STAGE_ERROR = 'Stage can only be set to New.';
+  @testVisible
+  private static final String OTHER_SOURCE_DETAIL_MANDATORY = 'Other Source Detail is mandatory if Lead Source is Other.';
+  @testVisible
+  private static final String CUSTOMER_NEEDS_ERROR = 'Secondary Customer Needs should not be the same as Customer Needs.';
+  private static final String OTHER = 'Other';
 
   private static final CommercialOpportunityRepository OPP_REPOSITORY = (CommercialOpportunityRepository) Lib_InstanceProvider.forType(
     CommercialOpportunityRepository.class
@@ -379,5 +388,66 @@ public with sharing class CommercialOpportunityHelper {
       ? opportunityName.left(120)
       : opportunityName;
     return opportunityName;
+  }
+
+  /**
+   * @description validate CCRM opportunities
+   * @name validateCCRMOpportunity
+   * @param oppWrapper CCRMOpportunity Wrapper
+   * @param isInsert if the operation is insert
+   */
+  public static void validateCCRMOpportunity(
+    CommercialOpportunityActions.CCRMOpportunityWrapper oppWrapper,
+    Boolean isInsert
+  ) {
+    for (Opportunity oppIterator : oppWrapper.filteredOpps) {
+      List<String> errors = new List<String>();
+
+      //check if stage is not equal to "New" on creation of lead
+      if (isInsert && oppIterator.StageName != NEW_STAGE) {
+        errors.add(OPP_DEFAULT_STAGE_ERROR);
+      }
+      //check if other source detail is provided if leadsource is other
+      if (
+        oppIterator.LeadSource == OTHER &&
+        String.isBlank(oppIterator.Other_Source_Detail__c)
+      ) {
+        errors.add(OTHER_SOURCE_DETAIL_MANDATORY);
+      }
+
+      String errorMessage = String.join(errors, '\n');
+
+      //add error message
+      if (String.isNotBlank(errorMessage)) {
+        oppIterator.addError(errorMessage);
+      }
+    }
+  }
+
+  /**
+   * @description check if secondary customer needs contains customer needs
+   * @name checkIfSecondaryCustomerNeedsContainsCustomerNeeds
+   * @param ccrmOpps ccrm opps
+   * @param oldOppsMap old map of opportunities
+   */
+  public static void checkIfSecondaryCustomerNeedsContainsCustomerNeeds(
+    List<Opportunity> ccrmOpps,
+    Map<Id, Opportunity> oldOppsMap
+  ) {
+    Set<SObjectField> fieldsToCheck = new Set<SObjectField>{
+      Opportunity.Customer_Needs__c,
+      Opportunity.Secondary_Customer_Needs__c
+    };
+
+    List<Opportunity> filteredOppList = ListUtil.filter(ccrmOpps, oldOppsMap)
+      .anyChanged(fieldsToCheck)
+      .allNotNull(fieldsToCheck)
+      .toList();
+
+    for (Opportunity opp : filteredOppList) {
+      if (opp.Secondary_Customer_Needs__c.contains(opp.Customer_Needs__c)) {
+        opp.Secondary_Customer_Needs__c.addError(CUSTOMER_NEEDS_ERROR);
+      }
+    }
   }
 }
