@@ -673,6 +673,16 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Suncorp_Bank_Identifier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Suncorp_Bank_Move__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Account.External_Id__c</field>
         <readable>true</readable>
@@ -8070,6 +8080,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>FinServ__FinancialAccount__c.Sub_product_Code_Display__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.Suncorp_Bank_Identifier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.Suncorp_Bank_Move__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

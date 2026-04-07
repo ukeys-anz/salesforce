@@ -286,7 +286,11 @@
         "Was_ANZx_Customer__c",
         "Worldline_Merchant__c"
       ],
-      "IA-2415840": ["Is_Prospect__c"],
+      "IA-2415840": [
+        "Is_Prospect__c",
+        "Suncorp_Bank_Identifier__c",
+        "Suncorp_Bank_Move__c"
+      ],
       "IA-2415997": ["PI_Score__c"],
       "IA-2468715": [
         "AccountNumber",
@@ -2727,7 +2731,11 @@
         "System_Record_Status__c",
         "Migration_Status_Date__c"
       ],
-      "IA-2415840": ["Portfolio_Indicator__c"],
+      "IA-2415840": [
+        "Portfolio_Indicator__c",
+        "Suncorp_Bank_Identifier__c",
+        "Suncorp_Bank_Move__c"
+      ],
       "IA-2415860": [
         "Product_Code_Display__c",
         "Sub_product_Code_Display__c",
@@ -5528,7 +5536,8 @@
         "Fluctuating_Seasonal_Start_Expiry_Limit2__c",
         "Fluctuating_Seasonal_Start_Expiry_Limit3__c"
       ],
-      "IA-2415984": ["Statement_Mailing_Address__c"]
+      "IA-2415984": ["Statement_Mailing_Address__c"],
+      "IA-2415840": ["Suncorp_Bank_Identifier__c", "Suncorp_Bank_Move__c"]
     },
     "Credit_Card__x": {
       "IA-2415720": [
@@ -5563,7 +5572,8 @@
         "CPID__c"
       ],
       "IA-2415984": ["Statement_Mailing_Address__c"],
-      "IA-2415999": ["Frequent_Flyer_Number__c"]
+      "IA-2415999": ["Frequent_Flyer_Number__c"],
+      "IA-2415840": ["Suncorp_Bank_Identifier__c", "Suncorp_Bank_Move__c"]
     },
     "Credit_Card_Fee__x": {
       "IA-2415720": ["Credit_Card__c", "Fee_Amount__c", "Fee_Type__c"]
@@ -5647,7 +5657,8 @@
         "Amount_Advanced_To_Date__c",
         "Index_Code_Current__c",
         "Interest_Type_Current__c"
-      ]
+      ],
+      "IA-2415840": ["Suncorp_Bank_Identifier__c", "Suncorp_Bank_Move__c"]
     },
     "Term_Deposit__x": {
       "IA-2415720": [
@@ -5680,7 +5691,8 @@
         "Source_System_Status__c",
         "Relationship__c"
       ],
-      "IA-2415984": ["Statement_Mailing_Address__c"]
+      "IA-2415984": ["Statement_Mailing_Address__c"],
+      "IA-2415840": ["Suncorp_Bank_Identifier__c", "Suncorp_Bank_Move__c"]
     },
     "Other_Limits_and_Liabilities__x": {
       "IA-2415720": [
@@ -5699,7 +5711,8 @@
         "Product_Code__c",
         "Product_Name__c",
         "Source_System_Status__c"
-      ]
+      ],
+      "IA-2415840": ["Suncorp_Bank_Identifier__c", "Suncorp_Bank_Move__c"]
     },
     "Facility__x": {
       "IA-2415720": [
@@ -5759,7 +5772,8 @@
         "Source_System_Status__c",
         "TPMI_SAO__c"
       ],
-      "IA-2415984": ["Statement_Mailing_Address__c"]
+      "IA-2415984": ["Statement_Mailing_Address__c"],
+      "IA-2415840": ["Suncorp_Bank_Identifier__c", "Suncorp_Bank_Move__c"]
     },
     "Account_Relationship__x": {
       "IA-2415720": [

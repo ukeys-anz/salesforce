@@ -125,7 +125,15 @@ public with sharing class OtherLimitsAndLiabilitiesExternalQuery extends Financi
         'Product_Name' => getProductName(fa.accountNumber),
         'Source_System_Status' => MAP_SOURCE_SYSTEM_STATUS.get(
           fa.sourceSystemStatus
-        ) ?? fa.sourceSystemStatus
+        ) ?? fa.sourceSystemStatus,
+        'SuncorpBankMove' => FinancialAccountQueryHelper.getSuncorpBankMoveDate(
+          fa.accountNumber,
+          this.accountRoleMap
+        ),
+        'SuncorpBankIdentifier' => FinancialAccountQueryHelper.getSuncorpBankIdentifier(
+          fa.accountNumber,
+          this.accountRoleMap
+        )
       };
       result.externalRecords.add(row);
     }
