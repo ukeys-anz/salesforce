@@ -16,6 +16,7 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
   @track value;
   @track allValues = [];
   @track allSelected = false;
+  @track executeExpCode = false;
   customerCapId;
   customerIdentifier;
   ocvId;
@@ -47,7 +48,8 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     if (
       data?.Issue2Checkbox === "No" &&
       data?.AccountPolicyNumber2 &&
-      this.omniJsonDef.name === "AccountPolicyNumber2"
+      this.omniJsonDef.name === "AccountPolicyNumber2" &&
+      !this._omniData.Case.CustomerDetails?.complaintAbout
     ) {
       this.omniUpdateDataJson("");
       this.value = "";
@@ -56,7 +58,8 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     if (
       (data?.Issue2Checkbox === "No" || data?.Issue3Checkbox === "No") &&
       data?.AccountPolicyNumber3 &&
-      this.omniJsonDef.name === "AccountPolicyNumber3"
+      this.omniJsonDef.name === "AccountPolicyNumber3" &&
+      !this._omniData.Case.CustomerDetails?.complaintAbout
     ) {
       this.omniUpdateDataJson("");
       this.value = "";
@@ -106,10 +109,27 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     // To select all Account/Policy Number values by default when Issue typen is 'Financial Difficulty & Hardship'
     if (
       data?.Case?.CustomerDetails?.complaintAbout &&
-      !this.allValues?.length
+      !this.allValues?.length &&
+      data?.Case?.isThisCustomerComplaint === "Yes" &&
+      this.executeExpCode === false
     ) {
+      let currentField = this.omniJsonDef?.name;
       this.allValues.push("N/A");
       this.value = "N/A";
+      this.omniApplyCallResp({
+        Case: {
+          ComplaintDetails: {
+            [currentField]: this.value
+          }
+        }
+      });
+      this.executeExpCode = true;
+    }
+    if (
+      !data?.Case?.CustomerDetails?.complaintAbout &&
+      this.executeExpCode === true
+    ) {
+      this.executeExpCode = false;
     }
     let cmpDetails = data ? (data.Case ? data.Case.ComplaintDetails : "") : "";
     if (this.checkIssueTypeFDH(cmpDetails)) {
@@ -118,10 +138,10 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
         this.allValues.push(acc.value);
         this.value = acc.value;
       });
-      if (!this.allSelected) {
+      if (!this.allSelected && this.allValues.length) {
         this.updateDataJson();
+        this.allSelected = true;
       }
-      this.allSelected = true;
     } else if (
       cmpDetails.IssueType !== FINANCIAL_DIFFICULTY ||
       cmpDetails.IssueType2 !== FINANCIAL_DIFFICULTY ||

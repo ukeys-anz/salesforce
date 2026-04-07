@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Franchise_Opportunity</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <hasMenubar>false</hasMenubar>
+    <hasScrollbars>true</hasScrollbars>
+    <hasToolbar>false</hasToolbar>
+    <height>600</height>
+    <isResizable>true</isResizable>
+    <linkType>url</linkType>
+    <masterLabel>Franchise Opportunity</masterLabel>
+    <openType>newWindow</openType>
+    <position>none</position>
+    <protected>false</protected>
+    <showsLocation>false</showsLocation>
+    <showsStatus>false</showsStatus>
+    <url>/lightning/o/Opportunity/new?recordTypeId={!$Label.Commercial_Opportunity_RecordTypeId}
+&amp;defaultFieldValues=
+AccountId={!Account.Id},
+StageName=New,
+Specialisation__c={!IF(
+NOT( ISBLANK( Account.Franchise_Code__c )
+),
+&quot;Franchise&quot;,
+&quot;ESG&quot;)}
+</url>
+</WebLink>

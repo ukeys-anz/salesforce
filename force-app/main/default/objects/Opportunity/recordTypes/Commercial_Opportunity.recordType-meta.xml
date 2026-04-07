@@ -254,6 +254,32 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Specialisation_SubCategory__c</picklist>
+        <values>
+            <fullName>Insights</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ESG</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Specialisation__c</picklist>
+        <values>
+            <fullName>Insights</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ESG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Franchise</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Type</picklist>
         <values>
             <fullName>Existing Business</fullName>
