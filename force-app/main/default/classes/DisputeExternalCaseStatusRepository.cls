@@ -2,9 +2,10 @@
  * @author Tan Phan
  * @since 05/2024
  * @description This class provides SOQL and DML helpers for classes related DisputeExternalCaseStatus.
+ * We are using inherited sharing for this repository as the methods in this class are called from classes which are using with sharing and without sharing we want to make sure the sharing context is maintained when the queries are executed.
  * @runTests DisputeExternalCaseStatusActionsTest
  */
-public with sharing class DisputeExternalCaseStatusRepository {
+public inherited sharing class DisputeExternalCaseStatusRepository {
   /**
    * @description Retrieves custom metadata PegaExternalCaseStatuses__mdt records.
    * @return A list of PegaExternalCaseStatuses__mdt records
