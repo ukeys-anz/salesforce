@@ -569,6 +569,34 @@ public with sharing class CommercialOpportunityActions {
   }
 
   /**
+   * @description : This is used to reset Preferred Franchise field value when Specialisation is not Franchise
+   * @param records list of opportunities
+   * @param oldMap old map of opportunities
+   */
+  public static void resetPreferredFranchiseForNonFranchiseSpecialisation(
+    List<Opportunity> records,
+    Map<Id, Opportunity> oldMap
+  ) {
+    List<Opportunity> oppsToResetPreferredFranchise = ListUtil.filter(
+        records,
+        oldMap
+      )
+      .changed(Opportunity.Specialisation__c)
+      .notEquals(Opportunity.Specialisation__c, 'Franchise')
+      .toList();
+
+    if (oppsToResetPreferredFranchise.isEmpty()) {
+      return;
+    }
+
+    List<Opportunity> oppsWithResetPreferredFranchise = ListUtil.setField(
+      oppsToResetPreferredFranchise,
+      Opportunity.Preferred_Franchise__c,
+      null
+    );
+  }
+
+  /**
    * @description This is used to insert and delete the AF share record  based on Opp Owner change
    * @name updateAFShareRecordsOnOwnerChange
    * @param records list of opportunities

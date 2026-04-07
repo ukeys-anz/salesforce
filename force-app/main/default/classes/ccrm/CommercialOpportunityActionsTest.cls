@@ -976,6 +976,59 @@ public class CommercialOpportunityActionsTest {
   }
 
   @isTest
+  static void resetPreferredFranchiseForNonFranchiseSpecialisationTest() {
+    registerMocks();
+    Id oppFranToNonFranId = Lib_FakeIdGenerator.getMockId(
+      Opportunity.SObjectType
+    );
+    Id accountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+
+    //GIVEN Opportunity Record where Specialisation is changed from 'Franchise'
+    Franchise_Brand__c franchiseRecord = new Franchise_Brand__c(
+      Id = Lib_FakeIdGenerator.getMockId(Franchise_Brand__c.SObjectType),
+      Name = 'Franchise A'
+    );
+
+    List<Opportunity> records = new List<Opportunity>{
+      new Opportunity(
+        Id = oppFranToNonFranId,
+        AccountId = accountId,
+        Name = 'Test',
+        StageName = 'In Progress',
+        RecordTypeid = RTOpportunity.commercialOpportunity,
+        Preferred_Franchise__c = franchiseRecord.Id,
+        Specialisation__c = 'Insights'
+      )
+    };
+
+    Map<Id, Opportunity> oldMap = new Map<Id, Opportunity>{
+      oppFranToNonFranId => new Opportunity(
+        Id = oppFranToNonFranId,
+        AccountId = accountId,
+        Name = 'Test',
+        StageName = 'In Progress',
+        RecordTypeid = RTOpportunity.commercialOpportunity,
+        Preferred_Franchise__c = franchiseRecord.Id,
+        Specialisation__c = 'Franchise'
+      )
+    };
+
+    //WHEN calling resetPreferredFranchiseForNonFranchiseSpecialisation method
+    Test.startTest();
+    CommercialOpportunityActions.resetPreferredFranchiseForNonFranchiseSpecialisation(
+      records,
+      oldMap
+    );
+    Test.stopTest();
+
+    // THEN Preferred_Franchise__c should be set to null
+    Assert.isNull(
+      records[0].Preferred_Franchise__c,
+      'Preferred Franchise should be reset when Specialisation is Non-Franchise'
+    );
+  }
+
+  @isTest
   static void updateAFShareRecordsOnOwnerChangeTest() {
     registerMocks();
     //GIVEN records, oldMap

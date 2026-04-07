@@ -17,173 +17,222 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
+                <fullName>Franchise</fullName>
+                <default>false</default>
+                <label>Franchise</label>
+            </value>
+            <value>
+                <fullName>Insights</fullName>
+                <default>false</default>
+                <label>Insights</label>
+            </value>
+            <value>
+                <fullName>ESG</fullName>
+                <default>false</default>
+                <label>ESG</label>
+            </value>
+            <value>
                 <fullName>ACC - Accountant</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>ACC - Accountant</label>
             </value>
             <value>
                 <fullName>AGE - Aged Care Operator</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>AGE - Aged Care Operator</label>
             </value>
             <value>
                 <fullName>BOD - Body Corp or Strata Mgr</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>BOD - Body Corp or Strata Mgr</label>
             </value>
             <value>
                 <fullName>BRO - Finance Broker</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>BRO - Finance Broker</label>
             </value>
             <value>
                 <fullName>CHI - Child Care</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>CHI - Child Care</label>
             </value>
             <value>
                 <fullName>COO - Broker-connected Customer</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>COO - Broker-connected Customer</label>
             </value>
             <value>
                 <fullName>DEN - Dentists</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>DEN - Dentists</label>
             </value>
             <value>
                 <fullName>DEV - Property Developer</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>DEV - Property Developer</label>
             </value>
             <value>
                 <fullName>DOC - Medical Practitioner</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>DOC - Medical Practitioner</label>
             </value>
             <value>
                 <fullName>FIN - Financial Planner</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>FIN - Financial Planner</label>
             </value>
             <value>
                 <fullName>FRA - Franchise System</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>FRA - Franchise System</label>
             </value>
             <value>
                 <fullName>GCG - Govt Consultative Group</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>GCG - Govt Consultative Group</label>
             </value>
             <value>
                 <fullName>INB - Insurance Broker</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>INB - Insurance Broker</label>
             </value>
             <value>
                 <fullName>LEG - Legal Firm</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>LEG - Legal Firm</label>
             </value>
             <value>
                 <fullName>LSR - Landmark Store Referral</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>LSR - Landmark Store Referral</label>
             </value>
             <value>
                 <fullName>MCD - McDonalds</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>MCD - McDonalds</label>
             </value>
             <value>
                 <fullName>MGT - Management Rights</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>MGT - Management Rights</label>
             </value>
             <value>
                 <fullName>MIN - Mining &amp; Infrastructure</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>MIN - Mining &amp; Infrastructure</label>
             </value>
             <value>
                 <fullName>ONE - OnePath Fin Planning</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>ONE - OnePath Fin Planning</label>
             </value>
             <value>
                 <fullName>PHA - Pharmacy</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>PHA - Pharmacy</label>
             </value>
             <value>
                 <fullName>RRR - Real Estate Rent Roll</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>RRR - Real Estate Rent Roll</label>
             </value>
             <value>
                 <fullName>RTV - Retirement Village</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>RTV - Retirement Village</label>
             </value>
             <value>
                 <fullName>SAA - IGA-1in7 Fund</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>SAA - IGA-1in7 Fund</label>
             </value>
             <value>
                 <fullName>SAB - IGA</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>SAB - IGA</label>
             </value>
             <value>
                 <fullName>SAC - IGA Everyday &amp; SUPA</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>SAC - IGA Everyday &amp; SUPA</label>
             </value>
             <value>
                 <fullName>SAD - Franklins</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>SAD - Franklins</label>
             </value>
             <value>
                 <fullName>SAE - SPAR</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>SAE - SPAR</label>
             </value>
             <value>
                 <fullName>SAF - Foodworks</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>SAF - Foodworks</label>
             </value>
             <value>
                 <fullName>SFP - Platinum Broker</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>SFP - Platinum Broker</label>
             </value>
             <value>
                 <fullName>SFS - Spotter</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>SFS - Spotter</label>
             </value>
             <value>
                 <fullName>SFU - Self Managed Super Fund</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>SFU - Self Managed Super Fund</label>
             </value>
             <value>
                 <fullName>SGP - Property Investor</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>SGP - Property Investor</label>
             </value>
             <value>
                 <fullName>SUP - Independent Supermarket</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>SUP - Independent Supermarket</label>
             </value>
             <value>
                 <fullName>VET - Veterinarian</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>VET - Veterinarian</label>
             </value>
         </valueSetDefinition>

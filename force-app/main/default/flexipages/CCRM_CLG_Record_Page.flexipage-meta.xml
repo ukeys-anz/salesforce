@@ -100,6 +100,16 @@
                         <valueListItems>
                             <value>Global.Create_Task_CCRM</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>CustomButton.Account.Franchise_Opportunity</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.Franchise_Code__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>&apos;&apos;</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>

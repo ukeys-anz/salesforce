@@ -99,6 +99,12 @@
     "Known_Issues__c": {
       "IDR_Non_Financial_Remedy__c": "Required when Complaint Remedy is chosen as 'Non-Functional Remedy' to capture the appropriate remedy"
     },
+    "Franchise_Brand__c": {
+      "Name__c": "Brand name",
+      "Brand_Code__c": "Code",
+      "Panel_Brand__c": "Is Panel Brand",
+      "Is_Active__c" : "Is Active Franchise"
+    },
     "Lead": {
       "FinServ__ExpressedInterest__c": "The type of needs customer require",
       "FinServ__PotentialValue__c": "Dollar amount for a lead",
@@ -197,6 +203,7 @@
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
     "Foreign_Exchange__x": "External Foreign Currency accounts",
     "Foreign_Exchange_Deal__x": "External Foreign Exchange Deals",
+    "Franchise_Brand__c": "Represents a franchise brand.  Use for tagging accounts, products, etc.",
     "Group": "A set of User records.",
     "IDR_Omni_Settings__c": "Contains settings to enable or disable Omni forms for CMOS complaints",
     "Interaction": "Represents the interaction details between the coach and the customer",
@@ -392,7 +399,8 @@
       "IA-2415855": [
         "CustomerExitDate__c",
         "CustomerExitFlag__c",
-        "CLG_Credit_Rating__c"
+        "CLG_Credit_Rating__c",
+        "Franchise_Code__c"
       ],
       "IA-2415998": ["VOI_Expiry_Date_Classic__c", "VOI_Status_Classic__c"],
       "IA-2453595": ["Migration_Status__c", "DeceasedEstateStatus__c"]
@@ -2798,6 +2806,15 @@
         "LastModifiedDate"
       ]
     },
+    "Franchise_Brand__c": {
+      "IA-2415840": [
+        "Name__c",
+        "Brand_Code__c",
+        "Panel_Brand__c",
+        "Is_Active__c",
+        "OwnerId"
+      ]
+    },
     "FinancialAccountUIConfiguration__mdt": {
       "IA-2468715": [
         "Account_Type__c",
@@ -3750,7 +3767,9 @@
         "Opp_Id__c",
         "Type",
         "Territory__c",
-        "Version__c"
+        "Version__c",
+        "Preferred_Franchise__c",
+        "Specialisation_SubCategory__c"
       ],
       "IA-2415860": [
         "Associated_Source_Detail__c",
