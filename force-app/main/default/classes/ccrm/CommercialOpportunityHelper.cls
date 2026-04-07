@@ -434,49 +434,19 @@ public with sharing class CommercialOpportunityHelper {
     List<Opportunity> ccrmOpps,
     Map<Id, Opportunity> oldOppsMap
   ) {
-    for (Opportunity oppIterator : ccrmOpps) {
-      Opportunity oldOpp;
-      Boolean isCustomerNeedsChanged;
-      Boolean isSecNeedsChanged;
-      SObjectType objType;
-      Boolean hasSameValue;
+    Set<SObjectField> fieldsToCheck = new Set<SObjectField>{
+      Opportunity.Customer_Needs__c,
+      Opportunity.Secondary_Customer_Needs__c
+    };
 
-      objType = Schema.Opportunity.getSObjectType();
+    List<Opportunity> filteredOppList = ListUtil.filter(ccrmOpps, oldOppsMap)
+      .anyChanged(fieldsToCheck)
+      .allNotNull(fieldsToCheck)
+      .toList();
 
-      hasSameValue = RecordComparisonUtil.picklistContainSameValue(
-        oppIterator,
-        Opportunity.Secondary_Customer_Needs__c,
-        Opportunity.Customer_Needs__c,
-        objType
-      );
-
-      if (oldOppsMap != null) {
-        oldOpp = oldOppsMap.get(oppIterator.Id);
-
-        isCustomerNeedsChanged =
-          oldOpp != null &&
-          RecordComparisonUtil.fieldWasChanged(
-            oppIterator,
-            oldOpp,
-            Opportunity.Customer_Needs__c
-          );
-        isSecNeedsChanged =
-          oldOpp != null &&
-          RecordComparisonUtil.fieldWasChangedAndNotEqualNull(
-            oppIterator,
-            oldOpp,
-            Opportunity.Secondary_Customer_Needs__c.getDescribe()
-              .getSObjectField()
-          );
-      }
-
-      // if secondary customer needs has value same as customer needs
-      // throw error
-      if (
-        (oldOppsMap == null || isCustomerNeedsChanged || isSecNeedsChanged) &&
-        hasSameValue
-      ) {
-        oppIterator.Secondary_Customer_Needs__c.addError(CUSTOMER_NEEDS_ERROR);
+    for (Opportunity opp : filteredOppList) {
+      if (opp.Secondary_Customer_Needs__c.contains(opp.Customer_Needs__c)) {
+        opp.Secondary_Customer_Needs__c.addError(CUSTOMER_NEEDS_ERROR);
       }
     }
   }
