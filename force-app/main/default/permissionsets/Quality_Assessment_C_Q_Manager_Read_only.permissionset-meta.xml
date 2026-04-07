@@ -473,6 +473,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Quality_Assessment__c.IsItemCaseManagerLoggedInUser__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Quality_Assessment__c.Is_the_customer_information_correct__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1002,7 +1007,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Quality_Assessment__c.Team_Manager_Comments__c</field>
         <readable>true</readable>
     </fieldPermissions>

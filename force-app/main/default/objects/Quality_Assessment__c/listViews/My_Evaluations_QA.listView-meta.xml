@@ -23,11 +23,12 @@
     <filters>
         <field>Evaluation_Type__c</field>
         <operation>equals</operation>
-        <value>Final Letter Review Assessment,Call Review Assessment,C &amp; Q Assessment,Customer Resolution Assessment,Letter Review Assessment</value>
+        <value>Final Letter Review Assessment,Call Review Assessment,C &amp; Q Assessment,Customer Resolution Assessment,Letter Review Assessment,Frontline Assessment</value>
     </filters>
     <filterScope>Everything</filterScope>
     <label>My Evaluations</label>
     <sharedTo>
+        <role>Banker</role>
         <role>Customer_Resolution</role>
     </sharedTo>
 </ListView>
