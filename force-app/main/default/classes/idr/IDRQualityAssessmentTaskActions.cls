@@ -164,7 +164,11 @@ public with sharing class IDRQualityAssessmentTaskActions {
     List<Task> taskRecords = new List<Task>();
     taskRecords.addAll(prepareStandardTask(completedCQAssessments));
     taskRecords.addAll(prepareFeedbackTask(completedCQAssessments));
-    DML_REPOSITORY.doInsert(taskRecords, new DmlConfig().systemMode());
+    // WithoutSharing is required for CaseManager/TeamManager selected as ANZx Coach users because Users with ANZ Roles do not have access to ANZx Roles.
+    DML_REPOSITORY.doInsert(
+      taskRecords,
+      new DmlConfig().systemMode().withoutSharing()
+    );
   }
   /**
    * @description To prepare a Task for all the QA records updated
@@ -173,8 +177,23 @@ public with sharing class IDRQualityAssessmentTaskActions {
    */
   static List<Task> prepareFeedbackTask(List<Quality_Assessment__c> qaRecords) {
     List<Quality_Assessment__c> filteredRecords = ListUtil.filter(qaRecords)
+      .equals(
+        Quality_Assessment__c.Evaluation_Type__c,
+        IDRConstants.QA_CR_ASSESSMENT
+      )
       .notEquals(Quality_Assessment__c.Corrective_actions_for_TM_CM__c, null)
       .toList();
+    List<Quality_Assessment__c> filteredFLRecords = ListUtil.filter(qaRecords)
+      .equals(
+        Quality_Assessment__c.Evaluation_Type__c,
+        IDRConstants.QA_FRONTLINE_ASSESSMENT
+      )
+      .notEquals(
+        Quality_Assessment__c.Corrective_actions_requiring_FL_action__c,
+        null
+      )
+      .toList();
+    filteredRecords.addAll(filteredFLRecords);
     List<Task> taskRecords = new List<Task>();
     for (Quality_Assessment__c record : filteredRecords) {
       List<Object> parameters = new List<Object>{
@@ -209,10 +228,6 @@ public with sharing class IDRQualityAssessmentTaskActions {
       .anyChangedTo(
         new Set<SObjectField>{ Quality_Assessment__c.Status__c },
         QualityAssessmentActions.STATUS_COMPLETE
-      )
-      .notEquals(
-        Quality_Assessment__c.Evaluation_Type__c,
-        IDRConstants.QA_FRONTLINE_ASSESSMENT
       )
       .toList();
   }
@@ -273,8 +288,22 @@ public with sharing class IDRQualityAssessmentTaskActions {
       newList,
       oldMap
     );
+    Set<Id> teamManagerIds = ListUtil.getIds(
+      filteredRecords,
+      Quality_Assessment__c.TeamManager__c
+    );
+    Set<Id> filteredTeamManagerIds = PermissionUtils.hasAnyPermissionSets(
+      teamManagerIds,
+      new Set<String>{ 'IDR_Level_2', 'IDR_Level_3' }
+    );
     List<Quality_Assessment__Share> shareRecords = new List<Quality_Assessment__Share>();
     for (Quality_Assessment__c record : filteredRecords) {
+      if (
+        filteredTeamManagerIds.contains(record.TeamManager__c) &&
+        record.Evaluation_Type__c != IDRConstants.QA_FRONTLINE_ASSESSMENT
+      ) {
+        continue;
+      }
       shareRecords.add(prepareQAShareRecord(record));
     }
     // Quality_Assessment__Share record for CaseManager__c is created after a calculated delay.
@@ -294,7 +323,12 @@ public with sharing class IDRQualityAssessmentTaskActions {
       RTQualityAssessment.idrReviewAssessmentId => 'Read'
     };
     return new Quality_Assessment__Share(
-      AccessLevel = recordAccess.get(record.RecordTypeId),
+      AccessLevel = PermissionUtils.hasPermissionSet(
+          record.TeamManager__c,
+          'IDR_Level_3'
+        )
+        ? 'Read'
+        : recordAccess.get(record.RecordTypeId),
       ParentId = record.Id,
       UserOrGroupId = record.TeamManager__c
     );
@@ -314,10 +348,6 @@ public with sharing class IDRQualityAssessmentTaskActions {
       .anyChangedTo(
         new Set<SObjectField>{ Quality_Assessment__c.Status__c },
         QualityAssessmentActions.STATUS_COMPLETE
-      )
-      .notEquals(
-        Quality_Assessment__c.Evaluation_Type__c,
-        IDRConstants.QA_FRONTLINE_ASSESSMENT
       )
       .notEqualsToField(
         Quality_Assessment__c.OwnerId,
@@ -354,7 +384,10 @@ public with sharing class IDRQualityAssessmentTaskActions {
     List<Task> taskRecords = new List<Task>();
     taskRecords.addAll(prepareCMTask(filteredRecords));
     taskRecords.addAll(prepareTLTask(filteredRecords));
-    DML_REPOSITORY.doInsert(taskRecords, new DmlConfig().systemMode());
+    DML_REPOSITORY.doInsert(
+      taskRecords,
+      new DmlConfig().systemMode().withoutSharing()
+    );
   }
   /**
    * @description To prepare a Task for all the QA records where the Corrective actions for CM is not null.

@@ -36,8 +36,8 @@
             </value>
         </inputParameters>
         <label>Send In-App Notification</label>
-        <locationX>622</locationX>
-        <locationY>1535</locationY>
+        <locationX>1106</locationX>
+        <locationY>2201</locationY>
         <nameSegment>customNotificationAction</nameSegment>
         <offset>0</offset>
     </actionCalls>
@@ -77,9 +77,122 @@
             <targetReference>Create_Assessment_Share_records</targetReference>
         </connector>
         <label>Assignment Quality Assessment Share</label>
-        <locationX>622</locationX>
-        <locationY>1211</locationY>
+        <locationX>1106</locationX>
+        <locationY>1877</locationY>
     </assignments>
+    <assignments>
+        <name>Set_True_If_Case_Manager_has_access</name>
+        <assignmentItems>
+            <assignToReference>hasAccess</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Does_Case_Manager_has_access</targetReference>
+        </connector>
+        <label>Set True If Case Manager has access</label>
+        <locationX>1326</locationX>
+        <locationY>1427</locationY>
+    </assignments>
+    <collectionProcessors>
+        <name>Filter_permission_set_assignments</name>
+        <assignNextValueToReference>currentItem_Filter_permission_set_assignments</assignNextValueToReference>
+        <collectionProcessorType>FilterCollectionProcessor</collectionProcessorType>
+        <collectionReference>Get_Permission_Set_Group</collectionReference>
+        <conditionLogic>and</conditionLogic>
+        <conditions>
+            <leftValueReference>currentItem_Filter_permission_set_assignments.Id</leftValueReference>
+            <operator>EqualTo</operator>
+            <rightValue>
+                <elementReference>Loop_1.PermissionSetGroupId</elementReference>
+            </rightValue>
+        </conditions>
+        <connector>
+            <targetReference>Check_Filtered_Permission_set_assignments</targetReference>
+        </connector>
+        <elementSubtype>FilterCollectionProcessor</elementSubtype>
+        <label>Filter permission set assignments</label>
+        <locationX>1458</locationX>
+        <locationY>1211</locationY>
+    </collectionProcessors>
+    <decisions>
+        <name>Check_Filtered_Permission_set_assignments</name>
+        <defaultConnector>
+            <targetReference>Loop_1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <label>Check Filtered Permission set assignments</label>
+        <locationX>1458</locationX>
+        <locationY>1319</locationY>
+        <rules>
+            <name>If_Filtered_Permission_set_assignment_in_not_empty</name>
+            <conditionLogic>(1 AND 2) OR (3 AND 4 AND 5)</conditionLogic>
+            <conditions>
+                <leftValueReference>Filter_permission_set_assignments</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Loop_1.PermissionSetGroup.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>IDR_Level_1</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Filter_permission_set_assignments</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Loop_1.PermissionSetGroup.DeveloperName</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>IDR_Level_1</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Evaluation_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Frontline Assessment</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_True_If_Case_Manager_has_access</targetReference>
+            </connector>
+            <label>If Filtered Permission set assignment in not empty</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Does_Case_Manager_has_access</name>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <label>Does Case Manager has access ?</label>
+        <locationX>1238</locationX>
+        <locationY>1769</locationY>
+        <rules>
+            <name>Case_Manage_has_access</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>hasAccess</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assignment_Quality_Assessment_Share</targetReference>
+            </connector>
+            <label>Case Manage has access</label>
+        </rules>
+    </decisions>
     <decisions>
         <name>Is_Assessment_Owned_by_Case_Manager</name>
         <defaultConnector>
@@ -87,7 +200,7 @@
         </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <label>Is Assessment Owned by Case Manager</label>
-        <locationX>556</locationX>
+        <locationX>930</locationX>
         <locationY>779</locationY>
         <rules>
             <name>Assessment_is_Owned_by_Case_Manager</name>
@@ -183,32 +296,10 @@
         </rules>
     </decisions>
     <decisions>
-        <name>Is_Case_Manager_Level_1</name>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <label>Is Case Manager Level 1</label>
-        <locationX>1128</locationX>
-        <locationY>1103</locationY>
-        <rules>
-            <name>Case_Manager_is_Level_1</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Get_Permission_Set_Assignment.Id</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Assignment_Quality_Assessment_Share</targetReference>
-            </connector>
-            <label>Case Manager is Level 1</label>
-        </rules>
-    </decisions>
-    <decisions>
         <name>Is_This_C_Q_Assessment</name>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <label>Is This C&amp;Q Assessment</label>
-        <locationX>666</locationX>
+        <locationX>1106</locationX>
         <locationY>276</locationY>
         <rules>
             <name>This_is_C_Q_Assessment</name>
@@ -227,13 +318,6 @@
                     <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
-            <conditions>
-                <leftValueReference>$Record.Evaluation_Type__c</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue>Frontline Assessment</stringValue>
-                </rightValue>
-            </conditions>
             <connector>
                 <targetReference>Is_Assessment_Owned_by_Case_Manager</targetReference>
             </connector>
@@ -243,6 +327,20 @@
     <environments>Default</environments>
     <interviewLabel>Quality Assessment CMOS {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Quality Assessment CMOS</label>
+    <loops>
+        <name>Loop_1</name>
+        <collectionReference>Get_All_Permission_Set_Assignments</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <label>Loop 1</label>
+        <locationX>1238</locationX>
+        <locationY>1103</locationY>
+        <nextValueConnector>
+            <targetReference>Filter_permission_set_assignments</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Does_Case_Manager_has_access</targetReference>
+        </noMoreValuesConnector>
+    </loops>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -269,9 +367,30 @@
         </connector>
         <inputReference>Quality_Assessment_Share_Record</inputReference>
         <label>Create Assessment Share records</label>
-        <locationX>622</locationX>
-        <locationY>1319</locationY>
+        <locationX>1106</locationX>
+        <locationY>1985</locationY>
     </recordCreates>
+    <recordLookups>
+        <name>Get_All_Permission_Set_Assignments</name>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_1</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AssigneeId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Case_Manager__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <label>Get All Permission Set Assignments</label>
+        <locationX>1238</locationX>
+        <locationY>995</locationY>
+        <object>PermissionSetAssignment</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <recordLookups>
         <name>Get_Notification_Type</name>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
@@ -288,46 +407,18 @@
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <label>Get Notification Type</label>
-        <locationX>622</locationX>
-        <locationY>1427</locationY>
+        <locationX>1106</locationX>
+        <locationY>2093</locationY>
         <object>CustomNotificationType</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>Get_Permission_Set_Assignment</name>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Is_Case_Manager_Level_1</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>AssigneeId</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>$Record.Case_Manager__c</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>PermissionSetGroupId</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_Permission_Set_Group.Id</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <label>Get Permission Set Assignment</label>
-        <locationX>754</locationX>
-        <locationY>995</locationY>
-        <object>PermissionSetAssignment</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
         <name>Get_Permission_Set_Group</name>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_Permission_Set_Assignment</targetReference>
+            <targetReference>Get_All_Permission_Set_Assignments</targetReference>
         </connector>
-        <filterLogic>and</filterLogic>
+        <filterLogic>or</filterLogic>
         <filters>
             <field>DeveloperName</field>
             <operator>EqualTo</operator>
@@ -335,9 +426,23 @@
                 <stringValue>IDR_Level_1</stringValue>
             </value>
         </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>IDR_Level_3</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>IDR_Level_2</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
         <label>Get Permission Set Group</label>
-        <locationX>754</locationX>
+        <locationX>1238</locationX>
         <locationY>887</locationY>
         <object>PermissionSetGroup</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -345,7 +450,7 @@
     <recordUpdates>
         <name>Auto_populate_Accepted_by_TM_on_Team_manager_response</name>
         <description>If the Team Manager does not complete the &apos;Team Manager Response&apos; field on the evaluation within 5 business days then set the field to &apos;Accepted by TM&apos;</description>
-        <filterLogic>and</filterLogic>
+        <filterLogic>(1 OR 3) AND 2</filterLogic>
         <filters>
             <field>Evaluation_Type__c</field>
             <operator>EqualTo</operator>
@@ -360,6 +465,13 @@
                 <stringValue>Awaiting response from TM</stringValue>
             </value>
         </filters>
+        <filters>
+            <field>Evaluation_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Frontline Assessment</stringValue>
+            </value>
+        </filters>
         <inputAssignments>
             <field>Team_Manager_Response__c</field>
             <value>
@@ -368,7 +480,7 @@
         </inputAssignments>
         <inputReference>$Record</inputReference>
         <label>Auto-populate &apos;Accepted by TM&apos; on Team manager response</label>
-        <locationX>1018</locationX>
+        <locationX>1458</locationX>
         <locationY>276</locationY>
     </recordUpdates>
     <recordUpdates>
@@ -441,6 +553,24 @@
         <triggerType>RecordAfterSave</triggerType>
     </start>
     <status>Active</status>
+    <variables>
+        <name>currentItem_Filter_permission_set_assignments</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>PermissionSetGroup</objectType>
+    </variables>
+    <variables>
+        <name>hasAccess</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
     <variables>
         <name>NotificationTypeId</name>
         <dataType>String</dataType>
