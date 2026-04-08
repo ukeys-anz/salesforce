@@ -706,6 +706,16 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Suncorp_Bank_Identifier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Suncorp_Bank_Move__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Account.ABN__c</field>
         <readable>true</readable>
@@ -943,6 +953,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.FinServ__Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Franchise_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2282,6 +2297,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Opportunity.Preferred_Franchise__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.Specialisation_SubCategory__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>OpportunityLineItem.Expected_Settlement_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2383,6 +2408,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.Progress_Indicator__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.Preferred_Franchise__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2958,6 +2988,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.FinServ__WalletShare__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Franchise_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5422,6 +5457,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.Suncorp_Bank_Identifier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.Suncorp_Bank_Move__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.Portfolio_Indicator__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>FinServ__FinancialAccount__c.Product_Name_Display__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -7467,6 +7517,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Opportunity.Specialisation_SubCategory__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ApplicationFormProduct.Opportunity_Product__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -7888,6 +7943,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Product2.Business_area__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Product2.Is_Portfolio__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -9485,6 +9545,21 @@
         <field>Needs_Analysis__c.Receivables__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Franchise_Brand__c.Brand_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Franchise_Brand__c.Panel_Brand__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Franchise_Brand__c.Is_Active__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>CCRM Support Admin</label>
     <license>Salesforce</license>
@@ -9794,6 +9869,15 @@
         <object>Circle_Of_Influence__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Franchise_Brand__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
     <recordTypeVisibilities>
         <recordType>Circle_Of_Influence__c.Company_Member</recordType>
         <visible>true</visible>
@@ -9976,6 +10060,10 @@
     </tabSettings>
     <tabSettings>
         <tab>FinServ__FinancialAccount__c</tab>
+        <visibility>Available</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Franchise_Brand__c</tab>
         <visibility>Available</visibility>
     </tabSettings>
     <tabSettings>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Specialisation_SubCategory__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Privacy_Non_Personal_Information;Source_OCV;Integrity_Accurate</complianceGroup>
+    <description>Specialisation Subcategory</description>
+    <externalId>false</externalId>
+    <label>Specialisation Subcategory</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Specialisation__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Insights</fullName>
+                <default>false</default>
+                <label>Insights</label>
+            </value>
+            <value>
+                <fullName>ESG</fullName>
+                <default>false</default>
+                <label>ESG</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>ESG</controllingFieldValue>
+            <valueName>Insights</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Insights</controllingFieldValue>
+            <valueName>ESG</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

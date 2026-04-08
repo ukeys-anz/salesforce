@@ -227,4 +227,54 @@ public with sharing class CommercialOpportunityRepository {
       WITH USER_MODE
     ];
   }
+
+  /**
+   * @description getAFRelatedToOpportunity gets AF's related to opp
+   * @param oppIdsSet set of oppportunity ids
+   * @return List<ApplicationForm> app form list
+   */
+  public List<ApplicationForm> getAFRelatedToOpportunity(Set<Id> oppIdsSet) {
+    if (oppIdsSet.isEmpty()) {
+      return new List<ApplicationForm>();
+    }
+
+    return [
+      SELECT Id, Name, OpportunityId, OwnerId
+      FROM ApplicationForm
+      WHERE OpportunityId IN :oppIdsSet
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description getAFShareRelatedToOpportunity gets AF's share related to opp
+   * @param oppIdsSet set of oppportunity ids
+   * @param oldOwnerIdsSet set of old owner ids
+   * @return List<ApplicationFormShare> app form share list
+   */
+  public List<ApplicationFormShare> getAFShareRelatedToOpportunity(
+    Set<Id> oppIdsSet,
+    Set<Id> oldOwnerIdsSet
+  ) {
+    if (oppIdsSet.isEmpty() || oldOwnerIdsSet.isEmpty()) {
+      return new List<ApplicationFormShare>();
+    }
+
+    return [
+      SELECT
+        Id,
+        ParentId,
+        UserOrGroupId,
+        AccessLevel,
+        RowCause,
+        Parent.OpportunityId
+      FROM ApplicationFormShare
+      WHERE
+        Parent.OpportunityId IN :oppIdsSet
+        AND UserOrGroupId IN :oldOwnerIdsSet
+        AND RowCause = 'Manual'
+        AND AccessLevel = 'Edit'
+      WITH SYSTEM_MODE
+    ];
+  }
 }

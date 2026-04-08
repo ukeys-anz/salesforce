@@ -46,7 +46,9 @@ public with sharing class IDRQualityAssessmentRepository {
         Case_Manager__c,
         Case_Manager__r.Name,
         Related_Case__r.CaseNumber__c,
-        Corrective_actions_for_TM_CM__c
+        Corrective_actions_for_TM_CM__c,
+        Corrective_actions_requiring_FL_action__c,
+        Evaluation_Type__c
       FROM Quality_Assessment__c
       WHERE
         Id IN :assessmentIds
