@@ -324,7 +324,15 @@ public with sharing class LoanAccountExternalQuery extends FinancialAccountQuery
           )
           ? MAP_SOURCE_SYSTEM_STATUS.get(fa.sourceSystemStatus)
           : fa.sourceSystemStatus,
-        'AmountAdvancedToDate' => fa.amountAdvancedToDate
+        'AmountAdvancedToDate' => fa.amountAdvancedToDate,
+        'SuncorpBankMove' => FinancialAccountQueryHelper.getSuncorpBankMoveDate(
+          fa.accountNumber,
+          this.accountRoleMap
+        ),
+        'SuncorpBankIdentifier' => FinancialAccountQueryHelper.getSuncorpBankIdentifier(
+          fa.accountNumber,
+          this.accountRoleMap
+        )
       };
       result.externalRecords.add(row);
     }

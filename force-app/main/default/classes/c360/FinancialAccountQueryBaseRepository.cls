@@ -47,7 +47,9 @@ public with sharing class FinancialAccountQueryBaseRepository {
         Role_Type__c,
         FinServ__FinancialAccount__r.Product_Code_Display__c,
         FinServ__FinancialAccount__r.Product_Name_Display__c,
-        FinServ__FinancialAccount__r.Sub_product_Code_Display__c
+        FinServ__FinancialAccount__r.Sub_product_Code_Display__c,
+        FinServ__FinancialAccount__r.Suncorp_Bank_Move__c,
+        FinServ__FinancialAccount__r.Suncorp_Bank_Identifier__c
       FROM FinServ__FinancialAccountRole__c
       WHERE
         FinServ__RelatedAccount__r.External_Id__c IN :customerIds
@@ -98,7 +100,9 @@ public with sharing class FinancialAccountQueryBaseRepository {
         Role_Type__c,
         FinServ__FinancialAccount__r.Product_Code_Display__c,
         FinServ__FinancialAccount__r.Product_Name_Display__c,
-        FinServ__FinancialAccount__r.Sub_product_Code_Display__c
+        FinServ__FinancialAccount__r.Sub_product_Code_Display__c,
+        FinServ__FinancialAccount__r.Suncorp_Bank_Move__c,
+        FinServ__FinancialAccount__r.Suncorp_Bank_Identifier__c
       FROM FinServ__FinancialAccountRole__c
       WHERE FinServ__FinancialAccount__r.Account_Key__c = :accountKey
       WITH USER_MODE
