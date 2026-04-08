@@ -373,7 +373,16 @@ public with sharing class DataOutExportConsentHelper {
       dataExportModelDetails.accountsValue
     );
 
+    Map<String, String> disclaimerOverride = new Map<String, String>{
+      'bank:transactions:read' => dataExportModelDetails.transactionDisclaimer
+    };
+
     for (String scopeID : dataExportModelDetails.dataScopesValue) {
+      String disclaimer = disclaimerOverride.get(scopeID);
+      if (String.isNotBlank(disclaimer)) {
+        disclaimerString.add(disclaimer);
+        continue;
+      }
       TFM_Data_Scopes__mdt dataScope = QueryDataScopes.getByScopeId(scopeID);
       if (dataScope == null) {
         continue;
@@ -386,7 +395,7 @@ public with sharing class DataOutExportConsentHelper {
         disclaimerString.add(dataScope.Open_and_Closed_Accounts_Disclaimer__c);
       }
     }
-    row.add('\"' + String.join(disclaimerString, '') + '\"');
+    row.add('\"' + String.join(disclaimerString, '').stripHtmlTags() + '\"');
     return row;
   }
 

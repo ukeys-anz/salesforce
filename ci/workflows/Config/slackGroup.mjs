@@ -22,7 +22,9 @@ const slackGroupMapping = {
   "epic/cmos-a": "sf-cmos",
   "epic/cmos-main": "sf-cmos",
   "epic/imtv1": "sf-quantum",
-  "epic/blm": "sf-plat-engineers"
+  "epic/blm": "sf-plat-engineers",
+  "epic/wap": "sf-iva",
+  "epic/ribbon": "sf-iva"
 };
 
 export { slackGroupMapping };
