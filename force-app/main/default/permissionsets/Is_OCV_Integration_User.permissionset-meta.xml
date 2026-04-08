@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <name>OCV_Integration_User</name>
+        <enabled>true</enabled>
+    </customPermissions>
+    <description>Define if a user is an OCV integration User.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Is OCV Integration User</label>
+</PermissionSet>
