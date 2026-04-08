@@ -5,7 +5,6 @@
  */
 @isTest
 public class MobileLendingTaskActionsTest {
-
   @isTest
   static void testValidateActivityDate() {
     //create task record
@@ -13,7 +12,7 @@ public class MobileLendingTaskActionsTest {
     Task newTask = new Task(
       Id = taskID,
       RecordTypeId = RTTask.mlcrmTask,
-      ActivityDate = Null,
+      ActivityDate = null,
       isRecurrence = false
     );
     Task oldTask = new Task(
@@ -24,15 +23,15 @@ public class MobileLendingTaskActionsTest {
     );
 
     Map<Id, Task> oldMap = new Map<Id, Task>{ taskID => oldTask };
-    
-    //validate Activity Date  
+
+    //validate Activity Date
     Test.startTest();
     MobileLendingtTaskActions.validateActivityDate(
       new List<Task>{ newTask },
       oldMap
     );
     Test.stopTest();
-    
+
     //Assert
     List<Database.Error> errors = newTask.getErrors();
     Database.Error error = errors.get(0);
