@@ -282,6 +282,7 @@
         "Hardship__c",
         "KYC_Verification_Level__c",
         "KYCVerificationDate__c",
+        "KYC_Confirmation_Date__c",
         "Mobile__c",
         "Was_ANZx_Customer__c",
         "Worldline_Merchant__c"

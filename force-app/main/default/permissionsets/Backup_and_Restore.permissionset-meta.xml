@@ -514,6 +514,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.KYC_Confirmation_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.KYCVerificationDate__c</field>
         <readable>true</readable>
     </fieldPermissions>

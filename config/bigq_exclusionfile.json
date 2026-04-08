@@ -126,6 +126,7 @@
     "Jigsaw",
     "JigsawCompanyId",
     "KYCVerificationDate__c",
+    "KYC_Confirmation_Date__c",
     "KYC_Verification_Level__c",
     "LastReferencedDate",
     "Last_Updated_By__c",
