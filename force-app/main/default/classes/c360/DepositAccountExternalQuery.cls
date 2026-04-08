@@ -309,7 +309,15 @@ public with sharing class DepositAccountExternalQuery extends CAPFinancialAccoun
         'StatementMailingAddress' => fa.address,
         'CCR' => fa.creditRiskGrade,
         'Date_Closed' => formatDate(fa.closeDate),
-        'ExpiryDate' => formatDate(fa.limitExpiryDate)
+        'ExpiryDate' => formatDate(fa.limitExpiryDate),
+        'SuncorpBankMove' => FinancialAccountQueryHelper.getSuncorpBankMoveDate(
+          fa.accountNumber,
+          this.accountRoleMap
+        ),
+        'SuncorpBankIdentifier' => FinancialAccountQueryHelper.getSuncorpBankIdentifier(
+          fa.accountNumber,
+          this.accountRoleMap
+        )
       };
       row = populateSeasonalLimits(row, fa.seasonalLimits);
       row = populateProductCodeWiseFields(row, fa);

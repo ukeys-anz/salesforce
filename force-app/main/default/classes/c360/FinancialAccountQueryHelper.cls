@@ -312,4 +312,42 @@ public with sharing class FinancialAccountQueryHelper {
       roleTypeCode
     );
   }
+
+  /**
+   * @description get the Suncorp Bank move
+   * @param accountNumber fa account number
+   * @param accountRoleMap fa account role map
+   * @return Date suncorp bank move date
+   */
+  public static Date getSuncorpBankMoveDate(
+    String accountNumber,
+    Map<String, FinServ__FinancialAccountRole__c> accountRoleMap
+  ) {
+    Date suncorpBankMoveDate = null;
+    if (!accountRoleMap.containsKey(accountNumber)) {
+      return suncorpBankMoveDate;
+    }
+    suncorpBankMoveDate = accountRoleMap.get(accountNumber)
+      ?.FinServ__FinancialAccount__r.Suncorp_Bank_Move__c;
+    return suncorpBankMoveDate;
+  }
+
+  /**
+   * @description get the Suncorp Bank move
+   * @param accountNumber fa account number
+   * @param accountRoleMap fa account role map
+   * @return String suncorp bank identifier.
+   */
+  public static String getSuncorpBankIdentifier(
+    String accountNumber,
+    Map<String, FinServ__FinancialAccountRole__c> accountRoleMap
+  ) {
+    String suncorpBankIdentifier = null;
+    if (!accountRoleMap.containsKey(accountNumber)) {
+      return suncorpBankIdentifier;
+    }
+    suncorpBankIdentifier = accountRoleMap.get(accountNumber)
+      ?.FinServ__FinancialAccount__r.Suncorp_Bank_Identifier__c;
+    return suncorpBankIdentifier;
+  }
 }

@@ -29,7 +29,7 @@
     <filters>
         <field>Evaluation_Type__c</field>
         <operation>equals</operation>
-        <value>C &amp; Q Assessment,Customer Resolution Assessment</value>
+        <value>C &amp; Q Assessment,Customer Resolution Assessment,Frontline Assessment</value>
     </filters>
     <filters>
         <field>Status__c</field>
@@ -39,6 +39,7 @@
     <filterScope>Everything</filterScope>
     <label>My Team&apos;s Evaluations</label>
     <sharedTo>
+        <role>Banker_Line_Manager</role>
         <role>Customer_Resolution_Leadership</role>
         <role>Customer_Resolution_Team_Leaders</role>
     </sharedTo>

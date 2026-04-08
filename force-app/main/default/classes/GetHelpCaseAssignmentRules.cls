@@ -10,10 +10,6 @@ public with sharing class GetHelpCaseAssignmentRules {
   public static final String DID_NOT_AUTHORISE_TRANSACTION = 'Didn\'t authorise transaction';
   public static final String DO_NOT_RECOGNISE_TRANSACTION = 'Don\'t recognise the transaction';
   public static final String HOME_LOANS_PRODUCT_CATEGORY = 'Home loans';
-  public static final String CANCEL_PAYMENT = 'Cancel Payment';
-  public static final String SUSPECTED_FRAUD = 'Suspected fraud';
-  public static final String MONEY_NOT_RECEIVED = 'Money not received';
-  public static final String AMENDMENT_REQUEST = 'Amendment Request';
   public static final Group COACH_QUEUE = CommonUtil.getQueueByName(
     'Coach_Queue'
   );
@@ -26,17 +22,21 @@ public with sharing class GetHelpCaseAssignmentRules {
   public static final Group DIGITAL_FRAUD_QUEUE = CommonUtil.getQueueByName(
     GetHelpConstants.DIGITAL_FRAUD_QUEUE
   );
+  public static final Set<Id> DISPUTE_RTIDS = new Set<Id>{
+    RTCase.atmDispute,
+    RTCase.bankPostDispute,
+    RTCase.cardDispute,
+    RTCase.directDebitDispute,
+    RTCase.directEntryDispute,
+    RTCase.nppDispute,
+    RTCase.bpayDispute,
+    RTCase.payToDispute
+  };
 
   private static final Set<String> CARD_DISPUTE_FRAUD_REASONS = new Set<String>{
     DID_NOT_AUTHORISE_TRANSACTION,
     DO_NOT_RECOGNISE_TRANSACTION,
     UNAUTHORISED_TRANSACTION
-  };
-
-  private static final Set<String> SUPPORT_COACH_DISPUTE_REASONS = new Set<String>{
-    CANCEL_PAYMENT,
-    MONEY_NOT_RECEIVED,
-    AMENDMENT_REQUEST
   };
 
   private static final Map<String, String> SUB_TYPE_TO_TYPE_MAP_SUPPORT_COACH = new Map<String, String>{
@@ -62,7 +62,7 @@ public with sharing class GetHelpCaseAssignmentRules {
    */
   public static void assignDisputeCases(Case[] cases, Map<Id, Case> oldMap) {
     for (Case c : cases) {
-      if (CheckCaseRecordType.isDispute(c) && c.submitted__c == true) {
+      if (checkDispute(c) && c.submitted__c == true) {
         Case oldCase = (oldMap != null ? oldMap.get(c.Id) : null);
         if (isSubmittedOrReasonChanged(c, oldCase)) {
           c.OwnerId = getOwnerId(c);
@@ -123,8 +123,6 @@ public with sharing class GetHelpCaseAssignmentRules {
       CheckCaseRecordType.isAtmDispute(rec)
     ) {
       return getCardDisputeOwnerId(rec);
-    } else if (CheckCaseRecordType.isImtDispute(rec)) {
-      return getOwnerIdForImt(rec);
     } else if (
       rec.Dispute_Reason__c == UNAUTHORISED_TRANSACTION &&
       !CheckCaseRecordType.isDirectDebitDispute(rec) &&
@@ -199,16 +197,6 @@ public with sharing class GetHelpCaseAssignmentRules {
   }
 
   /**
-   * @description to deterine if record's dispute reason belong to matching support queue
-   * Will return true of Record.Dispute reason is one of from SUPPORT_COACH_DISPUTE_REASONS
-   * @param disputeReason String.
-   * @return true if the case dispute reason is any from SUPPORT_COACH_DISPUTE_REASONS
-   */
-  private static boolean isSupportCoachDisputeReasons(String disputeReason) {
-    return SUPPORT_COACH_DISPUTE_REASONS.contains(disputeReason);
-  }
-
-  /**
    * @description to deterine if record's dispute reason belong to matching card sispute fraud or general queue
    * Will return true of Record.Dispute reason is one of from CARD_DISPUTE_FRAUD_REASONS
    * @return true if the case dispute reason is any from CARD_DISPUTE_FRAUD_REASONS
@@ -234,15 +222,11 @@ public with sharing class GetHelpCaseAssignmentRules {
   }
 
   /**
-   * @description method to run the Case assignment rules conditions for IMT_Dispute case
-   * @param rec case record
-   * @return Queue Id
+   * @description Check if a case is Dispute Case
+   * @param record The case record to check
+   * @return if the case is a Dispute Case
    */
-  private static Id getOwnerIdForImt(Case rec) {
-    if (isSupportCoachDisputeReasons(rec.Dispute_Reason__c)) {
-      return QueryQueue.supportCoachQueue.Id;
-    } else {
-      return QueryQueue.digitalFraudQueue.Id;
-    }
+  public static Boolean checkDispute(Case record) {
+    return DISPUTE_RTIDS.contains(record.RecordTypeId);
   }
 }

@@ -10,21 +10,21 @@
             AND(
                 OR(
                     ISNEW(),
-                    ISCHANGED(Submitted__c)
-                  )
-                &amp;&amp; Submitted__c = true,
+                    ISCHANGED(Submitted__c),
+                    ISCHANGED(Dispute_Reason__c)
+                ),  
                 OR(
-                    RecordType.DeveloperName = &quot;NPP_Dispute&quot;,
-                    RecordType.DeveloperName = &quot;BPAY_Dispute&quot;,
-                    RecordType.DeveloperName = &quot;IMT_Dispute&quot;
-                ),
-                OR(
-                ISPICKVAL(
-                    Dispute_Reason__c, &quot;Unauthorised Transaction&quot;
-                ),
-                ISPICKVAL(
-                    Dispute_Reason__c, &quot;Suspected fraud&quot;
-                )
+                    AND(
+                        OR( RecordType.DeveloperName = &quot;NPP_Dispute&quot;,
+                            RecordType.DeveloperName = &quot;BPAY_Dispute&quot;
+                        ),
+                        Submitted__c = true,
+                        ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised Transaction&quot;)
+                    ),
+                    AND(
+                        RecordType.DeveloperName = &quot;IMT_Dispute&quot;,
+                        ISPICKVAL(Dispute_Reason__c, &quot;Suspected fraud&quot;)
+                    )
                 )
             )
             </formula>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Referrer_Reportees_Lead__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy_Non_Personal_Information;Source - Salesforce</complianceGroup>
+    <description>My reportees data based on the Referrer (FinServ__ReferredByUser__c) instead of Owner</description>
+    <formula>FinServ__ReferredByUser__r.ManagerId = $User.Id</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Referrer Reportees Lead</label>
+    <securityClassification>Confidential</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

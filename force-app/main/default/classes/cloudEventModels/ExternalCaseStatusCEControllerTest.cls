@@ -115,6 +115,9 @@ public class ExternalCaseStatusCEControllerTest {
     ExternalCaseStatusCEController.publishCloudEvents(
       new List<External_Case_Status__c>{ externalCaseRecords }
     );
+    DisputeExternalCaseStatusRepository disputeRepo = new DisputeExternalCaseStatusRepository();
+    disputeRepo.getRelatedCasesByCaseId(new Set<Id>{ FAKER_IMT_CASE_ID });
+    disputeRepo.getRelatedUsersByUserId(new Set<Id>{ userRecords.Id });
     Test.stopTest();
     String payload = CloudEventController.cloudEvents[1].Data_1__c; //[1] for beta2 events
     ExternalCaseStatusCloudEventModel externalCaseStatusCEModel = (ExternalCaseStatusCloudEventModel) JSON.deserialize(
@@ -155,7 +158,17 @@ public class ExternalCaseStatusCEControllerTest {
     );
     Test.startTest();
     // Prepare the mock data
-
+    DisputeExternalCaseStatusRepository disputeRepo = new DisputeExternalCaseStatusRepository();
+    disputeRepo.getRelatedCasesByCaseId(new Set<Id>{});
+    disputeRepo.getRelatedUsersByUserId(new Set<Id>{});
+    try {
+      disputeRepo.queryCaseStatuses('', new Map<String, Object>{});
+    } catch (exception e) {
+      Assert.isTrue(
+        e.getMessage().contains('unexpected token'),
+        'queryCaseStatuses method should be called with the correct parameters'
+      );
+    }
     ExternalCaseStatusCEController.publishCloudEvents(
       new List<External_Case_Status__c>{ nppExternalCaseRecords }
     );

@@ -195,7 +195,8 @@ public without sharing class TerritorySharingUtil {
         if (
           !mapOfUserTerrKeyToRole.containsKey(strOwnerRoleKey) ||
           mapOfUserTerrKeyToRole.get(strOwnerRoleKey) == LOAN_WRITER ||
-          objUT.ML_Role__c == LOAN_WRITER
+          objUT.ML_Role__c == LOAN_WRITER ||
+          objUT.Status__c == 'Inactive'
         ) {
           continue;
         }
@@ -236,7 +237,8 @@ public without sharing class TerritorySharingUtil {
           mapOfUserTerrKeyToRole.get(strOwnerRoleKey) != LOAN_WRITER ||
           ((objUT.ML_Role__c != LOAN_WRITER ||
           objUT.Territory__r.Access_Scope__c != STRING_UNRESTRICTED) &&
-          objUT.ML_Role__c == LOAN_WRITER)
+          objUT.ML_Role__c == LOAN_WRITER) ||
+          objUT.Status__c == 'Inactive'
         ) {
           continue;
         }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Referrer_Sub_Team__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy_Non_Personal_Information;Source - Salesforce</complianceGroup>
+    <description>My Sub Team based on the Referrer (FinServ__ReferredByUser__c) instead of Owner</description>
+    <externalId>false</externalId>
+    <formula>$User.Sub_Team_Code__c = FinServ__ReferredByUser__r.Sub_Team_Code__c 
+&amp;&amp; NOT(ISNULL(FinServ__ReferredByUser__r.Sub_Team_Code__c))
+&amp;&amp; Referrer_Region_Flag__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Referrer Sub Team</label>
+    <securityClassification>Confidential</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

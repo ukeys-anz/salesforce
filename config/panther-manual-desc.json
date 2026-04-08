@@ -99,6 +99,12 @@
     "Known_Issues__c": {
       "IDR_Non_Financial_Remedy__c": "Required when Complaint Remedy is chosen as 'Non-Functional Remedy' to capture the appropriate remedy"
     },
+    "Franchise_Brand__c": {
+      "Name__c": "Brand name",
+      "Brand_Code__c": "Code",
+      "Panel_Brand__c": "Is Panel Brand",
+      "Is_Active__c" : "Is Active Franchise"
+    },
     "Lead": {
       "FinServ__ExpressedInterest__c": "The type of needs customer require",
       "FinServ__PotentialValue__c": "Dollar amount for a lead",
@@ -197,6 +203,7 @@
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
     "Foreign_Exchange__x": "External Foreign Currency accounts",
     "Foreign_Exchange_Deal__x": "External Foreign Exchange Deals",
+    "Franchise_Brand__c": "Represents a franchise brand.  Use for tagging accounts, products, etc.",
     "Group": "A set of User records.",
     "IDR_Omni_Settings__c": "Contains settings to enable or disable Omni forms for CMOS complaints",
     "Interaction": "Represents the interaction details between the coach and the customer",
@@ -275,11 +282,16 @@
         "Hardship__c",
         "KYC_Verification_Level__c",
         "KYCVerificationDate__c",
+        "KYC_Confirmation_Date__c",
         "Mobile__c",
         "Was_ANZx_Customer__c",
         "Worldline_Merchant__c"
       ],
-      "IA-2415840": ["Is_Prospect__c"],
+      "IA-2415840": [
+        "Is_Prospect__c",
+        "Suncorp_Bank_Identifier__c",
+        "Suncorp_Bank_Move__c"
+      ],
       "IA-2415997": ["PI_Score__c"],
       "IA-2468715": [
         "AccountNumber",
@@ -392,7 +404,8 @@
       "IA-2415855": [
         "CustomerExitDate__c",
         "CustomerExitFlag__c",
-        "CLG_Credit_Rating__c"
+        "CLG_Credit_Rating__c",
+        "Franchise_Code__c"
       ],
       "IA-2415998": ["VOI_Expiry_Date_Classic__c", "VOI_Status_Classic__c"],
       "IA-2453595": ["Migration_Status__c", "DeceasedEstateStatus__c"]
@@ -2719,6 +2732,11 @@
         "System_Record_Status__c",
         "Migration_Status_Date__c"
       ],
+      "IA-2415840": [
+        "Portfolio_Indicator__c",
+        "Suncorp_Bank_Identifier__c",
+        "Suncorp_Bank_Move__c"
+      ],
       "IA-2415860": [
         "Product_Code_Display__c",
         "Sub_product_Code_Display__c",
@@ -2796,6 +2814,15 @@
         "CreatedDate",
         "LastModifiedById",
         "LastModifiedDate"
+      ]
+    },
+    "Franchise_Brand__c": {
+      "IA-2415840": [
+        "Name__c",
+        "Brand_Code__c",
+        "Panel_Brand__c",
+        "Is_Active__c",
+        "OwnerId"
       ]
     },
     "FinancialAccountUIConfiguration__mdt": {
@@ -3241,7 +3268,12 @@
         "Owner_Segment__c",
         "Owner_State__c",
         "Owner_Role__c",
-        "Owner_Team_POD__c"
+        "Owner_Team_POD__c",
+        "Referrer_Region_Flag__c",
+        "Referrer_Sub_Team__c",
+        "Referrer_Team_Segment__c",
+        "Referrer_Reportees_Lead__c",
+        "My_Managers_Referral__c"
       ],
       "IA-2530753": ["IsNewLead__c"],
       "IA-2618706": [
@@ -3750,7 +3782,9 @@
         "Opp_Id__c",
         "Type",
         "Territory__c",
-        "Version__c"
+        "Version__c",
+        "Preferred_Franchise__c",
+        "Specialisation_SubCategory__c"
       ],
       "IA-2415860": [
         "Associated_Source_Detail__c",
@@ -4088,7 +4122,7 @@
         "Product_Origination_System__c",
         "Category__c"
       ],
-      "IA-2415840": ["ExternalId"],
+      "IA-2415840": ["ExternalId", "Is_Portfolio__c"],
       "IA-2415987": [
         "Product_Segment_Type__c",
         "Product_Features__c",
@@ -5508,7 +5542,8 @@
         "Fluctuating_Seasonal_Start_Expiry_Limit2__c",
         "Fluctuating_Seasonal_Start_Expiry_Limit3__c"
       ],
-      "IA-2415984": ["Statement_Mailing_Address__c"]
+      "IA-2415984": ["Statement_Mailing_Address__c"],
+      "IA-2415840": ["Suncorp_Bank_Identifier__c", "Suncorp_Bank_Move__c"]
     },
     "Credit_Card__x": {
       "IA-2415720": [
@@ -5543,7 +5578,8 @@
         "CPID__c"
       ],
       "IA-2415984": ["Statement_Mailing_Address__c"],
-      "IA-2415999": ["Frequent_Flyer_Number__c"]
+      "IA-2415999": ["Frequent_Flyer_Number__c"],
+      "IA-2415840": ["Suncorp_Bank_Identifier__c", "Suncorp_Bank_Move__c"]
     },
     "Credit_Card_Fee__x": {
       "IA-2415720": ["Credit_Card__c", "Fee_Amount__c", "Fee_Type__c"]
@@ -5627,7 +5663,8 @@
         "Amount_Advanced_To_Date__c",
         "Index_Code_Current__c",
         "Interest_Type_Current__c"
-      ]
+      ],
+      "IA-2415840": ["Suncorp_Bank_Identifier__c", "Suncorp_Bank_Move__c"]
     },
     "Term_Deposit__x": {
       "IA-2415720": [
@@ -5660,7 +5697,8 @@
         "Source_System_Status__c",
         "Relationship__c"
       ],
-      "IA-2415984": ["Statement_Mailing_Address__c"]
+      "IA-2415984": ["Statement_Mailing_Address__c"],
+      "IA-2415840": ["Suncorp_Bank_Identifier__c", "Suncorp_Bank_Move__c"]
     },
     "Other_Limits_and_Liabilities__x": {
       "IA-2415720": [
@@ -5679,7 +5717,8 @@
         "Product_Code__c",
         "Product_Name__c",
         "Source_System_Status__c"
-      ]
+      ],
+      "IA-2415840": ["Suncorp_Bank_Identifier__c", "Suncorp_Bank_Move__c"]
     },
     "Facility__x": {
       "IA-2415720": [
@@ -5739,7 +5778,8 @@
         "Source_System_Status__c",
         "TPMI_SAO__c"
       ],
-      "IA-2415984": ["Statement_Mailing_Address__c"]
+      "IA-2415984": ["Statement_Mailing_Address__c"],
+      "IA-2415840": ["Suncorp_Bank_Identifier__c", "Suncorp_Bank_Move__c"]
     },
     "Account_Relationship__x": {
       "IA-2415720": [
