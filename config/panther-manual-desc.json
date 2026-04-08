@@ -3268,7 +3268,12 @@
         "Owner_Segment__c",
         "Owner_State__c",
         "Owner_Role__c",
-        "Owner_Team_POD__c"
+        "Owner_Team_POD__c",
+        "Referrer_Region_Flag__c",
+        "Referrer_Sub_Team__c",
+        "Referrer_Team_Segment__c",
+        "Referrer_Reportees_Lead__c",
+        "My_Managers_Referral__c"
       ],
       "IA-2530753": ["IsNewLead__c"],
       "IA-2618706": [
