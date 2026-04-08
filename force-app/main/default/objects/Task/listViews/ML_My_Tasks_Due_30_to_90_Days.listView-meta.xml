@@ -17,6 +17,11 @@
         <value>0</value>
     </filters>
     <filters>
+        <field>IS_RECURRENCE</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
         <field>Due_in_Days__c</field>
         <operation>greaterOrEqual</operation>
         <value>30</value>

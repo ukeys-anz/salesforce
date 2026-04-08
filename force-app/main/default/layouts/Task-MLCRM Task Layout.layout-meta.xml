@@ -87,7 +87,8 @@
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-                <emptySpace>true</emptySpace>
+                <behavior>Edit</behavior>
+                <field>IsRecurrence</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
