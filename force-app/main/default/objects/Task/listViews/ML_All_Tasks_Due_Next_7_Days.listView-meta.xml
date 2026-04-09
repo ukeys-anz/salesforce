@@ -1,6 +1,8 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>ML_My_Tasks_Due_Next_7_Days</fullName>
+    <fullName>ML_All_Tasks_Due_Next_7_Days</fullName>
+    <booleanFilter>1 AND 2 AND 3 AND 4 AND (5 OR 6)</booleanFilter>
     <columns>SUBJECT</columns>
     <columns>STATUS</columns>
     <columns>WHO_NAME</columns>
@@ -31,8 +33,16 @@
         <operation>equals</operation>
         <value>Task.MLCRM_Task</value>
     </filters>
-    <filterScope>Mine</filterScope>
-    <label>My Tasks Due Next 7 Days</label>
+    <filters>
+        <field>WHO.WHO_ID</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>WHAT.WHAT_ID</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filterScope>Everything</filterScope>
+    <label>All Tasks Due Next 7 Days</label>
     <sharedTo>
         <roleAndSubordinatesInternal>ANZ_Mobile_Lending</roleAndSubordinatesInternal>
     </sharedTo>
