@@ -155,4 +155,37 @@ public with sharing class LaunchAppOnOppControllerRepository {
       WITH USER_MODE
     ];
   }
+
+  /**
+   * @description get app form products related to externalId
+   * @name getAppFormProductsUsingExtId
+   * @param oppId opp Id
+   * @param oppLineItemIds selected opportunity product
+   * @param recordTypeId app form record type name
+   * @return List<ApplicationFormProduct> app form products list
+   */
+  public List<ApplicationFormProduct> getAppFormProductsUsingExtId(
+    Id oppId,
+    List<Id> oppLineItemIds, //(It will have one record at a time)
+    Id recordTypeId
+  ) {
+    if (
+      oppLineItemIds == null ||
+      recordTypeId != RTApplicationForm.ambitApplication
+    ) {
+      return new List<ApplicationFormProduct>();
+    }
+    Opportunity opp = getOpportunityData(oppId);
+
+    String sourceSystemIdStr = opp.Opp_Id__c + '' + oppLineItemIds[0]; // Combine Opportunity Number and ProductId
+
+    return [
+      SELECT Id, Stage, ApplicationFormId, Opportunity_Product__c
+      FROM ApplicationFormProduct
+      WHERE
+        ApplicationForm.RecordTypeId = :RTApplicationForm.ambitApplication
+        AND Source_System_Id__c = :sourceSystemIdStr
+      WITH USER_MODE
+    ];
+  }
 }

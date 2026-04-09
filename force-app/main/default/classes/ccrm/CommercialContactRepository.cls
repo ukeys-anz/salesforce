@@ -73,4 +73,25 @@ public with sharing class CommercialContactRepository {
       WITH USER_MODE
     ];
   }
+
+  /**
+   * @description to get broker details by broker tpmisao
+   * @author  Ali Mujtaba | Salesforce | 30-10-2025
+   * @param tpmisaoIds broker tpmisao ids
+   * @return List<Contact>
+   **/
+  public List<Contact> getBrokersByTpmisao(Set<String> tpmisaoIds) {
+    if (tpmisaoIds.isEmpty()) {
+      return new List<Contact>();
+    }
+    return [
+      SELECT Id, AssetFinanceTPMISAO__c, CommercialTPMISAO__c, RetailTPMISAO__c
+      FROM Contact
+      WHERE
+        AssetFinanceTPMISAO__c IN :tpmisaoIds
+        OR CommercialTPMISAO__c IN :tpmisaoIds
+        OR RetailTPMISAO__c IN :tpmisaoIds
+      WITH USER_MODE
+    ];
+  }
 }

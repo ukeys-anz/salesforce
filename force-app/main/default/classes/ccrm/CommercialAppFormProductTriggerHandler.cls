@@ -50,17 +50,28 @@ public with sharing class CommercialAppFormProductTriggerHandler extends Lib_Tri
    * @description onAfterInsert to handle after update trigger actions.
    */
   public override void onAfterInsert() {
+    CommercialBrokerAppFormProdActions.publishApplicationFormProductEvent(
+      (List<ApplicationFormProduct>) records,
+      null,
+      'add'
+    );
     CommercialAppFormProductActions.setFieldsOnRelatedOpportunity(
       records,
       null
     );
     CommercialAppFormProductActions.createAppFormShareRecords(records);
+    CommercialBrokerAppFormProdActions.createOptyAndOptyProductRecords(records);
   }
   /**
    * @description onAfterUpdate to handle after update trigger actions.
    * @param oldMap old trigger values
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
+    CommercialBrokerAppFormProdActions.publishApplicationFormProductEvent(
+      (List<ApplicationFormProduct>) records,
+      (Map<Id, ApplicationFormProduct>) oldMap,
+      'add'
+    );
     CommercialAppFormProductActions.setFieldsOnRelatedOpportunity(
       records,
       (Map<Id, ApplicationFormProduct>) oldMap
