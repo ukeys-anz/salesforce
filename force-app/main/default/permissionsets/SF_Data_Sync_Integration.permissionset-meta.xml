@@ -4872,6 +4872,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Customer_Relationship__c.LastActivityDate</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Customer_Task_Configuration__c.Expire_After_Days__c</field>
         <readable>true</readable>
     </fieldPermissions>
