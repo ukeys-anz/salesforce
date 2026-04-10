@@ -20,8 +20,7 @@
     </values>
     <values>
         <field>Open_and_Closed_Accounts_Disclaimer__c</field>
-        <value xsi:type="xsd:string">For an open account, this may include historical transaction data that dates back up to 7 years.
-For a closed account, this may include historical transaction data that dates back up to 12 months prior to closure.</value>
+        <value xsi:type="xsd:string">For an open account, this may include historical transaction data that dates back up to 7 years.&lt;br/&gt;For a closed account, this may include historical transaction data that dates back up to 12 months prior to closure.</value>
     </values>
     <values>
         <field>Scope_ID__c</field>
