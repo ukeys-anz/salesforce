@@ -17,7 +17,10 @@
         <field>Opportunity$Circle_Of_Influence__c</field>
     </columns>
     <columns>
-        <field>Opportunity.OpportunityLineItems.Application_Form_Products__r$ApplicationForm</field>
+        <field>Opportunity.OpportunityLineItems.Application_Form_Products__r$Name</field>
+    </columns>
+    <columns>
+        <field>Opportunity.OpportunityLineItems.Application_Form_Products__r$Product</field>
     </columns>
     <columns>
         <aggregateTypes>Sum</aggregateTypes>

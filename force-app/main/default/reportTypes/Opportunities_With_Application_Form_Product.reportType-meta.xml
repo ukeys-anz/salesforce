@@ -182,6 +182,17 @@
             <field>Product.Name</field>
             <table>Opportunity.OpportunityLineItems.Application_Form_Products__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Application Form Product: Name</displayNameOverride>
+            <field>Name</field>
+            <table>Opportunity.OpportunityLineItems.Application_Form_Products__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Product</field>
+            <table>Opportunity.OpportunityLineItems.Application_Form_Products__r</table>
+        </columns>
         <masterLabel>Application Form Products</masterLabel>
     </sections>
     <sections>
