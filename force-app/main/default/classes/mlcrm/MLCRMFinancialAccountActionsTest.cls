@@ -6,158 +6,169 @@
  */
 @isTest
 public class MLCRMFinancialAccountActionsTest {
-  /**
-   * @description testsetup method
-   */
-  @testSetup
-  static void setup() {
-    Id crmProductId = MLCRMConstants.CRM_ANZ_PRODUCT_RT_ID;
-    String productType = 'ExistingProductType';
-    String productCode = 'ExistingProductCode';
-    User mlUser = MLCRMTestDataFactory.getMLCRMBaseUser();
-    TestUtil.assignPermissionSets(
-      new List<String>{
-        'FinancialServicesCloudExtension',
-        'FinancialServicesCloudStandard'
-      },
-      new List<User>{ mlUser }
+  private static Lib_MockProvider finAccActionsRepoMock;
+
+  static void registerMocks() {
+    finAccActionsRepoMock = Lib_MockProvider.forType(
+      FinancialAccountActionsRepository.class
     );
+  }
 
-    User ocvIntegrationUser = CCRMTestDataFactory.createOCVIntegrationUser();
-    System.runAs(ocvIntegrationuser) {
-      Account accnt = new Account();
-      accnt.Name = 'TestAccount';
-      accnt.Display_Name__c = 'TestAccount';
-      accnt.OCV_ID__c = 'OCV11';
-      accnt.ANZx_Customer__c = true;
-      accnt.External_Id__c = 'Test123';
-      insert accnt;
+  private static Map<Id, Product2> getProductData() {
+    Map<String, Product2> ocvSubProductKeyToProductIdMap = new Map<String, Product2>();
 
-      List<FinServ__FinancialAccount__c> finAccounts = new List<FinServ__FinancialAccount__c>();
-      // ProductSubCode is Populated, ProductType is not Populated. Product Exists with Matching OCV of ProductSubCode
-      finAccounts.add(
-        new FinServ__FinancialAccount__c(
-          Name = 'MatchingPdtCodeOnly',
-          FinServ__Status__c = 'Active',
-          RecordTypeId = GetHelpConstants.BANK_ACCOUNT_RT_ID,
-          FinServ__PrimaryOwner__c = accnt.Id,
-          Account_Key__c = 'MatchingPdtCodeOnly',
-          Product_SubCode__c = productCode
-        )
-      );
-      // ProductSubCode is not populated, ProductType is Populated. Product Exists with Matching OCV of ProductType
-      finAccounts.add(
-        new FinServ__FinancialAccount__c(
-          Name = 'MatchingPdtTypeOnly',
-          FinServ__Status__c = 'Active',
-          RecordTypeId = GetHelpConstants.BANK_ACCOUNT_RT_ID,
-          FinServ__PrimaryOwner__c = accnt.Id,
-          Account_Key__c = 'MatchingPdtTypeOnly',
-          Product_Type__c = productType
-        )
-      );
-      // Both ProdcutSubCode and ProductType is Populated, Different Product Exists matching with ProductType but Product SubCode
-      finAccounts.add(
-        new FinServ__FinancialAccount__c(
-          Name = 'MatchingBoth',
-          FinServ__Status__c = 'Active',
-          RecordTypeId = GetHelpConstants.BANK_ACCOUNT_RT_ID,
-          FinServ__PrimaryOwner__c = accnt.Id,
-          Account_Key__c = 'MatchingBoth',
-          Product_Type__c = productType,
-          Product_SubCode__c = productCode
-        )
-      );
-      // Both ProdcutSubCode and ProductType is Populated, No Product Exists matching with ProductType and ProductCode
-      finAccounts.add(
-        new FinServ__FinancialAccount__c(
-          Name = 'BothNonMatching',
-          FinServ__Status__c = 'Active',
-          RecordTypeId = GetHelpConstants.BANK_ACCOUNT_RT_ID,
-          FinServ__PrimaryOwner__c = accnt.Id,
-          Account_Key__c = 'CorrectPdtCode',
-          Product_Type__c = 'wrongPdtType',
-          Product_SubCode__c = 'wrongPdtCode'
-        )
-      );
-      insert finAccounts;
+    Id productId1 = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
+    Id productId2 = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
+    Id productId3 = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
+    Id productId4 = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
+    return new Map<Id, Product2>{
+      productId1 => new Product2(
+        Id = productId1,
+        OCV_Sub_Product_Key__c = 'CAP-CIS:ILSTVB1',
+        Is_Portfolio__c = 'Yes',
+        RecordTypeId = MLCRMConstants.CRM_ANZ_PRODUCT_RT_ID,
+        Name = 'Product isPortfolio Yes'
+      ),
+      productId2 => new Product2(
+        Id = productId2,
+        OCV_Sub_Product_Key__c = 'CAP-CIS:ILSTVB2',
+        Is_Portfolio__c = 'No',
+        RecordTypeId = MLCRMConstants.CRM_ANZ_PRODUCT_RT_ID,
+        Name = 'Product isPortfolio No'
+      ),
+      productId3 => new Product2(
+        Id = productId3,
+        OCV_Sub_Product_Key__c = 'CAP-CIS:ILSTVB3',
+        Is_Portfolio__c = 'Yes',
+        RecordTypeId = MLCRMConstants.CRM_ANZ_PRODUCT_RT_ID,
+        Name = 'Product isPortfolio Yes 2'
+      ),
+      productId4 => new Product2(
+        Id = productId4,
+        OCV_Sub_Product_Key__c = 'CAP-CIS:ILSTVB3',
+        RecordTypeId = MLCRMConstants.CRM_ANZ_PRODUCT_RT_ID,
+        Name = 'Product isPortfolio Null'
+      )
+    };
+  }
 
-      List<Product2> pdts = new List<Product2>();
-      pdts.add(
-        new Product2(
-          recordtypeId = crmProductId,
-          name = 'testProduct1',
-          IDR_Product_or_Service_Line__c = '1',
-          OCV_Sub_Product_Key__c = productCode
-        )
-      );
-      pdts.add(
-        new Product2(
-          recordtypeId = crmProductId,
-          name = 'testProduct2',
-          IDR_Product_or_Service_Line__c = '1',
-          OCV_Sub_Product_Key__c = productType
-        )
-      );
-      insert pdts;
-    }
+  private static List<FinServ__FinancialAccount__c> getFinAccountData() {
+    return new List<FinServ__FinancialAccount__c>{
+      new FinServ__FinancialAccount__c(
+        Id = Lib_FakeIdGenerator.getMockId(
+          FinServ__FinancialAccount__c.SObjectType
+        ),
+        Product_SubCode__c = 'CAP-CIS:ILSTVB1',
+        Portfolio_Indicator__c = 'P',
+        RecordTypeId = MLCRMConstants.CRM_ANZ_PRODUCT_RT_ID,
+        Name = 'Financial Account w/ PortIndi'
+      ),
+      new FinServ__FinancialAccount__c(
+        Id = Lib_FakeIdGenerator.getMockId(
+          FinServ__FinancialAccount__c.SObjectType
+        ),
+        Product_Type__c = 'CAP-CIS:ILSTVB2',
+        RecordTypeId = MLCRMConstants.CRM_ANZ_PRODUCT_RT_ID,
+        Name = 'Financial Account w/o PortIndi'
+      ),
+      new FinServ__FinancialAccount__c(
+        Id = Lib_FakeIdGenerator.getMockId(
+          FinServ__FinancialAccount__c.SObjectType
+        ),
+        Product_SubCode__c = 'CAP-CIS:ILSTVB3',
+        RecordTypeId = MLCRMConstants.CRM_ANZ_PRODUCT_RT_ID,
+        Name = 'Financial Account w/o PortIndi 2'
+      )
+    };
   }
   /**
-   * @description test functionality of PopulateANZProduct
+   * @description test functionality of PopulateANZProduct on Insert
    */
   @isTest
-  public static void testPopulateANZProduct() {
-    Map<String, Product2> ocvSubProductKeyToProductIdMap = new Map<String, Product2>();
-    List<Product2> products = [SELECT Id, OCV_Sub_Product_Key__c FROM Product2];
-    for (Product2 pdt : products) {
-      ocvSubProductKeyToProductIdMap.put(pdt.OCV_Sub_Product_Key__c, pdt);
-    }
-    List<FinServ__FinancialAccount__c> finAccounts = [
-      SELECT
-        Id,
-        Name,
-        FinServ__ProductName__c,
-        Product_SubCode__c,
-        Product_Type__c
-      FROM FinServ__FinancialAccount__c
-      WHERE
-        FinServ__ProductName__c = NULL
-        AND (Product_SubCode__c != NULL
-        OR Product_Type__c != NULL)
-    ];
+  public static void testPopulateANZProductOnInsert() {
+    registerMocks();
 
-    System.runAs(MLCRMTestDataFactory.getMLCRMBaseUser()) {
-      Test.StartTest();
-      MLCRMFinancialAccountActions.populateANZProduct(finAccounts, null);
-      Test.StopTest();
+    // GIVEN List of Financial Accounts
+    Map<Id, Product2> products = getProductData();
+    List<FinServ__FinancialAccount__c> finAccounts = getFinAccountData();
 
-      for (FinServ__FinancialAccount__c fa : finAccounts) {
-        if (fa.Name == 'BothNonMatchingPdtCodeAndPdtType') {
-          system.assertEquals(
-            fa.FinServ__ProductName__c,
-            null,
-            'FinAcc not mapped correctly when no matching Product Found'
-          );
-        } else if (fa.Name == 'MatchingBoth') {
-          system.assertEquals(
-            fa.FinServ__ProductName__c,
-            ocvSubProductKeyToProductIdMap.get(fa.Product_SubCode__c).Id,
-            'FinAcc not mapped correctly when matching ProductSubCode exists'
-          );
-        } else if (fa.Name == 'MatchingPdtTypeOnly') {
-          system.assertEquals(
-            fa.FinServ__ProductName__c,
-            ocvSubProductKeyToProductIdMap.get(fa.Product_Type__c).Id,
-            'FinAcc not mapped correctly when matching ProductSubType exists'
-          );
-        } else if (fa.Name == 'MatchingPdtCodeOnly') {
-          system.assertEquals(
-            fa.FinServ__ProductName__c,
-            ocvSubProductKeyToProductIdMap.get(fa.Product_SubCode__c).Id,
-            'FinAcc not mapped correctly when matching ProductSubCode exists'
-          );
-        }
-      }
-    }
+    finAccActionsRepoMock.mock('getByOcvSubProductKey', products.values());
+
+    // WHEN Calling MLCRMFinancialAccountActions.populateANZProduct
+    Test.StartTest();
+    MLCRMFinancialAccountActions.populateANZProduct(finAccounts, null);
+    Test.StopTest();
+
+    // THEN proper product should be populated
+    Map<String, String> acceptableProductMapping = new Map<String, String>{
+      finAccounts[0].Id => products.values()[0].Id,
+      finAccounts[1].Id => products.values()[1].Id,
+      finAccounts[2].Id => products.values()[3].Id
+    };
+    Assert.areEqual(
+      finAccounts[0].FinServ__ProductName__c,
+      acceptableProductMapping.get(finAccounts[0].Id),
+      'Wrong Product Propulated.'
+    );
+    Assert.areEqual(
+      finAccounts[1].FinServ__ProductName__c,
+      acceptableProductMapping.get(finAccounts[1].Id),
+      'Wrong Product Propulated.'
+    );
+    Assert.areEqual(
+      finAccounts[2].FinServ__ProductName__c,
+      acceptableProductMapping.get(finAccounts[2].Id),
+      'Wrong Product Propulated.'
+    );
+  }
+
+  /**
+   * @description test functionality of PopulateANZProduct on Update
+   */
+  @isTest
+  public static void testPopulateANZProductOnUpdate() {
+    registerMocks();
+
+    // GIVEN List & oldMap of Financial Accounts
+    Map<Id, Product2> products = getProductData();
+
+    finAccActionsRepoMock.mock('getByOcvSubProductKey', products.values());
+
+    FinServ__FinancialAccount__c finAccount = new FinServ__FinancialAccount__c(
+      Id = Lib_FakeIdGenerator.getMockId(
+        FinServ__FinancialAccount__c.SObjectType
+      ),
+      Product_SubCode__c = 'CAP-CIS:ILSTVB1',
+      Portfolio_Indicator__c = 'P',
+      RecordTypeId = MLCRMConstants.CRM_ANZ_PRODUCT_RT_ID,
+      Name = 'Financial Account w/ PortIndi'
+    );
+    List<FinServ__FinancialAccount__c> newFinAccounts = new List<FinServ__FinancialAccount__c>{
+      finAccount
+    };
+
+    FinServ__FinancialAccount__c oldFinAccount = new FinServ__FinancialAccount__c();
+    oldFinAccount.Product_SubCode__c = 'CAP-CIS:ILSTVB1';
+    oldFinAccount.Id = finAccount.Id;
+
+    Map<Id, FinServ__FinancialAccount__c> oldFinAccountMap = new Map<Id, FinServ__FinancialAccount__c>{
+      oldFinAccount.Id => oldFinAccount
+    };
+
+    // WHEN Calling MLCRMFinancialAccountActions.populateANZProduct
+    Test.StartTest();
+    oldFinAccount.Portfolio_Indicator__c = null;
+    MLCRMFinancialAccountActions.populateANZProduct(
+      newFinAccounts,
+      oldFinAccountMap
+    );
+    Test.StopTest();
+
+    // THEN proper product should be populated
+    Assert.areEqual(
+      newFinAccounts[0].FinServ__ProductName__c,
+      products.values()[0].Id,
+      'Proper product should be populated.'
+    );
   }
 }

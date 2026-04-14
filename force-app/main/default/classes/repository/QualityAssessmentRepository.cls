@@ -116,7 +116,14 @@ public with sharing class QualityAssessmentRepository {
       return new List<Case>();
     }
     return [
-      SELECT Id, OwnerId, Owner.Type, CaseOwnerManager__c
+      SELECT
+        Id,
+        OwnerId,
+        CaseOwnerManager__c,
+        TYPEOF Owner
+          WHEN User THEN Id
+          WHEN Group THEN Id
+        END
       FROM Case
       WHERE Id IN :caseIds
     ];

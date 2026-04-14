@@ -142,7 +142,15 @@ public with sharing class TermDepositExternalQuery extends FinancialAccountQuery
         ) ?? fa.sourceSystemStatus,
         'AccountStatus' => fa.status,
         'StatementMailingAddress' => fa.address,
-        'Relationship' => getAccountRelationship(fa.accountNumber)
+        'Relationship' => getAccountRelationship(fa.accountNumber),
+        'SuncorpBankMove' => FinancialAccountQueryHelper.getSuncorpBankMoveDate(
+          fa.accountNumber,
+          this.accountRoleMap
+        ),
+        'SuncorpBankIdentifier' => FinancialAccountQueryHelper.getSuncorpBankIdentifier(
+          fa.accountNumber,
+          this.accountRoleMap
+        )
       };
       populateInterestRate(row, fa);
       result.externalRecords.add(row);

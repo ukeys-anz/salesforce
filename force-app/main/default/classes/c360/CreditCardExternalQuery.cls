@@ -171,7 +171,15 @@ public with sharing class CreditCardExternalQuery extends FinancialAccountQueryB
         'FrequentFlyerNumber' => fa.frequentFlyerNumber,
         'DelinquentAmount' => (fa.delinquentAmount ?? 0) / 100,
         'DaysDelinquent' => fa.totalDelinquentDays,
-        'StatementMailingAddress' => fa.address
+        'StatementMailingAddress' => fa.address,
+        'SuncorpBankMove' => FinancialAccountQueryHelper.getSuncorpBankMoveDate(
+          fa.accountNumber,
+          this.accountRoleMap
+        ),
+        'SuncorpBankIdentifier' => FinancialAccountQueryHelper.getSuncorpBankIdentifier(
+          fa.accountNumber,
+          this.accountRoleMap
+        )
       };
       result.externalRecords.add(row);
     }

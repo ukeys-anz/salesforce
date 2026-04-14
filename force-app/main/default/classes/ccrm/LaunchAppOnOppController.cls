@@ -77,20 +77,42 @@ public with sharing class LaunchAppOnOppController {
     Id recordTypeId
   ) {
     try {
-      Set<Id> oppLineItemIdsSet = new Set<Id>(oppLineItemIds);
-      Id applicationFormId = LaunchAppOnOppHelper.createApplicationForm(
+      //Check for existing Application Form and Application Form Proudct for Opportunity Product in system for Broker No Quote Scenario.
+      /****************** Broker No Quote Scenario Change Start ***************/
+      List<ApplicationFormProduct> existingappFormProducts = APP_REPOSITORY.getAppFormProductsUsingExtId(
         oppId,
+        oppLineItemIds,
         recordTypeId
       );
-      List<OpportunityLineItem> items = APP_REPOSITORY.getSelectedOppLineItems(
-        oppLineItemIdsSet
-      );
-      List<Id> appFormProductIds = LaunchAppOnOppHelper.createApplicationFormProduct(
-        applicationFormId,
-        recordTypeId,
-        items
-      );
-      return appFormProductIds;
+
+      if (
+        !existingappFormProducts.isEmpty() && existingappFormProducts.size() > 0
+      ) {
+        //Update related Application Form and Form Product with Opportunity and OpportunityProduct details
+        List<Id> appFormProductIds = LaunchAppOnOppHelper.updateApplicationFormAndAppFormProduct(
+          oppId,
+          existingappFormProducts,
+          oppLineItemIds
+        );
+
+        return appFormProductIds;
+        /****************** Broker No Quote Scenario Change End ***************/
+      } else {
+        Set<Id> oppLineItemIdsSet = new Set<Id>(oppLineItemIds);
+        Id applicationFormId = LaunchAppOnOppHelper.createApplicationForm(
+          oppId,
+          recordTypeId
+        );
+        List<OpportunityLineItem> items = APP_REPOSITORY.getSelectedOppLineItems(
+          oppLineItemIdsSet
+        );
+        List<Id> appFormProductIds = LaunchAppOnOppHelper.createApplicationFormProduct(
+          applicationFormId,
+          recordTypeId,
+          items
+        );
+        return appFormProductIds;
+      }
     } catch (Exception e) {
       Logger.error('Error occured while creating application', e).save();
       throw new AuraHandledException(e.getMessage());

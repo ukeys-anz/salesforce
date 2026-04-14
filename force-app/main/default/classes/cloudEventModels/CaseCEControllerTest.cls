@@ -40,9 +40,16 @@ public class CaseCEControllerTest {
       payload,
       IMTDisputeCaseCloudEventModel.class
     );
-    Assert.isTrue(
-      IMTDisputeCaseCloudEventModel.ce_type.contains('v1beta2.dispute.imt'),
-      'ce_type is incorrect'
+
+    Assert.areEqual(
+      'anzx.salesforce.case.v1beta2.dispute.imt.created',
+      IMTDisputeCaseCloudEventModel.ce_type,
+      'ce_type is correct'
+    );
+    Assert.areEqual(
+      'proto://buf.anz/anz/salesforceapis/salesforce.service.disputes.v1beta2#IMTDispute',
+      IMTDisputeCaseCloudEventModel.ce_dataschema,
+      'ce_dataschema is correct'
     );
     Assert.areEqual(
       1,
@@ -96,9 +103,15 @@ public class CaseCEControllerTest {
       payload,
       IMTDisputeCaseCloudEventModel.class
     );
-    Assert.isTrue(
-      imtDisputeCaseCloudEventModel.ce_type.contains('v1beta2.dispute.imt'),
-      'ce_type is incorrect'
+    Assert.areEqual(
+      'anzx.salesforce.case.v1beta2.dispute.imt.updated',
+      IMTDisputeCaseCloudEventModel.ce_type,
+      'ce_type is correct'
+    );
+    Assert.areEqual(
+      'proto://buf.anz/anz/salesforceapis/salesforce.service.disputes.v1beta2#IMTDispute',
+      IMTDisputeCaseCloudEventModel.ce_dataschema,
+      'ce_dataschema is correct'
     );
     Assert.areEqual(
       2,

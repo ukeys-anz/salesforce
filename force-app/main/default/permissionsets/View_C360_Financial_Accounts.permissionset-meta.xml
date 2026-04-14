@@ -904,6 +904,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Credit_Card__x.Suncorp_Bank_Identifier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Credit_Card__x.Suncorp_Bank_Move__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Credit_Card__x.Product_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1149,6 +1159,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Deposit_Account__x.Suncorp_Bank_Identifier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Deposit_Account__x.Suncorp_Bank_Move__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Facility_Fee__x.Facility_Limit_Fee_Amount__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1295,6 +1315,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>FinServ__FinancialAccount__c.Product_SubCode__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.Suncorp_Bank_Identifier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.Suncorp_Bank_Move__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1759,6 +1789,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Loan_Account__x.Suncorp_Bank_Identifier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Loan_Account__x.Suncorp_Bank_Move__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Loan_Account__x.Times_Past_Due_120_Days__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1849,6 +1889,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Other_Limits_and_Liabilities__x.Suncorp_Bank_Identifier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Other_Limits_and_Liabilities__x.Suncorp_Bank_Move__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Other_Limits_and_Liabilities__x.Product_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1925,6 +1975,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Portfolio_Of_Loan__x.Sub_Product_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Portfolio_Of_Loan__x.Suncorp_Bank_Identifier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Portfolio_Of_Loan__x.Suncorp_Bank_Move__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2030,6 +2090,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Term_Deposit__x.Sub_Product_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Term_Deposit__x.Suncorp_Bank_Identifier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Term_Deposit__x.Suncorp_Bank_Move__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

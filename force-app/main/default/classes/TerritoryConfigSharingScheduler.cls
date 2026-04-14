@@ -90,9 +90,9 @@ global class TerritoryConfigSharingScheduler implements Schedulable {
       objDateTime
     );
     if (!lstOfTerritories.isEmpty()) {
-      strUserTerritoryQuery = 'SELECT ML_Role__c,Status__c,User__c,Territory__c FROM User_Territory__c WHERE (Territory__c IN: lstOfTerritories OR lastModifiedDate >= :objDateTime) AND Status__c = :statusActive';
+      strUserTerritoryQuery = 'SELECT ML_Role__c,Status__c,User__c,Territory__c FROM User_Territory__c WHERE (Territory__c IN: lstOfTerritories OR lastModifiedDate >= :objDateTime)';
     } else {
-      strUserTerritoryQuery = 'SELECT ML_Role__c,Status__c,User__c,Territory__c FROM User_Territory__c WHERE lastModifiedDate >= :objDateTime AND Status__c = :statusActive';
+      strUserTerritoryQuery = 'SELECT ML_Role__c,Status__c,User__c,Territory__c FROM User_Territory__c WHERE lastModifiedDate >= :objDateTime';
     }
     return CONFIG_SHARING_REPO.getUserTerritoriesToRecalc(
       strUserTerritoryQuery,

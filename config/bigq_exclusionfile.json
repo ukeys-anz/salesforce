@@ -126,6 +126,7 @@
     "Jigsaw",
     "JigsawCompanyId",
     "KYCVerificationDate__c",
+    "KYC_Confirmation_Date__c",
     "KYC_Verification_Level__c",
     "LastReferencedDate",
     "Last_Updated_By__c",
@@ -475,7 +476,12 @@
   "Lead": [
     "dupcheck__dc3DisableDuplicateCheck__c",
     "dupcheck__dc3Index__c",
-    "dupcheck__dc3Web2Lead__c"
+    "dupcheck__dc3Web2Lead__c",
+    "My_Managers_Referral__c",
+    "Referrer_Region_Flag__c",
+    "Referrer_Sub_Team__c",
+    "Referrer_Team_Segment__c",
+    "Referrer_Reportees_Lead__c"
   ],
   "Opportunity": ["SourceId"],
   "Product2": [

@@ -98,4 +98,41 @@ private class CommercialOpportunityHelperTest {
       'Opp updated successfully'
     );
   }
+
+  @isTest
+  static void validateCCRMOpportunityTest() {
+    registerMocks();
+    List<Database.Error> errors;
+    Database.Error error;
+    //GIVEN list of Opportunity records, old Map of Opportunity records
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Account accRecord = new Account(
+      Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+      RecordTypeId = RTAccount.businessAccount
+    );
+    //List<Opportunity> oppList = new List<Opportunity>(){};
+    List<Opportunity> records = new List<Opportunity>{
+      new Opportunity(
+        Id = oppId,
+        AccountId = accRecord.Id,
+        Name = 'Test',
+        StageName = 'In Progress',
+        LeadSource = 'Other'
+      )
+    };
+    CommercialOpportunityActions.CCRMOpportunityWrapper oppWrapper = new CommercialOpportunityActions.CCRMOpportunityWrapper();
+    oppWrapper.filteredOpps = records;
+    //WHEN calling a method
+    Test.startTest();
+    CommercialOpportunityHelper.validateCCRMOpportunity(oppWrapper, true);
+    Test.stopTest();
+
+    errors = records[0].getErrors();
+    error = errors.get(0);
+    Assert.isTrue(
+      error.getMessage()
+        .contains(CommercialOpportunityHelper.OTHER_SOURCE_DETAIL_MANDATORY),
+      'Validation error when opportunity is closed without app launch'
+    );
+  }
 }

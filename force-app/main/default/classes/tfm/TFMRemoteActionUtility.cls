@@ -15,6 +15,21 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
   private static final String CONSENTMANAGEMENTACTION = 'consentMgmtAccountList';
   private static final String GET_TRANSFORMED_DATASCOPES = 'getTransformedDataScopes';
 
+  private static final Map<String, String> CONSENT_STATE_MAP = new Map<String, String>{
+    'UNSPECIFIED' => 'active',
+    'PENDING' => 'active',
+    'ACTIVE' => 'active',
+    'STOPPED' => 'archived',
+    'AMENDED' => 'archived',
+    'EXPIRED' => 'archived'
+  };
+
+  private static final Map<String, String> DISCLAIMER_FIELD_MAP = new Map<String, String>{
+    'Open' => 'Open_Accounts_Disclaimer__c',
+    'Hybrid' => 'Open_and_Closed_Accounts_Disclaimer__c',
+    'Closed' => 'Closed_Accounts_Disclaimer__c'
+  };
+
   /**
    * @param action String value of local method to invoke
    * @param args arg Map that will contain input, output and options Map
@@ -56,8 +71,47 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
       return getConsentsList(input, output, options);
     } else if (methodName.equals(GET_TRANSFORMED_DATASCOPES)) {
       return getTransformedDataScopes(input, output, options);
+    } else if (methodName.equals('getTransactionDisclaimer')) {
+      return getTransactionDisclaimer(input, output, options);
     }
     return false;
+  }
+
+  /**
+   * @param input arg for omnistudio flex card
+   * @param output arg for omnistudio flex card
+   * @param options arg for omnistudio flex card
+   * @return `Boolean`
+   * @description returns transaction scope disclaimer
+   */
+  @TestVisible
+  private Boolean getTransactionDisclaimer(
+    Map<String, Object> input,
+    Map<String, Object> output,
+    Map<String, Object> options
+  ) {
+    String allAccStatus = String.valueOf(input.get('allAccStatus'));
+    String cmField = DISCLAIMER_FIELD_MAP.get(allAccStatus);
+    if (cmField == null) {
+      return true;
+    }
+
+    String cmKey = 'bank:transactions:read';
+    String duration = String.valueOf(
+      input.get('transactionSharingDurationYears')
+    );
+    if (String.isNotBlank(duration) && Integer.valueOf(duration) == 2) {
+      String state = String.valueOf(input.get('state'));
+      String mappedState = CONSENT_STATE_MAP.get(state);
+      cmKey = 'bank:transactions:read:2y:' + mappedState;
+    }
+
+    TFM_Data_Scopes__mdt cm = QueryDataScopes.getByScopeId(cmKey);
+    if (cm == null || cm.get(cmField) == null) {
+      return true;
+    }
+    output.put('transactionDisclaimer', cm.get(cmField));
+    return true;
   }
 
   /**

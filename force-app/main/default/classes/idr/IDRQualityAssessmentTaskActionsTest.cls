@@ -251,8 +251,17 @@ public with sharing class IDRQualityAssessmentTaskActionsTest {
       relatedCase,
       QualityAssessmentActions.STATUS_PENDING
     );
+    Quality_Assessment__c oldQafl = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_PENDING
+    );
     oldQa.OwnerId = ownerUserId;
+    oldQa.Evaluation_Type__c = IDRConstants.QA_CR_ASSESSMENT;
     oldQa.Corrective_actions_for_TM_CM__c = '';
+    oldQafl.OwnerId = ownerUserId;
+    oldQafl.Evaluation_Type__c = IDRConstants.QA_FRONTLINE_ASSESSMENT;
+    oldQafl.Corrective_actions_requiring_FL_action__c = '';
     Quality_Assessment__c newQa = IDRTestDataFactory.getQA(
       manager,
       relatedCase,
@@ -260,11 +269,21 @@ public with sharing class IDRQualityAssessmentTaskActionsTest {
     );
     newQa.OwnerId = ownerUserId;
     newQa.Id = oldQa.Id;
+    newQa.Evaluation_Type__c = IDRConstants.QA_CR_ASSESSMENT;
     newQa.Corrective_actions_for_TM_CM__c = 'Coaching recommended';
+    Quality_Assessment__c newQafl = IDRTestDataFactory.getQA(
+      manager,
+      relatedCase,
+      QualityAssessmentActions.STATUS_COMPLETE
+    );
+    newQafl.OwnerId = ownerUserId;
+    newQafl.Id = oldQa.Id;
+    newQafl.Evaluation_Type__c = IDRConstants.QA_FRONTLINE_ASSESSMENT;
+    newQafl.Corrective_actions_requiring_FL_action__c = 'Other';
 
     qaRepoMock.mock(
       'getQualityAssessments',
-      new List<Quality_Assessment__c>{ newQa }
+      new List<Quality_Assessment__c>{ newQa, newQafl }
     );
 
     dmlRepoMock.mock(
@@ -275,22 +294,43 @@ public with sharing class IDRQualityAssessmentTaskActionsTest {
     );
     Test.startTest();
     IDRQualityAssessmentTaskActions.createComplianceTasks(
-      new List<Quality_Assessment__c>{ newQa },
-      new Map<Id, Quality_Assessment__c>{ oldQa.Id => oldQa }
+      new List<Quality_Assessment__c>{ newQa, newQafl },
+      new Map<Id, Quality_Assessment__c>{
+        oldQa.Id => oldQa,
+        oldQafl.Id => oldQafl
+      }
     );
     Test.stopTest();
     List<Task> insertedTasks = (List<Task>) dmlRepoMock.getHistory('doInsert')
       .getParam('records');
     Assert.areEqual(
-      2,
+      4,
       insertedTasks.size(),
-      '2 Tasks should have been inserted'
+      '4 Tasks should have been inserted'
     );
     Assert.areEqual(
       true,
       insertedTasks[0]
         .Subject.startsWith(IDRConstants.TASK_QA_COMPLIANCE_SUBJECT),
-      '1st Task should start with ' + IDRConstants.TASK_QA_COMPLIANCE_SUBJECT
+      '1st CR Task should start with ' + IDRConstants.TASK_QA_COMPLIANCE_SUBJECT
+    );
+    Assert.areEqual(
+      true,
+      insertedTasks[1]
+        .Subject.startsWith(IDRConstants.TASK_QA_COMPLIANCE_SUBJECT),
+      '1st FL Task should start with ' + IDRConstants.TASK_QA_COMPLIANCE_SUBJECT
+    );
+    Assert.areEqual(
+      true,
+      insertedTasks[2]
+        .Subject.startsWith(IDRConstants.TASK_QA_FEEDBACK_SUBJECT),
+      '2nd CR Task should start with ' + IDRConstants.TASK_QA_FEEDBACK_SUBJECT
+    );
+    Assert.areEqual(
+      true,
+      insertedTasks[3]
+        .Subject.startsWith(IDRConstants.TASK_QA_FEEDBACK_SUBJECT),
+      '2nd FL Task should start with ' + IDRConstants.TASK_QA_FEEDBACK_SUBJECT
     );
   }
   /**
