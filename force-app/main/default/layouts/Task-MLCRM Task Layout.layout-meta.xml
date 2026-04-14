@@ -87,7 +87,7 @@
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-                 <emptySpace>true</emptySpace>
+                <emptySpace>true</emptySpace>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
