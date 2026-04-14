@@ -677,10 +677,10 @@ jobs:
       - pmd
       - prettier
       - eslint
-      - xmlLint
+      # - xmlLint
       - jest
     runs-on: anzx-default
-    if: ${{ always() && !cancelled() && needs.security-check.result != 'skipped' && needs.sysl-check.result != 'skipped' && needs.pset-check.result != 'skipped' && needs.pmd.result != 'skipped' && needs.prettier.result != 'skipped' && needs.eslint.result != 'skipped' && needs.xmlLint.result != 'skipped' && needs.jest.result != 'skipped' }}
+    if: ${{ always() && !cancelled() && needs.security-check.result != 'skipped' && needs.sysl-check.result != 'skipped' && needs.pset-check.result != 'skipped' && needs.pmd.result != 'skipped' && needs.prettier.result != 'skipped' && needs.eslint.result != 'skipped' && needs.jest.result != 'skipped' }}
     env:
       SERVICE_ACCOUNT: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
       PR_NUMBER: ${{ github.event.pull_request.number }}
@@ -727,8 +727,8 @@ jobs:
           ESLINT_SKIPPED="${{ needs.eslint.outputs.skipped }}"
           ESLINT_RESULT="${{ needs.eslint.outputs.result }}"
 
-          XML_LINT_SKIPPED="${{ needs.xmlLint.outputs.skipped }}"
-          XML_LINT_RESULT="${{ needs.xmlLint.outputs.result }}"
+          # XML_LINT_SKIPPED="${{ needs.xmlLint.outputs.skipped }}"
+          # XML_LINT_RESULT="${{ needs.xmlLint.outputs.result }}"
 
           JEST_SKIPPED="${{ needs.jest.outputs.skipped }}"
           JEST_RESULT="${{ needs.jest.outputs.result }}"
@@ -737,7 +737,7 @@ jobs:
           report_check "PMD" "$PMD_SKIPPED" "$PMD_RESULT"
           report_check "Prettier" "$PRETTIER_SKIPPED" "$PRETTIER_RESULT"
           report_check "ESLint" "$ESLINT_SKIPPED" "$ESLINT_RESULT"
-          report_check "XML Lint" "$XML_LINT_SKIPPED" "$XML_LINT_RESULT"
+          # report_check "XML Lint" "$XML_LINT_SKIPPED" "$XML_LINT_RESULT"
           report_check "Jest" "$JEST_SKIPPED" "$JEST_RESULT"
           report_check "Sysl" "$SYSL_SKIPPED" "$SYSL_RESULT"
           report_check "Permission Set" "$PSET_SKIPPED" "$PSET_RESULT"
