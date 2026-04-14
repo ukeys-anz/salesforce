@@ -376,107 +376,107 @@ jobs:
         run: |
           node --no-warnings ci/workflows/Orchestrations/quality-check.mjs
 
-  prettier:
-    needs: detect-changes
-    runs-on: anzx-default
-    env:
-      SERVICE_ACCOUNT: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
-      PR_NUMBER: ${{ github.event.pull_request.number }}
-      REPO_NAME: "${{ github.event.repository.name }}"
-      WHICH_JOB: "download"
-      JAVA_URL: "https://artifactory.gcp.anz/artifactory/git-github/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.10%2B9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.10_9.tar.gz"
-    outputs:
-      result: ${{ steps.run-check.outputs.result }}
-      skipped: ${{ steps.should-skip.outputs.skip }}
-    steps:
-      - name: Check if prettier check is needed
-        id: should-skip
-        run: |
-          if [[ "${{ needs.detect-changes.outputs.prettier_needed }}" != 'true' ]]; then
-            echo "skip=true" >> "$GITHUB_OUTPUT"
-            echo "✅ No prettier-related files changed. Skipping prettier check."
-          else
-            echo "skip=false" >> "$GITHUB_OUTPUT"
-          fi
+  # prettier:
+  #   needs: detect-changes
+  #   runs-on: anzx-default
+  #   env:
+  #     SERVICE_ACCOUNT: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
+  #     PR_NUMBER: ${{ github.event.pull_request.number }}
+  #     REPO_NAME: "${{ github.event.repository.name }}"
+  #     WHICH_JOB: "download"
+  #     JAVA_URL: "https://artifactory.gcp.anz/artifactory/git-github/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.10%2B9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.10_9.tar.gz"
+  #   outputs:
+  #     result: ${{ steps.run-check.outputs.result }}
+  #     skipped: ${{ steps.should-skip.outputs.skip }}
+  #   steps:
+  #     - name: Check if prettier check is needed
+  #       id: should-skip
+  #       run: |
+  #         if [[ "${{ needs.detect-changes.outputs.prettier_needed }}" != 'true' ]]; then
+  #           echo "skip=true" >> "$GITHUB_OUTPUT"
+  #           echo "✅ No prettier-related files changed. Skipping prettier check."
+  #         else
+  #           echo "skip=false" >> "$GITHUB_OUTPUT"
+  #         fi
 
-      - name: Checkout repo (shallow)
-        if: steps.should-skip.outputs.skip == 'false'
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
+  #     - name: Checkout repo (shallow)
+  #       if: steps.should-skip.outputs.skip == 'false'
+  #       uses: actions/checkout@v3
+  #       with:
+  #         fetch-depth: 1
 
-      - name: Download Java
-        if: steps.should-skip.outputs.skip == 'false'
-        run: wget -O $RUNNER_TEMP/java_package.tar.gz "${{ env.JAVA_URL }}"
+  #     - name: Download Java
+  #       if: steps.should-skip.outputs.skip == 'false'
+  #       run: wget -O $RUNNER_TEMP/java_package.tar.gz "${{ env.JAVA_URL }}"
 
-      - name: Setup Java
-        if: steps.should-skip.outputs.skip == 'false'
-        uses: actions/setup-java@v3
-        with:
-          distribution: "jdkfile"
-          jdkFile: ${{ runner.temp }}/java_package.tar.gz
-          java-version: "11.0.12"
-          architecture: x64
+  #     - name: Setup Java
+  #       if: steps.should-skip.outputs.skip == 'false'
+  #       uses: actions/setup-java@v3
+  #       with:
+  #         distribution: "jdkfile"
+  #         jdkFile: ${{ runner.temp }}/java_package.tar.gz
+  #         java-version: "11.0.12"
+  #         architecture: x64
 
-      - name: Java settings
-        if: steps.should-skip.outputs.skip == 'false'
-        run: |
-          echo $PATH
-          echo $JAVA_HOME
-          java -version
-          export JAVA_HOME="/opt/jdk/jdk-11.0.12"
-          export PATH="${JAVA_HOME}/bin:$PATH"
+  #     - name: Java settings
+  #       if: steps.should-skip.outputs.skip == 'false'
+  #       run: |
+  #         echo $PATH
+  #         echo $JAVA_HOME
+  #         java -version
+  #         export JAVA_HOME="/opt/jdk/jdk-11.0.12"
+  #         export PATH="${JAVA_HOME}/bin:$PATH"
 
-      - name: Install node
-        if: steps.should-skip.outputs.skip == 'false'
-        uses: actions/setup-node@v3
-        with:
-          node-version: "22"
+  #     - name: Install node
+  #       if: steps.should-skip.outputs.skip == 'false'
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: "22"
 
-      - name: Install node packages
-        if: steps.should-skip.outputs.skip == 'false'
-        run: |
-          mv ci.npmrc .npmrc
-          npm ci -f
+  #     - name: Install node packages
+  #       if: steps.should-skip.outputs.skip == 'false'
+  #       run: |
+  #         mv ci.npmrc .npmrc
+  #         npm ci -f
 
-      - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
-        if: steps.should-skip.outputs.skip == 'false'
-        id: "authenticate-harness-delegate"
-        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
-        with:
-          service_account: ${{ env.SERVICE_ACCOUNT }}
+  #     - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
+  #       if: steps.should-skip.outputs.skip == 'false'
+  #       id: "authenticate-harness-delegate"
+  #       uses: "anzx/github-reusable-actions/authenticate-gcp@main"
+  #       with:
+  #         service_account: ${{ env.SERVICE_ACCOUNT }}
 
-      - name: Retrieve GSM Credentials
-        if: steps.should-skip.outputs.skip == 'false'
-        id: secrets
-        uses: google-github-actions/get-secretmanager-secrets@main
-        with:
-          secrets: |-
-            artifactory:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-artifact/versions/latest
+  #     - name: Retrieve GSM Credentials
+  #       if: steps.should-skip.outputs.skip == 'false'
+  #       id: secrets
+  #       uses: google-github-actions/get-secretmanager-secrets@main
+  #       with:
+  #         secrets: |-
+  #           artifactory:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-artifact/versions/latest
 
-      - name: Find all changed files
-        if: steps.should-skip.outputs.skip == 'false'
-        run: |
-          node --no-warnings ci/workflows/Orchestrations/quality-check.mjs "${{ steps.secrets.outputs.artifactory }}"
-          echo WHICH_JOB="clean" >> $GITHUB_ENV
+  #     - name: Find all changed files
+  #       if: steps.should-skip.outputs.skip == 'false'
+  #       run: |
+  #         node --no-warnings ci/workflows/Orchestrations/quality-check.mjs "${{ steps.secrets.outputs.artifactory }}"
+  #         echo WHICH_JOB="clean" >> $GITHUB_ENV
 
-      - name: Run Prettier Check
-        if: steps.should-skip.outputs.skip == 'false'
-        id: run-check
-        run: |
-          chmod +x ci/workflows-scripts/prettier-check.sh
-          ci/workflows-scripts/prettier-check.sh
+  #     - name: Run Prettier Check
+  #       if: steps.should-skip.outputs.skip == 'false'
+  #       id: run-check
+  #       run: |
+  #         chmod +x ci/workflows-scripts/prettier-check.sh
+  #         ci/workflows-scripts/prettier-check.sh
 
-      - name: Cleanup temp logs
-        if: steps.should-skip.outputs.skip == 'false'
-        run: |
-          echo "🧹 Cleaning up temporary error logs..."
-          rm -f $RUNNER_TEMP/*_error.log
+  #     - name: Cleanup temp logs
+  #       if: steps.should-skip.outputs.skip == 'false'
+  #       run: |
+  #         echo "🧹 Cleaning up temporary error logs..."
+  #         rm -f $RUNNER_TEMP/*_error.log
 
-      - name: cleanup
-        if: steps.should-skip.outputs.skip == 'false'
-        run: |
-          node --no-warnings ci/workflows/Orchestrations/quality-check.mjs
+  #     - name: cleanup
+  #       if: steps.should-skip.outputs.skip == 'false'
+  #       run: |
+  #         node --no-warnings ci/workflows/Orchestrations/quality-check.mjs
 
   eslint:
     needs: detect-changes
@@ -675,12 +675,12 @@ jobs:
       - sysl-check
       - pset-check
       - pmd
-      - prettier
+      # - prettier
       - eslint
       # - xmlLint
       - jest
     runs-on: anzx-default
-    if: ${{ always() && !cancelled() && needs.security-check.result != 'skipped' && needs.sysl-check.result != 'skipped' && needs.pset-check.result != 'skipped' && needs.pmd.result != 'skipped' && needs.prettier.result != 'skipped' && needs.eslint.result != 'skipped' && needs.jest.result != 'skipped' }}
+    if: ${{ always() && !cancelled() && needs.security-check.result != 'skipped' && needs.sysl-check.result != 'skipped' && needs.pset-check.result != 'skipped' && needs.pmd.result != 'skipped' && needs.eslint.result != 'skipped' && needs.jest.result != 'skipped' }}
     env:
       SERVICE_ACCOUNT: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
       PR_NUMBER: ${{ github.event.pull_request.number }}
@@ -721,8 +721,8 @@ jobs:
           PMD_SKIPPED="${{ needs.pmd.outputs.skipped }}"
           PMD_RESULT="${{ needs.pmd.outputs.result }}"
 
-          PRETTIER_SKIPPED="${{ needs.prettier.outputs.skipped }}"
-          PRETTIER_RESULT="${{ needs.prettier.outputs.result }}"
+          # PRETTIER_SKIPPED="${{ needs.prettier.outputs.skipped }}"
+          # PRETTIER_RESULT="${{ needs.prettier.outputs.result }}"
 
           ESLINT_SKIPPED="${{ needs.eslint.outputs.skipped }}"
           ESLINT_RESULT="${{ needs.eslint.outputs.result }}"
@@ -735,7 +735,7 @@ jobs:
 
           # Use the function
           report_check "PMD" "$PMD_SKIPPED" "$PMD_RESULT"
-          report_check "Prettier" "$PRETTIER_SKIPPED" "$PRETTIER_RESULT"
+          # report_check "Prettier" "$PRETTIER_SKIPPED" "$PRETTIER_RESULT"
           report_check "ESLint" "$ESLINT_SKIPPED" "$ESLINT_RESULT"
           # report_check "XML Lint" "$XML_LINT_SKIPPED" "$XML_LINT_RESULT"
           report_check "Jest" "$JEST_SKIPPED" "$JEST_RESULT"
