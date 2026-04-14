@@ -52,4 +52,23 @@ public with sharing class QueryProducts {
       .equals(Product2.Is_Retail_Classic_Loan_Product__c, true)
       .toList();
   }
+
+  /**
+   * @description Returns Asset Finance Facility or Asset Finance Limit products
+   * @author Vikash Agarwal | 02-12-2026
+   * @return Set<Id>
+   **/
+  public static Set<Id> getAssetFinanceProduct() {
+    Map<Id, Product2> mapProducts = new Map<Id, Product2>(
+      [
+        SELECT Id, Name
+        FROM Product2
+        WHERE
+          (Name = 'Asset Finance Facility'
+          OR Name = 'Asset Finance Limit')
+          AND RecordType.DeveloperName = 'CRM_ANZ_Product'
+      ]
+    );
+    return mapProducts.keySet();
+  }
 }

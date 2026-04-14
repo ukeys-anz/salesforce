@@ -44,6 +44,7 @@
     "FinServ__ContactContactRelation__c",
     "FinServ__FinancialAccount__c",
     "FinServ__FinancialAccountRole__c",
+    "Franchise_Brand__c",
     "Group",
     "Industry__c",
     "Interaction",

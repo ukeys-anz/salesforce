@@ -208,4 +208,50 @@ public with sharing class LaunchAppOnOppHelper {
     );
     return ambitModel;
   }
+
+  /**
+   * @description update application form and application form products
+   * @name updateApplicationFormAndAppFormProduct
+   * @param oppId opportunity Id
+   * @param appFormProducts list of application form products
+   * @param oppLineItemIds opportunity line item ids
+   * @return List<Id> app form product Ids
+   */
+  public static List<Id> updateApplicationFormAndAppFormProduct(
+    Id oppId,
+    List<ApplicationFormProduct> appFormProducts,
+    List<Id> oppLineItemIds
+  ) {
+    List<Id> appFormProductIds = new List<Id>();
+    List<ApplicationForm> appForms = new List<ApplicationForm>();
+    List<ApplicationFormProduct> lstAppFormsProds = new List<ApplicationFormProduct>();
+
+    for (ApplicationFormProduct appFormProduct : appFormProducts) {
+      appForms.add(
+        new ApplicationForm(
+          Id = appFormProduct.ApplicationFormId,
+          OpportunityId = oppId // Mapping Opportunity.
+        )
+      );
+
+      lstAppFormsProds.add(
+        new ApplicationFormProduct(
+          Id = appFormProduct.Id,
+          Stage = CCRMConstants.OPP_IDENTIFIED, // Updating Stage
+          Opportunity_Product__c = oppLineItemIds[0] // Mapping Opportunity Product.
+        )
+      );
+    }
+    DML_REPOSITORY.doUpdate(appForms);
+    List<Database.SaveResult> appFormProductresult = DML_REPOSITORY.doUpdate(
+      lstAppFormsProds
+    );
+
+    for (Database.SaveResult sr : appFormProductresult) {
+      if (sr.isSuccess()) {
+        appFormProductIds.add(sr.getId());
+      }
+    }
+    return appFormProductIds;
+  }
 }

@@ -5,7 +5,8 @@
     <caseSensitive>false</caseSensitive>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Code</description>
-    <externalId>false</externalId>
+    <encryptionScheme>None</encryptionScheme>
+    <externalId>true</externalId>
     <label>Brand Code</label>
     <length>50</length>
     <required>false</required>
