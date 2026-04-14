@@ -64,6 +64,7 @@
     "FinServ__FinancialAccountRole__c",
     "FinServ__ReciprocalRole__c",
     "Financial_Settlement__c",
+    "Franchise_Brand__c",
     "Identifier__c",
     "Interaction",
     "InteractionAttendee",
