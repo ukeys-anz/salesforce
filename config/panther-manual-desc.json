@@ -2853,6 +2853,9 @@
         "Is_Active__c"
       ]
     },
+    "FinancialAccountDocumentTypes__mdt": {
+      "IA-2468715": ["Document_Type__c", "Type__c"]
+    },
     "FinancialAccountConfiguration__mdt": {
       "IA-2468715": ["Icon__c", "Transaction_Title__c"]
     },

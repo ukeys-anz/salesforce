@@ -16,7 +16,8 @@ public with sharing class StatementAccessModel extends CalloutModel {
   public String financialAccountId;
   public String fromDate;
   public String toDate;
-  public String statementType;
+  public String issueDate;
+  public String documentType;
   public DateTime timeStamp;
   public String sUID;
 }

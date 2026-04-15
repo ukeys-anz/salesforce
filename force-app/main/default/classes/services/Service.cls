@@ -7,7 +7,7 @@
  */
 
 @SuppressWarnings(
-  'PMD.ExcessivePublicCount,PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity'
+  'PMD.ExcessivePublicCount,PMD.StdCyclomaticComplexity,PMD.CyclomaticComplexity,PMD.ExcessiveParameterList'
 )
 public with sharing virtual class Service {
   protected HttpCalloutResponse response = new HttpCalloutResponse();
@@ -417,13 +417,15 @@ public with sharing virtual class Service {
    * @param ocvId required to make the callout to Mulesoft
    * @param accountNumber used to fetch the statements from Mulesoft related to the Account Number
    * @param pageSize number of statement records to be returned from Fabric
+   * @param contextType which indicates whether the documents is statements or notices
    * @return `HttpCalloutResponse` api response
    * @description virtual statement callout
    */
   public virtual HttpCalloutResponse getStatements(
     String ocvId,
     String accountNumber,
-    String pageSize
+    String pageSize,
+    String contextType
   ) {
     return null;
   }

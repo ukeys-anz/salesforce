@@ -903,6 +903,22 @@
         <value>callout:SF_MS_CH2/document-management/v1beta2/statements/signed_url/</value>
     </labels>
     <labels>
+        <fullName>SECURE_WAF_GET_ListDocuments</fullName>
+        <categories>Ingress++</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>It is used for fetching document list</shortDescription>
+        <value>callout:Secure_waf_gw/api/v1/documents</value>
+    </labels>
+    <labels>
+        <fullName>SECURE_WAF_GET_GenerateSignedUrl</fullName>
+        <categories>Ingress++</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>It is used for generating signed URLs</shortDescription>
+        <value>callout:Secure_waf_gw/api/v1/{documentId}:generateSignedUrl</value>
+    </labels>
+    <labels>
         <fullName>MS_Get_HomeLoanAccountUrl</fullName>
         <categories>MS</categories>
         <language>en_US</language>

@@ -2,8 +2,8 @@ import { LightningElement, api, track, wire } from "lwc";
 import { getRecord } from "lightning/uiRecordApi";
 import { EnclosingTabId, getTabInfo } from "lightning/platformWorkspaceApi";
 import { CurrentPageReference } from "lightning/navigation";
-import getStatements from "@salesforce/apex/StatementAPIRepository.getStatementsAura";
-import getStatementUrl from "@salesforce/apex/StatementAPIRepository.getStatementUrlAura";
+import getStatements from "@salesforce/apex/DocumentTypeController.getStatements";
+import getStatementUrl from "@salesforce/apex/DocumentTypeController.getStatementUrl";
 import fetchOCVIdFromAccount from "@salesforce/apex/FinancialAccountController.fetchOCVIdFromAccount";
 import FINANCIAL_ACCOUNT_NUMBER_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c";
 import FINANCIAL_ACCOUNT_PRIMARY_OWNER_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__PrimaryOwner__c";
@@ -24,20 +24,27 @@ const FIELDS = [
   FIN_ACCOUNT_OWNERSHIP_TYPE
 ];
 
-const columns = [
-  {
-    label: "Account",
-    fieldName: "statementId",
-    type: "button",
-    typeAttributes: {
-      label: { fieldName: "productName" },
-      name: "view_statement",
-      title: "View Statement",
-      variant: "base"
-    }
-  },
+const accountBtn = {
+  label: "Account",
+  fieldName: "statementId",
+  type: "button",
+  typeAttributes: {
+    label: { fieldName: "productName" },
+    name: "view_statement",
+    title: "View Statement",
+    variant: "base"
+  }
+};
+const statementsColumns = [
+  accountBtn,
   { label: "Start Date", fieldName: "startDate", type: "date", sortable: true },
   { label: "End Date", fieldName: "endDate", type: "date" }
+];
+
+const noticesColumns = [
+  accountBtn,
+  { label: "Issue Date", fieldName: "issueDate", type: "date", sortable: true },
+  { label: "Title", fieldName: "title", type: "text" }
 ];
 
 const ERROR_UNKNOWN_TITLE = "An error has occurred.";
@@ -52,13 +59,16 @@ export default class StatementsViewer extends LightningElement {
   productName;
   accountNumber;
 
-  columns = columns;
+  columns = [];
   sortedBy;
   defaultSortDirection = "desc";
   sortDirection = "desc";
   isLoading = true;
   showLoadMoreButton = true;
   error;
+  @track errorMessage = "";
+  @api contextType;
+  statementOrNoticeText = "";
 
   get hasPermissionIssue() {
     return !hasViewStatementsPermission;
@@ -68,12 +78,27 @@ export default class StatementsViewer extends LightningElement {
     return this.error !== undefined && this.error !== null;
   }
 
+  get hasInvalidDocuments() {
+    return (
+      this.errorMessage !== undefined &&
+      this.errorMessage !== null &&
+      this.errorMessage.length > 0
+    );
+  }
+
   get hasStatements() {
     return this.statements && this.statements.length > 0;
   }
 
   get hasMoreStatements() {
     return this.showLoadMoreButton;
+  }
+
+  connectedCallback() {
+    this.statementOrNoticeText =
+      this.contextType === "NOTICES" ? "Notices" : "Statements";
+    this.columns =
+      this.contextType === "NOTICES" ? noticesColumns : statementsColumns;
   }
 
   @wire(CurrentPageReference)
@@ -134,32 +159,42 @@ export default class StatementsViewer extends LightningElement {
 
   async getStatementsData(ocvId, accountNumber, pageSize) {
     try {
-      const { statements } = await getStatements({
+      const result = await getStatements({
         ocvId,
         accountNumber,
-        pageSize
+        pageSize,
+        contextType: this.contextType
       });
-
-      if (!statements || statements.length === 0) {
+      const { allDocuments } = result;
+      if (!allDocuments || allDocuments.length === 0) {
         this.statements = [];
         this.showLoadMoreButton = false;
         return;
       }
-      if (!Array.isArray(statements)) {
+      if (!Array.isArray(allDocuments)) {
         throw new Error("Error: Unknown data.");
       }
-      if (this.statements?.length === statements.length) {
+      if (this.statements?.length === allDocuments.length) {
         this.showLoadMoreButton = false;
         this.isLoading = false;
         return;
       }
-      if (statements.length < DEFAULT_PAGE_SIZE) {
+      if (allDocuments.length < DEFAULT_PAGE_SIZE) {
         this.showLoadMoreButton = false;
       }
+      if (result.countOfInvalidDocuments > 0) {
+        this.errorMessage = `There are ${result.countOfInvalidDocuments} invalid documents out of ${result.totalDocuments}. Please reach out to your system administrator.`;
+      }
+      const formattedData = this.formatStatements(
+        allDocuments,
+        this.productName
+      );
 
-      const formattedData = this.formatStatements(statements, this.productName);
-
-      this.sortStatements(formattedData, "startDate", "desc");
+      this.sortStatements(
+        formattedData,
+        this.contextType === "NOTICES" ? "issueDate" : "startDate",
+        "desc"
+      );
     } catch (error) {
       this.handleError(error);
     } finally {
@@ -182,20 +217,28 @@ export default class StatementsViewer extends LightningElement {
       const row = event.detail.row;
 
       const additionalDetails = {
+        contextType: this.contextType,
         accountId: this.accountId,
         financialAccountId: this.financialAccountId,
-        fromDate: row.startDate,
-        toDate: row.endDate,
-        statementType: this.productName
+        ...(this.contextType === "NOTICES"
+          ? {
+              issueDate: row.issueDate,
+              documentType: row.documentTitle
+            }
+          : {
+              fromDate: row.startDate,
+              toDate: row.endDate,
+              documentType: this.productName
+            })
       };
 
-      const { statement } = await getStatementUrl({
+      let statement = await getStatementUrl({
         ocvId: this.ocvId,
-        statementId: row.statementId,
+        documentId: row.documentId,
         additionalDetails: additionalDetails
       });
 
-      window.open(statement.url, "_blank");
+      window.open(statement.uri, "_blank");
     } catch (error) {
       this.handleError(error);
     } finally {
@@ -206,9 +249,14 @@ export default class StatementsViewer extends LightningElement {
   formatStatements(data, productName) {
     return data.map((item) => {
       const statement = {};
-      statement.statementId = item.statement_id;
-      statement.startDate = this.formatDate(item.statement_from);
-      statement.endDate = this.formatDate(item.statement_to);
+      statement.documentId = item.name;
+      if (this.contextType === "NOTICES") {
+        statement.issueDate = this.formatDate(item.issueDate);
+        statement.title = item.documentTitle;
+      } else {
+        statement.startDate = this.formatDate(item.startDate);
+        statement.endDate = this.formatDate(item.endDate);
+      }
       statement.productName = productName;
 
       return statement;
@@ -217,11 +265,11 @@ export default class StatementsViewer extends LightningElement {
 
   formatDate(data) {
     const month =
-      Number(data.month.value) >= 1 && Number(data.month.value) <= 9
-        ? `0${data.month.value}`
-        : data.month.value;
+      Number(data.month) >= 1 && Number(data.month) <= 9
+        ? `0${data.month}`
+        : data.month;
 
-    return `${data.year.value}-${month}-${data.day.value}`;
+    return `${data.year}-${month}-${data.day}`;
   }
 
   handleSort(event) {
@@ -256,7 +304,7 @@ export default class StatementsViewer extends LightningElement {
 
   handleError(error) {
     let msg = ERROR_UNKNOWN_TITLE;
-
+    this.errorMessage = "";
     if (error.message) {
       msg = error.message;
     }

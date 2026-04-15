@@ -11,9 +11,12 @@ public with sharing class StatementAccessModelTest {
     Map<String, String> additionalDetails = new Map<String, String>();
     additionalDetails.put('accountId', 'test1234');
     additionalDetails.put('financialAccountId', 'test1234');
-    additionalDetails.put('fromDate', '05042023');
-    additionalDetails.put('toDate', '30042023');
+    additionalDetails.put('fromDate', '2025-09-15');
+    additionalDetails.put('toDate', '2025-09-30');
     additionalDetails.put('statementType', 'Home Loan');
+    additionalDetails.put('contextType', 'Statements');
+    additionalDetails.put('documentType', 'ANZ Test Product');
+    additionalDetails.put('issueDate', '2025-09-15');
     additionalDetails.put('sUID', userinfo.getUserId());
     Test.startTest();
     StatementAccessModel st = StatementAPIRepository.createStatementAccessModel(
