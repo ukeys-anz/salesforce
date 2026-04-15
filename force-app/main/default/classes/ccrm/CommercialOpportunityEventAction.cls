@@ -23,8 +23,11 @@ public with sharing class CommercialOpportunityEventAction {
     String eventContext
   ) {
     try {
+      if (records.isEmpty()) {
+        return new List<Cloud_Event__e>();
+      }
       // Since always single record
-      Opportunity opp = records.isEmpty() ? null : records[0];
+      Opportunity opp = records[0];
       // Build payload via new method
       OpportunityEventModel.OpportunityDetails payload = buildPayload(
         records,
