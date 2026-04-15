@@ -23,8 +23,8 @@ const slackGroupMapping = {
   "epic/cmos-main": "sf-cmos",
   "epic/imtv1": "sf-quantum",
   "epic/blm": "sf-plat-engineers",
-  "epic/wap": "sf-iva",
-  "epic/ribbon": "sf-iva"
+  "epic/wap": "sf-iva-team",
+  "epic/ribbon": "sf-iva-team"
 };
 
 export { slackGroupMapping };
