@@ -19,6 +19,9 @@ public with sharing class CommercialOpportunityEventBuilder {
     OpportunityLineItem oli,
     ApplicationFormProduct appFormProduct
   ) {
+    if (opp == null) {
+      return new OpportunityEventModel.OpportunityDetails();
+    }
     String externalId = opp.Account?.External_Id__c;
     String sourceSystemId = opp.Account?.Source_System_Id__c;
 
