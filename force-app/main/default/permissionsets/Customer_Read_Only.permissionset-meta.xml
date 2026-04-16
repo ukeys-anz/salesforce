@@ -112,6 +112,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.KYC_Confirmation_Date__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.KYC_Verification_Level__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -619,4 +624,4 @@
         <recordType>ContactPointPhone.Organisation</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
-</PermissionSet>
+    <!-- need revert once GCP add this field--></PermissionSet>

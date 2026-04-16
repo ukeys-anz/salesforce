@@ -4,6 +4,8 @@
  * @description  : This class contains public repository for all queries used in CommercialAppFormProductActions
  **/
 public class CommercialAppFormProductActionsRepo {
+  private static final String AFM_APPLICATION_SOURCE_BKOLA = System.Label.AFP_App_Source_BKOLA;
+  private static final String CUSTOM_NOTIFICATION_TYPE_BROKERBIZ = System.Label.Custom_Notification_On_Opportunity;
   /**
    * @description getApplicationForms to get app forms records related to commercial opp
    * @param appFormIds set of new app form ids
@@ -101,6 +103,160 @@ public class CommercialAppFormProductActionsRepo {
   }
 
   /**
+   * @description to get BKOLA application form product records based on application form.
+   * @author  Ali Mujtaba | Salesforce | 27-10-2025
+   * @param applicationForm application form list
+   * @return List<ApplicationFormProduct>
+   **/
+  public List<ApplicationFormProduct> getBkolaAppFormProductByAppForm(
+    List<ApplicationForm> applicationForm
+  ) {
+    if (applicationForm.isEmpty()) {
+      return new List<ApplicationFormProduct>();
+    }
+    return [
+      SELECT
+        Id,
+        ApplicationFormId,
+        ApplicationForm.AccountId,
+        ApplicationForm.OpportunityId,
+        ApplicationForm.Assisted_Broker__c,
+        ApplicationForm.Assisted_Broker_TPMI_SAO__c
+      FROM ApplicationFormProduct
+      WHERE
+        ApplicationFormId IN :applicationForm
+        AND ApplicationForm.OpportunityId != NULL
+      WITH USER_MODE
+      LIMIT 1
+    ];
+  }
+
+  /**
+   * @description Fetches Application Forms for given Opportunity IDs and their products.
+   * @author  A M Vikash | Salesforce | 28-10-2025
+   * @param appFormIds Set<Id> of ApplicationForm IDs
+   * @return List<ApplicationForm> list of Application Forms with related products
+   **/
+  public List<ApplicationForm> getApplicationFormsAndProducts(
+    Set<Id> appFormIds
+  ) {
+    if (appFormIds.isEmpty()) {
+      return new List<ApplicationForm>();
+    }
+
+    return [
+      SELECT
+        Id,
+        RecordTypeId,
+        AccountId,
+        Assisted_Broker__c,
+        OwnerId,
+        Reference_Number__c,
+        OpportunityId,
+        (
+          SELECT
+            Id,
+            Loan_Purpose__c,
+            ApplicationFormId,
+            Brokerage_Amount__c,
+            Application_Source__c,
+            ProductId,
+            Amount__c,
+            Reference_Number__c
+          FROM ApplicationFormProducts
+          WHERE Application_Source__c = :AFM_APPLICATION_SOURCE_BKOLA
+        )
+      FROM ApplicationForm
+      WHERE
+        Id IN :appFormIds
+        AND RecordTypeId = :RTApplicationForm.ambitApplication
+        AND Reference_Number__c != NULL
+        AND OpportunityId = NULL
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description Retrieves the custom notification type used for alerting Opportunity Owners.
+   * @author  A M Vikash | Salesforce | 28-10-2025
+   * @return CustomNotificationType record if found, otherwise null
+   **/
+  public CustomNotificationType getOpportunityNotificationType() {
+    List<CustomNotificationType> types = [
+      SELECT Id
+      FROM CustomNotificationType
+      WHERE DeveloperName = :CUSTOM_NOTIFICATION_TYPE_BROKERBIZ
+      LIMIT 1
+    ];
+
+    return types.isEmpty() ? null : types[0];
+  }
+  /**
+   * @description Retrieves Opportunity records for the given set of Opportunity IDs, including specific fields like Broker Name and Application Numbers.
+   * @author  A M Vikash | Salesforce | 28-10-2025
+   * @param insertedOppIds Set<Id> The set of Opportunity IDs to fetch Opportunity details
+   * @return List<Opportunity> List of Opportunity records matching the given IDs
+   **/
+  public List<opportunity> getOpportunityDetails(Set<Id> insertedOppIds) {
+    if (insertedOppIds.isEmpty()) {
+      return new List<opportunity>();
+    }
+
+    return [
+      SELECT Id, Name, Broker_Name__c, Application_Numbers__c
+      FROM opportunity
+      WHERE Id IN :insertedOppIds
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description Retrieves "AMBIT" ApplicationForm records and their related ApplicationFormProducts for specific opportunities & Reference Number is BLANK
+   * @author Vikash Agarwal | Salesforce | 02-12-2026
+   * @param setOppIds
+   * @return List<ApplicationForm>
+   **/
+  public List<ApplicationForm> getApplicationFormAndProductsWithAmbitQuote(
+    Set<Id> setOppIds
+  ) {
+    if (setOppIds.isEmpty()) {
+      return new List<ApplicationForm>();
+    }
+
+    return [
+      SELECT
+        Id,
+        RecordTypeId,
+        AccountId,
+        Assisted_Broker__c,
+        OwnerId,
+        Reference_Number__c,
+        OpportunityId,
+        Sync_Status__c,
+        Source_System_Id__c,
+        (
+          SELECT
+            Id,
+            Loan_Purpose__c,
+            ApplicationFormId,
+            Brokerage_Amount__c,
+            Application_Source__c,
+            ProductId,
+            Amount__c,
+            Reference_Number__c
+          FROM ApplicationFormProducts
+          WHERE Reference_Number__c != NULL
+        )
+      FROM ApplicationForm
+      WHERE
+        OpportunityId IN :setOppIds
+        AND RecordTypeId = :RTApplicationForm.ambitApplication
+        AND Reference_Number__c = NULL
+      WITH USER_MODE
+    ];
+  }
+
+  /**
    * @description getRelatedAFP - To fetch the related AFPs
    * @param appFormProductIds set of app form product ids
    * @return  List<ApplicationFormProduct> afp list
@@ -176,6 +332,22 @@ public class CommercialAppFormProductActionsRepo {
         AND ApplicationForm.RecordTypeId = :RTApplicationForm.bbdApplication
         AND ApplicationForm.Opportunity.RecordTypeId = :RTOpportunity.CommercialOpportunity
       WITH SYSTEM_MODE
+    ];
+  }
+  /**
+   * @description getOppLineItemsRelatedToOpp - Fetch all opp line items related to opp
+   * @param oppIds set of opp ids
+   * @return List<OpportunityLineItem> opp line items list
+   */
+  public List<OpportunityLineItem> getOppLineItemsRelatedToOpp(Set<Id> oppIds) {
+    if (oppIds.isEmpty()) {
+      return new List<OpportunityLineItem>();
+    }
+    return [
+      SELECT Id, OpportunityId
+      FROM OpportunityLineItem
+      WHERE OpportunityId IN :oppIds
+      WITH USER_MODE
     ];
   }
 }

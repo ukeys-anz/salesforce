@@ -111,6 +111,10 @@ private class LiabilityAccountExternalQueryTest {
       'getFinancialAccountsWithCustomerId',
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
+    faRepoMock.mock(
+      'getIndustryNamesByCodes',
+      new Map<String, String>{ '6220' => 'Test Industry' }
+    );
     faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
     ExternalObjectQueryBase.ExternalQueryResult result = liabilityAcct.execute(
       context
@@ -134,6 +138,10 @@ private class LiabilityAccountExternalQueryTest {
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
     faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
+    faRepoMock.mock(
+      'getIndustryNamesByCodes',
+      new Map<String, String>{ '6220' => 'Test Industry' }
+    );
     LiabilityAccountExternalQuery liabilityAcct = new LiabilityAccountExternalQuery();
     DataSource.QueryContext context = createLiabilityAccountQueryContext();
     Test.startTest();

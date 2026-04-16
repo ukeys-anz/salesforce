@@ -213,6 +213,13 @@
         <value>proto://buf.anz/anz/salesforceapis/salesforce.service.disputes.v1alpha1</value>
     </labels>
     <labels>
+        <fullName>ANZX_Main_Opportunity_Event_Proto_Data_Schema</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX_Main_Opportunity_Event_Proto_Data_Schema</shortDescription>
+        <value>proto://buf.anz/anz/salesforceapis/salesforce.service.opportunitysync.v1alpha1#OpportunitySyncInsertEvent</value>
+    </labels>
+    <labels>
         <fullName>ANZX_Disputes_Event_Proto_Data_Schema_v1beta1</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -274,6 +281,27 @@
         <protected>false</protected>
         <shortDescription>Profile update cloud event data schema v1alpha1</shortDescription>
         <value>proto://buf.anz/anz/salesforceapis/salesforce.service.profileupdate.v1alpha1#</value>
+    </labels>
+    <labels>
+        <fullName>ANZX_Main_Event_ApplicationForm_Proto_Data_Schema</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX_Main_Event_ApplicationForm_Proto_Data_Schema</shortDescription>
+        <value>buf.anz/anz/salesforceapis/salesforce.service.applicationformeventsync.v1alpha1</value>
+    </labels>
+    <labels>
+        <fullName>ANZX_opportunity_event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX_opportunity_event_ce_type</shortDescription>
+        <value>anzx.salesforce.opportunitysync.v1alpha1.commercialopportunity.</value>
+    </labels>
+    <labels>
+        <fullName>ANZX_opportunity_event_ce_source</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX_opportunity_event_ce_source</shortDescription>
+        <value>csp.salesforce.anzx</value>
     </labels>
     <labels>
         <fullName>Interaction_Status</fullName>
@@ -3049,12 +3077,33 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>afquotegafsit1.dev.anz</value>
     </labels>
     <labels>
+        <fullName>Commercial_Opportunity_RecordTypeId</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Commercial Opportunity RecordTypeId</shortDescription>
+        <value>0122P0000004RehQAE</value>
+    </labels>
+    <labels>
         <fullName>ExistingContactPointPhoneError</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ExistingContactPointPhoneError</shortDescription>
         <value>A phone record of this type is already available for this customer. Please edit the existing phone record for the customer.</value>
+    </labels>
+    <labels>
+        <fullName>ANZX_applicationform_event_ce_source</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX_applicationform_event_ce_source</shortDescription>
+        <value>main.salesforce.anzx</value>
+    </labels>
+    <labels>
+        <fullName>ANZX_applicationform_event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX_applicationform_event_ce_type</shortDescription>
+        <value>anzx.salesforce.broker.v1alpha1.applicationform.</value>
     </labels>
     <labels>
         <fullName>ANZX_Broker_Relation_event_ce_type</fullName>
@@ -3290,10 +3339,58 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>Error to Reset MFA please contact admin</value>
     </labels>
     <labels>
+        <fullName>Customer_Change_Error_Msg_On_App_Form</fullName>
+        <categories>ApplicationForm</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Change Error Msg On App Form</shortDescription>
+        <value>Customer change is not allowed for this Application Form.</value>
+    </labels>
+    <labels>
+        <fullName>AMBIT_Integration_User_PS_Name</fullName>
+        <categories>ApplicationForm</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AMBIT Integration User PS Name</shortDescription>
+        <value>AMBIT_Data_Sync</value>
+    </labels>
+    <labels>
+        <fullName>AFP_App_Source_BKOLA</fullName>
+        <categories>ApplicationForm</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AFP App Source BKOLA</shortDescription>
+        <value>BKOLA</value>
+    </labels>
+    <labels>
         <fullName>Forge_Scope_For_MFA_Reset</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Forge_Scope_For_MFA_Reset</shortDescription>
         <value>AU_ANZx_Broker_Accreditation_and_Onboarding_Team</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Name_change_Error_on_Opportunity</fullName>
+        <categories>Op</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Name change Error on Opportunity</shortDescription>
+        <value>Customer change is not allowed for this opportunity.</value>
+    </labels>
+    <labels>
+        <fullName>Broker_Name_change_Error_on_Opportunity</fullName>
+        <categories>Opportunity</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Broker Name change Error on Opportunity</shortDescription>
+        <value>Broker name change is not allowed for this opportunity.</value>
+    </labels>
+    <labels>
+        <fullName>Custom_Notification_On_Opportunity</fullName>
+        <categories>Opportunity</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Custom Notification On Opportunity</shortDescription>
+        <value>BrokerBiz_Opportunity_Notification</value>
     </labels>
 </CustomLabels>

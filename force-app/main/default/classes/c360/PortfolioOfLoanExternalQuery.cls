@@ -187,7 +187,15 @@ public with sharing class PortfolioOfLoanExternalQuery extends FinancialAccountQ
           ? fa.sourcesystemstatus +
             ' - ' +
             MAP_SOURCE_SYSTEM_STATUS.get(fa.sourcesystemstatus)
-          : fa.sourcesystemstatus
+          : fa.sourcesystemstatus,
+        'SuncorpBankMove' => FinancialAccountQueryHelper.getSuncorpBankMoveDate(
+          fa.accountNumber,
+          this.accountRoleMap
+        ),
+        'SuncorpBankIdentifier' => FinancialAccountQueryHelper.getSuncorpBankIdentifier(
+          fa.accountNumber,
+          this.accountRoleMap
+        )
       };
       result.externalRecords.add(row);
     }

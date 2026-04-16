@@ -44,7 +44,7 @@ public with sharing class CommercialOpportunityTriggerHandler extends Lib_Trigge
     );
 
     //checks for validations on opportunities
-    CommercialOpportunityActions.validateCCRMOpportunity(oppWrapper, true);
+    CommercialOpportunityHelper.validateCCRMOpportunity(oppWrapper, true);
     //CC-4053 Redaction
     TextUtils.maskSObjectDataANZExtended(records, 'Description');
     TextUtils.maskSObjectDataANZExtended(records, 'My_Notes__c');
@@ -119,6 +119,26 @@ public with sharing class CommercialOpportunityTriggerHandler extends Lib_Trigge
       (Map<Id, Opportunity>) oldMap
     );
     CommercialOpportunityActions.populateInfo(
+      (List<Opportunity>) records,
+      (Map<Id, Opportunity>) oldMap
+    );
+    CommercialOpportunityActions.resetPreferredFranchiseForNonFranchiseSpecialisation(
+      (List<Opportunity>) records,
+      (Map<Id, Opportunity>) oldMap
+    );
+    CommercialBrokerOpportunityActions.preventCustAndBrokerChange(
+      (List<Opportunity>) records,
+      (Map<Id, Opportunity>) oldMap
+    );
+  }
+
+  /**
+   * @description onAfterUpdate to handle after update trigger actions.
+   * @name onAfterUpdate
+   * @param oldMap Map of old records
+   */
+  public override void onAfterUpdate(Map<Id, SObject> oldMap) {
+    CommercialOpportunityActions.updateAFShareRecordsOnOwnerChange(
       (List<Opportunity>) records,
       (Map<Id, Opportunity>) oldMap
     );

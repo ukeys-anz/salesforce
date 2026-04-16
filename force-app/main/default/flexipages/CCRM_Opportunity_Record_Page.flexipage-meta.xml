@@ -286,6 +286,56 @@
                 <identifier>RecordStageNameField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Specialisation__c</fieldItem>
+                <identifier>RecordSpecialisation_cField2</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Specialisation_SubCategory__c</fieldItem>
+                <identifier>RecordSpecialisation_SubCategory_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Specialisation__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>ESG</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Specialisation__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Insights</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Preferred_Franchise__c</fieldItem>
+                <identifier>RecordPreferred_Franchise_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Specialisation__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Franchise</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-c89e6feb-8e8a-4e58-8bec-145959a4eaea</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -614,6 +664,46 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Specialisation__c</fieldItem>
                 <identifier>RecordSpecialisation_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Specialisation_SubCategory__c</fieldItem>
+                <identifier>RecordSpecialisation_SubCategory_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Specialisation__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>ESG</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Specialisation__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Insights</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Preferred_Franchise__c</fieldItem>
+                <identifier>RecordPreferred_Franchise_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Specialisation__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Franchise</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>

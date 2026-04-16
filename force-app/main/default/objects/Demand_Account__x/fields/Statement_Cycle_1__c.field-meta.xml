@@ -5,14 +5,181 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_CACHE</complianceGroup>
     <description>Statement Cycle 1</description>
     <externalDeveloperName>StatementCycle1</externalDeveloperName>
-    <externalId>false</externalId>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Statement Cycle 1</label>
-    <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>DA</fullName>
+                <default>false</default>
+                <label>DA - Daily</label>
+            </value>
+            <value>
+                <fullName>EM</fullName>
+                <default>false</default>
+                <label>EM - Last business day of month</label>
+            </value>
+            <value>
+                <fullName>IB</fullName>
+                <default>false</default>
+                <label>IB - Every two months on nominated date</label>
+            </value>
+            <value>
+                <fullName>IF</fullName>
+                <default>false</default>
+                <label>IF - Fortnightly on nominated date</label>
+            </value>
+            <value>
+                <fullName>IM</fullName>
+                <default>false</default>
+                <label>IM - Monthly on nominated date</label>
+            </value>
+            <value>
+                <fullName>IQ</fullName>
+                <default>false</default>
+                <label>IQ - Quarterly on nominated date</label>
+            </value>
+            <value>
+                <fullName>IS</fullName>
+                <default>false</default>
+                <label>IS - Half-yearly on nominated date</label>
+            </value>
+            <value>
+                <fullName>IW</fullName>
+                <default>false</default>
+                <label>IW - Weekly on nominated date</label>
+            </value>
+            <value>
+                <fullName>M1</fullName>
+                <default>false</default>
+                <label>M1 - 1st Week of the Month - Monday</label>
+            </value>
+            <value>
+                <fullName>M2</fullName>
+                <default>false</default>
+                <label>M2 - 2nd Week of the Month - Monday</label>
+            </value>
+            <value>
+                <fullName>M3</fullName>
+                <default>false</default>
+                <label>M3 - 3rd Week of the Month - Monday</label>
+            </value>
+            <value>
+                <fullName>M4</fullName>
+                <default>false</default>
+                <label>M4 - 4th Week of the Month - Monday</label>
+            </value>
+            <value>
+                <fullName>ML</fullName>
+                <default>false</default>
+                <label>ML - Last Week of the Month - Monday</label>
+            </value>
+            <value>
+                <fullName>U1</fullName>
+                <default>false</default>
+                <label>U1 - 1st Week of the Month - Tuesday</label>
+            </value>
+            <value>
+                <fullName>U2</fullName>
+                <default>false</default>
+                <label>U2 - 2nd Week of the Month - Tuesday</label>
+            </value>
+            <value>
+                <fullName>U3</fullName>
+                <default>false</default>
+                <label>U3 - 3rd Week of the Month - Tuesday</label>
+            </value>
+            <value>
+                <fullName>U4</fullName>
+                <default>false</default>
+                <label>U4 - 4th Week of the Month - Tuesday</label>
+            </value>
+            <value>
+                <fullName>UL</fullName>
+                <default>false</default>
+                <label>UL - Last Week of the Month - Tuesday</label>
+            </value>
+            <value>
+                <fullName>W1</fullName>
+                <default>false</default>
+                <label>W1 - 1st Week of the Month - Wednesday</label>
+            </value>
+            <value>
+                <fullName>W2</fullName>
+                <default>false</default>
+                <label>W2 - 2nd Week of the Month - Wednesday</label>
+            </value>
+            <value>
+                <fullName>W3</fullName>
+                <default>false</default>
+                <label>W3 - 3rd Week of the Month - Wednesday</label>
+            </value>
+            <value>
+                <fullName>W4</fullName>
+                <default>false</default>
+                <label>W4 - 4th Week of the Month - Wednesday</label>
+            </value>
+            <value>
+                <fullName>WL</fullName>
+                <default>false</default>
+                <label>WL - Last Week of the Month - Wednesday</label>
+            </value>
+            <value>
+                <fullName>T1</fullName>
+                <default>false</default>
+                <label>T1 - 1st Week of the Month - Thursday</label>
+            </value>
+            <value>
+                <fullName>T2</fullName>
+                <default>false</default>
+                <label>T2 - 2nd Week of the Month - Thursday</label>
+            </value>
+            <value>
+                <fullName>T3</fullName>
+                <default>false</default>
+                <label>T3 - 3rd Week of the Month - Thursday</label>
+            </value>
+            <value>
+                <fullName>T4</fullName>
+                <default>false</default>
+                <label>T4 - 4th Week of the Month - Thursday</label>
+            </value>
+            <value>
+                <fullName>TL</fullName>
+                <default>false</default>
+                <label>TL - Last Week of the Month - Thursday</label>
+            </value>
+            <value>
+                <fullName>F1</fullName>
+                <default>false</default>
+                <label>F1 - 1st Week of the Month - Friday</label>
+            </value>
+            <value>
+                <fullName>F2</fullName>
+                <default>false</default>
+                <label>F2 - 2nd Week of the Month - Friday</label>
+            </value>
+            <value>
+                <fullName>F3</fullName>
+                <default>false</default>
+                <label>F3 - 3rd Week of the Month - Friday</label>
+            </value>
+            <value>
+                <fullName>F4</fullName>
+                <default>false</default>
+                <label>F4 - 4th Week of the Month - Friday</label>
+            </value>
+            <value>
+                <fullName>FL</fullName>
+                <default>false</default>
+                <label>FL - Last Week of the Month - Friday</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>

@@ -51,6 +51,7 @@ public class CommercialOpportunityActionsTest {
     Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
     Id oppId1 = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
     Id oppId2 = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id oppId3 = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
     Account accRecord = new Account(
       Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
       RecordTypeId = RTAccount.businessAccount,
@@ -66,10 +67,16 @@ public class CommercialOpportunityActionsTest {
       RecordTypeId = RTAccount.businessAccount,
       FinServ__Status__c = 'Unknown'
     );
+    Account accRecord3 = new Account(
+      Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+      RecordTypeId = RTAccount.businessAccount,
+      FinServ__Status__c = 'Prospect'
+    );
     Map<Id, Account> accMap = new Map<Id, Account>{
       accRecord.Id => accRecord,
       accRecord1.Id => accRecord1,
-      accRecord2.Id => accRecord2
+      accRecord2.Id => accRecord2,
+      accRecord3.Id => accRecord3
     };
     List<Opportunity> records = new List<Opportunity>{
       new Opportunity(
@@ -85,6 +92,11 @@ public class CommercialOpportunityActionsTest {
       new Opportunity(
         Id = oppId2,
         AccountId = accRecord2.Id,
+        Lead_Converted__c = false
+      ),
+      new Opportunity(
+        Id = oppId3,
+        AccountId = accRecord3.Id,
         Lead_Converted__c = false
       )
     };
@@ -102,6 +114,11 @@ public class CommercialOpportunityActionsTest {
       oppId2 => new Opportunity(
         Id = oppId2,
         AccountId = accRecord2.Id,
+        Lead_Converted__c = false
+      ),
+      oppId3 => new Opportunity(
+        Id = oppId3,
+        AccountId = accRecord3.Id,
         Lead_Converted__c = false
       )
     };
@@ -131,6 +148,15 @@ public class CommercialOpportunityActionsTest {
     );
 
     errors = records[2].getErrors();
+    error = errors.get(0);
+    Assert.areEqual(1, errors.size(), 'Error on update');
+    Assert.isTrue(
+      error.getMessage()
+        .contains(CommercialOpportunityHelper.LEAD_PROCESS_FOR_PROSPECT_ERROR),
+      'Validation error when opportunity is closed without app launch'
+    );
+
+    errors = records[3].getErrors();
     error = errors.get(0);
     Assert.areEqual(1, errors.size(), 'Error on update');
     Assert.isTrue(
@@ -179,43 +205,6 @@ public class CommercialOpportunityActionsTest {
       records[0].Has_Close_Date_Changed__c,
       true,
       'Close date is changed'
-    );
-  }
-
-  @isTest
-  static void validateCCRMOpportunityTest() {
-    registerMocks();
-    List<Database.Error> errors;
-    Database.Error error;
-    //GIVEN list of Opportunity records, old Map of Opportunity records
-    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
-    Account accRecord = new Account(
-      Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
-      RecordTypeId = RTAccount.businessAccount
-    );
-    //List<Opportunity> oppList = new List<Opportunity>(){};
-    List<Opportunity> records = new List<Opportunity>{
-      new Opportunity(
-        Id = oppId,
-        AccountId = accRecord.Id,
-        Name = 'Test',
-        StageName = 'In Progress',
-        LeadSource = 'Other'
-      )
-    };
-    CommercialOpportunityActions.CCRMOpportunityWrapper oppWrapper = new CommercialOpportunityActions.CCRMOpportunityWrapper();
-    oppWrapper.filteredOpps = records;
-    //WHEN calling a method
-    Test.startTest();
-    CommercialOpportunityActions.validateCCRMOpportunity(oppWrapper, true);
-    Test.stopTest();
-
-    errors = records[0].getErrors();
-    error = errors.get(0);
-    Assert.isTrue(
-      error.getMessage()
-        .contains(CommercialOpportunityActions.OTHER_SOURCE_DETAIL_MANDATORY),
-      'Validation error when opportunity is closed without app launch'
     );
   }
 
@@ -357,7 +346,7 @@ public class CommercialOpportunityActionsTest {
       opportunityId => (new Opportunity(
         Id = opportunityId,
         RecordTypeId = RTOpportunity.commercialOpportunity,
-        StageName = CommercialOpportunityActions.NEW_STAGE
+        StageName = CommercialOpportunityHelper.NEW_STAGE
       ))
     };
 
@@ -437,7 +426,7 @@ public class CommercialOpportunityActionsTest {
     error = errors.get(0);
     Assert.areEqual(1, errors.size(), 'Error on update');
     Assert.areEqual(
-      CommercialOpportunityActions.CUSTOMER_NEEDS_ERROR,
+      CommercialOpportunityHelper.CUSTOMER_NEEDS_ERROR,
       error.getMessage(),
       'Opportunity validation executed'
     );
@@ -826,10 +815,8 @@ public class CommercialOpportunityActionsTest {
     registerMocks();
     //GIVEN list of lead records and map of Account-Account relations
     Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
-    Id relatedAccountIdOld = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
     Id relatedAccountIdNew = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
     Id clgAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-    Id noclgAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
 
     List<Opportunity> records = new List<Opportunity>{
       new Opportunity(Id = oppId, AccountId = relatedAccountIdNew)
@@ -914,14 +901,6 @@ public class CommercialOpportunityActionsTest {
       accountAccountRelationList
     );
 
-    Map<Id, Account> accountMap = new Map<Id, Account>{
-      noclgAccountId => new Account(
-        Id = noclgAccountId,
-        Name = 'testAccount',
-        RecordTypeId = RTAccount.clgAccount,
-        CLG__c = '1567'
-      )
-    };
     //WHEN calling a method
     Test.startTest();
     CommercialOpportunityActions.populateClgAccount(records, oldMap);
@@ -965,8 +944,6 @@ public class CommercialOpportunityActionsTest {
       new User(Id = userId, Commercial_Segment__c = 'SME')
     };
 
-    List<Map<String, Object>> result = new List<Map<String, Object>>();
-
     Map<String, Object> taskmap = new Map<String, Object>{ 'WhatId' => oppId };
     List<Map<String, Object>> taskList = new List<Map<String, Object>>();
     taskList.add(taskmap);
@@ -995,6 +972,151 @@ public class CommercialOpportunityActionsTest {
       System.Label.CCRM_OpenTasksOnOpportunityCloseError,
       errorMessage,
       'Should give validation error for open task'
+    );
+  }
+
+  @isTest
+  static void resetPreferredFranchiseForNonFranchiseSpecialisationTest() {
+    registerMocks();
+    Id oppFranToNonFranId = Lib_FakeIdGenerator.getMockId(
+      Opportunity.SObjectType
+    );
+    Id accountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+
+    //GIVEN Opportunity Record where Specialisation is changed from 'Franchise'
+    Franchise_Brand__c franchiseRecord = new Franchise_Brand__c(
+      Id = Lib_FakeIdGenerator.getMockId(Franchise_Brand__c.SObjectType),
+      Name = 'Franchise A'
+    );
+
+    List<Opportunity> records = new List<Opportunity>{
+      new Opportunity(
+        Id = oppFranToNonFranId,
+        AccountId = accountId,
+        Name = 'Test',
+        StageName = 'In Progress',
+        RecordTypeid = RTOpportunity.commercialOpportunity,
+        Preferred_Franchise__c = franchiseRecord.Id,
+        Specialisation__c = 'Insights'
+      )
+    };
+
+    Map<Id, Opportunity> oldMap = new Map<Id, Opportunity>{
+      oppFranToNonFranId => new Opportunity(
+        Id = oppFranToNonFranId,
+        AccountId = accountId,
+        Name = 'Test',
+        StageName = 'In Progress',
+        RecordTypeid = RTOpportunity.commercialOpportunity,
+        Preferred_Franchise__c = franchiseRecord.Id,
+        Specialisation__c = 'Franchise'
+      )
+    };
+
+    //WHEN calling resetPreferredFranchiseForNonFranchiseSpecialisation method
+    Test.startTest();
+    CommercialOpportunityActions.resetPreferredFranchiseForNonFranchiseSpecialisation(
+      records,
+      oldMap
+    );
+    Test.stopTest();
+
+    // THEN Preferred_Franchise__c should be set to null
+    Assert.isNull(
+      records[0].Preferred_Franchise__c,
+      'Preferred Franchise should be reset when Specialisation is Non-Franchise'
+    );
+  }
+
+  @isTest
+  static void updateAFShareRecordsOnOwnerChangeTest() {
+    registerMocks();
+    //GIVEN records, oldMap
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id afId = Lib_FakeIdGenerator.getMockId(ApplicationForm.SObjectType);
+    Id newOwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    Id oldOwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    List<Opportunity> records = new List<Opportunity>{
+      new Opportunity(Id = oppId, OwnerId = newOwnerId)
+    };
+
+    Map<Id, Opportunity> oldMap = new Map<Id, Opportunity>{
+      oppId => new Opportunity(Id = oppId, OwnerId = oldOwnerId)
+    };
+
+    List<ApplicationForm> afList = new List<ApplicationForm>{
+      new ApplicationForm(
+        Id = afId,
+        OpportunityId = oppId,
+        OwnerId = oldOwnerId
+      )
+    };
+
+    List<ApplicationFormShare> afShareList = new List<ApplicationFormShare>{
+      new ApplicationFormShare(
+        parentId = afId,
+        UserOrGroupId = oldOwnerId,
+        AccessLevel = 'Edit',
+        RowCause = 'Manual'
+      )
+    };
+
+    oppRepoMock.mock('getAFShareRelatedToOpportunity', afShareList);
+
+    oppRepoMock.mock('getAFRelatedToOpportunity', afList);
+
+    //WHEN calling a method
+    Test.startTest();
+    CommercialOpportunityActions.updateAFShareRecordsOnOwnerChange(
+      records,
+      oldMap
+    );
+    Test.stopTest();
+
+    //THEN it should invoke do Insert method
+    Assert.isNotNull(
+      dmlRepoMock.getHistory('doInsert'),
+      'doInsert should have been invoked'
+    );
+
+    List<ApplicationFormShare> insertedRecords = (List<ApplicationFormShare>) dmlRepoMock.getHistory(
+        'doInsert'
+      )
+      .getParam('records');
+
+    //THEN it should create a AF share records successfully
+    Assert.areEqual(
+      new ApplicationFormShare(
+        parentId = afId,
+        RowCause = 'Manual',
+        UserOrGroupId = newOwnerId,
+        AccessLevel = 'Edit'
+      ),
+      insertedRecords[0],
+      'New Application Form Share should be created with the correct values'
+    );
+
+    //THEN it should invoke do delete method
+    Assert.isNotNull(
+      dmlRepoMock.getHistory('doInsert'),
+      'doInsert should have been invoked'
+    );
+
+    List<ApplicationFormShare> deletedRecords = (List<ApplicationFormShare>) dmlRepoMock.getHistory(
+        'doDelete'
+      )
+      .getParam('records');
+
+    //THEN it should delete a AF share records successfully
+    Assert.areEqual(
+      new ApplicationFormShare(
+        parentId = afId,
+        RowCause = 'Manual',
+        UserOrGroupId = oldOwnerId,
+        AccessLevel = 'Edit'
+      ),
+      deletedRecords[0],
+      'Old Application Form Share should be deleted with the correct values'
     );
   }
 }

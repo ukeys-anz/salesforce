@@ -20,4 +20,4 @@ jobs:
         uses: ./.github/actions/pr-title-action
         with:
           jira-project: "(ABT|IDR|ANZX|APRART|AR|CC|RIB|CF|SCFE)"
-          issue-blocklist: "^(?!.*\\b[A-Z]+[-](?!0{5,6})\\d{5,6}\\b).*"
+          issue-blocklist: "^(?!.*\\b[A-Z]+[-](?!0{3,7})\\d{3,7}\\b).*"

@@ -271,6 +271,12 @@
         <label>Coffs Harbour (NSW)</label>
     </customValue>
     <customValue>
+        <fullName>Coffs Harbour (QLD)</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Coffs Harbour (QLD)</label>
+    </customValue>
+    <customValue>
         <fullName>Coorparoo (QLD)</fullName>
         <default>false</default>
         <label>Coorparoo (QLD)</label>
@@ -336,9 +342,9 @@
         <label>Epping (NSW)</label>
     </customValue>
     <customValue>
-        <fullName>Epping (VIC)</fullName>
+        <fullName>Caroline Springs (VIC)</fullName>
         <default>false</default>
-        <label>Epping (VIC)</label>
+        <label>Caroline Springs (VIC)</label>
     </customValue>
     <customValue>
         <fullName>Essendon (VIC)</fullName>
@@ -676,9 +682,9 @@
         <label>Newtown (NSW)</label>
     </customValue>
     <customValue>
-        <fullName>Noarlunga (SA)</fullName>
+        <fullName>Southern &amp; Fleurieu (SA)</fullName>
         <default>false</default>
-        <label>Noarlunga (SA)</label>
+        <label>Southern &amp; Fleurieu (SA)</label>
     </customValue>
     <customValue>
         <fullName>Northcote (VIC)</fullName>
@@ -926,6 +932,11 @@
         <label>Sydney CBD (NSW)</label>
     </customValue>
     <customValue>
+        <fullName>Tarneit (VIC)</fullName>
+        <default>false</default>
+        <label>Tarneit (VIC)</label>
+    </customValue>
+    <customValue>
         <fullName>Terrigal (NSW)</fullName>
         <default>false</default>
         <label>Terrigal (NSW)</label>
@@ -941,9 +952,9 @@
         <label>Toowong (QLD)</label>
     </customValue>
     <customValue>
-        <fullName>Toowoomba (QLD)</fullName>
+        <fullName>Toowoomba &amp; Highfields (QLD)</fullName>
         <default>false</default>
-        <label>Toowoomba (QLD)</label>
+        <label>Toowoomba &amp; Highfields (QLD)</label>
     </customValue>
     <customValue>
         <fullName>Townsville (QLD)</fullName>
@@ -986,6 +997,16 @@
         <label>Wentworthville (NSW)</label>
     </customValue>
     <customValue>
+        <fullName>Werribee (VIC)</fullName>
+        <default>false</default>
+        <label>Werribee (VIC)</label>
+    </customValue>
+    <customValue>
+        <fullName>Wyndham Vale (VIC)</fullName>
+        <default>false</default>
+        <label>Wyndham Vale (VIC)</label>
+    </customValue>
+    <customValue>
         <fullName>Willetton (WA)</fullName>
         <default>false</default>
         <label>Willetton (WA)</label>
@@ -999,12 +1020,6 @@
         <fullName>Wollongong (NSW)</fullName>
         <default>false</default>
         <label>Wollongong (NSW)</label>
-    </customValue>
-    <customValue>
-        <fullName>Coffs Harbour (QLD)</fullName>
-        <default>false</default>
-        <isActive>false</isActive>
-        <label>Coffs Harbour (QLD)</label>
     </customValue>
     <customValue>
         <fullName>Riverina (NSW)</fullName>

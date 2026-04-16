@@ -31,6 +31,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Broker__c</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Support_Topics__c</field>
             <table>Interaction</table>
         </columns>
@@ -42,6 +47,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Appointment__c</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Interaction_Type__c</field>
             <table>Interaction</table>
         </columns>
         <columns>
@@ -62,6 +72,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Authentication_Method__c</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>COI_Member__c</field>
             <table>Interaction</table>
         </columns>
         <columns>
@@ -298,6 +313,22 @@
             <checkedByDefault>false</checkedByDefault>
             <field>Actual_Topic__c</field>
             <table>Interaction.Interactions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Opportunity__c.Amount</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Lead__c.Industry__c.Code__c</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>ANZSIC Industry Code</displayNameOverride>
+            <field>Account.Industry__c.Code__c</field>
+            <table>Interaction</table>
         </columns>
         <masterLabel>Interactions</masterLabel>
     </sections>
@@ -2779,11 +2810,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Lead__c.Industry__c</field>
-            <table>Interaction</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Lead__c.FinServ__ReferredByUser__c</field>
             <table>Interaction</table>
         </columns>
@@ -4346,5 +4372,26 @@
             <table>Interaction.Interactions__r.InteractionAttendee</table>
         </columns>
         <masterLabel>Interaction Attendees</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Lead__c.Industry__c</field>
+            <table>Interaction</table>
+        </columns>
+        <masterLabel>Lead</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Owner.Commercial_Segment__c</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Owner.Sub_Team_Code__c</field>
+            <table>Interaction</table>
+        </columns>
+        <masterLabel>Owner</masterLabel>
     </sections>
 </ReportType>

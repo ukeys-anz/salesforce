@@ -165,4 +165,21 @@ private class CommercialAFPActionsExtendedTest {
       'Estimated Revenue on opp is not 0'
     );
   }
+
+  @isTest
+  static void validateOppLineItemsTest() {
+    Id oppLineItemId1 = Lib_FakeIdGenerator.getMockId(
+      OpportunityLineItem.SObjectType
+    );
+    Id oppLineItemId2 = Lib_FakeIdGenerator.getMockId(
+      OpportunityLineItem.SObjectType
+    );
+    Test.startTest();
+    Boolean result = CommercialAFPActionsExtended.validateOppLineItems(
+      new Set<Id>{ oppLineItemId1, oppLineItemId2 },
+      new Set<Id>{ oppLineItemId1 }
+    );
+    Test.stopTest();
+    Assert.areEqual(false, result, 'Result is true');
+  }
 }

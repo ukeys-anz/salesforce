@@ -70,6 +70,10 @@ private class LaunchAppOnOppControllerTest {
       'getSelectedOppLineItems',
       new List<OpportunityLineItem>{ oli }
     );
+    launchAppRepoMock.mock(
+      'getAppFormProductsUsingExtId',
+      new List<ApplicationFormProduct>()
+    ); // Return empty list to simulate no existing app form products
     dmlRepoMock.mock(
       'doInsert',
       new List<Database.SaveResult>{
@@ -116,6 +120,25 @@ private class LaunchAppOnOppControllerTest {
         Account = new Account(Source_System_ID__c = '12345')
       )
     );
+    Test.startTest();
+    try {
+      List<LaunchAppOnOppController.RecordTypeWrapper> recordTypeWrapperList = LaunchAppOnOppController.populateRecordTypeWrapper(
+        oppId
+      );
+    } catch (Exception e) {
+      ex = e;
+    }
+    Test.stopTest();
+    Assert.isNotNull(ex, 'Exception should be thrown');
+  }
+
+  @isTest
+  static void populateRecordTypeWrapperCatchTest() {
+    registerMocks();
+    Exception ex;
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    launchAppRepoMock.mock('getOppIdAndSourceSystemId', null);
+
     Test.startTest();
     try {
       List<LaunchAppOnOppController.RecordTypeWrapper> recordTypeWrapperList = LaunchAppOnOppController.populateRecordTypeWrapper(
@@ -547,6 +570,87 @@ private class LaunchAppOnOppControllerTest {
 
     //THEN it should throw an exception
     Assert.isNotNull(ex, 'Exception should be thrown');
+  }
+
+  @isTest
+  static void createApplicationWithExistingProductsTest() {
+    registerMocks();
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id productId = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
+    Id recordTypeId = QueryRT.of(ApplicationForm.SObjectType).getId('AMBIT');
+    Id appFormProductId = Lib_FakeIdGenerator.getMockId(
+      ApplicationFormProduct.SObjectType
+    );
+    Id appFormId = Lib_FakeIdGenerator.getMockId(ApplicationForm.SObjectType);
+
+    // Create mock ApplicationFormProduct
+    ApplicationFormProduct existingAppFormProduct = new ApplicationFormProduct(
+      Id = appFormProductId,
+      ApplicationFormId = appFormId,
+      Source_System_Id__c = 'testSourceSystemId'
+    );
+
+    // Mock the repository to return existing products
+    launchAppRepoMock.mock(
+      'getAppFormProductsUsingExtId',
+      new List<ApplicationFormProduct>{ existingAppFormProduct }
+    );
+
+    // Mock the update operation
+    dmlRepoMock.mock(
+      'doUpdate',
+      new List<Database.SaveResult>{
+        TestUtil.getMockSaveResult('{"success":true,"id":"0013000000abcde"}')
+      }
+    );
+
+    Test.startTest();
+    List<Id> appFormProductIds = LaunchAppOnOppController.createApplication(
+      oppId,
+      new List<Id>{ productId },
+      recordTypeId
+    );
+    Test.stopTest();
+
+    Assert.isNotNull(appFormProductIds, 'No records are created');
+  }
+
+  @isTest
+  static void createApplicationEmptyLineItemsTest() {
+    registerMocks();
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id recordTypeId = QueryRT.of(ApplicationForm.SObjectType).getId('AMBIT');
+
+    // Mock empty line items
+    launchAppRepoMock.mock(
+      'getSelectedOppLineItems',
+      new List<OpportunityLineItem>()
+    );
+
+    launchAppRepoMock.mock(
+      'getAppFormProductsUsingExtId',
+      new List<ApplicationFormProduct>()
+    );
+
+    dmlRepoMock.mock(
+      'doInsert',
+      new List<Database.SaveResult>{
+        TestUtil.getMockSaveResult('{"success":true,"id":"0013000000abcde"}')
+      }
+    );
+
+    Test.startTest();
+    List<Id> appFormProductIds = LaunchAppOnOppController.createApplication(
+      oppId,
+      new List<Id>(),
+      recordTypeId
+    );
+    Test.stopTest();
+
+    Assert.isNotNull(
+      appFormProductIds,
+      'Should handle empty line items gracefully'
+    );
   }
 
   @isTest

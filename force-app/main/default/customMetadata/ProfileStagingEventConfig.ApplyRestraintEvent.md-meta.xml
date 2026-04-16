@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>ApplyRestraintEvent</label>
+    <protected>false</protected>
+    <values>
+        <field>Active__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>DataSchema__c</field>
+        <value xsi:type="xsd:string">proto://buf.anz/anz/salesforceapis/salesforce.service.party.v1alpha1#ApplyRestraintEvent</value>
+    </values>
+    <values>
+        <field>EventType__c</field>
+        <value xsi:type="xsd:string">anzx.salesforce.party.v1alpha1.party.restraint_apply</value>
+    </values>
+    <values>
+        <field>PartitionKey__c</field>
+        <value xsi:type="xsd:string">&quot;CaseNumber/&quot; &amp; Case__r.CaseNumber</value>
+    </values>
+    <values>
+        <field>PayloadModel__c</field>
+        <value xsi:type="xsd:string">ProfileStagingCloudEventModel.RestraintChange</value>
+    </values>
+    <values>
+        <field>PublishOldEvent__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>RelatedIdField__c</field>
+        <value xsi:type="xsd:string">Case__c</value>
+    </values>
+    <values>
+        <field>Source__c</field>
+        <value xsi:type="xsd:string">case.salesforce.anzx</value>
+    </values>
+    <values>
+        <field>Subject__c</field>
+        <value xsi:type="xsd:string">&quot;CaseNumber/&quot; &amp; Case__r.CaseNumber</value>
+    </values>
+    <values>
+        <field>TriggeredFrom__c</field>
+        <value xsi:type="xsd:string">Case.KYC_QA.AddRestraints</value>
+    </values>
+</CustomMetadata>

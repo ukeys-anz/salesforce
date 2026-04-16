@@ -26,6 +26,12 @@ public virtual without sharing class ProfileStagingCloudEventModel extends Cloud
     ce_data = new DataModel(staging, triggerConfig);
   }
 
+  /**
+   * @description Computes the pattern for the given staging record.
+   * @param pattern The pattern to compute.
+   * @param staging The staging record.
+   * @return The computed pattern string.
+   */
   private String computePattern(
     String pattern,
     Customer_Profile_Updates__c staging
@@ -42,6 +48,11 @@ public virtual without sharing class ProfileStagingCloudEventModel extends Cloud
     return (String) builder.evaluate(staging);
   }
 
+  /**
+   * @description Constructs the xTargets string for the given staging record.
+   * @param staging The staging record.
+   * @return The constructed xTargets string.
+   */
   private string getXTargets(Customer_Profile_Updates__c staging) {
     List<String> targets = new List<String>{ 'ocv/' + staging.OCV_ID__c };
     if (
@@ -62,6 +73,12 @@ public virtual without sharing class ProfileStagingCloudEventModel extends Cloud
    */
   public virtual class DataModel extends CloudEventModel.CloudEventDataModel {
     public ProfileUpdate data;
+
+    /**
+     * @description private Constructor for DataModel.
+     * @param staging The staging object containing profile update details.
+     * @param triggerConfig The trigger configuration metadata.
+     */
     private DataModel(
       Customer_Profile_Updates__c staging,
       ProfileStagingEventConfig__mdt triggerConfig
@@ -78,6 +95,12 @@ public virtual without sharing class ProfileStagingCloudEventModel extends Cloud
   public virtual class PartyChange extends ProfileUpdate {
     public Map<String, Object> partyChange;
     public Map<String, Object> oldPartyChange;
+
+    /**
+     * @description Initializes the PartyChange instance.
+     * @param staging The staging object containing profile update details.
+     * @param triggerConfig The trigger configuration metadata.
+     */
     protected override void init(
       Customer_Profile_Updates__c staging,
       ProfileStagingEventConfig__mdt triggerConfig
@@ -97,6 +120,12 @@ public virtual without sharing class ProfileStagingCloudEventModel extends Cloud
    */
   public virtual class RestraintChange extends ProfileUpdate {
     public Map<String, Object> restraintChange;
+
+    /**
+     * @description Initializes the RestraintChange instance.
+     * @param staging The staging object containing profile update details.
+     * @param triggerConfig The trigger configuration metadata.
+     */
     protected override void init(
       Customer_Profile_Updates__c staging,
       ProfileStagingEventConfig__mdt triggerConfig
@@ -113,6 +142,12 @@ public virtual without sharing class ProfileStagingCloudEventModel extends Cloud
    */
   public virtual class LegalNameChange extends ProfileUpdate {
     public Map<String, Object> legalNameChange;
+
+    /**
+     * @description Initializes the LegalNameChange instance.
+     * @param staging The staging object containing profile update details.
+     * @param triggerConfig The trigger configuration metadata.
+     */
     protected override void init(
       Customer_Profile_Updates__c staging,
       ProfileStagingEventConfig__mdt triggerConfig
@@ -152,7 +187,7 @@ public virtual without sharing class ProfileStagingCloudEventModel extends Cloud
       this.occurrenceNumber = (Integer) staging.Occurrence_Number__c;
       this.submittedTime = System.now();
       this.triggeredFrom = new TriggeredFrom(staging, triggerConfig);
-      this.customer = new AccountModel(staging);
+      this.customer = new AccountModel(staging.Customer_Name__r);
       this.triggeredBy = new CloudEventModel.UserModel(USER_INFO.getUser());
     }
   }
@@ -176,28 +211,9 @@ public virtual without sharing class ProfileStagingCloudEventModel extends Cloud
     ) {
       this.name = staging.TriggeredFrom__c;
       this.objectType = staging.Object_Name__c;
-      this.id = (String) staging.get(triggerConfig.RelatedIdField__c);
-    }
-  }
-
-  /**
-   * @description Represents the account model with details from the staging object.
-   */
-  public class AccountModel {
-    public String id;
-    public String ocvId;
-    public String sourceSystem;
-    public String sourceSystemId;
-
-    /**
-     * @description Constructor for AccountModel.
-     * @param staging The staging object containing account details.
-     */
-    public AccountModel(Customer_Profile_Updates__c staging) {
-      this.id = staging.Customer_Name__c;
-      this.ocvId = staging.OCV_ID__c;
-      this.sourceSystem = staging.Source_System_Name__c;
-      this.sourceSystemId = staging.Source_System_ID__c;
+      this.id = String.isNotBlank(triggerConfig.RelatedIdField__c)
+        ? (String) staging.get(triggerConfig.RelatedIdField__c)
+        : null;
     }
   }
 }

@@ -39,8 +39,15 @@ public with sharing class DisputesCaseActions {
       );
       externalCaseStatuses.add(externalCaseStatus);
     }
-
-    DML_REPOSITORY.doInsert(externalCaseStatuses, new DmlConfig().systemMode());
+    /**
+     * Reason for using withoutSharing()
+     * In Case of Suspected Fraud and Submitted__c is equal to False, we need to create External Case Status in system mode as the owner of the case will be changed to a queue which will cause the record level access issue for the running user. Hence inserting the records in system mode without sharing to avoid any access issue.
+     * For other dispute reasons, we can insert the records in user mode as there won't be any record level access issue for the running user.
+     */
+    DML_REPOSITORY.doInsert(
+      externalCaseStatuses,
+      new DmlConfig().systemMode().withoutSharing()
+    );
   }
 
   /**

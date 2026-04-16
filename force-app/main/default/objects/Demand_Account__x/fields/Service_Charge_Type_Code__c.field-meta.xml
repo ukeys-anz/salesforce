@@ -5,14 +5,31 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_CACHE</complianceGroup>
     <description>M ANZ SER CHRG PAY METHOD</description>
     <externalDeveloperName>ServiceChargeTypeCode</externalDeveloperName>
-    <externalId>false</externalId>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Service Charge Type Code</label>
-    <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>00</fullName>
+                <default>false</default>
+                <label>00 - Use this code to exempt accounts from fees, e.g. INC accounts, Manager accounts</label>
+            </value>
+            <value>
+                <fullName>71</fullName>
+                <default>false</default>
+                <label>71 - Use this code to record non-standard fees for specific customers</label>
+            </value>
+            <value>
+                <fullName>81</fullName>
+                <default>false</default>
+                <label>81 - Default code for all sub-products</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>

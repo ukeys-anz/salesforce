@@ -1,10 +1,29 @@
+# For automated validation and deployment of sandboxes:
+# To enable pull_request trigger: uncomment the pull_request section below
+# For pull_request: Update the matrix secret-name default in the job to:
+# secret-name: ${{ github.event_name == 'workflow_dispatch' && fromJSON(inputs.sandboxes) || fromJSON('["sf-platform-np-blm", "sf-platform-np-intpnv"]') }}
+# For workflow_dispatch: Pass sandboxes input as JSON array, e.g., ["sf-platform-np-blm", "sf-platform-np-intpnv"]
 name: Validation/Deployment Sandboxes
 
 on:
-  pull_request:
-    branches: [master]
-    types: [closed]
-
+  workflow_dispatch:
+    inputs:
+      NAME:
+        description: "Release Name"
+        required: true
+        type: string
+      base_ref:
+        description: "Base reference branch (optional, defaults to github.base_ref for PR or develop for workflow_dispatch)"
+        required: false
+        type: string
+      sandboxes:
+        description: 'Sandbox secret names as JSON array (e.g., ["sf-platform-np-blm", "sf-platform-np-intpnv"])'
+        required: false
+        type: string
+        default: '[""]'
+  # pull_request:
+  #   branches: [master]
+  #   types: [closed]
 permissions:
   contents: write
   id-token: write
@@ -15,13 +34,16 @@ concurrency:
 
 jobs:
   validation-deployment-different-sandboxes:
-    if: ${{ github.event.pull_request.merged == true }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true }}
     strategy:
       fail-fast: false
       matrix:
-        secret-name: ["sf-platform-np-blm"]
+        # For workflow_dispatch: use the sandboxes input
+        # For pull_request: use default empty array (update secret-name in matrix as needed)
+        secret-name: ${{ github.event_name == 'workflow_dispatch' && fromJSON(inputs.sandboxes) || fromJSON('[""]') }}
     uses: ./.github/workflows/_validation-quick-deployment.yml
     with:
       sfdx_name: ${{ matrix.secret-name }}
+      base_ref: ${{ inputs.base_ref || github.base_ref }}
     secrets:
       token: ${{ secrets.SALESFORCE_ACTIONS_CHECKOUT_TOKEN }}
