@@ -2924,6 +2924,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/BBDInsightsDashboard/ExecutiveSummary</value>
     </labels>
     <labels>
+        <fullName>CCRM_LAI_Tableau_View_URL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM LAI Tableau View URL</shortDescription>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/LAI/Leads_Action_InsightsVerification</value>
+    </labels>
+    <labels>
         <fullName>HideCardDetailsAfterMiliseconds</fullName>
         <language>en_US</language>
         <protected>false</protected>
