@@ -39,7 +39,7 @@ public with sharing class CommercialReferralLeadRepository {
       return new List<User>();
     }
     return [
-      SELECT Id, Email, UserName, Lan_Id__c
+      SELECT Id, Email, UserName, Lan_Id__c, FirstName, LastName
       FROM User
       WHERE Id IN :relatedUserIds
       WITH USER_MODE

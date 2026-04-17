@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCRM_Restrict_Null_Amount_Basis_Category</fullName>
+    <active>true</active>
+    <description>Restrict saving / updating of lead if Amount is null when Referral Category is &quot;Borrow - Mortgage&quot; or &quot;Borrow - Other&quot;</description>
+    <errorConditionFormula>AND(
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    NOT(
+        CONTAINS(
+            $User.Username,$Label.IknowToSfIntegrationUserName
+        )
+    ),
+    OR(
+    RecordType.DeveloperName = &apos;Referral&apos;,
+    RecordType.DeveloperName = &apos;CCRM_Lead&apos;
+    ),
+    OR(
+        ISPICKVAL(Referral_Category__c,&quot;Borrow - Mortgage&quot;),
+        ISPICKVAL(Referral_Category__c,&quot;Borrow - Other&quot;)
+    ),    
+        ISBLANK(FinServ__PotentialValue__c)   
+)</errorConditionFormula>
+    <errorMessage>Please indicate an amount for your Home Loan Referral.</errorMessage>
+</ValidationRule>

@@ -36,6 +36,7 @@ public with sharing class CommercialReferralLeadTriggerHandler extends Lib_Trigg
     CommercialLeadActions.populateInfo(records, null);
     CommercialReferralLeadActions.updateIknowReferralStatus(records);
     CommercialLeadActions.prefillContactInfoForIndLead(records, null);
+    CommercialReferralLeadActions.validateNotesOnReferral(records, null);
   }
 
   /**
@@ -62,6 +63,10 @@ public with sharing class CommercialReferralLeadTriggerHandler extends Lib_Trigg
     );
     CommercialLeadActions.prefillContactInfoForIndLead(
       (List<Lead>) records,
+      (Map<Id, Lead>) oldMap
+    );
+    CommercialReferralLeadActions.validateNotesOnReferral(
+      records,
       (Map<Id, Lead>) oldMap
     );
   }
