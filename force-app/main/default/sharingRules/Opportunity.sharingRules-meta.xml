@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
+        <fullName>Commercial_Opportunity_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This is to provide read access to all ccrm users to opportunities.</description>
+        <label>Commercial Opportunity Read Only</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
+        </sharedTo>
+        <booleanFilter>1</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Commercial Opportunity</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>MLCRM_Opportunities_With_Loan_App_GCP_Integration_User</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Used to grant read/write access to Mobile Lending Opportunities to Loan App Integration User</description>
@@ -85,6 +101,18 @@
         </sharedTo>
         <sharedFrom>
             <group>Diversified_and_Specialist_Industries</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Commercial_Opportunity_Read_Write_Access_Markets</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This is to provide Read and Write access to Markets Segment.</description>
+        <label>Commercial Opportunity Read Write Access Markets</label>
+        <sharedTo>
+            <group>Markets</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Markets</group>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>

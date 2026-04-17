@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingOwnerRules>
+        <fullName>Commercial_Application_Form_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This is to provide read access to all app forms to all ccrm users.</description>
+        <label>Commercial Application Form Read Only</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>Commercial_AF_Read_Write_Access_AF</fullName>
         <accessLevel>Edit</accessLevel>
         <label>Commercial AF Read Write Access AF</label>
@@ -20,6 +32,18 @@
         </sharedTo>
         <sharedFrom>
             <group>Commercial_Broker</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Commercial_AF_Read_Write_Access_Markets</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This is used to provide Read and Write access to Markets Segment.</description>
+        <label>Commercial AF Read Write Access Markets</label>
+        <sharedTo>
+            <group>Markets</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Markets</group>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>

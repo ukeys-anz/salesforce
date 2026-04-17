@@ -5,6 +5,35 @@
  */
 public with sharing class ProfileStagingRepository {
   /**
+   * @description Event configuration metadata records.
+   */
+  private static List<ProfileStagingEventConfig__mdt> allConfig = [
+    SELECT
+      DataSchema__c,
+      EventType__c,
+      PartitionKey__c,
+      PayloadModel__c,
+      RelatedIdField__c,
+      Source__c,
+      Subject__c,
+      TriggeredFrom__c,
+      PublishOldEvent__c,
+      Active__c
+    FROM ProfileStagingEventConfig__mdt
+    WHERE TriggeredFrom__c != NULL AND Active__c = TRUE
+    WITH SYSTEM_MODE
+  ];
+
+  /**
+   * @description Event configuration metadata records with TriggeredFrom__c as the key for easy retrieval of
+   * the configuration based on the trigger source.
+   */
+  private static Map<string, ProfileStagingEventConfig__mdt> eventConfigMap = (Map<String, ProfileStagingEventConfig__mdt>) ListUtil.mapBy(
+    allConfig,
+    Customer_Profile_Updates__c.TriggeredFrom__c
+  );
+
+  /**
    * @description Queries customer profile updates along with customer info based on the provided list of records.
    * @param recordIds The set of customer profile update Ids to query.
    * @return A list of customer profile update records matching the provided IDs.
@@ -24,9 +53,12 @@ public with sharing class ProfileStagingRepository {
         AsIsValue__c,
         Case__c,
         Case__r.CaseNumber,
+        Customer_Name__r.RecordType.Id,
         Customer_Name__r.RecordType.DeveloperName,
+        Customer_Name__r.OCV_Id__c,
         Customer_Name__r.Source_System_ID__c,
         Customer_Name__r.Source_System_Name__c,
+        Customer_Name__r.FinServ__Status__c,
         Customer_Name__c,
         Error_Description__c,
         Object_Name__c,
@@ -47,28 +79,10 @@ public with sharing class ProfileStagingRepository {
 
   /**
    * @description Queries event configurations based on the provided list of triggers.
-   * @param triggers The set of trigger events to query.
-   * @return A list of event configuration records matching the provided triggers.
+   * @param triggerFrom unique triggerFrom value to get the event configuration.
+   * @return A event configuration record matching the provided triggerFrom.
    */
-  public List<ProfileStagingEventConfig__mdt> queryEventConfig(
-    Set<String> triggers
-  ) {
-    if (triggers.isEmpty()) {
-      return new List<ProfileStagingEventConfig__mdt>();
-    }
-    return [
-      SELECT
-        DataSchema__c,
-        EventType__c,
-        PartitionKey__c,
-        PayloadModel__c,
-        RelatedIdField__c,
-        Source__c,
-        Subject__c,
-        TriggeredFrom__c
-      FROM ProfileStagingEventConfig__mdt
-      WHERE TriggeredFrom__c IN :triggers
-      WITH USER_MODE
-    ];
+  public ProfileStagingEventConfig__mdt getEventConfig(String triggerFrom) {
+    return eventConfigMap.get(triggerFrom);
   }
 }

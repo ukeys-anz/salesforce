@@ -10,6 +10,7 @@
     NOT(ISCHANGED(RecordTypeId)),
     NOT REGEX( Email ,  $Label.Regex_Email ),
     NOT(ISCHANGED(Skip_Validations__c)),
+    NOT(CONTAINS( $User.Username,$Label.AdobeIntegrationUserName)),
     NOT(
         AND(
             ISCHANGED(Skip_Validations__c),
@@ -18,7 +19,8 @@
                 Skip_Validations__c = &apos;Validate&apos;
             )
         )
-    )
+    ),
+    NOT( AND( IsNew(), Skip_Validations__c = &apos;Clone&apos;))
 )</errorConditionFormula>
     <errorDisplayField>Email</errorDisplayField>
     <errorMessage>Please enter Email in correct format.</errorMessage>

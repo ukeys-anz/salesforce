@@ -16,24 +16,21 @@ public abstract with sharing class CacheFinancialAccountQueryBase extends Extern
   protected String fieldSet;
   protected String assetFinanceType;
   protected String accountNumber;
+  private static final CacheFinancialAccountQueryBaseRepository FA_REPOSITORY = (CacheFinancialAccountQueryBaseRepository) Lib_InstanceProvider.forType(
+    CacheFinancialAccountQueryBaseRepository.class
+  );
 
   /**
    * @description Financial account role types
    */
-  protected Map<String, String> roleTypes = new Map<String, String>{
-    'BCC' => 'Business Card Customer',
-    'CLG' => 'Customer Lending Group',
-    'COF' => 'Co-Owner First',
-    'COO' => 'Co-Owner Other',
-    'DBN' => 'Direct Beneficiary',
-    'GTR' => 'Guarantor',
-    'PCC' => 'Personal Card Customer',
-    'PRI' => 'Primary Owner',
-    'SOL' => 'Sole Owner',
-    'TSF' => 'Trustee First',
-    'TSO' => 'Trustee Other',
-    'UNO' => 'Unnamed Owner'
-  };
+  protected Map<String, String> roleTypes = CommonUtil.getPicklistLabelsByValues(
+    FinServ__FinancialAccountRole__c.Role_Type__c
+  );
+
+  /**
+   * @description Industry Map for ANZSIC
+   */
+  protected Map<String, String> industries;
 
   /**
    * @description abstract Cache FinancialAccount Summary callout response class
@@ -123,6 +120,17 @@ public abstract with sharing class CacheFinancialAccountQueryBase extends Extern
   public CacheFinancialAccountQueryBase() {
     this.externalField = 'accountNumber';
     this.parentField = 'CustomerId';
+  }
+
+  /**
+   * @description Lazily initializes and returns the industries map
+   * @return Map<String, String> industries map
+   */
+  protected Map<String, String> getIndustries() {
+    if (this.industries == null) {
+      this.industries = FA_REPOSITORY.getIndustryNamesByCodes();
+    }
+    return this.industries;
   }
 
   /**

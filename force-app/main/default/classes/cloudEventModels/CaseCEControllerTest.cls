@@ -40,9 +40,16 @@ public class CaseCEControllerTest {
       payload,
       IMTDisputeCaseCloudEventModel.class
     );
-    Assert.isTrue(
-      IMTDisputeCaseCloudEventModel.ce_type.contains('v1beta2.dispute.imt'),
-      'ce_type is incorrect'
+
+    Assert.areEqual(
+      'anzx.salesforce.case.v1beta2.dispute.imt.created',
+      IMTDisputeCaseCloudEventModel.ce_type,
+      'ce_type is correct'
+    );
+    Assert.areEqual(
+      'proto://buf.anz/anz/salesforceapis/salesforce.service.disputes.v1beta2#IMTDispute',
+      IMTDisputeCaseCloudEventModel.ce_dataschema,
+      'ce_dataschema is correct'
     );
     Assert.areEqual(
       1,
@@ -96,9 +103,15 @@ public class CaseCEControllerTest {
       payload,
       IMTDisputeCaseCloudEventModel.class
     );
-    Assert.isTrue(
-      imtDisputeCaseCloudEventModel.ce_type.contains('v1beta2.dispute.imt'),
-      'ce_type is incorrect'
+    Assert.areEqual(
+      'anzx.salesforce.case.v1beta2.dispute.imt.updated',
+      IMTDisputeCaseCloudEventModel.ce_type,
+      'ce_type is correct'
+    );
+    Assert.areEqual(
+      'proto://buf.anz/anz/salesforceapis/salesforce.service.disputes.v1beta2#IMTDispute',
+      IMTDisputeCaseCloudEventModel.ce_dataschema,
+      'ce_dataschema is correct'
     );
     Assert.areEqual(
       2,
@@ -312,6 +325,133 @@ public class CaseCEControllerTest {
       CloudEventController.cloudEvents.size(),
       'Cloud Event should be generated'
     );
+  }
+
+  // test cloud event for the ATM Dispute submitted event
+  @isTest
+  static void testAtmDisputeCaseForSubmittedEvent() {
+    Map<String, Case> theCaseMap = getTestCaseRecord('ATM_Dispute');
+    theCaseMap.get('newCase').Submitted__c = true;
+    theCaseMap.get('oldCase').Submitted__c = false;
+    Test.startTest();
+    CaseCEController.publishCloudEvents(
+      new List<Case>{ theCaseMap.get('newCase') },
+      new Map<Id, Case>{
+        theCaseMap.get('oldCase').Id => theCaseMap.get('oldCase')
+      }
+    );
+    Test.stopTest();
+    List<Cloud_Event__e> payloads = CloudEventController.cloudEvents;
+    Boolean hasSubmittedEvent = false;
+    for (Cloud_Event__e payload : payloads) {
+      Map<String, Object> payloadMap = (Map<String, Object>) JSON.deserializeUntyped(
+        payload.Data_1__c
+      );
+      String ceType = (String) payloadMap.get('ce_type');
+      if (ceType.contains('dispute.atm') && ceType.contains('submitted')) {
+        hasSubmittedEvent = true;
+      }
+    }
+    Assert.isTrue(hasSubmittedEvent, 'Submitted event should be generated');
+    Assert.areEqual(
+      5,
+      CloudEventController.cloudEvents.size(),
+      'Should have 5 cloud events: 2 updated (v1beta1 + alpha1), 2 status (v1beta1 + alpha1), 1 submitted'
+    );
+  }
+
+  // test cloud event for the Card Dispute submitted event
+  @isTest
+  static void testCardDisputeCaseForSubmittedEvent() {
+    Map<String, Case> theCaseMap = getTestCaseRecord('Card_Dispute');
+    theCaseMap.get('newCase').Submitted__c = true;
+    theCaseMap.get('oldCase').Submitted__c = false;
+    Test.startTest();
+    CaseCEController.publishCloudEvents(
+      new List<Case>{ theCaseMap.get('newCase') },
+      new Map<Id, Case>{
+        theCaseMap.get('oldCase').Id => theCaseMap.get('oldCase')
+      }
+    );
+    Test.stopTest();
+    List<Cloud_Event__e> payloads = CloudEventController.cloudEvents;
+    Boolean hasSubmittedEvent = false;
+    for (Cloud_Event__e payload : payloads) {
+      Map<String, Object> payloadMap = (Map<String, Object>) JSON.deserializeUntyped(
+        payload.Data_1__c
+      );
+      String ceType = (String) payloadMap.get('ce_type');
+      if (ceType.contains('dispute.card') && ceType.contains('submitted')) {
+        hasSubmittedEvent = true;
+      }
+    }
+    Assert.isTrue(hasSubmittedEvent, 'Submitted event should be generated');
+    Assert.areEqual(
+      5,
+      CloudEventController.cloudEvents.size(),
+      'Should have 5 cloud events: 2 updated (v1beta1 + alpha1), 2 status (v1beta1 + alpha1), 1 submitted'
+    );
+  }
+
+  // test cloud event for the NPP Dispute submitted event
+  @isTest
+  static void testNPPDisputeCaseForSubmittedEvent() {
+    Map<String, Case> theCaseMap = getTestCaseRecord('NPP_Dispute');
+    theCaseMap.get('newCase').Submitted__c = true;
+    theCaseMap.get('oldCase').Submitted__c = false;
+    Test.startTest();
+    CaseCEController.publishCloudEvents(
+      new List<Case>{ theCaseMap.get('newCase') },
+      new Map<Id, Case>{
+        theCaseMap.get('oldCase').Id => theCaseMap.get('oldCase')
+      }
+    );
+    Test.stopTest();
+    List<Cloud_Event__e> payloads = CloudEventController.cloudEvents;
+    Boolean hasSubmittedEvent = false;
+    for (Cloud_Event__e payload : payloads) {
+      Map<String, Object> payloadMap = (Map<String, Object>) JSON.deserializeUntyped(
+        payload.Data_1__c
+      );
+      String ceType = (String) payloadMap.get('ce_type');
+      if (ceType.contains('dispute.npp') && ceType.contains('submitted')) {
+        hasSubmittedEvent = true;
+      }
+    }
+    Assert.isTrue(hasSubmittedEvent, 'Submitted event should be generated');
+    Assert.areEqual(
+      3,
+      CloudEventController.cloudEvents.size(),
+      'Should have 3 cloud events: 1 updated, 1 status, 1 submitted'
+    );
+  }
+
+  // test cloud event for the IMT Dispute submitted event
+  @isTest
+  static void testIMTDisputeCaseForSubmittedEvent() {
+    Map<String, Case> theCaseMap = getTestCaseRecord('IMT_Dispute');
+    theCaseMap.get('newCase').Submitted__c = true;
+    theCaseMap.get('oldCase').Submitted__c = false;
+    Test.startTest();
+    CaseCEController.publishCloudEvents(
+      new List<Case>{ theCaseMap.get('newCase') },
+      new Map<Id, Case>{
+        theCaseMap.get('oldCase').Id => theCaseMap.get('oldCase')
+      }
+    );
+    Test.stopTest();
+    List<Cloud_Event__e> payloads = CloudEventController.cloudEvents;
+    Boolean hasSubmittedEvent = false;
+    for (Cloud_Event__e payload : payloads) {
+      Map<String, Object> payloadMap = (Map<String, Object>) JSON.deserializeUntyped(
+        payload.Data_1__c
+      );
+      String ceType = (String) payloadMap.get('ce_type');
+      if (ceType.contains('dispute.imt') && ceType.contains('submitted')) {
+        hasSubmittedEvent = true;
+      }
+    }
+    Assert.isTrue(hasSubmittedEvent, 'Submitted event should be generated');
   }
 
   /**

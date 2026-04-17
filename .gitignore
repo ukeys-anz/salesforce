@@ -89,3 +89,4 @@ automation-test/*
 
 # Git module temporary file
 .gitmodules.bak
+.claude

@@ -33,7 +33,8 @@
                 Skip_Validations__c = &apos;Validate&apos;
             )
         )
-    )
+    ),
+    NOT( AND( IsNew(), Skip_Validations__c = &apos;Clone&apos;))
 )</errorConditionFormula>
     <errorMessage>The Registered Company and Company name are required to proceed.</errorMessage>
 </ValidationRule>

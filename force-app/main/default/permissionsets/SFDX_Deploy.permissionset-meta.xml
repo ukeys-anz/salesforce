@@ -1230,6 +1230,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Contact.Is_Synced_To_Broker_Org__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Contact.External_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1624,6 +1629,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>OpportunityLineItem.Opp_Product_name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>ResidentialLoanApplication.AIP_AST_Expiry__c</field>
         <readable>true</readable>
@@ -1741,6 +1751,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LoanApplicant.Account__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Product2.OCV_Sub_Product_Key__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Product2.Is_Portfolio__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DigitalFraudeQueueAssignment</fullName>
+    <active>true</active>
+    <description>Restricts Digital Fraud Queue to fraud case types and specific disputes. NPP/DE/BPAY require Unauthorised Transaction. IMT requires Suspected fraud. See formula for full criteria.</description>
+    <errorConditionFormula>AND(
+    /* Global VR disable switch */
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    /* Only fire when owner changes */
+    ISCHANGED(OwnerId),
+    /* Only fire when assigning to Digital Fraud Queue */
+    Owner:Queue.QueueName = &apos;Digital Fraud Queue&apos;,
+    /* Block if NOT in allowed combinations */
+    NOT(
+        OR(
+            /* Always allowed record types */
+            RecordType.DeveloperName = &apos;Scam&apos;,
+            RecordType.DeveloperName = &apos;Recipient_Mule&apos;,
+            RecordType.DeveloperName = &apos;Fraud&apos;,
+            RecordType.DeveloperName = &apos;False_Customer_Profile&apos;,
+            RecordType.DeveloperName = &apos;KYC_QA&apos;,
+            RecordType.DeveloperName = &apos;Identity&apos;,
+            RecordType.DeveloperName = &apos;PIN_Recovery&apos;,
+            RecordType.DeveloperName = &apos;Selfie_Recovery&apos;,
+            /* NPP/Direct Entry/BPAY: Requires Unauthorised Transaction */
+            AND(
+                OR(
+                    RecordType.DeveloperName = &apos;NPP_Dispute&apos;,
+                    RecordType.DeveloperName = &apos;Direct_Entry_Dispute&apos;,
+                    RecordType.DeveloperName = &apos;BPAY_Dispute&apos;
+                ),
+                ISPICKVAL(Dispute_Reason__c, &apos;Unauthorised Transaction&apos;)
+            ),
+            /* IMT: Requires Suspected fraud */
+            AND(
+                RecordType.DeveloperName = &apos;IMT_Dispute&apos;,
+                ISPICKVAL(Dispute_Reason__c, &apos;Suspected fraud&apos;)
+            )
+        )
+    )
+)</errorConditionFormula>
+    <errorMessage>Please note that the case is not able to be assigned to the Digital Fraud Queue as it does not meet criteria. Please refer to Knowledge Articles on where to assign case.</errorMessage>
+</ValidationRule>

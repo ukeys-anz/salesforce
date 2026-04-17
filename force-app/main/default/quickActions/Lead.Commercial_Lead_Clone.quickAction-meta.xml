@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionSubtype>ScreenAction</actionSubtype>
+    <description>Enable Bankers to efficiently clone an existing Prospect or NTB (New-to-Bank) Lead record (not existing customer) with specific fields auto-populated, assigning the default campaign and retaining traceability via “Previous Lead Id&quot;.</description>
+    <label>Clone</label>
+    <lightningWebComponent>cloneLead</lightningWebComponent>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>LightningWebComponent</type>
+</QuickAction>

@@ -1,33 +1,152 @@
 {
-    "consents": [
+  "consents": [
+    {
+      "arrangementId": "arr-2y-active-001",
+      "id": "consent-2y-active-001",
+      "registeredSoftwareProduct": {
+        "clientId": "client-2y-active-001",
+        "clientName": "Mock Company 2Y Active",
+        "logoUri": "https://m.fake-ssss.com/images/I/91hrbype4aL._AC_SY450_.jpg"
+      },
+      "brandName": "Mock Company 2Y Active",
+      "ownerPersonaId": "persona-b17e-4bed-b3b6-1146e2c421a2",
+      "dataScopes": [
+        "bank:accounts.basic:read",
+        "bank:accounts.detail:read",
+        "bank:transactions:read"
+      ],
+      "state": "STATE_ACTIVE",
+      "stateUpdatedTime": "2024-02-28T06:42:17.424Z",
+      "createTime": "2024-01-01T00:00:00Z",
+      "expireTime": "2025-01-01T00:00:00Z",
+      "accounts": [
         {
-            "arrangementId": "ssss-ss-ss-ss-ssss",
-            "id": "fake-ss-4cb1-a23d-237c1c1aeb3a",
-            "registeredSoftwareProduct": {
-                "clientId": "fake-ss-sss-b987-64d6671ef4df",
-                "clientName": "fake",
-                "logoUri": "https://m.fake-ssss.com/images/I/91hrbype4aL._AC_SY450_.jpg"
-            },
-            "brandName": "Fake Company Name",
-            "ownerPersonaId": "fake-b17e-4bed-b3b6-1146e2c421a2",
-            "dataScopes": [
-                "bank:accounts.basic:read",
-                "bank:accounts.detail:read"
-            ],
-            "state": "STATE_STOPPED",
-            "stateUpdatedTime": "2024-02-28T06:42:17.424Z",
-            "createTime": "2024-02-28T06:37:45Z",
-            "expireTime": "2024-02-29T06:37:45Z",
-            "accounts": [
-                {
-                    "bsb": "11111",
-                    "accountNumber": "1111111"
-                },
-                {
-                    "bsb": "11111",
-                    "accountNumber": "11111"
-                }
-            ]
-        }
-    ]
+          "bsb": "014111",
+          "accountNumber": "391077004",
+          "jointAccount": false
+        },
+        {
+          "bsb": "014111",
+          "accountNumber": "391077012",
+          "jointAccount": false
+        },
+        { "bsb": "014111", "accountNumber": "391077071", "jointAccount": true },
+        { "bsb": "014111", "accountNumber": "391077098", "jointAccount": true }
+      ],
+      "transactionSharingDuration": {
+        "years": 2,
+        "months": 24
+      }
+    },
+    {
+      "arrangementId": "arr-7y-active-002",
+      "id": "consent-7y-active-002",
+      "registeredSoftwareProduct": {
+        "clientId": "client-7y-active-002",
+        "clientName": "Mock Company 7Y Active",
+        "logoUri": "https://m.fake-ssss.com/images/I/91hrbype4aL._AC_SY450_.jpg"
+      },
+      "brandName": "Mock Company 7Y Active",
+      "ownerPersonaId": "persona-b17e-4bed-b3b6-1146e2c421a2",
+      "dataScopes": [
+        "bank:accounts.basic:read",
+        "bank:accounts.detail:read",
+        "bank:transactions:read"
+      ],
+      "state": "STATE_ACTIVE",
+      "stateUpdatedTime": "2024-02-28T06:42:17.424Z",
+      "createTime": "2024-01-01T00:00:00Z",
+      "expireTime": "2025-01-01T00:00:00Z",
+      "accounts": [
+        {
+          "bsb": "014111",
+          "accountNumber": "391077004",
+          "jointAccount": false
+        },
+        {
+          "bsb": "014111",
+          "accountNumber": "391077012",
+          "jointAccount": false
+        },
+        { "bsb": "014111", "accountNumber": "391077071", "jointAccount": true },
+        { "bsb": "014111", "accountNumber": "391077098", "jointAccount": true }
+      ],
+      "transactionSharingDuration": {
+        "years": 7,
+        "months": 84
+      }
+    },
+    {
+      "arrangementId": "arr-2y-archived-003",
+      "id": "consent-2y-archived-003",
+      "registeredSoftwareProduct": {
+        "clientId": "client-2y-archived-003",
+        "clientName": "Mock Company 2Y Archived",
+        "logoUri": "https://m.fake-ssss.com/images/I/91hrbype4aL._AC_SY450_.jpg"
+      },
+      "brandName": "Mock Company 2Y Archived",
+      "ownerPersonaId": "persona-b17e-4bed-b3b6-1146e2c421a2",
+      "dataScopes": [
+        "bank:accounts.basic:read",
+        "bank:accounts.detail:read",
+        "bank:transactions:read"
+      ],
+      "state": "STATE_STOPPED",
+      "stateUpdatedTime": "2024-06-01T00:00:00Z",
+      "createTime": "2024-01-01T00:00:00Z",
+      "expireTime": "2025-01-01T00:00:00Z",
+      "accounts": [
+        {
+          "bsb": "014111",
+          "accountNumber": "391077004",
+          "jointAccount": false
+        },
+        {
+          "bsb": "014111",
+          "accountNumber": "391077012",
+          "jointAccount": false
+        },
+        { "bsb": "014111", "accountNumber": "391077071", "jointAccount": true },
+        { "bsb": "014111", "accountNumber": "391077098", "jointAccount": true }
+      ],
+      "transactionSharingDuration": {
+        "years": 2,
+        "months": 24
+      }
+    },
+    {
+      "arrangementId": "arr-no-duration-004",
+      "id": "consent-no-duration-004",
+      "registeredSoftwareProduct": {
+        "clientId": "client-no-duration-004",
+        "clientName": "Mock Company No Duration",
+        "logoUri": "https://m.fake-ssss.com/images/I/91hrbype4aL._AC_SY450_.jpg"
+      },
+      "brandName": "Mock Company No Duration",
+      "ownerPersonaId": "persona-b17e-4bed-b3b6-1146e2c421a2",
+      "dataScopes": [
+        "bank:accounts.basic:read",
+        "bank:accounts.detail:read",
+        "bank:transactions:read"
+      ],
+      "state": "STATE_ACTIVE",
+      "stateUpdatedTime": "2024-02-28T06:42:17.424Z",
+      "createTime": "2024-01-01T00:00:00Z",
+      "expireTime": "2025-01-01T00:00:00Z",
+      "accounts": [
+        {
+          "bsb": "014111",
+          "accountNumber": "391077004",
+          "jointAccount": false
+        },
+        {
+          "bsb": "014111",
+          "accountNumber": "391077012",
+          "jointAccount": false
+        },
+        { "bsb": "014111", "accountNumber": "391077071", "jointAccount": true },
+        { "bsb": "014111", "accountNumber": "391077098", "jointAccount": true }
+      ]
+    }
+  ]
 }

@@ -5,6 +5,10 @@
  * witout sharing: to allow trigger publish Clound Event when users create/update Case/ExternalCaseStatus
  */
 public without sharing class ExternalCaseStatusCEController {
+  private static final DisputeExternalCaseStatusRepository DISPUTE_EXTERNALCASESTATUS_REPOSITORY = (DisputeExternalCaseStatusRepository) Lib_InstanceProvider.forType(
+    DisputeExternalCaseStatusRepository.class
+  );
+
   /**
    * @description method to be called in afterInsert, publish cloud event for External Case Status insertion
    * @param externalCaseStatuses list of External Case Status records
@@ -34,32 +38,21 @@ public without sharing class ExternalCaseStatusCEController {
       relatedCaseIds.add(externalCaseStatus.Case__c);
       relatedUserIds.add(externalCaseStatus.LastModifiedById);
     }
-    Map<Id, Case> relatedCases = new Map<Id, Case>(
-      [
-        SELECT
-          Id,
-          CaseNumber,
-          Dispute_Reason__c,
-          RecordTypeId,
-          Account.OCV_ID__c,
-          Transaction_UUID__c,
-          OCV_ID__c,
-          LastModifiedDate,
-          AccountId,
-          Account.Source_System_Name__c,
-          Account.Source_System_ID__c,
-          Account.PersonEmail,
-          Account.PersonMobilePhone,
-          Account.firstName,
-          Account.lastName
-        FROM Case
-        WHERE Id IN :relatedCaseIds
-      ]
+    List<Case> relatedCaseList = DISPUTE_EXTERNALCASESTATUS_REPOSITORY.getRelatedCasesByCaseId(
+      relatedCaseIds
+    );
+    Map<Id, Case> relatedCases = (Map<Id, Case>) ListUtil.mapBy(
+      relatedCaseList,
+      Case.Id
+    );
+    List<User> relatedUserList = DISPUTE_EXTERNALCASESTATUS_REPOSITORY.getRelatedUsersByUserId(
+      relatedUserIds
+    );
+    Map<Id, User> relatedusers = (Map<Id, User>) ListUtil.mapBy(
+      relatedUserList,
+      User.Id
     );
 
-    Map<Id, User> relatedUsers = new Map<Id, User>(
-      [SELECT Id, Email, UserName FROM User WHERE Id IN :relatedUserIds]
-    );
     for (External_Case_Status__c externalCaseStatus : externalCaseStatuses) {
       Id relatedCaseId = externalCaseStatus.Case__c;
       Case relatedCase = relatedCases.get(relatedCaseId);

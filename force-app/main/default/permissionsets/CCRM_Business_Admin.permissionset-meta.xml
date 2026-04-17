@@ -41,6 +41,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>CloneLeadController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CommercialNeedsAnalysisActions</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -709,6 +713,41 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Suncorp_Bank_Identifier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Suncorp_Bank_Move__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApplicationForm.Sync_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApplicationForm.Assisted_Broker__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApplicationForm.Source_System_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApplicationForm.Assisted_Broker_TPMI_SAO__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApplicationForm.Reference_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Account.ABN__c</field>
         <readable>true</readable>
@@ -751,6 +790,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Lead.My_Managers_Lead__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.My_Managers_Referral__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -900,6 +944,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Account.Employment_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Self_Employed__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Account.Establishment_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -956,6 +1010,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.FinServ__Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Franchise_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2375,6 +2434,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Opportunity.Preferred_Franchise__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Opportunity.Lead_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2501,6 +2565,21 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Task.WhoId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.My_Team_Segment__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.My_Sub_Team__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.My_Region_Flag__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5385,6 +5464,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.Suncorp_Bank_Identifier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.Suncorp_Bank_Move__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.Portfolio_Indicator__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>FinServ__FinancialAccount__c.Product_Name_Display__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -6699,6 +6793,26 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.Referrer_Region_Flag__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.Referrer_Sub_Team__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.Referrer_Team_Segment__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.Referrer_Reportees_Lead__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>LegalEntity.CompanyName</field>
         <readable>true</readable>
@@ -7435,7 +7549,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Opportunity.Specialisation_SubCategory__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ApplicationFormProduct.Asset_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApplicationFormProduct.Is_Potential_Duplicate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7455,7 +7579,32 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ApplicationFormProduct.CSP_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ApplicationFormProduct.Term__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApplicationFormProduct.Brokerage_Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApplicationFormProduct.Loan_Purpose__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApplicationFormProduct.Application_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApplicationFormProduct.Application_Source__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7525,6 +7674,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Opportunity.Pricing_Reference_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApplicationFormProduct.Cancelled_Reason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApplicationFormProduct.Cancelled_Reason_Detail__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Opportunity.AccountId</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -7536,6 +7700,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.CampaignId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.Cancelled_Reason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.Cancelled_Reason_Detail__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7591,6 +7765,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>OpportunityLineItem.Description</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>OpportunityLineItem.Opp_Product_name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7836,6 +8015,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Product2.Business_area__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Product2.Is_Portfolio__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -9438,6 +9622,21 @@
         <field>Needs_Analysis__c.Receivables__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Franchise_Brand__c.Brand_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Franchise_Brand__c.Panel_Brand__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Franchise_Brand__c.Is_Active__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>CCRM Business Admin</label>
     <license>Salesforce</license>
@@ -9747,6 +9946,15 @@
         <object>Circle_Of_Influence__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Franchise_Brand__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
     <recordTypeVisibilities>
         <recordType>Circle_Of_Influence__c.Company_Member</recordType>
         <visible>true</visible>
@@ -9932,8 +10140,20 @@
         <visibility>Available</visibility>
     </tabSettings>
     <tabSettings>
+        <tab>Franchise_Brand__c</tab>
+        <visibility>Available</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Insights</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
         <tab>standard-contact</tab>
         <visibility>Available</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>standard-Task</tab>
+        <visibility>Visible</visibility>
     </tabSettings>
     <userPermissions>
         <enabled>false</enabled>

@@ -182,6 +182,7 @@ public with sharing class RetailBrokerContactActions {
     List<Contact> filteredOldRecords = ListUtil.filter(contactsOldMap.values())
       .notContains(Contact.Sync_Status__c, SYNC_STATUS_BROKER_ORG)
       .toList();
+
     Set<Id> contactListIds = ListUtil.getIds(filteredOldRecords, Contact.Id);
     List<Contact> filteredNewRecords = ListUtil.filter(records)
       .equals(Contact.Id, contactListIds)
@@ -201,6 +202,7 @@ public with sharing class RetailBrokerContactActions {
         contactNew.Sync_Status__c,
         SYNC_STATUS_BROKER_ORG
       );
+      contactNew.Is_Synced_To_Broker_Org__c = true;
       processedContacts.add(contactNew);
     }
 
@@ -267,7 +269,7 @@ public with sharing class RetailBrokerContactActions {
    * @param contactsOldMap map of old version of contacts from trigger context
    * @return List of records updated
    */
-  private static List<Contact> filterContactsWithOCVVersion(
+  public static List<Contact> filterContactsWithOCVVersion(
     List<Contact> records,
     Map<Id, Contact> contactsOldMap
   ) {
@@ -309,76 +311,6 @@ public with sharing class RetailBrokerContactActions {
   }
 
   /**
-   * @description Check for duplicate contacts using Email and OCV_Id__C
-   * @author  Madhuri Edke | Salesforce | 08-07-2025
-   * @param records contains new value
-   **/
-  public static void checkDuplicateContacts(List<Contact> records) {
-    try {
-      List<String> contactEmails = (List<String>) ListUtil.getValues(
-        records,
-        'Email',
-        String.class
-      );
-      List<String> contactOcvIDs = (List<String>) ListUtil.getValues(
-        records,
-        'OCV_ID__c',
-        String.class
-      );
-      List<Contact> duplicateContacts = CONTACT_REPOSITORY.getDuplicateContacts(
-        contactEmails,
-        contactOcvIDs
-      );
-
-      Map<String, Contact> emailDuplicates = (Map<String, Contact>) ListUtil.mapBy(
-        duplicateContacts,
-        contact.Email
-      );
-      Map<String, Contact> ocvDuplicates = (Map<String, Contact>) ListUtil.mapBy(
-        duplicateContacts,
-        contact.OCV_ID__c
-      );
-      updateDuplicateContacts(records, emailDuplicates, ocvDuplicates);
-    } catch (Exception ex) {
-      Logger.error(
-          'Failed to fetch Contacts due to:' + ' ' + ex.getMessage(),
-          ex
-        )
-        .save();
-    }
-  }
-
-  /**
-   * @description Updates Sync Status based on duplicate contacts
-   * @author  Madhuri Edke | Salesforce | 08-07-2025
-   * @param records new contacts from trigger
-   * @param emailDuplicates Map of email to respective duplicate new contacts
-   * @param ocvDuplicates Map of OCV Id to respective duplicate new contacts
-   **/
-  private static void updateDuplicateContacts(
-    List<Contact> records,
-    Map<String, Contact> emailDuplicates,
-    Map<String, Contact> ocvDuplicates
-  ) {
-    for (Contact con : records) {
-      List<String> statusValues = new List<String>();
-
-      if (emailDuplicates.containsKey(con.Email)) {
-        statusValues.add(SYNC_STATUS_DUPLICATE_EMAIL);
-      }
-
-      if (ocvDuplicates.containsKey(con.OCV_ID__c)) {
-        statusValues.add(SYNC_STATUS_DUPLICATE_OCVID);
-      }
-
-      con.Sync_Status__c = PicklistUtil.addMultiPicklistValues(
-        con.Sync_Status__c,
-        statusValues
-      );
-    }
-  }
-
-  /**
    * @description Generate and publish Broker contact GCP cloud events
    * @param records list of new version of contacts from trigger context
    * @param contactsNewMap map of New version of contacts from trigger context
@@ -416,9 +348,26 @@ public with sharing class RetailBrokerContactActions {
 
     Set<Id> ccrContactIds = getCCRContactIds(contactsNewMap, contactsOldMap);
 
+    Map<String, List<Contact>> contactListForDuplicateContact = RetailBrokerDuplicateContactAction.checkOldandNewValuesDuplicateContacts(
+      records,
+      contactsOldMap
+    );
+
+    Map<string, List<contact>> contactsMapedbyField = new Map<string, List<contact>>();
+    contactsMapedbyField.put('survivorContactsList', survivorContactsList);
+
+    contactsMapedbyField.put(
+      'duplicateEmailContacts',
+      contactListForDuplicateContact.get('duplicateEmailContacts')
+    );
+    contactsMapedbyField.put(
+      'duplicateOcvIdContacts',
+      contactListForDuplicateContact.get('duplicateOcvIdContacts')
+    );
+
     enqueueBrokerRelationUpdate(
       filteredVictimContactList,
-      survivorContactsList,
+      contactsMapedbyField,
       ccrContactIds,
       updatedContacts
     );
@@ -427,18 +376,18 @@ public with sharing class RetailBrokerContactActions {
   /**
    * @description Process the data merge event
    * @param victimContactsList List<Contact> List of Victim Contacts
-   * @param survivorContactsList List<Contact> List of survivor Contacts
+   * @param contactsMapedbyField Map<String,List<Contact>> List of Contacts mapped by field for survivor, duplicate email and duplicate ocvid contacts
    * @param ccrContactIds of Contact Ids for CCREvent
    * @param updatedContacts List of updated contacts
    */
   public static void enqueueBrokerRelationUpdate(
     List<Contact> victimContactsList,
-    List<Contact> survivorContactsList,
+    Map<string, List<contact>> contactsMapedbyField,
     Set<Id> ccrContactIds,
     List<Contact> updatedContacts
   ) {
     List<Contact> allContactsList = new List<Contact>(victimContactsList);
-    allContactsList.addAll(survivorContactsList);
+    allContactsList.addAll(contactsMapedbyField.get('survivorContactsList'));
 
     Map<String, contact> contactMap = (Map<String, contact>) ListUtil.mapBy(
       allContactsList,
@@ -467,6 +416,14 @@ public with sharing class RetailBrokerContactActions {
       survivorDuplicatesList
     );
     contactMapForQueueable.put('updatedContacts', updatedContacts);
+    contactMapForQueueable.put(
+      'duplicateEmailContacts',
+      contactsMapedbyField.get('duplicateEmailContacts')
+    );
+    contactMapForQueueable.put(
+      'duplicateOcvIdContacts',
+      contactsMapedbyField.get('duplicateOcvIdContacts')
+    );
 
     System.enqueueJob(
       new UpdateBrokerRelationLookupQueueable(
@@ -510,6 +467,7 @@ public with sharing class RetailBrokerContactActions {
           !survivor.Sync_Status__c.contains(SYNC_STATUS_BLOCKED)
         ) {
           survivor.Sync_Status__c = SYNC_STATUS_BROKER_ORG;
+          survivor.is_Synced_To_Broker_Org__c = true;
         }
         Database.MergeResult result = Database.merge(survivor, victim, false);
 

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Referrer_Region_Flag__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>If lead is included in User&apos;s Region based on the Referrer (FinServ__ReferredByUser__c) instead of Owner</description>
+    <externalId>false</externalId>
+    <formula>
+    AND(
+        OR(
+            $User.Area_Code__c == FinServ__ReferredByUser__r.Area_Code__c,
+            AND(
+                CONTAINS($UserRole.Name, &apos;Head&apos;),
+                $User.State_Code__c == FinServ__ReferredByUser__r.State_Code__c
+            ),
+            CONTAINS($UserRole.Name, &apos;General Manager&apos;)
+        ),
+        TEXT($User.Commercial_Segment__c) == TEXT(FinServ__ReferredByUser__r.Commercial_Segment__c)
+    )
+    </formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Referrer Region Flag</label>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

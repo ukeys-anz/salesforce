@@ -16,7 +16,7 @@
     <filters>
         <field>OPPORTUNITY.STAGE_NAME</field>
         <operation>notEqual</operation>
-        <value>Opportunity Won,Opportunity Lost</value>
+        <value>Opportunity Won,Opportunity Lost,Cancelled</value>
     </filters>
     <filters>
         <field>My_Region_Flag__c</field>
@@ -35,5 +35,6 @@
         <roleAndSubordinatesInternal>CBO_State_Head</roleAndSubordinatesInternal>
         <roleAndSubordinatesInternal>DSI_Head_of_Teams</roleAndSubordinatesInternal>
         <roleAndSubordinatesInternal>TB_Head_of_Transaction_Banking</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>Markets_National_Sales_Director</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

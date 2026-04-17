@@ -84,4 +84,30 @@ private class RelatedAppOnOppControllerTest {
       'Application Form Name should match'
     );
   }
+
+  @isTest
+  static void getApplicationFormsWithProductsCatchTest() {
+    registerMocks();
+
+    //GIVEN opportunityId
+    Exception ex;
+    Id opportunityId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    appRepoMock.mock('getApplicationForms', null);
+
+    //WHEN calling a method
+    Test.startTest();
+    try {
+      List<RelatedAppOnOppController.ApplicationFormWrapper> wrappers = RelatedAppOnOppController.getApplicationFormsWithProducts(
+        opportunityId,
+        3,
+        1
+      );
+    } catch (Exception e) {
+      ex = e;
+    }
+    Test.stopTest();
+
+    //THEN it should throw an exception
+    Assert.isNotNull(ex, 'Exception should be thrown');
+  }
 }

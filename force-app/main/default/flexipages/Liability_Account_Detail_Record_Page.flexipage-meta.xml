@@ -42,6 +42,36 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Liability_Account__x.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>Account_Relationships__r</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>ADVGRID</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>rowsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-b186a4a5-1be1-4330-90f7-0b192d98f713</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>active</name>
                     <value>true</value>
                 </componentInstanceProperties>
@@ -55,6 +85,20 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>detailTab</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-b186a4a5-1be1-4330-90f7-0b192d98f713</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Standard.Tab.candidateRelatedLists</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>

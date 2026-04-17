@@ -86,7 +86,7 @@ public with sharing class TFMRemoteActionUtilityTest {
     Map<String, Object> output = new Map<String, Object>();
     input.put('recordId', 'x00Bm000008L9jfake');
     input.put('enabled', 'true');
-     Map<String, Object> args = new Map<String, Object>{
+    Map<String, Object> args = new Map<String, Object>{
       'input' => input,
       'output' => output,
       'options' => new Map<String, Object>()
@@ -129,7 +129,7 @@ public with sharing class TFMRemoteActionUtilityTest {
 
   @isTest
   static void testgetORModifyJointAccountNotificationAPIException() {
-        TFMRemoteActionUtility controller = new TFMRemoteActionUtility();
+    TFMRemoteActionUtility controller = new TFMRemoteActionUtility();
     HttpCalloutResponse res = TFMSearchCustomerServiceMock.setMockErrorResponse();
     Service s = ServiceProvider.getService(TFMSearchCustomerService.class);
     s.setCalloutResponse(res);
@@ -139,7 +139,7 @@ public with sharing class TFMRemoteActionUtilityTest {
     input.put('email_enabled', true);
     Map<String, Object> output = new Map<String, Object>();
     input.put('recordId', 'x00Bm000008L9jfake');
-   Map<String, Object> args = new Map<String, Object>{
+    Map<String, Object> args = new Map<String, Object>{
       'input' => input,
       'output' => output,
       'options' => new Map<String, Object>()
@@ -150,7 +150,7 @@ public with sharing class TFMRemoteActionUtilityTest {
     );
     Test.stopTest();
     Boolean payload = (Boolean) output.get('showSuccessToast');
-       Assert.areEqual(true, isInvoked, 'Method not invoked.');
+    Assert.areEqual(true, isInvoked, 'Method not invoked.');
     Assert.areEqual(false, payload, 'Should return atleast 1 record');
   }
 
@@ -192,7 +192,7 @@ public with sharing class TFMRemoteActionUtilityTest {
     Assert.areEqual(true, isInvoked, 'Method not invoked.');
     Assert.areEqual(
       4,
-      ((List<Object>) payload.get('consentAccDetails')).size(),
+      ((List<Object>) payload.get('consentAccounts')).size(),
       'Should return 4 record'
     );
   }
@@ -219,7 +219,7 @@ public with sharing class TFMRemoteActionUtilityTest {
 
   @isTest
   static void testrevokeConsentsException() {
-       TFMRemoteActionUtility controller = new TFMRemoteActionUtility();
+    TFMRemoteActionUtility controller = new TFMRemoteActionUtility();
     HttpCalloutResponse res = TFMSearchCustomerServiceMock.setMockErrorResponse();
     Service s = ServiceProvider.getService(TFMSearchCustomerService.class);
     s.setCalloutResponse(res);
@@ -236,7 +236,7 @@ public with sharing class TFMRemoteActionUtilityTest {
     Test.stopTest();
 
     Boolean payload = (Boolean) output.get('showSuccessToast');
-      Assert.areEqual(true, isInvoked, 'Method not invoked.');
+    Assert.areEqual(true, isInvoked, 'Method not invoked.');
     Assert.areEqual(false, payload, 'Consent is revoked successfully');
   }
 
@@ -260,9 +260,9 @@ public with sharing class TFMRemoteActionUtilityTest {
     );
     Assert.areEqual(true, isInvoked, 'Method not invoked.');
     Assert.areEqual(
-      1,
+      4,
       ((List<Object>) payload.get('consents')).size(),
-      'Should return 1 record'
+      'Should return 4 records'
     );
   }
 
@@ -300,7 +300,7 @@ public with sharing class TFMRemoteActionUtilityTest {
     };
     Object isInvoked = controller.call('getConsentAccountList', args);
     Test.stopTest();
-    Assert.areEqual(false, isInvoked, 'Should return 1 record');
+    Assert.areEqual(false, isInvoked, 'Should return 4 records');
   }
 
   @isTest
@@ -318,6 +318,158 @@ public with sharing class TFMRemoteActionUtilityTest {
     Object isInvoked = controller.call('test', args);
     Test.stopTest();
     Assert.areEqual(false, isInvoked, 'Method invoked.');
+  }
+
+  @isTest
+  static void testGetTransactionDisclaimerRout() {
+    Test.startTest();
+    Boolean isInvoked = (Boolean) new TFMRemoteActionUtility()
+      .call(
+        'getTransactionDisclaimer',
+        new Map<String, Object>{
+          'input' => new Map<String, Object>(),
+          'output' => new Map<String, Object>(),
+          'options' => new Map<String, Object>()
+        }
+      );
+    Test.stopTest();
+
+    Assert.isTrue(isInvoked, 'Method not invoked.');
+  }
+
+  @isTest
+  static void testGetTransactionDisclaimer2yActive() {
+    TFMRemoteActionUtility util = new TFMRemoteActionUtility();
+    Map<String, Object> output = new Map<String, Object>();
+
+    Test.startTest();
+    util.getTransactionDisclaimer(
+      new Map<String, Object>{
+        'transactionSharingDurationYears' => '2',
+        'allAccStatus' => 'Open',
+        'state' => 'ACTIVE'
+      },
+      output,
+      null
+    );
+    Assert.areEqual(
+      'This may have included transaction data that dates back up to 2 years.',
+      output.get('transactionDisclaimer'),
+      'Disclaimer did not match expected value for 2 year active arrangement.'
+    );
+
+    util.getTransactionDisclaimer(
+      new Map<String, Object>{
+        'transactionSharingDurationYears' => '2',
+        'allAccStatus' => 'Hybrid',
+        'state' => 'ACTIVE'
+      },
+      output,
+      null
+    );
+    Assert.areEqual(
+      'For open accounts, this may have included transaction data that dates back up to 2 years.',
+      output.get('transactionDisclaimer'),
+      'Disclaimer did not match expected value for 2 year active arrangement with mix open/closed accounts.'
+    );
+    Test.stopTest();
+  }
+
+  @isTest
+  static void testGetTransactionDisclaimer2yArchived() {
+    TFMRemoteActionUtility util = new TFMRemoteActionUtility();
+    Map<String, Object> output = new Map<String, Object>();
+
+    Test.startTest();
+    util.getTransactionDisclaimer(
+      new Map<String, Object>{
+        'transactionSharingDurationYears' => '2',
+        'allAccStatus' => 'Open',
+        'state' => 'STOPPED'
+      },
+      output,
+      null
+    );
+    Assert.areEqual(
+      'This may have included transaction data that dates back up to 2 years prior to the ending of the arrangement.',
+      output.get('transactionDisclaimer'),
+      'Disclaimer did not match expected value for 2 year stopped arrangement.'
+    );
+
+    util.getTransactionDisclaimer(
+      new Map<String, Object>{
+        'transactionSharingDurationYears' => '2',
+        'allAccStatus' => 'Hybrid',
+        'state' => 'STOPPED'
+      },
+      output,
+      null
+    );
+    Assert.areEqual(
+      'For open accounts, this may have included transaction data that dates back up to 2 years prior to the ending of the arrangement.',
+      output.get('transactionDisclaimer'),
+      'Disclaimer did not match expected value for 2 year stopped arrangement with mix open/closed accounts.'
+    );
+    Test.stopTest();
+  }
+
+  @isTest
+  static void testGetTransactionDisclaimer7y() {
+    TFMRemoteActionUtility util = new TFMRemoteActionUtility();
+    Map<String, Object> output = new Map<String, Object>();
+
+    Test.startTest();
+    util.getTransactionDisclaimer(
+      new Map<String, Object>{
+        'transactionSharingDurationYears' => '7',
+        'allAccStatus' => 'Open',
+        'state' => 'ACTIVE'
+      },
+      output,
+      null
+    );
+    Assert.areEqual(
+      'For an open account, this may include historical transaction data that dates back up to 7 years.',
+      output.get('transactionDisclaimer'),
+      'Disclaimer did not match expected value for 7 year active arrangement with open accounts.'
+    );
+
+    util.getTransactionDisclaimer(
+      new Map<String, Object>{
+        'transactionSharingDurationYears' => '7',
+        'allAccStatus' => 'Hybrid',
+        'state' => 'ACTIVE'
+      },
+      output,
+      null
+    );
+    Assert.isTrue(
+      String.valueOf(output.get('transactionDisclaimer'))
+        .endsWith(
+          'For a closed account, this may include historical transaction data that dates back up to 12 months prior to closure.'
+        ),
+      'Disclaimer did not match expected value for 7 year active arrangement with mix open/closed accounts.'
+    );
+    Test.stopTest();
+  }
+
+  @isTest
+  static void testGetTransactionDisclaimerEdgeCases() {
+    Map<String, Object> output = new Map<String, Object>();
+    new TFMRemoteActionUtility()
+      .getTransactionDisclaimer(
+        new Map<String, Object>{
+          'transactionSharingDurationYears' => '7',
+          'allAccStatus' => 'Closed',
+          'state' => 'ACTIVE'
+        },
+        output,
+        null
+      );
+    Assert.isFalse(
+      output.containsKey('transactionDisclaimer'),
+      'Disclaimer should not be present for closed accounts.'
+    );
   }
 
   @isTest

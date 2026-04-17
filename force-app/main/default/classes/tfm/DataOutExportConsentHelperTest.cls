@@ -384,6 +384,53 @@ public with sharing class DataOutExportConsentHelperTest {
   }
 
   @IsTest
+  static void testGetDisclaimerTransactionScopeWithOpenAccounts() {
+    DataOutExportModel obj = getDataExportModelData();
+    obj.dataScopesValue = new List<String>{ 'bank:transactions:read' };
+    obj.transactionDisclaimer = 'This may have included transaction data that dates back up to 2 years.';
+    obj.accountsValue = new List<TFMExportConsentModel.AccountInfo>{
+      new TFMExportConsentModel.AccountInfo(
+        'Acc1',
+        '123456',
+        'Open',
+        'Individual',
+        'ELIGIBLE'
+      )
+    };
+
+    Test.startTest();
+    List<String> response = DataOutExportConsentHelper.getDisclaimer(obj);
+    Test.stopTest();
+
+    Assert.areEqual(
+      'Disclaimers',
+      response[0],
+      'First row should be Disclaimers header'
+    );
+    Assert.isTrue(
+      response[1].contains('2 years'),
+      'Disclaimer row should contain the open accounts metadata disclaimer'
+    );
+  }
+
+  @IsTest
+  static void testGetDisclaimerTransactionScopeWithNullDisclaimerShowsNoDisclaimer() {
+    DataOutExportModel obj = getDataExportModelData();
+    obj.dataScopesValue = new List<String>{ 'bank:transactions:read' };
+    obj.transactionDisclaimer = null;
+
+    Test.startTest();
+    List<String> response = DataOutExportConsentHelper.getDisclaimer(obj);
+    Test.stopTest();
+
+    Assert.areEqual(
+      'Disclaimers, ""',
+      response[0] + ', ' + response[1],
+      'Null transactionDisclaimer should result in empty disclaimer row'
+    );
+  }
+
+  @IsTest
   static void testGetDataSharingHistoryTitle() {
     Test.startTest();
     List<String> response = DataOutExportConsentHelper.getDataSharingHistoryTitle();

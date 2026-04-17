@@ -100,6 +100,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Account.Suncorp_Bank_Identifier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Suncorp_Bank_Move__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Campaign.Channel__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -450,6 +460,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Controlling_Post__c.CPID_LanID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Controlling_Post__c.CPID_User__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Controlling_Post__c.End_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -751,6 +771,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>FinServ__FinancialAccount__c.Source_System_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__FinancialAccount__c.Suncorp_Bank_Identifier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__FinancialAccount__c.Suncorp_Bank_Move__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

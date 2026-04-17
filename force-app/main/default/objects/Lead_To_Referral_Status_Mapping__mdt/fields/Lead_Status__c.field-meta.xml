@@ -28,6 +28,11 @@
                 <default>false</default>
                 <label>Outcome</label>
             </value>
+            <value>
+                <fullName>Converted</fullName>
+                <default>false</default>
+                <label>Converted</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

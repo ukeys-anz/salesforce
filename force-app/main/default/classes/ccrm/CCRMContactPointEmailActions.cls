@@ -50,9 +50,7 @@ public with sharing class CCRMContactPointEmailActions {
 
     List<Account> accList = relatedAccMap.values();
 
-    CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper(
-      accList
-    );
+    AccountWrapper existingOrProspectAccounts = new AccountWrapper(accList);
 
     for (ContactPointEmail record : records) {
       if (
@@ -236,5 +234,47 @@ public with sharing class CCRMContactPointEmailActions {
       accMap = getAccountMap(accountIds);
     }
     return accMap;
+  }
+  /**
+   * @description AccountWrapper wrapper class to hold Existing and Prospect Account
+   * @name AccountWrapper
+   */
+  private class AccountWrapper {
+    private Map<Id, Account> prospectAccounts = new Map<Id, Account>();
+    private Map<Id, Account> existingAccounts = new Map<Id, Account>();
+    Set<ID> recordTypeIDSet = new Set<ID>{
+      RTAccount.businessAccount,
+      RTAccount.personAccount
+    };
+
+    /**
+     * @description AccountWrapper constructor to check if the Account is an active/inactive or Prospect account
+     * @param records List of Account
+     */
+    public AccountWrapper(List<Account> records) {
+      List<Account> filteredProspectCustomers = ListUtil.filter(records)
+        .equals(Account.Is_Prospect__c, true)
+        .toList();
+      prospectAccounts = (Map<Id, Account>) ListUtil.mapBy(
+        filteredProspectCustomers,
+        Account.Id
+      );
+
+      List<Account> filteredExistingCustomers = ListUtil.filter(records)
+        .equals(Account.RecordTypeId, recordTypeIDSet)
+        .equals(
+          Account.FinServ__Status__c,
+          new Set<String>{
+            CCRMConstants.ACTIVE_STATUS,
+            CCRMConstants.INACTIVE_STATUS
+          }
+        )
+        .equals(Account.Source_System_Name__c, Label.CCRM_Source_System_Name)
+        .toList();
+      existingAccounts = (Map<Id, Account>) ListUtil.mapBy(
+        filteredExistingCustomers,
+        Account.Id
+      );
+    }
   }
 }

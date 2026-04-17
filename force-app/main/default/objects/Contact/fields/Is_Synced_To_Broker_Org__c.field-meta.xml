@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Synced_To_Broker_Org__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source_Internal</complianceGroup>
+    <defaultValue>false</defaultValue>
+    <description>Field to be used to identify if a broker is synced to Broker Org</description>
+    <label>Is Synced To Broker Org?</label>
+    <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

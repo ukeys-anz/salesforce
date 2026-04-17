@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniScript xmlns="http://soap.sforce.com/2006/04/metadata">
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
-    <isActive>true</isActive>
+    <isActive>false</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
     <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
     <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -10,10 +10,10 @@
     <language>English</language>
     <name>viewConsentOSContainer</name>
     <omniProcessElements>
+        <name>IntegrationProcedureAction</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>IntegrationProcedureAction</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -89,11 +89,12 @@
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>Step1</name>
         <childElements>
+            <name>CustomLWC2</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>CustomLWC2</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -117,7 +118,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>Step1</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;label&quot; : &quot;View Consent Details&quot;,

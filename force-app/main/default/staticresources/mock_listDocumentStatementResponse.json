@@ -281,16 +281,16 @@
       }
     }
   ],
-    "next": {
-        "grpcRequest": {
-            "@type": "type.googleapis.com/fabric.service.documents.v1.ListDocumentsRequest",
-            "pageToken": "50",
-            "structuredFilter": {
-                "doctypes": [
-                    "DOCUMENT_TYPE_STATEMENT_DDA",
-                    "DOCUMENT_TYPE_STATEMENT_ILS"
-                ]
-            }
-        }
+  "next": {
+    "grpcRequest": {
+      "@type": "type.googleapis.com/fabric.service.documents.v1.ListDocumentsRequest",
+      "pageToken": "50",
+      "structuredFilter": {
+        "doctypes": [
+          "DOCUMENT_TYPE_STATEMENT_DDA",
+          "DOCUMENT_TYPE_STATEMENT_ILS"
+        ]
+      }
     }
+  }
 }

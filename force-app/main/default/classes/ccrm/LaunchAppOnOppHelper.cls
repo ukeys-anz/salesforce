@@ -29,6 +29,16 @@ public with sharing class LaunchAppOnOppHelper {
       item.oppLineItemId = record.Id;
       item.productURL = '/lightning/r/Product2/' + record.Product2Id + '/view';
       item.productName = record.Product2?.Name;
+      item.oppProductURL =
+        '/lightning/r/OpportunityLineItem/' +
+        record.Id +
+        '/view';
+      item.oppProductName = String.isNotBlank(record.Opp_Product_name__c)
+        ? record.Opp_Product_name__c
+        : record.Product2?.Name;
+      if (String.isBlank(item.oppProductName)) {
+        item.oppProductName = 'View Line Item';
+      }
       item.unitPrice = record.UnitPrice;
       item.fundingPurpose = record.Funding_purpose__c;
       item.productId = record.Product2Id;
@@ -37,6 +47,22 @@ public with sharing class LaunchAppOnOppHelper {
       itemWrapper.add(item);
     }
     return itemWrapper;
+  }
+
+  /**
+   * @description create productId  amount map
+   * @name createProductAmountMap
+   * @param items opp line items
+   * @return Map<Id, Decimal> productIdToAmountMap
+   */
+  public static Map<Id, Decimal> createProductAmountMap(
+    List<OpportunityLineItem> items
+  ) {
+    Map<Id, Decimal> productIdToAmountMap = new Map<Id, Decimal>();
+    for (OpportunityLineItem item : items) {
+      productIdToAmountMap.put(item.Product2Id, item.UnitPrice);
+    }
+    return productIdToAmountMap;
   }
 
   /**
@@ -181,5 +207,51 @@ public with sharing class LaunchAppOnOppHelper {
       oppLineItemId
     );
     return ambitModel;
+  }
+
+  /**
+   * @description update application form and application form products
+   * @name updateApplicationFormAndAppFormProduct
+   * @param oppId opportunity Id
+   * @param appFormProducts list of application form products
+   * @param oppLineItemIds opportunity line item ids
+   * @return List<Id> app form product Ids
+   */
+  public static List<Id> updateApplicationFormAndAppFormProduct(
+    Id oppId,
+    List<ApplicationFormProduct> appFormProducts,
+    List<Id> oppLineItemIds
+  ) {
+    List<Id> appFormProductIds = new List<Id>();
+    List<ApplicationForm> appForms = new List<ApplicationForm>();
+    List<ApplicationFormProduct> lstAppFormsProds = new List<ApplicationFormProduct>();
+
+    for (ApplicationFormProduct appFormProduct : appFormProducts) {
+      appForms.add(
+        new ApplicationForm(
+          Id = appFormProduct.ApplicationFormId,
+          OpportunityId = oppId // Mapping Opportunity.
+        )
+      );
+
+      lstAppFormsProds.add(
+        new ApplicationFormProduct(
+          Id = appFormProduct.Id,
+          Stage = CCRMConstants.OPP_IDENTIFIED, // Updating Stage
+          Opportunity_Product__c = oppLineItemIds[0] // Mapping Opportunity Product.
+        )
+      );
+    }
+    DML_REPOSITORY.doUpdate(appForms);
+    List<Database.SaveResult> appFormProductresult = DML_REPOSITORY.doUpdate(
+      lstAppFormsProds
+    );
+
+    for (Database.SaveResult sr : appFormProductresult) {
+      if (sr.isSuccess()) {
+        appFormProductIds.add(sr.getId());
+      }
+    }
+    return appFormProductIds;
   }
 }

@@ -286,7 +286,7 @@ public with sharing class LeadActionsHelper {
         new Set<String>{ 'CCRM', lead.Status, lead.Lead_Outcome__c }
       );
       lead.Referral_Status__c = QueryLeadToReferralStatusMapping.get(key)
-        ?.Referral_Status__c;
+        ?.Referral_Status__c ?? lead.Referral_Status__c;
     }
   }
 }

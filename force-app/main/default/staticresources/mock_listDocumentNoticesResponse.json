@@ -1,180 +1,180 @@
 {
   "documents": [
     {
-            "name": "documents/193baee2-71aa-5a1e-b191-7b1204d95dd6",
-            "readers": [
-                {
-                    "personaId": "ca6dde6d-0328-41d3-96b6-6a5c72fe336b"
-                }
-            ],
-            "accountNumber": "390993924",
-            "onlPaymentChangeAdviceNotice": {
-                "issueDate": {
-                    "year": 2019,
-                    "month" : 3,
-                    "day": 19
-                }
-            }
-        },
+      "name": "documents/193baee2-71aa-5a1e-b191-7b1204d95dd6",
+      "readers": [
         {
-            "name": "documents/193baee2-71aa-5a1e-b191-7b1204d95dd6",
-            "readers": [
-                {
-                    "personaId": "ca6dde6d-0328-41d3-96b6-6a5c72fe336b"
-                }
-            ],
-            "accountNumber": "390993924",
-            "drawdownNotice": {
-                "issueDate": {
-                    "year": 2020,
-                    "month": 11,
-                    "day": 11
-                }
-            }
-        },
-        {
-            "name": "documents/193baee2-71aa-5a1e-b191-7b1204d95dd6",
-            "readers": [
-                {
-                    "personaId": "ca6dde6d-0328-41d3-96b6-6a5c72fe336b"
-                }
-            ],
-            "accountNumber": "390993924",
-            "paymentReviewNotice": {
-                "issueDate": {
-                    "year": 2015,
-                    "day": 15
-                }
-            }
-        },
-        {
-            "name": "documents/193baee2-71aa-5a1e-b191-7b1204d95dd6",
-            "readers": [
-                {
-                    "personaId": "ca6dde6d-0328-41d3-96b6-6a5c72fe336b"
-                }
-            ],
-            "accountNumber": "390993924",
-            "InterimTransactionListingDDA": {
-                "issueDate": {
-                    "year": 2015,
-                    "month": 5,
-                    "day": 15
-                }
-            }
-        },
-        {
-            "name": "documents/193baee2-71aa-5a1e-b191-7b1204d95dd6",
-            "readers": [
-                {
-                    "personaId": "ca6dde6d-0328-41d3-96b6-6a5c72fe336b"
-                }
-            ],
-            "accountNumber": "390993924",
-            "HistoricalDocument": {
-                "issueDate": {
-                    "year": 2015,
-                    "month": 5,
-                    "day": 15
-                }
-            }
-        },
-        {
-            "name": "documents/193baee2-71aa-5a1e-b191-7b1204d95dd6",
-            "readers": [
-                {
-                    "personaId": "ca6dde6d-0328-41d3-96b6-6a5c72fe336b"
-                }
-            ],
-            "accountNumber": "390993924",
-            "EOFYSummary": {
-                "issueDate": {
-                    "year": 2015,
-                    "month": 5,
-                    "day": 15
-                }
-            }
-        },
-        {
-            "name": "documents/193baee2-71aa-5a1e-b191-7b1204d95dd6",
-            "readers": [
-                {
-                    "personaId": "ca6dde6d-0328-41d3-96b6-6a5c72fe336b"
-                }
-            ],
-            "accountNumber": "390993924",
-            "StatementClassic": {
-                "issueDate": {
-                    "year": 2015,
-                    "month": 5,
-                    "day": 15
-                }
-            }
-        },
-        {
-            "name": "documents/193baee2-71aa-5a1e-b191-7b1204d95dd6",
-            "readers": [
-                {
-                    "personaId": "ca6dde6d-0328-41d3-96b6-6a5c72fe336b"
-                }
-            ],
-            "accountNumber": "390993924",
-            "NoticeClassic": {
-                "issueDate": {
-                    "year": 2015,
-                    "month": 5,
-                    "day": 15
-                }
-            }
-        },
-        {
-            "name": "documents/193baee2-71aa-5a1e-b191-7b1204d95dd6",
-            "readers": [
-                {
-                    "personaId": "ca6dde6d-0328-41d3-96b6-6a5c72fe336b"
-                }
-            ],
-            "accountNumber": "390993924",
-            "StatementSuncorp": {
-                "issueDate": {
-                    "year": 2015,
-                    "month": 5,
-                    "day": 15
-                }
-            }
-        },
-        {
-            "name": "documents/193baee2-71aa-5a1e-b191-7b1204d95dd6",
-            "readers": [
-                {
-                    "personaId": "ca6dde6d-0328-41d3-96b6-6a5c72fe336b"
-                }
-            ],
-            "accountNumber": "390993924",
-            "NoticeSuncorp": {
-                "issueDate": {
-                    "year": 2015,
-                    "month": 5,
-                    "day": 15
-                }
-            }
-        },
-        {
-            "name": "documents/193baee2-71aa-5a1e-b191-7b1204d95dd6",
-            "readers": [
-                {
-                    "personaId": "ca6dde6d-0328-41d3-96b6-6a5c72fe336b"
-                }
-            ],
-            "accountNumber": "390993924",
-            "ProofOfBalance": {
-                "issueDate": {
-                    "year": 2015,
-                    "month": 5,
-                    "day": 15
-                }
-            }
+          "personaId": "ca6dde6d-0328-41d3-96b6-6a5c72fe336b"
         }
+      ],
+      "accountNumber": "390993924",
+      "onlPaymentChangeAdviceNotice": {
+        "issueDate": {
+          "year": 2019,
+          "month": 3,
+          "day": 19
+        }
+      }
+    },
+    {
+      "name": "documents/193baee2-71aa-5a1e-b191-7b1204d95dd6",
+      "readers": [
+        {
+          "personaId": "ca6dde6d-0328-41d3-96b6-6a5c72fe336b"
+        }
+      ],
+      "accountNumber": "390993924",
+      "drawdownNotice": {
+        "issueDate": {
+          "year": 2020,
+          "month": 11,
+          "day": 11
+        }
+      }
+    },
+    {
+      "name": "documents/193baee2-71aa-5a1e-b191-7b1204d95dd6",
+      "readers": [
+        {
+          "personaId": "ca6dde6d-0328-41d3-96b6-6a5c72fe336b"
+        }
+      ],
+      "accountNumber": "390993924",
+      "paymentReviewNotice": {
+        "issueDate": {
+          "year": 2015,
+          "day": 15
+        }
+      }
+    },
+    {
+      "name": "documents/193baee2-71aa-5a1e-b191-7b1204d95dd6",
+      "readers": [
+        {
+          "personaId": "ca6dde6d-0328-41d3-96b6-6a5c72fe336b"
+        }
+      ],
+      "accountNumber": "390993924",
+      "InterimTransactionListingDDA": {
+        "issueDate": {
+          "year": 2015,
+          "month": 5,
+          "day": 15
+        }
+      }
+    },
+    {
+      "name": "documents/193baee2-71aa-5a1e-b191-7b1204d95dd6",
+      "readers": [
+        {
+          "personaId": "ca6dde6d-0328-41d3-96b6-6a5c72fe336b"
+        }
+      ],
+      "accountNumber": "390993924",
+      "HistoricalDocument": {
+        "issueDate": {
+          "year": 2015,
+          "month": 5,
+          "day": 15
+        }
+      }
+    },
+    {
+      "name": "documents/193baee2-71aa-5a1e-b191-7b1204d95dd6",
+      "readers": [
+        {
+          "personaId": "ca6dde6d-0328-41d3-96b6-6a5c72fe336b"
+        }
+      ],
+      "accountNumber": "390993924",
+      "EOFYSummary": {
+        "issueDate": {
+          "year": 2015,
+          "month": 5,
+          "day": 15
+        }
+      }
+    },
+    {
+      "name": "documents/193baee2-71aa-5a1e-b191-7b1204d95dd6",
+      "readers": [
+        {
+          "personaId": "ca6dde6d-0328-41d3-96b6-6a5c72fe336b"
+        }
+      ],
+      "accountNumber": "390993924",
+      "StatementClassic": {
+        "issueDate": {
+          "year": 2015,
+          "month": 5,
+          "day": 15
+        }
+      }
+    },
+    {
+      "name": "documents/193baee2-71aa-5a1e-b191-7b1204d95dd6",
+      "readers": [
+        {
+          "personaId": "ca6dde6d-0328-41d3-96b6-6a5c72fe336b"
+        }
+      ],
+      "accountNumber": "390993924",
+      "NoticeClassic": {
+        "issueDate": {
+          "year": 2015,
+          "month": 5,
+          "day": 15
+        }
+      }
+    },
+    {
+      "name": "documents/193baee2-71aa-5a1e-b191-7b1204d95dd6",
+      "readers": [
+        {
+          "personaId": "ca6dde6d-0328-41d3-96b6-6a5c72fe336b"
+        }
+      ],
+      "accountNumber": "390993924",
+      "StatementSuncorp": {
+        "issueDate": {
+          "year": 2015,
+          "month": 5,
+          "day": 15
+        }
+      }
+    },
+    {
+      "name": "documents/193baee2-71aa-5a1e-b191-7b1204d95dd6",
+      "readers": [
+        {
+          "personaId": "ca6dde6d-0328-41d3-96b6-6a5c72fe336b"
+        }
+      ],
+      "accountNumber": "390993924",
+      "NoticeSuncorp": {
+        "issueDate": {
+          "year": 2015,
+          "month": 5,
+          "day": 15
+        }
+      }
+    },
+    {
+      "name": "documents/193baee2-71aa-5a1e-b191-7b1204d95dd6",
+      "readers": [
+        {
+          "personaId": "ca6dde6d-0328-41d3-96b6-6a5c72fe336b"
+        }
+      ],
+      "accountNumber": "390993924",
+      "ProofOfBalance": {
+        "issueDate": {
+          "year": 2015,
+          "month": 5,
+          "day": 15
+        }
+      }
+    }
   ],
   "next": {
     "href": "https://api.example.com/api/v1/documents/list?page_token=eyJwYWdlIjoi...",

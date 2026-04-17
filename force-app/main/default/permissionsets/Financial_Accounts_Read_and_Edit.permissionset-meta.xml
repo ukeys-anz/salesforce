@@ -690,6 +690,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__FinancialAccount__c.Portfolio_Indicator__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>FinServ__FinancialAccount__c.Source_System_Status_Display__c</field>
         <readable>true</readable>
@@ -702,6 +707,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>FinServ__FinancialAccount__c.System_Record_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__FinancialAccount__c.Suncorp_Bank_Identifier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__FinancialAccount__c.Suncorp_Bank_Move__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

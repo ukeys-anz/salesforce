@@ -11,21 +11,36 @@ public with sharing class CommercialOpportunityHelper {
   private static final String WON_LOST_MANDATORY_AFP = 'please provide valid Won From/Lost To.';
   public static final String ACCOUNT_ID_FIELD_NAME = 'AccountId';
   public static final String LEAD_PROCESS_FOR_PROSPECT_ERROR = 'Error Message - Lead process to be followed for prospect opportunity creation';
-  @testVisible
-  private static final String LAUNCH_APP_ERROR = 'Please LAUNCH APPLICATION and mark the Application form product as WON or LOST before closing the opportunity. Please select Internal Application if none of the Origination systems are involved.';
-  @testVisible
-  private static final String CLOSE_AFP_FIRST_ERROR = 'Please mark all application form products as WON or LOST before closing the opportunity.';
   private static final String OPP_WON = 'Opportunity Won';
   private static final String OPP_LOST = 'Opportunity Lost';
   private static final String OPPORTUNITY_LABEL = 'Opportunity';
   private static final String SKIP_STAGE = 'Unfortunately, you are not allowed to skip stages or re-open a closed stage.';
   private static final String REOPEN_CLOSED_OPP = 'You cannot reopen a closed stage.';
+  private static final String OPP_CANCELLED = 'Cancelled';
+
+  private static final String COMMERCIAL_ADMIN_ROLE = 'Commercial_Admin';
   @testVisible
   private static final String SELECT_RELATED_CLG_ERROR = 'Customer is not related to this CLG, please select the correct CLG';
   @testVisible
   private static final String SELECT_ANY_CLG_ERROR = 'Please select a related CLG';
   @testVisible
   private static final String NO_CLG_FOR_CUSTOMER_ERROR = 'No CLG available for this customer,please leave CLG blank';
+  @testVisible
+  private static final String INVALID_TRANSITION_ERROR = 'Unfortunately, you are not allowed to move to a stage other than Opportunity Lost or Cancelled from Opportunity Won stage.';
+  @testVisible
+  private static final Set<String> OPP_WON_ALLOWED_STAGES = new Set<String>{
+    OPP_LOST,
+    OPP_CANCELLED
+  };
+  @testVisible
+  private static final String NEW_STAGE = 'New';
+  @testVisible
+  private static final String OPP_DEFAULT_STAGE_ERROR = 'Stage can only be set to New.';
+  @testVisible
+  private static final String OTHER_SOURCE_DETAIL_MANDATORY = 'Other Source Detail is mandatory if Lead Source is Other.';
+  @testVisible
+  private static final String CUSTOMER_NEEDS_ERROR = 'Secondary Customer Needs should not be the same as Customer Needs.';
+  private static final String OTHER = 'Other';
 
   private static final CommercialOpportunityRepository OPP_REPOSITORY = (CommercialOpportunityRepository) Lib_InstanceProvider.forType(
     CommercialOpportunityRepository.class
@@ -33,7 +48,9 @@ public with sharing class CommercialOpportunityHelper {
   private static final DmlRepository DML = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
-
+  private static final UserInfoRepository USER_REPO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
   /**
    * @description This method will Loop through Accounts mapped with Opportunity and determine if Account is a Prospect
    * @name checkAccountIsProspect
@@ -91,30 +108,30 @@ public with sharing class CommercialOpportunityHelper {
     Map<Id, Opportunity> oldOppMap,
     Map<Id, String> oppsStageSegmentMap
   ) {
-    for (Opportunity oppIterator : stageUpdatedOpps) {
-      List<String> nextStage = new List<String>();
-      String oldStage = oldOppMap.get(oppIterator.Id).StageName;
-
-      Commercial_Stage__mdt metadata = opportunityStagesBySegment.get(
-        oppsStageSegmentMap.get(oppIterator.Id)
-      );
-
-      if (metadata != null && metadata.Next_Stage__c != null) {
-        nextStage = metadata.Next_Stage__c.split(';');
-      }
-
-      if (
-        oldStage == metadata.Current_Stage__c &&
-        oppIterator.StageName != metadata.Previous_Stage__c &&
-        !nextStage.contains(oppIterator.StageName)
-      ) {
-        oppIterator.addError(SKIP_STAGE);
-      }
-
-      if (oldStage == OPP_LOST || oldStage == OPP_WON) {
-        oppIterator.addError(REOPEN_CLOSED_OPP);
-      }
+    if (USER_REPO.checkRole(COMMERCIAL_ADMIN_ROLE)) {
+      return;
     }
+    //get Opportunities who's stages are Opp lost
+    List<Opportunity> lostOpportunities = ListUtil.filter(
+        stageUpdatedOpps,
+        oldOppMap
+      )
+      .oldEquals(
+        Opportunity.StageName,
+        new Set<String>{ OPP_LOST, OPP_CANCELLED }
+      )
+      .toList();
+    ListUtil.addError(lostOpportunities, REOPEN_CLOSED_OPP);
+
+    //get Opportunities who's stages are Opp won
+    List<Opportunity> wonOpportunities = ListUtil.filter(
+        stageUpdatedOpps,
+        oldOppMap
+      )
+      .notEquals(Opportunity.StageName, OPP_WON_ALLOWED_STAGES)
+      .oldEquals(Opportunity.StageName, OPP_WON)
+      .toList();
+    ListUtil.addError(wonOpportunities, INVALID_TRANSITION_ERROR);
   }
 
   /**
@@ -212,92 +229,6 @@ public with sharing class CommercialOpportunityHelper {
       String error = String.join(errors, '\n');
       closedOppsMap.get(afp.ApplicationForm.OpportunityId).addError(error);
     }
-  }
-
-  /**
-   * @description add error on opportunity when AFP/Product are not closed
-   * @name addErrorOnOppForOpenAFP
-   * @param closedOppsMap map of closed won/lost opps
-   * @param oppIdToOpenAFPMap map of oppID to open AFP Ids
-   * @param oppIdToAllAFPIdMap map of oppID to all AFP Ids
-   */
-  public static void addErrorOnOppForOpenAFP(
-    Map<Id, Opportunity> closedOppsMap,
-    Map<Id, Set<Id>> oppIdToOpenAFPMap,
-    Map<Id, Set<Id>> oppIdToAllAFPIdMap
-  ) {
-    //get Opp products related to Opportunities
-    List<OpportunityLineItem> oppProducts = OPP_REPOSITORY.getOppProductsForOpportunity(
-      closedOppsMap.keySet()
-    );
-    //create OppId -> Opp Product map
-    Map<Id, List<OpportunityLineItem>> oppIdToOppProductMap = (Map<Id, List<OpportunityLineItem>>) ListUtil.groupBy(
-      oppProducts,
-      OpportunityLineItem.OpportunityId
-    );
-
-    for (Opportunity oppRecord : closedOppsMap.values()) {
-      Integer afpRelatedToOppSize = oppIdToAllAFPIdMap.get(oppRecord.Id)
-        ?.size();
-      Integer oliRelatedToOppSize = oppIdToOppProductMap.get(oppRecord.Id)
-        ?.size();
-      if (afpRelatedToOppSize != oliRelatedToOppSize) {
-        oppRecord.addError(LAUNCH_APP_ERROR);
-        continue;
-      }
-      Integer openAfpRelatedToOppSize = oppIdToOpenAFPMap.get(oppRecord.Id)
-        ?.size();
-      if (openAfpRelatedToOppSize > 0) {
-        oppRecord.addError(CLOSE_AFP_FIRST_ERROR);
-      }
-    }
-  }
-
-  /**
-   * @description This method returns map of opportunity ID To only existing open AFP ID
-   * @name formOppIdToOpenAFPMap
-   * @param appFormProductList list of AFPs
-   * @return Map<Id,Set<Id>> map of opportunity ID To all existing AFP ID
-   */
-  public static Map<Id, Set<Id>> formOppIdToOpenAFPMap(
-    List<ApplicationFormProduct> appFormProductList
-  ) {
-    Map<Id, Set<Id>> oppIdToOpenAFPMap = new Map<Id, Set<Id>>();
-    List<ApplicationFormProduct> openAFPList = ListUtil.filter(
-        appFormProductList
-      )
-      .notEquals(ApplicationFormProduct.Stage, OPP_LOST)
-      .notEquals(ApplicationFormProduct.Stage, OPP_WON)
-      .toList();
-
-    for (ApplicationFormProduct afpRecord : openAFPList) {
-      Id oppId = afpRecord.ApplicationForm.OpportunityId;
-      if (!oppIdToOpenAFPMap.containsKey(oppId)) {
-        oppIdToOpenAFPMap.put(oppId, new Set<Id>());
-      }
-      oppIdToOpenAFPMap.get(oppId).add(afpRecord.Id);
-    }
-    return oppIdToOpenAFPMap;
-  }
-
-  /**
-   * @description This method returns map of opportunity ID To all existing AFP ID
-   * @name formOppIdToAllAFPIdMap
-   * @param appFormProducts list of AFPs
-   * @return Map<Id,Set<Id>> map of opportunity ID To all existing AFP ID
-   */
-  public static Map<Id, Set<Id>> formOppIdToAllAFPIdMap(
-    List<ApplicationFormProduct> appFormProducts
-  ) {
-    Map<Id, Set<Id>> oppIdToAllAFPIdMap = new Map<Id, Set<Id>>();
-    for (ApplicationFormProduct afpRecord : appFormProducts) {
-      Id oppId = afpRecord.ApplicationForm.OpportunityId;
-      if (!oppIdToAllAFPIdMap.containsKey(oppId)) {
-        oppIdToAllAFPIdMap.put(oppId, new Set<Id>());
-      }
-      oppIdToAllAFPIdMap.get(oppId).add(afpRecord.Opportunity_Product__c);
-    }
-    return oppIdToAllAFPIdMap;
   }
 
   /**
@@ -450,10 +381,73 @@ public with sharing class CommercialOpportunityHelper {
     if (String.isNotBlank(customerNeeds)) {
       opportunityName += customerNeeds + ' ';
     }
-    oppName = String.isNotBlank(oppName) ? oppName.left(30) : oppName;
     if (String.isNotBlank(oppName)) {
       opportunityName += oppName;
     }
+    opportunityName = opportunityName.length() > 120
+      ? opportunityName.left(120)
+      : opportunityName;
     return opportunityName;
+  }
+
+  /**
+   * @description validate CCRM opportunities
+   * @name validateCCRMOpportunity
+   * @param oppWrapper CCRMOpportunity Wrapper
+   * @param isInsert if the operation is insert
+   */
+  public static void validateCCRMOpportunity(
+    CommercialOpportunityActions.CCRMOpportunityWrapper oppWrapper,
+    Boolean isInsert
+  ) {
+    for (Opportunity oppIterator : oppWrapper.filteredOpps) {
+      List<String> errors = new List<String>();
+
+      //check if stage is not equal to "New" on creation of lead
+      if (isInsert && oppIterator.StageName != NEW_STAGE) {
+        errors.add(OPP_DEFAULT_STAGE_ERROR);
+      }
+      //check if other source detail is provided if leadsource is other
+      if (
+        oppIterator.LeadSource == OTHER &&
+        String.isBlank(oppIterator.Other_Source_Detail__c)
+      ) {
+        errors.add(OTHER_SOURCE_DETAIL_MANDATORY);
+      }
+
+      String errorMessage = String.join(errors, '\n');
+
+      //add error message
+      if (String.isNotBlank(errorMessage)) {
+        oppIterator.addError(errorMessage);
+      }
+    }
+  }
+
+  /**
+   * @description check if secondary customer needs contains customer needs
+   * @name checkIfSecondaryCustomerNeedsContainsCustomerNeeds
+   * @param ccrmOpps ccrm opps
+   * @param oldOppsMap old map of opportunities
+   */
+  public static void checkIfSecondaryCustomerNeedsContainsCustomerNeeds(
+    List<Opportunity> ccrmOpps,
+    Map<Id, Opportunity> oldOppsMap
+  ) {
+    Set<SObjectField> fieldsToCheck = new Set<SObjectField>{
+      Opportunity.Customer_Needs__c,
+      Opportunity.Secondary_Customer_Needs__c
+    };
+
+    List<Opportunity> filteredOppList = ListUtil.filter(ccrmOpps, oldOppsMap)
+      .anyChanged(fieldsToCheck)
+      .allNotNull(fieldsToCheck)
+      .toList();
+
+    for (Opportunity opp : filteredOppList) {
+      if (opp.Secondary_Customer_Needs__c.contains(opp.Customer_Needs__c)) {
+        opp.Secondary_Customer_Needs__c.addError(CUSTOMER_NEEDS_ERROR);
+      }
+    }
   }
 }

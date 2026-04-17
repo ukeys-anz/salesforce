@@ -19,48 +19,6 @@ private class CommercialOpportunityHelperTest {
   }
 
   @isTest
-  static void validateSkipStageTest() {
-    Opportunity opp;
-    Opportunity oldOpp;
-    Map<Id, String> oppsStageSegmentMap;
-    List<Database.Error> errors;
-    Database.Error error;
-
-    opp = CCRMTestDataFactory.createStaticOpportunityData(
-      Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType),
-      'Test Opp 1',
-      RTOpportunity.commercialOpportunity,
-      CCRMConstants.OPP_WON
-    );
-
-    oldOpp = CCRMTestDataFactory.createStaticOpportunityData(
-      opp.Id,
-      'Test Opp 2',
-      RTOpportunity.commercialOpportunity,
-      CCRMConstants.NEW_STAGE
-    );
-
-    oppsStageSegmentMap = new Map<Id, String>{ opp.Id => 'New-CBO' };
-
-    Test.startTest();
-    CommercialOpportunityHelper.addErrorForSkippedStage(
-      new List<Opportunity>{ opp },
-      new Map<Id, Opportunity>{ opp.Id => oldOpp },
-      oppsStageSegmentMap
-    );
-    Test.stopTest();
-
-    errors = opp.getErrors();
-    Assert.isFalse(errors.isEmpty(), 'Error not found');
-    error = errors.get(0);
-    Assert.areEqual(
-      CCRMConstants.SKIP_STAGE,
-      error.getMessage(),
-      'Opp updated successfully'
-    );
-  }
-
-  @isTest
   static void checkOpenTaskForClosedOpportunitiesTest() {
     registerMocks();
     List<Database.Error> errors;
@@ -138,6 +96,43 @@ private class CommercialOpportunityHelperTest {
         CommercialOpportunityHelper.WON_LOST_MANDATORY_AFP,
       error.getMessage(),
       'Opp updated successfully'
+    );
+  }
+
+  @isTest
+  static void validateCCRMOpportunityTest() {
+    registerMocks();
+    List<Database.Error> errors;
+    Database.Error error;
+    //GIVEN list of Opportunity records, old Map of Opportunity records
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Account accRecord = new Account(
+      Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+      RecordTypeId = RTAccount.businessAccount
+    );
+    //List<Opportunity> oppList = new List<Opportunity>(){};
+    List<Opportunity> records = new List<Opportunity>{
+      new Opportunity(
+        Id = oppId,
+        AccountId = accRecord.Id,
+        Name = 'Test',
+        StageName = 'In Progress',
+        LeadSource = 'Other'
+      )
+    };
+    CommercialOpportunityActions.CCRMOpportunityWrapper oppWrapper = new CommercialOpportunityActions.CCRMOpportunityWrapper();
+    oppWrapper.filteredOpps = records;
+    //WHEN calling a method
+    Test.startTest();
+    CommercialOpportunityHelper.validateCCRMOpportunity(oppWrapper, true);
+    Test.stopTest();
+
+    errors = records[0].getErrors();
+    error = errors.get(0);
+    Assert.isTrue(
+      error.getMessage()
+        .contains(CommercialOpportunityHelper.OTHER_SOURCE_DETAIL_MANDATORY),
+      'Validation error when opportunity is closed without app launch'
     );
   }
 }

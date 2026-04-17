@@ -47,7 +47,8 @@
       "Primary_RBM__c": "Captures the Primary RBM Information.",
       "Secondary_RBM__c": "Captures the Secondary  RBM Information.",
       "Segment__c": "Captures the Segment of the associated Broker Set.",
-      "SAO_State__c": "Represents the state to which Broker's Broker Set is Associated."
+      "SAO_State__c": "Represents the state to which Broker's Broker Set is Associated.",
+      "Is_Synced_To_Broker_Org__c": "Identify if a broker is synced to Broker Org."
     },
     "ContentVersion": {
       "ContentSize": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
@@ -97,6 +98,12 @@
     },
     "Known_Issues__c": {
       "IDR_Non_Financial_Remedy__c": "Required when Complaint Remedy is chosen as 'Non-Functional Remedy' to capture the appropriate remedy"
+    },
+    "Franchise_Brand__c": {
+      "Name__c": "Brand name",
+      "Brand_Code__c": "Code",
+      "Panel_Brand__c": "Is Panel Brand",
+      "Is_Active__c": "Is Active Franchise"
     },
     "Lead": {
       "FinServ__ExpressedInterest__c": "The type of needs customer require",
@@ -196,6 +203,7 @@
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
     "Foreign_Exchange__x": "External Foreign Currency accounts",
     "Foreign_Exchange_Deal__x": "External Foreign Exchange Deals",
+    "Franchise_Brand__c": "Represents a franchise brand.  Use for tagging accounts, products, etc.",
     "Group": "A set of User records.",
     "IDR_Omni_Settings__c": "Contains settings to enable or disable Omni forms for CMOS complaints",
     "Interaction": "Represents the interaction details between the coach and the customer",
@@ -274,11 +282,16 @@
         "Hardship__c",
         "KYC_Verification_Level__c",
         "KYCVerificationDate__c",
+        "KYC_Confirmation_Date__c",
         "Mobile__c",
         "Was_ANZx_Customer__c",
         "Worldline_Merchant__c"
       ],
-      "IA-2415840": ["Is_Prospect__c"],
+      "IA-2415840": [
+        "Is_Prospect__c",
+        "Suncorp_Bank_Identifier__c",
+        "Suncorp_Bank_Move__c"
+      ],
       "IA-2415997": ["PI_Score__c"],
       "IA-2468715": [
         "AccountNumber",
@@ -391,7 +404,8 @@
       "IA-2415855": [
         "CustomerExitDate__c",
         "CustomerExitFlag__c",
-        "CLG_Credit_Rating__c"
+        "CLG_Credit_Rating__c",
+        "Franchise_Code__c"
       ],
       "IA-2415998": ["VOI_Expiry_Date_Classic__c", "VOI_Status_Classic__c"],
       "IA-2453595": ["Migration_Status__c", "DeceasedEstateStatus__c"]
@@ -517,7 +531,11 @@
         "Sub_Status__c",
         "AI_Generated__c"
       ],
-      "IA-2460507": ["Interaction_Owner__c"],
+      "IA-2460507": [
+        "Interaction_Owner__c",
+        "My_Sub_Team__c",
+        "My_Team_Segment__c"
+      ],
       "IA-2468715": ["Voice_Call_SID__c", "Case_Number__c", "PEGA_Case_Id__c"],
       "IA-2415860": [
         "Case_Owner__c",
@@ -525,6 +543,7 @@
         "Lead_Quality__c",
         "Lead__c",
         "ML_DataMigration_Key__c",
+        "My_Region_Flag__c",
         "Outcome_Reason__c",
         "Response_Status__c",
         "Response_Type__c",
@@ -581,7 +600,14 @@
         "LastModifiedById",
         "LastModifiedDate",
         "RecordTypeId"
-      ]
+      ],
+      "IA-2453350": ["Sync_Status__c"],
+      "IA-2415984": [
+        "Assisted_Broker__c",
+        "Assisted_Broker_TPMI_SAO__c",
+        "Source_System_Id__c"
+      ],
+      "IA-2415720": ["Reference_Number__c"]
     },
     "ApplicationFormProduct": {
       "IA-2415983": ["Revenue__c"],
@@ -597,9 +623,13 @@
         "Interest_Rate__c",
         "Source_System_Id__c",
         "Source_System_Status__c",
-        "Term__c"
+        "Term__c",
+        "CSP_Status__c"
       ],
       "IA-2423227": [
+        "Cancelled_Reason__c",
+        "Cancelled_Reason_Detail__c",
+        "Is_Potential_Duplicate__c",
         "Won_from_Lost_to__c",
         "Lost_reason__c",
         "Lost_Reason_Detail__c",
@@ -615,7 +645,13 @@
         "LastModifiedDate",
         "RecordTypeId"
       ],
-      "IA-2618802": ["Opportunity_Product__c"]
+      "IA-2618802": ["Opportunity_Product__c"],
+      "IA-2415720": [
+        "Application_Type__c",
+        "Application_Source__c",
+        "Brokerage_Amount__c",
+        "Loan_Purpose__c"
+      ]
     },
     "Appointment_Commitment__c": {
       "IA-2453595": [
@@ -1873,6 +1909,7 @@
         "External_Id__c",
         "Is_Beta_Broker__c",
         "Is_MyBroker__c",
+        "Is_Synced_To_Broker_Org__c",
         "Occurrence_Number__c",
         "After_Hours_Availability__c",
         "Broker_Customer_Profile__c",
@@ -2709,6 +2746,11 @@
         "System_Record_Status__c",
         "Migration_Status_Date__c"
       ],
+      "IA-2415840": [
+        "Portfolio_Indicator__c",
+        "Suncorp_Bank_Identifier__c",
+        "Suncorp_Bank_Move__c"
+      ],
       "IA-2415860": [
         "Product_Code_Display__c",
         "Sub_product_Code_Display__c",
@@ -2786,6 +2828,15 @@
         "CreatedDate",
         "LastModifiedById",
         "LastModifiedDate"
+      ]
+    },
+    "Franchise_Brand__c": {
+      "IA-2415840": [
+        "Name__c",
+        "Brand_Code__c",
+        "Panel_Brand__c",
+        "Is_Active__c",
+        "OwnerId"
       ]
     },
     "FinancialAccountUIConfiguration__mdt": {
@@ -3234,7 +3285,12 @@
         "Owner_Segment__c",
         "Owner_State__c",
         "Owner_Role__c",
-        "Owner_Team_POD__c"
+        "Owner_Team_POD__c",
+        "Referrer_Region_Flag__c",
+        "Referrer_Sub_Team__c",
+        "Referrer_Team_Segment__c",
+        "Referrer_Reportees_Lead__c",
+        "My_Managers_Referral__c"
       ],
       "IA-2530753": ["IsNewLead__c"],
       "IA-2618706": [
@@ -3743,7 +3799,9 @@
         "Opp_Id__c",
         "Type",
         "Territory__c",
-        "Version__c"
+        "Version__c",
+        "Preferred_Franchise__c",
+        "Specialisation_SubCategory__c"
       ],
       "IA-2415860": [
         "Associated_Source_Detail__c",
@@ -3829,7 +3887,11 @@
         "Settlement_Booked__c",
         "Estimated_Revenue__c"
       ],
-      "IA-2423227": ["StageName"],
+      "IA-2423227": [
+        "Cancelled_Reason__c",
+        "Cancelled_Reason_Detail__c",
+        "StageName"
+      ],
       "IA-2460507": [
         "My_Sub_Team__c",
         "My_Team__c",
@@ -3847,7 +3909,10 @@
       ],
       "IA-2530753": ["Opportunity_Owner__c"],
       "IA-2428130": ["Specialisation__c", "New_to_Bank__c"],
-      "IA-2434298": ["Total_Application_Amount__c"],
+      "IA-2434298": [
+        "Total_Application_Amount__c",
+        "Pricing_Reference_Number__c"
+      ],
       "IA-2453350": ["Can_Create_Loanapp__c", "Application_Key__c"],
       "IA-2415790": ["TPMI__c", "Broker_Name__c"],
       "IA-2618940": ["Industry__c"]
@@ -3883,7 +3948,8 @@
         "Amount",
         "Name",
         "ProductCode",
-        "Sub_Product_Code__c"
+        "Sub_Product_Code__c",
+        "Opp_Product_name__c"
       ],
       "IA-2415720": ["Reference_Number__c"],
       "IA-2415840": ["Purpose__c"],
@@ -4073,7 +4139,7 @@
         "Product_Origination_System__c",
         "Category__c"
       ],
-      "IA-2415840": ["ExternalId"],
+      "IA-2415840": ["ExternalId", "Is_Portfolio__c"],
       "IA-2415987": [
         "Product_Segment_Type__c",
         "Product_Features__c",
@@ -5493,7 +5559,8 @@
         "Fluctuating_Seasonal_Start_Expiry_Limit2__c",
         "Fluctuating_Seasonal_Start_Expiry_Limit3__c"
       ],
-      "IA-2415984": ["Statement_Mailing_Address__c"]
+      "IA-2415984": ["Statement_Mailing_Address__c"],
+      "IA-2415840": ["Suncorp_Bank_Identifier__c", "Suncorp_Bank_Move__c"]
     },
     "Credit_Card__x": {
       "IA-2415720": [
@@ -5528,7 +5595,8 @@
         "CPID__c"
       ],
       "IA-2415984": ["Statement_Mailing_Address__c"],
-      "IA-2415999": ["Frequent_Flyer_Number__c"]
+      "IA-2415999": ["Frequent_Flyer_Number__c"],
+      "IA-2415840": ["Suncorp_Bank_Identifier__c", "Suncorp_Bank_Move__c"]
     },
     "Credit_Card_Fee__x": {
       "IA-2415720": ["Credit_Card__c", "Fee_Amount__c", "Fee_Type__c"]
@@ -5612,7 +5680,8 @@
         "Amount_Advanced_To_Date__c",
         "Index_Code_Current__c",
         "Interest_Type_Current__c"
-      ]
+      ],
+      "IA-2415840": ["Suncorp_Bank_Identifier__c", "Suncorp_Bank_Move__c"]
     },
     "Term_Deposit__x": {
       "IA-2415720": [
@@ -5645,7 +5714,8 @@
         "Source_System_Status__c",
         "Relationship__c"
       ],
-      "IA-2415984": ["Statement_Mailing_Address__c"]
+      "IA-2415984": ["Statement_Mailing_Address__c"],
+      "IA-2415840": ["Suncorp_Bank_Identifier__c", "Suncorp_Bank_Move__c"]
     },
     "Other_Limits_and_Liabilities__x": {
       "IA-2415720": [
@@ -5664,7 +5734,8 @@
         "Product_Code__c",
         "Product_Name__c",
         "Source_System_Status__c"
-      ]
+      ],
+      "IA-2415840": ["Suncorp_Bank_Identifier__c", "Suncorp_Bank_Move__c"]
     },
     "Facility__x": {
       "IA-2415720": [
@@ -5724,7 +5795,8 @@
         "Source_System_Status__c",
         "TPMI_SAO__c"
       ],
-      "IA-2415984": ["Statement_Mailing_Address__c"]
+      "IA-2415984": ["Statement_Mailing_Address__c"],
+      "IA-2415840": ["Suncorp_Bank_Identifier__c", "Suncorp_Bank_Move__c"]
     },
     "Account_Relationship__x": {
       "IA-2415720": [
@@ -5734,7 +5806,9 @@
         "Term_Deposit__c",
         "Portfolio_Of_Loan__c",
         "Asset_Finance_AMBIT_Contract__c",
-        "Credit_Card__c"
+        "Credit_Card__c",
+        "Demand_Account__c",
+        "Liability_Account__c"
       ],
       "IA-2530753": [
         "Customer__c",
@@ -6228,6 +6302,7 @@
       "Is_Beta_Broker__c": "ANZx::Salesforce",
       "Birthdate__c": "ANZx :: Salesforce :: BrokerData :: Broker_Customer_Profile__c :: PersonBirthdate",
       "Is_MyBroker__c": "ANZx::Salesforce",
+      "Is_Synced_To_Broker_Org__c": "ANZx::Salesforce",
       "Office_Group__c": "ANZx::Salesforce",
       "OCV_Profile_ID__c": "ANZx :: Salesforce :: BrokerData :: Contact :: OCV_Profile_ID__c",
       "Primary_RBM__c": "ANZx::Salesforce",
@@ -6435,6 +6510,7 @@
       "Birthdate__c": "Formula field through Broker_Customer_Profile__r.PersonBirthdate",
       "Is_Beta_Broker__c": "1:1 Transformation",
       "Is_MyBroker__c": "Formula field through Broker_Relation__c",
+      "Is_Synced_To_Broker_Org__c": "1:1 Transformation",
       "Office_Group__c": "Lookup to Broker_Relation__c",
       "OCV_Profile_ID__c": "1:1 transformation",
       "Primary_RBM__c": "Formula field through Broker_Relation__c",

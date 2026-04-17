@@ -8,8 +8,6 @@ public with sharing class CommercialOpportunityActions {
   private static final String OPP_WON = 'Opportunity Won';
   @testVisible
   private static final String OPP_LOST = 'Opportunity Lost';
-  @testVisible
-  private static final String NEW_STAGE = 'New';
   public static final String CLOSE_DATE_FIELD_NAME = 'CloseDate';
   public static final String INVALID_CLOSE_DATE_ERROR = 'Please Log Close Date: Click on the "Log Close Date" button and enter a Closing date (i.e. expected settlement date)';
   public static final String ACCOUNT_ID_FIELD_NAME = 'AccountId';
@@ -17,14 +15,6 @@ public with sharing class CommercialOpportunityActions {
   public static final String RECIPROCAL_ROLE_FOR_CLG = 'CG';
   public static Boolean insertOpportunityContext = false;
   private static final String MULTIPLE_CUSTOMER_NEEDS = 'Multiple Customer Needs';
-  @testVisible
-  private static final String OPP_DEFAULT_STAGE_ERROR = 'Stage can only be set to New.';
-  @testVisible
-  private static final String OTHER_SOURCE_DETAIL_MANDATORY = 'Other Source Detail is mandatory if Lead Source is Other.';
-  @testVisible
-  private static final String CUSTOMER_NEEDS_ERROR = 'Secondary Customer Needs should not be the same as Customer Needs.';
-  private static final String OTHER = 'Other';
-
   private static final Set<SObjectField> OPP_FIELDS = new Set<SObjectField>{
     Opportunity.CLG__c,
     Opportunity.CLG_ID__c
@@ -36,6 +26,10 @@ public with sharing class CommercialOpportunityActions {
   );
   private static final UserInfoRepository USER_REPO = (UserInfoRepository) Lib_InstanceProvider.forType(
     UserInfoRepository.class
+  );
+
+  private static final DmlRepository DML_REPO = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
   );
   /**
    * @description Define custom exceptions
@@ -86,48 +80,6 @@ public with sharing class CommercialOpportunityActions {
     } catch (Exception e) {
       Logger.error('Error while restrict images on Opportunity', e).save();
     }
-  }
-
-  /**
-   * @description This method will validate if AFPs are present for Opp Products and are closed before an Opportunity is closed
-   * @name validateAFPBeforeOppClose
-   * @param records from the trigger
-   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values
-   */
-  public static void validateAFPBeforeOppClose(
-    List<Opportunity> records,
-    Map<Id, Opportunity> oldMap
-  ) {
-    List<Opportunity> closedOppsList = ListUtil.filter(records, oldMap)
-      .changed(Opportunity.StageName)
-      .anyEqual(
-        new Set<SObjectField>{ Opportunity.StageName },
-        new Set<String>{ OPP_WON, OPP_LOST }
-      )
-      .toList();
-
-    Map<Id, Opportunity> closedOppsMap = new Map<Id, Opportunity>(
-      closedOppsList
-    );
-
-    //get AFPs related to Opportunities
-    List<ApplicationFormProduct> appFormProducts = OPP_REPOSITORY.getAFPRelatedToOpportunity(
-      closedOppsMap.keySet()
-    );
-
-    Map<Id, Set<Id>> oppIdToOpenAFPMap = CommercialOpportunityHelper.formOppIdToOpenAFPMap(
-      appFormProducts
-    );
-
-    Map<Id, Set<Id>> oppIdToAllAFPIdMap = CommercialOpportunityHelper.formOppIdToAllAFPIdMap(
-      appFormProducts
-    );
-
-    CommercialOpportunityHelper.addErrorOnOppForOpenAFP(
-      closedOppsMap,
-      oppIdToOpenAFPMap,
-      oppIdToAllAFPIdMap
-    );
   }
 
   /**
@@ -192,7 +144,7 @@ public with sharing class CommercialOpportunityActions {
       oppWrapper = getStageSegmentMap(oppWrapper, oldOppMap);
 
       //checks for validations on opportunities
-      validateCCRMOpportunity(oppWrapper, isInsert);
+      CommercialOpportunityHelper.validateCCRMOpportunity(oppWrapper, isInsert);
 
       //adds error for skipped stages
       CommercialOpportunityHelper.addErrorForSkippedStage(
@@ -236,40 +188,6 @@ public with sharing class CommercialOpportunityActions {
       oppWrapper.oppsStageSegmentMap.put(oppIterator.Id, oldValueKey);
     }
     return oppWrapper;
-  }
-
-  /**
-   * @description validate CCRM opportunities
-   * @name validateCCRMOpportunity
-   * @param oppWrapper CCRMOpportunity Wrapper
-   * @param isInsert if the operation is insert
-   */
-  public static void validateCCRMOpportunity(
-    CommercialOpportunityActions.CCRMOpportunityWrapper oppWrapper,
-    Boolean isInsert
-  ) {
-    for (Opportunity oppIterator : oppWrapper.filteredOpps) {
-      List<String> errors = new List<String>();
-
-      //check if stage is not equal to "New" on creation of lead
-      if (isInsert && oppIterator.StageName != NEW_STAGE) {
-        errors.add(OPP_DEFAULT_STAGE_ERROR);
-      }
-      //check if other source detail is provided if leadsource is other
-      if (
-        oppIterator.LeadSource == OTHER &&
-        String.isBlank(oppIterator.Other_Source_Detail__c)
-      ) {
-        errors.add(OTHER_SOURCE_DETAIL_MANDATORY);
-      }
-
-      String errorMessage = String.join(errors, '\n');
-
-      //add error message
-      if (String.isNotBlank(errorMessage)) {
-        oppIterator.addError(errorMessage);
-      }
-    }
   }
 
   /**
@@ -400,7 +318,7 @@ public with sharing class CommercialOpportunityActions {
       oppName = getOpportunityName(opp, oldMap);
       updatedOppName = CommercialOpportunityHelper.generateOpportunityName(
         opp.Opp_Id__c,
-        customerNeeds,
+        (opp.Lead_Converted__c && oldMap == null) ? customerNeeds : null,
         oppName,
         oldMap
       );
@@ -430,15 +348,15 @@ public with sharing class CommercialOpportunityActions {
     String oldCustomerNeeds = oldOpp?.Customer_Needs__c;
 
     //Replace new customer needs and opp Id with blank
-    oppoName = oppName.replace(opp?.Opp_Id__c + ' ', '');
-    oppoName = oppoName.replace(customerNeeds + ' ', '');
+    oppoName = oppName.replace(opp?.Opp_Id__c, '');
+    oppoName = oppoName.replace(customerNeeds, '');
 
     //Replace old if it has customer needs and opp Id with blank
-    oppoName = oppoName.replace(oldCustomerNeeds + ' ', '');
+    oppoName = oppoName.replace(oldCustomerNeeds, '');
     oppoName = oppoName.contains(MULTIPLE_CUSTOMER_NEEDS)
-      ? oppoName.replace(MULTIPLE_CUSTOMER_NEEDS + ' ', '')
+      ? oppoName.replace(MULTIPLE_CUSTOMER_NEEDS, '')
       : oppoName;
-    return oppoName;
+    return oppoName.trim();
   }
 
   /**
@@ -451,51 +369,10 @@ public with sharing class CommercialOpportunityActions {
     List<Opportunity> ccrmOpps,
     Map<Id, Opportunity> oldOppsMap
   ) {
-    for (Opportunity oppIterator : ccrmOpps) {
-      Opportunity oldOpp;
-      Boolean isCustomerNeedsChanged;
-      Boolean isSecNeedsChanged;
-      SObjectType objType;
-      Boolean hasSameValue;
-
-      objType = Schema.Opportunity.getSObjectType();
-
-      hasSameValue = RecordComparisonUtil.picklistContainSameValue(
-        oppIterator,
-        Opportunity.Secondary_Customer_Needs__c,
-        Opportunity.Customer_Needs__c,
-        objType
-      );
-
-      if (oldOppsMap != null) {
-        oldOpp = oldOppsMap.get(oppIterator.Id);
-
-        isCustomerNeedsChanged =
-          oldOpp != null &&
-          RecordComparisonUtil.fieldWasChanged(
-            oppIterator,
-            oldOpp,
-            Opportunity.Customer_Needs__c
-          );
-        isSecNeedsChanged =
-          oldOpp != null &&
-          RecordComparisonUtil.fieldWasChangedAndNotEqualNull(
-            oppIterator,
-            oldOpp,
-            Opportunity.Secondary_Customer_Needs__c.getDescribe()
-              .getSObjectField()
-          );
-      }
-
-      // if secondary customer needs has value same as customer needs
-      // throw error
-      if (
-        (oldOppsMap == null || isCustomerNeedsChanged || isSecNeedsChanged) &&
-        hasSameValue
-      ) {
-        oppIterator.Secondary_Customer_Needs__c.addError(CUSTOMER_NEEDS_ERROR);
-      }
-    }
+    CommercialOpportunityHelper.checkIfSecondaryCustomerNeedsContainsCustomerNeeds(
+      ccrmOpps,
+      oldOppsMap
+    );
   }
 
   /**
@@ -689,6 +566,136 @@ public with sharing class CommercialOpportunityActions {
       }
       accIdToClgIdsMap.get(accRec.Id).add(accRec.Id);
     }
+  }
+
+  /**
+   * @description : This is used to reset Preferred Franchise field value when Specialisation is not Franchise
+   * @param records list of opportunities
+   * @param oldMap old map of opportunities
+   */
+  public static void resetPreferredFranchiseForNonFranchiseSpecialisation(
+    List<Opportunity> records,
+    Map<Id, Opportunity> oldMap
+  ) {
+    List<Opportunity> oppsToResetPreferredFranchise = ListUtil.filter(
+        records,
+        oldMap
+      )
+      .changed(Opportunity.Specialisation__c)
+      .notEquals(Opportunity.Specialisation__c, 'Franchise')
+      .toList();
+
+    if (oppsToResetPreferredFranchise.isEmpty()) {
+      return;
+    }
+
+    List<Opportunity> oppsWithResetPreferredFranchise = ListUtil.setField(
+      oppsToResetPreferredFranchise,
+      Opportunity.Preferred_Franchise__c,
+      null
+    );
+  }
+
+  /**
+   * @description This is used to insert and delete the AF share record  based on Opp Owner change
+   * @name updateAFShareRecordsOnOwnerChange
+   * @param records list of opportunities
+   * @param oldMap Map of old records
+   */
+  public static void updateAFShareRecordsOnOwnerChange(
+    List<Opportunity> records,
+    Map<Id, Opportunity> oldMap
+  ) {
+    List<Opportunity> filteredOppList = ListUtil.filter(records, oldMap)
+      .changed(Opportunity.OwnerId)
+      .toList();
+
+    if (filteredOppList.isEmpty()) {
+      return;
+    }
+
+    Set<Id> oppIdsSet = ListUtil.getIds(filteredOppList, Opportunity.Id);
+
+    List<ApplicationForm> afList = OPP_REPOSITORY.getAFRelatedToOpportunity(
+      oppIdsSet
+    );
+
+    if (afList.isEmpty()) {
+      return;
+    }
+
+    Map<Id, List<ApplicationForm>> oppIdToAfListMap = (Map<Id, List<ApplicationForm>>) ListUtil.groupBy(
+      afList,
+      ApplicationForm.OpportunityId
+    );
+
+    List<ApplicationFormShare> afShareListToBeInserted = formAFShareList(
+      oppIdToAfListMap,
+      filteredOppList
+    );
+
+    Set<Id> oldOwnerIdsSet = getOldOwnerIds(filteredOppList, oldMap);
+
+    List<ApplicationFormShare> afShareListToBeDeleted = OPP_REPOSITORY.getAFShareRelatedToOpportunity(
+      oppIdsSet,
+      oldOwnerIdsSet
+    );
+
+    if (afShareListToBeInserted.isEmpty() && afShareListToBeDeleted.isEmpty()) {
+      return;
+    }
+    DML_REPO.doInsert(
+      afShareListToBeInserted,
+      new DmlConfig().withoutSharing()
+    );
+    DML_REPO.doDelete(afShareListToBeDeleted, new DmlConfig().withoutSharing());
+  }
+
+  /**
+   * @description This is used to get old owner ids set
+   * @param filteredOppList list of filtered opportunities whose owner has been changed
+   * @param oldMap Map of old records
+   * @return Set<Id> set of old owner ids
+   */
+  private static Set<Id> getOldOwnerIds(
+    List<Opportunity> filteredOppList,
+    Map<Id, Opportunity> oldMap
+  ) {
+    Set<Id> oldOwnerIdsSet = new Set<Id>();
+    for (Opportunity opp : filteredOppList) {
+      oldOwnerIdsSet.add(oldMap.get(opp.Id).OwnerId);
+    }
+    return oldOwnerIdsSet;
+  }
+
+  /**
+   * @description this is used to form a Application form share list
+   * @param oppIdToAfListMap map of opportunity id to application form list
+   * @param filteredOppList list of opportunities whose owner has been changed
+   * @return List<ApplicationFormShare> list of application form share records to be inserted
+   */
+  private static List<ApplicationFormShare> formAFShareList(
+    Map<Id, List<ApplicationForm>> oppIdToAfListMap,
+    List<Opportunity> filteredOppList
+  ) {
+    List<ApplicationFormShare> afShareList = new List<ApplicationFormShare>();
+    for (Opportunity oppRec : filteredOppList) {
+      List<ApplicationForm> afList = oppIdToAfListMap.get(oppRec.Id);
+      for (ApplicationForm afRec : afList) {
+        if (afRec.OwnerId == oppRec.OwnerId) {
+          continue;
+        }
+        afShareList.add(
+          new ApplicationFormShare(
+            ParentId = afRec.Id,
+            RowCause = 'Manual',
+            UserOrGroupId = oppRec.OwnerId,
+            AccessLevel = 'Edit'
+          )
+        );
+      }
+    }
+    return afShareList;
   }
 
   /**

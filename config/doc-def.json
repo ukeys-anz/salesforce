@@ -64,6 +64,7 @@
     "FinServ__FinancialAccountRole__c",
     "FinServ__ReciprocalRole__c",
     "Financial_Settlement__c",
+    "Franchise_Brand__c",
     "Identifier__c",
     "Interaction",
     "InteractionAttendee",
@@ -580,6 +581,32 @@
       "type": "system"
     },
     {
+      "name": "Mulesoft OCV GCP Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "force__Mortgage",
+        "Enforce_mTLS",
+        "FinServ__FinancialServicesCloudStandard",
+        "Moderate_Chatter",
+        "Read_Write_Customer_Details",
+        "CCRM_Marketing_Integration_User",
+        "Customer_Relationships_Read_Write",
+        "Disable_MFA",
+        "Broker_Details_Integration",
+        "Financial_Accounts_Read_and_Edit",
+        "Bypass_TSP",
+        "Read_Write_Customer_Details",
+        "Case_Read_Write_Broker_Enquiry",
+        "Case_Read_Write_KYC_QA_Integration",
+        "Case_View_All",
+        "Is_OCV_Integration_User",
+        "Loan_app_Integration",
+        "Update_Signing_Authority"
+      ],
+      "type": "system"
+    },
+    {
       "name": "Onboarding Support",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["Onboarding_Support_Read_Only"],
@@ -675,7 +702,8 @@
         "Bypass_TSP",
         "Read_Write_Customer_Details",
         "Case_Read_Write_KYC_QA_Integration",
-        "Update_Signing_Authority"
+        "Update_Signing_Authority",
+        "Is_OCV_Integration_User"
       ],
       "type": "system"
     },
@@ -2033,6 +2061,41 @@
     },
     {
       "name": "Business Execution Team",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Markets General Manager",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Markets National Sales Director",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Markets State Head",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Markets Director",
+      "profile": "ANZ CCRM Standard User",
+      "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Markets Associate",
       "profile": "ANZ CCRM Standard User",
       "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
       "permissionsets": ["Enforce_SSO"],

@@ -217,7 +217,8 @@ public with sharing class QualityAssessmentActions {
         record.C_Q_Specialist__c = record.ownerId;
       }
       Case relatedCase = caseMap.get(record.Related_Case__c);
-      if (relatedCase.Owner.Type != 'User') {
+
+      if (relatedCase.OwnerId.getSObjectType() != User.SObjectType) {
         continue;
       }
       if (String.isBlank(record.Case_Manager__c)) {

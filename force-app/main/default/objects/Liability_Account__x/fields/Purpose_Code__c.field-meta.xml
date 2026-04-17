@@ -5,14 +5,636 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_CACHE</complianceGroup>
     <description>LAM LRIS PURPOSE CODE</description>
     <externalDeveloperName>PurposeCode</externalDeveloperName>
-    <externalId>false</externalId>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Purpose Code</label>
-    <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>401</fullName>
+                <default>false</default>
+                <label>401 - STOCKS AND DEBTORS</label>
+            </value>
+            <value>
+                <fullName>402</fullName>
+                <default>false</default>
+                <label>402 - TRADE FINANCE</label>
+            </value>
+            <value>
+                <fullName>403</fullName>
+                <default>false</default>
+                <label>403 - TREASURY/RISK MANAGEMENT</label>
+            </value>
+            <value>
+                <fullName>404</fullName>
+                <default>false</default>
+                <label>404 - FACTORING - SEC BY TRADE DEBTS</label>
+            </value>
+            <value>
+                <fullName>405</fullName>
+                <default>false</default>
+                <label>405 - FACTORING - PURCH OF TRADE DEBTS</label>
+            </value>
+            <value>
+                <fullName>406</fullName>
+                <default>false</default>
+                <label>406 - WHOLESALE FINANCE</label>
+            </value>
+            <value>
+                <fullName>407</fullName>
+                <default>false</default>
+                <label>407 - OTHER</label>
+            </value>
+            <value>
+                <fullName>451</fullName>
+                <default>false</default>
+                <label>451 - Plant/Factory Equipment</label>
+            </value>
+            <value>
+                <fullName>452</fullName>
+                <default>false</default>
+                <label>452 - Office Furniture and Equipment</label>
+            </value>
+            <value>
+                <fullName>453</fullName>
+                <default>false</default>
+                <label>453 - Office EDP equipment.</label>
+            </value>
+            <value>
+                <fullName>454</fullName>
+                <default>false</default>
+                <label>454 - Fixtures and Fittings.</label>
+            </value>
+            <value>
+                <fullName>455</fullName>
+                <default>false</default>
+                <label>455 - Mother vehicles. Includes cars, station wagons, utilities, trucks, ambulances and passenger vehicles.</label>
+            </value>
+            <value>
+                <fullName>456</fullName>
+                <default>false</default>
+                <label>456 - Other transport equipment. Includes motorcycles, trailers, caravans, trains, boats and planes.</label>
+            </value>
+            <value>
+                <fullName>457</fullName>
+                <default>false</default>
+                <label>457 - Repairs/maintenance of fixed assets.</label>
+            </value>
+            <value>
+                <fullName>458</fullName>
+                <default>false</default>
+                <label>458 - Other fixed assets.</label>
+            </value>
+            <value>
+                <fullName>481</fullName>
+                <default>false</default>
+                <label>481 - Purchase of business/franchise.</label>
+            </value>
+            <value>
+                <fullName>482</fullName>
+                <default>false</default>
+                <label>482 - Purchase of shares.</label>
+            </value>
+            <value>
+                <fullName>483</fullName>
+                <default>false</default>
+                <label>483 - Other investments</label>
+            </value>
+            <value>
+                <fullName>500</fullName>
+                <default>false</default>
+                <label>500 - BU CONST FIN FOR OFFICES</label>
+            </value>
+            <value>
+                <fullName>501</fullName>
+                <default>false</default>
+                <label>501 - Prime CBD offices</label>
+            </value>
+            <value>
+                <fullName>502</fullName>
+                <default>false</default>
+                <label>502 - Secondary CBD offices</label>
+            </value>
+            <value>
+                <fullName>503</fullName>
+                <default>false</default>
+                <label>503 - Suburban offices</label>
+            </value>
+            <value>
+                <fullName>504</fullName>
+                <default>false</default>
+                <label>504 - Country offices</label>
+            </value>
+            <value>
+                <fullName>520</fullName>
+                <default>false</default>
+                <label>520 - BU PURCH FIN FOR OFFICES</label>
+            </value>
+            <value>
+                <fullName>521</fullName>
+                <default>false</default>
+                <label>521 - Prime CBD offices</label>
+            </value>
+            <value>
+                <fullName>522</fullName>
+                <default>false</default>
+                <label>522 - Secondary CBD offices</label>
+            </value>
+            <value>
+                <fullName>523</fullName>
+                <default>false</default>
+                <label>523 - Suburban offices</label>
+            </value>
+            <value>
+                <fullName>524</fullName>
+                <default>false</default>
+                <label>524 - Country offices</label>
+            </value>
+            <value>
+                <fullName>540</fullName>
+                <default>false</default>
+                <label>540 - BU CONST FINANCE FOR INDUSTRIAL PROPS</label>
+            </value>
+            <value>
+                <fullName>541</fullName>
+                <default>false</default>
+                <label>541 - Large factories, plant, warehouse</label>
+            </value>
+            <value>
+                <fullName>542</fullName>
+                <default>false</default>
+                <label>542 - Small or medium factory, warehouse</label>
+            </value>
+            <value>
+                <fullName>543</fullName>
+                <default>false</default>
+                <label>543 - Industrial business park</label>
+            </value>
+            <value>
+                <fullName>561</fullName>
+                <default>false</default>
+                <label>561 - Large factories, plant warehouse</label>
+            </value>
+            <value>
+                <fullName>562</fullName>
+                <default>false</default>
+                <label>562 - Small or medium factory, warehouse</label>
+            </value>
+            <value>
+                <fullName>563</fullName>
+                <default>false</default>
+                <label>563 - Industrial business park</label>
+            </value>
+            <value>
+                <fullName>600</fullName>
+                <default>false</default>
+                <label>600 - BU CONST FIN FOR RETAIL</label>
+            </value>
+            <value>
+                <fullName>601</fullName>
+                <default>false</default>
+                <label>601 - CBD retail</label>
+            </value>
+            <value>
+                <fullName>602</fullName>
+                <default>false</default>
+                <label>602 - Regional and sub-regional shopping centre</label>
+            </value>
+            <value>
+                <fullName>603</fullName>
+                <default>false</default>
+                <label>603 - Community shopping centre</label>
+            </value>
+            <value>
+                <fullName>604</fullName>
+                <default>false</default>
+                <label>604 - Strip shopping centre</label>
+            </value>
+            <value>
+                <fullName>605</fullName>
+                <default>false</default>
+                <label>605 - Neighbourhood shopping centre</label>
+            </value>
+            <value>
+                <fullName>606</fullName>
+                <default>false</default>
+                <label>606 - Service stations</label>
+            </value>
+            <value>
+                <fullName>607</fullName>
+                <default>false</default>
+                <label>607 - Car park</label>
+            </value>
+            <value>
+                <fullName>620</fullName>
+                <default>false</default>
+                <label>620 - Business purchase finance for retail</label>
+            </value>
+            <value>
+                <fullName>621</fullName>
+                <default>false</default>
+                <label>621 - City Centre, Standalone or Strip Retail</label>
+            </value>
+            <value>
+                <fullName>622</fullName>
+                <default>false</default>
+                <label>622 - Super, Major or Regional Shopping Centres</label>
+            </value>
+            <value>
+                <fullName>623</fullName>
+                <default>false</default>
+                <label>623 - Sub-Regional Shopping Centres</label>
+            </value>
+            <value>
+                <fullName>624</fullName>
+                <default>false</default>
+                <label>624 - Neighbourhood Centres</label>
+            </value>
+            <value>
+                <fullName>625</fullName>
+                <default>false</default>
+                <label>625 - Bulky Goods Centres</label>
+            </value>
+            <value>
+                <fullName>626</fullName>
+                <default>false</default>
+                <label>626 - Service Stations</label>
+            </value>
+            <value>
+                <fullName>627</fullName>
+                <default>false</default>
+                <label>627 - Carparks</label>
+            </value>
+            <value>
+                <fullName>640</fullName>
+                <default>false</default>
+                <label>640 - Business construction finance for hotel/motel</label>
+            </value>
+            <value>
+                <fullName>641</fullName>
+                <default>false</default>
+                <label>641 - Hotel - up to 3 stars.</label>
+            </value>
+            <value>
+                <fullName>642</fullName>
+                <default>false</default>
+                <label>642 - Hotel - 4 stars plus.</label>
+            </value>
+            <value>
+                <fullName>643</fullName>
+                <default>false</default>
+                <label>643 - Pub, Tavern.</label>
+            </value>
+            <value>
+                <fullName>644</fullName>
+                <default>false</default>
+                <label>644 - Motel.</label>
+            </value>
+            <value>
+                <fullName>645</fullName>
+                <default>false</default>
+                <label>645 - Casino.</label>
+            </value>
+            <value>
+                <fullName>646</fullName>
+                <default>false</default>
+                <label>646 - Resort.</label>
+            </value>
+            <value>
+                <fullName>647</fullName>
+                <default>false</default>
+                <label>647 - Restaurant.</label>
+            </value>
+            <value>
+                <fullName>648</fullName>
+                <default>false</default>
+                <label>648 - Licensed Club - RSL.</label>
+            </value>
+            <value>
+                <fullName>649</fullName>
+                <default>false</default>
+                <label>649 - Licensed Club - Golf.</label>
+            </value>
+            <value>
+                <fullName>650</fullName>
+                <default>false</default>
+                <label>650 - Licensed Club - Bowling.</label>
+            </value>
+            <value>
+                <fullName>651</fullName>
+                <default>false</default>
+                <label>651 - Licensed Club - Other.</label>
+            </value>
+            <value>
+                <fullName>652</fullName>
+                <default>false</default>
+                <label>652 - Night Club.</label>
+            </value>
+            <value>
+                <fullName>660</fullName>
+                <default>false</default>
+                <label>660 - Hotel /Motel</label>
+            </value>
+            <value>
+                <fullName>661</fullName>
+                <default>false</default>
+                <label>661 - Hotel - up to 3 stars.</label>
+            </value>
+            <value>
+                <fullName>662</fullName>
+                <default>false</default>
+                <label>662 - Hotel - 4 stars plus.</label>
+            </value>
+            <value>
+                <fullName>663</fullName>
+                <default>false</default>
+                <label>663 - Pub, Tavern.</label>
+            </value>
+            <value>
+                <fullName>664</fullName>
+                <default>false</default>
+                <label>664 - Motel.</label>
+            </value>
+            <value>
+                <fullName>665</fullName>
+                <default>false</default>
+                <label>665 - Casino.</label>
+            </value>
+            <value>
+                <fullName>666</fullName>
+                <default>false</default>
+                <label>666 - Resort.</label>
+            </value>
+            <value>
+                <fullName>667</fullName>
+                <default>false</default>
+                <label>667 - Restaurant.</label>
+            </value>
+            <value>
+                <fullName>668</fullName>
+                <default>false</default>
+                <label>668 - Licensed Club - RSL.</label>
+            </value>
+            <value>
+                <fullName>669</fullName>
+                <default>false</default>
+                <label>669 - Licensed Club - Golf.</label>
+            </value>
+            <value>
+                <fullName>670</fullName>
+                <default>false</default>
+                <label>670 - Licensed Club - Bowling.</label>
+            </value>
+            <value>
+                <fullName>671</fullName>
+                <default>false</default>
+                <label>671 - Licensed Club - Other.</label>
+            </value>
+            <value>
+                <fullName>672</fullName>
+                <default>false</default>
+                <label>672 - Night Club</label>
+            </value>
+            <value>
+                <fullName>701</fullName>
+                <default>false</default>
+                <label>701 - Hospital</label>
+            </value>
+            <value>
+                <fullName>702</fullName>
+                <default>false</default>
+                <label>702 - Nursing home (including special accommodation)</label>
+            </value>
+            <value>
+                <fullName>703</fullName>
+                <default>false</default>
+                <label>703 - Retirement village</label>
+            </value>
+            <value>
+                <fullName>721</fullName>
+                <default>false</default>
+                <label>721 - Hospital</label>
+            </value>
+            <value>
+                <fullName>722</fullName>
+                <default>false</default>
+                <label>722 - Nursing home (including special accommodation)</label>
+            </value>
+            <value>
+                <fullName>723</fullName>
+                <default>false</default>
+                <label>723 - Retirement village</label>
+            </value>
+            <value>
+                <fullName>741</fullName>
+                <default>false</default>
+                <label>741 - Schools</label>
+            </value>
+            <value>
+                <fullName>742</fullName>
+                <default>false</default>
+                <label>742 - Churches</label>
+            </value>
+            <value>
+                <fullName>761</fullName>
+                <default>false</default>
+                <label>761 - Schools</label>
+            </value>
+            <value>
+                <fullName>762</fullName>
+                <default>false</default>
+                <label>762 - Churches</label>
+            </value>
+            <value>
+                <fullName>800</fullName>
+                <default>false</default>
+                <label>800 - Residential Property</label>
+            </value>
+            <value>
+                <fullName>801</fullName>
+                <default>false</default>
+                <label>801 - Prestige residential</label>
+            </value>
+            <value>
+                <fullName>802</fullName>
+                <default>false</default>
+                <label>802 - High rise residential</label>
+            </value>
+            <value>
+                <fullName>803</fullName>
+                <default>false</default>
+                <label>803 - Low rise residential</label>
+            </value>
+            <value>
+                <fullName>804</fullName>
+                <default>false</default>
+                <label>804 - Other residential</label>
+            </value>
+            <value>
+                <fullName>820</fullName>
+                <default>false</default>
+                <label>820 - Residential Property</label>
+            </value>
+            <value>
+                <fullName>821</fullName>
+                <default>false</default>
+                <label>821 - Prestige residential</label>
+            </value>
+            <value>
+                <fullName>822</fullName>
+                <default>false</default>
+                <label>822 - High rise residential</label>
+            </value>
+            <value>
+                <fullName>823</fullName>
+                <default>false</default>
+                <label>823 - Low rise residential</label>
+            </value>
+            <value>
+                <fullName>824</fullName>
+                <default>false</default>
+                <label>824 - Other residential</label>
+            </value>
+            <value>
+                <fullName>840</fullName>
+                <default>false</default>
+                <label>840 - Entertainment/Recreation</label>
+            </value>
+            <value>
+                <fullName>841</fullName>
+                <default>false</default>
+                <label>841 - Theatres or cinemas</label>
+            </value>
+            <value>
+                <fullName>842</fullName>
+                <default>false</default>
+                <label>842 - Gymnasium</label>
+            </value>
+            <value>
+                <fullName>843</fullName>
+                <default>false</default>
+                <label>843 - Golf course</label>
+            </value>
+            <value>
+                <fullName>844</fullName>
+                <default>false</default>
+                <label>844 - Marina</label>
+            </value>
+            <value>
+                <fullName>845</fullName>
+                <default>false</default>
+                <label>845 - Theme Park</label>
+            </value>
+            <value>
+                <fullName>846</fullName>
+                <default>false</default>
+                <label>846 - Other entertainment</label>
+            </value>
+            <value>
+                <fullName>860</fullName>
+                <default>false</default>
+                <label>860 - Entertainment/Recreation</label>
+            </value>
+            <value>
+                <fullName>861</fullName>
+                <default>false</default>
+                <label>861 - Theatres or cinemas</label>
+            </value>
+            <value>
+                <fullName>862</fullName>
+                <default>false</default>
+                <label>862 - Gymnasium</label>
+            </value>
+            <value>
+                <fullName>863</fullName>
+                <default>false</default>
+                <label>863 - Golf course</label>
+            </value>
+            <value>
+                <fullName>864</fullName>
+                <default>false</default>
+                <label>864 - Marina</label>
+            </value>
+            <value>
+                <fullName>865</fullName>
+                <default>false</default>
+                <label>865 - Theme Park</label>
+            </value>
+            <value>
+                <fullName>866</fullName>
+                <default>false</default>
+                <label>866 - Other entertainment</label>
+            </value>
+            <value>
+                <fullName>881</fullName>
+                <default>false</default>
+                <label>881 - Vacant commercial land</label>
+            </value>
+            <value>
+                <fullName>882</fullName>
+                <default>false</default>
+                <label>882 - Vacant industrial land</label>
+            </value>
+            <value>
+                <fullName>883</fullName>
+                <default>false</default>
+                <label>883 - Vacant retail land</label>
+            </value>
+            <value>
+                <fullName>884</fullName>
+                <default>false</default>
+                <label>884 - Vacant hotel or motel land</label>
+            </value>
+            <value>
+                <fullName>885</fullName>
+                <default>false</default>
+                <label>885 - Residential land subdivision</label>
+            </value>
+            <value>
+                <fullName>886</fullName>
+                <default>false</default>
+                <label>886 - En globo land</label>
+            </value>
+            <value>
+                <fullName>887</fullName>
+                <default>false</default>
+                <label>887 - Other residential land</label>
+            </value>
+            <value>
+                <fullName>888</fullName>
+                <default>false</default>
+                <label>888 - Other land</label>
+            </value>
+            <value>
+                <fullName>891</fullName>
+                <default>false</default>
+                <label>891 - All Rural</label>
+            </value>
+            <value>
+                <fullName>901</fullName>
+                <default>false</default>
+                <label>901 - Non-building structures</label>
+            </value>
+            <value>
+                <fullName>902</fullName>
+                <default>false</default>
+                <label>902 - Other infrastructure/Project</label>
+            </value>
+            <value>
+                <fullName>980</fullName>
+                <default>false</default>
+                <label>980 - Business other</label>
+            </value>
+            <value>
+                <fullName>999</fullName>
+                <default>false</default>
+                <label>999 - Unclassifiable</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>

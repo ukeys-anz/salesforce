@@ -100,6 +100,16 @@
                         <valueListItems>
                             <value>Global.Create_Task_CCRM</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>CustomButton.Account.Franchise_Opportunity</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.Franchise_Code__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>&apos;&apos;</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -1197,172 +1207,6 @@
                 <identifier>tableau_tableauViz</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-218ef45e-0c68-4f64-bd93-f58c23d249e6</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>customQueryParameters</name>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>debugMode</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>filterOnRecordId</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>forceRefresh</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>height</name>
-                    <value>1650</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showTabs</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showToolbar</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>siteId</name>
-                    <value>{!$Label.ANZX_Tableau_Site_Id}</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>useJwt</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>vizUrl</name>
-                    <value>{!$Label.CCRM_WOC_Tableau_View_URL}</value>
-                </componentInstanceProperties>
-                <componentName>tableau:tableauViz</componentName>
-                <identifier>tableau_tableauViz3</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-a2nxbvidv2l</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>customQueryParameters</name>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>debugMode</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>filterOnRecordId</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>forceRefresh</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>height</name>
-                    <value>1650</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showTabs</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showToolbar</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>siteId</name>
-                    <value>{!$Label.ANZX_Tableau_Site_Id}</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>useJwt</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>vizUrl</name>
-                    <value>{!$Label.CCRM_BBD_Tableau_View_URL}</value>
-                </componentInstanceProperties>
-                <componentName>tableau:tableauViz</componentName>
-                <identifier>tableau_tableauViz4</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-9e1e1d3d-0018-4972-8bdc-160195529262</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>active</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-218ef45e-0c68-4f64-bd93-f58c23d249e6</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Customer</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-                <identifier>flexipage_tab14</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-a2nxbvidv2l</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>WOC</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-                <identifier>flexipage_tab12</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-9e1e1d3d-0018-4972-8bdc-160195529262</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>BBD</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-                <identifier>flexipage_tab13</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-b6dee1cc-5176-4202-a995-777a48044f5a</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>label</name>
-                    <value>Tabs</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>tabs</name>
-                    <value>Facet-b6dee1cc-5176-4202-a995-777a48044f5a</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset3</identifier>
-            </componentInstance>
-        </itemInstances>
         <name>Facet-0a190f35-c115-4276-a05d-a7c15b2cbee2</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -1572,7 +1416,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Insights</value>
+                    <value>Customer Insights</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab9</identifier>

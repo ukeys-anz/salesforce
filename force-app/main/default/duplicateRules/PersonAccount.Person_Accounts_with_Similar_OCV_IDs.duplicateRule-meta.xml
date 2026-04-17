@@ -5,13 +5,20 @@
     <alertText>Looks like there was more than one record having the same OCV ID as this record. Please make sure you have selected the correct one.</alertText>
     <description>Identifies Person Accounts with the same OCV ID</description>
     <duplicateRuleFilter>
-        <booleanFilter xsi:nil="true"/>
+        <booleanFilter>1 AND 2</booleanFilter>
         <duplicateRuleFilterItems>
             <field>Username</field>
             <operation>notContain</operation>
             <sortOrder>1</sortOrder>
             <table>User</table>
             <value>ocvintegration.user</value>
+        </duplicateRuleFilterItems>
+        <duplicateRuleFilterItems>
+            <field>Username</field>
+            <operation>notContain</operation>
+            <sortOrder>2</sortOrder>
+            <table>User</table>
+            <value>ocvgcp.integrationuser</value>
         </duplicateRuleFilterItems>
     </duplicateRuleFilter>
     <duplicateRuleMatchRules>

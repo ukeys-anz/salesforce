@@ -9,8 +9,8 @@ public with sharing class AutoKYCQACaseActions {
   private static final AutoKYCQACaseRepository REPOSITORY = (AutoKYCQACaseRepository) Lib_InstanceProvider.forType(
     AutoKYCQACaseRepository.class
   );
-  private static final ProfileStagingHandler PROFILE_STAGING = (ProfileStagingHandler) Lib_InstanceProvider.forType(
-    ProfileStagingHandler.class
+  private static final ProfileStagingHandler PROFILE_STAGING = (ProfileStagingHandlerKYCQA) Lib_InstanceProvider.forType(
+    ProfileStagingHandlerKYCQA.class
   );
   private static final AutoKYCQARestraintHandler RESTRAINT = (AutoKYCQARestraintHandler) Lib_InstanceProvider.forType(
     AutoKYCQARestraintHandler.class

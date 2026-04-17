@@ -32,7 +32,7 @@ public with sharing class AutoKYCQACaseActionsTest {
       )
       .mock('isRestraintEnabled', true);
     profileStagingHandlerMock = Lib_MockProvider.forType(
-      ProfileStagingHandler.class
+      ProfileStagingHandlerKYCQA.class
     );
     restraintMock = Lib_MockProvider.forType(AutoKYCQARestraintHandler.class);
     unrestraintMock = Lib_MockProvider.forType(

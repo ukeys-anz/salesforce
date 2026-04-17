@@ -45,7 +45,16 @@ public with sharing class AccountRelationshipExternalQuery extends FinancialAcco
         .subStringAfter(':')
         .subStringBefore('|');
       switch on productCode {
-        when 'DDA', 'FM', 'SSI', 'RSV', 'CDA', 'ILS', 'PTF', 'OLL', 'PCA' {
+        when 'DDA',
+          'FM',
+          'SSI',
+          'RSV',
+          'CDA',
+          'ILS',
+          'PTF',
+          'OLL',
+          'PCA',
+          'LA' {
           retrieveBySOQLQuery = true;
         }
         when else {
@@ -61,7 +70,9 @@ public with sharing class AccountRelationshipExternalQuery extends FinancialAcco
           'LoanAccount',
           'PortfolioOfLoanId',
           'OLLId',
-          'CreditCard' {
+          'CreditCard',
+          'DemandAccount',
+          'LiabilityAccount' {
           retrieveBySOQLQuery = true;
         }
         when else {

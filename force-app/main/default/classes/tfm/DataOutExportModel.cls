@@ -59,6 +59,10 @@ public class DataOutExportModel extends CalloutModel {
    * @description originalExpireTimeValue
    */
   public String originalExpireTimeValue { get; set; }
+  /**
+   * @description transactionDisclaimer
+   */
+  public String transactionDisclaimer { get; set; }
 
   /**
    * @description Represents details body for CSV

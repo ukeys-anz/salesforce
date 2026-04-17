@@ -166,59 +166,15 @@ public with sharing class CommercialOpportunityRepository {
         FROM Account
         WHERE
           Id IN :accountIdsSet
-          AND FinServ__Status__c IN ('Closed', 'Deceased', 'Unknown')
+          AND FinServ__Status__c IN (
+            'Closed',
+            'Deceased',
+            'Unknown',
+            'Prospect'
+          )
         WITH USER_MODE
       ]
     );
-  }
-
-  /**
-   * @description getAFPRelatedToOpportunity gets lost AFP's related to opp
-   * @param oppIds set of oppportunity ids
-   * @return List<ApplicationFormProduct> app form products list
-   */
-  public List<ApplicationFormProduct> getAFPRelatedToOpportunity(
-    Set<Id> oppIds
-  ) {
-    if (oppIds.isEmpty()) {
-      return new List<ApplicationFormProduct>();
-    }
-
-    return [
-      SELECT
-        Id,
-        Name,
-        ApplicationForm.OpportunityId,
-        ProductId,
-        Stage,
-        Lost_reason__c,
-        Lost_Reason_Detail__c,
-        Won_from_Lost_to__c,
-        Opportunity_Product__c
-      FROM ApplicationFormProduct
-      WHERE ApplicationForm.OpportunityId IN :oppIds
-      WITH USER_MODE
-    ];
-  }
-
-  /**
-   * @description getOppProductsForOpportunity gets OLI related to opp
-   * @param oppIds set of oppportunity ids
-   * @return List<OpportunityLineItem> OLI list
-   */
-  public List<OpportunityLineItem> getOppProductsForOpportunity(
-    Set<Id> oppIds
-  ) {
-    if (oppIds.isEmpty()) {
-      return new List<OpportunityLineItem>();
-    }
-
-    return [
-      SELECT Id, OpportunityId, Product2Id
-      FROM OpportunityLineItem
-      WHERE OpportunityId IN :oppIds
-      WITH USER_MODE
-    ];
   }
 
   /**
@@ -269,6 +225,125 @@ public with sharing class CommercialOpportunityRepository {
         FinServ__Account__c IN :accountIds
         AND FinServ__Role__c = :roleId[0].Id
       WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description getAFRelatedToOpportunity gets AF's related to opp
+   * @param oppIdsSet set of oppportunity ids
+   * @return List<ApplicationForm> app form list
+   */
+  public List<ApplicationForm> getAFRelatedToOpportunity(Set<Id> oppIdsSet) {
+    if (oppIdsSet.isEmpty()) {
+      return new List<ApplicationForm>();
+    }
+
+    return [
+      SELECT Id, Name, OpportunityId, OwnerId
+      FROM ApplicationForm
+      WHERE OpportunityId IN :oppIdsSet
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description getAFShareRelatedToOpportunity gets AF's share related to opp
+   * @param oppIdsSet set of oppportunity ids
+   * @param oldOwnerIdsSet set of old owner ids
+   * @return List<ApplicationFormShare> app form share list
+   */
+  public List<ApplicationFormShare> getAFShareRelatedToOpportunity(
+    Set<Id> oppIdsSet,
+    Set<Id> oldOwnerIdsSet
+  ) {
+    if (oppIdsSet.isEmpty() || oldOwnerIdsSet.isEmpty()) {
+      return new List<ApplicationFormShare>();
+    }
+
+    return [
+      SELECT
+        Id,
+        ParentId,
+        UserOrGroupId,
+        AccessLevel,
+        RowCause,
+        Parent.OpportunityId
+      FROM ApplicationFormShare
+      WHERE
+        Parent.OpportunityId IN :oppIdsSet
+        AND UserOrGroupId IN :oldOwnerIdsSet
+        AND RowCause = 'Manual'
+        AND AccessLevel = 'Edit'
+      WITH SYSTEM_MODE
+    ];
+  }
+  /**
+   * @description getOpportunityDetails to retrieve the list if opportunities where id found in a set of ids
+   * @author  A M Vikash | Salesforce | 28-10-2025
+   * @param oppIds set of new opportunity  ids
+   * @return List<Opportunity> A list of Opportunity records matching the provided Ids.
+   */
+  public List<opportunity> getOpportunityDetails(Set<Id> oppIds) {
+    if (oppIds.isEmpty()) {
+      return new List<opportunity>();
+    }
+    return [
+      SELECT
+        Id,
+        Name,
+        ownerid,
+        AccountId,
+        Broker_Name__c,
+        Account.External_Id__c,
+        Account.Source_System_Id__c,
+        Opp_Id__c
+      FROM opportunity
+      WHERE Id IN :oppIds
+      WITH USER_MODE
+    ];
+  }
+  /**
+   * @author A M Vikash | Salesforce | 02-11-2025
+   * @description getApplicationFormsAndProducts to get ApplicationForms & ApplicationFormsProducts records related to AMBIT RT of AF to create Oppoerunity and Opportunity Products
+   * @param filteredOptyIds List of Opportunity records to check.
+   * @return List<ApplicationForm> app forms list
+   */
+  public List<ApplicationForm> getApplicationFormsAndProducts(
+    Set<Id> filteredOptyIds
+  ) {
+    if (filteredOptyIds.isEmpty()) {
+      return new List<ApplicationForm>();
+    }
+    return [
+      SELECT
+        Id,
+        OpportunityId,
+        (
+          SELECT Id
+          FROM ApplicationFormProducts
+          WHERE Reference_Number__c != NULL
+        )
+      FROM ApplicationForm
+      WHERE
+        OpportunityId IN :filteredOptyIds
+        AND RecordTypeId = :RTApplicationForm.ambitApplication
+      WITH USER_MODE
+    ];
+  }
+  /**
+   * @description Retrieves the Standard Pricebook record used for Opportunity Product creation.
+   *              Assumes there is always one standard pricebook in the org.
+   * @return Pricebook2 record where IsStandard = TRUE
+   * @author
+   *   A M Vikash | Salesforce | 13-11-2025
+   */
+  public Pricebook2 getStandardPricebook() {
+    return [
+      SELECT Id, Name, IsStandard
+      FROM Pricebook2
+      WHERE IsStandard = TRUE
+      WITH USER_MODE
+      LIMIT 1
     ];
   }
 }
