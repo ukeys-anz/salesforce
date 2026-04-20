@@ -3134,6 +3134,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>callout:Secure_waf_gw/salesforce.service.financialaccount.v1alpha1.CacheFinancialAccountAPI/</value>
     </labels>
     <labels>
+        <fullName>Ocdd_KYC_Status_Endpoint</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Ocdd KYC Status Endpoint</shortDescription>
+        <value>callout:Secure_waf_gw/genesis.service.customerduediligence.v1alpha2.AssistedActionsAPI/GetDetailedKycFreshness</value>
+    </labels>
+    <labels>
         <fullName>Office_Group_Activation_Success_Message</fullName>
         <language>en_US</language>
         <protected>false</protected>
