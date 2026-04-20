@@ -312,6 +312,262 @@ private class CCRMAgentAccountSnapshotTest {
     System.assertNotEquals(null, d2, 'dd/MM/yyyy should parse');
   }
 
+  @IsTest
+  /**
+   * @description Test that when all APIs fail, the snapshot includes error messages
+   *              for all categories to ensure 100% catch block coverage.
+   */
+  static void testAllApisFail() {
+    registerMocks();
+
+    // Mock all APIs to throw exceptions to cover all catch blocks
+    repoMock.mockException(
+      'fetchDepositAccountsByExternalId',
+      new CalloutException('Connection timeout')
+    );
+    repoMock.mockException(
+      'fetchLoanAccountsByExternalId',
+      new CalloutException('Connection timeout')
+    );
+    repoMock.mockException(
+      'fetchTermDepositsByExternalId',
+      new CalloutException('Connection timeout')
+    );
+    repoMock.mockException(
+      'fetchCreditCardsByExternalId',
+      new CalloutException('Connection timeout')
+    );
+    repoMock.mockException(
+      'fetchPortfolioOfLoansByExternalId',
+      new CalloutException('Connection timeout')
+    );
+    repoMock.mockException(
+      'fetchOtherLimitsByExternalId',
+      new CalloutException('Connection timeout')
+    );
+    repoMock.mockException(
+      'fetchAssetFinanceAmbitByExternalId',
+      new CalloutException('Connection timeout')
+    );
+    repoMock.mockException(
+      'fetchAssetFinanceELSByExternalId',
+      new CalloutException('Connection timeout')
+    );
+    repoMock.mockException(
+      'fetchCommercialBillsByExternalId',
+      new CalloutException('Connection timeout')
+    );
+    repoMock.mockException(
+      'fetchIndemnityGuaranteesByExternalId',
+      new CalloutException('Connection timeout')
+    );
+
+    Account acc = new Account(
+      Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+      Name = 'Snapshot Account'
+    );
+    acc.put('External_Id__c', 'EXT-123');
+
+    CCRMAgentAccountSnapshot.Request req = new CCRMAgentAccountSnapshot.Request();
+    req.accountObj = acc;
+
+    Test.startTest();
+    List<CCRMAgentAccountSnapshot.Response> res = CCRMAgentAccountSnapshot.getSnapshot(
+      new List<CCRMAgentAccountSnapshot.Request>{ req }
+    );
+    Test.stopTest();
+
+    System.assertEquals(1, res.size(), 'Should return one response');
+    System.assertNotEquals(null, res[0].Prompt, 'Prompt should not be null');
+
+    String json = res[0].Prompt;
+
+    // Verify all sections exist with error messages
+    System.assert(
+      json.contains('Deposit Accounts'),
+      'Should include Deposit Accounts section'
+    );
+    System.assert(
+      json.contains('Loan Accounts'),
+      'Should include Loan Accounts section'
+    );
+    System.assert(
+      json.contains('Term Deposits'),
+      'Should include Term Deposits section'
+    );
+    System.assert(
+      json.contains('Credit Cards'),
+      'Should include Credit Cards section'
+    );
+    System.assert(
+      json.contains('Portfolio of Loans'),
+      'Should include Portfolio of Loans section'
+    );
+    System.assert(
+      json.contains('Other Limits and Liabilities'),
+      'Should include Other Limits section'
+    );
+    System.assert(
+      json.contains('Asset Finance AMBIT Contract'),
+      'Should include AMBIT section'
+    );
+    System.assert(
+      json.contains('Asset Finance (ELS)'),
+      'Should include ELS section'
+    );
+    System.assert(
+      json.contains('Commercial Bills'),
+      'Should include Commercial Bills section'
+    );
+    System.assert(
+      json.contains('Indemnity Guarantees'),
+      'Should include Indemnity Guarantees section'
+    );
+
+    // Count occurrences of error message (should be 10 - one for each category)
+    Integer errorCount = 0;
+    Integer index = 0;
+    while (
+      (index = json.indexOf('Currently unable to retrieve data', index)) != -1
+    ) {
+      errorCount++;
+      index++;
+    }
+    System.assertEquals(
+      10,
+      errorCount,
+      'Should have error messages for all 10 categories'
+    );
+  }
+
+  @IsTest
+  /**
+   * @description Test that when all APIs fail, the snapshot includes error messages
+   *              for all categories to ensure catch block coverage for multiple failures.
+   */
+  static void testMultipleApisFail() {
+    registerMocks();
+
+    // Mock all APIs to throw exceptions
+    repoMock.mockException(
+      'fetchDepositAccountsByExternalId',
+      new CalloutException('Service unavailable')
+    );
+    repoMock.mockException(
+      'fetchLoanAccountsByExternalId',
+      new CalloutException('Timeout')
+    );
+    repoMock.mockException(
+      'fetchTermDepositsByExternalId',
+      new CalloutException('Connection timeout')
+    );
+    repoMock.mockException(
+      'fetchCreditCardsByExternalId',
+      new CalloutException('Connection timeout')
+    );
+    repoMock.mockException(
+      'fetchPortfolioOfLoansByExternalId',
+      new CalloutException('Connection timeout')
+    );
+    repoMock.mockException(
+      'fetchOtherLimitsByExternalId',
+      new CalloutException('Connection timeout')
+    );
+    repoMock.mockException(
+      'fetchAssetFinanceAmbitByExternalId',
+      new CalloutException('Connection timeout')
+    );
+    repoMock.mockException(
+      'fetchAssetFinanceELSByExternalId',
+      new CalloutException('Connection timeout')
+    );
+    repoMock.mockException(
+      'fetchCommercialBillsByExternalId',
+      new CalloutException('Connection timeout')
+    );
+    repoMock.mockException(
+      'fetchIndemnityGuaranteesByExternalId',
+      new CalloutException('Connection timeout')
+    );
+
+    Account acc = new Account(
+      Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+      Name = 'Snapshot Account'
+    );
+    acc.put('External_Id__c', 'EXT-123');
+
+    CCRMAgentAccountSnapshot.Request req = new CCRMAgentAccountSnapshot.Request();
+    req.accountObj = acc;
+
+    Test.startTest();
+    List<CCRMAgentAccountSnapshot.Response> res = CCRMAgentAccountSnapshot.getSnapshot(
+      new List<CCRMAgentAccountSnapshot.Request>{ req }
+    );
+    Test.stopTest();
+
+    System.assertEquals(1, res.size(), 'Should return one response');
+    System.assertNotEquals(null, res[0].Prompt, 'Prompt should not be null');
+
+    String json = res[0].Prompt;
+
+    // Verify all sections exist with error messages
+    System.assert(
+      json.contains('Deposit Accounts'),
+      'Should include Deposit Accounts section'
+    );
+    System.assert(
+      json.contains('Loan Accounts'),
+      'Should include Loan Accounts section'
+    );
+    System.assert(
+      json.contains('Term Deposits'),
+      'Should include Term Deposits section'
+    );
+    System.assert(
+      json.contains('Credit Cards'),
+      'Should include Credit Cards section'
+    );
+    System.assert(
+      json.contains('Portfolio of Loans'),
+      'Should include Portfolio of Loans section'
+    );
+    System.assert(
+      json.contains('Other Limits and Liabilities'),
+      'Should include Other Limits section'
+    );
+    System.assert(
+      json.contains('Asset Finance AMBIT Contract'),
+      'Should include AMBIT section'
+    );
+    System.assert(
+      json.contains('Asset Finance (ELS)'),
+      'Should include ELS section'
+    );
+    System.assert(
+      json.contains('Commercial Bills'),
+      'Should include Commercial Bills section'
+    );
+    System.assert(
+      json.contains('Indemnity Guarantees'),
+      'Should include Indemnity Guarantees section'
+    );
+
+    // Count occurrences of error message (should be 10)
+    Integer errorCount = 0;
+    Integer index = 0;
+    while (
+      (index = json.indexOf('Currently unable to retrieve data', index)) != -1
+    ) {
+      errorCount++;
+      index++;
+    }
+    System.assertEquals(
+      10,
+      errorCount,
+      'Should have error messages for all failed APIs'
+    );
+  }
+
   // Helper to access private isActiveOrOpen via test-visible pattern (using reflection-like wrapper)
   @TestVisible
   private static Boolean invokeIsActiveOrOpen(String status) {

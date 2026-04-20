@@ -62,47 +62,47 @@ result_file="$RUNNER_TEMP/result.html"
 : > "$result_file"
 
 # Apex & Trigger Check
-# echo "🔍 Checking Apex & Trigger files..."
-# if [[ "${CHECK_APEX_TRIGGER_FLAG}" == "true" ]]; then
-#   echo "✅ Files to check: ${apexTriggerFilePaths}"
-#   npx prettier --write .prettierrc --plugin=prettier-plugin-apex
-#   if ! npx prettier --parser apex --with-node-modules -c ${apexTriggerFilePaths} > "$RUNNER_TEMP/apex_error.log" 2>&1; then
-#     echo "<details><summary>❌ Apex & Trigger Prettier Check Failed</summary><pre>" >> "$result_file"
-#     cat "$RUNNER_TEMP/apex_error.log" >> "$result_file"
-#     echo "</pre></details>" >> "$result_file"
-#     failed=true
-#   fi
-# else
-#   echo "ℹ️  No Apex/Trigger files to check."
-# fi
+echo "🔍 Checking Apex & Trigger files..."
+if [[ "${CHECK_APEX_TRIGGER_FLAG}" == "true" ]]; then
+  echo "✅ Files to check: ${apexTriggerFilePaths}"
+  npx prettier --write .prettierrc --plugin=prettier-plugin-apex
+  if ! npx prettier --parser apex --with-node-modules -c ${apexTriggerFilePaths} > "$RUNNER_TEMP/apex_error.log" 2>&1; then
+    echo "<details><summary>❌ Apex & Trigger Prettier Check Failed</summary><pre>" >> "$result_file"
+    cat "$RUNNER_TEMP/apex_error.log" >> "$result_file"
+    echo "</pre></details>" >> "$result_file"
+    failed=true
+  fi
+else
+  echo "ℹ️  No Apex/Trigger files to check."
+fi
 
-# # LWC Check
-# echo "🔍 Checking LWC files..."
-# if [[ "${CHECK_LWC_FLAG}" == "true" ]]; then
-#   echo "✅ Files to check: ${lwcFilePaths}"
-#   if ! npx prettier -c ${lwcFilePaths} > "$RUNNER_TEMP/lwc_error.log" 2>&1; then
-#     echo "<details><summary>❌ LWC Prettier Check Failed</summary><pre>" >> "$result_file"
-#     cat "$RUNNER_TEMP/lwc_error.log" >> "$result_file"
-#     echo "</pre></details>" >> "$result_file"
-#     failed=true
-#   fi
-# else
-#   echo "ℹ️  No LWC files to check."
-# fi
+# LWC Check
+echo "🔍 Checking LWC files..."
+if [[ "${CHECK_LWC_FLAG}" == "true" ]]; then
+  echo "✅ Files to check: ${lwcFilePaths}"
+  if ! npx prettier -c ${lwcFilePaths} > "$RUNNER_TEMP/lwc_error.log" 2>&1; then
+    echo "<details><summary>❌ LWC Prettier Check Failed</summary><pre>" >> "$result_file"
+    cat "$RUNNER_TEMP/lwc_error.log" >> "$result_file"
+    echo "</pre></details>" >> "$result_file"
+    failed=true
+  fi
+else
+  echo "ℹ️  No LWC files to check."
+fi
 
-# # Aura Check
-# echo "🔍 Checking Aura files..."
-# if [[ "${CHECK_AURA_FLAG}" == "true" ]]; then
-#   echo "✅ Files to check: ${auraFilePaths}"
-#   if ! npx prettier -c ${auraFilePaths} > "$RUNNER_TEMP/aura_error.log" 2>&1; then
-#     echo "<details><summary>❌ Aura Prettier Check Failed</summary><pre>" >> "$result_file"
-#     cat "$RUNNER_TEMP/aura_error.log" >> "$result_file"
-#     echo "</pre></details>" >> "$result_file"
-#     failed=true
-#   fi
-# else
-#   echo "ℹ️  No Aura files to check."
-# fi
+# Aura Check
+echo "🔍 Checking Aura files..."
+if [[ "${CHECK_AURA_FLAG}" == "true" ]]; then
+  echo "✅ Files to check: ${auraFilePaths}"
+  if ! npx prettier -c ${auraFilePaths} > "$RUNNER_TEMP/aura_error.log" 2>&1; then
+    echo "<details><summary>❌ Aura Prettier Check Failed</summary><pre>" >> "$result_file"
+    cat "$RUNNER_TEMP/aura_error.log" >> "$result_file"
+    echo "</pre></details>" >> "$result_file"
+    failed=true
+  fi
+else
+  echo "ℹ️  No Aura files to check."
+fi
 
 # Report summary
 if [[ "$failed" == "true" ]]; then
