@@ -54,12 +54,6 @@
                 <fieldItem>Record.External_Referral_Status__c</fieldItem>
                 <identifier>RecordExternal_Referral_Status_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Referral_Status__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Referred</rightValue>
-                    </criteria>
                     <criteria>
                         <leftValue>{!Record.External_Referral_Status__c}</leftValue>
                         <operator>NE</operator>

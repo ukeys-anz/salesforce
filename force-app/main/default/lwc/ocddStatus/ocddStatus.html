@@ -1,0 +1,28 @@
+<template>
+  <div
+    class="slds-grid slds-gutters slds-var-p-around_medium ocdd-status-container"
+  >
+    <lightning-spinner
+      lwc:if={showSpinner}
+      alternative-text="Loading"
+      size="medium"
+    ></lightning-spinner>
+    <template lwc:if={ocddStatus}>
+      <div
+        class="slds-text-color_weak slds-text-body_regular slds-var-p-right_small"
+      >
+        OCDD Status
+      </div>
+      <div
+        class="slds-text-color_default slds-text-body_regular slds-text-title_bold"
+      >
+        {ocddStatus}
+      </div>
+    </template>
+    <template lwc:if={error}>
+      <div class="slds-text-color_error slds-m-bottom_small">
+        {errorMessage}
+      </div>
+    </template>
+  </div>
+</template>

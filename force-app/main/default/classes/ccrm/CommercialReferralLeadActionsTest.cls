@@ -339,6 +339,10 @@ public with sharing class CommercialReferralLeadActionsTest {
       'getUsers',
       new List<User>{ ccrmUser }
     );
+    commercialReferralLeadRepositoryMock.mock(
+      'getCCRMUsers',
+      new List<User>{ ccrmUser }
+    );
 
     Account account = new Account(
       Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),

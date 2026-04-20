@@ -19,6 +19,8 @@ public with sharing class CommercialReferralLeadActions {
   private static final String CHANNEL_COMMERCIAL = 'Commercial';
   private static final String LEAD_OUTCOME_REFERRED = 'Referred';
   private static final String CCRM = 'CCRM-';
+  private static final String EXCESSIVE_LENGTH_ERROR = 'Error: Your note is too long';
+  private static final Integer BYTE_SIZE_LIMIT = 3500;
 
   private static final Set<SobjectField> CONTACT_INFO_FIELDS = new Set<SObjectField>{
     Lead.Home_Phone__c,
@@ -206,6 +208,31 @@ public with sharing class CommercialReferralLeadActions {
         NOTIFICATION_BODY
       );
       CommonUtil.sendInAppNotification(notificationWrapper);
+    }
+  }
+
+  /**
+   * @description validate notes on record save
+   * @param records list of Lead Records
+   * @param oldMap map of old lead records
+   **/
+  public static void validateNotesOnReferral(
+    List<Lead> records,
+    Map<Id, Lead> oldMap
+  ) {
+    List<Lead> filteredReferralLeadList = ListUtil.filter(records, oldMap)
+      .changed(Lead.Note__c)
+      .isNotNull(Lead.Note__c)
+      .toList();
+
+    if (filteredReferralLeadList.isEmpty()) {
+      return;
+    }
+
+    for (Lead eachLead : filteredReferralLeadList) {
+      if (Blob.valueOf(eachLead.Note__c).size() > BYTE_SIZE_LIMIT) {
+        eachLead.addError(EXCESSIVE_LENGTH_ERROR);
+      }
     }
   }
 
