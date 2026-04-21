@@ -77,11 +77,16 @@ export default class AcceptReferral extends LightningElement {
         this.checkCampaignMember(this.recordId);
       })
       .catch((error) => {
-        handleErrorShowToast(
+        let errorMessage;
+        if (error?.body?.output?.errors?.length > 0) {
+          errorMessage = error.body.output.errors[0].message;
+        }
+        showToast(
           this,
           "Error",
-          error,
-          "Some error occurred while changing record type.",
+          errorMessage || "Some error occurred while changing record type.",
+          "",
+          "error",
           "dismissable"
         );
       })

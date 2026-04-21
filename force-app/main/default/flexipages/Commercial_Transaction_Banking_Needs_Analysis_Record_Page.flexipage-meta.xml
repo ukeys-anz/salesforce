@@ -93,6 +93,16 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.CLGCustomer__c</fieldItem>
+                <identifier>RecordCLGCustomer_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Products__c</fieldItem>
                 <identifier>RecordProducts_cField</identifier>
             </fieldInstance>

@@ -391,7 +391,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Number of days to calculate Expiry Date at which the Referral gets Expired.</shortDescription>
-        <value>5</value>
+        <value>30</value>
     </labels>
     <labels>
         <fullName>CCRM_ExpiryReminderDays</fullName>

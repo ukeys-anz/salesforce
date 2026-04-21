@@ -48,6 +48,10 @@ public with sharing class CommercialNeedsAnalysisTriggerHandler extends Lib_Trig
    * @param oldMap oldMap
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    CommercialNeedsAnalysisActions.validateOnCLGChange(
+      records,
+      (Map<Id, Needs_Analysis__c>) oldMap
+    );
     CommercialNeedsAnalysisActions.restrictImagesInRichTextFields(
       records,
       (Map<Id, Needs_Analysis__c>) oldMap

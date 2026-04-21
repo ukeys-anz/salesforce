@@ -3742,6 +3742,7 @@
         "BPAY_Payments__c",
         "BPAY_Receipts__c",
         "Customer__c",
+        "CLGCustomer__c",
         "Direct_Debits__c",
         "Direct_Entry_Creditor_Payments__c",
         "Direct_Entry_Payroll_Payments__c",

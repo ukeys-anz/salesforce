@@ -1,0 +1,17 @@
+<template>
+  <template lwc:if={isLoading}>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container">
+        <div class="slds-is-relative">
+          <lightning-spinner
+            alternative-text="Loading"
+            size="large"
+            variant="brand"
+          >
+          </lightning-spinner>
+        </div>
+      </div>
+    </section>
+  </template>
+</template>
