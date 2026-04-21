@@ -29,6 +29,7 @@ public with sharing class PushToAppRepository {
         AND Applicable_Record_Types__c INCLUDES (:recordTypeDeveloperName)
         AND SObject_Type__c = :sobjectName
       WITH USER_MODE
+      ORDER BY Name ASC
     ];
   }
 
@@ -230,12 +231,16 @@ public with sharing class PushToAppRepository {
   }
 
   /**
-   * @description Query related Push To App tasks records with the cases
+   * @description Query related  Push To App task records with the cases
    * @param caseIds eligible Customer Complaint case records
+   * @param taskType task type to filter customer nudge tasks
    * @return List<Task> Customer Nudge Task records to update.
    */
-  public List<Task> getRelatedCustomerNudgeTasks(Set<Id> caseIds) {
-    if (caseIds.isEmpty()) {
+  public List<Task> getRelatedCustomerNudgeTasksByType(
+    Set<Id> caseIds,
+    String taskType
+  ) {
+    if (caseIds.isEmpty() || String.isBlank(taskType)) {
       return new List<Task>();
     }
     return [
@@ -244,8 +249,9 @@ public with sharing class PushToAppRepository {
       WHERE
         whatId IN :caseIds
         AND RecordTypeId = :RTTask.customerNudge
+        AND Type = :taskType
         AND IsClosed = FALSE
-      WITH USER_MODE
+      WITH SYSTEM_MODE
     ];
   }
 }

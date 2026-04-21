@@ -6,12 +6,14 @@
 Customer Archived
 Auto Archived
 Read By Customer</description>
-    <errorConditionFormula>AND( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false, RecordType.Name == &apos;Customer Nudge&apos;, 
+    <errorConditionFormula>AND( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false, RecordType.DeveloperName== &apos;Customer_Nudge&apos;, 
 NOT($Profile.Name = &apos;Minimum Access - External Apps&apos;),
 NOT($Profile.Name = &apos;Minimum Access - Salesforce&apos;),
 ISCHANGED( Status ),
 NOT(ISNEW()),
-NOT(ISPICKVAL(Case__r.Status, &apos;Escalated&apos;)), 
+NOT(ISPICKVAL(Case__r.Status, &apos;Escalated&apos;)),
+AND(NOT(ISPICKVAL(Case__r.Status, &apos;Documents Uploaded&apos;)),
+ Case__r.RecordType.DeveloperName= &apos;KYC_QA&apos;),
 OR(ISPICKVAL(Status, &apos;TASK_STATE_AUTO_ARCHIVED&apos;),
 ISPICKVAL(Status, &apos;TASK_STATE_CUSTOMER_ARCHIVED&apos;),
 ISPICKVAL(Status, &apos;TASK_STATE_SENT&apos;),

@@ -18,10 +18,9 @@ public with sharing class PushToAppController {
     UserInfoRepository.class
   );
 
-  private static final Map<String, String> TASK_TYPE = new Map<String, String>{
-    'TASK_TYPE_PUSH_TO_APP' => 'Push to App'
-  };
+  private static final string TASK_CREATION_FAILED = 'Task Creation Failed: We encountered an issue while creating the task. Raise a fault though TechAssist if the issue persist.';
 
+  private static final string TEMPLATE_FETCH_ERROR = 'Unable to fetch template: There was an error retrieving content from AEM. Try again or raise a fault through TechAssist if the issue persists.';
   /**
    * @description Retrieves notification templates based on the logged-in user's role and the recordtype.
    * @param recordId The Id of the record (e.g., Case) to determine applicable templates.
@@ -68,21 +67,25 @@ public with sharing class PushToAppController {
         'Error fetching AEM template content.The server encountered an unexpected error. Please retry after some time.'
       );
     } catch (Exception objException) {
-      throw new AuraHandledException(
-        'Error fetching AEM template content for ' +
-          aemContentId +
-          ' for recordId ' +
-          recordId +
-          ' with error message: ' +
-          objException.getMessage()
-      );
+      Logger.error(
+          'Error fetching AEM template content for ' +
+            aemContentId +
+            ' for recordId ' +
+            recordId +
+            ' with error message: ',
+          objException
+        )
+        .save();
+      throw new AuraHandledException(TEMPLATE_FETCH_ERROR);
     }
   }
 
   /**
    * @description This method is used to update expiryDate and notificationConfigId nodes
-   * @param aemData AemDataModel AEM content from AEm system
-   * @return AemDataModel enriched AemDataModel
+   * only when expiryAfterDays is populated in the config record. This ensures AEM content
+   * enrichment only runs when necessary and follows best practices for conditional operations.
+   * @param aemData AemDataModel AEM content from AEM system
+   * @return AemDataModel enriched AemDataModel or original if no enrichment needed
    */
   private static AemDataModel enrichAemData(AemDataModel aemData) {
     AemDataModel.Items item = aemData.data.pushToAppList.items[0];
@@ -90,18 +93,26 @@ public with sharing class PushToAppController {
     Customer_Task_Configuration__c config = PUSH_TO_APP_REPOSITORY.selectedNotificationConfigDetail(
       item.id
     );
-    Integer expireAfterDays = config.Expire_After_Days__c != null
-      ? Integer.valueOf(config.Expire_After_Days__c)
-      : 0;
+
+    item.notificationConfigId = config?.Id;
+
+    if (String.isNotBlank(item.subtitle)) {
+      item.bodyText = item.subtitle + ' ' + item.bodyText;
+    }
+
+    //Only enrich expiry date if expiryAfterDays is populated
+    if (config.Expire_After_Days__c == null) {
+      return aemData;
+    }
+
+    Integer expireAfterDays = Integer.valueOf(config.Expire_After_Days__c);
 
     item.expiryDate = BusinessHours.add(
-        QueryBusinessHours.get('Case Business Hours').Id,
+        QueryBusinessHours.get(PushToAppConstant.BUSINESS_HOURS_NAME).Id,
         System.now(),
-        expireAfterDays * 24L * 60L * 60L * 1000L
+        expireAfterDays * PushToAppConstant.MILLISECONDS_PER_DAY
       )
       .format('dd/MM/yyyy');
-    item.notificationConfigId = config?.Id;
-    item.bodyText = item.subtitle + ' ' + item.bodyText;
 
     return aemData;
   }
@@ -156,6 +167,15 @@ public with sharing class PushToAppController {
       );
 
       return taskRecord;
+    } catch (DMLException dmlException) {
+      Logger.error(
+          'Push To App Task and Related Records Creation Failed for ' +
+            pushToAppTaskData.caseNumber +
+            'with error message: ',
+          dmlException
+        )
+        .save();
+      throw new AuraHandledException(dmlException.getDMLMessage(0));
     } catch (Exception objException) {
       Logger.error(
           'Push To App Task and Related Records Creation Failed for ' +
@@ -164,7 +184,7 @@ public with sharing class PushToAppController {
           objException
         )
         .save();
-      throw objException;
+      throw new AuraHandledException(TASK_CREATION_FAILED);
     }
   }
 
@@ -210,11 +230,14 @@ public with sharing class PushToAppController {
     return new Task(
       Subject = taskData.subject +
         ' - ' +
-        TASK_TYPE.get('TASK_TYPE_PUSH_TO_APP'),
-      Type = 'TASK_TYPE_PUSH_TO_APP',
+        PushToAppConstant.TEMPLATE_TO_TASK_SUBJECT.get(taskData.templateId),
+      Type = PushToAppConstant.TEMPLATE_TO_TASK_TYPE.get(taskData.templateId),
       WhatId = taskData.whatId,
       WhoId = taskWhoId,
-      ActivityDate = Date.parse(taskData.activityDate),
+      Case__c = taskData.whatId,
+      ActivityDate = String.isNotBlank(taskData.activityDate)
+        ? Date.parse(taskData.activityDate)
+        : null,
       Pub_Sub_Event_Id__c = CommonUtil.generateUUID(),
       Customer_Task_Configuration__c = taskData.notificationConfigId,
       Description = taskData.description,

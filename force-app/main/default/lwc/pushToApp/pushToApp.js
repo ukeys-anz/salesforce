@@ -7,10 +7,7 @@ import {
 } from "lightning/platformWorkspaceApi";
 import getAemContentData from "@salesforce/apex/PushToAppController.getAemContentData";
 import createTaskAndRelatedRecords from "@salesforce/apex/PushToAppController.createTaskAndRelatedRecords";
-const TASK_CREATION_FAILED =
-  "Task Creation Failed: We encountered an issue while creating the task. Raise a fault though TechAssist if the issue persist.";
-const TEMPLATE_FETCH_ERROR =
-  "Unable to fetch template: There was an error retrieving content from AEM. Try again or raise a fault through TechAssist if the issue persists.";
+
 const FIELD_MAP = {
   Case: [{ fieldApiName: "CaseNumber", objectApiName: "Case" }]
 };
@@ -40,6 +37,7 @@ export default class PushToApp extends LightningElement {
   aemContentData;
   errorMsg;
   taskNumber;
+  selectedTemplateId;
 
   @wire(EnclosingTabId) tabId;
 
@@ -61,6 +59,10 @@ export default class PushToApp extends LightningElement {
 
   get showSuccessScreen() {
     return this._showSuccessScreen;
+  }
+
+  get hasActions() {
+    return Array.isArray(this.actions) && this.actions.length > 0;
   }
 
   get hasError() {
@@ -89,10 +91,12 @@ export default class PushToApp extends LightningElement {
       if (!event.target.value) {
         return;
       }
+      this.selectedTemplateId = event.target.value;
       let result = await getAemContentData({
-        aemContentId: event.target.value,
+        aemContentId: this.selectedTemplateId,
         recordId: this.recordId
       });
+
       const pushToAppData = result.data.pushToAppList.items[0];
       if (pushToAppData) {
         // to check if error has occured earlier if yes, clear the error message from UI
@@ -107,15 +111,19 @@ export default class PushToApp extends LightningElement {
         this.expiryDate = pushToAppData.expiryDate;
         this.notificationConfigId = pushToAppData.notificationConfigId;
         this.actions = [];
-        pushToAppData.steps.forEach((step) => {
-          this.actions = [...this.actions, ...step.actions];
+        const steps = Array.isArray(pushToAppData.steps)
+          ? pushToAppData.steps
+          : [];
+        steps.forEach((step) => {
+          const acts = Array.isArray(step.actions) ? step.actions : [];
+          this.actions = [...this.actions, ...acts];
         });
         this.callToActionValues = this.actions
           .map((action) => action.description)
           .join(", ");
       }
     } catch (error) {
-      this.handleError(TEMPLATE_FETCH_ERROR);
+      this.handleError(error.body.message);
       this._showAdditionalFields = false;
       this.isSendNowDisabled = true;
     }
@@ -143,7 +151,8 @@ export default class PushToApp extends LightningElement {
       notificationConfigId: this.notificationConfigId,
       whatId: this.recordId,
       callToAction: this.callToActionValues,
-      caseNumber: this.caseNumber
+      caseNumber: this.caseNumber,
+      templateId: this.selectedTemplateId
     };
     try {
       let taskData = await createTaskAndRelatedRecords({
@@ -155,7 +164,7 @@ export default class PushToApp extends LightningElement {
       this._showPushTaskScreen = false;
       this._showSuccessScreen = true;
     } catch (error) {
-      this.handleError(TASK_CREATION_FAILED);
+      this.handleError(error.body.message);
     }
     this.isLoading = false;
   }
