@@ -3,3 +3,4 @@ String jobName = 'LoggingRecordsPurgeScheduler';
 
 // Schedule the job
 System.schedule(jobName, cronExpression, new LoggingRecordsPurgeScheduler());
+System.debug('Scheduled job: ' + jobName + ' with cron expression: ' + cronExpression);
