@@ -460,4 +460,39 @@ public class AuthTokenCacheUtilTest {
     response.successful = false;
     return response;
   }
+
+  /**
+   * @description Seed Forge auth metadata and staff token cache for tests, for the ingress++ callouts
+   * @param metadataName Forgerock_Auth__mdt developer name / requested scope
+   * @param idValue identifier value used to build the cache key
+   */
+  public static void setupForgeAuthCache(String metadataName, String idValue) {
+    if (String.isBlank(metadataName)) {
+      return;
+    }
+    if (QueryForgeRockAuth.getByDevName(metadataName) == null) {
+      Forgerock_Auth__mdt forgeAuth = new Forgerock_Auth__mdt(
+        DeveloperName = metadataName,
+        MasterLabel = metadataName,
+        CacheStaffToken__c = true,
+        RequestedScopes__c = metadataName,
+        Forgev2_subject_token_type__c = 'urn:ietf:params:oauth:token-type:jwt',
+        IsJWEToken__c = true
+      );
+      QueryForgeRockAuth.configByName = new Map<String, Forgerock_Auth__mdt>{
+        metadataName => forgeAuth
+      };
+    }
+
+    String cacheKey = String.isBlank(idValue)
+      ? ''
+      : TextUtils.removeNonAlphanumericChar(idValue);
+    String hashedKey = AuthTokenCacheUtil.getHashedKey(
+      'forgeJWTToken' + cacheKey + metadataName
+    );
+    String cacheEntryKey = AuthTokenCacheUtil.STAFFPART + hashedKey;
+    if (Cache.Session.get(cacheEntryKey) == null) {
+      Cache.Session.put(cacheEntryKey, AuthTokenCacheUtilTest.IDTESTVALUE);
+    }
+  }
 }

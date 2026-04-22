@@ -1,0 +1,15 @@
+{
+  "kycFreshness": {
+    "name": "customerDueDiligence/b5055b58-982f-4111-a858-227c1e0a85bd/kycFreshness",
+    "personaId": "b5055b58-982f-4111-a858-227c1e0a85bd",
+    "pendingActions": [
+      {
+        "type": "TYPE_NEEDS_REVERIFICATION",
+        "criticality": "CRITICALITY_NONE"
+      },
+      { "type": "TYPE_NEEDS_REVIEW", "criticality": "CRITICALITY_LOW" }
+    ],
+    "lastRetrieved": "2026-02-04T05:14:17.920372Z"
+  },
+  "kycReviewStatus": { "id": "3y-1d", "description": "In Progress" }
+}

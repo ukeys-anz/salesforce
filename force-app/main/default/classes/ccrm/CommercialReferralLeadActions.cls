@@ -13,12 +13,19 @@ public with sharing class CommercialReferralLeadActions {
   @testVisible
   private static final String NOTIFICATION_TITLE = 'New Referral';
   @testVisible
-  private static final String NOTIFICATION_BODY = 'You have been assigned with a new Referral';
+  private static final String NOTIFICATION_BODY = 'A new Referral has been assigned to you.';
   private static final String CUSTOM_NOTIFICATION = 'Commercial_Referral_Notification';
   private static final String CHANNEL_PRIVATE_BANK = 'Private Bank';
   private static final String CHANNEL_COMMERCIAL = 'Commercial';
   private static final String LEAD_OUTCOME_REFERRED = 'Referred';
   private static final String CCRM = 'CCRM-';
+  private static final String NO_CLG_FOR_RETAIL_REFERRALS_ERROR = 'CLG cannot be used for Retail Referrals. Please use an Individual or Business entity.';
+  @testVisible
+  private static final String REFERRAL_STATUS_EXPORT_FAILED = 'Export Failed';
+  @testVisible
+  private static final String ACCESS_LEVEL_EDIT = 'Edit';
+  private static final String EXCESSIVE_LENGTH_ERROR = 'Error: Your note is too long';
+  private static final Integer BYTE_SIZE_LIMIT = 3500;
 
   private static final Set<SobjectField> CONTACT_INFO_FIELDS = new Set<SObjectField>{
     Lead.Home_Phone__c,
@@ -198,14 +205,45 @@ public with sharing class CommercialReferralLeadActions {
       if (!ccrmUserIds.contains(referralRec.OwnerId)) {
         continue;
       }
+      String referenceNumber = referralRec.Lead_Auto_Number__c;
+      String notificationBody =
+        'Referral Ref: ' +
+        referenceNumber +
+        '\n' +
+        NOTIFICATION_BODY;
       InAppNotificationWrapper notificationWrapper = new InAppNotificationWrapper(
         referralNotificationId,
         referralRec.Id,
         referralRec.OwnerId,
         NOTIFICATION_TITLE,
-        NOTIFICATION_BODY
+        notificationBody
       );
       CommonUtil.sendInAppNotification(notificationWrapper);
+    }
+  }
+
+  /**
+   * @description validate notes on record save
+   * @param records list of Lead Records
+   * @param oldMap map of old lead records
+   **/
+  public static void validateNotesOnReferral(
+    List<Lead> records,
+    Map<Id, Lead> oldMap
+  ) {
+    List<Lead> filteredReferralLeadList = ListUtil.filter(records, oldMap)
+      .changed(Lead.Note__c)
+      .isNotNull(Lead.Note__c)
+      .toList();
+
+    if (filteredReferralLeadList.isEmpty()) {
+      return;
+    }
+
+    for (Lead eachLead : filteredReferralLeadList) {
+      if (Blob.valueOf(eachLead.Note__c).size() > BYTE_SIZE_LIMIT) {
+        eachLead.addError(EXCESSIVE_LENGTH_ERROR);
+      }
     }
   }
 
@@ -227,26 +265,15 @@ public with sharing class CommercialReferralLeadActions {
           Lead.Referral_Status__c,
           new List<String>{ REFERRAL_STATUS_NEW, REFERRAL_STATUS_IN_PROGRESS }
         )
+        .oldNotEquals(Lead.Referral_Status__c, REFERRAL_STATUS_EXPORT_FAILED)
         .toList();
 
-      Set<Id> leadOwnerIds = ListUtil.getIds(
-        filteredReferralLeadList,
-        Lead.OwnerId
+      List<Lead> finalLeadsToPublish = filterLeadsByPermission(
+        filteredReferralLeadList
       );
-
-      Set<Id> listOfOwnerIdsHavingCustomPermission = getListOfOwnerIdsHavingCustomPermission(
-        leadOwnerIds,
-        CUSTOM_PERMISSION_DEVELOPERNAME
-      );
-
-      List<Lead> filteredReferralLeadToPublishEvent = ListUtil.filter(
-          filteredReferralLeadList
-        )
-        .notEquals(Lead.OwnerId, listOfOwnerIdsHavingCustomPermission)
-        .toList();
 
       List<CloudEventModel> cloudEvents = ReferralCloudEventModelController.createCloudEvents(
-        filteredReferralLeadToPublishEvent
+        finalLeadsToPublish
       );
       CloudEventController.publishCloudEvents(cloudEvents);
     } catch (Exception e) {
@@ -257,6 +284,47 @@ public with sharing class CommercialReferralLeadActions {
         .save();
       throw e;
     }
+  }
+
+  /**
+   * @description publish cloud events for Referral Leads for export failed referral status
+   * @param leads list of Lead Records
+   */
+  public static void republishFailedEvents(List<Lead> leads) {
+    List<Lead> exportFailedLeads = ListUtil.filter(leads)
+      .equals(Lead.Referral_Status__c, REFERRAL_STATUS_EXPORT_FAILED)
+      .toList();
+
+    if (exportFailedLeads.isEmpty()) {
+      return;
+    }
+
+    List<Lead> finalLeadsToPublish = filterLeadsByPermission(exportFailedLeads);
+
+    List<CloudEventModel> cloudEvents = ReferralCloudEventModelController.createCloudEvents(
+      finalLeadsToPublish
+    );
+    CloudEventController.publishCloudEvents(cloudEvents);
+  }
+
+  /**
+   * @description This is used to process and publish cloud events for referral leads
+   * @param filteredLeads List of filtered referral lead records
+   * @return List<Lead> List of cloud events to be published
+   */
+  private static List<Lead> filterLeadsByPermission(List<Lead> filteredLeads) {
+    Set<Id> leadOwnerIds = ListUtil.getIds(filteredLeads, Lead.OwnerId);
+
+    Set<Id> ownersWithPermission = getListOfOwnerIdsHavingCustomPermission(
+      leadOwnerIds,
+      CUSTOM_PERMISSION_DEVELOPERNAME
+    );
+
+    List<Lead> finalLeadsToPublish = ListUtil.filter(filteredLeads)
+      .notEquals(Lead.OwnerId, ownersWithPermission)
+      .toList();
+
+    return finalLeadsToPublish;
   }
 
   /**
@@ -465,5 +533,143 @@ public with sharing class CommercialReferralLeadActions {
       return null;
     }
     return contactValue.replaceFirst('^\\+610', '+61');
+  }
+
+  /**
+   * @description this is used restrict CLG Existing customer for retail referrals
+   * @param newReferrals new referrals from Trigger.new
+   * @param oldReferrals old referral map from Trigger.oldMap
+   */
+  public static void restrictCLGExistingCustomerForRetailReferrals(
+    List<Lead> newReferrals,
+    Map<Id, Lead> oldReferrals
+  ) {
+    List<Lead> referralsWithExistingCustomers = ListUtil.filter(
+        newReferrals,
+        oldReferrals
+      )
+      .changed(Lead.Finserv__RelatedAccount__c)
+      .isNotNull(Lead.FinServ__RelatedAccount__c)
+      .notEquals(
+        Lead.Channel__c,
+        new Set<String>{ CHANNEL_COMMERCIAL, CHANNEL_PRIVATE_BANK }
+      )
+      .toList();
+    Set<Id> existingCustomerIds = ListUtil.getIds(
+      referralsWithExistingCustomers,
+      Lead.FinServ__RelatedAccount__c
+    );
+    List<Account> existingCustomers = REFERRAL_LEAD_REPO.getCustomers(
+      existingCustomerIds
+    );
+    List<Account> existingCLGCustomers = ListUtil.filter(existingCustomers)
+      .equals(Lead.RecordTypeId, RTAccount.clgAccount)
+      .toList();
+
+    Map<Id, Account> existingCLGCustomersById = (Map<Id, Account>) ListUtil.mapBy(
+      existingCLGCustomers,
+      Lead.Id
+    );
+
+    for (Lead referral : referralsWithExistingCustomers) {
+      if (
+        existingCLGCustomersById.containsKey(
+          referral.FinServ__RelatedAccount__c
+        )
+      ) {
+        referral.addError(NO_CLG_FOR_RETAIL_REFERRALS_ERROR);
+      }
+    }
+  }
+
+  /**
+   * @description This is used to share the record when referral status changes
+   * @name shareExportFailedRef
+   * @param records List of lead records
+   * @param oldMap Map of old lead records
+   */
+  public static void shareExportFailedRef(
+    List<Lead> records,
+    Map<Id, Lead> oldMap
+  ) {
+    try {
+      List<Lead> filteredLeadList = ListUtil.filter(records, oldMap)
+        .changed(Lead.Referral_Status__c)
+        .toList();
+
+      Set<Id> leadIdsSet = ListUtil.getIds(filteredLeadList, Lead.Id);
+
+      Set<Id> intRefIdsSet = ListUtil.getIds(
+        filteredLeadList,
+        Lead.FinServ__ReferredByUser__c
+      );
+
+      List<LeadShare> existingleadShareList = REFERRAL_LEAD_REPO.getExistingLeadShare(
+        leadIdsSet,
+        intRefIdsSet
+      );
+
+      Map<Id, List<LeadShare>> leadIdToLeadShareListMap = (Map<Id, List<LeadShare>>) Listutil.GroupBy(
+        existingleadShareList,
+        LeadShare.LeadId
+      );
+
+      List<LeadShare> leadShareList = formLeadShareList(
+        filteredLeadList,
+        leadIdToLeadShareListMap
+      );
+
+      if (leadShareList.isEmpty()) {
+        return;
+      }
+      DML_REPO.doUpsert(leadShareList, new DmlConfig().withoutSharing());
+    } catch (Exception e) {
+      Logger.error(
+          'Error while inserting the Lead share record during export failed.',
+          e
+        )
+        .save();
+    }
+  }
+
+  /**
+   * @description This is used to form a list of lead share record that need to be upsert
+   * @param filteredLeadList List of lead list
+   * @param leadIdToLeadShareListMap Map of Lead Id and List of lead share records
+   * @return List<LeadShare> List of lead share records
+   */
+  private static List<LeadShare> formLeadShareList(
+    List<Lead> filteredLeadList,
+    Map<Id, List<LeadShare>> leadIdToLeadShareListMap
+  ) {
+    List<LeadShare> leadShareList = new List<LeadShare>();
+    for (Lead leadRec : filteredLeadList) {
+      LeadShare leadShare;
+      List<LeadShare> lsList = leadIdToLeadShareListMap.get(leadRec.Id);
+      for (LeadShare lsRec : lsList) {
+        if (lsRec.UserOrGroupId == leadRec.FinServ__ReferredByUser__c) {
+          leadShare = lsRec;
+          leadShare.LeadAccessLevel = (leadRec.Referral_Status__c ==
+            REFERRAL_STATUS_EXPORT_FAILED)
+            ? ACCESS_LEVEL_EDIT
+            : REFERRAL_LEAD_ACCESS;
+          leadShareList.add(leadShare);
+          break;
+        }
+      }
+      if (leadShare != null) {
+        continue;
+      }
+      leadShare = new LeadShare();
+      leadShare.LeadId = leadRec.Id;
+      leadShare.RowCause = 'Manual';
+      leadShare.LeadAccessLevel = (leadRec.Referral_Status__c ==
+        REFERRAL_STATUS_EXPORT_FAILED)
+        ? ACCESS_LEVEL_EDIT
+        : REFERRAL_LEAD_ACCESS;
+      leadShare.UserOrGroupId = leadRec.FinServ__ReferredByUser__c;
+      leadShareList.add(leadShare);
+    }
+    return leadShareList;
   }
 }

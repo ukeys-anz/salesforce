@@ -9116,6 +9116,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Needs_Analysis__c.CLGCustomer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Needs_Analysis__c.Direct_Debits__c</field>
         <readable>true</readable>
     </fieldPermissions>
