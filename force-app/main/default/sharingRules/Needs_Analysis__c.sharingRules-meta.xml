@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingOwnerRules>
+        <fullName>Needs_Analysis_Share_with_CommericalAdmin_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Shares all Needs Analysis with Commercial Admin Role</description>
+        <label>Needs_Analysis_Share_with_CommericalAdmin_Team</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Commercial_Admin</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Needs_Analysis_Share_with_CommericalBusinessExecutive_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Shares all Needs Analysis with Commercial Business Execution Team role and Internal Subordinates</description>
+        <label>Needs_Analysis_Share_with_CommericalBusinessExecutive_Team</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Commercial_Business_Execution_Team</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>Needs_Analysis_Share_with_Commerical_Team</fullName>
         <accessLevel>Read</accessLevel>
         <description>Shares all Needs Analysis with Commercial_Banking Role and Internal Subordinates</description>

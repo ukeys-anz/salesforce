@@ -451,9 +451,9 @@ public class CommercialLeadActionsTest {
     CommercialLeadActions.updateExpirydate(leadList, oldMap);
     Test.stopTest();
 
-    //THEN it should update Expiry date to 14 days
+    //THEN it should update Expiry date to 30 days
     Assert.areEqual(
-      DateTimeUtils.getNextWeekdayDate(14),
+      DateTimeUtils.getNextWeekdayDate(30),
       leadList[0].Expiry_Date__c,
       'Should update the expiry date.'
     );

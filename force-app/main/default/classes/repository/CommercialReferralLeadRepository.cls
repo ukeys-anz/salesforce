@@ -39,7 +39,7 @@ public with sharing class CommercialReferralLeadRepository {
       return new List<User>();
     }
     return [
-      SELECT Id, Email, UserName, Lan_Id__c
+      SELECT Id, Email, UserName, Lan_Id__c, FirstName, LastName
       FROM User
       WHERE Id IN :relatedUserIds
       WITH USER_MODE
@@ -206,6 +206,72 @@ public with sharing class CommercialReferralLeadRepository {
       SELECT Id, Profile.Name
       FROM User
       WHERE Id IN :userIds AND Profile.Name = 'ANZ CCRM Standard User'
+      WITH SYSTEM_MODE
+    ];
+  }
+
+  /**
+   * @description Fetch leads by Id for reprocessing logic
+   * @param leadIds Set of Lead Ids
+   * @return List<Lead>
+   **/
+  public List<Lead> getLeadsById(Set<Id> leadIds) {
+    if (leadIds.isEmpty()) {
+      return new List<Lead>();
+    }
+    return [
+      SELECT
+        Id,
+        RecordTypeId,
+        Referral_Status__c,
+        External_Referral_Status__c,
+        OwnerId,
+        FinServ__ReferredByUser__c,
+        Note__c,
+        Channel__c,
+        Referral_Category__c,
+        FinServ__ExpressedInterest__c,
+        FinServ__RelatedAccount__c,
+        Customer_ID__c,
+        Email,
+        Work_Phone__c,
+        Primary_Contact_Method__c,
+        Lead_Auto_Number__c,
+        LastName,
+        MiddleName,
+        FirstName,
+        Company,
+        LastModifiedDate,
+        Referral_Customer_Needs__c,
+        MobilePhone,
+        Home_Phone__c,
+        FinServ__PotentialValue__c
+      FROM Lead
+      WHERE Id IN :leadIds
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description Fetch existing lead shares for given leads Ids and referred users Ids
+   * @param leadIds Set of Lead Ids
+   * @param intRefIdsSet Set of Internal referred user Ids
+   * @return List<LeadShare>
+   */
+  public List<LeadShare> getExistingLeadShare(
+    Set<Id> leadIds,
+    Set<Id> intRefIdsSet
+  ) {
+    if (intRefIdsSet.isEmpty() || leadIds.isEmpty()) {
+      return new List<LeadShare>();
+    }
+    return [
+      SELECT Id, LeadId, UserOrGroupId, LeadAccessLevel
+      FROM LeadShare
+      WHERE
+        LeadId IN :leadIds
+        AND UserOrGroupId IN :intRefIdsSet
+        AND RowCause = 'Manual'
       WITH SYSTEM_MODE
     ];
   }

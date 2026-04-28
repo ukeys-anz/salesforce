@@ -27,32 +27,11 @@ for (user u : usrs) {
   usrLId.add(u.id);
 }
 
-List<UserLogin> usrL = [
-  SELECT userId
-  FROM UserLogin
-  WHERE IsFrozen = TRUE AND userId IN :usrLId
-];
-
-List<UserLogin> usrLL = new List<UserLogin>();
-
-for (UserLogin ull : usrL) {
-  ull.IsFrozen = false;
-  usrLL.add(ull);
-}
-
 system.debug(newUsers.size());
-system.debug(usrLL.size());
 
 try {
   Database.update(newUsers, false);
   system.debug('success on User');
-} catch (Exception e) {
-  system.debug(e.getMessage());
-}
-
-try {
-  Database.update(usrLL, false);
-  system.debug('success on UserLogin');
 } catch (Exception e) {
   system.debug(e.getMessage());
 }

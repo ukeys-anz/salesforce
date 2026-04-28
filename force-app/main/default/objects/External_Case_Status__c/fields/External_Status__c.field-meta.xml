@@ -650,6 +650,16 @@
                 <default>false</default>
                 <label>Resolved-NotPaid</label>
             </value>
+            <value>
+                <fullName>Resolved-RDRCredit</fullName>
+                <default>false</default>
+                <label>Resolved-RDRCredit</label>
+            </value>
+            <value>
+                <fullName>Pending-RDRCredit</fullName>
+                <default>false</default>
+                <label>Pending-RDRCredit</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

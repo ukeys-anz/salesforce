@@ -259,6 +259,31 @@
             <field>Opportunity.Owner_Team_POD__c</field>
             <table>ApplicationForm</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Reference_Number__c</field>
+            <table>ApplicationForm.ApplicationFormProduct</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Lost_reason__c</field>
+            <table>ApplicationForm.ApplicationFormProduct</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Lost_Reason_Detail__c</field>
+            <table>ApplicationForm.ApplicationFormProduct</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Won_from_Lost_to__c</field>
+            <table>ApplicationForm.ApplicationFormProduct</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Revenue__c</field>
+            <table>ApplicationForm.ApplicationFormProduct</table>
+        </columns>
         <masterLabel>Application Form Products</masterLabel>
     </sections>
 </ReportType>
