@@ -22,3 +22,5 @@ if (
   faSettings.System_Customer_Id__c = acc.Id;
   upsert faSettings;
 }
+
+System.debug('System Customer Id: ' + faSettings.System_Customer_Id__c);

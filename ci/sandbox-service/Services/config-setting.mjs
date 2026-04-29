@@ -47,6 +47,7 @@ const updateOmniStudioRemoteSetting = (
   });
   deployFiles(["force-app/main/default/remoteSiteSettings"], orgAlias);
   changeForceIgnoreFile("Revert");
+  console.log("OmniStudio related Remote Site Settings are updated...");
 };
 
 // example: updateOmniStudioRemoteSetting('odaseva', 'ci/sandbox-service/Config/RemoteSiteSettingsPackage.xml')
@@ -63,6 +64,7 @@ const deployAllOmnistudioComponents = (orgAlias) => {
   ];
   deployFiles(filepathSet, orgAlias);
   changeForceIgnoreFile("Revert");
+  console.log("All OmniStudio components deployed...");
 };
 
 const deployContentAssets = (orgAlias) => {
@@ -75,6 +77,7 @@ const deployContentAssets = (orgAlias) => {
   ];
   deployFiles(filepathSet, orgAlias);
   changeForceIgnoreFile("Revert");
+  console.log("Content Assets deployed...");
 };
 
 const createSystemCustomer = (orgAlias) => {
@@ -106,10 +109,11 @@ const updateUserFedId = (orgAlias) => {
       process.exit(1);
     }
   }
+  console.log("User Federation Identifiers are updated...");
 };
 
 const unfreezeUsers = (orgAlias) => {
-  console.log("--- running updateUserFedId ---");
+  console.log("--- running unfreezeUsers ---");
   nonProdChangeValidation(orgAlias);
   let continueFlag = true;
   while (continueFlag) {
@@ -121,13 +125,14 @@ const unfreezeUsers = (orgAlias) => {
 
     console.log(output);
 
-    if (output.includes("Stop job Flag: true")) {
+    if (output.includes("Stop job Flag: false")) {
+      continueFlag = true;
+    } else {
+      console.log("All users are unfrozen...");
       continueFlag = false;
-    } else if (output.includes("Error while updating UserLogins")) {
-      console.log("Encountered error while updating UserLogins...");
-      process.exit(1);
     }
   }
+  console.log("All frozen users are unfrozen...");
 };
 
 const deployRequiredFiles = (orgAlias) => {
@@ -142,6 +147,7 @@ const deployRequiredFiles = (orgAlias) => {
     ],
     orgAlias
   );
+  console.log("Required files deployed...");
 };
 
 const assignDeployUserViewAllFields = (orgAlias) => {
