@@ -121,7 +121,10 @@ public with sharing class TFMSearchCustomerDataQueryImpl {
     for (TFMPersonDigitalIdentityModel.Result res : lstResult) {
       Map<String, Object> curRow = new Map<String, Object>();
       curRow.put(TFMConstants.UUID, res.id);
-      curRow.put(TFMConstants.PREFERRED_NAME, res.preferredName ?? res.id);
+      curRow.put(
+        TFMConstants.PREFERRED_NAME,
+        String.isBlank(res.preferredName) ? res.id : res.preferredName
+      );
       curRow.put(TFMConstants.OCV_ID, res.ocvId);
       curRow.put(TFMConstants.STATUS, nameFormat(String.valueOf(res.status)));
       curRow.put(TFMConstants.MOBILE_NUMBER, searchText);

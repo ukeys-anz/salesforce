@@ -5397,6 +5397,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>External_Case_Status__c.MonetaryAdjustmentInformation__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>External_Case_Status__c.Customer_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -9773,6 +9778,21 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Territory__c.Territory_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.TokenNumber__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.AcquirerReferenceNumber__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.ExternalDisputeID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

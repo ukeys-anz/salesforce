@@ -1471,7 +1471,10 @@
         "PassportNumber__c",
         "ReimbursementReason__c",
         "RemoteAccessUsed__c",
-        "EventTimestamp__c"
+        "EventTimestamp__c",
+        "TokenNumber__c",
+        "AcquirerReferenceNumber__c",
+        "ExternalDisputeID__c"
       ],
       "IA-2415840": [
         "Advocacy_Score__c",
@@ -2604,6 +2607,7 @@
         "External_Status__c",
         "Internal_Description__c",
         "Is_Outcome_in_Customer_Favour__c",
+        "MonetaryAdjustmentInformation__c",
         "Result_Code__c",
         "Result_Message__c",
         "Status_Event_ID__c",
@@ -6183,6 +6187,12 @@
       "Segment__c": "ANZx::Salesforce",
       "State__c": "ANZx::Salesforce"
     },
+    "Case": {
+      "Fraud_Total_Reimbursed_V2__c": "ANZx::Salesforce",
+      "TokenNumber__c": "ANZx:: Pega Smarts :: Salesforce :: Case :: TokenNumber__c",
+      "AcquirerReferenceNumber__c": "ANZx:: Pega Smarts :: Salesforce :: Case :: AcquirerReferenceNumber__c",
+      "ExternalDisputeID__c": "ANZx:: Pega Smarts :: Salesforce :: Case :: ExternalDisputeID__c"
+    },
     "COBAddress__c": {
       "AddressBuildingName__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_ManualEntry :: building_name",
       "AddressCity__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_ManualEntry :: city",
@@ -6378,6 +6388,12 @@
     }
   },
   "lineageTransformInformation": {
+    "Case": {
+      "Fraud_Total_Reimbursed_V2__c": "Sum of all related Reimbursement amount field",
+      "TokenNumber__c": "1:1 Transformation",
+      "AcquirerReferenceNumber__c": "1:1 Transformation",
+      "ExternalDisputeID__c": "1:1 Transformation"
+    },
     "Broker_Relation__c": {
       "Address1__c": "TextAreaLong field",
       "Address2__c": "TextAreaLong field",

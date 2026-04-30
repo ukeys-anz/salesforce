@@ -48,7 +48,7 @@ public with sharing class MerchantEvidenceActionsTest {
         External_Case_Status__c newCase = new External_Case_Status__c(
           Id = extCaseId,
           Case__c = caseRecords[0].Id,
-          External_Status__c = 'Pending-PreArbInbound',
+          External_Status__c = 'Pending-PreArbOutboundResponse',
           Status_Event_ID__c = '1234567890'
         );
         externalCases.add(newCase);
