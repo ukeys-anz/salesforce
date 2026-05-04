@@ -64,12 +64,7 @@ public with sharing class RetailBrokerDuplicateContactAction {
         contact.OCV_ID__c
       );
 
-      updateContactsSyncStatus(
-        validRecords,
-        emailDuplicates,
-        ocvDuplicates,
-        contactsOldMap
-      );
+      updateContactsSyncStatus(validRecords, emailDuplicates, ocvDuplicates);
     } catch (Exception ex) {
       Logger.error(
           'Failed to fetch Contacts due to:' + ' ' + ex.getMessage(),
@@ -79,64 +74,56 @@ public with sharing class RetailBrokerDuplicateContactAction {
     }
   }
   /**
-   * @description Check for duplicate contacts using Email and OCV_Id__C and update the Sync_Status__c field accordingly
+   * @description Re-calculate and update the Sync Status for each broker, based on Email, and OCV_Id__C
    * @author  Smruti Khobragade | Salesforce | 08-07-2026
-   * @param records contains new value
-   * @param emailDuplicates contains email values
-   * @param ocvDuplicates contains ocv values
-   * @param contactsOldMap contains contact old map from trigger context
+   * @param brokers new or changed broker records
+   * @param emailDuplicates existing records with same Email
+   * @param ocvDuplicates existing records with same OCV Id
    **/
   @TestVisible
   private static void updateContactsSyncStatus(
-    List<Contact> records,
+    List<Contact> brokers,
     Set<String> emailDuplicates,
-    Set<String> ocvDuplicates,
-    Map<Id, Contact> contactsOldMap
+    Set<String> ocvDuplicates
   ) {
-    for (Contact con : records) {
-      Set<String> existingValues = new Set<String>();
+    Set<String> currentSyncStatus;
+    Boolean hasValidEventVersion;
+    Set<string> newDuplicateStatus;
 
-      if (!String.isBlank(con.Sync_Status__c)) {
-        existingValues.addAll(con.Sync_Status__c.split(';'));
-      }
-      Set<String> previousExistingValues = new Set<String>(existingValues);
-
-      existingValues.remove(SYNC_STATUS_DUPLICATE_EMAIL);
-      existingValues.remove(SYNC_STATUS_DUPLICATE_OCVID);
-
-      Set<string> dupstatus = new Set<String>();
-
-      if (con.Email != null && emailDuplicates.contains(con.Email)) {
-        dupstatus.add(SYNC_STATUS_DUPLICATE_EMAIL);
-      }
-      if (con.OCV_ID__c != null && ocvDuplicates.contains(con.OCV_ID__c)) {
-        dupstatus.add(SYNC_STATUS_DUPLICATE_OCVID);
-      }
-
+    for (Contact broker : brokers) {
+      currentSyncStatus = new Set<String>(
+        broker.Sync_Status__c?.split(';') ?? new List<String>()
+      );
+      hasValidEventVersion = (broker.OCV_Event_Version__c ?? 0) >= 1;
+      // reset duplicate statuses
+      currentSyncStatus.remove(SYNC_STATUS_DUPLICATE_EMAIL);
+      currentSyncStatus.remove(SYNC_STATUS_DUPLICATE_OCVID);
+      // re-calculate duplicate statuses
+      newDuplicateStatus = new Set<String>();
       if (
-        existingValues.contains(SYNC_STATUS_BROKER_ORG) && !dupstatus.isEmpty()
+        String.isNotBlank(broker.Email) &&
+        emailDuplicates.contains(broker.Email)
       ) {
-        existingValues.remove(SYNC_STATUS_BROKER_ORG);
+        newDuplicateStatus.add(SYNC_STATUS_DUPLICATE_EMAIL);
+      }
+      if (
+        String.isNotBlank(broker.OCV_ID__c) &&
+        ocvDuplicates.contains(broker.OCV_ID__c)
+      ) {
+        newDuplicateStatus.add(SYNC_STATUS_DUPLICATE_OCVID);
       }
 
-      boolean isDuplicate =
-        previousExistingValues.contains(SYNC_STATUS_DUPLICATE_EMAIL) ||
-        previousExistingValues.contains(SYNC_STATUS_DUPLICATE_OCVID);
-      boolean isUpdateAndValid =
-        contactsOldMap != null &&
-        con.OCV_Event_Version__c != null &&
-        con.OCV_Event_Version__c >= 1;
-
-      if (isUpdateAndValid && dupstatus.isEmpty()) {
-        existingValues.add(SYNC_STATUS_BROKER_ORG);
-
-        if (!con.Is_Synced_To_Broker_Org__c) {
-          con.Is_Synced_To_Broker_Org__c = true;
+      // add or remove the "Broker Org" status, based on duplicates found.
+      if (!newDuplicateStatus.isEmpty()) {
+        currentSyncStatus.remove(SYNC_STATUS_BROKER_ORG);
+        currentSyncStatus.addAll(newDuplicateStatus);
+      } else if (hasValidEventVersion) {
+        currentSyncStatus.add(SYNC_STATUS_BROKER_ORG);
+        if (!broker.Is_Synced_To_Broker_Org__c) {
+          broker.Is_Synced_To_Broker_Org__c = true;
         }
       }
-      existingValues.addAll(dupstatus);
-
-      con.Sync_Status__c = String.join(new List<String>(existingValues), ';');
+      broker.Sync_Status__c = String.join(currentSyncStatus, ';');
     }
   }
 

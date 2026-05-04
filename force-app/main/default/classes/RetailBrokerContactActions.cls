@@ -140,6 +140,7 @@ public with sharing class RetailBrokerContactActions {
       Contact contactOld = contactsOldMap.get(contactNew.Id);
       String action = getAction(contactNew);
       if (
+        contactOld != null &&
         bypassBrokerEventPermission &&
         isBrokerSetOrOffGroupChanged(contactNew, contactOld)
       ) {
@@ -161,12 +162,14 @@ public with sharing class RetailBrokerContactActions {
    * @param contactOld old version of Contact record
    * @return boolean based on the broker set or office group change
    */
-  public static Boolean isBrokerSetOrOffGroupChanged(
+  @TestVisible
+  private static Boolean isBrokerSetOrOffGroupChanged(
     Contact contactNew,
     Contact contactOld
   ) {
-    return contactNew.Broker_Set__c != contactOld.Broker_Set__c ||
-      contactNew.Office_Group__c != contactOld.Office_Group__c;
+    return contactOld != null &&
+      (contactNew.Broker_Set__c != contactOld.Broker_Set__c ||
+      contactNew.Office_Group__c != contactOld.Office_Group__c);
   }
 
   /**
@@ -242,21 +245,25 @@ public with sharing class RetailBrokerContactActions {
     if (String.isNotBlank(contactNew.CommercialTPMISAO__c)) {
       return true;
     }
-    if (contactNew.CommercialTPMISAO__c != contactOld.CommercialTPMISAO__c) {
+    if (
+      contactOld != null &&
+      contactNew.CommercialTPMISAO__c != contactOld.CommercialTPMISAO__c
+    ) {
       return true;
     }
     if (String.isNotBlank(contactNew.AssetFinanceTPMISAO__c)) {
       return true;
     }
     if (
+      contactOld != null &&
       contactNew.AssetFinanceTPMISAO__c != contactOld.AssetFinanceTPMISAO__c
     ) {
       return true;
     }
     if (
-      (String.isNotBlank(contactNew.RetailTPMISAO__c) ||
-      contactNew.RetailTPMISAO__c != contactOld.RetailTPMISAO__c) &&
-      contactNew.Is_Beta_Broker__c
+      String.isNotBlank(contactNew.RetailTPMISAO__c) ||
+      (contactOld != null &&
+      contactNew.RetailTPMISAO__c != contactOld.RetailTPMISAO__c)
     ) {
       return true;
     }
@@ -459,9 +466,6 @@ public with sharing class RetailBrokerContactActions {
         }
         survivor.Survivor_Party_Id__c = victim.Survivor_Party_Id__c;
         survivor.Victim_Party_Id__c = victim.Victim_Party_Id__c;
-        if (survivor.Is_Beta_Broker__c != true) {
-          survivor.Is_Beta_Broker__c = victim.Is_Beta_Broker__c;
-        }
         if (
           survivor.Sync_Status__c != null &&
           !survivor.Sync_Status__c.contains(SYNC_STATUS_BLOCKED)

@@ -59,13 +59,16 @@ public with sharing class BrokerCloudEventBuilder {
       'targetObjects_parent_extId' => record.External_Id__c
     };
 
-    // Only add serialized merge node if it's not null
-    BrokerCloudEventModel.ContactMergeTargetNode mergeNode = buildMergeContactNode(
-      record,
-      oldRecord
-    );
-    if (mergeNode != null) {
-      dataContractMap.put('merge_contact', JSON.serialize(mergeNode));
+    // skip merge node when broker is inserted, only run for updates.
+    if (oldRecord != null) {
+      BrokerCloudEventModel.ContactMergeTargetNode mergeNode = buildMergeContactNode(
+        record,
+        oldRecord
+      );
+      // Only add serialized merge node if it's not null
+      if (mergeNode != null) {
+        dataContractMap.put('merge_contact', JSON.serialize(mergeNode));
+      }
     }
 
     if (
