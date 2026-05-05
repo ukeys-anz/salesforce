@@ -9,10 +9,30 @@
         <enabled>true</enabled>
     </classAccesses>
     <customPermissions>
-        <enabled>true</enabled>
         <name>IDR_Level_3</name>
+        <enabled>true</enabled>
     </customPermissions>
     <description>The IDR user Level 3 permission which will be used by Agents or Bankers in call centers and branches</description>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Scam_Assist_Case_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Complaint_Resolution__c.Awareness_Trigger__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Complaint_Resolution__c.Non_Financial_Loss_Trigger__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Complaint_Resolution__c.Scam_Reimbursement_Trigger__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>IDR User Level 3</label>
     <tabSettings>

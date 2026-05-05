@@ -546,6 +546,36 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRTransformCloseCase</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>b0bf1a44-7a5d-4015-b27d-b5f449f3f4c7</globalKey>
+        <inputFieldName>Case:scamAssistFields1awarenessOption</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>ComplaintRes|1:awarenessOptions</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>f920999b-da45-4877-afb0-d406dd4ba133</globalKey>
+        <inputFieldName>Case:scamAssistFields3nonFinancialOption</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>ComplaintRes|3:nonFinancialOptions</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| | var:Case:ComplaintRemedy3 ISNOTBLANK | | var:Case:detailsOfComplaint3 ISNOTBLANK var:Case:detailsOfComplaint3 &quot;&quot; IF &quot;&quot; IF</formulaConverted>
@@ -687,6 +717,21 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRTransformCloseCase</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>6190c2d3-2f05-45c5-adae-44801642d8fa</globalKey>
+        <inputFieldName>Case:scamAssistFields2scamOption</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>ComplaintRes|2:scamOptions</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| | var:Case:ComplaintRemedy2 ISNOTBLANK | | var:Case:durationOfRemedy2 ISNOTBLANK var:Case:durationOfRemedy2 &apos;$Vlocity.NULL&apos; IF &quot;&quot; IF</formulaConverted>
@@ -796,6 +841,195 @@
         <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:Type &quot;Scam&quot; == var:Case:IDR_Issue_Type_2__c &quot;Scam&quot; == || var:Case:IDR_Issue_Type_3__c &quot;Scam&quot; == || var:Case:ComplaintSubRemedy1 &quot;2&quot; == var:Case:ComplaintSubRemedy1Offered &quot;2&quot; == || var:Case:ComplaintSubRemedy1Accepted &quot;2&quot; == || &amp;&amp; var:Case:scamAssistFields1scamOption &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF((Case:Type == &quot;Scam&quot; || 
+  Case:IDR_Issue_Type_2__c == &quot;Scam&quot; ||
+  Case:IDR_Issue_Type_3__c == &quot;Scam&quot;) &amp;&amp; (Case:ComplaintSubRemedy1 == &quot;2&quot; ||
+  Case:ComplaintSubRemedy1Offered == &quot;2&quot; || Case:ComplaintSubRemedy1Accepted == &quot;2&quot;) , %Case:scamAssistFields1scamOption%, &quot;&quot;
+)</formulaExpression>
+        <formulaResultPath>Case:scamAssistFields1scamOption</formulaResultPath>
+        <formulaSequence>39.0</formulaSequence>
+        <globalKey>ffc19fac-c69f-49a0-a4b1-6fcb93756c6e</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:Type &quot;Scam&quot; == var:Case:IDR_Issue_Type_2__c &quot;Scam&quot; == || var:Case:IDR_Issue_Type_3__c &quot;Scam&quot; == || var:Case:ComplaintSubRemedy2 &quot;2&quot; == var:Case:ComplaintSubRemedy2Offered &quot;2&quot; == || var:Case:ComplaintSubRemedy2Accepted &quot;2&quot; == || &amp;&amp; var:Case:SecondComplaintCheckbox &quot;Yes&quot; == var:Case:SecondComplaintRemedyOffered &quot;Yes&quot; == || &amp;&amp; var:Case:scamAssistFields2scamOption &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF((Case:Type == &quot;Scam&quot; || 
+  Case:IDR_Issue_Type_2__c == &quot;Scam&quot; ||
+  Case:IDR_Issue_Type_3__c == &quot;Scam&quot;) &amp;&amp; (Case:ComplaintSubRemedy2 == &quot;2&quot; ||
+  Case:ComplaintSubRemedy2Offered == &quot;2&quot; || Case:ComplaintSubRemedy2Accepted == &quot;2&quot;) &amp;&amp; (Case:SecondComplaintCheckbox == &quot;Yes&quot; || Case:SecondComplaintRemedyOffered == &quot;Yes&quot;) , %Case:scamAssistFields2scamOption%, &quot;&quot;
+)</formulaExpression>
+        <formulaResultPath>Case:scamAssistFields2scamOption</formulaResultPath>
+        <formulaSequence>40.0</formulaSequence>
+        <globalKey>4b10ab5d-21f6-4730-8143-3eb4b3a6975b</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:Type &quot;Scam&quot; == var:Case:IDR_Issue_Type_2__c &quot;Scam&quot; == || var:Case:IDR_Issue_Type_3__c &quot;Scam&quot; == || var:Case:ComplaintSubRemedy3 &quot;2&quot; == var:Case:ComplaintSubRemedy3Offered &quot;2&quot; == || var:Case:ComplaintSubRemedy3Accepted &quot;2&quot; == || &amp;&amp; var:Case:ThirdComplaintCheckbox &quot;Yes&quot; == var:Case:ThirdComplaintRemedyOffered &quot;Yes&quot; == || &amp;&amp; var:Case:scamAssistFields3scamOption &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF((Case:Type == &quot;Scam&quot; || 
+  Case:IDR_Issue_Type_2__c == &quot;Scam&quot; ||
+  Case:IDR_Issue_Type_3__c == &quot;Scam&quot;) &amp;&amp; (Case:ComplaintSubRemedy3 == &quot;2&quot; ||
+  Case:ComplaintSubRemedy3Offered == &quot;2&quot; || Case:ComplaintSubRemedy3Accepted == &quot;2&quot;) &amp;&amp; (Case:ThirdComplaintCheckbox == &quot;Yes&quot; || Case:ThirdComplaintRemedyOffered == &quot;Yes&quot;) , %Case:scamAssistFields3scamOption%, &quot;&quot;
+)</formulaExpression>
+        <formulaResultPath>Case:scamAssistFields3scamOption</formulaResultPath>
+        <formulaSequence>41.0</formulaSequence>
+        <globalKey>d3a9aaf3-2d06-47ec-ab29-88a3e055141a</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:Type &quot;Scam&quot; == var:Case:IDR_Issue_Type_2__c &quot;Scam&quot; == || var:Case:IDR_Issue_Type_3__c &quot;Scam&quot; == || var:Case:ComplaintSubRemedy1 &quot;2&quot; == var:Case:ComplaintSubRemedy1Offered &quot;2&quot; == || var:Case:ComplaintSubRemedy1Accepted &quot;2&quot; == || &amp;&amp; var:Case:scamAssistFields1scamOption &quot;SRF/\/\/Awareness/\/\/Trigger&quot; == &amp;&amp; var:Case:scamAssistFields1awarenessOption &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF((Case:Type == &quot;Scam&quot; || 
+  Case:IDR_Issue_Type_2__c == &quot;Scam&quot; ||
+  Case:IDR_Issue_Type_3__c == &quot;Scam&quot;) &amp;&amp; (Case:ComplaintSubRemedy1 == &quot;2&quot; ||
+  Case:ComplaintSubRemedy1Offered == &quot;2&quot; || Case:ComplaintSubRemedy1Accepted == &quot;2&quot;) &amp;&amp; (Case:scamAssistFields1scamOption == &quot;SRF Awareness Trigger&quot;) , %Case:scamAssistFields1awarenessOption%, &quot;&quot;
+)</formulaExpression>
+        <formulaResultPath>Case:scamAssistFields1awarenessOption</formulaResultPath>
+        <formulaSequence>42.0</formulaSequence>
+        <globalKey>fd25cba9-f1f5-4df8-9b1d-3db5a81a095e</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:Type &quot;Scam&quot; == var:Case:IDR_Issue_Type_2__c &quot;Scam&quot; == || var:Case:IDR_Issue_Type_3__c &quot;Scam&quot; == || var:Case:ComplaintSubRemedy2 &quot;2&quot; == var:Case:ComplaintSubRemedy2Offered &quot;2&quot; == || var:Case:ComplaintSubRemedy2Accepted &quot;2&quot; == || &amp;&amp; var:Case:scamAssistFields2scamOption &quot;SRF/\/\/Awareness/\/\/Trigger&quot; == &amp;&amp; var:Case:SecondComplaintCheckbox &quot;Yes&quot; == var:Case:SecondComplaintRemedyOffered &quot;Yes&quot; == || &amp;&amp; var:Case:scamAssistFields2awarenessOption &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF((Case:Type == &quot;Scam&quot; || 
+  Case:IDR_Issue_Type_2__c == &quot;Scam&quot; ||
+  Case:IDR_Issue_Type_3__c == &quot;Scam&quot;) &amp;&amp; (Case:ComplaintSubRemedy2 == &quot;2&quot; ||
+  Case:ComplaintSubRemedy2Offered == &quot;2&quot; || Case:ComplaintSubRemedy2Accepted == &quot;2&quot;) &amp;&amp; (Case:scamAssistFields2scamOption == &quot;SRF Awareness Trigger&quot;) &amp;&amp; (Case:SecondComplaintCheckbox == &quot;Yes&quot; || Case:SecondComplaintRemedyOffered == &quot;Yes&quot;) , %Case:scamAssistFields2awarenessOption%, &quot;&quot;
+)</formulaExpression>
+        <formulaResultPath>Case:scamAssistFields2awarenessOption</formulaResultPath>
+        <formulaSequence>43.0</formulaSequence>
+        <globalKey>61fb0cb5-e716-48fb-9be5-7f80576d0715</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:Type &quot;Scam&quot; == var:Case:IDR_Issue_Type_2__c &quot;Scam&quot; == || var:Case:IDR_Issue_Type_3__c &quot;Scam&quot; == || var:Case:ComplaintSubRemedy3 &quot;2&quot; == var:Case:ComplaintSubRemedy3Offered &quot;2&quot; == || var:Case:ComplaintSubRemedy3Accepted &quot;2&quot; == || &amp;&amp; var:Case:scamAssistFields3scamOption &quot;SRF/\/\/Awareness/\/\/Trigger&quot; == &amp;&amp; var:Case:ThirdComplaintCheckbox &quot;Yes&quot; == var:Case:ThirdComplaintRemedyOffered &quot;Yes&quot; == || &amp;&amp; var:Case:scamAssistFields3awarenessOption &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF((Case:Type == &quot;Scam&quot; || 
+  Case:IDR_Issue_Type_2__c == &quot;Scam&quot; ||
+  Case:IDR_Issue_Type_3__c == &quot;Scam&quot;) &amp;&amp; (Case:ComplaintSubRemedy3 == &quot;2&quot; ||
+  Case:ComplaintSubRemedy3Offered == &quot;2&quot; || Case:ComplaintSubRemedy3Accepted == &quot;2&quot;) &amp;&amp; (Case:scamAssistFields3scamOption == &quot;SRF Awareness Trigger&quot;) &amp;&amp; (Case:ThirdComplaintCheckbox == &quot;Yes&quot; || Case:ThirdComplaintRemedyOffered == &quot;Yes&quot;) , %Case:scamAssistFields3awarenessOption%, &quot;&quot;
+)</formulaExpression>
+        <formulaResultPath>Case:scamAssistFields3awarenessOption</formulaResultPath>
+        <formulaSequence>44.0</formulaSequence>
+        <globalKey>c0acea11-201d-41f3-bffe-f6eb7adb2037</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:Type &quot;Scam&quot; == var:Case:IDR_Issue_Type_2__c &quot;Scam&quot; == || var:Case:IDR_Issue_Type_3__c &quot;Scam&quot; == || var:Case:ComplaintSubRemedy1 &quot;3&quot; == var:Case:ComplaintSubRemedy1Offered &quot;3&quot; == || var:Case:ComplaintSubRemedy1Accepted &quot;3&quot; == || &amp;&amp; var:Case:scamAssistFields1nonFinancialOption &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF((Case:Type == &quot;Scam&quot; || 
+  Case:IDR_Issue_Type_2__c == &quot;Scam&quot; ||
+  Case:IDR_Issue_Type_3__c == &quot;Scam&quot;) &amp;&amp; (Case:ComplaintSubRemedy1 == &quot;3&quot; ||
+  Case:ComplaintSubRemedy1Offered == &quot;3&quot; || Case:ComplaintSubRemedy1Accepted == &quot;3&quot;) , %Case:scamAssistFields1nonFinancialOption%, &quot;&quot;
+)</formulaExpression>
+        <formulaResultPath>Case:scamAssistFields1nonFinancialOption</formulaResultPath>
+        <formulaSequence>45.0</formulaSequence>
+        <globalKey>4d34429b-9916-41a8-a22e-b4196800f98e</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:Type &quot;Scam&quot; == var:Case:IDR_Issue_Type_2__c &quot;Scam&quot; == || var:Case:IDR_Issue_Type_3__c &quot;Scam&quot; == || var:Case:ComplaintSubRemedy2 &quot;3&quot; == var:Case:ComplaintSubRemedy2Offered &quot;3&quot; == || var:Case:ComplaintSubRemedy2Accepted &quot;3&quot; == || &amp;&amp; var:Case:SecondComplaintCheckbox &quot;Yes&quot; == var:Case:SecondComplaintRemedyOffered &quot;Yes&quot; == || &amp;&amp; var:Case:scamAssistFields2nonFinancialOption &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF((Case:Type == &quot;Scam&quot; || 
+  Case:IDR_Issue_Type_2__c == &quot;Scam&quot; ||
+  Case:IDR_Issue_Type_3__c == &quot;Scam&quot;) &amp;&amp; (Case:ComplaintSubRemedy2 == &quot;3&quot; ||
+  Case:ComplaintSubRemedy2Offered == &quot;3&quot; || Case:ComplaintSubRemedy2Accepted == &quot;3&quot;) &amp;&amp; (Case:SecondComplaintCheckbox == &quot;Yes&quot; || Case:SecondComplaintRemedyOffered == &quot;Yes&quot;) , %Case:scamAssistFields2nonFinancialOption%, &quot;&quot;
+)</formulaExpression>
+        <formulaResultPath>Case:scamAssistFields2nonFinancialOption</formulaResultPath>
+        <formulaSequence>46.0</formulaSequence>
+        <globalKey>6b627f99-9f96-426b-90e7-f49a17bf1967</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:Type &quot;Scam&quot; == var:Case:IDR_Issue_Type_2__c &quot;Scam&quot; == || var:Case:IDR_Issue_Type_3__c &quot;Scam&quot; == || var:Case:ComplaintSubRemedy3 &quot;3&quot; == var:Case:ComplaintSubRemedy3Offered &quot;3&quot; == || var:Case:ComplaintSubRemedy3Accepted &quot;3&quot; == || &amp;&amp; var:Case:ThirdComplaintCheckbox &quot;Yes&quot; == var:Case:ThirdComplaintRemedyOffered &quot;Yes&quot; == || &amp;&amp; var:Case:scamAssistFields3nonFinancialOption &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF((Case:Type == &quot;Scam&quot; || 
+  Case:IDR_Issue_Type_2__c == &quot;Scam&quot; ||
+  Case:IDR_Issue_Type_3__c == &quot;Scam&quot;) &amp;&amp; (Case:ComplaintSubRemedy3 == &quot;3&quot; ||
+  Case:ComplaintSubRemedy3Offered == &quot;3&quot; || Case:ComplaintSubRemedy3Accepted == &quot;3&quot;) &amp;&amp; (Case:ThirdComplaintCheckbox == &quot;Yes&quot; || Case:ThirdComplaintRemedyOffered == &quot;Yes&quot;) , %Case:scamAssistFields3nonFinancialOption%, &quot;&quot;
+)</formulaExpression>
+        <formulaResultPath>Case:scamAssistFields3nonFinancialOption</formulaResultPath>
+        <formulaSequence>47.0</formulaSequence>
+        <globalKey>1edcfbf8-4ca2-4eec-afbf-ecc76f9d8859</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:ComplaintStatus &quot;Closed&quot; == var:Case:CustomerAcceptTheResolution &quot;Yes&quot; == &amp;&amp; var:Case:durationOfRemedy1Accepted var:Case:durationOfRemedy1 IF</formulaConverted>
         <formulaExpression>IF(Case:ComplaintStatus == &quot;Closed&quot; &amp;&amp;  Case:CustomerAcceptTheResolution == &quot;Yes&quot;, %Case:durationOfRemedy1Accepted%, %Case:durationOfRemedy1% )</formulaExpression>
         <formulaResultPath>Case:durationOfRemedy1</formulaResultPath>
@@ -878,6 +1112,51 @@
         <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>5a6cfa4d-d458-4781-8f0b-de764ecfbc9c</globalKey>
+        <inputFieldName>Case:scamAssistFields1scamOption</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>ComplaintRes|1:scamOptions</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>16cd64a9-5870-4b1d-b3f1-9f02d0c76166</globalKey>
+        <inputFieldName>Case:scamAssistFields3scamOption</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>ComplaintRes|3:scamOptions</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>a8b42932-13f2-4ffa-896f-034cf5ba0c36</globalKey>
+        <inputFieldName>Case:scamAssistFields2awarenessOption</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>ComplaintRes|2:awarenessOptions</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom9954</globalKey>
         <inputFieldName>Case:DurationofRemedy1Offered</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -928,6 +1207,21 @@
         <outputFieldName>ComplaintRes|2:PaymentProvidedOffered</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>caf7f9f3-873c-47db-b173-368d30442431</globalKey>
+        <inputFieldName>Case:scamAssistFields3awarenessOption</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>ComplaintRes|3:awarenessOptions</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
@@ -1449,6 +1743,36 @@
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>8244b5c3-b0e9-48b3-b85e-29a6e8177feb</globalKey>
+        <inputFieldName>Case:scamAssistFields1nonFinancialOption</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>ComplaintRes|1:nonFinancialOptions</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>d093a089-4aac-4715-ab1e-ce608c526890</globalKey>
+        <inputFieldName>Case:scamAssistFields2nonFinancialOption</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>ComplaintRes|2:nonFinancialOptions</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <outputType>JSON</outputType>

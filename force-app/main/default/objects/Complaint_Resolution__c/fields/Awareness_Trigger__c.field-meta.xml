@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Awareness_Trigger__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Awareness Trigger Field for Scam Reimbursement</description>
+    <label>Awareness Trigger</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Scam_Reimbursement_Trigger__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Internal detection</fullName>
+                <default>false</default>
+                <label>Internal detection</label>
+            </value>
+            <value>
+                <fullName>Assisted Red Flags</fullName>
+                <default>false</default>
+                <label>Assisted Red Flags</label>
+            </value>
+            <value>
+                <fullName>Payment Inconsistencies</fullName>
+                <default>false</default>
+                <label>Payment Inconsistencies</label>
+            </value>
+            <value>
+                <fullName>Quarantine Release</fullName>
+                <default>false</default>
+                <label>Quarantine Release</label>
+            </value>
+            <value>
+                <fullName>Delayed Reporting</fullName>
+                <default>false</default>
+                <label>Delayed Reporting</label>
+            </value>
+            <value>
+                <fullName>Scam History</fullName>
+                <default>false</default>
+                <label>Scam History</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>SRF Awareness Trigger</controllingFieldValue>
+            <valueName>Internal detection</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SRF Awareness Trigger</controllingFieldValue>
+            <valueName>Assisted Red Flags</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SRF Awareness Trigger</controllingFieldValue>
+            <valueName>Payment Inconsistencies</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SRF Awareness Trigger</controllingFieldValue>
+            <valueName>Quarantine Release</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SRF Awareness Trigger</controllingFieldValue>
+            <valueName>Delayed Reporting</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SRF Awareness Trigger</controllingFieldValue>
+            <valueName>Scam History</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

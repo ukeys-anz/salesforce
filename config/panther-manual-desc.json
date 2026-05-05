@@ -1309,7 +1309,8 @@
         "IsKYCChecksCompleted__c",
         "KYCChecksHasDefect__c",
         "Search_Button_Selected_for_3rd_Party__c",
-        "Search_Button_Selected__c"
+        "Search_Button_Selected__c",
+        "Scam_Assist_Case_ID__c"
       ],
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",
@@ -1861,7 +1862,10 @@
         "IDR_Other_Remedy_Offered__c",
         "IDR_customer_accept_resolution_offered__c",
         "IDR_Was_the_offer_enhanced_and_accepted__c",
-        "Offered_details_to_Product_Manufacturer__c"
+        "Offered_details_to_Product_Manufacturer__c",
+        "Scam_Reimbursement_Trigger__c",
+        "Non_Financial_Loss_Trigger__c",
+        "Awareness_Trigger__c"
       ]
     },
     "Contact": {
