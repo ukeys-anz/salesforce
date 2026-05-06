@@ -66,6 +66,14 @@
                 <behavior>Edit</behavior>
                 <field>Transaction_Made_By__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>TokenNumber__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>AcquirerReferenceNumber__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -217,6 +225,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>External_Case_ID__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ExternalDisputeID__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

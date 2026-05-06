@@ -287,6 +287,7 @@ public without sharing class IDRTaskActions {
       ) {
         record.RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID;
         record.Type = IDRConstants.TASK_TYPE_NOTIFICATION;
+        record.ReminderDateTime = System.now();
         idrMaximumTimeTasks.add(record);
         taskCaseMap.put(record.Id, record.WhatId);
         caseIds.add(record.WhatId);

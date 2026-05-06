@@ -104,6 +104,21 @@
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>6d7873f9-2860-49da-b1c0-be7aec4709ac</globalKey>
+        <inputFieldName>Case:scamAssistCaseId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Scam_Assist_Case_ID__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:ComplaintSubRemedy2 &quot;16&quot; == var:Case:ComplaintSubRemedy2 &quot;20&quot; == || var:Case:ComplaintSubRemedy2 &quot;Repayment/\/\/arrangement&quot; == || var:Case:durationOfRemedy2 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
         <formulaExpression>IF(Case:ComplaintSubRemedy2==&quot;16&quot;||Case:ComplaintSubRemedy2==&quot;20&quot;||Case:ComplaintSubRemedy2==&quot;Repayment arrangement&quot;,%Case:durationOfRemedy2%,&apos;$Vlocity.NULL&apos;)</formulaExpression>
         <formulaResultPath>Case:durationOfRemedy2</formulaResultPath>
@@ -204,6 +219,23 @@
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Account_Card_Policy_Number_3__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:Type &quot;Scam&quot; == var:Case:IDR_Issue_Type_2__c &quot;Scam&quot; == || var:Case:IDR_Issue_Type_3__c &quot;Scam&quot; == || var:Case:scamAssistCaseId &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF(Case:Type == &quot;Scam&quot; || Case:IDR_Issue_Type_2__c == &quot;Scam&quot; || Case:IDR_Issue_Type_3__c == &quot;Scam&quot;, %Case:scamAssistCaseId%, &quot;&quot;)</formulaExpression>
+        <formulaResultPath>Case:scamAssistCaseId</formulaResultPath>
+        <formulaSequence>28.0</formulaSequence>
+        <globalKey>159e6461-2bd3-4c8e-be01-d9966e51d8bf</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>

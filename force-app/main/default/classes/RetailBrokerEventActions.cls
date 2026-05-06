@@ -34,7 +34,7 @@ public with sharing class RetailBrokerEventActions {
       BrokerCloudEventModel eventModel = generateBrokerCEModel(
         broker,
         eventType,
-        oldMap.get(broker.Id)
+        oldMap?.get(broker.Id)
       );
       cloudEventModels.add(eventModel);
     }

@@ -4,7 +4,7 @@
     <protected>false</protected>
     <values>
         <field>Closed_Accounts_Disclaimer__c</field>
-        <value xsi:nil="true"/>
+        <value xsi:type="xsd:string">This may have included transaction data that dates back up to 2 years.</value>
     </values>
     <values>
         <field>Data_Cluster_Details__c</field>
@@ -16,11 +16,11 @@
     </values>
     <values>
         <field>Open_Accounts_Disclaimer__c</field>
-        <value xsi:type="xsd:string">This may have included transaction data that dates back up to 2 years.</value>
+        <value xsi:type="xsd:string">This may include transaction data that dates back up to 2 years.</value>
     </values>
     <values>
         <field>Open_and_Closed_Accounts_Disclaimer__c</field>
-        <value xsi:type="xsd:string">For open accounts, this may have included transaction data that dates back up to 2 years.</value>
+        <value xsi:type="xsd:string">For open accounts, this may include, or for closed accounts, have included, transaction data that dates back up to 2 years.</value>
     </values>
     <values>
         <field>Scope_ID__c</field>

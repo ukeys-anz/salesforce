@@ -1489,6 +1489,21 @@
         <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>b0944d2e-cc9e-486d-95b3-b1b861623709</globalKey>
+        <inputFieldName>Case:Scam_Assist_Case_ID__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:scamAssistCaseId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRFetchCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchCaseDetailsCustom76</globalKey>
         <inputFieldName>Case:Provided_details_to_Prod_Manufacturer_3__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -1810,6 +1825,141 @@
         <outputFieldName>Case:durationOfRemedy1</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRFetchCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>355264a8-a3af-4d46-b4e7-18dd9249c9e1</globalKey>
+        <inputFieldName>ComplaintResolution|1:Scam_Reimbursement_Trigger__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:scamAssistFields1scamOption</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRFetchCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>f79d0212-75a6-4388-8d79-82778717edb5</globalKey>
+        <inputFieldName>ComplaintResolution|2:Scam_Reimbursement_Trigger__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:scamAssistFields2scamOption</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRFetchCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>ac15d075-a1a5-423f-af35-7784abc95011</globalKey>
+        <inputFieldName>ComplaintResolution|3:Scam_Reimbursement_Trigger__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:scamAssistFields3scamOption</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRFetchCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>0221e93d-dcde-4f6a-8669-4ed6c668d644</globalKey>
+        <inputFieldName>ComplaintResolution|1:Non_Financial_Loss_Trigger__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:scamAssistFields1nonFinancialOption</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRFetchCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>a7dd8576-6e01-42da-b7ec-135bcee48886</globalKey>
+        <inputFieldName>ComplaintResolution|2:Non_Financial_Loss_Trigger__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:scamAssistFields2nonFinancialOption</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRFetchCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>e50c09cf-a8a2-46fb-908a-f88869ed05df</globalKey>
+        <inputFieldName>ComplaintResolution|3:Non_Financial_Loss_Trigger__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:scamAssistFields3nonFinancialOption</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRFetchCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>5d9e9078-27db-4f23-9b38-e270c889fa96</globalKey>
+        <inputFieldName>ComplaintResolution|1:Awareness_Trigger__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:scamAssistFields1awarenessOption</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRFetchCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>66c42321-18ab-4d97-944c-eb128b972596</globalKey>
+        <inputFieldName>ComplaintResolution|2:Awareness_Trigger__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:scamAssistFields2awarenessOption</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRFetchCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>4ec258c6-c807-4cf6-b43a-8df74e107925</globalKey>
+        <inputFieldName>ComplaintResolution|3:Awareness_Trigger__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:scamAssistFields3awarenessOption</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>

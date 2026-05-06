@@ -5189,6 +5189,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.TokenNumber__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.AcquirerReferenceNumber__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.ExternalDisputeID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Twilio_Channel_SID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5230,6 +5245,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.ePaymentsCodeApplicable__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Scam_Assist_Case_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5515,6 +5535,21 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Complaint_Resolution__c.Offered_details_to_Product_Manufacturer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Complaint_Resolution__c.Awareness_Trigger__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Complaint_Resolution__c.Scam_Reimbursement_Trigger__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Complaint_Resolution__c.Non_Financial_Loss_Trigger__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7510,6 +7545,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Expense_Control__c.Justification_Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>External_Case_Status__c.MonetaryAdjustmentInformation__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
