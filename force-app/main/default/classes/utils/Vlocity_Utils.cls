@@ -3,12 +3,16 @@
  * @since 04/2023
  * @description  To get the customer information  and account numbers on OCV search
  */
+@SuppressWarnings('PMD.TooManyFields')
 global with sharing class Vlocity_Utils implements Callable {
   private static final ComplaintsRepository COMPLAINTS_REPOSITORY = (ComplaintsRepository) Lib_InstanceProvider.forType(
     ComplaintsRepository.class
   );
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
+  );
+  private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
   );
 
   /**
@@ -179,6 +183,9 @@ global with sharing class Vlocity_Utils implements Callable {
       'IDR_customer_accept_resolution_offered__c' => remedyValues.customerAcceptResolution,
       'IDR_Other_Remedy_Offered__c' => remedyValues.otherRemedyOffered,
       'IDR_Payment_Amount_Offered__c' => remedyValues.paymentProvidedOffered,
+      'Non_Financial_Loss_Trigger__c' => remedyValues.nonFinancialOptions,
+      'Scam_Reimbursement_Trigger__c' => remedyValues.scamOptions,
+      'Awareness_Trigger__c' => remedyValues.awarenessOptions,
       'Id' => remedyValues.id
     };
   }
@@ -239,6 +246,7 @@ global with sharing class Vlocity_Utils implements Callable {
     String fieldName = String.ValueOf(input.get('FieldName'));
     String caseId = String.ValueOf(input.get('recordId'));
     output.put('lastModifiedDate' + fieldName, 0);
+    output.put('hasL1Access', USER_INFO.checkCustomPermission('IDR_Level_1'));
     CaseHistory historyList = COMPLAINTS_REPOSITORY.getComplaintHistory(
       caseId,
       fieldName
@@ -275,6 +283,9 @@ global with sharing class Vlocity_Utils implements Callable {
     public String customerAcceptResolution;
     public String offerEnhancedAndAccepted;
     public String descriptionOutcomeOffered;
+    public String nonFinancialOptions;
+    public String scamOptions;
+    public String awarenessOptions;
     public Id id;
   }
 }

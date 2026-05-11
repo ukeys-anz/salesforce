@@ -20,8 +20,6 @@ public with sharing class MerchantEvidenceTriggerHandler extends Lib_TriggerHand
    */
   public override Boolean isValidRecord(SObject record) {
     return ((External_Case_Status__c) record).External_Status__c ==
-      'Pending-PreArbInbound' ||
-      ((External_Case_Status__c) record).External_Status__c ==
       'Pending-PreArbOutboundResponse';
   }
 

@@ -30,6 +30,14 @@
                 <behavior>Edit</behavior>
                 <field>IDR_Financial_Compensation__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Scam_Reimbursement_Trigger__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Awareness_Trigger__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -47,6 +55,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_Provided_details_to_Manufacturer__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Non_Financial_Loss_Trigger__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
