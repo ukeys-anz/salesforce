@@ -4637,7 +4637,8 @@
         "Were_care_and_access_needs_addressed__c",
         "AssessmentOutcomeFLPassWithFeedback__c",
         "AssessmentOutcomeFrontlinePass__c",
-        "AssessmentResultFinalLetterReview__c"
+        "AssessmentResultFinalLetterReview__c",
+        "AI_Evaluation_Id__c"
       ],
       "IA-2415983": ["Application_ID__c"],
       "IA-2415984": ["Customer__c", "Customer_Name__c", "Calculated__c"],

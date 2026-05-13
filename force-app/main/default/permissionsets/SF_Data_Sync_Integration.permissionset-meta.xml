@@ -8442,6 +8442,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Quality_Assessment__c.AI_Evaluation_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Quality_Assessment__c.Addressed_info_req_s_basic_accts_etc__c</field>
         <readable>true</readable>
     </fieldPermissions>

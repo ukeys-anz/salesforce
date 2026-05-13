@@ -69,7 +69,10 @@ public with sharing class AuthTokenCacheUtil {
     String refreshToken,
     String idToken
   ) {
-    if (!VALID_PROFILES_SET.contains(u.Profile.Name)) {
+    if (
+      !VALID_PROFILES_SET.contains(u.Profile.Name) &&
+      !PermissionUtils.hasPermissionSet(u.Id, 'Azure_Token')
+    ) {
       return;
     }
 
@@ -92,7 +95,10 @@ public with sharing class AuthTokenCacheUtil {
    */
   @TestVisible
   private static void storeAzureSessionTokens(Id userId, String profileName) {
-    if (!VALID_PROFILES_SET.contains(profileName)) {
+    if (
+      !VALID_PROFILES_SET.contains(profileName) &&
+      !FeatureManagement.checkPermission('AzureTokenCache')
+    ) {
       return;
     }
 

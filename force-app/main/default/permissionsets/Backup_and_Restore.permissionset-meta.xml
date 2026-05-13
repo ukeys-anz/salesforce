@@ -11789,6 +11789,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Quality_Assessment__c.AI_Evaluation_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Quality_Assessment__c.Accountability_and_Next_Steps_Comments__c</field>
         <readable>true</readable>
     </fieldPermissions>
