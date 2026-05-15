@@ -584,6 +584,9 @@
       "IA-2530753": ["External_Id__c", "Loan_Application_Financial__c"],
       "IA-2415983": ["Amount__c", "Other_Reason__c", "Purpose__c"]
     },
+    "amazonconnect__Amazon_Connect__c":{
+      "IA_2415860":["URL_Text__c"]
+    },
     "ApplicationForm": {
       "IA-2423227": ["OpportunityId"],
       "IA-2434298": [
@@ -2975,7 +2978,8 @@
         "TwilioDetailsID__c",
         "Video_Call__c",
         "Transfer__c",
-        "Chat_Queue__c"
+        "Chat_Queue__c",
+        "Send_Survey__c"
       ],
       "IA-2468715": [
         "Loan_Application__c",

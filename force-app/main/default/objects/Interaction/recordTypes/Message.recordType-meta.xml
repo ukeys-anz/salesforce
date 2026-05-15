@@ -261,6 +261,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Ended</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>New</fullName>
             <default>false</default>
         </values>
@@ -621,7 +625,7 @@
         </values>
         <values>
             <fullName>Support Enquiry</fullName>
-            <default>false</default>
+            <default>true</default>
         </values>
         <values>
             <fullName>TFN exemption %28non resident %26 %3C16yrs old%29</fullName>

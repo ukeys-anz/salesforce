@@ -472,7 +472,11 @@
     "System_Record_Status__c",
     "Total_Number_of_Cards__c"
   ],
-  "Interaction": ["Reason_for_Visit_Formula__c", "Actual_Topic_Formula__c"],
+  "Interaction": [
+    "Reason_for_Visit_Formula__c",
+    "Actual_Topic_Formula__c",
+    "Send_Survey__c"
+  ],
   "Lead": [
     "dupcheck__dc3DisableDuplicateCheck__c",
     "dupcheck__dc3Index__c",

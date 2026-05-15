@@ -83,6 +83,13 @@
                         onclick={handleActionSelect}
                       ></lightning-menu-item>
                     </template>
+                    <template lwc:if={record.enableACViewTranscript}>
+                      <lightning-menu-item
+                        label="View Transcript"
+                        value="ac_view_transcript"
+                        onclick={handleActionSelect}
+                      ></lightning-menu-item>
+                    </template>
                   </lightning-button-menu>
                 </div>
               </div>
@@ -220,6 +227,13 @@
                         <lightning-menu-item
                           label="View transcript"
                           value="chat_history"
+                          onclick={handleActionSelect}
+                        ></lightning-menu-item>
+                      </template>
+                      <template lwc:if={record.enableACViewTranscript}>
+                        <lightning-menu-item
+                          label="View Transcript"
+                          value="ac_view_transcript"
                           onclick={handleActionSelect}
                         ></lightning-menu-item>
                       </template>

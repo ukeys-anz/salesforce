@@ -1,4 +1,5 @@
 import fetchDataForInteraction from "@salesforce/apex/InteractionSearchStringController.fetchDataForInteraction";
+import getAmazonConnectUrl from "@salesforce/apex/CTI_InteractionHandler.getAmazonConnectUrl";
 import INTERACTION_STATUS from "@salesforce/schema/Interaction.Status__c";
 import { getObjectInfo, getPicklistValues } from "lightning/uiObjectInfoApi";
 import { LightningElement, api, wire, track } from "lwc";
@@ -7,6 +8,7 @@ import { publish, MessageContext } from "lightning/messageService";
 import chatHistoryChannel from "@salesforce/messageChannel/ViewChatTopicHistory__c";
 import reinitiateChat from "@salesforce/apex/InitiateInteractionController.reinitiateChat";
 import hasOutboundChatPermission from "@salesforce/customPermission/ANZx_Outbound_Chat";
+import hasTwilioCTIAccess from "@salesforce/customPermission/Twilio_CTI_Access";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { CurrentPageReference } from "lightning/navigation";
 import INTERCATION_STATUS from "@salesforce/label/c.Interaction_Status";
@@ -52,6 +54,7 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
   page = 1;
   filterClass = "slds-hide";
   userRole;
+  amazonConnectUrl = "";
   statussToNotShowReplyToCustomer = [
     "Closed & Archive",
     "Active",
@@ -353,12 +356,17 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
     this.sortStatus = INTERCATION_STATUS.split(",");
     this.openMessage = this.pageRef?.state?.c__openMessage;
     this.statusValue = this.openMessage ? this.sortStatus : [];
+    this.fetchAmazonConnectUrl();
     this.getRecordsFromDB();
 
     this._originalColumns = this.fetchOriginalColumns(
       this.recordTypeDeveloperName
     );
     this._sortDirection = this.sortDirection;
+  }
+
+  async fetchAmazonConnectUrl() {
+    this.amazonConnectUrl = await getAmazonConnectUrl();
   }
 
   pageData = () => {
@@ -454,20 +462,30 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
       { label: "Reply To Customer", name: "ReplyToCustomer" }
     ];
     let viewTranscript = [{ label: "View Transcript", name: "ViewTranscript" }];
+    let acViewTranscript = [
+      { label: "View Transcript", name: "ACViewTranscript" }
+    ];
     let actions = [];
-
-    if (
-      !this.statussToNotShowReplyToCustomer.includes(row.Status__c) &&
-      hasOutboundChatPermission
-    ) {
-      actions = actions.concat(replyToCustomer);
-    }
-
     if (
       !row?.Actual_Topic_Formula__c?.includes("Confirmation of Payee") ||
       this.rolesToShowViewTranscriptOnCop.includes(this.userRole)
     ) {
-      actions = actions.concat(viewTranscript);
+      // Show View Transcript only if user has Twilio_CTI_Access
+      if (hasTwilioCTIAccess) {
+        actions = actions.concat(viewTranscript);
+      } else {
+        // Show View Transcript AC if user doesn't have Twilio_CTI_Access
+        actions = actions.concat(acViewTranscript);
+      }
+    }
+
+    // Only gate Reply To Customer with Twilio_CTI_Access (new requirement)
+    if (
+      !this.statussToNotShowReplyToCustomer.includes(row.Status__c) &&
+      hasOutboundChatPermission &&
+      hasTwilioCTIAccess
+    ) {
+      actions = actions.concat(replyToCustomer);
     }
     doneCallback(actions);
   }
@@ -510,6 +528,26 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
         chatHistoryChannel,
         message,
         "Error occurred while displaying related Chat History"
+      );
+    }
+
+    // Open Amazon Connect Transcript in new tab
+    if (selectedAction === "ACViewTranscript") {
+      this.openAmazonConnectTranscript(chatOrCallSid);
+    }
+  }
+
+  openAmazonConnectTranscript(chatOrCallSid) {
+    if (this.amazonConnectUrl && chatOrCallSid) {
+      const url = `https://${this.amazonConnectUrl}/contact-trace-records/details/${chatOrCallSid}`;
+      window.open(url, "_blank");
+    } else {
+      handleErrorShowToast(
+        this,
+        "Unable to open transcript",
+        "Missing Amazon Connect URL or Chat/Call SID",
+        "Missing Amazon Connect URL or Chat/Call SID",
+        "pester"
       );
     }
   }

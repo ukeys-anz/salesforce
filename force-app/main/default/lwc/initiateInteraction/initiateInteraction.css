@@ -25,21 +25,8 @@
   font-size: 15px;
 }
 
-.tabs_scoped__link {
-  width: 50%;
-}
-
-.slds-tabs_medium .slds-tabs_scoped__item {
-  width: 50%;
-  letter-spacing: 0.5px;
-}
-
 .message-area {
   --sds-c-textarea-sizing-min-height: 11rem;
-}
-
-.li {
-  cursor: pointer;
 }
 
 .button-display {

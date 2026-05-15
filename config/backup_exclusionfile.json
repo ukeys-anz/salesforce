@@ -37,5 +37,6 @@
   "Salesforce_Library_Settings__c": "all",
   "SecureLogEntry__c": "all",
   "User_Provisioning_Request__c": "all",
-  "UUID_Log_Entry__c": "all"
+  "UUID_Log_Entry__c": "all",
+  "amazonconnect__Amazon_Connect__c":"all"
 }

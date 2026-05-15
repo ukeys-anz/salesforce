@@ -1,43 +1,36 @@
 <template>
   <div class="slds-card" data-test-id="initiate-interact-card">
-    <div class="slds-tabs_scoped slds-tabs_medium">
+    <div>
       <template lwc:if={isLoaded}>
-        <ul class="slds-tabs_scoped__nav" role="tablist">
-          <template lwc:if={contactCustomer}>
-            <li class={contactTab} title="Contact" role="presentation">
-              <div
-                class="slds-tabs_scoped__link slds-text-align_center"
-                role="tab"
-                onclick={handleShowContactTabAndChildButton}
-              >
-                <lightning-icon
-                  class="dialing"
-                  icon-name="utility:dialing"
-                  alternative-text="Dialing"
-                  title="Dialing"
-                  size="small"
-                ></lightning-icon>
-                Contact Customer
-              </div>
-            </li>
-          </template>
-          <li class={dialTab} title="Dial" role="presentation">
-            <div
-              class="slds-tabs_scoped__link slds-text-align_center"
-              role="tab"
-              onclick={handleShowDialTab}
-            >
-              <lightning-icon
-                class="keypad"
-                icon-name="utility:keypad"
-                alternative-text="Keypad"
-                title="Keypad"
-                size="small"
-              ></lightning-icon>
-              Dial Number
-            </div>
-          </li>
-        </ul>
+        <template lwc:if={contactCustomer}>
+          <div
+            class="slds-text-align_center slds-p-around_small slds-text-title_bold"
+            onclick={handleShowContactTabAndChildButton}
+          >
+            <lightning-icon
+              class="dialing"
+              icon-name="utility:dialing"
+              alternative-text="Dialing"
+              title="Dialing"
+              size="small"
+            ></lightning-icon>
+            Contact Customer
+          </div>
+        </template>
+        <template lwc:if={showDialTab}>
+          <div
+            class="slds-text-align_center slds-p-around_small slds-text-title_bold"
+          >
+            <lightning-icon
+              class="keypad"
+              icon-name="utility:keypad"
+              alternative-text="Keypad"
+              title="Keypad"
+              size="small"
+            ></lightning-icon>
+            Dial Number
+          </div>
+        </template>
         <template lwc:if={showContactTab}>
           <div class="slds-m-around_small">
             <template lwc:if={templateOptions.length}>
@@ -51,63 +44,77 @@
             </template>
             <div>
               <template lwc:if={showParentContent}>
-                <template lwc:if={showMessageCustomer}>
-                  <template lwc:if={displayOutboundChat}>
-                    <div class="slds-align_absolute-center">
-                      <lightning-button
-                        data-id="message-customer"
-                        data-test-id="message-customer-button"
-                        variant="brand-outline"
-                        label="Message Customer"
-                        title="Message"
-                        onclick={handleShowChatWindow}
-                        icon-name="utility:chat"
-                        class="slds-p-around_x-small button-display"
-                      >
-                      </lightning-button>
-                    </div>
-                  </template>
-                  <template lwc:else>
-                    <div class="slds-align_absolute-center">
-                      <lightning-button
-                        data-id="message-customer"
-                        data-test-id="message-customer-button"
-                        variant="brand-outline"
-                        label="Message Customer"
-                        title="Message"
-                        icon-name="utility:chat"
-                        class="slds-p-around_x-small button-display"
-                        disabled
-                      >
-                      </lightning-button>
-                    </div>
-                  </template>
-                </template>
-                <div class="slds-align_absolute-center">
-                  <template lwc:if={callPhoneNumber}>
-                    <template lwc:if={displayOutboundDial}>
-                      <lightning-button
-                        data-id="call-customer"
-                        data-test-id="call-customer-button"
-                        variant="brand-outline"
-                        label={callPhoneNumber}
-                        title="Call"
-                        onclick={handleCallCustomer}
-                        icon-name="utility:call"
-                        class="slds-p-around_x-small button-display"
-                      >
-                      </lightning-button>
+                <template lwc:if={isTwilioUser}>
+                  <template lwc:if={showMessageCustomer}>
+                    <template lwc:if={displayOutboundChat}>
+                      <div class="slds-align_absolute-center">
+                        <lightning-button
+                          data-id="message-customer"
+                          data-test-id="message-customer-button"
+                          variant="brand-outline"
+                          label="Message Customer"
+                          title="Message"
+                          onclick={handleShowChatWindow}
+                          icon-name="utility:chat"
+                          class="slds-p-around_x-small button-display"
+                        >
+                        </lightning-button>
+                      </div>
                     </template>
                     <template lwc:else>
+                      <div class="slds-align_absolute-center">
+                        <lightning-button
+                          data-id="message-customer"
+                          data-test-id="message-customer-button"
+                          variant="brand-outline"
+                          label="Message Customer"
+                          title="Message"
+                          icon-name="utility:chat"
+                          class="slds-p-around_x-small button-display"
+                          disabled
+                        >
+                        </lightning-button>
+                      </div>
+                    </template>
+                  </template>
+                </template>
+
+                <div class="slds-align_absolute-center">
+                  <template lwc:if={callPhoneNumber}>
+                    <template lwc:if={isTwilioUser}>
+                      <template lwc:if={displayOutboundDial}>
+                        <lightning-button
+                          data-id="call-customer"
+                          data-test-id="call-customer-button"
+                          variant="brand-outline"
+                          label={callPhoneNumber}
+                          title="Call"
+                          onclick={handleCallCustomer}
+                          icon-name="utility:call"
+                          class="slds-p-around_x-small button-display"
+                        >
+                        </lightning-button>
+                      </template>
+                    </template>
+                    <template lwc:else>
+                      <div class="slds-hide">
+                        <lightning-click-to-dial
+                          data-id="ac-dialer-contact"
+                          value={phoneNumber}
+                          record-id={recordId}
+                          params="origin=LWC_Contact_Tab"
+                        ></lightning-click-to-dial>
+                      </div>
+
                       <lightning-button
-                        data-id="call-customer"
-                        data-test-id="call-customer-button"
+                        data-id="call-customer-ac"
+                        data-test-id="call-customer-button-ac"
                         variant="brand-outline"
                         label={callPhoneNumber}
                         title="Call"
+                        onclick={handleCallCustomerAC}
                         icon-name="utility:call"
                         class="slds-p-around_x-small button-display"
-                        disabled
                       >
                       </lightning-button>
                     </template>
@@ -162,28 +169,41 @@
                 >
               </div>
               <div class="slds-m-bottom_x-small slds-align_absolute-center">
-                <template lwc:if={displayOutboundDial}>
+                <template lwc:if={isTwilioUser}>
+                  <template lwc:if={displayOutboundDial}>
+                    <lightning-button
+                      data-id="call-now"
+                      variant="brand"
+                      label="Call Now"
+                      title="Call"
+                      onclick={handleCallNow}
+                      icon-name="utility:call"
+                      class="slds-p-around_x-small button-display"
+                      disabled={invalidNumber}
+                    >
+                    </lightning-button>
+                  </template>
+                </template>
+
+                <template lwc:else>
+                  <div class="slds-hide">
+                    <lightning-click-to-dial
+                      data-id="ac-dialer-dial"
+                      value={numberToDial}
+                      record-id={recordId}
+                      params="origin=LWC_Dial_Tab"
+                    ></lightning-click-to-dial>
+                  </div>
+
                   <lightning-button
-                    data-id="call-now"
+                    data-id="call-now-ac"
                     variant="brand"
                     label="Call Now"
                     title="Call"
-                    onclick={handleCallNow}
+                    onclick={handleCallNowAC}
                     icon-name="utility:call"
                     class="slds-p-around_x-small button-display"
                     disabled={invalidNumber}
-                  >
-                  </lightning-button>
-                </template>
-                <template lwc:else>
-                  <lightning-button
-                    data-id="call-now"
-                    variant="brand"
-                    label="Call Now"
-                    title="Call"
-                    icon-name="utility:call"
-                    class="slds-p-around_x-small button-display"
-                    disabled
                   >
                   </lightning-button>
                 </template>

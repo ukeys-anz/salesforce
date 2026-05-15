@@ -10,7 +10,7 @@
                         <valueListItems>
                             <value>Interaction.Reply_To_Customer</value>
                             <visibilityRule>
-                                <booleanFilter>1 AND 2 AND 3 AND 4 AND 5</booleanFilter>
+                                <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.Status__c}</leftValue>
                                     <operator>NE</operator>
@@ -36,12 +36,17 @@
                                     <operator>EQUAL</operator>
                                     <rightValue>true</rightValue>
                                 </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.Twilio_CTI_Access}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>Interaction.View_Transcript</value>
                             <visibilityRule>
-                                <booleanFilter>((1 AND 6) AND ( 2 AND 7)) OR (3 OR 4 OR 5)</booleanFilter>
+                                <booleanFilter>(((1 AND 6) AND ( 2 AND 7) OR (3 OR 4 OR 5) ) AND 8)</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.Actual_Topic_1__r.Tag__c}</leftValue>
                                     <operator>NE</operator>
@@ -76,6 +81,57 @@
                                     <leftValue>{!Record.Actual_Topic_2__r.Tag__c}</leftValue>
                                     <operator>NE</operator>
                                     <rightValue>Confirmation of Payee Opt-Out</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.Twilio_CTI_Access}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>CustomButton.Interaction.AC_View_Transcript</value>
+                            <visibilityRule>
+                                <booleanFilter>(((1 AND 6) AND ( 2 AND 7) OR (3 OR 4 OR 5) ) AND 8)</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.Actual_Topic_1__r.Tag__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Confirmation of Payee Opt-In</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Actual_Topic_2__r.Tag__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Confirmation of Payee Opt-In</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Quality_Analyst</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Join_Lead</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Quality_Capability_Lead</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Actual_Topic_1__r.Tag__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Confirmation of Payee Opt-Out</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Actual_Topic_2__r.Tag__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Confirmation of Payee Opt-Out</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.Twilio_CTI_Access}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>false</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
@@ -233,6 +289,16 @@
                 <identifier>RecordTransfer_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Status__c</fieldItem>
+                <identifier>RecordStatus_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-33ee8b5b-84cc-4bd0-b896-c968af65e4e9</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -265,6 +331,23 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Authentication_Method__c</fieldItem>
                 <identifier>RecordAuthentication_Method_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Send_Survey__c</fieldItem>
+                <identifier>RecordSurvey_Sent_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.Twilio_CTI_Access}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>false</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-f5ba9402-62f0-4a37-9c53-d8950e68f88f</name>
@@ -389,6 +472,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Coaching_Summary__c</fieldItem>
                 <identifier>RecordCoaching_Summary_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.Twilio_CTI_Access}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-ea0a944a-5f31-4dee-aeb6-a9336699a965</name>
@@ -649,7 +739,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Twilio Details</value>
+                    <value>Console Details</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>customTab2</identifier>

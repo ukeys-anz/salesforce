@@ -116,6 +116,11 @@
                 <default>false</default>
                 <label>Walk In</label>
             </value>
+            <value>
+                <fullName>Ended</fullName>
+                <default>false</default>
+                <label>Ended</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

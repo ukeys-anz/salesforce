@@ -5,11 +5,12 @@ import { publish, MessageContext } from "lightning/messageService";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import chatHistoryChannel from "@salesforce/messageChannel/ViewChatTopicHistory__c";
 import reinitiateChat from "@salesforce/apex/InitiateInteractionController.reinitiateChat";
+import getAmazonConnectUrl from "@salesforce/apex/CTI_InteractionHandler.getAmazonConnectUrl";
 import hasOutboundChatPermission from "@salesforce/customPermission/ANZx_Outbound_Chat";
 import getInteractionRecord from "@salesforce/apex/InteractionRecordServiceController.getInteractionRecord";
 import USER_ID from "@salesforce/user/Id";
 import USER_ROLE from "@salesforce/schema/User.UserRole.DeveloperName";
-
+import hasTwilioCTIAccess from "@salesforce/customPermission/Twilio_CTI_Access";
 // Util methods
 import { handleErrorShowToast } from "c/utils";
 
@@ -32,6 +33,7 @@ export default class InteractionRecordService extends NavigationMixin(
     "Quality_Capability_Lead"
   ];
   chatOrCallSid;
+  amazonConnectUrl = "";
   showInteractionRecords = false;
   totalInteractionRecords = 0;
   interactionrecords = {
@@ -41,7 +43,8 @@ export default class InteractionRecordService extends NavigationMixin(
   userRole;
 
   get displayReinitiateChat() {
-    return hasOutboundChatPermission;
+    // Show "Reply to Customer" only when user has both ANZx_Outbound_Chat and Twilio_CTI_Access
+    return hasOutboundChatPermission && hasTwilioCTIAccess;
   }
 
   get showMessage() {
@@ -75,6 +78,15 @@ export default class InteractionRecordService extends NavigationMixin(
 
   @wire(MessageContext)
   messageContext;
+
+  connectedCallback() {
+    this.fetchAmazonConnectUrl();
+  }
+
+  async fetchAmazonConnectUrl() {
+    this.amazonConnectUrl = await getAmazonConnectUrl();
+  }
+
   //This method will get the interactions associated to the parent record example Account, case, lead, coaching summary
   @wire(getInteractionRecord, {
     strParentId: "$strParentId",
@@ -189,6 +201,26 @@ export default class InteractionRecordService extends NavigationMixin(
         "Error occurred while displaying related Chat History"
       );
     }
+
+    // Open Amazon Connect Transcript in new tab
+    if (selectedAction === "ac_view_transcript") {
+      this.openAmazonConnectTranscript();
+    }
+  }
+
+  openAmazonConnectTranscript() {
+    if (this.amazonConnectUrl && this.chatOrCallSid) {
+      const url = `https://${this.amazonConnectUrl}/contact-trace-records/details/${this.chatOrCallSid}`;
+      window.open(url, "_blank");
+    } else {
+      handleErrorShowToast(
+        this,
+        "Unable to open transcript",
+        "Missing Amazon Connect URL or Chat/Call SID",
+        "Missing Amazon Connect URL or Chat/Call SID",
+        "pester"
+      );
+    }
   }
 
   publishLightningMessage(msgChannel, message, errorText) {
@@ -225,9 +257,12 @@ export default class InteractionRecordService extends NavigationMixin(
         !record?.actualTopic?.includes("Confirmation of Payee") ||
         this.rolesToShowViewTranscriptOnCop.includes(this.userRole)
       ) {
-        record.enableViewTranscript = true;
+        record.enableViewTranscript = hasTwilioCTIAccess;
+        // Show AC View Transcript only if user doesn't have Twilio_CTI_Access
+        record.enableACViewTranscript = !hasTwilioCTIAccess;
       } else {
         record.enableViewTranscript = false;
+        record.enableACViewTranscript = false;
       }
       if (record.recordType === "General") {
         record.boolCallRT = true;

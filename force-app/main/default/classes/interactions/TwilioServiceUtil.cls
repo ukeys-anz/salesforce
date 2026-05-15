@@ -123,6 +123,7 @@ public with sharing class TwilioServiceUtil {
         interactionsList
       )
       .equals(Interaction.RecordTypeId, CALL_MESSAGE_RT_ID_SET)
+      .isNull(Interaction.TwilioDetailsID__c)
       .toList();
 
     for (Interaction newInteraction : interactionListForTwilioDetailsCreation) {

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <name>Twilio_CTI_Access</name>
+        <enabled>true</enabled>
+    </customPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Twilio CTI Access</label>
+</PermissionSet>

@@ -4,6 +4,7 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>Business_Admin</label>
     <permissionSets>Action_Plan_Template_Edit</permissionSets>
+    <permissionSets>amazonconnect__AC_Administrator</permissionSets>
     <permissionSets>ANZx_COP_View</permissionSets>
     <permissionSets>ANZx_Update_Confirmation_of_Payee</permissionSets>
     <permissionSets>Author_Reports_and_Dashboards</permissionSets>

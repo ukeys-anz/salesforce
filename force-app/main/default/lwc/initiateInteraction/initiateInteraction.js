@@ -9,6 +9,7 @@ import getTemplateDetails from "@salesforce/apex/PushToAppController.getTemplate
 import voiceChannel from "@salesforce/messageChannel/InitiateOutboundCall__c";
 import hasOutboundChatPermission from "@salesforce/customPermission/ANZx_Outbound_Chat";
 import hasOutboundDialPermission from "@salesforce/customPermission/ANZx_Outbound_Dialling";
+import hasTwilioCTIAccess from "@salesforce/customPermission/Twilio_CTI_Access";
 
 import { handleErrorShowToast } from "c/utils";
 
@@ -21,16 +22,11 @@ import CS_LEAD from "@salesforce/schema/Coaching_Summary__c.Lead__c";
 import LEAD_MP from "@salesforce/schema/Lead.MobilePhone";
 import RESI_LOAN_APPLICATION_ACCOUNTID from "@salesforce/schema/ResidentialLoanApplication.AccountId";
 
-const NORMAL_TAB = "slds-tabs_scoped__item";
-const ACTIVE_TAB = "slds-tabs_scoped__item slds-is-active";
-
 export default class InitiateInteraction extends LightningElement {
   showContactTab;
   showDialTab = true;
   showParentContent = true;
   showChatWindow;
-  contactTab = NORMAL_TAB;
-  dialTab = ACTIVE_TAB;
   phoneNumber = "";
   messageToSend;
   numberToDial;
@@ -68,6 +64,10 @@ export default class InitiateInteraction extends LightningElement {
 
   get displayOutboundDial() {
     return hasOutboundDialPermission;
+  }
+
+  get isTwilioUser() {
+    return hasTwilioCTIAccess;
   }
 
   get templateOptions() {
@@ -181,8 +181,6 @@ export default class InitiateInteraction extends LightningElement {
     this.showParentContent = true;
     this.showDialTab = false;
     this.showChatWindow = false;
-    this.contactTab = ACTIVE_TAB;
-    this.dialTab = NORMAL_TAB;
     this.remainingCharMsg = "1000 characters remaining";
   }
 
@@ -195,10 +193,8 @@ export default class InitiateInteraction extends LightningElement {
 
   handleShowDialTab() {
     this.showContactTab = false;
-    this.showDialTab = true;
+    this.showDialTab = false;
     this.showChatWindow = false;
-    this.contactTab = NORMAL_TAB;
-    this.dialTab = ACTIVE_TAB;
   }
 
   handleShowChatWindow() {
@@ -243,6 +239,32 @@ export default class InitiateInteraction extends LightningElement {
         "Oops, we couldn't connect your call. Please try again."
       );
     }
+  }
+
+  async triggerAmazonConnectDialer(dialerId) {
+    try {
+      const dialer = this.template.querySelector(`[data-id="${dialerId}"]`);
+      if (dialer) {
+        dialer.click();
+      }
+    } catch (error) {
+      const errorMessage = error.body?.message || this.outboundError;
+      handleErrorShowToast(
+        this,
+        this.outboundError,
+        error,
+        errorMessage,
+        "pester"
+      );
+    }
+  }
+
+  async handleCallCustomerAC() {
+    await this.triggerAmazonConnectDialer("ac-dialer-contact");
+  }
+
+  async handleCallNowAC() {
+    await this.triggerAmazonConnectDialer("ac-dialer-dial");
   }
 
   publishLightningMessage(msgChannel, message, errorText) {
