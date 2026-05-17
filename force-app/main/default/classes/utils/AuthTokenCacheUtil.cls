@@ -9,16 +9,18 @@ public with sharing class AuthTokenCacheUtil {
   private final static String SESSIONPART = 'local.SessionAzureTokens.';
   @TestVisible
   private final static String STAFFPART = 'local.ForgeToken.';
-
+  private static final UserInfoRepository REPO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
+  private static final AuthTokenCacheUtilRepo AUTH_REPO = (AuthTokenCacheUtilRepo) Lib_InstanceProvider.forType(
+    AuthTokenCacheUtilRepo.class
+  );
   private static Boolean ssoNotConfigured {
     get {
       if (ssoNotConfigured != null) {
         return ssoNotConfigured;
       }
-      UserInfoRepository repo = (UserInfoRepository) Lib_InstanceProvider.forType(
-        UserInfoRepository.class
-      );
-      return ssoNotConfigured = repo.checkSsoNotConfigured();
+      return ssoNotConfigured = REPO.checkSsoNotConfigured();
     }
     set;
   }
@@ -71,7 +73,7 @@ public with sharing class AuthTokenCacheUtil {
   ) {
     if (
       !VALID_PROFILES_SET.contains(u.Profile.Name) &&
-      !PermissionUtils.hasPermissionSet(u.Id, 'Azure_Token')
+      !checkUserCustomPermission('AzureTokenCache', u.Id)
     ) {
       return;
     }
@@ -97,7 +99,7 @@ public with sharing class AuthTokenCacheUtil {
   private static void storeAzureSessionTokens(Id userId, String profileName) {
     if (
       !VALID_PROFILES_SET.contains(profileName) &&
-      !FeatureManagement.checkPermission('AzureTokenCache')
+      !REPO.checkCustomPermission('AzureTokenCache')
     ) {
       return;
     }
@@ -496,5 +498,37 @@ public with sharing class AuthTokenCacheUtil {
         usedCapacity +
         '% of allocated capacity.'
     );
+  }
+
+  /**
+   * @description This is used to check if user has custom permission assigned
+   * @param customPermission String custom permission name
+   * @param userId Id of the User
+   * @return Boolean check for custom permission is assigned
+   */
+  private static Boolean checkUserCustomPermission(
+    String customPermission,
+    String userId
+  ) {
+    List<SetupEntityAccess> listSetupEntityAccess = AUTH_REPO.getPermissionSetWithCustomPermission(
+      customPermission
+    );
+    Set<Id> permissionSetWithCustomPermission = ListUtil.getIds(
+      listSetupEntityAccess,
+      SetupEntityAccess.ParentId
+    );
+    List<PermissionSetGroupComponent> listPermissionSetGroupComponent = AUTH_REPO.getPermissionSetGroupFromPS(
+      permissionSetWithCustomPermission
+    );
+    Set<Id> permissionSetGroupFromPS = ListUtil.getIds(
+      listPermissionSetGroupComponent,
+      PermissionSetGroupComponent.PermissionSetGroupId
+    );
+    return (!AUTH_REPO.listOfPsetAssignmentCustomPermission(
+        userId,
+        permissionSetWithCustomPermission,
+        permissionSetGroupFromPS
+      )
+      .isEmpty());
   }
 }
