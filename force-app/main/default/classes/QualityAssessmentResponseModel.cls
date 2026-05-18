@@ -4,9 +4,13 @@
  * @group Models
  */
 public class QualityAssessmentResponseModel extends CalloutModel {
+  @AuraEnabled
   public String status;
+  @AuraEnabled
   public Integer httpsStatusCode;
+  @AuraEnabled
   public String qualityAssessmentId;
+  @AuraEnabled
   public String message;
 
   /**
