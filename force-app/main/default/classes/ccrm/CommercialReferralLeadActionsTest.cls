@@ -1098,4 +1098,31 @@ public with sharing class CommercialReferralLeadActionsTest {
       'Access should be upgraded to Edit'
     );
   }
+  @isTest
+  static void publishReferralStatusUpdateEventsTest() {
+    registerMocks();
+
+    Id leadId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    Lead leadRecord = new Lead(
+      Id = leadId,
+      External_Id__c = 'EXT-123',
+      Referral_Status__c = 'In Progress'
+    );
+
+    List<Lead> records = new List<Lead>{ leadRecord };
+    Map<Id, Lead> oldMap = new Map<Id, Lead>{ leadId => leadRecord };
+
+    Test.startTest();
+    CommercialReferralLeadActions.publishReferralStatusUpdateEvents(
+      records,
+      oldMap
+    );
+    Test.stopTest();
+
+    Assert.isTrue(
+      CloudEventController.cloudEvents == null ||
+      CloudEventController.cloudEvents.isEmpty(),
+      'No events should be published when status remains unchanged'
+    );
+  }
 }

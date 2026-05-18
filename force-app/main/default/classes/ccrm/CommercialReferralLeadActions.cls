@@ -672,4 +672,43 @@ public with sharing class CommercialReferralLeadActions {
     }
     return leadShareList;
   }
+
+  /**
+   * @description This is used to publish cloud event when referral status changes to sync with iknow
+   * @name publishReferralStatusUpdateEvents
+   * @param leads List of lead records
+   * @param oldMap Map of old lead records
+   */
+  public static void publishReferralStatusUpdateEvents(
+    List<Lead> leads,
+    Map<Id, Lead> oldMap
+  ) {
+    try {
+      List<Lead> filteredReferralLeadsList = ListUtil.filter(leads, oldMap)
+        .isNotNull(Lead.External_Id__c)
+        .changed(Lead.Referral_Status__c)
+        .toList();
+
+      if (filteredReferralLeadsList.isEmpty()) {
+        return;
+      }
+
+      List<CloudEventModel> cloudEvents = ReferralCloudEventModelController.publishLeadReferralStatusUpdateEvents(
+        filteredReferralLeadsList,
+        oldMap
+      );
+
+      if (!cloudEvents.isEmpty()) {
+        CloudEventController.publishCloudEvents(cloudEvents);
+      }
+    } catch (Exception e) {
+      Logger.error(
+          'Error while publishing referral status update cloud events' +
+          leads[0].id,
+          e
+        )
+        .save();
+      throw e;
+    }
+  }
 }

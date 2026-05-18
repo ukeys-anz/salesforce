@@ -142,5 +142,9 @@ public with sharing class CommercialOpportunityTriggerHandler extends Lib_Trigge
       (List<Opportunity>) records,
       (Map<Id, Opportunity>) oldMap
     );
+    CommercialOpportunityActions.publishReferralStatusUpdateEvents(
+      records,
+      (Map<Id, Opportunity>) oldMap
+    );
   }
 }

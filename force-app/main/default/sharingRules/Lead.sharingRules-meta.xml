@@ -58,6 +58,43 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Commercial_Lead_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This is to provide read access to all ccrm users to Leads.</description>
+        <label>Commercial Lead Read Only</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
+        </sharedTo>
+        <booleanFilter>1</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Commercial CRM Lead</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Commercial_Admin_Lead_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This is for Export failed Referrals list view should visible for business admin.</description>
+        <label>Commercial Admin Lead Read Only</label>
+        <sharedTo>
+            <role>Commercial_Admin</role>
+        </sharedTo>
+        <booleanFilter>1 AND 2</booleanFilter>
+        <criteriaItems>
+            <field>Referral_Status__c</field>
+            <operation>equals</operation>
+            <value>Export Failed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Referral</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>MLCRM_Support_Team_Lead_Sharing</fullName>
         <accessLevel>Edit</accessLevel>

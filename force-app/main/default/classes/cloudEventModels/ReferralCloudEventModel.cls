@@ -52,6 +52,32 @@ public without sharing class ReferralCloudEventModel extends CloudEventModel {
   }
 
   /**
+   * @description Constructor for Status Updates (Used by Controller)
+   * @param externalId unique identifier for external system
+   * @param systemData system data
+   * @param mappedStatus current referral status
+   * @param opportunityStage current opportunity stage
+   **/
+  public ReferralCloudEventModel(
+    String externalId,
+    CloudEventModel.CloudEventSystemModel systemData,
+    String mappedStatus,
+    String opportunityStage
+  ) {
+    super();
+    this.systemData = systemData;
+    this.ce_source = REFERRAL_CE_SOURCE;
+    this.ce_subject = 'ExternalId/' + externalId;
+    this.ce_partitionkey = 'ExternalId/' + externalId;
+    this.ce_type = System.Label.CCRM_REFERRAL_TO_IKNOW_EVENT_CE_TYPE_FOR_UPDATE;
+    this.ce_data = new ReferralCloudEventDataModel(
+      externalId,
+      mappedStatus,
+      opportunityStage
+    );
+  }
+
+  /**
    * @description  : Referral Cloud Event Data Model
    */
   public virtual class ReferralCloudEventDataModel extends CloudEventModel.CloudEventDataModel {
@@ -107,6 +133,33 @@ public without sharing class ReferralCloudEventModel extends CloudEventModel {
      * @description  productFUM --> Lead.FinServ__PotentialValue__c
      */
     public String productFUM { get; set; }
+    /**
+     * @description  opportunityId tracking
+     */
+    public String opportunityId { get; set; }
+    /**
+     * @description  sfReferralStatus mapping
+     */
+    public String sfReferralStatus { get; set; }
+    /**
+     * @description  sfSalesStage mapping
+     */
+    public String sfSalesStage { get; set; }
+
+    /** * @description Constructor for Status Updates
+     * @param externalId external identifier
+     * @param status referral status
+     * @param stage sales stage
+     **/
+    public ReferralCloudEventDataModel(
+      String externalId,
+      String status,
+      String stage
+    ) {
+      this.opportunityId = externalId;
+      this.sfReferralStatus = status;
+      this.sfSalesStage = stage;
+    }
 
     /**
      * @description  Constructor for ReferralCloudEventDataModel
