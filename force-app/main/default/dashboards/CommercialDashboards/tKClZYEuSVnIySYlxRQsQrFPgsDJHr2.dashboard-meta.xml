@@ -20,7 +20,7 @@
                 <decimalPrecision>0</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
-                <header>Expiring Leads to Convert</header>
+                <header>Leads to Convert</header>
                 <indicatorBreakpoint1>33.0</indicatorBreakpoint1>
                 <indicatorBreakpoint2>67.0</indicatorBreakpoint2>
                 <indicatorHighColor>#16325C</indicatorHighColor>
@@ -101,7 +101,6 @@
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#CA8501</indicatorMiddleColor>
-                <metricLabel>No Activity for 2 weeks - Reach Out Now</metricLabel>
                 <report>CommercialReports/Opportunities_To_Action_2hT</report>
                 <showRange>false</showRange>
             </dashboardComponent>
