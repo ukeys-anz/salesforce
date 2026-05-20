@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSrcDataModelFieldMap xmlns="http://soap.sforce.com/2006/04/metadata">
+    <filterApplied>false</filterApplied>
+    <masterLabel>Big_Query_AF_KitHistorical_Files_Summarybus_cust_nameWholeOfCustomerbus_cust_namehNqavKwkTvfUSxU</masterLabel>
+    <sourceField>WholeOfCustomer_Insights2.bus_cust_name__c</sourceField>
+    <targetField>WholeOfCustomer__dlm.bus_cust_name__c</targetField>
+    <templateVersion>1</templateVersion>
+    <versionNumber>1.0</versionNumber>
+</DataSrcDataModelFieldMap>

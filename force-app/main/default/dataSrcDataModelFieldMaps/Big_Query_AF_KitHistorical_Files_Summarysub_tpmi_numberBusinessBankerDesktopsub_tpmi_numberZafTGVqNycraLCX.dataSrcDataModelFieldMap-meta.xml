@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSrcDataModelFieldMap xmlns="http://soap.sforce.com/2006/04/metadata">
+    <filterApplied>false</filterApplied>
+    <masterLabel>Big_Query_AF_KitHistorical_Files_Summarysub_tpmi_numberBusinessBankerDesktopsub_tpmi_numberZafTGVqNycraLCX</masterLabel>
+    <sourceField>BusinessBankerDesktop_Insights2.sub_tpmi_number__c</sourceField>
+    <targetField>BusinessBankerDesktop__dlm.sub_tpmi_number__c</targetField>
+    <templateVersion>1</templateVersion>
+    <versionNumber>1.0</versionNumber>
+</DataSrcDataModelFieldMap>

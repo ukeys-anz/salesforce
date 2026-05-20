@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataKitObjectDependency xmlns="http://soap.sforce.com/2006/04/metadata">
+    <dataPackageKitDef>Big_Query_AF_Kit</dataPackageKitDef>
+    <developerName>Historical_Files_Summary5</developerName>
+    <masterLabel>Historical Files Summary</masterLabel>
+    <sourceObject>WholeOfCustomer_Insights_1779242274401</sourceObject>
+    <sourceObjectType>DataStreamTemplate</sourceObjectType>
+    <targetObject>Historical_Files_Summary</targetObject>
+</DataKitObjectDependency>

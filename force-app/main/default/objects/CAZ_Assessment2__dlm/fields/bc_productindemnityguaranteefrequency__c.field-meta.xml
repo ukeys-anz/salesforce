@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>bc_productindemnityguaranteefrequency__c</fullName>
+    <encryptionScheme>None</encryptionScheme>
+    <label>Product Indemnity Guarantee Frequency</label>
+    <length>60</length>
+    <mktDataModelFieldAttributes>
+        <definitionCreationType>Custom</definitionCreationType>
+        <isDynamicLookup>false</isDynamicLookup>
+        <labelOverride>Product Indemnity Guarantee Frequency</labelOverride>
+        <masterLabel>Product Indemnity Guarantee Frequency</masterLabel>
+        <usageTag>None</usageTag>
+    </mktDataModelFieldAttributes>
+    <required>false</required>
+    <type>Text</type>
+</CustomField>
