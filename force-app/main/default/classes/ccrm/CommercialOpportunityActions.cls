@@ -8,6 +8,8 @@ public with sharing class CommercialOpportunityActions {
   private static final String OPP_WON = 'Opportunity Won';
   @testVisible
   private static final String OPP_LOST = 'Opportunity Lost';
+  @testVisible
+  private static final String OPP_CANCELLED = 'Cancelled';
   public static final String CLOSE_DATE_FIELD_NAME = 'CloseDate';
   public static final String INVALID_CLOSE_DATE_ERROR = 'Please Log Close Date: Click on the "Log Close Date" button and enter a Closing date (i.e. expected settlement date)';
   public static final String ACCOUNT_ID_FIELD_NAME = 'AccountId';
@@ -18,6 +20,11 @@ public with sharing class CommercialOpportunityActions {
   private static final Set<SObjectField> OPP_FIELDS = new Set<SObjectField>{
     Opportunity.CLG__c,
     Opportunity.CLG_ID__c
+  };
+  private static final Set<String> TARGET_REFERRAL_STAGES = new Set<String>{
+    OPP_WON,
+    OPP_LOST,
+    OPP_CANCELLED
   };
   private static final String CCRM_PROFILE = 'ANZ CCRM Standard User';
 
@@ -315,7 +322,7 @@ public with sharing class CommercialOpportunityActions {
         ? MULTIPLE_CUSTOMER_NEEDS
         : opp.Customer_Needs__c;
 
-      oppName = getOpportunityName(opp, oldMap);
+      oppName = CommercialOpportunityHelper.getOpportunityName(opp, oldMap);
       updatedOppName = CommercialOpportunityHelper.generateOpportunityName(
         opp.Opp_Id__c,
         (opp.Lead_Converted__c && oldMap == null) ? customerNeeds : null,
@@ -325,38 +332,6 @@ public with sharing class CommercialOpportunityActions {
       updatedOppsNameMap.put(opp.Id, updatedOppName);
     }
     return updatedOppsNameMap;
-  }
-
-  @testVisible
-  private static String getOpportunityName(
-    Opportunity opp,
-    Map<Id, Opportunity> oldMap
-  ) {
-    String oppoName = '';
-    String oppName;
-    String customerNeeds;
-
-    if (oldMap == null && opp.Lead_Converted__c) {
-      return null;
-    }
-    if (oldMap == null && !opp.Lead_Converted__c) {
-      return opp.Name;
-    }
-    oppName = opp?.Name;
-    customerNeeds = opp?.Customer_Needs__c;
-    Opportunity oldOpp = oldMap.get(opp.Id);
-    String oldCustomerNeeds = oldOpp?.Customer_Needs__c;
-
-    //Replace new customer needs and opp Id with blank
-    oppoName = oppName.replace(opp?.Opp_Id__c, '');
-    oppoName = oppoName.replace(customerNeeds, '');
-
-    //Replace old if it has customer needs and opp Id with blank
-    oppoName = oppoName.replace(oldCustomerNeeds, '');
-    oppoName = oppoName.contains(MULTIPLE_CUSTOMER_NEEDS)
-      ? oppoName.replace(MULTIPLE_CUSTOMER_NEEDS, '')
-      : oppoName;
-    return oppoName.trim();
   }
 
   /**
@@ -589,7 +564,7 @@ public with sharing class CommercialOpportunityActions {
       return;
     }
 
-    List<Opportunity> oppsWithResetPreferredFranchise = ListUtil.setField(
+    ListUtil.setField(
       oppsToResetPreferredFranchise,
       Opportunity.Preferred_Franchise__c,
       null
@@ -696,6 +671,60 @@ public with sharing class CommercialOpportunityActions {
       }
     }
     return afShareList;
+  }
+
+  /**
+   * @description This is used to publish cloud event when opportunity stage changes to sync with iknow
+   * @name publishReferralStatusUpdateEvents
+   * @param records List of opportunity records
+   * @param oldMap Map of old opportunity records
+   */
+  public static void publishReferralStatusUpdateEvents(
+    List<Opportunity> records,
+    Map<Id, Opportunity> oldMap
+  ) {
+    try {
+      List<Opportunity> filteredOppList = ListUtil.filter(records, oldMap)
+        .changedTo(Opportunity.StageName, TARGET_REFERRAL_STAGES)
+        .isNotNull(Opportunity.Lead_Id__c)
+        .toList();
+
+      if (filteredOppList.isEmpty()) {
+        return;
+      }
+
+      Set<String> leadIds = ListUtil.getStrings(
+        filteredOppList,
+        Opportunity.Lead_Id__c
+      );
+      Set<Id> oppIds = ListUtil.getIds(filteredOppList, Opportunity.Id);
+      List<Lead> validReferrals = OPP_REPOSITORY.getReferralLeadDetails(
+        leadIds,
+        oppIds
+      );
+      if (validReferrals.isEmpty()) {
+        return;
+      }
+      Map<String, Lead> mapValidReferrals = (Map<String, Lead>) ListUtil.mapBy(
+        validReferrals,
+        Lead.Lead_Auto_Number__c
+      );
+
+      List<CloudEventModel> cloudEvents = ReferralCloudEventModelController.publishOppReferralStatusUpdateEvents(
+        filteredOppList,
+        mapValidReferrals
+      );
+      if (!cloudEvents.isEmpty()) {
+        CloudEventController.publishCloudEvents(cloudEvents);
+      }
+    } catch (Exception e) {
+      Logger.error(
+          'Error while publishing opportunity status update' + records[0].Id,
+          e
+        )
+        .save();
+      throw e;
+    }
   }
 
   /**
