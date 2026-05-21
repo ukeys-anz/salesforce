@@ -40,14 +40,18 @@ public class IDRQualityAssessmentRepo extends RepositoryBase {
       response.body
     );
     if (
-      responseModel.httpsStatusCode == 400 &&
+      responseModel.httpsStatusCode == 500 ||
+      (responseModel.httpsStatusCode == 400 &&
       !responseModel
         ?.message.containsIgnoreCase(
           QualityAssessmentActions.EVALUATION_TYPE_DUPLICATE_ERROR
-        )
+        ))
     ) {
       Logger.error(
-        'C&Q Ai Evaluation error - ' + '\n' + responseModel?.message
+        'C&Q Ai Evaluation error - statusCode ' +
+          responseModel?.httpsStatusCode +
+          '\n' +
+          responseModel?.message
       );
       Logger.saveLog();
       throw new ErrorWhileQACreationException(responseModel?.message);
@@ -58,7 +62,8 @@ public class IDRQualityAssessmentRepo extends RepositoryBase {
         ?.message.containsIgnoreCase('No QA record found for this case')
     ) {
       Logger.error(
-        'C&Q Ai Evaluation error - ' +
+        'C&Q Ai Evaluation error - statusCode ' +
+          responseModel?.httpsStatusCode +
           '\n' +
           'No A.I. evaluation available. Enter a different Complaint ID to continue.'
       );
@@ -80,12 +85,13 @@ public class IDRQualityAssessmentRepo extends RepositoryBase {
      * @param response response
      */
     public IntegrationIssueException(HttpCalloutResponse response) {
-      this(response.error.getMessage());
       Logger.error(
-          'HTTP ' + response.statusCode + ' Error from QA Service',
-          response.error
-        )
-        .save();
+        'C&Q Ai Evaluation IntegrationIssueException - statusCode ' +
+          response.statusCode +
+          '\n' +
+          response.error.getMessage()
+      );
+      Logger.saveLog();
     }
   }
   /**
@@ -97,14 +103,16 @@ public class IDRQualityAssessmentRepo extends RepositoryBase {
      * @param response response
      */
     public TimeoutException(HttpCalloutResponse response) {
-      this(response.error.getMessage());
       Logger.error(
-          'HTTP ' + response.statusCode + ' Timeout QA Service',
-          response.error
-        )
-        .save();
+        'C&Q Ai Evaluation TimeoutException - statusCode ' +
+          response.statusCode +
+          '\n' +
+          response.error.getMessage()
+      );
+      Logger.saveLog();
     }
   }
+
   /**
    * @description custom exception
    */
@@ -114,14 +122,13 @@ public class IDRQualityAssessmentRepo extends RepositoryBase {
      * @param response HttpCalloutResponse
      */
     public UnhandledException(HttpCalloutResponse response) {
-      this(response.error.getMessage());
       Logger.error(
-          'HTTP ' +
-            response.statusCode +
-            ' Unhandled exception from QA Service',
-          response.error
-        )
-        .save();
+        'C&Q Ai Evaluation UnhandledException - statusCode ' +
+          response.statusCode +
+          '\n' +
+          response.error.getMessage()
+      );
+      Logger.saveLog();
     }
   }
 }
