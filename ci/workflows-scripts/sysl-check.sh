@@ -33,6 +33,11 @@ mkdir -p "$DEPLOY_DIR"
 
 # Copy relevant files
 while IFS= read -r file_path; do
+  # Skip files in objects with __dlm suffix
+  if [[ "$file_path" =~ /objects/[^/]+__dlm/ ]]; then
+    echo "⏭️  Skipping DLM object: $file_path"
+    continue
+  fi
   echo "✅ Found and copying: $file_path"
   CHECK_FLAG=true
   mkdir -p "$DEPLOY_DIR/$(dirname "$file_path")"

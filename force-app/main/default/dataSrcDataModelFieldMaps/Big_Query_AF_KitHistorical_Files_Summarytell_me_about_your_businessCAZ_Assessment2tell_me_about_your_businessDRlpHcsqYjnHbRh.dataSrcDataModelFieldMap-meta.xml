@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSrcDataModelFieldMap xmlns="http://soap.sforce.com/2006/04/metadata">
+    <filterApplied>false</filterApplied>
+    <masterLabel>Big_Query_AF_KitHistorical_Files_Summarytell_me_about_your_businessCAZ_Assessment2tell_me_about_your_businessDRlpHcsqYjnHbRh</masterLabel>
+    <sourceField>CAZ_Assessment22.tell_me_about_your_business__c</sourceField>
+    <targetField>CAZ_Assessment2__dlm.tell_me_about_your_business__c</targetField>
+    <templateVersion>1</templateVersion>
+    <versionNumber>1.0</versionNumber>
+</DataSrcDataModelFieldMap>

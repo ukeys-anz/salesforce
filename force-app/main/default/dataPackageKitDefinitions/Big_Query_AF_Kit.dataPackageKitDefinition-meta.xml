@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataPackageKitDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <dataKitSource>LOCAL</dataKitSource>
+    <dataKitType>SANDBOX</dataKitType>
+    <dataSpaceDefinitionDevName>default</dataSpaceDefinitionDevName>
+    <deploymentOrder>{&quot;isAutoSequence&quot;:true,&quot;sequence&quot;:[{&quot;devName&quot;:&quot;Historical_Files_Summary&quot;,&quot;type&quot;:&quot;MktDataConnection&quot;,&quot;id&quot;:&quot;9cgOg0000000h1lIAA&quot;},{&quot;devName&quot;:&quot;BQ_AF_Bundle&quot;,&quot;type&quot;:&quot;DataStream&quot;}]}</deploymentOrder>
+    <developerName>Big_Query_AF_Kit</developerName>
+    <isDeployed>false</isDeployed>
+    <isEnabled>false</isEnabled>
+    <masterLabel>Big Query AF Kit</masterLabel>
+    <useDeterministicNaming>false</useDeterministicNaming>
+    <versionNumber>2.0</versionNumber>
+</DataPackageKitDefinition>

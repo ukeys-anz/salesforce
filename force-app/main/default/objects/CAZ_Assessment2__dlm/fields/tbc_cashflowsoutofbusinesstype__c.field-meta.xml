@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>tbc_cashflowsoutofbusinesstype__c</fullName>
+    <encryptionScheme>None</encryptionScheme>
+    <label>Cash Flows Out Of Business Type</label>
+    <length>60</length>
+    <mktDataModelFieldAttributes>
+        <definitionCreationType>Custom</definitionCreationType>
+        <isDynamicLookup>false</isDynamicLookup>
+        <labelOverride>Cash Flows Out Of Business Type</labelOverride>
+        <masterLabel>Cash Flows Out Of Business Type</masterLabel>
+        <usageTag>None</usageTag>
+    </mktDataModelFieldAttributes>
+    <required>false</required>
+    <type>Text</type>
+</CustomField>

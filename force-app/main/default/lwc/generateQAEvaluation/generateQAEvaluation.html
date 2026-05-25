@@ -1,0 +1,35 @@
+<template>
+  <template lwc:if={isGenerating}>
+    <lightning-spinner alternative-text="Loading..." variant="brand">
+    </lightning-spinner>
+  </template>
+  <lightning-modal-header label="Retrieve AI Draft"></lightning-modal-header>
+  <lightning-modal-body class="slds-m-around_small">
+    <p>Enter the Case Number to Retrieve an AI Draft</p>
+    <lightning-input
+      class="slds-m-around_small"
+      label="Case Number"
+      type="text"
+      pattern="[0-9]{1,8}"
+      value={caseNumber}
+      onchange={handleCaseNumberChange}
+      read-only={caseNumberReadOnly}
+    ></lightning-input>
+    <lightning-modal-footer>
+      <div class="slds-align_absolute-center">
+        <lightning-button
+          class="slds-m-around_small"
+          label="Cancel"
+          onclick={handleCancel}
+        ></lightning-button>
+        <lightning-button
+          class="slds-m-around_small"
+          label="Generate"
+          variant="brand"
+          onclick={handleGenerate}
+          disabled={isGenerating}
+        ></lightning-button>
+      </div>
+    </lightning-modal-footer>
+  </lightning-modal-body>
+</template>
