@@ -17,7 +17,7 @@
     <filters>
         <field>Evaluation_Type__c</field>
         <operation>equals</operation>
-        <value>Call Review Assessment,Final Letter Review Assessment,Letter Review Assessment,Frontline Assessment</value>
+        <value>Call Review Assessment,Final Letter Review Assessment,Letter Review Assessment</value>
     </filters>
     <filters>
         <field>Status__c</field>
