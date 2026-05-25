@@ -2714,6 +2714,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>anzx.salesforce.ccrm.v1alpha1.referral.retail_referral</value>
     </labels>
     <labels>
+        <fullName>CCRM_REFERRAL_TO_IKNOW_EVENT_CE_TYPE_FOR_UPDATE</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM_REFERRAL_TO_IKNOW_EVENT_CE_TYPE_FOR_UPDATE</shortDescription>
+        <value>anzx.salesforce.ccrm.v1alpha1.referral_status_update.retail_referral</value>
+    </labels>
+    <labels>
         <fullName>MS_ExportConsentDataIN_API</fullName>
         <language>en_US</language>
         <protected>false</protected>

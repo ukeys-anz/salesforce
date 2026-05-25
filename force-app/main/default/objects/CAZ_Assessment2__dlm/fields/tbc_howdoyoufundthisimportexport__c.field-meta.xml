@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>tbc_howdoyoufundthisimportexport__c</fullName>
+    <encryptionScheme>None</encryptionScheme>
+    <label>How Do You Fund This Import Export</label>
+    <length>60</length>
+    <mktDataModelFieldAttributes>
+        <definitionCreationType>Custom</definitionCreationType>
+        <isDynamicLookup>false</isDynamicLookup>
+        <labelOverride>How Do You Fund This Import Export</labelOverride>
+        <masterLabel>How Do You Fund This Import Export</masterLabel>
+        <usageTag>None</usageTag>
+    </mktDataModelFieldAttributes>
+    <required>false</required>
+    <type>Text</type>
+</CustomField>

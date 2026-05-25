@@ -169,5 +169,9 @@ public with sharing class CommercialLeadTriggerHandler extends Lib_TriggerHandle
       (Map<Id, Lead>) oldMap,
       records
     );
+    CommercialReferralLeadActions.publishReferralStatusUpdateEvents(
+      records,
+      (Map<Id, Lead>) oldMap
+    );
   }
 }

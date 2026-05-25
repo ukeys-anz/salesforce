@@ -28,7 +28,6 @@
     "@locker/eslint-config-locker": "0.27.4",
     "@lwc/eslint-plugin-lwc": "3.5.0",
     "@sa11y/jest": "6.13.0",
-    "@salesforce/cli": "2.130.9",
     "@salesforce/eslint-config-lwc": "4.1.1",
     "@salesforce/eslint-plugin-lightning": "2.0.0",
     "@salesforce/sfdx-lwc-jest": "7.9.0",
@@ -60,13 +59,14 @@
     "tar": "7.5.13",
     "basic-ftp": "5.3.0",
     "diff": "9.0.0",
+    "ipaddress": "10.2.0",
     "glob": "11.0.0",
     "brace-expansion": "5.0.5",
     "test-exclude": "8.0.0",
-    "protobufjs": "8.0.1",
+    "protobufjs": "8.4.0",
     "picomatch": "4.0.4",
     "serialize-javascript": "7.0.5",
     "path-to-regexp": "8.2.0",
-    "axios": "1.15.1"
+    "axios": "1.16.1"
   }
 }

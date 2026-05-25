@@ -9,6 +9,7 @@
     $Profile.Name = $Label.CCRM_Profile_Name,
     OR(
         ISPICKVAL(UsageType, &quot;Security Mobile&quot;),
+        ISPICKVAL(UsageType, &quot;Business Phone&quot;),
         ISPICKVAL(UsageType, &quot;Primary Business Telephone&quot;)
     ),
     NOT(ISCHANGED(UsageType))

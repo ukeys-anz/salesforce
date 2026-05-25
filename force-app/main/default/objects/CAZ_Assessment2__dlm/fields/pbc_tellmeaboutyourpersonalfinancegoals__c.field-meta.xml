@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>pbc_tellmeaboutyourpersonalfinancegoals__c</fullName>
+    <encryptionScheme>None</encryptionScheme>
+    <label>Tell Me AboutYour Personal Finance Goals</label>
+    <length>60</length>
+    <mktDataModelFieldAttributes>
+        <definitionCreationType>Custom</definitionCreationType>
+        <isDynamicLookup>false</isDynamicLookup>
+        <labelOverride>Tell Me AboutYour Personal Finance Goals</labelOverride>
+        <masterLabel>Tell Me AboutYour Personal Finance Goals</masterLabel>
+        <usageTag>None</usageTag>
+    </mktDataModelFieldAttributes>
+    <required>false</required>
+    <type>Text</type>
+</CustomField>

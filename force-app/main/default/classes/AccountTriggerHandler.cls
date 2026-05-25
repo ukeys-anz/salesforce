@@ -95,5 +95,10 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
       CustomerEventActions.CUSTOMER_EVENT_UPDATE
     );
     AccountCommonActions.checkEligibilityForCasePriorityUpdate(records, oldMap);
+    RetailBrokerAccountActions.accountMergeEvent(
+      records,
+      (Map<Id, Account>) Trigger.newMap,
+      (Map<Id, Account>) oldMap
+    );
   }
 }

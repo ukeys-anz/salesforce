@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataKitObjectDependency xmlns="http://soap.sforce.com/2006/04/metadata">
+    <dataPackageKitDef>Big_Query_AF_Kit</dataPackageKitDef>
+    <developerName>CAZ_Assessment2</developerName>
+    <masterLabel>CAZ_Assessment2__dll</masterLabel>
+    <sourceObject>CAZ_Assessment22</sourceObject>
+    <sourceObjectType>DataSourceObject</sourceObjectType>
+    <targetObject>CAZ_Assessment2</targetObject>
+</DataKitObjectDependency>

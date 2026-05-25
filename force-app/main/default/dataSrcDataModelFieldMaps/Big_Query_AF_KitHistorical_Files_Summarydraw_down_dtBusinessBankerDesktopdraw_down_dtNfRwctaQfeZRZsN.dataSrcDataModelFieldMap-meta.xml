@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSrcDataModelFieldMap xmlns="http://soap.sforce.com/2006/04/metadata">
+    <filterApplied>false</filterApplied>
+    <masterLabel>Big_Query_AF_KitHistorical_Files_Summarydraw_down_dtBusinessBankerDesktopdraw_down_dtNfRwctaQfeZRZsN</masterLabel>
+    <sourceField>BusinessBankerDesktop_Insights2.draw_down_dt__c</sourceField>
+    <targetField>BusinessBankerDesktop__dlm.draw_down_dt__c</targetField>
+    <templateVersion>1</templateVersion>
+    <versionNumber>1.0</versionNumber>
+</DataSrcDataModelFieldMap>

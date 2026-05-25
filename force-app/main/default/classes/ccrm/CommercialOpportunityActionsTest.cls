@@ -877,7 +877,6 @@ public class CommercialOpportunityActionsTest {
     Id relatedAccountIdOld = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
     Id relatedAccountIdNew = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
     Id clgAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-    Id noclgAccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
 
     List<Opportunity> records = new List<Opportunity>{
       new Opportunity(Id = oppId, AccountId = relatedAccountIdNew)
@@ -1117,6 +1116,44 @@ public class CommercialOpportunityActionsTest {
       ),
       deletedRecords[0],
       'Old Application Form Share should be deleted with the correct values'
+    );
+  }
+  @isTest
+  static void publishReferralStatusUpdateEventsTest() {
+    registerMocks();
+
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    Id leadId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    List<Opportunity> records = new List<Opportunity>{
+      new Opportunity(
+        Id = oppId,
+        Lead_Id__c = leadId,
+        Name = 'Test',
+        StageName = 'In Progress',
+        RecordTypeid = RTOpportunity.commercialOpportunity
+      )
+    };
+    Map<Id, Opportunity> oldMap = new Map<Id, Opportunity>{
+      oppId => new Opportunity(
+        Id = oppId,
+        Lead_Id__c = leadId,
+        Name = 'Test',
+        StageName = 'Opportunity Won',
+        RecordTypeid = RTOpportunity.commercialOpportunity
+      )
+    };
+
+    Test.startTest();
+    CommercialOpportunityActions.publishReferralStatusUpdateEvents(
+      records,
+      oldMap
+    );
+    Test.stopTest();
+
+    Assert.isTrue(
+      CloudEventController.cloudEvents == null ||
+      CloudEventController.cloudEvents.isEmpty(),
+      'No events should be published when status remains unchanged'
     );
   }
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSrcDataModelFieldMap xmlns="http://soap.sforce.com/2006/04/metadata">
+    <filterApplied>false</filterApplied>
+    <masterLabel>Big_Query_AF_KitHistorical_Files_SummaryquarterCustomer_InsightsquarterZGvkCwZSdnpcdyP</masterLabel>
+    <sourceField>Customer_Insights2.quarter__c</sourceField>
+    <targetField>Customer_Insights__dlm.quarter__c</targetField>
+    <templateVersion>1</templateVersion>
+    <versionNumber>1.0</versionNumber>
+</DataSrcDataModelFieldMap>

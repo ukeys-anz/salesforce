@@ -41,6 +41,7 @@ public with sharing class CommercialOpportunityHelper {
   @testVisible
   private static final String CUSTOMER_NEEDS_ERROR = 'Secondary Customer Needs should not be the same as Customer Needs.';
   private static final String OTHER = 'Other';
+  private static final String MULTIPLE_CUSTOMER_NEEDS = 'Multiple Customer Needs';
 
   private static final CommercialOpportunityRepository OPP_REPOSITORY = (CommercialOpportunityRepository) Lib_InstanceProvider.forType(
     CommercialOpportunityRepository.class
@@ -312,7 +313,6 @@ public with sharing class CommercialOpportunityHelper {
       setValueFromAccount(oppRecord, aar.FinServ__RelatedAccount__r);
     }
   }
-
   /**
    * @description : This is used to validate the CLG association on Lead
    * @param filteredOppList Lead records
@@ -358,6 +358,44 @@ public with sharing class CommercialOpportunityHelper {
   ) {
     oppRecord.CLG__c = accRecord?.Id;
     oppRecord.CLG_ID__c = accRecord?.CLG__c;
+  }
+
+  /**
+   * @description It is used to get the Opp Name
+   * @name getOpportunityName
+   * @param opp Opportunity Record
+   * @param oldMap  old map of id and opportunity
+   * @return  String consisting of Opp Name
+   */
+  public static String getOpportunityName(
+    Opportunity opp,
+    Map<Id, Opportunity> oldMap
+  ) {
+    String oppoName = '';
+    String oppName;
+    String customerNeeds;
+
+    if (oldMap == null && opp.Lead_Converted__c) {
+      return null;
+    }
+    if (oldMap == null && !opp.Lead_Converted__c) {
+      return opp.Name;
+    }
+    oppName = opp?.Name;
+    customerNeeds = opp?.Customer_Needs__c;
+    Opportunity oldOpp = oldMap.get(opp.Id);
+    String oldCustomerNeeds = oldOpp?.Customer_Needs__c;
+
+    //Replace new customer needs and opp Id with blank
+    oppoName = oppName.replace(opp?.Opp_Id__c, '');
+    oppoName = oppoName.replace(customerNeeds, '');
+
+    //Replace old if it has customer needs and opp Id with blank
+    oppoName = oppoName.replace(oldCustomerNeeds, '');
+    oppoName = oppoName.contains(MULTIPLE_CUSTOMER_NEEDS)
+      ? oppoName.replace(MULTIPLE_CUSTOMER_NEEDS, '')
+      : oppoName;
+    return oppoName.trim();
   }
 
   /**
