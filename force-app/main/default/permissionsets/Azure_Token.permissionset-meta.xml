@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <name>AzureTokenCache</name>
+        <enabled>true</enabled>
+    </customPermissions>
+    <description>This PS will assign custom permission Azure Token Cache</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Azure Token</label>
+</PermissionSet>

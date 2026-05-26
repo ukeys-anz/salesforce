@@ -27,7 +27,7 @@
     <filters>
         <field>Evaluation_Type__c</field>
         <operation>equals</operation>
-        <value>C &amp; Q Assessment,Customer Resolution Assessment</value>
+        <value>C &amp; Q Assessment,Customer Resolution Assessment,Frontline Assessment</value>
     </filters>
     <filters>
         <field>Status__c</field>
