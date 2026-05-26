@@ -5227,6 +5227,19 @@
         "UUID__c"
       ]
     },
+    "Referral_and_Opportunity_Status_mapping__mdt": {
+      "IA-2415860": [
+        "CRM_Opportunity_Stage__c",
+        "Is_Active__c",
+        "Source_Object__c",
+        "Channel__c"
+      ],
+      "IA-2423278":[
+        "CRM_Referral_Status__c",
+        "iKnow_Status__c",
+        "iKnow_Stage__c"
+      ]
+    },
     "Territory_Based_Sharing_Config__mdt": {
       "IA-2415860": [
         "Active__c",

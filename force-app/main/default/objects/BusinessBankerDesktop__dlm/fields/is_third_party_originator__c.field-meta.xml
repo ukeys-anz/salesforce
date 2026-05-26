@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>is_third_party_originator__c</fullName>
+    <encryptionScheme>None</encryptionScheme>
+    <label>IS_THIRD_PARTY_ORIGINATOR</label>
+    <length>60</length>
+    <mktDataModelFieldAttributes>
+        <definitionCreationType>Custom</definitionCreationType>
+        <isDynamicLookup>false</isDynamicLookup>
+        <labelOverride>IS_THIRD_PARTY_ORIGINATOR</labelOverride>
+        <masterLabel>IS_THIRD_PARTY_ORIGINATOR</masterLabel>
+        <usageTag>None</usageTag>
+    </mktDataModelFieldAttributes>
+    <required>false</required>
+    <type>Text</type>
+</CustomField>

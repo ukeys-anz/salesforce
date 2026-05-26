@@ -346,4 +346,28 @@ public with sharing class CommercialOpportunityRepository {
       LIMIT 1
     ];
   }
+
+  /**
+   * @description Retrieves lead details for verification in System Mode
+   * @param leadIds Lead IDs
+   * @param oppIds set of Opportunity IDs
+   * @return List<Lead>
+   */
+  public List<Lead> getReferralLeadDetails(
+    Set<String> leadIds,
+    Set<Id> oppIds
+  ) {
+    if (leadIds.isEmpty()) {
+      return new List<Lead>();
+    }
+    return [
+      SELECT Id, External_Id__c, RecordTypeId, Lead_Auto_Number__c, Channel__c
+      FROM Lead
+      WHERE
+        Lead_Auto_Number__c IN :leadIds
+        AND External_Id__c != NULL
+        AND ConvertedOpportunityId IN :oppIds
+      WITH SYSTEM_MODE
+    ];
+  }
 }

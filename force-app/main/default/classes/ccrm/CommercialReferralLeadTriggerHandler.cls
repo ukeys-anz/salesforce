@@ -112,5 +112,9 @@ public with sharing class CommercialReferralLeadTriggerHandler extends Lib_Trigg
       records,
       (Map<Id, Lead>) oldMap
     );
+    CommercialReferralLeadActions.publishReferralStatusUpdateEvents(
+      records,
+      (Map<Id, Lead>) oldMap
+    );
   }
 }

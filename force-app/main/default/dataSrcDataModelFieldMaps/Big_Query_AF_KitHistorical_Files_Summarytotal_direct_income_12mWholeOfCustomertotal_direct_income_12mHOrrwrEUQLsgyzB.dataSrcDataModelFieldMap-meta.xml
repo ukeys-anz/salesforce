@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSrcDataModelFieldMap xmlns="http://soap.sforce.com/2006/04/metadata">
+    <filterApplied>false</filterApplied>
+    <masterLabel>Big_Query_AF_KitHistorical_Files_Summarytotal_direct_income_12mWholeOfCustomertotal_direct_income_12mHOrrwrEUQLsgyzB</masterLabel>
+    <sourceField>WholeOfCustomer_Insights2.total_direct_income_12m__c</sourceField>
+    <targetField>WholeOfCustomer__dlm.total_direct_income_12m__c</targetField>
+    <templateVersion>1</templateVersion>
+    <versionNumber>1.0</versionNumber>
+</DataSrcDataModelFieldMap>

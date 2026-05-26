@@ -32,7 +32,7 @@
         <value>Assigned,In progress</value>
     </filters>
     <filterScope>Everything</filterScope>
-    <label>My Reportee&apos;s Lead</label>
+    <label>My Reportee&apos;s Leads</label>
     <sharedTo>
         <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
     </sharedTo>

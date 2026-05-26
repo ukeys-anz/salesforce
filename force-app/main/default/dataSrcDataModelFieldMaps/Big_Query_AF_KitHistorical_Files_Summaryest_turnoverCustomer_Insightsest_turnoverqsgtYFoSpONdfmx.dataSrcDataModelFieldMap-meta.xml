@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSrcDataModelFieldMap xmlns="http://soap.sforce.com/2006/04/metadata">
+    <filterApplied>false</filterApplied>
+    <masterLabel>Big_Query_AF_KitHistorical_Files_Summaryest_turnoverCustomer_Insightsest_turnoverqsgtYFoSpONdfmx</masterLabel>
+    <sourceField>Customer_Insights2.est_turnover__c</sourceField>
+    <targetField>Customer_Insights__dlm.est_turnover__c</targetField>
+    <templateVersion>1</templateVersion>
+    <versionNumber>1.0</versionNumber>
+</DataSrcDataModelFieldMap>
