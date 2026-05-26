@@ -29,10 +29,11 @@ public with sharing class PushToAppActionTest {
   @isTest
   static void testUpdateCustomerNudgeTask() {
     registerMocks();
-    List<Task> taskRecords = mockTaskRecordsList('New');
 
     Test.startTest();
-    PushToAppAction.updateCustomerNudgeTask(taskRecords);
+    PushToAppAction.updateCustomerNudgeTask(
+      mockTaskRecordsList('New', PushToAppConstant.PUSH_TO_APP_TASK_TYPE)
+    );
     Test.stopTest();
 
     List<Task> taskRecordsUpdated = (List<Task>) dmlRepoMock.getHistory(
@@ -54,13 +55,14 @@ public with sharing class PushToAppActionTest {
   static void testAutoExpireCustomerNudgeTaskPositive() {
     registerMocks();
     pushToAppRepoMock.mock(
-      'getRelatedCustomerNudgeTasks',
-      mockTaskRecordsList('New')
+      'getRelatedCustomerNudgeTasksByType',
+      mockTaskRecordsList('New', PushToAppConstant.PUSH_TO_APP_TASK_TYPE)
     );
 
-    List<Case> caseList = mockComplaintCaseRecords();
     Test.startTest();
-    PushToAppAction.autoExpireCustomerNudgeTask(caseList);
+    PushToAppAction.autoExpireCustomerNudgeTask(
+      mockCaseRecords('Escalated', RTCase.customerComplaint)
+    );
     Test.stopTest();
 
     List<Task> taskUpdated = (List<Task>) dmlRepoMock.getHistory('doUpdate')
@@ -75,11 +77,15 @@ public with sharing class PushToAppActionTest {
   @isTest
   static void testAutoExpireCustomerNudgeTaskNegative() {
     registerMocks();
-    pushToAppRepoMock.mock('getRelatedCustomerNudgeTasks', new List<Task>());
+    pushToAppRepoMock.mock(
+      'getRelatedCustomerNudgeTasksByType',
+      new List<Task>()
+    );
 
-    List<Case> caseList = mockComplaintCaseRecords();
     Test.startTest();
-    PushToAppAction.autoExpireCustomerNudgeTask(caseList);
+    PushToAppAction.autoExpireCustomerNudgeTask(
+      mockCaseRecords('Escalated', RTCase.customerComplaint)
+    );
     Test.stopTest();
 
     List<Task> taskUpdated = (List<Task>) dmlRepoMock.getHistory('doUpdate')
@@ -91,18 +97,72 @@ public with sharing class PushToAppActionTest {
     );
   }
 
-  private static List<Task> mockTaskRecordsList(String statusValue) {
+  @isTest
+  static void testArchiveCustomerNudgeUploadTasksPositive() {
+    registerMocks();
+    pushToAppRepoMock.mock(
+      'getRelatedCustomerNudgeTasksByType',
+      mockTaskRecordsList('New', PushToAppConstant.ID_UPLOAD_TASK_TYPE)
+    );
+
+    Test.startTest();
+    PushToAppAction.archiveCustomerNudgeUploadTasks(
+      mockCaseRecords('Documents Uploaded', RTCase.kycQa)
+    );
+    Test.stopTest();
+
+    List<Task> tasksToUpdate = (List<Task>) dmlRepoMock
+      .getHistory('doUpdate')
+      .getParam('records');
+
+    Assert.isNotNull(tasksToUpdate, 'doUpdate should have been invoked');
+    Assert.areEqual(
+      'TASK_STATE_CUSTOMER_ARCHIVED',
+      tasksToUpdate[0].Status,
+      'Customer nudge task of type ID Upload should be customer archived'
+    );
+  }
+
+  @isTest
+  static void testArchiveCustomerNudgeUploadTasksNegative() {
+    registerMocks();
+    pushToAppRepoMock.mock(
+      'getRelatedCustomerNudgeTasksByType',
+      new List<Task>()
+    );
+
+    Test.startTest();
+    PushToAppAction.archiveCustomerNudgeUploadTasks(
+      mockCaseRecords('Documents Uploaded', RTCase.kycQa)
+    );
+    Test.stopTest();
+
+    List<Task> tasksToUpdate = (List<Task>) dmlRepoMock
+      .getHistory('doUpdate')
+      .getParam('records');
+
+    Assert.isTrue(
+      tasksToUpdate.size() == 0,
+      'No Task is eligible for the archive update'
+    );
+  }
+
+  private static List<Task> mockTaskRecordsList(
+    String statusValue,
+    String tasktype
+  ) {
     List<Task> tasklist = new List<Task>();
-    tasklist.add(mockTaskRecord(statusValue));
+    tasklist.add(mockTaskRecord(statusValue, tasktype));
     return tasklist;
   }
 
   /**
    * @description helper method to create a mock task
    * @param statusValue statusValue
+   * @param taskType task type to set in the mock task record
    * @return Mock Task
    */
-  static Task mockTaskRecord(String statusValue) {
+  static Task mockTaskRecord(String statusValue, String taskType) {
     Id ownerId = UserInfo.getUserId();
     Task mockPushToAppTask = TestDataFactory.createTaskRecord(
       RTTask.customerNudge,
@@ -116,6 +176,7 @@ public with sharing class PushToAppActionTest {
     mockPushToAppTask.Status = statusValue;
     mockPushToAppTask.Customer_Task_Data__c = FAKER_CUSTOMER_TASK_DATA_ID;
     mockPushToAppTask.Pub_Sub_Event_Id__c = '12345_12345';
+    mockPushToAppTask.Type = taskType;
 
     Task taskRecord = (Task) TestUtil.setFields(
       mockPushToAppTask,
@@ -124,13 +185,16 @@ public with sharing class PushToAppActionTest {
     return taskRecord;
   }
 
-  private static List<Case> mockComplaintCaseRecords() {
+  private static List<Case> mockCaseRecords(
+    String statusValue,
+    String recordTypeId
+  ) {
     Case caseRecord = (Case) TestUtil.setFields(
       new Case(
         Id = FAKER_CASE_ID,
         AccountId = FAKER_ACCOUNT_ID,
-        RecordTypeId = RTCase.customerComplaint,
-        Status = 'Escalated'
+        RecordTypeId = recordTypeId,
+        Status = statusValue
       ),
       new Map<String, Object>{ 'CaseNumber' => '1234567' }
     );

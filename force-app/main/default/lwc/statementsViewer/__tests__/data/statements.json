@@ -1,274 +1,169 @@
 {
-  "statements": [
+  "allDocuments": [
     {
-      "statement_id": "9e51911d-faa0-4051-aaa4-c326552d4701",
-      "accountNumber": "276658006",
-      "bsb": "016338",
-      "statement_from": {
-        "year": {
-          "value": 2021
-        },
-        "month": {
-          "value": 4
-        },
-        "day": {
-          "value": 5
-        }
+      "name": "documents/d333c55e-bd04-4b18-b13a-b870c83c7dba",
+      "accountNumber": "210490765",
+      "startDate": {
+        "year": 2018,
+        "month": 10,
+        "day": 24
       },
-      "statement_to": {
-        "year": {
-          "value": 2021
-        },
-        "month": {
-          "value": 9
-        },
-        "day": {
-          "value": 4
-        }
-      }
+      "endDate": {
+        "year": 2016,
+        "month": 10,
+        "day": 31
+      },
+      "documentTitle": ""
     },
     {
-      "statement_id": "8867b542-78e5-4a86-a230-410dce103eb3",
-      "accountNumber": "186229638",
-      "bsb": "016338",
-      "statement_from": {
-        "year": {
-          "value": 2021
-        },
-        "month": {
-          "value": 3
-        },
-        "day": {
-          "value": 5
-        }
+      "name": "documents/d333c55e-bd04-4b18-b13a-b870c83c7dba",
+      "accountNumber": "210490765",
+      "startDate": {
+        "year": 2016,
+        "month": 10,
+        "day": 24
       },
-      "statement_to": {
-        "year": {
-          "value": 2021
-        },
-        "month": {
-          "value": 8
-        },
-        "day": {
-          "value": 4
-        }
-      }
+      "endDate": {
+        "year": 2016,
+        "month": 10,
+        "day": 31
+      },
+      "documentTitle": ""
     },
     {
-      "statement_id": "634ff321-5db9-47bd-8b38-2a311e657e7e",
-      "accountNumber": "276658006",
-      "bsb": "016338",
-      "statement_from": {
-        "year": {
-          "value": 2021
-        },
-        "month": {
-          "value": 7
-        },
-        "day": {
-          "value": 6
-        }
+      "name": "documents/d333c55e-bd04-4b18-b13a-b870c83c7dba",
+      "accountNumber": "210490765",
+      "startDate": {
+        "year": 2020,
+        "month": 10,
+        "day": 24
       },
-      "statement_to": {
-        "year": {
-          "value": 2021
-        },
-        "month": {
-          "value": 8
-        },
-        "day": {
-          "value": 5
-        }
-      }
+      "endDate": {
+        "year": 2016,
+        "month": 10,
+        "day": 31
+      },
+      "documentTitle": ""
     },
     {
-      "statement_id": "53c49a77-f25c-4d28-927b-ca9cd7cd0215",
-      "accountNumber": "186229638",
-      "bsb": "016338",
-      "statement_from": {
-        "year": {
-          "value": 2021
-        },
-        "month": {
-          "value": 7
-        },
-        "day": {
-          "value": 9
-        }
+      "name": "documents/d333c55e-bd04-4b18-b13a-b870c83c7dba",
+      "accountNumber": "210490765",
+      "startDate": {
+        "year": 2024,
+        "month": 10,
+        "day": 24
       },
-      "statement_to": {
-        "year": {
-          "value": 2021
-        },
-        "month": {
-          "value": 8
-        },
-        "day": {
-          "value": 13
-        }
-      }
+      "endDate": {
+        "year": 2016,
+        "month": 10,
+        "day": 31
+      },
+      "documentTitle": ""
     },
     {
-      "statement_id": "53c49a77-f25c-4d28-927b-ca9cd7cd0215",
-      "accountNumber": "186229638",
-      "bsb": "016338",
-      "statement_from": {
-        "year": {
-          "value": 2021
-        },
-        "month": {
-          "value": 8
-        },
-        "day": {
-          "value": 9
-        }
+      "name": "documents/d333c55e-bd04-4b18-b13a-b870c83c7dba",
+      "accountNumber": "210490765",
+      "startDate": {
+        "year": 2017,
+        "month": 10,
+        "day": 24
       },
-      "statement_to": {
-        "year": {
-          "value": 2021
-        },
-        "month": {
-          "value": 11
-        },
-        "day": {
-          "value": 20
-        }
-      }
+      "endDate": {
+        "year": 2016,
+        "month": 10,
+        "day": 31
+      },
+      "documentTitle": ""
     },
     {
-      "statement_id": "9e51911d-faa0-4051-aaa4-c326552d4701",
-      "accountNumber": "276658006",
-      "bsb": "016338",
-      "statement_from": {
-        "year": {
-          "value": 2021
-        },
-        "month": {
-          "value": 3
-        },
-        "day": {
-          "value": 5
-        }
+      "name": "documents/d333c55e-bd04-4b18-b13a-b870c83c7dba",
+      "accountNumber": "210490765",
+      "startDate": {
+        "year": 2014,
+        "month": 10,
+        "day": 24
       },
-      "statement_to": {
-        "year": {
-          "value": 2021
-        },
-        "month": {
-          "value": 8
-        },
-        "day": {
-          "value": 4
-        }
-      }
+      "endDate": {
+        "year": 2016,
+        "month": 10,
+        "day": 31
+      },
+      "documentTitle": ""
     },
     {
-      "statement_id": "8867b542-78e5-4a86-a230-410dce103eb3",
-      "accountNumber": "186229638",
-      "bsb": "016338",
-      "statement_from": {
-        "year": {
-          "value": 2021
-        },
-        "month": {
-          "value": 2
-        },
-        "day": {
-          "value": 5
-        }
+      "name": "documents/d333c55e-bd04-4b18-b13a-b870c83c7dba",
+      "accountNumber": "210490765",
+      "startDate": {
+        "year": 2011,
+        "month": 10,
+        "day": 24
       },
-      "statement_to": {
-        "year": {
-          "value": 2021
-        },
-        "month": {
-          "value": 7
-        },
-        "day": {
-          "value": 4
-        }
-      }
+      "endDate": {
+        "year": 2016,
+        "month": 10,
+        "day": 31
+      },
+      "documentTitle": ""
     },
     {
-      "statement_id": "634ff321-5db9-47bd-8b38-2a311e657e7e",
-      "accountNumber": "276658006",
-      "bsb": "016338",
-      "statement_from": {
-        "year": {
-          "value": 2021
-        },
-        "month": {
-          "value": 1
-        },
-        "day": {
-          "value": 6
-        }
+      "name": "documents/d333c55e-bd04-4b18-b13a-b870c83c7dba",
+      "accountNumber": "210490765",
+      "startDate": {
+        "year": 2019,
+        "month": 10,
+        "day": 24
       },
-      "statement_to": {
-        "year": {
-          "value": 2021
-        },
-        "month": {
-          "value": 6
-        },
-        "day": {
-          "value": 5
-        }
-      }
+      "endDate": {
+        "year": 2016,
+        "month": 10,
+        "day": 31
+      },
+      "documentTitle": ""
     },
     {
-      "statement_id": "53c49a77-f25c-4d28-927b-ca9cd7cd0215",
-      "accountNumber": "186229638",
-      "bsb": "016338",
-      "statement_from": {
-        "year": {
-          "value": 2021
-        },
-        "month": {
-          "value": 11
-        },
-        "day": {
-          "value": 9
-        }
+      "name": "documents/d333c55e-bd04-4b18-b13a-b870c83c7dba",
+      "accountNumber": "210490765",
+      "startDate": {
+        "year": 2017,
+        "month": 10,
+        "day": 24
       },
-      "statement_to": {
-        "year": {
-          "value": 2021
-        },
-        "month": {
-          "value": 12
-        },
-        "day": {
-          "value": 5
-        }
-      }
+      "endDate": {
+        "year": 2016,
+        "month": 10,
+        "day": 31
+      },
+      "documentTitle": ""
     },
     {
-      "statement_id": "53c49a77-f25c-4d28-927b-ca9cd7cd0215",
-      "accountNumber": "186229638",
-      "bsb": "016338",
-      "statement_from": {
-        "year": {
-          "value": 2021
-        },
-        "month": {
-          "value": 10
-        },
-        "day": {
-          "value": 9
-        }
+      "name": "documents/d333c55e-bd04-4b18-b13a-b870c83c7dba",
+      "accountNumber": "210490765",
+      "startDate": {
+        "year": 2032,
+        "month": 10,
+        "day": 24
       },
-      "statement_to": {
-        "year": {
-          "value": 2021
-        },
-        "month": {
-          "value": 11
-        },
-        "day": {
-          "value": 5
-        }
-      }
+      "endDate": {
+        "year": 2016,
+        "month": 10,
+        "day": 31
+      },
+      "documentTitle": ""
+    },
+    {
+      "name": "documents/d333c55e-bd04-4b18-b13a-b870c83c7dba",
+      "accountNumber": "210490765",
+      "startDate": {
+        "year": 2025,
+        "month": 10,
+        "day": 24
+      },
+      "endDate": {
+        "year": 2016,
+        "month": 10,
+        "day": 31
+      },
+      "documentTitle": ""
     }
   ]
 }

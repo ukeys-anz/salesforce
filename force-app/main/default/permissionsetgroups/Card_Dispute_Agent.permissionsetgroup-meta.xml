@@ -8,6 +8,7 @@
     <permissionSets>AccessControlDelete</permissionSets>
     <permissionSets>AccessControlReadOnly</permissionSets>
     <permissionSets>Accounts_Goals_Read_Only</permissionSets>
+    <permissionSets>amazonconnect__AC_Agent</permissionSets>
     <permissionSets>ANZx_Aegis_Redirect</permissionSets>
     <permissionSets>ANZx_COP_View</permissionSets>
     <permissionSets>ANZx_Update_Confirmation_of_Payee</permissionSets>
@@ -80,6 +81,7 @@
     <permissionSets>Run_reports_and_dashboards</permissionSets>
     <permissionSets>Store_Interaction_Read_Only</permissionSets>
     <permissionSets>Suspend_Unsuspend_Customer</permissionSets>
+    <permissionSets>Twilio_CTI_Access</permissionSets>
     <permissionSets>Twilio_Detail_Read_Write</permissionSets>
     <permissionSets>Update_Signing_Authority</permissionSets>
     <permissionSets>View_All_Foreign_Key_Names</permissionSets>

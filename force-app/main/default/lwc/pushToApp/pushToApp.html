@@ -55,17 +55,18 @@
       </lightning-combobox>
       <!--Call to Action Dynamic Checkboxes-->
       <template lwc:if={showAdditionalFields}>
-        <div data-id="additional-field-section" class="slds-m-top_small">
-          <label for="callToAction">
-            <span class="slds-required">*</span>
-            Call to Action
-            <lightning-helptext
-              class="tooltip"
-              content="The options through which the customer can reach out to us"
-            ></lightning-helptext>
-          </label>
-        </div>
-        <template lwc:if={actions}>
+        <template lwc:if={hasActions}>
+          <div data-id="additional-field-section" class="slds-m-top_small">
+            <label for="callToAction">
+              <span class="slds-required">*</span>
+              Call to Action
+              <lightning-helptext
+                class="tooltip"
+                content="The options through which the customer can reach out to us"
+              ></lightning-helptext>
+            </label>
+          </div>
+
           <div
             class="slds-grid slds-wrap slds-m-top_small"
             data-id="dynamic-checkboxes"
@@ -85,16 +86,18 @@
           </div>
         </template>
         <!--Expiry Date-->
-        <lightning-input
-          data-id="expiry-date"
-          class="slds-m-top_small"
-          label="Expiry Date"
-          value={expiryDate}
-          field-level-help="The date when the task will expire and become inactive"
-          disabled
-          required
-        >
-        </lightning-input>
+        <template lwc:if={expiryDate}>
+          <lightning-input
+            data-id="expiry-date"
+            class="slds-m-top_small"
+            label="Expiry Date"
+            value={expiryDate}
+            field-level-help="The date when the task will expire and become inactive"
+            disabled
+            required
+          >
+          </lightning-input>
+        </template>
         <!--Notification Preview-->
         <lightning-textarea
           data-id="notification-preview"

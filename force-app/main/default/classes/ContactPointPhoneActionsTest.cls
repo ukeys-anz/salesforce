@@ -56,6 +56,8 @@ public with sharing class ContactPointPhoneActionsTest {
 
   @isTest
   static void testValidatePhonesMobileError() {
+    registerMocks();
+    phoneRepoMock.mock('isCustomValidationsSkipped', false);
     ContactPointPhone testContactPointPhone = new ContactPointPhone(
       TelephoneNumber = '+6112345678',
       ParentId = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
@@ -75,6 +77,8 @@ public with sharing class ContactPointPhoneActionsTest {
 
   @isTest
   static void testValidatePhonesPhoneError() {
+    registerMocks();
+    phoneRepoMock.mock('isCustomValidationsSkipped', false);
     ContactPointPhone testContactPointPhone = new ContactPointPhone(
       TelephoneNumber = '+6112345678',
       ParentId = Lib_FakeIdGenerator.getMockId(Account.SObjectType),

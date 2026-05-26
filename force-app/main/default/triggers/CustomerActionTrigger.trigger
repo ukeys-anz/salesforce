@@ -3,4 +3,5 @@ trigger CustomerActionTrigger on Customer_Action__c(
   before update
 ) {
   CustomerActionTriggerHandler handler = new CustomerActionTriggerHandler();
+  CustomerNotificationActionTriggerHandler customerNotificationActionHandler = new CustomerNotificationActionTriggerHandler();
 }

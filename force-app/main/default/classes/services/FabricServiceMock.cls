@@ -58,12 +58,17 @@ public with sharing class FabricServiceMock extends Service {
 
   @TestVisible
   private static final String GET_STATEMENT = getStaticResource(
-    'mock_statement'
+    'mock_listDocumentStatementResponse'
+  );
+
+  @TestVisible
+  private static final String GET_NOTICES = getStaticResource(
+    'mock_listDocumentNoticesResponse'
   );
 
   @TestVisible
   private static final String GET_STATEMENTURL = getStaticResource(
-    'mock_statementUrl'
+    'mock_documentURL'
   );
 
   @TestVisible
@@ -142,28 +147,32 @@ public with sharing class FabricServiceMock extends Service {
    * @param ocvId customer id
    * @param accountNumber to retrieve statements for the specific account
    * @param pageSize number of statement records to be returned from Fabric
+   * @param contextType which indicates whether the documents is of statements or notices type
    * @return `HttpCalloutResponse` the api response
    * @description fetches statement list fake response
    */
   public override HttpCalloutResponse getStatements(
     String ocvId,
     String accountNumber,
-    String pageSize
+    String pageSize,
+    String contextType
   ) {
     if (!preset) {
-      response.body = FabricServiceMock.GET_STATEMENT;
+      response.body = (contextType == 'Notices')
+        ? FabricServiceMock.GET_NOTICES
+        : FabricServiceMock.GET_STATEMENT;
     }
     return response;
   }
   /**
    * @param ocvId customer id
-   * @param statementId to retrieve statement url for the specific statement record
+   * @param documentId to retrieve statement url for the specific document record
    * @return `HttpCalloutResponse` the api response
    * @description fetches statement list fake response
    */
   public override HttpCalloutResponse getStatementUrl(
     String ocvId,
-    String statementId
+    String documentId
   ) {
     if (!preset) {
       response.body = FabricServiceMock.GET_STATEMENTURL;

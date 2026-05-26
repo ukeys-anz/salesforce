@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <classAccesses>
+        <apexClass>CTI_InteractionHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>DependentPicklistController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -390,6 +394,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Interaction.Self_Service__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Interaction.Send_Survey__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

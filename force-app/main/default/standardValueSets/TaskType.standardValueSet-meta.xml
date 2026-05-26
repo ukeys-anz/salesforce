@@ -76,4 +76,9 @@
         <default>false</default>
         <label>Push To App</label>
     </standardValue>
+    <standardValue>
+        <fullName>TASK_TYPE_ID_UPLOAD</fullName>
+        <default>false</default>
+        <label>Id Upload</label>
+    </standardValue>
 </StandardValueSet>
