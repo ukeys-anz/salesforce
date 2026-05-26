@@ -1,0 +1,1679 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSourceObject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://soap.sforce.com/2006/04/metadata">
+    <accelerationEnabled>NO</accelerationEnabled>
+    <dataSource>Historical_Files_Summary</dataSource>
+    <dataSourceFields>
+        <fullName>assessment_type</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>Assessment_Type</externalName>
+        <fieldFormula>sourceField[&apos;Assessment_Type&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_assessment_type</keyQualifierName>
+        <masterLabel>Assessment Type</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_borrowingentity</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_BorrowingEntity</externalName>
+        <fieldFormula>sourceField[&apos;BC_BorrowingEntity&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_borrowingentity</keyQualifierName>
+        <masterLabel>Borrowing Entity</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_borrowingentityamountrequired</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_BorrowingEntityAmountRequired</externalName>
+        <fieldFormula>sourceField[&apos;BC_BorrowingEntityAmountRequired&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_borrowingentityamountrequired</keyQualifierName>
+        <masterLabel>Borrowing Entity Amount Required</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_borrowingpurpose</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_BorrowingPurpose</externalName>
+        <fieldFormula>sourceField[&apos;BC_BorrowingPurpose&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_borrowingpurpose</keyQualifierName>
+        <masterLabel>Borrowing Purpose</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_borrowingpurposedetails</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_BorrowingPurposeDetails</externalName>
+        <fieldFormula>sourceField[&apos;BC_BorrowingPurposeDetails&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_borrowingpurposedetails</keyQualifierName>
+        <masterLabel>Borrowing Purpose Details</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_capacitytorepay</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_CapacityToRepay</externalName>
+        <fieldFormula>sourceField[&apos;BC_CapacityToRepay&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_capacitytorepay</keyQualifierName>
+        <masterLabel>CapacityToRepay</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_capacitytorepaydetails</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_CapacityToRepayDetails</externalName>
+        <fieldFormula>sourceField[&apos;BC_CapacityToRepayDetails&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_capacitytorepaydetails</keyQualifierName>
+        <masterLabel>Capacity To Repay Details</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_familyimpact</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_FamilyImpact</externalName>
+        <fieldFormula>sourceField[&apos;BC_FamilyImpact&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_familyimpact</keyQualifierName>
+        <masterLabel>Family Impact</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_productassetfinanceamount</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_ProductAssetFinanceAmount</externalName>
+        <fieldFormula>sourceField[&apos;BC_ProductAssetFinanceAmount&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_productassetfinanceamount</keyQualifierName>
+        <masterLabel>Product Asset Finance Amount</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_productassetfinancefrequency</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_ProductAssetFinanceFrequency</externalName>
+        <fieldFormula>sourceField[&apos;BC_ProductAssetFinanceFrequency&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_productassetfinancefrequency</keyQualifierName>
+        <masterLabel>Product Asset Finance Frequency</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_productassetfinancerepaymenttype</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_ProductAssetFinanceRepaymentType</externalName>
+        <fieldFormula>sourceField[&apos;BC_ProductAssetFinanceRepaymentType&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_productassetfinancerepaymenttype</keyQualifierName>
+        <masterLabel>Product Asset Finance Repayment Type</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_productassetfinanceselect</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_ProductAssetFinanceSelect</externalName>
+        <fieldFormula>sourceField[&apos;BC_ProductAssetFinanceSelect&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_productassetfinanceselect</keyQualifierName>
+        <masterLabel>Product Asset Finance Select</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_productassetfinanceterm</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_ProductAssetFinanceTerm</externalName>
+        <fieldFormula>sourceField[&apos;BC_ProductAssetFinanceTerm&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_productassetfinanceterm</keyQualifierName>
+        <masterLabel>Product Asset Finance Term</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_productigrepaymenttype</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_ProductIGRepaymentType</externalName>
+        <fieldFormula>sourceField[&apos;BC_ProductIGRepaymentType&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_productigrepaymenttype</keyQualifierName>
+        <masterLabel>Product IG Repayment Type</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_productindemnityguaranteeamount</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>BC_ProductIndemnityGuaranteeAmount</externalName>
+        <fieldFormula>sourceField[&apos;BC_ProductIndemnityGuaranteeAmount&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_productindemnityguaranteeamount</keyQualifierName>
+        <masterLabel>Product Indemnity Guarantee Amount</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_productindemnityguaranteefrequency</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_ProductIndemnityGuaranteeFrequency</externalName>
+        <fieldFormula>sourceField[&apos;BC_ProductIndemnityGuaranteeFrequency&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_productindemnityguaranteefrequency</keyQualifierName>
+        <masterLabel>Product Indemnity Guarantee Frequency</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_productindemnityguaranteeselect</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_ProductIndemnityGuaranteeSelect</externalName>
+        <fieldFormula>sourceField[&apos;BC_ProductIndemnityGuaranteeSelect&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_productindemnityguaranteeselect</keyQualifierName>
+        <masterLabel>Product Indemnity Guarantee Select</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_productindemnityguaranteeterm</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_ProductIndemnityGuaranteeTerm</externalName>
+        <fieldFormula>sourceField[&apos;BC_ProductIndemnityGuaranteeTerm&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_productindemnityguaranteeterm</keyQualifierName>
+        <masterLabel>Product Indemnity Guarantee Term</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_productoverdraftamount</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>BC_ProductOverdraftAmount</externalName>
+        <fieldFormula>sourceField[&apos;BC_ProductOverdraftAmount&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_productoverdraftamount</keyQualifierName>
+        <masterLabel>Product Overdraft Amount</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_productoverdraftfrequency</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_ProductOverdraftFrequency</externalName>
+        <fieldFormula>sourceField[&apos;BC_ProductOverdraftFrequency&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_productoverdraftfrequency</keyQualifierName>
+        <masterLabel>Product Overdraft Frequency</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_productoverdraftrepaymenttype</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_ProductOverdraftRepaymentType</externalName>
+        <fieldFormula>sourceField[&apos;BC_ProductOverdraftRepaymentType&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_productoverdraftrepaymenttype</keyQualifierName>
+        <masterLabel>Product Overdraft Repayment Type</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_productoverdraftselect</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_ProductOverdraftSelect</externalName>
+        <fieldFormula>sourceField[&apos;BC_ProductOverdraftSelect&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_productoverdraftselect</keyQualifierName>
+        <masterLabel>Product Overdraft Select</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_productoverdraftterm</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_ProductOverdraftTerm</externalName>
+        <fieldFormula>sourceField[&apos;BC_ProductOverdraftTerm&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_productoverdraftterm</keyQualifierName>
+        <masterLabel>Product Overdraft Term</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_producttermloanamount</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>BC_ProductTermLoanAmount</externalName>
+        <fieldFormula>sourceField[&apos;BC_ProductTermLoanAmount&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_producttermloanamount</keyQualifierName>
+        <masterLabel>Product Term Loan Amount</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_producttermloanfrequency</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_ProductTermLoanFrequency</externalName>
+        <fieldFormula>sourceField[&apos;BC_ProductTermLoanFrequency&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_producttermloanfrequency</keyQualifierName>
+        <masterLabel>Product TermLoan Frequency</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_producttermloanrepaymenttype</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_ProductTermLoanRepaymentType</externalName>
+        <fieldFormula>sourceField[&apos;BC_ProductTermLoanRepaymentType&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_producttermloanrepaymenttype</keyQualifierName>
+        <masterLabel>Product TermLoan Repayment Type</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_producttermloanselect</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_ProductTermLoanSelect</externalName>
+        <fieldFormula>sourceField[&apos;BC_ProductTermLoanSelect&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_producttermloanselect</keyQualifierName>
+        <masterLabel>Product TermLoan Select</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_producttermloanterm</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_ProductTermLoanTerm</externalName>
+        <fieldFormula>sourceField[&apos;BC_ProductTermLoanTerm&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_producttermloanterm</keyQualifierName>
+        <masterLabel>Product Term Loan Term</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_protectbusinessinsurance</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_ProtectBusinessInsurance</externalName>
+        <fieldFormula>sourceField[&apos;BC_ProtectBusinessInsurance&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_protectbusinessinsurance</keyQualifierName>
+        <masterLabel>Protect Business Insurance</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_retirementconfidence</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_RetirementConfidence</externalName>
+        <fieldFormula>sourceField[&apos;BC_RetirementConfidence&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_retirementconfidence</keyQualifierName>
+        <masterLabel>Retirement Confidence</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_securitycontribution</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_SecurityContribution</externalName>
+        <fieldFormula>sourceField[&apos;BC_SecurityContribution&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_securitycontribution</keyQualifierName>
+        <masterLabel>Security Contribution</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_securitycontributiondetails</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_SecurityContributionDetails</externalName>
+        <fieldFormula>sourceField[&apos;BC_SecurityContributionDetails&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_securitycontributiondetails</keyQualifierName>
+        <masterLabel>Security Contribution Details</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bc_structuredetails</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BC_StructureDetails</externalName>
+        <fieldFormula>sourceField[&apos;BC_StructureDetails&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bc_structuredetails</keyQualifierName>
+        <masterLabel>Structure Details</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>clg_id</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>CLG_Id</externalName>
+        <fieldFormula>sourceField[&apos;CLG_Id&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_clg_id</keyQualifierName>
+        <masterLabel>CLG</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>confirmationcommercialnextstepsselect</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>ConfirmationCommercialNextStepsSelect</externalName>
+        <fieldFormula>sourceField[&apos;ConfirmationCommercialNextStepsSelect&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_confirmationcommercialnextstepsselect</keyQualifierName>
+        <masterLabel>Next Steps Select</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>confirmationcommercialreviewsummary</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>ConfirmationCommercialReviewSummary</externalName>
+        <fieldFormula>sourceField[&apos;ConfirmationCommercialReviewSummary&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_confirmationcommercialreviewsummary</keyQualifierName>
+        <masterLabel>Review Summary</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>conirmationcommercialnextsteps</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>ConirmationCommercialNextSteps</externalName>
+        <fieldFormula>sourceField[&apos;ConirmationCommercialNextSteps&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_conirmationcommercialnextsteps</keyQualifierName>
+        <masterLabel>Next Steps</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>created_by</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>Created_By</externalName>
+        <fieldFormula>sourceField[&apos;Created_By&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_created_by</keyQualifierName>
+        <masterLabel>Created By</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>created_date</fullName>
+        <datatype>F</datatype>
+        <dateFormat>MM/dd/yyyy HH:mm:ss.SSS</dateFormat>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>TIMESTAMP</externalDataType>
+        <externalName>Created_Date</externalName>
+        <fieldFormula>sourceField[&apos;Created_Date&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_created_date</keyQualifierName>
+        <masterLabel>Created Date</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber>1.0</versionNumber>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>customer_id</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>Customer_Id</externalName>
+        <fieldFormula>sourceField[&apos;Customer_Id&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_customer_id</keyQualifierName>
+        <masterLabel>Customer Id</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>DataSource</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>System</definitionCreationType>
+        <externalName>DataSource</externalName>
+        <fieldFormula>Historical_Files_Summary</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>true</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_DataSource</keyQualifierName>
+        <masterLabel>Data Source</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>DataSourceObject</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>System</definitionCreationType>
+        <externalName>DataSourceObject</externalName>
+        <fieldFormula>anz-x-gh-sf-dev-ef8edd_caz_temp</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>true</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_DataSourceObject</keyQualifierName>
+        <masterLabel>Data Source Object</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>id</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>Id</externalName>
+        <fieldFormula>sourceField[&apos;Id&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_id</keyQualifierName>
+        <masterLabel>Id</masterLabel>
+        <primaryIndexOrder>1</primaryIndexOrder>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>InternalOrganization</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>System</definitionCreationType>
+        <externalName>InternalOrganization</externalName>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>true</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_InternalOrganization</keyQualifierName>
+        <masterLabel>Internal Organization</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>pba_haveyouspokenaboutpb1</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>PBA_HaveYouSpokenAboutPB1</externalName>
+        <fieldFormula>sourceField[&apos;PBA_HaveYouSpokenAboutPB1&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_pba_haveyouspokenaboutpb1</keyQualifierName>
+        <masterLabel>Have You Spoken About PB1</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>pba_haveyouspokenaboutpb2</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>PBA_HaveYouSpokenAboutPB2</externalName>
+        <fieldFormula>sourceField[&apos;PBA_HaveYouSpokenAboutPB2&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_pba_haveyouspokenaboutpb2</keyQualifierName>
+        <masterLabel>Have You Spoken About PB2</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>pba_otherofirelationship</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>PBA_OtherOFIRelationship</externalName>
+        <fieldFormula>sourceField[&apos;PBA_OtherOFIRelationship&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_pba_otherofirelationship</keyQualifierName>
+        <masterLabel>Other OFI Relationship</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>pba_tellmeaboutyourpersonalbanking</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>PBA_TellMeAboutYourPersonalBanking</externalName>
+        <fieldFormula>sourceField[&apos;PBA_TellMeAboutYourPersonalBanking&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_pba_tellmeaboutyourpersonalbanking</keyQualifierName>
+        <masterLabel>Tell Me About Your Personal Banking</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>pba_tellmeaboutyourpersonalfinancegoals</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>PBA_TellMeAboutYourPersonalFinanceGoals</externalName>
+        <fieldFormula>sourceField[&apos;PBA_TellMeAboutYourPersonalFinanceGoals&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_pba_tellmeaboutyourpersonalfinancegoa</keyQualifierName>
+        <masterLabel>Tell Me About Your Personal Fin Goals</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>pbc_haveyouspokenaboutpb1</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>PBC_HaveYouSpokenAboutPB1</externalName>
+        <fieldFormula>sourceField[&apos;PBC_HaveYouSpokenAboutPB1&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_pbc_haveyouspokenaboutpb1</keyQualifierName>
+        <masterLabel>Have You Spoken About PB1</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>pbc_haveyouspokenaboutpb2</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>PBC_HaveYouSpokenAboutPB2</externalName>
+        <fieldFormula>sourceField[&apos;PBC_HaveYouSpokenAboutPB2&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_pbc_haveyouspokenaboutpb2</keyQualifierName>
+        <masterLabel>Have You Spoken About PB2</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>pbc_otherofirelationship</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>PBC_OtherOFIRelationship</externalName>
+        <fieldFormula>sourceField[&apos;PBC_OtherOFIRelationship&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_pbc_otherofirelationship</keyQualifierName>
+        <masterLabel>Other OFI Relationship</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>pbc_tellmeaboutyourpersonalbanking</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>PBC_TellMeAboutYourPersonalBanking</externalName>
+        <fieldFormula>sourceField[&apos;PBC_TellMeAboutYourPersonalBanking&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_pbc_tellmeaboutyourpersonalbanking</keyQualifierName>
+        <masterLabel>Tell MeAbout Your Personal Banking</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>pbc_tellmeaboutyourpersonalfinancegoals</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>PBC_TellMeAboutYourPersonalFinanceGoals</externalName>
+        <fieldFormula>sourceField[&apos;PBC_TellMeAboutYourPersonalFinanceGoals&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_pbc_tellmeaboutyourpersonalfinancegoa</keyQualifierName>
+        <masterLabel>Tell Me AboutYour Personal Finance Goals</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>processed_at</fullName>
+        <datatype>F</datatype>
+        <dateFormat>MM/dd/yyyy HH:mm:ss.SSS</dateFormat>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>TIMESTAMP</externalDataType>
+        <externalName>Processed_At</externalName>
+        <fieldFormula>sourceField[&apos;Processed_At&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_processed_at</keyQualifierName>
+        <masterLabel>Processed At</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber>1.0</versionNumber>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tba_averagesaleamount</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>TBA_AverageSaleAmount</externalName>
+        <fieldFormula>sourceField[&apos;TBA_AverageSaleAmount&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tba_averagesaleamount</keyQualifierName>
+        <masterLabel>Average Sale Amount</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tba_businessorpersonalcreditcard</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBA_BusinessOrPersonalCreditCard</externalName>
+        <fieldFormula>sourceField[&apos;TBA_BusinessOrPersonalCreditCard&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tba_businessorpersonalcreditcard</keyQualifierName>
+        <masterLabel>Business Or Personal Credit Card</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tba_cashflowsintobusiness</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBA_CashFlowsIntoBusiness</externalName>
+        <fieldFormula>sourceField[&apos;TBA_CashFlowsIntoBusiness&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tba_cashflowsintobusiness</keyQualifierName>
+        <masterLabel>Cash Flows Into Business</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tba_cashflowsintobusinesstype</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBA_CashFlowsIntoBusinessType</externalName>
+        <fieldFormula>sourceField[&apos;TBA_CashFlowsIntoBusinessType&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tba_cashflowsintobusinesstype</keyQualifierName>
+        <masterLabel>Cash Flows Into Business Type</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tba_cashflowsoutofbusiness</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBA_CashFlowsOutOfBusiness</externalName>
+        <fieldFormula>sourceField[&apos;TBA_CashFlowsOutOfBusiness&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tba_cashflowsoutofbusiness</keyQualifierName>
+        <masterLabel>Cash Flows Out Of Business</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tba_cashflowsoutofbusinesstype</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBA_CashFlowsOutOfBusinessType</externalName>
+        <fieldFormula>sourceField[&apos;TBA_CashFlowsOutOfBusinessType&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tba_cashflowsoutofbusinesstype</keyQualifierName>
+        <masterLabel>Cash Flows Out Of Business Type</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tba_discussedworkingcapitalpositionagri</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBA_DiscussedWorkingCapitalPositionAgri</externalName>
+        <fieldFormula>sourceField[&apos;TBA_DiscussedWorkingCapitalPositionAgri&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tba_discussedworkingcapitalpositionag</keyQualifierName>
+        <masterLabel>Discussed Working Capital Position Agri</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tba_doyouimportexport</fullName>
+        <datatype>B</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>BOOLEAN</externalDataType>
+        <externalName>TBA_DoYouImportExport</externalName>
+        <fieldFormula>sourceField[&apos;TBA_DoYouImportExport&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tba_doyouimportexport</keyQualifierName>
+        <masterLabel>Do You Import Export</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tba_howdoyoufundthisimportexport</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBA_HowDoYouFundThisImportExport</externalName>
+        <fieldFormula>sourceField[&apos;TBA_HowDoYouFundThisImportExport&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tba_howdoyoufundthisimportexport</keyQualifierName>
+        <masterLabel>How Do You Fund This Import Export</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tba_monthswithcashshortfall</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>TBA_MonthsWithCashShortfall</externalName>
+        <fieldFormula>sourceField[&apos;TBA_MonthsWithCashShortfall&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tba_monthswithcashshortfall</keyQualifierName>
+        <masterLabel>Months With Cash Shortfall</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tba_monthswithsurpluscash</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>TBA_MonthsWithSurplusCash</externalName>
+        <fieldFormula>sourceField[&apos;TBA_MonthsWithSurplusCash&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tba_monthswithsurpluscash</keyQualifierName>
+        <masterLabel>Months With Surplus Cash</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tba_monthswithsurpluscashtypeagri</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBA_MonthsWithSurplusCashTypeAgri</externalName>
+        <fieldFormula>sourceField[&apos;TBA_MonthsWithSurplusCashTypeAgri&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tba_monthswithsurpluscashtypeagri</keyQualifierName>
+        <masterLabel>Months With Surplus Cash Type Agri</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tba_payinasingleday</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBA_PayInASingleDay</externalName>
+        <fieldFormula>sourceField[&apos;TBA_PayInASingleDay&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tba_payinasingleday</keyQualifierName>
+        <masterLabel>Pay In A Single Day</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tba_providemerchantstatement</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBA_ProvideMerchantStatement</externalName>
+        <fieldFormula>sourceField[&apos;TBA_ProvideMerchantStatement&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tba_providemerchantstatement</keyQualifierName>
+        <masterLabel>Provide Merchant Statement</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tba_receivepayincurrency</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBA_ReceivePayInCurrency</externalName>
+        <fieldFormula>sourceField[&apos;TBA_ReceivePayInCurrency&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tba_receivepayincurrency</keyQualifierName>
+        <masterLabel>Receive Pay In Currency</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tba_receivepayincurrencycountry</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBA_ReceivePayInCurrencyCountry</externalName>
+        <fieldFormula>sourceField[&apos;TBA_ReceivePayInCurrencyCountry&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tba_receivepayincurrencycountry</keyQualifierName>
+        <masterLabel>Receive Pay In Currency Country</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tba_receivepayincurrencycurrency</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBA_ReceivePayInCurrencyCurrency</externalName>
+        <fieldFormula>sourceField[&apos;TBA_ReceivePayInCurrencyCurrency&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tba_receivepayincurrencycurrency</keyQualifierName>
+        <masterLabel>Receive Pay In Currency Currency</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tba_receivepayincurrencytype</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBA_ReceivePayInCurrencyType</externalName>
+        <fieldFormula>sourceField[&apos;TBA_ReceivePayInCurrencyType&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tba_receivepayincurrencytype</keyQualifierName>
+        <masterLabel>Receive Pay In Currency Type</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tba_terminalpreference</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBA_TerminalPreference</externalName>
+        <fieldFormula>sourceField[&apos;TBA_TerminalPreference&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tba_terminalpreference</keyQualifierName>
+        <masterLabel>Terminal Preference</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tba_transactionspermonth</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>TBA_TransactionsPerMonth</externalName>
+        <fieldFormula>sourceField[&apos;TBA_TransactionsPerMonth&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tba_transactionspermonth</keyQualifierName>
+        <masterLabel>Transactions Per Month</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tbc_averagesaleamount</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>TBC_AverageSaleAmount</externalName>
+        <fieldFormula>sourceField[&apos;TBC_AverageSaleAmount&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tbc_averagesaleamount</keyQualifierName>
+        <masterLabel>Average Sale Amount</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tbc_businessorpersonalcreditcard</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBC_BusinessOrPersonalCreditCard</externalName>
+        <fieldFormula>sourceField[&apos;TBC_BusinessOrPersonalCreditCard&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tbc_businessorpersonalcreditcard</keyQualifierName>
+        <masterLabel>Business Or Personal Credit Card</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tbc_cashflowsintobusiness</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBC_CashFlowsIntoBusiness</externalName>
+        <fieldFormula>sourceField[&apos;TBC_CashFlowsIntoBusiness&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tbc_cashflowsintobusiness</keyQualifierName>
+        <masterLabel>Cash Flows Into Business</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tbc_cashflowsintobusinesstype</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBC_CashFlowsIntoBusinessType</externalName>
+        <fieldFormula>sourceField[&apos;TBC_CashFlowsIntoBusinessType&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tbc_cashflowsintobusinesstype</keyQualifierName>
+        <masterLabel>Cash Flows Into Business Type</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tbc_cashflowsoutofbusiness</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBC_CashFlowsOutOfBusiness</externalName>
+        <fieldFormula>sourceField[&apos;TBC_CashFlowsOutOfBusiness&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tbc_cashflowsoutofbusiness</keyQualifierName>
+        <masterLabel>Cash Flows Out Of Business</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tbc_cashflowsoutofbusinesstype</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBC_CashFlowsOutOfBusinessType</externalName>
+        <fieldFormula>sourceField[&apos;TBC_CashFlowsOutOfBusinessType&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tbc_cashflowsoutofbusinesstype</keyQualifierName>
+        <masterLabel>Cash Flows Out Of Business Type</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tbc_discussedworkingcapitalposition</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBC_DiscussedWorkingCapitalPosition</externalName>
+        <fieldFormula>sourceField[&apos;TBC_DiscussedWorkingCapitalPosition&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tbc_discussedworkingcapitalposition</keyQualifierName>
+        <masterLabel>Discussed Working Capital Position</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tbc_doyouimportexport</fullName>
+        <datatype>B</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>BOOLEAN</externalDataType>
+        <externalName>TBC_DoYouImportExport</externalName>
+        <fieldFormula>sourceField[&apos;TBC_DoYouImportExport&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tbc_doyouimportexport</keyQualifierName>
+        <masterLabel>Do You Import Export</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tbc_howdoyoufundthisimportexport</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBC_HowDoYouFundThisImportExport</externalName>
+        <fieldFormula>sourceField[&apos;TBC_HowDoYouFundThisImportExport&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tbc_howdoyoufundthisimportexport</keyQualifierName>
+        <masterLabel>How Do You Fund This Import Export</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tbc_monthswithcashshortfall</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>TBC_MonthsWithCashShortfall</externalName>
+        <fieldFormula>sourceField[&apos;TBC_MonthsWithCashShortfall&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tbc_monthswithcashshortfall</keyQualifierName>
+        <masterLabel>Months With Cash Shortfall</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tbc_monthswithsurpluscash</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>TBC_MonthsWithSurplusCash</externalName>
+        <fieldFormula>sourceField[&apos;TBC_MonthsWithSurplusCash&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tbc_monthswithsurpluscash</keyQualifierName>
+        <masterLabel>Months With Surplus Cash</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tbc_monthswithsurpluscashtype</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBC_MonthsWithSurplusCashType</externalName>
+        <fieldFormula>sourceField[&apos;TBC_MonthsWithSurplusCashType&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tbc_monthswithsurpluscashtype</keyQualifierName>
+        <masterLabel>Months With Surplus Cash Type</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tbc_payinasingleday</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBC_PayInASingleDay</externalName>
+        <fieldFormula>sourceField[&apos;TBC_PayInASingleDay&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tbc_payinasingleday</keyQualifierName>
+        <masterLabel>Pay In A Single Day</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tbc_providemerchantstatement</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBC_ProvideMerchantStatement</externalName>
+        <fieldFormula>sourceField[&apos;TBC_ProvideMerchantStatement&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tbc_providemerchantstatement</keyQualifierName>
+        <masterLabel>Provide Merchant Statement</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tbc_receivepayincurrency</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBC_ReceivePayInCurrency</externalName>
+        <fieldFormula>sourceField[&apos;TBC_ReceivePayInCurrency&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tbc_receivepayincurrency</keyQualifierName>
+        <masterLabel>Receive Pay In Currency</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tbc_receivepayincurrencycountry</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBC_ReceivePayInCurrencyCountry</externalName>
+        <fieldFormula>sourceField[&apos;TBC_ReceivePayInCurrencyCountry&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tbc_receivepayincurrencycountry</keyQualifierName>
+        <masterLabel>Receive Pay In Currency Country</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tbc_receivepayincurrencycurrency</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBC_ReceivePayInCurrencyCurrency</externalName>
+        <fieldFormula>sourceField[&apos;TBC_ReceivePayInCurrencyCurrency&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tbc_receivepayincurrencycurrency</keyQualifierName>
+        <masterLabel>Receive Pay In Currency Currency</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tbc_receivepayincurrencytype</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBC_ReceivePayInCurrencyType</externalName>
+        <fieldFormula>sourceField[&apos;TBC_ReceivePayInCurrencyType&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tbc_receivepayincurrencytype</keyQualifierName>
+        <masterLabel>Receive Pay In Currency Type</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tbc_terminalpreference</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TBC_TerminalPreference</externalName>
+        <fieldFormula>sourceField[&apos;TBC_TerminalPreference&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tbc_terminalpreference</keyQualifierName>
+        <masterLabel>Terminal Preference</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tbc_transactionspermonth</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>TBC_TransactionsPerMonth</externalName>
+        <fieldFormula>sourceField[&apos;TBC_TransactionsPerMonth&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tbc_transactionspermonth</keyQualifierName>
+        <masterLabel>Transactions Per Month</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tell_me_about_your_business</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>Tell_Me_About_Your_Business</externalName>
+        <fieldFormula>sourceField[&apos;Tell_Me_About_Your_Business&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tell_me_about_your_business</keyQualifierName>
+        <masterLabel>Tell Me About Your Business</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>your_solutions_business</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>Your_Solutions_Business</externalName>
+        <fieldFormula>sourceField[&apos;Your_Solutions_Business&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_your_solutions_business</keyQualifierName>
+        <masterLabel>Your Solutions Business</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>your_solutions_personal</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>Your_Solutions_Personal</externalName>
+        <fieldFormula>sourceField[&apos;Your_Solutions_Personal&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_your_solutions_personal</keyQualifierName>
+        <masterLabel>Your Solutions Personal</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <externalDatabaseName>anz-x-gh-sf-dev-ef8edd</externalDatabaseName>
+    <externalObjectName>assessments_processed_2</externalObjectName>
+    <externalRecordIdentifier>assessments_processed_2</externalRecordIdentifier>
+    <externalSchemaName>caz_temp</externalSchemaName>
+    <masterLabel>CAZ Assessment</masterLabel>
+    <objectType>Object</objectType>
+    <sourceObject>CAZ_Assessment2__dll</sourceObject>
+    <storageType>EXTERNAL</storageType>
+    <templateVersion>1</templateVersion>
+</DataSourceObject>

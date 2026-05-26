@@ -339,6 +339,10 @@ public with sharing class CommercialReferralLeadActionsTest {
       'getUsers',
       new List<User>{ ccrmUser }
     );
+    commercialReferralLeadRepositoryMock.mock(
+      'getCCRMUsers',
+      new List<User>{ ccrmUser }
+    );
 
     Account account = new Account(
       Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
@@ -985,6 +989,140 @@ public with sharing class CommercialReferralLeadActionsTest {
       'New',
       records[0].Referral_Status__c,
       'Referral status is changed to In Progress'
+    );
+  }
+
+  @isTest
+  static void restrictCLGExistingCustomerForRetailReferralsTest() {
+    registerMocks();
+    //GIVEN list of new referral records and old referral map
+    Id leadId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    Id accountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    List<Lead> newReferrals = new List<Lead>{
+      new Lead(
+        Id = leadId,
+        Finserv__RelatedAccount__c = accountId,
+        Channel__c = 'Branch'
+      )
+    };
+    Map<Id, Lead> oldReferrals = new Map<Id, Lead>{
+      leadId => new Lead(Id = leadId, Finserv__RelatedAccount__c = null)
+    };
+
+    Account clgAccount = new Account(
+      Id = accountId,
+      RecordTypeId = RTAccount.clgAccount
+    );
+    commercialReferralLeadRepositoryMock.mock(
+      'getCustomers',
+      new List<Account>{ clgAccount }
+    );
+
+    //WHEN calling the method
+    Test.startTest();
+    CommercialReferralLeadActions.restrictCLGExistingCustomerForRetailReferrals(
+      newReferrals,
+      oldReferrals
+    );
+    Test.stopTest();
+
+    //THEN it should add an error to the lead
+    Assert.isTrue(
+      newReferrals[0].hasErrors(),
+      'Error should be added to the lead record'
+    );
+  }
+
+  @isTest
+  static void shareExportFailedRefTest() {
+    registerMocks();
+
+    Id leadId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    Id userId = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    String statusExportFailed = CommercialReferralLeadActions.REFERRAL_STATUS_EXPORT_FAILED;
+
+    Lead newLead = new Lead(
+      Id = leadId,
+      FinServ__ReferredByUser__c = userId,
+      Referral_Status__c = statusExportFailed
+    );
+
+    List<Lead> records = new List<Lead>{ newLead };
+
+    Map<Id, Lead> oldMap = new Map<Id, Lead>{
+      leadId => new Lead(Id = leadId, Referral_Status__c = 'In Progress')
+    };
+
+    Id existingShareId = Lib_FakeIdGenerator.getMockId(LeadShare.SObjectType);
+    LeadShare existingShare = new LeadShare(
+      Id = existingShareId,
+      LeadId = leadId,
+      UserOrGroupId = userId,
+      LeadAccessLevel = 'Read'
+    );
+
+    commercialReferralLeadRepositoryMock.mock(
+      'getExistingLeadShare',
+      new List<LeadShare>{ existingShare }
+    );
+
+    Test.startTest();
+    CommercialReferralLeadActions.shareExportFailedRef(records, oldMap);
+    Test.stopTest();
+
+    Assert.isNotNull(
+      dmlRepoMock.getHistory('doUpsert'),
+      'doUpsert should be called to update the sharing record'
+    );
+
+    List<LeadShare> upsertedRecords = (List<LeadShare>) dmlRepoMock.getHistory(
+        'doUpsert'
+      )
+      .getParam('records');
+
+    Assert.areEqual(
+      1,
+      upsertedRecords.size(),
+      'One LeadShare should be processed'
+    );
+
+    LeadShare resultShare = upsertedRecords[0];
+    Assert.areEqual(
+      existingShareId,
+      resultShare.Id,
+      'Should update the existing record ID'
+    );
+    Assert.areEqual(
+      CommercialReferralLeadActions.ACCESS_LEVEL_EDIT,
+      resultShare.LeadAccessLevel,
+      'Access should be upgraded to Edit'
+    );
+  }
+  @isTest
+  static void publishReferralStatusUpdateEventsTest() {
+    registerMocks();
+
+    Id leadId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    Lead leadRecord = new Lead(
+      Id = leadId,
+      External_Id__c = 'EXT-123',
+      Referral_Status__c = 'In Progress'
+    );
+
+    List<Lead> records = new List<Lead>{ leadRecord };
+    Map<Id, Lead> oldMap = new Map<Id, Lead>{ leadId => leadRecord };
+
+    Test.startTest();
+    CommercialReferralLeadActions.publishReferralStatusUpdateEvents(
+      records,
+      oldMap
+    );
+    Test.stopTest();
+
+    Assert.isTrue(
+      CloudEventController.cloudEvents == null ||
+      CloudEventController.cloudEvents.isEmpty(),
+      'No events should be published when status remains unchanged'
     );
   }
 }

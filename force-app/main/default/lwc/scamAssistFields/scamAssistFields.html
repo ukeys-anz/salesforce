@@ -1,0 +1,35 @@
+<template>
+  <div class="slds-col slds-size_1-of-2">
+    <lightning-combobox
+      class={showScamReimbursementClass}
+      slds
+      name="scamOptions"
+      label="Scam Reimbursement Trigger"
+      value={selectedScamValue}
+      options={scamOptions}
+      onchange={handleScamReimbursementChange}
+      multiple
+    >
+    </lightning-combobox>
+    <lightning-dual-listbox
+      class={showAwarenessTriggerClass}
+      name="awarenessOptions"
+      label="Awareness Trigger"
+      value={selectedAwarenessValues}
+      options={awarenessTriggerOptions}
+      onchange={handleAwarenessTriggerChange}
+      multiple
+    >
+    </lightning-dual-listbox>
+    <lightning-dual-listbox
+      class={showNonFinLossTriggerClass}
+      name="nonFinancialOptions"
+      label="Non-Financial Loss Trigger"
+      value={selectedNonFinLossValues}
+      options={nonFinancialOptions}
+      onchange={handleNonFinLossTriggerChange}
+      multiple
+    >
+    </lightning-dual-listbox>
+  </div>
+</template>

@@ -210,7 +210,7 @@ public with sharing class CommercialLeadActions {
     ListUtil.setField(
       filteredLeadsList,
       Lead.Expiry_Date__c,
-      DateTimeUtils.getNextWeekdayDate(14)
+      DateTimeUtils.getNextWeekdayDate(30)
     );
   }
 

@@ -118,9 +118,13 @@ public with sharing class CCRMAgentAccountSnapshot {
     List<SnapshotRow> rows = new List<SnapshotRow>();
 
     for (SnapshotBuilder builder : snapshotBuilders()) {
-      SnapshotRow row = builder.build(ctx);
-      if (row != null) {
-        rows.add(row);
+      try {
+        SnapshotRow row = builder.build(ctx);
+        if (row != null) {
+          rows.add(row);
+        }
+      } catch (Exception e) {
+        Logger.error('Snapshot builder failed: ' + e).save();
       }
     }
 
@@ -147,6 +151,8 @@ public with sharing class CCRMAgentAccountSnapshot {
    * @description Base builder implementing common flow: fetch -> filter by status -> collect details -> row.
    */
   private abstract class BaseSnapshotBuilder implements SnapshotBuilder {
+    private Boolean fetchFailed = false;
+
     /**
      * @description Fetch records for this category by Account External Id.
      * @param externalId String Account External_Id__c value.
@@ -186,6 +192,13 @@ public with sharing class CCRMAgentAccountSnapshot {
     protected abstract String relatedList();
 
     /**
+     * @description Marks fetch as failed to trigger error message in output.
+     */
+    protected void markFetchFailed() {
+      fetchFailed = true;
+    }
+
+    /**
      * @description Orchestrates building SnapshotRow for this category.
      * @param ctx SnapshotContext containing externalId and date windows.
      * @return SnapshotRow if any active/open records exist; otherwise null.
@@ -203,6 +216,16 @@ public with sharing class CCRMAgentAccountSnapshot {
         collectDetails(record, ctx, details);
       }
 
+      if (fetchFailed) {
+        details.add(
+          new AccountLineBuilder()
+            .withMessage('Currently unable to retrieve data')
+            .build()
+            .message
+        );
+        return buildRow(category(), relatedList(), null, details);
+      }
+
       return active > 0
         ? buildRow(category(), relatedList(), active, details)
         : null;
@@ -214,7 +237,13 @@ public with sharing class CCRMAgentAccountSnapshot {
    */
   private class DepositBuilder extends BaseSnapshotBuilder {
     protected override Iterable<SObject> fetch(String ext) {
-      return REPO.fetchDepositAccountsByExternalId(ext);
+      try {
+        return REPO.fetchDepositAccountsByExternalId(ext);
+      } catch (Exception e) {
+        Logger.error('Deposit fetch failed', e).save();
+        markFetchFailed();
+        return new List<SObject>();
+      }
     }
     protected override String getStatus(SObject r) {
       return ((Deposit_Account__x) r).Account_Status__c;
@@ -285,7 +314,13 @@ public with sharing class CCRMAgentAccountSnapshot {
    */
   private class LoanBuilder extends BaseSnapshotBuilder {
     protected override Iterable<SObject> fetch(String ext) {
-      return REPO.fetchLoanAccountsByExternalId(ext);
+      try {
+        return REPO.fetchLoanAccountsByExternalId(ext);
+      } catch (Exception e) {
+        Logger.error('Loan fetch failed', e).save();
+        markFetchFailed();
+        return new List<SObject>();
+      }
     }
     protected override String getStatus(SObject r) {
       return ((Loan_Account__x) r).Account_Status__c;
@@ -340,7 +375,13 @@ public with sharing class CCRMAgentAccountSnapshot {
    */
   private class TermDepositBuilder extends BaseSnapshotBuilder {
     protected override Iterable<SObject> fetch(String ext) {
-      return REPO.fetchTermDepositsByExternalId(ext);
+      try {
+        return REPO.fetchTermDepositsByExternalId(ext);
+      } catch (Exception e) {
+        Logger.error('Term Deposit fetch failed', e).save();
+        markFetchFailed();
+        return new List<SObject>();
+      }
     }
     protected override String getStatus(SObject r) {
       return ((Term_Deposit__x) r).Account_Status__c;
@@ -379,7 +420,13 @@ public with sharing class CCRMAgentAccountSnapshot {
    */
   private class CreditCardBuilder extends BaseSnapshotBuilder {
     protected override Iterable<SObject> fetch(String ext) {
-      return REPO.fetchCreditCardsByExternalId(ext);
+      try {
+        return REPO.fetchCreditCardsByExternalId(ext);
+      } catch (Exception e) {
+        Logger.error('Credit Card fetch failed', e).save();
+        markFetchFailed();
+        return new List<SObject>();
+      }
     }
     protected override String getStatus(SObject r) {
       return ((Credit_Card__x) r).Account_Status__c;
@@ -430,7 +477,13 @@ public with sharing class CCRMAgentAccountSnapshot {
    */
   private class PortfolioLoansBuilder extends BaseSnapshotBuilder {
     protected override Iterable<SObject> fetch(String ext) {
-      return REPO.fetchPortfolioOfLoansByExternalId(ext);
+      try {
+        return REPO.fetchPortfolioOfLoansByExternalId(ext);
+      } catch (Exception e) {
+        Logger.error('Portfolio of Loans fetch failed', e).save();
+        markFetchFailed();
+        return new List<SObject>();
+      }
     }
     protected override String getStatus(SObject r) {
       return ((Portfolio_Of_Loan__x) r).Account_Status__c;
@@ -469,7 +522,13 @@ public with sharing class CCRMAgentAccountSnapshot {
    */
   private class OtherLimitsBuilder extends BaseSnapshotBuilder {
     protected override Iterable<SObject> fetch(String ext) {
-      return REPO.fetchOtherLimitsByExternalId(ext);
+      try {
+        return REPO.fetchOtherLimitsByExternalId(ext);
+      } catch (Exception e) {
+        Logger.error('Other Limits fetch failed', e).save();
+        markFetchFailed();
+        return new List<SObject>();
+      }
     }
     protected override String getStatus(SObject r) {
       return ((Other_Limits_and_Liabilities__x) r).Account_Status__c;
@@ -493,7 +552,13 @@ public with sharing class CCRMAgentAccountSnapshot {
    */
   private class AmbitBuilder extends BaseSnapshotBuilder {
     protected override Iterable<SObject> fetch(String ext) {
-      return REPO.fetchAssetFinanceAmbitByExternalId(ext);
+      try {
+        return REPO.fetchAssetFinanceAmbitByExternalId(ext);
+      } catch (Exception e) {
+        Logger.error('AMBIT fetch failed', e).save();
+        markFetchFailed();
+        return new List<SObject>();
+      }
     }
     protected override String getStatus(SObject r) {
       return ((Asset_Finance_AMBIT_Contract__x) r).Status__c;
@@ -531,7 +596,13 @@ public with sharing class CCRMAgentAccountSnapshot {
    */
   private class ElsBuilder extends BaseSnapshotBuilder {
     protected override Iterable<SObject> fetch(String ext) {
-      return REPO.fetchAssetFinanceELSByExternalId(ext);
+      try {
+        return REPO.fetchAssetFinanceELSByExternalId(ext);
+      } catch (Exception e) {
+        Logger.error('ELS fetch failed', e).save();
+        markFetchFailed();
+        return new List<SObject>();
+      }
     }
     protected override String getStatus(SObject r) {
       return ((Asset_Finance_ELS__x) r).Account_Status__c;
@@ -570,7 +641,13 @@ public with sharing class CCRMAgentAccountSnapshot {
    */
   private class CommercialBillsBuilder extends BaseSnapshotBuilder {
     protected override Iterable<SObject> fetch(String ext) {
-      return REPO.fetchCommercialBillsByExternalId(ext);
+      try {
+        return REPO.fetchCommercialBillsByExternalId(ext);
+      } catch (Exception e) {
+        Logger.error('Commercial Bills fetch failed', e).save();
+        markFetchFailed();
+        return new List<SObject>();
+      }
     }
     protected override String getStatus(SObject r) {
       return ((Commercial_Bill__x) r).Account_Status__c;
@@ -609,7 +686,13 @@ public with sharing class CCRMAgentAccountSnapshot {
    */
   private class IndemnityBuilder extends BaseSnapshotBuilder {
     protected override Iterable<SObject> fetch(String ext) {
-      return REPO.fetchIndemnityGuaranteesByExternalId(ext);
+      try {
+        return REPO.fetchIndemnityGuaranteesByExternalId(ext);
+      } catch (Exception e) {
+        Logger.error('Indemnity Guarantees fetch failed', e).save();
+        markFetchFailed();
+        return new List<SObject>();
+      }
     }
     protected override String getStatus(SObject r) {
       return ((Indemnity_Guarantee__x) r).Account_Status__c;
@@ -857,7 +940,7 @@ public with sharing class CCRMAgentAccountSnapshot {
    * @description Builds a SnapshotRow DTO.
    * @param cat Category label.
    * @param rl Related list relationship API name.
-   * @param c Active/open count.
+   * @param c Active/open count. Pass null to display as null (N/A) for API failures.
    * @param d Detail lines collected.
    * @return SnapshotRow populated instance.
    */
@@ -870,7 +953,7 @@ public with sharing class CCRMAgentAccountSnapshot {
     SnapshotRow r = new SnapshotRow();
     r.accountCategory = cat;
     r.accountCategoryRelatedListName = rl;
-    r.activeOpenCount = c == null ? 0 : c;
+    r.activeOpenCount = c;
     r.detailLines = (d == null || d.isEmpty()) ? '' : String.join(d, '\n');
     return r;
   }

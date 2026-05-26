@@ -7,6 +7,7 @@ public without sharing class ReferralCloudEventModel extends CloudEventModel {
   public static final String REFERRAL_CE_SOURCE = 'anzx.salesforce.ccrm.v1alpha1';
   public static final String SOURCE_OF_BUSINESS = 'Internal Referral';
   public static final Set<String> FIELDS_TO_CONCATENATE = new Set<String>{
+    'ReferrerName', // Referrer FirstName & LastName
     'Company', // For exisiting customer use Account Name | For New customers use Company
     'Name', // Lead.Name
     'Primary_Contact_Method__c',
@@ -18,7 +19,7 @@ public without sharing class ReferralCloudEventModel extends CloudEventModel {
     'Work Phone' => 'Work_Phone__c',
     'Mobile' => 'MobilePhone'
   };
-  public static final String CONCATENATE_TEMPLATE = 'Company - {0}; Contact - {1}; Primary Contact Method - {2}; {2} - {3}; Email - {4}';
+  public static final String CONCATENATE_TEMPLATE = 'Referrer - {0}; Company - {1}; Contact - {2}; Primary Contact Method - {3}; {3} - {4}; Email - {5};';
   private static final CommercialReferralLeadRepository COMMERCIAL_REFERRAL_LEAD_REPOSITORY = (CommercialReferralLeadRepository) Lib_InstanceProvider.forType(
     CommercialReferralLeadRepository.class
   );
@@ -47,6 +48,32 @@ public without sharing class ReferralCloudEventModel extends CloudEventModel {
       theLead,
       leadOwnerMap,
       existingCustomerMap
+    );
+  }
+
+  /**
+   * @description Constructor for Status Updates (Used by Controller)
+   * @param externalId unique identifier for external system
+   * @param systemData system data
+   * @param mappedStatus current referral status
+   * @param opportunityStage current opportunity stage
+   **/
+  public ReferralCloudEventModel(
+    String externalId,
+    CloudEventModel.CloudEventSystemModel systemData,
+    String mappedStatus,
+    String opportunityStage
+  ) {
+    super();
+    this.systemData = systemData;
+    this.ce_source = REFERRAL_CE_SOURCE;
+    this.ce_subject = 'ExternalId/' + externalId;
+    this.ce_partitionkey = 'ExternalId/' + externalId;
+    this.ce_type = System.Label.CCRM_REFERRAL_TO_IKNOW_EVENT_CE_TYPE_FOR_UPDATE;
+    this.ce_data = new ReferralCloudEventDataModel(
+      externalId,
+      mappedStatus,
+      opportunityStage
     );
   }
 
@@ -102,6 +129,37 @@ public without sharing class ReferralCloudEventModel extends CloudEventModel {
      * @description  entityType --> Lead.Entity_Type__c
      */
     public String entityType { get; set; }
+    /**
+     * @description  productFUM --> Lead.FinServ__PotentialValue__c
+     */
+    public String productFUM { get; set; }
+    /**
+     * @description  opportunityId tracking
+     */
+    public String opportunityId { get; set; }
+    /**
+     * @description  sfReferralStatus mapping
+     */
+    public String sfReferralStatus { get; set; }
+    /**
+     * @description  sfSalesStage mapping
+     */
+    public String sfSalesStage { get; set; }
+
+    /** * @description Constructor for Status Updates
+     * @param externalId external identifier
+     * @param status referral status
+     * @param stage sales stage
+     **/
+    public ReferralCloudEventDataModel(
+      String externalId,
+      String status,
+      String stage
+    ) {
+      this.opportunityId = externalId;
+      this.sfReferralStatus = status;
+      this.sfSalesStage = stage;
+    }
 
     /**
      * @description  Constructor for ReferralCloudEventDataModel
@@ -138,6 +196,7 @@ public without sharing class ReferralCloudEventModel extends CloudEventModel {
         // Send Entity Type only for Existing Customers
         this.entityType = accRecTypeID == RTAccount.personAccount ? 'I' : 'C';
       }
+      this.productFUM = theLead.FinServ__PotentialValue__c?.toString();
     }
 
     /**
@@ -168,13 +227,20 @@ public without sharing class ReferralCloudEventModel extends CloudEventModel {
       Map<Id, Account> existingCustomerMap
     ) {
       List<String> fieldsData = new List<String>();
+      List<User> referrerUser = COMMERCIAL_REFERRAL_LEAD_REPOSITORY.getUsers(
+        new Set<Id>{ theLead.FinServ__ReferredByUser__c }
+      );
       for (String eachField : FIELDS_TO_CONCATENATE) {
+        if (eachField == 'ReferrerName') {
+          fieldsData.add(getName(null, referrerUser[0]) ?? '');
+          continue;
+        }
         if (eachField == 'Company') {
           fieldsData.add(getCompanyName(theLead, existingCustomerMap) ?? '');
           continue;
         }
         if (eachField == 'Name') {
-          fieldsData.add(getLeadName(theLead) ?? '');
+          fieldsData.add(getName(theLead, null) ?? '');
           continue;
         }
         if (eachField == 'Phone') {
@@ -190,9 +256,15 @@ public without sharing class ReferralCloudEventModel extends CloudEventModel {
     /**
      * @description return lead name concatenated
      * @param theLead lead record
+     * @param theReferrer user record
      * @return String FirstName + MiddleName + LastName
      **/
-    private String getLeadName(Lead theLead) {
+    private String getName(Lead theLead, User theReferrer) {
+      if (theReferrer != null) {
+        return TextUtils.concat(
+          new Set<String>{ theReferrer.FirstName, theReferrer.LastName }
+        );
+      }
       return TextUtils.concat(
         new Set<String>{
           theLead.FirstName,

@@ -3,6 +3,7 @@
     <description>Permission set group for Quality Assessment</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>CMOS Quality Assessor</label>
+    <permissionSets>Azure_Token</permissionSets>
     <permissionSets>IDR_C360_Base</permissionSets>
     <permissionSets>Quality_Assessment_C_Q_Read_Write</permissionSets>
     <permissionSets>Quality_Workbench</permissionSets>

@@ -23,6 +23,8 @@ d.url =
 
 insert d;
 
+System.debug('VlocityLogoDocumentUploads Document created with Id: ' + d.Id);
+
 //---- This is to update Aegis Custom Setting URL
 
 String nonProdAegisURL = 'https://aegis-early-access.identity-services-sit-int-gw.apps-int.x.gcpnp.anz';
@@ -46,3 +48,5 @@ if (aegisSetting.size() > 0) {
   aegis.Env_Name__c = 'SIT';
   insert aegis;
 }
+
+System.debug('Aegis URL is set to: ' + nonProdAegisURL);

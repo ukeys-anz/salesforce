@@ -391,7 +391,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Number of days to calculate Expiry Date at which the Referral gets Expired.</shortDescription>
-        <value>5</value>
+        <value>30</value>
     </labels>
     <labels>
         <fullName>CCRM_ExpiryReminderDays</fullName>
@@ -2730,6 +2730,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>anzx.salesforce.ccrm.v1alpha1.referral.retail_referral</value>
     </labels>
     <labels>
+        <fullName>CCRM_REFERRAL_TO_IKNOW_EVENT_CE_TYPE_FOR_UPDATE</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM_REFERRAL_TO_IKNOW_EVENT_CE_TYPE_FOR_UPDATE</shortDescription>
+        <value>anzx.salesforce.ccrm.v1alpha1.referral_status_update.retail_referral</value>
+    </labels>
+    <labels>
         <fullName>MS_ExportConsentDataIN_API</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2940,6 +2947,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/BBDInsightsDashboard/ExecutiveSummary</value>
     </labels>
     <labels>
+        <fullName>CCRM_LAI_Tableau_View_URL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM LAI Tableau View URL</shortDescription>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/LAI/Leads_Action_InsightsVerification</value>
+    </labels>
+    <labels>
         <fullName>HideCardDetailsAfterMiliseconds</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -3141,6 +3155,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>Financial Account CACHE360 Endpoint</shortDescription>
         <value>callout:Secure_waf_gw/salesforce.service.financialaccount.v1alpha1.CacheFinancialAccountAPI/</value>
+    </labels>
+    <labels>
+        <fullName>Ocdd_KYC_Status_Endpoint</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Ocdd KYC Status Endpoint</shortDescription>
+        <value>callout:Secure_waf_gw/genesis.service.customerduediligence.v1alpha2.AssistedActionsAPI/GetDetailedKycFreshness</value>
     </labels>
     <labels>
         <fullName>Office_Group_Activation_Success_Message</fullName>
@@ -3408,5 +3429,12 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>Custom Notification On Opportunity</shortDescription>
         <value>BrokerBiz_Opportunity_Notification</value>
+    </labels>
+    <labels>
+        <fullName>SF_QA_API</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SF QA  API</shortDescription>
+        <value>callout:Secure_waf_gw/salesforce.service.qualityassessment.v1alpha1.QualityAssessmentAPI/CreateQualityAssessment</value>
     </labels>
 </CustomLabels>

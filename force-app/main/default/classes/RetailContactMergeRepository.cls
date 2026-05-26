@@ -61,7 +61,6 @@ public with sharing class RetailContactMergeRepository {
         Sync_Status__c,
         Broker_Set__c,
         Office_Group__c,
-        Is_Beta_Broker__c,
         Is_Synced_To_Broker_Org__c
       FROM Contact
       WHERE External_Id__c IN :survivorExternalIdList

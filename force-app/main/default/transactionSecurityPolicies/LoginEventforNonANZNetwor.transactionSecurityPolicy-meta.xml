@@ -11,7 +11,7 @@
         </notifications>
         <twoFactorAuthentication>false</twoFactorAuthentication>
     </action>
-    <active>true</active>
+    <active>false</active>
     <apexClass>NonANZNetworkEventHandler</apexClass>
     <description>LoginEvent for Non ANZ Network Policy for ANZ Plus Salesforce Access Source IP Control.</description>
     <developerName>LoginEventforNonANZNetwor</developerName>

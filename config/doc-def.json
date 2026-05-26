@@ -118,9 +118,15 @@
   "usermap": [
     {
       "name": "Api Enabled User",
+      "role": "ANZx",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["Interaction_Read_Only", "Disable_MFA", "Bypass_TSP"],
+      "permissionsets": [
+        "Interaction_Read_Only",
+        "Disable_MFA",
+        "force__FinancialServicesCloudExtension",
+        "Bypass_TSP"
+      ],
       "type": "system"
     },
     {
@@ -273,14 +279,8 @@
       "type": "user"
     },
     {
-      "name": "CFMS Integration User",
-      "profile": "Integration User",
-      "permissionsetgroups": [],
-      "permissionsets": ["Enforce_mTLS", "IDR_CFMS_Migration", "Bypass_TSP"],
-      "type": "system"
-    },
-    {
       "name": "CFMS Migration User",
+      "role": "Customer Resolution Leadership",
       "profile": "Integration User",
       "permissionsetgroups": ["IDR_CRP_LT"],
       "permissionsets": [
@@ -331,7 +331,8 @@
       "type": "user"
     },
     {
-      "name": "COSMOS Integration User",
+      "name": "cosmosintegration User",
+      "role": "ANZx",
       "profile": "Integration User",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -358,6 +359,7 @@
     },
     {
       "name": "Customer Onboarding Integration User",
+      "role": "ANZx",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -386,7 +388,24 @@
       "type": "system"
     },
     {
-      "name": "Deployment User",
+      "name": "Pubsub Streaming Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Disable_MFA",
+        "Enforce_mTLS",
+        "Logs_Monitoring",
+        "Cloud_Event_Integration",
+        "Enforce_SSO",
+        "IDR_Notification_Broker_Integration",
+        "LogRecordAccess_Read",
+        "Logging_Events_Read_Access"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Deploy User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -394,6 +413,9 @@
         "Key_Manager",
         "SFDX_GCB",
         "force__EinsteinAnalyticsPlusAdmin",
+        "Financial_Accounts_Read_and_Edit",
+        "force__ActionPlans",
+        "force__FinancialServicesCloudExtension",
         "SFDX_Deploy",
         "Disable_MFA"
       ],
@@ -415,12 +437,18 @@
         "IDR_User",
         "FinServ__FinancialServicesCloudStandard",
         "CCRM_Controlling_Post",
-        "force__Mortgage"
+        "force__Mortgage",
+        "Bypass_TSP",
+        "Financial_Accounts_Read_and_Edit",
+        "View_All_Fields",
+        "force__ActionPlans",
+        "force__FinancialServicesCloudExtension"
       ],
       "type": "system"
     },
     {
       "name": "Dispute GCP API Integration User",
+      "role": "ANZx",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -428,17 +456,20 @@
         "Case_Read_Only_Dispute_Integration_GCP",
         "Customer_Dispute_Management_Read_Only",
         "Disable_MFA",
+        "Case_Read_Write_Dispute_Integration",
         "Enforce_mTLS"
       ],
       "type": "system"
     },
     {
       "name": "Disputes Integration User",
+      "role": "ANZx",
       "profile": "Integration User",
       "permissionsetgroups": [],
       "permissionsets": [
         "API_Only",
         "Case_Read_Write_Dispute_Integration",
+        "Case_Read_Only_Dispute_Integration_GCP",
         "Customer_Dispute_Management_Read_Write",
         "Disable_MFA",
         "Enforce_mTLS",
@@ -448,6 +479,7 @@
     },
     {
       "name": "Contract Event Integration User",
+      "role": "ANZ",
       "profile": "Integration User",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -455,6 +487,8 @@
         "FinServ__FinancialServicesCloudStandard",
         "Disable_MFA",
         "Enforce_mTLS",
+        "Product_Read_Only",
+        "Broker_Details_Integration",
         "Bypass_TSP",
         "Update_Signing_Authority"
       ],
@@ -462,19 +496,10 @@
     },
     {
       "name": "EDW Integration User",
+      "role": "Data Analyst",
       "profile": "Integration User",
       "permissionsetgroups": ["IDR_EDW_User"],
-      "permissionsets": [
-        "Enforce_mTLS",
-        "IDR_EDW_Integration",
-        "API_Only",
-        "Complaint_Read_Only",
-        "Product_Read_Only",
-        "Systemic_Issue_Read_Only",
-        "View_All_Files",
-        "Disable_MFA",
-        "Bypass_TSP"
-      ],
+      "permissionsets": ["Salesforce_EDW_Backup", "Disable_MFA", "Bypass_TSP"],
       "type": "system"
     },
     {
@@ -485,20 +510,8 @@
       "type": "user"
     },
     {
-      "name": "GCP API User",
-      "profile": "Integration User",
-      "permissionsetgroups": [],
-      "permissionsets": [
-        "API_Only",
-        "Disable_MFA",
-        "Enforce_mTLS",
-        "KYC_QA_Integration",
-        "Bypass_TSP"
-      ],
-      "type": "system"
-    },
-    {
       "name": "GCP bulk Data Upload Integration User",
+      "role": "ANZ",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -506,6 +519,9 @@
         "Bulk_API",
         "Disable_MFA",
         "Read_Write_Customer_Details",
+        "Financial_Accounts_Read_and_Edit",
+        "FinServ__FinancialServicesCloudStandard",
+        "Product_Read_Only",
         "Restrict_OCV_Event_Version_Update"
       ],
       "type": "system"
@@ -575,9 +591,15 @@
     },
     {
       "name": "Join Batch Automation User",
+      "role": "ANZx",
       "profile": "Minimum Access - Salesforce",
       "permissionsetgroups": [],
-      "permissionsets": ["API_Only", "Case_Read_Write_KYC_QA_Integration"],
+      "permissionsets": [
+        "API_Only",
+        "Case_Read_Write_Dispute",
+        "Enforce_SSO",
+        "Case_Read_Write_KYC_QA_Integration"
+      ],
       "type": "system"
     },
     {
@@ -596,7 +618,9 @@
         "Broker_Details_Integration",
         "Financial_Accounts_Read_and_Edit",
         "Bypass_TSP",
-        "Read_Write_Customer_Details",
+        "Product_Read_Only",
+        "MLCRM_Marketing_Integration_User",
+        "Product_Read_Write",
         "Case_Read_Write_Broker_Enquiry",
         "Case_Read_Write_KYC_QA_Integration",
         "Case_View_All",
@@ -614,7 +638,8 @@
       "type": "user"
     },
     {
-      "name": "Profile Update QA Integration user",
+      "name": "Profile Update QA Integration User",
+      "role": "ANZx",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -627,6 +652,7 @@
     },
     {
       "name": "Referral SF to iKnow Integration User",
+      "role": "ANZ",
       "profile": "Integration User",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -700,9 +726,13 @@
         "Broker_Details_Integration",
         "Financial_Accounts_Read_and_Edit",
         "Bypass_TSP",
-        "Read_Write_Customer_Details",
         "Case_Read_Write_KYC_QA_Integration",
         "Update_Signing_Authority",
+        "Product_Read_Only",
+        "Case_View_All",
+        "Loan_app_Integration",
+        "Product_Read_Write",
+        "Case_Read_Write_Broker_Enquiry",
         "Is_OCV_Integration_User"
       ],
       "type": "system"
@@ -721,7 +751,7 @@
         "force__FinancialServicesCloudExtension",
         "FinServ__FinancialServicesCloudStandard",
         "Data_Disposal",
-        "Data_Disposal_CMOS"
+        "force__Mortgage"
       ],
       "type": "system"
     },
@@ -734,6 +764,7 @@
     },
     {
       "name": "PEGA Integration User",
+      "role": "ANZx",
       "profile": "Integration User",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -746,7 +777,8 @@
       "type": "system"
     },
     {
-      "name": "PEGA Status Integration User",
+      "name": "Pega Status Integration User",
+      "role": "ANZx",
       "profile": "Integration User",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -755,19 +787,24 @@
         "PEGA_Status_Integration",
         "Disable_MFA",
         "View_and_Edit_Tasks",
+        "Merchant_Evidence_Privacy",
         "Bypass_TSP"
       ],
       "type": "system"
     },
     {
       "name": "Qualtrics Integration User",
-      "profile": "Integration User (External Apps)",
+      "role": "ANZx",
+      "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
         "Case_Read_Write_Qualtrics_Integration",
         "Customer_Feedback_Read_Write",
         "Lead_Read_Write_Qualtrics_Integration",
         "Disable_MFA",
+        "Commercial_Qualtrics_Admin",
+        "qualtrics__Qualtrics_Admin",
+        "API_Only",
         "Password_Never_Expires"
       ],
       "type": "system"
@@ -780,7 +817,8 @@
       "type": "user"
     },
     {
-      "name": "Referral iKnow to SF Integration User",
+      "name": "Referral iKnow to SF GCP Integration User",
+      "role": "ANZ",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -788,44 +826,35 @@
         "CCRM_Marketing_Integration_User",
         "Disable_MFA",
         "Referral_iKnow_to_SF",
+        "Referral_SF_to_iKnow",
         "Referral_Status_Update"
       ],
       "type": "system"
     },
     {
-      "name": "SaaS Splunk Integration User",
+      "name": "Saas Splunk Integration User",
+      "role": "ANZx",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
-      "permissionsets": [
-        "API_Only",
-        "Splunk_Integration_Sec_Ops",
-        "Splunk_Integration_Tech_Ops",
-        "Disable_MFA"
-      ],
+      "permissionsets": ["API_Only", "SaaS_Splunk_Integration"],
       "type": "system"
     },
     {
       "name": "Splunk AWS Integration User",
+      "role": "ANZx",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
         "API_Only",
-        "Splunk_Integration_Tech_Ops",
-        "LogRecordAccess_Read",
         "Logs_Monitoring",
+        "Salesforce_Library_Custom_Setting_Access",
         "Disable_MFA"
       ],
       "type": "system"
     },
     {
-      "name": "SAF Integration User",
-      "profile": "Minimum Access - External Apps",
-      "permissionsetgroups": [],
-      "permissionsets": ["API_Access_SAF", "API_Only", "Disable_MFA"],
-      "type": "system"
-    },
-    {
-      "name": "ServiceNow API User",
+      "name": "ServiceNow Api user",
+      "role": "ANZ",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -851,21 +880,10 @@
       "type": "user"
     },
     {
-      "name": "Shared Administrator",
-      "profile": "Minimum Access - External Apps",
-      "permissionsetgroups": ["Shared_Admin"],
-      "permissionsets": ["Disable_MFA"],
-      "type": "system"
-    },
-    {
       "name": "Splunk Sec Ops Integration User",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": [
-        "Splunk_Integration_Sec_Ops",
-        "Disable_MFA",
-        "Bypass_TSP"
-      ],
+      "permissionsets": ["Splunk_Integration_Sec_Ops", "Bypass_TSP"],
       "type": "system"
     },
     {
@@ -887,20 +905,6 @@
       "type": "system"
     },
     {
-      "name": "Provisioning User",
-      "profile": "Integration User",
-      "permissionsetgroups": [],
-      "permissionsets": ["User_Provisioning", "Disable_MFA", "Bypass_TSP"],
-      "type": "system"
-    },
-    {
-      "name": "WebdriverIO Integration User",
-      "profile": "Minimum Access - Salesforce",
-      "permissionsetgroups": [],
-      "permissionsets": ["API_Only", "SFDX_Full_Dev_Hub_Access", "Disable_MFA"],
-      "type": "system"
-    },
-    {
       "name": "FinCrime Agent",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["FinCrime_Agent"],
@@ -916,6 +920,7 @@
     },
     {
       "name": "Twilio API User",
+      "role": "ANZx",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -925,7 +930,7 @@
         "Enforce_mTLS",
         "Interaction_Integration",
         "Password_Never_Expires",
-        "Disable_MFA",
+        "Twilio_Summary_Read_Write",
         "Twilio_Detail_Read_Write",
         "force__FinancialServicesCloudExtension"
       ],
@@ -949,7 +954,7 @@
       "name": "Sailpoint User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
-      "permissionsets": ["API_Only", "User_Provisioning", "Disable_MFA"],
+      "permissionsets": ["API_Only", "User_Provisioning"],
       "type": "system"
     },
     {
@@ -961,6 +966,7 @@
     },
     {
       "name": "Collections Integration User",
+      "role": "ANZ",
       "profile": "Integration User",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -974,6 +980,7 @@
     },
     {
       "name": "Complaints Integration User",
+      "role": "ANZ",
       "profile": "Integration User",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -986,7 +993,8 @@
       "type": "system"
     },
     {
-      "name": "System Task Integration User",
+      "name": "SystemTask Integration User",
+      "role": "ANZ",
       "profile": "Integration User",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -1001,6 +1009,7 @@
     },
     {
       "name": "Xpression Integration User",
+      "role": "ANZ",
       "profile": "Integration User",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -1014,6 +1023,7 @@
     },
     {
       "name": "Commercial Hierarchy Integration User",
+      "role": "ANZ",
       "profile": "Integration User",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -1040,34 +1050,39 @@
     },
     {
       "name": "Adobe Integration User",
-      "profile": "Minimum Access - Salesforce",
+      "role": "ANZ",
+      "profile": "Integration User",
       "permissionsetgroups": [],
       "permissionsets": [
         "API_Only",
         "Enforce_mTLS",
         "CCRM_Marketing_Integration_User",
         "Disable_MFA",
+        "MLCRM_Marketing_Integration_User",
         "Bypass_TSP"
       ],
       "type": "system"
     },
     {
       "name": "Unica Integration User",
-      "profile": "Minimum Access - Salesforce",
+      "role": "ANZ",
+      "profile": "Integration User",
       "permissionsetgroups": [],
       "permissionsets": [
         "API_Only",
         "Enforce_mTLS",
         "CCRM_Marketing_Integration_User",
         "Disable_MFA",
+        "MLCRM_Marketing_Integration_User",
         "Bypass_TSP"
       ],
       "type": "system"
     },
     {
       "name": "AEM Integration User",
+      "role": "ANZx",
       "profile": "Minimum Access - External Apps",
-      "permissionsetgroups": ["AEM_Integration"],
+      "permissionsetgroups": ["Lead_Read_Write_AEM_Integration_PSG"],
       "permissionsets": [
         "API_Only",
         "Disable_MFA",
@@ -1079,6 +1094,7 @@
     },
     {
       "name": "SFDataSync User",
+      "role": "ANZx",
       "profile": "Integration User",
       "permissionsetgroups": ["CCRM_Banker", "IDR_EDW_User"],
       "permissionsets": [
@@ -1091,12 +1107,14 @@
         "FinServ__FinancialServicesCloudStandard",
         "MLCRM_Base",
         "force__Mortgage",
+        "Query_All_Files",
         "SF_Data_Sync_Integration"
       ],
       "type": "system"
     },
     {
       "name": "BOH Integration User",
+      "role": "ANZx",
       "profile": "Integration User",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -1110,7 +1128,7 @@
       "type": "system"
     },
     {
-      "name": "Maintain Party GCP Integration user",
+      "name": "Maintain Party GCP Integration User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -1123,14 +1141,8 @@
       "type": "system"
     },
     {
-      "name": "Microsoft Defender Integration User",
-      "profile": "Minimum Access - External Apps",
-      "permissionsetgroups": [],
-      "permissionsets": ["Microsoft_Defender", "Disable_MFA"],
-      "type": "system"
-    },
-    {
-      "name": "CFaaS GCP Integration User",
+      "name": "CFaaS GCP Integration user",
+      "role": "ANZx",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -1140,20 +1152,8 @@
         "force__Mortgage",
         "Disable_MFA",
         "Set_Audit_Fields",
+        "View_Setup_And_Users",
         "DAON_File_Integration"
-      ],
-      "type": "system"
-    },
-    {
-      "name": "BOH Integration User",
-      "profile": "Integration User",
-      "permissionsetgroups": [],
-      "permissionsets": [
-        "API_Only",
-        "force__Mortgage",
-        "BoH_Read_Write",
-        "Disable_MFA",
-        "Enforce_mTLS"
       ],
       "type": "system"
     },
@@ -1165,20 +1165,8 @@
       "type": "system"
     },
     {
-      "name": "CFaaS GCP Integration User",
-      "profile": "Integration User",
-      "permissionsetgroups": [],
-      "permissionsets": [
-        "CFaaS_Integration",
-        "API_Only",
-        "Enforce_mTLS",
-        "force__Mortgage",
-        "Disable_MFA"
-      ],
-      "type": "system"
-    },
-    {
       "name": "Customer Validation Integration User",
+      "role": "ANZx",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -1195,6 +1183,7 @@
     },
     {
       "name": "Appointment Integration User",
+      "role": "ANZx",
       "profile": "Integration User",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -1208,15 +1197,15 @@
     },
     {
       "name": "Credit Referral GCP Integration User",
-      "profile": "Integration User",
+      "role": "ANZx",
+      "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
         "Credit_Referral_Integration",
         "Case_Read_Write_Credit_Referral",
         "API_Only",
-        "Enforce_mTLS",
         "Disable_MFA",
-        "Mortgage",
+        "force__Mortgage",
         "Loan_app_Integration"
       ],
       "type": "system"
@@ -1229,12 +1218,14 @@
         "API_Only",
         "Disable_MFA",
         "Cloud_Event_Integration",
+        "Bypass_TSP",
         "Password_Never_Expires"
       ],
       "type": "system"
     },
     {
       "name": "KYC QA Integration User",
+      "role": "ANZx",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -1247,20 +1238,32 @@
       "type": "system"
     },
     {
-      "name": "Loan App Integration User",
+      "name": "Loan App GCP Integration User",
+      "role": "ANZx",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
-        "API_Only",
-        "force__Mortgage",
-        "Loan_app_Integration",
+        "Case_Read_Write_Account_Closure",
+        "BoH_Read_Write",
         "Disable_MFA",
-        "Enforce_mTLS"
+        "View_and_Edit_Tasks",
+        "force__Mortgage",
+        "Enforce_mTLS",
+        "API_Only",
+        "Case_Read_Write_Credit_Referral",
+        "Loan_app_Integration",
+        "Coach_Nudge_Integration",
+        "Broker_Details_Integration",
+        "Product_Read_Write",
+        "Case_Group_Read_Write_Access",
+        "Simpology_Data_Sync",
+        "Push_To_App_Integration"
       ],
       "type": "system"
     },
     {
       "name": "Loan Settlement GCP Integration User",
+      "role": "ANZx",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -1269,20 +1272,37 @@
         "Settlements_Read_Write",
         "Disable_MFA",
         "Enforce_mTLS",
-        "ActionPlans",
-        "Loan_app_settlement_integration"
+        "force__ActionPlans",
+        "Loan_App_Settlement_Integration"
       ],
       "type": "system"
     },
     {
       "name": "InAppComplaint Integration User",
+      "role": "ANZx",
       "profile": "Integration User",
       "permissionsetgroups": [],
       "permissionsets": [
         "API_Only",
         "Case_Read_Write_Get_Help",
         "Case_View_All",
+        "Customer_Read_Only",
         "Disable_MFA",
+        "ExtraCareReadOnly",
+        "Bypass_TSP"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "BOH Web CallbackRequest Integration User",
+      "role": "ANZx",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "Lead_Read_Write",
+        "Customer_Read_Only",
+        "API_Only",
+        "Coach_Nudge_Integration",
         "Bypass_TSP"
       ],
       "type": "system"
@@ -1296,21 +1316,28 @@
     },
     {
       "name": "Intraday Dispute Integration user",
+      "role": "ANZx",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
         "API_Only",
         "Case_Read_Write_Dispute_Integration",
         "Disable_MFA",
+        "Case_Credit_Referral_Ownership_Transfer",
         "Enforce_mTLS"
       ],
       "type": "system"
     },
     {
       "name": "CRM Analytics Plus Batch User",
-      "profile": "Minimum Access - External Apps",
+      "role": "ANZx",
+      "profile": "Minimum Access - Salesforce",
       "permissionsetgroups": ["FraudX_Agent"],
-      "permissionsets": ["force__EinsteinAnalyticsPlusAdmin", "Export_Reports"],
+      "permissionsets": [
+        "force__EinsteinAnalyticsPlusAdmin",
+        "Disable_MFA",
+        "Export_Reports"
+      ],
       "type": "system"
     },
     {
@@ -1328,6 +1355,7 @@
     },
     {
       "name": "Aegis Harbour Integration User",
+      "role": "ANZx",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -1340,20 +1368,28 @@
     },
     {
       "name": "DAON Files Cleanup Batch User",
+      "role": "ANZx",
       "profile": "Minimum Access - Salesforce",
       "permissionsetgroups": [],
-      "permissionsets": ["DAONFileCleanup", "Query_All_Files", "API_Only"],
+      "permissionsets": [
+        "DAONFileCleanup",
+        "Disable_MFA",
+        "Query_All_Files",
+        "API_Only"
+      ],
       "type": "system"
     },
     {
       "name": "CFaaS Files Cleanup Batch User",
+      "role": "ANZx",
       "profile": "Minimum Access - Salesforce",
       "permissionsetgroups": [],
-      "permissionsets": ["CFaaSFileCleanup", "Query_All_Files", "API_Only"],
+      "permissionsets": ["CFaaSFileCleanup", "View_All_Files", "API_Only"],
       "type": "system"
     },
     {
       "name": "Broker Enquiry GCP Integration User",
+      "role": "ANZx",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -1369,14 +1405,107 @@
     },
     {
       "name": "AMBIT Integration User",
+      "role": "ANZ",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
         "Disable_MFA",
         "API_Only",
         "AMBIT_Data_Sync",
-        "force__FinancialServicesCloudExtension",
+        "Broker_Details_Integration",
         "Access_Application_Form_Related_Functionality"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "CRM Batch User",
+      "role": "AR&C",
+      "profile": "Minimum Access - Salesforce",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "CCRM_User_Base",
+        "API_Only",
+        "Enforce_SSO",
+        "MLCRM_Base_Read_Only",
+        "Validation_Bypass"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Batch User",
+      "role": "AR&C",
+      "profile": "Minimum Access - Salesforce",
+      "permissionsetgroups": ["Engineer","MLCRM_Super_User"],
+      "permissionsets": [
+        "CCRM_User_Base",
+        "CCRM_User_Read_Only",
+        "Disable_MFA",
+        "Enforce_SSO",
+        "Financial_Accounts_Read_and_Edit",
+        "FinServ__FinancialServicesCloudStandard",
+        "MLCRM_Base_Read_Only"    
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Get Help Batch User",
+      "role": "Business Admin",
+      "profile": "Minimum Access - Salesforce",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "Case_Read_Write_Account_Closure",
+        "Enforce_SSO",
+        "API_Only",
+        "Coach_Nudge_Task_Access",
+        "Case_Group_Read_Write_Access",
+        "Push_To_App_Read_Only"    
+      ],
+      "type": "system"
+    },
+    {
+      "name": "BOH Lead Auto-Closure Batch User",
+      "role": "Business Admin",
+      "profile": "Minimum Access - Salesforce",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "Lead_Read_Write",
+        "Enforce_SSO",
+        "API_Only"    
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Custom History Delete Batch User",
+      "role": "Business Admin",
+      "profile": "Minimum Access - Salesforce",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Data_Delete"    
+      ],
+      "type": "system"
+    },
+    {
+      "name": "CPID Batch User",
+      "profile": "Minimum Access - Salesforce",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "Read_Write_Customer_Details",
+        "CCRM_Controlling_Post",
+        "API_Only"    
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Security Center Integration User",
+      "profile": "Minimum Access - Salesforce",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "Disable_MFA",
+        "API_Only",
+        "Password_Never_Expires",
+        "Bypass_TSP",
+        "Security_Center_Integration"   
       ],
       "type": "system"
     },
@@ -1394,6 +1523,7 @@
     },
     {
       "name": "TrustMe ReKYC GCP Integration User",
+      "role": "ANZx",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
@@ -2100,6 +2230,19 @@
       "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
       "permissionsets": ["Enforce_SSO"],
       "type": "user"
+    },
+    {
+      "name": "GCP AI API User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Complaint_Read_Only",
+        "Quality_Assessment_C_Q_Read_Write",
+        "Disable_MFA",
+        "Quality_Assessment_IDR_EDR_Read_Write"
+      ],
+      "type": "system"
     }
   ]
 }
