@@ -7,7 +7,7 @@
     <externalId>true</externalId>
     <inlineHelpText>Unique ID for call or message thread created by Twilio</inlineHelpText>
     <label>Chat or Call SID</label>
-    <length>34</length>
+    <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackHistory>true</trackHistory>

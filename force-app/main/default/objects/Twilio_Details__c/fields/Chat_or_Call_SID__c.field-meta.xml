@@ -9,7 +9,7 @@
     <externalId>true</externalId>
     <inlineHelpText>Unique ID for call or message thread</inlineHelpText>
     <label>Contact ID</label>
-    <length>34</length>
+    <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackHistory>true</trackHistory>
