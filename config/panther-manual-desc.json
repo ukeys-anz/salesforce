@@ -277,12 +277,14 @@
         "Collections__c",
         "Customer_Belongs_To__c",
         "Customer_Dispute_Management__c",
+        "DigitalChannelOffboardedDate__c",
         "FinServ__KYCStatus__c",
         "FinServ__Status__c",
         "Hardship__c",
         "KYC_Verification_Level__c",
         "KYCVerificationDate__c",
         "KYC_Confirmation_Date__c",
+
         "Mobile__c",
         "Was_ANZx_Customer__c",
         "Worldline_Merchant__c"
