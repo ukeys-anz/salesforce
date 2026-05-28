@@ -2230,6 +2230,19 @@
       "permissionsetgroups": ["CCRM_Banker", "IDR_Level_2"],
       "permissionsets": ["Enforce_SSO"],
       "type": "user"
+    },
+    {
+      "name": "GCP AI API User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Complaint_Read_Only",
+        "Quality_Assessment_C_Q_Read_Write",
+        "Disable_MFA",
+        "Quality_Assessment_IDR_EDR_Read_Write"
+      ],
+      "type": "system"
     }
   ]
 }

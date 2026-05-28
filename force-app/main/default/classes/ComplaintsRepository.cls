@@ -168,4 +168,12 @@ public with sharing class ComplaintsRepository {
   public Case getCreatedDate(Id caseId) {
     return [SELECT CreatedDate FROM Case WHERE ID = :caseId] ?? null;
   }
+  /**
+   * @description Get the complaint
+   * @param caseNumber caseNumber of Complaint
+   * @return Case
+   */
+  public Case getCaseByCaseNumber(String caseNumber) {
+    return [SELECT Id FROM Case WHERE CaseNumber = :caseNumber LIMIT 1] ?? null;
+  }
 }

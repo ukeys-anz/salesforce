@@ -3414,4 +3414,11 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>Custom Notification On Opportunity</shortDescription>
         <value>BrokerBiz_Opportunity_Notification</value>
     </labels>
+    <labels>
+        <fullName>SF_QA_API</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SF QA  API</shortDescription>
+        <value>callout:Secure_waf_gw/salesforce.service.qualityassessment.v1alpha1.QualityAssessmentAPI/CreateQualityAssessment</value>
+    </labels>
 </CustomLabels>
