@@ -24,10 +24,22 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
     'EXPIRED' => 'archived'
   };
 
-  private static final Map<String, String> DISCLAIMER_FIELD_MAP = new Map<String, String>{
+  public static final Map<String, String> DISCLAIMER_FIELD_MAP = new Map<String, String>{
     'Open' => 'Open_Accounts_Disclaimer__c',
     'Hybrid' => 'Open_and_Closed_Accounts_Disclaimer__c',
     'Closed' => 'Closed_Accounts_Disclaimer__c'
+  };
+
+  public static final Integer DEFAULT_TXN_SHARING_DURATION_YEARS = 7;
+
+  /**
+   * Map of transaction consent duration (years) to Custom Metadata scope key template
+   * For 2-year consents: scope key includes state suffix (e.g., 'bank:transactions:read:2y:active')
+   * For 7-year or default: scope key is static ('bank:transactions:read')
+   */
+  static final Map<Integer, String> TXN_DISCLAIMER_BY_DURATION = new Map<Integer, String>{
+    2 => 'bank:transactions:read:2y:{state}',
+    7 => 'bank:transactions:read'
   };
 
   /**
@@ -96,14 +108,21 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
       return true;
     }
 
-    String cmKey = 'bank:transactions:read';
-    String duration = String.valueOf(
+    String durationStr = String.valueOf(
       input.get('transactionSharingDurationYears')
     );
-    if (String.isNotBlank(duration) && Integer.valueOf(duration) == 2) {
+    Integer duration = String.isNotBlank(durationStr)
+      ? Integer.valueOf(durationStr)
+      : DEFAULT_TXN_SHARING_DURATION_YEARS;
+    String cmKey = TXN_DISCLAIMER_BY_DURATION.get(duration);
+    if (cmKey == null) {
+      return true;
+    }
+
+    if (cmKey.contains('{state}')) {
       String state = String.valueOf(input.get('state'));
       String mappedState = CONSENT_STATE_MAP.get(state);
-      cmKey = 'bank:transactions:read:2y:' + mappedState;
+      cmKey = cmKey.replace('{state}', mappedState);
     }
 
     TFM_Data_Scopes__mdt cm = QueryDataScopes.getByScopeId(cmKey);

@@ -200,7 +200,9 @@ public with sharing class TFMSearchCustomerAPIRepositoryTest {
   static void testgetConsentAccountList() {
     Test.startTest();
     String consentAccounts =
-      '[' +
+      '{' +
+      '"consent_id": "test-123",' +
+      '"consent_accounts": [' +
       '{' +
       '"bsb": "014111",' +
       '"accountNumber": "391077004",' +
@@ -213,7 +215,8 @@ public with sharing class TFMSearchCustomerAPIRepositoryTest {
       '"displayName": "ANZ Save",' +
       '"state": "STATE_ELIGIBLE"' +
       '}' +
-      ']';
+      ']' +
+      '}';
     StaffTokenRequestModel staffModel = setStaffModel();
     TFMSearchCustomerAPIRepository repo = new TFMSearchCustomerAPIRepository();
     HttpCalloutResponse response = repo.getConsentAccountList(
