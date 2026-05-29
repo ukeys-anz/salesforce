@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Retail_Interaction</fullName>
+    <active>true</active>
+    <compactLayoutAssignment>DCRM_Interaction</compactLayoutAssignment>
+    <description>Interaction Record Type for Retail CAP Diary Comments</description>
+    <label>Retail Interaction</label>
+    <picklistValues>
+        <picklist>InteractionType</picklist>
+        <values>
+            <fullName>Administration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Annual Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Appointment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Call-Inbound</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Call-Outbound</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Calling Day</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Client Entertainment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Risk Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Diary Note</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email-Inbound</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email-Outbound</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Face-to-Face</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Field Day</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Indicative Term Sheet issued</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Online Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Seminar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tender issued</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>To Do</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Virtual Meetings</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Category__c</picklist>
+        <values>
+            <fullName>CAP Diary Comments</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

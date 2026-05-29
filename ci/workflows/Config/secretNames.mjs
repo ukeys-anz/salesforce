@@ -72,6 +72,7 @@ const salesforceSecretNames = {
   "epic/extracare": "sf-platform-np-extracare",
   "epic/rlaSharing": "sf-platform-np-rlasharing",
   "epic/imtv1": "sf-platform-np-imtv1",
+  "epic/scfe-diary-comments": "sf-platform-np-scfe-diary-comments",
   "epic/wap": "sf-platform-np-wap"
 };
 

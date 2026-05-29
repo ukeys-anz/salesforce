@@ -48,6 +48,13 @@
       "master": false,
       "name": "ML Interaction",
       "recordTypeId": "012Oa000000di2pIAA"
+    },
+    "012Oa000000di2qIAA": {
+      "available": true,
+      "defaultRecordTypeMapping": false,
+      "master": false,
+      "name": "Retail Interaction",
+      "recordTypeId": "012Oa000000di2qIAA"
     }
   }
 }

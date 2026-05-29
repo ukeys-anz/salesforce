@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <name>LogCAPNote</name>
+        <enabled>true</enabled>
+    </customPermissions>
+    <description>This permission set is added for users who has access to publish CAP Notes.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Publish CAP Notes</label>
+</PermissionSet>

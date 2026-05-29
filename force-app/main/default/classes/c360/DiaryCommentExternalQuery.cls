@@ -109,6 +109,13 @@ public with sharing class DiaryCommentExternalQuery extends ExternalObjectQueryB
     if (String.isBlank(this.parentId) && String.isBlank(this.externalId)) {
       return result;
     }
+    // Add null check for commentDetails array
+    if (
+      diaryCommentCalloutResponse.commentDetails == null ||
+      diaryCommentCalloutResponse.commentDetails.isEmpty()
+    ) {
+      return result;
+    }
     for (CommentDetails cd : diaryCommentCalloutResponse.commentDetails) {
       Map<String, Object> row = new Map<String, Object>{
         'DisplayUrl' => getDisplayUrl(cd.compositeId),
@@ -159,7 +166,9 @@ public with sharing class DiaryCommentExternalQuery extends ExternalObjectQueryB
     QueryModeEnum queryMode,
     DataSource.QueryContext queryContext
   ) {
-    ARNCService service = new ARNCService();
+    ARNCService service = (ARNCService) ServiceProvider.getService(
+      ARNCService.class
+    );
     Map<String, String> attributes = new Map<String, String>();
     if (
       String.isNotBlank(this.parentField) && String.isNotBlank(this.parentId)

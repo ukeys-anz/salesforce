@@ -1,6 +1,5 @@
 import { LightningElement, wire, api, track } from "lwc";
 import { CloseActionScreenEvent } from "lightning/actions";
-import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import INTERACTION_OBJECT from "@salesforce/schema/Interaction";
 import { getObjectInfo } from "lightning/uiObjectInfoApi";
 import { getRecord } from "lightning/uiRecordApi";
@@ -18,9 +17,10 @@ import getCommentTypeMapping from "@salesforce/apex/CCRMLogInteractionController
 import getSearchResult from "@salesforce/apex/CCRMLogInteractionController.getSearchResult";
 import INTERACTION_TYPE_FIELD from "@salesforce/schema/Interaction.Interaction_Type__c";
 import SOURCE_SYSTEM_NAME_FIELD from "@salesforce/schema/Account.Source_System_Name__c";
+import logCAPNote from "@salesforce/customPermission/LogCAPNote";
+import { SimpleToast } from "c/utils";
 
 export default class LogInteractionOnCustomer extends LightningElement {
-  recordTypeId;
   interactionObject = INTERACTION_OBJECT;
   _hasRendered = false;
   @api recordId;
@@ -41,30 +41,95 @@ export default class LogInteractionOnCustomer extends LightningElement {
   @track interactionFields = {};
   category;
   commentTypeOptions = [];
-  financialAccountValue;
+  _financialAccountValue;
   interactionTypeValue;
-  commentTypeValue;
-  commentValue;
-  expiryDateValue;
-  permanentValue = false;
+  _commentTypeValue;
+  _commentValue;
+  _expiryDateValue;
+  _permanentValue = false;
   dependentPicklistData;
-  disabledExpiryDate = false;
+  _disabledExpiryDate = false;
   maxLength = false;
   isLoading = true;
   CONSTANT = {
     CAP_DIARY_COMMENT: "CAP Diary Comments",
     COMMENT_ERROR: "Comment must be limited to 256 characters.",
     EXPIRY_ERROR: "Please select a date greater than today's date.",
-    INT_RT: "CCRM Interaction",
+    CCRM_INT_RT: "CCRM Interaction",
+    RETAIL_INT_RT: "Retail Interaction",
     FA_ROLE_OBJECT: "FinServ__FinancialAccountRole__c",
     FA_LABEL: "Financial Account",
     FA_PLACEHOLDER: "Search Financial Account...",
-    CACHE: "CACHE"
+    CACHE: "CACHE",
+    CAP_NOTE_INFO:
+      "Notes have been submitted to CAP, but we cannot confirm whether it has been saved successfully. Please check the CAP Diary Comments table to verify.",
+    CAP_NOTE_CREATE_SUCCESS: "Interaction Created Successfully.",
+    CAP_NOTE_PERMANENT_INFO: `Only 1 permanent note is allowed per customer profile or account record. 
+      If a permanent note already exists, this note will not be logged in CAP.`
   };
-  searchKey;
+  _searchKey;
   searchResults = [];
+  @api retailLogCAPNote = logCAPNote;
+  toast = new SimpleToast(this);
+
+  @api
+  get searchKey() {
+    return this._searchKey;
+  }
+  set searchKey(value) {
+    this._searchKey = value;
+  }
+
+  @api
+  get financialAccountValue() {
+    return this._financialAccountValue;
+  }
+  set financialAccountValue(value) {
+    this._financialAccountValue = value;
+  }
+
+  @api
+  get commentTypeValue() {
+    return this._commentTypeValue;
+  }
+  set commentTypeValue(value) {
+    this._commentTypeValue = value;
+  }
+
+  @api
+  get commentValue() {
+    return this._commentValue;
+  }
+  set commentValue(value) {
+    this._commentValue = value;
+  }
+
+  @api
+  get expiryDateValue() {
+    return this._expiryDateValue;
+  }
+  set expiryDateValue(value) {
+    this._expiryDateValue = value;
+  }
+
+  @api
+  get permanentValue() {
+    return this._permanentValue;
+  }
+  set permanentValue(value) {
+    this._permanentValue = value;
+  }
+
+  @api
+  get disabledExpiryDate() {
+    return this._disabledExpiryDate;
+  }
+  set disabledExpiryDate(value) {
+    this._disabledExpiryDate = value;
+  }
   tomorrowDateFormatted;
   defaultExpiryDate;
+  objectData;
 
   @wire(getRecord, {
     recordId: "$recordId",
@@ -75,14 +140,31 @@ export default class LogInteractionOnCustomer extends LightningElement {
   @wire(getObjectInfo, { objectApiName: INTERACTION_OBJECT })
   Function({ error, data }) {
     if (data) {
-      let objArray = data.recordTypeInfos;
-      for (let i in objArray) {
-        if (objArray[i].name === this.CONSTANT.INT_RT)
-          this.recordTypeId = objArray[i].recordTypeId;
-      }
+      this.objectData = data.recordTypeInfos;
     } else if (error) {
-      this.showToast("Error", "Error", error.body.message, "Dismissable");
+      this.toast.error(error.body.message);
     }
+  }
+
+  get recordTypeId() {
+    if (!this.objectData) return null;
+
+    const recordTypes = Object.values(this.objectData);
+    return this.retailLogCAPNote
+      ? recordTypes.find((rt) => rt.name === this.CONSTANT.RETAIL_INT_RT)
+          .recordTypeId
+      : recordTypes.find((rt) => rt.name === this.CONSTANT.CCRM_INT_RT)
+          .recordTypeId;
+  }
+
+  get header() {
+    return this.retailLogCAPNote ? "Log CAP Note" : "Log Interaction";
+  }
+
+  get showPermFlagInfo() {
+    return (
+      this.retailLogCAPNote && this.category === this.CONSTANT.CAP_DIARY_COMMENT
+    );
   }
 
   connectedCallback() {
@@ -104,15 +186,24 @@ export default class LogInteractionOnCustomer extends LightningElement {
     getCommentTypeMapping()
       .then((result) => {
         if (result) {
+          this.commentTypeOptions = [];
           Object.keys(JSON.parse(result.commentType)).forEach((key) => {
             this.commentTypeOptions.push({ label: `${key}`, value: `${key}` });
           });
         }
         this.dependentPicklistData = JSON.parse(result.commentType);
+        this.setRetailDefaultCommentType();
       })
       .catch((error) => {
-        this.showToast("Error", "Error", error.body.message, "Dismissable");
+        this.toast.error(error.body.message);
       });
+  }
+
+  setRetailDefaultCommentType() {
+    if (this.retailLogCAPNote) {
+      this._commentTypeValue = "Other";
+      this.handleCommentTypeChange({ target: { value: "Other" } });
+    }
   }
 
   renderedCallback() {
@@ -129,18 +220,18 @@ export default class LogInteractionOnCustomer extends LightningElement {
         this.searchResults = result;
       })
       .catch((error) => {
-        this.showToast("Error", "Error", error.body.message, "Dismissable");
+        this.toast.error(error.body.message);
       });
   }
 
   handleSearch(event) {
-    this.searchKey = event.detail.searchKey;
+    this._searchKey = event.detail.searchKey;
     this.doSearch();
   }
 
   handleFinancialAccountChange(event) {
     event.preventDefault();
-    this.financialAccountValue = event.detail.selected?.id;
+    this._financialAccountValue = event.detail.selected?.id;
   }
 
   handleInteractionLoad() {
@@ -160,47 +251,47 @@ export default class LogInteractionOnCustomer extends LightningElement {
   }
 
   handleCommentTypeChange(event) {
-    this.commentTypeValue = event.target.value;
-    this.commentValue = "";
+    this._commentTypeValue = event.target.value;
+    this._commentValue = "";
     if (this.dependentPicklistData) {
       for (let key in this.dependentPicklistData) {
-        if (this.commentTypeValue === key) {
-          this.commentValue = this.dependentPicklistData[key];
+        if (this._commentTypeValue === key) {
+          this._commentValue = this.dependentPicklistData[key];
         }
       }
     }
   }
   handleCommentChange(event) {
-    this.commentValue = event.target.value;
+    this._commentValue = event.target.value;
     this.reportValidity();
   }
 
   handleExpiryDateChange(event) {
-    this.expiryDateValue = event.target.value;
+    this._expiryDateValue = event.target.value;
     this.reportValidity();
   }
 
   handlePermanentChange(event) {
-    this.permanentValue = event.target.checked;
-    if (this.permanentValue === true) {
-      this.expiryDateValue = undefined;
+    this._permanentValue = event.target.checked;
+    if (this._permanentValue === true) {
+      this._expiryDateValue = undefined;
       this.refs.expiryElement.value = "";
-      this.disabledExpiryDate = true;
+      this._disabledExpiryDate = true;
       this.reportValidity();
     } else {
-      this.disabledExpiryDate = false;
+      this._disabledExpiryDate = false;
     }
   }
 
   handleInteractionSuccess() {
-    this.dispatchEvent(new CloseActionScreenEvent());
-    this.showToast(
-      "Success",
-      "Success",
-      "Interaction Created Successfully",
-      "Dismissable"
-    );
     this.isLoading = false;
+    this.dispatchEvent(new CloseActionScreenEvent());
+
+    if (this.retailLogCAPNote) {
+      this.toast.info(this.CONSTANT.CAP_NOTE_INFO);
+    } else {
+      this.toast.success(this.CONSTANT.CAP_NOTE_CREATE_SUCCESS);
+    }
   }
 
   handleCancel() {
@@ -243,11 +334,8 @@ export default class LogInteractionOnCustomer extends LightningElement {
         this.CONSTANT.CACHE &&
       this.category === this.CONSTANT.CAP_DIARY_COMMENT
     ) {
-      this.showToast(
-        "Error",
-        "Error",
-        "You can't create CAP diary comment for cache customer.",
-        "Dismissable"
+      this.toast.error(
+        "You can't create CAP diary comment for cache customer."
       );
       return;
     }
@@ -279,15 +367,5 @@ export default class LogInteractionOnCustomer extends LightningElement {
     } else {
       this.isLoading = false;
     }
-  }
-  // method to show toast message
-  showToast(title, varriant, message, mode) {
-    const toastEvent = new ShowToastEvent({
-      title: title,
-      message: message,
-      variant: varriant,
-      mode: mode
-    });
-    this.dispatchEvent(toastEvent);
   }
 }

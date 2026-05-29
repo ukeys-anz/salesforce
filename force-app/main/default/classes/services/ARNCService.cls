@@ -6,7 +6,7 @@
  * @runTests ARNCServiceTest
  */
 @SuppressWarnings('PMD.FieldNamingConventions')
-public with sharing class ARNCService extends Service {
+public with sharing virtual class ARNCService extends Service {
   static Organization SF_ORG = [SELECT Id, Name, IsSandbox FROM Organization];
 
   /**
@@ -178,54 +178,16 @@ public with sharing class ARNCService extends Service {
    * @return HttpCalloutResponse
    * @description query exernal Diary Comment for customer/financial accounts via API
    */
-  public HttpCalloutResponse queryDiaryComment(
+  public virtual HttpCalloutResponse queryDiaryComment(
     String parent,
     Map<String, String> params
   ) {
-    HttpCalloutResponse response;
+    String endPoint = constructEndPoint(parent, params);
 
+    HttpCalloutResponse response;
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
     setCommonHeaders(headers);
-    String endPoint = Label.Diary_Comments_Endpoint;
-    String parentId;
-    String parentValue;
-    if (params.containsKey(parent)) {
-      parentValue = params.get(parent);
-      if (parentValue.contains('_')) {
-        parentId = parentValue.substringAfter('_');
-      } else if (parentValue.contains('-')) {
-        parentId = parentValue.substringAfter('-');
-      } else {
-        parentId = parentValue;
-      }
-    }
-    if (parent == 'Customer') {
-      endPoint +=
-        '?customer-id=' +
-        parentId +
-        '&offSet=' +
-        params.get('offSet') +
-        '&pageSize=' +
-        params.get('pageSize');
-    } else if (String.isNotBlank(parentValue)) {
-      String product = parentValue.contains('|')
-        ? parentValue.substringAfter('|')
-        : null;
-      String productCode = product.contains('-')
-        ? product.substringBefore('-')
-        : null;
-      parentId = product.contains('-') ? product.substringAfter('-') : null;
-      endPoint +=
-        '?account-number=' +
-        parentId +
-        '&product-code=' +
-        productCode +
-        '&offSet=' +
-        params.get('offSet') +
-        '&pageSize=' +
-        params.get('pageSize');
-    }
     try {
       response = calloutService.makeRestCallout(
         endPoint,
@@ -239,6 +201,64 @@ public with sharing class ARNCService extends Service {
       throw new AuraHandledException('Error : ' + e.getMessage());
     }
     return response;
+  }
+
+  private String getParentId(String parent, String parentValue) {
+    if (parentValue.contains('_')) {
+      return parent == 'Customer'
+        ? parentValue.substringAfter('_')
+        : parentValue.substringBefore('_').replaceAll('^0+', '');
+    }
+
+    if (parentValue.contains('-')) {
+      return parentValue.substringAfter('-');
+    }
+
+    return parentValue;
+  }
+
+  private String constructEndPoint(String parent, Map<String, String> params) {
+    String endPoint = Label.Diary_Comments_Endpoint;
+    String offSet = params.get('offSet');
+    String pageSize = params.get('pageSize');
+
+    String parentValue = params.get(parent);
+    if (parentValue == null) {
+      return endPoint;
+    }
+
+    String parentId = getParentId(parent, parentValue);
+
+    if (parent == 'Customer') {
+      return String.format(
+        '{0}?customer-id={1}&offSet={2}&pageSize={3}',
+        new List<Object>{ endPoint, parentId, offSet, pageSize }
+      );
+    }
+
+    if (parent == 'Financial Account') {
+      String productCode = parentValue.substringBetween('_');
+      return String.format(
+        '{0}?account-number={1}&product-code={2}&offSet={3}&pageSize={4}',
+        new List<Object>{ endPoint, parentId, productCode, offSet, pageSize }
+      );
+    }
+
+    String product = parentValue.contains('|')
+      ? parentValue.substringAfter('|')
+      : null;
+
+    String productCode = null;
+    String accountId = null;
+    if (product != null && product.contains('-')) {
+      productCode = product.substringBefore('-');
+      accountId = product.substringAfter('-');
+    }
+
+    return String.format(
+      '{0}?account-number={1}&product-code={2}&offSet={3}&pageSize={4}',
+      new List<Object>{ endPoint, accountId, productCode, offSet, pageSize }
+    );
   }
 
   /**
@@ -411,7 +431,7 @@ public with sharing class ARNCService extends Service {
    * @return Boolean
    * @description Write Diary Comment API
    */
-  public Boolean createDiaryComment(
+  public virtual Boolean createDiaryComment(
     Id customerId,
     String comment,
     String event

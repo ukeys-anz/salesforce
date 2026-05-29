@@ -9,12 +9,28 @@
     density="comfy"
   >
     <lightning-messages></lightning-messages>
-    <lightning-quick-action-panel header="Log Interaction">
+    <lightning-quick-action-panel header={header}>
       <div class="slds-is-relative">
         <lightning-spinner
           lwc:if={isLoading}
           variant="brand"
         ></lightning-spinner>
+        <div
+          lwc:if={showPermFlagInfo}
+          class="slds-scoped-notification slds-scoped-notification_light slds-grid slds-var-m-bottom_medium"
+          role="status"
+        >
+          <lightning-icon
+            icon-name="utility:info"
+            alternative-text="Permanent Flag Info"
+            size="small"
+            class="slds-var-p-around_small"
+          >
+          </lightning-icon>
+          <div class="slds-var-p-around_small">
+            {CONSTANT.CAP_NOTE_PERMANENT_INFO}
+          </div>
+        </div>
         <lightning-layout multiple-rows>
           <lightning-layout-item size="6">
             <lightning-input-field
