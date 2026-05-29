@@ -49,20 +49,6 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>decorate</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>richTextValue</name>
-                    <value>&lt;p class=&quot;ql-indent-1&quot;&gt;&lt;span style=&quot;color: rgb(68, 68, 68);&quot;&gt; &lt;img src=&quot;/resource/Warning_Icon?&quot;&gt; &lt;/span&gt;&lt;span style=&quot;color: rgb(0, 0, 0); font-size: 14px;&quot;&gt;Data is at Dec 2025. Refresh paused due to data migration, back online May 2026. Please confirm this data remains valid via the Customer 360.&lt;/span&gt;&lt;/p&gt;</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:richText</componentName>
-                <identifier>flexipage_richText2</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
                     <name>customQueryParameters</name>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -108,6 +94,51 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>customQueryParameters</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>debugMode</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>forceRefresh</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>height</name>
+                    <value>1650</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showTabs</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showToolbar</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>siteId</name>
+                    <value>{!$Label.ANZX_Tableau_Site_Id}</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>useJwt</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>vizUrl</name>
+                    <value>{!$Label.CCRM_LAI_Tableau_View_URL}</value>
+                </componentInstanceProperties>
+                <componentName>tableau:tableauViz</componentName>
+                <identifier>tableau_tableauViz3</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-150c6f14-c50a-475f-8bf3-7d270921860b</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>active</name>
                     <value>true</value>
                 </componentInstanceProperties>
@@ -135,6 +166,20 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-150c6f14-c50a-475f-8bf3-7d270921860b</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>LAI</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab3</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-4767bf90-3fb4-493e-bc1e-db7d6d8c9b60</name>

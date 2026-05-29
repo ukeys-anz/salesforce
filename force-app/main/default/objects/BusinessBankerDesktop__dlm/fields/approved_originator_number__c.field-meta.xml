@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>approved_originator_number__c</fullName>
+    <encryptionScheme>None</encryptionScheme>
+    <label>APPROVED_ORIGINATOR_NUMBER</label>
+    <length>60</length>
+    <mktDataModelFieldAttributes>
+        <definitionCreationType>Custom</definitionCreationType>
+        <isDynamicLookup>false</isDynamicLookup>
+        <labelOverride>APPROVED_ORIGINATOR_NUMBER</labelOverride>
+        <masterLabel>APPROVED_ORIGINATOR_NUMBER</masterLabel>
+        <usageTag>None</usageTag>
+    </mktDataModelFieldAttributes>
+    <required>false</required>
+    <type>Text</type>
+</CustomField>

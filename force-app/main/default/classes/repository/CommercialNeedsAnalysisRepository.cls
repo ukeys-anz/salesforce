@@ -17,7 +17,7 @@ public with sharing class CommercialNeedsAnalysisRepository {
       return new List<Opportunity>();
     }
     return [
-      SELECT AccountId
+      SELECT AccountId, CLG__c
       FROM Opportunity
       WHERE Id IN :oppIdsFromNArecords
       WITH USER_MODE

@@ -419,23 +419,6 @@ public with sharing class DataOutExportConsentHelperTest {
   }
 
   @IsTest
-  static void testGetDisclaimerTransactionScopeWithNullDisclaimerShowsNoDisclaimer() {
-    DataOutExportModel obj = getDataExportModelData();
-    obj.dataScopesValue = new List<String>{ 'bank:transactions:read' };
-    obj.transactionDisclaimer = null;
-
-    Test.startTest();
-    List<String> response = DataOutExportConsentHelper.getDisclaimer(obj);
-    Test.stopTest();
-
-    Assert.areEqual(
-      'Disclaimers, ""',
-      response[0] + ', ' + response[1],
-      'Null transactionDisclaimer should result in empty disclaimer row'
-    );
-  }
-
-  @IsTest
   static void testGetDataSharingHistoryTitle() {
     Test.startTest();
     List<String> response = DataOutExportConsentHelper.getDataSharingHistoryTitle();

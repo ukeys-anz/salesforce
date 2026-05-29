@@ -52,7 +52,6 @@ jobs:
             CHECKMARX_URL:projects/36540621485/secrets/ghr-checkmarx-url/versions/2
             CHECKMARX_USERNAME:projects/36540621485/secrets/ghr-checkmarx-username/versions/2
             CHECKMARX_PASSWORD:projects/36540621485/secrets/ghr-checkmarx-password/versions/2
-            CHECKMARX_CLIENT_SECRET:projects/36540621485/secrets/ghr-checkmarx-client-secret/versions/2
 
       - name: Checkmarx CxFlow Action
         id: checkmarx
@@ -63,7 +62,7 @@ jobs:
           checkmarx_url: ${{ steps.secrets.outputs.CHECKMARX_URL }}
           checkmarx_username: ${{ steps.secrets.outputs.CHECKMARX_USERNAME }}
           checkmarx_password: ${{ steps.secrets.outputs.CHECKMARX_PASSWORD }}
-          checkmarx_client_secret: ${{ steps.secrets.outputs.CHECKMARX_CLIENT_SECRET }}
+          checkmarx_client_secret: ${{ secrets.SECSCAN_CHECKMARX_SECRET }}
           github_token: ${{ secrets.SALESFORCE_CXFLOW_GH_TOKEN }}
           incremental: false
           break_build: true

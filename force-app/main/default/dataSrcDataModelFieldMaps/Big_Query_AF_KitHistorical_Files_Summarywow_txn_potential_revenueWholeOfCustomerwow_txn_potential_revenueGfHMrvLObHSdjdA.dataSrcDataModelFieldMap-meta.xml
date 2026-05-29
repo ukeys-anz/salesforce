@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSrcDataModelFieldMap xmlns="http://soap.sforce.com/2006/04/metadata">
+    <filterApplied>false</filterApplied>
+    <masterLabel>Big_Query_AF_KitHistorical_Files_Summarywow_txn_potential_revenueWholeOfCustomerwow_txn_potential_revenueGfHMrvLObHSdjdA</masterLabel>
+    <sourceField>WholeOfCustomer_Insights2.wow_txn_potential_revenue__c</sourceField>
+    <targetField>WholeOfCustomer__dlm.wow_txn_potential_revenue__c</targetField>
+    <templateVersion>1</templateVersion>
+    <versionNumber>1.0</versionNumber>
+</DataSrcDataModelFieldMap>

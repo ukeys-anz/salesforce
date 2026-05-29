@@ -64,7 +64,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Migration_Status__c</field>
+                <field>Suncorp_Bank_Move__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -74,7 +74,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Migration_Status_Date__c</field>
+                <field>Suncorp_Bank_Identifier__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>

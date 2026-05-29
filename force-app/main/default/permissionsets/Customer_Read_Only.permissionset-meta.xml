@@ -4,6 +4,10 @@
         <apexClass>VerifiedContactDetails</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>OCDDController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <description>Should only have required permissions to view Custom related information.</description>
     <fieldPermissions>
         <editable>false</editable>
@@ -118,7 +122,7 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.KYC_Confirmation_Date__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -173,6 +177,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.Source_System_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Suncorp_Bank_Identifier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Suncorp_Bank_Move__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

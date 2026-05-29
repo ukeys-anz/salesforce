@@ -472,6 +472,10 @@
         <apexClass>OCVDuplicateTableControllerRepository</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>ExportFailedReferralsController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <customMetadataTypeAccesses>
         <name>CCRM_Log_Interaction_Comment__mdt</name>
         <enabled>true</enabled>
@@ -9455,6 +9459,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Needs_Analysis__c.Customer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Needs_Analysis__c.CLGCustomer__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

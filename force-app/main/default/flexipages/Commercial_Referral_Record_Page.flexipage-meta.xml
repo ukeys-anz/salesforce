@@ -54,12 +54,6 @@
                 <fieldItem>Record.External_Referral_Status__c</fieldItem>
                 <identifier>RecordExternal_Referral_Status_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Referral_Status__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Referred</rightValue>
-                    </criteria>
                     <criteria>
                         <leftValue>{!Record.External_Referral_Status__c}</leftValue>
                         <operator>NE</operator>
@@ -121,6 +115,19 @@
                         </valueListItems>
                         <valueListItems>
                             <value>Lead.Validate_Address</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Lead.Update_Commercial_Contact</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Lead.Reprocess_Export_Failed</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.Referral_Status__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Export Failed</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
@@ -291,6 +298,23 @@
                 <identifier>RecordAddressField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Error_Message__c</fieldItem>
+                <identifier>RecordError_Message_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Referral_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Export Failed</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-3f44a759-ff09-4b04-ad44-55d0d00e60d2</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -392,6 +416,18 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Primary_Contact_Method__c</fieldItem>
                 <identifier>RecordPrimary_Contact_Method_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Referral_for_an_existing_customer__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>false</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Id__c}</leftValue>
+                        <operator>NE</operator>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -606,6 +642,58 @@
             </componentInstance>
         </itemInstances>
         <name>Facet-01526fd3-1c6d-4d27-a448-37e0ecbb9774</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Circle_Of_Influence__c</fieldItem>
+                <identifier>RecordCircle_Of_Influence_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-9gyogvdb5r6</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Broker_Name__c</fieldItem>
+                <identifier>RecordBroker_Name_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-b417caa6-d0a4-4439-a673-324f869b9465</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-9gyogvdb5r6</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column12</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-b417caa6-d0a4-4439-a673-324f869b9465</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column13</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-46tknkhavua</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -841,6 +929,24 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>columns</name>
+                    <value>Facet-46tknkhavua</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Additional Details</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection7</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
                     <value>Facet-7945f308-a65b-4ec6-ba98-35fa80ff7b91</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -897,6 +1003,10 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Tabs</value>
+                </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>tabs</name>
                     <value>Facet-f2488c0d-98ca-4526-abed-fbee7b1a17dc</value>

@@ -32,6 +32,7 @@ const retrieveComponents = (username) => {
     username
   );
   changeForceIgnoreFile("Revert");
+  console.log("Components retrieved...");
 };
 
 // this is to change certificates on named credentials and connectedApps.
@@ -50,6 +51,7 @@ const changeCert = (username) => {
   deployFile("force-app/main/default/connectedApps", username);
 
   changeForceIgnoreFile("Revert");
+  console.log("Certificates on Named Credentials and Connected Apps changed...");
 };
 
 // This is to remove the certificates came from production
@@ -58,6 +60,7 @@ const removeCerts = (username) => {
   const allMTLS = findAllFiles("force-app/main/default/inboundCertificates");
   removeCert(allCerts, username);
   removeCert(allMTLS, username);
+  console.log("Production certificates are removed...");
 };
 
 const uploadDummyCert = (username) => {
@@ -65,6 +68,7 @@ const uploadDummyCert = (username) => {
     "force-app/main/default/certs/DummyCertificate_ToBechanged.crt-meta.xml",
     username
   );
+  console.log('Dummy certificate deployed...');
 };
 
 /// Run Orchestration

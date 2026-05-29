@@ -35,7 +35,12 @@ public with sharing class CommercialReferralLeadTriggerHandler extends Lib_Trigg
     CommercialReferralLeadActions.populateNewToBank(records, null);
     CommercialLeadActions.populateInfo(records, null);
     CommercialReferralLeadActions.updateIknowReferralStatus(records);
+    CommercialReferralLeadActions.restrictCLGExistingCustomerForRetailReferrals(
+      records,
+      null
+    );
     CommercialLeadActions.prefillContactInfoForIndLead(records, null);
+    CommercialReferralLeadActions.validateNotesOnReferral(records, null);
   }
 
   /**
@@ -60,8 +65,16 @@ public with sharing class CommercialReferralLeadTriggerHandler extends Lib_Trigg
       (List<Lead>) records,
       (Map<Id, Lead>) oldMap
     );
+    CommercialReferralLeadActions.restrictCLGExistingCustomerForRetailReferrals(
+      (List<Lead>) records,
+      (Map<Id, Lead>) oldMap
+    );
     CommercialLeadActions.prefillContactInfoForIndLead(
       (List<Lead>) records,
+      (Map<Id, Lead>) oldMap
+    );
+    CommercialReferralLeadActions.validateNotesOnReferral(
+      records,
       (Map<Id, Lead>) oldMap
     );
   }
@@ -92,6 +105,14 @@ public with sharing class CommercialReferralLeadTriggerHandler extends Lib_Trigg
       (Map<Id, Lead>) oldMap
     );
     CommercialReferralLeadActions.publishCloudEvents(
+      records,
+      (Map<Id, Lead>) oldMap
+    );
+    CommercialReferralLeadActions.shareExportFailedRef(
+      records,
+      (Map<Id, Lead>) oldMap
+    );
+    CommercialReferralLeadActions.publishReferralStatusUpdateEvents(
       records,
       (Map<Id, Lead>) oldMap
     );

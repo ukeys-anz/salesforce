@@ -165,7 +165,6 @@ private class RetailBrokerContactActionsTest {
     Contact contactNew = createTestContact();
     Contact contactOld = createTestContact();
     contactNew.RetailTPMISAO__c = 'RetailTPMISAOTest001';
-    contactNew.Is_Beta_Broker__c = true;
     Boolean result;
 
     Test.startTest();
@@ -188,7 +187,6 @@ private class RetailBrokerContactActionsTest {
     Contact contactOld = createTestContact();
     contactOld.RetailTPMISAO__c = 'RetailTPMISAOTest001';
     contactNew.RetailTPMISAO__c = 'RetailTPMISAOTest001';
-    contactNew.Is_Beta_Broker__c = true;
     Boolean result;
 
     Test.startTest();
@@ -211,7 +209,6 @@ private class RetailBrokerContactActionsTest {
     Contact contactOld = createTestContact();
     contactOld.RetailTPMISAO__c = 'RetailTPMISAOTest001';
     contactNew.RetailTPMISAO__c = 'RetailTPMISAOTest001';
-    contactNew.Is_Beta_Broker__c = true;
     Boolean result;
 
     Test.startTest();
@@ -235,7 +232,6 @@ private class RetailBrokerContactActionsTest {
 
     contactOld.RetailTPMISAO__c = 'oldRetail';
     contactNew.RetailTPMISAO__c = 'newRetail';
-    contactNew.Is_Beta_Broker__c = false;
     Boolean result;
 
     Test.startTest();
@@ -245,10 +241,9 @@ private class RetailBrokerContactActionsTest {
     );
     Test.stopTest();
 
-    Assert.areEqual(
-      false,
+    Assert.isTrue(
       result,
-      'Contact should not be eligible if RetailTPMISAO__c changed but beta broker is false'
+      'Contact should not be eligible if RetailTPMISAO__c changed.'
     );
   }
 
@@ -258,7 +253,6 @@ private class RetailBrokerContactActionsTest {
     Contact contactOld = createTestContact();
     contactNew.RetailTPMISAO__c = '';
     contactOld.RetailTPMISAO__c = '';
-    contactNew.Is_Beta_Broker__c = true;
     Boolean result;
     Test.startTest();
     result = RetailBrokerContactActions.isRecordAnEligibleBrokerContact(
@@ -266,10 +260,10 @@ private class RetailBrokerContactActionsTest {
       contactOld
     );
     Test.stopTest();
-    Assert.areEqual(
-      false,
+
+    Assert.isFalse(
       result,
-      'Contact should not be eligible when Retail TPMI SAO is blank even if contact is a beta broker is true'
+      'Contact should not be eligible when Retail TPMI SAO is blank.'
     );
   }
 

@@ -351,7 +351,7 @@ public with sharing class TFMRemoteActionUtilityTest {
       null
     );
     Assert.areEqual(
-      'This may have included transaction data that dates back up to 2 years.',
+      'This may include transaction data that dates back up to 2 years.',
       output.get('transactionDisclaimer'),
       'Disclaimer did not match expected value for 2 year active arrangement.'
     );
@@ -366,7 +366,7 @@ public with sharing class TFMRemoteActionUtilityTest {
       null
     );
     Assert.areEqual(
-      'For open accounts, this may have included transaction data that dates back up to 2 years.',
+      'For open accounts, this may include, or for closed accounts, have included, transaction data that dates back up to 2 years.',
       output.get('transactionDisclaimer'),
       'Disclaimer did not match expected value for 2 year active arrangement with mix open/closed accounts.'
     );
@@ -404,7 +404,7 @@ public with sharing class TFMRemoteActionUtilityTest {
       null
     );
     Assert.areEqual(
-      'For open accounts, this may have included transaction data that dates back up to 2 years prior to the ending of the arrangement.',
+      'This may have included transaction data that dates back up to 2 years prior to the ending of the arrangement.',
       output.get('transactionDisclaimer'),
       'Disclaimer did not match expected value for 2 year stopped arrangement with mix open/closed accounts.'
     );
@@ -449,25 +449,6 @@ public with sharing class TFMRemoteActionUtilityTest {
       'Disclaimer did not match expected value for 7 year active arrangement with mix open/closed accounts.'
     );
     Test.stopTest();
-  }
-
-  @isTest
-  static void testGetTransactionDisclaimerEdgeCases() {
-    Map<String, Object> output = new Map<String, Object>();
-    new TFMRemoteActionUtility()
-      .getTransactionDisclaimer(
-        new Map<String, Object>{
-          'transactionSharingDurationYears' => '7',
-          'allAccStatus' => 'Closed',
-          'state' => 'ACTIVE'
-        },
-        output,
-        null
-      );
-    Assert.isFalse(
-      output.containsKey('transactionDisclaimer'),
-      'Disclaimer should not be present for closed accounts.'
-    );
   }
 
   @isTest

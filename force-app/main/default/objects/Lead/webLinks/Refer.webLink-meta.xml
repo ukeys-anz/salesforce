@@ -37,5 +37,8 @@ LeadSource={!Lead.LeadSource},
 FinServ__ExpressedInterest__c={!Lead.FinServ__ExpressedInterest__c},
 CLG_Name__c={!IF(NOT(ISBLANK(Lead.FinServ__RelatedAccountId__c)),Lead.CLG_NameId__c,&apos;&apos;)},
 CPID__c={!IF(NOT(ISBLANK(Lead.FinServ__RelatedAccountId__c)),Lead.CPID__c,&apos;&apos;)},
-FinServ__PotentialValue__c={!Lead.FinServ__PotentialValue__c}</url>
+FinServ__PotentialValue__c={!Lead.FinServ__PotentialValue__c},
+Broker_Name__c={!Lead.Broker_NameId__c},
+Circle_Of_Influence__c={!Lead.Circle_Of_InfluenceId__c}
+</url>
 </WebLink>

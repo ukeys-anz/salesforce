@@ -74,4 +74,15 @@ public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerH
       (Map<Id, Contact>) oldMap
     );
   }
+
+  /**
+   * @description To perform business logic on after insert trigger context
+   */
+  @TestVisible
+  protected override void onAfterInsert() {
+    RetailBrokerContactActions.publishBrokerEvents(
+      records,
+      new Map<Id, Contact>()
+    );
+  }
 }

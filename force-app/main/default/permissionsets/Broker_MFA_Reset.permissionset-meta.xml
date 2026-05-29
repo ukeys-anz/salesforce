@@ -13,11 +13,6 @@
         <enabled>true</enabled>
     </customPermissions>
     <description>Permission Set to access MFA reset buttion on broker profile</description>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Contact.Is_Beta_Broker__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Broker MFA Reset</label>
 </PermissionSet>

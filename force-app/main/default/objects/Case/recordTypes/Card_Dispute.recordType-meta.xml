@@ -218,10 +218,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Don%27t recognise the transaction</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Product Defective or Unsatisfactory</fullName>
             <default>false</default>
         </values>

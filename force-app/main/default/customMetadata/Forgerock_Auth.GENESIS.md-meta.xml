@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>GENESIS</label>
+    <protected>false</protected>
+    <values>
+        <field>Audience__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>CacheStaffToken__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Encrypted_Forge_Client_Id__c</field>
+        <value xsi:type="xsd:string">salesforce-saas</value>
+    </values>
+    <values>
+        <field>Encrypted_Forge_Client_Secret__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Forgev2_subject_token_type__c</field>
+        <value xsi:type="xsd:string">urn:ietf:params:oauth:client-assertion-type:jwt-bearer</value>
+    </values>
+    <values>
+        <field>IsJWEToken__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>RequestedScopes__c</field>
+        <value xsi:type="xsd:string">https://genesis.anz.com/scopes/cdd:detailed_kyc_freshness:read aegis-introspect</value>
+    </values>
+</CustomMetadata>

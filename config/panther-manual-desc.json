@@ -1311,7 +1311,8 @@
         "IsKYCChecksCompleted__c",
         "KYCChecksHasDefect__c",
         "Search_Button_Selected_for_3rd_Party__c",
-        "Search_Button_Selected__c"
+        "Search_Button_Selected__c",
+        "Scam_Assist_Case_ID__c"
       ],
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",
@@ -1473,7 +1474,10 @@
         "PassportNumber__c",
         "ReimbursementReason__c",
         "RemoteAccessUsed__c",
-        "EventTimestamp__c"
+        "EventTimestamp__c",
+        "TokenNumber__c",
+        "AcquirerReferenceNumber__c",
+        "ExternalDisputeID__c"
       ],
       "IA-2415840": [
         "Advocacy_Score__c",
@@ -1860,7 +1864,10 @@
         "IDR_Other_Remedy_Offered__c",
         "IDR_customer_accept_resolution_offered__c",
         "IDR_Was_the_offer_enhanced_and_accepted__c",
-        "Offered_details_to_Product_Manufacturer__c"
+        "Offered_details_to_Product_Manufacturer__c",
+        "Scam_Reimbursement_Trigger__c",
+        "Non_Financial_Loss_Trigger__c",
+        "Awareness_Trigger__c"
       ]
     },
     "Contact": {
@@ -2606,6 +2613,7 @@
         "External_Status__c",
         "Internal_Description__c",
         "Is_Outcome_in_Customer_Favour__c",
+        "MonetaryAdjustmentInformation__c",
         "Result_Code__c",
         "Result_Message__c",
         "Status_Event_ID__c",
@@ -3744,6 +3752,7 @@
         "BPAY_Payments__c",
         "BPAY_Receipts__c",
         "Customer__c",
+        "CLGCustomer__c",
         "Direct_Debits__c",
         "Direct_Entry_Creditor_Payments__c",
         "Direct_Entry_Payroll_Payments__c",
@@ -4630,7 +4639,8 @@
         "Were_care_and_access_needs_addressed__c",
         "AssessmentOutcomeFLPassWithFeedback__c",
         "AssessmentOutcomeFrontlinePass__c",
-        "AssessmentResultFinalLetterReview__c"
+        "AssessmentResultFinalLetterReview__c",
+        "AI_Evaluation_Id__c"
       ],
       "IA-2415983": ["Application_ID__c"],
       "IA-2415984": ["Customer__c", "Customer_Name__c", "Calculated__c"],
@@ -5217,6 +5227,19 @@
         "Status__c",
         "Type__c",
         "UUID__c"
+      ]
+    },
+    "Referral_and_Opportunity_Status_mapping__mdt": {
+      "IA-2415860": [
+        "CRM_Opportunity_Stage__c",
+        "Is_Active__c",
+        "Source_Object__c",
+        "Channel__c"
+      ],
+      "IA-2423278": [
+        "CRM_Referral_Status__c",
+        "iKnow_Status__c",
+        "iKnow_Stage__c"
       ]
     },
     "Territory_Based_Sharing_Config__mdt": {
@@ -6167,6 +6190,16 @@
         "OLL_Account_Number__c",
         "Customer__c"
       ]
+    },
+    "Persona__c": {
+      "IA-2594111": ["Description__c", "Name__c", "Persona_ID__c"],
+      "IA-2530753": [
+        "Customer__c",
+        "End_Date__c",
+        "Is_Active__c",
+        "Persona_Type__c",
+        "Start_Date__c"
+      ]
     }
   },
   "lineageInformation": {
@@ -6183,6 +6216,12 @@
       "Secondary_RBM__c": "ANZx::Salesforce",
       "Segment__c": "ANZx::Salesforce",
       "State__c": "ANZx::Salesforce"
+    },
+    "Case": {
+      "Fraud_Total_Reimbursed_V2__c": "ANZx::Salesforce",
+      "TokenNumber__c": "ANZx:: Pega Smarts :: Salesforce :: Case :: TokenNumber__c",
+      "AcquirerReferenceNumber__c": "ANZx:: Pega Smarts :: Salesforce :: Case :: AcquirerReferenceNumber__c",
+      "ExternalDisputeID__c": "ANZx:: Pega Smarts :: Salesforce :: Case :: ExternalDisputeID__c"
     },
     "COBAddress__c": {
       "AddressBuildingName__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_ManualEntry :: building_name",
@@ -6379,6 +6418,12 @@
     }
   },
   "lineageTransformInformation": {
+    "Case": {
+      "Fraud_Total_Reimbursed_V2__c": "Sum of all related Reimbursement amount field",
+      "TokenNumber__c": "1:1 Transformation",
+      "AcquirerReferenceNumber__c": "1:1 Transformation",
+      "ExternalDisputeID__c": "1:1 Transformation"
+    },
     "Broker_Relation__c": {
       "Address1__c": "TextAreaLong field",
       "Address2__c": "TextAreaLong field",

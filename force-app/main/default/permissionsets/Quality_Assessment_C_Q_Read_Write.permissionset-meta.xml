@@ -8,10 +8,23 @@
         <apexClass>CalculateQARatingandAssessment</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>IDRFetchQualityAssessmentsController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <customMetadataTypeAccesses>
+        <name>Forgerock_Auth__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <description>Have permissions to Create/Read/Write C&amp;Q Quality Assessment related information on CMOS case.</description>
     <fieldPermissions>
         <editable>true</editable>
         <field>Quality_Assessment__c.Accurate_information_in_final_response__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quality_Assessment__c.AI_Evaluation_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -367,6 +367,10 @@
                 <behavior>Readonly</behavior>
                 <field>IDR_Total_Financial_Amount__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Scam_Assist_Case_ID__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>

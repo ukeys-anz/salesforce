@@ -240,9 +240,9 @@ checkPermissionSet() {
     field_name=$(getFieldNameFromPath "$field_file")
     full_field_name="${object_name}.${field_name}"
 
-    # Skip __mdt (metadata types) and __x (external objects) and __e (event objects) - these should NOT be in permission sets
-    if [[ "$object_name" =~ (__x|__mdt|__e)$ ]]; then
-      echo "  ⏭️  Skipping $full_field_name - Fields/Objects from __e, __mdt and __x objects should NOT be added to $WHICH_PSET"
+    # Skip __mdt (metadata types) and __x (external objects) and __e (event objects) and __dlm (data cloud objects) - these should NOT be in permission sets
+    if [[ "$object_name" =~ (__x|__mdt|__e|__dlm)$ ]]; then
+      echo "  ⏭️  Skipping $full_field_name - Fields/Objects from __e, __mdt, __x and __dlm objects should NOT be added to $WHICH_PSET"
       continue
     fi
 

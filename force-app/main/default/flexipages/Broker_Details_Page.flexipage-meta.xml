@@ -9,12 +9,6 @@
                         <valueListItems>
                             <value>Contact.Reset_MFA</value>
                             <visibilityRule>
-                                <booleanFilter>1 AND 2</booleanFilter>
-                                <criteria>
-                                    <leftValue>{!Record.Is_Beta_Broker__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>true</rightValue>
-                                </criteria>
                                 <criteria>
                                     <leftValue>{!$Permission.CustomPermission.Broker_MFA_Reset_Access}</leftValue>
                                     <operator>EQUAL</operator>
@@ -96,16 +90,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Notes_Interests__c</fieldItem>
                 <identifier>RecordNotes_Interests_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Is_Beta_Broker__c</fieldItem>
-                <identifier>RecordIs_Beta_Broker_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
