@@ -484,6 +484,7 @@
     "Referrer_Reportees_Lead__c"
   ],
   "Opportunity": ["SourceId"],
+  "Persona__c": ["Description__c"],
   "Product2": [
     "AvailabilityDate",
     "BasedOnId",

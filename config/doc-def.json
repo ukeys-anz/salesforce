@@ -733,7 +733,8 @@
         "Loan_app_Integration",
         "Product_Read_Write",
         "Case_Read_Write_Broker_Enquiry",
-        "Is_OCV_Integration_User"
+        "Is_OCV_Integration_User",
+        "Persona_Read_And_Write"
       ],
       "type": "system"
     },
