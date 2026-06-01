@@ -154,20 +154,89 @@ private class ARNCServiceTest {
       response.body
     );
     Assert.areEqual(
-      '',
+      'C00010C0001401677721509931',
       (string) result.get('conversationControl'),
       'Value mismatch'
     );
+    Assert.areEqual(8, (Integer) result.get('totalComments'), 'Value mismatch');
+    Assert.areEqual(9, (Integer) result.get('commentsCount'), 'Value mismatch');
+    Test.stopTest();
+  }
+
+  @isTest
+  static void queryDiaryCommentMockCustomerTest() {
+    Test.startTest();
+    ARNCServiceMock mockService = new ARNCServiceMock();
+    String parent = 'Customer';
+    Map<String, String> params = new Map<String, String>();
+    HttpCalloutResponse response = mockService.queryDiaryComment(
+      parent,
+      params
+    );
+    Map<String, Object> result = (Map<String, Object>) JSON.deserializeUntyped(
+      response.body
+    );
+    // Verify the response uses the customer mock data
+    Assert.isNotNull(result, 'Response should not be null');
+    Assert.isTrue(
+      result.containsKey('commentDetails'),
+      'Response should contain commentDetails'
+    );
     Assert.areEqual(
-      93,
+      23,
       (Integer) result.get('totalComments'),
-      'Value mismatch'
+      'Should return customer mock data with 23 total comments'
+    );
+    Test.stopTest();
+  }
+
+  @isTest
+  static void queryDiaryCommentMockFinancialAccountTest() {
+    Test.startTest();
+    ARNCServiceMock mockService = new ARNCServiceMock();
+    String parent = 'Financial Account';
+    Map<String, String> params = new Map<String, String>();
+    HttpCalloutResponse response = mockService.queryDiaryComment(
+      parent,
+      params
+    );
+    Map<String, Object> result = (Map<String, Object>) JSON.deserializeUntyped(
+      response.body
+    );
+    // Verify the response uses the financial account mock data
+    Assert.isNotNull(result, 'Response should not be null');
+    Assert.isTrue(
+      result.containsKey('commentDetails'),
+      'Response should contain commentDetails'
     );
     Assert.areEqual(
-      43,
-      (Integer) result.get('commentsCount'),
-      'Value mismatch'
+      17,
+      (Integer) result.get('totalComments'),
+      'Should return financial account mock data with 17 total comments'
     );
+    List<Object> commentDetails = (List<Object>) result.get('commentDetails');
+    Assert.isTrue(commentDetails.size() > 0, 'Should have comment details');
+    Test.stopTest();
+  }
+
+  @isTest
+  static void createDiaryCommentMockTest() {
+    String customerId = [
+      SELECT Id
+      FROM Account
+      WHERE Source_System_ID__c = '901221245'
+      LIMIT 1
+    ]
+    .Id;
+    String comment = 'Test comment';
+    Test.startTest();
+    ARNCServiceMock mockService = new ARNCServiceMock();
+    Boolean result = mockService.createDiaryComment(
+      customerId,
+      comment,
+      'IdTheft'
+    );
+    Assert.areEqual(true, result, 'Mock createDiaryComment should return true');
     Test.stopTest();
   }
 
@@ -444,7 +513,10 @@ private class ARNCServiceTest {
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
       res.setHeader('ms2-example', 'query-diary-comment');
-      res.setBody(new ARNCServiceMock().queryDiaryComments().body);
+      // Use the updated queryDiaryComment method with parameters
+      String parent = '901221265';
+      Map<String, String> params = new Map<String, String>();
+      res.setBody(new ARNCServiceMock().queryDiaryComment(parent, params).body);
       res.setStatusCode(200);
       return res;
     }
@@ -469,7 +541,7 @@ private class ARNCServiceTest {
   }
 
   /**
-   * @description HTTP mock class for Creae Diary Comment
+   * @description HTTP mock class for Create Diary Comment
    */
   public class CreateDiaryCommentTestMock implements HttpCalloutMock {
     /**
@@ -480,7 +552,7 @@ private class ARNCServiceTest {
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
       res.setHeader('ms2-example', 'create-diary-comment');
-      res.setBody(new ARNCServiceMock().createDiaryComment().body);
+      res.setBody('{"status":"Added"}');
       res.setStatusCode(200);
       return res;
     }

@@ -134,8 +134,17 @@ public without sharing class InteractionCloudEventModel extends CloudEventModel 
      * @param theAccount the Account record
      */
     public FinancialAccountModel(FinServ__FinancialAccount__c theAccount) {
+      //SCFE-32409: The processing_appln param of cap_DiaryCommntUpd_v1 only accepts 3 char product code.
+      //PLUS accounts have more than 3: TRANSACT01, SAVING01, SAVING02, etc.
+      //Hence,the 3 char from FinServ__FinancialAccountType__c substring will passed as product code for PLUS accounts.
+      String displayCode = theAccount?.Product_Code_Display__c;
+      String productCode = (displayCode != null &&
+        displayCode.length() <= 3)
+        ? displayCode
+        : theAccount?.FinServ__FinancialAccountType__c?.substringAfter(':');
+
       this.accountNumber = theAccount?.FinServ__FinancialAccountNumber__c;
-      this.productCode = theAccount?.Product_Code_Display__c;
+      this.productCode = productCode;
       this.accountName = theAccount?.Name;
       this.branchCode = theAccount?.Branch_Code__c;
     }

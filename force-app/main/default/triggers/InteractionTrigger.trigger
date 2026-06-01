@@ -8,4 +8,5 @@ trigger InteractionTrigger on Interaction(
   CommercialInteractionTriggerHandler commercialHandler = new CommercialInteractionTriggerHandler();
   MobileLendingInteractionTriggerHandler mlcrmHandler = new MobileLendingInteractionTriggerHandler();
   RBMInteractionHandler rbmHandler = new RBMInteractionHandler();
+  RetailInteractionTriggerHandler retailHandler = new RetailInteractionTriggerHandler();
 }

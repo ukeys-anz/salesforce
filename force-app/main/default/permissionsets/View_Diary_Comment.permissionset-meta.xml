@@ -1,54 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <classAccesses>
-        <apexClass>CCRMARNCService</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CCRMARNCServiceMock</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CCRMARNCServiceTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CCRMCoreBankingDataSourceConnection</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CCRMCoreBankingDataSourceConnectionTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CCRMCoreBankingDataSourceProvider</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CCRMCoreBankingDataSourceProviderTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CCRMDiaryCommentQuery</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CCRMDiaryCommentQueryTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CCRMExternalObjectQueryBase</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CCRMExternalQueryBaseTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CCRMFinancialAccountQueryBase</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>HttpCalloutResponse</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -80,6 +32,10 @@
         <apexClass>LoggerTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customPermissions>
+        <name>ViewCAPNote</name>
+        <enabled>true</enabled>
+    </customPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Diary_Comment__x.Account__c</field>
@@ -133,6 +89,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Diary_Comment__x.Expiry_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Diary_Comment__x.Financial_Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

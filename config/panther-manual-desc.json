@@ -5335,6 +5335,7 @@
         "Deposit_Account__c",
         "Description__c",
         "Expiry_Date__c",
+        "Financial_Account__c",
         "Loan_Account__c",
         "Modified_Date__c",
         "Operator__c",

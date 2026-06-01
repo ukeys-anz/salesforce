@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Financial_Account__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Personal Information;Source - Salesforce</complianceGroup>
+    <description>Financial Account indirect lookup via external id</description>
+    <externalDeveloperName>Financial Account</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Financial Account</label>
+    <length>255</length>
+    <referenceTargetField>FinServ__FinancialAccount__c.Account_Key__c</referenceTargetField>
+    <referenceTo>FinServ__FinancialAccount__c</referenceTo>
+    <relationshipLabel>Diary Comments</relationshipLabel>
+    <relationshipName>Diary_Comments</relationshipName>
+    <securityClassification>Confidential</securityClassification>
+    <type>IndirectLookup</type>
+</CustomField>
