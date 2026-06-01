@@ -6,6 +6,12 @@
  */
 @isTest
 private class InactiveIGExternalQueryTest {
+  static Lib_MockProvider faRepoMock;
+  static void registerMocks() {
+    faRepoMock = Lib_MockProvider.forType(
+      FinancialAccountQueryBaseRepository.class
+    );
+  }
   @isTest
   static void testParseResponse() {
     String responseBody =
@@ -35,10 +41,16 @@ private class InactiveIGExternalQueryTest {
 
   @isTest
   static void createExternalRecordsTest() {
+    registerMocks();
     DataSource.QueryContext context = createInactiveIndemnityGuaranteeContext();
     InactiveIndemnityGuaranteeExternalQuery accountQuery = new InactiveIndemnityGuaranteeExternalQuery();
 
     Test.startTest();
+    Account acc = new Account(
+      External_Id__c = 'CAP-CIS_4011643101',
+      Source_System_Name__c = 'CAP-CIS'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
     ExternalObjectQueryBase.ExternalQueryResult result = accountQuery.execute(
       context
     );

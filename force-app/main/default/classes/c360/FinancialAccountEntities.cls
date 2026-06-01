@@ -44,6 +44,23 @@ public with sharing class FinancialAccountEntities {
   }
 
   /**
+   * @description AssetFinancePayload class
+   */
+  public class AssetFinancePayload extends ExternalObjectQueryBase.PayloadBase {
+    //Summary/detail request payload for cache asset finance
+    public Set<String> customerIds;
+    public String customerId;
+    public String offSet;
+    public String pageSize;
+    public String type; // AMBIT or ELS
+    public String contractNumber;
+    public String creditLineId;
+    public String repaymentId;
+    public String assetNumber;
+    public String accountRelationshipId;
+  }
+
+  /**
    * @description abstract FinancialAccount Summary callout response class
    */
   public virtual class FinancialAccountCalloutRequest extends ExternalObjectQueryBase.ExternalObjectCalloutRequestBase {
@@ -94,8 +111,17 @@ public with sharing class FinancialAccountEntities {
    * @description abstract FinancialAccount callout response class
    */
   public abstract class FinancialAccountCalloutResponse extends ExternalObjectQueryBase.ExternalObjectCalloutResponse {
+    //common financial account properties
+    public String accountNumber;
+    public String accountName;
+    public String status;
+    public Decimal accountBalance;
+    public Decimal accountLimit;
+    public String productCode;
     public String customerId;
+    public String externalId;
     public List<FinancialAccountModelBase> accounts;
     public Customer customer;
+    public String nextPageId;
   }
 }

@@ -6,6 +6,13 @@
  */
 @isTest
 private class AFAMBITRepaymentExternalQueryTest {
+  static Lib_MockProvider faRepoMock;
+
+  static void registerMocks() {
+    faRepoMock = Lib_MockProvider.forType(
+      FinancialAccountQueryBaseRepository.class
+    );
+  }
   @isTest
   static void testParseResponse() {
     String responseBody =
@@ -41,6 +48,27 @@ private class AFAMBITRepaymentExternalQueryTest {
 
   @isTest
   static void createAssetRepaymentDetailTest() {
+    registerMocks();
+    StaffTokenRequestModel staffModelWrapper = new StaffTokenRequestModel();
+    staffModelWrapper.anzTokenType = 'staff';
+    staffModelWrapper.apiScopesRequested = 'CCRM_CACHE_360';
+    staffModelWrapper.realm = 'system';
+    staffModelWrapper.isSecureWafFlow = true;
+    String hashedKey = AuthTokenCacheUtil.getHashedKey(
+      'forgeJWTToken' + staffModelWrapper.apiScopesRequested
+    );
+    Cache.Session.put(
+      'local.ForgeToken.' + hashedKey,
+      AuthServiceTest.IDTESTVALUEFORGE2,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+    Account acc = new Account(
+      External_Id__c = 'CACHE_4011643101',
+      Source_System_Name__c = 'CACHE'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
     DataSource.QueryContext context = createQueryContext();
     AFAMBITRepaymentExternalQuery accountQuery = new AFAMBITRepaymentExternalQuery();
     Test.startTest();

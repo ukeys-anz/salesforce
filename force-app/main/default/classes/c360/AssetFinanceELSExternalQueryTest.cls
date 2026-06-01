@@ -50,7 +50,8 @@ private class AssetFinanceELSExternalQueryTest {
       new List<Account>{
         new Account(
           External_Id__c = 'CAP-CIS_4011643101',
-          Name = 'Asset Finance ELS Account'
+          Name = 'Asset Finance ELS Account',
+          Source_System_Name__c = 'CAP-CIS'
         )
       }
     );

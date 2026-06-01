@@ -461,14 +461,58 @@ public with sharing class FinancialAccountExternalQueryHelper {
       return payload;
     }
     //Account detail view
-    String accountNumber = infoWrapper.externalId.right(
-      infoWrapper.externalId.length() - infoWrapper.externalId.indexOf('|') - 1
-    );
+    String accountNumber = infoWrapper.assetFinanceType == 'AMBIT'
+      ? infoWrapper.externalId.substringAfter('_')
+      : infoWrapper.externalId.right(
+          infoWrapper.externalId.length() -
+            infoWrapper.externalId.indexOf('|') -
+            1
+        );
     payload = '{"' + infoWrapper.externalField + '": "' + accountNumber + '"';
     payload += String.isNotBlank(infoWrapper.assetFinanceType)
       ? ',"type":"' + infoWrapper.assetFinanceType + '"}'
       : '}';
     return payload;
+  }
+
+  /**
+   * @description prepare payload for single account for cache
+   * @param  infoWrapper FAQueryBaseInfoWrapper
+   * @return FinancialAccountEntities.AssetFinancePayload final payload
+   */
+  public FinancialAccountEntities.AssetFinancePayload getPayloadForSingleAccountForCache(
+    FAQueryBaseInfoWrapper infoWrapper
+  ) {
+    if (String.isEmpty(infoWrapper.externalId)) {
+      return null;
+    }
+    //Account detail view
+    //1st Level - CustomerSourceName_customerId-contractNumber
+    //2nd Level - CustomerSourceName_customerId-contractNumber-childId
+    FinancialAccountEntities.AssetFinancePayload assetPayload = new FinancialAccountEntities.AssetFinancePayload();
+    List<String> externalIds = infoWrapper.externalId.substringAfter('_')
+      .split('-');
+    assetPayload.contractNumber = externalIds[1];
+    assetPayload.type = infoWrapper.assetFinanceType;
+    if (externalIds.size() == 2) {
+      return assetPayload;
+    }
+
+    switch on infoWrapper.externalField {
+      when 'compositeCreditLineId' {
+        assetPayload.creditLineId = externalIds[2];
+      }
+      when 'compositeRepaymentId' {
+        assetPayload.repaymentId = externalIds[2];
+      }
+      when 'compositeAccountRelationshipId' {
+        assetPayload.accountRelationshipId = externalIds[2];
+      }
+      when 'compositePhysicalAssetId' {
+        assetPayload.assetNumber = externalIds[2];
+      }
+    }
+    return assetPayload;
   }
 
   /**

@@ -79,6 +79,11 @@ private class LoanAccountExternalQueryTest {
   static void testCreateExternalRecords() {
     registerMocks();
     Test.startTest();
+    Account acc = new Account(
+      External_Id__c = 'CAP-CIS_4011643101',
+      Source_System_Name__c = 'CAP-CIS'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
     FinServ__FinancialAccountRole__c mockFar = createMockData(
       '4011643101-503456793',
       '503456793',
@@ -115,6 +120,11 @@ private class LoanAccountExternalQueryTest {
   static void createLoanAccountsSummaryTest() {
     registerMocks();
     Test.startTest();
+    Account acc = new Account(
+      External_Id__c = 'CAP-CIS_4011643101',
+      Source_System_Name__c = 'CAP-CIS'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
     faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
     //Setting up mocked data
     FinServ__FinancialAccountRole__c mockFar = createMockData(
@@ -168,6 +178,11 @@ private class LoanAccountExternalQueryTest {
       'getFinancialAccountsWithAcctNum',
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
+    Account acc = new Account(
+      External_Id__c = 'CAP-CIS_4011643101',
+      Source_System_Name__c = 'CAP-CIS'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
     ExternalObjectQueryBase.ExternalQueryResult result = loanAcct.execute(
       context
     );
@@ -223,6 +238,11 @@ private class LoanAccountExternalQueryTest {
         '503456793',
         '5034-56793'
       );
+      Account acc = new Account(
+        External_Id__c = 'CAP-CIS_4011643101',
+        Source_System_Name__c = 'CAP-CIS'
+      );
+      faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
       DataSource.QueryContext context = createLoanAccountQueryContext();
       LoanAccountExternalQuery query = new LoanAccountExternalQuery();
       faRepoMock.mock(
@@ -276,7 +296,8 @@ private class LoanAccountExternalQueryTest {
     conn.sync();
     //query
     DataSource.QueryContext context = ExternalQueryContextMock.createQueryContextWithExternalId(
-      'LoanAccount'
+      'LoanAccount',
+      'CAP-CIS'
     );
     CoreBankingDataSourceConnection aConn = new CoreBankingDataSourceConnection(
       null
