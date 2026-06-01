@@ -19,7 +19,7 @@ jobs:
     env:
       BASE_REF: "${{ github.event.pull_request.base.ref }}"
       GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      LEAD_ENGINEERS: "dawsond1x,patelsu,chiranjeebdhar,sebastienquinternet-anz,murugem4,pvictoriano,joshiv16"
+      LEAD_ENGINEERS: "dawsond1_anz,patels27_anz,dharc_anz,quinters_anz,murugem4_anz,victorip_anz,joshiv16_anz"
       PR_NUMBER: "${{ github.event.pull_request.number }}"
       TRIGGERED_EVENT: "${{ github.event_name }}"
     steps:
