@@ -94,9 +94,52 @@ private class AccountRelationshipExternalQueryTest {
     Assert.isTrue(accRelQry.calloutResponse == null, 'Response is not null');
   }
 
+  @isTest
+  static void testAccountRelationshipQueryForCAP() {
+    registerMocks();
+    Account acc = new Account(
+      External_Id__c = 'CAP-CIS_4011643101',
+      Source_System_Name__c = 'CAP-CIS'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
+    DataSource.QueryContext context = createAccountRelationshipContextForAPI();
+    AccountRelationshipExternalQuery accRelQry = new AccountRelationshipExternalQuery();
+    Test.startTest();
+    ExternalObjectQueryBase.ExternalQueryResult result = accRelQry.execute(
+      context
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      5,
+      result.externalRecords.size(),
+      'Size of accounts is not 5'
+    );
+  }
+
   //Integration Test
   @isTest
   static void testAccountRelationshipQuery() {
+    registerMocks();
+    StaffTokenRequestModel staffModelWrapper = new StaffTokenRequestModel();
+    staffModelWrapper.anzTokenType = 'staff';
+    staffModelWrapper.apiScopesRequested = 'CCRM_CACHE_360';
+    staffModelWrapper.realm = 'system';
+    staffModelWrapper.isSecureWafFlow = true;
+    String hashedKey = AuthTokenCacheUtil.getHashedKey(
+      'forgeJWTToken' + staffModelWrapper.apiScopesRequested
+    );
+    Cache.Session.put(
+      'local.ForgeToken.' + hashedKey,
+      AuthServiceTest.IDTESTVALUEFORGE2,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+    Account acc = new Account(
+      External_Id__c = 'CACHE_4011643101',
+      Source_System_Name__c = 'CACHE'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
     DataSource.QueryContext context = createAccountRelationshipContextForAPI();
     AccountRelationshipExternalQuery accRelQry = new AccountRelationshipExternalQuery();
     Test.startTest();
@@ -113,6 +156,27 @@ private class AccountRelationshipExternalQueryTest {
 
   @isTest
   static void testCreateExternalRecords() {
+    registerMocks();
+    StaffTokenRequestModel staffModelWrapper = new StaffTokenRequestModel();
+    staffModelWrapper.anzTokenType = 'staff';
+    staffModelWrapper.apiScopesRequested = 'CCRM_CACHE_360';
+    staffModelWrapper.realm = 'system';
+    staffModelWrapper.isSecureWafFlow = true;
+    String hashedKey = AuthTokenCacheUtil.getHashedKey(
+      'forgeJWTToken' + staffModelWrapper.apiScopesRequested
+    );
+    Cache.Session.put(
+      'local.ForgeToken.' + hashedKey,
+      AuthServiceTest.IDTESTVALUEFORGE2,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+    Account acc = new Account(
+      External_Id__c = 'CACHE_4011643101',
+      Source_System_Name__c = 'CACHE'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
     FinServ__FinancialAccountRole__c mockFar = getMockedData();
     DataSource.QueryContext context = createAccountRelationshipContextForAPI();
     AccountRelationshipExternalQuery accRelQry = new AccountRelationshipExternalQuery();
@@ -151,6 +215,11 @@ private class AccountRelationshipExternalQueryTest {
       'getRelatedCustomers',
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
+    Account acc = new Account(
+      External_Id__c = 'CAP-CIS_4011643101',
+      Source_System_Name__c = 'CAP-CIS'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
     Test.startTest();
     ExternalObjectQueryBase.ExternalQueryResult result = accRelQry.execute(
       context

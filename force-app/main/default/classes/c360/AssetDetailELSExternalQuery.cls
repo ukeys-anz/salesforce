@@ -42,6 +42,7 @@ public with sharing class AssetDetailELSExternalQuery extends FinancialAccountQu
    * @param responseBody API response payload
    * @return ExternalObjectCalloutResponse
    */
+  @testVisible
   protected override ExternalObjectCalloutResponse parseResponse(
     String responseBody
   ) {

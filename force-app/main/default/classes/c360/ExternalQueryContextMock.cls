@@ -11,6 +11,12 @@ public class ExternalQueryContextMock {
    * @return DataSource.QueryContext
    */
   public static DataSource.QueryContext createQueryContext(String tableName) {
+    List<String> cacheTypeTableNames = new List<String>{
+      'DemandAccount',
+      'LiabilityAccount',
+      'AFAMBITContract',
+      'AFAMBITCreditLine'
+    };
     Map<String, List<String>> parentColumnMap = createParentColumn();
     Map<String, List<String>> tableColumnMap = createTableColumns();
 
@@ -38,10 +44,7 @@ public class ExternalQueryContextMock {
           parentColumnMap.get(tableName)[1],
           DataSource.FilterType.EQUALS
         );
-      } else if (
-        tableName == 'DemandAccount' ||
-        tableName == 'LiabilityAccount'
-      ) {
+      } else if (cacheTypeTableNames.contains(tableName)) {
         subFilter = createFilter(
           tableName,
           'CustomerId',
@@ -139,20 +142,25 @@ public class ExternalQueryContextMock {
   /**
    * @description Create DataSource.QueryContext with external Id as default column
    * @param tableName String External object name
+   * @param sourceSystem String Source system name
    * @return DataSource.QueryContext
    */
   public static DataSource.QueryContext createQueryContextWithExternalId(
-    String tableName
+    String tableName,
+    String sourceSystem
   ) {
     DataSource.QueryContext context = new DataSource.QueryContext();
     context.tableSelection = new DataSource.TableSelection();
     context.tableSelection.tableSelected = tableName;
     context.queryMoreToken = null;
     context.tableSelection.columnsSelected = new List<DataSource.ColumnSelection>();
+    String externalId = sourceSystem == 'CAP-CIS'
+      ? 'CAP-CIS_4011643101-391102388|ILS-391102388'
+      : 'CACHE_4011643101-391102388';
     context.tableSelection.filter = createFilter(
       tableName,
       'ExternalId',
-      '4011643101-391102388|ILS-391102388',
+      externalId,
       DataSource.FilterType.EQUALS
     );
     context.tableSelection.filter.subfilters = null;
@@ -182,7 +190,7 @@ public class ExternalQueryContextMock {
     );
     parentColumnMap.put(
       'AccountRegistration',
-      new List<String>{ 'loanAccount', '4011643101' }
+      new List<String>{ 'loanAccount', 'CAP-CIS_4011643101' }
     );
     parentColumnMap.put(
       'TransactionHistory',
@@ -190,35 +198,35 @@ public class ExternalQueryContextMock {
     );
     parentColumnMap.put(
       'AssetDetailELS',
-      new List<String>{ 'ELSId', '4011643101' }
+      new List<String>{ 'ELSId', 'CAP-CIS_4011643101' }
     );
     parentColumnMap.put(
       'AssetFinanceAssetDetail',
-      new List<String>{ 'ContractId', '4020632171' }
+      new List<String>{ 'ContractId', 'CACHE_4011643101-162381-364931' }
     );
     parentColumnMap.put(
       'GuaranteeFeeDetail',
-      new List<String>{ 'ActiveGuaranteeId', '4020018249' }
+      new List<String>{ 'ActiveGuaranteeId', 'CAP-CIS_4020018249' }
     );
     parentColumnMap.put(
       'CommercialBillFee',
-      new List<String>{ 'CommercialBillId', '4011643101' }
+      new List<String>{ 'CommercialBillId', 'CAP-CIS_4011643101' }
     );
     parentColumnMap.put(
       'AccountRelationship',
-      new List<String>{ 'AFAMBITContractNumber', '4019028722-13521-0' }
+      new List<String>{ 'AFAMBITContractNumber', 'CACHE_4019028722-13521-0' }
     );
     parentColumnMap.put(
       'CardHolder',
-      new List<String>{ 'CreditCardId', '4715149920842161' }
+      new List<String>{ 'CreditCardId', 'CAP-CIS_4715149920842161-12345' }
     );
     parentColumnMap.put(
       'CreditCardFee',
-      new List<String>{ 'CreditCardId', '4715149920842161' }
+      new List<String>{ 'CreditCardId', 'CAP-CIS_4715149920842161-12345' }
     );
     parentColumnMap.put(
       'LinkedAccount',
-      new List<String>{ 'PortfolioOfLoanId', '10000000038' }
+      new List<String>{ 'PortfolioOfLoanId', 'CAP-CIS_10000000038-23453' }
     );
     return parentColumnMap;
   }

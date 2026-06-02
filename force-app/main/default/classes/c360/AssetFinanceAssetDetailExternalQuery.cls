@@ -9,7 +9,7 @@ public with sharing class AssetFinanceAssetDetailExternalQuery extends Financial
    * @description Loan account Model class
    */
   @testVisible
-  private class AssetFinanceAssetDetailModel extends FinancialAccountModelBase {
+  private class AssetFinanceAssetDetailModel extends FinancialAccountEntities.FinancialAccountCalloutResponse {
     private String assetNumber;
     private String year;
     private String make;
@@ -25,7 +25,7 @@ public with sharing class AssetFinanceAssetDetailExternalQuery extends Financial
   /**
    * @description Asset Detail callout response
    */
-  public class AssetFinanceAssetDetailCalloutResponse extends FinancialAccountCalloutResponse {
+  public class AssetFinanceAssetDetailCalloutResponse extends FinancialAccountEntities.FinancialAccountCalloutResponse {
     public List<AssetFinanceAssetDetailModel> physicalAssets;
   }
 
@@ -51,6 +51,15 @@ public with sharing class AssetFinanceAssetDetailExternalQuery extends Financial
     if (String.isBlank(responseBody)) {
       return this.calloutResponse;
     }
+    if (
+      this.queryMode == QueryModeEnum.RECORD_DETAIL && this.isCACHECustomer()
+    ) {
+      this.calloutResponse = (AssetFinanceAssetDetailModel) CalloutModel.deserialize(
+        responseBody,
+        AssetFinanceAssetDetailModel.class
+      );
+      return this.calloutResponse;
+    }
     this.calloutResponse = (AssetFinanceAssetDetailCalloutResponse) CalloutModel.deserialize(
       responseBody,
       AssetFinanceAssetDetailCalloutResponse.class
@@ -71,26 +80,47 @@ public with sharing class AssetFinanceAssetDetailExternalQuery extends Financial
     if (calloutResponse == null) {
       return result;
     }
-    for (
-      AssetFinanceAssetDetailModel asset : ((AssetFinanceAssetDetailCalloutResponse) this.calloutResponse)
-        .physicalAssets
+    if (
+      this.queryMode == QueryModeEnum.RECORD_DETAIL && this.isCACHECustomer()
     ) {
-      Map<String, Object> row = new Map<String, Object>{
-        'ExternalId' => asset.compositePhysicalAssetId,
-        'DisplayUrl' => getDisplayUrl(asset.compositePhysicalAssetId),
-        this.parentField => this.parentId,
-        'Make' => asset.make,
-        'Year' => asset.year,
-        'Model' => asset.model,
-        'PurchasePrice' => asset.purchasePrice,
-        'SerialNo' => asset.serialNumber,
-        'ECV' => asset.ecvAmount,
-        'ECVDate' => asset.ecvDate,
-        'ECVValuer' => asset.ecvValuer,
-        'AssetNo' => asset.assetNumber
-      };
-      result.externalRecords.add(row);
+      AssetFinanceAssetDetailModel asset = ((AssetFinanceAssetDetailModel) calloutResponse);
+      result.externalRecords.add(createExternalRec(asset));
+    } else {
+      List<AssetFinanceAssetDetailModel> physicalAssets = ((AssetFinanceAssetDetailCalloutResponse) this.calloutResponse)
+        .physicalAssets ?? new List<AssetFinanceAssetDetailModel>();
+      for (AssetFinanceAssetDetailModel asset : physicalAssets) {
+        result.externalRecords.add(createExternalRec(asset));
+      }
     }
     return result;
+  }
+  private Map<String, Object> createExternalRec(
+    AssetFinanceAssetDetailModel asset
+  ) {
+    String externalId = getExternalId(asset);
+    Map<String, Object> row = new Map<String, Object>{
+      'ExternalId' => externalId,
+      'DisplayUrl' => getDisplayUrl(externalId),
+      this.parentField => this.parentId,
+      'Make' => asset.make,
+      'Year' => asset.year,
+      'Model' => asset.model,
+      'PurchasePrice' => asset.purchasePrice,
+      'SerialNo' => asset.serialNumber,
+      'ECV' => asset.ecvAmount,
+      'ECVDate' => asset.ecvDate,
+      'ECVValuer' => asset.ecvValuer,
+      'AssetNo' => asset.assetNumber
+    };
+    return row;
+  }
+  private String getExternalId(AssetFinanceAssetDetailModel asset) {
+    if (String.isNotBlank(this.externalId)) {
+      return this.externalId;
+    }
+    if (String.isNotBlank(asset.compositePhysicalAssetId)) {
+      return this.customerSourceSystem + '_' + asset.compositePhysicalAssetId;
+    }
+    return this.parentId + '-' + asset.assetNumber;
   }
 }

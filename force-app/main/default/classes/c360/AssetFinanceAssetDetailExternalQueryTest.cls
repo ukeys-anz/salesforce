@@ -6,6 +6,13 @@
  */
 @isTest
 private class AssetFinanceAssetDetailExternalQueryTest {
+  static Lib_MockProvider faRepoMock;
+
+  static void registerMocks() {
+    faRepoMock = Lib_MockProvider.forType(
+      FinancialAccountQueryBaseRepository.class
+    );
+  }
   @isTest
   static void testParseResponse() {
     String responseBody =
@@ -42,6 +49,27 @@ private class AssetFinanceAssetDetailExternalQueryTest {
 
   @isTest
   static void testCreateExternalRecords() {
+    registerMocks();
+    StaffTokenRequestModel staffModelWrapper = new StaffTokenRequestModel();
+    staffModelWrapper.anzTokenType = 'staff';
+    staffModelWrapper.apiScopesRequested = 'CCRM_CACHE_360';
+    staffModelWrapper.realm = 'system';
+    staffModelWrapper.isSecureWafFlow = true;
+    String hashedKey = AuthTokenCacheUtil.getHashedKey(
+      'forgeJWTToken' + staffModelWrapper.apiScopesRequested
+    );
+    Cache.Session.put(
+      'local.ForgeToken.' + hashedKey,
+      AuthServiceTest.IDTESTVALUEFORGE2,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+    Account acc = new Account(
+      External_Id__c = 'CACHE_4011643101',
+      Source_System_Name__c = 'CACHE'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
     Test.startTest();
     DataSource.QueryContext context = createQueryContext();
     AssetFinanceAssetDetailExternalQuery assetDet = new AssetFinanceAssetDetailExternalQuery();
@@ -62,8 +90,51 @@ private class AssetFinanceAssetDetailExternalQueryTest {
     );
   }
 
+  @isTest
+  static void testCreateExternalRecordsForDetailView() {
+    registerMocks();
+    StaffTokenRequestModel staffModelWrapper = new StaffTokenRequestModel();
+    staffModelWrapper.anzTokenType = 'staff';
+    staffModelWrapper.apiScopesRequested = 'CCRM_CACHE_360';
+    staffModelWrapper.realm = 'system';
+    staffModelWrapper.isSecureWafFlow = true;
+    String hashedKey = AuthTokenCacheUtil.getHashedKey(
+      'forgeJWTToken' + staffModelWrapper.apiScopesRequested
+    );
+    Cache.Session.put(
+      'local.ForgeToken.' + hashedKey,
+      AuthServiceTest.IDTESTVALUEFORGE2,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+    Account acc = new Account(
+      External_Id__c = 'CACHE_4011643101',
+      Source_System_Name__c = 'CACHE'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
+    Test.startTest();
+    DataSource.QueryContext context = createQueryContextForDetail();
+    AssetFinanceAssetDetailExternalQuery assetDet = new AssetFinanceAssetDetailExternalQuery();
+    ExternalObjectQueryBase.ExternalQueryResult result = assetDet.execute(
+      context
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      1,
+      result.externalRecords.size(),
+      'Size of accounts is not 1'
+    );
+    Map<String, Object> firstRecord = result.externalRecords[0];
+    Assert.areEqual(
+      'M8W10249',
+      firstRecord.get('SerialNo'),
+      'SerialNo mismatch'
+    );
+  }
+
   /**
-   * @description create account relationship Query Context and set mock response
+   * @description create summary Query Context and set mock response
    * @return queryContext
    */
   public static DataSource.QueryContext createQueryContext() {
@@ -73,6 +144,22 @@ private class AssetFinanceAssetDetailExternalQueryTest {
     );
     DataSource.QueryContext context = ExternalQueryContextMock.createQueryContext(
       'AssetFinanceAssetDetail'
+    );
+    return context;
+  }
+
+  /**
+   * @description create asset detail Query Context and set mock response
+   * @return queryContext
+   */
+  public static DataSource.QueryContext createQueryContextForDetail() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new AssetFinanceAssetDetailForDetailQueryTestMock()
+    );
+    DataSource.QueryContext context = ExternalQueryContextMock.createQueryContextWithExternalId(
+      'AssetFinanceAssetDetail',
+      'CACHE'
     );
     return context;
   }
@@ -88,6 +175,26 @@ private class AssetFinanceAssetDetailExternalQueryTest {
      */
     public HTTPResponse respond(HTTPRequest req) {
       String jsonBody = Service.getStaticResource('mock_assetDetail');
+      HTTPResponse res = new HTTPResponse();
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
+  }
+
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class AssetFinanceAssetDetailForDetailQueryTestMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource(
+        'mock_assetDetalForDetailView'
+      );
       HTTPResponse res = new HTTPResponse();
       res.setBody(jsonBody);
       res.setStatusCode(200);

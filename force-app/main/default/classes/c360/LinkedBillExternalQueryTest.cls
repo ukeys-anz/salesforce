@@ -6,6 +6,12 @@
  */
 @isTest
 private class LinkedBillExternalQueryTest {
+  static Lib_MockProvider faRepoMock;
+  static void registerMocks() {
+    faRepoMock = Lib_MockProvider.forType(
+      FinancialAccountQueryBaseRepository.class
+    );
+  }
   @isTest
   static void testParseResponse() {
     String responseBody =
@@ -40,7 +46,13 @@ private class LinkedBillExternalQueryTest {
 
   @isTest
   static void testCreateExternalRecords() {
+    registerMocks();
     Test.startTest();
+    Account acc = new Account(
+      External_Id__c = 'CAP-CIS_4011643101',
+      Source_System_Name__c = 'CAP-CIS'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
     DataSource.QueryContext context = createQueryContext();
     LinkedBillExternalQuery linkedBill = new LinkedBillExternalQuery();
     ExternalObjectQueryBase.ExternalQueryResult result = linkedBill.execute(

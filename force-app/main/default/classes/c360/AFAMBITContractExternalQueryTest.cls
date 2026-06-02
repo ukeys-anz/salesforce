@@ -6,6 +6,12 @@
  */
 @isTest
 private class AFAMBITContractExternalQueryTest {
+  static Lib_MockProvider faRepoMock;
+  static void registerMocks() {
+    faRepoMock = Lib_MockProvider.forType(
+      FinancialAccountQueryBaseRepository.class
+    );
+  }
   @isTest
   static void testParseResponse() {
     String responseBody =
@@ -48,9 +54,30 @@ private class AFAMBITContractExternalQueryTest {
 
   @isTest
   static void testCreateExternalRecords() {
+    registerMocks();
+    StaffTokenRequestModel staffModelWrapper = new StaffTokenRequestModel();
+    staffModelWrapper.anzTokenType = 'staff';
+    staffModelWrapper.apiScopesRequested = 'CCRM_CACHE_360';
+    staffModelWrapper.realm = 'system';
+    staffModelWrapper.isSecureWafFlow = true;
+    String hashedKey = AuthTokenCacheUtil.getHashedKey(
+      'forgeJWTToken' + staffModelWrapper.apiScopesRequested
+    );
+    Cache.Session.put(
+      'local.ForgeToken.' + hashedKey,
+      AuthServiceTest.IDTESTVALUEFORGE2,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
     DataSource.QueryContext context = createQueryContext();
     AFAMBITContractExternalQuery contract = new AFAMBITContractExternalQuery();
     Test.startTest();
+    Account acc = new Account(
+      External_Id__c = 'CACHE_4011643101',
+      Source_System_Name__c = 'CACHE'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
     ExternalObjectQueryBase.ExternalQueryResult result = contract.execute(
       context
     );
@@ -62,7 +89,7 @@ private class AFAMBITContractExternalQueryTest {
     );
     Map<String, Object> firstRecord = result.externalRecords[0];
     Assert.areEqual(
-      '1011137670-24-190',
+      'CACHE_1011137670-24-190',
       firstRecord.get('ExternalId'),
       'External Id mismatch'
     );
@@ -73,14 +100,66 @@ private class AFAMBITContractExternalQueryTest {
     );
   }
 
+  @isTest
+  static void createAFAmbitAccountDetailTest() {
+    registerMocks();
+    StaffTokenRequestModel staffModelWrapper = new StaffTokenRequestModel();
+    staffModelWrapper.anzTokenType = 'staff';
+    staffModelWrapper.apiScopesRequested = 'CCRM_CACHE_360';
+    staffModelWrapper.realm = 'system';
+    staffModelWrapper.isSecureWafFlow = true;
+    String hashedKey = AuthTokenCacheUtil.getHashedKey(
+      'forgeJWTToken' + staffModelWrapper.apiScopesRequested
+    );
+    Cache.Session.put(
+      'local.ForgeToken.' + hashedKey,
+      AuthServiceTest.IDTESTVALUEFORGE2,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+    Test.startTest();
+    DataSource.QueryContext context = createAFAmbitDetailContext();
+    AFAMBITContractExternalQuery contractAcct = new AFAMBITContractExternalQuery();
+    Account acc = new Account(
+      External_Id__c = 'CACHE_4011643101',
+      Source_System_Name__c = 'CACHE'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
+    ExternalObjectQueryBase.ExternalQueryResult result = contractAcct.execute(
+      context
+    );
+    Test.stopTest();
+    Assert.areEqual(1, result.externalRecords.size(), 'Size of accounts is 1');
+    Map<String, Object> firstRecord = result.externalRecords[0];
+    Assert.areEqual(
+      'Complete Activated',
+      firstRecord.get('Status'),
+      'Status should match the account returned from external source'
+    );
+  }
+
   /**
-   * @description create account relationship Query Context and set mock response
+   * @description create AF AMBIT summary Query Context and set mock response
    * @return queryContext
    */
   public static DataSource.QueryContext createQueryContext() {
     Test.setMock(HttpCalloutMock.class, new AFAMBITContractQueryTestMock());
     DataSource.QueryContext context = ExternalQueryContextMock.createQueryContext(
-      'Contract'
+      'AFAMBITContract'
+    );
+    return context;
+  }
+
+  /**
+   * @description create AF AMBIT Detail Query Context and set mock response
+   * @return DataSource.QueryContext
+   */
+  private static DataSource.QueryContext createAFAmbitDetailContext() {
+    Test.setMock(HttpCalloutMock.class, new AFAMBITContractDetailTestMock());
+    DataSource.QueryContext context = ExternalQueryContextMock.createQueryContextWithExternalId(
+      'AFAMBITContract',
+      'CACHE'
     );
     return context;
   }
@@ -97,6 +176,27 @@ private class AFAMBITContractExternalQueryTest {
     public HTTPResponse respond(HTTPRequest req) {
       String jsonBody = Service.getStaticResource('mock_contract');
       HTTPResponse res = new HTTPResponse();
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
+  }
+
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class AFAMBITContractDetailTestMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource(
+        'mock_contractDetailResponse'
+      );
+      HTTPResponse res = new HTTPResponse();
+      res.setHeader('ms2-example', 'dda-success-with-single-account');
       res.setBody(jsonBody);
       res.setStatusCode(200);
       return res;

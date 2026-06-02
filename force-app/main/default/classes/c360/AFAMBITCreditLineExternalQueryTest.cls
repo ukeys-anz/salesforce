@@ -6,6 +6,13 @@
  */
 @isTest
 private class AFAMBITCreditLineExternalQueryTest {
+  static Lib_MockProvider faRepoMock;
+
+  static void registerMocks() {
+    faRepoMock = Lib_MockProvider.forType(
+      FinancialAccountQueryBaseRepository.class
+    );
+  }
   @isTest
   static void testParseResponse() {
     String responseBody =
@@ -38,6 +45,27 @@ private class AFAMBITCreditLineExternalQueryTest {
 
   @isTest
   static void testCreateExternalRecords() {
+    registerMocks();
+    StaffTokenRequestModel staffModelWrapper = new StaffTokenRequestModel();
+    staffModelWrapper.anzTokenType = 'staff';
+    staffModelWrapper.apiScopesRequested = 'CCRM_CACHE_360';
+    staffModelWrapper.realm = 'system';
+    staffModelWrapper.isSecureWafFlow = true;
+    String hashedKey = AuthTokenCacheUtil.getHashedKey(
+      'forgeJWTToken' + staffModelWrapper.apiScopesRequested
+    );
+    Cache.Session.put(
+      'local.ForgeToken.' + hashedKey,
+      AuthServiceTest.IDTESTVALUEFORGE2,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+    Account acc = new Account(
+      External_Id__c = 'CACHE_1011137670',
+      Source_System_Name__c = 'CACHE'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
     Test.startTest();
     DataSource.QueryContext context = createQueryContext();
     AFAMBITCreditLineExternalQuery assetFin = new AFAMBITCreditLineExternalQuery();
@@ -52,7 +80,7 @@ private class AFAMBITCreditLineExternalQueryTest {
     );
     Map<String, Object> firstRecord = result.externalRecords[0];
     Assert.areEqual(
-      '1011137670-146515-4092',
+      'CACHE_1011137670-146515-4092',
       firstRecord.get('ExternalId'),
       'External Id mismatch'
     );
@@ -60,6 +88,49 @@ private class AFAMBITCreditLineExternalQueryTest {
       '4092',
       firstRecord.get('AccountNumber'),
       'Account Number mismatch'
+    );
+  }
+
+  @isTest
+  static void testCreateExternalRecordsForDetail() {
+    registerMocks();
+    StaffTokenRequestModel staffModelWrapper = new StaffTokenRequestModel();
+    staffModelWrapper.anzTokenType = 'staff';
+    staffModelWrapper.apiScopesRequested = 'CCRM_CACHE_360';
+    staffModelWrapper.realm = 'system';
+    staffModelWrapper.isSecureWafFlow = true;
+    String hashedKey = AuthTokenCacheUtil.getHashedKey(
+      'forgeJWTToken' + staffModelWrapper.apiScopesRequested
+    );
+    Cache.Session.put(
+      'local.ForgeToken.' + hashedKey,
+      AuthServiceTest.IDTESTVALUEFORGE2,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+    Account acc = new Account(
+      External_Id__c = 'CACHE_1011137670',
+      Source_System_Name__c = 'CACHE'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
+    Test.startTest();
+    DataSource.QueryContext context = createDetailQueryContext();
+    AFAMBITCreditLineExternalQuery assetFin = new AFAMBITCreditLineExternalQuery();
+    ExternalObjectQueryBase.ExternalQueryResult result = assetFin.execute(
+      context
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      1,
+      result.externalRecords.size(),
+      'Size of accounts is not 1'
+    );
+    Map<String, Object> firstRecord = result.externalRecords[0];
+    Assert.areEqual(
+      'CACHE_4011643101-391102388',
+      firstRecord.get('ExternalId'),
+      'External Id mismatch'
     );
   }
 
@@ -76,6 +147,22 @@ private class AFAMBITCreditLineExternalQueryTest {
   }
 
   /**
+   * @description create af ambit credit line detail Query Context and set mock response
+   * @return queryContext
+   */
+  public static DataSource.QueryContext createDetailQueryContext() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new AFAMBITCreditLineQueryDetailTestMock()
+    );
+    DataSource.QueryContext context = ExternalQueryContextMock.createQueryContextWithExternalId(
+      'AFAMBITCreditLine',
+      'CACHE'
+    );
+    return context;
+  }
+
+  /**
    * @description create HTTP mock response for testing
    */
   public class AFAMBITCreditLineQueryTestMock implements HttpCalloutMock {
@@ -86,6 +173,24 @@ private class AFAMBITCreditLineExternalQueryTest {
      */
     public HTTPResponse respond(HTTPRequest req) {
       String jsonBody = Service.getStaticResource('mock_assetFinanceAMBIT');
+      HTTPResponse res = new HTTPResponse();
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
+  }
+
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class AFAMBITCreditLineQueryDetailTestMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource('mock_AmbitCreditLineDetail');
       HTTPResponse res = new HTTPResponse();
       res.setBody(jsonBody);
       res.setStatusCode(200);
