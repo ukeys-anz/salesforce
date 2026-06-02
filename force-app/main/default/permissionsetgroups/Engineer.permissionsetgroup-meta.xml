@@ -3,6 +3,7 @@
     <description>Permission set group for Engineers</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Engineer</label>
+    <permissionSets>Enforce_MFA</permissionSets>
     <permissionSets>LogRecordAccess_Read</permissionSets>
     <permissionSets>Logs_Monitoring</permissionSets>
     <permissionSets>Manage_Dev_Sandboxes</permissionSets>
