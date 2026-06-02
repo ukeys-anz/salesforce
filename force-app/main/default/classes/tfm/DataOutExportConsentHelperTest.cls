@@ -63,7 +63,7 @@ public with sharing class DataOutExportConsentHelperTest {
     dataScopesValue.add('bank:accounts.basic:write');
 
     DataOutExportModel obj = new DataOutExportModel();
-    obj.consentIdValue = '123-456';
+    obj.consentIdValue = 'consent-7y-active-both-closed';
     obj.IDValue = '987-123';
     obj.accountsValue = getAccountListData();
     obj.brandNameValue = 'test';
@@ -100,12 +100,17 @@ public with sharing class DataOutExportConsentHelperTest {
     dateInfoObj.month = monthObj;
     dateInfoObj.year = yearObj;
 
+    TFMExportConsentModel.ShareablePeriod maxShareablePeriod = new TFMExportConsentModel.ShareablePeriod();
+    maxShareablePeriod.years = 7;
+    maxShareablePeriod.months = 84;
+
     TFMExportConsentModel.AggregatedEvent aggregatedEvent = new TFMExportConsentModel.AggregatedEvent();
     aggregatedEvent.transactionDate = dateInfoObj;
     aggregatedEvent.accounts = accounts;
     aggregatedEvent.scopes = scopes;
     aggregatedEvent.requestTypes = requestTypes;
     aggregatedEvent.userInfoDisclosed = userInfoDisclosed;
+    aggregatedEvent.maxShareablePeriod = maxShareablePeriod;
     aggregatedEventList.add(aggregatedEvent);
     return aggregatedEventList;
   }
@@ -440,14 +445,16 @@ public with sharing class DataOutExportConsentHelperTest {
 
   @IsTest
   static void testGetDataSharingHistory() {
+    DataOutExportModel obj = getDataExportModelData();
     TFMExportConsentModel exportConsentModelObj = getTFMExportConsentModelData();
     Test.startTest();
     List<String> response = DataOutExportConsentHelper.getDataSharingHistory(
+      obj,
       exportConsentModelObj
     );
     Test.stopTest();
     Assert.areEqual(
-      '11111-1111111,4/5/1998,"Account name, type and balance","Name of account, Type of account, Account balance",Transaction details may include data that dates back to 21 July 2021\n',
+      '11111-1111111,4/5/1998,"Account name, type and balance","Name of account, Type of account, Account balance","For a closed account, this may include historical transaction data that dates back up to 12 months prior to closure."\n',
       response[0],
       'Data sharing history row header value is incorrect'
     );
@@ -499,6 +506,109 @@ public with sharing class DataOutExportConsentHelperTest {
       'Name of account, Type of account, Account balance',
       response[0],
       'data sharing details row not generated'
+    );
+  }
+
+  @IsTest
+  static void testGetAllAccStatus() {
+    TFMExportConsentModel.AccountInfo openAcc = new TFMExportConsentModel.AccountInfo(
+      'Acc1',
+      '789 012',
+      'Open',
+      'Individual',
+      'ELIGIBLE'
+    );
+    TFMExportConsentModel.AccountInfo closedAcc = new TFMExportConsentModel.AccountInfo(
+      'Acc2',
+      '123 456',
+      'Closed',
+      'Individual',
+      'ELIGIBLE'
+    );
+    List<TFMExportConsentModel.AccountInfo> accountInfos = new List<TFMExportConsentModel.AccountInfo>{
+      openAcc,
+      closedAcc
+    };
+
+    String resultOpen = DataOutExportConsentHelper.getAllAccStatus(
+      new List<String>{ '789-012' },
+      accountInfos
+    );
+    Assert.areEqual('Open', resultOpen, 'All accounts should be Open');
+
+    String resultClosed = DataOutExportConsentHelper.getAllAccStatus(
+      new List<String>{ '123-456' },
+      accountInfos
+    );
+    Assert.areEqual('Closed', resultClosed, 'All accounts should be Closed');
+
+    String resultHybrid = DataOutExportConsentHelper.getAllAccStatus(
+      new List<String>{ '789-012', '123-456' },
+      accountInfos
+    );
+    Assert.areEqual('Hybrid', resultHybrid, 'Mixed accounts should be Hybrid');
+  }
+
+  @IsTest
+  static void testGetTransactionDisclaimer() {
+    // Get actual metadata
+    TFM_Data_Scopes__mdt transactionScope2Y = TFM_Data_Scopes__mdt.getInstance(
+      'bank_transactions_read_2y_active'
+    );
+    TFM_Data_Scopes__mdt transactionScope = TFM_Data_Scopes__mdt.getInstance(
+      'bank_transactions_read'
+    );
+
+    TFMExportConsentModel.AggregatedEvent event = new TFMExportConsentModel.AggregatedEvent();
+    event.accounts = new List<String>{ '123-456' };
+
+    List<TFMExportConsentModel.AccountInfo> accountInfos = new List<TFMExportConsentModel.AccountInfo>{
+      new TFMExportConsentModel.AccountInfo(
+        'Acc1',
+        '123 456',
+        'Open',
+        'Individual',
+        'ELIGIBLE'
+      )
+    };
+
+    // Null period - uses bank:transactions:read Open disclaimer
+    String resultNull = DataOutExportConsentHelper.getTransactionDisclaimer(
+      event,
+      accountInfos
+    );
+    Assert.areEqual(
+      transactionScope.Open_Accounts_Disclaimer__c,
+      resultNull,
+      'Null period should use bank:transactions:read Open disclaimer'
+    );
+
+    // 2-year period - uses bank:transactions:read:2y:active Open disclaimer
+    TFMExportConsentModel.ShareablePeriod period2Y = new TFMExportConsentModel.ShareablePeriod();
+    period2Y.years = 2;
+    event.maxShareablePeriod = period2Y;
+    String result2Y = DataOutExportConsentHelper.getTransactionDisclaimer(
+      event,
+      accountInfos
+    );
+    Assert.areEqual(
+      transactionScope2Y.Open_Accounts_Disclaimer__c,
+      result2Y,
+      '2yr period should use bank:transactions:read:2y:active Open disclaimer'
+    );
+
+    // 7-year period - uses bank:transactions:read Open disclaimer
+    TFMExportConsentModel.ShareablePeriod period7Y = new TFMExportConsentModel.ShareablePeriod();
+    period7Y.years = 7;
+    event.maxShareablePeriod = period7Y;
+    String result7Y = DataOutExportConsentHelper.getTransactionDisclaimer(
+      event,
+      accountInfos
+    );
+    Assert.areEqual(
+      transactionScope.Open_Accounts_Disclaimer__c,
+      result7Y,
+      '7yr period should use bank:transactions:read Open disclaimer'
     );
   }
 }

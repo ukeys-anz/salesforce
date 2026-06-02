@@ -12,7 +12,7 @@
       "bsb": "014111",
       "accountNumber": "391077012",
       "displayName": "ANZ Save",
-      "closed": false,
+      "closed": true,
       "jointAccount": false,
       "state": "STATE_ELIGIBLE"
     },
@@ -28,7 +28,7 @@
       "bsb": "014111",
       "accountNumber": "391077098",
       "displayName": "ANZ Save",
-      "closed": false,
+      "closed": true,
       "jointAccount": true,
       "state": "STATE_STOPPED"
     }

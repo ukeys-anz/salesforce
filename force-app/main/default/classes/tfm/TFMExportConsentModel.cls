@@ -23,6 +23,7 @@ public with sharing class TFMExportConsentModel extends CalloutModel {
     public List<String> scopes;
     public List<String> requestTypes;
     public List<String> userInfoDisclosed;
+    public ShareablePeriod maxShareablePeriod;
   }
 
   /**
@@ -58,6 +59,14 @@ public with sharing class TFMExportConsentModel extends CalloutModel {
       accountType = type;
       sharingStatus = sharing;
     }
+  }
+
+  /**
+   * @description This is wrapper class for ShareablePeriod
+   */
+  public class ShareablePeriod {
+    public Integer years;
+    public Integer months;
   }
 
   /**

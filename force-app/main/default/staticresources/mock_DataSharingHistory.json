@@ -1,30 +1,141 @@
 {
-    "queryTime": "2024-02-06T00:48:28.562238299Z",
-    "aggregatedEvents": [
-      {
-        "date": {
-          "year": {
-            "value": 2024
+  "mockFor": {
+    "consent-7y-active-both-open": "bothOpenAccounts",
+    "consent-2y-active-both-open": "bothOpenAccounts",
+    "consent-7y-archived-both-open": "bothOpenAccounts",
+    "consent-2y-archived-both-open": "bothOpenAccounts",
+    "consent-7y-active-both-closed": "bothClosedAccounts",
+    "consent-2y-active-both-closed": "bothClosedAccounts",
+    "consent-7y-archived-both-closed": "bothClosedAccounts",
+    "consent-2y-archived-both-closed": "bothClosedAccounts",
+    "consent-7y-active-mixed": "mixedAccounts",
+    "consent-2y-active-mixed": "mixedAccounts",
+    "consent-2y-archived-mixed": "mixedAccounts",
+    "consent-7y-archived-mixed": "mixedAccounts"
+  },
+  "mockResponse": {
+    "bothOpenAccounts": {
+      "queryTime": "2024-02-06T00:48:28.562238299Z",
+      "aggregatedEvents": [
+        {
+          "date": {
+            "year": { "value": 2026 },
+            "month": { "value": 1 },
+            "day": { "value": 1 }
           },
-          "month": {
-            "value": 2
-          },
-          "day": {
-            "value": 6
-          }
+          "accounts": ["014111-391077004", "014111-391077071"],
+          "scopes": ["bank:accounts.basic:read", "bank:transactions:read"],
+          "requestTypes": ["GetAccounts"],
+          "userInfoDisclosed": [],
+          "maxShareablePeriod": { "years": 2, "months": 24 }
         },
-        "accounts": [
-          "11111-1111111",
-          "11111-1111111"
-        ],
-        "scopes": [
-          "bank:accounts.basic:read"
-        ],
-        "requestTypes": [
-          "GetAccounts"
-        ],
-        "userInfoDisclosed": []
-      }
-    ],
-    "nextPageToken": ""
+        {
+          "date": {
+            "year": { "value": 2025 },
+            "month": { "value": 1 },
+            "day": { "value": 1 }
+          },
+          "accounts": ["014111-391077004", "014111-391077071"],
+          "scopes": ["bank:accounts.basic:read", "bank:transactions:read"],
+          "requestTypes": ["GetAccounts"],
+          "userInfoDisclosed": [],
+          "maxShareablePeriod": { "years": 7, "months": 84 }
+        },
+        {
+          "date": {
+            "year": { "value": 2024 },
+            "month": { "value": 1 },
+            "day": { "value": 1 }
+          },
+          "accounts": ["014111-391077004", "014111-391077071"],
+          "scopes": ["bank:accounts.basic:read", "bank:transactions:read"],
+          "requestTypes": ["GetAccounts"],
+          "userInfoDisclosed": []
+        }
+      ],
+      "nextPageToken": ""
+    },
+    "bothClosedAccounts": {
+      "queryTime": "2024-02-06T00:48:28.562238299Z",
+      "aggregatedEvents": [
+        {
+          "date": {
+            "year": { "value": 2026 },
+            "month": { "value": 1 },
+            "day": { "value": 1 }
+          },
+          "accounts": ["014111-391077012", "014111-391077098"],
+          "scopes": ["bank:accounts.basic:read", "bank:transactions:read"],
+          "requestTypes": ["GetAccounts"],
+          "userInfoDisclosed": [],
+          "maxShareablePeriod": { "years": 2, "months": 24 }
+        },
+        {
+          "date": {
+            "year": { "value": 2025 },
+            "month": { "value": 1 },
+            "day": { "value": 1 }
+          },
+          "accounts": ["014111-391077012", "014111-391077098"],
+          "scopes": ["bank:accounts.basic:read", "bank:transactions:read"],
+          "requestTypes": ["GetAccounts"],
+          "userInfoDisclosed": [],
+          "maxShareablePeriod": { "years": 7, "months": 84 }
+        },
+        {
+          "date": {
+            "year": { "value": 2024 },
+            "month": { "value": 1 },
+            "day": { "value": 1 }
+          },
+          "accounts": ["014111-391077012", "014111-391077098"],
+          "scopes": ["bank:accounts.basic:read", "bank:transactions:read"],
+          "requestTypes": ["GetAccounts"],
+          "userInfoDisclosed": []
+        }
+      ],
+      "nextPageToken": ""
+    },
+    "mixedAccounts": {
+      "queryTime": "2024-02-06T00:48:28.562238299Z",
+      "aggregatedEvents": [
+        {
+          "date": {
+            "year": { "value": 2026 },
+            "month": { "value": 1 },
+            "day": { "value": 1 }
+          },
+          "accounts": ["014111-391077004", "014111-391077012"],
+          "scopes": ["bank:accounts.basic:read", "bank:transactions:read"],
+          "requestTypes": ["GetAccounts"],
+          "userInfoDisclosed": [],
+          "maxShareablePeriod": { "years": 2, "months": 24 }
+        },
+        {
+          "date": {
+            "year": { "value": 2025 },
+            "month": { "value": 1 },
+            "day": { "value": 1 }
+          },
+          "accounts": ["014111-391077004", "014111-391077012"],
+          "scopes": ["bank:accounts.basic:read", "bank:transactions:read"],
+          "requestTypes": ["GetAccounts"],
+          "userInfoDisclosed": [],
+          "maxShareablePeriod": { "years": 7, "months": 84 }
+        },
+        {
+          "date": {
+            "year": { "value": 2024 },
+            "month": { "value": 1 },
+            "day": { "value": 1 }
+          },
+          "accounts": ["014111-391077004", "014111-391077012"],
+          "scopes": ["bank:accounts.basic:read", "bank:transactions:read"],
+          "requestTypes": ["GetAccounts"],
+          "userInfoDisclosed": []
+        }
+      ],
+      "nextPageToken": ""
+    }
   }
+}
