@@ -361,9 +361,10 @@ public with sharing class FinancialAccountExternalQueryHelper {
     if (String.isNotBlank(payload)) {
       return payload;
     }
+    String parentId = infoWrapper?.parentId.substringAfter('_');
     //child EBD accounts summary view having EBD as parent
     if (isQueryEBDChildAccountsWithAssetFinanceType(infoWrapper)) {
-      payload = '{"compositeContractNumber": "' + infoWrapper.parentId + '"';
+      payload = '{"compositeContractNumber": "' + parentId + '"';
       payload += String.isNotBlank(infoWrapper.fieldSet) &&
         String.isNotBlank(infoWrapper.assetFinanceType)
         ? ',"fieldSet": "' +

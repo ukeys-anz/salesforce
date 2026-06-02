@@ -1969,6 +1969,7 @@
       "IA-2415790": ["Persona_Type__c"],
       "IA-2415984": [
         "Address",
+        "IsActive__c",
         "IsDefault",
         "Name",
         "OwnerId",

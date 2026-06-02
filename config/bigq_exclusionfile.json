@@ -316,6 +316,7 @@
     "qualtrics__QSC_Permalink__c",
     "Gender"
   ],
+  "ContactPointAddress": ["IsActive__c"],
   "ContactRequest": ["Focus_Area__c"],
   "CustomerOnboardingApplication__c": [
     "AustralianTaxResident__c",
