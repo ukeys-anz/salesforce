@@ -485,6 +485,7 @@
   ],
   "LoginHistory": ["AuthContextClassRef"],
   "Opportunity": ["SourceId"],
+  "Persona__c": ["Description__c"],
   "Product2": [
     "AvailabilityDate",
     "BasedOnId",

@@ -21,6 +21,11 @@ private class CreditCardExternalQueryTest {
       Account.getSobjectType()
     );
     faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
+    Account acc = new Account(
+      External_Id__c = 'CAP-CIS_4011643101',
+      Source_System_Name__c = 'CAP-CIS'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
     FinServ__FinancialAccountRole__c mockFar = new FinServ__FinancialAccountRole__c(
       FinServ__Active__c = true,
       Role_Type__c = 'UNO',
@@ -88,6 +93,11 @@ private class CreditCardExternalQueryTest {
       Account.getSobjectType()
     );
     faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
+    Account acc = new Account(
+      External_Id__c = 'CAP-CIS_4011643101',
+      Source_System_Name__c = 'CAP-CIS'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
 
     FinServ__FinancialAccountRole__c mockFar = new FinServ__FinancialAccountRole__c(
       FinServ__Active__c = true,

@@ -1,0 +1,35 @@
+{
+  "status": "Active",
+  "accountNumber": "24",
+  "accountName": "*DAVID ELDRIDGE P/L",
+  "dateOpened": "2014-10-08",
+  "expiryDate": "2019-10-08",
+  "cpid": "R2030",
+  "undrawnBalance": 0,
+  "liabilityLimit": 5028754.78,
+  "productName": "Asset Finance Facility",
+  "facilityExpiryType": "Terminating",
+  "linkedContract": [
+    {
+      "contractNumber": "191",
+      "amount": 1860742.6
+    },
+    {
+      "contractNumber": "190",
+      "amount": 468012.18
+    },
+    {
+      "contractNumber": "153",
+      "amount": 2600000
+    },
+    {
+      "contractNumber": "1694",
+      "amount": 100000
+    },
+    {
+      "contractNumber": "1429",
+      "amount": 0
+    }
+  ],
+  "compositeCreditLineId": "1000317899-177462-24"
+}

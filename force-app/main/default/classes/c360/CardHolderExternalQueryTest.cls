@@ -6,9 +6,44 @@
  */
 @isTest
 private class CardHolderExternalQueryTest {
+  static Lib_MockProvider faRepoMock;
+  static void registerMocks() {
+    faRepoMock = Lib_MockProvider.forType(
+      FinancialAccountQueryBaseRepository.class
+    );
+  }
   @isTest
   static void testCreateExternalRecords() {
+    registerMocks();
     Test.startTest();
+    Account acc = new Account(
+      External_Id__c = 'CAP-CIS_4715149920842161',
+      Source_System_Name__c = 'CAP-CIS'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
+    faRepoMock.mock(
+      'getIndustryNamesByCodes',
+      new Map<String, String>{ '6220' => 'Test Industry' }
+    );
+    faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
+    FinServ__FinancialAccountRole__c mockFar = new FinServ__FinancialAccountRole__c(
+      FinServ__Active__c = true,
+      Role_Type__c = 'UNO',
+      FinServ__FinancialAccount__r = new FinServ__FinancialAccount__c(
+        Name = 'Test',
+        FinServ__Status__c = 'Active',
+        FinServ__FinancialAccountType__c = 'Savings',
+        FinServ__PrimaryOwner__c = Lib_FakeIdGenerator.getMockId(
+          Account.SobjectType
+        ),
+        Account_Key__c = '4715149920842161-7234567890121234',
+        FinServ__FinancialAccountNumber__c = '7234567890121234',
+        Product_Type__c = 'CAP-CIS:PCA'
+      ),
+      FinServ__RelatedAccount__r = new Account(
+        External_Id__c = 'CAP-CIS_4715149920842161'
+      )
+    );
     Test.setMock(
       HttpCalloutMock.class,
       new CardHolderExternalQueryTest.CardHolderTestMock()
@@ -27,6 +62,10 @@ private class CardHolderExternalQueryTest {
     );
     aConn.query(context);
     CardHolderExternalQuery accountQuery = new CardHolderExternalQuery();
+    faRepoMock.mock(
+      'getFinancialAccountsWithCustomerId',
+      new List<FinServ__FinancialAccountRole__c>{ mockFar }
+    );
     ExternalObjectQueryBase.ExternalQueryResult result = accountQuery.execute(
       context
     );

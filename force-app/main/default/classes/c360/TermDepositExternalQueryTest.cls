@@ -84,6 +84,11 @@ private class TermDepositExternalQueryTest {
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
     faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
+    Account acc = new Account(
+      External_Id__c = 'CAP-CIS_4011643101',
+      Source_System_Name__c = 'CAP-CIS'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
     Test.startTest();
     query.execute(context);
 
@@ -121,6 +126,11 @@ private class TermDepositExternalQueryTest {
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
     faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
+    Account acc = new Account(
+      External_Id__c = 'CAP-CIS_4011643101',
+      Source_System_Name__c = 'CAP-CIS'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
     ExternalObjectQueryBase.ExternalQueryResult result = query.execute(context);
     Test.stopTest();
     Assert.areEqual(
@@ -152,6 +162,11 @@ private class TermDepositExternalQueryTest {
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
     faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
+    Account acc = new Account(
+      External_Id__c = 'CAP-CIS_4011643101',
+      Source_System_Name__c = 'CAP-CIS'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
     query.execute(context);
     Test.startTest();
     string prodCode = query.getProductCode('403456789');
@@ -171,6 +186,11 @@ private class TermDepositExternalQueryTest {
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
     faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
+    Account acc = new Account(
+      External_Id__c = 'CAP-CIS_4011643101',
+      Source_System_Name__c = 'CAP-CIS'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
     query.execute(context);
     Test.startTest();
     string productName = query.getProductName(
@@ -196,6 +216,11 @@ private class TermDepositExternalQueryTest {
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
     faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
+    Account acc = new Account(
+      External_Id__c = 'CAP-CIS_4011643101',
+      Source_System_Name__c = 'CAP-CIS'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
     query.execute(context);
     Test.startTest();
     String sourcestatus = query.getSourceSystemStatus(
@@ -217,6 +242,11 @@ private class TermDepositExternalQueryTest {
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
     faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
+    Account acc = new Account(
+      External_Id__c = 'CAP-CIS_4011643101',
+      Source_System_Name__c = 'CAP-CIS'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
     query.execute(context);
     Test.startTest();
     String accountStatus = query.getFinStatus(

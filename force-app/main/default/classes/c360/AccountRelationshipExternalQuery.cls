@@ -18,6 +18,8 @@ public with sharing class AccountRelationshipExternalQuery extends FinancialAcco
     public String compositeAccountRelationshipId;
     public String relatedPartyCustomerId;
     public String relationshipType;
+    public String externalId;
+    public String sequence;
   }
 
   /**
@@ -112,7 +114,18 @@ public with sharing class AccountRelationshipExternalQuery extends FinancialAcco
     DataSource.QueryContext queryContext
   ) {
     this.parentField = getParentName(queryContext.TableSelection);
-    return parseFilters(this.parentField, queryContext.TableSelection);
+    ExternalObjectQueryBase.QueryModeEnum queryMode = parseFilters(
+      this.parentField,
+      queryContext.TableSelection
+    );
+    String customerId = this.parentId != null ? this.parentId : this.externalId;
+    String sourceSystem = customerId.split('_')[0];
+    customerId = customerId.split('_')[1];
+    customerId = customerId.contains('-')
+      ? sourceSystem + '_' + customerId.split('-')[0]
+      : sourceSystem + '_' + customerId;
+    getCustomerSource(customerId);
+    return queryMode;
   }
 
   /**
@@ -128,14 +141,7 @@ public with sharing class AccountRelationshipExternalQuery extends FinancialAcco
       queryContext
     );
     updateProductCategory();
-    ExternalObjectQueryBase.ExternalQueryResult queryResult;
-    if (!retrieveBySOQLQuery) {
-      HttpCalloutResponse response = makeCallout(queryMode, queryContext);
-      ExternalObjectCalloutResponse calloutResponse = parseResponse(
-        response.body
-      );
-      queryResult = createExternalRecords(calloutResponse);
-    } else {
+    if (retrieveBySOQLQuery) {
       String accountKey = String.isNotBlank(this.parentId)
         ? this.parentId.substringBefore('|')
         : this.externalId.substringBefore('|');
@@ -143,9 +149,32 @@ public with sharing class AccountRelationshipExternalQuery extends FinancialAcco
         accountKey,
         this.roleTypes.keySet()
       );
-      queryResult = createExternalRecordsBySOQLQuery();
+      return createExternalRecordsBySOQLQuery();
     }
-    return queryResult;
+    if (this.isCAPCustomer()) {
+      HttpCalloutResponse response = makeCallout(queryMode, queryContext);
+      ExternalObjectCalloutResponse calloutResponse = parseResponse(
+        response.body
+      );
+      return createExternalRecords(calloutResponse);
+    }
+    //cache implementation
+    CacheAssetFinanceCalloutRequest calloutRequest = new CacheAssetFinanceCalloutRequest(
+      queryContext,
+      queryMode,
+      this.productCategory,
+      this.assetFinanceType,
+      new Set<String>(),
+      this.prepareInfoWrapper()
+    );
+    ARNC360ServiceRepository serviceRepo = new ARNC360ServiceRepository();
+    HttpCalloutResponse response = serviceRepo.makeCacheAccountCallout(
+      calloutRequest
+    );
+    ExternalObjectCalloutResponse calloutResponse = parseResponse(
+      response.body
+    );
+    return createExternalRecords(calloutResponse);
   }
 
   /**
@@ -190,26 +219,43 @@ public with sharing class AccountRelationshipExternalQuery extends FinancialAcco
     if (calloutResponse == null) {
       return result;
     }
-
-    for (
-      AccountRelationshipModel relationship : ((AccountRelationshipCalloutResponse) calloutResponse)
-        .relationships
-    ) {
+    List<AccountRelationshipModel> relationships = ((AccountRelationshipCalloutResponse) calloutResponse)
+      .relationships ?? new List<AccountRelationshipModel>();
+    for (AccountRelationshipModel relationship : relationships) {
       index++;
-
+      String externalId = getExternalId(relationship);
       Map<String, Object> row = new Map<String, Object>{
-        'Sequence' => getSequence(index),
+        'Sequence' => relationship.sequence ?? getSequence(index),
         this.parentField => this.parentId,
-        'ExternalId' => relationship.compositeAccountRelationshipId,
-        'DisplayUrl' => getDisplayUrl(
-          relationship.compositeAccountRelationshipId
+        'ExternalId' => externalId,
+        'DisplayUrl' => getDisplayUrl(externalId),
+        'Customer' => getCustomerExternalId(
+          relationship.relatedPartyCustomerId
         ),
-        'Customer' => 'CAP-CIS_' + relationship.relatedPartyCustomerId,
         'Relationship' => relationship.relationshipType
       };
       result.externalRecords.add(row);
     }
     return result;
+  }
+
+  private String getExternalId(AccountRelationshipModel relationship) {
+    if (String.isNotBlank(this.externalId)) {
+      return this.externalId;
+    }
+    if (String.isNotBlank(relationship.compositeAccountRelationshipId)) {
+      return this.customerSourceSystem +
+        '_' +
+        relationship.compositeAccountRelationshipId;
+    }
+    return this.parentId + '-' + relationship.sequence;
+  }
+
+  private String getCustomerExternalId(String customerId) {
+    if (customerId.startsWith('CACHE') || customerId.startsWith('CAP-CIS')) {
+      return customerId;
+    }
+    return this.customerSourceSystem + '_' + customerId;
   }
 
   /**

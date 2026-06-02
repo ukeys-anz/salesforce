@@ -12,6 +12,9 @@ public with sharing class AFAMBITRepaymentExternalQuery extends FinancialAccount
     public String amount;
     public Integer numberOfRepayments;
     public String compositeRepaymentId;
+    public String sequence;
+    public String externalId;
+    public String contractNumber;
   }
 
   /**
@@ -62,22 +65,32 @@ public with sharing class AFAMBITRepaymentExternalQuery extends FinancialAccount
   ) {
     Integer index = 0;
     ExternalObjectQueryBase.ExternalQueryResult result = new ExternalObjectQueryBase.ExternalQueryResult();
-    for (
-      AFAMBITRepaymentModel repay : ((AFAMBITRepaymentCalloutResponse) this.calloutResponse)
-        .repayments
-    ) {
+    List<AFAMBITRepaymentModel> repayments = ((AFAMBITRepaymentCalloutResponse) this.calloutResponse)
+      .repayments ?? new List<AFAMBITRepaymentModel>();
+    for (AFAMBITRepaymentModel repay : repayments) {
       index++;
+      String externalId = getExternalId(repay);
       Map<String, Object> row = new Map<String, Object>{
-        'ExternalId' => repay.compositeRepaymentId,
-        'DisplayUrl' => getDisplayUrl(repay.compositeRepaymentId),
-        'Sequence' => getSequence(index),
+        'ExternalId' => externalId,
+        'DisplayUrl' => getDisplayUrl(externalId),
+        'Sequence' => repay.sequence ?? getSequence(index),
         this.parentField => this.parentId,
-        'RepaymentAccountNumber' => repay.accountNumber,
+        'RepaymentAccountNumber' => repay.accountNumber ?? repay.contractNumber,
         'Amount' => repay.amount,
         'TotalNumberOfRepayments' => repay.numberOfRepayments
       };
       result.externalRecords.add(row);
     }
     return result;
+  }
+
+  private String getExternalId(AFAMBITRepaymentModel repay) {
+    if (String.isNotBlank(this.externalId)) {
+      return this.externalId;
+    }
+    if (String.isNotBlank(repay.compositeRepaymentId)) {
+      return this.customerSourceSystem + '_' + repay.compositeRepaymentId;
+    }
+    return this.parentId + '-' + repay.sequence;
   }
 }

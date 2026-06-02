@@ -59,7 +59,8 @@ private class DemandAccountExternalQueryTest {
   private static DataSource.QueryContext createDemandAccountDetailContext() {
     Test.setMock(HttpCalloutMock.class, new DemandAccountDetailTestMock());
     DataSource.QueryContext context = ExternalQueryContextMock.createQueryContextWithExternalId(
-      'DemandAccount'
+      'DemandAccount',
+      'CAP-CIS'
     );
     return context;
   }

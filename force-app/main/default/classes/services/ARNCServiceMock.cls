@@ -5,7 +5,7 @@
  *              extended service class for ANZ Retail & Commercial banking API calls
  * @group Service
  */
-public with sharing class ARNCServiceMock extends Service {
+public with sharing class ARNCServiceMock extends ARNCService {
   /**
    * @description constructor which sets default status code and successful
    */
@@ -45,13 +45,32 @@ public with sharing class ARNCServiceMock extends Service {
   }
 
   /**
-   * @description query DIary comments
+   * @param parent parent (customer or financial account)
+   * @param params parameters
    * @return HttpCalloutResponse
+   * @description query external Diary Comment for customer/financial accounts via API
+   * Returns mock data from static resources based on parent type
    */
-  public HttpCalloutResponse queryDiaryComments() {
-    HttpCalloutResponse calloutResponse = new HttpCalloutResponse();
-    calloutResponse.body = '{"conversationControl":"","totalComments":93,"commentsCount":43,"moreComments":"N","commentDetails":[{"branch":3026,"customerReviewFlag":"N","cycleCode":"","workQueue":"","datePrompt":"","datePlaced":"2017-12-12","timePlaced":"173448","dateChanged":"","operatorId":"TALLYMAN","dateExpires":"2023-12-12","commentId":"01677721509957","comment":"PERICHAS ADDED A COMMENT5", "compositeId" : "2001437661-01677721509957", "sequenceNumber" : "0001"}]}';
-    return calloutResponse;
+  public override HttpCalloutResponse queryDiaryComment(
+    String parent,
+    Map<String, String> params
+  ) {
+    if (!preset) {
+      // Check if this is for a financial account or customer based on parent format
+      // Financial accounts typically have format like "ILS-391337814"
+      // Customer IDs are typically numeric like "4025937927"
+      // Default to customer mock data for backward compatibility with tests
+      if (parent == 'Financial Account') {
+        response.body = Service.getStaticResource(
+          'mock_DiaryCommentsFinancialAccount'
+        );
+      } else if (parent == 'Customer' || parent == 'Account') {
+        response.body = Service.getStaticResource('mock_DiaryCommentsCustomer');
+      } else {
+        response.body = Service.getStaticResource('mock_diaryCommentResponse');
+      }
+    }
+    return response;
   }
 
   /**
@@ -65,13 +84,29 @@ public with sharing class ARNCServiceMock extends Service {
   }
 
   /**
-   * @description create Diary Comment
    * @return HttpCalloutResponse
+   * @description Write Diary Comment API - parameterless version for backward compatibility
    */
   public HttpCalloutResponse createDiaryComment() {
     HttpCalloutResponse calloutResponse = new HttpCalloutResponse();
     calloutResponse.body = '{"status":"Added"}';
     return calloutResponse;
+  }
+
+  /**
+   * @param customerId customer id
+   * @param comment comment (required)
+   * @param event name of event (required)
+   * @return Boolean
+   * @description Write Diary Comment API - returns mock success response
+   */
+  public override Boolean createDiaryComment(
+    Id customerId,
+    String comment,
+    String event
+  ) {
+    // Return true to indicate successful creation in mock mode
+    return true;
   }
 
   /**
