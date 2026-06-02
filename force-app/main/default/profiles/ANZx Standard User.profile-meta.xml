@@ -9984,6 +9984,10 @@
         <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <name>BypassMFAForUiLogins</name>
+        <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
         <name>ChatterInternalUser</name>
         <enabled>true</enabled>
     </userPermissions>

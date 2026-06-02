@@ -135,6 +135,56 @@ const unfreezeUsers = (orgAlias) => {
   console.log("All frozen users are unfrozen...");
 };
 
+const assignDisableMFA = (orgAlias) => {
+  console.log("--- running assignDisableMFA ---");
+  nonProdChangeValidation(orgAlias);
+  let continueFlag = true;
+  while (continueFlag) {
+    console.log("----------------------------");
+    console.log("Run assignDisableMFA apex....");
+    const output = runCommand(`
+      sf apex run -f ci/apex-scripts/assignDisableMFA.apex -o "${orgAlias}"
+    `);
+
+    console.log(output);
+
+    if (output.includes("Job completed with status: ERRORS")) {
+      console.log(
+        "Encountered error while assigning Disable_MFA permission set..."
+      );
+      process.exit(1);
+    } else if (output.includes("Stop job Flag: true")) {
+      console.log("All users have been assigned Disable_MFA permission set...");
+      continueFlag = false;
+    } else {
+      continueFlag = true;
+    }
+  }
+  console.log("Disable_MFA permission set assignment completed...");
+};
+
+const addDisableMFAToEngineerPSG = (orgAlias) => {
+  console.log("--- running addDisableMFAToEngineerPSG ---");
+  nonProdChangeValidation(orgAlias);
+  console.log("----------------------------");
+  console.log("Run ManageEngineerPermissionSetGroup apex....");
+  const output = runCommand(`
+    sf apex run -f ci/apex-scripts/ManageEngineerPermissionSetGroup.apex -o "${orgAlias}"
+  `);
+
+  console.log(output);
+  if (output.includes("Job completed with status: ERRORS")) {
+    console.log(
+      "Encountered error while adding Disable_MFA to Engineer Permission Set Group..."
+    );
+    process.exit(1);
+  } else {
+    console.log(
+      "Disable_MFA added to Engineer Permission Set Group successfully..."
+    );
+  }
+};
+
 const deployRequiredFiles = (orgAlias) => {
   console.log("--- running deployRequiredFiles ---");
   nonProdChangeValidation(orgAlias);
@@ -209,5 +259,7 @@ export {
   runLoggingRecordsPurgeScheduler,
   updatePamApproversCustomSetting,
   assignDeployUserViewAllFields,
-  unfreezeUsers
+  unfreezeUsers,
+  assignDisableMFA,
+  addDisableMFAToEngineerPSG
 };
