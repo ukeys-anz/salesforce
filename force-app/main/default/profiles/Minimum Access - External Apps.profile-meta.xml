@@ -2189,6 +2189,10 @@
         <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
+        <name>BypassMFAForUiLogins</name>
+        <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
         <name>CanApproveFeedPost</name>
         <enabled>false</enabled>
     </userPermissions>

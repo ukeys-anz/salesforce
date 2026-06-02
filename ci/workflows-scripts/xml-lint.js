@@ -5,7 +5,7 @@ const SaxonJS = require("saxon-js");
 
 //This is the main linting function, it also tests to see if this is the Check Only flag is active
 
-const NOT_DECODING_ARRAY = ["%2F"];
+const NOT_DECODING_ARRAY = ["%2F", "%28", "%29"];
 
 const checkNotDecodingPath = (changedFile) =>
   NOT_DECODING_ARRAY.some((symbol) => changedFile.includes(symbol));

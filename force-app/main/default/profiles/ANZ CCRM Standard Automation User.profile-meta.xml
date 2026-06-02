@@ -26300,6 +26300,10 @@
         <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
+        <name>BypassMFAForUiLogins</name>
+        <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
         <name>CreateCustomizeReports</name>
         <enabled>false</enabled>
     </userPermissions>
