@@ -20,43 +20,6 @@ public with sharing class TFMSearchCustomerServiceMock extends TFMSearchCustomer
     '   \"error\": \"16 UNAUTHENTICATED: authentication failed\"' +
     '}';
 
-  @TestVisible
-  private static final String PERSON_IDENTITY_ROWS_JSON = Service.getStaticResource(
-    'mock_PersonDigitalIdentity'
-  );
-  @TestVisible
-  private static final String DEVICE_DETAILS_WITHOUT_BIOMETRIC = Service.getStaticResource(
-    'mock_DeviceDetailsWithoutBiometric'
-  );
-  @TestVisible
-  private static final String DEVICE_DETAILS_WITH_BIOMETRIC = Service.getStaticResource(
-    'mock_DeviceDetailsWithBiometric'
-  );
-  @TestVisible
-  private static final String JOINT_ACCOUNT_PERMISSIONS_LIST = Service.getStaticResource(
-    'mock_JointAccountPermissionsSample'
-  );
-  @TestVisible
-  private static final String MODIFY_ACCOUNT_PERMISSIONS = Service.getStaticResource(
-    'mock_ModifyJointAccountSample'
-  );
-  @TestVisible
-  private static final String EMAIL_JOINT_ACCOUNT_NOTIFICATION = Service.getStaticResource(
-    'mock_EmailNotificationJointAccount'
-  );
-  @TestVisible
-  private static final String GET_CONSENT_ACCOUNT_LIST = Service.getStaticResource(
-    'mock_ConsentAccountList'
-  );
-  @TestVisible
-  private static final String GET_CONSENTS_LIST = Service.getStaticResource(
-    'mock_ConsentsList'
-  );
-  @TestVisible
-  private static final String GET_DATASHARING_HISTORY = Service.getStaticResource(
-    'mock_DataSharingHistory'
-  );
-
   /**
    * @param staffModel wrapper class having all the variables
    * @return Boolean response stating action is valid or invalid
@@ -66,7 +29,7 @@ public with sharing class TFMSearchCustomerServiceMock extends TFMSearchCustomer
     StaffTokenRequestModel staffModel
   ) {
     if (!preset) {
-      response.body = PERSON_IDENTITY_ROWS_JSON;
+      response.body = Service.getStaticResource('mock_PersonDigitalIdentity');
     }
     return response;
   }
@@ -83,7 +46,9 @@ public with sharing class TFMSearchCustomerServiceMock extends TFMSearchCustomer
     String deviceResourceId
   ) {
     if (!preset) {
-      response.body = DEVICE_DETAILS_WITHOUT_BIOMETRIC;
+      response.body = Service.getStaticResource(
+        'mock_DeviceDetailsWithoutBiometric'
+      );
     }
     return response;
   }
@@ -100,7 +65,9 @@ public with sharing class TFMSearchCustomerServiceMock extends TFMSearchCustomer
     String appCorrelationId
   ) {
     if (!preset) {
-      response.body = DEVICE_DETAILS_WITH_BIOMETRIC;
+      response.body = Service.getStaticResource(
+        'mock_DeviceDetailsWithBiometric'
+      );
     }
     return response;
   }
@@ -116,7 +83,9 @@ public with sharing class TFMSearchCustomerServiceMock extends TFMSearchCustomer
     if (isError) {
       response = setMockErrorResponse();
     } else if (!preset) {
-      response.body = JOINT_ACCOUNT_PERMISSIONS_LIST;
+      response.body = Service.getStaticResource(
+        'mock_JointAccountPermissionsSample'
+      );
     }
     return response;
   }
@@ -138,7 +107,9 @@ public with sharing class TFMSearchCustomerServiceMock extends TFMSearchCustomer
     if (isError) {
       response = setMockErrorResponse();
     } else if (!preset) {
-      response.body = MODIFY_ACCOUNT_PERMISSIONS;
+      response.body = Service.getStaticResource(
+        'mock_ModifyJointAccountSample'
+      );
     }
     return response;
   }
@@ -158,7 +129,9 @@ public with sharing class TFMSearchCustomerServiceMock extends TFMSearchCustomer
     if (isError) {
       response = setMockErrorResponse();
     } else if (!preset) {
-      response.body = EMAIL_JOINT_ACCOUNT_NOTIFICATION;
+      response.body = Service.getStaticResource(
+        'mock_EmailNotificationJointAccount'
+      );
     }
     return response;
   }
@@ -193,7 +166,7 @@ public with sharing class TFMSearchCustomerServiceMock extends TFMSearchCustomer
     if (isError) {
       response = setMockErrorResponse();
     } else if (!preset) {
-      response.body = GET_CONSENT_ACCOUNT_LIST;
+      response.body = extractConsentAccounts(consentAccounts);
     }
     return response;
   }
@@ -209,7 +182,7 @@ public with sharing class TFMSearchCustomerServiceMock extends TFMSearchCustomer
     if (isError) {
       response = setMockErrorResponse();
     } else if (!preset) {
-      response.body = GET_CONSENTS_LIST;
+      response.body = Service.getStaticResource('mock_ConsentsList');
     }
     return response;
   }
@@ -231,7 +204,7 @@ public with sharing class TFMSearchCustomerServiceMock extends TFMSearchCustomer
     if (isError) {
       response = setMockErrorResponse();
     } else if (!preset) {
-      response.body = GET_DATASHARING_HISTORY;
+      response.body = extractDataSharingHistory(consentId);
     }
     return response;
   }
@@ -262,8 +235,8 @@ public with sharing class TFMSearchCustomerServiceMock extends TFMSearchCustomer
     response.error = new CalloutException(TFMConstants.SERVERERROR);
     return response;
   }
-    
-    /**
+
+  /**
    * @description mock response for callout
    * @return HttpCalloutResponse invalid response
    */
@@ -272,7 +245,61 @@ public with sharing class TFMSearchCustomerServiceMock extends TFMSearchCustomer
     response.body = AUTHENTICATION_ERROR_RESPONSE;
     response.statusCode = 401;
     response.successful = false;
-    response.error = new CalloutException(TFMConstants.INSUFFICIENT_ACCESS_ERROR);
+    response.error = new CalloutException(
+      TFMConstants.INSUFFICIENT_ACCESS_ERROR
+    );
     return response;
+  }
+
+  /**
+   * @description Extract matching accounts from mock_ConsentAccountList based on input
+   * @param consentAccounts JSON string with consent_id and consent_accounts array
+   * @return List of matching account objects
+   */
+  @TestVisible
+  static String extractConsentAccounts(String consentAccounts) {
+    Map<String, Object> data = (Map<String, Object>) JSON.deserializeUntyped(
+      consentAccounts
+    );
+    List<Object> accounts = (List<Object>) data.get('consent_accounts');
+    Set<String> requestedKeys = new Set<String>();
+    for (Object accountObj : accounts) {
+      Map<String, Object> account = (Map<String, Object>) accountObj;
+      String key = account.get('bsb') + '-' + account.get('accountNumber');
+      requestedKeys.add(key);
+    }
+
+    Map<String, Object> mockData = (Map<String, Object>) JSON.deserializeUntyped(
+      Service.getStaticResource('mock_ConsentAccountList')
+    );
+    List<Object> allAccounts = (List<Object>) mockData.get('consentAccounts');
+    for (Integer i = allAccounts.size() - 1; i >= 0; i--) {
+      Map<String, Object> account = (Map<String, Object>) allAccounts[i];
+      String key = account.get('bsb') + '-' + account.get('accountNumber');
+      if (requestedKeys.contains(key) == false) {
+        allAccounts.remove(i);
+      }
+    }
+
+    return JSON.serialize(mockData);
+  }
+
+  /**
+   * @description Extract matching data sharing history from mock based on consentId
+   * @param consentId consent ID to lookup
+   * @return matching mockResponse for the consent
+   */
+  @TestVisible
+  static String extractDataSharingHistory(String consentId) {
+    Map<String, Object> mockData = (Map<String, Object>) JSON.deserializeUntyped(
+      Service.getStaticResource('mock_DataSharingHistory')
+    );
+    Map<String, Object> mockFor = (Map<String, Object>) mockData.get('mockFor');
+    Map<String, Object> mockResponse = (Map<String, Object>) mockData.get(
+      'mockResponse'
+    );
+    String responseKey = (String) mockFor.get(consentId);
+
+    return JSON.serialize(mockResponse.get(responseKey));
   }
 }

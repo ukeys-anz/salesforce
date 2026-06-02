@@ -7,6 +7,24 @@
  **/
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class DataOutExportConsentHelper {
+  /**
+   * Map of consent sharing duration to corresponding Custom Metadata key and account status config for transaction disclaimer logic
+   * `key` is the consent sharing duration in years (2 or 7)
+   * `value` is a map containing:
+   *    - `cmKey`: the scope ID for fetching the correct disclaimer from Custom Metadata
+   *    - `accStatus`: the aggregated account status to determine which disclaimer to use (can be 'Open', 'Closed', 'Hybrid', or null if it needs to be determined dynamically)
+   */
+  static final Map<Integer, Map<String, String>> TXN_DISCLAIMER_BY_DURATION = new Map<Integer, Map<String, String>>{
+    2 => new Map<String, String>{
+      'cmKey' => 'bank:transactions:read:2y:active',
+      'accStatus' => 'Open'
+    },
+    7 => new Map<String, String>{
+      'cmKey' => 'bank:transactions:read',
+      'accStatus' => null // determined dynamically based on account statuses
+    }
+  };
+
   public static List<String> archivedStatusesList = new List<String>{
     'STOPPED',
     'AMENDED',
@@ -61,7 +79,7 @@ public with sharing class DataOutExportConsentHelper {
 
     file.add(getDataSharingHistoryTitle());
     file.add(getDataSharingHistoryHeaders());
-    file.add(getDataSharingHistory(dataSharingModel));
+    file.add(getDataSharingHistory(dataExportModelDetails, dataSharingModel));
     file.add(getDataSharingHistoryDisclaimers(dataSharingModel));
 
     return file;
@@ -426,12 +444,14 @@ public with sharing class DataOutExportConsentHelper {
   }
 
   /**
+   * @param dataExportModelDetails dataExportModelDetails
    * @param dataSharingModel dataSharingModel
    * @return `List<String>`
    * @description returns data sharing history rows of csv
    */
   @TestVisible
   private static List<String> getDataSharingHistory(
+    DataOutExportModel dataExportModelDetails,
     TFMExportConsentModel dataSharingModel
   ) {
     List<String> row = new List<String>();
@@ -470,8 +490,13 @@ public with sharing class DataOutExportConsentHelper {
       List<String> scopeDetails = getDataSharingDetails(aggregatedEvent.scopes);
       eachDataSharingRow.add('\"' + String.join(scopeDetails, ' | ') + '\"');
 
+      String transactionDisclaimer = getTransactionDisclaimer(
+        aggregatedEvent,
+        dataExportModelDetails.accountsValue
+      ) ?? '';
+
       eachDataSharingRow.add(
-        'Transaction details may include data that dates back to 21 July 2021'
+        '\"' + transactionDisclaimer.stripHtmlTags() + '\"'
       );
       dataSharingRowsList.add(eachDataSharingRow);
     }
@@ -563,5 +588,62 @@ public with sharing class DataOutExportConsentHelper {
     );
     TFMExportConsentModel model = TFMExportConsentModel.parse(response.body);
     return model;
+  }
+
+  /**
+   * @description Returns transaction disclaimer based on account status and sharing period for individual data sharing history record
+   * @param aggregatedEvent Aggregated event from API response
+   * @param accountInfos List of account info objects containing account status (from consent-level data)
+   * @return Transaction disclaimer for data sharing history section of CSV
+   */
+  @TestVisible
+  static String getTransactionDisclaimer(
+    TFMExportConsentModel.AggregatedEvent aggregatedEvent,
+    List<TFMExportConsentModel.AccountInfo> accountInfos
+  ) {
+    Integer duration = aggregatedEvent.maxShareablePeriod?.years ??
+      TFMRemoteActionUtility.DEFAULT_TXN_SHARING_DURATION_YEARS;
+    Map<String, String> config = TXN_DISCLAIMER_BY_DURATION.get(duration);
+    if (config == null) {
+      return null;
+    }
+
+    String cmKey = config.get('cmKey');
+    String accStatus = config.get('accStatus') ??
+      getAllAccStatus(aggregatedEvent.accounts, accountInfos);
+    String cmField = TFMRemoteActionUtility.DISCLAIMER_FIELD_MAP.get(accStatus);
+    if (cmField == null) {
+      return null;
+    }
+
+    TFM_Data_Scopes__mdt cm = QueryDataScopes.getByScopeId(cmKey);
+    return (String) cm?.get(cmField);
+  }
+
+  /**
+   * @description Determines account status category (Open, Closed, or Hybrid) based on aggregated event accounts
+   * @param accounts List of account identifiers from aggregated event
+   * @param accountInfos List of account info objects containing account status (from consent-level data)
+   * @return Account status category: 'Open', 'Closed', or 'Hybrid'
+   */
+  @TestVisible
+  static String getAllAccStatus(
+    List<String> accounts,
+    List<TFMExportConsentModel.AccountInfo> accountInfos
+  ) {
+    Set<String> statuses = new Set<String>();
+    for (TFMExportConsentModel.AccountInfo acc : accountInfos) {
+      String key = acc.accountNumber.replace(' ', '-');
+      if (accounts.contains(key)) {
+        statuses.add(acc.accountStatus);
+      }
+    }
+    if (statuses.isEmpty()) {
+      return 'Closed';
+    }
+    if (statuses.size() == 1) {
+      return statuses.iterator().next();
+    }
+    return 'Hybrid';
   }
 }

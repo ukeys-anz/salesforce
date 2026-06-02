@@ -227,6 +227,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.DigitalChannelOffboardedDate__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.Employment_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
