@@ -483,6 +483,7 @@
     "Referrer_Team_Segment__c",
     "Referrer_Reportees_Lead__c"
   ],
+  "LoginHistory": ["AuthContextClassRef"],
   "Opportunity": ["SourceId"],
   "Product2": [
     "AvailabilityDate",
