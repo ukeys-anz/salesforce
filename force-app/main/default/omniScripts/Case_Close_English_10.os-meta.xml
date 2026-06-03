@@ -314,6 +314,10 @@
         &quot;field&quot; : &quot;CustomerAcceptTheResolution&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;No&quot;
+      }, {
+        &quot;field&quot; : &quot;hasL1Access&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;  
       } ]
     }
   },
@@ -349,6 +353,10 @@
         &quot;field&quot; : &quot;CustomerAcceptTheResolution&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;Yes&quot;
+      }, {
+        &quot;field&quot; : &quot;hasL1Access&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;
       } ]
     }
   },
@@ -416,6 +424,10 @@
         &quot;data&quot; : &quot;Provisionally Closed&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;ComplaintStatus&quot;
+      }, {
+        &quot;field&quot; : &quot;hasL1Access&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;
       } ]
     }
   },
@@ -5651,13 +5663,13 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;Second Complaint Remedy Provided?&quot;,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
   &quot;horizontalMode&quot; : &quot;displayWide&quot;,
-  &quot;defaultValue&quot; : &quot;Yes&quot;,
+  &quot;defaultValue&quot; : null,
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
@@ -5901,13 +5913,13 @@
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;help&quot; : false,
-  &quot;defaultValue&quot; : &quot;Yes&quot;,
+  &quot;defaultValue&quot; : null,
   &quot;horizontalMode&quot; : &quot;displayWide&quot;,
   &quot;readOnly&quot; : false,
   &quot;repeatLimit&quot; : null,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;label&quot; : &quot;Third Complaint Remedy Provided?&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>

@@ -74,6 +74,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Written_Response_to_be_sent_by_Post__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_DEH_Date_information_due__c</field>
         <readable>true</readable>
@@ -240,10 +245,6 @@
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>IDR User Level 1</label>
-    <recordTypeVisibilities>
-        <recordType>Case.CFMS_Migrated_Case</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Quality_Assessment__c.C_Q_Assessment</recordType>
         <visible>true</visible>

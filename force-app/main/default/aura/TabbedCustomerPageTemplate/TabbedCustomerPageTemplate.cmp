@@ -120,5 +120,15 @@
         </div>
       </lightning:tab>
     </aura:if>
+
+    <!-- CAP Diary Comments -->
+    <lightning:tab
+      id="CAPDiaryComments"
+      label="{!$Label.c.ANZx_Customer_Tab_CAP_Diary_Comments}"
+    >
+      <div class="slds-grid slds-wrap customCustomerTab">
+        <div class="slds-size_12-of-12">{!v.column15}</div>
+      </div>
+    </lightning:tab>
   </lightning:tabset>
 </aura:component>

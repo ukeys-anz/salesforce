@@ -12,6 +12,7 @@ public with sharing class RTInteraction {
   public static Id commercialInteraction = base.getId('CCRM_Interaction');
   public static Id mlcrmInteraction = base.getId('ML_Interaction');
   public static Id rbmBrokerInteraction = base.getId('RBM_Broker_Interaction');
+  public static Id retailInteraction = base.getId('Retail_Interaction');
 
   /**
    * @description Get the record type info for a given record type id

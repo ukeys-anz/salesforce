@@ -75,6 +75,11 @@ private class CommercialBillFeeExternalQueryTest {
   static void testCreateFinancialAccounts() {
     registerMocks();
     Test.startTest();
+    Account acc = new Account(
+      External_Id__c = 'CAP-CIS_4011643101',
+      Source_System_Name__c = 'CAP-CIS'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
     FinServ__FinancialAccountRole__c mockFar = getMockedData();
     DataSource.QueryContext context = createCommercialBillFeeContext();
     CommercialBillFeeExternalQuery query = new CommercialBillFeeExternalQuery();

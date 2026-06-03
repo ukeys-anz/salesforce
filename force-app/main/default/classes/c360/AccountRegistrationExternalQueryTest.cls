@@ -174,7 +174,8 @@ public class AccountRegistrationExternalQueryTest {
       new AccountRegistrationExternalQueryTest.AccountRegistrationQueryTestMock()
     );
     DataSource.QueryContext context = ExternalQueryContextMock.createQueryContextWithExternalId(
-      'AccountRegistration'
+      'AccountRegistration',
+      'CAP-CIS'
     );
     AccountRegistrationExternalQuery accountQuery = new AccountRegistrationExternalQuery();
     Test.startTest();

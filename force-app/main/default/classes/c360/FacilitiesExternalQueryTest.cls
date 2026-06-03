@@ -68,11 +68,23 @@ private class FacilitiesExternalQueryTest {
 
   @isTest
   static void createFacilitiesTest() {
+    registerMocks();
+    Account acc = new Account(
+      External_Id__c = 'CAP-CIS_4011643101',
+      Source_System_Name__c = 'CAP-CIS'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
+    faRepoMock.mock(
+      'getIndustryNamesByCodes',
+      new Map<String, String>{ '6220' => 'Test Industry' }
+    );
+    faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
     Test.startTest();
     FinServ__FinancialAccountRole__c mockFar = getMockedData();
     DataSource.QueryContext context = createFacilitiesContext();
     FacilitiesExternalQuery facilitiesQry = new FacilitiesExternalQuery();
-    facilitiesQry.populateData(
+    faRepoMock.mock(
+      'getFinancialAccountsWithCustomerId',
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
     facilitiesQry.execute(context);

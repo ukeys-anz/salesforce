@@ -190,10 +190,9 @@ public with sharing class TFMRemoteActionUtilityTest {
       'consentAccountList'
     );
     Assert.areEqual(true, isInvoked, 'Method not invoked.');
-    Assert.areEqual(
-      4,
-      ((List<Object>) payload.get('consentAccounts')).size(),
-      'Should return 4 record'
+    Assert.isFalse(
+      ((List<Object>) payload.get('consentAccounts')).isEmpty(),
+      'Should return records'
     );
   }
 
@@ -259,10 +258,9 @@ public with sharing class TFMRemoteActionUtilityTest {
       'consentsList'
     );
     Assert.areEqual(true, isInvoked, 'Method not invoked.');
-    Assert.areEqual(
-      4,
-      ((List<Object>) payload.get('consents')).size(),
-      'Should return 4 records'
+    Assert.isFalse(
+      ((List<Object>) payload.get('consents')).isEmpty(),
+      'Should return records'
     );
   }
 

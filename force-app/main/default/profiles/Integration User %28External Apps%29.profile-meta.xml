@@ -311,6 +311,10 @@
         <name>ApiUserOnly</name>
     </userPermissions>
     <userPermissions>
+        <name>BypassMFAForUiLogins</name>
+        <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
         <enabled>true</enabled>
         <name>ChatterInternalUser</name>
     </userPermissions>

@@ -162,7 +162,7 @@ public with sharing class FinancialAccountQueryBaseRepository {
       return new List<Account>();
     }
     return [
-      SELECT Id, Name, External_Id__c
+      SELECT Id, Name, External_Id__c, Source_System_Name__c
       FROM Account
       WHERE External_Id__c IN :externalIdValue
       WITH USER_MODE

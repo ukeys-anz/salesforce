@@ -5,7 +5,7 @@
  * @group Service
  * @runTests ARNC360ServiceTest
  */
-public with sharing class ARNC360Service extends Service {
+public with sharing virtual class ARNC360Service extends Service {
   private static final UserInfoRepository USER_INFO_REPO = (UserInfoRepository) Lib_InstanceProvider.forType(
     UserInfoRepository.class
   );
@@ -15,7 +15,7 @@ public with sharing class ARNC360Service extends Service {
    * @return HttpCalloutResponse
    * @description Generic method for querying exernal data via API
    */
-  public HttpCalloutResponse queryExternalData(
+  public virtual HttpCalloutResponse queryExternalData(
     ExternalObjectQueryBase.ExternalObjectCalloutRequestBase calloutRequest
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();

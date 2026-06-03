@@ -7,6 +7,12 @@
 
 @isTest
 private class IndemnityGuaranteeExternalQueryTest {
+  static Lib_MockProvider faRepoMock;
+  static void registerMocks() {
+    faRepoMock = Lib_MockProvider.forType(
+      FinancialAccountQueryBaseRepository.class
+    );
+  }
   @isTest
   static void testParseResponse() {
     Test.startTest();
@@ -34,9 +40,15 @@ private class IndemnityGuaranteeExternalQueryTest {
 
   @isTest
   static void createExternalRecordsTest() {
+    registerMocks();
     DataSource.QueryContext context = createQueryContext();
     IndemnityGuaranteeExternalQuery accountQuery = new IndemnityGuaranteeExternalQuery();
     Test.startTest();
+    Account acc = new Account(
+      External_Id__c = 'CAP-CIS_4011643101',
+      Source_System_Name__c = 'CAP-CIS'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
     ExternalObjectQueryBase.ExternalQueryResult result = accountQuery.execute(
       context
     );

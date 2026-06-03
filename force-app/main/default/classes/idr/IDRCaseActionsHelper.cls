@@ -248,4 +248,53 @@ public with sharing class IDRCaseActionsHelper {
       c.Priority = IDRConstants.CASE_PRIORITY_VULNERABLE;
     }
   }
+  /**
+   * @description Validate the check of Written Postal check when IDR Milestone is already completed
+   * @param listOfnewCases List of New cases
+   * @param oldMap OldMap of Cases
+   */
+  public static void validateErrorOfWrittenResponseToBeSentByPostWhenIdrCompleted(
+    List<Case> listOfnewCases,
+    Map<Id, SObject> oldMap
+  ) {
+    Set<id> caseIds = new Set<Id>();
+    List<Case> casesToCheck = ListUtil.filter(listOfnewCases, oldMap)
+      .oldEquals(Case.IDR_Written_Response_to_be_sent_by_Post__c, false)
+      .equals(Case.IDR_Written_Response_to_be_sent_by_Post__c, true)
+      .notEquals(Case.Status, 'Closed')
+      .notEquals(Case.Status, 'Withdrawn')
+      .notEquals(Case.Status, 'Re-opened')
+      .toList();
+
+    caseIds = ListUtil.getIds(casesToCheck, Case.Id);
+    List<CaseMilestone> caseMilestoneOnCase = CASE_REPOSITORY.queryCasemilestone(
+      caseIds
+    );
+
+    for (Case c : casesToCheck) {
+      List<CaseMilestone> milestonesForCase = ListUtil.filter(
+          caseMilestoneOnCase
+        )
+        .equals(CaseMilestone.CaseId, c.Id)
+        .toList();
+      if (milestonesForCase.isEmpty()) {
+        c.addError(
+          'Please uncheck the Written Response to be sent by Post field -cannot select until the complaint is created due to no IDR Milestone.'
+        );
+        continue;
+      }
+
+      List<CaseMilestone> completedmilestonesForCase = ListUtil.filter(
+          caseMilestoneOnCase
+        )
+        .equals(CaseMilestone.CaseId, c.Id)
+        .isNotNull(CaseMilestone.completionDate)
+        .toList();
+      if (!completedmilestonesForCase.isEmpty()) {
+        c.addError(
+          'Cannot create Postal Outcome Milestone when IDR Milestone is completed'
+        );
+      }
+    }
+  }
 }

@@ -163,6 +163,13 @@
         <value>Cases &amp; Interactions</value>
     </labels>
     <labels>
+        <fullName>ANZx_Customer_Tab_CAP_Diary_Comments</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZx_Customer_Tab_CAP_Diary_Comments</shortDescription>
+        <value>CAP Diary Comments</value>
+    </labels>
+    <labels>
         <fullName>ANZx_Customer_Tab_Customer_Information</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -1070,6 +1077,13 @@
         <protected>false</protected>
         <shortDescription>MS_Reinitiate_Chat</shortDescription>
         <value>callout:SF_MS_CH2/contact-centre-staff/reinit</value>
+    </labels>
+    <labels>
+        <fullName>PEGA_Create_Case_Endpoint</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PEGA_Create_Case_Endpoint</shortDescription>
+        <value>callout:Secure_waf_gw/edia/psd/pegasvc-case-create-p2p-sf/prweb/api/ANZWF/v1/cases</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_New</fullName>

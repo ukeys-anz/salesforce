@@ -55,6 +55,7 @@ public with sharing class CCRMInteractionActionsRepository {
         Id,
         Name,
         FinServ__FinancialAccountNumber__c,
+        FinServ__FinancialAccountType__c,
         Product_Code_Display__c,
         Branch_Code__c
       FROM FinServ__FinancialAccount__c

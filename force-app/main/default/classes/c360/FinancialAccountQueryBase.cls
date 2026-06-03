@@ -33,6 +33,22 @@ public abstract with sharing class FinancialAccountQueryBase extends ExternalObj
   }
 
   /**
+   * @description is CAP customer?
+   * @return is CAP customer yes or no
+   */
+  public Boolean isCAPCustomer() {
+    return this.customerSourceSystem == 'CAP-CIS';
+  }
+
+  /**
+   * @description is CACHE customer?
+   * @return is CACHE customer yes or no
+   */
+  public Boolean isCACHECustomer() {
+    return this.customerSourceSystem == 'CACHE';
+  }
+
+  /**
    * @description AR&C financial account record type name
    */
   private final static String ARNC_FINANCIAL_ACCOUNT_RECORDTYPE_NAME = 'BankingAccount';
@@ -65,6 +81,7 @@ public abstract with sharing class FinancialAccountQueryBase extends ExternalObj
   protected String productCategory = '';
   protected Set<String> productTypes = new Set<String>();
   protected SourceSystemEnum sourceSystem;
+  protected String customerSourceSystem;
   protected Boolean useProductCodeFromFinancialAccount = false;
   protected Boolean retrieveBySOQLQuery = false;
   private static final String CCRM_USER_PROFILE_NAME = 'ANZ CCRM Standard User';
@@ -79,6 +96,131 @@ public abstract with sharing class FinancialAccountQueryBase extends ExternalObj
   }
 
   /**
+   * @description  Cache AssetFinance callout request class
+   */
+  public virtual class CacheAssetFinanceCalloutRequest extends ExternalObjectQueryBase.ExternalObjectCalloutRequestBase {
+    FinancialAccountExternalQueryHelper faHelper = new FinancialAccountExternalQueryHelper();
+    public String productCategory;
+    private Map<String, String> cacheAssetFinanceEndPointsMap = new Map<String, String>{
+      'AFAMBITContractRELATED_LIST' => 'ListCacheAssetFinanceAmbitContracts',
+      'AFAMBITContractRECORD_DETAIL' => 'GetCacheAssetFinanceAmbitContract',
+      'AFAMBITCreditLineRELATED_LIST' => 'ListCacheAssetFinanceAmbitCreditLines',
+      'AFAMBITCreditLineRECORD_DETAIL' => 'GetCacheAssetFinanceAmbitCreditLine',
+      'AssetFinanceAssetDetailRELATED_LIST' => 'ListCacheAssetFinanceAmbitAssets',
+      'AssetFinanceAssetDetailRECORD_DETAIL' => 'GetCacheAssetFinanceAmbitAsset',
+      'AFAMBITRepaymentRELATED_LIST' => 'ListCacheAssetFinanceAmbitRepayments',
+      'AccountRelationshipRELATED_LIST' => 'ListCacheAssetFinanceAmbitRelationships'
+    };
+    public String tableName;
+
+    /**
+     * @description abstract FinancialAccount callout response class
+     * @param queryContext DataSource QueryContext
+     * @param queryMode Query Mode Enum
+     * @param productCategory productCategory
+     * @param assetFinanceType asset finance type
+     * @param cacheCustomerIds cacheCustomerIds
+     * @param infoWrapper infoWrapper
+     */
+    public CacheAssetFinanceCalloutRequest(
+      DataSource.QueryContext queryContext,
+      QueryModeEnum queryMode,
+      String productCategory,
+      String assetFinanceType,
+      Set<String> cacheCustomerIds,
+      FinancialAccountExternalQueryHelper.FAQueryBaseInfoWrapper infoWrapper
+    ) {
+      super(queryContext, queryMode);
+      this.productCategory = productCategory;
+      this.tableName = queryContext.tableSelection.tableSelected;
+      this.payload = new FinancialAccountEntities.AssetFinancePayload();
+      getPayload(cacheCustomerIds, queryContext, assetFinanceType, infoWrapper);
+    }
+    /**
+     * @description Creates FinancialAccountEntities.AssetFinancePayload payload
+     * @param queryContext
+     * @param infoWrapper infoWrapper
+     * @return FinancialAccountEntities.AssetFinancePayload payload
+     **/
+    protected FinancialAccountEntities.AssetFinancePayload getPayload(
+      DataSource.QueryContext queryContext,
+      FinancialAccountExternalQueryHelper.FAQueryBaseInfoWrapper infoWrapper
+    ) {
+      FinancialAccountEntities.AssetFinancePayload assetPayload;
+      if (this.isDetailRequest()) {
+        return faHelper.getPayloadForSingleAccountForCache(infoWrapper);
+      }
+      if (infoWrapper.parentField != 'CustomerId') {
+        assetPayload = new FinancialAccountEntities.AssetFinancePayload();
+        List<String> externalIds = infoWrapper.parentId.substringAfter('_')
+          .split('-');
+        assetPayload.contractNumber = externalIds[1];
+        assetPayload.type = infoWrapper.assetFinanceType;
+      }
+      return assetPayload;
+    }
+
+    /**
+     * @description get payload method
+     * @param cacheCustomerIds cache customer ids set
+     * @param queryContext DataSource QueryContext
+     * @param assetFinanceType asset finance type
+     * @param infoWrapper infoWrapper
+     */
+    public void getPayload(
+      Set<String> cacheCustomerIds,
+      DataSource.QueryContext queryContext,
+      String assetFinanceType,
+      FinancialAccountExternalQueryHelper.FAQueryBaseInfoWrapper infoWrapper
+    ) {
+      FinancialAccountEntities.AssetFinancePayload payloadBody = getPayload(
+        queryContext,
+        infoWrapper
+      );
+      if (payloadBody == null) {
+        payloadBody = new FinancialAccountEntities.AssetFinancePayload();
+        payloadBody.customerIds = cacheCustomerIds;
+        payloadBody.type = assetFinanceType;
+        payloadBody.offSet = String.valueOf(queryContext.offSet);
+        payloadBody.pageSize = String.valueOf(queryContext.maxResults);
+      }
+      this.payload = payloadBody;
+    }
+
+    /**
+     * @description getEndpoint method
+     * @return String
+     */
+    public override String getEndpoint() {
+      String host = Label.Financial_Account_CACHE360_Endpoint;
+      if (this.isSummaryRequest()) {
+        return host +
+          this.cacheAssetFinanceEndPointsMap.get(
+            this.tableName + 'RELATED_LIST'
+          );
+      } else {
+        return host +
+          this.cacheAssetFinanceEndPointsMap.get(
+            this.tableName + 'RECORD_DETAIL'
+          );
+      }
+    }
+
+    /**
+     * @description getStaffModel method
+     * @return StaffTokenRequestModel
+     */
+    public override StaffTokenRequestModel getStaffModel() {
+      StaffTokenRequestModel staffModel = new StaffTokenRequestModel();
+      staffModel.anzTokenType = 'staff';
+      staffModel.apiScopesRequested = 'CCRM_CACHE_360';
+      staffModel.realm = 'system';
+      staffModel.isSecureWafFlow = true;
+      return staffModel;
+    }
+  }
+
+  /**
    * @description Parse query filters and prepare for API callout
    * @param queryContext DataSource QueryContext
    * @return QueryMode Enum
@@ -86,13 +228,15 @@ public abstract with sharing class FinancialAccountQueryBase extends ExternalObj
   protected virtual override ExternalObjectQueryBase.QueryModeEnum prepareCallout(
     DataSource.QueryContext queryContext
   ) {
-    QueryModeEnum queryMode = super.prepareCallout(queryContext);
+    this.queryMode = super.prepareCallout(queryContext);
+    String customerId = this.parentId != null ? this.parentId : this.externalId;
+    getCustomerSource(customerId);
     if (this.sourceSystem != SourceSystemEnum.CAP) {
-      return queryMode;
+      return this.queryMode;
     }
     //retrieve financial accounts based on query mode
     this.accountRoleMap = getFinancialAccounts(
-      queryMode,
+      this.queryMode,
       this.parentId,
       this.externalId
     );
@@ -101,7 +245,7 @@ public abstract with sharing class FinancialAccountQueryBase extends ExternalObj
       queryContext,
       this.accountNumberList
     );
-    return queryMode;
+    return this.queryMode;
   }
 
   /**
@@ -114,22 +258,50 @@ public abstract with sharing class FinancialAccountQueryBase extends ExternalObj
     QueryModeEnum queryMode,
     DataSource.QueryContext queryContext
   ) {
-    ARNCService service = new ARNCService();
-    ARNCService.FinancialAccountQueryParameters queryParams = new ARNCService.FinancialAccountQueryParameters();
     HttpCalloutResponse response;
-
-    String payload = getPayload(queryContext);
-    queryParams.offSet = String.valueOf(queryContext.offSet);
-    queryParams.pageSize = String.valueOf(queryContext.maxResults);
-    response = getCAPSummaryAccounts(service, queryParams, payload);
-    response = getEBDSummaryAccounts(
-      service,
-      queryParams,
-      payload,
-      response,
-      queryContext
-    );
-    response = getDetailAccounts(service, payload, response);
+    switch on this.customerSourceSystem {
+      when 'CAP-CIS' {
+        ARNCService service = new ARNCService();
+        ARNCService.FinancialAccountQueryParameters queryParams = new ARNCService.FinancialAccountQueryParameters();
+        String payload = getPayload(queryContext);
+        queryParams.offSet = String.valueOf(queryContext.offSet);
+        queryParams.pageSize = String.valueOf(queryContext.maxResults);
+        response = getCAPSummaryAccounts(service, queryParams, payload);
+        response = getEBDSummaryAccounts(
+          service,
+          queryParams,
+          payload,
+          response,
+          queryContext
+        );
+        response = getDetailAccounts(service, payload, response);
+      }
+      when 'CACHE' {
+        CacheAssetFinanceCalloutRequest calloutRequest = new CacheAssetFinanceCalloutRequest(
+          queryContext,
+          queryMode,
+          this.productCategory,
+          this.assetFinanceType,
+          getCustomerIds(),
+          prepareInfoWrapper()
+        );
+        ARNC360ServiceRepository serviceRepo = new ARNC360ServiceRepository();
+        response = serviceRepo.makeCacheAccountCallout(calloutRequest);
+      }
+      when else {
+        // for other source system, treat them as non-CAP/ non-cache customer to avoid callout failure, and log a warning message.
+        String errorMessge = String.format(
+          'Unexpected error from makeCallout - {0} and query mode: {1}.\n {2}',
+          new List<Object>{
+            this.tableName,
+            queryMode,
+            'Customer Source System Not Found or Unsupported. Please check the source system value: ' +
+            this.customerSourceSystem
+          }
+        );
+        throw new CalloutException(errorMessge);
+      }
+    }
     if (response == null || !response.successful) {
       String errorMessge = String.format(
         'Unexpected error from makeCallout - {0} and query mode: {1}.\n {2}',
@@ -455,22 +627,7 @@ public abstract with sharing class FinancialAccountQueryBase extends ExternalObj
     ) {
       return response;
     }
-
-    Set<String> customerIds = new Set<String>{ this.parentId };
-    if (
-      //for CCRM users only
-      UserInfo.getProfileId() ==
-      CommonUtil.getProfileByName(CCRM_USER_PROFILE_NAME).Id
-    ) {
-      // retrieve the entities related to CLG
-      customerIds = getCLGRelatedCustomerIds(this.parentId);
-    }
-    for (String customerId : customerIds) {
-      customerId = customerId.contains('_')
-        ? customerId.substringAfter('_')
-        : customerId;
-      queryParams.capCustomerIds.add(customerId);
-    }
+    queryParams.capCustomerIds.addAll(getCustomerIds());
     queryParams.pageSize = String.valueOf(queryContext?.maxResults);
     if (this.assetFinanceType == 'AMBIT' || this.assetFinanceType == 'ELS') {
       queryParams.type = this.assetFinanceType;
@@ -481,6 +638,26 @@ public abstract with sharing class FinancialAccountQueryBase extends ExternalObj
       this.assetFinanceType
     );
     return response;
+  }
+
+  private Set<String> getCustomerIds() {
+    Set<String> result = new Set<String>();
+    Set<String> customerIds = new Set<String>{ this.parentId };
+    if (
+      //for CCRM users only
+      UserInfo.getProfileId() ==
+      CommonUtil.getProfileByName(CCRM_USER_PROFILE_NAME).Id
+    ) {
+      // retrieve the entities related to CLG
+      customerIds = getCLGRelatedCustomerIds(this.parentId);
+    }
+    for (String customerId : customerIds) {
+      customerId = customerId != null && customerId.contains('_')
+        ? customerId.substringAfter('_')
+        : customerId;
+      result.add(customerId);
+    }
+    return result;
   }
 
   /**
@@ -594,5 +771,14 @@ public abstract with sharing class FinancialAccountQueryBase extends ExternalObj
     infoWrapper.externalId = this.externalId;
     infoWrapper.externalField = this.externalField;
     return infoWrapper;
+  }
+
+  protected void getCustomerSource(String externalId) {
+    if (String.isBlank(externalId)) {
+      return;
+    }
+    this.customerSourceSystem = externalId.contains('CACHE')
+      ? 'CACHE'
+      : 'CAP-CIS';
   }
 }

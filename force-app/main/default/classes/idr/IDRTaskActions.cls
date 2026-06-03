@@ -308,6 +308,15 @@ public without sharing class IDRTaskActions {
       ) {
         caseTaskMap.put(record.WhatId, record.Subject);
       }
+      if (
+        String.isNotEmpty(record.Subject) &&
+        record.Subject.contains(IDRConstants.TASK_POSTAL_OUTCOME_SUBJECT_DAY1)
+      ) {
+        record.RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID;
+        record.Type = IDRConstants.TASK_TYPE_NOTIFICATION;
+        record.ReminderDateTime = System.now();
+        caseIds.add(record.WhatId);
+      }
     }
 
     validateDueDate(idrMaximumTimeTasks, caseTaskMap);

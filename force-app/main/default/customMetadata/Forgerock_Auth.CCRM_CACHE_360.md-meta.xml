@@ -28,6 +28,6 @@
     </values>
     <values>
         <field>RequestedScopes__c</field>
-        <value xsi:type="xsd:string">https://salesforce.anz.com/scopes/financialaccount:read AU.INST-CACHE.ACCOUNTS.DETAILS.READ AU.INST-CACHE.ACCOUNTS.SUMMARY.READ AU.INST-CACHE.ACCOUNTS.READ AU.RETAIL.ACCOUNTS.BASIC.READ AU.RETAIL.ACCOUNTS.DETAILED.READ</value>
+        <value xsi:type="xsd:string">https://salesforce.anz.com/scopes/financialaccount:read AU.INST-CACHE.ACCOUNTS.DETAILS.READ AU.INST-CACHE.ACCOUNTS.SUMMARY.READ AU.INST-CACHE.ACCOUNTS.READ AU.RETAIL.ACCOUNTS.BASIC.READ AU.RETAIL.ACCOUNTS.DETAILED.READ https://bdn.anz.com/scopes/ambitdata:read</value>
     </values>
 </CustomMetadata>

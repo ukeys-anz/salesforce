@@ -40,5 +40,9 @@ public with sharing class IDRCaseTriggerHandler extends Lib_TriggerHandler {
       records,
       (Map<Id, Case>) oldMap
     );
+    IDRCaseActionsHelper.validateErrorOfWrittenResponseToBeSentByPostWhenIdrCompleted(
+      records,
+      (Map<Id, Case>) oldMap
+    );
   }
 }

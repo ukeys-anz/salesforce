@@ -5189,11 +5189,15 @@
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
         &quot;field&quot; : &quot;ComplaintStatus&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;Closed&quot;
+      }, {
+        &quot;field&quot; : &quot;hasL1Access&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot; 
       } ]
     }
   },

@@ -12,7 +12,7 @@
     <length>255</length>
     <referenceTargetField>Account.External_Id__c</referenceTargetField>
     <referenceTo>Account</referenceTo>
-    <relationshipLabel>Asset Finance AMBIT Contract</relationshipLabel>
+    <relationshipLabel>Asset Finance AMBIT Contracts</relationshipLabel>
     <relationshipName>Asset_Finance_AMBIT_Contract</relationshipName>
     <securityClassification>Internal</securityClassification>
     <type>IndirectLookup</type>

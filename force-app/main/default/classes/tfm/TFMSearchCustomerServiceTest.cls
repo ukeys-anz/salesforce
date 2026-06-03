@@ -206,13 +206,105 @@ public inherited sharing class TFMSearchCustomerServiceTest {
     );
   }
 
+  @isTest
+  static void testExtractDataSharingHistoryOpenAccounts() {
+    Test.startTest();
+    String result = TFMSearchCustomerServiceMock.extractDataSharingHistory(
+      'consent-7y-active-both-open'
+    );
+    Test.stopTest();
+
+    Assert.isTrue(
+      result.contains('014111-391077004'),
+      'Should contain first open account'
+    );
+    Assert.isTrue(
+      result.contains('014111-391077071'),
+      'Should contain second open account'
+    );
+  }
+
+  @isTest
+  static void testExtractDataSharingHistoryClosedAccounts() {
+    Test.startTest();
+    String result = TFMSearchCustomerServiceMock.extractDataSharingHistory(
+      'consent-7y-active-both-closed'
+    );
+    Test.stopTest();
+
+    Assert.isTrue(
+      result.contains('014111-391077012'),
+      'Should contain first closed account'
+    );
+    Assert.isTrue(
+      result.contains('014111-391077098'),
+      'Should contain second closed account'
+    );
+  }
+
+  @isTest
+  static void testExtractDataSharingHistoryMixedAccounts() {
+    Test.startTest();
+    String result = TFMSearchCustomerServiceMock.extractDataSharingHistory(
+      'consent-2y-active-mixed'
+    );
+    Test.stopTest();
+
+    Assert.isTrue(
+      result.contains('014111-391077004'),
+      'Should contain open account'
+    );
+    Assert.isTrue(
+      result.contains('014111-391077012'),
+      'Should contain closed account'
+    );
+  }
+
+  @isTest
+  static void testExtractConsentAccountsMatches() {
+    String input =
+      '{"consent_id": "test-123", "consent_accounts": [' +
+      '{"bsb": "014111", "accountNumber": "391077004"},' +
+      '{"bsb": "014111", "accountNumber": "391077071"}' +
+      ']}';
+
+    Test.startTest();
+    String result = TFMSearchCustomerServiceMock.extractConsentAccounts(input);
+    Test.stopTest();
+
+    Assert.isTrue(
+      result.contains('391077004') && result.contains('391077071'),
+      'Should contain requested accounts'
+    );
+  }
+
+  @isTest
+  static void testExtractConsentAccountsNoMatch() {
+    String input =
+      '{"consent_id": "test-789", "consent_accounts": [' +
+      '{"bsb": "999999", "accountNumber": "999999999"}' +
+      ']}';
+
+    Test.startTest();
+    String result = TFMSearchCustomerServiceMock.extractConsentAccounts(input);
+    Test.stopTest();
+
+    Assert.isTrue(
+      result.contains('"consentAccounts":[]'),
+      'consentAccounts should be empty array'
+    );
+  }
+
   private static StaffTokenRequestModel setStaffModel() {
     StaffTokenRequestModel staffModel = new StaffTokenRequestModel();
     staffModel.idType = Service.IdType.UUID;
     staffModel.idValue = '1122r5421';
     staffModel.anzTokenType = 'staffRqfCustomer';
     Cache.Session.put(
-      'local.ForgeToken.' + AuthTokenCacheUtil.getHashedKey('forgeJWTToken' + staffModel.idValue + staffModel.apiScopesRequested),
+      'local.ForgeToken.' +
+      AuthTokenCacheUtil.getHashedKey(
+        'forgeJWTToken' + staffModel.idValue + staffModel.apiScopesRequested
+      ),
       AuthServiceTest.IDTESTVALUEFORGE2,
       300,
       Cache.Visibility.NAMESPACE,

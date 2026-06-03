@@ -9,7 +9,7 @@ public with sharing class AFAMBITCreditLineExternalQuery extends FinancialAccoun
    * @description wrapper class for response
    */
   @testVisible
-  private class AFAMBITCreditLineModel extends FinancialAccountModelBase {
+  private class AFAMBITCreditLineModel extends FinancialAccountEntities.FinancialAccountCalloutResponse {
     public String compositeCreditLineId;
     public Date dateOpened;
     public Date expiryDate;
@@ -18,12 +18,13 @@ public with sharing class AFAMBITCreditLineExternalQuery extends FinancialAccoun
     public String productName;
     public Decimal liabilityLimit;
     public String facilityExpiryType;
+    public String creditLineId;
   }
 
   /**
    * @description Asset Finance AMBIT API callout response
    */
-  public class AFAMBITCreditLineCalloutResponse extends FinancialAccountCalloutResponse {
+  public class AFAMBITCreditLineCalloutResponse extends FinancialAccountEntities.FinancialAccountCalloutResponse {
     public String customerId;
     public List<AFAMBITCreditLineModel> creditLines;
   }
@@ -52,6 +53,15 @@ public with sharing class AFAMBITCreditLineExternalQuery extends FinancialAccoun
     if (String.isBlank(responseBody)) {
       return this.calloutResponse;
     }
+    if (
+      this.queryMode == QueryModeEnum.RECORD_DETAIL && this.isCACHECustomer()
+    ) {
+      this.calloutResponse = (AFAMBITCreditLineModel) CalloutModel.deserialize(
+        responseBody,
+        AFAMBITCreditLineModel.class
+      );
+      return this.calloutResponse;
+    }
     this.calloutResponse = (AFAMBITCreditLineCalloutResponse) CalloutModel.deserialize(
       responseBody,
       AFAMBITCreditLineCalloutResponse.class
@@ -69,36 +79,56 @@ public with sharing class AFAMBITCreditLineExternalQuery extends FinancialAccoun
     ExternalObjectCalloutResponse calloutResponse
   ) {
     ExternalObjectQueryBase.ExternalQueryResult result = new ExternalObjectQueryBase.ExternalQueryResult();
-    List<AFAMBITCreditLineModel> accounts = new List<AFAMBITCreditLineModel>();
 
     if (calloutResponse == null) {
       return result;
     }
-    accounts = ((AFAMBITCreditLineCalloutResponse) this.calloutResponse)
-      .creditLines;
 
-    //Pass pagination token
-    result.queryMoreToken = ((AFAMBITCreditLineCalloutResponse) this.calloutResponse)
-      .nextPageId;
-
-    for (AFAMBITCreditLineModel af : accounts) {
-      Map<String, Object> row = new Map<String, Object>{
-        this.parentField => this.parentId,
-        'ExternalId' => af.compositeCreditLineId,
-        'DisplayUrl' => getDisplayUrl(af.compositeCreditLineId),
-        'AccountStatus' => af.status,
-        'AccountName' => af.accountName,
-        'AccountNumber' => af.accountNumber,
-        'Limit' => af.liabilityLimit,
-        'OpenedDate' => af.dateOpened,
-        'Expires' => af.expiryDate,
-        'SI' => af.cpid,
-        'UndrawnBalance' => af.undrawnBalance,
-        'FacilityExpiryType' => af.facilityExpiryType,
-        'ProductName' => af.productName
-      };
-      result.externalRecords.add(row);
+    if (
+      this.queryMode == QueryModeEnum.RECORD_DETAIL && this.isCACHECustomer()
+    ) {
+      AFAMBITCreditLineModel creditLine = ((AFAMBITCreditLineModel) calloutResponse);
+      result.externalRecords.add(createExternalRec(creditLine));
+    } else {
+      //Pass pagination token
+      result.queryMoreToken = ((AFAMBITCreditLineCalloutResponse) this.calloutResponse)
+        .nextPageId;
+      List<AFAMBITCreditLineModel> creditLines = ((AFAMBITCreditLineCalloutResponse) calloutResponse)
+        .creditLines ?? new List<AFAMBITCreditLineModel>();
+      for (AFAMBITCreditLineModel creditLine : creditLines) {
+        result.externalRecords.add(createExternalRec(creditLine));
+      }
     }
     return result;
+  }
+  private Map<String, Object> createExternalRec(
+    AFAMBITCreditLineModel creditLine
+  ) {
+    String externalId = getExternalId(creditLine);
+    Map<String, Object> row = new Map<String, Object>{
+      this.parentField => this.parentId,
+      'ExternalId' => externalId,
+      'DisplayUrl' => getDisplayUrl(externalId),
+      'AccountStatus' => creditLine.status,
+      'AccountName' => creditLine.accountName,
+      'AccountNumber' => creditLine.accountNumber ?? creditLine.creditLineId,
+      'Limit' => creditLine.liabilityLimit,
+      'OpenedDate' => creditLine.dateOpened,
+      'Expires' => creditLine.expiryDate,
+      'SI' => creditLine.cpid,
+      'UndrawnBalance' => creditLine.undrawnBalance,
+      'FacilityExpiryType' => creditLine.facilityExpiryType,
+      'ProductName' => creditLine.productName
+    };
+    return row;
+  }
+  private String getExternalId(AFAMBITCreditLineModel creditLine) {
+    if (String.isNotBlank(this.externalId)) {
+      return this.externalId;
+    }
+    if (String.isNotBlank(creditLine.compositeCreditLineId)) {
+      return this.customerSourceSystem + '_' + creditLine.compositeCreditLineId;
+    }
+    return this.parentId + '-' + creditLine.creditLineId;
   }
 }

@@ -12,6 +12,7 @@ import {
 } from "lightning/platformWorkspaceApi";
 import logCaseCreation from "@salesforce/apex/IDRCaseActionsHelper.logCaseCreation";
 import logCaseError from "@salesforce/apex/IDRCaseActionsHelper.logCaseError";
+import fetchUserPermission from "@salesforce/apex/Vlocity_Utils.fetchUserPermission";
 const ALLOWED_POSTCODES = ["not applicable", "overseas"];
 
 export default class CreateCaseOmni extends OmniscriptBaseMixin(
@@ -22,6 +23,18 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
   @track missingFields = [];
   @track modalMsg;
   @track modalHeader = "Error";
+
+  isUserL1 = false;
+  error;
+  @wire(fetchUserPermission)
+  fetchUserPerm({ error, data }) {
+    if (data) {
+      this.isUserL1 = data;
+      this.error = undefined;
+    } else if (error) {
+      this.error = error;
+    }
+  }
 
   @wire(EnclosingTabId) tabId;
 
@@ -37,7 +50,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
   async callCreateCaseIP() {
     this.missingFields = [];
     this.modalMsg = "";
-    this.missingFields = await validate(this.omniJsonData);
+    this.missingFields = await validate(this.omniJsonData, this.isUserL1);
     this.makePriorityFieldRequired(this.omniJsonData);
     if (this.missingFields.length > 0) {
       this.modalMsg = await getCustomerNumberValidationMsg(

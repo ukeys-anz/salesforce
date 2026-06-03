@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MilestoneType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This milestone will be displayed when check box field (“Written response to be sent by Post”) is selected</description>
+    <recurrenceType>none</recurrenceType>
+</MilestoneType>

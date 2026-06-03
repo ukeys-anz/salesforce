@@ -15,7 +15,15 @@
         $UserRole.DeveloperName = &apos;Support_Coach&apos;,
         $UserRole.DeveloperName = &apos;Quality_Analyst&apos;,
         $UserRole.DeveloperName = &apos;Quality_Capability_Lead&apos;,
-        $Permission.ANZx_Specialist_Lender 
+        $Permission.ANZx_Specialist_Lender,
+        AND(
+            OR(
+                $UserRole.DeveloperName = &apos;Coach&apos;,
+                $UserRole.DeveloperName = &apos;BOH_Coach&apos;,
+                $UserRole.DeveloperName = &apos;Support_Coach&apos;
+            ),
+            NOT(ISCHANGED(Submitted__c))
+        )
     )
 )</errorConditionFormula>
     <errorMessage>You are not allowed to edit the Card Dispute case.</errorMessage>

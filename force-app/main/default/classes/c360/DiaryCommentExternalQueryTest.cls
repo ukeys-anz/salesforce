@@ -29,13 +29,13 @@ private class DiaryCommentExternalQueryTest {
     );
     Test.stopTest();
     Assert.areEqual(
-      1,
+      11,
       result.externalRecords.size(),
-      'Size of comments is not 1'
+      'Size of comments is not 11'
     );
     Map<String, Object> firstRecord = result.externalRecords[0];
     Assert.areEqual(
-      'TEST COMMENT CHECK',
+      'CUST ADVISING O/S TRAVEL DEPART DDMM RETURN DDMM COUNTRIES LIST NAMES',
       firstRecord.get('Description'),
       'Comment mismatch'
     );

@@ -265,7 +265,8 @@ public with sharing class IDRCaseActions {
           '30-day IDR Response Due',
           'Open_Escalation_Time',
           'AFCA Response Due',
-          'FPR 5 Business Day Resolution target'
+          'FPR 5 Business Day Resolution target',
+          'Postal Outcome Letter - Due'
         },
         System.now()
       );

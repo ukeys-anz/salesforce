@@ -43,6 +43,9 @@ public with sharing class CommercialOpportunityHelper {
   private static final String OTHER = 'Other';
   private static final String MULTIPLE_CUSTOMER_NEEDS = 'Multiple Customer Needs';
 
+  private static final CommercialOpportunityAPIRepository API_REPOSITORY = (CommercialOpportunityAPIRepository) Lib_InstanceProvider.forType(
+    CommercialOpportunityAPIRepository.class
+  );
   private static final CommercialOpportunityRepository OPP_REPOSITORY = (CommercialOpportunityRepository) Lib_InstanceProvider.forType(
     CommercialOpportunityRepository.class
   );
@@ -426,6 +429,58 @@ public with sharing class CommercialOpportunityHelper {
       ? opportunityName.left(120)
       : opportunityName;
     return opportunityName;
+  }
+
+  /**
+   * @description Queries data and Publishes Opportunity data to Pega system by creating a case.
+   * @param opportunityId The ID of the Opportunity record.
+   * @param relatedEntityIds The list of selected related entity IDs.
+   * @param entityProductMapping The entity product mapping notes
+   * @return String The Case created
+   */
+  public static String processPublishCaseToPega(
+    Id opportunityId,
+    List<Id> relatedEntityIds,
+    String entityProductMapping
+  ) {
+    Set<Id> oppIds = new Set<Id>{ opportunityId };
+    List<Opportunity> oppRecords = OPP_REPOSITORY.getOpportunity(oppIds);
+
+    if (oppRecords.isEmpty()) {
+      return null;
+    }
+
+    List<OpportunityLineItem> oppLineItems = OPP_REPOSITORY.getOppProductsForOpportunity(
+      oppIds
+    );
+    List<FinServ__AccountAccountRelation__c> relatedEntities = OPP_REPOSITORY.getRelatedEntities(
+      new Set<Id>(relatedEntityIds)
+    );
+    oppRecords[0].LegalEntitiesandProductNotes__c = entityProductMapping;
+    PegaCaseResponseModel response = API_REPOSITORY.publishCaseToPega(
+      oppRecords[0],
+      oppLineItems,
+      relatedEntities
+    );
+    return response.pyID;
+  }
+
+  /**
+   * @description : Updates the Opportunity record with Pega Case Id
+   * @param opportunityId Id of the Opportunity record
+   * @param caseId The Case created
+   * @param entityProductMapping The entity product mapping notes
+   */
+  public static void updateOpportunityWithPegaDetails(
+    Id opportunityId,
+    String caseId,
+    String entityProductMapping
+  ) {
+    Opportunity opp = new Opportunity(Id = opportunityId);
+    opp.Pega_Case_Unique_Identifier__c = caseId;
+    opp.LegalEntitiesandProductNotes__c = entityProductMapping;
+
+    DML.doUpdate(opp);
   }
 
   /**

@@ -97,6 +97,21 @@
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
+                        <valueListItems>
+                            <value>Opportunity.Publish_to_Pega</value>
+                            <visibilityRule>
+                                <booleanFilter>1 AND 2</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.CCRM_Publish_To_Pega_Access}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Pega_Case_Unique_Identifier__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -750,6 +765,16 @@
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Transaction_Banking_Process__c</fieldItem>
+                <identifier>RecordTransaction_Banking_Process_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-82eb138f-4f94-46b9-a0a6-98fdca5ff3c8</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -803,6 +828,58 @@
             </componentInstance>
         </itemInstances>
         <name>Facet-c85c1d54-995d-4608-b0d3-9f30e127406b</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Pega_Case_Unique_Identifier__c</fieldItem>
+                <identifier>RecordPega_Case_Unique_Identifier_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-c775267e-b416-4c4e-8e24-45b5648b4834</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.LegalEntitiesandProductNotes__c</fieldItem>
+                <identifier>RecordLegalEntitiesandProductNotes_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-02aa5d03-4c47-405a-a8ad-bdff31d81a5f</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-c775267e-b416-4c4e-8e24-45b5648b4834</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column9</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-02aa5d03-4c47-405a-a8ad-bdff31d81a5f</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column12</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-aeb0a4bf-e12e-43fd-bccb-47d02602bd16</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -979,6 +1056,31 @@
                         <leftValue>{!Record.Opp_Id__c}</leftValue>
                         <operator>NE</operator>
                         <rightValue>&apos;&apos;</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-aeb0a4bf-e12e-43fd-bccb-47d02602bd16</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Pega Case Details</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection7</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.CCRM_Publish_To_Pega_Access}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -1421,6 +1523,32 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>decorate</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>richTextValue</name>
+                    <value>&lt;p class=&quot;ql-indent-1&quot;&gt;&lt;a href=&quot;https://anzsvc-servic-dt4.pega.net/prweb&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;font-size: 14px;&quot;&gt;Go to Pega&lt;/a&gt;&lt;/p&gt;</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:richText</componentName>
+                <identifier>flexipage_richText</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Pega_Case_Unique_Identifier__c}</leftValue>
+                        <operator>NE</operator>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.CCRM_Publish_To_Pega_Access}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>

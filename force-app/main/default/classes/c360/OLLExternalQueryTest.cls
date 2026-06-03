@@ -91,6 +91,11 @@ private class OLLExternalQueryTest {
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
     faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
+    Account acc = new Account(
+      External_Id__c = 'CAP-CIS_4011643101',
+      Source_System_Name__c = 'CAP-CIS'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
     Industry__c mockIndustry = getIndustryMockedData();
     faRepoMock.mock('getIndustry', new List<Industry__c>{ mockIndustry });
     Test.startTest();
@@ -166,6 +171,11 @@ private class OLLExternalQueryTest {
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
     faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
+    Account acc = new Account(
+      External_Id__c = 'CAP-CIS_4011643101',
+      Source_System_Name__c = 'CAP-CIS'
+    );
+    faRepoMock.mock('getCustomerUsingExternalId', new List<Account>{ acc });
     Test.startTest();
     ExternalObjectQueryBase.ExternalQueryResult result = limitLiabQry.execute(
       context

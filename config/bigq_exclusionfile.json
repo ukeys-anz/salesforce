@@ -126,7 +126,6 @@
     "Jigsaw",
     "JigsawCompanyId",
     "KYCVerificationDate__c",
-    "KYC_Confirmation_Date__c",
     "KYC_Verification_Level__c",
     "LastReferencedDate",
     "Last_Updated_By__c",
@@ -317,6 +316,7 @@
     "qualtrics__QSC_Permalink__c",
     "Gender"
   ],
+  "ContactPointAddress": ["IsActive__c"],
   "ContactRequest": ["Focus_Area__c"],
   "CustomerOnboardingApplication__c": [
     "AustralianTaxResident__c",
@@ -484,7 +484,8 @@
     "Referrer_Reportees_Lead__c"
   ],
   "LoginHistory": ["AuthContextClassRef"],
-  "Opportunity": ["SourceId"],
+  "Opportunity": ["SourceId", "LegalEntitiesandProductNotes__c"],
+  "Persona__c": ["Description__c"],
   "Product2": [
     "AvailabilityDate",
     "BasedOnId",
