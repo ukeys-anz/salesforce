@@ -116,6 +116,7 @@ global with sharing class Vlocity_Utils implements Callable {
       'currentAppName',
       QueryAppDefinition.getByDurableId(userAppInfo?.AppDefinitionId)?.Label
     );
+    output.put('hasL1Access', USER_INFO.checkCustomPermission('IDR_Level_1'));
   }
 
   /**
@@ -259,6 +260,21 @@ global with sharing class Vlocity_Utils implements Callable {
         'lastModifiedDate' + fieldName,
         Math.abs(DateTime.now().date().daysBetween(lastModifiedDate.date())) +
         ' Days'
+      );
+    }
+  }
+
+  /**
+   * @description To fetch user custom permission.
+   * @return Logged in user is L1 or not.
+   */
+  @AuraEnabled(cacheable=true)
+  public static boolean fetchUserPermission() {
+    try {
+      return USER_INFO.checkCustomPermission('IDR_Level_1');
+    } catch (Exception e) {
+      throw new AuraHandledException(
+        'Unable to fetch user permision at the moment. Please contact your administrator if issue persists'
       );
     }
   }

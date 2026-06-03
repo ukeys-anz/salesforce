@@ -241,10 +241,6 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>IDR User Level 1</label>
     <recordTypeVisibilities>
-        <recordType>Case.CFMS_Migrated_Case</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
         <recordType>Quality_Assessment__c.C_Q_Assessment</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>

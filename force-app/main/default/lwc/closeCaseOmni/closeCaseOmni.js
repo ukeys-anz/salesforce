@@ -1,6 +1,7 @@
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
-import { LightningElement, track } from "lwc";
+import { LightningElement, track, wire } from "lwc";
 import { handleErrorShowToast } from "c/utils";
+import fetchUserPermission from "@salesforce/apex/Vlocity_Utils.fetchUserPermission";
 const SUB_REMS = ["16", "20", "Repayment arrangement"];
 const SERVICE_QUALITY = "9";
 const FAILURE_TO_RESPOND = "61";
@@ -27,6 +28,18 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
   @track modalMsg;
   @track showModal = false;
   @track modalHeader = "Error";
+
+  isUserL1 = false;
+  error;
+  @wire(fetchUserPermission)
+  fetchUserPerm({ error, data }) {
+    if (data) {
+      this.isUserL1 = data;
+      this.error = undefined;
+    } else if (error) {
+      this.error = error;
+    }
+  }
 
   closeModal() {
     this.showModal = false;
@@ -507,6 +520,16 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       !details.avoidableEscalationReason
     )
       this.missingFields.push("Avoidable Escalation Reason");
+
+    //CRD-171
+    if (
+      details.ComplaintStatus === "Closed" &&
+      (details.SecondComplaintCheckbox === null ||
+        (details.SecondComplaintCheckbox === "Yes" &&
+          details.ThirdComplaintCheckbox === null))
+    ) {
+      this.missingFields.push("Select Yes or No for additional remedy");
+    }
   }
 
   validateRealFormID() {
@@ -593,13 +616,26 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
   }
 
   checkFields(detail, reMap) {
+    const complaintFields = [
+      "ComplaintOutcome",
+      "ComplaintOutcomeAccepted",
+      "ComplaintOutcomeOffered"
+    ];
     reMap.forEach((field) => {
       let ele = Object.keys(field)[0];
+      const isComplaintField = complaintFields.includes(ele);
+
       if (ele.includes("Block")) {
-        if (!detail[ele] || (detail[ele] && !detail[ele][ele.split("-")[0]])) {
+        if (
+          (!detail[ele] || (detail[ele] && !detail[ele][ele.split("-")[0]])) &&
+          (!isComplaintField || (isComplaintField && this.isUserL1))
+        ) {
           this.missingFields.push(Object.values(field)[0]);
         }
-      } else if (!detail[ele]) {
+      } else if (
+        !detail[ele] &&
+        (!isComplaintField || (isComplaintField && this.isUserL1))
+      ) {
         this.missingFields.push(Object.values(field)[0]);
       }
     });

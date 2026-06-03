@@ -10,12 +10,13 @@ const CLOSED_STATUS = "Closed",
   CUSTOMER_AGREES = "Yes",
   CUSTOMER_DISAGREES = "No";
 
-var itype, subtype, missingFields, caseDetails, omniData;
+var itype, subtype, missingFields, caseDetails, omniData, isUsrL1;
 // Validate all Required Fields for Customer/Non-Customer Complaints
-export async function validate(omniJsonData) {
+export async function validate(omniJsonData, isUserL1) {
   omniData = omniJsonData;
   caseDetails = omniJsonData.Case;
   missingFields = [];
+  isUsrL1 = isUserL1;
   await validateCustomerComplaint(omniJsonData);
   await validateNonCustomerComplaint(omniJsonData);
   await validateComplaintRemedies(omniJsonData);
@@ -387,8 +388,9 @@ function checkFields(detail, reMap) {
   reMap.forEach((field) => {
     const [key, label] = Object.entries(field)[0];
     if (
-      (key.includes("Block") && (!detail[key] || !detail[key].Id)) ||
-      (!key.includes("Block") && !detail[key])
+      ((key.includes("Block") && (!detail[key] || !detail[key].Id)) ||
+        (!key.includes("Block") && !detail[key])) &&
+      (key !== "ComplaintOutcome" || (key === "ComplaintOutcome" && isUsrL1))
     ) {
       missingFields.push(label);
     }

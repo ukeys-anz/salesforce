@@ -408,7 +408,6 @@ public with sharing class IDRConstants {
     '4',
     '5',
     'Email',
-    '6',
     '8',
     '9',
     '10',

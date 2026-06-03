@@ -36,8 +36,8 @@
             </value>
         </inputParameters>
         <label>Send In-App Notification</label>
-        <locationX>1106</locationX>
-        <locationY>2201</locationY>
+        <locationX>578</locationX>
+        <locationY>1998</locationY>
         <nameSegment>customNotificationAction</nameSegment>
         <offset>0</offset>
     </actionCalls>
@@ -77,8 +77,8 @@
             <targetReference>Create_Assessment_Share_records</targetReference>
         </connector>
         <label>Assignment Quality Assessment Share</label>
-        <locationX>1106</locationX>
-        <locationY>1877</locationY>
+        <locationX>578</locationX>
+        <locationY>1674</locationY>
     </assignments>
     <assignments>
         <name>Set_True_If_Case_Manager_has_access</name>
@@ -94,8 +94,8 @@
             <targetReference>Does_Case_Manager_has_access</targetReference>
         </connector>
         <label>Set True If Case Manager has access</label>
-        <locationX>1326</locationX>
-        <locationY>1427</locationY>
+        <locationX>798</locationX>
+        <locationY>1224</locationY>
     </assignments>
     <collectionProcessors>
         <name>Filter_permission_set_assignments</name>
@@ -115,8 +115,8 @@
         </connector>
         <elementSubtype>FilterCollectionProcessor</elementSubtype>
         <label>Filter permission set assignments</label>
-        <locationX>1458</locationX>
-        <locationY>1211</locationY>
+        <locationX>930</locationX>
+        <locationY>1008</locationY>
     </collectionProcessors>
     <decisions>
         <name>Check_Filtered_Permission_set_assignments</name>
@@ -125,8 +125,8 @@
         </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <label>Check Filtered Permission set assignments</label>
-        <locationX>1458</locationX>
-        <locationY>1319</locationY>
+        <locationX>930</locationX>
+        <locationY>1116</locationY>
         <rules>
             <name>If_Filtered_Permission_set_assignment_in_not_empty</name>
             <conditionLogic>(1 AND 2) OR (3 AND 4 AND 5)</conditionLogic>
@@ -175,8 +175,8 @@
         <name>Does_Case_Manager_has_access</name>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <label>Does Case Manager has access ?</label>
-        <locationX>1238</locationX>
-        <locationY>1769</locationY>
+        <locationX>710</locationX>
+        <locationY>1566</locationY>
         <rules>
             <name>Case_Manage_has_access</name>
             <conditionLogic>and</conditionLogic>
@@ -200,8 +200,8 @@
         </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <label>Is Assessment Owned by Case Manager</label>
-        <locationX>930</locationX>
-        <locationY>779</locationY>
+        <locationX>402</locationX>
+        <locationY>576</locationY>
         <rules>
             <name>Assessment_is_Owned_by_Case_Manager</name>
             <conditionLogic>and</conditionLogic>
@@ -267,7 +267,7 @@
         </rules>
         <rules>
             <name>CQ_Assessment</name>
-            <conditionLogic>(1 OR 2) AND 3</conditionLogic>
+            <conditionLogic>(1 OR 2 OR 4) AND 3</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.Evaluation_Type__c</leftValueReference>
                 <operator>EqualTo</operator>
@@ -289,21 +289,6 @@
                     <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
-            <connector>
-                <targetReference>Update_Assessment_Result_on_CQ</targetReference>
-            </connector>
-            <label>CQ Assessment</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Is_This_C_Q_Assessment</name>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <label>Is This C&amp;Q Assessment</label>
-        <locationX>1106</locationX>
-        <locationY>276</locationY>
-        <rules>
-            <name>This_is_C_Q_Assessment</name>
-            <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
@@ -311,17 +296,10 @@
                     <stringValue>C_Q_Assessment</stringValue>
                 </rightValue>
             </conditions>
-            <conditions>
-                <leftValueReference>$Setup.Salesforce_Library_Settings__c.Disable_Flows__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
             <connector>
-                <targetReference>Is_Assessment_Owned_by_Case_Manager</targetReference>
+                <targetReference>Update_Assessment_Result_on_CQ</targetReference>
             </connector>
-            <label>This is C&amp;Q Assessment</label>
+            <label>CQ Assessment</label>
         </rules>
     </decisions>
     <environments>Default</environments>
@@ -332,8 +310,8 @@
         <collectionReference>Get_All_Permission_Set_Assignments</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <label>Loop 1</label>
-        <locationX>1238</locationX>
-        <locationY>1103</locationY>
+        <locationX>710</locationX>
+        <locationY>900</locationY>
         <nextValueConnector>
             <targetReference>Filter_permission_set_assignments</targetReference>
         </nextValueConnector>
@@ -367,8 +345,8 @@
         </connector>
         <inputReference>Quality_Assessment_Share_Record</inputReference>
         <label>Create Assessment Share records</label>
-        <locationX>1106</locationX>
-        <locationY>1985</locationY>
+        <locationX>578</locationX>
+        <locationY>1782</locationY>
     </recordCreates>
     <recordLookups>
         <name>Get_All_Permission_Set_Assignments</name>
@@ -386,8 +364,8 @@
         </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
         <label>Get All Permission Set Assignments</label>
-        <locationX>1238</locationX>
-        <locationY>995</locationY>
+        <locationX>710</locationX>
+        <locationY>792</locationY>
         <object>PermissionSetAssignment</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
@@ -407,8 +385,8 @@
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <label>Get Notification Type</label>
-        <locationX>1106</locationX>
-        <locationY>2093</locationY>
+        <locationX>578</locationX>
+        <locationY>1890</locationY>
         <object>CustomNotificationType</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
@@ -442,8 +420,8 @@
         </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
         <label>Get Permission Set Group</label>
-        <locationX>1238</locationX>
-        <locationY>887</locationY>
+        <locationX>710</locationX>
+        <locationY>684</locationY>
         <object>PermissionSetGroup</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
@@ -480,11 +458,14 @@
         </inputAssignments>
         <inputReference>$Record</inputReference>
         <label>Auto-populate &apos;Accepted by TM&apos; on Team manager response</label>
-        <locationX>1458</locationX>
+        <locationX>1106</locationX>
         <locationY>276</locationY>
     </recordUpdates>
     <recordUpdates>
         <name>Update_Assessment_Result_on_CQ</name>
+        <connector>
+            <targetReference>Is_Assessment_Owned_by_Case_Manager</targetReference>
+        </connector>
         <description>Update Assessment outcome field on CQ evaluation</description>
         <inputAssignments>
             <field>Assessment_Result__c</field>
@@ -526,20 +507,10 @@
                 <stringValue>Complete</stringValue>
             </value>
         </filters>
-        <locationX>804</locationX>
+        <locationX>628</locationX>
         <locationY>0</locationY>
         <object>Quality_Assessment__c</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
-        <scheduledPaths>
-            <name>X3_Days_after_Completion</name>
-            <connector>
-                <targetReference>Is_This_C_Q_Assessment</targetReference>
-            </connector>
-            <label>3 Days after Completion</label>
-            <offsetNumber>3</offsetNumber>
-            <offsetUnit>Days</offsetUnit>
-            <timeSource>RecordTriggerEvent</timeSource>
-        </scheduledPaths>
         <scheduledPaths>
             <name>X5_days_after_Completion</name>
             <connector>

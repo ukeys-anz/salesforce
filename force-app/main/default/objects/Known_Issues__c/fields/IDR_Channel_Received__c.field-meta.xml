@@ -45,11 +45,6 @@
                 <label>Email</label>
             </value>
             <value>
-                <fullName>6</fullName>
-                <default>false</default>
-                <label>Internal Referred</label>
-            </value>
-            <value>
                 <fullName>8</fullName>
                 <default>false</default>
                 <label>anz.com</label>
