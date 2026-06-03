@@ -1312,7 +1312,8 @@
         "KYCChecksHasDefect__c",
         "Search_Button_Selected_for_3rd_Party__c",
         "Search_Button_Selected__c",
-        "Scam_Assist_Case_ID__c"
+        "Scam_Assist_Case_ID__c",
+        "IDR_Written_Response_to_be_sent_by_Post__c"
       ],
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",

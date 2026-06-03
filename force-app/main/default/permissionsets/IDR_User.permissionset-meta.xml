@@ -9,6 +9,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>PostalOutcomeMilestoneTimeCalculator</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>IDRCaseActionsHelper</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -93,6 +97,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.AFCA_Stage__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_Written_Response_to_be_sent_by_Post__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

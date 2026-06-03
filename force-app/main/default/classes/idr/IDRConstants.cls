@@ -210,6 +210,7 @@ public with sharing class IDRConstants {
   public static final String MILESTONE_PRIORITY = '21-day IDR Response Due';
 
   public static final String TASK_AFCA_SUBJECT_DAY1 = 'AFCA Response is due in 1 day';
+  public static final String TASK_POSTAL_OUTCOME_SUBJECT_DAY1 = 'Postal Outcome Letter Due in 1-day';
 
   //Channel Received
   public static final String CHANNEL_RECEIVED_AFCA_REFERRED = '11';

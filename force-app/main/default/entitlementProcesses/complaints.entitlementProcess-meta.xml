@@ -603,6 +603,60 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_with_ANZ_Plus_R
         <minutesToComplete>30240</minutesToComplete>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
+     <milestones>
+        <businessHours>Default</businessHours>
+        <criteriaBooleanFilter>1 AND (2 OR 3) AND 4 AND 5 AND 6 AND  7</criteriaBooleanFilter>
+        <milestoneCriteriaFilterItems>
+            <field>Case.IDR_Written_Response_to_be_sent_by_Post__c</field>
+            <operation>equals</operation>
+            <value>true</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Non-Customer Complaint</value>
+        </milestoneCriteriaFilterItems>
+         <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Withdrawn</value>
+        </milestoneCriteriaFilterItems>
+         <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Re-opened</value>
+        </milestoneCriteriaFilterItems>
+         <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Under Investigation</value>
+        </milestoneCriteriaFilterItems>
+         <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Postal Outcome Letter - Due</milestoneName>
+        <minutesCustomClass>PostalOutcomeMilestoneTimeCalculator</minutesCustomClass>
+        <timeTriggers>
+            <actions>
+                <name>Postal_Outcome_Letter_Due_in_1_day</name>
+                <type>Task</type>
+            </actions>
+            <timeLength>-1440</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
     <name>complaints</name>
     <versionMaster>5522O000000CGgO</versionMaster>
     <versionNumber>1</versionNumber>

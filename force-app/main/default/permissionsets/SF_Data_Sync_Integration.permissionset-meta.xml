@@ -2812,6 +2812,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.IDR_Written_Response_to_be_sent_by_Post__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.IDR_Product_3__c</field>
         <readable>true</readable>
     </fieldPermissions>

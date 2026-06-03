@@ -120,4 +120,30 @@ public with sharing class IDRCaseActionsRepository {
       WITH SYSTEM_MODE
     ];
   }
+  /**
+   *  @description Query IDR CaseMilestone related to Cases
+   *  @param caseId Set of caseId
+   *  @return List<CaseMilestone> list of IDR CaseMilestones associated with caseId
+   */
+  public List<CaseMilestone> queryCasemilestone(Set<Id> caseId) {
+    Set<String> currentMilestonesonCase = new Set<String>{
+      IDRConstants.MILESTONE_STANDARD,
+      IDRConstants.MILESTONE_PRIORITY
+    };
+    if (CaseId.isEmpty()) {
+      return new List<CaseMilestone>();
+    }
+    return [
+      SELECT
+        Id,
+        CaseId,
+        TargetDate,
+        MilestoneTypeId,
+        MilestoneType.name,
+        completionDate,
+        IsCompleted
+      FROM CaseMilestone
+      WHERE MilestoneType.name IN :currentMilestonesonCase AND CaseId IN :caseId
+    ];
+  }
 }

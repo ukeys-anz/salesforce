@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Written_Response_to_be_sent_by_Post__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <defaultValue>false</defaultValue>
+    <description>Stores information about written response to be sent to customer by Post</description>
+    <inlineHelpText>Select this option if customer does not have an email address or if customer has requested to receive the Final Outcome Response by mail.</inlineHelpText>
+    <label>Written response to be sent by Post</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

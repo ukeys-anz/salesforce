@@ -203,4 +203,15 @@
         <status>Open</status>
         <subject>IDR Response Due in 1-day</subject>
     </tasks>
+    <tasks>
+        <fullName>Postal_Outcome_Letter_Due_in_1_day</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>An IDR Response Letter or Delay Notification needs to be sent to the customer by Post</description>
+        <dueDateOffset>1</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <priority>High</priority>
+        <protected>false</protected>
+        <status>Open</status>
+        <subject>Postal Outcome Letter Due in 1-day</subject>
+    </tasks>
 </Workflow>

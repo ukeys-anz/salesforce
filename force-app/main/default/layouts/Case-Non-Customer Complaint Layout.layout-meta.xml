@@ -199,6 +199,10 @@
                 <behavior>Edit</behavior>
                 <field>IDR_Avoidable_Escalation__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Avoidable_Escalation_Reason__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -223,7 +227,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IDR_Avoidable_Escalation_Reason__c</field>
+                <field>IDR_Written_Response_to_be_sent_by_Post__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
