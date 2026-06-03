@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSrcDataModelFieldMap xmlns="http://soap.sforce.com/2006/04/metadata">
+    <filterApplied>false</filterApplied>
+    <masterLabel>BQ_CAZ_Data_KitHistorical_Files_Summarypbc_otherofirelationshipCaz_Assessmentpbc_otherofirelationshipbjFmsswdIqiUtKB</masterLabel>
+    <sourceField>Caz_Assessment23.pbc_otherofirelationship__c</sourceField>
+    <targetField>Caz_Assessment__dlm.pbc_otherofirelationship__c</targetField>
+    <templateVersion>1</templateVersion>
+    <versionNumber>1.0</versionNumber>
+</DataSrcDataModelFieldMap>

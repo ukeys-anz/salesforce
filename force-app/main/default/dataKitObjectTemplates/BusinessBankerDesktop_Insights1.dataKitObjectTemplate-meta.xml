@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<DataKitObjectTemplate xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<DataKitObjectTemplate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://soap.sforce.com/2006/04/metadata">
     <developerName xsi:nil="true"/>
     <entityPayload>{&quot;dataSpaceName&quot;:&quot;default&quot;,&quot;type&quot;:&quot;DLO&quot;,&quot;developerName&quot;:&quot;DLO_BusinessBankerDesktop_Insights&quot;}</entityPayload>
     <masterLabel>BusinessBankerDesktop_Insights__dll</masterLabel>
