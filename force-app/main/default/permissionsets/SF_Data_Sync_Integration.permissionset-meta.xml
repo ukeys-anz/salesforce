@@ -7577,6 +7577,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Opportunity.Pega_Case_Unique_Identifier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Opportunity.Pricebook2Id</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -7598,6 +7603,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.Secondary_Customer_Needs__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Transaction_Banking_Process__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7963,6 +7973,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.Total_Mortgage_Lending__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Transaction_Banking_Process__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

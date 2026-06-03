@@ -484,7 +484,7 @@
     "Referrer_Reportees_Lead__c"
   ],
   "LoginHistory": ["AuthContextClassRef"],
-  "Opportunity": ["SourceId"],
+  "Opportunity": ["SourceId", "LegalEntitiesandProductNotes__c"],
   "Persona__c": ["Description__c"],
   "Product2": [
     "AvailabilityDate",

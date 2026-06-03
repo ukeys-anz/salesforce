@@ -178,6 +178,33 @@ public with sharing class CommercialOpportunityRepository {
   }
 
   /**
+   * @description getOppProductsForOpportunity gets OLI related to opp
+   * @param oppIds set of oppportunity ids
+   * @return List<OpportunityLineItem> OLI list
+   */
+  public List<OpportunityLineItem> getOppProductsForOpportunity(
+    Set<Id> oppIds
+  ) {
+    if (oppIds.isEmpty()) {
+      return new List<OpportunityLineItem>();
+    }
+
+    return [
+      SELECT
+        Id,
+        OpportunityId,
+        Product2Id,
+        Product2.Name,
+        Product2.Type,
+        Product2.ProductCode,
+        Product2.Sub_Product_Code__c
+      FROM OpportunityLineItem
+      WHERE OpportunityId IN :oppIds
+      WITH USER_MODE
+    ];
+  }
+
+  /**
    * @description getLostAFPRelatedToOpportunity gets lost AFP's related to opp
    * @param oppIds set of oppportunity ids
    * @return List<ApplicationFormProduct> app form products list
@@ -188,7 +215,26 @@ public with sharing class CommercialOpportunityRepository {
     }
 
     return [
-      SELECT Id, AccountId, Lead_Converted__c, Name, Opp_Id__c, recordtypeId
+      SELECT
+        Id,
+        AccountId,
+        Lead_Converted__c,
+        Name,
+        Opp_Id__c,
+        recordtypeId,
+        Account.Name,
+        Account.Source_System_ID__c,
+        Account.Source_System_Name__c,
+        Account.RecordType.Name,
+        CLG__c,
+        CLG__r.Name,
+        CLG__r.Source_System_ID__c,
+        CLG__r.Source_System_Name__c,
+        CLG__r.RecordType.Name,
+        New_to_Bank__c,
+        OwnerId,
+        Owner.Name,
+        Transaction_Banking_Process__c
       FROM Opportunity
       WHERE Id IN :oppIds
       WITH USER_MODE
@@ -224,6 +270,31 @@ public with sharing class CommercialOpportunityRepository {
       WHERE
         FinServ__Account__c IN :accountIds
         AND FinServ__Role__c = :roleId[0].Id
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description Retrieves the related entities based on the provided entity IDs.
+   * @param entityIds set of FinServ__AccountAccountRelation__c ids to query
+   * @return List of FinServ__AccountAccountRelation__c records
+   */
+  public List<FinServ__AccountAccountRelation__c> getRelatedEntities(
+    Set<Id> entityIds
+  ) {
+    if (entityIds.isEmpty()) {
+      return new List<FinServ__AccountAccountRelation__c>();
+    }
+
+    return [
+      SELECT
+        Id,
+        FinServ__Account__r.Name,
+        FinServ__Account__r.Source_System_ID__c,
+        FinServ__Account__r.Source_System_Name__c,
+        FinServ__Account__r.RecordType.Name
+      FROM FinServ__AccountAccountRelation__c
+      WHERE Id IN :entityIds
       WITH USER_MODE
     ];
   }

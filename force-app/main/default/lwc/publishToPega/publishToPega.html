@@ -1,0 +1,81 @@
+<template>
+  <lightning-quick-action-panel header="Publish to Pega">
+    <div>
+      <lightning-spinner
+        lwc:if={isLoading}
+        size="small"
+        alternative-text="Loading Opportunity details..."
+        variant="brand"
+      >
+      </lightning-spinner>
+      <!-- Opportunity details -->
+      <div>
+        <h1 class={headerClassNames}>Preview</h1>
+        <lightning-record-view-form
+          object-api-name="Opportunity"
+          record-id={recordId}
+        >
+          <template for:each={oppFields} for:item="field">
+            <div key={field.name.fieldApiName} class={formViewDivClassNames}>
+              <label class={formLabelClassNames} for={field.name.fieldApiName}
+                >{field.label}</label
+              >
+              <lightning-output-field
+                field-name={field.name.fieldApiName}
+                variant="label-hidden"
+                class={formOutputFieldClassNames}
+              ></lightning-output-field>
+            </div>
+          </template>
+          <div class="slds-border_bottom"></div>
+        </lightning-record-view-form>
+      </div>
+      <!-- Selected Products -->
+      <div>
+        <h1 class={headerClassNames}>Selected Products</h1>
+        <lightning-datatable
+          key-field="Id"
+          data={productsData}
+          columns={productsFields}
+          hide-checkbox-column
+        >
+        </lightning-datatable>
+      </div>
+      <!-- Related Entities -->
+      <div>
+        <h1 class={headerClassNames}>Related Entities</h1>
+        <lightning-datatable
+          lwc:ref="relEntitiesTable"
+          key-field="id"
+          data={entityData}
+          columns={entityFields}
+        >
+        </lightning-datatable>
+      </div>
+      <!-- Legal Entities and Product Notes -->
+      <div lwc:if={showEntityProductMapping}>
+        <lightning-textarea
+          name="entityProductMapping"
+          required
+          value={entityProductMapping}
+          field-level-help="List legal entities and the products each entity requires. Include any additional notes to support setup or processing."
+          class="slds-m-top_small"
+          onchange={handleEntityProductMappingChange}
+          label="Legal Entities and Product Notes"
+          maxlength="20000"
+          message-when-too-long="A maximum of 20000 characters are allowed."
+          message-when-value-missing="Please enter the legal entities and product notes."
+        >
+        </lightning-textarea>
+      </div>
+    </div>
+    <div slot="footer" class="slds-m-around_small">
+      <lightning-button
+        label="Submit"
+        variant="brand"
+        disabled={isLoading}
+        onclick={handleSubmit}
+      ></lightning-button>
+    </div>
+  </lightning-quick-action-panel>
+</template>

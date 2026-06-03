@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LegalEntitiesandProductNotes__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Relationship notes for Entity and products</description>
+    <encryptionScheme>None</encryptionScheme>
+    <inlineHelpText>List legal entities and the products each entity requires. Include any additional notes to support setup or processing.</inlineHelpText>
+    <label>Legal Entities and Product Notes</label>
+    <length>20000</length>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

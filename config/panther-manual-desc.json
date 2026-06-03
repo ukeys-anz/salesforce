@@ -3861,7 +3861,8 @@
         "Multiple_Products__c",
         "My_Region_Flag__c",
         "Product_Count__c",
-        "Account_Number__c"
+        "Account_Number__c",
+        "LegalEntitiesandProductNotes__c"
       ],
       "IA-2415983": [
         "Application_Numbers__c",
@@ -3924,7 +3925,9 @@
       ],
       "IA-2453350": ["Can_Create_Loanapp__c", "Application_Key__c"],
       "IA-2415790": ["TPMI__c", "Broker_Name__c"],
-      "IA-2618940": ["Industry__c"]
+      "IA-2618940": ["Industry__c"],
+      "IA-2453595": ["Transaction_Banking_Process__c"],
+      "IA-2594111": ["Pega_Case_Unique_Identifier__c"]
     },
     "OpportunityContactRole": {
       "IA-2415860": [

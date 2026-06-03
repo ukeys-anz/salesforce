@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Provides access to publish cases to Pega</description>
+    <isLicensed>false</isLicensed>
+    <label>CCRM Publish To Pega Access</label>
+</CustomPermission>
