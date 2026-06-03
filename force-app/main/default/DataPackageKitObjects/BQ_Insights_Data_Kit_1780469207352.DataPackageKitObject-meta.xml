@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataPackageKitObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>BQ_Insights_Data_Kit</masterLabel>
+    <parentDataPackageKitDefinitionName>BQ_Insights_Data_Kit</parentDataPackageKitDefinitionName>
+    <referenceObjectName>Historical_Files_Summary</referenceObjectName>
+    <referenceObjectType>DataKitObjectTemplate</referenceObjectType>
+</DataPackageKitObject>

@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSourceObject xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <accelerationEnabled>NO</accelerationEnabled>
+    <dataSource>Historical_Files_Summary</dataSource>
+    <dataSourceFields>
+        <fullName>af_ofi_dtl</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>AF_OFI_DTL</externalName>
+        <fieldFormula>sourceField[&apos;AF_OFI_DTL&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_af_ofi_dtl</keyQualifierName>
+        <masterLabel>AF_OFI_DTL</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>avg_cc_util_l12m</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>AVG_CC_UTIL_L12M</externalName>
+        <fieldFormula>sourceField[&apos;AVG_CC_UTIL_L12M&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_avg_cc_util_l12m</keyQualifierName>
+        <masterLabel>AVG_CC_UTIL_L12M</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>avg_deposit</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>AVG_DEPOSIT</externalName>
+        <fieldFormula>sourceField[&apos;AVG_DEPOSIT&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_avg_deposit</keyQualifierName>
+        <masterLabel>AVG_DEPOSIT</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>avg_deposit_l12m</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>AVG_DEPOSIT_L12M</externalName>
+        <fieldFormula>sourceField[&apos;AVG_DEPOSIT_L12M&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_avg_deposit_l12m</keyQualifierName>
+        <masterLabel>AVG_DEPOSIT_L12M</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>avg_lending</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>AVG_LENDING</externalName>
+        <fieldFormula>sourceField[&apos;AVG_LENDING&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_avg_lending</keyQualifierName>
+        <masterLabel>AVG_LENDING</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>avg_lending_l12m</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>AVG_LENDING_L12M</externalName>
+        <fieldFormula>sourceField[&apos;AVG_LENDING_L12M&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_avg_lending_l12m</keyQualifierName>
+        <masterLabel>AVG_LENDING_L12M</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>avg_od_util_l12m</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>AVG_OD_UTIL_L12M</externalName>
+        <fieldFormula>sourceField[&apos;AVG_OD_UTIL_L12M&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_avg_od_util_l12m</keyQualifierName>
+        <masterLabel>AVG_OD_UTIL_L12M</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>avg_prod_hold</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>AVG_PROD_HOLD</externalName>
+        <fieldFormula>sourceField[&apos;AVG_PROD_HOLD&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_avg_prod_hold</keyQualifierName>
+        <masterLabel>AVG_PROD_HOLD</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bus_cust_type</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BUS_CUST_TYPE</externalName>
+        <fieldFormula>sourceField[&apos;BUS_CUST_TYPE&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bus_cust_type</keyQualifierName>
+        <masterLabel>BUS_CUST_TYPE</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>cc_limit</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>CC_LIMIT</externalName>
+        <fieldFormula>sourceField[&apos;CC_LIMIT&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_cc_limit</keyQualifierName>
+        <masterLabel>CC_LIMIT</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>cc_ofi_dtl</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>CC_OFI_DTL</externalName>
+        <fieldFormula>sourceField[&apos;CC_OFI_DTL&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_cc_ofi_dtl</keyQualifierName>
+        <masterLabel>CC_OFI_DTL</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>cc_util</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>CC_UTIL</externalName>
+        <fieldFormula>sourceField[&apos;CC_UTIL&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_cc_util</keyQualifierName>
+        <masterLabel>CC_UTIL</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>clv</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>CLV</externalName>
+        <fieldFormula>sourceField[&apos;CLV&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_clv</keyQualifierName>
+        <masterLabel>CLV</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>cnt_af_ofi</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>CNT_AF_OFI</externalName>
+        <fieldFormula>sourceField[&apos;CNT_AF_OFI&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_cnt_af_ofi</keyQualifierName>
+        <masterLabel>CNT_AF_OFI</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>cnt_cc_ofi</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>CNT_CC_OFI</externalName>
+        <fieldFormula>sourceField[&apos;CNT_CC_OFI&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_cnt_cc_ofi</keyQualifierName>
+        <masterLabel>CNT_CC_OFI</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>cnt_fx_ofi</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>CNT_FX_OFI</externalName>
+        <fieldFormula>sourceField[&apos;CNT_FX_OFI&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_cnt_fx_ofi</keyQualifierName>
+        <masterLabel>CNT_FX_OFI</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>cnt_hl_ofi</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>CNT_HL_OFI</externalName>
+        <fieldFormula>sourceField[&apos;CNT_HL_OFI&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_cnt_hl_ofi</keyQualifierName>
+        <masterLabel>CNT_HL_OFI</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>cnt_merc_ofi</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>CNT_MERC_OFI</externalName>
+        <fieldFormula>sourceField[&apos;CNT_MERC_OFI&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_cnt_merc_ofi</keyQualifierName>
+        <masterLabel>CNT_MERC_OFI</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>cnt_pl_ofi</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>CNT_PL_OFI</externalName>
+        <fieldFormula>sourceField[&apos;CNT_PL_OFI&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_cnt_pl_ofi</keyQualifierName>
+        <masterLabel>CNT_PL_OFI</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>cnt_tl_ofi</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>CNT_TL_OFI</externalName>
+        <fieldFormula>sourceField[&apos;CNT_TL_OFI&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_cnt_tl_ofi</keyQualifierName>
+        <masterLabel>CNT_TL_OFI</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>customer_no</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>CUSTOMER_NO</externalName>
+        <fieldFormula>sourceField[&apos;CUSTOMER_NO&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_customer_no</keyQualifierName>
+        <masterLabel>CUSTOMER_NO</masterLabel>
+        <primaryIndexOrder>1</primaryIndexOrder>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>DataSource</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>System</definitionCreationType>
+        <externalName>DataSource</externalName>
+        <fieldFormula>Historical_Files_Summary</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>true</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_DataSource</keyQualifierName>
+        <masterLabel>Data Source</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>DataSourceObject</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>System</definitionCreationType>
+        <externalName>DataSourceObject</externalName>
+        <fieldFormula>anz-x-gh-sf-dev-ef8edd_commercial_customer_insights</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>true</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_DataSourceObject</keyQualifierName>
+        <masterLabel>Data Source Object</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>deposit_both</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>DEPOSIT_BOTH</externalName>
+        <fieldFormula>sourceField[&apos;DEPOSIT_BOTH&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_deposit_both</keyQualifierName>
+        <masterLabel>DEPOSIT_BOTH</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>deposit_cash</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>DEPOSIT_CASH</externalName>
+        <fieldFormula>sourceField[&apos;DEPOSIT_CASH&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_deposit_cash</keyQualifierName>
+        <masterLabel>DEPOSIT_CASH</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>deposit_cheque</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>DEPOSIT_CHEQUE</externalName>
+        <fieldFormula>sourceField[&apos;DEPOSIT_CHEQUE&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_deposit_cheque</keyQualifierName>
+        <masterLabel>DEPOSIT_CHEQUE</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>est_turnover</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>EST_TURNOVER</externalName>
+        <fieldFormula>sourceField[&apos;EST_TURNOVER&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_est_turnover</keyQualifierName>
+        <masterLabel>EST_TURNOVER</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>fx_ofi_dtl</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>FX_OFI_DTL</externalName>
+        <fieldFormula>sourceField[&apos;FX_OFI_DTL&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_fx_ofi_dtl</keyQualifierName>
+        <masterLabel>FX_OFI_DTL</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>gobiz_elig_cust</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>GOBIZ_ELIG_CUST</externalName>
+        <fieldFormula>sourceField[&apos;GOBIZ_ELIG_CUST&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_gobiz_elig_cust</keyQualifierName>
+        <masterLabel>GOBIZ_ELIG_CUST</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>hi_bal_l12m</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>HI_BAL_L12M</externalName>
+        <fieldFormula>sourceField[&apos;HI_BAL_L12M&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_hi_bal_l12m</keyQualifierName>
+        <masterLabel>HI_BAL_L12M</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>hi_mth_bal</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>HI_MTH_BAL</externalName>
+        <fieldFormula>sourceField[&apos;HI_MTH_BAL&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_hi_mth_bal</keyQualifierName>
+        <masterLabel>HI_MTH_BAL</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>hl_ofi_dtl</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>HL_OFI_DTL</externalName>
+        <fieldFormula>sourceField[&apos;HL_OFI_DTL&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_hl_ofi_dtl</keyQualifierName>
+        <masterLabel>HL_OFI_DTL</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>industry</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>INDUSTRY</externalName>
+        <fieldFormula>sourceField[&apos;INDUSTRY&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_industry</keyQualifierName>
+        <masterLabel>INDUSTRY</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>industry_division</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>INDUSTRY_DIVISION</externalName>
+        <fieldFormula>sourceField[&apos;INDUSTRY_DIVISION&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_industry_division</keyQualifierName>
+        <masterLabel>INDUSTRY_DIVISION</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>InternalOrganization</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>System</definitionCreationType>
+        <externalName>InternalOrganization</externalName>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>true</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_InternalOrganization</keyQualifierName>
+        <masterLabel>Internal Organization</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>kyc_flag</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>KYC_FLAG</externalName>
+        <fieldFormula>sourceField[&apos;KYC_FLAG&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_kyc_flag</keyQualifierName>
+        <masterLabel>KYC_FLAG</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>lo_bal_l12m</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>LO_BAL_L12M</externalName>
+        <fieldFormula>sourceField[&apos;LO_BAL_L12M&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_lo_bal_l12m</keyQualifierName>
+        <masterLabel>LO_BAL_L12M</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>lo_mth_bal</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>LO_MTH_BAL</externalName>
+        <fieldFormula>sourceField[&apos;LO_MTH_BAL&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_lo_mth_bal</keyQualifierName>
+        <masterLabel>LO_MTH_BAL</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>load_date</fullName>
+        <datatype>D</datatype>
+        <dateFormat>MM/dd/yyyy</dateFormat>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>DATE</externalDataType>
+        <externalName>LOAD_DATE</externalName>
+        <fieldFormula>sourceField[&apos;LOAD_DATE&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_load_date</keyQualifierName>
+        <masterLabel>LOAD_DATE</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber>1.0</versionNumber>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>merc_ofi_dtl</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>MERC_OFI_DTL</externalName>
+        <fieldFormula>sourceField[&apos;MERC_OFI_DTL&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_merc_ofi_dtl</keyQualifierName>
+        <masterLabel>MERC_OFI_DTL</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>net_prod_hold_l12m</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>NET_PROD_HOLD_L12M</externalName>
+        <fieldFormula>sourceField[&apos;NET_PROD_HOLD_L12M&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_net_prod_hold_l12m</keyQualifierName>
+        <masterLabel>NET_PROD_HOLD_L12M</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>od_limit</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>OD_LIMIT</externalName>
+        <fieldFormula>sourceField[&apos;OD_LIMIT&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_od_limit</keyQualifierName>
+        <masterLabel>OD_LIMIT</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>od_util</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>OD_UTIL</externalName>
+        <fieldFormula>sourceField[&apos;OD_UTIL&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_od_util</keyQualifierName>
+        <masterLabel>OD_UTIL</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>pl_ofi_dtl</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>PL_OFI_DTL</externalName>
+        <fieldFormula>sourceField[&apos;PL_OFI_DTL&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_pl_ofi_dtl</keyQualifierName>
+        <masterLabel>PL_OFI_DTL</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>quarter</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>QUARTER</externalName>
+        <fieldFormula>sourceField[&apos;QUARTER&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_quarter</keyQualifierName>
+        <masterLabel>QUARTER</masterLabel>
+        <primaryIndexOrder>1</primaryIndexOrder>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>quick_assist</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>QUICK_ASSIST</externalName>
+        <fieldFormula>sourceField[&apos;QUICK_ASSIST&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_quick_assist</keyQualifierName>
+        <masterLabel>QUICK_ASSIST</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>src_snapshot</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>SRC_SNAPSHOT</externalName>
+        <fieldFormula>sourceField[&apos;SRC_SNAPSHOT&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_src_snapshot</keyQualifierName>
+        <masterLabel>SRC_SNAPSHOT</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>status</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>STATUS</externalName>
+        <fieldFormula>sourceField[&apos;STATUS&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_status</keyQualifierName>
+        <masterLabel>STATUS</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>ter</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>TER</externalName>
+        <fieldFormula>sourceField[&apos;TER&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_ter</keyQualifierName>
+        <masterLabel>TER</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tl_ofi_dtl</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TL_OFI_DTL</externalName>
+        <fieldFormula>sourceField[&apos;TL_OFI_DTL&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tl_ofi_dtl</keyQualifierName>
+        <masterLabel>TL_OFI_DTL</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tot_ter_l12m</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>TOT_TER_L12M</externalName>
+        <fieldFormula>sourceField[&apos;TOT_TER_L12M&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tot_ter_l12m</keyQualifierName>
+        <masterLabel>TOT_TER_L12M</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tot_turnover_l12m</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>TOT_TURNOVER_L12M</externalName>
+        <fieldFormula>sourceField[&apos;TOT_TURNOVER_L12M&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tot_turnover_l12m</keyQualifierName>
+        <masterLabel>TOT_TURNOVER_L12M</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>withdrawal_both</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>WITHDRAWAL_BOTH</externalName>
+        <fieldFormula>sourceField[&apos;WITHDRAWAL_BOTH&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_withdrawal_both</keyQualifierName>
+        <masterLabel>WITHDRAWAL_BOTH</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>withdrawal_cash</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>WITHDRAWAL_CASH</externalName>
+        <fieldFormula>sourceField[&apos;WITHDRAWAL_CASH&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_withdrawal_cash</keyQualifierName>
+        <masterLabel>WITHDRAWAL_CASH</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>withdrawal_cheque</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>WITHDRAWAL_CHEQUE</externalName>
+        <fieldFormula>sourceField[&apos;WITHDRAWAL_CHEQUE&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_withdrawal_cheque</keyQualifierName>
+        <masterLabel>WITHDRAWAL_CHEQUE</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <externalDatabaseName>anz-x-gh-sf-dev-ef8edd</externalDatabaseName>
+    <externalObjectName>customer_insights_joined</externalObjectName>
+    <externalRecordIdentifier>customer_insights_joined</externalRecordIdentifier>
+    <externalSchemaName>commercial_customer_insights</externalSchemaName>
+    <masterLabel>Customer_Insights</masterLabel>
+    <objectType>Object</objectType>
+    <sourceObject>Customer_Insights__dll</sourceObject>
+    <storageType>EXTERNAL</storageType>
+    <templateVersion>1</templateVersion>
+</DataSourceObject>

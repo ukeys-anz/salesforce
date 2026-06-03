@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSrcDataModelFieldMap xmlns="http://soap.sforce.com/2006/04/metadata">
+    <filterApplied>false</filterApplied>
+    <masterLabel>BQ_Insights_Data_KitHistorical_Files_Summarycnt_asset_financeWholeOfCustomercnt_asset_financemNtDjDtgKEQHucf</masterLabel>
+    <sourceField>WholeOfCustomer_Insights3.cnt_asset_finance__c</sourceField>
+    <targetField>WholeOfCustomer__dlm.cnt_asset_finance__c</targetField>
+    <templateVersion>1</templateVersion>
+    <versionNumber>1.0</versionNumber>
+</DataSrcDataModelFieldMap>

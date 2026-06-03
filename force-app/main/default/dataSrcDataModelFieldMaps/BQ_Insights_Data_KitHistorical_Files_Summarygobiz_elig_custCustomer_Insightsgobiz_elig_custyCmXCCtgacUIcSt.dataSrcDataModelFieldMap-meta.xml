@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSrcDataModelFieldMap xmlns="http://soap.sforce.com/2006/04/metadata">
+    <filterApplied>false</filterApplied>
+    <masterLabel>BQ_Insights_Data_KitHistorical_Files_Summarygobiz_elig_custCustomer_Insightsgobiz_elig_custyCmXCCtgacUIcSt</masterLabel>
+    <sourceField>Customer_Insights3.gobiz_elig_cust__c</sourceField>
+    <targetField>Customer_Insights__dlm.gobiz_elig_cust__c</targetField>
+    <templateVersion>1</templateVersion>
+    <versionNumber>1.0</versionNumber>
+</DataSrcDataModelFieldMap>

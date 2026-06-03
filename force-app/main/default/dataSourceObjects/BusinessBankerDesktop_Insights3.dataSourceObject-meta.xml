@@ -1,0 +1,920 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSourceObject xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <accelerationEnabled>NO</accelerationEnabled>
+    <dataSource>Historical_Files_Summary</dataSource>
+    <dataSourceFields>
+        <fullName>aged_ast</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>AGED_AST</externalName>
+        <fieldFormula>sourceField[&apos;AGED_AST&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_aged_ast</keyQualifierName>
+        <masterLabel>AGED_AST</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>app_no</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>APP_NO</externalName>
+        <fieldFormula>sourceField[&apos;APP_NO&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_app_no</keyQualifierName>
+        <masterLabel>APP_NO</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>app_type</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>APP_Type</externalName>
+        <fieldFormula>sourceField[&apos;APP_Type&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_app_type</keyQualifierName>
+        <masterLabel>APP_Type</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>application_stage</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>APPLICATION_STAGE</externalName>
+        <fieldFormula>sourceField[&apos;APPLICATION_STAGE&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_application_stage</keyQualifierName>
+        <masterLabel>APPLICATION_STAGE</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>application_type</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>APPLICATION_TYPE</externalName>
+        <fieldFormula>sourceField[&apos;APPLICATION_TYPE&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_application_type</keyQualifierName>
+        <masterLabel>APPLICATION_TYPE</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>approve_flag</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>Approve_Flag</externalName>
+        <fieldFormula>sourceField[&apos;Approve_Flag&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_approve_flag</keyQualifierName>
+        <masterLabel>Approve_Flag</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>approve_fy</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>Approve_FY</externalName>
+        <fieldFormula>sourceField[&apos;Approve_FY&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_approve_fy</keyQualifierName>
+        <masterLabel>Approve_FY</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>approve_week</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>Approve_Week</externalName>
+        <fieldFormula>sourceField[&apos;Approve_Week&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_approve_week</keyQualifierName>
+        <masterLabel>Approve_Week</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>approved_dt</fullName>
+        <datatype>D</datatype>
+        <dateFormat>MM/dd/yyyy</dateFormat>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>DATE</externalDataType>
+        <externalName>APPROVED_DT</externalName>
+        <fieldFormula>sourceField[&apos;APPROVED_DT&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_approved_dt</keyQualifierName>
+        <masterLabel>APPROVED_DT</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber>1.0</versionNumber>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>approved_originator_number</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>APPROVED_ORIGINATOR_NUMBER</externalName>
+        <fieldFormula>sourceField[&apos;APPROVED_ORIGINATOR_NUMBER&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_approved_originator_number</keyQualifierName>
+        <masterLabel>APPROVED_ORIGINATOR_NUMBER</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>ar_nm</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>AR_NM</externalName>
+        <fieldFormula>sourceField[&apos;AR_NM&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_ar_nm</keyQualifierName>
+        <masterLabel>AR_NM</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>assessor_rework</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>Assessor_rework</externalName>
+        <fieldFormula>sourceField[&apos;Assessor_rework&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_assessor_rework</keyQualifierName>
+        <masterLabel>Assessor_rework</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>ast_dt</fullName>
+        <datatype>D</datatype>
+        <dateFormat>MM/dd/yyyy</dateFormat>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>DATE</externalDataType>
+        <externalName>AST_DT</externalName>
+        <fieldFormula>sourceField[&apos;AST_DT&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_ast_dt</keyQualifierName>
+        <masterLabel>AST_DT</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber>1.0</versionNumber>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>ast_flag</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>AST_Flag</externalName>
+        <fieldFormula>sourceField[&apos;AST_Flag&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_ast_flag</keyQualifierName>
+        <masterLabel>AST_Flag</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>bu_nm</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>BU_NM</externalName>
+        <fieldFormula>sourceField[&apos;BU_NM&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_bu_nm</keyQualifierName>
+        <masterLabel>BU_NM</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>created_dt</fullName>
+        <datatype>D</datatype>
+        <dateFormat>MM/dd/yyyy</dateFormat>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>DATE</externalDataType>
+        <externalName>CREATED_DT</externalName>
+        <fieldFormula>sourceField[&apos;CREATED_DT&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_created_dt</keyQualifierName>
+        <masterLabel>CREATED_DT</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber>1.0</versionNumber>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>curr_fy</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>Curr_FY</externalName>
+        <fieldFormula>sourceField[&apos;Curr_FY&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_curr_fy</keyQualifierName>
+        <masterLabel>Curr_FY</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>curr_fy_wk</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>Curr_FY_WK</externalName>
+        <fieldFormula>sourceField[&apos;Curr_FY_WK&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_curr_fy_wk</keyQualifierName>
+        <masterLabel>Curr_FY_WK</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>DataSource</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>System</definitionCreationType>
+        <externalName>DataSource</externalName>
+        <fieldFormula>Historical_Files_Summary</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>true</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_DataSource</keyQualifierName>
+        <masterLabel>Data Source</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>DataSourceObject</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>System</definitionCreationType>
+        <externalName>DataSourceObject</externalName>
+        <fieldFormula>anz-x-gh-sf-dev-ef8edd_sf_ext_richer_insights_consumption</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>true</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_DataSourceObject</keyQualifierName>
+        <masterLabel>Data Source Object</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>draw_down_dt</fullName>
+        <datatype>D</datatype>
+        <dateFormat>MM/dd/yyyy</dateFormat>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>DATE</externalDataType>
+        <externalName>DRAW_DOWN_DT</externalName>
+        <fieldFormula>sourceField[&apos;DRAW_DOWN_DT&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_draw_down_dt</keyQualifierName>
+        <masterLabel>DRAW_DOWN_DT</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber>1.0</versionNumber>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>drawn_flag</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>Drawn_Flag</externalName>
+        <fieldFormula>sourceField[&apos;Drawn_Flag&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_drawn_flag</keyQualifierName>
+        <masterLabel>Drawn_Flag</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>drawn_fy</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>Drawn_FY</externalName>
+        <fieldFormula>sourceField[&apos;Drawn_FY&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_drawn_fy</keyQualifierName>
+        <masterLabel>Drawn_FY</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>drawn_week</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>Drawn_Week</externalName>
+        <fieldFormula>sourceField[&apos;Drawn_Week&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_drawn_week</keyQualifierName>
+        <masterLabel>Drawn_Week</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>form_type</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>FORM_TYPE</externalName>
+        <fieldFormula>sourceField[&apos;FORM_TYPE&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_form_type</keyQualifierName>
+        <masterLabel>FORM_TYPE</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>frontline_rework</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>Frontline_rework</externalName>
+        <fieldFormula>sourceField[&apos;Frontline_rework&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_frontline_rework</keyQualifierName>
+        <masterLabel>Frontline_rework</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>fum</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>FUM</externalName>
+        <fieldFormula>sourceField[&apos;FUM&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_fum</keyQualifierName>
+        <masterLabel>FUM</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>InternalOrganization</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>System</definitionCreationType>
+        <externalName>InternalOrganization</externalName>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>true</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_InternalOrganization</keyQualifierName>
+        <masterLabel>Internal Organization</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>is_third_party_originator</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>IS_THIRD_PARTY_ORIGINATOR</externalName>
+        <fieldFormula>sourceField[&apos;IS_THIRD_PARTY_ORIGINATOR&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_is_third_party_originator</keyQualifierName>
+        <masterLabel>IS_THIRD_PARTY_ORIGINATOR</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>lanid</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>LANID</externalName>
+        <fieldFormula>sourceField[&apos;LANID&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_lanid</keyQualifierName>
+        <masterLabel>LANID</masterLabel>
+        <primaryIndexOrder>1</primaryIndexOrder>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>latest_application_status</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>LATEST_APPLICATION_STATUS</externalName>
+        <fieldFormula>sourceField[&apos;LATEST_APPLICATION_STATUS&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_latest_application_status</keyQualifierName>
+        <masterLabel>LATEST_APPLICATION_STATUS</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>pstn_end_dt</fullName>
+        <datatype>D</datatype>
+        <dateFormat>MM/dd/yyyy</dateFormat>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>DATE</externalDataType>
+        <externalName>PSTN_END_DT</externalName>
+        <fieldFormula>sourceField[&apos;PSTN_END_DT&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_pstn_end_dt</keyQualifierName>
+        <masterLabel>PSTN_END_DT</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber>1.0</versionNumber>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>pstn_nm</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>PSTN_NM</externalName>
+        <fieldFormula>sourceField[&apos;PSTN_NM&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_pstn_nm</keyQualifierName>
+        <masterLabel>PSTN_NM</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>pstn_strt_dt</fullName>
+        <datatype>D</datatype>
+        <dateFormat>MM/dd/yyyy</dateFormat>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>DATE</externalDataType>
+        <externalName>PSTN_STRT_DT</externalName>
+        <fieldFormula>sourceField[&apos;PSTN_STRT_DT&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_pstn_strt_dt</keyQualifierName>
+        <masterLabel>PSTN_STRT_DT</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber>1.0</versionNumber>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>record_guid</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>Record_GUID</externalName>
+        <fieldFormula>sourceField[&apos;Record_GUID&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_record_guid</keyQualifierName>
+        <masterLabel>Record_GUID</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>report_date</fullName>
+        <datatype>D</datatype>
+        <dateFormat>MM/dd/yyyy</dateFormat>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>DATE</externalDataType>
+        <externalName>Report_Date</externalName>
+        <fieldFormula>sourceField[&apos;Report_Date&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_report_date</keyQualifierName>
+        <masterLabel>Report_Date</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber>1.0</versionNumber>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>report_name</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>Report_Name</externalName>
+        <fieldFormula>sourceField[&apos;Report_Name&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_report_name</keyQualifierName>
+        <masterLabel>Report_Name</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>rework_bucket</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>Rework_Bucket</externalName>
+        <fieldFormula>sourceField[&apos;Rework_Bucket&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_rework_bucket</keyQualifierName>
+        <masterLabel>Rework_Bucket</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>rl_ttl_cd</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>RL_TTL_CD</externalName>
+        <fieldFormula>sourceField[&apos;RL_TTL_CD&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_rl_ttl_cd</keyQualifierName>
+        <masterLabel>RL_TTL_CD</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>role_type</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>ROLE_TYPE</externalName>
+        <fieldFormula>sourceField[&apos;ROLE_TYPE&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_role_type</keyQualifierName>
+        <masterLabel>ROLE_TYPE</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>st_nm</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>ST_NM</externalName>
+        <fieldFormula>sourceField[&apos;ST_NM&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_st_nm</keyQualifierName>
+        <masterLabel>ST_NM</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>sub_flag</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>Sub_Flag</externalName>
+        <fieldFormula>sourceField[&apos;Sub_Flag&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_sub_flag</keyQualifierName>
+        <masterLabel>Sub_Flag</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>sub_fy</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>Sub_FY</externalName>
+        <fieldFormula>sourceField[&apos;Sub_FY&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_sub_fy</keyQualifierName>
+        <masterLabel>Sub_FY</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>sub_lastweek</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>SUB_LastWeek</externalName>
+        <fieldFormula>sourceField[&apos;SUB_LastWeek&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_sub_lastweek</keyQualifierName>
+        <masterLabel>SUB_LastWeek</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>sub_tpmi_number</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>SUB_TPMI_NUMBER</externalName>
+        <fieldFormula>sourceField[&apos;SUB_TPMI_NUMBER&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_sub_tpmi_number</keyQualifierName>
+        <masterLabel>SUB_TPMI_NUMBER</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>sub_week</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>INT64</externalDataType>
+        <externalName>Sub_Week</externalName>
+        <fieldFormula>sourceField[&apos;Sub_Week&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_sub_week</keyQualifierName>
+        <masterLabel>Sub_Week</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>submitted_dt</fullName>
+        <datatype>D</datatype>
+        <dateFormat>MM/dd/yyyy</dateFormat>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>DATE</externalDataType>
+        <externalName>SUBMITTED_DT</externalName>
+        <fieldFormula>sourceField[&apos;SUBMITTED_DT&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_submitted_dt</keyQualifierName>
+        <masterLabel>SUBMITTED_DT</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber>1.0</versionNumber>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>submitter_firstname</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>SUBMITTER_FIRSTNAME</externalName>
+        <fieldFormula>sourceField[&apos;SUBMITTER_FIRSTNAME&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_submitter_firstname</keyQualifierName>
+        <masterLabel>SUBMITTER_FIRSTNAME</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>submitter_lastname</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>SUBMITTER_LASTNAME</externalName>
+        <fieldFormula>sourceField[&apos;SUBMITTER_LASTNAME&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_submitter_lastname</keyQualifierName>
+        <masterLabel>SUBMITTER_LASTNAME</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>total_rework</fullName>
+        <datatype>N</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>FLOAT64</externalDataType>
+        <externalName>Total_rework</externalName>
+        <fieldFormula>sourceField[&apos;Total_rework&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_total_rework</keyQualifierName>
+        <masterLabel>Total_rework</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tpmi_business_name</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TPMI_BUSINESS_NAME</externalName>
+        <fieldFormula>sourceField[&apos;TPMI_BUSINESS_NAME&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tpmi_business_name</keyQualifierName>
+        <masterLabel>TPMI_BUSINESS_NAME</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>tpmi_sao</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>TPMI_SAO</externalName>
+        <fieldFormula>sourceField[&apos;TPMI_SAO&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_tpmi_sao</keyQualifierName>
+        <masterLabel>TPMI_SAO</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <dataSourceFields>
+        <fullName>version</fullName>
+        <datatype>S</datatype>
+        <definitionCreationType>Custom</definitionCreationType>
+        <externalDataType>STRING</externalDataType>
+        <externalName>Version</externalName>
+        <fieldFormula>sourceField[&apos;Version&apos;]</fieldFormula>
+        <isDataRequired>false</isDataRequired>
+        <isEventDate>false</isEventDate>
+        <isFormula>false</isFormula>
+        <isRecordModified>false</isRecordModified>
+        <keyQualifierName>KQ_version</keyQualifierName>
+        <masterLabel>Version</masterLabel>
+        <sequence xsi:nil="true"/>
+        <usageTag>NONE</usageTag>
+        <versionNumber xsi:nil="true"/>
+    </dataSourceFields>
+    <externalDatabaseName>anz-x-gh-sf-dev-ef8edd</externalDatabaseName>
+    <externalObjectName>BusinessBankerDesktop</externalObjectName>
+    <externalRecordIdentifier>BusinessBankerDesktop</externalRecordIdentifier>
+    <externalSchemaName>sf_ext_richer_insights_consumption</externalSchemaName>
+    <masterLabel>BusinessBankerDesktop Insights</masterLabel>
+    <objectType>Object</objectType>
+    <sourceObject>BusinessBankerDesktop_Insights__dll</sourceObject>
+    <storageType>EXTERNAL</storageType>
+    <templateVersion>1</templateVersion>
+</DataSourceObject>

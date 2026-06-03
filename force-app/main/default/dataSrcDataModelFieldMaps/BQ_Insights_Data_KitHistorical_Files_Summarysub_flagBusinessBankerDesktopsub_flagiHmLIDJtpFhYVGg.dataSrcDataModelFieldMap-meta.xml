@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSrcDataModelFieldMap xmlns="http://soap.sforce.com/2006/04/metadata">
+    <filterApplied>false</filterApplied>
+    <masterLabel>BQ_Insights_Data_KitHistorical_Files_Summarysub_flagBusinessBankerDesktopsub_flagiHmLIDJtpFhYVGg</masterLabel>
+    <sourceField>BusinessBankerDesktop_Insights3.sub_flag__c</sourceField>
+    <targetField>BusinessBankerDesktop__dlm.sub_flag__c</targetField>
+    <templateVersion>1</templateVersion>
+    <versionNumber>1.0</versionNumber>
+</DataSrcDataModelFieldMap>

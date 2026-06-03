@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSrcDataModelFieldMap xmlns="http://soap.sforce.com/2006/04/metadata">
+    <filterApplied>false</filterApplied>
+    <masterLabel>BQ_Insights_Data_KitHistorical_Files_Summarywithdrawal_cashCustomer_Insightswithdrawal_cashzknZjNnIIzufEFk</masterLabel>
+    <sourceField>Customer_Insights3.withdrawal_cash__c</sourceField>
+    <targetField>Customer_Insights__dlm.withdrawal_cash__c</targetField>
+    <templateVersion>1</templateVersion>
+    <versionNumber>1.0</versionNumber>
+</DataSrcDataModelFieldMap>
