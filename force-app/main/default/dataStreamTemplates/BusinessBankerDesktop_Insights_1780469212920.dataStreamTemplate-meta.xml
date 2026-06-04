@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStreamTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <dataSourceBundleDefinition>InsightBundle</dataSourceBundleDefinition>
+    <dataSourceObject>BusinessBankerDesktop_Insights3</dataSourceObject>
+    <masterLabel>BusinessBankerDesktop_Insights</masterLabel>
+    <objectCategory>Salesforce_SFDCReferenceModel_0_93.Profile</objectCategory>
+    <refreshFrequency>NONE</refreshFrequency>
+    <refreshMode>FULL_REFRESH</refreshMode>
+    <sourceObjectName>BusinessBankerDesktop_Insights</sourceObjectName>
+    <streamType>DIRECT_ACCESS</streamType>
+    <templateVersion>1</templateVersion>
+</DataStreamTemplate>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSrcDataModelFieldMap xmlns="http://soap.sforce.com/2006/04/metadata">
+    <filterApplied>false</filterApplied>
+    <masterLabel>BQ_CAZ_Data_KitHistorical_Files_Summarytbc_receivepayincurrencyCaz_Assessmenttbc_receivepayincurrencyuLEdWMOKQEGjRbm</masterLabel>
+    <sourceField>Caz_Assessment23.tbc_receivepayincurrency__c</sourceField>
+    <targetField>Caz_Assessment__dlm.tbc_receivepayincurrency__c</targetField>
+    <templateVersion>1</templateVersion>
+    <versionNumber>1.0</versionNumber>
+</DataSrcDataModelFieldMap>

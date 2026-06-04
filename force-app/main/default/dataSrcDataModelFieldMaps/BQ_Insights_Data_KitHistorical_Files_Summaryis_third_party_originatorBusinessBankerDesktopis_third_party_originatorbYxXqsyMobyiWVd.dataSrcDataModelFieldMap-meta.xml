@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSrcDataModelFieldMap xmlns="http://soap.sforce.com/2006/04/metadata">
+    <filterApplied>false</filterApplied>
+    <masterLabel>BQ_Insights_Data_KitHistorical_Files_Summaryis_third_party_originatorBusinessBankerDesktopis_third_party_originatorbYxXqsyMobyiWVd</masterLabel>
+    <sourceField>BusinessBankerDesktop_Insights3.is_third_party_originator__c</sourceField>
+    <targetField>BusinessBankerDesktop__dlm.is_third_party_originator__c</targetField>
+    <templateVersion>1</templateVersion>
+    <versionNumber>1.0</versionNumber>
+</DataSrcDataModelFieldMap>

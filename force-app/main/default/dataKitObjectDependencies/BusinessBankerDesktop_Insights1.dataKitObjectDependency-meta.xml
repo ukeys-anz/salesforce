@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataKitObjectDependency xmlns="http://soap.sforce.com/2006/04/metadata">
+    <dataPackageKitDef>BQ_Insights_Data_Kit</dataPackageKitDef>
+    <developerName>BusinessBankerDesktop_Insights1</developerName>
+    <masterLabel>BusinessBankerDesktop_Insights__dll</masterLabel>
+    <sourceObject>BusinessBankerDesktop_Insights3</sourceObject>
+    <sourceObjectType>DataSourceObject</sourceObjectType>
+    <targetObject>BusinessBankerDesktop_Insights1</targetObject>
+</DataKitObjectDependency>

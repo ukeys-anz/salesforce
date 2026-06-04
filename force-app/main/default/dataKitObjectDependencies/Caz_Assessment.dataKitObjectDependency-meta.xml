@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataKitObjectDependency xmlns="http://soap.sforce.com/2006/04/metadata">
+    <dataPackageKitDef>BQ_CAZ_Data_Kit</dataPackageKitDef>
+    <developerName>Caz_Assessment</developerName>
+    <masterLabel>Caz_Assessment__dll</masterLabel>
+    <sourceObject>Caz_Assessment23</sourceObject>
+    <sourceObjectType>DataSourceObject</sourceObjectType>
+    <targetObject>Caz_Assessment</targetObject>
+</DataKitObjectDependency>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataKitObjectDependency xmlns="http://soap.sforce.com/2006/04/metadata">
+    <dataPackageKitDef>BQ_Insights_Data_Kit</dataPackageKitDef>
+    <developerName>Customer_Insights1</developerName>
+    <masterLabel>Customer_Insights__dll</masterLabel>
+    <sourceObject>Customer_Insights3</sourceObject>
+    <sourceObjectType>DataSourceObject</sourceObjectType>
+    <targetObject>Customer_Insights1</targetObject>
+</DataKitObjectDependency>
