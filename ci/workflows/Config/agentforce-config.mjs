@@ -20,7 +20,7 @@ export const agentforcePaths = [
   "force-app/main/default/dataStreamTemplates",
   "force-app/main/default/mktDataSources",
   "force-app/main/default/objects/BusinessBankerDesktop__dlm",
-  "force-app/main/default/objects/CAZ_Assessment2__dlm",
+  "force-app/main/default/objects/Caz_Assessment__dlm",
   "force-app/main/default/objects/Customer_Insights__dlm",
   "force-app/main/default/objects/WholeOfCustomer__dlm"
 ];

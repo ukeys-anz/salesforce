@@ -1455,9 +1455,9 @@
         <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
-    <masterLabel>CAZ Assessment2 Record Page</masterLabel>
+    <masterLabel>Caz Assessment Record Page</masterLabel>
     <parentFlexiPage>runtime_cdp__CdpFieldInstance_rec_L</parentFlexiPage>
-    <sobjectType>CAZ_Assessment2__dlm</sobjectType>
+    <sobjectType>Caz_Assessment__dlm</sobjectType>
     <template>
         <name>flexipage:recordHomeTemplateDesktop</name>
     </template>

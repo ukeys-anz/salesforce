@@ -137,11 +137,11 @@
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>CAZ_Assessment2_Record_Page</content>
+        <content>Caz_Assessment_Record_Page</content>
         <formFactor>Large</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
-        <pageOrSobjectType>CAZ_Assessment2__dlm</pageOrSobjectType>
+        <pageOrSobjectType>Caz_Assessment__dlm</pageOrSobjectType>
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>

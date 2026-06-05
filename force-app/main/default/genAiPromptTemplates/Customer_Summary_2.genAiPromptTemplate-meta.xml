@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
-    <activeVersionIdentifier>+5Qpb5XXbOgm9dusjurGGSP3I8jOGxlChJhi9PASSyQ=_4</activeVersionIdentifier>
+    <activeVersionIdentifier>+5Qpb5XXbOgm9dusjurGGSP3I8jOGxlChJhi9PASSyQ=_5</activeVersionIdentifier>
     <developerName>Customer_Summary_2</developerName>
     <masterLabel>Customer Summary 2</masterLabel>
     <relatedEntity>Account</relatedEntity>
@@ -197,7 +197,7 @@ DO NOT generate ANY additional sections.
  &lt;/ul&gt;
 &lt;/div&gt;
 (ALWAYS display the Sources towards the end of this section.)
-&lt;b style=&quot;color:#032D60;&quot;&gt;Sources:&lt;/b&gt;&amp;nbsp;&lt;a href=&quot;/lightning/r/CAZ_Assessment2__dlm/[CazAssessmentId_1]/view&quot;&gt;&lt;b&gt;[1]&lt;/b&gt;&lt;/a&gt;&amp;nbsp;&lt;a href=&quot;/lightning/r/CAZ_Assessment2__dlm/[CazAssessmentId_2]/view&quot;&gt;&lt;b&gt;[2]&lt;/b&gt;&lt;/a&gt;...
+&lt;b style=&quot;color:#032D60;&quot;&gt;Sources:&lt;/b&gt;&amp;nbsp;&lt;a href=&quot;/lightning/r/Caz_Assessment__dlm/[CazAssessmentId_1]/view&quot;&gt;&lt;b&gt;[1]&lt;/b&gt;&lt;/a&gt;&amp;nbsp;&lt;a href=&quot;/lightning/r/Caz_Assessment__dlm/[CazAssessmentId_2]/view&quot;&gt;&lt;b&gt;[2]&lt;/b&gt;&lt;/a&gt;...
  
 &lt;hr style=&quot;margin:12px 0;&quot;&gt;
  
@@ -307,6 +307,17 @@ FINANCIAL_INSIGHTS:
         <primaryModel>sfdc_ai__DefaultBedrockAnthropicClaude46Sonnet</primaryModel>
         <status>Published</status>
         <templateDataProviders>
+            <definition>apex://CCRMAgentAccountSnapshot</definition>
+            <label>Get Account Snapshot</label>
+            <parameters>
+                <definition>SOBJECT://Account</definition>
+                <isRequired>true</isRequired>
+                <parameterName>accountObj</parameterName>
+                <valueExpression>{!$Input:Account}</valueExpression>
+            </parameters>
+            <referenceName>Apex:CCRMAgentAccountSnapshot</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
             <definition>apex://CCRMCustomerInsightsSummary</definition>
             <description>Returns Customer Insights for an Account</description>
             <label>Get Customer Insights</label>
@@ -318,18 +329,7 @@ FINANCIAL_INSIGHTS:
             </parameters>
             <referenceName>Apex:CCRMCustomerInsightsSummary</referenceName>
         </templateDataProviders>
-        <templateDataProviders>
-            <definition>apex://CCRMAgentAccountSnapshot</definition>
-            <label>Get Account Snapshot</label>
-            <parameters>
-                <definition>SOBJECT://Account</definition>
-                <isRequired>true</isRequired>
-                <parameterName>accountObj</parameterName>
-                <valueExpression>{!$Input:Account}</valueExpression>
-            </parameters>
-            <referenceName>Apex:CCRMAgentAccountSnapshot</referenceName>
-        </templateDataProviders>
-        <versionIdentifier>+5Qpb5XXbOgm9dusjurGGSP3I8jOGxlChJhi9PASSyQ=_4</versionIdentifier>
+        <versionIdentifier>+5Qpb5XXbOgm9dusjurGGSP3I8jOGxlChJhi9PASSyQ=_5</versionIdentifier>
     </templateVersions>
     <type>einstein_gpt__recordSummary</type>
     <visibility>Global</visibility>

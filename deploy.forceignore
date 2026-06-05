@@ -308,3 +308,14 @@ force-app/main/sf-lending/classes/SettlementTriggerHandlerTest.cls-meta.xml
 force-app/main/default/flows/Bypass_Automation_Request_Grant_Revoke_Flow.flow-meta.xml
 force-app/main/core/objects/Privileged_Access_Request__c/fields/Access_Request_Record_Type_Name__c.field-meta.xml
 force-app/main/core/objects/Access_Request__c/recordTypes/Bypass_Automation_Request.recordType-meta.xml
+
+#CC-18582 ignore for manual deploy due to DataKit errors
+force-app/main/default/dataKitObjectDependencies
+force-app/main/default/dataKitObjectTemplates
+force-app/main/default/dataPackageKitDefinitions
+force-app/main/default/DataPackageKitObjects
+force-app/main/default/dataSourceBundleDefinitions
+force-app/main/default/dataSourceObjects
+force-app/main/default/dataSources
+force-app/main/default/dataSrcDataModelFieldMaps
+force-app/main/default/dataStreamTemplates

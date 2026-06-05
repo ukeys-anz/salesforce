@@ -301,16 +301,16 @@ public with sharing class CCRMAgentBQRepository {
   /**
    * @description Retrieves a list of CAZ_Assessment_dlm records for a single customer number (CAP-CIS Id).
    * @param customerNumber Text customer number to filter CAZ_Assessment_dlm.customer_id__c by.
-   * @return List<CAZ_Assessment2__dlm> CAZ assessment records
+   * @return List<Caz_Assessment__dlm> CAZ assessment records
    */
-  public List<CAZ_Assessment2__dlm> fetchCAZAssessmentByCustomerNumber(
+  public List<Caz_Assessment__dlm> fetchCAZAssessmentByCustomerNumber(
     String customerNumber
   ) {
     if (customerNumber == null) {
-      return new List<CAZ_Assessment2__dlm>();
+      return new List<Caz_Assessment__dlm>();
     }
 
-    List<CAZ_Assessment2__dlm> rawRecords = [
+    List<Caz_Assessment__dlm> rawRecords = [
       SELECT
         Id,
         customer_id__c,
@@ -341,7 +341,7 @@ public with sharing class CCRMAgentBQRepository {
         bc_borrowingentityamountrequired__c,
         bc_borrowingpurpose__c,
         bc_borrowingpurposedetails__c
-      FROM CAZ_Assessment2__dlm
+      FROM Caz_Assessment__dlm
       WHERE
         customer_id__c = :customerNumber
         AND created_date__c >= N_MONTHS_AGO:24

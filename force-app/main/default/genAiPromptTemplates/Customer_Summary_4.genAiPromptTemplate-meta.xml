@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
-    <activeVersionIdentifier>+5Qpb5XXbOgm9dusjurGGSP3I8jOGxlChJhi9PASSyQ=_2</activeVersionIdentifier>
+    <activeVersionIdentifier>+5Qpb5XXbOgm9dusjurGGSP3I8jOGxlChJhi9PASSyQ=_3</activeVersionIdentifier>
     <developerName>Customer_Summary_4</developerName>
     <masterLabel>Customer Summary 4</masterLabel>
     <relatedEntity>Account</relatedEntity>
@@ -129,7 +129,7 @@ DO NOT generate ANY additional sections.
 &lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt; &lt;a href=&quot;/[InteractionId]&quot;&gt;&lt;b&gt;[Potential Opportunity Title]&lt;/b&gt;&lt;/a&gt; OR &lt;a href=&quot;/[AZReviewId]&quot;&gt;&lt;b&gt;[Potential Opportunity Title]]&lt;/b&gt;&lt;/a&gt; 
-OR &lt;a href=&quot;/lightning/r/CAZ_Assessment2__dlm/[CazAssessmentId]/view&quot;&gt;&lt;b&gt;[Potential Opportunity Title]&lt;/b&gt;&lt;/a&gt; – [-- Include potential opportunities flagged in the DATA based on the Interactions &amp; A-Z Review AND cazAssessments (all records data) are present in FINANCIAL_INSIGHTS, ALL records or if keywords like “interest,” “request,” or “quote” appear in Interactions/A-Z Review/cazAssessments]&lt;br&gt;&lt;/li&gt;
+OR &lt;a href=&quot;/lightning/r/Caz_Assessment__dlm/[CazAssessmentId]/view&quot;&gt;&lt;b&gt;[Potential Opportunity Title]&lt;/b&gt;&lt;/a&gt; – [-- Include potential opportunities flagged in the DATA based on the Interactions &amp; A-Z Review AND cazAssessments (all records data) are present in FINANCIAL_INSIGHTS, ALL records or if keywords like “interest,” “request,” or “quote” appear in Interactions/A-Z Review/cazAssessments]&lt;br&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr style=&quot;margin:12px 0;&quot;&gt;
  
@@ -197,7 +197,7 @@ THEN Suggested Tasks must include tasks/actions/next steps explicitly mentioned 
  &lt;li&gt;
  &lt;a href=&quot;/[InteractionId]&quot;&gt;&lt;b&gt;[Action Item Title]&lt;/b&gt;&lt;/a&gt; – [Task /Action details] 
 OR &lt;a href=&quot;/[AZReviewId]&quot;&gt;&lt;b&gt;[Action Item Title]&lt;/b&gt;&lt;/a&gt; – [Task /Action details]
-OR &lt;a href=&quot;/lightning/r/CAZ_Assessment2__dlm/[CazAssessmentId]/view&quot;&gt;&lt;b&gt;[Action Item Title]&lt;/b&gt;&lt;/a&gt; – [Task /Action details]
+OR &lt;a href=&quot;/lightning/r/Caz_Assessment__dlm/[CazAssessmentId]/view&quot;&gt;&lt;b&gt;[Action Item Title]&lt;/b&gt;&lt;/a&gt; – [Task /Action details]
  &lt;/li&gt;
 &lt;/ol&gt;
 
@@ -224,6 +224,18 @@ FINANCIAL_INSIGHTS:
         <primaryModel>sfdc_ai__DefaultBedrockAnthropicClaude46Sonnet</primaryModel>
         <status>Published</status>
         <templateDataProviders>
+            <definition>apex://CCRMAgentCustomerComplaintsPrompt</definition>
+            <description>Returns Customer Complaint Case details for an Account</description>
+            <label>CCRMAgent Get Customer Complaints</label>
+            <parameters>
+                <definition>SOBJECT://Account</definition>
+                <isRequired>true</isRequired>
+                <parameterName>accountObj</parameterName>
+                <valueExpression>{!$Input:Account}</valueExpression>
+            </parameters>
+            <referenceName>Apex:CCRMAgentCustomerComplaintsPrompt</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
             <definition>apex://CCRMAgentCustomerSummaryPrompt</definition>
             <label>Get Customer Summary Prompt</label>
             <parameters>
@@ -246,19 +258,7 @@ FINANCIAL_INSIGHTS:
             </parameters>
             <referenceName>Apex:CCRMCustomerInsightsSummary</referenceName>
         </templateDataProviders>
-        <templateDataProviders>
-            <definition>apex://CCRMAgentCustomerComplaintsPrompt</definition>
-            <description>Returns Customer Complaint Case details for an Account</description>
-            <label>CCRMAgent Get Customer Complaints</label>
-            <parameters>
-                <definition>SOBJECT://Account</definition>
-                <isRequired>true</isRequired>
-                <parameterName>accountObj</parameterName>
-                <valueExpression>{!$Input:Account}</valueExpression>
-            </parameters>
-            <referenceName>Apex:CCRMAgentCustomerComplaintsPrompt</referenceName>
-        </templateDataProviders>
-        <versionIdentifier>+5Qpb5XXbOgm9dusjurGGSP3I8jOGxlChJhi9PASSyQ=_2</versionIdentifier>
+        <versionIdentifier>+5Qpb5XXbOgm9dusjurGGSP3I8jOGxlChJhi9PASSyQ=_3</versionIdentifier>
     </templateVersions>
     <type>einstein_gpt__recordSummary</type>
     <visibility>Global</visibility>

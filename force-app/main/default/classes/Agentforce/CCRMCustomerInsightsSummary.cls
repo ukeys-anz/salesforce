@@ -71,7 +71,7 @@ public with sharing class CCRMCustomerInsightsSummary {
     }
 
     // Fetch CAZ assessment data for all accounts
-    List<CAZ_Assessment2__dlm> cazAssessments = REPO.fetchCAZAssessmentByCustomerNumber(
+    List<Caz_Assessment__dlm> cazAssessments = REPO.fetchCAZAssessmentByCustomerNumber(
       acc.Source_System_ID__c
     );
 

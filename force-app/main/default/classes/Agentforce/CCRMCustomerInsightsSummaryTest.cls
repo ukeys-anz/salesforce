@@ -37,12 +37,12 @@ private class CCRMCustomerInsightsSummaryTest {
 
     // Register CAZ assessment stub
     Test.createSoqlStub(
-      CAZ_Assessment2__dlm.sObjectType,
+      Caz_Assessment__dlm.sObjectType,
       new CAZAssessmentSoqlStub()
     );
     Assert.isTrue(
-      Test.isSoqlStubDefined(CAZ_Assessment2__dlm.sObjectType),
-      'CAZ_Assessment2__dlm stub should be registered'
+      Test.isSoqlStubDefined(Caz_Assessment__dlm.sObjectType),
+      'Caz_Assessment__dlm stub should be registered'
     );
     Test.startTest();
     CCRMCustomerInsightsSummary.Request req = new CCRMCustomerInsightsSummary.Request();
@@ -228,12 +228,12 @@ private class CCRMCustomerInsightsSummaryTest {
 
     // Register CAZ assessment stub
     Test.createSoqlStub(
-      CAZ_Assessment2__dlm.sObjectType,
+      Caz_Assessment__dlm.sObjectType,
       new CAZAssessmentSoqlStub()
     );
     Assert.isTrue(
-      Test.isSoqlStubDefined(CAZ_Assessment2__dlm.sObjectType),
-      'CAZ_Assessment2__dlm stub should be registered'
+      Test.isSoqlStubDefined(Caz_Assessment__dlm.sObjectType),
+      'Caz_Assessment__dlm stub should be registered'
     );
     Test.startTest();
     CCRMCustomerInsightsSummary.Request req = new CCRMCustomerInsightsSummary.Request();
@@ -371,7 +371,7 @@ private class CCRMCustomerInsightsSummaryTest {
       Map<String, Object> bindVars
     ) {
       String custNo = '1001';
-      // Use fields that exist on CAZ_Assessment2__dlm as defined in CCRMAgentBQRepository.fetchCAZAssessmentByCustomerNumber
+      // Use fields that exist on Caz_Assessment__dlm as defined in CCRMAgentBQRepository.fetchCAZAssessmentByCustomerNumber
       SObject rec = Test.createStubQueryRow(
         sot,
         new Map<String, Object>{
