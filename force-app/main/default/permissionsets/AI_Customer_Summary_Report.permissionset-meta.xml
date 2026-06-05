@@ -4,6 +4,10 @@
         <apexClass>GenAIAnalyticsService</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customPermissions>
+        <name>Access_Customer_Summary_Report</name>
+        <enabled>true</enabled>
+    </customPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>AI Customer Summary Report</label>
     <tabSettings>

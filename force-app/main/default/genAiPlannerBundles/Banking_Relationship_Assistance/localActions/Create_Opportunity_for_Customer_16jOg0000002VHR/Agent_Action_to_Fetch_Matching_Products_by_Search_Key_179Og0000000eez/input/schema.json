@@ -1,0 +1,14 @@
+{
+  "required" : [ "searchKey" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "searchKey" : {
+      "title" : "searchKey",
+      "description" : "This is the search key to find the matching products",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

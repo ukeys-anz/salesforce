@@ -1,0 +1,35 @@
+{
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "bbdInsights" : {
+      "title" : "bbdInsights",
+      "description" : "Operational banking insights including applications, pipeline, approvals, and drawdowns; each record belongs to a specific customer and must not be mixed across customers unless in PORTFOLIO scope.",
+      "maxItems" : 2000,
+      "items" : {
+        "lightning:type" : "lightning__recordInfoType",
+        "lightning:sObjectInfo" : {
+          "apiName" : "BusinessBankerDesktop_Insights__dlm"
+        }
+      },
+      "lightning:type" : "lightning__listType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true,
+      "copilotAction:useHydratedPrompt" : false
+    },
+    "customerAndWocInsights" : {
+      "title" : "customerAndWocInsights",
+      "description" : "Combined financial and behavioral insights per customer including balances, utilisation, risk, propensity, and opportunity signals; must be filtered to one customer in SINGLE scope and can include all in PORTFOLIO scope.",
+      "maxItems" : 2000,
+      "items" : {
+        "lightning:type" : "@apexClassType/c__CCRMAgentCustomerInsights$CustomerInsightsWrapper"
+      },
+      "lightning:type" : "lightning__listType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true,
+      "copilotAction:useHydratedPrompt" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

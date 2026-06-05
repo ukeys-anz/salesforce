@@ -3,6 +3,7 @@
     "A_Z_Review__c",
     "Account",
     "ActivityFieldHistory__c",
+    "Agent_Action_History__c",
     "ApplicationForm",
     "ApplicationFormProduct",
     "Appointment_Commitment__c",

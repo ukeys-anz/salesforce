@@ -1,0 +1,35 @@
+{
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "bbdInsights" : {
+      "title" : "bbdInsights",
+      "description" : "Business Banker Desktop (BBD) Insights containing customer-level operational and application data such as application status, pipeline activity, approvals, drawdowns, and related banking operations. This input may include records for one or multiple customers depending on the query context. Each record represents operational insights linked to a specific customer within the banker’s accessible portfolio.",
+      "maxItems" : 2000,
+      "items" : {
+        "lightning:type" : "lightning__recordInfoType",
+        "lightning:sObjectInfo" : {
+          "apiName" : "BusinessBankerDesktop_Insights__dlm"
+        }
+      },
+      "lightning:type" : "lightning__listType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true,
+      "copilotAction:useHydratedPrompt" : false
+    },
+    "customerAndWocInsights" : {
+      "title" : "customerAndWocInsights",
+      "description" : "Combined Customer Financial Insights and Whole-of-Customer (WOC) Insights providing a unified view of customer financial performance, product holdings, balances, utilisation, risk indicators, propensity scores, opportunity signals, and behavioural attributes. This input may contain data for a single customer or multiple related customers depending on the portfolio context. Each record represents enriched financial and behavioural insights for an individual customer.",
+      "maxItems" : 2000,
+      "items" : {
+        "lightning:type" : "@apexClassType/c__CCRMAgentCustomerInsights$CustomerInsightsWrapper"
+      },
+      "lightning:type" : "lightning__listType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : true,
+      "copilotAction:useHydratedPrompt" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

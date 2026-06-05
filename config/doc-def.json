@@ -11,6 +11,7 @@
     "ActionPlanTemplateItemValue",
     "ActionPlanTemplateVersion",
     "Additional_Fund__c",
+    "Agent_Action_History__c",
     "ApplicationForm",
     "ApplicationFormProduct",
     "Appointment_Commitment__c",

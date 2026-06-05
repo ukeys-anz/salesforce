@@ -6,5 +6,6 @@
     <permissionSets>Agentforce_Unmetered_AI</permissionSets>
     <permissionSets>force__EinsteinGPTPromptTemplateUser</permissionSets>
     <permissionSets>force__EinsteinServiceInnovations</permissionSets>
+    <permissionSets>Manage_Agent_Action_History</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

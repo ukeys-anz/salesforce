@@ -1,0 +1,140 @@
+<template>
+  <div class="slds-box">
+    <div class="slds-var-m-around_medium">
+      <lightning-card
+        title="AI Customer Summary"
+        icon-name="utility:slack_ai_summary"
+      >
+        <template if:true={summary}>
+          <lightning-helptext
+            slot="actions"
+            disabled={isLoading}
+            icon-name="utility:refresh"
+            content="Refresh the Summary"
+            alternative-text="Refresh summary"
+            onclick={handleGenerateAll}
+          >
+          </lightning-helptext>
+        </template>
+        <div class="slds-card__body slds-card__body_inner">
+          <!-- ================= EMPTY + LOADING STATES ================= -->
+          <template if:false={summary}>
+            <!-- ===== EMPTY (NOT LOADING) ===== -->
+            <template if:false={isLoading}>
+              <div>
+                <p class="slds-text-align_center slds-text-color_weak">
+                  This tool uses generative AI. Review responses to ensure
+                  they’re accurate, valid, and safe before use.
+                </p>
+              </div>
+
+              <div
+                class="slds-grid slds-grid_vertical-align-center slds-grid_align-center slds-p-vertical_large"
+              >
+                <div class="slds-text-align_center">
+                  <h3 class="slds-text-heading_small slds-m-bottom_small">
+                    Start with a prompt
+                  </h3>
+
+                  <lightning-button
+                    label="Customer Summary"
+                    variant="brand-outline"
+                    icon-name="utility:sparkles"
+                    icon-position="right"
+                    onclick={handleGenerateAll}
+                  >
+                  </lightning-button>
+                </div>
+              </div>
+            </template>
+
+            <!-- ===== LOADING ===== -->
+            <template if:true={isLoading}>
+              <div
+                class="slds-grid slds-grid_align-center slds-grid_vertical-align-center slds-is-relative slds-p-vertical_xx-large"
+                style="min-height: 220px"
+              >
+                <div
+                  class="slds-col typing-animation slds-grid slds-list_horizontal slds-media_center"
+                >
+                  <!-- Generating text -->
+                  <span
+                    class="generating-text slds-text-heading_small"
+                    aria-live="polite"
+                    role="alert"
+                  >
+                    Generating
+                  </span>
+
+                  <!-- Stars -->
+                  <div
+                    class="slds-var-p-left_xx-small star-container slds-grid slds-list_horizontal slds-media_center"
+                    aria-hidden="true"
+                  >
+                    <!-- Star 1 -->
+                    <svg class="stars starfade star1" viewBox="0 0 50 50">
+                      <path
+                        d="M25,0 L35,20 L50,25 L35,30 L25,50 L15,30 L0,25 L15,20 Z"
+                      ></path>
+                    </svg>
+
+                    <!-- Star 2 -->
+                    <svg class="stars starfade star2" viewBox="0 0 50 50">
+                      <path
+                        d="M25,0 L35,20 L50,25 L35,30 L25,50 L15,30 L0,25 L15,20 Z"
+                      ></path>
+                    </svg>
+
+                    <!-- Star 3 -->
+                    <svg class="stars starfade star3" viewBox="0 0 50 50">
+                      <path
+                        d="M25,0 L35,20 L50,25 L35,30 L25,50 L15,30 L0,25 L15,20 Z"
+                      ></path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </template>
+
+          <template if:true={summary}>
+            <!-- <div class=""> -->
+            <!-- Scrollable summary -->
+            <div class="summary-scroll">
+              <lightning-formatted-rich-text value={summary}>
+              </lightning-formatted-rich-text>
+            </div>
+
+            <!-- Divider line -->
+            <div class="slds-border_top slds-m-vertical_small"></div>
+
+            <!-- Copy (left) + Thumbs (right) -->
+            <div class="slds-m-top_x-small">
+              <lightning-button-icon
+                icon-name="utility:copy"
+                variant="bare"
+                size="medium"
+                alternative-text="Copy summary"
+                title="Copy summary"
+                onclick={handleCopy}
+              >
+              </lightning-button-icon>
+            </div>
+
+            <!-- Ask Agentforce button (new row below) -->
+            <div class="slds-m-top_small">
+              <lightning-button
+                label="Ask Agentforce"
+                icon-name="utility:agent_astro"
+                disabled={disabledAskAgentforce}
+                onclick={handleAgentLaunch}
+              >
+              </lightning-button>
+            </div>
+            <!-- </div> -->
+          </template>
+        </div>
+      </lightning-card>
+    </div>
+  </div>
+</template>

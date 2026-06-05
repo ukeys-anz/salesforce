@@ -1,0 +1,77 @@
+/* typing-animation: horizontal center */
+.typing-animation {
+  align-items: center; /* vertical align */
+  justify-content: center; /* horizontal align */
+  text-align: center;
+  width: 100%;
+  gap: 8px; /* space between text and stars */
+}
+
+/* Generating text */
+.generating-text {
+  font-size: 14px;
+  color: #444;
+  font-weight: 500;
+}
+
+/* star wrapper */
+.star-container {
+  gap: 4px;
+  display: flex;
+  align-items: center;
+}
+
+/* star base - slightly smaller */
+.stars {
+  width: 10px; /* smaller than before */
+  height: 10px;
+  fill: #0771cd; /* Salesforce blue */
+  opacity: 0.25;
+  transform: scale(0.7);
+  filter: drop-shadow(0 0 3px #1b96ff); /* subtle glow */
+}
+
+/* animation */
+.starfade {
+  animation: starPulse 1.4s ease-in-out infinite;
+}
+
+/* staggered */
+.star1 {
+  animation-delay: 0s;
+}
+.star2 {
+  animation-delay: 0.2s;
+}
+.star3 {
+  animation-delay: 0.4s;
+}
+
+@keyframes starPulse {
+  0% {
+    opacity: 0.25;
+    transform: scale(0.7);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  80% {
+    opacity: 0.25;
+    transform: scale(0.7);
+  }
+  100% {
+    opacity: 0.25;
+    transform: scale(0.7);
+  }
+}
+
+.summary-scroll {
+  max-height: 500px; /* adjust as needed */
+  overflow-y: auto;
+  padding-right: 0.5rem; /* prevents scrollbar overlap */
+}
+
+.embeddedServiceHelpButton {
+  display: none !important;
+}

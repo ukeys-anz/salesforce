@@ -1,0 +1,42 @@
+{
+  "required" : [ "amount", "opportunityId", "productCode", "settlementDate", "subProductCode" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "amount" : {
+      "title" : "amount",
+      "description" : "This is the input Amount for Product.",
+      "lightning:type" : "lightning__numberType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "opportunityId" : {
+      "title" : "opportunityId",
+      "description" : "This is the Opportunity Id of the newly created Opportunity.",
+      "lightning:type" : "lightning__recordIdType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "productCode" : {
+      "title" : "productCode",
+      "description" : "This is the input Product Code for Product.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "settlementDate" : {
+      "title" : "settlementDate",
+      "description" : "This is the input Settlement Date for Product.",
+      "lightning:type" : "lightning__dateType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "subProductCode" : {
+      "title" : "subProductCode",
+      "description" : "This is the input Sub Code for Product.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

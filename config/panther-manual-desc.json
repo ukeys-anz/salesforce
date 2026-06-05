@@ -152,6 +152,7 @@
     "Account_Relationship__x": "Customer to account relationship",
     "Access_Request__c": "Holds information related to Privileged Access Management request submissions by users",
     "Activity": "Supertype to task or event, an item assigned to a Salesforce user",
+    "Agent_Action_History__c": "Actions performed by agents",
     "Appointment_Commitment__c": "Timeslots available to be booked by Coach or Customer for a customer to speak with a coach.",
     "Assessment_Response__c": "Needs Assessment response completed by the loan applicant",
     "A_Z_Review__c": "This is used to store A-Z Reviews.",
@@ -585,6 +586,14 @@
       ],
       "IA-2530753": ["External_Id__c", "Loan_Application_Financial__c"],
       "IA-2415983": ["Amount__c", "Other_Reason__c", "Purpose__c"]
+    },
+    "Agent_Action_History__c": {
+      "IA-2530753": [
+        "Action__c",
+        "Agent_Name__c",
+        "Related_Object_Type__c",
+        "Related_Record_Id__c"
+      ]
     },
     "ApplicationForm": {
       "IA-2423227": ["OpportunityId"],

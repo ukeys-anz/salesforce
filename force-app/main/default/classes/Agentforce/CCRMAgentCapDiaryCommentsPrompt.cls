@@ -79,8 +79,6 @@ public with sharing class CCRMAgentCapDiaryCommentsPrompt {
         continue;
       }
 
-      totalRecentComments++;
-
       if (
         dc.Description__c != null &&
         dc.Description__c.contains(CCR_CHANGED_FROM)
@@ -92,7 +90,7 @@ public with sharing class CCRMAgentCapDiaryCommentsPrompt {
       if (expiry != null && expiry < today) {
         continue;
       }
-
+      totalRecentComments++;
       if (displayList.size() < 10) {
         displayList.add(
           new Map<String, Object>{

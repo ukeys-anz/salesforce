@@ -489,7 +489,7 @@ public with sharing class CCRMAgentCustomerSummaryPrompt {
           'Type' => 'Interaction',
           'Id' => i.Id,
           'Name' => i.Name,
-          'InteractionSummary' => i.Optional_Notes__c
+          'SuggestedTask' => i.Optional_Notes__c
         }
       );
     }
@@ -506,7 +506,7 @@ public with sharing class CCRMAgentCustomerSummaryPrompt {
           'Type' => 'AZ_Review',
           'Id' => r.Id,
           'Name' => r.Name,
-          'BusinessDetails' => r.Business_Details__c
+          'SuggestedTask' => r.Business_Details__c
         }
       );
     }

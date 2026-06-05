@@ -10,6 +10,12 @@ public with sharing class CCRMAgentCreateTasks {
     DmlRepository.class
   );
   /**
+   * Repository for Agent Action History.
+   */
+  private static final AgentActionHistoryController AGENT_ACTION_REPO = (AgentActionHistoryController) Lib_InstanceProvider.forType(
+    AgentActionHistoryController.class
+  );
+  /**
    * @description Wrapper class for input task details provided to the invocable method
    */
   public class TaskInput {
@@ -71,12 +77,21 @@ public with sharing class CCRMAgentCreateTasks {
 
   private static List<TaskOutput> mapToOutputs(List<Task> tasks) {
     List<TaskOutput> outputs = new List<TaskOutput>();
+    List<String> taskIds = new List<String>();
     for (Task t : tasks) {
       TaskOutput output = new TaskOutput();
       output.taskId = t.Id;
       output.subject = t.Subject;
       outputs.add(output);
+      taskIds.add(t.Id);
     }
+
+    AGENT_ACTION_REPO.createAgentActionHistory(
+      'Task',
+      'CRM AI Agent',
+      'Created',
+      taskIds
+    );
     return outputs;
   }
 

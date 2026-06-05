@@ -136,6 +136,15 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>CAZ_Assessment2_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>CAZ_Assessment2__dlm</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
         <comment>Action override updated by Lightning App Builder during activation.</comment>
         <content>C360_Financial_Account_Page</content>
         <formFactor>Large</formFactor>
@@ -1166,6 +1175,24 @@
         <recordType>Lead.Referral</recordType>
         <type>Flexipage</type>
         <profile>ANZ CCRM Standard Automation User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Task_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Task</pageOrSobjectType>
+        <recordType>Task.CCRM_Task</recordType>
+        <type>Flexipage</type>
+        <profile>ANZ CCRM Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Task_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Task</pageOrSobjectType>
+        <recordType>Task.CCRM_Task</recordType>
+        <type>Flexipage</type>
+        <profile>ANZ CCRM Standard User</profile>
     </profileActionOverrides>
     <tabs>standard-home</tabs>
     <tabs>standard-Account</tabs>

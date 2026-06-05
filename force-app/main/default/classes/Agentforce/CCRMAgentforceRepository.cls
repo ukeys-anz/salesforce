@@ -544,4 +544,68 @@ public with sharing class CCRMAgentforceRepository {
       WITH USER_MODE
     ];
   }
+
+  /**
+   * @description Fetch Account by Id.
+   * @param accountId Salesforce Account Id
+   * @return List<Account> List containing the account or empty if not found
+   */
+  public List<Account> fetchAccountById(Id accountId) {
+    return [
+      SELECT
+        Id,
+        Name,
+        Controlling_Post__c,
+        Controlling_Post__r.CPID_Type__c,
+        RecordTypeId,
+        Source_System_ID__c
+      FROM Account
+      WHERE Id = :accountId
+      WITH USER_MODE
+      LIMIT 1
+    ];
+  }
+
+  /**
+   * @description Fetch Controlling Post by Lan Id.
+   * @param lanId user's Lan Id
+   * @return List<Controlling_Post__c> List of Controlling_Post__c records
+   */
+  public List<Controlling_Post__c> fetchControllingPostByLanId(String lanId) {
+    return [
+      SELECT Id, Name, CPID_LanID__c, CPID_Type__c
+      FROM Controlling_Post__c
+      WHERE CPID_LanID__c = :lanId
+      WITH USER_MODE
+      LIMIT 1
+    ];
+  }
+
+  /**
+   * @description Fetch CLG accounts under a Controlling Post.
+   * @param cpid controlling post id
+   * @return List<Account> List of Account records
+   */
+  public List<Account> fetchCLGAccountsByCPID(Id cpid) {
+    return [
+      SELECT Name, Source_System_ID__c
+      FROM Account
+      WHERE Controlling_Post__c = :cpid AND RecordTypeId = :RTAccount.clgAccount
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description Fetch accounts by customer numbers.
+   * @param custNums set of customer numbers
+   * @return List<Account> List of Account records
+   */
+  public List<Account> fetchAccountsByCustomerNumbers(Set<String> custNums) {
+    return [
+      SELECT Id, Name, Source_System_ID__c
+      FROM Account
+      WHERE Source_System_ID__c IN :custNums
+      WITH USER_MODE
+    ];
+  }
 }
