@@ -36,10 +36,12 @@ public with sharing class PushToAppControllerTest {
 
   static Lib_MockProvider dmlRepoMock;
   static Lib_MockProvider pushToAppRepoMock;
+  static Lib_MockProvider aemApiRepoMock;
 
   static void registerMocks() {
     dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
     pushToAppRepoMock = Lib_MockProvider.forType(PushToAppRepository.class);
+    aemApiRepoMock = Lib_MockProvider.forType(AemApiRepository.class);
   }
 
   @isTest
@@ -131,6 +133,66 @@ public with sharing class PushToAppControllerTest {
     Assert.isTrue(
       taskRecord.Id == FAKER_TASK_DATA,
       'task record should be created with Type as Push To App.'
+    );
+  }
+
+  /**
+   * @description Test exception handling for getAemContentData when access error response is received
+   */
+  @isTest
+  static void testGetAemContentDataAccessErrorResponse() {
+    registerMocks();
+    HttpCalloutResponse response = new HttpCalloutResponse();
+    response.successful = false;
+    response.statusCode = 401;
+    response.error = new CalloutException('Access denied');
+    Lib_MockProvider.forType(AemService.class)
+      .mock('getAemContentData', response);
+    Exception ex;
+    Test.startTest();
+    try {
+      PushToAppController.getAemContentData(
+        'get_in_touch_complaint',
+        FAKER_CASE_ID
+      );
+    } catch (Exception e) {
+      ex = e;
+    }
+    Test.stopTest();
+
+    Assert.isTrue(
+      ex instanceof AuraHandledException,
+      'AuraHandledException should be thrown for access error.'
+    );
+  }
+
+  /**
+   * @description Test exception handling for getAemContentData when server error response is received
+   */
+  @isTest
+  static void testGetAemContentDataServerErrorResponse() {
+    registerMocks();
+    HttpCalloutResponse response = new HttpCalloutResponse();
+    response.successful = false;
+    response.statusCode = 500;
+    response.error = new CalloutException('Server error');
+    Lib_MockProvider.forType(AemService.class)
+      .mock('getAemContentData', response);
+    Exception ex;
+    Test.startTest();
+    try {
+      PushToAppController.getAemContentData(
+        'get_in_touch_complaint',
+        FAKER_CASE_ID
+      );
+    } catch (Exception e) {
+      ex = e;
+    }
+    Test.stopTest();
+
+    Assert.isTrue(
+      ex instanceof AuraHandledException,
+      'AuraHandledException should be thrown for server error.'
     );
   }
 

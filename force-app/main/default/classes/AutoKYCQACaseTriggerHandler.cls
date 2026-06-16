@@ -97,6 +97,12 @@ public with sharing class AutoKYCQACaseTriggerHandler extends Lib_TriggerHandler
     Logger.debug('On_After_Update started: ' + System.now());
     AutoKYCQACaseActions.downgrade(records, (Map<Id, Case>) oldMap);
     AutoKYCQACaseActions.upgrade(records, (Map<Id, Case>) oldMap);
+
+    List<Case> casesWithDocumentsUploaded = ListUtil.filter(records, oldMap)
+      .changedTo(Case.Status, 'Documents Uploaded')
+      .toList();
+    PushToAppAction.archiveCustomerNudgeUploadTasks(casesWithDocumentsUploaded);
+
     Logger.debug('On_After_Update finished: ' + System.now());
     Logger.saveLog();
   }

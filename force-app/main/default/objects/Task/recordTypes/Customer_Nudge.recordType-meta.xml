@@ -2210,5 +2210,9 @@
             <fullName>TASK_TYPE_PUSH_TO_APP</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>TASK_TYPE_ID_UPLOAD</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
 </RecordType>

@@ -38,4 +38,9 @@ public with sharing class PushToAppTaskWrapper {
    */
   @AuraEnabled
   public String caseNumber { get; set; }
+  /**
+   * @description Template ID from Customer_Task_Configuration__c used for dynamic task configuration
+   */
+  @AuraEnabled
+  public String templateId { get; set; }
 }

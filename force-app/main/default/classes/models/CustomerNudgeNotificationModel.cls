@@ -56,7 +56,10 @@ public with sharing class CustomerNudgeNotificationModel {
    */
   public CustomerNudgeNotificationModel(AemDataModel.Items item, Task theTask) {
     this.title = item.title;
-    this.body = item.subtitle + '\n' + item.bodyText;
+    this.body = item.bodyText;
+    if (String.isNotBlank(item.subtitle)) {
+      this.body = item.subtitle + '\n' + item.bodyText;
+    }
     this.actionUri =
       System.Label.Push_Task_To_App_Deeplink + theTask.Pub_Sub_Event_Id__c;
     this.iconUri = new IconUri(item.iconLightURI, item.iconDarkURI);

@@ -22,7 +22,9 @@
             OR (
                   ISPICKVAL(Status, &apos;New&apos;),
                   ISPICKVAL(Status, &apos;TASK_STATE_SENT&apos;),
-                  ISPICKVAL(Status, &apos;TASK_STATE_READ&apos;)
+                  ISPICKVAL(Status, &apos;TASK_STATE_READ&apos;),
+                  ISPICKVAL(Status, &apos;TASK_STATE_COACH_ARCHIVED&apos;),
+                  ISPICKVAL(Status, &apos;TASK_STATE_AUTO_ARCHIVED&apos;)
             )
          ),
          AND(
@@ -31,7 +33,8 @@
                   ISPICKVAL(Status, &apos;New&apos;),
                   ISPICKVAL(Status, &apos;TASK_STATE_SENT&apos;),
                   ISPICKVAL(Status, &apos;TASK_STATE_READ&apos;),
-                  ISPICKVAL(Status, &apos;TASK_STATE_CUSTOMER_ARCHIVED&apos;)
+                  ISPICKVAL(Status, &apos;TASK_STATE_CUSTOMER_ARCHIVED&apos;),
+                  ISPICKVAL(Status, &apos;TASK_STATE_AUTO_ARCHIVED&apos;)
             )
          ),
          AND(
